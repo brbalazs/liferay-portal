@@ -1039,6 +1039,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.5.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
+  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.8.7":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.4.tgz#a6724f1a6b8d2f6ea5236dbfe58c7d7ea9c5eb99"
@@ -1183,10 +1190,33 @@
     "@clayui/icon" "^3.0.4"
     classnames "^2.2.6"
 
+"@clayui/button@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@clayui/button/-/button-3.6.0.tgz#ee9b53984abe0eb72ec9889db7aa644fc41212ad"
+  integrity sha512-ihijKf+Tqz750fJg5A56j1y1ibePjqFLotWOFK2r9xfagsAPb0TUxGuwJhg7RjMnvhgBmoNUZ06XO1BUThX3tA==
+  dependencies:
+    "@clayui/icon" "^3.1.0"
+    classnames "^2.2.6"
+
 "@clayui/css@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@clayui/css/-/css-3.5.0.tgz#4cbc018bd5b5f24a29996cb6719719ca1f7981e4"
   integrity sha512-v5iaSpBQWbP3Zq2kUpRkWWByb9ajzXeHHYqp/w8rWZO8wN0lgw9nIa9g3WO8/eArhZN422kbU43688wql3uycw==
+
+"@clayui/drop-down@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.9.0.tgz#5b73f75106cc420daaa1207676c696a85039cfd5"
+  integrity sha512-g0ndjM64N5qcPVAPEu2A2rVth8HBXcQDsPjIj3DJDonFBShmkbw/fblzSycW3WWd5SzpXmitHSy4aaegDwQYYg==
+  dependencies:
+    "@clayui/button" "^3.6.0"
+    "@clayui/form" "^3.14.3"
+    "@clayui/icon" "^3.1.0"
+    "@clayui/link" "^3.2.0"
+    "@clayui/shared" "^3.5.0"
+    classnames "^2.2.6"
+    dom-align "^1.10.2"
+    react-transition-group "^4.4.1"
+    warning "^4.0.3"
 
 "@clayui/drop-down@^3.0.0":
   version "3.0.0"
@@ -1201,7 +1231,7 @@
     metal-position "^2.1.2"
     warning "^4.0.3"
 
-"@clayui/drop-down@^3.0.0-alpha.1", "@clayui/drop-down@^3.3.0":
+"@clayui/drop-down@^3.0.0-alpha.1":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@clayui/drop-down/-/drop-down-3.3.0.tgz#c47c6d3ae6d93bef2b8b4c445dfca4fc59a19d9d"
   integrity sha512-fXYFzPY5gDplou2qMVuXgBwSSkZj6FpOfWSMR9fIMktJ+wsJd708ItContOTsGMmurbbRi0SLmR7/bsWBrfHvA==
@@ -1232,6 +1262,16 @@
     "@clayui/icon" "^3.0.0-alpha.1"
     "@clayui/label" "^3.0.0-alpha.1"
     "@clayui/shared" "^3.0.0-alpha.1"
+    classnames "^2.2.6"
+
+"@clayui/form@^3.14.3":
+  version "3.14.3"
+  resolved "https://registry.yarnpkg.com/@clayui/form/-/form-3.14.3.tgz#c5f62566a3a506591a37919f6eba662affbe5640"
+  integrity sha512-dSxLfDJhUqyw9lMrZhZ9/iDvqpyGwRXGdam+k8u9bavh4Psv+ANCGCJGZ5gwwIZRuVsArlhrvdPTiFcwi2d6yg==
+  dependencies:
+    "@clayui/button" "^3.6.0"
+    "@clayui/icon" "^3.1.0"
+    "@clayui/shared" "^3.5.0"
     classnames "^2.2.6"
 
 "@clayui/form@^3.6.0":
@@ -1266,6 +1306,14 @@
     classnames "^2.2.6"
     warning "^4.0.3"
 
+"@clayui/icon@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@clayui/icon/-/icon-3.1.0.tgz#9e600f87194f8dacfb49ace121fbab25a2e82f03"
+  integrity sha512-rxFih7ktNoYx7jJMYWA5GiEh6bJ5W3mB5fWRlSAw8sVyDvSH8rIdaqR77SmvAJDTygfKuKJlyeHnhTmWZgJbCg==
+  dependencies:
+    classnames "^2.2.6"
+    warning "^4.0.3"
+
 "@clayui/label@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@clayui/label/-/label-3.0.0.tgz#13433df24acfe875ae0da3b8f1c7d29eb2f67b95"
@@ -1293,6 +1341,13 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@clayui/link/-/link-3.1.0.tgz#b0213d9a5df7bf6d2bb6f15bd73fa69d2b3e0eb4"
   integrity sha512-FEvQFF5hKCdckASHjbMtPw6zI6NacoFTiIZNN00tMN47j/cPfooizbCFx8fqj16F9lpx2Tz78rhW9SH6EFdu1A==
+  dependencies:
+    classnames "^2.2.6"
+
+"@clayui/link@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@clayui/link/-/link-3.2.0.tgz#1d5fc80f574f18d3880bc3584cd2d83761b6ec78"
+  integrity sha512-UjuEGGwE3X/XnB3Ul+JPPAveHj3d76OyRu8rwhKuw5VwyfQVadb7p8owqpohOPaD29ytljOfce8a6X0vGoXJig==
   dependencies:
     classnames "^2.2.6"
 
@@ -1368,6 +1423,14 @@
   dependencies:
     "@clayui/button" "^3.3.0"
     "@clayui/link" "^3.1.0"
+
+"@clayui/shared@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@clayui/shared/-/shared-3.5.0.tgz#3eccd192839ec9e79f14da97a07fcadc2c065d58"
+  integrity sha512-0dfP9dvO7WTdZ6Wy6OPir3LrjZ1EoWHYfJ0jPWhpYpcdFTI0NDd3VV2KTSsN1Rp5Gmv2vJg6xWnkODFBdz2XBA==
+  dependencies:
+    "@clayui/button" "^3.6.0"
+    "@clayui/link" "^3.2.0"
 
 "@clayui/sticker@^3.0.0":
   version "3.0.0"
@@ -4998,6 +5061,11 @@ csstype@^2.2.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.5.tgz#1cd1dff742ebf4d7c991470ae71e12bb6751e034"
   integrity sha512-JsTaiksRsel5n7XwqPAfB0l3TFKdpjW/kgAELf9vrb5adGA7UCPLajKK5s3nFrcFm3Rkyp/Qkgl73ENc1UY3cA==
 
+csstype@^3.0.2:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.6.tgz#865d0b5833d7d8d40f4e5b8a6d76aea3de4725ef"
+  integrity sha512-+ZAmfyWMT7TiIlzdqJgjMb7S4f1beorDbWbsocyK4RaiqA5RTX3K14bnBWmmA9QEM0gRdsjyyrEmcyga8Zsxmw==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -5685,6 +5753,14 @@ dom-helpers@^3.2.0, dom-helpers@^3.4.0:
   integrity sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
   dependencies:
     "@babel/runtime" "^7.1.2"
+
+dom-helpers@^5.0.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.0.tgz#57fd054c5f8f34c52a3eeffdb7e7e93cd357d95b"
+  integrity sha512-Ru5o9+V8CpunKnz5LGgWXkmrH/20cGKwcHwS4m73zIvs54CN9epEmT/HLqFJW3kXpakAFkEdzgy1hzlJe3E4OQ==
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    csstype "^3.0.2"
 
 dom-serializer@0, dom-serializer@~0.1.0:
   version "0.1.0"
@@ -13932,6 +14008,16 @@ react-transition-group@^2.5.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
+
+react-transition-group@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
+  integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 react@^16.8.6:
   version "16.8.6"
