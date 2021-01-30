@@ -1,3 +1,22 @@
+.info-card-popover-root {
+	background-color: $white;
+	border-radius: 2px;
+	box-shadow: 0px 1px 5px -1px rgba($black, 0.3);
+	font-size: $fontSizeSmall;
+	padding: 16px;
+	width: 268px;
+
+	.info-card-popover-header {
+		font-weight: $fontWeightSemiBold;
+		margin-bottom: 8px;
+	}
+
+	.description {
+		color: $secondary;
+		padding-bottom: 8px;
+	}
+}
+
 .event-analysis-dropdown-menu-root {
 	.dropdown-item {
 		&:not(.active) {
@@ -73,6 +92,8 @@
 
 			.breakdown-container {
 				border-left: 1px solid $mainLighten65;
+				padding-bottom: 4px;
+				padding-top: 4px;
 
 				.breakdown-list {
 					margin: 0 4px;

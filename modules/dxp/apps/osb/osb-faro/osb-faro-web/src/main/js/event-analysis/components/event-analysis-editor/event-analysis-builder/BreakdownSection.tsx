@@ -1,4 +1,5 @@
 import BreakdownChip from './BreakdownChip';
+import BreakdownDropdown from './breakdown-dropdown';
 import Button from 'shared/components/Button';
 import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
@@ -90,16 +91,22 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 				</DndProvider>
 
 				<div>
-					{filters.length < MAX_BREAKDOWNS && (
-						<Button
-							borderless
-							className='add-breakdown'
-							display='light'
-							icon='plus'
-							iconAlignment='left'
-							size='sm'
-						/>
-					)}
+					{filters.length < MAX_BREAKDOWNS &&
+					<BreakdownDropdown
+						attributes={attributes}
+						breakdowns={breakdowns}
+						filters={filters}
+						onBreakdownChange={() => {}}
+						trigger={
+							<Button
+								borderless
+								className='add-breakdown'
+								display='light'
+								icon='plus'
+								iconAlignment='left'
+								size='sm'
+							/>}
+					/>}
 				</div>
 			</div>
 		</div>
