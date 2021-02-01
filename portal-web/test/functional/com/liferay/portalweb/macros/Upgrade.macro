@@ -2189,9 +2189,23 @@ definition {
 
 		Navigator.gotoBack();
 
-		WebContent.viewWithStructureCP(
-			webContentImage = "Document_1.jpg",
-			webContentTitle = "Image Web Content");
+		WebContentNavigator.gotoEditCP(webContentTitle = "Image Web Content");
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "Image Web Content");
+
+		var imageFieldValue = selenium.getElementValue("//input[contains(@id,'Image')][contains(@readonly,'readonly')]");
+
+		TestUtils.assertNotEquals(
+			actual = "${imageFieldValue}",
+			expected = "");
+
+		AssertVisible(
+			key_text = "Clear",
+			locator1 = "Button#ANY");
+
+		AssertVisible(locator1 = "Button#PREVIEW");
 	}
 
 	macro viewWebContentWithPredefinedValueInWebContentField {
