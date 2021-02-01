@@ -8346,10 +8346,14 @@ public class JournalArticleLocalServiceImpl
 			return;
 		}
 
+		User user = userLocalService.fetchUser(article.getUserId());
+
+		if (user == null) {
+			return;
+		}
+
 		Company company = companyLocalService.getCompany(
 			article.getCompanyId());
-
-		User user = userLocalService.getUser(article.getUserId());
 
 		String fromName = journalGroupServiceConfiguration.emailFromName();
 		String fromAddress =
