@@ -34,14 +34,9 @@ exports[`ReadyToGo renders 1`] = `
     <div
       class="modal-body d-flex flex-column align-items-center"
     >
-      <svg
+      <div
         class="ac-ready-to-use"
-        viewBox=""
-      >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-ready-to-use"
-        />
-      </svg>
+      />
       <span
         class="description"
       >

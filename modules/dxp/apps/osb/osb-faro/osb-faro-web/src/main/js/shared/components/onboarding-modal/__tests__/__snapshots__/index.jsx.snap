@@ -42,14 +42,9 @@ exports[`OnboardingModal renders 1`] = `
         <div
           class="modal-body d-flex flex-column align-items-center"
         >
-          <svg
+          <div
             class="ac-setup"
-            viewBox=""
-          >
-            <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#analytics-onboarding-welcome"
-            />
-          </svg>
+          />
           <span
             class="description"
           >

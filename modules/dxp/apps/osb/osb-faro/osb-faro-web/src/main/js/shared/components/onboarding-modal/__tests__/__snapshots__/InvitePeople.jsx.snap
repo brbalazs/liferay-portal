@@ -34,14 +34,9 @@ exports[`InvitePeople renders 1`] = `
     <div
       class="modal-body d-flex flex-column align-items-center flex-grow-1 justify-content-center"
     >
-      <svg
+      <div
         class="ac-invite"
-        viewBox=""
-      >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-invite"
-        />
-      </svg>
+      />
       <div
         class="add-emails"
       >

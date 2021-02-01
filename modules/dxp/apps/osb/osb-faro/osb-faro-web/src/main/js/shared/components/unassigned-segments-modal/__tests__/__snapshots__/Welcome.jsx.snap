@@ -8,14 +8,9 @@ exports[`Welcome should render 1`] = `
     <div
       class="modal-body d-flex flex-column align-items-center"
     >
-      <svg
+      <div
         class="ac-property-buildings"
-        viewBox=""
-      >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-property-buildings"
-        />
-      </svg>
+      />
       <h2>
         Introducing Properties
       </h2>
