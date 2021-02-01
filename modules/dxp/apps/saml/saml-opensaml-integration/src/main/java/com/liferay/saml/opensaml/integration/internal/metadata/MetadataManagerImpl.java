@@ -219,13 +219,9 @@ public class MetadataManagerImpl
 		}
 
 		try {
-			boolean secure = false;
-
-			if (isSSLRequired() || _portal.isSecure(httpServletRequest)) {
-				secure = true;
-			}
-
-			String portalURL = _portal.getPortalURL(httpServletRequest, secure);
+			String portalURL = _portal.getPortalURL(
+				httpServletRequest,
+				isSSLRequired() || _portal.isSecure(httpServletRequest));
 			String localEntityId = _localEntityManager.getLocalEntityId();
 
 			if (_samlProviderConfigurationHelper.isRoleIdp()) {
