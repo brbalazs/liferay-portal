@@ -1,5 +1,4 @@
 import ClayButton from '@clayui/button';
-import getSVG from 'shared/util/svg';
 import Modal from '../modal';
 import React from 'react';
 
@@ -8,66 +7,58 @@ interface IWelcomeProps {
 	onNext: (increment?: number) => void;
 }
 
-const Welcome: React.FC<IWelcomeProps> = ({onNext}) => {
-	const svg = getSVG('ac-property-buildings');
+const Welcome: React.FC<IWelcomeProps> = ({onNext}) => (
+	<div className='welcome'>
+		<Modal.Body className='d-flex flex-column align-items-center'>
+			<div className='ac-property-buildings'></div>
 
-	return (
-		<div className='welcome'>
-			<Modal.Body className='d-flex flex-column align-items-center'>
-				<svg className='ac-property-buildings' viewBox={svg.viewBox}>
-					<use
-						xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`}
-					/>
-				</svg>
+			<h2>{Liferay.Language.get('introducing-properties')}</h2>
 
-				<h2>{Liferay.Language.get('introducing-properties')}</h2>
+			<span className='subtitle'>
+				{Liferay.Language.get(
+					'we-ve-upgraded-your-analytics-cloud-workspace-to-include-properties'
+				)}
+			</span>
 
-				<span className='subtitle'>
-					{Liferay.Language.get(
-						'we-ve-upgraded-your-analytics-cloud-workspace-to-include-properties'
-					)}
-				</span>
+			<ul className='description'>
+				<li>
+					<p className='description-title'>
+						{Liferay.Language.get(
+							'track-user-activities-across-experiences-that-matter'
+						)}
+					</p>
+					<p className='description-subtitle'>
+						{Liferay.Language.get(
+							'scope-user-sessions-to-their-intended-experiences-by-combining-sites-for-each-property'
+						)}
+					</p>
+					<p>
+						{Liferay.Language.get(
+							'for-existing-workspaces-we-scoped-each-datasource-to-its-own-property-this-may-have-affected-some-of-your-existing-segments'
+						)}
+					</p>
+				</li>
+				<li>
+					<p className='description-title'>
+						{Liferay.Language.get(
+							'take-control-of-the-data-access-with-property-permissions'
+						)}
+					</p>
+					<p className='description-subtitle'>
+						{Liferay.Language.get(
+							'flexible-user-access-controls-with-custom-permissioning-for-each-property'
+						)}
+					</p>
+				</li>
+			</ul>
+		</Modal.Body>
 
-				<ul className='description'>
-					<li>
-						<p className='description-title'>
-							{Liferay.Language.get(
-								'track-user-activities-across-experiences-that-matter'
-							)}
-						</p>
-						<p className='description-subtitle'>
-							{Liferay.Language.get(
-								'scope-user-sessions-to-their-intended-experiences-by-combining-sites-for-each-property'
-							)}
-						</p>
-						<p>
-							{Liferay.Language.get(
-								'for-existing-workspaces-we-scoped-each-datasource-to-its-own-property-this-may-have-affected-some-of-your-existing-segments'
-							)}
-						</p>
-					</li>
-					<li>
-						<p className='description-title'>
-							{Liferay.Language.get(
-								'take-control-of-the-data-access-with-property-permissions'
-							)}
-						</p>
-						<p className='description-subtitle'>
-							{Liferay.Language.get(
-								'flexible-user-access-controls-with-custom-permissioning-for-each-property'
-							)}
-						</p>
-					</li>
-				</ul>
-			</Modal.Body>
-
-			<Modal.Footer className='d-flex justify-content-end'>
-				<ClayButton autoFocus className='wide' onClick={() => onNext()}>
-					{Liferay.Language.get('next')}
-				</ClayButton>
-			</Modal.Footer>
-		</div>
-	);
-};
+		<Modal.Footer className='d-flex justify-content-end'>
+			<ClayButton autoFocus className='wide' onClick={() => onNext()}>
+				{Liferay.Language.get('next')}
+			</ClayButton>
+		</Modal.Footer>
+	</div>
+);
 
 export default Welcome;

@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
-import getSVG from 'shared/util/svg';
 import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
 import InputList from 'shared/components/InputList';
@@ -80,8 +79,6 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 		}
 	};
 
-	const svg = getSVG('ac-invite');
-
 	return (
 		<BaseScreen
 			className='invite-people'
@@ -89,11 +86,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 			title={Liferay.Language.get('invite-people-to-workspace')}
 		>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
-				<svg className='ac-invite' viewBox={svg.viewBox}>
-					<use
-						xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`}
-					/>
-				</svg>
+				<div className='ac-invite'></div>
 
 				{sent ? (
 					<div className='success-info d-flex align-items-center'>
