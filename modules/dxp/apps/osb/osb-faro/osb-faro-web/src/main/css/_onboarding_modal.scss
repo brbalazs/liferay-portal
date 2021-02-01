@@ -130,6 +130,8 @@
 
 	.invite-people {
 		.ac-invite {
+			background-image: url('/o/osb-faro-web/dist/sprite.svg#ac-invite-usage');
+			padding: 240px 244px 0px;
 			width: 488px;
 		}
 
@@ -170,7 +172,9 @@
 
 	.ready-to-go {
 		.ac-ready-to-use {
+			background-image: url('/o/osb-faro-web/dist/sprite.svg#ac-ready-to-use-usage');
 			margin-bottom: 24px;
+			padding: 267px 244px 0px;
 			width: 516px;
 		}
 	}
@@ -186,7 +190,9 @@
 
 	.welcome {
 		.ac-setup {
+			background-image: url('/o/osb-faro-web/dist/sprite.svg#analytics-onboarding-welcome-usage');
 			margin-bottom: 44px;
+			padding: 275px 132px 0px;
 			width: 264px;
 		}
 	}
