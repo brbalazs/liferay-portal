@@ -8,6 +8,7 @@ import ErrorDisplay from 'shared/components/ErrorDisplay';
 import FaroConstants from 'shared/util/constants';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
+import Label from 'shared/components/form/Label';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
@@ -50,7 +51,6 @@ import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
-
 import {sub} from 'shared/util/lang';
 
 const {
@@ -515,8 +515,7 @@ export class Distribution extends React.Component {
 				hasSelectedPoint,
 				knownIndividualCount,
 				loading,
-				selectedPoint,
-				title
+				selectedPoint
 			},
 			state: {
 				fieldMappingSelected,
@@ -549,12 +548,24 @@ export class Distribution extends React.Component {
 			? [yAxisTicks[0], yAxisTicks[yAxisTicks.length - 1]]
 			: [0, 'auto'];
 
+		const hasMultipleContextOptions = contextOptions.length > 1;
+
 		return (
 			<>
 				<BasePage.Body>
 					<Card>
 						<Card.Header>
-							<Card.Title>{title}</Card.Title>
+							<Card.Title>
+								{Liferay.Language.get(
+									'distribution-by-attribute'
+								)}
+							</Card.Title>
+
+							<span className='description-secondary'>
+								{Liferay.Language.get(
+									'breakdown-known-members-by-the-top-100-results-or-the-number-of-bins-assigned-for-a-selected-attribute.-only-results-data-will-appear'
+								)}
+							</span>
 						</Card.Header>
 
 						<Card.Body>
@@ -567,11 +578,21 @@ export class Distribution extends React.Component {
 								ref={this._formRef}
 							>
 								<Form.Form className='chart-options'>
-									<Form.Group autoFit>
-										{contextOptions.length > 1 && (
+									<Label>
+										{sub(
+											Liferay.Language.get('breakdown-x'),
+											[
+												hasMultipleContextOptions ??
+													Liferay.Language.get('by')
+											],
+											false
+										)}
+									</Label>
+
+									<Form.Group autoFit className='mt-2'>
+										{hasMultipleContextOptions && (
 											<>
 												<Form.GroupItem shrink>
-													{/* eslint-disable react/jsx-handler-names */}
 													<ClaySelectWithOption
 														className='context-select'
 														onChange={
@@ -581,7 +602,6 @@ export class Distribution extends React.Component {
 														options={contextOptions}
 														value={selectedContext}
 													/>
-													{/* eslint-enable react/jsx-handler-names */}
 												</Form.GroupItem>
 
 												<Form.GroupItem label shrink>
@@ -598,11 +618,9 @@ export class Distribution extends React.Component {
 												context={selectedContext}
 												groupId={groupId}
 												name='breakdown'
-												/* eslint-disable */
 												onSelect={
 													this.handleBreakdownSelect
 												}
-												/* eslint-enable */
 												ref={
 													this
 														._formSelectFieldInputRef

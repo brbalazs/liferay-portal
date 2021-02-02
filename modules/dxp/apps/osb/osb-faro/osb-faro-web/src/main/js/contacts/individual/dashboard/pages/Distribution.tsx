@@ -24,9 +24,6 @@ export const IndividualsDistribution: React.FC<
 					contextOptions={[CONTEXT_OPTIONS[0]]}
 					distributionsKey={INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY}
 					knownIndividualCount={knownIndividualCount}
-					title={Liferay.Language.get(
-						'breakdown-of-known-individuals'
-					)}
 					{...otherProps}
 				/>
 			</div>
