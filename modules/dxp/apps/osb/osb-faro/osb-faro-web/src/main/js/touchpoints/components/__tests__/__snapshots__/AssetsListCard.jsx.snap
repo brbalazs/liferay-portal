@@ -25,11 +25,6 @@ exports[`AssetsListCard should render component 1`] = `
             >
               Asset Type
             </th>
-            <th
-              class="table-head-title table-column-text-end"
-            >
-              Interactions
-            </th>
           </tr>
         </thead>
       </table>
@@ -63,11 +58,6 @@ exports[`AssetsListCard should render component with items 1`] = `
             >
               Asset Type
             </th>
-            <th
-              class="table-head-title table-column-text-end"
-            >
-              Interactions
-            </th>
           </tr>
         </thead>
         <tbody
@@ -107,13 +97,43 @@ exports[`AssetsListCard should render component with items 1`] = `
                 </span>
               </div>
             </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="table-hover"
+        >
+          <tr
+            class=""
+          >
             <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
+              class="table-cell-expand"
+            >
+              <a
+                class="font-weight-semibold text-truncate-inline text-dark"
+                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
+              >
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  231494203
+                </span>
+              </a>
+            </td>
+            <td
+              class="table-cell-expand"
             >
               <div
-                class="w-100"
+                class="font-weight-semibold text-secondary text-truncate-inline"
               >
-                1
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  Web Content
+                </span>
               </div>
             </td>
           </tr>
@@ -155,13 +175,43 @@ exports[`AssetsListCard should render component with items 1`] = `
                 </span>
               </div>
             </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="table-hover"
+        >
+          <tr
+            class=""
+          >
             <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
+              class="table-cell-expand"
+            >
+              <a
+                class="font-weight-semibold text-truncate-inline text-dark"
+                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
+              >
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  231494203
+                </span>
+              </a>
+            </td>
+            <td
+              class="table-cell-expand"
             >
               <div
-                class="w-100"
+                class="font-weight-semibold text-secondary text-truncate-inline"
               >
-                1
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  Web Content
+                </span>
               </div>
             </td>
           </tr>
@@ -203,13 +253,43 @@ exports[`AssetsListCard should render component with items 1`] = `
                 </span>
               </div>
             </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="table-hover"
+        >
+          <tr
+            class=""
+          >
             <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
+              class="table-cell-expand"
+            >
+              <a
+                class="font-weight-semibold text-truncate-inline text-dark"
+                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
+              >
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  231494203
+                </span>
+              </a>
+            </td>
+            <td
+              class="table-cell-expand"
             >
               <div
-                class="w-100"
+                class="font-weight-semibold text-secondary text-truncate-inline"
               >
-                1
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  Web Content
+                </span>
               </div>
             </td>
           </tr>
@@ -251,15 +331,6 @@ exports[`AssetsListCard should render component with items 1`] = `
                 </span>
               </div>
             </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
-              </div>
-            </td>
           </tr>
         </tbody>
         <tbody
@@ -299,15 +370,6 @@ exports[`AssetsListCard should render component with items 1`] = `
                 </span>
               </div>
             </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
-              </div>
-            </td>
           </tr>
         </tbody>
         <tbody
@@ -345,159 +407,6 @@ exports[`AssetsListCard should render component with items 1`] = `
                 >
                   Web Content
                 </span>
-              </div>
-            </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
-          <tr
-            class=""
-          >
-            <td
-              class="table-cell-expand"
-            >
-              <a
-                class="font-weight-semibold text-truncate-inline text-dark"
-                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  231494203
-                </span>
-              </a>
-            </td>
-            <td
-              class="table-cell-expand"
-            >
-              <div
-                class="font-weight-semibold text-secondary text-truncate-inline"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  Web Content
-                </span>
-              </div>
-            </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
-          <tr
-            class=""
-          >
-            <td
-              class="table-cell-expand"
-            >
-              <a
-                class="font-weight-semibold text-truncate-inline text-dark"
-                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  231494203
-                </span>
-              </a>
-            </td>
-            <td
-              class="table-cell-expand"
-            >
-              <div
-                class="font-weight-semibold text-secondary text-truncate-inline"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  Web Content
-                </span>
-              </div>
-            </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
-          <tr
-            class=""
-          >
-            <td
-              class="table-cell-expand"
-            >
-              <a
-                class="font-weight-semibold text-truncate-inline text-dark"
-                href="/workspace/2000/123/assets/web-content/01234/page/www.liferay.com/231494203?rangeKey=30"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  231494203
-                </span>
-              </a>
-            </td>
-            <td
-              class="table-cell-expand"
-            >
-              <div
-                class="font-weight-semibold text-secondary text-truncate-inline"
-              >
-                <span
-                  class="text-truncate"
-                  data-tooltip="false"
-                  title=""
-                >
-                  Web Content
-                </span>
-              </div>
-            </td>
-            <td
-              class="font-weight-semibold text-secondary table-cell-expand table-column-text-end"
-            >
-              <div
-                class="w-100"
-              >
-                1
               </div>
             </td>
           </tr>
