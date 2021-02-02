@@ -161,3 +161,6 @@ export const getBreakdownDisplay = (
 
 	return displayFn(attribute, breakdown, filter);
 };
+
+export const isAttribute = (item: Attribute | Event): item is Attribute =>
+	(item as Attribute).defaultDataType !== undefined;

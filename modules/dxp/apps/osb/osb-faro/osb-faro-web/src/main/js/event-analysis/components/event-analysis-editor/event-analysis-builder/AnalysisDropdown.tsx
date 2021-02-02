@@ -1,6 +1,6 @@
+import BaseDropdown from '../base-dropdown';
 import Button from 'shared/components/Button';
-import CardTabs, {CardTabSizes} from 'shared/components/CardTabs';
-import ClayDropdown, {Align} from '@clayui/drop-down';
+import ClayDropdown from '@clayui/drop-down';
 import getCN from 'classnames';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
@@ -69,7 +69,6 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	onEventChange,
 	trigger
 }) => {
-	const [active, setActive] = useState(false);
 	const [query, setQuery] = useState('');
 	const [eventType, setEventType] = useState<EventTypes | 'all'>('all');
 	const [events, setEvents] = useState<Event[]>([]);
@@ -80,83 +79,46 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 		);
 	}, [eventType]);
 
-	const filteredEvents = events.filter(({displayName, name}) =>
-		(displayName || name)
-			.toString()
-			.toLowerCase()
-			.includes(query.toLowerCase())
-	);
-
 	return (
-		<ClayDropdown
-			active={active}
-			alignmentPosition={Align.RightTop}
-			menuElementAttrs={{className: 'event-analysis-dropdown-menu-root'}}
-			onActiveChange={setActive}
+		<BaseDropdown
+			activeTabId={eventType}
+			tabs={[
+				{
+					onClick: () => setEventType('all'),
+					tabId: 'all',
+					title: Liferay.Language.get('all')
+				},
+				{
+					onClick: () => setEventType(EventTypes.Default),
+					tabId: EventTypes.Default,
+					title: Liferay.Language.get('default')
+				},
+				{
+					onClick: () => setEventType(EventTypes.Custom),
+					tabId: EventTypes.Custom,
+					title: Liferay.Language.get('custom')
+				}
+			]}
+			title={Liferay.Language.get('events')}
 			trigger={trigger}
 		>
-			<div className='event-analysis-dropdown-header'>
-				{Liferay.Language.get('events')}
-			</div>
+			{({setActive}) => (
+				<BaseDropdown.SearchableList
+					items={events}
+					onItemClick={(event: Event) => {
+						if (event.id !== eventId) {
+							onEventChange(event);
 
-			<CardTabs
-				activeTabId={eventType}
-				className='event-type-selector'
-				size={CardTabSizes.Small}
-				tabs={[
-					{
-						onClick: () => setEventType('all'),
-						tabId: 'all',
-						title: Liferay.Language.get('all')
-					},
-					{
-						onClick: () => setEventType(EventTypes.Default),
-						tabId: EventTypes.Default,
-						title: Liferay.Language.get('default')
-					},
-					{
-						onClick: () => setEventType(EventTypes.Custom),
-						tabId: EventTypes.Custom,
-						title: Liferay.Language.get('custom')
-					}
-				]}
-			/>
-
-			<ClayDropdown.Search
-				formProps={{onSubmit: e => e.preventDefault()}}
-				onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-					setQuery(event.target.value)
-				}
-				placeholder={Liferay.Language.get('search')}
-				spritemap={spritemap}
-				value={query}
-			/>
-
-			<ClayDropdown.ItemList>
-				{filteredEvents.map((event: Event) => (
-					<ClayDropdown.Item
-						className={getCN({active: event.id === eventId})}
-						key={event.id}
-					>
-						<Button
-							className='dropdown-item-primary-button'
-							display='unstyled'
-							onClick={() => {
-								if (event.id !== eventId) {
-									onEventChange(event);
-
-									setActive(false);
-									setEventType('all');
-									setQuery('');
-								}
-							}}
-						>
-							{event.displayName || event.name}
-						</Button>
-					</ClayDropdown.Item>
-				))}
-			</ClayDropdown.ItemList>
-		</ClayDropdown>
+							setActive(false);
+							setEventType('all');
+							setQuery('');
+						}
+					}}
+					onQueryChange={setQuery}
+					query={query}
+				/>
+			)}
+		</BaseDropdown>
 	);
 };
 
