@@ -105,18 +105,6 @@ class AssetsListCard extends React.Component {
 	}
 
 	/**
-	 * Render Interaction Column
-	 * @param {object} param0
-	 */
-	renderInteractionColumn({interactions = '-'}) {
-		return (
-			<td className='font-weight-semibold text-secondary table-cell-expand table-column-text-end'>
-				<div className='w-100'>{interactions.toLocaleString()}</div>
-			</td>
-		);
-	}
-
-	/**
 	 * Lifecycle Render - ReactJS
 	 */
 	render() {
@@ -134,13 +122,6 @@ class AssetsListCard extends React.Component {
 				accessor: 'type',
 				cellRenderer: ({data}) => this.renderTypeColumn(data),
 				label: Liferay.Language.get('asset-type'),
-				sortable: false
-			},
-			{
-				accessor: 'interactions',
-				cellRenderer: ({data}) => this.renderInteractionColumn(data),
-				className: 'table-column-text-end',
-				label: Liferay.Language.get('interactions'),
 				sortable: false
 			}
 		];

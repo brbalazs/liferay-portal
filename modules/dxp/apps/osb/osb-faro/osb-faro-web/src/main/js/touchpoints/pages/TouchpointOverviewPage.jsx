@@ -56,8 +56,10 @@ export default function TouchpointOverviewPage() {
 			</div>
 
 			<div className='row'>
-				<div className='col-md-12'>
-					<AssetsListCard label={Liferay.Language.get('assets')} />
+				<div className='col-md-6'>
+					<AssetsListCard
+						label={Liferay.Language.get('displayed-assets')}
+					/>
 				</div>
 			</div>
 		</>
