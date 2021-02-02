@@ -153,8 +153,6 @@ public class JournalConverterImpl implements JournalConverter {
 
 		Locale defaultLocale = ddmFields.getDefaultLocale();
 
-		Locale defaultLocale = ddmFields.getDefaultLocale();
-
 		if (!LanguageUtil.isAvailableLocale(groupId, defaultLocale)) {
 			defaultLocale = LocaleUtil.getSiteDefault();
 		}
