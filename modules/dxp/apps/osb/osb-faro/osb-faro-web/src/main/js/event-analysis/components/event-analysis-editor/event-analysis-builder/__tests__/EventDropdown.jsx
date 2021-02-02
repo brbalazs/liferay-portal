@@ -1,13 +1,13 @@
-import AnalysisDropdown from '../AnalysisDropdown';
+import EventDropdown from '../EventDropdown';
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-describe('AnalysisDropdown', () => {
+describe('EventDropdown', () => {
 	it('render', () => {
 		const {container, getByTestId} = render(
-			<AnalysisDropdown
+			<EventDropdown
 				trigger={<button data-testid='target'>{'click me'}</button>}
 			/>
 		);
@@ -31,7 +31,7 @@ describe('AnalysisDropdown', () => {
 
 	it('render with selected event', () => {
 		const {getByTestId} = render(
-			<AnalysisDropdown
+			<EventDropdown
 				eventId='3'
 				trigger={<button data-testid='target'>{'click me'}</button>}
 			/>

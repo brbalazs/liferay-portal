@@ -1,16 +1,16 @@
-import AnalysisDropdown from './AnalysisDropdown';
 import Button from 'shared/components/Button';
 import Chip from 'shared/components/Chip';
+import EventDropdown from './EventDropdown';
 import getCN from 'classnames';
 import React from 'react';
 import {Event} from '../types';
 
-interface IAnalysisChipProps {
+interface IEventChipProps {
 	event: Event;
 	onEventChange: (event: Event) => void;
 }
 
-const AnalysisChip: React.FC<IAnalysisChipProps> = ({
+const EventChip: React.FC<IEventChipProps> = ({
 	event: {displayName, id, name},
 	onEventChange
 }) => {
@@ -18,7 +18,7 @@ const AnalysisChip: React.FC<IAnalysisChipProps> = ({
 		({className, onClick, ...otherProps}, ref) => (
 			<Chip
 				{...otherProps}
-				className={getCN('analysis-chip-root', className)}
+				className={getCN('event-chip-root', className)}
 				onCloseClick={onEventChange}
 				ref={ref}
 			>
@@ -34,7 +34,7 @@ const AnalysisChip: React.FC<IAnalysisChipProps> = ({
 	);
 
 	return (
-		<AnalysisDropdown
+		<EventDropdown
 			eventId={id}
 			onEventChange={onEventChange}
 			trigger={<TriggerComponent />}
@@ -42,4 +42,4 @@ const AnalysisChip: React.FC<IAnalysisChipProps> = ({
 	);
 };
 
-export default AnalysisChip;
+export default EventChip;

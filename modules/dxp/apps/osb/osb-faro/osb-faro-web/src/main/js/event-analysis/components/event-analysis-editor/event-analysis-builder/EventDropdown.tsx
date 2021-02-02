@@ -1,21 +1,19 @@
-import BaseDropdown from '../base-dropdown';
-import Button from 'shared/components/Button';
-import ClayDropdown from '@clayui/drop-down';
-import getCN from 'classnames';
+import BaseDropdown from './base-dropdown';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
 import {Event, EventTypes} from '../types';
-import {spritemap} from 'shared/util/constants';
 
 // TODO: Replace Mock Data
 const MOCKED_DEFAULT_EVENTS_LIST = [
 	{
+		description: 'Blah blah blah blah',
 		displayName: 'Abandoned Form',
 		id: '0',
 		name: 'abandonedForm',
 		type: EventTypes.Default
 	},
 	{
+		description: 'Blah blah blah blah',
 		displayName: 'Add credit card ',
 		id: '1',
 		name: 'addCreditCard',

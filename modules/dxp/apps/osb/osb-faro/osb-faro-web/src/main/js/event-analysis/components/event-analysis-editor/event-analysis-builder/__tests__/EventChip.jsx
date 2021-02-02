@@ -1,13 +1,13 @@
-import AnalysisChip from '../AnalysisChip';
+import EventChip from '../EventChip';
 import React from 'react';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-describe('AnalysisChip', () => {
+describe('EventChip', () => {
 	it('render', () => {
 		const {container} = render(
-			<AnalysisChip event={{name: 'View Article'}} />
+			<EventChip event={{name: 'View Article'}} />
 		);
 
 		expect(container).toMatchSnapshot();

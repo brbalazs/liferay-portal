@@ -1,5 +1,5 @@
-import AnalysisSection from './AnalysisSection';
 import BreakdownSection from './BreakdownSection';
+import EventSection from './EventSection';
 import React from 'react';
 import {Attribute, Breakdown, Event, Filter} from '../types';
 
@@ -33,7 +33,7 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 
 	return (
 		<div className='event-analysis-builder-root d-flex'>
-			<AnalysisSection event={event} onEventChange={handleEventChange} />
+			<EventSection event={event} onEventChange={handleEventChange} />
 
 			{event && (
 				<BreakdownSection

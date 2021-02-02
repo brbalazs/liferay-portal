@@ -1,19 +1,19 @@
-import AnalysisSection from '../AnalysisSection';
+import EventSection from '../EventSection';
 import React from 'react';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-describe('AnalysisSection', () => {
+describe('EventSection', () => {
 	it('render', () => {
-		const {container} = render(<AnalysisSection />);
+		const {container} = render(<EventSection />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('render with event', () => {
 		const {container} = render(
-			<AnalysisSection event={{name: 'View Article'}} />
+			<EventSection event={{name: 'View Article'}} />
 		);
 
 		expect(container).toMatchSnapshot();
