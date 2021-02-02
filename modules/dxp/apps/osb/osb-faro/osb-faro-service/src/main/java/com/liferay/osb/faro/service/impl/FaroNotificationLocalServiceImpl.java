@@ -55,8 +55,8 @@ public class FaroNotificationLocalServiceImpl
 		faroNotification.setModifiedTime(now);
 
 		faroNotification.setOwnerId(ownerId);
-		faroNotification.setRead(false);
 		faroNotification.setScope(scope);
+		faroNotification.setRead(false);
 		faroNotification.setType(type);
 		faroNotification.setSubtype(subtype);
 
