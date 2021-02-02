@@ -161,7 +161,7 @@ export const attributesColumns = {
 				</Label>
 			</td>
 		),
-		label: Liferay.Language.get('data-type')
+		label: Liferay.Language.get('data-typecast')
 	},
 	description: {
 		accessor: 'description',
