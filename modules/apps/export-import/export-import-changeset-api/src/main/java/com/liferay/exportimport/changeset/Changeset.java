@@ -227,6 +227,8 @@ public class Changeset implements Serializable {
 		return stagedModels;
 	}
 
+	private static final String _uuid = PortalUUIDUtil.generate();
+
 	private Map
 		<Supplier<? extends StagedModel>, Function<StagedModel, Collection<?>>>
 			_hierarchySuppliers;
@@ -234,6 +236,5 @@ public class Changeset implements Serializable {
 	private boolean _rawMode;
 	private List<StagedModel> _rawModels;
 	private List<Supplier<StagedModel>> _suppliers;
-	private String _uuid = PortalUUIDUtil.generate();
 
 }

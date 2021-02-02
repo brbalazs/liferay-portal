@@ -105,7 +105,8 @@ public class SetOptionsFunction extends BaseDDMFormRuleFunction {
 		return keyValuePairs;
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(SetOptionsFunction.class);
+	private static final Log _log = LogFactoryUtil.getLog(
+		SetOptionsFunction.class);
 
 	private final JSONFactory _jsonFactory;
 	private final String _languageId;
