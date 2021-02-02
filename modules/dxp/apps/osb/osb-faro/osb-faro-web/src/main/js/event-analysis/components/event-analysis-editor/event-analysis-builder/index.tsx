@@ -1,4 +1,4 @@
-import BreakdownSection from './BreakdownSection';
+import AttributeSection from './AttributeSection';
 import EventSection from './EventSection';
 import React from 'react';
 import {Attribute, Breakdown, Event, Filter} from '../types';
@@ -36,7 +36,7 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 			<EventSection event={event} onEventChange={handleEventChange} />
 
 			{event && (
-				<BreakdownSection
+				<AttributeSection
 					attributes={attributes}
 					breakdowns={breakdowns}
 					filters={filters}

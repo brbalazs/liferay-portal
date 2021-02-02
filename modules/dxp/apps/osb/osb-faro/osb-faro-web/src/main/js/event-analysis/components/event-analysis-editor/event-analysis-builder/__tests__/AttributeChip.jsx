@@ -1,16 +1,16 @@
-import BreakdownChip from '../BreakdownChip';
+import AttributeChip from '../AttributeChip';
 import React from 'react';
 import {render} from '@testing-library/react';
 import {wrapInTestContext} from 'react-dnd-test-utils';
 
 jest.unmock('react-dom');
 
-describe('BreakdownChip', () => {
-	const BreakdownChipContext = wrapInTestContext(BreakdownChip);
+describe('AttributeChip', () => {
+	const AttributeChipContext = wrapInTestContext(AttributeChip);
 
 	it('render', () => {
 		const {container} = render(
-			<BreakdownChipContext
+			<AttributeChipContext
 				attribute={{
 					displayName: 'Article View',
 					id: '123123',

@@ -81,25 +81,25 @@
 			}
 		}
 
-		.breakdown-section-root {
+		.attribute-section-root {
 			overflow-x: hidden;
 
-			.add-breakdown {
+			.add-attribute {
 				color: $mainLighten28;
 				padding: 8px;
 			}
 
-			.breakdown-container {
+			.attribute-container {
 				border-left: 1px solid $mainLighten65;
 				padding-bottom: 4px;
 				padding-top: 4px;
 
-				.breakdown-list {
+				.attribute-list {
 					margin: 0 4px;
 					overflow-x: auto;
 					padding: 0 4px;
 
-					.breakdown-chip-container {
+					.attribute-chip-container {
 						padding-left: 8px;
 						padding-right: 8px;
 
@@ -112,7 +112,7 @@
 								1px 0 $primary;
 						}
 
-						.breakdown-chip-root {
+						.attribute-chip-root {
 							color: $secondary;
 
 							&.dragging:hover,

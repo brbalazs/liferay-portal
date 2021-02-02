@@ -12,7 +12,7 @@ const HOVER_TYPES = {
 };
 
 const ITEM_TYPES = {
-	BREAKDOWN_CHIP: 'breakdown_chip'
+	ATTRIBUTE_CHIP: 'attribute_chip'
 };
 
 const TYPE_ICON_MAP = {
@@ -28,7 +28,7 @@ interface DragItem {
 	type: string;
 }
 
-interface IBreakdownChipProps {
+interface IAttributeChipProps {
 	attribute: Attribute;
 	breakdown: Breakdown;
 	filter?: Filter;
@@ -41,7 +41,7 @@ interface IBreakdownChipProps {
 	) => void;
 	onMove: (from: number, to: number) => void;
 }
-const BreakdownChip: React.FC<IBreakdownChipProps> = ({
+const AttributeChip: React.FC<IAttributeChipProps> = ({
 	attribute,
 	breakdown,
 	filter,
@@ -55,7 +55,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 	const [hoverPosition, setHoverPosition] = useState(null);
 
 	const [{canDrop, isOver}, drop] = useDrop({
-		accept: ITEM_TYPES.BREAKDOWN_CHIP,
+		accept: ITEM_TYPES.ATTRIBUTE_CHIP,
 		canDrop: ({index: dragIndex}: DragItem) => {
 			const dropIndex = index;
 
@@ -85,7 +85,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 		hover: ({index: dragIndex}: DragItem, monitor: DropTargetMonitor) => {
 			const hoverIndex = index;
 
-			// Determine whether hover is on left or right side of hovered BreakdownChip
+			// Determine whether hover is on left or right side of hovered AttributeChip
 			if (_wrapperRef.current) {
 				const {
 					right,
@@ -117,7 +117,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 		}),
 		item: {
 			index,
-			type: ITEM_TYPES.BREAKDOWN_CHIP
+			type: ITEM_TYPES.ATTRIBUTE_CHIP
 		}
 	});
 
@@ -132,17 +132,17 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 		filter
 	);
 
-	// TODO: LRAC-7247 Add onClick to BreakdownChip to edit current values
+	// TODO: LRAC-7247 Add onClick to AttributeChip to edit current values
 
 	return (
 		<div
-			className={getCN('breakdown-chip-container', {
+			className={getCN('attribute-chip-container', {
 				[`hover-${hoverPosition}`]: isOver && canDrop && hoverPosition
 			})}
 			ref={_wrapperRef}
 		>
 			<Chip
-				className={getCN('breakdown-chip-root', {
+				className={getCN('attribute-chip-root', {
 					dragging: isDragging
 				})}
 				onCloseClick={() => onCloseClick(breakdown.attributeId)}
@@ -166,4 +166,4 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 	);
 };
 
-export default BreakdownChip;
+export default AttributeChip;

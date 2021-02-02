@@ -1,5 +1,5 @@
-import BreakdownChip from './BreakdownChip';
-import BreakdownDropdown from './breakdown-dropdown';
+import AttributeChip from './AttributeChip';
+import AttributeDropdown from './attribute-dropdown';
 import Button from 'shared/components/Button';
 import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
@@ -8,9 +8,9 @@ import {curry, flow} from 'lodash';
 import {DndProvider} from 'react-dnd';
 import {moveItem} from 'shared/util/array';
 
-const MAX_BREAKDOWNS = 3;
+const MAX_ATTRIBUTES = 3;
 
-interface IBreakdownSectionProps {
+interface IAttributeSectionProps {
 	attributes: Attribute[];
 	breakdowns: Breakdown[];
 	filters: Filter[];
@@ -19,7 +19,7 @@ interface IBreakdownSectionProps {
 	onFiltersChange: (filters: Filter[]) => void;
 }
 
-const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
+const AttributeSection: React.FC<IAttributeSectionProps> = ({
 	attributes,
 	breakdowns,
 	filters,
@@ -58,16 +58,16 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 	};
 
 	return (
-		<div className='breakdown-section-root flex-grow-1'>
+		<div className='attribute-section-root flex-grow-1'>
 			<div className='section-header'>
 				{Liferay.Language.get('breakdown-by')}
 			</div>
 
-			<div className='breakdown-container d-flex align-items-center'>
+			<div className='attribute-container d-flex align-items-center'>
 				<DndProvider backend={HTML5Backend}>
-					<div className='breakdown-list d-flex align-items-center'>
+					<div className='attribute-list d-flex align-items-center'>
 						{attributes.map((attribute, i) => (
-							<BreakdownChip
+							<AttributeChip
 								attribute={attribute}
 								breakdown={breakdowns.find(
 									({attributeId}) =>
@@ -91,26 +91,28 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 				</DndProvider>
 
 				<div>
-					{filters.length < MAX_BREAKDOWNS &&
-					<BreakdownDropdown
-						attributes={attributes}
-						breakdowns={breakdowns}
-						filters={filters}
-						onBreakdownChange={() => {}}
-						trigger={
-							<Button
-								borderless
-								className='add-breakdown'
-								display='light'
-								icon='plus'
-								iconAlignment='left'
-								size='sm'
-							/>}
-					/>}
+					{filters.length < MAX_ATTRIBUTES && (
+						<AttributeDropdown
+							attributes={attributes}
+							breakdowns={breakdowns}
+							filters={filters}
+							onBreakdownChange={() => {}}
+							trigger={
+								<Button
+									borderless
+									className='add-attribute'
+									display='light'
+									icon='plus'
+									iconAlignment='left'
+									size='sm'
+								/>
+							}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default BreakdownSection;
+export default AttributeSection;

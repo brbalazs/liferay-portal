@@ -1,13 +1,13 @@
-import BreakdownSection from '../BreakdownSection';
+import AttributeSection from '../AttributeSection';
 import React from 'react';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-describe('BreakdownSection', () => {
+describe('AttributeSection', () => {
 	it('render', () => {
 		const {container} = render(
-			<BreakdownSection
+			<AttributeSection
 				attributes={[]}
 				breakdowns={[]}
 				filters={[]}
@@ -22,7 +22,7 @@ describe('BreakdownSection', () => {
 
 	it('render with breakdown & filter', () => {
 		const {container} = render(
-			<BreakdownSection
+			<AttributeSection
 				attributes={[
 					{
 						displayName: 'Article Title',

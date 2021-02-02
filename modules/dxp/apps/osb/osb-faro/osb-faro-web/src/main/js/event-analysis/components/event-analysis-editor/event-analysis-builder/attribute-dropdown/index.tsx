@@ -40,7 +40,7 @@ const MOCKED_MAP = {
 	[AttributeTypes.Event]: MOCKED_EVENT_ATTRIBUTE_LIST
 };
 
-interface IBreakdownDropdownProps {
+interface IAttributeDropdownProps {
 	attributes: Attribute[];
 	breakdowns: Breakdown[];
 	filters: Filter[];
@@ -52,7 +52,7 @@ interface IBreakdownDropdownProps {
 	trigger: React.ReactElement;
 }
 
-const BreakdownDropdown: React.FC<IBreakdownDropdownProps> = ({
+const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	attributes,
 	breakdowns,
 	filters,
@@ -105,4 +105,4 @@ const BreakdownDropdown: React.FC<IBreakdownDropdownProps> = ({
 	);
 };
 
-export default BreakdownDropdown;
+export default AttributeDropdown;
