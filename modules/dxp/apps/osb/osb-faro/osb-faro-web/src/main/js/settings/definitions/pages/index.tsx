@@ -67,7 +67,7 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					/>
 					<BundleRouter
 						data={Events}
-						path={Routes.SETTINGS_DEFINITIONS_EVENTS}
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT}
 					/>
 				</Switch>
 			)}

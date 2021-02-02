@@ -4,7 +4,7 @@ import {withBaseResults} from 'shared/hoc';
 
 // TODO: LRAC-7330 Use the graphql query instead of mocked data
 const withData = () => WrapperComponent => props => {
-	const items = [
+	const MOCKED_ITEMS = [
 		{
 			attributeId: 'myid1',
 			defaultDataType: 'TYPE',
@@ -30,7 +30,9 @@ const withData = () => WrapperComponent => props => {
 			sampleValue: '3'
 		}
 	];
-	return <WrapperComponent {...props} items={items}></WrapperComponent>;
+	return (
+		<WrapperComponent {...props} items={MOCKED_ITEMS}></WrapperComponent>
+	);
 };
 
 const AttributeList = withBaseResults(withData, {
