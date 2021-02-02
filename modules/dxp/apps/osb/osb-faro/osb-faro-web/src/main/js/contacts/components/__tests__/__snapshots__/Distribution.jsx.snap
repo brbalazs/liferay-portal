@@ -17,8 +17,13 @@ exports[`SegmentDistribution should render 1`] = `
           <h5
             class="card-title"
           >
-            Breakdown of Known Members
+            Distribution by attribute
           </h5>
+          <span
+            class="description-secondary"
+          >
+            Breakdown known members by the top 100 results or the number of bins assigned for a selected attribute. Only results with data will appear.
+          </span>
         </div>
         <div
           class="card-body"
@@ -26,8 +31,17 @@ exports[`SegmentDistribution should render 1`] = `
           <form
             class="form-root chart-options"
           >
+            <label
+              class="form-control-label label-root"
+            >
+              <span
+                class="content-container"
+              >
+                Breakdown 
+              </span>
+            </label>
             <div
-              class="form-group form-group-autofit"
+              class="form-group mt-2 form-group-autofit"
             >
               <div
                 class="form-group-item form-group-item-shrink"
