@@ -29,13 +29,13 @@
 			</div>
 
 			<a class="carousel-control-prev" data-slide="prev" href="#<@portlet.namespace />-main-carousel" role="button">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
 
 				<span class="sr-only">Previous</span>
 			</a>
 
 			<a class="carousel-control-next" data-slide="next" href="#<@portlet.namespace />-main-carousel" role="button">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
 
 				<span class="sr-only">Next</span>
 			</a>
