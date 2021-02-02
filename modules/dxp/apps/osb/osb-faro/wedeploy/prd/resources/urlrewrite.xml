@@ -11,6 +11,10 @@
 		<to>/o/analytics-cloud-api$1</to>
 	</rule>
 	<rule>
+		<from>^/endpoints/(.*)</from>
+		<to>/o/faro/main/project/$1/endpoints</to>
+	</rule>
+	<rule>
 		<from>^/favicon.ico$</from>
 		<to type="redirect">/o/favicon/</to>
 	</rule>
