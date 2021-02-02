@@ -19,4 +19,16 @@ describe('AttributeList', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render Data Typecast column with a label', async() => {
+		const {getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<AttributeList groupId='23' />
+				</StaticRouter>
+			</Provider>
+		);
+
+		expect(getByText('TYPE').parentElement).toHaveClass('label-primary');
+	});
 });
