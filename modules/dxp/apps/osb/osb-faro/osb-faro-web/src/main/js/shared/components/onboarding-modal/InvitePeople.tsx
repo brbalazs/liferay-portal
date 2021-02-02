@@ -86,7 +86,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 			title={Liferay.Language.get('invite-people-to-workspace')}
 		>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
-				<div className='ac-invite'></div>
+				<div className='ac-invite' />
 
 				{sent ? (
 					<div className='success-info d-flex align-items-center'>

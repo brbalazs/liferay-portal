@@ -16,7 +16,7 @@ const Welcome: React.FC<IWelcomeProps> = ({onClose, onNext}) => (
 		title={Liferay.Language.get('welcome-to-analytics-cloud')}
 	>
 		<Modal.Body className='d-flex flex-column align-items-center'>
-			<div className='ac-setup'></div>
+			<div className='ac-setup' />
 
 			<span className='description'>
 				{Liferay.Language.get(
