@@ -1,6 +1,5 @@
 import {
 	formatChange,
-	getFinitePercent,
 	getFinitePercentChange,
 	getNetChange,
 	getSafeChange
@@ -30,23 +29,6 @@ describe('change', () => {
 			'should calculate the percent change from $prevVal to $curVal and return $expected',
 			({curVal, expected, prevVal}) => {
 				expect(getFinitePercentChange(curVal, prevVal)).toBe(expected);
-			}
-		);
-	});
-
-	describe('getFinitePercent', () => {
-		it.each`
-			curVal | totalVal | expected
-			${0}   | ${0}     | ${null}
-			${0}   | ${null}  | ${null}
-			${0}   | ${NaN}   | ${null}
-			${10}  | ${100}   | ${'10.0'}
-			${50}  | ${100}   | ${'50.0'}
-			${100} | ${100}   | ${'100.0'}
-		`(
-			'should calculate the percent of $curVal to $totalVal return $expected',
-			({curVal, expected, totalVal}) => {
-				expect(getFinitePercent(curVal, totalVal)).toBe(expected);
 			}
 		);
 	});

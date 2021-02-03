@@ -28,24 +28,6 @@ export function getFinitePercentChange(curVal, prevVal) {
 }
 
 /**
- * Get the percentage. Will return null if
- * the percentage is not finite.
- * @param {number} curVal
- * @param {number} totalVal
- * @param {number} decimalPlaces
- * @return {string|null} percentage change
- */
-export function getFinitePercent(curVal, totalVal, decimalPlaces = 1) {
-	const percentage = (curVal / totalVal) * 100;
-
-	if (isFinite(percentage)) {
-		return percentage.toFixed(decimalPlaces);
-	}
-
-	return null;
-}
-
-/**
  * Get net change value for display.
  * @param {number} prev - The previous value.
  * @param {number} current - The current value.
