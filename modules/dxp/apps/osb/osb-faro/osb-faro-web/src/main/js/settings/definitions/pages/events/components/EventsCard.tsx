@@ -49,24 +49,24 @@ const EventsCard: React.FC<IEventsCardProps> = ({groupId}) => {
 						</div>
 					</Nav.Item>
 				))}
-
-				<Suspense fallback={<Loading />}>
-					<Switch>
-						<BundleRouter
-							data={EventList}
-							exact
-							path={Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT}
-						/>
-
-						<BundleRouter
-							componentProps={{customEvent: true}}
-							data={EventList}
-							exact
-							path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
-						/>
-					</Switch>
-				</Suspense>
 			</Nav>
+
+			<Suspense fallback={<Loading />}>
+				<Switch>
+					<BundleRouter
+						data={EventList}
+						exact
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT}
+					/>
+
+					<BundleRouter
+						componentProps={{customEvent: true}}
+						data={EventList}
+						exact
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
+					/>
+				</Switch>
+			</Suspense>
 		</Card>
 	);
 };
