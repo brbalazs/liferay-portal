@@ -281,6 +281,15 @@ export default class Overlay extends React.Component {
 		this.hide();
 	}
 
+	/**
+	 * Public method for hiding overlay
+	 */
+	hideOverlay() {
+		this.show.cancel();
+
+		this.setState({active: false});
+	}
+
 	setOffset(node, position, offset) {
 		switch (position) {
 			case Align.BottomCenter:
@@ -318,6 +327,7 @@ export default class Overlay extends React.Component {
 		const triggerProps = {
 			'aria-haspopup': true,
 			className: getCN(children[0].props.className, className),
+			onBlur: this.handleMouseLeave,
 			onMouseEnter: this.handleMouseEnter,
 			onMouseLeave: this.handleMouseLeave,
 			ref: this._elementRef
@@ -340,6 +350,7 @@ export default class Overlay extends React.Component {
 						<OverlayContent
 							className={containerClass}
 							id={this._contentId}
+							onBlur={this.handleMouseLeave}
 							onMouseEnter={this.handleMouseEnter}
 							onMouseLeave={this.handleMouseLeave}
 							ref={this._contentElementRef}
