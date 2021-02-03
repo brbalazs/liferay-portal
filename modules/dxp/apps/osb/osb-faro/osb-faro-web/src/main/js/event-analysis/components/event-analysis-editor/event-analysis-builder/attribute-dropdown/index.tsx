@@ -1,6 +1,5 @@
-import AttributesList from './AttributesList';
+import BaseDropdown from '../base-dropdown';
 import BreakdownFilter from './filter';
-import ClayDropdown, {Align} from '@clayui/drop-down';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
 import {
@@ -59,12 +58,10 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	onBreakdownChange,
 	trigger
 }) => {
-	const [active, setActive] = useState(false);
 	const [attributesList, setAttributesList] = useState<Attribute[]>([]); //TODO: Remove one we have actual requests
 	const [attributeType, setAttributeType] = useState<AttributeTypes>(
 		AttributeTypes.Event
 	);
-	const [dataType, setDataType] = useState<DataTypes>();
 	const [query, setQuery] = useState('');
 	const [selectedAttribute, setSelectedAttribute] = useState<Attribute>(null);
 
@@ -77,31 +74,47 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	const handleChange = () => {};
 
 	return (
-		<ClayDropdown
-			active={active}
-			alignmentPosition={Align.RightTop}
-			menuElementAttrs={{className: 'event-analysis-dropdown-menu-root'}}
-			onActiveChange={setActive}
-			trigger={trigger}
-		>
-			{!selectedAttribute && (
-				<AttributesList
-					attributesList={attributesList}
-					attributeType={attributeType}
-					onAttributeTypeChange={setAttributeType}
-					onSelectedAttributeChange={setSelectedAttribute}
-					onQueryChange={setQuery}
-					query={query}
-				/>
-			)}
+		<BaseDropdown trigger={trigger}>
+			{({setActive}) => (
+				<>
+					{!selectedAttribute && (
+						<>
+							<BaseDropdown.Header
+								activeTabId={attributeType}
+								tabs={[
+									{
+										onClick: () =>
+											setAttributeType(
+												AttributeTypes.Event
+											),
+										tabId: AttributeTypes.Event,
+										title: Liferay.Language.get('event')
+									}
+								]}
+								title={Liferay.Language.get('attributes')}
+							/>
+							<BaseDropdown.SearchableList
+								items={attributesList}
+								onItemClick={() => {
+									setActive(false);
+									/** DO SOMETHING HERE **/
+								}}
+								onItemFilterClick={setSelectedAttribute}
+								onQueryChange={setQuery}
+								query={query}
+							/>
+						</>
+					)}
 
-			{selectedAttribute && (
-				<BreakdownFilter
-					attribute={selectedAttribute}
-					onAttributeChange={setSelectedAttribute}
-				/>
+					{selectedAttribute && (
+						<BreakdownFilter
+							attribute={selectedAttribute}
+							onAttributeChange={setSelectedAttribute}
+						/>
+					)}
+				</>
 			)}
-		</ClayDropdown>
+		</BaseDropdown>
 	);
 };
 

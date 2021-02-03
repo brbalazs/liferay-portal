@@ -45,7 +45,7 @@ const ListItem: React.FC<IListItemProps> = ({
 				{isAttribute(item as Attribute) && (
 					<Button
 						borderless
-						display='unstyled'
+						className='filter-button'
 						icon='filter'
 						iconAlignment='left'
 						onClick={() => onFilterClick(item as Attribute)}

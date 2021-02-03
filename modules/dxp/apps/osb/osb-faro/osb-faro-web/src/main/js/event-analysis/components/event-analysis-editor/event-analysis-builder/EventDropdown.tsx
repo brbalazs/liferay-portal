@@ -78,43 +78,46 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	}, [eventType]);
 
 	return (
-		<BaseDropdown
-			activeTabId={eventType}
-			tabs={[
-				{
-					onClick: () => setEventType('all'),
-					tabId: 'all',
-					title: Liferay.Language.get('all')
-				},
-				{
-					onClick: () => setEventType(EventTypes.Default),
-					tabId: EventTypes.Default,
-					title: Liferay.Language.get('default')
-				},
-				{
-					onClick: () => setEventType(EventTypes.Custom),
-					tabId: EventTypes.Custom,
-					title: Liferay.Language.get('custom')
-				}
-			]}
-			title={Liferay.Language.get('events')}
-			trigger={trigger}
-		>
+		<BaseDropdown trigger={trigger}>
 			{({setActive}) => (
-				<BaseDropdown.SearchableList
-					items={events}
-					onItemClick={(event: Event) => {
-						if (event.id !== eventId) {
-							onEventChange(event);
+				<>
+					<BaseDropdown.Header
+						activeTabId={eventType}
+						tabs={[
+							{
+								onClick: () => setEventType('all'),
+								tabId: 'all',
+								title: Liferay.Language.get('all')
+							},
+							{
+								onClick: () => setEventType(EventTypes.Default),
+								tabId: EventTypes.Default,
+								title: Liferay.Language.get('default')
+							},
+							{
+								onClick: () => setEventType(EventTypes.Custom),
+								tabId: EventTypes.Custom,
+								title: Liferay.Language.get('custom')
+							}
+						]}
+						title={Liferay.Language.get('events')}
+					/>
 
-							setActive(false);
-							setEventType('all');
-							setQuery('');
-						}
-					}}
-					onQueryChange={setQuery}
-					query={query}
-				/>
+					<BaseDropdown.SearchableList
+						items={events}
+						onItemClick={(event: Event) => {
+							if (event.id !== eventId) {
+								onEventChange(event);
+
+								setActive(false);
+								setEventType('all');
+								setQuery('');
+							}
+						}}
+						onQueryChange={setQuery}
+						query={query}
+					/>
+				</>
 			)}
 		</BaseDropdown>
 	);
