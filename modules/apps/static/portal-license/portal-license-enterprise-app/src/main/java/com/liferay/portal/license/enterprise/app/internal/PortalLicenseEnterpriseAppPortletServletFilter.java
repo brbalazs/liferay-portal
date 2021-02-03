@@ -172,7 +172,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		sb.append("\">activation key for ");
 		sb.append(licenseProperties.get("productEntryName"));
-		sb.append("</a>, ");
+		sb.append("</a> because ");
 		sb.append(reason);
 		sb.append("</div>");
 
