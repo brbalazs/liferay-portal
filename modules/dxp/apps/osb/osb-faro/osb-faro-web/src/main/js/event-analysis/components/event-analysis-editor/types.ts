@@ -51,9 +51,9 @@ export type Attribute = {
 
 export type Breakdown = {
 	attributeId: string;
+	bin?: number;
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
-	bin?: number;
 	type: AttributeTypes;
 };
 

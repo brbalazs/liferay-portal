@@ -9,6 +9,7 @@ import {
 	DataTypes,
 	Filter
 } from '../../types';
+import {BREAKDOWN_FNS_MAP} from '../../utils';
 
 // TODO: Replace Mock Data
 const MOCKED_EVENT_ATTRIBUTE_LIST = [
@@ -43,10 +44,10 @@ interface IAttributeDropdownProps {
 	attributes: Attribute[];
 	breakdowns: Breakdown[];
 	filters: Filter[];
-	onBreakdownChange: (
+	onAttributeSelect: (
 		attribute: Attribute,
 		breakdown: Breakdown,
-		filter: Filter
+		filter?: Filter
 	) => void;
 	trigger: React.ReactElement;
 }
@@ -55,7 +56,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	attributes,
 	breakdowns,
 	filters,
-	onBreakdownChange,
+	onAttributeSelect,
 	trigger
 }) => {
 	const [attributesList, setAttributesList] = useState<Attribute[]>([]); //TODO: Remove one we have actual requests
@@ -93,10 +94,27 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 								]}
 								title={Liferay.Language.get('attributes')}
 							/>
+
 							<BaseDropdown.SearchableList
 								disabledIds={attributes.map(({id}) => id)}
 								items={attributesList}
-								onItemClick={() => {
+								onItemClick={(attribute: Attribute) => {
+									const {
+										defaultDataType,
+										id: attributeId
+									} = attribute;
+
+									const breakdownFn =
+										BREAKDOWN_FNS_MAP[defaultDataType];
+
+									onAttributeSelect(
+										attribute,
+										breakdownFn({
+											attributeId,
+											type: attributeType
+										})
+									);
+
 									setActive(false);
 									/** DO SOMETHING HERE **/
 								}}

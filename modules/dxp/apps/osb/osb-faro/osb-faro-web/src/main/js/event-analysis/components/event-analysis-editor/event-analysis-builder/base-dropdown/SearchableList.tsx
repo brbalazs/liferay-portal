@@ -1,12 +1,14 @@
 import ClayDropdown from '@clayui/drop-down';
 import ListItem from './ListItem';
 import React from 'react';
-import {Attribute, Event} from '../../types';
+import {Attribute, Breakdown, Event, Filter} from '../../types';
 import {spritemap} from 'shared/util/constants';
 
 interface ISearchableListProps {
+	activeId?: string;
+	disabledIds?: string[];
 	items: (Attribute | Event)[];
-	onItemClick: (item: Attribute | Event) => void;
+	onItemClick: (item: Attribute | Event, breakdown?: Breakdown, filter?: Filter) => void;
 	onItemFilterClick?: (item: Attribute) => void;
 	onQueryChange: (query: string) => void;
 	query: string;
@@ -14,12 +16,13 @@ interface ISearchableListProps {
 }
 
 const SearchableList: React.FC<ISearchableListProps> = ({
+	activeId,
+	disabledIds,
 	items,
 	onItemClick,
 	onItemFilterClick,
 	onQueryChange,
-	query,
-	selectedId
+	query
 }) => {
 	const filteredItems = items.filter(({displayName, name}) =>
 		(displayName || name)
@@ -43,6 +46,11 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 			<ClayDropdown.ItemList>
 				{filteredItems.map(item => (
 					<ListItem
+						active={activeId === item.id}
+						disabled={
+							disabledIds &&
+							disabledIds.some(id => id === item.id)
+						}
 						item={item}
 						key={item.id}
 						onClick={() => onItemClick(item)}

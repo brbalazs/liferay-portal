@@ -104,6 +104,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 					/>
 
 					<BaseDropdown.SearchableList
+						activeId={eventId}
 						items={events}
 						onItemClick={(event: Event) => {
 							if (event.id !== eventId) {

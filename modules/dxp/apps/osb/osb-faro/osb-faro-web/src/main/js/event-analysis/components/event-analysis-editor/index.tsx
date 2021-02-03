@@ -25,6 +25,7 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 
 	useEffect(() => {
 		// TODO: LRAC-7333 Add request here
+		console.log({attributes, breakdowns, filters});
 	}, [
 		attributes,
 		breakdowns,

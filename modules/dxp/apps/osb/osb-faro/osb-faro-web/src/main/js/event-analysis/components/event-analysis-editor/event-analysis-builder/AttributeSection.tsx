@@ -91,12 +91,54 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 				</DndProvider>
 
 				<div>
-					{filters.length < MAX_ATTRIBUTES && (
+					{attributes.length < MAX_ATTRIBUTES && (
 						<AttributeDropdown
 							attributes={attributes}
 							breakdowns={breakdowns}
 							filters={filters}
-							onBreakdownChange={() => {}}
+							onAttributeSelect={(
+								attribute,
+								breakdown,
+								filter
+							) => {
+								onAttributesChange([...attributes, attribute]);
+
+								onBreakdownsChange([...breakdowns, breakdown]);
+
+								if (filter) {
+									onFiltersChange([...filters, filter]);
+								}
+
+								// const attributeIndex = attributes.findIndex(
+								// 	({id}) => id === attribute.id
+								// );
+
+								// onAttributesChange([
+								// 	...attributes.slice(0, attributeIndex),
+								// 	attribute,
+								// 	...attributes.slice(attributeIndex)
+								// ]);
+
+								// onBreakdownsChange([
+								// 	...breakdowns.filter(
+								// 		({attributeId}) =>
+								// 			attributeId !==
+								// 			breakdown.attributeId
+								// 	),
+								// 	breakdown
+								// ]);
+
+								// if (filter) {
+								// 	onFiltersChange([
+								// 		...filters.filter(
+								// 			({attributeId}) =>
+								// 				attributeId !==
+								// 				filter.attributeId
+								// 		),
+								// 		filter
+								// 	]);
+								// }
+							}}
 							trigger={
 								<Button
 									borderless

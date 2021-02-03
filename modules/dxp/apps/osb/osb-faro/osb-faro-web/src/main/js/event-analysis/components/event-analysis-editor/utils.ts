@@ -10,6 +10,10 @@ import {
 import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
 
+const DEFAULT_DATE_GROUPING = DateGroupings.Months;
+const DEFAULT_DURATION_BIN = 60000;
+const DEFAULT_NUMBER_BIN = 10;
+
 const ATTRIBUTE_TYPE_LABEL_MAP = {
 	[AttributeTypes.Account]: Liferay.Language.get('account'),
 	[AttributeTypes.Event]: Liferay.Language.get('event'),
@@ -164,3 +168,56 @@ export const getBreakdownDisplay = (
 
 export const isAttribute = (item: Attribute | Event): item is Attribute =>
 	(item as Attribute).defaultDataType !== undefined;
+
+const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({
+	attributeId,
+	dataType: DataTypes.Boolean,
+	type
+});
+
+const createDateBreakdown = ({
+	attributeId,
+	dateGrouping = DEFAULT_DATE_GROUPING,
+	type
+}): Breakdown => ({
+	attributeId,
+	dataType: DataTypes.Date,
+	dateGrouping,
+	type
+});
+
+const createDurationBreakdown = ({
+	attributeId,
+	bin = DEFAULT_DURATION_BIN,
+	type
+}): Breakdown => ({
+	attributeId,
+	bin,
+	dataType: DataTypes.Duration,
+	type
+});
+
+const createNumberBreakdown = ({
+	attributeId,
+	bin = DEFAULT_NUMBER_BIN,
+	type
+}): Breakdown => ({
+	attributeId,
+	bin,
+	dataType: DataTypes.Number,
+	type
+});
+
+const createStringBreakdown = ({attributeId, type}): Breakdown => ({
+	attributeId,
+	dataType: DataTypes.String,
+	type
+});
+
+export const BREAKDOWN_FNS_MAP = {
+	[DataTypes.Boolean]: createBooleanBreakdown,
+	[DataTypes.Date]: createDateBreakdown,
+	[DataTypes.Duration]: createDurationBreakdown,
+	[DataTypes.Number]: createNumberBreakdown,
+	[DataTypes.String]: createStringBreakdown
+};

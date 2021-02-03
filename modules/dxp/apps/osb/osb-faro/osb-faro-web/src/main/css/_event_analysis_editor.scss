@@ -25,7 +25,7 @@
 	.dropdown-item {
 		&:active,
 		&:hover {
-			.filter-button {
+			.filter-button:not([disabled]) {
 				background-color: $primaryLighten45;
 				display: block;
 			}
@@ -77,6 +77,7 @@
 
 			.event-list {
 				margin-right: 16px;
+				padding: 4px 0;
 
 				.event-chip-root {
 					line-height: 24px;
@@ -97,7 +98,7 @@
 
 			.add-attribute {
 				color: $mainLighten28;
-				margin: 4px 0;
+				margin: 8px 0;
 				padding: 8px;
 			}
 
@@ -107,7 +108,7 @@
 				.attribute-list {
 					margin: 0 4px;
 					overflow-x: auto;
-					padding: 0 4px;
+					padding: 4px;
 
 					.attribute-chip-container {
 						padding-left: 8px;

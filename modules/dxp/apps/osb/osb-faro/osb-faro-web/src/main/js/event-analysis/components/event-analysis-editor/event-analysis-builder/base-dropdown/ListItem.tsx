@@ -54,6 +54,7 @@ const ListItem: React.FC<IListItemProps> = ({
 					<Button
 						borderless
 						className='filter-button'
+						disabled={disabled}
 						icon='filter'
 						iconAlignment='left'
 						onClick={() => {
