@@ -134,3 +134,22 @@ export const undoThousands = formatted => {
 
 	return toInt(number);
 };
+
+/**
+ * Calculates the percentage. Will return null if
+ * the percentage is not finite, also truncates
+ * to match de desired decimalPlaces quantity
+ * @param {number} curVal
+ * @param {number} totalVal
+ * @param {number} decimalPlaces
+ * @return {string|null} percentage
+ */
+export function getFinitePercent(curVal, totalVal, decimalPlaces = 1) {
+	const percentage = (curVal / totalVal) * 100;
+
+	if (isFinite(percentage)) {
+		return percentage.toFixed(decimalPlaces);
+	}
+
+	return null;
+}

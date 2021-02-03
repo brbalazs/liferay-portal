@@ -2,7 +2,7 @@ import Button from 'shared/components/Button';
 import MetricBar from 'shared/components/MetricBar';
 import React from 'react';
 import {formatUTCDateFromUnix} from 'shared/util/date';
-import {getFinitePercent} from 'shared/util/change';
+import {getFinitePercent} from 'shared/util/numbers';
 import {PropTypes} from 'prop-types';
 import {sub} from 'shared/util/lang';
 

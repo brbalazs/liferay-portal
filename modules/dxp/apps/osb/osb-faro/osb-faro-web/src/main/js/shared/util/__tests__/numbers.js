@@ -1,6 +1,7 @@
 jest.unmock('clay-charts');
 
 import {
+	getFinitePercent,
 	toDuration,
 	toFixedPoint,
 	toInt,
@@ -133,6 +134,23 @@ describe('toDuration', () => {
 
 		expect(number).toEqual('01d 03h 46m 40s');
 	});
+});
+
+describe('getFinitePercent', () => {
+	it.each`
+		curVal | totalVal | expected
+		${0}   | ${0}     | ${null}
+		${0}   | ${null}  | ${null}
+		${0}   | ${NaN}   | ${null}
+		${10}  | ${100}   | ${'10.0'}
+		${50}  | ${100}   | ${'50.0'}
+		${100} | ${100}   | ${'100.0'}
+	`(
+		'should calculate the percent of $curVal to $totalVal return $expected',
+		({curVal, expected, totalVal}) => {
+			expect(getFinitePercent(curVal, totalVal)).toBe(expected);
+		}
+	);
 });
 
 describe('undoThousands', () => {

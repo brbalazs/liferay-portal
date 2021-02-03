@@ -4,7 +4,7 @@ import getCN from 'classnames';
 import React from 'react';
 import {CHART_COLORS} from 'shared/components/Chart';
 import {get, isNull} from 'lodash';
-import {getFinitePercent} from 'shared/util/change';
+import {getFinitePercent} from 'shared/util/numbers';
 import {getSafeDisplayValue} from 'shared/util/util';
 import {PropTypes} from 'prop-types';
 import {toThousands} from 'shared/util/numbers';

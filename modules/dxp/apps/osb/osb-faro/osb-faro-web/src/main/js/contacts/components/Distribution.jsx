@@ -45,7 +45,7 @@ import {
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
 import {getBarColor} from 'shared/util/charts';
-import {getFinitePercent} from 'shared/util/change';
+import {getFinitePercent} from 'shared/util/numbers';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
@@ -761,7 +761,8 @@ export class Distribution extends React.Component {
 																		CHART_DATA_ID
 																	]
 																),
-																knownIndividualCount
+																knownIndividualCount,
+																1
 															),
 															!histogram &&
 																selectedContext ===
