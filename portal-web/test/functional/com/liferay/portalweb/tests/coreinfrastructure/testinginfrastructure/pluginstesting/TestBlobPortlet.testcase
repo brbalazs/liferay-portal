@@ -16,16 +16,16 @@ definition {
 
 	@priority = "4"
 	test ViewBlob {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page");
 
-		SitePages.addPublicPage(pageName = "Test Page");
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page",
+			widgetName = "Test Blob");
 
 		Navigator.gotoPage(pageName = "Test Page");
-
-		Portlet.addPG(portletName = "Test Blob");
 
 		AssertVisible(locator1 = "TestBlob#TEST_PORTLET_BODY_PASSED");
 

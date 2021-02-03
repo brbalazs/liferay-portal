@@ -11,16 +11,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "IFrame Page");
 
-		SitePages.addPublicPage(pageName = "IFrame Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "IFrame Page",
+			widgetName = "IFrame");
 
 		Navigator.gotoPage(pageName = "IFrame Page");
-
-		Portlet.addPG(portletName = "IFrame");
 	}
 
 	tearDown {
@@ -33,8 +34,6 @@ definition {
 
 	@priority = "3"
 	test ViewIFramePortlet {
-		Navigator.gotoPage(pageName = "IFrame Page");
-
 		Portlet.viewPG(
 			portletBody = "Please configure this portlet to make it visible to all users.",
 			portletName = "IFrame");

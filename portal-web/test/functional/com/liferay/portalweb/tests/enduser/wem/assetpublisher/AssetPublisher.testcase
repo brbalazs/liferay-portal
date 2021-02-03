@@ -10,16 +10,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Asset Publisher Page");
 
-		SitePages.addPublicPage(pageName = "Asset Publisher Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Asset Publisher Page",
+			widgetName = "Asset Publisher");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
-
-		Portlet.addPG(portletName = "Asset Publisher");
 	}
 
 	tearDown {
@@ -232,16 +233,15 @@ definition {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Bookmarks Page");
 
-		SitePages.addPublicPage(pageName = "Bookmarks Page");
-
-		Navigator.gotoPage(pageName = "Bookmarks Page");
-
-		Portlet.addPG(portletName = "Bookmarks");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Bookmarks Page",
+			widgetName = "Bookmarks");
 
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
@@ -288,16 +288,15 @@ definition {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks,Content and Display Templates,Training";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Bookmarks Page");
 
-		SitePages.addPublicPage(pageName = "Bookmarks Page");
-
-		Navigator.gotoPage(pageName = "Bookmarks Page");
-
-		Portlet.addPG(portletName = "Bookmarks");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Bookmarks Page",
+			widgetName = "Bookmarks");
 
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
@@ -498,16 +497,15 @@ definition {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Bookmarks Page");
 
-		SitePages.addPublicPage(pageName = "Bookmarks Page");
-
-		Navigator.gotoPage(pageName = "Bookmarks Page");
-
-		Portlet.addPG(portletName = "Bookmarks");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Bookmarks Page",
+			widgetName = "Bookmarks");
 
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
@@ -545,16 +543,17 @@ definition {
 	test FilterTagsByNameAP {
 		property testray.component.names = "Asset Publisher,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Tags Navigation Page");
 
-		SitePages.addPublicPage(pageName = "Tags Navigation Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Tags Navigation Page",
+			widgetName = "Tags Navigation");
 
 		Navigator.gotoPage(pageName = "Tags Navigation Page");
-
-		Portlet.addPG(portletName = "Tags Navigation");
 
 		TagsNavigationPortlet.configureDisplayStylePG(displayTemplate = "Number");
 
@@ -562,9 +561,11 @@ definition {
 
 		TagsNavigationPortlet.configureFlaggableSettingsPG(showAssetCount = "true");
 
-		Navigator.gotoPage(pageName = "Tags Navigation Page");
-
-		Portlet.addPG(portletName = "Asset Publisher");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Tags Navigation Page",
+			widgetName = "Asset Publisher");
 
 		for (var tagName : list "first tag,second tag,third tag") {
 			Navigator.openURL();

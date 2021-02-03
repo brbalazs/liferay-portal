@@ -18,14 +18,6 @@ definition {
 		JSONLayout.addPublicLayout(
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page");
-
-		Navigator.openSiteURL(siteName = "Test Site Name");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "ADT Test Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
 	}
 
 	tearDown {
@@ -48,11 +40,15 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Content and Application Templates,RSS";
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "RSS Publisher");
+
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "RSS Publisher");
 
 		Portlet.gotoPortletOptions(
 			portletName = "RSS Publisher",
@@ -97,11 +93,15 @@ definition {
 	test AddRSSADTWithCorruptScript {
 		property testray.component.names = "Content and Application Templates,RSS";
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "RSS Publisher");
+
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "RSS Publisher");
 
 		Portlet.gotoPortletOptions(
 			portletName = "RSS Publisher",
@@ -141,11 +141,15 @@ definition {
 	test AddRSSADTWithScript {
 		property testray.component.names = "Content and Application Templates,RSS";
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "RSS Publisher");
+
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "RSS Publisher");
 
 		Portlet.gotoPortletOptions(
 			portletName = "RSS Publisher",
@@ -187,13 +191,11 @@ definition {
 	test ADTAssetPublisher {
 		property testray.component.names = "Asset Publisher,Content and Application Templates";
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Asset Publisher");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Asset Publisher");
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
@@ -242,11 +244,15 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Breadcrumb,Content and Application Templates";
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Breadcrumb");
+
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Breadcrumb");
 
 		Breadcrumb.viewADTApplied(breadcrumbADTType = "horizontal");
 
@@ -289,13 +295,11 @@ definition {
 			categoryName = "Category Name 2",
 			vocabularyName = "Vocabulary Name 2");
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Categories Navigation");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Categories Navigation");
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
@@ -382,13 +386,17 @@ definition {
 	test ADTDMMediaGallery {
 		property testray.component.names = "Content and Application Templates,Documents Management";
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "RSS Publisher");
 
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Media Gallery");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Media Gallery");
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
@@ -456,13 +464,15 @@ definition {
 	test ADTSiteMap {
 		property testray.component.names = "Content and Application Templates,Sitemap";
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Site Map");
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Site Map");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -618,34 +628,21 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Content and Application Templates,Tags";
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Tags Navigation");
 
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Blogs Test Page");
 
-		Portlet.addPG(portletName = "Tags Navigation");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(
-			pageName = "Blogs Test Page",
-			sitePageType = "Widget Page");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Blogs Test Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
-
-		Navigator.gotoSitePage(
-			pageName = "Blogs Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Blogs");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "Blogs Test Page",
+			widgetName = "Blogs");
 
 		Navigator.gotoSitePage(
 			pageName = "Blogs Test Page",
@@ -724,13 +721,11 @@ definition {
 	test ADTWiki {
 		property testray.component.names = "Content and Application Templates,Wiki";
 
-		Navigator.openSiteURL(siteName = "Test Site Name");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Wiki");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Wiki");
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",

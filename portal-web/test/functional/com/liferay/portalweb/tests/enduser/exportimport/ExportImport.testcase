@@ -722,11 +722,11 @@ definition {
 
 		PortletEntry.publish();
 
-		Navigator.gotoSitePage(
-			pageName = "Site Page",
-			siteName = "Site Name");
-
-		Portlet.addPG(portletName = "Web Content Display");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Site Name",
+			layoutName = "Site Page",
+			widgetName = "Web Content Display");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Page",
@@ -776,16 +776,17 @@ definition {
 			adtFile = "adt_blogs_basic.ftl",
 			adtType = "Blogs");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page Name");
 
-		SitePages.addPublicPage(pageName = "Test Page Name");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Test Page Name",
+			widgetName = "Blogs");
 
 		Navigator.gotoPage(pageName = "Test Page Name");
-
-		Portlet.addPG(portletName = "Blogs");
 
 		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -892,16 +893,17 @@ definition {
 		property portlet.plugins.includes = "sample-lar-portlet";
 		property test.name.skip.portal.instance = "ExportImport#ExportImportSampleLARPortlet";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page Name");
 
-		SitePages.addPublicPage(pageName = "Test Page Name");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Test Page Name",
+			widgetName = "Sample LAR");
 
 		Navigator.gotoPage(pageName = "Test Page Name");
-
-		Portlet.addPG(portletName = "Sample LAR");
 
 		SampleLARPortlet.addSampleBooking();
 
@@ -919,11 +921,15 @@ definition {
 			groupName = "Test Site Name",
 			layoutName = "Test Site Page");
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "Test Page Name",
+			widgetName = "Sample LAR");
+
 		Navigator.gotoSitePage(
 			pageName = "Test Site Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Sample LAR");
 
 		LAR.importPortlet(larFileName = "SampleLARPortlet.lar");
 
@@ -945,11 +951,15 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name B");
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Site Name A",
+			layoutName = "Asset Publisher Page",
+			widgetName = "Asset Publisher");
+
 		Navigator.gotoSitePage(
 			pageName = "Asset Publisher Page",
 			siteName = "Site Name A");
-
-		Portlet.addPG(portletName = "Asset Publisher");
 
 		AssetPublisherPortlet.configureAddSiteScopes(otherSite = "Site Name B");
 
@@ -1007,15 +1017,11 @@ definition {
 			groupName = "Guest",
 			layoutName = "Blogs Page");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Portlet.addPG(portletName = "Blogs");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Blogs Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Blogs Page",
+			widgetName = "Blogs");
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -1240,20 +1246,19 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name B");
 
-		SitePages.openPagesAdmin(siteURLKey = "Site Name B");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name B",
+			layoutName = "Test Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Test Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Test Page",
+			widgetName = "Web Content Display");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Page",
 			siteName = "Site Name B");
-
-		Portlet.addPG(portletName = "Web Content Display");
 
 		WebContentDisplayPortlet.selectOtherSiteWebContent(
 			otherSiteName = "Site Name A",
@@ -1496,11 +1501,15 @@ definition {
 			groupName = "Site Name B",
 			layoutName = "Test Page");
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Site Name B",
+			layoutName = "Test Page",
+			widgetName = "Web Content Display");
+
 		Navigator.gotoSitePage(
 			pageName = "Test Page",
 			siteName = "Site Name B");
-
-		Portlet.addPG(portletName = "Web Content Display");
 
 		WebContentDisplayPortlet.selectOtherSiteWebContent(
 			otherSiteName = "Site Name A",

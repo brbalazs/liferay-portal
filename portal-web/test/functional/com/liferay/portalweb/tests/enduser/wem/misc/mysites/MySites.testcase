@@ -474,7 +474,7 @@ definition {
 
 		Portlet.addPG(portletName = "My Sites");
 
-		// Assert user cannot join a site with disabled membership maanagement
+		// Assert user cannot join a site with disabled membership management
 
 		User.firstLoginPG(
 			password = "test",

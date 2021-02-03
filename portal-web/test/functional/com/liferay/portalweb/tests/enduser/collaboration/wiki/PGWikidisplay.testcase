@@ -11,17 +11,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Wiki Display Test Page");
 
-		SitePages.addPublicPage(pageName = "Wiki Display Test Page");
+ 		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Wiki Display Test Page",
+			widgetName = "Wiki Display");
 
 		Navigator.gotoPage(pageName = "Wiki Display Test Page");
-
-		Portlet.addPG(portletName = "Wiki Display");
 	}
 
 	tearDown {

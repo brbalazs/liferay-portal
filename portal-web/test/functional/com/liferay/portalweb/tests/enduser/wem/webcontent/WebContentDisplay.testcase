@@ -19,11 +19,15 @@ definition {
 			groupName = "Test Site Name",
 			layoutName = "Web Content Display Page");
 
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page",
+			widgetName = "Web Content Display");
+
 		Navigator.gotoSitePage(
 			pageName = "Web Content Display Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Web Content Display");
 	}
 
 	tearDown {
@@ -106,20 +110,23 @@ definition {
 	test AddWebContentPortalScopeCurrentPage {
 		property testray.component.names = "Web Content Display";
 
-		for (var i : list "1,2") {
-			ProductMenu.gotoPortlet(
-				category = "Build",
-				panel = "Site Administration",
-				portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page1");
 
-			SitePages.addPublicPage(pageName = "Web Content Display Page${i}");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page2");
 
-			Navigator.gotoSitePage(
-				pageName = "Web Content Display Page${i}",
-				siteName = "Test Site Name");
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page1",
+			widgetName = "Web Content Display");
 
-			Portlet.addPG(portletName = "Web Content Display");
-		}
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page2",
+			widgetName = "Web Content Display");
 
 		Navigator.gotoSitePage(
 			pageName = "Web Content Display Page1",
@@ -376,11 +383,14 @@ definition {
 		property test.name.skip.portal.instance = "WebContentDisplay#LocalizeWebContent";
 		property testray.component.names = "Localization,Web Content Display";
 
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page",
+			widgetName = "Language Selector");
+
 		Navigator.gotoSitePage(
 			pageName = "Web Content Display Page",
 			siteName = "Test Site Name");
-
-		Portlet.addPG(portletName = "Language Selector");
 
 		WebContent.addPGViaWCD(
 			webContentContent = "WC WebContent Content",

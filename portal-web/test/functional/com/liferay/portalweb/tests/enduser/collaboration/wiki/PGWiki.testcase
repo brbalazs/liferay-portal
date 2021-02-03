@@ -11,24 +11,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Wiki Test Page");
 
-		SitePages.addPublicPage(pageName = "Wiki Test Page");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Wiki Test Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page"
-		);
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Wiki Test Page",
+			widgetName = "Wiki");
 
 		Navigator.gotoPage(pageName = "Wiki Test Page");
-
-		Portlet.addPG(portletName = "Wiki");
 	}
 
 	tearDown {
@@ -1158,17 +1151,15 @@ definition {
 	@description = "This is a use case for LPS-50602"
 	@priority = "5"
 	test ViewDraftWikiPageViaActivities {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Activities Test Page");
 
-		SitePages.addPublicPage(pageName = "Activities Test Page");
-
-		Navigator.gotoPage(pageName = "Activities Test Page");
-
-		Portlet.addPG(portletName = "Activities");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Activities Test Page",
+			widgetName = "Activities");
 
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 

@@ -316,9 +316,13 @@ definition {
 
 		AssertConsoleTextPresent(value1 = "Finished indexing dictionary for spellchecker/dictionary_de_DE.txt");
 
-		Navigator.openURL();
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Home",
+			widgetName = "Language Selector");
 
-		Portlet.addPG(portletName = "Language Selector");
+		Navigator.openURL();
 
 		LanguagePortlet.selectLanguagePG(
 			locale = "de-DE",
@@ -961,15 +965,13 @@ definition {
 	test SearchBlogsScopedToPage {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
-			layoutName = "Blogs Page"
-		);
+			layoutName = "Blogs Page");
 
  		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Guest",
 			layoutName = "Blogs Page",
-			widgetName = "Blogs"
-		);
+			widgetName = "Blogs");
 
  		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -1403,17 +1405,15 @@ definition {
 
 	@priority = "4"
 	test SearchMessageBoardsThread {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Message Boards Page");
 
-		SitePages.addPublicPage(pageName = "Message Boards Page");
-
-		Navigator.gotoPage(pageName = "Message Boards Page");
-
-		Portlet.addPG(portletName = "Message Boards");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Message Boards Page",
+			widgetName = "Message Boards");
 
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
@@ -1878,17 +1878,15 @@ definition {
 
 	@priority = "4"
 	test SearchWikiPage {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Wiki Test Page");
 
-		SitePages.addPublicPage(pageName = "Wiki Test Page");
-
-		Navigator.gotoPage(pageName = "Wiki Test Page");
-
-		Portlet.addPG(portletName = "Wiki");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Wiki Test Page",
+			widgetName = "Wiki");
 
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 
@@ -2186,17 +2184,15 @@ definition {
 
 	@priority = "4"
 	test SearchXSSAsset {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Message Boards Page");
 
-		SitePages.addPublicPage(pageName = "Message Boards Page");
-
-		Navigator.gotoPage(pageName = "Message Boards Page");
-
-		Portlet.addPG(portletName = "Message Boards");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Message Boards Page",
+			widgetName = "Message Boards");
 
 		Navigator.gotoPage(pageName = "Message Boards Page");
 

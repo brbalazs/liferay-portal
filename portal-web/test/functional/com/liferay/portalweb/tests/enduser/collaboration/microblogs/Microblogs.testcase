@@ -11,24 +11,15 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Microblogs Page");
 
-		SitePages.addPublicPage(
-			pageName = "Microblogs Page",
-			sitePageType = "Widget Page");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Microblogs Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
-
-		Navigator.gotoPage(pageName = "Microblogs Page");
-
-		Portlet.addPG(portletName = "Microblogs");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Microblogs Page",
+			widgetName = "Microblogs");
 
 		Navigator.gotoPage(pageName = "Microblogs Page");
 

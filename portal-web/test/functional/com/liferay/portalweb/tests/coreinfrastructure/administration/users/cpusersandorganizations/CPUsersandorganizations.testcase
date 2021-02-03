@@ -561,11 +561,11 @@ definition {
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
-		Navigator.gotoPage(pageName = "Message Boards Page");
-
-		Portlet.addPG(portletName = "Message Boards");
-
-		Navigator.gotoPage(pageName = "Message Boards Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Message Boards Page",
+			widgetName = "Message Boards");
 
 		PermissionsInline.gotoMessageBoardsPG(pageName = "Message Boards Page");
 
@@ -1884,16 +1884,17 @@ definition {
 
 	@priority = "4"
 	test ViewOrganizationSiteViaSitesDirectory {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Sites Directory Page");
 
-		SitePages.addPublicPage(pageName = "Sites Directory Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Sites Directory Page",
+			widgetName = "Sites Directory");
 
 		Navigator.gotoPage(pageName = "Sites Directory Page");
-
-		Portlet.addPG(portletName = "Sites Directory");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",

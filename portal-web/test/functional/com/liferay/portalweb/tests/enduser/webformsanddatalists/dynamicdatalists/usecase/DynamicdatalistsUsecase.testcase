@@ -173,16 +173,15 @@ definition {
 
 		PortletEntry.publish();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
-
-		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
 
@@ -325,18 +324,17 @@ definition {
 	test AddRecordWithBlankDocumentsAndMediaField {
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "DDL Page");
 
-		SitePages.addPublicPage(pageName = "DDL Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "DDL Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "DDL Page");
-
-		Portlet.addPG(
-			pageName = "DDL Page",
-			portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG();
 
@@ -371,18 +369,17 @@ definition {
 	test AddRecordWithBlankLinkToPageField {
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "DDL Page");
 
-		SitePages.addPublicPage(pageName = "DDL Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "DDL Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "DDL Page");
-
-		Portlet.addPG(
-			pageName = "DDL Page",
-			portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG();
 
@@ -417,18 +414,17 @@ definition {
 	test AddRecordWithBlankWebContentField {
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "DDL Page");
 
-		SitePages.addPublicPage(pageName = "DDL Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "DDL Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "DDL Page");
-
-		Portlet.addPG(
-			pageName = "DDL Page",
-			portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG();
 
@@ -476,18 +472,17 @@ definition {
 
 		PortletEntry.publish();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "DDL Page");
 
-		SitePages.addPublicPage(pageName = "DDL Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "DDL Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "DDL Page");
-
-		Portlet.addPG(
-			pageName = "DDL Page",
-			portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG();
 
@@ -580,18 +575,17 @@ definition {
 
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "DDL Page");
 
-		SitePages.addPublicPage(pageName = "DDL Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "DDL Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "DDL Page");
-
-		Portlet.addPG(
-			pageName = "DDL Page",
-			portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG(ddlListName = "Dynamic Data List 2");
 
@@ -906,16 +900,17 @@ definition {
 
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		DDLList.selectViaDDLDisplayPG(ddlListName = "DDL List");
 
@@ -1066,16 +1061,17 @@ definition {
 
 	@priority = "2"
 	test AssertConfigurationMenulist {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG(ddlListName = "List Name");
 
@@ -1105,16 +1101,17 @@ definition {
 
 	@priority = "3"
 	test AssertDecimalFieldInvalidDataErrorMessage {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		Navigator.openURL();
 
@@ -1247,16 +1244,17 @@ definition {
 
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG(
 			ddlListDescription = "List Description",
@@ -1358,16 +1356,17 @@ definition {
 
 	@priority = "3"
 	test AssertIntegerFieldInvalidDataErrorMessage {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		Navigator.openURL();
 
@@ -1416,16 +1415,17 @@ definition {
 
 	@priority = "4"
 	test AssertNumberFieldInvalidDataErrorMessage {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		Navigator.openURL();
 
@@ -1604,16 +1604,17 @@ definition {
 	test AssertUserUpdateRejectedRecord {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG(
 			ddlListName = "DDL List",
@@ -1960,16 +1961,17 @@ definition {
 
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page");
 
-		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Dynamic Data Lists Display Page",
+			widgetName = "Dynamic Data Lists Display");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
-
-		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 
 		DDLList.addViaDDLDisplayPG(ddlListName = "List Name Display");
 
@@ -2785,16 +2787,17 @@ definition {
 	@description = "This is a use case for LPS-57993"
 	@priority = "3"
 	test ViewMultipleDDLRecordsInAssetPublisherAndSortByModifiedDate {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Asset Publisher Page");
 
-		SitePages.addPublicPage(pageName = "Asset Publisher Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Asset Publisher Page",
+			widgetName = "Asset Publisher");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
-
-		Portlet.addPG(portletName = "Asset Publisher");
 
 		Navigator.openURL();
 

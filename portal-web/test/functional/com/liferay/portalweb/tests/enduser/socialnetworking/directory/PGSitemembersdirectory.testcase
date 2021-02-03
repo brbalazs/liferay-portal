@@ -13,24 +13,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Site Members Directory Page");
 
-		SitePages.addPublicPage(
-			pageName = "Site Members Directory Page",
-			sitePageType = "Widget Page");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Site Members Directory Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Site Members Directory Page",
+			widgetName = "Site Members Directory");
 
 		Navigator.gotoPage(pageName = "Site Members Directory Page");
-
-		Portlet.addPG(portletName = "Site Members Directory");
 	}
 
 	tearDown {

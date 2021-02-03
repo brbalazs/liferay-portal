@@ -140,11 +140,12 @@ definition {
 			teamDescription = "Site Team Description",
 			teamName = "Site Team Name");
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name",
+			widgetName = "Web Content Display");
 
-		Portlet.addPG(
-			pageName = "Site Page Name",
-			portletName = "Web Content Display");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		PermissionsInline.gotoConfigurationPG(portletName = "Web Content Display");
 

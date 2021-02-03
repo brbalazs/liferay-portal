@@ -20,21 +20,19 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Staging Test Page");
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
 
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Staging Test Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Site Name",
+			layoutName = "Staging Test Page",
+			widgetName = "Calendar");
 
 		Navigator.gotoSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
-
-		Portlet.addPG(
-			pageName = "Staging Test Page",
-			portletName = "Calendar");
 	}
 
 	tearDown {

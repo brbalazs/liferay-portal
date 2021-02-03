@@ -640,18 +640,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -1175,18 +1174,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -2345,18 +2343,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -2568,18 +2565,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -2882,18 +2878,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -2973,18 +2968,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3163,18 +3157,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3336,18 +3329,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3453,18 +3445,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3588,18 +3579,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3665,18 +3655,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3750,18 +3739,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3829,18 +3817,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3904,18 +3891,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -3989,18 +3975,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -4388,18 +4373,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -4540,18 +4524,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -4597,18 +4580,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 
@@ -4736,18 +4718,17 @@ definition {
 
 		Form.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Form Page");
 
-		SitePages.addPublicPage(pageName = "Form Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Form Page",
+			widgetName = "Form");
 
 		Navigator.gotoPage(pageName = "Form Page");
-
-		Portlet.addPG(
-			pageName = "Form Page",
-			portletName = "Form");
 
 		FormPortletNavigator.gotoSelectForm();
 

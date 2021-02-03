@@ -11,16 +11,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Network Utilities Page");
 
-		SitePages.addPublicPage(pageName = "Network Utilities Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Network Utilities Page",
+			widgetName = "Network Utilities");
 
 		Navigator.gotoPage(pageName = "Network Utilities Page");
-
-		Portlet.addPG(portletName = "Network Utilities");
 	}
 
 	tearDown {

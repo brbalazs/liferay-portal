@@ -104,18 +104,17 @@ definition {
 			locator1 = "Polls#POLLS_TABLE_TITLE",
 			value1 = "${pollsQuestionTitle}");
 
-		Navigator.openURL();
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Polls Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Polls Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Polls Page",
+			widgetName = "Polls Display");
 
 		Navigator.gotoPage(pageName = "Polls Page");
-
-		Portlet.addPG(portletName = "Polls Display");
 
 		Polls.selectPollPG(pollsQuestionTitle = '''"Hair Color"''');
 

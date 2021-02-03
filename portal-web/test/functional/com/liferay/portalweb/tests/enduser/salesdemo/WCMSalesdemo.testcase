@@ -30,22 +30,17 @@ definition {
 	test IFrameDemo {
 		property testray.component.names = "IFrame Portlet";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "IFrame Page");
 
-		SitePages.addPublicPage(pageName = "IFrame Page");
-
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "IFrame Page",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "IFrame Page",
+			widgetName = "IFrame");
 
 		Navigator.gotoPage(pageName = "IFrame Page");
-
-		Portlet.addPG(portletName = "IFrame");
 
 		Portlet.gotoPortletOptions(portletOption = "Configuration");
 

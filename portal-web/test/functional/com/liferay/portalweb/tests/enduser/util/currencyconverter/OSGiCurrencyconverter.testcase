@@ -11,16 +11,17 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Currency Converter Page");
 
-		SitePages.addPublicPage(pageName = "Currency Converter Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Currency Converter Page",
+			widgetName = "Currency Converter");
 
 		Navigator.gotoPage(pageName = "Currency Converter Page");
-
-		Portlet.addPG(portletName = "Currency Converter");
 	}
 
 	tearDown {

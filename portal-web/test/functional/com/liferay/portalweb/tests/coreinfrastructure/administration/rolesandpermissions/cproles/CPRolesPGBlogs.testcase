@@ -39,18 +39,15 @@ definition {
 	test AddBlogsEntryNoGuestRole {
 		property portal.acceptance = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Blogs Page");
 
-		SitePages.addPublicPage(pageName = "Blogs Page");
-
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Portlet.addPG(
-			pageName = "Blogs Page",
-			portletName = "Blogs");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Blogs Page",
+			widgetName = "Blogs");
 
 		User.logoutPG();
 
@@ -558,18 +555,17 @@ definition {
 
 	@priority = "4"
 	test DeleteBlogsEntryNoGuestRole {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Blogs Page");
 
-		SitePages.addPublicPage(pageName = "Blogs Page");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Blogs Page",
+			widgetName = "Blogs");
 
 		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Portlet.addPG(
-			pageName = "Blogs Page",
-			portletName = "Blogs");
 
 		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -1950,18 +1946,15 @@ definition {
 
 	@priority = "4"
 	test ViewBlogsPortletNoGuestRole {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Blogs Page");
 
-		SitePages.addPublicPage(pageName = "Blogs Page");
-
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Portlet.addPG(
-			pageName = "Blogs Page",
-			portletName = "Blogs");
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Blogs Page",
+			widgetName = "Blogs");
 
 		User.logoutPG();
 
