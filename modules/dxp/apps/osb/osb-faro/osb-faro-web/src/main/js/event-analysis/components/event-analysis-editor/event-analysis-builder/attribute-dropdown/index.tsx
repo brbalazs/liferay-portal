@@ -94,6 +94,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 								title={Liferay.Language.get('attributes')}
 							/>
 							<BaseDropdown.SearchableList
+								disabledIds={attributes.map(({id}) => id)}
 								items={attributesList}
 								onItemClick={() => {
 									setActive(false);

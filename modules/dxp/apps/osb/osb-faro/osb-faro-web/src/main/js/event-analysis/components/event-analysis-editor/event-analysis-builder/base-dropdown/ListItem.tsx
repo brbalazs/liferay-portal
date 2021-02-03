@@ -3,7 +3,7 @@ import ClayDropdown from '@clayui/drop-down';
 import getCN from 'classnames';
 import InfoCardPopover from '../InfoCardPopover';
 import Overlay from 'shared/components/Overlay';
-import React from 'react';
+import React, {useRef} from 'react';
 import {Attribute, Event} from '../../types';
 import {isAttribute} from '../../utils';
 
@@ -22,10 +22,12 @@ const ListItem: React.FC<IListItemProps> = ({
 	onClick,
 	onFilterClick
 }) => {
+	const _overlayRef = useRef<any>();
+
 	const {description, displayName, id, name} = item;
 
 	return (
-		<Overlay alignment='rightCenter'>
+		<Overlay alignment='rightCenter' ref={_overlayRef}>
 			<ClayDropdown.Item
 				className={getCN('d-flex justify-content-between', {
 					active,
@@ -37,7 +39,13 @@ const ListItem: React.FC<IListItemProps> = ({
 					className='dropdown-item-primary-button'
 					disabled={disabled}
 					display='unstyled'
-					onClick={onClick}
+					onClick={() => {
+						if (_overlayRef && _overlayRef.current) {
+							_overlayRef.current.hideOverlay();
+						}
+
+						onClick();
+					}}
 				>
 					{displayName || name}
 				</Button>
@@ -48,7 +56,13 @@ const ListItem: React.FC<IListItemProps> = ({
 						className='filter-button'
 						icon='filter'
 						iconAlignment='left'
-						onClick={() => onFilterClick(item as Attribute)}
+						onClick={() => {
+							if (_overlayRef && _overlayRef.current) {
+								_overlayRef.current.hideOverlay();
+							}
+
+							onFilterClick(item as Attribute);
+						}}
 						size='sm'
 					/>
 				)}
@@ -63,6 +77,10 @@ const ListItem: React.FC<IListItemProps> = ({
 				description={description}
 				name={displayName || name}
 				onEditClick={() => {
+					if (_overlayRef && _overlayRef.current) {
+						_overlayRef.current.hideOverlay();
+					}
+
 					/** TODO: Open modal from settings page and reference the ID **/
 				}}
 			/>
