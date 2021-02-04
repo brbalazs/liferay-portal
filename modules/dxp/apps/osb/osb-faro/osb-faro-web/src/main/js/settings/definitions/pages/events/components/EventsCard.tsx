@@ -10,6 +10,10 @@ const EventList = lazy(() =>
 	import(/* webpackChunkName: "EventList" */ './EventList')
 );
 
+const AttributeList = lazy(() =>
+	import(/* webpackChunkName: "AttributeList" */ './../AttributeList')
+);
+
 const NAV_ITEMS = [
 	{
 		exact: true,
@@ -64,6 +68,12 @@ const EventsCard: React.FC<IEventsCardProps> = ({groupId}) => {
 						data={EventList}
 						exact
 						path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
+					/>
+
+					<BundleRouter
+						data={AttributeList}
+						exact
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES}
 					/>
 				</Switch>
 			</Suspense>
