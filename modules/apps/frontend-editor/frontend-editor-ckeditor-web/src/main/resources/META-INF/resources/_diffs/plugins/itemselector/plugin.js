@@ -171,7 +171,7 @@
 							};
 						}
 						else if (dialogName === 'image2') {
-							instance._bindBrowseButton(event.editor, dialogDefinition, 'info', 'imageselector', 'txtUrl');
+							instance._bindBrowseButton(event.editor, dialogDefinition, 'info', 'imageselector', 'src');
 						}
 						else if (dialogName === 'video') {
 							instance._bindBrowseButton(event.editor, dialogDefinition, 'info', 'videoselector', 'poster');
