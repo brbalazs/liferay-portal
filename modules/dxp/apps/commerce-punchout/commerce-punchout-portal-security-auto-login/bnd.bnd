@@ -3,6 +3,8 @@ Bundle-SymbolicName: com.liferay.commerce.punchout.portal.security.auto.login
 Bundle-Version: 1.0.16
 Import-Package:\
 	com.liferay.asset.kernel.model;version="[1.5.0,3.0.0)",\
+	com.liferay.commerce.model; version="[5.0.0,6.0.0)",\
+	com.liferay.commerce.product.service; version="[10.0.0,11.0.0)",\
 	com.liferay.expando.kernel.model;version="[1.1.0,3.0.0)",\
 	com.liferay.portal.kernel.exception;version="[7.5.0,9.0.0)",\
 	com.liferay.portal.kernel.json;version="[7.7.0,9.0.0)",\
