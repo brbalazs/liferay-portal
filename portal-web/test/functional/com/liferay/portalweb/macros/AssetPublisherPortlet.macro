@@ -1514,7 +1514,7 @@ definition {
 			locator1 = "MenuItem#ANY_MENU_ITEM",
 			value1 = "${selectedAsset}");
 
-		Click(locator1 = "//body");
+		Refresh();
 
 		AssetPublisherPortlet.gotoConfigurationPG();
 
