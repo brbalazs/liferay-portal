@@ -2,14 +2,23 @@ import Button from 'shared/components/Button';
 import EventChip from './EventChip';
 import EventDropdown from './EventDropdown';
 import React from 'react';
+import {
+	DeleteAllAttributes,
+	withAttributesConsumer
+} from '../context/attributes';
 import {Event} from '../types';
 
 interface IEventSectionProps {
+	deleteAllAttributes: DeleteAllAttributes;
 	event: Event;
 	onEventChange: (event: Event) => void;
 }
 
-const EventSection: React.FC<IEventSectionProps> = ({event, onEventChange}) => (
+const EventSection: React.FC<IEventSectionProps> = ({
+	deleteAllAttributes,
+	event,
+	onEventChange
+}) => (
 	<div className='event-section-root'>
 		<div className='section-header'>{Liferay.Language.get('analyze')}</div>
 
@@ -18,7 +27,11 @@ const EventSection: React.FC<IEventSectionProps> = ({event, onEventChange}) => (
 
 			{!event && (
 				<EventDropdown
-					onEventChange={onEventChange}
+					onEventChange={(event: Event) => {
+						onEventChange(event);
+
+						deleteAllAttributes();
+					}}
 					trigger={
 						<Button
 							className='add-event-button'
@@ -34,4 +47,4 @@ const EventSection: React.FC<IEventSectionProps> = ({event, onEventChange}) => (
 	</div>
 );
 
-export default EventSection;
+export default withAttributesConsumer(EventSection);

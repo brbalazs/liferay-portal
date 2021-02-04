@@ -2,6 +2,7 @@ import BaseDropdown from '../base-dropdown';
 import BreakdownFilter from './filter';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
+import {AddAttribute, EditAttribute} from '../../context/attributes';
 import {
 	Attribute,
 	AttributeTypes,
@@ -14,10 +15,24 @@ import {BREAKDOWN_FNS_MAP} from '../../utils';
 // TODO: Replace Mock Data
 const MOCKED_EVENT_ATTRIBUTE_LIST = [
 	{
+		defaultDataType: DataTypes.Duration,
+		displayName: 'Time on Page',
+		id: '1',
+		name: 'timeOnPage',
+		type: AttributeTypes.Event
+	},
+	{
+		defaultDataType: DataTypes.Date,
+		displayName: 'Date Created',
+		id: '2',
+		name: 'dateCreated',
+		type: AttributeTypes.Event
+	},
+	{
 		defaultDataType: DataTypes.Boolean,
-		displayName: 'Form Submit',
+		displayName: 'Answered',
 		id: '3',
-		name: 'formSubmit',
+		name: 'answered',
 		type: AttributeTypes.Event
 	},
 	{
@@ -41,21 +56,13 @@ const MOCKED_MAP = {
 };
 
 interface IAttributeDropdownProps {
-	attributes: Attribute[];
-	breakdowns: Breakdown[];
-	filters: Filter[];
-	onAttributeSelect: (
-		attribute: Attribute,
-		breakdown: Breakdown,
-		filter?: Filter
-	) => void;
+	disabledIds: string[];
+	onAttributeSelect: AddAttribute | EditAttribute;
 	trigger: React.ReactElement;
 }
 
 const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
-	attributes,
-	breakdowns,
-	filters,
+	disabledIds,
 	onAttributeSelect,
 	trigger
 }) => {
@@ -96,7 +103,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 							/>
 
 							<BaseDropdown.SearchableList
-								disabledIds={attributes.map(({id}) => id)}
+								disabledIds={disabledIds}
 								items={attributesList}
 								onItemClick={(attribute: Attribute) => {
 									const {
@@ -107,13 +114,14 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 									const breakdownFn =
 										BREAKDOWN_FNS_MAP[defaultDataType];
 
-									onAttributeSelect(
+									onAttributeSelect({
 										attribute,
-										breakdownFn({
+										attributeId,
+										breakdown: breakdownFn({
 											attributeId,
 											type: attributeType
 										})
-									);
+									});
 
 									setActive(false);
 									/** DO SOMETHING HERE **/

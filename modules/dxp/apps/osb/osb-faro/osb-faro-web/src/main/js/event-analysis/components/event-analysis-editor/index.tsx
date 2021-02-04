@@ -5,49 +5,51 @@ import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
 import React, {useEffect, useState} from 'react';
 import {Attribute, Breakdown, CalculationTypes, Event, Filter} from './types';
+import {compose} from 'redux';
+import {
+	withAttributesConsumer,
+	withAttributesProvider
+} from './context/attributes';
 import {withRangeKey} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
 interface IEventAnalysisEditorProps
 	extends WithRangeKeyProps,
-		React.HTMLAttributes<HTMLElement> {}
+		React.HTMLAttributes<HTMLElement> {
+	attributes: {[key: string]: Attribute};
+	breakdowns: {[key: string]: Breakdown};
+	filters: {[key: string]: Filter};
+	order: string[];
+}
 
 const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
+	attributes,
+	breakdowns,
+	filters,
 	onRangeSelectorsChange,
+	order,
 	rangeSelectors
 }) => {
-	const [attributes, setAttributes] = useState<Attribute[]>([]);
-	const [breakdowns, setBreakdowns] = useState<Breakdown[]>([]);
 	const [compareToPrevious, setCompareToPrevious] = useState(false);
 	const [event, setEvent] = useState<Event>(null);
-	const [filters, setFilters] = useState<Filter[]>([]);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
 	useEffect(() => {
 		// TODO: LRAC-7333 Add request here
-		console.log({attributes, breakdowns, filters});
 	}, [
 		attributes,
 		breakdowns,
 		compareToPrevious,
 		event,
 		filters,
+		order,
 		rangeSelectors,
 		type
 	]);
 
 	return (
 		<Card className='event-analysis-editor-root'>
-			<EventAnalysisBuilder
-				attributes={attributes}
-				breakdowns={breakdowns}
-				event={event}
-				filters={filters}
-				onAttributesChange={setAttributes}
-				onBreakdownsChange={setBreakdowns}
-				onEventChange={setEvent}
-				onFiltersChange={setFilters}
-			/>
+			<EventAnalysisBuilder event={event} onEventChange={setEvent} />
 
 			<div className='options-container d-flex justify-content-between'>
 				<CardTabs
@@ -95,4 +97,8 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 	);
 };
 
-export default withRangeKey(EventAnalysisEditor);
+export default compose<any>(
+	withRangeKey,
+	withAttributesProvider,
+	withAttributesConsumer
+)(EventAnalysisEditor);

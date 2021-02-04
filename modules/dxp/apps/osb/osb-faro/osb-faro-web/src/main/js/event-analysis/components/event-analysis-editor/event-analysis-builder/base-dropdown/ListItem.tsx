@@ -82,7 +82,9 @@ const ListItem: React.FC<IListItemProps> = ({
 						_overlayRef.current.hideOverlay();
 					}
 
-					/** TODO: Open modal from settings page and reference the ID **/
+					/** TODO: LRAC-7407 Open modal from settings page and reference the ID
+					 *  Must check if event or attribute by using isAttribute util
+					 **/
 				}}
 			/>
 		</Overlay>

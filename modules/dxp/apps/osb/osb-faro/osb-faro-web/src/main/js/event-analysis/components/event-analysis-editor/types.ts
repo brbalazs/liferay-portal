@@ -49,6 +49,8 @@ export type Attribute = {
 	sampleValue?: string;
 };
 
+export type Attributes = {[key: string]: Attribute};
+
 export type Breakdown = {
 	attributeId: string;
 	bin?: number;
@@ -56,6 +58,8 @@ export type Breakdown = {
 	dateGrouping?: DateGroupings;
 	type: AttributeTypes;
 };
+
+export type Breakdowns = {[key: string]: Breakdown};
 
 export type Event = {
 	description?: string;
@@ -70,3 +74,5 @@ export type Filter = {
 	operator: Operators;
 	value: (boolean | string | number)[];
 };
+
+export type Filters = {[key: string]: Filter};

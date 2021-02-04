@@ -19,7 +19,7 @@ describe('EventDropdown', () => {
 		expect(container).toMatchSnapshot();
 
 		const dropdownMenu = document.body.getElementsByClassName(
-			'event-analysis-dropdown-menu-root'
+			'base-dropdown-menu-root'
 		)[0];
 
 		expect(dropdownMenu).toMatchSnapshot();
