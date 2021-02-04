@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.faro.internal.upgrade.v11_0_0;
+package com.liferay.osb.faro.internal.upgrade.v12_0_0;
 
 import com.liferay.osb.faro.model.impl.FaroProjectModelImpl;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
