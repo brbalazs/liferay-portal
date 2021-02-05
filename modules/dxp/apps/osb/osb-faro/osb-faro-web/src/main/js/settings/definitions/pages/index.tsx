@@ -34,6 +34,10 @@ const Events = lazy(() =>
 	import(/* webpackChunkName: "DefinitionsEvents" */ './events/Events')
 );
 
+const EventView = lazy(() =>
+	import(/* webpackChunkName: "DefinitionsEventView" */ './events/EventView')
+);
+
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Definitions: React.FC<IDefinitionsProps> = () => (
@@ -67,7 +71,15 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					/>
 					<BundleRouter
 						data={Events}
-						path={Routes.SETTINGS_DEFINITIONS_EVENTS}
+						path={[
+							Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT,
+							Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM
+						]}
+					/>
+					<BundleRouter
+						data={EventView}
+						exact
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW}
 					/>
 				</Switch>
 			)}
