@@ -17,6 +17,7 @@ interface ISettingsBasePageProps {
 	pageActionsDisplayLimit?: number;
 	pageDescription?: React.ReactNode;
 	pageTitle?: React.ReactNode;
+	pageTitleSubtext?: React.ReactNode;
 	passedChildren?: React.ReactNode;
 }
 
@@ -29,47 +30,69 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 	pageActionsDisplayLimit,
 	pageDescription,
 	pageTitle,
+	pageTitleSubtext,
 	passedChildren
-}) => (
-	<div className={getCN('settings-base-page-root', className)}>
-		<DocumentTitle
-			title={`${documentTitle || pageTitle} - ${Liferay.Language.get(
-				'settings'
-			)}`}
-		/>
-
-		<NotificationAlertList groupId={groupId} />
-
-		<MaintenanceAlert />
-
-		{breadcrumbItems && <Breadcrumbs items={breadcrumbItems} />}
-
-		{(!!pageTitle || !!pageDescription || !!pageActions.length) && (
-			<div
-				className={getCN('content-header', {
-					['has-page-actions']: !!pageActions.length
-				})}
-			>
-				<div className='header-text'>
-					{pageTitle && <h3>{<TextTruncate title={pageTitle} />}</h3>}
-
-					{pageDescription && (
-						<div className='description'>{pageDescription}</div>
+}) => {
+	const renderPageTitle = () => (
+		<>
+			{pageTitle && (
+				<>
+					<h3
+						className={getCN({
+							['inline-text']: pageTitleSubtext
+						})}
+					>
+						<TextTruncate title={pageTitle} />
+					</h3>
+					{pageTitleSubtext && (
+						<span className='ml-2'>{pageTitleSubtext}</span>
 					)}
-				</div>
+				</>
+			)}
+		</>
+	);
 
-				<div className='page-actions-container'>
-					<PageActions
-						actions={pageActions}
-						actionsDisplayLimit={pageActionsDisplayLimit}
-					/>
-				</div>
-			</div>
-		)}
+	return (
+		<div className={getCN('settings-base-page-root', className)}>
+			<DocumentTitle
+				title={`${documentTitle || pageTitle} - ${Liferay.Language.get(
+					'settings'
+				)}`}
+			/>
 
-		<div>{passedChildren}</div>
-	</div>
-);
+			<NotificationAlertList groupId={groupId} />
+
+			<MaintenanceAlert />
+
+			{breadcrumbItems && <Breadcrumbs items={breadcrumbItems} />}
+
+			{(!!pageTitle || !!pageDescription || !!pageActions.length) && (
+				<div
+					className={getCN('content-header', {
+						['has-page-actions']: !!pageActions.length
+					})}
+				>
+					<div className='header-text'>
+						{renderPageTitle()}
+
+						{pageDescription && (
+							<div className='description'>{pageDescription}</div>
+						)}
+					</div>
+
+					<div className='page-actions-container'>
+						<PageActions
+							actions={pageActions}
+							actionsDisplayLimit={pageActionsDisplayLimit}
+						/>
+					</div>
+				</div>
+			)}
+
+			<div>{passedChildren}</div>
+		</div>
+	);
+};
 
 export default connect((store, ownProps) => ({
 	passedChildren: ownProps.children

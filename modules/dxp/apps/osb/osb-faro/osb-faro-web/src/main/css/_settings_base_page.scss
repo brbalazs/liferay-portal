@@ -1,0 +1,12 @@
+.header-text {
+    h3 {
+        &.inline-text {
+            display: inline;
+
+            > * {
+                display: inline;
+            }
+        }
+        
+    }
+}
