@@ -91,7 +91,7 @@ Object {
       "name": "Helen Lamb",
     },
     Object {
-      "color": "#FFB46E",
+      "color": "#4B9BFF",
       "data": Array [
         Object {
           "key": "2018-05-17T00:00",
@@ -112,7 +112,7 @@ Object {
       "name": "Alma Hale",
     },
     Object {
-      "color": "#FF5F5F",
+      "color": "#FFB46E",
       "data": Array [
         Object {
           "key": "2018-05-17T00:00",
@@ -133,7 +133,7 @@ Object {
       "name": "Beatrice Bowman",
     },
     Object {
-      "color": "#50D2A0",
+      "color": "#FF5F5F",
       "data": Array [
         Object {
           "key": "2018-05-17T00:00",
