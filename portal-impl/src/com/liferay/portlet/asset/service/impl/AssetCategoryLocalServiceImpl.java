@@ -846,30 +846,34 @@ public class AssetCategoryLocalServiceImpl
 
 		projectionList.add(ProjectionFactoryUtil.count("categoryId"));
 
-		projectionList.add(
-			ProjectionFactoryUtil.countDistinct("leftCategoryId"));
+		projectionList.add(ProjectionFactoryUtil.sum("leftCategoryId"));
 
-		projectionList.add(
-			ProjectionFactoryUtil.countDistinct("rightCategoryId"));
+		projectionList.add(ProjectionFactoryUtil.sum("rightCategoryId"));
 
 		dynamicQuery.setProjection(projectionList);
 
 		List<Object> results = assetCategoryLocalService.dynamicQuery(
 			dynamicQuery);
 
-		Object[] counts = (Object[])results.get(0);
+		Object[] values = (Object[])results.get(0);
 
-		long categoryIdsCount = (Long)counts[0];
-		long uniqueLeftCategoryIdsCount = (Long)counts[1];
-		long uniqueRightCategoryIdsCount = (Long)counts[2];
+		long categoryIdsCount = (Long)values[0];
 
-		if ((uniqueLeftCategoryIdsCount != categoryIdsCount) ||
-			(uniqueRightCategoryIdsCount != categoryIdsCount)) {
-
-			return true;
+		if (categoryIdsCount == 0) {
+			return false;
 		}
 
-		return false;
+		long leftCategoryIdsSum = (Long)values[1];
+		long rightCategoryIdsSum = (Long)values[2];
+
+		long n = categoryIdsCount * 2;
+		long sum = leftCategoryIdsSum + rightCategoryIdsSum;
+
+		if (sum == (n * (n + 1) / 2)) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private synchronized void _rebuildTree(long groupId) {
