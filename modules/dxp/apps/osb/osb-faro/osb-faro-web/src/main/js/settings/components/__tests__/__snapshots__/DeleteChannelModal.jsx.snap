@@ -45,7 +45,7 @@ exports[`DeleteChannelModal renders without data source alert message 1`] = `
                 </strong>
               </p>
               <p>
-                This will result in the complete removal of this property and it's historical events. You will not be able to undo this operation.
+                This will result in the complete removal of this property's historical events. You will not be able to undo this operation.
               </p>
             </div>
           </div>
