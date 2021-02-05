@@ -33,7 +33,7 @@ export default metricUnit => ({experiment}) => {
 			const data = getFormattedDataHistogram(variantsHistogram, index);
 
 			return {
-				color: control ? CONTROL_COLOR : CHART_COLORS[index],
+				color: control ? CONTROL_COLOR : CHART_COLORS[index - 1],
 				data,
 				name: dxpVariantName
 			};

@@ -15,7 +15,7 @@ export default ({experiment}) => {
 
 	const data = experiment.dxpVariants.map(
 		({control, dxpVariantName, sessionsHistogram}, index) => ({
-			color: control ? CONTROL_COLOR : CHART_COLORS[index],
+			color: control ? CONTROL_COLOR : CHART_COLORS[index - 1],
 			data: sessionsHistogram,
 			name: dxpVariantName
 		})
