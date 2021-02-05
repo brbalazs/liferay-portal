@@ -153,17 +153,24 @@ public class AnalyticEventsDataCreator extends DataCreator {
 							put("title", company.bs());
 						}
 					}));
+
+			Map<String, Object> documentAssetEvent =
+				new HashMap<String, Object>() {
+					{
+						put("fileEntryId", number.randomNumber(8, false));
+						put("fileEntryUUID", internet.uuid());
+						put("title", company.bs());
+						put("version", "1.0");
+					}
+				};
+
 			_assetEvents.add(
 				_createEvent(
-					"Document", "documentPreviewed",
-					new HashMap<String, Object>() {
-						{
-							put("fileEntryId", number.randomNumber(8, false));
-							put("fileEntryUUID", internet.uuid());
-							put("title", company.bs());
-							put("version", "1.0");
-						}
-					}));
+					"Document", "documentDownloaded", documentAssetEvent));
+			_assetEvents.add(
+				_createEvent(
+					"Document", "documentPreviewed", documentAssetEvent));
+
 			_assetEvents.add(
 				_createEvent(
 					"Form", "formSubmitted",
