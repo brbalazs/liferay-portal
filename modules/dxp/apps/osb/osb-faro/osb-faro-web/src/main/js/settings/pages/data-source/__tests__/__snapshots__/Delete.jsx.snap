@@ -47,7 +47,9 @@ exports[`DataSourceDelete should render 1`] = `
       <div
         class="header-text"
       >
-        <h3>
+        <h3
+          class=""
+        >
           <span
             class="text-truncate"
             data-tooltip="false"

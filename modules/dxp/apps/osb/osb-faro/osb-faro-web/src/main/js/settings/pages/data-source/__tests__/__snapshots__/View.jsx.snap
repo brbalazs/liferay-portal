@@ -254,7 +254,9 @@ exports[`View should render a Liferay data-source old page 1`] = `
       <div
         class="header-text"
       >
-        <h3>
+        <h3
+          class=""
+        >
           <span
             class="text-truncate"
             data-tooltip="false"
@@ -641,7 +643,9 @@ exports[`View should render a Liferay data-source page 1`] = `
       <div
         class="header-text"
       >
-        <h3>
+        <h3
+          class=""
+        >
           <span
             class="text-truncate"
             data-tooltip="false"
@@ -942,7 +946,9 @@ exports[`View should render a Salesforce data-source page 1`] = `
       <div
         class="header-text"
       >
-        <h3>
+        <h3
+          class=""
+        >
           <span
             class="text-truncate"
             data-tooltip="false"
