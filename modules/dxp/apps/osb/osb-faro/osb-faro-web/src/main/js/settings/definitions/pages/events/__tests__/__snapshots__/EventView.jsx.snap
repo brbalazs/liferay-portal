@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventView should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/definitions"
+        >
+          Definitions
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/definitions/events/default"
+        >
+          Events
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          View Article
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header has-page-actions"
+    >
+      <div
+        class="header-text"
+      >
+        <h3
+          class="inline-text"
+        >
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            viewArticle
+          </span>
+        </h3>
+        <span
+          class="ml-2"
+        >
+          View Article
+        </span>
+        <div
+          class="description"
+        >
+          somedescription
+        </div>
+      </div>
+      <div
+        class="page-actions-container"
+      >
+        <a
+          class="button-root btn btn-secondary"
+          href="/workspace/23/settings/definitions/events/12345?edit=true"
+        >
+          Edit
+        </a>
+      </div>
+    </div>
+    <div>
+      <div>
+        CARD GOES HERE 12345
+      </div>
+    </div>
+  </div>
+</div>
+`;
