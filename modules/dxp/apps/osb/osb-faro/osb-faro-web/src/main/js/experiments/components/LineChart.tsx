@@ -13,6 +13,7 @@ import {
 	YAxis
 } from 'recharts';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
+import {Data, DataPoint} from 'experiments/util/types';
 import {getAxisMeasuresFromData} from 'shared/util/charts';
 import {getDate} from 'shared/util/date';
 import {getShortIntervals} from 'experiments/util/experiments';
@@ -23,6 +24,35 @@ const CLASSNAME = 'analytics-experiments-line-chart';
 
 const AREA_TYPE = 'area';
 const LINE_TYPE = 'line';
+
+type ChartData = {
+	data: Array<Data>;
+	name: string;
+	color: string;
+};
+
+type Format = (value: Date) => Function | string;
+
+type GetYTicks = (data: Array<ChartData>, format: Function) => YTick;
+
+type IsEmptyData = (data: Array<number>) => boolean;
+
+type YTick = {
+	format: Format;
+	values?: Array<Date>;
+};
+interface Tooltip extends React.HTMLAttributes<HTMLElement> {
+	dataPoint: Array<DataPoint>;
+}
+
+interface ILineChartProps extends React.HTMLAttributes<HTMLElement> {
+	chartType?: string;
+	data: Array<ChartData>;
+	format: Function;
+	height?: number;
+	intervals: any;
+	Tooltip?: React.FC<Tooltip>;
+}
 
 const getYTicks: GetYTicks = (chartDataList, format) => {
 	let yTick: YTick = {
@@ -51,48 +81,6 @@ const getYTicks: GetYTicks = (chartDataList, format) => {
 
 const isEmptyData: IsEmptyData = data =>
 	!data.filter(value => value > 0).length;
-
-type ChartData = {
-	data: Array<Data>;
-	name: string;
-	color: string;
-};
-
-type Data = {
-	key: string;
-	value: string;
-	id?: string;
-};
-
-type DataPoint = {
-	color: string;
-	dataKey: string;
-	name: string;
-	payload: Data;
-};
-
-type Format = (value: Date) => Function | string;
-
-type GetYTicks = (data: Array<ChartData>, format: Function) => YTick;
-
-type IsEmptyData = (data: Array<number>) => boolean;
-
-type YTick = {
-	format: Format;
-	values?: Array<Date>;
-};
-interface Tooltip extends React.HTMLAttributes<HTMLElement> {
-	dataPoint: Array<DataPoint>;
-}
-
-interface ILineChartProps extends React.HTMLAttributes<HTMLElement> {
-	chartType?: string;
-	data: Array<ChartData>;
-	format: Function;
-	height?: number;
-	intervals: any;
-	Tooltip?: React.FC<Tooltip>;
-}
 
 const LineChart: React.FC<ILineChartProps> = ({
 	chartType = LINE_TYPE,
@@ -134,13 +122,13 @@ const LineChart: React.FC<ILineChartProps> = ({
 					/>
 
 					<XAxis
-						axisLine={{
-							stroke: AXIS.borderStroke
-						}}
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='key'
 						orientation='top'
 						stroke={AXIS.gridStroke}
 						tick={false}
 						tickLine={false}
+						ticks={intervals}
 						xAxisId='top'
 					/>
 
@@ -180,7 +168,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 										: 0.2
 								}
 								key={area.name}
-								legendType='plainline'
+								legendType='circle'
 								name={area.name}
 								stroke={area.color || CHART_BLUE}
 								strokeOpacity={
@@ -201,7 +189,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 								dataKey='value'
 								dot={false}
 								key={line.name}
-								legendType='plainline'
+								legendType='circle'
 								name={line.name}
 								stroke={line.color || CHART_BLUE}
 								strokeOpacity={
