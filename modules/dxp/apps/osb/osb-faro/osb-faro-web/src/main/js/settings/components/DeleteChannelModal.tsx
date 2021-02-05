@@ -85,7 +85,7 @@ const DeleteChannelModal: React.FC<IDeleteChannelModalProps> = ({
 
 							<p>
 								{Liferay.Language.get(
-									'this-will-result-in-the-complete-removal-of-this-property-and-its-historical-events.-you-will-not-be-able-to-undo-this-operation'
+									'this-will-result-in-the-complete-removal-of-this-propertys-historical-events.-you-will-not-be-able-to-undo-this-operation'
 								)}
 							</p>
 
