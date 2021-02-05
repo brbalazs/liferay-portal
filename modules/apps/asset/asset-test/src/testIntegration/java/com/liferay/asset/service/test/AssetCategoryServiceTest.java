@@ -210,6 +210,32 @@ public class AssetCategoryServiceTest {
 				vocabulary.getVocabularyId(), -1, -1, null));
 	}
 
+	@Test
+	public void testUniqueCategoryIdsWhenAddingCategoryToBrokenTreeWithOverlap()
+		throws Exception {
+
+		long groupId = _group.getGroupId();
+
+		AssetVocabulary vocabulary = AssetTestUtil.addVocabulary(groupId);
+
+		AssetTestUtil.addCategory(groupId, vocabulary.getVocabularyId());
+
+		AssetCategory overlappingCategory = AssetTestUtil.addCategory(
+			groupId, vocabulary.getVocabularyId());
+
+		overlappingCategory.setLeftCategoryId(2);
+		overlappingCategory.setRightCategoryId(3);
+
+		AssetCategoryLocalServiceUtil.updateAssetCategory(overlappingCategory);
+
+		AssetTestUtil.addCategory(groupId, vocabulary.getVocabularyId());
+
+		assertUniqueLeftRightCategories(
+			3, 6, Arrays.asList(1L, 2L, 3L, 4L, 5L, 6L),
+			AssetCategoryServiceUtil.getVocabularyCategories(
+				vocabulary.getVocabularyId(), -1, -1, null));
+	}
+
 	protected void assertLeftRightCategory(
 			long expectedLeft, AssetCategory category)
 		throws Exception {
