@@ -361,7 +361,7 @@ public class CompanyIndexFactory
 			(_indicesAdminClient == null)) {
 
 			if (_log.isInfoEnabled()) {
-				_log.info("Skipping processing of IndexSettingsContributor");
+				_log.info("Skipping index settings contributor");
 			}
 
 			return;
