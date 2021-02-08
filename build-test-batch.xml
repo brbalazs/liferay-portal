@@ -4324,6 +4324,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
 	</target>
 
+	<target name="functional-upgrade-wildfly110-mariadb104-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
+	<target name="functional-upgrade-wildfly110-mariadb104-jdk11_open">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
 	<target name="functional-upgrade-wildfly140-mariadb102-jdk8">
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="14.0.0" />
 
