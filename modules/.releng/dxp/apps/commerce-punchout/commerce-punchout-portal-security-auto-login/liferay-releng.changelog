@@ -52,3 +52,8 @@ c6ad25aa3d1b01afec17a66f16ef6e91f24422de^..9ae28ee6bb0c1152603d54bf98ff7df124cf5
 # Bundle Version 1.0.15
 #
 12e9dbce2e05dd87d5831f783c68261e1d512261^..bffb2d0d6e51eb24bf52601934da47fbd4bdc376=ISOPS-151 LPS-77699
+
+#
+# Bundle Version 1.0.16
+#
+bffb2d0d6e51eb24bf52601934da47fbd4bdc376^..54a1cbb36ce34692d556a54a6be307e79a761d7a=COMMERCE-5565
