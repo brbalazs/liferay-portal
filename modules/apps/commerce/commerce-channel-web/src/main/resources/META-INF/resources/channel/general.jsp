@@ -74,7 +74,6 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 					%>
 
 				</aui:select>
-
 			</commerce-ui:panel>
 		</div>
 

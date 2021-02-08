@@ -166,7 +166,6 @@ renderResponse.setTitle(definition.getName(locale));
 
 					</tbody>
 				</table>
-
 			</aui:fieldset>
 		</c:if>
 

@@ -121,7 +121,6 @@ if (PropsValues.PORTAL_JAAS_ENABLE && (jUserName != null)) {
 			<body onLoad="javascript:location.replace('<%= themeDisplay.getPathMain() %>')">
 
 			</body>
-
 		</html>
 	</c:otherwise>
 </c:choose>
