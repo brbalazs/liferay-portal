@@ -108,9 +108,15 @@ export const numberOfBinsMask = createNumberMask({
 });
 
 function formatTickVal(name, percent, showPercentage) {
-	return showPercentage
-		? `${truncate(name, {length: MAX_Y_AXIS_CHAR_COUNT})} - ${percent}%`
-		: `${truncate(name, {length: MAX_Y_AXIS_CHAR_COUNT})}`;
+	let suffix = '';
+
+	if (showPercentage) {
+		suffix = percent < 0.1 ? '- < 0.1%' : `- ${percent.toFixed(1)}%`;
+	}
+
+	return `${truncate(name, {
+		length: MAX_Y_AXIS_CHAR_COUNT
+	})} ${suffix}`;
 }
 
 /**
@@ -762,7 +768,8 @@ export class Distribution extends React.Component {
 																	]
 																),
 																knownIndividualCount,
-																1
+																1,
+																false
 															),
 															!histogram &&
 																selectedContext ===
