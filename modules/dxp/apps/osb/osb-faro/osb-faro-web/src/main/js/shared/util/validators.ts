@@ -1,6 +1,6 @@
 import Promise from 'metal-promise';
 import {formatStringToLowercase} from 'shared/util/util';
-import {isArray, isObject, isString} from 'lodash';
+import {isArray, isNil, isObject, isString} from 'lodash';
 import {sub} from 'shared/util/lang';
 
 /**
@@ -39,7 +39,7 @@ export function validateRequired(value: {value: any} | string | Array<string>) {
 	let error = '';
 
 	if (
-		!value ||
+		isNil(value) ||
 		(isString(value) && !value.trim()) ||
 		(isArray(value) && !value.length) ||
 		(!isArray(value) && isObject(value) && !value.value)
