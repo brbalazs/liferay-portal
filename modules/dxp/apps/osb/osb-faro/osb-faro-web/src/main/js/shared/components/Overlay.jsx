@@ -79,7 +79,8 @@ export default class Overlay extends React.Component {
 		hideDelay: 400,
 		offset: 8,
 		onOutsideClick: noop,
-		showDelay: 400
+		showDelay: 400,
+		usePortal: true
 	};
 
 	static propTypes = {
@@ -90,7 +91,8 @@ export default class Overlay extends React.Component {
 		hideDelay: PropTypes.number,
 		offset: PropTypes.number,
 		onOutsideClick: PropTypes.func,
-		showDelay: PropTypes.number
+		showDelay: PropTypes.number,
+		usePortal: PropTypes.bool
 	};
 
 	state = {
@@ -322,7 +324,7 @@ export default class Overlay extends React.Component {
 	}
 
 	render() {
-		const {children, className, containerClass} = this.props;
+		const {children, className, containerClass, usePortal} = this.props;
 
 		const triggerProps = {
 			'aria-haspopup': true,
@@ -345,7 +347,8 @@ export default class Overlay extends React.Component {
 			<>
 				{trigger}
 
-				{active &&
+				{usePortal &&
+					active &&
 					ReactDOM.createPortal(
 						<OverlayContent
 							className={containerClass}
@@ -360,6 +363,20 @@ export default class Overlay extends React.Component {
 						</OverlayContent>,
 						document.querySelector('body.dxp')
 					)}
+
+				{!usePortal && active && (
+					<OverlayContent
+						className={containerClass}
+						id={this._contentId}
+						onBlur={this.handleMouseLeave}
+						onMouseEnter={this.handleMouseEnter}
+						onMouseLeave={this.handleMouseLeave}
+						ref={this._contentElementRef}
+						role='dialog'
+					>
+						{children[1]}
+					</OverlayContent>
+				)}
 			</>
 		);
 	}
