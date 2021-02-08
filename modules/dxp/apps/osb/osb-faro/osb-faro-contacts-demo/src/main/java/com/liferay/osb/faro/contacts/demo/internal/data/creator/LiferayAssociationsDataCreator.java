@@ -110,7 +110,7 @@ public class LiferayAssociationsDataCreator extends DataCreator {
 	private static final Log _log = LogFactoryUtil.getLog(
 		LiferayAssociationsDataCreator.class);
 
-	private List<DataCreator> _dataCreators = new ArrayList<>();
+	private final List<DataCreator> _dataCreators = new ArrayList<>();
 	private final ObjectMapper _objectMapper = new ObjectMapper();
 
 }

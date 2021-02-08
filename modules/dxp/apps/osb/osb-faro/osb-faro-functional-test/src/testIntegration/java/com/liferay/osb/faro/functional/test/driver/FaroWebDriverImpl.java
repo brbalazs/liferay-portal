@@ -597,9 +597,9 @@ public class FaroWebDriverImpl
 		return text.contains(pattern);
 	}
 
-	private static Pattern _propertyIdPattern = Pattern.compile(
+	private static final Pattern _propertyIdPattern = Pattern.compile(
 		".*workspace/(\\d+)/(\\d+).*");
-	private static Pattern _workspaceIdPattern = Pattern.compile(
+	private static final Pattern _workspaceIdPattern = Pattern.compile(
 		".*workspace/(\\d+).*");
 
 	private String _mainWindowHandle;

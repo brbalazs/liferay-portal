@@ -86,7 +86,7 @@ public class ActivityGroupDisplay {
 		return _activityDisplays;
 	}
 
-	private Map<Integer, Integer> _activitiesCount = new HashMap<>();
+	private final Map<Integer, Integer> _activitiesCount = new HashMap<>();
 
 	@JsonProperty("activities")
 	private List<ActivityDisplay> _activityDisplays;

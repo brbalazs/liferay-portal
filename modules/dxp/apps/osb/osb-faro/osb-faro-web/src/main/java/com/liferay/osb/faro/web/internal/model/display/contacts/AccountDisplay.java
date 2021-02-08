@@ -198,7 +198,8 @@ public class AccountDisplay implements FaroEntityDisplay {
 
 	private static final Log _log = LogFactoryUtil.getLog(AccountDisplay.class);
 
-	private static DecimalFormat _decimalFormat = new DecimalFormat("#,###");
+	private static final DecimalFormat _decimalFormat = new DecimalFormat(
+		"#,###");
 	private static final List<String> _propertyNames = Arrays.asList(
 		"accountType", "annualRevenue", "billingAddress", "description", "fax",
 		"industry", "numberOfEmployees", "ownership", "phone",

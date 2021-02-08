@@ -156,9 +156,9 @@ public class ContactsLayoutTemplateDisplay extends FaroModelDisplay {
 		return fieldMappingNames;
 	}
 
-	private List<List<ContactsCardTemplateDisplay>>
+	private final List<List<ContactsCardTemplateDisplay>>
 		_contactsCardTemplateDisplaysList = new ArrayList<>();
-	private List<ContactsCardTemplateDisplay>
+	private final List<ContactsCardTemplateDisplay>
 		_headerContactsCardTemplateDisplays = new ArrayList<>();
 	private String _name;
 	private int _type;

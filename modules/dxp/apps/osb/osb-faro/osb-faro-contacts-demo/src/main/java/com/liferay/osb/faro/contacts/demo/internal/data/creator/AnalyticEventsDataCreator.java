@@ -208,8 +208,8 @@ public class AnalyticEventsDataCreator extends DataCreator {
 		AnalyticEventsDataCreator.class);
 
 	private long _activitiesCount;
-	private List<Map<String, Object>> _assetEvents = new ArrayList<>();
-	private ObjectMapper _objectMapper = new ObjectMapper();
+	private final List<Map<String, Object>> _assetEvents = new ArrayList<>();
+	private final ObjectMapper _objectMapper = new ObjectMapper();
 	private final PageContextsDataCreator _pageContextsDataCreator =
 		new PageContextsDataCreator();
 	private Map<String, Object> _pageEvent = new HashMap<>();

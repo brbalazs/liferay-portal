@@ -235,7 +235,7 @@ public class FaroSubscriptionDisplay {
 	}
 
 	private boolean _active;
-	private List<AddOn> _addOns = new ArrayList<>();
+	private final List<AddOn> _addOns = new ArrayList<>();
 	private Date _endDate;
 	private long _individualsCount;
 	private long _individualsLimit;

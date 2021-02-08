@@ -122,7 +122,7 @@ public class IndividualDisplay implements FaroEntityDisplay {
 		return null;
 	}
 
-	private static List<String> _propertyNames = Arrays.asList(
+	private static final List<String> _propertyNames = Arrays.asList(
 		"email", "familyName", "givenName", "image", "jobTitle", "worksFor");
 
 	private List<String> _accountNames;

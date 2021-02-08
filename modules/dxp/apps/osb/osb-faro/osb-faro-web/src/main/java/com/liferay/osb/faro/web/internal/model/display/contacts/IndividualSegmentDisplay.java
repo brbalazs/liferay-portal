@@ -224,7 +224,7 @@ public class IndividualSegmentDisplay implements FaroEntityDisplay {
 	private long _knownIndividualCount;
 	private Date _lastActivityDate;
 	private String _name;
-	private Map<String, Object> _referencedObjects = new HashMap<>();
+	private final Map<String, Object> _referencedObjects = new HashMap<>();
 	private String _segmentType;
 	private String _state;
 	private String _status;

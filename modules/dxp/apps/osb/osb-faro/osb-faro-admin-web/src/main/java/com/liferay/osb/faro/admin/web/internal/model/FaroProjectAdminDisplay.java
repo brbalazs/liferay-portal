@@ -256,7 +256,8 @@ public class FaroProjectAdminDisplay {
 		_weDeployKey = weDeployKey;
 	}
 
-	private static DecimalFormat _decimalFormat = new DecimalFormat("#.##");
+	private static final DecimalFormat _decimalFormat = new DecimalFormat(
+		"#.##");
 
 	private String _corpProjectName;
 	private String _corpProjectUuid;
