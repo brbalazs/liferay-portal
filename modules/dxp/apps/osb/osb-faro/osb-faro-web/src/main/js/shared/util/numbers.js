@@ -144,11 +144,16 @@ export const undoThousands = formatted => {
  * @param {number} decimalPlaces
  * @return {string|null} percentage
  */
-export function getFinitePercent(curVal, totalVal, decimalPlaces = 1) {
+export function getFinitePercent(
+	curVal,
+	totalVal,
+	decimalPlaces = 1,
+	applyTrunc = true
+) {
 	const percentage = (curVal / totalVal) * 100;
 
 	if (isFinite(percentage)) {
-		return percentage.toFixed(decimalPlaces);
+		return applyTrunc ? percentage.toFixed(decimalPlaces) : percentage;
 	}
 
 	return null;
