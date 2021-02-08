@@ -12,8 +12,8 @@ describe('utils', () => {
 			${DataTypes.Date}     | ${AttributeTypes.Event}      | ${Operators.EQ}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, = Jan 20, 2021']}               | ${DateGroupings.Dates}  | ${null}
 			${DataTypes.Date}     | ${AttributeTypes.Event}      | ${Operators.GT}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, after Jan 20, 2021']}           | ${DateGroupings.Dates}  | ${null}
 			${DataTypes.Date}     | ${AttributeTypes.Event}      | ${Operators.LT}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, before Jan 20, 2021']}          | ${DateGroupings.Dates}  | ${null}
-			${DataTypes.Duration} | ${AttributeTypes.Session}    | ${Operators.GT}          | ${[123123]}                     | ${['Session | Test', '> 00:02:03']}                       | ${null}                 | ${null}
-			${DataTypes.Duration} | ${AttributeTypes.Session}    | ${Operators.LT}          | ${[123123123]}                  | ${['Session | Test', '< 34:12:03']}                       | ${null}                 | ${null}
+			${DataTypes.Duration} | ${AttributeTypes.Session}    | ${Operators.GT}          | ${[123123]}                     | ${['Session | Test', '00:01:00, > 00:02:03']}             | ${null}                 | ${60000}
+			${DataTypes.Duration} | ${AttributeTypes.Session}    | ${Operators.LT}          | ${[123123123]}                  | ${['Session | Test', '00:01:00, < 34:12:03']}             | ${null}                 | ${60000}
 			${DataTypes.Number}   | ${AttributeTypes.Individual} | ${Operators.Between}     | ${[120, 200]}                   | ${['Individual | Test', '10, 120 - 200']}                 | ${null}                 | ${10}
 			${DataTypes.Number}   | ${AttributeTypes.Individual} | ${Operators.GT}          | ${[120]}                        | ${['Individual | Test', '10, > 120']}                     | ${null}                 | ${10}
 			${DataTypes.Number}   | ${AttributeTypes.Individual} | ${Operators.LT}          | ${[120]}                        | ${['Individual | Test', '10, < 120']}                     | ${null}                 | ${10}

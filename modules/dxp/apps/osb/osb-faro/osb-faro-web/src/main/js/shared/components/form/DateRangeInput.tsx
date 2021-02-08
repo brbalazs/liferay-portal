@@ -1,4 +1,4 @@
-import DateInput from '../DateInput';
+import DateRangeInput from '../DateRangeInput';
 import getCN from 'classnames';
 import HelpBlock from './HelpBlock';
 import Label from './Label';
@@ -6,7 +6,7 @@ import React from 'react';
 import {FieldProps} from 'formik';
 import {isNumber} from 'lodash';
 
-interface IFormDateInputProps
+interface IFormDateRangeInputProps
 	extends FieldProps,
 		React.HTMLAttributes<HTMLElement> {
 	inline: boolean;
@@ -21,7 +21,7 @@ interface IFormDateInputProps
 	width: number;
 }
 
-const FormDateInput: React.FC<IFormDateInputProps> = ({
+const FormDateRangeInput: React.FC<IFormDateRangeInputProps> = ({
 	className,
 	field,
 	form,
@@ -62,7 +62,7 @@ const FormDateInput: React.FC<IFormDateInputProps> = ({
 				</Label>
 			)}
 
-			<DateInput
+			<DateRangeInput
 				id={name}
 				name={name}
 				onChange={handleChange}
@@ -76,4 +76,4 @@ const FormDateInput: React.FC<IFormDateInputProps> = ({
 	);
 };
 
-export default FormDateInput;
+export default FormDateRangeInput;

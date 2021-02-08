@@ -12,17 +12,18 @@ describe('AttributeChip', () => {
 		const {container} = render(
 			<AttributeChipContext
 				attribute={{
+					defaultDataType: 'string',
 					displayName: 'Article View',
-					id: '123123',
+					id: '0',
 					name: 'articleView'
 				}}
 				breakdown={{
-					attributeId: '123123',
+					attributeId: '0',
 					dataType: 'string',
 					type: 'event'
 				}}
 				filter={{
-					attributeId: '123123',
+					attributeId: '0',
 					operator: 'eq',
 					value: ['Stuff']
 				}}

@@ -12,6 +12,7 @@ interface IListItemProps {
 	disabled?: boolean;
 	item: Attribute | Event;
 	onClick: () => void;
+	onEditClick: () => void;
 	onFilterClick: (item: Attribute) => void;
 }
 
@@ -20,6 +21,7 @@ const ListItem: React.FC<IListItemProps> = ({
 	disabled,
 	item,
 	onClick,
+	onEditClick,
 	onFilterClick
 }) => {
 	const _overlayRef = useRef<any>();
@@ -27,7 +29,7 @@ const ListItem: React.FC<IListItemProps> = ({
 	const {description, displayName, id, name} = item;
 
 	return (
-		<Overlay alignment='rightCenter' ref={_overlayRef}>
+		<Overlay alignment='rightCenter' ref={_overlayRef} usePortal={false}>
 			<ClayDropdown.Item
 				className={getCN('d-flex justify-content-between', {
 					active,
@@ -81,6 +83,8 @@ const ListItem: React.FC<IListItemProps> = ({
 					if (_overlayRef && _overlayRef.current) {
 						_overlayRef.current.hideOverlay();
 					}
+
+					onEditClick();
 
 					/** TODO: LRAC-7407 Open modal from settings page and reference the ID
 					 *  Must check if event or attribute by using isAttribute util

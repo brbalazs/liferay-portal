@@ -26,6 +26,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 	form,
 	inline = false,
 	label,
+	onChange,
 	popover,
 	required = false,
 	secondaryInfo,
@@ -43,6 +44,14 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 		'has-success': touched && !error && !disabled
 	});
 
+	const handleChange = event => {
+		field.onChange(event);
+
+		if (onChange) {
+			onChange(event);
+		}
+	};
+
 	return (
 		<div className={classes}>
 			{label && (
@@ -57,7 +66,13 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 				</Label>
 			)}
 
-			<Select {...otherProps} {...field} id={name} name={name}>
+			<Select
+				{...otherProps}
+				{...field}
+				id={name}
+				name={name}
+				onChange={handleChange}
+			>
 				{children}
 			</Select>
 

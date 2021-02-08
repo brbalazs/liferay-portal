@@ -35,6 +35,22 @@ export function validateInputMessage(messageValue: string) {
 	};
 }
 
+export function validateDateRangeRequired({
+	end,
+	start
+}: {
+	end: string;
+	start: string;
+}) {
+	let error = '';
+
+	if (!end || !start) {
+		error = Liferay.Language.get('required');
+	}
+
+	return toPromise(error);
+}
+
 export function validateRequired(value: {value: any} | string | Array<string>) {
 	let error = '';
 

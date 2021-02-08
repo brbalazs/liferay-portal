@@ -106,6 +106,10 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 					<BaseDropdown.SearchableList
 						activeId={eventId}
 						items={events}
+						onEditClick={() => {
+							// TODO: LRAC-7407 Connect to edit modal
+							setActive(false);
+						}}
 						onItemClick={(event: Event) => {
 							if (event.id !== eventId) {
 								onEventChange(event);

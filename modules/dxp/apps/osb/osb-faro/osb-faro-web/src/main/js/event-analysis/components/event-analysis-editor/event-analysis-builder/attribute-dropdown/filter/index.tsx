@@ -1,53 +1,123 @@
 import BooleanFilter from './BooleanFilter';
 import Button from 'shared/components/Button';
+import DateFilter from './DateFilter';
+import DurationFilter from './DurationFilter';
+import Label from 'shared/components/Label';
+import NumberFilter from './NumberFilter';
 import React from 'react';
+import StringFilter from './StringFilter';
+import {
+	AddAttribute,
+	EditAttribute,
+	withAttributesConsumer
+} from '../../../context/attributes';
 import {
 	Attribute,
 	AttributeTypes,
-	Breakdown,
+	Breakdowns,
 	DataTypes,
-	Filter
+	Filters
 } from '../../../types';
 
 const FILTERS_MAP = {
-	[DataTypes.Boolean]: BooleanFilter
+	[DataTypes.Boolean]: BooleanFilter,
+	[DataTypes.Date]: DateFilter,
+	[DataTypes.Duration]: DurationFilter,
+	[DataTypes.Number]: NumberFilter,
+	[DataTypes.String]: StringFilter
 };
 
-interface IBreakdownFilterProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
+	addAttribute: AddAttribute;
 	attribute: Attribute;
+	attributeType: AttributeTypes;
+	breakdowns: Breakdowns;
+	editAttribute: EditAttribute;
+	filters: Filters;
+	oldAttributeId?: string;
+	onActiveChange: (active: boolean) => void;
 	onAttributeChange: (attribute?: Attribute) => void;
+	onEditClick: (id: string) => void;
 }
 
-const BreakdownFilter: React.FC<IBreakdownFilterProps> = ({
+const AttributeFilter: React.FC<IAttributeFilterProps> = ({
+	addAttribute,
 	attribute,
-	onAttributeChange
+	attributeType,
+	breakdowns,
+	editAttribute,
+	filters,
+	oldAttributeId,
+	onActiveChange,
+	onAttributeChange,
+	onEditClick
 }) => {
-	const FilterBody = FILTERS_MAP[attribute.defaultDataType];
+	const {defaultDataType, displayName, id, name} = attribute;
+
+	const FilterBody = FILTERS_MAP[defaultDataType];
 
 	return (
-		<div className='filter'>
+		<div className='attribute-filter'>
 			<div className='filter-header'>
 				<Button
+					className='back-to-attributes-button'
 					display='unstyled'
 					icon='angle-left'
 					iconAlignment='left'
 					onClick={() => onAttributeChange(null)}
+					size='sm'
 				>
 					{Liferay.Language.get('back-to-attributes')}
 				</Button>
+
+				<div className='filter-info'>
+					<div className='filter-name d-flex align-items-center justify-content-between'>
+						{displayName || name}
+						<Button
+							borderless
+							icon='pencil'
+							iconAlignment='left'
+							onClick={onEditClick}
+							size='sm'
+						/>
+					</div>
+
+					<Label display='info' uppercase>
+						{defaultDataType}
+					</Label>
+				</div>
 			</div>
 
-			<div className='filter-body'>
-				<FilterBody />
-			</div>
+			<FilterBody
+				attributeId={id}
+				attributeType={attributeType}
+				breakdown={breakdowns[id]}
+				filter={filters[id]}
+				onFilterSubmit={({breakdown, filter}) => {
+					if (oldAttributeId) {
+						editAttribute({
+							attribute,
+							attributeId: id,
+							breakdown,
+							filter,
+							oldAttributeId
+						});
+					} else {
+						addAttribute({
+							attribute,
+							attributeId: id,
+							breakdown,
+							filter
+						});
+					}
 
-			<div className='filter-footer'>
-				<Button display='primary'>
-					{Liferay.Language.get('done')}
-				</Button>
-			</div>
+					onAttributeChange(null);
+
+					onActiveChange(false);
+				}}
+			/>
 		</div>
 	);
 };
 
-export default BreakdownFilter;
+export default withAttributesConsumer(AttributeFilter);

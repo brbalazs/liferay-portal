@@ -72,6 +72,17 @@ describe('time', () => {
 		});
 	});
 
+	describe('getMillisecondsFromTime', () => {
+		it.each`
+			value         | retVal
+			${'01:00:00'} | ${3600000}
+			${'00:01:00'} | ${60000}
+			${'00:00:01'} | ${1000}
+		`('format $time to milliseconds', ({retVal, value}) => {
+			expect(time.getMillisecondsFromTime(value)).toBe(retVal);
+		});
+	});
+
 	describe('getLargestNaturalUnit', () => {
 		it.each`
 			milliseconds | unit            | retVal

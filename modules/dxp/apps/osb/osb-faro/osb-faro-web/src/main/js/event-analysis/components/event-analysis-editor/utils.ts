@@ -21,36 +21,54 @@ const ATTRIBUTE_TYPE_LABEL_MAP = {
 	[AttributeTypes.Session]: Liferay.Language.get('session')
 };
 
-const BOOLEAN_LABEL_MAP = {
+export const BOOLEAN_LABEL_MAP = {
 	false: Liferay.Language.get('false'),
 	true: Liferay.Language.get('true')
 };
 
-const DATE_GROUPING_LABELS_MAP = {
+export const DATE_GROUPING_LABELS_MAP = {
 	[DateGroupings.Dates]: Liferay.Language.get('date'),
 	[DateGroupings.Months]: Liferay.Language.get('month'),
 	[DateGroupings.Years]: Liferay.Language.get('year')
 };
 
-const DATE_OPERATOR_LABELS_MAP = {
+export const DATE_OPERATOR_LABELS_MAP = {
 	[Operators.Between]: '-',
 	[Operators.EQ]: '=',
 	[Operators.GT]: Liferay.Language.get('after-fragment'),
 	[Operators.LT]: Liferay.Language.get('before-fragment')
 };
 
-const DURATION_OPERATOR_LABELS_MAP = {
+export const DATE_OPERATOR_LONGHAND_LABELS_MAP = {
+	[Operators.Between]: Liferay.Language.get('is-between-fragment'),
+	[Operators.EQ]: Liferay.Language.get('is-fragment'),
+	[Operators.GT]: Liferay.Language.get('after-fragment'),
+	[Operators.LT]: Liferay.Language.get('before-fragment')
+};
+
+export const DURATION_OPERATOR_LABELS_MAP = {
 	[Operators.GT]: '>',
 	[Operators.LT]: '<'
 };
 
-const NUMBER_OPERATOR_LABELS_MAP = {
+export const DURATION_OPERATOR_LONGHAND_LABELS_MAP = {
+	[Operators.GT]: Liferay.Language.get('is-greater-than-fragment'),
+	[Operators.LT]: Liferay.Language.get('is-less-than-fragment')
+};
+
+export const NUMBER_OPERATOR_LABELS_MAP = {
 	[Operators.Between]: '-',
 	[Operators.GT]: '>',
 	[Operators.LT]: '<'
 };
 
-const STRING_OPERATOR_LABELS_MAP = {
+export const NUMBER_OPERATOR_LONGHAND_LABELS_MAP = {
+	[Operators.Between]: Liferay.Language.get('between-fragment'),
+	[Operators.GT]: Liferay.Language.get('is-greater-than-fragment'),
+	[Operators.LT]: Liferay.Language.get('is-less-than-fragment')
+};
+
+export const STRING_OPERATOR_LABELS_MAP = {
 	[Operators.Contains]: Liferay.Language.get('contains-fragment'),
 	[Operators.NotContains]: Liferay.Language.get('not-contains-fragment'),
 	[Operators.EQ]: Liferay.Language.get('is-fragment'),
@@ -103,11 +121,12 @@ const getDurationDisplay = (
 	breakdown: Breakdown,
 	{operator, value: [value]}: Filter
 ): [string, string] => {
+	const bin = formatTime(breakdown.bin as number);
 	const duration = formatTime(value as number);
 
 	return [
 		getDefaultDisplay(attribute, breakdown).join(' | '),
-		`${DURATION_OPERATOR_LABELS_MAP[operator]} ${duration}`
+		`${bin}, ${DURATION_OPERATOR_LABELS_MAP[operator]} ${duration}`
 	];
 };
 
@@ -169,13 +188,13 @@ export const getBreakdownDisplay = (
 export const isAttribute = (item: Attribute | Event): item is Attribute =>
 	(item as Attribute).defaultDataType !== undefined;
 
-const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({
+export const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({
 	attributeId,
 	dataType: DataTypes.Boolean,
 	type
 });
 
-const createDateBreakdown = ({
+export const createDateBreakdown = ({
 	attributeId,
 	dateGrouping = DEFAULT_DATE_GROUPING,
 	type
@@ -186,7 +205,7 @@ const createDateBreakdown = ({
 	type
 });
 
-const createDurationBreakdown = ({
+export const createDurationBreakdown = ({
 	attributeId,
 	bin = DEFAULT_DURATION_BIN,
 	type
@@ -197,7 +216,7 @@ const createDurationBreakdown = ({
 	type
 });
 
-const createNumberBreakdown = ({
+export const createNumberBreakdown = ({
 	attributeId,
 	bin = DEFAULT_NUMBER_BIN,
 	type
@@ -208,7 +227,7 @@ const createNumberBreakdown = ({
 	type
 });
 
-const createStringBreakdown = ({attributeId, type}): Breakdown => ({
+export const createStringBreakdown = ({attributeId, type}): Breakdown => ({
 	attributeId,
 	dataType: DataTypes.String,
 	type

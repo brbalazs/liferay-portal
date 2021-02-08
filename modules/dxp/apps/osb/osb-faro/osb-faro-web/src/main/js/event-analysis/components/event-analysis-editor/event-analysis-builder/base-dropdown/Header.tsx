@@ -8,7 +8,7 @@ interface IHeaderProps {
 		tabId: string;
 		title: string;
 	}[];
-	title: string
+	title: string;
 }
 
 const Header: React.FC<IHeaderProps> = ({activeTabId, tabs, title}) => (

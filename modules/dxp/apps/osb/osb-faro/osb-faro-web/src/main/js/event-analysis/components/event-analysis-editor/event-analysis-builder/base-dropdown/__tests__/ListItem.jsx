@@ -1,0 +1,84 @@
+import ListItem from '../ListItem';
+import React from 'react';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
+
+describe('BaseDropdownListItem', () => {
+	it('should render', () => {
+		const {container} = render(
+			<ListItem
+				item={{
+					displayName: 'Test Display Name',
+					id: '0',
+					name: 'testName',
+					type: 'custom'
+				}}
+				onClick={jest.fn()}
+				onEditClick={jest.fn()}
+				onFilterClick={jest.fn()}
+			/>
+		);
+
+		expect(container.querySelector('.active')).toBeNull();
+		expect(container.querySelector('.disabled')).toBeNull();
+		expect(container.querySelector('.filter-button')).toBeNull();
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render with an Attribute', () => {
+		const {container} = render(
+			<ListItem
+				item={{
+					defaultDataType: 'string',
+					displayName: 'Filed Ticket',
+					id: '4',
+					name: 'filedTicket'
+				}}
+				onClick={jest.fn()}
+				onEditClick={jest.fn()}
+				onFilterClick={jest.fn()}
+			/>
+		);
+
+		expect(container.querySelector('.filter-button')).toBeTruthy();
+	});
+
+	it('should render as disabled', () => {
+		const {container} = render(
+			<ListItem
+				disabled
+				item={{
+					defaultDataType: 'string',
+					displayName: 'Filed Ticket',
+					id: '4',
+					name: 'filedTicket'
+				}}
+				onClick={jest.fn()}
+				onEditClick={jest.fn()}
+				onFilterClick={jest.fn()}
+			/>
+		);
+
+		expect(container.querySelector('.disabled')).toBeTruthy();
+	});
+
+	it('should render as active', () => {
+		const {container} = render(
+			<ListItem
+				active
+				item={{
+					defaultDataType: 'string',
+					displayName: 'Filed Ticket',
+					id: '4',
+					name: 'filedTicket'
+				}}
+				onClick={jest.fn()}
+				onEditClick={jest.fn()}
+				onFilterClick={jest.fn()}
+			/>
+		);
+
+		expect(container.querySelector('.active')).toBeTruthy();
+	});
+});

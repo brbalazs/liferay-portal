@@ -131,7 +131,7 @@ export const attributesReducer = (
 							deletePropertyFromObject(oldAttributeId, filters),
 							{[attributeId]: filter}
 					  )
-					: filters,
+					: deletePropertyFromObject(oldAttributeId, filters),
 				order: replaceAtIndex(
 					[...order],
 					order.findIndex(id => id === oldAttributeId),

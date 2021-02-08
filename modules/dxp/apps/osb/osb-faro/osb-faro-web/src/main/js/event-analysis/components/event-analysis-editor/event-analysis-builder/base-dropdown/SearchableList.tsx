@@ -8,17 +8,22 @@ interface ISearchableListProps {
 	activeId?: string;
 	disabledIds?: string[];
 	items: (Attribute | Event)[];
-	onItemClick: (item: Attribute | Event, breakdown?: Breakdown, filter?: Filter) => void;
+	onEditClick: () => void;
+	onItemClick: (
+		item: Attribute | Event,
+		breakdown?: Breakdown,
+		filter?: Filter
+	) => void;
 	onItemFilterClick?: (item: Attribute) => void;
 	onQueryChange: (query: string) => void;
 	query: string;
-	selectedId?: string;
 }
 
 const SearchableList: React.FC<ISearchableListProps> = ({
 	activeId,
 	disabledIds,
 	items,
+	onEditClick,
 	onItemClick,
 	onItemFilterClick,
 	onQueryChange,
@@ -49,11 +54,14 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 						active={activeId === item.id}
 						disabled={
 							disabledIds &&
-							disabledIds.some(id => id === item.id)
+							disabledIds.some(
+								id => id === item.id && id !== activeId
+							)
 						}
 						item={item}
 						key={item.id}
 						onClick={() => onItemClick(item)}
+						onEditClick={onEditClick}
 						onFilterClick={
 							onItemFilterClick
 								? () => onItemFilterClick(item as Attribute)

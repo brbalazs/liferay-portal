@@ -1,20 +1,35 @@
 import ClayDropdown, {Align} from '@clayui/drop-down';
+import getCN from 'classnames';
 import Header from './Header';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchableList from './SearchableList';
 
 interface IBaseDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
 	trigger: React.ReactElement;
+	onActiveChange?: (active: boolean) => void;
 }
 
-const BaseDropdown: React.FC<IBaseDropdownProps> = ({children, trigger}) => {
+const BaseDropdown: React.FC<IBaseDropdownProps> = ({
+	children,
+	className,
+	onActiveChange,
+	trigger
+}) => {
 	const [active, setActive] = useState(false);
+
+	useEffect(() => {
+		if (onActiveChange) {
+			onActiveChange(active);
+		}
+	}, [active]);
 
 	return (
 		<ClayDropdown
 			active={active}
 			alignmentPosition={Align.RightTop}
-			menuElementAttrs={{className: 'event-analysis-dropdown-menu-root'}}
+			menuElementAttrs={{
+				className: getCN('base-dropdown-menu-root', className)
+			}}
 			onActiveChange={setActive}
 			trigger={trigger}
 		>

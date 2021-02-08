@@ -24,7 +24,9 @@ class DateInput extends React.Component {
 		format: FORMAT,
 		onBlur: noop,
 		onChange: noop,
-		showTimeSelector: false
+		overlayAlignment: 'bottomLeft',
+		showTimeSelector: false,
+		usePortal: true
 	};
 
 	static propTypes = {
@@ -33,8 +35,10 @@ class DateInput extends React.Component {
 		format: PropTypes.string,
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
+		overlayAlignment: PropTypes.string,
 		showTimeSelector: PropTypes.bool,
 		timeZoneId: PropTypes.string,
+		usePortal: PropTypes.bool,
 		value: PropTypes.string
 	};
 
@@ -57,7 +61,7 @@ class DateInput extends React.Component {
 		event.preventDefault();
 
 		this.setState({
-			active: true
+			active: !this.state.active
 		});
 	}
 
@@ -79,14 +83,14 @@ class DateInput extends React.Component {
 	}
 
 	@autobind
-	handleOutsideClick() {
+	handleOutsideClick(event) {
 		const {
 			props: {onBlur},
 			state: {active}
 		} = this;
 
 		if (onBlur && active) {
-			onBlur();
+			onBlur(event);
 		}
 
 		this.setState({
@@ -117,8 +121,10 @@ class DateInput extends React.Component {
 			props: {
 				className,
 				format,
+				overlayAlignment,
 				showTimeSelector,
 				timeZoneId,
+				usePortal,
 				value,
 				...otherProps
 			},
@@ -132,9 +138,11 @@ class DateInput extends React.Component {
 		return (
 			<Overlay
 				active={active}
+				alignment={overlayAlignment}
 				className={getCN('date-input-root', className)}
 				forceAlignment={false}
 				onOutsideClick={this.handleOutsideClick}
+				usePortal={usePortal}
 			>
 				<Input.Group>
 					<Input.GroupItem>
@@ -143,6 +151,7 @@ class DateInput extends React.Component {
 								otherProps,
 								DateInput.propTypes
 							)}
+							autoComplete='off'
 							data-testid='date-input'
 							inset='after'
 							keepCharPositions

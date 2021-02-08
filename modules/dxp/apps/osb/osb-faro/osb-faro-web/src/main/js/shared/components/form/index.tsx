@@ -1,5 +1,6 @@
 import Checkbox from './Checkbox';
 import DateInput from './DateInput';
+import DateRangeInput from './DateRangeInput';
 import getCN from 'classnames';
 import Input from './Input';
 import InputList from './InputList';
@@ -74,6 +75,7 @@ export const withField = FormComponent =>
 export default Object.assign(Formik, {
 	Checkbox: withField(Checkbox),
 	DateInput: withField(DateInput),
+	DateRangeInput: withField(DateRangeInput),
 	Form: ({
 		className,
 		...otherProps

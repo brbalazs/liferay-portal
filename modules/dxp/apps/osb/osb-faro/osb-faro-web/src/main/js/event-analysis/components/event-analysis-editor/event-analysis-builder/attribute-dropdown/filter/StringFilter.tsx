@@ -1,12 +1,20 @@
 import Button from 'shared/components/Button';
-import Form from 'shared/components/form';
+import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {AttributeTypes, Breakdown, Filter, Operators} from '../../../types';
-import {BOOLEAN_LABEL_MAP, createBooleanBreakdown} from '../../../utils';
+import {
+	createStringBreakdown,
+	STRING_OPERATOR_LABELS_MAP
+} from '../../../utils';
 
-const BOOLEAN_OPTIONS = ['true', 'false'];
+const STRING_OPTIONS = [
+	Operators.Contains,
+	Operators.NotContains,
+	Operators.EQ,
+	Operators.NE
+];
 
-interface IBooleanFilterProps {
+interface IStringFilterProps {
 	attributeId: string;
 	attributeType: AttributeTypes;
 	breakdown: Breakdown;
@@ -14,7 +22,7 @@ interface IBooleanFilterProps {
 	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
 }
 
-const BooleanFilter: React.FC<IBooleanFilterProps> = ({
+const StringFilter: React.FC<IStringFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,
@@ -25,10 +33,10 @@ const BooleanFilter: React.FC<IBooleanFilterProps> = ({
 		if (breakdown && filter) {
 			const {operator, value} = filter;
 
-			return {operator, value: String(value[0])};
+			return {operator, value: value[0]};
 		}
 
-		return {operator: Operators.EQ, value: 'true'};
+		return {operator: Operators.Contains, value: ''};
 	};
 
 	return (
@@ -36,38 +44,54 @@ const BooleanFilter: React.FC<IBooleanFilterProps> = ({
 			initialValues={getInitialValues()}
 			onSubmit={({operator, value}) => {
 				onFilterSubmit({
-					breakdown: createBooleanBreakdown({
+					breakdown: createStringBreakdown({
 						attributeId,
 						type: attributeType
 					}),
-					filter: {attributeId, operator, value: [value === 'true']}
+					filter: {attributeId, operator, value: [value]}
 				});
 			}}
 		>
-			{({handleSubmit}) => (
+			{({handleSubmit, isValid}) => (
 				<Form.Form onSubmit={handleSubmit}>
 					<div className='filter-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Select
 									label={Liferay.Language.get('condition')}
-									name='value'
+									name='operator'
 								>
-									{BOOLEAN_OPTIONS.map(value => (
+									{STRING_OPTIONS.map(value => (
 										<Form.Select.Item
 											key={value}
 											value={value}
 										>
-											{BOOLEAN_LABEL_MAP[value]}
+											{STRING_OPERATOR_LABELS_MAP[value]}
 										</Form.Select.Item>
 									))}
 								</Form.Select>
 							</Form.GroupItem>
 						</Form.Group>
+
+						<Form.Group autoFit>
+							<Form.GroupItem>
+								<Form.Input
+									name='value'
+									required
+									type='text'
+									validate={validateRequired}
+								/>
+							</Form.GroupItem>
+						</Form.Group>
 					</div>
 
 					<div className='filter-footer'>
-						<Button block display='primary' type='submit'>
+						<Button
+							block
+							disabled={!isValid}
+							display='primary'
+							type='submit'
+						>
 							{Liferay.Language.get('done')}
 						</Button>
 					</div>
@@ -77,4 +101,4 @@ const BooleanFilter: React.FC<IBooleanFilterProps> = ({
 	);
 };
 
-export default BooleanFilter;
+export default StringFilter;

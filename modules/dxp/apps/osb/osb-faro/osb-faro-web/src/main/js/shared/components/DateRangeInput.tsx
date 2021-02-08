@@ -31,8 +31,12 @@ interface IDateInputProps {
 	className?: string;
 	displayFormat?: string;
 	format?: string;
-	onBlur?: () => void;
+	id?: string;
+	name?: string;
+	onBlur?: (event?: FocusEvent) => void;
 	onChange: (range: DateRange) => void;
+	overlayAlignment?: string;
+	usePortal?: boolean;
 	value: DateRange;
 }
 
@@ -42,6 +46,8 @@ const DateInput: React.FC<IDateInputProps> = ({
 	format = FORMAT,
 	onBlur = noop,
 	onChange = noop,
+	overlayAlignment = 'bottomLeft',
+	usePortal = true,
 	value
 }) => {
 	const [active, setActive] = useState(false);
@@ -77,20 +83,23 @@ const DateInput: React.FC<IDateInputProps> = ({
 	return (
 		<Overlay
 			active={active}
+			alignment={overlayAlignment}
 			className={getCN('date-range-input-root', className)}
 			containerClass='date-range-input-root'
 			forceAlignment={false}
-			onOutsideClick={() => {
+			onOutsideClick={event => {
 				if (onBlur && active) {
-					onBlur();
+					onBlur(event);
 				}
 
 				setActive(false);
 			}}
+			usePortal={usePortal}
 		>
 			<Input.Group>
 				<Input.GroupItem>
 					<Input
+						autoComplete='off'
 						data-testid='date-range-input'
 						inset='after'
 						onClick={handleClick}

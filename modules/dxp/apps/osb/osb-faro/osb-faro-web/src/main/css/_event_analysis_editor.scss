@@ -17,14 +17,19 @@
 	}
 }
 
-.event-analysis-dropdown-menu-root {
+.base-dropdown-menu-root {
+	min-width: 268px;
+	overflow: visible;
+
 	.card-tabs-root {
 		margin: 0 20px 8px;
 	}
 
 	.dropdown-item {
+		&.active,
 		&:active,
-		&:hover {
+		&:hover,
+		&:focus {
 			.filter-button:not([disabled]) {
 				background-color: $primaryLighten45;
 				display: block;
@@ -51,6 +56,51 @@
 		font-size: $fontSizeMedium;
 		font-weight: $fontWeightSemiBold;
 		padding: 8px 20px;
+	}
+}
+
+.event-analysis-editor-attribute-dropdown-root {
+	.attribute-filter {
+		padding: 8px 16px;
+
+		.filter-body {
+			.form-control {
+				font-size: $fontSizeExtraSmall;
+				height: 32px;
+			}
+
+			.form-control-label {
+				color: $secondary;
+				font-weight: $fontWeightRegular;
+			}
+
+			.form-group {
+				margin-bottom: 12px;
+
+				.date-range-input-root {
+					min-width: 180px;
+				}
+			}
+		}
+
+		.filter-header {
+			.back-to-attributes-button {
+				color: $secondary;
+				font-size: $fontSizeExtraSmall;
+				font-weight: $fontWeightSemiBold;
+				text-transform: uppercase;
+			}
+
+			.filter-info {
+				border-bottom: 1px solid $mainLighten74;
+				margin-bottom: 12px;
+				padding: 20px 0 12px;
+
+				.filter-name {
+					font-weight: $fontWeightSemiBold;
+				}
+			}
+		}
 	}
 }
 

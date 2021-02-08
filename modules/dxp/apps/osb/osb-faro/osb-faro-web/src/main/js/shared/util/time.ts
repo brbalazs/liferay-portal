@@ -68,6 +68,16 @@ export function getMilliseconds(value: number, unit: number): number {
 	}
 }
 
+export function getMillisecondsFromTime(time: string): number {
+	const [hours, minutes, seconds] = time.split(':');
+
+	return (
+		getMilliseconds(Number(hours), HOURS) +
+		getMilliseconds(Number(minutes), MINUTES) +
+		getMilliseconds(Number(seconds), SECONDS)
+	);
+}
+
 export function getLargestNaturalUnit(
 	milliseconds: number,
 	unit: number = HOURS

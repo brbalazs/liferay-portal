@@ -1,15 +1,9 @@
+import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
-import BreakdownFilter from './filter';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
 import {AddAttribute, EditAttribute} from '../../context/attributes';
-import {
-	Attribute,
-	AttributeTypes,
-	Breakdown,
-	DataTypes,
-	Filter
-} from '../../types';
+import {Attribute, AttributeTypes, DataTypes, Filter} from '../../types';
 import {BREAKDOWN_FNS_MAP} from '../../utils';
 
 // TODO: Replace Mock Data
@@ -56,33 +50,51 @@ const MOCKED_MAP = {
 };
 
 interface IAttributeDropdownProps {
+	attribute?: Attribute;
 	disabledIds: string[];
+	filter?: Filter;
 	onAttributeSelect: AddAttribute | EditAttribute;
 	trigger: React.ReactElement;
 }
 
 const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
+	attribute,
 	disabledIds,
+	filter,
 	onAttributeSelect,
 	trigger
 }) => {
-	const [attributesList, setAttributesList] = useState<Attribute[]>([]); //TODO: Remove one we have actual requests
+	const [attributesList, setAttributesList] = useState<Attribute[]>([]); // TODO: Remove one we have actual requests
 	const [attributeType, setAttributeType] = useState<AttributeTypes>(
 		AttributeTypes.Event
 	);
 	const [query, setQuery] = useState('');
-	const [selectedAttribute, setSelectedAttribute] = useState<Attribute>(null);
+	const [selectedAttribute, setSelectedAttribute] = useState<Attribute>(
+		filter ? attribute : null
+	);
 
 	useEffect(() => {
-		Promise.resolve(MOCKED_MAP[attributeType]).then(response =>
-			setAttributesList(response)
+		const mockRequest = Promise.resolve(MOCKED_MAP[attributeType]).then(
+			response => setAttributesList(response)
 		);
+
+		return () => mockRequest.cancel();
 	}, [attributeType]);
 
-	const handleChange = () => {};
+	const oldAttributeId = attribute ? attribute.id : null;
 
 	return (
-		<BaseDropdown trigger={trigger}>
+		<BaseDropdown
+			className='event-analysis-editor-attribute-dropdown-root'
+			onActiveChange={active => {
+				if (!active) {
+					setAttributeType(AttributeTypes.Event);
+					setQuery('');
+					setSelectedAttribute(filter ? attribute : null);
+				}
+			}}
+			trigger={trigger}
+		>
 			{({setActive}) => (
 				<>
 					{!selectedAttribute && (
@@ -103,8 +115,14 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 							/>
 
 							<BaseDropdown.SearchableList
+								activeId={oldAttributeId}
 								disabledIds={disabledIds}
 								items={attributesList}
+								onEditClick={() => {
+									// TODO: LRAC-7407 Connect to edit modal
+
+									setActive(false);
+								}}
 								onItemClick={(attribute: Attribute) => {
 									const {
 										defaultDataType,
@@ -120,11 +138,11 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 										breakdown: breakdownFn({
 											attributeId,
 											type: attributeType
-										})
+										}),
+										oldAttributeId
 									});
 
 									setActive(false);
-									/** DO SOMETHING HERE **/
 								}}
 								onItemFilterClick={setSelectedAttribute}
 								onQueryChange={setQuery}
@@ -134,9 +152,19 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 					)}
 
 					{selectedAttribute && (
-						<BreakdownFilter
+						<AttributeFilter
 							attribute={selectedAttribute}
-							onAttributeChange={setSelectedAttribute}
+							attributeType={attributeType}
+							oldAttributeId={oldAttributeId}
+							onActiveChange={setActive}
+							onAttributeChange={params => {
+								setSelectedAttribute(params);
+							}}
+							onEditClick={() => {
+								// TODO: LRAC-7407 Connect to edit modal
+
+								setActive(false);
+							}}
 						/>
 					)}
 				</>

@@ -43,7 +43,7 @@ interface IAttributeChipProps {
 
 const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 	any,
-	IAttributeChipProps & {onClick?: () => void}
+	IAttributeChipProps & {onClick?:() => void}
 >(
 	(
 		{attribute, breakdown, filter, index, onClick, onCloseClick, onMove},
@@ -186,11 +186,19 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 
 const AttributeChipWrapper: React.FC<
 	IAttributeChipProps & {onEditSubmit: EditAttribute; order: string[]}
-> = ({onEditSubmit, order, ...otherProps}) => (
+> = ({attribute, filter, onEditSubmit, order, ...otherProps}) => (
 	<AttributeDropdown
+		attribute={attribute}
 		disabledIds={order}
+		filter={filter}
 		onAttributeSelect={onEditSubmit}
-		trigger={<AttributeChip {...otherProps} />}
+		trigger={
+			<AttributeChip
+				attribute={attribute}
+				filter={filter}
+				{...otherProps}
+			/>
+		}
 	/>
 );
 
