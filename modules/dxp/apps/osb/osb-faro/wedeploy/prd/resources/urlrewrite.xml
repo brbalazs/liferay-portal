@@ -35,6 +35,10 @@
 		<to type="permanent-redirect">%{context-path}/web/guest/community/forums/-/message_boards$1</to>
 	</rule>
 	<rule>
+		<from>^/workspace/.{0,2000}/endpoints/(.*)</from>
+		<to>/o/faro/main/project/$1/endpoints</to>
+	</rule>
+	<rule>
 		<from>^/workspace/(.{0,2000})(.*)</from>
 		<to>/web/guest/home/</to>
 	</rule>
