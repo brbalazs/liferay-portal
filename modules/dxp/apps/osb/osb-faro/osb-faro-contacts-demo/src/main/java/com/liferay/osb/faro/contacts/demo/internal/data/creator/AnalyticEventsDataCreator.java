@@ -174,21 +174,24 @@ public class AnalyticEventsDataCreator extends DataCreator {
 
 			_assetEvents.add(
 				_createEvent(
-					"Form", "formSubmitted",
-					new HashMap<String, Object>() {
-						{
-							put("formId", number.randomNumber(8, false));
-							put("title", company.bs());
-						}
-					}));
-			_assetEvents.add(
-				_createEvent(
 					"WebContent", "webContentViewed",
 					new HashMap<String, Object>() {
 						{
 							put("articleId", number.randomNumber(8, false));
 							put("numberOfWords", number.randomNumber());
 							put("title", company.bs());
+						}
+					}));
+		}
+
+		for (String formName : _FORM_NAMES) {
+			_assetEvents.add(
+				_createEvent(
+					"Form", "formSubmitted",
+					new HashMap<String, Object>() {
+						{
+							put("formId", number.randomNumber(8, false));
+							put("title", formName);
 						}
 					}));
 		}
@@ -202,12 +205,18 @@ public class AnalyticEventsDataCreator extends DataCreator {
 			});
 	}
 
+	private static final String[] _FORM_NAMES = {
+		"Beryl Irrigation Newsletter", "Beryl Processing Newsletter",
+		"Beryl Promotions Newsletter", "Beryl Urban Farming Newsletter",
+		"Check out", "Loyalty Program"
+	};
+
 	private static final String _OSB_ASAH_PUBLISHER_URL = System.getenv(
 		"OSB_ASAH_PUBLISHER_URL");
 
 	private static final String[] _SEARCH_TERMS = {
-		"MX-350 Truck Parts", "MX-350 Rebate", "FF-2100 Owners Manual",
-		"Tractor Leasing", "Hydroponics"
+		"FF-2100 Owners Manual", "Hydroponics", "MX-350 Rebate",
+		"MX-350 Truck Parts", "Tractor Leasing"
 	};
 
 	private static final Log _log = LogFactoryUtil.getLog(
