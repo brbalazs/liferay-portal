@@ -92,7 +92,8 @@ public class AnalyticEventsDataCreator extends DataCreator {
 			context.put(
 				"url",
 				context.get("url") + "?q=" +
-					HttpUtil.encodePath(company.industry()));
+					HttpUtil.encodePath(
+						_SEARCH_TERMS[random.nextInt(_SEARCH_TERMS.length)]));
 		}
 
 		analyticEvent.put("context", context);
@@ -203,6 +204,11 @@ public class AnalyticEventsDataCreator extends DataCreator {
 
 	private static final String _OSB_ASAH_PUBLISHER_URL = System.getenv(
 		"OSB_ASAH_PUBLISHER_URL");
+
+	private static final String[] _SEARCH_TERMS = {
+		"MX-350 Truck Parts", "MX-350 Rebate", "FF-2100 Owners Manual",
+		"Tractor Leasing", "Hydroponics"
+	};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		AnalyticEventsDataCreator.class);
