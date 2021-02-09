@@ -30,9 +30,7 @@ const withData = () => WrapperComponent => props => {
 			sampleValue: '3'
 		}
 	];
-	return (
-		<WrapperComponent {...props} items={MOCKED_ITEMS}></WrapperComponent>
-	);
+	return <WrapperComponent {...props} items={MOCKED_ITEMS} />;
 };
 
 const AttributeList = withBaseResults(withData, {
