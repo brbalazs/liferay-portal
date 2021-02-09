@@ -293,7 +293,7 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 	protected LiferayUsersDataCreator createLiferayData() {
 		DataSource dataSource = createDataSource(
 			faroProject, getLiferayProvider(), _LIFERAY_DATA_SOURCE_NAME,
-			"liferay.example.faro.com");
+			"beryl.com");
 
 		// Individuals
 

@@ -14,7 +14,11 @@
 
 package com.liferay.osb.faro.contacts.demo.internal.data.creator;
 
+import com.liferay.portal.kernel.util.ObjectValuePair;
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import nl.bitwalker.useragentutils.Browser;
@@ -33,9 +37,9 @@ public class PageContextsDataCreator extends DataCreator {
 
 		pageContext.put("browserName", "Chrome");
 
-		String url = "https://" + internet.url();
+		ObjectValuePair page = _pages.get(_count++);
 
-		pageContext.put("canonicalUrl", url);
+		pageContext.put("canonicalUrl", page.getKey());
 
 		String userAgentString = internet.userAgentAny();
 
@@ -67,12 +71,44 @@ public class PageContextsDataCreator extends DataCreator {
 
 		pageContext.put("platformName", operatingSystem.getName());
 
-		pageContext.put("referrer", url);
-		pageContext.put("title", company.bs());
-		pageContext.put("url", url);
+		pageContext.put("referrer", page.getKey());
+		pageContext.put("title", page.getValue());
+		pageContext.put("url", page.getKey());
 		pageContext.put("userAgent", userAgentString);
 
 		return pageContext;
 	}
+
+	private static int _count;
+
+	private final List<ObjectValuePair<String, String>> _pages = Arrays.asList(
+		new ObjectValuePair<>(
+			"https://www.beryl.com", "Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/account/orderhistory", "Order History"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/blogs/loyaltyrewards",
+			"Beryl Loyalty Rewards Program"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/delivery",
+			"Delivery | Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/design/indoorplanning",
+			"Indoor Urban Farming | Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/products/blog/best-irrigation-strategies",
+			"Best Irrigation Strategies by Crop Type | Beryl Blogs"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/products/commercial/irrigation",
+			"Irrigation | Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/products/commercial/irrigation/FF-2100",
+			"FF-2100 Center Pivot Irrigator | Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/products/vehicles",
+			"Vehicle Leasing | Beryl Agriculture Wholesale"),
+		new ObjectValuePair<>(
+			"https://www.beryl.com/recalls",
+			"Recall Information | Beryl Agriculture Wholesale"));
 
 }
