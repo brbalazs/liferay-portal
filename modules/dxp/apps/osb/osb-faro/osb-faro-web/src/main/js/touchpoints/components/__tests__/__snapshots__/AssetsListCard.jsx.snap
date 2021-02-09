@@ -16,12 +16,12 @@ exports[`AssetsListCard should render component 1`] = `
             class=""
           >
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand"
             >
               Asset Name
             </th>
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand table-cell-expand-small"
             >
               Asset Type
             </th>
@@ -49,12 +49,12 @@ exports[`AssetsListCard should render component with items 1`] = `
             class=""
           >
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand"
             >
               Asset Name
             </th>
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand table-cell-expand-small"
             >
               Asset Type
             </th>
