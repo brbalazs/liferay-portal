@@ -86,6 +86,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 			title={Liferay.Language.get('invite-people-to-workspace')}
 		>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
+				{/* TODO: LRAC-7427 Adjust SVGs with Linear Gradients */}
 				<div className='ac-invite' />
 
 				{sent ? (

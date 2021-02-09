@@ -14,6 +14,7 @@ const ReadyToGo: React.FC<IReadyToGoProps> = ({onClose}) => (
 		title={Liferay.Language.get('youre-ready-to-go')}
 	>
 		<Modal.Body className='d-flex flex-column align-items-center'>
+			{/* TODO: LRAC-7427 Adjust SVGs with Linear Gradients */}
 			<div className='ac-ready-to-use' />
 
 			<span className='description'>
