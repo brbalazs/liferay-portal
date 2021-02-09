@@ -7,21 +7,23 @@ import Calendar, {
 } from '../Calendar';
 import moment from 'moment';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Calendar', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<Calendar
 				currentMonth={moment(0).startOf('month')}
 				date={moment(0)}
 			/>
 		);
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render days as being in a range', () => {
-		const component = shallow(
+		const {container} = render(
 			<Calendar
 				currentMonth={moment(0).startOf('month')}
 				date={{
@@ -31,70 +33,28 @@ describe('Calendar', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should return a nested array representing a calendar', () => {
-		const component = shallow(
-			<Calendar
-				currentMonth={moment(0).startOf('month')}
-				date={moment(0)}
-			/>
-		);
-
-		component
-			.instance()
-			.getDateGrid()
-			.forEach(rowObj => {
-				expect(rowObj).toMatchObject({
-					key: expect.any(String),
-					row: expect.any(Array)
-				});
-
-				rowObj.row.forEach(dateObj => {
-					expect(dateObj).toMatchObject({
-						date: expect.anything(),
-						outsideMonth: expect.any(Boolean)
-					});
-				});
-			});
+		expect(container).toMatchSnapshot();
 	});
 
 	it('the same day should not be selected as both the start and end', () => {
-		const onSelect = jest.fn(date => {
-			component.setProps({
-				date: {end: null, start: date}
-			});
-		});
+		const onSelect = jest.fn();
 
-		const component = shallow(
+		const {queryByText} = render(
 			<Calendar
 				currentMonth={moment(0).startOf('month')}
 				date={{
 					end: null,
-					start: null
+					start: moment(0).startOf('day')
 				}}
 				onSelect={onSelect}
 			/>
 		);
 
-		component
-			.find('Day')
-			.first()
-			.shallow()
-			.find('Button')
-			.simulate('click');
-		expect(onSelect).toHaveBeenCalledTimes(1);
+		const firstDay = queryByText('1');
 
-		jest.runAllTimers();
+		fireEvent.click(firstDay);
 
-		component
-			.find('Day')
-			.first()
-			.shallow()
-			.find('Button')
-			.simulate('click');
-		expect(onSelect).toHaveBeenCalledTimes(1);
+		expect(onSelect).toHaveBeenCalledTimes(0);
 	});
 
 	describe('isSelected', () => {
