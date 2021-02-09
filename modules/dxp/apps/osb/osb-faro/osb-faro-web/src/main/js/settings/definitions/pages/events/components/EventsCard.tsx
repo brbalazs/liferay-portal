@@ -6,12 +6,12 @@ import React, {lazy, Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router';
 
-const EventList = lazy(() =>
-	import(/* webpackChunkName: "EventList" */ './EventList')
-);
-
 const AttributeList = lazy(() =>
 	import(/* webpackChunkName: "AttributeList" */ './../AttributeList')
+);
+
+const EventList = lazy(() =>
+	import(/* webpackChunkName: "EventList" */ './EventList')
 );
 
 const NAV_ITEMS = [
