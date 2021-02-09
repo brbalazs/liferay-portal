@@ -8,7 +8,7 @@ import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('AttributeList', () => {
-	it('should render', async() => {
+	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
@@ -20,7 +20,7 @@ describe('AttributeList', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render Data Typecast column with a label', async() => {
+	it('should render Data Typecast column with a label', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
