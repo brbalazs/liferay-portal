@@ -143,7 +143,7 @@ public class AnalyticEventsDataCreator extends DataCreator {
 	}
 
 	private void _createEvents() {
-		for (int i = 0; i < 10; i++) {
+		for (String blogTitle : _BLOG_TITLES) {
 			_assetEvents.add(
 				_createEvent(
 					"Blog", "blogViewed",
@@ -151,10 +151,12 @@ public class AnalyticEventsDataCreator extends DataCreator {
 						{
 							put("entryId", number.randomNumber(8, false));
 							put("numberOfWords", number.randomNumber());
-							put("title", company.bs());
+							put("title", blogTitle);
 						}
 					}));
+		}
 
+		for (int i = 0; i < 10; i++) {
 			Map<String, Object> documentAssetEvent =
 				new HashMap<String, Object>() {
 					{
@@ -171,7 +173,21 @@ public class AnalyticEventsDataCreator extends DataCreator {
 			_assetEvents.add(
 				_createEvent(
 					"Document", "documentPreviewed", documentAssetEvent));
+		}
 
+		for (String formTitle : _FORM_TITLES) {
+			_assetEvents.add(
+				_createEvent(
+					"Form", "formSubmitted",
+					new HashMap<String, Object>() {
+						{
+							put("formId", number.randomNumber(8, false));
+							put("title", formTitle);
+						}
+					}));
+		}
+
+		for (int i = 0; i < 10; i++) {
 			_assetEvents.add(
 				_createEvent(
 					"WebContent", "webContentViewed",
@@ -180,18 +196,6 @@ public class AnalyticEventsDataCreator extends DataCreator {
 							put("articleId", number.randomNumber(8, false));
 							put("numberOfWords", number.randomNumber());
 							put("title", company.bs());
-						}
-					}));
-		}
-
-		for (String formName : _FORM_NAMES) {
-			_assetEvents.add(
-				_createEvent(
-					"Form", "formSubmitted",
-					new HashMap<String, Object>() {
-						{
-							put("formId", number.randomNumber(8, false));
-							put("title", formName);
 						}
 					}));
 		}
@@ -205,7 +209,14 @@ public class AnalyticEventsDataCreator extends DataCreator {
 			});
 	}
 
-	private static final String[] _FORM_NAMES = {
+	private static final String[] _BLOG_TITLES = {
+		"How Automation Can Prevent Nutrient Deficiencies",
+		"Vendor Highlight: Noble Irrigation Supply",
+		"Vertical Farms, Vertical Profits", "Weathering the Drought",
+		"Way Up North"
+	};
+
+	private static final String[] _FORM_TITLES = {
 		"Beryl Irrigation Newsletter", "Beryl Processing Newsletter",
 		"Beryl Promotions Newsletter", "Beryl Urban Farming Newsletter",
 		"Check out", "Loyalty Program"
