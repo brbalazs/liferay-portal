@@ -125,7 +125,14 @@ public class AnalyticEventsDataCreator extends DataCreator {
 		_activitiesCount += events.size();
 
 		analyticEvent.put("protocolVersion", "1.0");
-		analyticEvent.put("userId", params[1]);
+
+		Object userId = params[1];
+
+		if (userId == null) {
+			userId = number.randomNumber(8, false);
+		}
+
+		analyticEvent.put("userId", userId);
 
 		return analyticEvent;
 	}

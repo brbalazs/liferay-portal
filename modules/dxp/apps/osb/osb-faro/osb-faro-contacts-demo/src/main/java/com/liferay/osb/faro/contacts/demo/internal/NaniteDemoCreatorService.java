@@ -121,6 +121,10 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 				});
 		}
 
+		analyticEventsDataCreator.createRandom(
+			_LIFERAY_ANONYMOUS_EVENTS_COUNT, false,
+			new Object[] {liferayUsersDataCreator.getDataSourceId(), null});
+
 		analyticEventsDataCreator.execute();
 
 		return analyticEventsDataCreator;
@@ -549,6 +553,8 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 	}
 
 	private static final int _LIFERAY_ANALYTIC_EVENTS_MAX_COUNT_PER_USER = 50;
+
+	private static final int _LIFERAY_ANONYMOUS_EVENTS_COUNT = 1000;
 
 	private static final String _LIFERAY_DATA_SOURCE_NAME = "Beryl Commerce";
 
