@@ -39,7 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"before-filter=URL Rewrite Filter", "dispatcher=FORWARD",
+		"after-filter=URL Rewrite Filter", "dispatcher=FORWARD",
 		"dispatcher=REQUEST", "servlet-context-name=",
 		"servlet-filter-name=Faro Filter", "url-pattern=/o/proxy/download/*",
 		"url-pattern=/web/guest/*", "url-pattern=/workspace/*"
