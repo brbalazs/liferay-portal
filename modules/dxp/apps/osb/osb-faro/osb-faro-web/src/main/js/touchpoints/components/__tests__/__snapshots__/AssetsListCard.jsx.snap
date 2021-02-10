@@ -21,7 +21,7 @@ exports[`AssetsListCard should render component 1`] = `
               Asset Name
             </th>
             <th
-              class="table-head-title table-cell-expand table-cell-expand-small"
+              class="table-head-title"
             >
               Asset Type
             </th>
@@ -54,7 +54,7 @@ exports[`AssetsListCard should render component with items 1`] = `
               Asset Name
             </th>
             <th
-              class="table-head-title table-cell-expand table-cell-expand-small"
+              class="table-head-title"
             >
               Asset Type
             </th>
