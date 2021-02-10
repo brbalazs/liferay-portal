@@ -462,12 +462,14 @@ String liferayAnalyticsDataSourceId = PrefsPropsUtil.getString(company.getCompan
 String liferayAnalyticsEndpointURL = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsEndpointURL");
 boolean liferayAnalyticsEnableAllGroupIds = PrefsPropsUtil.getBoolean(company.getCompanyId(), "liferayAnalyticsEnableAllGroupIds");
 String[] liferayAnalyticsGroupIds = PrefsPropsUtil.getStringArray(company.getCompanyId(), "liferayAnalyticsGroupIds", StringPool.COMMA);
+String liferayAnalyticsProjectId = PrefsPropsUtil.getString(company.getCompanyId(), "liferayAnalyticsProjectId");
 %>
 
 <c:if test="<%= _isAnalyticsTrackingEnabled(liferayAnalyticsDataSourceId, liferayAnalyticsEndpointURL, liferayAnalyticsEnableAllGroupIds, liferayAnalyticsGroupIds, group, layout.isTypeControlPanel(), request) %>">
 	<script data-senna-track="temporary" type="text/javascript">
 		var liferayAnalyticsChannelId = '<%= HtmlUtil.escapeJS(liferayAnalyticsChannelId) %>';
 		var liferayAnalyticsGroupIds = <%= String.valueOf(JSONFactoryUtil.createJSONArray(liferayAnalyticsGroupIds)) %>;
+		var liferayAnalyticsProjectId = '<%= HtmlUtil.escapeJS(liferayAnalyticsProjectId) %>';
 	</script>
 
 	<script data-senna-track="permanent" id="liferayAnalyticsScript" type="text/javascript">
@@ -484,13 +486,15 @@ String[] liferayAnalyticsGroupIds = PrefsPropsUtil.getStringArray(company.getCom
 			var config = {
 				channelId: liferayAnalyticsChannelId,
 				dataSourceId: '<%= HtmlUtil.escapeJS(liferayAnalyticsDataSourceId) %>',
-				endpointUrl: '<%= HtmlUtil.escapeJS(liferayAnalyticsEndpointURL) %>'
+				endpointUrl: '<%= HtmlUtil.escapeJS(liferayAnalyticsEndpointURL) %>',
+				projectId: '<%= HtmlUtil.escapeJS(liferayAnalyticsProjectId) %>'
 			};
 
 			var dxpMiddleware = function(request) {
 				request.context.canonicalUrl = themeDisplay.getCanonicalURL();
 				request.context.channelId = liferayAnalyticsChannelId;
 				request.context.groupId = themeDisplay.getScopeGroupIdOrLiveGroupId();
+				request.context.projectId = liferayAnalyticsProjectId;
 
 				return request;
 			};
