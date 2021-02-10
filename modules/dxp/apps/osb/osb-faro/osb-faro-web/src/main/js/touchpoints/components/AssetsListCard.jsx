@@ -122,7 +122,6 @@ class AssetsListCard extends React.Component {
 			{
 				accessor: 'type',
 				cellRenderer: ({data}) => this.renderTypeColumn(data),
-				className: 'table-cell-expand table-cell-expand-small',
 				label: Liferay.Language.get('asset-type'),
 				sortable: false
 			}
