@@ -70,6 +70,7 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 public class CompanyIndexFactory
 	implements IndexContributorReceiver, IndexFactory {
 
+	@Override
 	public void addIndexContributor(IndexContributor indexContributor) {
 		_indexContributors.add(indexContributor);
 	}
@@ -113,6 +114,7 @@ public class CompanyIndexFactory
 		_companyIds.remove(companyId);
 	}
 
+	@Override
 	public void removeIndexContributor(IndexContributor indexContributor) {
 		_indexContributors.remove(indexContributor);
 	}
