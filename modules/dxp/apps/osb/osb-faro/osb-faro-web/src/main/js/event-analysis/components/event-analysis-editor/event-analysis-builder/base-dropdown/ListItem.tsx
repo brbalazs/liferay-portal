@@ -29,7 +29,13 @@ const ListItem: React.FC<IListItemProps> = ({
 	const {description, displayName, id, name} = item;
 
 	return (
-		<Overlay alignment='rightCenter' ref={_overlayRef} usePortal={false}>
+		<Overlay
+			alignment='rightCenter'
+			hideDelay={200}
+			ref={_overlayRef}
+			showDelay={200}
+			usePortal={false}
+		>
 			<ClayDropdown.Item
 				className={getCN('d-flex justify-content-between', {
 					active,

@@ -31,8 +31,17 @@
 		&:hover,
 		&:focus {
 			.filter-button:not([disabled]) {
-				background-color: $primaryLighten45;
-				display: block;
+				background-color: rgba($main, 0.04);
+				opacity: 1;
+				visibility: visible;
+
+				&:active,
+				&:focus,
+				&:hover {
+					background-color: rgba($black, 0.04);
+					border: 1px solid $primaryLighten33;
+					color: $info;
+				}
 			}
 		}
 
@@ -48,7 +57,9 @@
 
 		.filter-button {
 			background-color: transparent;
-			display: none;
+			opacity: 0;
+			transition: opacity 100ms ease;
+			visibility: hidden;
 		}
 	}
 
