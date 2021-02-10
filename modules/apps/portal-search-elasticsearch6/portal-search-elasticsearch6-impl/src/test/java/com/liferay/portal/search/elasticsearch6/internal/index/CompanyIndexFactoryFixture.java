@@ -18,7 +18,6 @@ import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
 import com.liferay.portal.search.elasticsearch6.internal.connection.IndexName;
-import com.liferay.portal.search.elasticsearch6.internal.index.CompanyIndexFactoryFixture.TestIndexNameBuilder;
 import com.liferay.portal.search.index.IndexNameBuilder;
 
 /**
