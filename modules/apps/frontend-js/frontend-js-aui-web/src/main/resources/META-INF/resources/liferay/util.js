@@ -1133,7 +1133,7 @@
 			}
 
 			if (!hasErrors) {
-				var action = event.action || form.attr('action');
+				var action = event.action || form.getAttribute('action');
 
 				var singleSubmit = event.singleSubmit;
 
