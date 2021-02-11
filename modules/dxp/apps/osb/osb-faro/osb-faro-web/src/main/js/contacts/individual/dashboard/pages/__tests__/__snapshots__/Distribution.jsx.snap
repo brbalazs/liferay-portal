@@ -46,7 +46,7 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
                     <span
                       class="content-container"
                     >
-                      Breakdown 
+                      Breakdown by
                     </span>
                   </label>
                   <div
