@@ -8,6 +8,7 @@ import {
 	formatYAxis,
 	getFormattedDataHistogram,
 	normalizeHistogram,
+	sortOrderExperiment,
 	TOOLTIP_METRICS
 } from 'experiments/util/experiments';
 import {getDate as getDateUtil} from 'shared/util/date';
@@ -28,8 +29,9 @@ export default metricUnit => ({experiment}) => {
 		metricUnit
 	);
 
-	const data = normalizedHistogram.map(
-		({control, dxpVariantName, variantsHistogram}, index) => {
+	const data = normalizedHistogram
+		.sort(sortOrderExperiment)
+		.map(({control, dxpVariantName, variantsHistogram}, index) => {
 			const data = getFormattedDataHistogram(variantsHistogram, index);
 
 			return {
@@ -37,8 +39,7 @@ export default metricUnit => ({experiment}) => {
 				data,
 				name: dxpVariantName
 			};
-		}
-	);
+		});
 
 	return {
 		chartType: 'area',

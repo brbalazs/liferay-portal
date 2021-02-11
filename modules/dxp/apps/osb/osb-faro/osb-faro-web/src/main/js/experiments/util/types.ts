@@ -28,6 +28,12 @@ export type DataPoint = {
 	payload: Data;
 };
 
+export type DxpSessionVariant = {
+	control: boolean;
+	dxpVariantName: string;
+	sessionHistogram: Array<Histogram>;
+};
+
 export type FormattedHistogram = {
 	key: Array<Date>;
 	value: Array<number>;
@@ -190,6 +196,11 @@ export type NormalizeHistogramFn = (
 ) => Array<VariantFormatted>;
 
 export type MakeAllRefetchFn = (queries: Array<Function>) => void;
+
+export type SortOrderExperiment = (
+	experimentA: DxpSessionVariant | VariantFormatted,
+	experimentB: DxpSessionVariant | VariantFormatted
+) => number;
 
 export type Status =
 	| 'COMPLETED'

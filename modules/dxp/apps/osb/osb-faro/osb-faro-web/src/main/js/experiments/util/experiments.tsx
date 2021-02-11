@@ -30,6 +30,7 @@ import {
 	ModalPublishOtherVariantFn,
 	ModalPublishVariantFn,
 	NormalizeHistogramFn,
+	SortOrderExperiment,
 	StepInputs,
 	TooltipMetric
 } from './types';
@@ -439,3 +440,8 @@ export const getFormattedDataTooltip: GetFormattedDataTooltip = dataPoint => {
 
 	return {header, rows};
 };
+
+export const sortOrderExperiment: SortOrderExperiment = (
+	{control: experimentControlA},
+	{control: experimentControlB}
+) => Number(experimentControlB) - Number(experimentControlA);
