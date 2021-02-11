@@ -588,10 +588,11 @@ export class Distribution extends React.Component {
 										{sub(
 											Liferay.Language.get('breakdown-x'),
 											[
-												hasMultipleContextOptions ??
-													Liferay.Language.get('by')
+												hasMultipleContextOptions
+													? ''
+													: Liferay.Language.get('by')
 											],
-											false
+											true
 										)}
 									</Label>
 
