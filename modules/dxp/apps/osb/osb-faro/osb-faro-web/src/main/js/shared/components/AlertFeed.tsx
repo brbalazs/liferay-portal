@@ -4,7 +4,7 @@ import React from 'react';
 import {Alert as AlertType} from 'shared/types';
 import {alertTypes, removeAlert} from '../actions/alerts';
 import {connect} from 'react-redux';
-import {CSSTransitionGroup} from 'react-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {List, Map} from 'immutable';
 
 const {danger, info, secondary, success, warning} = ALERT_CONFIG_MAP;
@@ -43,13 +43,7 @@ export const AlertFeed: React.FC<IAlertFeedProps> = ({
 			'modal-active': modalActive
 		})}
 	>
-		<CSSTransitionGroup
-			transitionAppear
-			transitionAppearTimeout={150}
-			transitionEnterTimeout={150}
-			transitionLeaveTimeout={150}
-			transitionName='transition-slide-up'
-		>
+		<TransitionGroup>
 			{alertsIMap
 				.map(alertIMap => {
 					const {
@@ -62,21 +56,29 @@ export const AlertFeed: React.FC<IAlertFeedProps> = ({
 					const message = alertIMap.get('message');
 
 					return (
-						<Alert
-							iconSymbol={symbol}
-							id={id}
+						<CSSTransition
+							appear
+							classNames='transition-slide-up'
 							key={id}
-							notification={alertIMap.get('notification')}
-							onClose={removeAlert}
-							title={label}
-							type={display}
+							timeout={{enter: 150, exit: 150}}
 						>
-							{List.isList(message) ? message.toJS() : message}
-						</Alert>
+							<Alert
+								iconSymbol={symbol}
+								id={id}
+								notification={alertIMap.get('notification')}
+								onClose={removeAlert}
+								title={label}
+								type={display}
+							>
+								{List.isList(message)
+									? message.toJS()
+									: message}
+							</Alert>
+						</CSSTransition>
 					);
 				})
 				.toArray()}
-		</CSSTransitionGroup>
+		</TransitionGroup>
 	</div>
 );
 

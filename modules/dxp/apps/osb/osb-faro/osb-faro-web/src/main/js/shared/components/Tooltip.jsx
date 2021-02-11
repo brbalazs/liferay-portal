@@ -4,7 +4,7 @@ import getCN from 'classnames';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {Align} from 'metal-position';
-import {CSSTransitionGroup} from 'react-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {EventHandler} from 'metal-events';
 import {PropTypes} from 'prop-types';
 
@@ -231,21 +231,21 @@ class TooltipBase extends React.Component {
 		const {align, message, show, target} = this.state;
 
 		return (
-			<CSSTransitionGroup
-				transitionAppear
-				transitionAppearTimeout={150}
-				transitionEnterTimeout={150}
-				transitionLeaveTimeout={150}
-				transitionName='transition-fade-in-out'
-			>
+			<TransitionGroup>
 				{show && (
-					<Tooltip
-						initialAlignment={align}
-						message={message}
-						target={target}
-					/>
+					<CSSTransition
+						appear
+						classNames='transition-fade-in-out'
+						timeout={{enter: 150, exit: 150}}
+					>
+						<Tooltip
+							initialAlignment={align}
+							message={message}
+							target={target}
+						/>
+					</CSSTransition>
 				)}
-			</CSSTransitionGroup>
+			</TransitionGroup>
 		);
 	}
 }
