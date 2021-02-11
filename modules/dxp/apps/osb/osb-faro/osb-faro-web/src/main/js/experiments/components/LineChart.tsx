@@ -208,7 +208,6 @@ const LineChart: React.FC<ILineChartProps> = ({
 								return <Tooltip dataPoint={payload} />;
 							}
 						}}
-						cursor={{stroke: CHART_BLUE}}
 					/>
 
 					<Legend
