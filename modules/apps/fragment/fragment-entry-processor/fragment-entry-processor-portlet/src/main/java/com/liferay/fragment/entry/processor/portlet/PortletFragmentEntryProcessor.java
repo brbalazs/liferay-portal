@@ -436,7 +436,7 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 
 			Layout layout = _layoutLocalService.getLayout(ppPlid);
 
-			if ((groupId != layout.getGroupId()) || (plid != ppPlid) ||
+			if ((groupId != layout.getGroupId()) ||
 				Objects.equals(
 					portletPreferences.getPreferences(),
 					portletPreferencesXml)) {
