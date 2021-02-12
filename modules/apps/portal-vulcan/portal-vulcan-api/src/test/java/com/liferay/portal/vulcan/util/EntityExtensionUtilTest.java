@@ -33,18 +33,16 @@ public class EntityExtensionUtilTest {
 		baseEntity.setId(RandomTestUtil.randomLong());
 		baseEntity.setName(RandomTestUtil.randomString());
 
-		String extendedProperty = RandomTestUtil.randomString();
+		String description = RandomTestUtil.randomString();
 
 		ExtendedEntity testExtendedEntity = EntityExtensionUtil.extend(
 			baseEntity, BaseEntity.class, ExtendedEntity.class,
-			extendedEntity -> extendedEntity.setExtendedProperty(
-				extendedProperty));
+			extendedEntity -> extendedEntity.setDescription(description));
 
 		Assert.assertNotNull(testExtendedEntity);
 		Assert.assertEquals(baseEntity.getId(), testExtendedEntity.getId());
 		Assert.assertEquals(baseEntity.getName(), testExtendedEntity.getName());
-		Assert.assertEquals(
-			extendedProperty, testExtendedEntity.getExtendedProperty());
+		Assert.assertEquals(description, testExtendedEntity.getDescription());
 	}
 
 	public static class BaseEntity {
@@ -72,15 +70,15 @@ public class EntityExtensionUtilTest {
 
 	public static class ExtendedEntity extends BaseEntity {
 
-		public String getExtendedProperty() {
-			return _extendedProperty;
+		public String getDescription() {
+			return _description;
 		}
 
-		public void setExtendedProperty(String extendedProperty) {
-			_extendedProperty = extendedProperty;
+		public void setDescription(String description) {
+			_description = description;
 		}
 
-		private String _extendedProperty;
+		private String _description;
 
 	}
 

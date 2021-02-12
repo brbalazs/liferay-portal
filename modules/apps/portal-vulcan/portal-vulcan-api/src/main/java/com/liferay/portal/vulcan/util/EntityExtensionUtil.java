@@ -35,8 +35,6 @@ public class EntityExtensionUtil {
 			UnsafeConsumer<S, ? extends Exception> unsafeConsumer)
 		throws Exception {
 
-		Field[] baseEntityFields = baseEntityClass.getDeclaredFields();
-
 		S extendedEntity = extendedEntityClass.newInstance();
 
 		Class<?> extendedEntityClassSuperclass =
@@ -52,7 +50,7 @@ public class EntityExtensionUtil {
 			extendedEntityFieldsStream.collect(
 				Collectors.toMap(Field::getName, Function.identity()));
 
-		for (Field baseEntityField : baseEntityFields) {
+		for (Field baseEntityField : baseEntityClass.getDeclaredFields()) {
 			Field extendedEntityField = extendedEntityFieldsMap.get(
 				baseEntityField.getName());
 			baseEntityField.setAccessible(true);
