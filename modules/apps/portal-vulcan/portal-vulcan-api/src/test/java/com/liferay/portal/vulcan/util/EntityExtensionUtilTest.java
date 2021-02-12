@@ -35,14 +35,15 @@ public class EntityExtensionUtilTest {
 
 		String description = RandomTestUtil.randomString();
 
-		ExtendedEntity testExtendedEntity = EntityExtensionUtil.extend(
+		ExtendedEntity extendedEntity = EntityExtensionUtil.extend(
 			baseEntity, BaseEntity.class, ExtendedEntity.class,
-			extendedEntity -> extendedEntity.setDescription(description));
+			unsafeConsumerExtendedEntity ->
+				unsafeConsumerExtendedEntity.setDescription(description));
 
-		Assert.assertNotNull(testExtendedEntity);
-		Assert.assertEquals(baseEntity.getId(), testExtendedEntity.getId());
-		Assert.assertEquals(baseEntity.getName(), testExtendedEntity.getName());
-		Assert.assertEquals(description, testExtendedEntity.getDescription());
+		Assert.assertNotNull(extendedEntity);
+		Assert.assertEquals(baseEntity.getId(), extendedEntity.getId());
+		Assert.assertEquals(baseEntity.getName(), extendedEntity.getName());
+		Assert.assertEquals(description, extendedEntity.getDescription());
 	}
 
 	public static class BaseEntity {
