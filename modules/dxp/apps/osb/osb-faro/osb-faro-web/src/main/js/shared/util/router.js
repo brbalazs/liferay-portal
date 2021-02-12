@@ -526,7 +526,7 @@ export function reloadPage() {
  * Custom hook to get a specific query param
  * @param {string} paramName
  */
-export function useQuery(paramName) {
+export function useRouteQuery(paramName) {
 	const query = new URLSearchParams(useLocation().search);
 	return query.get(paramName);
 }
