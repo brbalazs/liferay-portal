@@ -1,9 +1,4 @@
 {
-	"awesomeTypescriptLoaderOptions": {
-		"transpileOnly": false,
-		"useBabel": true
-	},
-	"babelCore": "@babel/core",
 	"compilerOptions": {
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
