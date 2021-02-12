@@ -361,10 +361,9 @@ definition {
 			panel = "Control Panel",
 			portlet = "Instance Settings");
 
-		SystemSettings.gotoConfiguration(
-			configurationCategory = "SSO",
-			configurationName = "Token Based SSO",
-			configurationScope = "Virtual Instance Scope");
+		AssertClick(
+			locator1 = "NavTab#TOKEN",
+			value1 = "Token");
 
 		FormFields.enableCheckbox(fieldName = "enabled");
 
