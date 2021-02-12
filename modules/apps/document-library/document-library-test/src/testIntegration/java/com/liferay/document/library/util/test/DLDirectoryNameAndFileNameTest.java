@@ -110,8 +110,7 @@ public class DLDirectoryNameAndFileNameTest {
 			name = blacklistName + ".txt";
 
 			Assert.assertEquals(
-				blacklistName + StringPool.UNDERLINE + ".txt",
-				DLValidatorUtil.fixName(name));
+				blacklistName + "_.txt", DLValidatorUtil.fixName(name));
 
 			name = blacklistName + StringUtil.randomString(10);
 
