@@ -110,8 +110,8 @@ public class TimeZoneUtil {
 				put("Africa/Tripoli", "Libya");
 				put("Africa/Tunis", "Tunisia");
 				put("Africa/Windhoek", "Namibia");
-				put("America/Adak", "Alaska");
-				put("America/Anchorage", "Alaska");
+				put("America/Adak", "United States");
+				put("America/Anchorage", "United States");
 				put("America/Araguaina", "Brazil");
 				put("America/Argentina/Buenos_Aires", "Argentina");
 				put("America/Argentina/Catamarca", "Argentina");
