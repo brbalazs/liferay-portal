@@ -90,4 +90,23 @@ describe('BasePage', () => {
 
 		expect(getByText('testPageTitle')).toBeTruthy();
 	});
+
+	it('should render with an inline title with subtitle', () => {
+		const {getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BasePage
+						groupId='23'
+						pageTitle='testPageTitle'
+						subTitle='mysubtitle'
+					/>
+				</StaticRouter>
+			</Provider>
+		);
+
+		expect(getByText('testPageTitle').parentElement).toHaveClass(
+			'inline-text'
+		);
+		expect(getByText('mysubtitle').parentElement).toBeTruthy();
+	});
 });
