@@ -1,5 +1,4 @@
-import Button from 'shared/components/Button';
-import Label from 'shared/components/Label';
+import FilterInfo from './FilterInfo';
 import React from 'react';
 import {DataTypes} from '../types';
 
@@ -17,27 +16,13 @@ const InfoCardPopover: React.FC<IInfoCardPopoverProps> = ({
 	onEditClick
 }) => (
 	<div className='info-card-popover-root'>
-		<div className='info-card-popover-header d-flex align-items-center justify-content-between'>
-			{name}
-
-			<Button
-				borderless
-				icon='pencil'
-				iconAlignment='left'
-				onClick={onEditClick}
-				size='sm'
-			/>
-		</div>
-
-		<div className='description'>
-			{description || Liferay.Language.get('no-description')}
-		</div>
-
-		{dataType && (
-			<Label display='info' uppercase>
-				{dataType}
-			</Label>
-		)}
+		<FilterInfo
+			dataType={dataType}
+			description={description}
+			name={name}
+			onEditClick={onEditClick}
+			showDescription
+		/>
 	</div>
 );
 

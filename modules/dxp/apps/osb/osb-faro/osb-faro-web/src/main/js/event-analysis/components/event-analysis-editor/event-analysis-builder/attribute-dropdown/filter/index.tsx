@@ -2,7 +2,7 @@ import BooleanFilter from './BooleanFilter';
 import Button from 'shared/components/Button';
 import DateFilter from './DateFilter';
 import DurationFilter from './DurationFilter';
-import Label from 'shared/components/Label';
+import FilterInfo from '../../FilterInfo';
 import NumberFilter from './NumberFilter';
 import React from 'react';
 import StringFilter from './StringFilter';
@@ -70,22 +70,11 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 					{Liferay.Language.get('back-to-attributes')}
 				</Button>
 
-				<div className='filter-info'>
-					<div className='filter-name d-flex align-items-center justify-content-between'>
-						{displayName || name}
-						<Button
-							borderless
-							icon='pencil'
-							iconAlignment='left'
-							onClick={onEditClick}
-							size='sm'
-						/>
-					</div>
-
-					<Label display='info' uppercase>
-						{defaultDataType}
-					</Label>
-				</div>
+				<FilterInfo
+					dataType={defaultDataType}
+					name={displayName || name}
+					onEditClick={onEditClick}
+				/>
 			</div>
 
 			<FilterBody
