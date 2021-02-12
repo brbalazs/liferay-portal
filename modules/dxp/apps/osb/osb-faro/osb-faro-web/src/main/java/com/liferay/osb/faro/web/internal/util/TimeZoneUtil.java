@@ -101,7 +101,6 @@ public class TimeZoneUtil {
 				put("Africa/El_Aaiun", "Morocco");
 				put("Africa/Johannesburg", "South Africa");
 				put("Africa/Juba", "South Sudan");
-				put("Africa/Khartoum", "Sudan");
 				put("Africa/Lagos", "Nigeria");
 				put("Africa/Maputo", "Mozambique");
 				put("Africa/Monrovia", "Liberia");
@@ -165,7 +164,6 @@ public class TimeZoneUtil {
 				put("America/Guayaquil", "Ecuador");
 				put("America/Guyana", "Guyana");
 				put("America/Halifax", "Canada");
-				put("America/Havana", "Cuba");
 				put("America/Hermosillo", "Mexico");
 				put("America/Indiana/Indianapolis", "United States");
 				put("America/Indiana/Knox", "United States");
@@ -267,7 +265,6 @@ public class TimeZoneUtil {
 				put("Asia/Chita", "Russia");
 				put("Asia/Choibalsan", "Mongolia");
 				put("Asia/Colombo", "Sri Lanka");
-				put("Asia/Damascus", "Syria");
 				put("Asia/Dhaka", "Bangladesh");
 				put("Asia/Dili", "Timor-Leste");
 				put("Asia/Dubai", "United Arab Emirates");
@@ -301,7 +298,6 @@ public class TimeZoneUtil {
 				put("Asia/Omsk", "Russia");
 				put("Asia/Oral", "Kazakhstan");
 				put("Asia/Pontianak", "Indonesia");
-				put("Asia/Pyongyang", "North Korea");
 				put("Asia/Qatar", "Qatar");
 				put("Asia/Qyzylorda", "Kazakhstan");
 				put("Asia/Riyadh", "Saudi Arabia");
@@ -314,7 +310,6 @@ public class TimeZoneUtil {
 				put("Asia/Taipei", "Taiwan");
 				put("Asia/Tashkent", "Uzbekistan");
 				put("Asia/Tbilisi", "Georgia");
-				put("Asia/Tehran", "Iran");
 				put("Asia/Thimphu", "Bhutan");
 				put("Asia/Tokyo", "Japan");
 				put("Asia/Tomsk", "Russia");
