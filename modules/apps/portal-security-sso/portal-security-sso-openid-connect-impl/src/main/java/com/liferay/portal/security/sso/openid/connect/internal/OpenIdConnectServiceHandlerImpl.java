@@ -162,9 +162,6 @@ public class OpenIdConnectServiceHandlerImpl
 				_openIdConnectProviderRegistry.findOpenIdConnectProvider(
 					openIdConnectSessionImpl.getOpenIdProviderName());
 
-		int tokenConnectionTimeout =
-			openIdConnectProvider.geTokenConnectionTimeout();
-
 		OIDCProviderMetadata oidcProviderMetadata =
 			openIdConnectProvider.getOIDCProviderMetadata();
 
@@ -176,7 +173,8 @@ public class OpenIdConnectServiceHandlerImpl
 		Tokens tokens = requestIdToken(
 			authenticationSuccessResponse, oidcClientInformation,
 			oidcProviderMetadata, redirectURI,
-			openIdConnectSessionImpl.getNonce(), tokenConnectionTimeout);
+			openIdConnectSessionImpl.getNonce(),
+			openIdConnectProvider.geTokenConnectionTimeout());
 
 		updateSessionTokens(
 			openIdConnectSessionImpl, tokens, System.currentTimeMillis());
@@ -448,16 +446,13 @@ public class OpenIdConnectServiceHandlerImpl
 				_openIdConnectProviderRegistry.findOpenIdConnectProvider(
 					openIdConnectProviderName);
 
-		int tokenConnectionTimeout =
-			openIdConnectProvider.geTokenConnectionTimeout();
-
 		OIDCProviderMetadata oidcProviderMetadata =
 			openIdConnectProvider.getOIDCProviderMetadata();
 
 		Tokens tokens = requestRefreshToken(
 			refreshToken, getOIDCClientInformation(openIdConnectProvider),
 			oidcProviderMetadata, openIdConnectSessionImpl.getNonce(),
-			tokenConnectionTimeout);
+			openIdConnectProvider.geTokenConnectionTimeout());
 
 		updateSessionTokens(
 			openIdConnectSessionImpl, tokens, System.currentTimeMillis());
