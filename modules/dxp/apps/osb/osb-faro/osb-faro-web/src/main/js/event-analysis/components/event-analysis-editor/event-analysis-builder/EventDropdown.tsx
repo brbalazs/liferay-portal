@@ -3,7 +3,7 @@ import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
 import {Event, EventTypes} from '../types';
 
-// TODO: Replace Mock Data
+// TODO: LRAC-7466 Replace Mock Data
 const MOCKED_DEFAULT_EVENTS_LIST = [
 	{
 		description: 'Blah blah blah blah',
@@ -28,7 +28,7 @@ const MOCKED_DEFAULT_EVENTS_LIST = [
 	}
 ];
 
-// TODO: Replace Mock Data
+// TODO: LRAC-7466 Replace Mock Data
 const MOCKED_CUSTOM_EVENTS_LIST = [
 	{
 		displayName: 'Form Submit',

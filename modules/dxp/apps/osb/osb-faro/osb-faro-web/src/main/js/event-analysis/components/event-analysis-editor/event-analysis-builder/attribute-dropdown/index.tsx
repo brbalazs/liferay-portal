@@ -6,7 +6,7 @@ import {AddAttribute, EditAttribute} from '../../context/attributes';
 import {Attribute, AttributeTypes, DataTypes, Filter} from '../../types';
 import {BREAKDOWN_FNS_MAP} from '../../utils';
 
-// TODO: Replace Mock Data
+// TODO: LRAC-7466: Connect API
 const MOCKED_EVENT_ATTRIBUTE_LIST = [
 	{
 		defaultDataType: DataTypes.Duration,
@@ -64,7 +64,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	onAttributeSelect,
 	trigger
 }) => {
-	const [attributesList, setAttributesList] = useState<Attribute[]>([]); // TODO: Remove one we have actual requests
+	const [attributesList, setAttributesList] = useState<Attribute[]>([]); // TODO: LRAC-7466: Remove one we have actual requests
 	const [attributeType, setAttributeType] = useState<AttributeTypes>(
 		AttributeTypes.Event
 	);

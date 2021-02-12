@@ -25,7 +25,7 @@ describe('BaseDropdownHeader', () => {
 	);
 
 	it('should render', () => {
-		const {container} = render(WrappedComponent);
+		const {container} = render(<WrappedComponent />);
 
 		expect(container).toMatchSnapshot();
 	});

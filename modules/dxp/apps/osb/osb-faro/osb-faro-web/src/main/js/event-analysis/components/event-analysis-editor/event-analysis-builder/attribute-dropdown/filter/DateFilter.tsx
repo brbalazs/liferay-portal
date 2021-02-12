@@ -105,8 +105,6 @@ const DateFilter: React.FC<IDateFilterProps> = ({
 				setFieldValue,
 				values: {dateGrouping, operator}
 			}) => {
-				// TODO: Update operator value if switched from DateGrouping.Dates to anything else
-
 				const filteredConditions =
 					dateGrouping === DateGroupings.Dates
 						? DATE_OPTIONS

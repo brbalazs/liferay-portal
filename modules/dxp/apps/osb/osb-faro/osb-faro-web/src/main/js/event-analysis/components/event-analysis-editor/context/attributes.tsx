@@ -32,16 +32,21 @@ export type EditAttribute = (params: {
 
 export type MoveAttribute = (params: {from: number; to: number}) => void;
 
-export const AttributesContext = createContext<{
-	addAttribute?: AddAttribute;
+type AttributesState = {
 	attributes: {[key: string]: Attribute};
 	breakdowns: {[key: string]: Breakdown};
-	deleteAttribute?: DeleteAttribute;
-	editAttribute?: EditAttribute;
 	filters: {[key: string]: Filter};
-	moveAttribute?: MoveAttribute;
 	order: string[];
-}>({
+};
+
+export const AttributesContext = createContext<
+	AttributesState & {
+		addAttribute?: AddAttribute;
+		deleteAttribute?: DeleteAttribute;
+		editAttribute?: EditAttribute;
+		moveAttribute?: MoveAttribute;
+	}
+>({
 	attributes: {},
 	breakdowns: {},
 	filters: {},
@@ -59,13 +64,6 @@ type Action = {
 		to?: number;
 	};
 	type: ActionTypes;
-};
-
-type AttributesState = {
-	attributes: {[key: string]: Attribute};
-	breakdowns: {[key: string]: Breakdown};
-	filters: {[key: string]: Filter};
-	order: string[];
 };
 
 export const attributesReducer = (
@@ -151,16 +149,18 @@ export const attributesReducer = (
 	}
 };
 
+const defaultState = {
+	attributes: {},
+	breakdowns: {},
+	filters: {},
+	order: []
+};
+
 const AttributesProvider = ({children}: {children: React.ReactNode}) => {
 	const [
 		{attributes, breakdowns, filters, order},
 		attributesDispatch
-	] = useReducer(attributesReducer, {
-		attributes: {},
-		breakdowns: {},
-		filters: {},
-		order: []
-	});
+	] = useReducer(attributesReducer, defaultState);
 
 	const contextValue: {
 		addAttribute: AddAttribute;
