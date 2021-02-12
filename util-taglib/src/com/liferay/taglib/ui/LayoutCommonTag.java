@@ -104,9 +104,7 @@ public class LayoutCommonTag extends IncludeTag {
 			"<form action=\"#\" aria-hidden=\"true\" class=\"hide\" " +
 				"id=\"hrefFm\" method=\"post\" name=\"hrefFm\"><span>" +
 					"</span><button hidden type=\"submit\">");
-
 		jspWriter.write(LanguageUtil.get(request, "hidden"));
-
 		jspWriter.write("</button></form>");
 
 		return EVAL_PAGE;
