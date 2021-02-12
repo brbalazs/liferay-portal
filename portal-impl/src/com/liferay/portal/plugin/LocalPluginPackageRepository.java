@@ -143,7 +143,7 @@ public class LocalPluginPackageRepository {
 		if (pluginPackage == null) {
 			String moduleId = StringBundler.concat(
 				deploymentContext, StringPool.SLASH, deploymentContext,
-				StringPool.SLASH, Version.UNKNOWN, StringPool.SLASH, "war");
+				StringPool.SLASH, Version.UNKNOWN, "/war");
 
 			pluginPackage = new PluginPackageImpl(moduleId);
 

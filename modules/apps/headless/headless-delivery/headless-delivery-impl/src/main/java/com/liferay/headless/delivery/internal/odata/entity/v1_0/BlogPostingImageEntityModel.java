@@ -16,7 +16,6 @@ package com.liferay.headless.delivery.internal.odata.entity.v1_0;
 
 import com.liferay.headless.common.spi.odata.entity.EntityFieldsMapFactory;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -37,8 +36,7 @@ public class BlogPostingImageEntityModel implements EntityModel {
 			new IdEntityField(
 				"encodingFormat",
 				locale -> Field.getSortableFieldName(
-					StringBundler.concat(
-						"mimeType", StringPool.UNDERLINE, "String")),
+					StringBundler.concat("mimeType_String")),
 				mimeType -> {
 					String encodingFormat = String.valueOf(mimeType);
 
@@ -50,8 +48,7 @@ public class BlogPostingImageEntityModel implements EntityModel {
 			new StringEntityField(
 				"fileExtension",
 				locale -> Field.getSortableFieldName(
-					StringBundler.concat(
-						"extension", StringPool.UNDERLINE, "String"))),
+					StringBundler.concat("extension_String"))),
 			new StringEntityField(
 				"title",
 				locale -> Field.getSortableFieldName(

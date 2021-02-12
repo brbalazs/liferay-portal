@@ -1105,7 +1105,7 @@ public class PluginPackageUtil {
 		PluginPackage pluginPackage = new PluginPackageImpl(
 			StringBundler.concat(
 				artifactGroupId, StringPool.SLASH, artifactId, StringPool.SLASH,
-				version, StringPool.SLASH, "war"));
+				version, "/war"));
 
 		pluginPackage.setName(artifactId);
 
