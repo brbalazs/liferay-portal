@@ -138,6 +138,7 @@ const config = {
 	output: {
 		filename: 'main.js',
 		path: path.resolve('src/main/resources/META-INF/resources/dist'),
+		pathinfo: false,
 		publicPath: PUBLIC_PATH
 	},
 	plugins: [
