@@ -17,7 +17,7 @@ interface ISettingsBasePageProps {
 	pageActionsDisplayLimit?: number;
 	pageDescription?: React.ReactNode;
 	pageTitle?: React.ReactNode;
-	pageTitleSubtext?: React.ReactNode;
+	subTitle?: React.ReactNode;
 	passedChildren?: React.ReactNode;
 }
 
@@ -30,7 +30,7 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 	pageActionsDisplayLimit,
 	pageDescription,
 	pageTitle,
-	pageTitleSubtext,
+	subTitle,
 	passedChildren
 }) => {
 	const renderPageTitle = () => (
@@ -39,14 +39,12 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 				<>
 					<h3
 						className={getCN({
-							['inline-text']: pageTitleSubtext
+							['inline-text']: subTitle
 						})}
 					>
 						<TextTruncate title={pageTitle} />
 					</h3>
-					{pageTitleSubtext && (
-						<span className='ml-2'>{pageTitleSubtext}</span>
-					)}
+					{subTitle && <span className='ml-2'>{subTitle}</span>}
 				</>
 			)}
 		</>

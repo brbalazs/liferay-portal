@@ -46,7 +46,7 @@ const EventView: React.FC<IEventViewProps> = ({groupId}) => {
 				event.description || Liferay.Language.get('no-description')
 			}
 			pageTitle={event.name}
-			pageTitleSubtext={event.displayName}
+			subTitle={event.displayName}
 		>
 			<div>{`CARD GOES HERE ${eventId}`}</div>
 		</BasePage>
