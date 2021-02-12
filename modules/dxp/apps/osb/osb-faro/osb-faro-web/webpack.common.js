@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const webpack = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const PUBLIC_PATH = '/o/osb-faro-web/dist/';
 
@@ -49,6 +50,9 @@ const config = {
 			{
 				include,
 				loader: 'ts-loader',
+				options: {
+					transpileOnly: true
+				},
 				resolve: {
 					alias: {
 						assets: resolveModule('assets'),
@@ -141,6 +145,11 @@ const config = {
 			filename: 'main.css'
 		}),
 		new BundleQueryStringPlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			eslint: {
+				files: 'src/main/js/**/*.+(js|ts)?(x)'
+			}
+		}),
 		new SpriteLoaderPlugin(),
 		new webpack.DefinePlugin({
 			CEREBRO_PATHS_GEOMAP_KEY: JSON.stringify(getPathsChecksum()),
