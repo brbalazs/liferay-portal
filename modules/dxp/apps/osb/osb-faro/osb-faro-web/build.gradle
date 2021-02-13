@@ -23,6 +23,7 @@ dependencies {
 	compileInclude group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.5"
 	compileInclude group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.10"
 
+	compileOnly group: "com.liferay", name: "com.liferay.ip.geocoder.api", version: "1.0.2"
 	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.api", version: "1.2.2"
 	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.api", version: "1.0.4"
 	compileOnly group: "com.liferay", name: "com.liferay.osgi.util", version: "4.0.0"
