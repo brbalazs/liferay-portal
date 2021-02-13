@@ -57,20 +57,28 @@ public class BlockedCountriesServletFilter extends BaseFilter {
 			HttpServletResponse httpServletResponse, FilterChain filterChain)
 		throws Exception {
 
-		if (_ipGeocoder != null) {
-			IPInfo ipInfo = _ipGeocoder.getIPInfo(
-				httpServletRequest.getRemoteHost());
+		if ((_ipGeocoder != null) &&
+			(_isBlockedCountry(httpServletRequest.getParameter("debugIP")) ||
+			 _isBlockedCountry(httpServletRequest.getRemoteHost()))) {
 
-			if (_blockedCountryCodes.contains(ipInfo.getCountryCode())) {
-				httpServletResponse.sendError(
-					HttpServletResponse.SC_FORBIDDEN,
-					"This content is not available in your country");
+			httpServletResponse.sendError(
+				HttpServletResponse.SC_FORBIDDEN,
+				"This content is not available in your country");
 
-				return;
-			}
+			return;
 		}
 
 		filterChain.doFilter(httpServletRequest, httpServletResponse);
+	}
+
+	private boolean _isBlockedCountry(String ipAddress) {
+		if (ipAddress == null) {
+			return false;
+		}
+
+		IPInfo ipInfo = _ipGeocoder.getIPInfo(ipAddress);
+
+		return _blockedCountryCodes.contains(ipInfo.getCountryCode());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
