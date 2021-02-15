@@ -32,7 +32,7 @@ import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 			name = BasicCredentials.TYPE, value = BasicCredentials.class
 		),
 		@JsonSubTypes.Type(
-			name = DummyCredentials.TYPE, value = OAuth2Credentials.class
+			name = DummyCredentials.TYPE, value = TokenCredentials.class
 		),
 		@JsonSubTypes.Type(
 			name = OAuth1Credentials.TYPE, value = OAuth1Credentials.class
