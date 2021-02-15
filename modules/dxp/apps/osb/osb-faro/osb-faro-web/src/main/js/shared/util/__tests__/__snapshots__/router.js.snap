@@ -84,7 +84,7 @@ Object {
   "SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/attributes",
   "SETTINGS_DEFINITIONS_EVENTS_CUSTOM": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/custom",
   "SETTINGS_DEFINITIONS_EVENTS_DEFAULT": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/default",
-  "SETTINGS_DEFINITIONS_EVENTS_VIEW": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/:eventId",
+  "SETTINGS_DEFINITIONS_EVENTS_VIEW": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/:eventId(\\\\d+)",
   "SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/individual-attributes",
   "SETTINGS_DEFINITIONS_INTEREST_TOPICS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/interest-topics",
   "SETTINGS_DEFINITIONS_SEARCH": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/search",

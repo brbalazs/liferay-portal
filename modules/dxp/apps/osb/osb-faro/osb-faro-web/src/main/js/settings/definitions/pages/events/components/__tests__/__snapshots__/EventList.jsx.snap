@@ -124,7 +124,7 @@ exports[`EventList should render 1`] = `
                 >
                   <a
                     class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/myid1"
+                    href="/workspace/23/settings/definitions/events/3345"
                   >
                     firstTest
                   </a>
@@ -162,7 +162,7 @@ exports[`EventList should render 1`] = `
                 >
                   <a
                     class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/myid2"
+                    href="/workspace/23/settings/definitions/events/3356"
                   >
                     testingtest
                   </a>
@@ -200,7 +200,7 @@ exports[`EventList should render 1`] = `
                 >
                   <a
                     class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/myid3"
+                    href="/workspace/23/settings/definitions/events/3357"
                   >
                     anothernamet
                   </a>
