@@ -61,34 +61,41 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				path={Routes.SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES}
 			/>
 
-			{DEVELOPER_MODE && (
-				// TODO: LRAC-4511 Remove when new TrackedBehavior page exists
-				// TODO: LRAC-7254 Move events route out of devmode
-				<Switch>
-					<BundleRouter
-						data={TrackedBehaviors}
-						path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
-					/>
-					<BundleRouter
-						data={Events}
-						path={[
-							Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
-							Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
-							Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
-						]}
-					/>
-					<BundleRouter
-						data={EventView}
-						exact
-						path={Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW}
-					/>
-				</Switch>
-			)}
-
 			<BundleRouter
 				data={Search}
+				exact
 				path={Routes.SETTINGS_DEFINITIONS_SEARCH}
 			/>
+
+			{DEVELOPER_MODE && (
+				// TODO: LRAC-4511 Remove when new TrackedBehavior page exists
+				<BundleRouter
+					data={TrackedBehaviors}
+					exact
+					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
+				/>
+			)}
+
+			{DEVELOPER_MODE && (
+				// TODO: LRAC-7254 Move events route out of devmode
+				<BundleRouter
+					data={Events}
+					path={[
+						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
+						Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
+						Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
+					]}
+				/>
+			)}
+
+			{DEVELOPER_MODE && (
+				// TODO: LRAC-7254 Move events route out of devmode
+				<BundleRouter
+					data={EventView}
+					exact
+					path={Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW}
+				/>
+			)}
 
 			<RouteNotFound />
 		</Switch>
