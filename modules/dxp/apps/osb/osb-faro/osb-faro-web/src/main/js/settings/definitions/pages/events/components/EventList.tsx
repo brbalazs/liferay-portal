@@ -33,21 +33,21 @@ const EventList: React.FC<IEventListProps> = ({
 		{
 			description: 'mydescription',
 			displayName: 'displayNamehere',
-			eventId: 'myid1',
+			eventId: '3345',
 			eventType: 'DEFAULT',
 			name: 'firstTest'
 		},
 		{
 			description: 'seconddescription',
 			displayName: 'seconddisplay',
-			eventId: 'myid2',
+			eventId: '3356',
 			eventType: 'DEFAULT',
 			name: 'testingtest'
 		},
 		{
 			description: 'mydescription',
 			displayName: 'displayNamehere',
-			eventId: 'myid3',
+			eventId: '3357',
 			eventType: 'DEFAULT',
 			name: 'anothernamet'
 		}
