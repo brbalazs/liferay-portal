@@ -72,8 +72,9 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					<BundleRouter
 						data={Events}
 						path={[
-							Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT,
-							Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM
+							Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
+							Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
+							Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
 						]}
 					/>
 					<BundleRouter
