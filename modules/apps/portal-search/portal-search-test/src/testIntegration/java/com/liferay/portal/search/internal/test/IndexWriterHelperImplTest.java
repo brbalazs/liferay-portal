@@ -121,7 +121,7 @@ public class IndexWriterHelperImplTest {
 				TestPropsValues.getGroupId());
 
 		BlogsTestUtil.addEntryWithWorkflow(
-			TestPropsValues.getUserId(), RandomTestUtil.randomString(), false,
+			TestPropsValues.getUserId(), RandomTestUtil.randomString(), true,
 			serviceContext);
 	}
 
