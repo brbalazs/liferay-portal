@@ -641,10 +641,6 @@ public class OpenIdConnectServiceHandlerImpl
 		throws OpenIdConnectServiceException.TokenException {
 
 		try {
-			DefaultResourceRetriever defaultResourceRetriever =
-				new DefaultResourceRetriever(
-					tokenConnectionTimeout, tokenConnectionTimeout);
-
 			OIDCClientMetadata oidcClientMetadata =
 				oidcClientInformation.getOIDCMetadata();
 
@@ -653,7 +649,8 @@ public class OpenIdConnectServiceHandlerImpl
 			IDTokenValidator idTokenValidator = new IDTokenValidator(
 				oidcProviderMetadata.getIssuer(), oidcClientInformation.getID(),
 				oidcClientMetadata.getIDTokenJWSAlg(), jwkSetURI.toURL(),
-				defaultResourceRetriever);
+				new DefaultResourceRetriever(
+					tokenConnectionTimeout, tokenConnectionTimeout));
 
 			OIDCTokens oidcTokens = oidcTokenResponse.getOIDCTokens();
 
