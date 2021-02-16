@@ -14,6 +14,7 @@
 
 package com.liferay.portal.action;
 
+import com.liferay.portal.kernel.security.auth.AuthTokenUtil;
 import com.liferay.portal.kernel.service.UserServiceUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.struts.ActionConstants;
@@ -37,9 +38,11 @@ public class UpdateTermsOfUseAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		long userId = PortalUtil.getUserId(request);
+		AuthTokenUtil.checkCSRFToken(
+			request, UpdateTermsOfUseAction.class.getName());
 
-		UserServiceUtil.updateAgreedToTermsOfUse(userId, true);
+		UserServiceUtil.updateAgreedToTermsOfUse(
+			PortalUtil.getUserId(request), true);
 
 		return actionMapping.findForward(ActionConstants.COMMON_REFERER_JSP);
 	}
