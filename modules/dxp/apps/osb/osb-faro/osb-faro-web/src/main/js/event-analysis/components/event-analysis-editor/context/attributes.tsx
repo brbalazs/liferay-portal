@@ -4,11 +4,11 @@ import {deletePropertyFromObject} from 'shared/util/object';
 import {moveItem, replaceAtIndex} from 'shared/util/array';
 
 export enum ActionTypes {
-	AddAttribute = 'addAttribute',
-	DeleteAttribute = 'DeleteAttribute',
-	DeleteAllAttributes = 'DeleteAllAttributes',
-	EditAttribute = 'editAttribute',
-	MoveAttribute = 'moveAttribute'
+	AddAttribute = 'ADD_ATTRIBUTE',
+	DeleteAttribute = 'DELETE_ATTRIBUTE',
+	DeleteAllAttributes = 'DELETE_ALL_ATTRIBUTES',
+	EditAttribute = 'EDIT_ATTRIBUTE',
+	MoveAttribute = 'MOVE_ATTRIBUTE'
 }
 
 export type AddAttribute = (params: {
