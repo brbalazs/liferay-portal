@@ -361,6 +361,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Instance Settings");
 
+		Panel.expandPanel(panel = "Authentication");
+
 		AssertClick(
 			locator1 = "NavTab#TOKEN",
 			value1 = "Token");
