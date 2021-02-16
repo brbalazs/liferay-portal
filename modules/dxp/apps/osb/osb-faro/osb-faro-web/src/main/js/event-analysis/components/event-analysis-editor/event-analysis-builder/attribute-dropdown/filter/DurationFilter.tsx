@@ -50,13 +50,18 @@ const DurationFilter: React.FC<IFilterProps> = ({
 				onFilterSubmit({
 					breakdown: createDurationBreakdown({
 						attributeId,
-						bin: getMillisecondsFromTime(bin as string),
+						bin: getMillisecondsFromTime(bin.replace(
+							/_/g,
+							'0'
+						) as string),
 						type: attributeType
 					}),
 					filter: {
 						attributeId,
 						operator,
-						value: [getMillisecondsFromTime(value)]
+						value: [
+							getMillisecondsFromTime(value.replace(/_/g, '0'))
+						]
 					}
 				});
 			}}
@@ -74,7 +79,6 @@ const DurationFilter: React.FC<IFilterProps> = ({
 									mask={DURATION_MASK}
 									name='bin'
 									placeholder='HH:MM:SS'
-									placeholderChar='0'
 									type='string'
 									validate={validateRequired}
 								/>
@@ -110,7 +114,6 @@ const DurationFilter: React.FC<IFilterProps> = ({
 									mask={DURATION_MASK}
 									name='value'
 									placeholder='HH:MM:SS'
-									placeholderChar='0'
 									required
 									type='string'
 									validate={validateRequired}
