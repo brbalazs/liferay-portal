@@ -76,3 +76,11 @@ export type Filter = {
 };
 
 export type Filters = {[key: string]: Filter};
+
+export interface IFilterProps {
+	attributeId: string;
+	attributeType: AttributeTypes;
+	breakdown?: Breakdown;
+	filter?: Filter;
+	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
+}

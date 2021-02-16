@@ -1,11 +1,11 @@
 import Button from 'shared/components/Button';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
-import {AttributeTypes, Breakdown, Filter, Operators} from '../../../types';
 import {
 	createStringBreakdown,
 	STRING_OPERATOR_LABELS_MAP
 } from '../../../utils';
+import {IFilterProps, Operators} from '../../../types';
 
 const STRING_OPTIONS = [
 	Operators.Contains,
@@ -14,15 +14,7 @@ const STRING_OPTIONS = [
 	Operators.NE
 ];
 
-interface IStringFilterProps {
-	attributeId: string;
-	attributeType: AttributeTypes;
-	breakdown: Breakdown;
-	filter: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
-}
-
-const StringFilter: React.FC<IStringFilterProps> = ({
+const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,

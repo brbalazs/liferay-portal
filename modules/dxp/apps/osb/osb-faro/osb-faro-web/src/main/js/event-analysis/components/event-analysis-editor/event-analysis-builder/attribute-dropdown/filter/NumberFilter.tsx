@@ -1,26 +1,18 @@
 import Button from 'shared/components/Button';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
-import {AttributeTypes, Breakdown, Filter, Operators} from '../../../types';
 import {
 	createNumberBreakdown,
 	NUMBER_OPERATOR_LONGHAND_LABELS_MAP
 } from '../../../utils';
+import {IFilterProps, Operators} from '../../../types';
 import {sub} from 'shared/util/lang';
 
 const DEFAULT_NUMBER_BIN = 10;
 
 const NUMBER_OPTIONS = [Operators.GT, Operators.LT, Operators.Between];
 
-interface INumberFilterProps {
-	attributeId: string;
-	attributeType: AttributeTypes;
-	breakdown: Breakdown;
-	filter: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
-}
-
-const NumberFilter: React.FC<INumberFilterProps> = ({
+const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,

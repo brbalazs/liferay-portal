@@ -1,20 +1,12 @@
 import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import React from 'react';
-import {AttributeTypes, Breakdown, Filter, Operators} from '../../../types';
 import {BOOLEAN_LABEL_MAP, createBooleanBreakdown} from '../../../utils';
+import {IFilterProps, Operators} from '../../../types';
 
 const BOOLEAN_OPTIONS = ['true', 'false'];
 
-interface IBooleanFilterProps {
-	attributeId: string;
-	attributeType: AttributeTypes;
-	breakdown: Breakdown;
-	filter: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
-}
-
-const BooleanFilter: React.FC<IBooleanFilterProps> = ({
+const BooleanFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,

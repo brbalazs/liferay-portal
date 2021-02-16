@@ -5,17 +5,11 @@ import Form, {
 } from 'shared/components/form';
 import React from 'react';
 import {
-	AttributeTypes,
-	Breakdown,
-	DateGroupings,
-	Filter,
-	Operators
-} from '../../../types';
-import {
 	createDateBreakdown,
 	DATE_GROUPING_LABELS_MAP,
 	DATE_OPERATOR_LONGHAND_LABELS_MAP
 } from '../../../utils';
+import {DateGroupings, IFilterProps, Operators} from '../../../types';
 import {sub} from 'shared/util/lang';
 
 const DATE_GROUPING_OPTIONS = [
@@ -31,15 +25,7 @@ const DATE_OPTIONS = [
 	Operators.Between
 ];
 
-interface IDateFilterProps {
-	attributeId: string;
-	attributeType: AttributeTypes;
-	breakdown: Breakdown;
-	filter: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
-}
-
-const DateFilter: React.FC<IDateFilterProps> = ({
+const DateFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,

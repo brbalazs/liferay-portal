@@ -1,12 +1,12 @@
 import Button from 'shared/components/Button';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
-import {AttributeTypes, Breakdown, Filter, Operators} from '../../../types';
 import {
 	createDurationBreakdown,
 	DURATION_OPERATOR_LONGHAND_LABELS_MAP
 } from '../../../utils';
 import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
+import {IFilterProps, Operators} from '../../../types';
 import {sub} from 'shared/util/lang';
 
 const DEFAULT_DURATION_BIN = 60000;
@@ -14,15 +14,7 @@ const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
 
 const DURATION_OPTIONS = [Operators.GT, Operators.LT];
 
-interface IDurationFilterProps {
-	attributeId: string;
-	attributeType: AttributeTypes;
-	breakdown: Breakdown;
-	filter: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
-}
-
-const DurationFilter: React.FC<IDurationFilterProps> = ({
+const DurationFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeType,
 	breakdown,
