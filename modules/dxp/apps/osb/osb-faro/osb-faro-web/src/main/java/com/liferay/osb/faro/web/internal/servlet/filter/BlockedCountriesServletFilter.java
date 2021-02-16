@@ -85,7 +85,7 @@ public class BlockedCountriesServletFilter extends BaseFilter {
 		BlockedCountriesServletFilter.class);
 
 	private static final List<String> _blockedCountryCodes = Arrays.asList(
-		"CU", "IR", "KP", "SD", "SY");
+		"CU", "IR", "KP", "SY");
 
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
 	private IPGeocoder _ipGeocoder;
