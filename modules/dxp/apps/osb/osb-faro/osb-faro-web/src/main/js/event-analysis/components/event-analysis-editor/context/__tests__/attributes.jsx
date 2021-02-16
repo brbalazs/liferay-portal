@@ -53,24 +53,23 @@ describe('attributes', () => {
 		};
 
 		it('should AddAttribute', () => {
-			const attributes = attributesReducer(
-				{
-					attributes: {},
-					breakdowns: {},
-					filters: {},
-					order: []
+			const initialState = {
+				attributes: {},
+				breakdowns: {},
+				filters: {},
+				order: []
+			};
+			const attributes = attributesReducer(initialState, {
+				payload: {
+					attribute,
+					attributeId: '0',
+					breakdown,
+					filter
 				},
-				{
-					payload: {
-						attribute,
-						attributeId: '0',
-						breakdown,
-						filter
-					},
-					type: ActionTypes.AddAttribute
-				}
-			);
+				type: ActionTypes.AddAttribute
+			});
 
+			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
 			expect(attributes.breakdowns['0']).toEqual(breakdown);
 			expect(attributes.filters['0']).toEqual(filter);
@@ -89,6 +88,7 @@ describe('attributes', () => {
 				type: ActionTypes.EditAttribute
 			});
 
+			expect(initialAttributes).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
 			expect(attributes.breakdowns['0']).toEqual(breakdown);
 			expect(attributes.filters['0']).toEqual(filter);
@@ -107,6 +107,7 @@ describe('attributes', () => {
 				type: ActionTypes.DeleteAttribute
 			});
 
+			expect(initialAttributes).not.toEqual(attributes);
 			expect(attributes.order.length).toBe(0);
 			expect(attributes.attributes['1']).toBeUndefined();
 			expect(attributes.breakdowns['1']).toBeUndefined();
@@ -114,107 +115,107 @@ describe('attributes', () => {
 		});
 
 		it('should MoveAttribute', () => {
-			const attributes = attributesReducer(
-				{
-					attributes: {
-						1: {
-							defaultDataType: 'boolean',
-							id: '1',
-							name: 'booleanName'
-						},
-						2: {
-							defaultDataType: 'duration',
-							id: '2',
-							name: 'durationName'
-						}
+			const initialState = {
+				attributes: {
+					1: {
+						defaultDataType: 'boolean',
+						id: '1',
+						name: 'booleanName'
 					},
-					breakdowns: {
-						1: {
-							attributeId: '1',
-							dataType: 'boolean',
-							type: 'event'
-						},
-						2: {
-							attributeId: '2',
-							dataType: 'duration',
-							type: 'event'
-						}
-					},
-					filters: {
-						1: {
-							attributeId: '1',
-							operator: 'eq',
-							value: ['true']
-						},
-						2: {
-							attributeId: '2',
-							operator: 'gt',
-							value: [60000]
-						}
-					},
-					order: ['1', '2']
+					2: {
+						defaultDataType: 'duration',
+						id: '2',
+						name: 'durationName'
+					}
 				},
-				{
-					payload: {
-						from: 1,
-						to: 0
+				breakdowns: {
+					1: {
+						attributeId: '1',
+						dataType: 'boolean',
+						type: 'event'
 					},
-					type: ActionTypes.MoveAttribute
-				}
-			);
+					2: {
+						attributeId: '2',
+						dataType: 'duration',
+						type: 'event'
+					}
+				},
+				filters: {
+					1: {
+						attributeId: '1',
+						operator: 'eq',
+						value: ['true']
+					},
+					2: {
+						attributeId: '2',
+						operator: 'gt',
+						value: [60000]
+					}
+				},
+				order: ['1', '2']
+			};
 
+			const attributes = attributesReducer(initialState, {
+				payload: {
+					from: 1,
+					to: 0
+				},
+				type: ActionTypes.MoveAttribute
+			});
+
+			expect(initialState).not.toEqual(attributes);
 			expect(attributes.order[0]).toEqual('2');
 			expect(attributes.order[1]).toEqual('1');
 			expect(attributes.order.length).toBe(2);
 		});
 
 		it('should DeleteAllAttributes', () => {
-			const attributes = attributesReducer(
-				{
-					attributes: {
-						1: {
-							defaultDataType: 'boolean',
-							id: '1',
-							name: 'booleanName'
-						},
-						2: {
-							defaultDataType: 'duration',
-							id: '2',
-							name: 'durationName'
-						}
+			const initialState = {
+				attributes: {
+					1: {
+						defaultDataType: 'boolean',
+						id: '1',
+						name: 'booleanName'
 					},
-					breakdowns: {
-						1: {
-							attributeId: '1',
-							dataType: 'boolean',
-							type: 'event'
-						},
-						2: {
-							attributeId: '2',
-							dataType: 'duration',
-							type: 'event'
-						}
-					},
-					filters: {
-						1: {
-							attributeId: '1',
-							operator: 'eq',
-							value: ['true']
-						},
-						2: {
-							attributeId: '2',
-							operator: 'gt',
-							value: [60000]
-						}
-					},
-					order: ['1', '2']
+					2: {
+						defaultDataType: 'duration',
+						id: '2',
+						name: 'durationName'
+					}
 				},
-				{
-					payload: {},
-					type: ActionTypes.DeleteAllAttributes
-				}
-			);
+				breakdowns: {
+					1: {
+						attributeId: '1',
+						dataType: 'boolean',
+						type: 'event'
+					},
+					2: {
+						attributeId: '2',
+						dataType: 'duration',
+						type: 'event'
+					}
+				},
+				filters: {
+					1: {
+						attributeId: '1',
+						operator: 'eq',
+						value: ['true']
+					},
+					2: {
+						attributeId: '2',
+						operator: 'gt',
+						value: [60000]
+					}
+				},
+				order: ['1', '2']
+			};
 
+			const attributes = attributesReducer(initialState, {
+				payload: {},
+				type: ActionTypes.DeleteAllAttributes
+			});
+
+			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes).toBeEmpty();
 			expect(attributes.breakdowns).toBeEmpty();
 			expect(attributes.filters).toBeEmpty();

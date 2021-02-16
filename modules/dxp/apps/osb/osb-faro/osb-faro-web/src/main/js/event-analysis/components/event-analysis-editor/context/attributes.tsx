@@ -66,87 +66,90 @@ type Action = {
 	type: ActionTypes;
 };
 
+const actionHandlers = {
+	[ActionTypes.AddAttribute]: (
+		{attributes, breakdowns, filters, order}: AttributesState,
+		{payload: {attribute, attributeId, breakdown, filter} = {}}: Action
+	): AttributesState => ({
+		attributes: Object.assign({[attributeId]: attribute}, attributes),
+		breakdowns: Object.assign({[attributeId]: breakdown}, breakdowns),
+		filters: filter
+			? Object.assign({[attributeId]: filter}, filters)
+			: filters,
+		order: [...order, attributeId]
+	}),
+	[ActionTypes.DeleteAllAttributes]: () => ({
+		attributes: {},
+		breakdowns: {},
+		filters: {},
+		order: []
+	}),
+	[ActionTypes.DeleteAttribute]: (
+		{attributes, breakdowns, filters, order}: AttributesState,
+		{payload: {attributeId} = {}}: Action
+	) => ({
+		attributes: deletePropertyFromObject(attributeId, attributes),
+		breakdowns: deletePropertyFromObject(attributeId, breakdowns),
+		filters: deletePropertyFromObject(attributeId, filters),
+		order: order.filter(id => id !== attributeId)
+	}),
+	[ActionTypes.EditAttribute]: (
+		{attributes, breakdowns, filters, order}: AttributesState,
+		{
+			payload: {
+				attribute,
+				attributeId,
+				breakdown,
+				filter,
+				oldAttributeId
+			} = {}
+		}: Action
+	) => ({
+		attributes: Object.assign(
+			deletePropertyFromObject(oldAttributeId, attributes),
+			{
+				[attributeId]: attribute
+			}
+		),
+		breakdowns: Object.assign(
+			deletePropertyFromObject(oldAttributeId, breakdowns),
+			{
+				[attributeId]: breakdown
+			}
+		),
+		filters: filter
+			? Object.assign(deletePropertyFromObject(oldAttributeId, filters), {
+					[attributeId]: filter
+			  })
+			: deletePropertyFromObject(oldAttributeId, filters),
+		order: replaceAtIndex(
+			[...order],
+			order.findIndex(id => id === oldAttributeId),
+			attributeId
+		)
+	}),
+	[ActionTypes.MoveAttribute]: (
+		{attributes, breakdowns, filters, order}: AttributesState,
+		{payload: {from, to} = {}}: Action
+	) => ({
+		attributes,
+		breakdowns,
+		filters,
+		order: moveItem([...order], from, to)
+	})
+};
+
 export const attributesReducer = (
-	{attributes, breakdowns, filters, order}: AttributesState,
-	{payload = {}, type}: Action
+	state: AttributesState,
+	action: Action
 ): AttributesState => {
-	const {
-		attribute,
-		attributeId,
-		breakdown,
-		filter,
-		from,
-		oldAttributeId,
-		to
-	} = payload;
+	const handlerFn = actionHandlers[action.type];
 
-	switch (type) {
-		case ActionTypes.AddAttribute:
-			return {
-				attributes: Object.assign(
-					{[attributeId]: attribute},
-					attributes
-				),
-				breakdowns: Object.assign(
-					{[attributeId]: breakdown},
-					breakdowns
-				),
-				filters: filter
-					? Object.assign({[attributeId]: filter}, filters)
-					: filters,
-				order: [...order, attributeId]
-			};
-		case ActionTypes.DeleteAllAttributes:
-			return {
-				attributes: {},
-				breakdowns: {},
-				filters: {},
-				order: []
-			};
-		case ActionTypes.DeleteAttribute:
-			return {
-				attributes: deletePropertyFromObject(attributeId, attributes),
-				breakdowns: deletePropertyFromObject(attributeId, breakdowns),
-				filters: deletePropertyFromObject(attributeId, filters),
-				order: order.filter(id => id !== attributeId)
-			};
-		case ActionTypes.EditAttribute:
-			return {
-				attributes: Object.assign(
-					deletePropertyFromObject(oldAttributeId, attributes),
-					{
-						[attributeId]: attribute
-					}
-				),
-				breakdowns: Object.assign(
-					deletePropertyFromObject(oldAttributeId, breakdowns),
-					{
-						[attributeId]: breakdown
-					}
-				),
-				filters: filter
-					? Object.assign(
-							deletePropertyFromObject(oldAttributeId, filters),
-							{[attributeId]: filter}
-					  )
-					: deletePropertyFromObject(oldAttributeId, filters),
-				order: replaceAtIndex(
-					[...order],
-					order.findIndex(id => id === oldAttributeId),
-					attributeId
-				)
-			};
-		case ActionTypes.MoveAttribute:
-			return {
-				attributes,
-				breakdowns,
-				filters,
-				order: moveItem([...order], from, to)
-			};
-
-		default:
-			throw new Error('Unhandled action type: ${type}');
+	if (handlerFn) {
+		return handlerFn(state, action);
 	}
+
+	throw new Error('Unhandled action type: ${type}');
 };
 
 const defaultState = {
