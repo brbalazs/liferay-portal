@@ -6,14 +6,19 @@ import InfoCard from 'shared/components/InfoCard';
 import InterestsCard from 'contacts/hoc/account/InterestsCard';
 import KnownIndividualsCard from 'contacts/components/account/KnownIndividualsCard';
 import React from 'react';
-import {Account} from 'shared/util/records';
-import {INDIVIDUAL_COUNT} from 'shared/util/pagination';
+import {Account, OrderParams} from 'shared/util/records';
+import {
+	buildOrderByFields,
+	INDIVIDUAL_COUNT,
+	NAME
+} from 'shared/util/pagination';
+import {INDIVIDUALS} from 'shared/util/router';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
 const {
 	entityTypes,
-	pagination: {orderDescending}
+	pagination: {orderAscending, orderDescending}
 } = FaroConstants;
 
 const ITEMS_PER_CARD = 5;
@@ -79,6 +84,19 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 	});
 }
 
+function fetchIndividuals({channelId, groupId, id}) {
+	return API.individuals.search({
+		accountId: id,
+		channelId,
+		delta: ITEMS_PER_CARD,
+		groupId,
+		orderByFields: buildOrderByFields(
+			new OrderParams({field: NAME, sortOrder: orderAscending}),
+			INDIVIDUALS
+		)
+	});
+}
+
 export default class Overview extends React.Component {
 	static propTypes = {
 		account: PropTypes.instanceOf(Account).isRequired,
@@ -132,6 +150,7 @@ export default class Overview extends React.Component {
 
 					<KnownIndividualsCard
 						channelId={channelId}
+						dataSourceFn={fetchIndividuals}
 						groupId={groupId}
 						id={id}
 					/>
