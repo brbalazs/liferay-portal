@@ -101,10 +101,6 @@ public interface Rels {
 	public static final String DEFINITIONS_INDIVIDUAL_ATTRIBUTES =
 		"definitions-individual-attributes";
 
-	public static final String ENGAGEMENT = "engagement";
-
-	public static final String ENGAGEMENTS = "engagements";
-
 	public static final String FIELD = "field";
 
 	public static final String FIELD_MAPPING = "field-mapping";

@@ -34,8 +34,6 @@ import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.DataSourceField;
 import com.liferay.osb.faro.engine.client.model.DataSourceProgress;
 import com.liferay.osb.faro.engine.client.model.Distribution;
-import com.liferay.osb.faro.engine.client.model.Engagement;
-import com.liferay.osb.faro.engine.client.model.EngagementAggregation;
 import com.liferay.osb.faro.engine.client.model.Event;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
@@ -566,35 +564,6 @@ public abstract class BaseMockContactsEngineClientImpl
 
 		return contactsEngineClient.getDataSources(
 			faroProject, faroEntityId, query, name, providerType, states, cur,
-			delta, orderByFields);
-	}
-
-	@Override
-	public Results<EngagementAggregation> getEngagementAggregations(
-		FaroProject faroProject, String ownerId, String ownerType,
-		String interval, int delta) {
-
-		return contactsEngineClient.getEngagementAggregations(
-			faroProject, ownerId, ownerType, interval, delta);
-	}
-
-	@Override
-	public List<List<EngagementAggregation>> getEngagementAggregationsList(
-		FaroProject faroProject, List<String> ownerIds, String ownerType,
-		String interval, int delta) {
-
-		return contactsEngineClient.getEngagementAggregationsList(
-			faroProject, ownerIds, ownerType, interval, delta);
-	}
-
-	@Override
-	public Results<Engagement> getEngagements(
-		FaroProject faroProject, String ownerId, String ownerType, String query,
-		Date startDate, Date endDate, int cur, int delta,
-		List<OrderByField> orderByFields) {
-
-		return contactsEngineClient.getEngagements(
-			faroProject, ownerId, ownerType, query, startDate, endDate, cur,
 			delta, orderByFields);
 	}
 

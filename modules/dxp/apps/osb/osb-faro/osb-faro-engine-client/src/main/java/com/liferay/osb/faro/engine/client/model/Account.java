@@ -43,10 +43,6 @@ public class Account {
 		return _dateModified;
 	}
 
-	public double getEngagementScore() {
-		return _engagementScore;
-	}
-
 	public String getId() {
 		return _id;
 	}
@@ -77,10 +73,6 @@ public class Account {
 		_dateModified = dateModified;
 	}
 
-	public void setEngagementScore(double engagementScore) {
-		_engagementScore = engagementScore;
-	}
-
 	public void setId(String id) {
 		_id = id;
 	}
@@ -97,7 +89,6 @@ public class Account {
 	private Map<String, String> _dataSourceAccountPKs = new HashMap<>();
 	private Date _dateCreated;
 	private Date _dateModified;
-	private double _engagementScore;
 	private String _id;
 	private long _individualCount;
 	private Map<String, List<Field>> _organization = new HashMap<>();

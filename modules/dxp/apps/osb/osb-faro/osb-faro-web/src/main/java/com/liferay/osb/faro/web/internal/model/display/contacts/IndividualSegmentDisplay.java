@@ -59,7 +59,6 @@ public class IndividualSegmentDisplay implements FaroEntityDisplay {
 		_channelId = individualSegment.getChannelId();
 		_dateCreated = individualSegment.getDateCreated();
 		_dateModified = individualSegment.getDateModified();
-		_engagementScore = individualSegment.getEngagementScore();
 		_filter = individualSegment.getFilter();
 		_id = individualSegment.getId();
 		_includeAnonymousUsers = individualSegment.isIncludeAnonymousUsers();
@@ -211,7 +210,6 @@ public class IndividualSegmentDisplay implements FaroEntityDisplay {
 	private String _channelId;
 	private Date _dateCreated;
 	private Date _dateModified;
-	private double _engagementScore;
 	private String _filter;
 	private String _id;
 	private boolean _includeAnonymousUsers;

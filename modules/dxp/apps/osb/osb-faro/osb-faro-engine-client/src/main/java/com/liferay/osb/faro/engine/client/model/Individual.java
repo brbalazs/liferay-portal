@@ -59,10 +59,6 @@ public class Individual {
 		return _embeddedResources;
 	}
 
-	public Double getEngagementScore() {
-		return _engagementScore;
-	}
-
 	public String getId() {
 		return _id;
 	}
@@ -99,10 +95,6 @@ public class Individual {
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {
 		_embeddedResources = embeddedResources;
-	}
-
-	public void setEngagementScore(double engagementScore) {
-		_engagementScore = engagementScore;
 	}
 
 	public void setId(String id) {
@@ -156,7 +148,6 @@ public class Individual {
 	private Date _dateModified;
 	private Map<String, List<Field>> _demographics = new HashMap<>();
 	private Map<String, Object> _embeddedResources = new HashMap<>();
-	private Double _engagementScore;
 	private String _id;
 	private Date _lastActivityDate;
 

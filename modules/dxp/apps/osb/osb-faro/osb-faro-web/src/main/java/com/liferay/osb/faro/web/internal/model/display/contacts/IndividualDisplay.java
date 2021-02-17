@@ -60,7 +60,6 @@ public class IndividualDisplay implements FaroEntityDisplay {
 		_activitiesCount = individual.getActivitiesCount();
 		_dataSourceIndividualPKs = individual.getDataSourceIndividualPKs();
 		_dateCreated = individual.getDateCreated();
-		_engagementScore = individual.getEngagementScore();
 		_id = individual.getId();
 		_lastActivityDate = individual.getLastActivityDate();
 
@@ -129,7 +128,6 @@ public class IndividualDisplay implements FaroEntityDisplay {
 	private long _activitiesCount;
 	private List<Individual.DataSourceIndividualPK> _dataSourceIndividualPKs;
 	private Date _dateCreated;
-	private Double _engagementScore;
 	private String _id;
 
 	@JsonIgnore

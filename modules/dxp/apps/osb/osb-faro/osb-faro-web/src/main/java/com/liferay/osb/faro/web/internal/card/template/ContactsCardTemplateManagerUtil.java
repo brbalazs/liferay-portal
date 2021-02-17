@@ -262,14 +262,12 @@ public class ContactsCardTemplateManagerUtil {
 						FaroConstants.TYPE_ACCOUNT,
 						new int[] {
 							ContactsCardTemplateConstants.TYPE_PROFILE,
-							ContactsCardTemplateConstants.TYPE_ENGAGEMENT,
 							ContactsCardTemplateConstants.TYPE_NET_SALES
 						});
 					put(
 						FaroConstants.TYPE_INDIVIDUAL,
 						new int[] {
 							ContactsCardTemplateConstants.TYPE_PROFILE,
-							ContactsCardTemplateConstants.TYPE_ENGAGEMENT,
 							ContactsCardTemplateConstants.TYPE_NET_SALES
 						});
 					put(
@@ -278,8 +276,7 @@ public class ContactsCardTemplateManagerUtil {
 							ContactsCardTemplateConstants.
 								TYPE_SEGMENT_MEMBERSHIP,
 							ContactsCardTemplateConstants.TYPE_LIFETIME_VALUE,
-							ContactsCardTemplateConstants.TYPE_CLOSED_WON,
-							ContactsCardTemplateConstants.TYPE_ENGAGEMENT
+							ContactsCardTemplateConstants.TYPE_CLOSED_WON
 						});
 					put(
 						FaroConstants.TYPE_SEGMENT_INDIVIDUALS,
@@ -287,8 +284,7 @@ public class ContactsCardTemplateManagerUtil {
 							ContactsCardTemplateConstants.
 								TYPE_SEGMENT_MEMBERSHIP,
 							ContactsCardTemplateConstants.TYPE_LIFETIME_VALUE,
-							ContactsCardTemplateConstants.TYPE_CLOSED_WON,
-							ContactsCardTemplateConstants.TYPE_ENGAGEMENT
+							ContactsCardTemplateConstants.TYPE_CLOSED_WON
 						});
 				}
 			};

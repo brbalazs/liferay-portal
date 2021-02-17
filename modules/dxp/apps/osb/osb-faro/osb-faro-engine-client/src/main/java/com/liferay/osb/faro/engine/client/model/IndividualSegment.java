@@ -58,10 +58,6 @@ public class IndividualSegment {
 		return _embeddedResources;
 	}
 
-	public double getEngagementScore() {
-		return _engagementScore;
-	}
-
 	public String getFilter() {
 		return _filter;
 	}
@@ -140,10 +136,6 @@ public class IndividualSegment {
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {
 		_embeddedResources = embeddedResources;
-	}
-
-	public void setEngagementScore(double engagementScore) {
-		_engagementScore = engagementScore;
 	}
 
 	public void setFilter(String filter) {
@@ -226,7 +218,6 @@ public class IndividualSegment {
 	private Date _dateCreated;
 	private Date _dateModified;
 	private Map<String, Object> _embeddedResources = new HashMap<>();
-	private double _engagementScore;
 	private String _filter;
 	private String _filterMetadata;
 	private String _id;

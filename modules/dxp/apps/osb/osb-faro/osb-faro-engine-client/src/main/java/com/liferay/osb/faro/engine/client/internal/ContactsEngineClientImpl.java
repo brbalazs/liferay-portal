@@ -40,8 +40,6 @@ import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.DataSourceField;
 import com.liferay.osb.faro.engine.client.model.DataSourceProgress;
 import com.liferay.osb.faro.engine.client.model.Distribution;
-import com.liferay.osb.faro.engine.client.model.Engagement;
-import com.liferay.osb.faro.engine.client.model.EngagementAggregation;
 import com.liferay.osb.faro.engine.client.model.Event;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
@@ -1264,128 +1262,6 @@ public class ContactsEngineClientImpl
 			faroProject, Rels.DATA_SOURCES,
 			new ParameterizedTypeReference
 				<ResourcePagedResources<DataSource>>() {
-			},
-			uriVariables);
-
-		return pagedResources.getResults();
-	}
-
-	@Override
-	public Results<EngagementAggregation> getEngagementAggregations(
-		FaroProject faroProject, String ownerId, String ownerType,
-		String interval, int delta) {
-
-		Map<String, Object> uriVariables = getUriVariables(
-			faroProject, 1, delta + 1, null);
-
-		uriVariables.put("apply", getGroupBy("dateRecorded", interval));
-
-		if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT) ||
-			ownerType.equals(FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
-
-			uriVariables.put(
-				"filter",
-				FilterUtil.getFilter(
-					"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-					ownerId));
-		}
-		else if (ownerType.equals(
-					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
-
-			uriVariables.put("individualSegmentId", ownerId);
-		}
-
-		PagedResources pagedResources = get(
-			faroProject, Rels.ENGAGEMENTS,
-			new ParameterizedTypeReference
-				<ResourcePagedResources<EngagementAggregation>>() {
-			},
-			uriVariables);
-
-		return pagedResources.getResults();
-	}
-
-	@Override
-	public List<List<EngagementAggregation>> getEngagementAggregationsList(
-		FaroProject faroProject, List<String> ownerIds, String ownerType,
-		String interval, int delta) {
-
-		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
-
-		for (String ownerId : ownerIds) {
-			Map<String, Object> uriVariables = getUriVariables(
-				faroProject, 1, delta, null);
-
-			uriVariables.put("apply", getGroupBy("dateRecorded", interval));
-
-			FilterBuilder filterBuilder = new FilterBuilder();
-
-			if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT) ||
-				ownerType.equals(FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
-
-				filterBuilder.addFilter(
-					"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-					ownerId);
-			}
-			else if (ownerType.equals(
-						FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
-
-				uriVariables.put("individualSegmentId", ownerId);
-			}
-
-			uriVariables.put("filter", filterBuilder.build());
-
-			uriVariablesList.add(uriVariables);
-		}
-
-		return bulk(
-			faroProject, Rels.ENGAGEMENTS, HttpMethod.GET,
-			new TypeReference<List<EngagementAggregation>>() {
-			},
-			uriVariablesList);
-	}
-
-	@Override
-	public Results<Engagement> getEngagements(
-		FaroProject faroProject, String ownerId, String ownerType, String query,
-		Date startDate, Date endDate, int cur, int delta,
-		List<OrderByField> orderByFields) {
-
-		Map<String, Object> uriVariables = getUriVariables(
-			faroProject, cur, delta, orderByFields);
-
-		FilterBuilder filterBuilder = new FilterBuilder();
-
-		filterBuilder.addFilter(
-			"dateRecorded",
-			FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
-			getDate(startDate, false));
-		filterBuilder.addFilter(
-			"dateRecorded", FilterConstants.COMPARISON_OPERATOR_LESS_THAN,
-			getDate(endDate, true));
-		filterBuilder.addSearchFilter(query, "name");
-
-		if (ownerType.equals(FieldMappingConstants.OWNER_TYPE_ACCOUNT)) {
-			uriVariables.put("accountId", ownerId);
-		}
-		else if (ownerType.equals(
-					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL)) {
-
-			filterBuilder.addFilter(
-				"ownerId", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerId);
-		}
-		else if (ownerType.equals(
-					FieldMappingConstants.OWNER_TYPE_INDIVIDUAL_SEGMENT)) {
-
-			uriVariables.put("individualSegmentId", ownerId);
-		}
-
-		uriVariables.put("filter", filterBuilder.build());
-
-		PagedResources pagedResources = get(
-			faroProject, Rels.ENGAGEMENTS,
-			new ParameterizedTypeReference
-				<ResourcePagedResources<Engagement>>() {
 			},
 			uriVariables);
 

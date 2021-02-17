@@ -47,7 +47,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -102,7 +101,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		createLiferayAssociations(channelId, liferayUsersDataCreator);
 
-		curateEngagements();
 		curateInterests();
 	}
 
@@ -441,19 +439,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		contactsEngineClient.addNanite(
 			faroProject, "SalesforceIndividualsNanite",
 			salesforceNaniteContext);
-	}
-
-	protected void curateEngagements() {
-		contactsEngineClient.addNanites(
-			faroProject,
-			Collections.singletonList("AssetEngagementScoresNanite"));
-
-		contactsEngineClient.addNanites(
-			faroProject,
-			Arrays.asList(
-				"IndividualEngagementScoresNanite",
-				"IndividualSegmentEngagementScoresNanite",
-				"AccountEngagementScoresNanite"));
 	}
 
 	protected void curateInterests() {

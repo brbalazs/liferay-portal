@@ -59,8 +59,6 @@ public class ContactsCardTemplateConstants {
 
 	public static final int TYPE_EMPLOYEES = 11;
 
-	public static final int TYPE_ENGAGEMENT = 12;
-
 	public static final int TYPE_INTEREST = 13;
 
 	public static final int TYPE_LIFETIME_VALUE = 14;
@@ -95,7 +93,6 @@ public class ContactsCardTemplateConstants {
 				put("closedWon", TYPE_CLOSED_WON);
 				put("conversionHealth", TYPE_CONVERSION_HEALTH);
 				put("coworkers", TYPE_COWORKERS);
-				put("engagement", TYPE_ENGAGEMENT);
 				put("interests", TYPE_INTEREST);
 				put("lifetimeValue", TYPE_LIFETIME_VALUE);
 				put("netSales", TYPE_NET_SALES);

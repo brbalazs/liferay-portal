@@ -32,8 +32,6 @@ import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.DataSourceField;
 import com.liferay.osb.faro.engine.client.model.DataSourceProgress;
 import com.liferay.osb.faro.engine.client.model.Distribution;
-import com.liferay.osb.faro.engine.client.model.Engagement;
-import com.liferay.osb.faro.engine.client.model.EngagementAggregation;
 import com.liferay.osb.faro.engine.client.model.Event;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
@@ -278,19 +276,6 @@ public interface ContactsEngineClient {
 	public Results<DataSource> getDataSources(
 		FaroProject faroProject, String faroEntityId, String query, String name,
 		String providerType, List<String> states, int cur, int delta,
-		List<OrderByField> orderByFields);
-
-	public Results<EngagementAggregation> getEngagementAggregations(
-		FaroProject faroProject, String ownerId, String ownerType,
-		String interval, int delta);
-
-	public List<List<EngagementAggregation>> getEngagementAggregationsList(
-		FaroProject faroProject, List<String> ownerIds, String ownerType,
-		String interval, int delta);
-
-	public Results<Engagement> getEngagements(
-		FaroProject faroProject, String ownerId, String ownerType, String query,
-		Date startDate, Date endDate, int cur, int delta,
 		List<OrderByField> orderByFields);
 
 	public Field getField(FaroProject faroProject, String id)

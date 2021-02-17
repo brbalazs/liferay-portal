@@ -54,7 +54,6 @@ public class AccountDisplay implements FaroEntityDisplay {
 		_activitiesCount = account.getActivitiesCount();
 		_dateCreated = account.getDateCreated();
 		_individualCount = account.getIndividualCount();
-		_engagementScore = account.getEngagementScore();
 		_id = account.getId();
 		_name = GetterUtil.get(getValue("accountName"), StringPool.BLANK);
 
@@ -210,7 +209,6 @@ public class AccountDisplay implements FaroEntityDisplay {
 
 	private long _activitiesCount;
 	private Date _dateCreated;
-	private double _engagementScore;
 	private String _id;
 	private long _individualCount;
 	private String _name;

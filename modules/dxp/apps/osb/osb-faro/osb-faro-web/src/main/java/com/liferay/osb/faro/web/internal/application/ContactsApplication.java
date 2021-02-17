@@ -24,7 +24,6 @@ import com.liferay.osb.faro.web.internal.controller.contacts.ContactsCardTemplat
 import com.liferay.osb.faro.web.internal.controller.contacts.ContactsLayoutController;
 import com.liferay.osb.faro.web.internal.controller.contacts.ContactsLayoutTemplateController;
 import com.liferay.osb.faro.web.internal.controller.contacts.DataSourceController;
-import com.liferay.osb.faro.web.internal.controller.contacts.EngagementController;
 import com.liferay.osb.faro.web.internal.controller.contacts.FieldController;
 import com.liferay.osb.faro.web.internal.controller.contacts.FieldMappingController;
 import com.liferay.osb.faro.web.internal.controller.contacts.IndividualController;
@@ -65,7 +64,6 @@ public class ContactsApplication extends BaseApplication {
 		controllers.add(_contactsLayoutController);
 		controllers.add(_contactsLayoutTemplateController);
 		controllers.add(_dataSourceController);
-		controllers.add(_engagementController);
 		controllers.add(_fieldController);
 		controllers.add(_fieldMappingController);
 		controllers.add(_individualController);
@@ -103,9 +101,6 @@ public class ContactsApplication extends BaseApplication {
 
 	@Reference
 	private DataSourceController _dataSourceController;
-
-	@Reference
-	private EngagementController _engagementController;
 
 	@Reference
 	private FieldController _fieldController;
