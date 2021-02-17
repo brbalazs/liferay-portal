@@ -1,11 +1,18 @@
 .code-snippet-root {
-	.input-group-inset-item {
-		height: auto;
-		margin: 8px;
+	.code-snippet-textarea {
+		background-color: #393A4A;
+		color: $mainLighten74;
+		
+		font-family: 'Source Code Pro', monospace;
 
-		.button-root {
-			color: $main;
-			padding: 4px 8px;
-		}
+		height: 208px;
+		padding: 16px;
+		resize: none;
+	}
+
+	.copy-button {
+		position: absolute;
+		right: 1em;
+		top: 1em;
 	}
 }
