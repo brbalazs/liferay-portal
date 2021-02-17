@@ -7,7 +7,7 @@ import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router';
 
 const AttributeList = lazy(() =>
-	import(/* webpackChunkName: "AttributeList" */ './../AttributeList')
+	import(/* webpackChunkName: "AttributeList" */ './AttributeList')
 );
 
 const EventList = lazy(() =>
