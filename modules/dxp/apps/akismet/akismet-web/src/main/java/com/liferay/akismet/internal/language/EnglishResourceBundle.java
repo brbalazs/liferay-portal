@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.akismet.internal.lang;
+package com.liferay.akismet.internal.language;
 
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Jamie Sammons
  */
 @Component(property = "language.id=en_US", service = ResourceBundle.class)
-public class EnUsResourceBundle extends ResourceBundle {
+public class EnglishResourceBundle extends ResourceBundle {
 
 	@Override
 	public Enumeration<String> getKeys() {
@@ -39,6 +39,6 @@ public class EnUsResourceBundle extends ResourceBundle {
 	}
 
 	private final ResourceBundle _resourceBundle = ResourceBundleUtil.getBundle(
-		LocaleUtil.getDefault(), EnUsResourceBundle.class);
+		LocaleUtil.getDefault(), EnglishResourceBundle.class);
 
 }
