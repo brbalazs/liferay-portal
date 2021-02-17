@@ -1,10 +1,10 @@
 import * as API from 'shared/api';
+import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardTabs, {ButtonDisplayMode} from 'shared/components/CardTabs';
 import Constants from 'shared/util/constants';
-import Promise from 'metal-promise';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import {ACTIVITIES, Routes} from 'shared/util/router';
@@ -132,28 +132,6 @@ export class IndividualProfileCard extends React.Component {
 		}
 	}
 
-	@autoCancel
-	@autobind
-	getActivityHistory() {
-		const {
-			channelId,
-			entity: {id},
-			groupId,
-			interval,
-			rangeSelectors
-		} = this.props;
-
-		return API.activities.fetchHistory({
-			channelId,
-			contactsEntityId: id,
-			contactsEntityType: individual,
-			groupId,
-			interval: INTERVAL_MAP[interval],
-			max: getSafeRangeKey(rangeSelectors.rangeKey),
-			...rangeSelectors
-		});
-	}
-
 	getDateRange() {
 		const {
 			props: {hasSelectedPoint, interval, selectedPoint}
@@ -192,28 +170,46 @@ export class IndividualProfileCard extends React.Component {
 		this.props.onPointSelect({index: null});
 	}
 
+	@autoCancel
 	@autobind
 	handleFetchHistory() {
+		const {
+			channelId,
+			entity: {id},
+			groupId,
+			interval,
+			rangeSelectors
+		} = this.props;
+
 		this.setState({
 			error: false,
 			loading: true
 		});
 
-		Promise.all([this.getActivityHistory()])
-			.then(([activity]) => {
-				const {
+		return API.activities
+			.fetchHistory({
+				channelId,
+				contactsEntityId: id,
+				contactsEntityType: individual,
+				groupId,
+				interval: INTERVAL_MAP[interval],
+				max: getSafeRangeKey(rangeSelectors.rangeKey),
+				...rangeSelectors
+			})
+			.then(
+				({
 					activityAggregations: activityHistory,
 					change: activityChange,
 					count: activityCount
-				} = activity;
-
-				this.setState({
-					activityChange: getSafeChange(activityChange),
-					activityCount,
-					activityHistory,
-					loading: false
-				});
-			})
+				}) => {
+					this.setState({
+						activityChange: getSafeChange(activityChange),
+						activityCount,
+						activityHistory,
+						loading: false
+					});
+				}
+			)
 			.catch(err => {
 				if (!err.IS_CANCELLATION_ERROR) {
 					this.setState({
@@ -226,19 +222,19 @@ export class IndividualProfileCard extends React.Component {
 
 	renderChart() {
 		const {
-			props: {hasSelectedPoint, interval, rangeSelectors, selectedPoint}
+			props: {hasSelectedPoint, interval, rangeSelectors, selectedPoint},
+			state: {activityHistory}
 		} = this;
 
 		const history = true;
-		const SelectedChart = true;
 		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
 
 		return (
 			<div className='individuals-activities-chart'>
-				<SelectedChart
+				<ActivitiesChart
 					alwaysShowSelectedTooltip
 					hasSelectedPoint={hasSelectedPoint}
-					history={history}
+					history={activityHistory}
 					interval={interval}
 					onPointSelect={this.handleChartSelect}
 					rangeSelectors={rangeSelectors}
