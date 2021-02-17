@@ -83,8 +83,7 @@ function getEntityColumns(entityType, timeZoneId) {
 				accountsListColumns.name,
 				accountsListColumns.type,
 				accountsListColumns.individualCount,
-				accountsListColumns.activitiesCount,
-				accountsListColumns.engagementScore
+				accountsListColumns.activitiesCount
 			];
 		case asset:
 			return [
@@ -97,7 +96,6 @@ function getEntityColumns(entityType, timeZoneId) {
 				individualsListColumns.name,
 				individualsListColumns.jobTitle,
 				individualsListColumns.activitiesCount,
-				individualsListColumns.engagementScore,
 				individualsListColumns.getLastActivityDate(timeZoneId),
 				individualsListColumns.willBeRemoved
 			];
@@ -109,7 +107,6 @@ function getEntityColumns(entityType, timeZoneId) {
 				segmentsListColumns.name,
 				segmentsListColumns.individualCount,
 				segmentsListColumns.activitiesCount,
-				segmentsListColumns.engagementScore,
 				segmentsListColumns.getOwnerName(timeZoneId)
 			];
 	}

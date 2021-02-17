@@ -16,7 +16,6 @@ export const ASSETS = 'assets';
 export const LIFERAY = 'liferay';
 export const CONTACTS = 'contacts';
 export const CSV = 'csv';
-export const ENGAGEMENT = 'engagement';
 export const GROWTH = 'growth';
 export const INDIVIDUALS = 'individuals';
 export const PAGES = 'pages';
@@ -117,7 +116,7 @@ export const Routes = buildRoutes({
 									CONTACTS_ACCOUNT: {
 										path: `/${ACCOUNTS}/:id`,
 										routes: {
-											CONTACTS_ACCOUNT_ACTIVITIES: `/${ACTIVITIES}/:tabId(${ACTIVITIES}|${ENGAGEMENT})?`,
+											CONTACTS_ACCOUNT_ACTIVITIES: `/${ACTIVITIES}/:tabId(${ACTIVITIES})?`,
 											CONTACTS_ACCOUNT_DETAILS:
 												'/details',
 											CONTACTS_ACCOUNT_INDIVIDUALS: `/${INDIVIDUALS}`,
@@ -141,7 +140,7 @@ export const Routes = buildRoutes({
 												path: '/known-individuals',
 												routes: {
 													CONTACTS_INDIVIDUAL: {
-														path: `/:id/:tabId(${ACTIVITIES}|${ENGAGEMENT})?`,
+														path: `/:id/:tabId(${ACTIVITIES})?`,
 														routes: {
 															CONTACTS_INDIVIDUAL_DETAILS:
 																'/details',
@@ -179,8 +178,8 @@ export const Routes = buildRoutes({
 											CONTACTS_SEGMENT_INTEREST_DETAILS: `/interests/:interestId/:tabId(${INDIVIDUALS}|${PAGES})?`,
 											CONTACTS_SEGMENT_INTERESTS:
 												'/interests',
-											CONTACTS_SEGMENT_MEMBERSHIP: `/membership/:tabId(${ENGAGEMENT}|${GROWTH})?`,
-											CONTACTS_SEGMENT_OVERVIEW: `/:tabId(${ENGAGEMENT}|${GROWTH})?`
+											CONTACTS_SEGMENT_MEMBERSHIP: `/membership/:tabId(${GROWTH})?`,
+											CONTACTS_SEGMENT_OVERVIEW: `/:tabId(${GROWTH})?`
 										}
 									},
 									CONTACTS_SEGMENT_CREATE: `/${SEGMENTS}/create`

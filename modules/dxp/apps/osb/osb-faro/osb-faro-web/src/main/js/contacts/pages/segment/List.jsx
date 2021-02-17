@@ -12,7 +12,6 @@ import {
 } from 'shared/context/unassignedSegments';
 import {
 	ACTIVITIES_COUNT,
-	ENGAGEMENT_SCORE,
 	INDIVIDUAL_COUNT,
 	NAME,
 	paginationConfig,
@@ -348,7 +347,6 @@ export class List extends React.Component {
 					segmentsListColumns.getName({channelId, groupId}),
 					segmentsListColumns.individualCount,
 					segmentsListColumns.activitiesCount,
-					segmentsListColumns.engagementScore,
 					segmentsListColumns.getOwnerName(timeZoneId)
 				]}
 				currentUser={currentUser}
@@ -397,10 +395,6 @@ export class List extends React.Component {
 					{
 						label: Liferay.Language.get('total-activities'),
 						value: ACTIVITIES_COUNT
-					},
-					{
-						label: Liferay.Language.get('30-day-engagement'),
-						value: ENGAGEMENT_SCORE
 					},
 					{
 						label: Liferay.Language.get('created-by'),

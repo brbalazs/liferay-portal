@@ -35,11 +35,5 @@ export default [
 		title: Liferay.Language.get('bounce-rate'),
 		tooltipTitle: Liferay.Language.get('avg-bounce'),
 		type: 'percentage'
-	},
-	{
-		name: 'engagementMetric',
-		title: Liferay.Language.get('engagement'),
-		tooltipTitle: Liferay.Language.get('avg-engagement'),
-		type: 'engagement'
 	}
 ];

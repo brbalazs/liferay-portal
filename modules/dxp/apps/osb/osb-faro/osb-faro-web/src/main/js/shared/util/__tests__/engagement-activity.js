@@ -1,32 +1,11 @@
 import * as data from 'test/data';
 import {
-	buildEngagementActivityAxes,
 	buildLegendItems,
-	convertHistoryInitDateToDate,
 	formatTickVal,
 	getSafeRangeKey
 } from '../engagement-activity';
 
-const mockHistory = [
-	{
-		intervalInitDate: data.getTimestamp(0),
-		scoreAvg: 2,
-		totalElements: 5
-	},
-	{
-		intervalInitDate: data.getTimestamp(1),
-		scoreAvg: 4,
-		totalElements: 10
-	}
-];
-
 describe('engagement-activity', () => {
-	describe('buildHistoryData', () => {
-		it('should return an array formatted for use in a chart', () => {
-			expect(buildEngagementActivityAxes(mockHistory)).toMatchSnapshot();
-		});
-	});
-
 	describe('buildLegendItems', () => {
 		it('should return an array formatted for use as items in ChangeLegend', () => {
 			const mockChangeData = {
@@ -56,16 +35,6 @@ describe('engagement-activity', () => {
 			const mockDate = data.getTimestamp();
 
 			expect(formatTickVal(mockDate)).toMatchSnapshot();
-		});
-	});
-
-	describe('convertHistoryInitDateToDate', () => {
-		it('should convert intervalInitDates in Date', () => {
-			const parsedHistory = convertHistoryInitDateToDate(mockHistory);
-
-			parsedHistory.forEach(({intervalInitDate}) =>
-				expect(intervalInitDate).toBeValidDate()
-			);
 		});
 	});
 

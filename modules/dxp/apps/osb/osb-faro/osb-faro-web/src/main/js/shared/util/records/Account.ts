@@ -6,7 +6,6 @@ const {entityTypes} = Constants;
 interface IAccount {
 	activitiesCount: number;
 	createTime?: string;
-	engagementScore?: number;
 	id?: string;
 	individualCount: number;
 	name: string;
@@ -20,7 +19,6 @@ export default class Account
 	extends Record({
 		activitiesCount: 0,
 		createTime: null,
-		engagementScore: null,
 		id: null,
 		individualCount: 0,
 		name: '',
@@ -32,7 +30,6 @@ export default class Account
 	implements IAccount {
 	activitiesCount: number;
 	createTime?: string;
-	engagementScore?: number;
 	id?: string;
 	individualCount: number;
 	name: string;

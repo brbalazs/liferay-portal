@@ -1,11 +1,9 @@
 import * as API from 'shared/api';
-import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardTabs, {ButtonDisplayMode} from 'shared/components/CardTabs';
 import Constants from 'shared/util/constants';
-import EngagementChart from 'contacts/components/EngagementChart';
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
@@ -16,7 +14,6 @@ import {
 	getSafeRangeKey,
 	INTERVAL_MAP
 } from 'shared/util/engagement-activity';
-import {formatEngagementAggregation} from 'shared/util/engagement';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
 	getDateRangeLabel,
@@ -100,8 +97,6 @@ export class IndividualProfileCard extends React.Component {
 		activityChange: 0,
 		activityCount: 0,
 		activityHistory: [],
-		engagementChange: 0,
-		engagementHistory: [],
 		error: false,
 		history: [],
 		loading: true
@@ -161,12 +156,10 @@ export class IndividualProfileCard extends React.Component {
 
 	getDateRange() {
 		const {
-			props: {hasSelectedPoint, interval, selectedPoint, tabId},
-			state: {activityHistory, engagementHistory}
+			props: {hasSelectedPoint, interval, selectedPoint}
 		} = this;
 
-		const history =
-			tabId === ACTIVITIES ? activityHistory : engagementHistory;
+		const history = true;
 
 		if (!hasSelectedPoint) {
 			return {
@@ -181,21 +174,6 @@ export class IndividualProfileCard extends React.Component {
 			endDate: getEndDate(intervalInitDate, interval),
 			startDate: intervalInitDate
 		};
-	}
-
-	@autoCancel
-	@autobind
-	getEngagementHistory() {
-		const {
-			entity: {id},
-			groupId
-		} = this.props;
-
-		return API.engagement.fetchHistory({
-			contactsEntityId: id,
-			contactsEntityType: individual,
-			groupId
-		});
 	}
 
 	@autobind
@@ -221,29 +199,18 @@ export class IndividualProfileCard extends React.Component {
 			loading: true
 		});
 
-		Promise.all([this.getActivityHistory(), this.getEngagementHistory()])
-			.then(([activity, engagement]) => {
+		Promise.all([this.getActivityHistory()])
+			.then(([activity]) => {
 				const {
 					activityAggregations: activityHistory,
 					change: activityChange,
 					count: activityCount
 				} = activity;
 
-				const {
-					change: engagementChange,
-					engagementAggregations
-				} = engagement;
-
-				const engagementHistory = engagementAggregations.map(
-					formatEngagementAggregation
-				);
-
 				this.setState({
 					activityChange: getSafeChange(activityChange),
 					activityCount,
 					activityHistory,
-					engagementChange: getSafeChange(engagementChange),
-					engagementHistory,
 					loading: false
 				});
 			})
@@ -259,20 +226,11 @@ export class IndividualProfileCard extends React.Component {
 
 	renderChart() {
 		const {
-			props: {
-				hasSelectedPoint,
-				interval,
-				rangeSelectors,
-				selectedPoint,
-				tabId
-			},
-			state: {activityHistory, engagementHistory}
+			props: {hasSelectedPoint, interval, rangeSelectors, selectedPoint}
 		} = this;
 
-		const history =
-			tabId === ACTIVITIES ? activityHistory : engagementHistory;
-		const SelectedChart =
-			tabId === ACTIVITIES ? ActivitiesChart : EngagementChart;
+		const history = true;
+		const SelectedChart = true;
 		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
 
 		return (
@@ -379,17 +337,11 @@ export class IndividualProfileCard extends React.Component {
 		const {
 			props: {
 				channelId,
-				entity: {engagementScore, id},
+				entity: {id},
 				groupId,
 				tabId
 			},
-			state: {
-				activityChange,
-				activityCount,
-				engagementChange,
-				error,
-				loading
-			}
+			state: {activityChange, activityCount, error, loading}
 		} = this;
 
 		return (
@@ -412,8 +364,6 @@ export class IndividualProfileCard extends React.Component {
 							activityChange,
 							activityCount,
 							channelId,
-							engagementChange,
-							engagementScore,
 							groupId,
 							id,
 							route: Routes.CONTACTS_INDIVIDUAL

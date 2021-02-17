@@ -4,7 +4,6 @@ import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import {
 	ACTIVITIES_COUNT,
-	ENGAGEMENT_SCORE,
 	JOB_TITLE,
 	LAST_ACTIVITY_DATE,
 	NAME,
@@ -67,7 +66,6 @@ export class KnownIndividuals extends React.Component {
 						}),
 						individualsListColumns.jobTitle,
 						individualsListColumns.activitiesCount,
-						individualsListColumns.engagementScore,
 						individualsListColumns.getLastActivityDate(timeZoneId)
 					]}
 					dataSourceFn={fetchIndividuals}
@@ -89,10 +87,6 @@ export class KnownIndividuals extends React.Component {
 						{
 							label: Liferay.Language.get('activities'),
 							value: ACTIVITIES_COUNT
-						},
-						{
-							label: Liferay.Language.get('30-day-engagement'),
-							value: ENGAGEMENT_SCORE
 						},
 						{
 							label: Liferay.Language.get('last-activity'),

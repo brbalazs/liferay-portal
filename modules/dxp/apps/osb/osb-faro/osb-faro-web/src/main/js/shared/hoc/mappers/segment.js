@@ -1,22 +1,3 @@
-import {
-	formatEngagementAggregation,
-	formatEngagementScore
-} from 'shared/util/engagement';
-
-/**
- * Map Engagement API response for use in a Component.
- * @param {Object} engagement - The engagement history data.
- * @returns {Object} - The remapped engagement history.
- */
-export function mapEngagementHistory(engagement) {
-	const {engagementAggregations, previousScoreAvg} = engagement;
-
-	return {
-		data: engagementAggregations.map(formatEngagementAggregation),
-		previousScore: formatEngagementScore(previousScoreAvg)
-	};
-}
-
 /**
  * Map Segment Growth API response for use in a Component.
  * @param {Array} growth - The Segment Growth history data.
@@ -36,14 +17,12 @@ export function mapGrowthHistory(growth) {
 }
 
 /**
- * Map Segment Growth and Engagement API responses for use in a Component.
- * @param {Object} engagement - The engagement history data.
+ * Map Segment Growth API response for use in a Component.
  * @param {Array} growth - The Segment Growth history data.
  * @returns {Object} - The remapped Segment Growth history.
  */
-export function mapHistories([engagement, growth]) {
+export function mapHistories([growth]) {
 	return {
-		engagementHistory: mapEngagementHistory(engagement),
 		growthHistory: mapGrowthHistory(growth)
 	};
 }

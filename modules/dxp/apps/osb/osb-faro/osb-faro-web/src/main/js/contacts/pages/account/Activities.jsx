@@ -1,5 +1,4 @@
 import * as API from 'shared/api';
-import AccountEngagement from 'contacts/components/account/Engagement';
 import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline';
 import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
@@ -8,7 +7,7 @@ import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import {Account} from 'shared/util/records';
-import {ACTIVITIES, ENGAGEMENT, Routes} from 'shared/util/router';
+import {ACTIVITIES, Routes} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
 	buildTabItems,
@@ -16,20 +15,13 @@ import {
 	INTERVAL_MAP
 } from 'shared/util/engagement-activity';
 import {connect} from 'react-redux';
-import {
-	formatEngagementAggregation,
-	formatEngagementScore
-} from 'shared/util/engagement';
 import {getSafeChange} from 'shared/util/change';
 import {PropTypes} from 'prop-types';
 import {WrapSafeResults} from 'shared/hoc/util';
 
 const {
-	entityTypes: {account},
-	timeIntervals
+	entityTypes: {account}
 } = FaroConstants;
-
-const DEFAULT_MAX = 30;
 
 @hasRequest
 export class Activities extends React.Component {
@@ -48,9 +40,6 @@ export class Activities extends React.Component {
 	state = {
 		activityChange: 0,
 		activityHistory: null,
-		engagementChange: 0,
-		engagementHistory: null,
-		engagementPrevScore: 0,
 		error: false,
 		loading: true
 	};
@@ -91,48 +80,17 @@ export class Activities extends React.Component {
 		});
 	}
 
-	@autoCancel
-	getEngagementHistory() {
-		const {
-			account: {id},
-			groupId
-		} = this.props;
-
-		return API.engagement.fetchHistory({
-			contactsEntityId: id,
-			contactsEntityType: account,
-			groupId,
-			interval: timeIntervals.day,
-			max: DEFAULT_MAX
-		});
-	}
-
 	@autobind
 	handleFetchHistory() {
 		this.setState({error: false, loading: true});
 
-		Promise.all([this.getActivityHistory(), this.getEngagementHistory()])
-			.then(([activity, engagement]) => {
+		Promise.all([this.getActivityHistory()])
+			.then(([activity]) => {
 				const {activityAggregations, change: activityChange} = activity;
-
-				const {
-					change: engagementChange,
-					engagementAggregations,
-					previousScoreAvg
-				} = engagement;
-
-				const engagementHistory = engagementAggregations.map(
-					formatEngagementAggregation
-				);
 
 				this.setState({
 					activityChange: getSafeChange(activityChange),
 					activityHistory: activityAggregations,
-					engagementChange: getSafeChange(engagementChange),
-					engagementHistory,
-					engagementPrevScore: formatEngagementScore(
-						previousScoreAvg
-					),
 					loading: false
 				});
 			})
@@ -145,7 +103,7 @@ export class Activities extends React.Component {
 	render() {
 		const {
 			props: {
-				account: {activitiesCount, engagementScore, id, type},
+				account: {activitiesCount, id, type},
 				channelId,
 				groupId,
 				interval,
@@ -153,15 +111,7 @@ export class Activities extends React.Component {
 				tabId,
 				timeZoneId
 			},
-			state: {
-				activityChange,
-				activityHistory,
-				engagementChange,
-				engagementHistory,
-				engagementPrevScore,
-				error,
-				loading
-			}
+			state: {activityChange, activityHistory, error, loading}
 		} = this;
 
 		return (
@@ -184,11 +134,6 @@ export class Activities extends React.Component {
 							activityChange,
 							activityCount: activitiesCount,
 							channelId,
-							engagementChange,
-							engagementLabel: Liferay.Language.get(
-								'avg-member-score'
-							),
-							engagementScore,
 							groupId,
 							id,
 							route: Routes.CONTACTS_ACCOUNT_ACTIVITIES
@@ -208,18 +153,6 @@ export class Activities extends React.Component {
 							interval={interval}
 							rangeSelectors={rangeSelectors}
 							timeZoneId={timeZoneId}
-						/>
-					)}
-
-					{tabId === ENGAGEMENT && engagementHistory && (
-						<AccountEngagement
-							channelId={channelId}
-							data={engagementHistory}
-							groupId={groupId}
-							id={id}
-							interval={interval}
-							previousScore={engagementPrevScore}
-							rangeSelectors={rangeSelectors}
 						/>
 					)}
 				</WrapSafeResults>

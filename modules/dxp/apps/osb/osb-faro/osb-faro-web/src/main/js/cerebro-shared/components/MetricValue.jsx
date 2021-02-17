@@ -18,13 +18,7 @@ class MetricValue extends React.Component {
 		 * @type {string}
 		 * @default number
 		 */
-		type: PropTypes.oneOf([
-			'number',
-			'percentage',
-			'time',
-			'engagement',
-			'ratings'
-		]),
+		type: PropTypes.oneOf(['number', 'percentage', 'time', 'ratings']),
 
 		/**
 		 * @type {string}
@@ -38,7 +32,7 @@ class MetricValue extends React.Component {
 	 * @param {string} type
 	 */
 	getRegexType(type) {
-		if (type === 'engagement' || type === 'ratings') {
+		if (type === 'ratings') {
 			return /([/][0-9]+)/g;
 		} else {
 			return /([a-zA-Z%])+/g;

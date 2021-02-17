@@ -39,8 +39,7 @@ export const CHART_DATA_ID_1 = 'data_1';
 export const CHART_DATA_ID_2 = 'data_2';
 export const CHART_DATA_PREVIOUS = 'data_previous';
 export const METRIC_TOOLTIP_LABEL_MAP = {
-	bounceRateMetric: Liferay.Language.get('avg-bounce'),
-	engagementMetric: Liferay.Language.get('avg-engagement')
+	bounceRateMetric: Liferay.Language.get('avg-bounce')
 };
 
 /**

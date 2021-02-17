@@ -64,7 +64,6 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 					rangeSelectors,
 					route: Routes.SITES_TOUCHPOINTS_OVERVIEW
 				}),
-				metricsListColumns.engagementMetric,
 				metricsListColumns.visitorsMetric,
 				metricsListColumns.viewsMetric,
 				metricsListColumns.avgTimeOnPageMetric,

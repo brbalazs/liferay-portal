@@ -91,14 +91,7 @@ export default class KnownIndividualsCard extends React.Component {
 						individualsListColumns.getNameJobTitle({
 							channelId,
 							groupId
-						}),
-						individualsListColumns.engagementHistory,
-						{
-							...individualsListColumns.engagementScore,
-							className: 'score table-column-text-end',
-							label: null,
-							sortable: false
-						}
+						})
 					]}
 					items={items}
 					loading={loading}

@@ -34,9 +34,6 @@ export default gql`
 					bounceRateMetric {
 						value
 					}
-					engagementMetric {
-						value
-					}
 					entrancesMetric {
 						value
 					}
@@ -91,9 +88,6 @@ export const TOUCHPOINTS_QUERY_TEST = gql`
 						value
 					}
 					bounceRateMetric {
-						value
-					}
-					engagementMetric {
 						value
 					}
 					entrancesMetric {

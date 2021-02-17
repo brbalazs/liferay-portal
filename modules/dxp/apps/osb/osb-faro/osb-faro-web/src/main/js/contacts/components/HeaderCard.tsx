@@ -2,11 +2,9 @@ import Card from 'shared/components/Card';
 
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import IntervalSelector from 'shared/components/IntervalSelector';
-import React, {useCallback, useEffect} from 'react';
-import {ENGAGEMENT} from 'shared/util/router';
+import React, {useCallback} from 'react';
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP, isHourlyRangeKey} from 'shared/util/time';
-import {LAST_30_DAYS} from 'shared/util/constants';
 
 interface BaseCardHeaderIProps extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
@@ -25,8 +23,7 @@ const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 	legacy,
 	onChangeInterval,
 	onRangeSelectorsChange,
-	rangeSelectors,
-	tabId
+	rangeSelectors
 }) => {
 	const handleRangeSelectorsChange = useCallback(newVal => {
 		onRangeSelectorsChange && onRangeSelectorsChange(newVal);
@@ -41,22 +38,6 @@ const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 		[]
 	);
 
-	useEffect(() => {
-		if (
-			tabId === ENGAGEMENT &&
-			(interval !== INTERVAL_KEY_MAP.day ||
-				rangeSelectors.rangeKey !== LAST_30_DAYS)
-		) {
-			onChangeInterval && onChangeInterval(INTERVAL_KEY_MAP.day);
-			onRangeSelectorsChange &&
-				onRangeSelectorsChange({
-					rangeEnd: '',
-					rangeKey: LAST_30_DAYS,
-					rangeStart: ''
-				});
-		}
-	}, [tabId]);
-
 	return (
 		<Card.Header className='align-items-center d-flex justify-content-between'>
 			<Card.Title>{label}</Card.Title>
@@ -65,15 +46,11 @@ const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 				<IntervalSelector
 					activeInterval={interval}
 					className='mr-3'
-					disabled={
-						isHourlyRangeKey(rangeSelectors.rangeKey) ||
-						tabId === ENGAGEMENT
-					}
+					disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
 					onChange={handleChangeInterval}
 				/>
 
 				<DropdownRangeKey
-					disabled={tabId === ENGAGEMENT}
 					legacy={legacy}
 					onChange={handleRangeSelectorsChange}
 					rangeSelectors={rangeSelectors}

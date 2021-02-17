@@ -5,7 +5,6 @@ import React from 'react';
 import {
 	ACCOUNT_TYPE,
 	ACTIVITIES_COUNT,
-	ENGAGEMENT_SCORE,
 	INDIVIDUAL_COUNT,
 	NAME,
 	paginationConfig,
@@ -60,8 +59,7 @@ export class List extends React.Component {
 			accountsListColumns.getName({channelId, groupId}),
 			accountsListColumns.type,
 			accountsListColumns.individualCount,
-			accountsListColumns.activitiesCount,
-			accountsListColumns.engagementScore
+			accountsListColumns.activitiesCount
 		];
 	}
 
@@ -116,10 +114,6 @@ export class List extends React.Component {
 					{
 						label: Liferay.Language.get('total-activities'),
 						value: ACTIVITIES_COUNT
-					},
-					{
-						label: Liferay.Language.get('30-day-engagement'),
-						value: ENGAGEMENT_SCORE
 					}
 				]}
 				page={Number(page)}

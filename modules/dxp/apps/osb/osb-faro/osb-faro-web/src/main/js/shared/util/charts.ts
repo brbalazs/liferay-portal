@@ -31,7 +31,6 @@ export enum MetricValueType {
 	Number = 'number',
 	Percentage = 'percentage',
 	Time = 'time',
-	Engagement = 'engagement',
 	Ratings = 'ratings'
 }
 
@@ -172,7 +171,7 @@ export const getAxisFormatter = type => {
 
 			return toDuration(value, format);
 		};
-	} else if (type == 'engagement' || type == 'ratings') {
+	} else if (type == 'ratings') {
 		return value => `${(value * 10).toFixed(2)}`;
 	}
 
@@ -411,7 +410,7 @@ export const getMetricFormatter = type => {
 		return value => `${toRounded(value * 100)}%`;
 	} else if (type === 'time') {
 		return value => toDuration(value);
-	} else if (type == 'engagement' || type == 'ratings') {
+	} else if (type == 'ratings') {
 		return value => `${(value * 10).toFixed(2)}/10`;
 	} else {
 		return value => value;

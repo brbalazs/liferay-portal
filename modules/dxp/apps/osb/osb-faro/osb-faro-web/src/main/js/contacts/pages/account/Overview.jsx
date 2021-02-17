@@ -7,7 +7,7 @@ import InterestsCard from 'contacts/hoc/account/InterestsCard';
 import KnownIndividualsCard from 'contacts/components/account/KnownIndividualsCard';
 import React from 'react';
 import {Account} from 'shared/util/records';
-import {ENGAGEMENT_SCORE, INDIVIDUAL_COUNT} from 'shared/util/pagination';
+import {INDIVIDUAL_COUNT} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
@@ -79,37 +79,6 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 	});
 }
 
-function fetchIndividualsWithEngagementHistory({channelId, groupId, id}) {
-	return API.individuals
-		.search({
-			accountId: id,
-			channelId,
-			delta: ITEMS_PER_CARD,
-			groupId,
-			orderByFields: [
-				{
-					fieldName: ENGAGEMENT_SCORE,
-					orderBy: orderDescending,
-					system: true
-				}
-			]
-		})
-		.then(({items}) =>
-			API.engagement
-				.fetchHistories({
-					groupId,
-					individualIds: items.map(({id}) => id)
-				})
-				.then(historiesMap => ({
-					items: items.map(({id, ...data}) => ({
-						...data,
-						engagementHistory: historiesMap[id],
-						id
-					}))
-				}))
-		);
-}
-
 export default class Overview extends React.Component {
 	static propTypes = {
 		account: PropTypes.instanceOf(Account).isRequired,
@@ -163,7 +132,6 @@ export default class Overview extends React.Component {
 
 					<KnownIndividualsCard
 						channelId={channelId}
-						dataSourceFn={fetchIndividualsWithEngagementHistory}
 						groupId={groupId}
 						id={id}
 					/>

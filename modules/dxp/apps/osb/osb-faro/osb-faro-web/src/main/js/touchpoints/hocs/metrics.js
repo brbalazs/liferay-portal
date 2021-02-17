@@ -1,11 +1,5 @@
 export default [
 	{
-		name: 'engagementMetric',
-		sortField: 'engagementMetric',
-		title: Liferay.Language.get('engagement'),
-		type: 'engagement'
-	},
-	{
 		name: 'visitorsMetric',
 		sortField: 'visitorsMetric',
 		title: Liferay.Language.get('visitors'),

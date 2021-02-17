@@ -19,7 +19,6 @@ import {
 import {
 	ACTIVITIES_COUNT,
 	buildOrderByFields,
-	ENGAGEMENT_SCORE,
 	JOB_TITLE,
 	LAST_ACTIVITY_DATE,
 	NAME,
@@ -347,7 +346,6 @@ export class KnownIndividuals extends React.Component<
 									}),
 									individualsListColumns.jobTitle,
 									individualsListColumns.activitiesCount,
-									individualsListColumns.engagementScore,
 									individualsListColumns.getLastActivityDate(
 										timeZoneId
 									)
@@ -379,12 +377,6 @@ export class KnownIndividuals extends React.Component<
 											'total-activities'
 										),
 										value: ACTIVITIES_COUNT
-									},
-									{
-										label: Liferay.Language.get(
-											'30-day-engagement'
-										),
-										value: ENGAGEMENT_SCORE
 									},
 									{
 										label: Liferay.Language.get(

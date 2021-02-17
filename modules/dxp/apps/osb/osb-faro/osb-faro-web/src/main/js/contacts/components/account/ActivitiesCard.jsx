@@ -25,7 +25,6 @@ import {
 	CartesianGrid,
 	Cell,
 	ComposedChart,
-	Line,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
@@ -35,15 +34,9 @@ import {buildLegendItems} from 'shared/util/engagement-activity';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {createDateKeysIMap} from 'shared/util/intervals';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
-import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
-import {
-	formatEngagementAggregation,
-	formatEngagementScore,
-	mergeHistoryByDate
-} from 'shared/util/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
 import {formatXAxisDate, getBarColor, getIntervals} from 'shared/util/charts';
-import {get, isNumber} from 'lodash';
+import {get} from 'lodash';
 import {getSafeChange} from 'shared/util/change';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -53,7 +46,7 @@ const {
 	timeIntervals
 } = Constants;
 
-const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
+const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const INTERVAL = 'D';
 
@@ -72,7 +65,6 @@ export default class ActivitiesCard extends React.Component {
 
 	state = {
 		activityChange: 0,
-		engagementChange: 0,
 		error: false,
 		history: [],
 		hoverIndex: -1,
@@ -121,50 +113,20 @@ export default class ActivitiesCard extends React.Component {
 		return {dateKeysIMap, intervals};
 	}
 
-	@autoCancel
-	@autobind
-	getEngagementHistory() {
-		const {
-			account: {id},
-			groupId
-		} = this.props;
-
-		return API.engagement.fetchHistory({
-			contactsEntityId: id,
-			contactsEntityType: account,
-			groupId,
-			interval: timeIntervals.day,
-			max: DEFAULT_ENGAGEMENT_MAX
-		});
-	}
-
 	@autobind
 	handleFetchHistory() {
 		this.setState({error: false, loading: true});
 
-		Promise.all([this.getActivityHistory(), this.getEngagementHistory()])
-			.then(([activity, engagement]) => {
+		Promise.all([this.getActivityHistory()])
+			.then(([activity]) => {
 				const {
 					activityAggregations: activityHistory,
 					change: activityChange
 				} = activity;
 
-				const {
-					change: engagementChange,
-					engagementAggregations
-				} = engagement;
-
-				const engagementHistory = engagementAggregations.map(
-					formatEngagementAggregation
-				);
-
 				this.setState({
 					activityChange: getSafeChange(activityChange),
-					engagementChange: getSafeChange(engagementChange),
-					history: mergeHistoryByDate(
-						engagementHistory,
-						activityHistory
-					),
+					history: activityHistory,
 					loading: false
 				});
 			})
@@ -178,17 +140,10 @@ export default class ActivitiesCard extends React.Component {
 	renderChart() {
 		const {
 			props: {
-				account: {activitiesCount, engagementScore},
+				account: {activitiesCount},
 				height
 			},
-			state: {
-				activityChange,
-				engagementChange,
-				error,
-				history,
-				hoverIndex,
-				loading
-			}
+			state: {activityChange, error, history, hoverIndex, loading}
 		} = this;
 
 		if (loading) {
@@ -211,11 +166,7 @@ export default class ActivitiesCard extends React.Component {
 					<ChangeLegend
 						items={buildLegendItems({
 							activityChange,
-							activityCount: activitiesCount,
-							engagementChange,
-							engagementScore: formatEngagementScore(
-								engagementScore
-							)
+							activityCount: activitiesCount
 						})}
 					/>
 
@@ -274,24 +225,6 @@ export default class ActivitiesCard extends React.Component {
 								yAxisId='activities'
 							/>
 
-							<YAxis
-								allowDecimals={false}
-								axisLine={{stroke: AXIS.borderStroke}}
-								dataKey='scoreAvg'
-								label={getYAxisLabel(
-									Liferay.Language.get('engagement'),
-									'right'
-								)}
-								name={Liferay.Language.get('engagement')}
-								orientation='right'
-								stroke={AXIS.gridStroke}
-								tick={getAxisTickText('y')}
-								tickLine={false}
-								type='number'
-								width={30}
-								yAxisId='engagement'
-							/>
-
 							<Tooltip
 								content={this.renderTooltip}
 								cursor={{stroke: CHART_BLUE}}
@@ -322,17 +255,6 @@ export default class ActivitiesCard extends React.Component {
 									/>
 								))}
 							</Bar>
-
-							<Line
-								activeDot={{r: 4, stroke: CHART_ORANGE}}
-								dataKey='scoreAvg'
-								dot={false}
-								legendType='circle'
-								stroke={CHART_ORANGE}
-								strokeWidth={2}
-								type='monotoneX'
-								yAxisId='engagement'
-							/>
 						</ComposedChart>
 					</ResponsiveContainer>
 				</>
@@ -343,7 +265,7 @@ export default class ActivitiesCard extends React.Component {
 	@autobind
 	renderTooltip({active, payload}) {
 		if (active) {
-			const {intervalInitDate, scoreAvg, totalElements} = get(
+			const {intervalInitDate, totalElements} = get(
 				payload,
 				[0, 'payload'],
 				{}
@@ -358,10 +280,6 @@ export default class ActivitiesCard extends React.Component {
 					{
 						label: Liferay.Language.get('activities'),
 						value: totalElements.toLocaleString()
-					},
-					{
-						label: Liferay.Language.get('avg-engagement'),
-						value: isNumber(scoreAvg) ? scoreAvg.toFixed(2) : null
 					}
 				],
 				title: Liferay.Language.get('activities')

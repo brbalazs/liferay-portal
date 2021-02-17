@@ -11,7 +11,6 @@ interface ISegment {
 	criteriaString?: string; // "filter" has been renamed to criteriaString to avoid clashing with ImmutableMaps filter method.
 	dateCreated: number;
 	dateModified: number;
-	engagementScore: number;
 	id: string;
 	includeAnonymousUsers: boolean;
 	individualCount: number;
@@ -36,7 +35,6 @@ export default class Segment
 		criteriaString: '',
 		dateCreated: null,
 		dateModified: null,
-		engagementScore: null,
 		id: '',
 		includeAnonymousUsers: false,
 		individualCount: 0,
@@ -59,7 +57,6 @@ export default class Segment
 	criteriaString?: string;
 	dateCreated: number;
 	dateModified: number;
-	engagementScore: number;
 	id: string;
 	includeAnonymousUsers: boolean;
 	individualCount: number;

@@ -8,7 +8,6 @@ import * as contactsCards from './contacts-cards';
 import * as dataSource from './data-source';
 import * as definitions from './definitions';
 import * as distributions from './distributions';
-import * as engagement from './engagement';
 import * as fieldMappings from './field-mappings';
 import * as individuals from './individuals';
 import * as individualSegment from './individual-segment';
@@ -30,7 +29,6 @@ export {
 	dataSource,
 	definitions,
 	distributions,
-	engagement,
 	fieldMappings,
 	individualSegment,
 	individuals,

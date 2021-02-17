@@ -7,7 +7,6 @@ const DndTableKit = () => {
 	const [items, setItems] = useState([
 		{
 			activitiesCount: 23,
-			engagementScore: 0.31867476152283214,
 			id: '379649773334099362',
 			lastActivityDate: 1572879600000,
 			name: 'Abram Bauch',
@@ -19,7 +18,6 @@ const DndTableKit = () => {
 		},
 		{
 			activitiesCount: 0,
-			engagementScore: null,
 			id: '379650044967606394',
 			lastActivityDate: null,
 			name: 'Abram Farrell',
@@ -31,7 +29,6 @@ const DndTableKit = () => {
 		},
 		{
 			activitiesCount: 0,
-			engagementScore: null,
 			id: '379650011640220280',
 			lastActivityDate: null,
 			name: 'Adelina Kohler',
@@ -45,7 +42,6 @@ const DndTableKit = () => {
 			accountNames: ['Kertzmann, Kilback and Watsica'],
 			activitiesCount: 8,
 			draggable: false,
-			engagementScore: 0.08790547454370708,
 			id: '379649805739722238',
 			lastActivityDate: 1572505200000,
 			name: 'Adrienne Johnston',
@@ -58,7 +54,6 @@ const DndTableKit = () => {
 		{
 			activitiesCount: 1,
 			draggable: false,
-			engagementScore: 0.09437628969620489,
 			id: '379649828466793072',
 			lastActivityDate: 1572656400000,
 			name: 'Alana Nicolas',
@@ -78,7 +73,6 @@ const DndTableKit = () => {
 						individualsListColumns.getNameEmail({groupId: '32717'}),
 						individualsListColumns.jobTitle,
 						individualsListColumns.activitiesCount,
-						individualsListColumns.engagementScore,
 						{
 							accessor: 'properties.worksFor',
 							label: 'Works For'

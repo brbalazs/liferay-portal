@@ -28,8 +28,6 @@ export const DATE_FIRST = 'dateFirst';
 export const DATE_RECORDED = 'dateRecorded';
 export const DOWNLOADS_METRIC = 'downloadsMetric';
 export const EMAIL_ADDRESS = 'emailAddress';
-export const ENGAGEMENT_METRIC = 'engagementMetric';
-export const ENGAGEMENT_SCORE = 'engagementScore';
 export const ENTRANCES_METRIC = 'entrancesMetric';
 export const EXIT_RATE_METRIC = 'exitRateMetric';
 export const FAMILY_NAME = 'familyName';
@@ -79,8 +77,6 @@ const INVERTED_SORT_FIELDS = [
 	DATE_FIRST,
 	DATE_RECORDED,
 	DOWNLOADS_METRIC,
-	ENGAGEMENT_METRIC,
-	ENGAGEMENT_SCORE,
 	ENTRANCES_METRIC,
 	EXIT_RATE_METRIC,
 	INDIVIDUAL_COUNT,
@@ -118,7 +114,6 @@ export const paginationConfig = {
 
 export const ACCESSOR_TO_FIELD_MAP = {
 	['properties.accountType']: ACCOUNT_TYPE,
-	['properties.engagementScore']: ENGAGEMENT_SCORE,
 	['properties.individualCount']: INDIVIDUAL_COUNT,
 	['properties.interests']: INTERESTS,
 	['properties.jobTitle']: JOB_TITLE,
@@ -133,7 +128,6 @@ const SYSTEM_FIELDS = [
 	DATE_CHANGED,
 	DATE_CREATED,
 	DATE_FIRST,
-	ENGAGEMENT_SCORE,
 	INDIVIDUAL_COUNT,
 	INDIVIDUAL_NAME,
 	INDIVIDUAL_EMAIL,

@@ -1,19 +1,15 @@
 import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
 import Constants from 'shared/util/constants';
 import React from 'react';
-import {ACTIVITIES, ENGAGEMENT, toRoute} from 'shared/util/router';
+import {ACTIVITIES, toRoute} from 'shared/util/router';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
-import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
-import {getDate} from 'shared/util/date';
 import {Interval, RangeSelectors} from 'shared/types';
-import {isNull} from 'lodash';
 import {Map} from 'immutable';
 import {MetricValueType} from './charts';
 import {sub} from 'shared/util/lang';
 
 export const CHART_ACTIVITY_ID = 'activities';
-export const CHART_ENGAGEMENT_ID = 'engagements';
 export const CHART_ID = 'individualActivity';
 
 const {timeIntervals} = Constants;
@@ -25,7 +21,7 @@ export type TooltipRowType = {
 
 export type TooltipOptionsType = {
 	dateKeysIMap: Map<number, [number, number?]>;
-	history: Array<IActivitiesHistory | IEngagementHistory>;
+	history: Array<IActivitiesHistory>;
 	interval: Interval;
 	name: string;
 	rangeSelectors: RangeSelectors;
@@ -37,12 +33,6 @@ export type TooltipOptionsType = {
 export interface IActivitiesHistory<initDateType = number> {
 	intervalInitDate: initDateType;
 	totalElements: number;
-}
-
-export interface IEngagementHistory<initDateType = number> {
-	intervalInitDate: initDateType;
-	scoreAvg: number;
-	contributors: number;
 }
 
 export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
@@ -59,64 +49,15 @@ export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 }
 
 /**
- * Object containing aggregated engagement and activity information.
- * @typedef {Object} HistoryItem
- * @property {number} intervalInitDate - The date of this data snapshot.
- * @property {number} totalElements - The total number of activities in the snapshot.
- * @property {number} scoreAvg - The average engagement score for the snapshot.
- */
-
-/**
- * Prepare history data for use in chart.
- * Map data to two different y-axes representing engagement and activity,
- * as well as mapping date as the x-axis.
- * @param {Array.<HistoryItem>} dataPoints - History data points.
- * @return {Array.<Object>} History data mapped for use in chart.
- */
-export function buildEngagementActivityAxes(dataPoints = []) {
-	return [
-		{
-			axis: 'y',
-			data: dataPoints.map(({totalElements}) => Number(totalElements)),
-			id: CHART_ACTIVITY_ID,
-			name: Liferay.Language.get('activity-count'),
-			type: 'bar'
-		},
-		{
-			axis: 'y2',
-			data: dataPoints.map(({scoreAvg}) => scoreAvg),
-			id: CHART_ENGAGEMENT_ID,
-			name: Liferay.Language.get('engagement-score'),
-			type: 'spline'
-		},
-		{
-			data: dataPoints.map(({intervalInitDate}) =>
-				Number(intervalInitDate)
-			),
-			id: 'date',
-			name: Liferay.Language.get('date')
-		}
-	];
-}
-
-/**
- * Format engagement and actvitiy metrics for use in ChangeLegend
+ * Format actvitiy metrics for use in ChangeLegend
  * @param {Object} changeMetrics - History data points.
  * @param {number} changeMetrics.activityChange - The activity count change from
  *                                                previous period.
  * @param {number} changeMetrics.activityCount - The activity count.
- * @param {number} changeMetrics.engagementChange - The engagement score change from
- *                                                  previous period.
- * @param {number} changeMetrics.engagementScore - The engagement score.
  * @return {Array} Engagement and activity metrics
  *                 formatted for use in ChangeLegend.
  */
-export function buildLegendItems({
-	activityChange,
-	activityCount,
-	engagementChange,
-	engagementScore
-}) {
+export function buildLegendItems({activityChange, activityCount}) {
 	return [
 		{
 			change: activityChange,
@@ -127,18 +68,6 @@ export function buildLegendItems({
 			title: sub(Liferay.Language.get('total-activity-count-x'), [
 				activityCount.toLocaleString()
 			])
-		},
-		{
-			change: engagementChange,
-			id: CHART_ENGAGEMENT_ID,
-			secondaryInfo: sub(Liferay.Language.get('x-day-change'), [
-				DEFAULT_ENGAGEMENT_MAX
-			]),
-			title: isNull(engagementScore)
-				? sub(Liferay.Language.get('engagement-score-x'), ['--'])
-				: sub(Liferay.Language.get('engagement-score-x-10'), [
-						engagementScore.toFixed(2)
-				  ])
 		}
 	];
 }
@@ -147,9 +76,6 @@ export function buildTabItems({
 	activityChange,
 	activityCount,
 	channelId,
-	engagementChange,
-	engagementLabel,
-	engagementScore,
 	groupId,
 	id,
 	route
@@ -171,24 +97,6 @@ export function buildTabItems({
 				tabId: ACTIVITIES
 			}),
 			title: Liferay.Language.get('activities')
-		},
-		{
-			secondaryInfo: (
-				<CardTabMetric
-					change={engagementChange}
-					label={engagementLabel}
-					type={MetricValueType.Engagement}
-					value={engagementScore}
-				/>
-			),
-			tabId: ENGAGEMENT,
-			tabUrl: toRoute(route, {
-				channelId,
-				groupId,
-				id,
-				tabId: ENGAGEMENT
-			}),
-			title: Liferay.Language.get('engagement-score')
 		}
 	];
 }
@@ -200,19 +108,6 @@ export function buildTabItems({
  */
 export function formatTickVal(date) {
 	return formatUTCDateFromUnix(date, 'M/D');
-}
-
-export function convertHistoryInitDateToDate<T>(
-	history: Array<
-		T extends IEngagementHistory<number>
-			? IEngagementHistory<number>
-			: IActivitiesHistory<number>
-	>
-) {
-	return history.map(({intervalInitDate, ...others}) => ({
-		intervalInitDate: getDate(intervalInitDate),
-		...others
-	}));
 }
 
 export const getSafeRangeKey = (

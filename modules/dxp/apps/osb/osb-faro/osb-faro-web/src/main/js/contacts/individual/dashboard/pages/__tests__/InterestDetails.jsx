@@ -22,10 +22,6 @@ const mockItems = [
 			value: 0.23
 		},
 		dataSourceId: '123123',
-		engagementMetric: {
-			__typename: 'Metric',
-			value: 0.25
-		},
 		entrancesMetric: {
 			__typename: 'Metric',
 			value: 56

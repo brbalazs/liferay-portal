@@ -2,7 +2,6 @@ export {default as AccountNames} from './AccountNames';
 export {default as CreatedByCell} from './CreatedBy';
 export {default as CurrentStatusCell} from './CurrentStatus';
 export {default as DateCell} from './DateRenderer';
-export {default as EngagementHistoryCell} from './EngagementHistory';
 export {default as IndividualLinkCell} from './IndividualLink';
 export {default as NameCell} from './Name';
 export {default as PropertyCell} from './Property';

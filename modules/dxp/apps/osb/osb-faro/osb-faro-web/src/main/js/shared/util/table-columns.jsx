@@ -8,9 +8,7 @@ import TextTruncate from 'shared/components/TextTruncate';
 import {
 	AccountNames,
 	CreatedByCell,
-	CurrentStatusCell,
 	DateCell,
-	EngagementHistoryCell,
 	IndividualLinkCell,
 	NameCell,
 	PropertyCell,
@@ -19,22 +17,10 @@ import {
 	WillBeRemovedCell
 } from 'shared/components/table/cell-components';
 import {applyTimeZone, formatDateToTimeZone} from './date';
-import {compose} from 'lodash/fp';
-import {formatEngagementScore, getSafeEngagementDisplay} from './engagement';
 import {formatTime} from './time';
 import {get, isNil, noop, pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-
-/**
- * Format the score to a 10 point scale.
- * @param {string|number} score - Score on a 1 point scale.
- * @returns {string} Score on a 10 point scale.
- */
-const formatScore = compose(
-	getSafeEngagementDisplay,
-	formatEngagementScore
-);
 
 /**
  * Accounts List Columns
@@ -50,12 +36,6 @@ export const accountsListColumns = {
 		accessor: 'emailAddress',
 		label: Liferay.Language.get('email'),
 		sortable: false
-	},
-	engagementScore: {
-		accessor: 'engagementScore',
-		className: 'table-column-text-end',
-		dataFormatter: formatScore,
-		label: Liferay.Language.get('30-day-engagement')
 	},
 	getName: ({channelId, groupId}) => ({
 		accessor: 'name',
@@ -384,44 +364,6 @@ export const eventListColumns = {
 };
 
 /**
- * Engagement List Columns
- */
-export const engagementListColumns = {
-	activitiesCount: {
-		accessor: 'activitiesCount',
-		className: 'table-column-text-end',
-		dataFormatter: data => data.toLocaleString(),
-		label: Liferay.Language.get('total-activities'),
-		sortable: false
-	},
-	currentMember: {
-		accessor: 'currentMember',
-		cellRenderer: CurrentStatusCell,
-		label: Liferay.Language.get('current-status'),
-		sortable: false
-	},
-	emailAddress: {
-		accessor: 'emailAddress',
-		label: Liferay.Language.get('email')
-	},
-	getName: ({channelId, groupId}) => ({
-		accessor: 'name',
-		cellRenderer: IndividualLinkCell,
-		cellRendererProps: {
-			channelId,
-			groupId
-		},
-		label: Liferay.Language.get('name')
-	}),
-	score: {
-		accessor: 'score',
-		className: 'table-column-text-end',
-		dataFormatter: getSafeEngagementDisplay,
-		label: Liferay.Language.get('engagement')
-	}
-};
-
-/**
  * Individuals List Columns
  */
 export const individualsListColumns = {
@@ -441,18 +383,6 @@ export const individualsListColumns = {
 		accessor: 'properties.email',
 		label: Liferay.Language.get('email'),
 		sortable: false
-	},
-	engagementHistory: {
-		cellRenderer: EngagementHistoryCell,
-		className: 'trendline',
-		label: Liferay.Language.get('engagement'),
-		sortable: false
-	},
-	engagementScore: {
-		accessor: 'engagementScore',
-		className: 'table-column-text-end',
-		dataFormatter: formatScore,
-		label: Liferay.Language.get('30-day-engagement')
 	},
 	getDateCreated: timeZoneId => ({
 		accessor: 'dateCreated',
@@ -621,12 +551,6 @@ export const metricsListColumns = {
 		dataFormatter: data => data.toLocaleString(),
 		label: Liferay.Language.get('downloads')
 	},
-	engagementMetric: {
-		accessor: 'engagementMetric',
-		className: 'table-column-text-end',
-		dataFormatter: formatScore,
-		label: Liferay.Language.get('engagement')
-	},
 	entrancesMetric: {
 		accessor: 'entrancesMetric',
 		className: 'table-column-text-end',
@@ -726,7 +650,7 @@ export const metricsListColumns = {
 	ratingsMetric: {
 		accessor: 'ratingsMetric',
 		className: 'table-column-text-end',
-		dataFormatter: formatScore,
+		/* dataFormatter: formatScore, FIXME*/
 		label: Liferay.Language.get('rating')
 	},
 	readingTimeMetric: {
@@ -879,12 +803,6 @@ export const segmentsListColumns = {
 		className: 'table-column-text-end',
 		dataFormatter: data => data.toLocaleString(),
 		label: Liferay.Language.get('total-activities')
-	},
-	engagementScore: {
-		accessor: 'engagementScore',
-		className: 'table-column-text-end',
-		dataFormatter: formatScore,
-		label: Liferay.Language.get('30-day-engagement')
 	},
 	getDateCreated: timeZoneId => ({
 		accessor: 'dateCreated',

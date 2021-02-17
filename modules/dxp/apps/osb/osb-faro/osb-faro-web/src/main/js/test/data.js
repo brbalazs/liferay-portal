@@ -78,7 +78,6 @@ export function mockIndividual(seed = 0, properties) {
 		activitiesCount: 1000,
 		colorId: String(seed),
 		dateCreated: getTimestamp(-2),
-		engagementScore: 0.4899,
 		id: String(seed),
 		image: '/path/to/portrait.png',
 		lastActivityDate: getTimestamp(),
@@ -150,7 +149,6 @@ export function mockIndividualDetails(data = {}) {
 export function mockAccount(seed = 1, data = {}) {
 	return {
 		activitiesCount: 100,
-		engagementScore: 0.4899,
 		id: String(seed),
 		individualCount: 10,
 		name: `account${seed}`,
@@ -393,14 +391,6 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 	};
 }
 
-export function mockEngagementHistories(ids = [0], data = {}) {
-	return ids.reduce((acc, curr, i) => {
-		acc[curr] = mockEngagementData(i, data);
-
-		return acc;
-	}, {});
-}
-
 export function mockLiferayDataSource(seed = 1, data = {}) {
 	return {
 		credentials: {
@@ -516,26 +506,6 @@ export function mockDistribution(seed = 0) {
 	};
 }
 
-export function mockEngagementData(data = {}) {
-	return {
-		change: -0.2,
-		engagementAggregations: [
-			{
-				intervalInitDate: getTimestamp(-1),
-				scoreAvg: 0.2,
-				totalElements: 1
-			},
-			{
-				intervalInitDate: getTimestamp(),
-				scoreAvg: 0.28,
-				totalElements: 1
-			}
-		],
-		previousScoreAvg: 0.16,
-		...data
-	};
-}
-
 export function mockFieldMapping(seed = 0, data = {}) {
 	return {
 		context: 'demographics',
@@ -555,18 +525,6 @@ export function mockNullFieldMapping(seed = 0, data = {}) {
 		value: null,
 		...data
 	});
-}
-
-export function mockIndividualEngagement(seed = 0, data = {}) {
-	return {
-		currentMember: true,
-		emailAddress: `test${seed}@liferay.com`,
-		id: String(seed),
-		name: `Test Individual - ${seed}`,
-		ownerId: String(`ownerId${seed}`),
-		score: 0.8,
-		...data
-	};
 }
 
 export function mockIndividualAttributes(seed = 0, data = {}) {
@@ -633,7 +591,6 @@ export function mockLayout(seed = 0, faroEntity = mockSegment()) {
 			id: seed,
 			name: 'layoutTemplate'
 		},
-		engagementScore: 0.4899,
 		faroEntity
 	};
 }
@@ -734,7 +691,6 @@ export function mockSegment(seed = 0, data = {}) {
 		anonymousIndividualCount: 0,
 		dateCreated: getTimestamp(-1),
 		dateModified: getTimestamp(),
-		engagementScore: 0.4899,
 		id: String(seed),
 		includeAnonymousUsers: false,
 		individualCount: 10,

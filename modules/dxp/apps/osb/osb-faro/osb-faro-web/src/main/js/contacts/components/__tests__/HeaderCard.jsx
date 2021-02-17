@@ -1,6 +1,6 @@
 import HeaderCard from '../HeaderCard';
 import React from 'react';
-import {ACTIVITIES, ENGAGEMENT} from 'shared/util/router';
+import {ACTIVITIES} from 'shared/util/router';
 import {fireEvent, render} from '@testing-library/react';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {MockedProvider} from '@apollo/react-testing';
@@ -36,17 +36,5 @@ describe('HeaderProfile', () => {
 		fireEvent.click(getByText('Last 24 hours'));
 
 		expect(spy).toHaveBeenCalledWith(INTERVAL_KEY_MAP.day);
-	});
-
-	it('should render with disabled buttons if tab is engagement', () => {
-		const {container} = render(<DefaultComponent tabId={ENGAGEMENT} />);
-
-		jest.runAllTimers();
-
-		const buttonInterval = container.querySelector('.interval-option');
-		const buttonRangeKey = container.querySelector('.dropdown-toggle');
-
-		expect(buttonInterval).toBeDisabled();
-		expect(buttonRangeKey).toBeDisabled();
 	});
 });

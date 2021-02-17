@@ -22,9 +22,6 @@ export default gql`
 			bounceRateMetric {
 				...metricFragment
 			}
-			engagementMetric {
-				...metricFragment
-			}
 			knownVisitorsMetric {
 				...metricFragment
 			}
