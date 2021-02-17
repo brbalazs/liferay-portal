@@ -655,7 +655,24 @@ public class JournalConverterImpl implements JournalConverter {
 			long layoutId = GetterUtil.getLong(values[0]);
 			boolean privateLayout = !Objects.equals(values[1], "public");
 
-			if (values.length > 2) {
+			if (values.length > 3) {
+				long groupId = GetterUtil.getLong(values[3]);
+				long plid = GetterUtil.getLong(values[2]);
+
+				jsonObject.put(
+					"groupId", groupId
+				).put(
+					"plid", plid
+				);
+
+				Layout layout = _layoutLocalService.fetchLayout(
+					groupId, privateLayout, layoutId);
+
+				if (layout != null) {
+					jsonObject.put("label", layout.getName(defaultLocale));
+				}
+			}
+			else if (values.length > 2) {
 				long groupId = GetterUtil.getLong(values[2]);
 
 				jsonObject.put("groupId", groupId);
@@ -963,12 +980,13 @@ public class JournalConverterImpl implements JournalConverter {
 				fieldValue);
 
 			long groupId = jsonObject.getLong("groupId");
-
 			long layoutId = jsonObject.getLong("layoutId");
+			long plid = jsonObject.getLong("plid");
 
 			boolean privateLayout = jsonObject.getBoolean("privateLayout");
 
-			StringBundler sb = new StringBundler((groupId > 0) ? 5 : 3);
+			StringBundler sb = new StringBundler(
+				3 + ((groupId > 0) ? 2 : 0) + ((plid > 0) ? 2 : 0));
 
 			sb.append(layoutId);
 			sb.append(StringPool.AT);
@@ -988,6 +1006,11 @@ public class JournalConverterImpl implements JournalConverter {
 			}
 			else {
 				sb.append("public");
+			}
+
+			if (plid > 0) {
+				sb.append(StringPool.AT);
+				sb.append(plid);
 			}
 
 			if (groupId > 0) {
