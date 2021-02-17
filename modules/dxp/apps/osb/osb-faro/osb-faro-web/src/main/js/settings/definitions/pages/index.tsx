@@ -38,6 +38,12 @@ const EventView = lazy(() =>
 	import(/* webpackChunkName: "DefinitionsEventView" */ './events/EventView')
 );
 
+const AttributeView = lazy(() =>
+	import(
+		/* webpackChunkName: "DefinitionsEventView" */ './events/AttributeView'
+	)
+);
+
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Definitions: React.FC<IDefinitionsProps> = () => (
@@ -73,6 +79,14 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					data={TrackedBehaviors}
 					exact
 					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
+				/>
+			)}
+
+			{DEVELOPER_MODE && (
+				<BundleRouter
+					data={AttributeView}
+					exact
+					path={Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW}
 				/>
 			)}
 
