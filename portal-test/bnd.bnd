@@ -16,6 +16,7 @@ Export-Package:\
 	com.liferay.portlet.passwordpoliciesadmin.util.test,\
 	com.liferay.portlet.ratings.test,\
 	com.liferay.portlet.ratings.util.test,\
+	com.liferay.portlet.test,\
 	\
 	junit.*,\
 	\
