@@ -87,7 +87,7 @@
 							iconData.put("index", index++);
 							iconData.put("languageid", curLanguageId);
 							iconData.put("value", curLanguageId);
-							%>
+						%>
 
 							<c:if test="<%= showLanguageSelector %>">
 								<liferay-ui:icon
