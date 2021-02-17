@@ -367,7 +367,7 @@ definition {
 			locator1 = "NavTab#TOKEN",
 			value1 = "Token");
 
-		FormFields.enableCheckbox(fieldName = "enabled");
+		FormFields.enableCheckbox(fieldName = "token_enabled");
 
 		PortletEntry.save();
 
