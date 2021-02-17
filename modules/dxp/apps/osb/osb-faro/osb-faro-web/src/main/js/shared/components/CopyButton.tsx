@@ -3,18 +3,26 @@ import Clipboard from 'clipboard';
 import Icon from 'shared/components/Icon';
 import React, {useEffect} from 'react';
 
-const CopyButton: React.FC<{
+interface ICopyButtonProps {
+	buttonText?: string;
+	className?: string;
 	display?: Displays;
 	onClick?: (any) => void;
 	position?: string;
 	text: string;
-}> = ({display, onClick, text, ...otherProps}) => {
+}
+
+const CopyButton: React.FC<ICopyButtonProps> = ({
+	buttonText,
+	display,
+	onClick,
+	text,
+	...otherProps
+}) => {
 	useEffect(() => {
 		const _clipboard = new Clipboard('[data-clipboard-text]');
 
-		return () => {
-			_clipboard.destroy();
-		};
+		return () => _clipboard.destroy();
 	}, []);
 
 	return (
@@ -27,7 +35,7 @@ const CopyButton: React.FC<{
 			title={Liferay.Language.get('click-to-copy')}
 			{...otherProps}
 		>
-			<Icon symbol='paste' />
+			{buttonText || <Icon symbol='paste' />}
 		</Button>
 	);
 };
