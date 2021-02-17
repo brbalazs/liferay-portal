@@ -60,7 +60,6 @@ import com.liferay.portal.search.query.Queries;
 
 import java.util.Collections;
 
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 
 /**
@@ -196,7 +195,7 @@ public class SearchRequestExecutorFixture {
 	}
 
 	protected static FacetTranslator createFacetTranslator(
-		FacetProcessor<?> facetProcessor,
+		FacetProcessor facetProcessor,
 		QueryTranslator<QueryBuilder> queryTranslator) {
 
 		return new DefaultFacetTranslator() {
