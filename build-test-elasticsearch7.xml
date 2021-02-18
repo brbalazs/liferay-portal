@@ -32,6 +32,39 @@
 	<property name="elasticsearch.tar.url.mac" value="https://artifacts.elastic.co/downloads/elasticsearch/${elasticsearch.tar.name.mac}" />
 	<property name="elasticsearch.zip.url.windows" value="https://artifacts.elastic.co/downloads/elasticsearch/${elasticsearch.zip.name.windows}" />
 
+	<macrodef name="check-elasticsearch-security">
+		<attribute name="authentication.type" />
+
+		<sequential>
+			<if>
+				<equals arg1="@{authentication.type}" arg2="basic" />
+				<then>
+					<exec executable="curl" outputproperty="curl.elasticsearch.check.output">
+						<arg value="-ku" />
+						<arg value="elastic:${elastic.xpack.elastic.user.password}" />
+						<arg value="https://localhost:9200" />
+					</exec>
+				</then>
+			</if>
+
+			<echo>${curl.elasticsearch.check.output}</echo>
+
+			<fail message="Unable to reach Elasticsearch server using @{authentication.type} authentication">
+				<condition>
+					<not>
+						<contains string="${curl.elasticsearch.check.output}" substring="cluster_name" />
+					</not>
+				</condition>
+			</fail>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="configure-elasticsearch-monitoring-property">
+		<sequential>
+			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}xpack.monitoring.collection.enabled: true</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
@@ -66,11 +99,11 @@ server.rewriteBasePath: false</echo>
 	<macrodef name="configure-kibana-x-pack-security-properties">
 		<sequential>
 			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.password: "${elastic.xpack.elastic.user.password}"
-elasticsearch.ssl.certificateAuthorities: [ "${elasticsearch.dir}-1/config/certs/ca/ca.crt" ]
+elasticsearch.ssl.certificateAuthorities: [ "${elasticsearch.dir}/config/certs/ca/ca.crt" ]
 elasticsearch.username: "elastic"
-server.ssl.certificate: ${elasticsearch.dir}-1/config/certs/localhost/localhost.crt
+server.ssl.certificate: ${elasticsearch.dir}/config/certs/localhost/localhost.crt
 server.ssl.enabled: true
-server.ssl.key: ${elasticsearch.dir}-1/config/certs/localhost/localhost.key
+server.ssl.key: ${elasticsearch.dir}/config/certs/localhost/localhost.key
 xpack.security.encryptionKey: "xsomethingxatxleastx32xcharactersx"
 xpack.security.sessionTimeout: 600000</echo>
 
@@ -117,9 +150,9 @@ proxyServletLogEnable="true"</echo>
 			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.XPackSecurityConfiguration.config">certificateFormat="PEM"
 password="${osgi.config.elastic.user.password}"
 requiresAuthentication="true"
-sslCertificateAuthoritiesPaths="${elasticsearch.dir}-1/config/certs/ca/ca.crt"
-sslCertificatePath="${elasticsearch.dir}-1/config/certs/localhost/localhost.crt"
-sslKeyPath="${elasticsearch.dir}-1/config/certs/localhost/localhost.key"
+sslCertificateAuthoritiesPaths="${elasticsearch.dir}/config/certs/ca/ca.crt"
+sslCertificatePath="${elasticsearch.dir}/config/certs/localhost/localhost.crt"
+sslKeyPath="${elasticsearch.dir}/config/certs/localhost/localhost.key"
 transportSSLEnabled="true"</echo>
 		</sequential>
 	</macrodef>
@@ -127,42 +160,13 @@ transportSSLEnabled="true"</echo>
 	<macrodef name="configure-portal-x-pack-security-truststore">
 		<sequential>
 			<if>
-				<os family="unix" />
-				<then>
-					<exec dir="${elasticsearch.dir}-1/bin" executable="/bin/bash">
-						<arg value="-c" />
-						<arg value="./elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}-1/config/certs/ca/ca.crt --ca-key ${elasticsearch.dir}-1/config/certs/ca/ca.key --pass liferay --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}-1/config/certs/localhost.p12" />
-					</exec>
-
-					<exec dir="${elasticsearch.dir}-1/bin" executable="/bin/bash">
-						<arg value="-c" />
-						<arg value="keytool -importkeystore -deststorepass liferay -destkeystore ${elasticsearch.dir}-1/config/certs/localhost.jks -srckeystore ${elasticsearch.dir}-1/config/certs/localhost.p12 -srcstoretype PKCS12 -srcstorepass liferay" />
-					</exec>
-				</then>
-				<elseif>
-					<os family="windows" />
-					<then>
-						<exec dir="${elasticsearch.dir}-1/bin" executable="cmd">
-							<arg value="/c" />
-							<arg value="elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}-1/config/certs/ca/ca.crt --ca-key ${elasticsearch.dir}-1/config/certs/ca/ca.key --pass liferay --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}-1/config/certs/localhost.p12" />
-						</exec>
-
-						<exec dir="${elasticsearch.dir}-1/bin" executable="cmd">
-							<arg value="/c" />
-							<arg value="keytool -importkeystore -deststorepass liferay -destkeystore ${elasticsearch.dir}-1/config/certs/localhost.jks -srckeystore ${elasticsearch.dir}-1/config/certs/localhost.p12 -srcstoretype PKCS12 -srcstorepass liferay" />
-						</exec>
-					</then>
-				</elseif>
-			</if>
-
-			<if>
 				<equals arg1="${app.server.type}" arg2="tomcat" />
 				<then>
 					<echo append="true" file="${app.server.tomcat.dir}/bin/setenv.bat">
-${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${elasticsearch.dir}-1/config/certs/localhost.jks -Djavax.net.ssl.trustStorePassword=liferay"</echo>
+${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${elasticsearch.dir}/config/certs/localhost.jks -Djavax.net.ssl.trustStorePassword=liferay"</echo>
 
 					<echo append="true" file="${app.server.tomcat.dir}/bin/setenv.sh">
-${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${elasticsearch.dir}-1/config/certs/localhost.jks -Djavax.net.ssl.trustStorePassword=liferay"</echo>
+${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${elasticsearch.dir}/config/certs/localhost.jks -Djavax.net.ssl.trustStorePassword=liferay"</echo>
 				</then>
 				<else>
 					<echo>Set setenv.bat and setenv.sh manually before attempting to connect with portal.</echo>
@@ -173,48 +177,30 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="generate-x-pack-security-certificates">
 		<sequential>
-			<if>
-				<os family="unix" />
-				<then>
-					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
-						<arg value="-c" />
-						<arg value="./elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
-					</exec>
-				</then>
-				<elseif>
-					<os family="windows" />
-					<then>
-						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
-							<arg value="/c" />
-							<arg value="elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
-						</exec>
-					</then>
-				</elseif>
-			</if>
+			<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash" osfamily="unix">
+				<arg value="-c" />
+				<arg value="./elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
+			</exec>
+
+			<exec dir="${elasticsearch.dir}/bin" executable="cmd" osfamily="windows">
+				<arg value="/c" />
+				<arg value="elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
+			</exec>
 
 			<unzip
 				dest="${elasticsearch.dir}/bin"
 				src="${elasticsearch.dir}/bin/elastic-stack-ca.zip"
 			/>
 
-			<if>
-				<os family="unix" />
-				<then>
-					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
-						<arg value="-c" />
-						<arg value="./elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
-					</exec>
-				</then>
-				<elseif>
-					<os family="windows" />
-					<then>
-						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
-							<arg value="/c" />
-							<arg value="elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
-						</exec>
-					</then>
-				</elseif>
-			</if>
+			<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash" osfamily="unix">
+				<arg value="-c" />
+				<arg value="./elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
+			</exec>
+
+			<exec dir="${elasticsearch.dir}/bin" executable="cmd" osfamily="windows">
+				<arg value="/c" />
+				<arg value="elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
+			</exec>
 
 			<unzip
 				dest="${elasticsearch.dir}/bin"
@@ -233,6 +219,39 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 			<delete file="${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
 			<delete file="${elasticsearch.dir}/bin/certificate-bundle.zip" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="generate-x-pack-security-truststores">
+		<sequential>
+			<if>
+				<os family="unix" />
+				<then>
+					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
+						<arg value="-c" />
+						<arg value="./elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/config/certs/ca/ca.crt --ca-key ${elasticsearch.dir}/config/certs/ca/ca.key --pass liferay --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/config/certs/localhost.p12" />
+					</exec>
+
+					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
+						<arg value="-c" />
+						<arg value="keytool -importkeystore -deststorepass liferay -destkeystore ${elasticsearch.dir}/config/certs/localhost.jks -srckeystore ${elasticsearch.dir}/config/certs/localhost.p12 -srcstoretype PKCS12 -srcstorepass liferay" />
+					</exec>
+				</then>
+				<elseif>
+					<os family="windows" />
+					<then>
+						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
+							<arg value="/c" />
+							<arg value="elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/config/certs/ca/ca.crt --ca-key ${elasticsearch.dir}/config/certs/ca/ca.key --pass liferay --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/config/certs/localhost.p12" />
+						</exec>
+
+						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
+							<arg value="/c" />
+							<arg value="keytool -importkeystore -deststorepass liferay -destkeystore ${elasticsearch.dir}/config/certs/localhost.jks -srckeystore ${elasticsearch.dir}/config/certs/localhost.p12 -srcstoretype PKCS12 -srcstorepass liferay" />
+						</exec>
+					</then>
+				</elseif>
+			</if>
 		</sequential>
 	</macrodef>
 
@@ -353,24 +372,15 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="set-x-pack-user-passwords">
 		<sequential>
-			<if>
-				<os family="unix" />
-				<then>
-					<exec dir="${elasticsearch.dir}-1/bin" executable="/bin/bash" outputproperty="elastic.xpack.user.passwords">
-						<arg value="-c" />
-						<arg value="./elasticsearch-setup-passwords auto --batch" />
-					</exec>
-				</then>
-				<elseif>
-					<os family="windows" />
-					<then>
-						<exec dir="${elasticsearch.dir}-1/bin" executable="cmd" outputproperty="elastic.xpack.user.passwords">
-							<arg value="/c" />
-							<arg value="elasticsearch-setup-passwords auto --batch" />
-						</exec>
-					</then>
-				</elseif>
-			</if>
+			<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash" osfamily="unix" outputproperty="elastic.xpack.user.passwords">
+				<arg value="-c" />
+				<arg value="./elasticsearch-setup-passwords auto --batch" />
+			</exec>
+
+			<exec dir="${elasticsearch.dir}/bin" executable="cmd" osfamily="windows" outputproperty="elastic.xpack.user.passwords">
+				<arg value="/c" />
+				<arg value="elasticsearch-setup-passwords auto --batch" />
+			</exec>
 
 			<propertyregex
 				input="${elastic.xpack.user.passwords}"
@@ -379,14 +389,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				regexp="(PASSWORD elastic = )(\S*)"
 				select="\2"
 			/>
-
-			<exec executable="curl" outputproperty="curl.output">
-				<arg value="https://localhost:9200" />
-				<arg value="-ku" />
-				<arg value="elastic:${elastic.xpack.elastic.user.password}" />
-			</exec>
-
-			<echo>${curl.output}</echo>
 		</sequential>
 	</macrodef>
 
@@ -434,30 +436,66 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 		</sequential>
 	</macrodef>
 
-	<macrodef name="start-x-pack-trial">
+	<macrodef name="start-elastic-trial">
+		<attribute default="" name="authentication.type" />
+		<attribute default="9200" name="elasticsearch.port" />
+
 		<sequential>
-			<exec executable="curl" outputproperty="curl.output.trial">
-				<arg value="-k" />
-				<arg value="-X POST" />
-				<arg value="-ku" />
-				<arg value="elastic:${elastic.xpack.elastic.user.password}" />
-				<arg value="https://localhost:9200/_license/start_trial?acknowledge=true&amp;pretty" />
-			</exec>
-
-			<echo>${curl.output.trial}</echo>
-
 			<if>
-				<and>
-					<contains string="${curl.output}" substring="You Know, for Search" />
-					<contains string="${curl.output.trial}" substring="&quot;trial_was_started&quot; : true" />
-				</and>
+				<equals arg1="@{authentication.type}" arg2="basic" />
 				<then>
-					<echo>Elasticsearch started with X-Pack Security.</echo>
+					<exec executable="curl" outputproperty="curl.elastic.trial.output">
+						<arg value="-X POST" />
+						<arg value="https://localhost:@{elasticsearch.port}/_license/start_trial?acknowledge=true" />
+						<arg value="-ku" />
+						<arg value="elastic:${elastic.xpack.elastic.user.password}" />
+					</exec>
 				</then>
 				<else>
-					<fail>Elasticsearch failed to start with X-Pack Security.</fail>
+					<exec executable="curl" outputproperty="curl.elastic.trial.output">
+						<arg value="-X POST" />
+						<arg value="http://localhost:@{elasticsearch.port}/_license/start_trial?acknowledge=true" />
+					</exec>
 				</else>
 			</if>
+
+			<echo>${curl.elastic.trial.output}</echo>
+
+			<if>
+				<contains string="${curl.elastic.trial.output}" substring="&quot;trial_was_started&quot;:true" />
+				<then>
+					<echo>Trial license activated on Elasticsearch port @{elasticsearch.port}.</echo>
+				</then>
+				<else>
+					<fail>Trial license failed to activate on Elasticsearch port @{elasticsearch.port}.</fail>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="start-elasticsearch-with-xpack">
+		<sequential>
+			<generate-x-pack-security-certificates />
+
+			<generate-x-pack-security-truststores />
+
+			<configure-portal-x-pack-security-truststore />
+
+			<configure-elasticsearch-monitoring-property />
+
+			<configure-elasticsearch-x-pack-security-properties />
+
+			<antcall target="start-elasticsearch-node" />
+
+			<set-x-pack-user-passwords />
+
+			<start-elastic-trial authentication.type="basic" />
+
+			<check-elasticsearch-security authentication.type="basic" />
+
+			<configure-portal-x-pack-osgi-properties />
+
+			<antcall target="start-kibana" />
 		</sequential>
 	</macrodef>
 
@@ -656,8 +694,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			result="elasticsearch.master-eligible.nodes.quorum"
 		/>
 
-		<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}discovery.zen.minimum_master_nodes: ${elasticsearch.master-eligible.nodes.quorum}
-xpack.monitoring.collection.enabled: true</echo>
+		<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}discovery.zen.minimum_master_nodes: ${elasticsearch.master-eligible.nodes.quorum}</echo>
 	</target>
 
 	<target name="deploy-elasticsearch7">
