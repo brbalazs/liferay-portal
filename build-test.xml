@@ -3157,11 +3157,11 @@ ${tomcat-gc-log}
 					<echo>${curl.output.elasticsearch.indices}</echo>
 					<echo></echo>
 
-					<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
+					<get-testcase-property property.name="elasticsearch.ccr.enabled" />
 
 					<if>
 						<and>
-							<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+							<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
 							<not>
 								<contains string="${test.name.skip.portal.instance}" substring="Smoke" />
 							</not>
@@ -5744,7 +5744,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 	<macrodef name="stop-remote-search-engine">
 		<sequential>
-			<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
+			<get-testcase-property property.name="elasticsearch.ccr.enabled" />
 			<get-testcase-property property.name="remote.elasticsearch.enabled" />
 			<get-testcase-property property.name="remote.elasticsearch7.enabled" />
 			<get-testcase-property property.name="test.name.skip.portal.instance" />
@@ -5770,7 +5770,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 					<if>
 						<and>
-							<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+							<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
 							<not>
 								<contains string="${test.name.skip.portal.instance}" substring="Smoke" />
 							</not>

@@ -722,10 +722,10 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<antcall target="configure-elasticsearch-cluster-properties" />
 
-		<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
+		<get-testcase-property property.name="elasticsearch.ccr.enabled" />
 
 		<if>
-			<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+			<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
 			<then>
 				<antcall target="prepare-additional-elasticsearch-dirs">
 					<param name="elasticsearch.cluster.size" value="2" />
@@ -782,7 +782,7 @@ xpack.monitoring.collection.enabled: true</echo>
 					<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
 
 					<if>
-						<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+						<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
 						<then>
 							<waitfor maxwait="30" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
 								<http url="http://localhost:9202/" />
@@ -797,7 +797,7 @@ xpack.monitoring.collection.enabled: true</echo>
 		</if>
 
 		<if>
-			<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+			<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
 			<then>
 				<start-ccr-trial />
 			</then>
