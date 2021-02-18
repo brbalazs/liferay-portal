@@ -126,11 +126,11 @@ definition {
 	}
 
 	@priority = "5"
-	test ElasticsearchRemoteClusterSmokeTest {
+	test ElasticsearchClusteringSmokeTest {
+		property elasticsearch.cluster.size = "2";
 		property portal.acceptance = "true";
-		property remote.elasticsearch.cluster.size = "2";
 		property remote.elasticsearch7.enabled = "true";
-		property test.name.skip.portal.instance = "Elasticsearch7#ElasticsearchRemoteClusterSmokeTest";
+		property test.name.skip.portal.instance = "Elasticsearch7#ElasticsearchClusteringSmokeTest";
 
 		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = "2");
 
@@ -318,7 +318,7 @@ definition {
 
 		AntCommand.antCommand(
 			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "start-elasticsearch-node -Delasticsearch.dir=${liferayHome}/elasticsearch-${elasticsearchVersion} -Dremote.elasticsearch.cluster.size=1");
+			value1 = "start-elasticsearch-node -Delasticsearch.dir=${liferayHome}/elasticsearch-${elasticsearchVersion} -Delasticsearch.cluster.size=1");
 
 		Pause(locator1 = "30000");
 
