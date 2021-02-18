@@ -84,18 +84,6 @@ public class CustomFacetPortletSharedSearchContributor
 		}
 	}
 
-	protected void contributeWithCustomFacet(
-		String fieldToAggregate, SearchRequestBuilder searchRequestBuilder,
-		PortletSharedSearchSettings portletSharedSearchSettings,
-		CustomFacetPortletPreferences customFacetPortletPreferences) {
-
-		Facet facet = buildFacet(
-			fieldToAggregate, customFacetPortletPreferences,
-			portletSharedSearchSettings);
-
-		portletSharedSearchSettings.addFacet(facet);
-	}
-
 	protected Facet buildFacet(
 		String fieldToAggregate,
 		CustomFacetPortletPreferences customFacetPortletPreferences,
@@ -120,18 +108,16 @@ public class CustomFacetPortletSharedSearchContributor
 		return customFacetBuilder.build();
 	}
 
-	protected <T> void copy(Supplier<Optional<T>> from, Consumer<T> to) {
-		Optional<T> optional = from.get();
+	protected void contributeWithCustomFacet(
+		String fieldToAggregate, SearchRequestBuilder searchRequestBuilder,
+		PortletSharedSearchSettings portletSharedSearchSettings,
+		CustomFacetPortletPreferences customFacetPortletPreferences) {
 
-		optional.ifPresent(to);
-	}
+		Facet facet = buildFacet(
+			fieldToAggregate, customFacetPortletPreferences,
+			portletSharedSearchSettings);
 
-	protected String getAggregationName(
-		CustomFacetPortletPreferences customFacetPortletPreferences,
-		String portletId) {
-
-		return customFacetPortletPreferences.getAggregationFieldString() +
-			StringPool.PERIOD + portletId;
+		portletSharedSearchSettings.addFacet(facet);
 	}
 
 	protected void contributeWithNestedFacet(
@@ -174,6 +160,20 @@ public class CustomFacetPortletSharedSearchContributor
 				portletSharedSearchSettings.getParameterValues(
 					getParameterName(customFacetPortletPreferences))
 			));
+	}
+
+	protected <T> void copy(Supplier<Optional<T>> from, Consumer<T> to) {
+		Optional<T> optional = from.get();
+
+		optional.ifPresent(to);
+	}
+
+	protected String getAggregationName(
+		CustomFacetPortletPreferences customFacetPortletPreferences,
+		String portletId) {
+
+		return customFacetPortletPreferences.getAggregationFieldString() +
+			StringPool.PERIOD + portletId;
 	}
 
 	protected String getParameterName(
