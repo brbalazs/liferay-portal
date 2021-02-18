@@ -304,7 +304,7 @@ definition {
 
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
 
-		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}-1/config/elasticsearch.yml";
+		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}/config/elasticsearch.yml";
 
 		AntCommand.antCommand(
 			locator1 = "build-test-elasticsearch7.xml",
@@ -318,9 +318,7 @@ definition {
 
 		AntCommand.antCommand(
 			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "start-elasticsearch-node -Delasticsearch.dir=${liferayHome}/elasticsearch-${elasticsearchVersion} -Delasticsearch.cluster.size=1");
-
-		Pause(locator1 = "30000");
+			value1 = "start-elasticsearch-node");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

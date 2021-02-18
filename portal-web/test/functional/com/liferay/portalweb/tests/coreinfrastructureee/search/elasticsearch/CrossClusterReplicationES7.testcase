@@ -218,7 +218,7 @@ definition {
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "stop-elasticsearch");
+			value1 = "stop-elasticsearch -Delasticsearch.bundle.number=1");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -245,13 +245,11 @@ definition {
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "start-elasticsearch-node -Delasticsearch.cluster.size=1");
-
-		Pause(locator1 = "30000");
+			value1 = "start-elasticsearch-node -Delasticsearch.bundle.number=1");
 
 		AntCommand(
 			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "stop-elasticsearch-local-cluster");
+			value1 = "stop-elasticsearch -Delasticsearch.bundle.number=2");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
