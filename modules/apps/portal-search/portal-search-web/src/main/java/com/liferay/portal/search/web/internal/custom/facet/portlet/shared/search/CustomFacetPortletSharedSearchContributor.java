@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.facet.custom.CustomFacetFactory;
 import com.liferay.portal.search.facet.nested.NestedFacetSearchContributor;
+import com.liferay.portal.search.legacy.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.web.internal.custom.facet.builder.CustomFacetBuilder;
 import com.liferay.portal.search.web.internal.custom.facet.constants.CustomFacetPortletKeys;
@@ -65,8 +66,8 @@ public class CustomFacetPortletSharedSearchContributor
 		}
 
 		SearchRequestBuilder searchRequestBuilder =
-			portletSharedSearchSettings.getFederatedSearchRequestBuilder(
-				customFacetPortletPreferences.getFederatedSearchKeyOptional());
+			searchRequestBuilderFactory.builder(
+				portletSharedSearchSettings.getSearchContext());
 
 		String fieldToAggregate = fieldToAggregateOptional.get();
 
@@ -136,6 +137,10 @@ public class CustomFacetPortletSharedSearchContributor
 			LocaleUtil.fromLanguageId(
 				ddmFieldParts[1] + "_" + ddmFieldParts[2]));
 
+		Optional<String[]> parameterValuesOptional =
+			portletSharedSearchSettings.getParameterValues(
+				getParameterName(customFacetPortletPreferences));
+
 		nestedFacetSearchContributor.contribute(
 			searchRequestBuilder,
 			nestedFacetBuilder -> nestedFacetBuilder.aggregationName(
@@ -157,8 +162,7 @@ public class CustomFacetPortletSharedSearchContributor
 			).path(
 				DDMIndexer.DDM_FIELD_ARRAY
 			).selectedValues(
-				portletSharedSearchSettings.getParameterValues(
-					getParameterName(customFacetPortletPreferences))
+				parameterValuesOptional.orElse(new String[0])
 			));
 	}
 
@@ -199,5 +203,8 @@ public class CustomFacetPortletSharedSearchContributor
 
 	@Reference
 	protected NestedFacetSearchContributor nestedFacetSearchContributor;
+
+	@Reference
+	protected SearchRequestBuilderFactory searchRequestBuilderFactory;
 
 }
