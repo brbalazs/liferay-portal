@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project basedir="." name="portal-test-elasticsearch" xmlns:antelope="antlib:ise.antelope.tasks">
+<project basedir="." name="portal-test-elasticsearch" xmlns:antelope="antlib:ise.antelope.tasks" xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<import file="build-test.xml" />
 
 	<propertycopy from="suite.elastic.version[${env.CI_TEST_SUITE}]" name="suite.elastic.version" silent="true" />
@@ -805,53 +805,46 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="start-elasticsearch-node">
-		<sequential>
-			<lstopwatch action="start" name="start.elasticsearch.node" />
+		<lstopwatch action="start" name="start.elasticsearch.node" />
 
-			<var name="elasticsearch.node.number" value="0" />
+		<condition else="${elasticsearch.dir}" property="elasticsearch.start.dir" value="${elasticsearch.dir}-${elasticsearch.bundle.number}">
+			<isset property="elasticsearch.bundle.number" />
+		</condition>
 
-			<get-java-jdk-home />
+		<chmod
+			maxparallel="10"
+			perm="a+rwx"
+			type="both"
+		>
+			<fileset
+				dir="${elasticsearch.start.dir}"
+			/>
+		</chmod>
 
-			<antelope:repeat count="${elasticsearch.cluster.size}">
-				<math
-					datatype="int"
-					operand1="${elasticsearch.node.number}"
-					operand2="1"
-					operation="+"
-					result="elasticsearch.node.number"
-				/>
+		<get-java-jdk-home />
 
-				<if>
-					<os family="mac" />
-					<then>
-						<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
-							<arg value="-c" />
-							<arg value="./elasticsearch -d -v -p pid-elasticsearch" />
-						</exec>
-					</then>
-					<elseif>
-						<os family="unix" />
-						<then>
-							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
-								<arg value="-c" />
-								<arg value="sudo -H -u shutdown bash -c 'export JAVA_HOME=${java.jdk.home} &amp;&amp; ./elasticsearch -d -v -p pid-elasticsearch'" />
-							</exec>
-						</then>
-					</elseif>
-					<elseif>
-						<os family="windows" />
-						<then>
-							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="cmd" spawn="true">
-								<arg value="/c" />
-								<arg value="elasticsearch -d -v -p pid-elasticsearch" />
-							</exec>
-						</then>
-					</elseif>
-				</if>
-			</antelope:repeat>
+		<exec dir="${elasticsearch.start.dir}/bin" executable="/bin/bash" osfamily="unix">
+			<arg value="-c" />
+			<arg if:set="env.JENKINS_HOME" value="sudo -H -u shutdown bash -c 'export JAVA_HOME=${java.jdk.home} &amp;&amp; ./elasticsearch -d -p pid-elasticsearch'" />
+			<arg unless:set="env.JENKINS_HOME" value="./elasticsearch -d -p pid-elasticsearch" />
+		</exec>
 
-			<lstopwatch action="total" name="start.elasticsearch.node" />
-		</sequential>
+		<exec dir="${elasticsearch.start.dir}/bin" executable="cmd" osfamily="windows" spawn="true">
+			<arg value="/c" />
+			<arg value="elasticsearch -d -p pid-elasticsearch" />
+		</exec>
+
+		<property name="elasticsearch.port" unless:set="elasticsearch.port" value="9200" />
+
+		<waitfor maxwait="120" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
+			<socket port="${elasticsearch.port}" server="localhost" />
+		</waitfor>
+
+		<print-files dir="${elasticsearch.start.dir}/logs/" exclude="*_*" include="LiferayElasticsearchCluster*.log" />
+
+		<lstopwatch action="total" name="start.elasticsearch.node" />
+
+		<fail if="elasticsearch.server.not.started" message="Elasticsearch server on port ${elasticsearch.port} failed to initialize." />
 	</target>
 
 	<target name="start-kibana">
