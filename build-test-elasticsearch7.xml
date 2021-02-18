@@ -912,25 +912,11 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="stop-kibana">
-		<if>
-			<os family="unix" />
-			<then>
-				<loadfile
-					property="pid-kibana"
-					srcFile="${elastic.kibana.dir}/bin/pid-kibana"
-				>
-					<filterchain>
-						<linecontainsregexp>
-							<regexp pattern="[0-9]*" />
-						</linecontainsregexp>
-					</filterchain>
-				</loadfile>
+		<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash" osfamily="unix">
+			<arg value="-c" />
+			<arg value="pkill -F pid-kibana" />
+		</exec>
 
-				<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash">
-					<arg value="-c" />
-					<arg value="kill ${pid-kibana}" />
-				</exec>
-			</then>
-		</if>
+		<print-file file.name="${elastic.kibana.dir}/bin/kibana.log" />
 	</target>
 </project>
