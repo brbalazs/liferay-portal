@@ -59,6 +59,15 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="configure-elasticsearch-local-cluster-properties">
+		<sequential>
+			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
+cluster.name: LiferayElasticsearchClusterTwo
+http.port: 9202
+transport.port: 9500-9600</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="configure-elasticsearch-monitoring-property">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}xpack.monitoring.collection.enabled: true</echo>
@@ -116,13 +125,13 @@ xpack.security.sessionTimeout: 600000</echo>
 		</sequential>
 	</macrodef>
 
-	<macrodef name="configure-local-cluster-properties">
+	<macrodef name="configure-portal-ccr-osgi-properties">
 		<sequential>
-			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchClusterTwo
-http.port: 9202
-transport.port: 9500-9600
-xpack.ml.enabled: false</echo>
+			<replaceregexp
+				file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config"
+				match="(?&lt;=logExceptionsOnly=B?&quot;)false"
+				replace="true"
+			/>
 		</sequential>
 	</macrodef>
 
@@ -252,6 +261,51 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 					</then>
 				</elseif>
 			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="prepare-additional-elasticsearch-bundles">
+		<attribute name="total.bundles" />
+
+		<sequential>
+			<delete dir="${elasticsearch.dir}-1" />
+
+			<move
+				file="${elasticsearch.dir}"
+				tofile="${elasticsearch.dir}-1"
+			/>
+
+			<var name="elasticsearch.bundle.copy.count" value="0" />
+
+			<math
+				datatype="int"
+				operand1="@{total.bundles}"
+				operand2="1"
+				operation="-"
+				result="elasticsearch.bundle.copy.count"
+			/>
+
+			<var name="elasticsearch.bundle.counter" value="1" />
+
+			<antelope:repeat count="${elasticsearch.bundle.copy.count}">
+				<math
+					datatype="int"
+					operand1="${elasticsearch.bundle.counter}"
+					operand2="1"
+					operation="+"
+					result="elasticsearch.bundle.counter"
+				/>
+
+				<delete dir="${elasticsearch.dir}-${elasticsearch.bundle.counter}" />
+
+				<copy
+					todir="${elasticsearch.dir}-${elasticsearch.bundle.counter}"
+				>
+					<fileset
+						dir="${elasticsearch.dir}-1"
+					/>
+				</copy>
+			</antelope:repeat>
 		</sequential>
 	</macrodef>
 
@@ -392,50 +446,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 		</sequential>
 	</macrodef>
 
-	<macrodef name="start-ccr-trial">
-		<sequential>
-			<exec executable="curl" outputproperty="curl.output.trial.remote.cluster">
-				<arg value="-H" />
-				<arg value="Content-Type:application/json" />
-				<arg value="-X" />
-				<arg value="POST" />
-				<arg value="http://localhost:9200/_license/start_trial?acknowledge=true" />
-			</exec>
-
-			<echo>${curl.output.trial.remote.cluster}</echo>
-
-			<if>
-				<contains string="${curl.output.trial.remote.cluster}" substring="&quot;trial_was_started&quot;:true" />
-				<then>
-					<echo>Trial license activated on remote cluster.</echo>
-				</then>
-				<else>
-					<fail>Trial license failed to activate on remote cluster.</fail>
-				</else>
-			</if>
-
-			<exec executable="curl" outputproperty="curl.output.trial.local.cluster">
-				<arg value="-H" />
-				<arg value="Content-Type:application/json" />
-				<arg value="-X" />
-				<arg value="POST" />
-				<arg value="http://localhost:9202/_license/start_trial?acknowledge=true" />
-			</exec>
-
-			<echo>${curl.output.trial.local.cluster}</echo>
-
-			<if>
-				<contains string="${curl.output.trial.local.cluster}" substring="&quot;trial_was_started&quot;:true" />
-				<then>
-					<echo>Trial license activated on local cluster.</echo>
-				</then>
-				<else>
-					<fail>Trial license failed to activate on local cluster.</fail>
-				</else>
-			</if>
-		</sequential>
-	</macrodef>
-
 	<macrodef name="start-elastic-trial">
 		<attribute default="" name="authentication.type" />
 		<attribute default="9200" name="elasticsearch.port" />
@@ -470,6 +480,29 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 					<fail>Trial license failed to activate on Elasticsearch port @{elasticsearch.port}.</fail>
 				</else>
 			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="start-elasticsearch-with-ccr">
+		<sequential>
+			<prepare-additional-elasticsearch-bundles total.bundles="2" />
+
+			<configure-elasticsearch-local-cluster-properties />
+
+			<antcall target="start-elasticsearch-node">
+				<param name="elasticsearch.bundle.number" value="1" />
+			</antcall>
+
+			<antcall target="start-elasticsearch-node">
+				<param name="elasticsearch.bundle.number" value="2" />
+				<param name="elasticsearch.port" value="9202" />
+			</antcall>
+
+			<start-elastic-trial />
+
+			<start-elastic-trial elasticsearch.port="9202" />
+
+			<configure-portal-ccr-osgi-properties />
 		</sequential>
 	</macrodef>
 
@@ -703,42 +736,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 		</gradle-execute>
 
 		<echo file="${liferay.home}/osgi/configs/com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config">blacklistBundleSymbolicNames=&quot;com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.elasticsearch6.spi,com.liferay.portal.search.elasticsearch6.api,com.liferay.portal.search.elasticsearch6.impl,com.liferay.portal.search.elasticsearch6.xpack.security.impl&quot;</echo>
-	</target>
-
-	<target name="prepare-additional-elasticsearch-dirs">
-		<var name="elasticsearch.node.number" value="0" />
-
-		<antelope:repeat count="${elasticsearch.cluster.size}">
-			<math
-				datatype="int"
-				operand1="${elasticsearch.node.number}"
-				operand2="1"
-				operation="+"
-				result="elasticsearch.node.number"
-			/>
-
-			<delete dir="${elasticsearch.dir}-${elasticsearch.node.number}" />
-
-			<copy
-				todir="${elasticsearch.dir}-${elasticsearch.node.number}"
-			>
-				<fileset
-					dir="${elasticsearch.dir}"
-				/>
-			</copy>
-
-			<chmod
-				maxparallel="10"
-				perm="a+rwx"
-				type="both"
-			>
-				<fileset
-					dir="${elasticsearch.dir}-${elasticsearch.node.number}"
-				/>
-			</chmod>
-		</antelope:repeat>
-
-		<delete dir="${elasticsearch.dir}" />
 	</target>
 
 	<target name="start-elasticsearch">
