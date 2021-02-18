@@ -66,6 +66,7 @@ function getActivities(params) {
 export class ActivitiesChartTimeline extends React.Component {
 	static propTypes = {
 		activitiesLabel: PropTypes.string.isRequired,
+		count: PropTypes.number.isRequired,
 		entityType: PropTypes.number.isRequired,
 		groupId: PropTypes.string.isRequired,
 		hasSelectedPoint: PropTypes.bool,
@@ -129,6 +130,7 @@ export class ActivitiesChartTimeline extends React.Component {
 			activitiesLabel,
 			channelId,
 			className,
+			count,
 			entityType,
 			groupId,
 			hasSelectedPoint,
@@ -141,6 +143,12 @@ export class ActivitiesChartTimeline extends React.Component {
 		} = this.props;
 
 		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
+
+		const date = hasSelectedPoint
+			? getDateRangeLabelFromDate(intervalInitDate, interval)
+			: sub(activitiesLabel, [
+					getDateRangeLabel(history, interval, 'intervalInitDate')
+			  ]);
 
 		return (
 			<Card.Body
@@ -161,44 +169,30 @@ export class ActivitiesChartTimeline extends React.Component {
 
 				{!!history.length && (
 					<div className='selected-info'>
-						{hasSelectedPoint ? (
-							<>
-								<div className='d-flex align-items-baseline'>
-									<h4>
-										{sub(activitiesLabel, [
-											getDateRangeLabelFromDate(
-												intervalInitDate,
-												interval
-											)
-										])}
-									</h4>
+						<div className='d-flex align-items-baseline'>
+							<h4>{sub(activitiesLabel, [date])}</h4>
 
-									<Button
-										display='link'
-										onClick={this.handleClearSelection}
-										size='sm'
-									>
-										{Liferay.Language.get(
-											'clear-date-selection'
-										)}
-									</Button>
-								</div>
+							{hasSelectedPoint && (
+								<Button
+									display='link'
+									onClick={this.handleClearSelection}
+									size='sm'
+								>
+									{Liferay.Language.get(
+										'clear-date-selection'
+									)}
+								</Button>
+							)}
+						</div>
 
-								<div className='details'>
-									{getActivityLabel(totalElements)}
-								</div>
-							</>
-						) : (
-							<h4>
-								{sub(activitiesLabel, [
-									getDateRangeLabel(
-										history,
-										interval,
-										'intervalInitDate'
-									)
-								])}
-							</h4>
-						)}
+						<div className='details'>
+							{getActivityLabel(
+								(hasSelectedPoint
+									? totalElements
+									: count
+								).toLocaleString()
+							)}
+						</div>
 					</div>
 				)}
 

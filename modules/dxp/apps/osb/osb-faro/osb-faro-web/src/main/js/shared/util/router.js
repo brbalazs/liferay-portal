@@ -116,7 +116,7 @@ export const Routes = buildRoutes({
 									CONTACTS_ACCOUNT: {
 										path: `/${ACCOUNTS}/:id`,
 										routes: {
-											CONTACTS_ACCOUNT_ACTIVITIES: `/${ACTIVITIES}/:tabId(${ACTIVITIES})?`,
+											CONTACTS_ACCOUNT_ACTIVITIES: `/${ACTIVITIES}`,
 											CONTACTS_ACCOUNT_DETAILS:
 												'/details',
 											CONTACTS_ACCOUNT_INDIVIDUALS: `/${INDIVIDUALS}`,
