@@ -506,6 +506,38 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 		</sequential>
 	</macrodef>
 
+	<macrodef name="start-elasticsearch-with-clustering">
+		<sequential>
+			<prepare-additional-elasticsearch-bundles total.bundles="${elasticsearch.cluster.size}" />
+
+			<var name="elasticsearch.node.number" value="1" />
+			<var name="elasticsearch.port.number" value="9200" />
+
+			<antelope:repeat count="${elasticsearch.cluster.size}">
+				<antcall target="start-elasticsearch-node">
+					<param name="elasticsearch.bundle.number" value="${elasticsearch.node.number}" />
+					<param name="elasticsearch.port" value="${elasticsearch.port.number}" />
+				</antcall>
+
+				<math
+					datatype="int"
+					operand1="${elasticsearch.node.number}"
+					operand2="1"
+					operation="+"
+					result="elasticsearch.node.number"
+				/>
+
+				<math
+					datatype="int"
+					operand1="${elasticsearch.port.number}"
+					operand2="1"
+					operation="+"
+					result="elasticsearch.port.number"
+				/>
+			</antelope:repeat>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="start-elasticsearch-with-xpack">
 		<sequential>
 			<generate-x-pack-security-certificates />
@@ -709,26 +741,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			</chmod>
 		</sequential>
 	</macrodef>
-
-	<target name="configure-elasticsearch-cluster-properties">
-		<math
-			datatype="int"
-			operand1="${elasticsearch.cluster.size}"
-			operand2="2"
-			operation="/"
-			result="elasticsearch.master-eligible.nodes.quorum"
-		/>
-
-		<math
-			datatype="int"
-			operand1="${elasticsearch.master-eligible.nodes.quorum}"
-			operand2="1"
-			operation="+"
-			result="elasticsearch.master-eligible.nodes.quorum"
-		/>
-
-		<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}discovery.zen.minimum_master_nodes: ${elasticsearch.master-eligible.nodes.quorum}</echo>
-	</target>
 
 	<target name="deploy-elasticsearch7">
 		<gradle-execute dir="${project.dir}/modules/apps/portal-search-elasticsearch7" task="deploy">
