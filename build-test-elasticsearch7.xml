@@ -35,8 +35,7 @@
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchCluster
-xpack.ml.enabled: false</echo>
+cluster.name: LiferayElasticsearchCluster</echo>
 		</sequential>
 	</macrodef>
 
@@ -331,6 +330,24 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			</if>
 
 			<lstopwatch action="total" name="prepare.elasticsearch.analyzers" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="set-jdk">
+		<attribute name="jdk.version" />
+
+		<sequential>
+			<if>
+				<equals arg1="@{jdk.version}" arg2="openjdk11" />
+				<then>
+					<replace
+						file="${elasticsearch.dir}/bin/elasticsearch-env"
+					>
+						<replacetoken><![CDATA[JAVA="$JAVA_HOME/bin/java"]]></replacetoken>
+						<replacevalue><![CDATA[JAVA="/opt/java/jdk11/bin/java"]]></replacevalue>
+					</replace>
+				</then>
+			</if>
 		</sequential>
 	</macrodef>
 
@@ -692,116 +709,45 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<unzip-elasticsearch />
 
+		<set-jdk jdk.version="${jdk.version}" />
+
 		<prepare-elasticsearch-analyzers />
 
 		<configure-elasticsearch-properties />
 
-		<get-testcase-property property.name="elastic.xpack.enabled" />
-
-		<if>
-			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
-			<then>
-				<generate-x-pack-security-certificates />
-
-				<configure-elasticsearch-x-pack-security-properties />
-			</then>
-		</if>
-
 		<configure-portal-remote-elasticsearch-osgi-properties />
 
-		<get-testcase-property property.name="elasticsearch.cluster.size" />
-
 		<if>
-			<not>
-				<isset property="elasticsearch.cluster.size" />
-			</not>
+			<isset property="env.JENKINS_HOME" />
 			<then>
-				<property name="elasticsearch.cluster.size" value="1" />
+				<get-testcase-property property.name="elastic.xpack.enabled" />
+				<get-testcase-property property.name="elasticsearch.ccr.enabled" />
+				<get-testcase-property property.name="elasticsearch.cluster.size" />
 			</then>
 		</if>
 
-		<antcall target="configure-elasticsearch-cluster-properties" />
+		<local name="setup.type" />
 
-		<get-testcase-property property.name="elasticsearch.ccr.enabled" />
+		<property if:true="${elastic.xpack.enabled}" name="setup.type" value="elastic.xpack.enabled" />
+		<property if:true="${elasticsearch.ccr.enabled}" name="setup.type" value="elasticsearch.ccr.enabled" />
+		<property if:set="elasticsearch.cluster.size" name="setup.type" value="elasticsearch.cluster.size" />
 
-		<if>
-			<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
-			<then>
-				<antcall target="prepare-additional-elasticsearch-dirs">
-					<param name="elasticsearch.cluster.size" value="2" />
-				</antcall>
-
-				<configure-local-cluster-properties />
-
-				<antcall target="start-elasticsearch-node">
-					<param name="elasticsearch.cluster.size" value="2" />
-				</antcall>
-			</then>
-			<else>
-				<antcall target="prepare-additional-elasticsearch-dirs" />
-
+		<switch value="${setup.type}">
+			<case value="elastic.xpack.enabled">
+				<start-elasticsearch-with-xpack />
+			</case>
+			<case value="elasticsearch.ccr.enabled">
+				<start-elasticsearch-with-ccr />
+			</case>
+			<case value="elasticsearch.cluster.size">
+				<start-elasticsearch-with-clustering />
+			</case>
+			<default>
 				<antcall target="start-elasticsearch-node" />
-			</else>
-		</if>
+			</default>
+		</switch>
 
-		<if>
-			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
-			<then>
-				<sleep seconds="30" />
-
-				<set-x-pack-user-passwords />
-
-				<start-x-pack-trial />
-
-				<configure-portal-x-pack-osgi-properties />
-
-				<configure-portal-x-pack-security-truststore />
-
-				<antcall target="start-kibana" />
-
-				<lstopwatch action="total" name="start.elasticsearch" />
-			</then>
-			<else>
-				<waitfor maxwait="120" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
-					<http url="http://localhost:9200/" />
-				</waitfor>
-
-				<lstopwatch action="total" name="start.elasticsearch" />
-
-				<var name="elasticsearch.node.number" value="0" />
-
-				<antelope:repeat count="${elasticsearch.cluster.size}">
-					<math
-						datatype="int"
-						operand1="${elasticsearch.node.number}"
-						operand2="1"
-						operation="+"
-						result="elasticsearch.node.number"
-					/>
-
-					<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
-
-					<if>
-						<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
-						<then>
-							<waitfor maxwait="30" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
-								<http url="http://localhost:9202/" />
-							</waitfor>
-							<print-file file.name="${elasticsearch.dir}-2/logs/LiferayElasticsearchClusterTwo.log" />
-						</then>
-					</if>
-				</antelope:repeat>
-
-				<fail if="elasticsearch.server.not.started" message="Elasticsearch server failed to initialize." />
-			</else>
-		</if>
-
-		<if>
-			<equals arg1="${elasticsearch.ccr.enabled}" arg2="true" />
-			<then>
-				<start-ccr-trial />
-			</then>
-		</if>
+		<lstopwatch action="total" name="start.elasticsearch" />
 	</target>
 
 	<target name="start-elasticsearch-node">
