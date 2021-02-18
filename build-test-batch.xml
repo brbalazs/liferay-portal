@@ -882,14 +882,6 @@ mariadb.executable=${mariadb.executable}]]></echo>
 					</then>
 				</elseif>
 				<elseif>
-					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
-					<then>
-						<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch">
-							<property name="jdk.version" value="openjdk11" />
-						</ant>
-					</then>
-				</elseif>
-				<elseif>
 					<equals arg1="${suite.search.engine}" arg2="solr" />
 					<then>
 						<property name="com.liferay.portal.search.solr7.test.unit.started" value="true" />
@@ -3223,10 +3215,7 @@ log.sanitizer.enabled=false</echo>
 	<macrodef name="stop-suite-search-engine">
 		<sequential>
 			<if>
-				<or>
-					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
-					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
-				</or>
+				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
 				</then>
