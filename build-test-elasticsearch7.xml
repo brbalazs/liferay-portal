@@ -835,37 +835,32 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 		<unzip-kibana />
 
-		<get-testcase-property property.name="elastic.xpack.enabled" />
+		<configure-kibana-properties />
 
 		<if>
 			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
 			<then>
-				<configure-kibana-properties />
-
 				<configure-kibana-x-pack-security-properties />
 			</then>
 		</if>
 
-		<if>
-			<os family="unix" />
-			<then>
-				<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash">
-					<arg value="-c" />
-					<arg value="./kibana --allow-root &gt; kibana.log 2&gt;&amp;1 &amp;" />
-				</exec>
-			</then>
-			<elseif>
-				<os family="windows" />
-				<then>
-					<exec dir="${elastic.kibana.dir}/bin" executable="cmd">
-						<arg value="/c" />
-						<arg value="kibana" />
-					</exec>
-				</then>
-			</elseif>
-		</if>
+		<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash" osfamily="unix">
+			<arg value="-c" />
+			<arg value="./kibana --allow-root &gt; kibana.log 2&gt;&amp;1 &amp;" />
+		</exec>
+
+		<exec dir="${elastic.kibana.dir}/bin" executable="cmd" osfamily="windows">
+			<arg value="/c" />
+			<arg value="kibana" />
+		</exec>
+
+		<waitfor maxwait="60" maxwaitunit="second" timeoutproperty="kibana.server.not.started">
+			<socket port="5601" server="localhost" />
+		</waitfor>
 
 		<lstopwatch action="total" name="start.kibana" />
+
+		<fail if="kibana.server.not.started" message="Kibana failed to start on port 5601." />
 	</target>
 
 	<target name="stop-elasticsearch">
