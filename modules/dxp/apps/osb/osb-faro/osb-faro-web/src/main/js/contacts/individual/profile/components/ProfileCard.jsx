@@ -3,17 +3,11 @@ import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import CardTabs, {ButtonDisplayMode} from 'shared/components/CardTabs';
 import Constants from 'shared/util/constants';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import {ACTIVITIES, Routes} from 'shared/util/router';
+import {ACTIVITIES} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {
-	buildTabItems,
-	getSafeRangeKey,
-	INTERVAL_MAP
-} from 'shared/util/engagement-activity';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
 	getDateRangeLabel,
@@ -23,6 +17,7 @@ import {
 	getLastDate
 } from 'shared/util/date';
 import {getSafeChange} from 'shared/util/change';
+import {getSafeRangeKey, INTERVAL_MAP} from 'shared/util/engagement-activity';
 import {hasChanges} from 'shared/util/react';
 import {Individual} from 'shared/util/records';
 import {omit} from 'lodash';
@@ -98,7 +93,6 @@ export class IndividualProfileCard extends React.Component {
 		activityCount: 0,
 		activityHistory: [],
 		error: false,
-		history: [],
 		loading: true
 	};
 
@@ -134,19 +128,22 @@ export class IndividualProfileCard extends React.Component {
 
 	getDateRange() {
 		const {
-			props: {hasSelectedPoint, interval, selectedPoint}
+			props: {hasSelectedPoint, interval, selectedPoint},
+			state: {activityHistory}
 		} = this;
-
-		const history = true;
 
 		if (!hasSelectedPoint) {
 			return {
-				endDate: getLastDate(history, interval, 'intervalInitDate'),
-				startDate: getFirstDate(history, 'intervalInitDate')
+				endDate: getLastDate(
+					activityHistory,
+					interval,
+					'intervalInitDate'
+				),
+				startDate: getFirstDate(activityHistory, 'intervalInitDate')
 			};
 		}
 
-		const {intervalInitDate} = history[selectedPoint] || {};
+		const {intervalInitDate} = activityHistory[selectedPoint] || {};
 
 		return {
 			endDate: getEndDate(intervalInitDate, interval),
@@ -220,79 +217,52 @@ export class IndividualProfileCard extends React.Component {
 			});
 	}
 
-	renderChart() {
+	renderChartInfo() {
 		const {
-			props: {hasSelectedPoint, interval, rangeSelectors, selectedPoint},
-			state: {activityHistory}
+			props: {hasSelectedPoint, interval, selectedPoint},
+			state: {activityCount, activityHistory}
 		} = this;
 
-		const history = true;
-		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
+		const {intervalInitDate, totalElements} =
+			activityHistory[selectedPoint] || {};
+
+		const selected = hasSelectedPoint || selectedPoint;
+
+		const date = selected
+			? getDateRangeLabelFromDate(intervalInitDate, interval)
+			: getDateRangeLabel(activityHistory, interval, 'intervalInitDate');
 
 		return (
-			<div className='individuals-activities-chart'>
-				<ActivitiesChart
-					alwaysShowSelectedTooltip
-					hasSelectedPoint={hasSelectedPoint}
-					history={activityHistory}
-					interval={interval}
-					onPointSelect={this.handleChartSelect}
-					rangeSelectors={rangeSelectors}
-					selectedPoint={selectedPoint}
-				/>
+			<div className='selected-info'>
+				<div className='activities-date d-flex align-items-baseline'>
+					<h4>
+						{activityHistory.length
+							? sub(
+									Liferay.Language.get(
+										'individuals-activities-x'
+									),
+									[date]
+							  )
+							: Liferay.Language.get('individuals-activities')}
+					</h4>
 
-				<div className='selected-info'>
-					{hasSelectedPoint || selectedPoint ? (
-						<>
-							<div className='d-flex align-items-baseline'>
-								<h4>
-									{sub(
-										Liferay.Language.get(
-											'individuals-activities-x'
-										),
-										[
-											getDateRangeLabelFromDate(
-												intervalInitDate,
-												interval
-											)
-										]
-									)}
-								</h4>
+					{selected && (
+						<Button
+							display='link'
+							onClick={this.handleClearSelection}
+							size='sm'
+						>
+							{Liferay.Language.get('clear-date-selection')}
+						</Button>
+					)}
+				</div>
 
-								<Button
-									display='link'
-									onClick={this.handleClearSelection}
-									size='sm'
-								>
-									{Liferay.Language.get(
-										'clear-date-selection'
-									)}
-								</Button>
-							</div>
-
-							<div className='details'>
-								{getActivityLabel(totalElements)}
-							</div>
-						</>
-					) : (
-						<b>
-							{history.length
-								? sub(
-										Liferay.Language.get(
-											'individuals-activities-x'
-										),
-										[
-											getDateRangeLabel(
-												history,
-												interval,
-												'intervalInitDate'
-											)
-										]
-								  )
-								: Liferay.Language.get(
-										'individuals-activities'
-								  )}
-						</b>
+				<div className='details'>
+					{getActivityLabel(
+						(selected
+							? totalElements
+							: activityCount
+						).toLocaleString()
 					)}
 				</div>
 			</div>
@@ -331,13 +301,8 @@ export class IndividualProfileCard extends React.Component {
 
 	render() {
 		const {
-			props: {
-				channelId,
-				entity: {id},
-				groupId,
-				tabId
-			},
-			state: {activityChange, activityCount, error, loading}
+			props: {hasSelectedPoint, interval, rangeSelectors, selectedPoint},
+			state: {activityHistory, error, loading}
 		} = this;
 
 		return (
@@ -353,19 +318,19 @@ export class IndividualProfileCard extends React.Component {
 					page={false}
 					pageDisplay={false}
 				>
-					<CardTabs
-						activeTabId={tabId}
-						buttonsDisplayMode={ButtonDisplayMode.SPACED_BUTTONS}
-						tabs={buildTabItems({
-							activityChange,
-							activityCount,
-							channelId,
-							groupId,
-							id,
-							route: Routes.CONTACTS_INDIVIDUAL
-						})}
-					/>
-					{this.renderChart()}
+					<div className='individuals-activities-chart'>
+						<ActivitiesChart
+							alwaysShowSelectedTooltip
+							hasSelectedPoint={hasSelectedPoint}
+							history={activityHistory}
+							interval={interval}
+							onPointSelect={this.handleChartSelect}
+							rangeSelectors={rangeSelectors}
+							selectedPoint={selectedPoint}
+						/>
+
+						{this.renderChartInfo()}
+					</div>
 
 					{this.renderTimeline()}
 				</WrapSafeResults>
