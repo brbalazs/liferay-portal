@@ -1,11 +1,44 @@
 import BasePage from 'settings/components/BasePage';
 import Label from 'shared/components/Label';
 import React from 'react';
+import Table from 'shared/components/table';
+import {formatUTCDate} from 'shared/util/date';
 import {getDefinitions, getEvents} from 'shared/util/breadcrumbs';
 import {HasModal} from 'shared/types';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
 
+// TODO: LRAC-7479 Use the graphql query instead of mocked data
+const MOCKED_ITEMS = [
+	{lastSeen: new Date(), sampleData: 'IBM'},
+	{lastSeen: new Date(), sampleData: 'Facebook'},
+	{lastSeen: new Date(), sampleData: 'ABC'}
+];
+
+const TableWithData = () => (
+	<Table
+		columns={[
+			{
+				accessor: 'sampleData',
+				label: Liferay.Language.get('sample-data'),
+				sortable: false
+			},
+			{
+				accessor: 'lastSeen',
+				cellRenderer: ({data: {lastSeen}}) => (
+					<td className='table-column-text-end'>
+						{formatUTCDate(lastSeen, 'll')}
+					</td>
+				),
+				className: 'table-column-text-end',
+				label: Liferay.Language.get('last-seen'),
+				sortable: false
+			}
+		]}
+		items={MOCKED_ITEMS}
+		rowIdentifier='sampleData'
+	/>
+);
 interface IAttributeViewProps
 	extends React.HTMLAttributes<HTMLElement>,
 		HasModal {
@@ -63,7 +96,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({groupId}) => {
 			pageTitle={attribute.name}
 			subTitle={attribute.displayName}
 		>
-			<div>{`CARD GOES HERE ${attributeId}`}</div>
+			<TableWithData />
 		</BasePage>
 	);
 };
