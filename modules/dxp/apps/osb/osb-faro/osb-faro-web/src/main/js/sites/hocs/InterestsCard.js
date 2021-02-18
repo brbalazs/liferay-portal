@@ -3,7 +3,6 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
 import FaroConstants from 'shared/util/constants';
-import Icon from 'shared/components/Icon';
 import InterestsQuery from 'sites/queries/InterestsQuery';
 import React, {useContext} from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
@@ -75,11 +74,11 @@ const InterestsCard = props => {
 									groupId
 								})
 							)}
+							icon='angle-right'
+							iconAlignment='right'
 							size='sm'
 						>
 							{Liferay.Language.get('all-interests')}
-
-							<Icon symbol='angle-right' />
 						</Button>
 					</Card.Footer>
 				</>

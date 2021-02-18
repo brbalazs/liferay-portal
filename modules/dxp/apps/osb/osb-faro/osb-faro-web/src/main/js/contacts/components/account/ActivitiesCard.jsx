@@ -6,7 +6,6 @@ import ChangeLegend from 'contacts/components/ChangeLegend';
 import Constants, {LAST_30_DAYS} from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
 import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
@@ -313,11 +312,11 @@ export default class ActivitiesCard extends React.Component {
 							groupId,
 							id
 						})}
+						icon='angle-right'
+						iconAlignment='right'
 						size='sm'
 					>
 						{Liferay.Language.get('view-all-activities')}
-
-						<Icon symbol='angle-right' />
 					</Button>
 				</Card.Footer>
 			</Card>

@@ -228,12 +228,12 @@ export default class DatePicker extends React.Component {
 
 					<Button
 						disabled={this.isPrevDisabled()}
+						icon='angle-left'
+						iconAlignment='left'
 						monospaced
 						onClick={this.handlePrevMonth}
 						size='sm'
-					>
-						<Icon symbol='angle-left' />
-					</Button>
+					/>
 
 					<Button
 						className='current-day-btn'
@@ -248,12 +248,12 @@ export default class DatePicker extends React.Component {
 					<Button
 						data-testid='next-month'
 						disabled={this.isNextDisabled()}
+						icon='angle-right'
+						iconAlignment='left'
 						monospaced
 						onClick={this.handleNextMonth}
 						size='sm'
-					>
-						<Icon symbol='angle-right' />
-					</Button>
+					/>
 				</div>
 
 				<div className='picker-body'>

@@ -131,6 +131,16 @@ class Button extends React.Component<IButtonProps> {
 			}
 		);
 
+		const iconAndChildren = (
+			<>
+				{icon && iconAlignment === 'left' && this.renderIcon()}
+
+				{children}
+
+				{icon && iconAlignment === 'right' && this.renderIcon()}
+			</>
+		);
+
 		if ((disabled || externalLink) && href) {
 			/* eslint-disable */
 			return (
@@ -141,7 +151,7 @@ class Button extends React.Component<IButtonProps> {
 					onClick={onClick}
 					ref={forwardedRef}
 				>
-					{children}
+					{iconAndChildren}
 				</a>
 			);
 			/* eslint-enable */
@@ -153,7 +163,7 @@ class Button extends React.Component<IButtonProps> {
 					ref={forwardedRef}
 					to={href}
 				>
-					{children}
+					{iconAndChildren}
 				</Link>
 			);
 		} else {
@@ -172,11 +182,7 @@ class Button extends React.Component<IButtonProps> {
 						</span>
 					)}
 
-					{icon && iconAlignment === 'left' && this.renderIcon()}
-
-					{children}
-
-					{icon && iconAlignment === 'right' && this.renderIcon()}
+					{iconAndChildren}
 				</button>
 			);
 		}

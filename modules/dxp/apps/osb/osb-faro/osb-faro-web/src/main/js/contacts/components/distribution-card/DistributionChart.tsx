@@ -3,7 +3,6 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import FaroConstants from 'shared/util/constants';
-import Icon from 'shared/components/Icon';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -266,10 +265,14 @@ class DistributionChart extends React.Component<
 				</Card.Body>
 
 				<Card.Footer>
-					<Button display='link' href={viewAllLink} size='sm'>
+					<Button
+						display='link'
+						href={viewAllLink}
+						icon='angle-right'
+						iconAlignment='right'
+						size='sm'
+					>
 						{Liferay.Language.get('explore-breakdown')}
-
-						<Icon symbol='angle-right' />
 					</Button>
 				</Card.Footer>
 			</>

@@ -3,7 +3,6 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
 import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
@@ -122,11 +121,11 @@ export default class KnownIndividualsCard extends React.Component {
 							groupId,
 							id
 						})}
+						icon='angle-right'
+						iconAlignment='right'
 						size='sm'
 					>
 						{Liferay.Language.get('view-all-individuals')}
-
-						<Icon symbol='angle-right' />
 					</Button>
 				</Card.Footer>
 			</Card>

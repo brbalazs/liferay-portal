@@ -5,7 +5,6 @@ import debounce from 'shared/util/debounce-decorator';
 import EntityList from 'shared/components/EntityList';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
 import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
@@ -144,10 +143,14 @@ export default class AssociatedSegmentsCard extends React.Component {
 				</div>
 
 				<Card.Footer>
-					<Button display='link' href={pageUrl} size='sm'>
+					<Button
+						display='link'
+						href={pageUrl}
+						icon='angle-right'
+						iconAlignment='right'
+						size='sm'
+					>
 						{Liferay.Language.get('view-all-segments')}
-
-						<Icon symbol='angle-right' />
 					</Button>
 				</Card.Footer>
 			</Card>

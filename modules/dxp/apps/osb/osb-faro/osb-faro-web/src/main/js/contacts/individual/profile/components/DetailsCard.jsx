@@ -2,7 +2,6 @@ import Avatar from 'shared/components/Avatar';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
 import React from 'react';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {Individual} from 'shared/util/records';
@@ -66,11 +65,11 @@ export default class DetailsCard extends React.PureComponent {
 							groupId,
 							id
 						})}
+						icon='angle-right'
+						iconAlignment='right'
 						size='sm'
 					>
 						{Liferay.Language.get('view-all-details')}
-
-						<Icon symbol='angle-right' />
 					</Button>
 				</Card.Footer>
 			</Card>

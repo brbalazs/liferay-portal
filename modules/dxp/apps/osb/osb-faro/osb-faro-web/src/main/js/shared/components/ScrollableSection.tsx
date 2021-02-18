@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
 import React, {createRef} from 'react';
 import {hasChanges} from 'shared/util/react';
 
@@ -113,12 +112,12 @@ export default class ScrollableSection extends React.Component<
 						<Button
 							borderless
 							display='secondary'
+							icon='angle-left'
+							iconAlignment='left'
 							monospaced
 							onClick={this.handleScrollLeft}
 							size='sm'
-						>
-							<Icon symbol='angle-left' />
-						</Button>
+						/>
 					</div>
 				)}
 
@@ -136,12 +135,12 @@ export default class ScrollableSection extends React.Component<
 						<Button
 							borderless
 							display='secondary'
+							icon='angle-right'
+							iconAlignment='left'
 							monospaced
 							onClick={this.handleScrollRight}
 							size='sm'
-						>
-							<Icon symbol='angle-right' />
-						</Button>
+						/>
 					</div>
 				)}
 			</div>

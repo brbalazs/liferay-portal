@@ -2,7 +2,6 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import FaroConstants from 'shared/util/constants';
 import getInterestsQuery from 'contacts/queries/InterestsQuery';
-import Icon from 'shared/components/Icon';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {
@@ -78,11 +77,11 @@ const InterestsCard = ({channelId, groupId, id}) => (
 					groupId,
 					id
 				})}
+				icon='angle-right'
+				iconAlignment='right'
 				size='sm'
 			>
 				{Liferay.Language.get('view-all-interests')}
-
-				<Icon symbol='angle-right' />
 			</Button>
 		</Card.Footer>
 	</Card>

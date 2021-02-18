@@ -1,7 +1,6 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import FaroConstants from 'shared/util/constants';
-import Icon from 'shared/components/Icon';
 import InterestsQuery from '../queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
@@ -84,11 +83,11 @@ const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => (
 					channelId,
 					groupId
 				})}
+				icon='angle-right'
+				iconAlignment='right'
 				size='sm'
 			>
 				{Liferay.Language.get('view-all-interests')}
-
-				<Icon symbol='angle-right' />
 			</Button>
 		</Card.Footer>
 	</Card>
