@@ -33,4 +33,16 @@ describe('AttributeView', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with a table', async() => {
+		const {getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<AttributeView groupId='23' />
+				</StaticRouter>
+			</Provider>
+		);
+
+		expect(getByText('Sample Data')).toBeTruthy();
+	});
 });
