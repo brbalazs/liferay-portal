@@ -178,8 +178,8 @@ export const Routes = buildRoutes({
 											CONTACTS_SEGMENT_INTEREST_DETAILS: `/interests/:interestId/:tabId(${INDIVIDUALS}|${PAGES})?`,
 											CONTACTS_SEGMENT_INTERESTS:
 												'/interests',
-											CONTACTS_SEGMENT_MEMBERSHIP: `/membership/:tabId(${GROWTH})?`,
-											CONTACTS_SEGMENT_OVERVIEW: `/:tabId(${GROWTH})?`
+											CONTACTS_SEGMENT_MEMBERSHIP:
+												'/membership'
 										}
 									},
 									CONTACTS_SEGMENT_CREATE: `/${SEGMENTS}/create`

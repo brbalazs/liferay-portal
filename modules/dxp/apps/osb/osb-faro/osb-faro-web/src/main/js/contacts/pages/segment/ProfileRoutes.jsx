@@ -40,7 +40,7 @@ const NAV_ITEMS = [
 	{
 		exact: true,
 		label: Liferay.Language.get('overview'),
-		route: Routes.CONTACTS_SEGMENT_OVERVIEW
+		route: Routes.CONTACTS_SEGMENT
 	},
 	{
 		exact: true,
@@ -106,7 +106,7 @@ export class SegmentProfileRoutes extends React.Component {
 				return getCN('segment-distribution-root', className);
 			case Routes.CONTACTS_SEGMENT_INTERESTS:
 				return getCN('contacts-interests-root', className);
-			case Routes.CONTACTS_SEGMENT_OVERVIEW:
+			case Routes.CONTACTS_SEGMENT:
 				return getCN(
 					'segment-overview-root',
 					'overview-root',
@@ -241,7 +241,7 @@ export class SegmentProfileRoutes extends React.Component {
 								componentProps={componentProps}
 								data={Overview}
 								exact
-								path={Routes.CONTACTS_SEGMENT_OVERVIEW}
+								path={Routes.CONTACTS_SEGMENT}
 							/>
 
 							<RouteNotFound />

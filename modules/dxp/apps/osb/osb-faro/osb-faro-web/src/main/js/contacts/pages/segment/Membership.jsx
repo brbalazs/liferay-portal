@@ -1,12 +1,9 @@
 import * as API from 'shared/api';
 import Card from 'shared/components/Card';
-import CardTabs from 'shared/components/CardTabs';
 import Promise from 'metal-promise';
 import React from 'react';
 import SegmentGrowthWithList from 'contacts/components/segment/Growth';
 import {connect} from 'react-redux';
-import {getPluralMessage} from 'shared/util/lang';
-import {GROWTH, Routes, toRoute} from 'shared/util/router';
 import {mapHistories} from 'shared/hoc/mappers/segment';
 import {PropTypes} from 'prop-types';
 import {Segment} from 'shared/util/records';
@@ -22,7 +19,7 @@ function fetchHistories({channelId, groupId, id}) {
 	]);
 }
 
-export const ChartViews = withRequest(fetchHistories, mapHistories, {
+export const MembershipChart = withRequest(fetchHistories, mapHistories, {
 	alignCenter: true,
 	page: false
 })(
@@ -34,7 +31,10 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 				data: PropTypes.array
 			}).isRequired,
 			id: PropTypes.string.isRequired,
-			tabId: PropTypes.string,
+			individualCounts: PropTypes.shape({
+				anonymousCount: PropTypes.number,
+				knownCount: PropTypes.number
+			}),
 			timeZoneId: PropTypes.string
 		};
 
@@ -44,6 +44,7 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 				groupId,
 				growthHistory,
 				id,
+				individualCounts,
 				timeZoneId
 			} = this.props;
 
@@ -53,6 +54,7 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 					channelId={channelId}
 					groupId={groupId}
 					id={id}
+					individualCounts={individualCounts}
 					timeZoneId={timeZoneId}
 				/>
 			);
@@ -70,67 +72,37 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 	])
 }))
 export default class Membership extends React.Component {
-	static defaultProps = {
-		tabId: GROWTH
-	};
-
 	static propTypes = {
 		groupId: PropTypes.string.isRequired,
 		segment: PropTypes.instanceOf(Segment).isRequired,
-		tabId: PropTypes.string,
 		timeZoneId: PropTypes.string
 	};
-
-	buildCardTabs() {
-		const {
-			channelId,
-			groupId,
-			segment: {id, individualCount}
-		} = this.props;
-
-		return [
-			{
-				secondaryInfo: getPluralMessage(
-					Liferay.Language.get('x-individual-in-segment'),
-					Liferay.Language.get('x-individuals-in-segment'),
-					individualCount,
-					false,
-					[
-						<span className='primary-content' key='TOTAL'>
-							{individualCount.toLocaleString()}
-						</span>
-					]
-				),
-				tabId: GROWTH,
-				tabUrl: toRoute(Routes.CONTACTS_SEGMENT_MEMBERSHIP, {
-					channelId,
-					groupId,
-					id,
-					tabId: GROWTH
-				}),
-				title: Liferay.Language.get('membership')
-			}
-		];
-	}
 
 	render() {
 		const {
 			channelId,
 			groupId,
-			segment: {id},
-			tabId,
+			segment: {anonymousIndividualCount, id, knownIndividualCount},
 			timeZoneId
 		} = this.props;
 
 		return (
 			<Card className='segment-membership-root' pageDisplay>
-				<CardTabs activeTabId={tabId} tabs={this.buildCardTabs()} />
+				<Card.Header>
+					<Card.Title>
+						{Liferay.Language.get('segment-membership')}
+					</Card.Title>
+				</Card.Header>
 
-				<ChartViews
+				<MembershipChart
+					anonymousIndividualCount
 					channelId={channelId}
 					groupId={groupId}
 					id={id}
-					tabId={tabId}
+					individualCounts={{
+						anonymousCount: anonymousIndividualCount,
+						knownCount: knownIndividualCount
+					}}
 					timeZoneId={timeZoneId}
 				/>
 			</Card>

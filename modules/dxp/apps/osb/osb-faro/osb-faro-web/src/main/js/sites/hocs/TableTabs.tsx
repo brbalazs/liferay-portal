@@ -2,7 +2,6 @@ import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
-import Icon from 'shared/components/Icon';
 import React, {useCallback, useContext, useState} from 'react';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {pickBy} from 'lodash';
@@ -75,11 +74,11 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 										pickBy({...rangeSelectors}),
 										footerHref
 									)}
+									icon='angle-right'
+									iconAlignment='right'
 									size='sm'
 								>
 									{footerLabel}
-
-									<Icon symbol='angle-right' />
 								</Button>
 							</Card.Footer>
 						)}

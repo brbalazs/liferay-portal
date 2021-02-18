@@ -823,7 +823,7 @@ export const segmentsListColumns = {
 		cellRendererProps: {
 			renderIcon: SegmentSticker,
 			routeFn: ({data: {id}}) =>
-				toRoute(Routes.CONTACTS_SEGMENT_OVERVIEW, {
+				toRoute(Routes.CONTACTS_SEGMENT, {
 					channelId,
 					groupId,
 					id

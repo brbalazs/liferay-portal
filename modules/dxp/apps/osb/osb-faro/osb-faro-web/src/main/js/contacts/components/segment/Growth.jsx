@@ -96,7 +96,11 @@ function getMemberChanges(data) {
 export class SegmentGrowthChart extends React.Component {
 	static defaultProps = {
 		alwaysShowSelectedTooltip: false,
-		height: 360
+		height: 360,
+		individualCounts: {
+			anonymousCount: 0,
+			knownCount: 0
+		}
 	};
 
 	static propTypes = {
@@ -104,6 +108,10 @@ export class SegmentGrowthChart extends React.Component {
 		data: CHANGES_AGGREGATION_SHAPE,
 		hasSelectedPoint: PropTypes.bool,
 		height: PropTypes.number,
+		individualCounts: PropTypes.shape({
+			anonymousCount: PropTypes.number,
+			knownCount: PropTypes.number
+		}),
 		onPointSelect: PropTypes.func,
 		selectedPoint: PropTypes.number
 	};
@@ -220,6 +228,7 @@ export class SegmentGrowthChart extends React.Component {
 				data,
 				hasSelectedPoint,
 				height,
+				individualCounts: {anonymousCount, knownCount},
 				onPointSelect,
 				selectedPoint
 			},
@@ -313,11 +322,11 @@ export class SegmentGrowthChart extends React.Component {
 						allowDecimals={false}
 						axisLine={{stroke: AXIS.borderStroke}}
 						label={getYAxisLabel(
-							Liferay.Language.get('growth'),
+							Liferay.Language.get('membership'),
 							'left',
 							yAxisWidth
 						)}
-						name={Liferay.Language.get('growth')}
+						name={Liferay.Language.get('membership')}
 						stroke={AXIS.gridStroke}
 						tick={getAxisTickText('y')}
 						tickCount={6}
@@ -338,7 +347,14 @@ export class SegmentGrowthChart extends React.Component {
 					/>
 
 					<Legend
-						align='right'
+						align='left'
+						formatter={(value, {count}) => (
+							<span>
+								{`${value}:`}
+
+								<b className='ml-1'>{count}</b>
+							</span>
+						)}
 						iconSize={8}
 						onMouseEnter={({dataKey}) =>
 							this.setState({legendHoverItem: dataKey})
@@ -346,13 +362,35 @@ export class SegmentGrowthChart extends React.Component {
 						onMouseLeave={() =>
 							this.setState({legendHoverItem: null})
 						}
-						verticalAlign='bottom'
+						payload={[
+							{
+								color: CHART_ORANGE,
+								count: knownCount,
+								dataKey: 'knownCount',
+								type: 'circle',
+								value: 'Known Members'
+							},
+							{
+								color: CHART_BLUE,
+								count: anonymousCount,
+								dataKey: 'anonymousCount',
+								type: 'circle',
+								value: 'Anonymous Members'
+							},
+							{
+								color: 'rgba(0,0,0,0)',
+								count: anonymousCount + knownCount,
+								dataKey: 'individualCount',
+								type: '',
+								value: 'Total Members'
+							}
+						]}
+						verticalAlign='top'
 						wrapperStyle={{
-							bottom: 0,
 							color: AXIS.textColor,
 							fontSize: '14px',
 							lineHeight: '21px',
-							right: 0
+							paddingBottom: '22px'
 						}}
 					/>
 
@@ -549,6 +587,10 @@ export class SegmentGrowthWithList extends React.Component {
 		groupId: PropTypes.any.isRequired,
 		hasSelectedPoint: PropTypes.bool,
 		id: PropTypes.string.isRequired,
+		individualCounts: PropTypes.shape({
+			anonymousCount: PropTypes.number,
+			knownCount: PropTypes.number
+		}),
 		selectedPoint: PropTypes.number,
 		timeZoneId: PropTypes.string
 	};
@@ -600,6 +642,7 @@ export class SegmentGrowthWithList extends React.Component {
 			groupId,
 			hasSelectedPoint,
 			id,
+			individualCounts,
 			onPointSelect,
 			selectedPoint
 		} = this.props;
@@ -643,6 +686,7 @@ export class SegmentGrowthWithList extends React.Component {
 							: orderAscending
 					}}
 					entityType={hasSelectedPoint ? '' : INDIVIDUALS}
+					individualCounts={individualCounts}
 					rowIdentifier='id'
 				/>
 			</Card.Body>
