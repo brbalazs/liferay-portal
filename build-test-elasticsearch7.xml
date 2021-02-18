@@ -886,72 +886,28 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="stop-elasticsearch">
-		<get-testcase-property property.name="elasticsearch.cluster.size" />
+		<condition else="${elasticsearch.dir}" property="elasticsearch.stop.dir" value="${elasticsearch.dir}-${elasticsearch.bundle.number}">
+			<isset property="elasticsearch.bundle.number" />
+		</condition>
 
 		<if>
-			<not>
-				<isset property="elasticsearch.cluster.size" />
-			</not>
+			<available file="${elasticsearch.stop.dir}/pid-elasticsearch" />
 			<then>
-				<property name="elasticsearch.cluster.size" value="1" />
+				<exec dir="${elasticsearch.stop.dir}" executable="/bin/bash" osfamily="unix">
+					<arg value="-c" />
+					<arg value="pkill -F pid-elasticsearch" />
+				</exec>
+
+				<exec dir="${elasticsearch.stop.dir}/bin" executable="cmd" osfamily="windows" spawn="true">
+					<arg value="/c" />
+					<arg value="for /f %x in (pid-elasticsearch) do taskkill /f /pid %x" />
+				</exec>
+
+				<print-files dir="${elasticsearch.stop.dir}/logs/" exclude="*_*" include="LiferayElasticsearchCluster*.log" />
 			</then>
-		</if>
-
-		<var name="elasticsearch.node.number" value="0" />
-
-		<antelope:repeat count="${elasticsearch.cluster.size}">
-			<math
-				datatype="int"
-				operand1="${elasticsearch.node.number}"
-				operand2="1"
-				operation="+"
-				result="elasticsearch.node.number"
-			/>
-
-			<if>
-				<os family="unix" />
-				<then>
-					<loadfile
-						property="pid-elasticsearch"
-						srcFile="${elasticsearch.dir}-${elasticsearch.node.number}/pid-elasticsearch"
-					>
-						<filterchain>
-							<linecontainsregexp>
-								<regexp pattern="[0-9]*" />
-							</linecontainsregexp>
-						</filterchain>
-					</loadfile>
-
-					<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
-						<arg value="-c" />
-						<arg value="kill ${pid-elasticsearch}" />
-					</exec>
-
-					<var name="pid-elasticsearch" unset="true" />
-				</then>
-				<elseif>
-					<os family="windows" />
-					<then>
-						<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="cmd" spawn="true">
-							<arg value="/c" />
-							<arg value="for /f %x in (pid-elasticsearch) do taskkill /f /pid %x" />
-						</exec>
-					</then>
-				</elseif>
-			</if>
-
-			<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
-		</antelope:repeat>
-
-		<get-testcase-property property.name="elastic.xpack.enabled" />
-
-		<if>
-			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
-			<then>
-				<print-file file.name="${elastic.kibana.dir}/bin/kibana.log" />
-
-				<antcall target="stop-kibana" />
-			</then>
+			<else>
+				<echo>The Elasticsearch server in ${elasticsearch.stop.dir} has already been stopped</echo>
+			</else>
 		</if>
 	</target>
 
