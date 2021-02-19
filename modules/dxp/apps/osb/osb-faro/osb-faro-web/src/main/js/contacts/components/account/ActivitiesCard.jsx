@@ -224,6 +224,17 @@ export default class ActivitiesCard extends React.Component {
 								yAxisId='activities'
 							/>
 
+							<YAxis
+								axisLine={{stroke: AXIS.borderStroke}}
+								orientation='right'
+								stroke={AXIS.gridStroke}
+								tick={false}
+								tickLine={false}
+								type='number'
+								width={1}
+								yAxisId='right'
+							/>
+
 							<Tooltip
 								content={this.renderTooltip}
 								cursor={{stroke: CHART_BLUE}}
