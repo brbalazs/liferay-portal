@@ -66,6 +66,7 @@ import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -378,7 +379,9 @@ public class LayoutsAdminDisplayContext {
 			"groupId", String.valueOf(layout.getGroupId()));
 		editLayoutURL.setParameter("selPlid", String.valueOf(layout.getPlid()));
 
-		return editLayoutURL.toString();
+		return HttpUtil.addParameter(
+			editLayoutURL.toString(), "refererPlid",
+			String.valueOf(layout.getPlid()));
 	}
 
 	public long getFirstLayoutPageTemplateCollectionId() {

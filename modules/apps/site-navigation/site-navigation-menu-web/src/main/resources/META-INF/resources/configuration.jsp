@@ -37,7 +37,9 @@ else {
 }
 %>
 
-<liferay-portlet:actionURL portletConfiguration="<%= true %>" var="configurationActionURL" />
+<liferay-portlet:actionURL portletConfiguration="<%= true %>" var="configurationActionURL">
+	<portlet:param name="refererPlid" value="<%= String.valueOf(themeDisplay.getRefererPlid()) %>" />
+</liferay-portlet:actionURL>
 
 <liferay-portlet:renderURL portletConfiguration="<%= true %>" var="configurationRenderURL" />
 

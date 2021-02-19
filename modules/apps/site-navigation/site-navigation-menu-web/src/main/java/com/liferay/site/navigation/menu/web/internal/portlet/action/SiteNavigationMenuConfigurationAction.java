@@ -19,8 +19,10 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
 import com.liferay.site.navigation.menu.web.internal.constants.SiteNavigationMenuPortletKeys;
@@ -29,6 +31,8 @@ import com.liferay.site.navigation.type.SiteNavigationMenuItemTypeRegistry;
 
 import java.io.IOException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.portlet.PortletConfig;
@@ -90,6 +94,18 @@ public class SiteNavigationMenuConfigurationAction
 		String rootMenuItemType = modifiableSettings.getValue(
 			"rootMenuItemType", StringPool.BLANK);
 
+		String refererPlid = portletRequest.getParameter("refererPlid");
+
+		Map<String, String> data = new HashMap<>();
+
+		data.put("refererPlid", refererPlid);
+
+		SessionMessages.add(
+			portletRequest,
+			_portalUtil.getPortletId(portletRequest) +
+				SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA,
+			data);
+
 		if (!Objects.equals(rootMenuItemType, "select")) {
 			modifiableSettings.reset("rootMenuItemId");
 		}
@@ -124,6 +140,9 @@ public class SiteNavigationMenuConfigurationAction
 
 	@Reference
 	private ItemSelector _itemSelector;
+
+	@Reference
+	private PortalUtil _portalUtil;
 
 	private PortletDisplayTemplate _portletDisplayTemplate;
 
