@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutType;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutServiceUtil;
 import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -435,7 +436,9 @@ public class NavItem implements Serializable {
 		return navItems;
 	}
 
-	private static List<Layout> _getLayouts(ThemeDisplay themeDisplay) {
+	private static List<Layout> _getLayouts(ThemeDisplay themeDisplay)
+		throws PortalException {
+
 		Layout layout = themeDisplay.getLayout();
 
 		long refererPlid = themeDisplay.getRefererPlid();
@@ -444,9 +447,19 @@ public class NavItem implements Serializable {
 			layout = LayoutLocalServiceUtil.fetchLayout(refererPlid);
 
 			if (layout != null) {
-				return LayoutLocalServiceUtil.getLayouts(
+				List<Layout> layouts = LayoutServiceUtil.getLayouts(
 					layout.getGroupId(), layout.isPrivateLayout(),
 					LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+
+				List<Layout> accessibleLayouts = new ArrayList<>();
+
+				for (Layout curLayout : layouts) {
+					if (!curLayout.isHidden()) {
+						accessibleLayouts.add(curLayout);
+					}
+				}
+
+				return accessibleLayouts;
 			}
 		}
 
