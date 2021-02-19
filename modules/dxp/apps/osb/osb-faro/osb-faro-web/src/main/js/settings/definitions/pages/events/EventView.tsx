@@ -1,4 +1,5 @@
 import BasePage from 'settings/components/BasePage';
+import EventDetailsCard from './components/EventDetailsCard';
 import React from 'react';
 import {getDefinitions, getEvents} from 'shared/util/breadcrumbs';
 import {HasModal} from 'shared/types';
@@ -17,8 +18,8 @@ const EventView: React.FC<IEventViewProps> = ({groupId}) => {
 		name: 'viewArticle'
 	};
 
-	const {eventId} = useParams();
 	// TODO: Use useQuery hook and the isEditing to open modal => const isEditing = useQuery('edit');
+	const {eventId} = useParams();
 
 	const viewEventPageActions = [
 		{
@@ -48,7 +49,10 @@ const EventView: React.FC<IEventViewProps> = ({groupId}) => {
 			pageTitle={event.name}
 			subTitle={event.displayName}
 		>
-			<div>{`CARD GOES HERE ${eventId}`}</div>
+			<EventDetailsCard
+				eventName={event.name}
+				groupId={groupId}
+			></EventDetailsCard>
 		</BasePage>
 	);
 };
