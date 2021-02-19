@@ -20,7 +20,7 @@ describe('EventDetailsCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should change the displayed code whenever an attribute is selected', () => {
+	it('should match the displayed code with the selected attributes', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
@@ -35,7 +35,8 @@ describe('EventDetailsCard', () => {
 			'data-clipboard-text',
 			[
 				"Analytics.send('viewArticle', {",
-				"\n\t'firstTest': '1',",
+				"\n\t'testingtest': '2',",
+				"\n\t'anothernamet': '3',",
 				'\n});'
 			].join('')
 		);
