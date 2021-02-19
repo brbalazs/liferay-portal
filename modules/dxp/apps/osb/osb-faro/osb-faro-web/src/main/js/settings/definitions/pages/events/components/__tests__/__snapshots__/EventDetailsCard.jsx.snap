@@ -38,6 +38,9 @@ exports[`EventDetailsCard should render 1`] = `
           aria-label="Click to Copy"
           class="button-root btn btn-secondary copy-button"
           data-clipboard-text="Analytics.send('viewArticle', {
+	'firstTest': '1',
+	'testingtest': '2',
+	'anothernamet': '3',
 });"
           data-tooltip-response="Copied"
           title="Click to Copy"
@@ -49,6 +52,9 @@ exports[`EventDetailsCard should render 1`] = `
           class="code-container"
         >
           Analytics.send('viewArticle', {
+	'firstTest': '1',
+	'testingtest': '2',
+	'anothernamet': '3',
 });
         </code>
       </div>
@@ -131,7 +137,7 @@ exports[`EventDetailsCard should render 1`] = `
           class="mb-0"
         >
           <tr
-            class="clickable"
+            class="clickable table-active"
           >
             <td
               class=""
@@ -141,9 +147,10 @@ exports[`EventDetailsCard should render 1`] = `
               >
                 <label>
                   <input
+                    checked=""
                     class="custom-control-input"
                     type="checkbox"
-                    value="false"
+                    value="true"
                   />
                   <span
                     class="custom-control-label"
@@ -205,7 +212,7 @@ exports[`EventDetailsCard should render 1`] = `
           class="mb-0"
         >
           <tr
-            class="clickable"
+            class="clickable table-active"
           >
             <td
               class=""
@@ -215,9 +222,10 @@ exports[`EventDetailsCard should render 1`] = `
               >
                 <label>
                   <input
+                    checked=""
                     class="custom-control-input"
                     type="checkbox"
-                    value="false"
+                    value="true"
                   />
                   <span
                     class="custom-control-label"
@@ -279,7 +287,7 @@ exports[`EventDetailsCard should render 1`] = `
           class="mb-0"
         >
           <tr
-            class="clickable"
+            class="clickable table-active"
           >
             <td
               class=""
@@ -289,9 +297,10 @@ exports[`EventDetailsCard should render 1`] = `
               >
                 <label>
                   <input
+                    checked=""
                     class="custom-control-input"
                     type="checkbox"
-                    value="false"
+                    value="true"
                   />
                   <span
                     class="custom-control-label"
