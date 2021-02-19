@@ -126,7 +126,15 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 
 						boolean portletInstanceable = portlet.isInstanceable();
 
-						boolean portletUsed = layoutTypePortlet.hasPortletId(portlet.getPortletId());
+						boolean portletUsed = false;
+
+						for (Portlet layoutPortlet : layoutTypePortlet.getPortlets()) {
+							String decodedPortletName = PortletIdCodec.decodePortletName(layoutPortlet.getPortletId());
+
+							if (decodedPortletName.equals(portlet.getPortletId())) {
+								portletUsed = true;
+							}
+						}
 
 						boolean portletLocked = !portletInstanceable && portletUsed;
 
