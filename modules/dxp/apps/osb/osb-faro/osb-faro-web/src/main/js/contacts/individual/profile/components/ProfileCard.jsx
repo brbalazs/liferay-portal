@@ -8,7 +8,12 @@ import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import {ACTIVITIES} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {formatSessions, getActivityLabel} from 'shared/util/activities';
+import {
+	formatSessions,
+	getActivityLabel,
+	getSafeRangeKey,
+	INTERVAL_MAP
+} from 'shared/util/activities';
 import {
 	getDateRangeLabel,
 	getDateRangeLabelFromDate,
@@ -17,7 +22,6 @@ import {
 	getLastDate
 } from 'shared/util/date';
 import {getSafeChange} from 'shared/util/change';
-import {getSafeRangeKey, INTERVAL_MAP} from 'shared/util/engagement-activity';
 import {hasChanges} from 'shared/util/react';
 import {Individual} from 'shared/util/records';
 import {omit} from 'lodash';

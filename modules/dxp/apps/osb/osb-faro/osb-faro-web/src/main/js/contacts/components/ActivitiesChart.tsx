@@ -27,9 +27,32 @@ import {
 	getIntervals
 } from 'shared/util/charts';
 import {get} from 'lodash';
-import {IActivitiesHistory, IChartProps} from 'shared/util/engagement-activity';
+import {Interval, RangeSelectors} from 'shared/types';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
+
+interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
+	alwaysShowSelectedTooltip: boolean;
+	hasSelectedPoint?: boolean;
+	height: number;
+	history: Array<T>;
+	interval?: Interval;
+	onAfterInit?: () => void;
+	onPointSelect: ({index: number}) => void;
+	rangeSelectors?: RangeSelectors;
+	selectedPoint: number;
+	tooltipRenderRows?: (
+		data: T
+	) => Array<{
+		label: string;
+		value: any;
+	}>;
+}
+
+interface IActivitiesHistory<initDateType = number> {
+	intervalInitDate: initDateType;
+	totalElements: number;
+}
 
 const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 	alwaysShowSelectedTooltip = false,

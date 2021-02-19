@@ -8,7 +8,7 @@ import {Account} from 'shared/util/records';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {connect} from 'react-redux';
 import {getSafeChange} from 'shared/util/change';
-import {getSafeRangeKey, INTERVAL_MAP} from 'shared/util/engagement-activity';
+import {getSafeRangeKey, INTERVAL_MAP} from 'shared/util/activities';
 import {PropTypes} from 'prop-types';
 import {WrapSafeResults} from 'shared/hoc/util';
 

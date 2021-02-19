@@ -14,13 +14,19 @@ import {
 	orderBy,
 	toPairs
 } from 'lodash/fp';
+import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
+import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
 	activityActions: {comments, downloads, previews, submissions, visits},
-	assetTypes
+	assetTypes,
+	timeIntervals
 } = FaroConstants;
+
+export const CHART_ACTIVITY_ID = 'activities';
+export const CHART_ID = 'individualActivity';
 
 const ACTIVITY_ACTIONS_TITLE_LANG_MAP = {
 	[comments]: Liferay.Language.get('commented-on-x'),
@@ -53,6 +59,41 @@ const ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP = {
 	}
 };
 
+export const INTERVAL_MAP = {
+	D: timeIntervals.day,
+	M: timeIntervals.month,
+	W: timeIntervals.week
+};
+
+/**
+ * Format actvitiy metrics for use in ChangeLegend
+ * @param {Object} changeMetrics - History data points.
+ * @param {number} changeMetrics.activityChange - The activity count change from
+ *                                                previous period.
+ * @param {number} changeMetrics.activityCount - The activity count.
+ * @return {Array} Activity metrics formatted for use in ChangeLegend.
+ */
+export function buildLegendItems({
+	activityChange,
+	activityCount
+}: {
+	activityChange: number;
+	activityCount: number;
+}): {change: number; id: string; secondaryInfo: string; title: string}[] {
+	return [
+		{
+			change: activityChange,
+			id: CHART_ACTIVITY_ID,
+			secondaryInfo: sub(Liferay.Language.get('x-day-change'), [
+				DEFAULT_ACTIVITY_MAX
+			]) as string,
+			title: sub(Liferay.Language.get('total-activity-count-x'), [
+				activityCount.toLocaleString()
+			]) as string
+		}
+	];
+}
+
 /**
  * Filters out activities that are not in the activity actions title lang map
  * and formats it into an array of object for a vertical timeline.
@@ -61,7 +102,11 @@ const ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP = {
  * @param {string} channelId
  * @returns {Array.<Object>} Array of objects for a vertical timeline.
  */
-function formatActivities(activities, groupId, channelId) {
+function formatActivities(
+	activities: any[],
+	groupId: string,
+	channelId: string
+) {
 	return activities
 		.filter(({action}) => !!ACTIVITY_ACTIONS_TITLE_LANG_MAP[action])
 		.map(
@@ -114,7 +159,9 @@ function formatActivities(activities, groupId, channelId) {
  * @param {Date|string|number} datetime - Any value accepeted by Moment.
  * @returns {Moment} Date label to be displayed.
  */
-export function formatGroupingTime(datetime) {
+export function formatGroupingTime(
+	datetime: Date | string | number
+): moment.Moment {
 	const time = moment(datetime);
 
 	return time.isSame(moment(), 'day')
@@ -129,14 +176,13 @@ export function formatGroupingTime(datetime) {
  * @param {string} channelId
  * @returns {Array.<Object>} An array of session objects.
  */
-export function formatSessions(sessions, groupId, channelId) {
+export function formatSessions(
+	sessions: any[],
+	groupId: string,
+	channelId: string
+): any[] {
 	return flow(
-		groupBy(({day}) =>
-			moment
-				.utc(day)
-				.startOf('day')
-				.format()
-		),
+		groupBy(({day}) => moment.utc(day).startOf('day').format()),
 		mapValues(items =>
 			items.map(({activities, id, individual, startTime}) => ({
 				id,
@@ -151,7 +197,7 @@ export function formatSessions(sessions, groupId, channelId) {
 		),
 		toPairs,
 		orderBy([([time]) => moment(time).unix()], ['desc']),
-		map(([time, items]) => [
+		map(([time, items]: any[]) => [
 			{header: true, title: formatGroupingTime(time)},
 			items
 		]),
@@ -164,7 +210,7 @@ export function formatSessions(sessions, groupId, channelId) {
  * styling. Example of output displayed: '3 Downloads 2 Visits'.
  * @returns {Array} Description to display
  */
-const getActivitiesSummary = flow(
+const getActivitiesSummary: (activities: any[]) => React.ReactNode[] = flow(
 	filter(({action}) => !!ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP[action]),
 	countBy(({action}) => action),
 	toPairs,
@@ -173,8 +219,7 @@ const getActivitiesSummary = flow(
 			{sub(
 				get(
 					[action, count === 1 ? 'singular' : 'plural'],
-					ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP,
-					''
+					ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP
 				),
 				[count]
 			)}
@@ -188,14 +233,14 @@ const getActivitiesSummary = flow(
  * @param {Number} totalElements
  * @returns {Array} Label to be displayed.
  */
-export function getActivityLabel(totalElements) {
+export function getActivityLabel(totalElements: number): React.ReactNode[] {
 	return sub(
 		totalElements === 1
 			? Liferay.Language.get('activity-x')
 			: Liferay.Language.get('activities-x'),
 		[<b key='ACTIVITIES'>{totalElements}</b>],
 		false
-	);
+	) as React.ReactNode[];
 }
 
 /**
@@ -203,7 +248,7 @@ export function getActivityLabel(totalElements) {
  * @param {string} assetType
  * @return {string} Route to assetType page.
  */
-function getAssetRoute(assetType) {
+function getAssetRoute(assetType: string): string {
 	switch (assetType) {
 		case assetTypes.blog:
 			return Routes.ASSETS_BLOGS_DASHBOARD;
@@ -225,7 +270,10 @@ function getAssetRoute(assetType) {
  * @param {number} [defaultMax] - The default value to return.
  * @returns {number} - Returns the larger of the max totalElements and the defaultMax.
  */
-export function getMaxActivitiesValue(activitiesHistory, defaultMax = 10) {
+export function getMaxActivitiesValue(
+	activitiesHistory: any[],
+	defaultMax: number = 10
+): number {
 	const maxTotalElements = flow(
 		maxBy('totalElements'),
 		get('totalElements')
@@ -239,7 +287,7 @@ export function getMaxActivitiesValue(activitiesHistory, defaultMax = 10) {
  * @param {string} assetType
  * @return {string} Name of icon.
  */
-function getObjectTypeIcon(assetType) {
+function getObjectTypeIcon(assetType: string): string {
 	switch (assetType) {
 		case assetTypes.blog:
 			return 'ac-blogs';
@@ -253,3 +301,13 @@ function getObjectTypeIcon(assetType) {
 			return 'folder';
 	}
 }
+
+export const getSafeRangeKey = (
+	rangeKey: RangeSelectors['rangeKey']
+): RangeSelectors['rangeKey'] | null => {
+	if (rangeKey === 'CUSTOM') {
+		return null;
+	}
+
+	return rangeKey;
+};

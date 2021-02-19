@@ -1,6 +1,6 @@
 import ChangeLegend from '../ChangeLegend';
 import React from 'react';
-import {CHART_ACTIVITY_ID} from 'shared/util/engagement-activity';
+import {CHART_ACTIVITY_ID} from 'shared/util/activities';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {render} from '@testing-library/react';
 import {sub} from 'shared/util/lang';

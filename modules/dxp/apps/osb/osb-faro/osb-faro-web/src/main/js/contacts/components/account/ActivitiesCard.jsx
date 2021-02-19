@@ -29,7 +29,7 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {buildLegendItems} from 'shared/util/engagement-activity';
+import {buildLegendItems} from 'shared/util/activities';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {createDateKeysIMap} from 'shared/util/intervals';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
