@@ -1,20 +1,7 @@
 import * as data from 'test/data';
-import {mapEngagementHistory, mapGrowthHistory, mapHistories} from '../segment';
+import {mapGrowthHistory} from '../segment';
 
 describe('Segment Mappers', () => {
-	describe('mapEngagementHistory', () => {
-		it('should remap an engagement history API response', () => {
-			const mockAPIResponse = data.mockEngagementData();
-
-			expect(mapEngagementHistory(mockAPIResponse)).toEqual(
-				expect.objectContaining({
-					data: expect.any(Array),
-					previousScore: expect.any(Number)
-				})
-			);
-		});
-	});
-
 	describe('mapGrowthHistory', () => {
 		it('should remap a Segment growth history API response', () => {
 			const mockGrowthAggregation = {
@@ -38,22 +25,6 @@ describe('Segment Mappers', () => {
 							value: mockGrowthAggregation.individualsCount
 						})
 					])
-				})
-			);
-		});
-	});
-
-	describe('mapHistories', () => {
-		it('should combing and remap engagement and growth history API responses', () => {
-			const mockAPIResponse = [
-				data.mockEngagementData(),
-				[data.mockMembershipChangeAggregation()]
-			];
-
-			expect(mapHistories(mockAPIResponse)).toEqual(
-				expect.objectContaining({
-					engagementHistory: expect.any(Object),
-					growthHistory: expect.any(Object)
 				})
 			);
 		});

@@ -15,14 +15,3 @@ export function mapGrowthHistory(growth) {
 		}))
 	};
 }
-
-/**
- * Map Segment Growth API response for use in a Component.
- * @param {Array} growth - The Segment Growth history data.
- * @returns {Object} - The remapped Segment Growth history.
- */
-export function mapHistories([growth]) {
-	return {
-		growthHistory: mapGrowthHistory(growth)
-	};
-}

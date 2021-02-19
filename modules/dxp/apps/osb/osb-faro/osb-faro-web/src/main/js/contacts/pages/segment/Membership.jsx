@@ -1,35 +1,26 @@
 import * as API from 'shared/api';
 import Card from 'shared/components/Card';
-import Promise from 'metal-promise';
 import React from 'react';
 import SegmentGrowthWithList from 'contacts/components/segment/Growth';
 import {connect} from 'react-redux';
-import {mapHistories} from 'shared/hoc/mappers/segment';
+import {mapGrowthHistory} from 'shared/hoc/mappers/segment';
 import {PropTypes} from 'prop-types';
 import {Segment} from 'shared/util/records';
 import {withRequest} from 'shared/hoc';
 
-function fetchHistories({channelId, groupId, id}) {
-	return Promise.all([
-		API.individualSegment.fetchMembershipChangesAggregations({
-			channelId,
-			groupId,
-			id
-		})
-	]);
-}
-
-export const MembershipChart = withRequest(fetchHistories, mapHistories, {
-	alignCenter: true,
-	page: false
-})(
+export const MembershipChart = withRequest(
+	API.individualSegment.fetchMembershipChangesAggregations,
+	mapGrowthHistory,
+	{
+		alignCenter: true,
+		page: false
+	}
+)(
 	class extends React.Component {
 		static propTypes = {
 			channelId: PropTypes.string,
+			data: PropTypes.array,
 			groupId: PropTypes.string.isRequired,
-			growthHistory: PropTypes.shape({
-				data: PropTypes.array
-			}).isRequired,
 			id: PropTypes.string.isRequired,
 			individualCounts: PropTypes.shape({
 				anonymousCount: PropTypes.number,
@@ -41,8 +32,8 @@ export const MembershipChart = withRequest(fetchHistories, mapHistories, {
 		render() {
 			const {
 				channelId,
+				data,
 				groupId,
-				growthHistory,
 				id,
 				individualCounts,
 				timeZoneId
@@ -50,8 +41,8 @@ export const MembershipChart = withRequest(fetchHistories, mapHistories, {
 
 			return (
 				<SegmentGrowthWithList
-					{...growthHistory}
 					channelId={channelId}
+					data={data}
 					groupId={groupId}
 					id={id}
 					individualCounts={individualCounts}

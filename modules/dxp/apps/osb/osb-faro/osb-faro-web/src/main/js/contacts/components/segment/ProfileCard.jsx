@@ -1,34 +1,25 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Promise from 'metal-promise';
 import React from 'react';
-import {mapHistories} from 'shared/hoc/mappers/segment';
+import {mapGrowthHistory} from 'shared/hoc/mappers/segment';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
 import {SegmentGrowthChart} from './Growth';
 import {withRequest} from 'shared/hoc';
 
-function fetchHistories({channelId, groupId, id}) {
-	return Promise.all([
-		API.individualSegment.fetchMembershipChangesAggregations({
-			channelId,
-			groupId,
-			id
-		})
-	]);
-}
-
-export const MembershipChart = withRequest(fetchHistories, mapHistories, {
-	page: false
-})(
+export const MembershipChart = withRequest(
+	API.individualSegment.fetchMembershipChangesAggregations,
+	mapGrowthHistory,
+	{
+		page: false
+	}
+)(
 	class extends React.Component {
 		static propTypes = {
+			data: PropTypes.array,
 			groupId: PropTypes.string.isRequired,
-			growthHistory: PropTypes.shape({
-				data: PropTypes.array
-			}).isRequired,
 			id: PropTypes.string.isRequired,
 			individualCounts: PropTypes.shape({
 				anonymousCount: PropTypes.number,
@@ -37,15 +28,9 @@ export const MembershipChart = withRequest(fetchHistories, mapHistories, {
 		};
 
 		render() {
-			const {groupId, growthHistory, id} = this.props;
+			const {data, groupId, id} = this.props;
 
-			return (
-				<SegmentGrowthChart
-					{...growthHistory}
-					groupId={groupId}
-					id={id}
-				/>
-			);
+			return <SegmentGrowthChart data={data} groupId={groupId} id={id} />;
 		}
 	}
 );
