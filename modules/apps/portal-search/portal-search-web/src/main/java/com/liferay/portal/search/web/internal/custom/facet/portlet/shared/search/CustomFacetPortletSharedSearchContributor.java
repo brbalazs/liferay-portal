@@ -144,7 +144,9 @@ public class CustomFacetPortletSharedSearchContributor
 		nestedFacetSearchContributor.contribute(
 			searchRequestBuilder,
 			nestedFacetBuilder -> nestedFacetBuilder.aggregationName(
-				portletSharedSearchSettings.getPortletId()
+				getAggregationName(
+					customFacetPortletPreferences,
+					portletSharedSearchSettings.getPortletId())
 			).fieldToAggregate(
 				StringBundler.concat(
 					DDMIndexer.DDM_FIELD_ARRAY, StringPool.PERIOD,
