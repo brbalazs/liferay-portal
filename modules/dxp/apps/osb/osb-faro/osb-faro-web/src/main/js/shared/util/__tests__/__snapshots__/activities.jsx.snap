@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`activities buildLegendItems should return an array formatted for use as items in ChangeLegend 1`] = `
+Array [
+  Object {
+    "change": 20,
+    "id": "activities",
+    "secondaryInfo": "30 Day Change",
+    "title": "Total Activity Count: 10",
+  },
+]
+`;
+
 exports[`activities formatGroupingTime should format grouping time 1`] = `"Jul 10, 2018"`;
 
 exports[`activities formatSessions should format sessions 1`] = `

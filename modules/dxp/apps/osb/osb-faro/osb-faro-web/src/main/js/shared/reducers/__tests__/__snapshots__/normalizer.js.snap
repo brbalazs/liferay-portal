@@ -7,7 +7,6 @@ Immutable.Map {
       "data": Immutable.Record {
         "activitiesCount": 0,
         "createTime": null,
-        "engagementScore": null,
         "id": null,
         "individualCount": 0,
         "name": "",
@@ -52,7 +51,6 @@ Immutable.Map {
         "activitiesCount": 0,
         "dateCreated": null,
         "demographics": Immutable.Map {},
-        "engagementScore": null,
         "id": null,
         "lastActivityDate": null,
         "name": "",
@@ -100,7 +98,6 @@ Immutable.Map {
         "criteriaString": "",
         "dateCreated": null,
         "dateModified": null,
-        "engagementScore": null,
         "id": "",
         "includeAnonymousUsers": false,
         "individualCount": 0,

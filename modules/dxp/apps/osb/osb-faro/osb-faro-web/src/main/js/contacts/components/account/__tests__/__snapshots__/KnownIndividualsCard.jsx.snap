@@ -29,14 +29,6 @@ exports[`KnownIndividualsCard should render 1`] = `
             >
               Individual
             </th>
-            <th
-              class="table-head-title trendline"
-            >
-              Engagement
-            </th>
-            <th
-              class="table-head-title score table-column-text-end"
-            />
           </tr>
         </thead>
         <tbody>
@@ -70,19 +62,38 @@ exports[`KnownIndividualsCard should render 1`] = `
                 </div>
               </div>
             </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr
+            class=""
+          >
             <td
-              class="trendline trendline"
+              class="name-cell-root name"
             >
               <div
-                class="trendline-root"
+                class="content-container"
               >
-                <div />
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/123/contacts/individuals/known-individuals/1"
+                    >
+                      Foo Bar
+                    </a>
+                  </div>
+                  <div
+                    class="secondary-info text-truncate"
+                  >
+                    Developer
+                  </div>
+                </div>
               </div>
-            </td>
-            <td
-              class=" score table-column-text-end"
-            >
-              4.90/10
             </td>
           </tr>
         </tbody>
@@ -104,7 +115,7 @@ exports[`KnownIndividualsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/123/contacts/individuals/known-individuals/0"
+                      href="/workspace/23/123/contacts/individuals/known-individuals/2"
                     >
                       Foo Bar
                     </a>
@@ -116,67 +127,6 @@ exports[`KnownIndividualsCard should render 1`] = `
                   </div>
                 </div>
               </div>
-            </td>
-            <td
-              class="trendline trendline"
-            >
-              <div
-                class="trendline-root"
-              >
-                <div />
-              </div>
-            </td>
-            <td
-              class=" score table-column-text-end"
-            >
-              4.90/10
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr
-            class=""
-          >
-            <td
-              class="name-cell-root name"
-            >
-              <div
-                class="content-container"
-              >
-                <div
-                  class="text-truncate"
-                >
-                  <div
-                    class="table-title text-truncate"
-                  >
-                    <a
-                      class="text-truncate"
-                      href="/workspace/23/123/contacts/individuals/known-individuals/0"
-                    >
-                      Foo Bar
-                    </a>
-                  </div>
-                  <div
-                    class="secondary-info text-truncate"
-                  >
-                    Developer
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              class="trendline trendline"
-            >
-              <div
-                class="trendline-root"
-              >
-                <div />
-              </div>
-            </td>
-            <td
-              class=" score table-column-text-end"
-            >
-              4.90/10
             </td>
           </tr>
         </tbody>
@@ -190,14 +140,18 @@ exports[`KnownIndividualsCard should render 1`] = `
         href="/workspace/23/123/contacts/accounts/23/individuals"
       >
         View All Individuals
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-angle-right"
-          viewBox=""
+        <span
+          class="inline-item inline-item-after"
         >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-          />
-        </svg>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
       </a>
     </div>
   </div>

@@ -155,14 +155,18 @@ exports[`AssociatedSegmentsCard should render 1`] = `
         href="/foo"
       >
         View All Segments
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-angle-right"
-          viewBox=""
+        <span
+          class="inline-item inline-item-after"
         >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-          />
-        </svg>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
       </a>
     </div>
   </div>

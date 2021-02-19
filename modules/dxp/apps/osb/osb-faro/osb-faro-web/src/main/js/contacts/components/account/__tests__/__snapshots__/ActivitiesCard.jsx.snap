@@ -55,45 +55,10 @@ exports[`ActivitiesCard should render 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="legend-item engagements"
-        >
-          <div
-            class="legend-header"
-          >
-            <span
-              class="legend-color"
-              style="background-color: rgb(255, 180, 110);"
-            />
-            <span
-              class="title"
-            >
-              Engagement Score: 4.90/10
-            </span>
-          </div>
-          <div
-            class="secondary-info"
-          >
-            30 Day Change
-            <span
-              class="change decrease"
-            >
-              <svg
-                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                viewBox=""
-              >
-                <use
-                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                />
-              </svg>
-              20.0%
-            </span>
-          </div>
-        </div>
       </div>
       <div
         class="recharts-responsive-container"
-        style="width: 100%; height: 360px;"
+        style="width: 100%; height: 340px;"
       >
         <div
           style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
@@ -108,14 +73,18 @@ exports[`ActivitiesCard should render 1`] = `
         href="/workspace/23/contacts/accounts/test/activities"
       >
         View All Activities
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-angle-right"
-          viewBox=""
+        <span
+          class="inline-item inline-item-after"
         >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-          />
-        </svg>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
       </a>
     </div>
   </div>

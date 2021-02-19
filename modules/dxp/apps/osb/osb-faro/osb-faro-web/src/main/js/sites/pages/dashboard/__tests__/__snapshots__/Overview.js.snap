@@ -194,14 +194,18 @@ exports[`Sites Dashboard Overview render 1`] = `
               href="/workspace/123/456/sites/pages?rangeKey=30"
             >
               View Pages
-              <svg
-                class="icon-root lexicon-icon lexicon-icon-angle-right"
-                viewBox=""
+              <span
+                class="inline-item inline-item-after"
               >
-                <use
-                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-                />
-              </svg>
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                  />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
@@ -486,14 +490,18 @@ exports[`Sites Dashboard Overview render 1`] = `
               href="/workspace/2000/123/sites/interests?rangeEnd=null&rangeKey=30&rangeStart=null"
             >
               All Interests
-              <svg
-                class="icon-root lexicon-icon lexicon-icon-angle-right"
-                viewBox=""
+              <span
+                class="inline-item inline-item-after"
               >
-                <use
-                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-                />
-              </svg>
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                  />
+                </svg>
+              </span>
             </a>
           </div>
         </div>

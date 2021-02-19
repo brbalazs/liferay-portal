@@ -19,7 +19,7 @@ exports[`Metrics should render 1`] = `
           <span
             class="title"
           >
-            Engagement
+            Vistors
           </span>
           <div>
             <span>
@@ -29,11 +29,10 @@ exports[`Metrics should render 1`] = `
                 <div
                   class="metric-value"
                 >
-                  34
+                  123123
                   <span
                     class="metric-value-letter"
                   >
-                    /100
                      
                   </span>
                 </div>

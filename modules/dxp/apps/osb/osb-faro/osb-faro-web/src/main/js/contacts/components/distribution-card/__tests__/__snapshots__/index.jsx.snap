@@ -263,14 +263,18 @@ exports[`DistributionCard renders 1`] = `
         type="button"
       >
         Explore Breakdown
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-angle-right"
-          viewBox=""
+        <span
+          class="inline-item inline-item-after"
         >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-          />
-        </svg>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
       </button>
     </div>
   </div>

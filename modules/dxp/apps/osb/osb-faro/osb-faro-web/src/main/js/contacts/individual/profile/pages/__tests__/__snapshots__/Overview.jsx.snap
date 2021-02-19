@@ -68,113 +68,6 @@ exports[`IndividualOverview should render 1`] = `
         <div
           class="card-body no-padding"
         >
-          <ul
-            class="card-tabs-root mdn-button-tab"
-          >
-            <li
-              class="card-tab active"
-              data-testid="activities"
-            >
-              <a
-                class="button-root btn btn-unstyled"
-                href="/workspace/23/contacts/individuals/known-individuals/0/activities"
-              >
-                <span
-                  class="title"
-                >
-                  Activities
-                </span>
-                <div>
-                  <span>
-                    <span
-                      class="primary-content"
-                    >
-                      <div
-                        class="metric-value"
-                      >
-                        123
-                        <span
-                          class="metric-value-letter"
-                        >
-                           
-                        </span>
-                      </div>
-                    </span>
-                    <div
-                      class="analytics-trend"
-                      style="color: rgb(40, 125, 60);"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-top"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
-                        />
-                      </svg>
-                      <span
-                        class="analytics-trend-percent mb-0"
-                      >
-                        1.3%
-                      </span>
-                    </div>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li
-              class="card-tab"
-              data-testid="engagement"
-            >
-              <a
-                class="button-root btn btn-unstyled"
-                href="/workspace/23/contacts/individuals/known-individuals/0/engagement"
-              >
-                <span
-                  class="title"
-                >
-                  Engagement Score
-                </span>
-                <div>
-                  <span>
-                    <span
-                      class="primary-content"
-                    >
-                      <div
-                        class="metric-value"
-                      >
-                        4.90
-                        <span
-                          class="metric-value-letter"
-                        >
-                          /10
-                           
-                        </span>
-                      </div>
-                    </span>
-                    <div
-                      class="analytics-trend"
-                      style="color: rgb(218, 20, 20);"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                      <span
-                        class="analytics-trend-percent mb-0"
-                      >
-                        0.2%
-                      </span>
-                    </div>
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
           <div
             class="individuals-activities-chart"
           >
@@ -189,9 +82,21 @@ exports[`IndividualOverview should render 1`] = `
             <div
               class="selected-info"
             >
-              <b>
-                Individual's Activities - July 9, 2018 - July 10, 2018
-              </b>
+              <div
+                class="activities-date d-flex align-items-baseline"
+              >
+                <h4>
+                  Individual's Activities - July 9, 2018 - July 10, 2018
+                </h4>
+              </div>
+              <div
+                class="details"
+              >
+                Activities 
+                <b>
+                  123
+                </b>
+              </div>
             </div>
           </div>
           <div
@@ -508,14 +413,18 @@ exports[`IndividualOverview should render 1`] = `
             href="/workspace/23/contacts/individuals/known-individuals/0/details"
           >
             View All Details
-            <svg
-              class="icon-root lexicon-icon lexicon-icon-angle-right"
-              viewBox=""
+            <span
+              class="inline-item inline-item-after"
             >
-              <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-              />
-            </svg>
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-angle-right"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                />
+              </svg>
+            </span>
           </a>
         </div>
       </div>
@@ -677,14 +586,18 @@ exports[`IndividualOverview should render 1`] = `
             href="/workspace/23/contacts/individuals/known-individuals/test/segments"
           >
             View All Segments
-            <svg
-              class="icon-root lexicon-icon lexicon-icon-angle-right"
-              viewBox=""
+            <span
+              class="inline-item inline-item-after"
             >
-              <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-              />
-            </svg>
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-angle-right"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                />
+              </svg>
+            </span>
           </a>
         </div>
       </div>

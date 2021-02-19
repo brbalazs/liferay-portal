@@ -33,7 +33,6 @@ Immutable.Record {
   "criteriaString": "",
   "dateCreated": null,
   "dateModified": null,
-  "engagementScore": null,
   "id": "",
   "includeAnonymousUsers": false,
   "individualCount": 0,
@@ -57,7 +56,6 @@ exports[`Records should return an Account Record 1`] = `
 Immutable.Record {
   "activitiesCount": 0,
   "createTime": null,
-  "engagementScore": null,
   "id": null,
   "individualCount": 0,
   "name": "",
@@ -84,7 +82,6 @@ Immutable.Record {
   "activitiesCount": 0,
   "dateCreated": null,
   "demographics": Immutable.Map {},
-  "engagementScore": null,
   "id": null,
   "lastActivityDate": null,
   "name": "",

@@ -135,20 +135,6 @@ exports[`Individuals Dashboard Individuals Interest Details renders 1`] = `
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?orderBy=desc&orderByField=engagementMetric&page=1"
-                    >
-                      <span
-                        class="text-truncate"
-                      >
-                        Engagement
-                      </span>
-                    </a>
-                  </th>
-                  <th
-                    class="table-head-title table-column-text-end"
-                  >
-                    <a
-                      class="button-root btn btn-unstyled inline-item text-truncate-inline"
                       href="/?orderBy=asc&orderByField=visitorsMetric&page=1"
                     >
                       <span
@@ -278,11 +264,6 @@ exports[`Individuals Dashboard Individuals Interest Details renders 1`] = `
                         </div>
                       </div>
                     </div>
-                  </td>
-                  <td
-                    class=" table-column-text-end"
-                  >
-                    2.50/10
                   </td>
                   <td
                     class=" table-column-text-end"
