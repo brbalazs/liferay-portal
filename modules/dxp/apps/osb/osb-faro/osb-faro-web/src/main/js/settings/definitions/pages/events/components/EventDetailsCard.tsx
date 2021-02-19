@@ -53,7 +53,11 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 		'});'
 	]);
 	const [selectedAttributes, setSelectedAttributes] = useState(
-		new Map<String, Attribute>()
+		new Map<string, Attribute>(
+			MOCKED_ATTRIBUTES.map(
+				attribute => [attribute.id, attribute] as [string, Attribute]
+			)
+		)
 	);
 
 	useEffect(() => {
