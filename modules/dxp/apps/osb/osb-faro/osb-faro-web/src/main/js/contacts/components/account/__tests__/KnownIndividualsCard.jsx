@@ -7,15 +7,8 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
-const mockIndividualWithEngagementHistory = () => ({
-	...data.mockIndividual(),
-	engagementHistory: data.mockEngagementData()
-});
-
 const dataSourceFn = total => () =>
-	Promise.resolve(
-		data.mockSearch(mockIndividualWithEngagementHistory, total)
-	);
+	Promise.resolve(data.mockSearch(data.mockIndividual, total));
 
 const DefaultComponent = props => (
 	<StaticRouter>

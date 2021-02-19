@@ -28,10 +28,10 @@ const items = [
 				icon: 'caret-top-1',
 				label: '20%'
 			},
-			name: 'engagement',
-			title: 'Engagement',
-			type: 'engagement',
-			value: '34/100'
+			name: 'visitors',
+			title: 'Vistors',
+			type: 'visitors',
+			value: '123123'
 		},
 		data: [
 			{

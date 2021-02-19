@@ -47,7 +47,7 @@ describe('IndividualProfileCard', () => {
 		expect(container.querySelector('.spinner-root')).toBeTruthy();
 	});
 
-	it('should render selected info', () => {
+	fit('should render selected info', () => {
 		const {getByText} = render(
 			<DefaultComponent
 				hasSelectedPoint

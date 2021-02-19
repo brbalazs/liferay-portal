@@ -227,7 +227,7 @@ export class IndividualProfileCard extends React.Component {
 			state: {activityCount, activityHistory}
 		} = this;
 
-		const {intervalInitDate, totalElements} =
+		const {intervalInitDate, totalElements = 0} =
 			activityHistory[selectedPoint] || {};
 
 		const selected = hasSelectedPoint || selectedPoint;

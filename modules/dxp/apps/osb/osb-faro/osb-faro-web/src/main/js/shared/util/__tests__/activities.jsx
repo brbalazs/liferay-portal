@@ -13,20 +13,7 @@ describe('activities', () => {
 		it('should return an array formatted for use as items in ChangeLegend', () => {
 			const mockChangeData = {
 				activityChange: 20,
-				activityCount: 10,
-				engagementChange: 30,
-				engagementScore: 4
-			};
-
-			expect(buildLegendItems(mockChangeData)).toMatchSnapshot();
-		});
-
-		it('should return a fallback display configuration for engagementScore', () => {
-			const mockChangeData = {
-				activityChange: 20,
-				activityCount: 10,
-				engagementChange: 30,
-				engagementScore: null
+				activityCount: 10
 			};
 
 			expect(buildLegendItems(mockChangeData)).toMatchSnapshot();

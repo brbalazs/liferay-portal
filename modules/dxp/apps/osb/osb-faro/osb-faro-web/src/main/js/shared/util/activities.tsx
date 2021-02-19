@@ -182,7 +182,12 @@ export function formatSessions(
 	channelId: string
 ): any[] {
 	return flow(
-		groupBy(({day}) => moment.utc(day).startOf('day').format()),
+		groupBy(({day}) =>
+			moment
+				.utc(day)
+				.startOf('day')
+				.format()
+		),
 		mapValues(items =>
 			items.map(({activities, id, individual, startTime}) => ({
 				id,

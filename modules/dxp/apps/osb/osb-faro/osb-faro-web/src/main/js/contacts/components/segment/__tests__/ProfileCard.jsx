@@ -1,6 +1,5 @@
 import * as data from 'test/data';
 import React from 'react';
-import {ENGAGEMENT} from 'shared/util/router';
 import {render} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
 import {SegmentProfileCard} from '../ProfileCard';
@@ -21,19 +20,10 @@ const DefaultComponent = props => (
 
 describe('SegmentProfileCard', () => {
 	it('should render', () => {
-		const {container, getByTestId} = render(<DefaultComponent />);
+		const {container} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		expect(getByTestId('growth').className).toContain('active');
 		expect(container).toMatchSnapshot();
-	});
-
-	it('should render with Engagement tab as active', () => {
-		const {getByTestId} = render(<DefaultComponent tabId={ENGAGEMENT} />);
-
-		jest.runAllTimers();
-
-		expect(getByTestId('engagement').className).toContain('active');
 	});
 });

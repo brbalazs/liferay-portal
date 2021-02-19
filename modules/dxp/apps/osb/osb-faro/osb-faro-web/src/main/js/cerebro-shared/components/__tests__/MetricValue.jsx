@@ -31,14 +31,6 @@ describe('MetricValue', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render the component with engagement ', () => {
-		const {container} = render(
-			<MetricValue type='engagement' value='5/10' />
-		);
-
-		expect(container).toMatchSnapshot();
-	});
-
 	it('should render the component with ratings ', () => {
 		const {container} = render(
 			<MetricValue type='ratings' value='10/10' />

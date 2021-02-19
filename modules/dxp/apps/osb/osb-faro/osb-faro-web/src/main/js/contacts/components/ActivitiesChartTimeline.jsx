@@ -64,6 +64,10 @@ function getActivities(params) {
 }
 
 export class ActivitiesChartTimeline extends React.Component {
+	static defaultProps = {
+		count: 0
+	};
+
 	static propTypes = {
 		activitiesLabel: PropTypes.string.isRequired,
 		count: PropTypes.number.isRequired,
@@ -142,7 +146,8 @@ export class ActivitiesChartTimeline extends React.Component {
 			timeZoneId
 		} = this.props;
 
-		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
+		const {intervalInitDate, totalElements = 0} =
+			history[selectedPoint] || {};
 
 		const date = hasSelectedPoint
 			? getDateRangeLabelFromDate(intervalInitDate, interval)
