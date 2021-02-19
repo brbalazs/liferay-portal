@@ -961,7 +961,7 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setClassNameId(long classNameId) {
-		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalClassNameId) {
 			_setOriginalClassNameId = true;
@@ -983,7 +983,7 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setClassPK(long classPK) {
-		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalClassPK) {
 			_setOriginalClassPK = true;
@@ -1065,6 +1065,8 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setPosition(int position) {
+		_columnBitmask = -1L;
+
 		_position = position;
 	}
 
