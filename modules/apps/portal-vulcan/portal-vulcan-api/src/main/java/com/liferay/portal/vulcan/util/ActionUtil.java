@@ -346,9 +346,7 @@ public class ActionUtil {
 			return parameterMap;
 		}
 
-		if (Validator.isNotNull(siteId) &&
-			Objects.equals(firstParameterName, "siteId")) {
-
+		if ((siteId != null) && Objects.equals(firstParameterName, "siteId")) {
 			parameterMap.put(firstParameterName, siteId);
 		}
 		else {
