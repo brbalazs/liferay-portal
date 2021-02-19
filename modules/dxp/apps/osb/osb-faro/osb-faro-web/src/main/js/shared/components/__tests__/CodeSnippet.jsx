@@ -1,14 +1,35 @@
 import CodeSnippet from '../CodeSnippet';
 import React from 'react';
-import {cleanup, render} from '@testing-library/react';
+import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
 describe('CodeSnippet', () => {
-	afterEach(cleanup);
-
 	it('should render', () => {
-		const {container} = render(<CodeSnippet />);
+		const {container} = render(
+			<CodeSnippet code='console.log(variable);' />
+		);
 		expect(container).toMatchSnapshot();
+	});
+
+	it('should represent as a string when receiving a list of code lines', () => {
+		const {container} = render(
+			<CodeSnippet
+				codeLines={[
+					"Analytics.send('viewArticle', {",
+					"'firstTest': '1',",
+					'});'
+				]}
+			/>
+		);
+
+		expect(container.querySelector('.copy-button')).toHaveAttribute(
+			'data-clipboard-text',
+			[
+				"Analytics.send('viewArticle', {",
+				"\n\t'firstTest': '1',",
+				'\n});'
+			].join('')
+		);
 	});
 });

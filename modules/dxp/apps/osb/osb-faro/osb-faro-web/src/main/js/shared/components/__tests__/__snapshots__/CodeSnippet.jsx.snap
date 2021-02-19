@@ -3,33 +3,23 @@
 exports[`CodeSnippet should render 1`] = `
 <div>
   <div
-    class="input-group code-snippet-root"
+    class="code-snippet-root"
   >
-    <textarea
-      class="input-root form-control"
-      disabled=""
-      type="textarea"
-    />
-    <div
-      class="input-group-inset-item"
+    <button
+      aria-label="Click to Copy"
+      class="button-root btn btn-secondary copy-button"
+      data-clipboard-text="console.log(variable);"
+      data-tooltip-response="Copied"
+      title="Click to Copy"
+      type="button"
     >
-      <button
-        aria-label="Click to Copy"
-        class="button-root btn btn-secondary"
-        data-tooltip-response="Copied"
-        title="Click to Copy"
-        type="button"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-paste"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#paste"
-          />
-        </svg>
-      </button>
-    </div>
+      Copy
+    </button>
+    <code
+      class="code-container"
+    >
+      console.log(variable);
+    </code>
   </div>
 </div>
 `;
