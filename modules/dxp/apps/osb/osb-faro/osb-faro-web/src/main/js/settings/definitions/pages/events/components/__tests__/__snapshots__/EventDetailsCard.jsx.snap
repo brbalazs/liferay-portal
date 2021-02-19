@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDetailsCard should render 1`] = `
+<div>
+  <div
+    class="card card-root page-display"
+  >
+    <div
+      class="card-header"
+    >
+      <h5
+        class="card-title"
+      >
+        Send This Event
+      </h5>
+    </div>
+    <div
+      class="card-body"
+    >
+      <span
+        class="mt-2 mb-4 w-50"
+      >
+        Use this script to start sending events to Analytics Cloud. You can customize which attributes to send with a specific event. Selecting the attributes below will generate a new sample script.
+      </span>
+      <label
+        class="form-control-label label-root"
+      >
+        <span
+          class="content-container"
+        >
+          Sample Javascript:
+        </span>
+      </label>
+      <div
+        class="code-snippet-root"
+      >
+        <button
+          aria-label="Click to Copy"
+          class="button-root btn btn-secondary copy-button"
+          data-clipboard-text="Analytics.send('viewArticle', {
+});"
+          data-tooltip-response="Copied"
+          title="Click to Copy"
+          type="button"
+        >
+          Copy
+        </button>
+        <code
+          class="code-container"
+        >
+          Analytics.send('viewArticle', {
+});
+        </code>
+      </div>
+    </div>
+    <div
+      class="table-responsive table-root flex-grow-1 mb-0"
+    >
+      <table
+        class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+      >
+        <thead>
+          <tr
+            class=""
+          >
+            <th />
+            <th
+              class="table-head-title"
+            >
+              <a
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                href="/?orderBy=asc&orderByField=name&page=1"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  Attribute
+                </span>
+              </a>
+            </th>
+            <th
+              class="table-head-title"
+            >
+              <a
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                href="/?orderBy=asc&orderByField=displayName&page=1"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  Display Name
+                </span>
+              </a>
+            </th>
+            <th
+              class="table-head-title"
+            >
+              Description
+            </th>
+            <th
+              class="table-head-title"
+            >
+              <a
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                href="/?orderBy=asc&orderByField=sampleValue&page=1"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  Sample Value
+                </span>
+              </a>
+            </th>
+            <th
+              class="table-head-title"
+            >
+              <a
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                href="/?orderBy=asc&orderByField=defaultDataType&page=1"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  Data Typecast
+                </span>
+              </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="mb-0"
+        >
+          <tr
+            class="clickable"
+          >
+            <td
+              class=""
+            >
+              <div
+                class="custom-control custom-checkbox"
+              >
+                <label>
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    value="false"
+                  />
+                  <span
+                    class="custom-control-label"
+                  />
+                </label>
+              </div>
+            </td>
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/settings/definitions/events/attributes/myid1"
+                    >
+                      firstTest
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              displayNamehere
+            </td>
+            <td
+              class=""
+            >
+              mydescription
+            </td>
+            <td
+              class=""
+            >
+              1
+            </td>
+            <td>
+              <div
+                class="label label-root label-primary label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  TYPE
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="mb-0"
+        >
+          <tr
+            class="clickable"
+          >
+            <td
+              class=""
+            >
+              <div
+                class="custom-control custom-checkbox"
+              >
+                <label>
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    value="false"
+                  />
+                  <span
+                    class="custom-control-label"
+                  />
+                </label>
+              </div>
+            </td>
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/settings/definitions/events/attributes/myid2"
+                    >
+                      testingtest
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              seconddisplay
+            </td>
+            <td
+              class=""
+            >
+              seconddescription
+            </td>
+            <td
+              class=""
+            >
+              2
+            </td>
+            <td>
+              <div
+                class="label label-root label-primary label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  TYPE2
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="mb-0"
+        >
+          <tr
+            class="clickable"
+          >
+            <td
+              class=""
+            >
+              <div
+                class="custom-control custom-checkbox"
+              >
+                <label>
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    value="false"
+                  />
+                  <span
+                    class="custom-control-label"
+                  />
+                </label>
+              </div>
+            </td>
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/settings/definitions/events/attributes/myid3"
+                    >
+                      anothernamet
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              displayNamehere
+            </td>
+            <td
+              class=""
+            >
+              mydescription
+            </td>
+            <td
+              class=""
+            >
+              3
+            </td>
+            <td>
+              <div
+                class="label label-root label-primary label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  TYPE3
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
