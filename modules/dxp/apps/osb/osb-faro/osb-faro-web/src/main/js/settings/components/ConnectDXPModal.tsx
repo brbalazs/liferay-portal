@@ -1,9 +1,8 @@
 import ConnectDXP from 'shared/components/onboarding-modal/ConnectDXP';
-import DXPConnectionType from 'shared/components/onboarding-modal/DXPConnectionType';
 import Modal from 'shared/components/modal';
 import React, {useState} from 'react';
 
-const MODAL_SCREENS = [DXPConnectionType, ConnectDXP];
+const MODAL_SCREENS = [ConnectDXP];
 
 interface IConnectDXPModalProps {
 	groupId: string;
@@ -31,7 +30,6 @@ const ConnectDXPModal: React.FC<IConnectDXPModalProps> = ({
 				onClose={onClose}
 				onDxpConnected={setDxpConnected}
 				onNext={(increment = 1) => setStep(step + increment)}
-				onPrevious={() => setStep(step - 1)}
 			/>
 		</Modal>
 	);

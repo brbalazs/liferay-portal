@@ -44,7 +44,7 @@ interface IConnectDXPProps {
 	onClose: () => void;
 	onDxpConnected: (dxpConnected: boolean) => void;
 	onNext?: (increment?: number) => void;
-	onPrevious: () => void;
+	onPrevious?: () => void;
 }
 
 const ConnectDXP: React.FC<IConnectDXPProps> = ({
@@ -279,7 +279,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 			<Modal.Footer className='d-flex justify-content-between'>
 				<div>
-					{!dxpConnected && (
+					{!dxpConnected && onPrevious && (
 						<Button onClick={onPrevious}>
 							{Liferay.Language.get('back')}
 						</Button>
@@ -316,10 +316,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 export default compose<any>(
 	withHistory,
-	connect(
-		null,
-		{
-			fetchDataSource
-		}
-	)
+	connect(null, {
+		fetchDataSource
+	})
 )(ConnectDXP);

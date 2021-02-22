@@ -1,18 +1,11 @@
 import ConnectDXP from './ConnectDXP';
-import DXPConnectionType from './DXPConnectionType';
 import InvitePeople from './InvitePeople';
 import Modal from '../modal';
 import React, {useState} from 'react';
 import ReadyToGo from './ReadyToGo';
 import Welcome from './Welcome';
 
-const MODAL_SCREENS = [
-	Welcome,
-	DXPConnectionType,
-	ConnectDXP,
-	InvitePeople,
-	ReadyToGo
-];
+const MODAL_SCREENS = [Welcome, ConnectDXP, InvitePeople, ReadyToGo];
 
 interface IOnboardingModalProps {
 	groupId: string;
