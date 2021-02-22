@@ -37,7 +37,7 @@ exports[`AttributeView should render 1`] = `
         <span
           class="breadcrumb-text-truncate"
         >
-          organization
+          company
         </span>
       </li>
     </ol>
