@@ -14,7 +14,7 @@ interface IAttributeViewProps
 
 const AttributeView: React.FC<IAttributeViewProps> = ({groupId}) => {
 	const {attributeId} = useParams();
-
+	// TODO: LRAC-7479 Use the graphql query instead of mocked data
 	const attribute = {
 		dataTyPe: 'string',
 		description: 'somedescription',
@@ -41,18 +41,24 @@ const AttributeView: React.FC<IAttributeViewProps> = ({groupId}) => {
 			breadcrumbItems={[
 				getDefinitions({groupId}),
 				getEvents({groupId}),
-				{active: true, label: attribute.displayName}
+				{active: true, label: attribute.name}
 			]}
 			groupId={groupId}
 			pageActions={viewAttributePageActions}
 			pageDescription={
-				<>
-					<div>{attribute.description}</div>
+				attribute.description ? (
+					<>
+						<div>{attribute.description}</div>
 
-					<Label display='primary' uppercase>
-						{attribute.dataTyPe}
-					</Label>
-				</>
+						<Label display='primary' uppercase>
+							{attribute.dataTyPe}
+						</Label>
+					</>
+				) : (
+					<div className='no-description'>
+						{Liferay.Language.get('no-description')}
+					</div>
+				)
 			}
 			pageTitle={attribute.name}
 			subTitle={attribute.displayName}
