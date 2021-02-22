@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
 import com.liferay.site.navigation.menu.web.internal.constants.SiteNavigationMenuPortletKeys;
@@ -102,7 +102,7 @@ public class SiteNavigationMenuConfigurationAction
 
 		SessionMessages.add(
 			portletRequest,
-			_portalUtil.getPortletId(portletRequest) +
+			_portal.getPortletId(portletRequest) +
 				SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA,
 			data);
 
@@ -142,7 +142,7 @@ public class SiteNavigationMenuConfigurationAction
 	private ItemSelector _itemSelector;
 
 	@Reference
-	private PortalUtil _portalUtil;
+	private Portal _portal;
 
 	private PortletDisplayTemplate _portletDisplayTemplate;
 
