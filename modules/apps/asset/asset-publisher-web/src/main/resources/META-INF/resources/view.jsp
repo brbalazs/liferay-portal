@@ -133,10 +133,10 @@ request.setAttribute("view.jsp-viewInContext", assetPublisherDisplayContext.isAs
 
 	var queryParamObj = new A.QueryString.parse(queryString);
 
-	var assetEntryId = encodeURIComponent(queryParamObj['<portlet:namespace />assetEntryId']);
+	var assetEntryId = queryParamObj['<portlet:namespace />assetEntryId'];
 
 	if (assetEntryId) {
-		window.location.hash = assetEntryId;
+		window.location.hash = encodeURIComponent(assetEntryId);
 	}
 </aui:script>
 
