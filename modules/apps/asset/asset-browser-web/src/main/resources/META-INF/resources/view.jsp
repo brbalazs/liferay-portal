@@ -189,3 +189,9 @@
 <aui:script>
 	Liferay.Util.selectEntityHandler('#<portlet:namespace />selectAssetFm', '<%= HtmlUtil.escapeJS(assetBrowserDisplayContext.getEventName()) %>');
 </aui:script>
+
+
+<%!
+private static Log _log = LogFactoryUtil.getLog("com_liferay_asset_browser_web.view_jsp");
+%>
+
