@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
 import com.liferay.site.navigation.menu.web.internal.constants.SiteNavigationMenuPortletKeys;
@@ -94,20 +95,22 @@ public class SiteNavigationMenuConfigurationAction
 		String rootMenuItemType = modifiableSettings.getValue(
 			"rootMenuItemType", StringPool.BLANK);
 
-		String refererPlid = portletRequest.getParameter("refererPlid");
-
-		Map<String, String> data = new HashMap<>();
-
-		data.put("refererPlid", refererPlid);
-
-		SessionMessages.add(
-			portletRequest,
-			_portal.getPortletId(portletRequest) +
-				SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA,
-			data);
-
 		if (!Objects.equals(rootMenuItemType, "select")) {
 			modifiableSettings.reset("rootMenuItemId");
+		}
+
+		String refererPlid = portletRequest.getParameter("refererPlid");
+
+		if (Validator.isDigit(refererPlid)) {
+			Map<String, String> data = new HashMap<>();
+
+			data.put("refererPlid", refererPlid);
+
+			SessionMessages.add(
+				portletRequest,
+				_portal.getPortletId(portletRequest) +
+					SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA,
+				data);
 		}
 	}
 
