@@ -110,14 +110,7 @@ exports[`ConnectDXP renders 1`] = `
     <div
       class="modal-footer d-flex justify-content-between"
     >
-      <div>
-        <button
-          class="button-root btn btn-secondary"
-          type="button"
-        >
-          Back
-        </button>
-      </div>
+      <div />
       <div>
         <button
           class="button-root btn btn-secondary"
