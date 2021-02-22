@@ -28,9 +28,16 @@ export const MembershipChart = withRequest(
 		};
 
 		render() {
-			const {data, groupId, id} = this.props;
+			const {data, groupId, id, individualCounts} = this.props;
 
-			return <SegmentGrowthChart data={data} groupId={groupId} id={id} />;
+			return (
+				<SegmentGrowthChart
+					data={data}
+					groupId={groupId}
+					id={id}
+					individualCounts={individualCounts}
+				/>
+			);
 		}
 	}
 );

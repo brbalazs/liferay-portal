@@ -177,9 +177,7 @@ export class SegmentGrowthChart extends React.Component {
 											label: Liferay.Language.get(
 												'net-change'
 											),
-											value: `${netChange[0]}(${
-												netChange[1]
-											}%)`
+											value: `${netChange[0]}(${netChange[1]}%)`
 										}
 								  ]
 						}
@@ -368,21 +366,21 @@ export class SegmentGrowthChart extends React.Component {
 								count: knownCount,
 								dataKey: 'knownCount',
 								type: 'circle',
-								value: 'Known Members'
+								value: Liferay.Language.get('known-members')
 							},
 							{
 								color: CHART_BLUE,
 								count: anonymousCount,
 								dataKey: 'anonymousCount',
 								type: 'circle',
-								value: 'Anonymous Members'
+								value: Liferay.Language.get('anonymous-members')
 							},
 							{
 								color: 'rgba(0,0,0,0)',
 								count: anonymousCount + knownCount,
 								dataKey: 'individualCount',
-								type: '',
-								value: 'Total Members'
+								type: 'circle',
+								value: Liferay.Language.get('total-members')
 							}
 						]}
 						verticalAlign='top'
@@ -563,9 +561,7 @@ export class SelectedPointInfo extends React.Component {
 									Liferay.Language.get('net-change-x'),
 									[
 										<b key='CHANGE'>
-											{`${changeValues[0]}(${
-												changeValues[1]
-											}%)`}
+											{`${changeValues[0]}(${changeValues[1]}%)`}
 										</b>
 									],
 									false
@@ -663,6 +659,7 @@ export class SegmentGrowthWithList extends React.Component {
 						alwaysShowSelectedTooltip
 						data={data}
 						hasSelectedPoint={hasSelectedPoint}
+						individualCount={individualCounts}
 						onPointSelect={onPointSelect}
 						selectedPoint={selectedPoint}
 					/>
@@ -686,7 +683,6 @@ export class SegmentGrowthWithList extends React.Component {
 							: orderAscending
 					}}
 					entityType={hasSelectedPoint ? '' : INDIVIDUALS}
-					individualCounts={individualCounts}
 					rowIdentifier='id'
 				/>
 			</Card.Body>
