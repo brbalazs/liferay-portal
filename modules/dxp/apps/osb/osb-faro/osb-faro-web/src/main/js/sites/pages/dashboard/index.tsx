@@ -9,24 +9,19 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const InterestDetails = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "SitesDashboardInterestDetails" */ './InterestDetails'
-		)
+const InterestDetails = lazy(() =>
+	import(
+		/* webpackChunkName: "SitesDashboardInterestDetails" */ './InterestDetails'
+	)
 );
-const Interests = lazy(
-	() =>
-		import(/* webpackChunkName: "SitesDashboardInterests" */ './Interests')
+const Interests = lazy(() =>
+	import(/* webpackChunkName: "SitesDashboardInterests" */ './Interests')
 );
-const Overview = lazy(
-	() => import(/* webpackChunkName: "SitesDashboardOverview" */ './Overview')
+const Overview = lazy(() =>
+	import(/* webpackChunkName: "SitesDashboardOverview" */ './Overview')
 );
-const Touchpoints = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "SitesDashboardTouchpoints" */ './Touchpoints'
-		)
+const Touchpoints = lazy(() =>
+	import(/* webpackChunkName: "SitesDashboardTouchpoints" */ './Touchpoints')
 );
 
 const NAV_ITEMS = [

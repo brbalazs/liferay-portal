@@ -21,17 +21,6 @@ describe('Edit', () => {
 		expect(component.name()).toBe('Connect(ConfigureCSV)');
 	});
 
-	it('should render a Liferay data-source page', () => {
-		const component = shallow(
-			<Edit
-				{...defaultProps}
-				dataSource={new DataSource(data.mockLiferayDataSource())}
-			/>
-		);
-
-		expect(component.name()).toBe('LiferayDataSource');
-	});
-
 	it('should render a Salesforce data-source page', () => {
 		const component = shallow(
 			<Edit

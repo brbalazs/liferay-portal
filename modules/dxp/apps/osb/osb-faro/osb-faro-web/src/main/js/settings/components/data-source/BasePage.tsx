@@ -2,7 +2,6 @@ import BasePage from 'settings/components/BasePage';
 import DataSourceStatus from './DataSourceStatus';
 import getCN from 'classnames';
 import React from 'react';
-import UpgradeConnectionCard from './UpgradeConnectionCard';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -149,35 +148,12 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-main'>{passedChildren}</div>
 
 				<div className='content-side'>
-					{dataSource &&
-						currentUser.isAdmin() &&
-						hasLegacyDXPConnection(dataSource) && (
-							<UpgradeConnectionCard
-								action={{
-									label: Liferay.Language.get(
-										'start-upgrade'
-									),
-									onClick: () =>
-										open(
-											modalTypes.UPGRADE_CONNECTION_MODAL,
-											{
-												groupId,
-												id,
-												onClose: close
-											}
-										)
-								}}
-								content={Liferay.Language.get(
-									'analytics-cloud-now-uses-a-more-secure-token-based-connection-that-gives-you-finer-control-of-your-data.-oauth-connections-will-be-deprecated-in-a-future-release.-click-the-button-below-to-get-started-with-migrating-your-data-source'
-								)}
-								title={Liferay.Language.get(
-									'upgrade-your-connection-type'
-								)}
-							/>
-						)}
-					<DataSourceStatus
-						{...getDataSourceDisplayObject(dataSource)}
-					/>
+					{((dataSource && !hasLegacyDXPConnection(dataSource)) ||
+						!dataSource) && (
+						<DataSourceStatus
+							{...getDataSourceDisplayObject(dataSource)}
+						/>
+					)}
 				</div>
 			</div>
 		</BasePage>

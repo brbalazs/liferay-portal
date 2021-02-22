@@ -69,7 +69,7 @@ describe('View', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a Liferay data-source old page', async() => {
+	it('should render a Liferay data-source old page', () => {
 		const {container} = render(
 			<DefaultComponent
 				dataSource={data.getImmutableMock(
@@ -79,14 +79,10 @@ describe('View', () => {
 			/>
 		);
 
-		await waitForLoading(container);
-
-		jest.runAllTimers();
-
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a Salesforce data-source page', async() => {
+	it('should render a Salesforce data-source page', async () => {
 		const {container} = render(
 			<DefaultComponent
 				dataSource={data.getImmutableMock(

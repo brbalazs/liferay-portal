@@ -4,7 +4,7 @@ import mockStore from 'test/mock-store';
 import React from 'react';
 import {DataSource} from 'shared/util/records';
 import {Provider} from 'react-redux';
-import {render, waitForElementToBeRemoved} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import {Routes, toRoute} from 'shared/util/router';
 import {StaticRouter} from 'react-router';
 
@@ -16,10 +16,8 @@ const defaultProps = {
 	id: 'test'
 };
 
-jest.useRealTimers();
-
 describe('LiferayDataSourceOld', () => {
-	it('should render', async() => {
+	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter
@@ -31,10 +29,6 @@ describe('LiferayDataSourceOld', () => {
 					<LiferayDataSourceOld {...defaultProps} />
 				</StaticRouter>
 			</Provider>
-		);
-
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
 		);
 
 		expect(container).toMatchSnapshot();

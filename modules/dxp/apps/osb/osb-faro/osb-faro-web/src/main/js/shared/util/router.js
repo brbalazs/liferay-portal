@@ -285,16 +285,6 @@ export const Routes = buildRoutes({
 									SETTINGS_DEFINITIONS_SEARCH: '/search'
 								}
 							},
-							SETTINGS_LIFERAY_ADD: `/data-source/${LIFERAY}`,
-							SETTINGS_LIFERAY_ANALYTICS: `/data-source/:id/${LIFERAY}/analytics`,
-							SETTINGS_LIFERAY_CONFIGURATION_STATUS: `/data-source/:id/${LIFERAY}/configuration-status`,
-							SETTINGS_LIFERAY_CONTACTS: {
-								path: `/data-source/:id/${LIFERAY}/contacts`,
-								routes: {
-									SETTINGS_LIFERAY_CONFIGURE_CONTACTS:
-										'/configure'
-								}
-							},
 							SETTINGS_RECOMMENDATIONS: {
 								path: '/recommendations',
 								routes: {

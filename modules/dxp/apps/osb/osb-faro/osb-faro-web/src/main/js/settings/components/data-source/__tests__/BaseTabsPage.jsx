@@ -13,10 +13,10 @@ jest.unmock('react-dom');
 
 const {dataSourceStates} = FaroConstants;
 
-function getLiferayDataSourceMock(id, config) {
+function getSalesforceDataSourceMock(id, config) {
 	return data.getImmutableMock(
 		DataSource,
-		data.mockLiferayDataSource,
+		data.mockSalesforceDataSource,
 		id,
 		config
 	);
@@ -26,12 +26,10 @@ const DefaultComponent = props => (
 	<StaticRouter>
 		<Provider store={mockStore()}>
 			<BaseTabsPage
-				addRoute={Routes.SETTINGS_LIFERAY_ADD}
-				configurationRoute={
-					Routes.SETTINGS_LIFERAY_CONFIGURATION_STATUS
-				}
+				addRoute={Routes.SETTINGS_DATA_SOURCE_EDIT}
+				configurationRoute={Routes.SETTINGS_DATA_SOURCE_LIST}
 				currentUser={new User(data.mockUser())}
-				dataSource={getLiferayDataSourceMock(1, {
+				dataSource={getSalesforceDataSourceMock(1, {
 					provider: {
 						type: 'LIFERAY'
 					}
@@ -62,7 +60,7 @@ describe('BaseTabsPage', () => {
 	it('should render without a sticker in the configure datasource tab if all items are configured', () => {
 		const {container} = render(
 			<DefaultComponent
-				dataSource={getLiferayDataSourceMock(1, allConfigured)}
+				dataSource={getSalesforceDataSourceMock(1, allConfigured)}
 			/>
 		);
 
@@ -82,7 +80,7 @@ describe('BaseTabsPage', () => {
 	it('should render with the CONFIGURE_DATA_SOURCE tab enabled if state is ready', () => {
 		const {getAllByText, getByText} = render(
 			<DefaultComponent
-				dataSource={getLiferayDataSourceMock(0, {
+				dataSource={getSalesforceDataSourceMock(0, {
 					state: dataSourceStates.ready
 				})}
 			/>
@@ -102,7 +100,7 @@ describe('BaseTabsPage', () => {
 	it('should render with the CONFIGURE_DATA_SOURCE tab disabled if state is not valid', () => {
 		const {getAllByText, getByText} = render(
 			<DefaultComponent
-				dataSource={getLiferayDataSourceMock(0, {
+				dataSource={getSalesforceDataSourceMock(0, {
 					state: dataSourceStates.credentialsInvalid
 				})}
 			/>

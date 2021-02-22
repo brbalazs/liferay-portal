@@ -1,5 +1,4 @@
 import FaroConstants from 'shared/util/constants';
-import LiferayDataSource from './LiferayOld';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import Salesforce from './Salesforce';
@@ -11,7 +10,6 @@ const {dataSourceTypes} = FaroConstants;
 
 const PAGE_MAP = {
 	[dataSourceTypes.csv]: ConfigureCSV,
-	[dataSourceTypes.liferay]: LiferayDataSource,
 	[dataSourceTypes.salesforce]: Salesforce
 };
 

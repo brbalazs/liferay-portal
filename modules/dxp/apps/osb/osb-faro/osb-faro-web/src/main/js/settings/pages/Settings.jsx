@@ -77,14 +77,6 @@ const ChannelView = lazy(() =>
 	import(/* webpackChunkName: "ChannelView" */ '../channels/pages/View')
 );
 
-// Liferay data source
-
-const NewLiferayDataSource = lazy(() =>
-	import(
-		/* webpackChunkName: "NewLiferayDataSource" */ './data-source/liferay-old/NewLiferay'
-	)
-);
-
 // Recommendations
 const RecommendationList = lazy(() =>
 	import(
@@ -324,12 +316,6 @@ export class Settings extends React.Component {
 									data={NewSalesforceDataSource}
 									exact
 									path={Routes.SETTINGS_SALESFORCE_ADD}
-								/>
-
-								<BundleRouter
-									data={NewLiferayDataSource}
-									exact
-									path={Routes.SETTINGS_LIFERAY_ADD}
 								/>
 
 								<BundleRouter

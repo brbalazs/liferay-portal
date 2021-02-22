@@ -29,7 +29,6 @@ import SelectItemsModal from './SelectItemsModal';
 import TestModal from './TestModal';
 import TimeZoneSelectionModal from './TimeZoneSelectionModal';
 import UnassignedSegmentsModal from 'shared/components/unassigned-segments-modal';
-import UpgradeConnectionModal from 'settings/components/data-source/upgrade-connection-modal';
 import {close, modalTypes} from '../actions/modals';
 import {connect} from 'react-redux';
 import {List} from 'immutable';
@@ -61,7 +60,6 @@ const COMPONENT_MAP = {
 	[modalTypes.NEW_RULE_MODAL]: NewRuleModal,
 	[modalTypes.ONBOARDING_MODAL]: OnboardingModal,
 	[modalTypes.UNASSIGNED_SEGMENTS_MODAL]: UnassignedSegmentsModal,
-	[modalTypes.UPGRADE_CONNECTION_MODAL]: UpgradeConnectionModal,
 	[modalTypes.SEARCHABLE_ENTITIES_TABLE_MODAL]: SearchableEntitiesTableModal,
 	[modalTypes.SEARCHABLE_TABLE_MODAL]: SearchableTableModal,
 	[modalTypes.SEARCHABLE_TABLE_MODAL_GRAPHQL]: SearchableTableModalGraphql,

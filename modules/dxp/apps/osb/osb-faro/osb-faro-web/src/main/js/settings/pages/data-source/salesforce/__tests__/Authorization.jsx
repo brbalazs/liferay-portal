@@ -37,7 +37,6 @@ describe('SalesforceAuthorization', () => {
 
 		expect(queryByText('Delete Data Source')).toBeTruthy();
 		expect(queryByText('Edit')).toBeTruthy();
-		expect(queryByText('Start Upgrade...')).toBeTruthy();
 		expect(container).toMatchSnapshot();
 	});
 
@@ -52,6 +51,5 @@ describe('SalesforceAuthorization', () => {
 
 		expect(queryByText('Delete Data Source')).toBeNull();
 		expect(queryByText('Edit')).toBeNull();
-		expect(queryByText('Start Upgrade...')).toBeNull();
 	});
 });
