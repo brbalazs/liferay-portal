@@ -112,6 +112,8 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 						request.setAttribute(WebKeys.PORTLET_CATEGORY_PATH, oldCategoryPath);
 					}
 
+					Set<String> layoutDecodedPortletNames = null;
+
 					for (Portlet portlet : portlets) {
 						sb.setIndex(0);
 
@@ -128,11 +130,20 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 
 						boolean portletUsed = false;
 
-						for (Portlet layoutPortlet : layoutTypePortlet.getPortlets()) {
-							String decodedPortletName = PortletIdCodec.decodePortletName(layoutPortlet.getPortletId());
+						if (layoutDecodedPortletNames != null) {
+							portletUsed = layoutDecodedPortletNames.contains(portlet.getPortletId());
+						}
+						else {
+							layoutDecodedPortletNames = new HashSet<>();
 
-							if (decodedPortletName.equals(portlet.getPortletId())) {
-								portletUsed = true;
+							for (Portlet layoutPortlet : layoutTypePortlet.getPortlets()) {
+								String decodedPortletName = PortletIdCodec.decodePortletName(layoutPortlet.getPortletId());
+
+								layoutDecodedPortletNames.add(decodedPortletName);
+
+								if (decodedPortletName.equals(portlet.getPortletId())) {
+									portletUsed = true;
+								}
 							}
 						}
 
