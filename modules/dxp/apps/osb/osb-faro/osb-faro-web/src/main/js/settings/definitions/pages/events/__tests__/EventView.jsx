@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('EventView', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>

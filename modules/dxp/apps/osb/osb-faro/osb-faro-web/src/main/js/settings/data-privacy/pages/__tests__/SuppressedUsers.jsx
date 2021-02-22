@@ -25,7 +25,7 @@ const mockItems = [
 describe('SuppressedUsers', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<MockedProvider mocks={[mockSuppressedUsersListReq(mockItems)]}>
 				<Provider store={mockStore()}>

@@ -71,7 +71,7 @@ const DefaultComponent = props => (
 describe('InterestDetails', () => {
 	afterEach(cleanup);
 
-	it('renders', async() => {
+	it('renders', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);

@@ -125,7 +125,7 @@ describe('RequestList', () => {
 
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);
@@ -135,7 +135,7 @@ describe('RequestList', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a request row as checkable with a download button if the status is "DONE"', async() => {
+	it('should render a request row as checkable with a download button if the status is "DONE"', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);
@@ -155,7 +155,7 @@ describe('RequestList', () => {
 		).toHaveTextContent('Download');
 	});
 
-	it('should render a request row as disabled with no download button if the status is not "DONE"', async() => {
+	it('should render a request row as disabled with no download button if the status is not "DONE"', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);
@@ -175,7 +175,7 @@ describe('RequestList', () => {
 		).toBeNull();
 	});
 
-	it('should render a request row as disabled with a "download expired" message if the request status is EXPIRED', async() => {
+	it('should render a request row as disabled with a "download expired" message if the request status is EXPIRED', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);
@@ -195,7 +195,7 @@ describe('RequestList', () => {
 		).toHaveTextContent('Download Expired');
 	});
 
-	it('should filter selected results by request type', async() => {
+	it('should filter selected results by request type', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);
@@ -213,7 +213,7 @@ describe('RequestList', () => {
 		expect(tableRows[0]).toHaveTextContent('scott.gilbert@example.com');
 	});
 
-	it('should filter selected results by time period', async() => {
+	it('should filter selected results by time period', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);

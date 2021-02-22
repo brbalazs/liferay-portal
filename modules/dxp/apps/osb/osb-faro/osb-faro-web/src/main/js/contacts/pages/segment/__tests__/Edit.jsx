@@ -19,7 +19,7 @@ const DefaultComponent = props => (
 );
 
 describe('Edit', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
@@ -27,7 +27,7 @@ describe('Edit', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a dynamic segment', async() => {
+	it('should render a dynamic segment', async () => {
 		const {getByText} = render(
 			<DefaultComponent type={segmentTypes.dynamic} />
 		);

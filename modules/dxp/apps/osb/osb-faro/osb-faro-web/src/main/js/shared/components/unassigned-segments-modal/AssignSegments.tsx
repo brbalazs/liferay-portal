@@ -93,7 +93,7 @@ const AssignSegments: React.FC<IAssignSegmentsProps> = ({groupId, onClose}) => {
 		</td>
 	);
 
-	const handleSubmit = async() => {
+	const handleSubmit = async () => {
 		setIsSubmitting(true);
 
 		const segments = channelMappingsToArray(channelMappings);

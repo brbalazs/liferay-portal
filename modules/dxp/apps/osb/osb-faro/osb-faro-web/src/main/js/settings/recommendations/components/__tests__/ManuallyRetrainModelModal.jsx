@@ -28,7 +28,7 @@ function mockRecommendationJobRunsMonthlyStatisticsReq() {
 jest.unmock('react-dom');
 
 describe('ManuallyRetrainModelModal', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<MockedProvider
 				mocks={[mockRecommendationJobRunsMonthlyStatisticsReq()]}

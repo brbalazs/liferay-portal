@@ -11,7 +11,7 @@ import {waitForLoading} from 'test/helpers';
 jest.unmock('react-dom');
 
 describe('MatchingPagesModal', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<MockedProvider mocks={[mockRecommendationPageAssetsReq([])]}>

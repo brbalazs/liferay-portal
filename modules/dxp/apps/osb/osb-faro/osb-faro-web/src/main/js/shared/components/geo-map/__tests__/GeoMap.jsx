@@ -89,7 +89,7 @@ describe('GeoMapCard', () => {
 		expect(component).toMatchSnapshot();
 	});
 
-	it('should get select path based on country name', async() => {
+	it('should get select path based on country name', async () => {
 		const component = await shallow(<GeoLocation {...props} />);
 		const instance = component.instance();
 

@@ -28,7 +28,7 @@ const MOCK_CONTEXT = {
 describe('VariantTableCard', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<MockedProvider

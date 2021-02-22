@@ -9,7 +9,7 @@ import {waitForLoading} from 'test/helpers';
 jest.unmock('react-dom');
 
 describe('Sites Dashboard Interests', () => {
-	it('render', async() => {
+	it('render', async () => {
 		const {container} = render(
 			<ApolloProvider client={client}>
 				<StaticRouter>

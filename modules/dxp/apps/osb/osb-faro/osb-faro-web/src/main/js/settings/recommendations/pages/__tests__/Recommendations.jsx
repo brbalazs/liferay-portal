@@ -45,7 +45,7 @@ const DefaultComponent = props => (
 );
 
 describe('Recommendations', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);

@@ -38,7 +38,7 @@ const DefaultComponent = props => (
 );
 
 describe('Edit', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForLoading(container);

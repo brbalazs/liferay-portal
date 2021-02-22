@@ -34,7 +34,7 @@ const changeInputValue = (input, newValue) => {
 };
 
 describe('SearchCard', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		await waitForElementToBeRemoved(() =>
@@ -44,7 +44,7 @@ describe('SearchCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should have a default uneditable field with value of q', async() => {
+	it('should have a default uneditable field with value of q', async () => {
 		const {container, getByDisplayValue} = render(<DefaultComponent />);
 
 		await waitForElementToBeRemoved(() =>
@@ -54,7 +54,7 @@ describe('SearchCard', () => {
 		expect(getByDisplayValue('q')).toBeTruthy();
 	});
 
-	it('should remove special characters on fields', async() => {
+	it('should remove special characters on fields', async () => {
 		const {container, getByDisplayValue} = render(<DefaultComponent />);
 
 		await waitForElementToBeRemoved(() =>
@@ -68,7 +68,7 @@ describe('SearchCard', () => {
 		expect(input.value).toBe('jackson');
 	});
 
-	it('should remove every character after equals sign', async() => {
+	it('should remove every character after equals sign', async () => {
 		const {container, getByDisplayValue} = render(<DefaultComponent />);
 
 		await waitForElementToBeRemoved(() =>
@@ -82,7 +82,7 @@ describe('SearchCard', () => {
 		expect(input.value).toBe('jackson');
 	});
 
-	it('should render input as disabled when user is not admin', async() => {
+	it('should render input as disabled when user is not admin', async () => {
 		API.user.fetchCurrentUser.mockReturnValueOnce(
 			Promise.resolve(data.mockMemberUser())
 		);
@@ -98,7 +98,7 @@ describe('SearchCard', () => {
 		});
 	});
 
-	it('should not render buttons when user is not admin', async() => {
+	it('should not render buttons when user is not admin', async () => {
 		API.user.fetchCurrentUser.mockReturnValueOnce(
 			Promise.resolve(data.mockMemberUser())
 		);

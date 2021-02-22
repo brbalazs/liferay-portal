@@ -78,7 +78,7 @@ describe('DeleteDataSource', () => {
 		expect(deleteButton).toBeEnabled();
 	});
 
-	it('should not enable delete button if validation is unsuccessful', async() => {
+	it('should not enable delete button if validation is unsuccessful', async () => {
 		const {queryByTestId, queryByText} = render(<DefaultComponent />);
 
 		const deleteButton = queryByText('Delete Data Source');
@@ -115,7 +115,7 @@ describe('DeleteDataSource', () => {
 	});
 
 	// TODO: LRAC-4906
-	it.skip('should open the confirmation modal', async() => {
+	it.skip('should open the confirmation modal', async () => {
 		expect(open).not.toBeCalled();
 
 		const {queryByTestId} = render(<DefaultComponent open={open} />);
@@ -135,7 +135,7 @@ describe('DeleteDataSource', () => {
 	});
 
 	// TODO: LRAC-4906
-	it.skip('should enable "Delete Data Source" button after delete click', async() => {
+	it.skip('should enable "Delete Data Source" button after delete click', async () => {
 		expect(open).not.toBeCalled();
 
 		const {queryByTestId, queryByText} = render(

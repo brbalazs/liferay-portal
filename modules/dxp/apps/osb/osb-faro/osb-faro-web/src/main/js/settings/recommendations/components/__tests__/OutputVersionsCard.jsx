@@ -10,7 +10,7 @@ import {waitForLoading} from 'test/helpers';
 jest.unmock('react-dom');
 
 describe('OutputVersionsCard', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<MockedProvider
 				mocks={[
@@ -43,7 +43,7 @@ describe('OutputVersionsCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render w/o "Next X" date', async() => {
+	it('should render w/o "Next X" date', async () => {
 		const {queryByText} = render(
 			<MockedProvider
 				mocks={[

@@ -158,6 +158,14 @@
 			}
 		],
 		"sort-vars": 2,
+		"space-before-function-paren": [
+			"error",
+			{
+				"anonymous": "never",
+				"asyncArrow": "always",
+				"named": "never"
+			}
+		],
 		"valid-jsdoc": 0
 	},
 	"settings": {

@@ -8,7 +8,7 @@ import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('EventList', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
@@ -20,7 +20,7 @@ describe('EventList', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should list only custom events', async() => {
+	it('should list only custom events', async () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>

@@ -41,7 +41,7 @@ const mockItems = [
 describe('Individuals Dashboard Individuals Interest Details', () => {
 	afterEach(cleanup);
 
-	it('renders', async() => {
+	it('renders', async () => {
 		const {container} = render(
 			<MockedProvider
 				mocks={[mockTouchpointsReq(mockItems), mockTimeRangeReq()]}

@@ -38,7 +38,7 @@ const MOCK_CONTEXT = {
 describe('VariantCard', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<MockedProvider
@@ -64,7 +64,7 @@ describe('VariantCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a Per day chart', async() => {
+	it('should render a Per day chart', async () => {
 		const {container, getAllByText} = render(
 			<StaticRouter>
 				<MockedProvider

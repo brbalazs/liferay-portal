@@ -8,7 +8,7 @@ import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('EventsCard', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>

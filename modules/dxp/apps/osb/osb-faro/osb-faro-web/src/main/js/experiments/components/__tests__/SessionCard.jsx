@@ -34,7 +34,7 @@ const MOCK_CONTEXT = {
 describe('SessionCard', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<ApolloProvider client={client}>
@@ -58,7 +58,7 @@ describe('SessionCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a per variant', async() => {
+	it('should render a per variant', async () => {
 		const {container, getByText} = render(
 			<StaticRouter>
 				<ApolloProvider client={client}>

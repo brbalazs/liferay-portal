@@ -61,7 +61,7 @@ jest.useRealTimers();
 describe('BaseListPage', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
 
 		await waitForElement(() => container.querySelector('tbody'));
@@ -69,7 +69,7 @@ describe('BaseListPage', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with an empty query state', async() => {
+	it('should render with an empty query state', async () => {
 		const {findByText} = render(
 			<WrappedComponent
 				dataSourceFn={jest.fn(() =>
@@ -86,7 +86,7 @@ describe('BaseListPage', () => {
 		expect(noResult.parentNode).toMatchSnapshot();
 	});
 
-	it('should render with a no results display if there are no results and active filters', async() => {
+	it('should render with a no results display if there are no results and active filters', async () => {
 		const {findByText} = render(
 			<WrappedComponent
 				dataSourceFn={jest.fn(() =>
@@ -103,7 +103,7 @@ describe('BaseListPage', () => {
 		expect(noResult).toBeInTheDocument();
 	});
 
-	it('should render with a message to connect datasources', async() => {
+	it('should render with a message to connect datasources', async () => {
 		API.dataSource.search.mockReturnValueOnce(
 			Promise.resolve(data.mockSearch(noop, 0))
 		);
@@ -121,7 +121,7 @@ describe('BaseListPage', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with a member-specific message to connect datasources', async() => {
+	it('should render with a member-specific message to connect datasources', async () => {
 		API.dataSource.search.mockReturnValueOnce(
 			Promise.resolve(data.mockSearch(noop, 0))
 		);
@@ -140,7 +140,7 @@ describe('BaseListPage', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with an embedded alert', async() => {
+	it('should render with an embedded alert', async () => {
 		API.dataSource.search.mockReturnValueOnce(
 			Promise.resolve(data.mockSearch(noop, 0))
 		);

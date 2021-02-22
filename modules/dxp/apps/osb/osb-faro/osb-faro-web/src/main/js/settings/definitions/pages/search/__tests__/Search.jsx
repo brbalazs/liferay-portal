@@ -12,7 +12,7 @@ jest.unmock('react-dom');
 jest.useRealTimers();
 
 describe('Search', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<MockedProvider mocks={[mockSearchStringListReq()]}>
 				<Provider store={mockStore()}>

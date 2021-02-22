@@ -16,7 +16,7 @@ const defaultProps = {
 jest.unmock('react-dom');
 
 describe('InterestDetails', () => {
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<InterestDetails {...defaultProps} />
@@ -30,7 +30,7 @@ describe('InterestDetails', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render an active pages list tab', async() => {
+	it('should render an active pages list tab', async () => {
 		const {container, getByText} = render(
 			<StaticRouter>
 				<InterestDetails {...defaultProps} />
@@ -45,7 +45,7 @@ describe('InterestDetails', () => {
 		expect(getByText('Active Pages').parentElement).toHaveClass('active');
 	});
 
-	it('should render an inactive pages list tab', async() => {
+	it('should render an inactive pages list tab', async () => {
 		const {container, getByText} = render(
 			<StaticRouter>
 				<InterestDetails {...defaultProps} active='false' />

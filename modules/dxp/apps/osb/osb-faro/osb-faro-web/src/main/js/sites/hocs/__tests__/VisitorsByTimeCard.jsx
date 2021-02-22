@@ -36,7 +36,7 @@ const WrappedComponent = props => (
 );
 
 describe('VisitorsByTimeCard', () => {
-	it('render', async() => {
+	it('render', async () => {
 		const {container} = render(<WrappedComponent />);
 
 		await waitForLoading(container);

@@ -49,7 +49,7 @@ const WrappedComponent = props => (
 describe('Suppressed User List', () => {
 	afterEach(cleanup);
 
-	it('should render', async() => {
+	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
 
 		await waitForLoading(container);

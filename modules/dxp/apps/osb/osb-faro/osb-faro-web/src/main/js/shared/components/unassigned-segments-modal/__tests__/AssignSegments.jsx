@@ -50,7 +50,7 @@ describe('AssignSegments', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should run close from OnClose prop', async() => {
+	it('should run close from OnClose prop', async () => {
 		const spy = jest.fn();
 
 		const {getByTestId, getByText} = render(
@@ -64,7 +64,7 @@ describe('AssignSegments', () => {
 		expect(spy).toBeCalled();
 	});
 
-	it('it should enable done button when a valid value is selected', async() => {
+	it('it should enable done button when a valid value is selected', async () => {
 		const {getByTestId} = render(<DefaultComponent />);
 
 		fireEvent.change(getByTestId('select-1'), {
@@ -76,7 +76,7 @@ describe('AssignSegments', () => {
 		expect(button).not.toBeDisabled();
 	});
 
-	it('should call api functions with proper args', async() => {
+	it('should call api functions with proper args', async () => {
 		const {container, getByTestId} = render(<DefaultComponent />);
 
 		fireEvent.change(getByTestId('select-1'), {

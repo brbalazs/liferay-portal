@@ -31,7 +31,7 @@ const MOCK_CONTEXT = {
 describe('SummaryCard', () => {
 	afterEach(cleanup);
 
-	it('should render a running SummaryCard', async() => {
+	it('should render a running SummaryCard', async () => {
 		const {container} = render(
 			<StaticRouter>
 				<MockedProvider
