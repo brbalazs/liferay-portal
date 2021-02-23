@@ -31,16 +31,18 @@ const Search = lazy(() =>
 );
 
 const Events = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsEvents" */ './events/Events')
+	import(/* webpackChunkName: "DefinitionsEvents" */ '../events/pages/Events')
 );
 
 const EventView = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsEventView" */ './events/EventView')
+	import(
+		/* webpackChunkName: "DefinitionsEventView" */ '../events/pages/EventView'
+	)
 );
 
 const AttributeView = lazy(() =>
 	import(
-		/* webpackChunkName: "DefinitionsEventView" */ './events/AttributeView'
+		/* webpackChunkName: "DefinitionsAttributeView" */ '../events/pages/AttributeView'
 	)
 );
 

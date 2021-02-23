@@ -1,5 +1,5 @@
 import BasePage from 'settings/components/BasePage';
-import EventsCard from './components/EventsCard';
+import EventsCard from '../components/EventsCard';
 import React from 'react';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 
