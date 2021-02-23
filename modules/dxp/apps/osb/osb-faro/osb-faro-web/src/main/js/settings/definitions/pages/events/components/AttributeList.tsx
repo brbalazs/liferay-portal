@@ -6,7 +6,7 @@ import {withBaseResults} from 'shared/hoc';
 const withData = () => WrapperComponent => props => {
 	const MOCKED_ITEMS = [
 		{
-			attributeId: 'myid1',
+			attributeId: '1',
 			defaultDataType: 'TYPE',
 			description: 'mydescription',
 			displayName: 'displayNamehere',
@@ -14,7 +14,7 @@ const withData = () => WrapperComponent => props => {
 			sampleValue: '1'
 		},
 		{
-			attributeId: 'myid2',
+			attributeId: '2',
 			defaultDataType: 'TYPE2',
 			description: 'seconddescription',
 			displayName: 'seconddisplay',
@@ -22,7 +22,7 @@ const withData = () => WrapperComponent => props => {
 			sampleValue: '2'
 		},
 		{
-			attributeId: 'myid3',
+			attributeId: '3',
 			defaultDataType: 'TYPE3',
 			description: 'mydescription',
 			displayName: 'displayNamehere',

@@ -267,7 +267,7 @@ export const Routes = buildRoutes({
 												path: '/attributes',
 												routes: {
 													SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW:
-														'/:attributeId'
+														'/:attributeId(\\d+)'
 												}
 											},
 											SETTINGS_DEFINITIONS_EVENTS_CUSTOM:
