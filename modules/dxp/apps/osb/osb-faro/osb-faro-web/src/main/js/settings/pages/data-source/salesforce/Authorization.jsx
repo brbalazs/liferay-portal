@@ -57,6 +57,10 @@ export class SalesforceAuthorization extends React.Component {
 			name: dataSourceName,
 			status: active,
 			url
+		}).then(response => {
+			analytics.track('Created Salesforce Datasource');
+
+			return response;
 		});
 	}
 
