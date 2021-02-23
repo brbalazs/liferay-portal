@@ -9,13 +9,6 @@ import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
-jest.mock('react-router-dom', () => ({
-	...jest.requireActual('react-router-dom'),
-	useParams: () => ({
-		attributeId: 12345
-	})
-}));
-
 const RenderWithRouter = ({children}) => (
 	<MemoryRouter
 		initialEntries={[
