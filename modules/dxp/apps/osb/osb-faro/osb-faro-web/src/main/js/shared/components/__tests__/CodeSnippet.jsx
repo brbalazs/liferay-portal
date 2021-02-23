@@ -7,7 +7,7 @@ jest.unmock('react-dom');
 describe('CodeSnippet', () => {
 	it('should render', () => {
 		const {container} = render(
-			<CodeSnippet code='console.log(variable);' />
+			<CodeSnippet codeLines={['console.log(variable);']} />
 		);
 		expect(container).toMatchSnapshot();
 	});
