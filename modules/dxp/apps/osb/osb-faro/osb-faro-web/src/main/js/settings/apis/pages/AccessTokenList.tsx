@@ -52,7 +52,7 @@ const TokenList: React.FC<{
 		});
 	};
 
-	const handleSuccess = message => () => {
+	const handleSuccess = message => {
 		addAlert({
 			alertType: Alert.Types.SUCCESS,
 			message
@@ -87,13 +87,15 @@ const TokenList: React.FC<{
 
 								API.apiTokens
 									.generate({groupId})
-									.then(
+									.then(() => {
+										analytics.track('Created API Token');
+
 										handleSuccess(
 											Liferay.Language.get(
 												'new-token-was-generated'
 											)
-										)
-									)
+										);
+									})
 									.catch(handleError);
 							}}
 						>
@@ -160,7 +162,7 @@ const TokenList: React.FC<{
 										.then(() =>
 											API.apiTokens.generate({groupId})
 										)
-										.then(
+										.then(() =>
 											handleSuccess(
 												Liferay.Language.get(
 													'new-token-was-generated'
@@ -201,7 +203,7 @@ const TokenList: React.FC<{
 
 												API.apiTokens
 													.revoke({groupId, token})
-													.then(
+													.then(() =>
 														handleSuccess(
 															Liferay.Language.get(
 																'token-successfully-revoked'
