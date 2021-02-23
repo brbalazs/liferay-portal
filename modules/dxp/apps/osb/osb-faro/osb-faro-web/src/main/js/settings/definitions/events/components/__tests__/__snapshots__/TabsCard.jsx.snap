@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventsCard should render 1`] = `
+exports[`TabsCard should render 1`] = `
 <div>
   <div
     class="card card-root page-display"

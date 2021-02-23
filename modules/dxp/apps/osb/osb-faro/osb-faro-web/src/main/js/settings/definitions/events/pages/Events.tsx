@@ -1,6 +1,6 @@
 import BasePage from 'settings/components/BasePage';
-import EventsCard from '../components/EventsCard';
 import React from 'react';
+import TabsCard from '../components/TabsCard';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 
 interface IEventsProps {
@@ -19,7 +19,7 @@ const Events: React.FC<IEventsProps> = ({groupId}) => (
 		)}
 		pageTitle={Liferay.Language.get('events')}
 	>
-		<EventsCard groupId={groupId} />
+		<TabsCard groupId={groupId} />
 	</BasePage>
 );
 

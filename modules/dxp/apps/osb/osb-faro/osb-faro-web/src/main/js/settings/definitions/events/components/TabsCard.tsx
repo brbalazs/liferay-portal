@@ -32,11 +32,11 @@ const NAV_ITEMS = [
 	}
 ];
 
-interface IEventsCardProps {
+interface ITabsCardProps {
 	groupId: string;
 }
 
-const EventsCard: React.FC<IEventsCardProps> = ({groupId}) => {
+const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 	const matchedRoute = getMatchedRoute(NAV_ITEMS);
 
 	return (
@@ -81,4 +81,4 @@ const EventsCard: React.FC<IEventsCardProps> = ({groupId}) => {
 	);
 };
 
-export default EventsCard;
+export default TabsCard;
