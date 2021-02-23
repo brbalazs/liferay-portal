@@ -111,7 +111,7 @@ public class DDMFormDisplayExportImportTest
 			new String[] {String.valueOf(ddmFormInstance.getGroupId())});
 
 		PortletPreferences importedPortletPreferences =
-			getImportedPortletPreferences(preferenceMap);
+			getImportedPortletPreferences(preferenceMap, false, true);
 
 		DDMFormInstanceRecord importedDDMFormInstanceRecord =
 			DDMFormInstanceRecordLocalServiceUtil.
