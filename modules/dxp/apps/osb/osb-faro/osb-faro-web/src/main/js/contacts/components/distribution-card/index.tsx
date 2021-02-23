@@ -189,6 +189,7 @@ class DistributionCard extends React.Component<
 
 						{((!tabsCount && !loading) || showAddProperty) && (
 							<AddPropertyForm
+								distributionKey={distributionKey}
 								groupId={groupId}
 								onCancel={() =>
 									this.handleShowAddProperty(false)

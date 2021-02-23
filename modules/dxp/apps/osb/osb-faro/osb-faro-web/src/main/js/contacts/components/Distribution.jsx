@@ -47,6 +47,7 @@ import {createNumberMask} from 'text-mask-addons';
 import {getBarColor} from 'shared/util/charts';
 import {getFinitePercent} from 'shared/util/numbers';
 import {hasChanges} from 'shared/util/react';
+import {INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY} from 'shared/actions/distributions';
 import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
 import {PropTypes} from 'prop-types';
@@ -269,13 +270,17 @@ export class Distribution extends React.Component {
 		const {
 			props: {
 				channelId,
+				distributionsKey,
 				fetchDistribution,
 				fieldMappingId,
 				groupId,
 				id,
 				numberOfBins
 			},
-			state: {selectedContext}
+			state: {
+				fieldMappingSelected: {rawType},
+				selectedContext
+			}
 		} = this;
 
 		return fetchDistribution(
@@ -289,7 +294,25 @@ export class Distribution extends React.Component {
 				individualSegmentId: id,
 				numberOfBins
 			})
-		).catch(noop);
+		)
+			.then(response => {
+				analytics.track('Created Distribution Query', {
+					dataType: rawType,
+					distributionType:
+						selectedContext === demographics
+							? 'individual'
+							: 'account',
+					numberOfBins: this.getNumberOfBins(),
+					pageType:
+						distributionsKey ===
+						INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY
+							? 'individualDistribution'
+							: 'segmentDistribution'
+				});
+
+				return response;
+			})
+			.catch(noop);
 	}
 
 	@autoCancel

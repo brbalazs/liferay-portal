@@ -15,6 +15,7 @@ import {
 	numberOfBinsMask
 } from 'contacts/components/Distribution';
 import {DistributionTab} from 'shared/util/records';
+import {INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY} from 'shared/actions/distributions';
 import {isBlank} from 'shared/util/util';
 import {List} from 'immutable';
 import {sequence} from 'shared/util/promise';
@@ -39,6 +40,7 @@ const validateNumberOfBins = numberOfBins => {
 
 const AddPropertyForm = ({
 	defaultContext = demographics,
+	distributionKey,
 	groupId,
 	onCancel,
 	onSubmit,
@@ -68,20 +70,38 @@ const AddPropertyForm = ({
 		setSelectedContext(value);
 	};
 
-	const handleSubmit = ({numberOfBins, property, title}) => {
+	const handleSubmit = ({
+		numberOfBins,
+		property: {context, id, rawType},
+		title
+	}) => {
 		const {setSubmitting} = _formRef.current;
 
 		onSubmit(
 			DistributionTab({
-				context: property.context,
+				context,
 				id: title.toLowerCase(),
 				numberOfBins,
-				propertyId: property.id,
-				propertyType: property.rawType,
+				propertyId: id,
+				propertyType: rawType,
 				title
 			})
 		)
-			.then(() => setSubmitting(false))
+			.then(() => {
+				analytics.track('Created Distribution Query', {
+					dataType: rawType,
+					distributionType:
+						context === demographics ? 'individual' : 'account',
+					numberOfBins: Number(numberOfBins),
+					pageType:
+						distributionKey ===
+						INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY
+							? 'individualOverview'
+							: 'segmentOverview'
+				});
+
+				setSubmitting(false);
+			})
 			.catch(() => setSubmitting(false));
 	};
 
