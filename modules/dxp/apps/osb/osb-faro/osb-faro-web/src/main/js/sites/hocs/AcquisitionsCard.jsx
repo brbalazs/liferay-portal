@@ -27,7 +27,7 @@ const getColumnsFn = acquisitionType => {
 			totalCount
 		}),
 		compositionListColumns.getPercentOf({
-			metricName: label,
+			metricName: Liferay.Language.get('sessions'),
 			totalCount
 		})
 	];
