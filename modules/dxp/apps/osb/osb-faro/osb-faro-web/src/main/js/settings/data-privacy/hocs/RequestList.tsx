@@ -237,6 +237,11 @@ const withQueryOptions = Component => ({
 					}
 				})
 					.then(() => {
+						analytics.track('Created User Data Request', {
+							types,
+							uploadedFile: !!fileName
+						});
+
 						addAlert({
 							alertType: Alert.Types.SUCCESS,
 							message: Liferay.Language.get(
@@ -302,6 +307,11 @@ const withQueryOptions = Component => ({
 								href={`/o/proxy/download/data-control-tasks?projectGroupId=${groupId}&filter=(id eq ${selectedItems
 									.map(({id}) => id)
 									.join(' or id eq ')})`}
+								onClick={() =>
+									analytics.track(
+										'Downloaded User Data Request'
+									)
+								}
 							>
 								{Liferay.Language.get('download-all')}
 							</Button>
@@ -431,6 +441,11 @@ const RequestList: React.FC<IRequestListProps> = ({
 								download
 								externalLink
 								href={`/o/proxy/download/data-control-tasks/${id}?projectGroupId=${groupId}`}
+								onClick={() =>
+									analytics.track(
+										'Downloaded User Data Request'
+									)
+								}
 								size='sm'
 							>
 								{Liferay.Language.get('download')}
