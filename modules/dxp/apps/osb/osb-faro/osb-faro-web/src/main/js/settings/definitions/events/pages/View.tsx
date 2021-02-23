@@ -6,11 +6,11 @@ import {HasModal} from 'shared/types';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
 
-interface IEventViewProps extends React.HTMLAttributes<HTMLElement>, HasModal {
+interface IViewProps extends React.HTMLAttributes<HTMLElement>, HasModal {
 	groupId: string;
 }
 
-const EventView: React.FC<IEventViewProps> = ({groupId}) => {
+const View: React.FC<IViewProps> = ({groupId}) => {
 	// TODO: Use useQuery hook and the isEditing to open modal => const isEditing = useQuery('edit');
 	const {eventId} = useParams();
 
@@ -56,4 +56,4 @@ const EventView: React.FC<IEventViewProps> = ({groupId}) => {
 	);
 };
 
-export default EventView;
+export default View;

@@ -1,6 +1,6 @@
-import EventView from '../EventView';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import View from '../View';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
@@ -14,12 +14,12 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
-describe('EventView', () => {
-	it('should render', async () => {
+describe('Event View page', () => {
+	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<EventView groupId='23' />
+					<View groupId='23' />
 				</StaticRouter>
 			</Provider>
 		);

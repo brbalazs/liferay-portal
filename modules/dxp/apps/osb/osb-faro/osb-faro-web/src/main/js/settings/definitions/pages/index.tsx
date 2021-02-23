@@ -36,7 +36,7 @@ const Events = lazy(() =>
 
 const EventView = lazy(() =>
 	import(
-		/* webpackChunkName: "DefinitionsEventView" */ '../events/pages/EventView'
+		/* webpackChunkName: "DefinitionsEventView" */ '../events/pages/View'
 	)
 );
 

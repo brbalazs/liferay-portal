@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventView should render 1`] = `
+exports[`Event View page should render 1`] = `
 <div>
   <div
     class="settings-base-page-root"
