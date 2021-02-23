@@ -11,15 +11,17 @@ interface IEventViewProps extends React.HTMLAttributes<HTMLElement>, HasModal {
 }
 
 const EventView: React.FC<IEventViewProps> = ({groupId}) => {
+	// TODO: Use useQuery hook and the isEditing to open modal => const isEditing = useQuery('edit');
+	const {eventId} = useParams();
+
+	// TODO: When able o fetch the event, use the fetched event here instead
 	const event = {
 		description: 'somedescription',
 		displayName: 'View Article',
-		id: 'myid',
 		name: 'viewArticle'
 	};
 
-	// TODO: Use useQuery hook and the isEditing to open modal => const isEditing = useQuery('edit');
-	const {eventId} = useParams();
+	const {description, displayName, name} = event;
 
 	const viewEventPageActions = [
 		{
@@ -39,20 +41,17 @@ const EventView: React.FC<IEventViewProps> = ({groupId}) => {
 			breadcrumbItems={[
 				getDefinitions({groupId}),
 				getEvents({groupId}),
-				{active: true, label: event.displayName}
+				{active: true, label: displayName}
 			]}
 			groupId={groupId}
 			pageActions={viewEventPageActions}
 			pageDescription={
-				event.description || Liferay.Language.get('no-description')
+				description || Liferay.Language.get('no-description')
 			}
-			pageTitle={event.name}
-			subTitle={event.displayName}
+			pageTitle={name}
+			subTitle={displayName}
 		>
-			<EventDetailsCard
-				eventName={event.name}
-				groupId={groupId}
-			></EventDetailsCard>
+			<EventDetailsCard eventName={name} groupId={groupId} />
 		</BasePage>
 	);
 };

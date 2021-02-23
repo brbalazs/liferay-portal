@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import Table from 'shared/components/table';
 import {Attribute} from 'event-analysis/components/event-analysis-editor/types';
 import {attributesColumns} from 'shared/util/table-columns';
-import {OrderedMap} from 'immutable';
+import {Map, OrderedMap} from 'immutable';
 
 // TODO: LRAC-7486 Use eventId to fetch related attributes
 const MOCKED_ATTRIBUTES = [
@@ -52,10 +52,15 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 		`Analytics.send('${eventName}', {`,
 		'});'
 	]);
+
 	const [selectedAttributes, setSelectedAttributes] = useState(
-		new Map<string, Attribute>(
+		OrderedMap<string, Map<string, string>>(
 			MOCKED_ATTRIBUTES.map(
-				attribute => [attribute.id, attribute] as [string, Attribute]
+				attribute =>
+					[attribute.id, Map(attribute)] as [
+						string,
+						Map<string, string>
+					]
 			)
 		)
 	);
@@ -63,7 +68,10 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 	useEffect(() => {
 		const attributesRepresentations = [];
 
-		selectedAttributes.forEach(({name, sampleValue}) => {
+		selectedAttributes.forEach(attribute => {
+			const name = attribute.get('name');
+			const sampleValue = attribute.get('sampleValue');
+
 			attributesRepresentations.push(`'${name}': '${sampleValue}',`);
 		});
 
@@ -76,22 +84,21 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 
 	const addSelectedAttribute = (attribute: Attribute): void =>
 		setSelectedAttributes(
-			new Map(selectedAttributes).set(attribute.id, attribute)
+			selectedAttributes.set(attribute.id, Map(attribute))
 		);
 
 	const removeSelectedAttribute = (key: string): void => {
-		setSelectedAttributes(previous => {
-			const newSelectedAttributes = new Map(previous);
-			newSelectedAttributes.delete(key);
-			return newSelectedAttributes;
-		});
+		setSelectedAttributes(previous => previous.remove(key));
 	};
 
 	return (
 		<Card key='cardContainer' pageDisplay>
 			<Card.Header>
-				<Card.Title>{'Send This Event'}</Card.Title>
+				<Card.Title>
+					{Liferay.Language.get('send-this-event')}
+				</Card.Title>
 			</Card.Header>
+
 			<Card.Body>
 				<span className='mt-2 mb-4 w-50'>
 					{Liferay.Language.get(
@@ -99,7 +106,8 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 					)}
 				</span>
 
-				<Label>{Liferay.Language.get('sample-javascript')}</Label>
+				<Label>{Liferay.Language.get('sample-javascript-colon')}</Label>
+
 				<CodeSnippet codeLines={codeLines}></CodeSnippet>
 			</Card.Body>
 
