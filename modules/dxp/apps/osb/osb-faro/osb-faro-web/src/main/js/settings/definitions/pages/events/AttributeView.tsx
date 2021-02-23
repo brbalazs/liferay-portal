@@ -16,7 +16,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({groupId}) => {
 	const {attributeId} = useParams();
 	// TODO: LRAC-7479 Use the graphql query instead of mocked data
 	const attribute = {
-		dataTyPe: 'string',
+		dataType: 'string',
 		description: 'somedescription',
 		displayName: 'organization',
 		id: 'myid',
@@ -51,7 +51,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({groupId}) => {
 						<div>{attribute.description}</div>
 
 						<Label display='primary' uppercase>
-							{attribute.dataTyPe}
+							{attribute.dataType}
 						</Label>
 					</>
 				) : (
