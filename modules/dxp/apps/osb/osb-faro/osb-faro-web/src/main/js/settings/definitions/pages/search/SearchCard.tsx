@@ -87,15 +87,19 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 	const handleSubmit = ({queryStringList}): void => {
 		const currentForm = _formRef.current;
 
+		const searchQueryStrings = queryStringList.map(removeSpecialCharacters);
+
 		updatePreference({
 			variables: {
 				key: SEARCH_QUERY_STRINGS_KEY,
-				value: JSON.stringify(
-					queryStringList.map(removeSpecialCharacters)
-				)
+				value: JSON.stringify(searchQueryStrings)
 			}
 		})
 			.then(() => {
+				analytics.track('Updated Search Query Strings', {
+					searchQueryStrings
+				});
+
 				addAlert({
 					alertType: Alert.Types.SUCCESS,
 					message: Liferay.Language.get(
