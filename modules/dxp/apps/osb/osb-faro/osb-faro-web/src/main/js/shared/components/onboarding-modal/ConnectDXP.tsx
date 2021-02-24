@@ -264,15 +264,16 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 								</Input.Inset>
 							</Input.GroupItem>
 						</Input.Group>
-						{isUpgrading && (
-							<a
-								className='more-information-link'
-								href={HELP_CONNECT_DXP}
-								target='_blank'
-							>
-								{Liferay.Language.get('more-information')}
-							</a>
-						)}
+
+						<Button
+							borderless
+							className='more-information-link mt-4'
+							externalLink
+							href={HELP_CONNECT_DXP}
+							target='_blank'
+						>
+							{Liferay.Language.get('more-information')}
+						</Button>
 					</>
 				)}
 			</Modal.Body>
