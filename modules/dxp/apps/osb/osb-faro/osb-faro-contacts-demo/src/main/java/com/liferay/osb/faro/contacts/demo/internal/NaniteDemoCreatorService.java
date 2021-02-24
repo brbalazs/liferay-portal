@@ -28,6 +28,7 @@ import com.liferay.osb.faro.contacts.demo.internal.data.creator.SalesforceIndivi
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
 import com.liferay.osb.faro.engine.client.model.Author;
 import com.liferay.osb.faro.engine.client.model.Channel;
+import com.liferay.osb.faro.engine.client.model.Credentials;
 import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
 import com.liferay.osb.faro.engine.client.model.FieldMappingMap;
@@ -36,6 +37,7 @@ import com.liferay.osb.faro.engine.client.model.IndividualSegmentMembershipChang
 import com.liferay.osb.faro.engine.client.model.Provider;
 import com.liferay.osb.faro.engine.client.model.Results;
 import com.liferay.osb.faro.engine.client.model.credentials.DummyCredentials;
+import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
 import com.liferay.osb.faro.engine.client.model.provider.SalesforceProvider;
 import com.liferay.osb.faro.model.FaroProject;
@@ -131,7 +133,8 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 	}
 
 	protected DataSource createDataSource(
-		FaroProject faroProject, Provider provider, String name, String url) {
+		FaroProject faroProject, Credentials credentials, Provider provider,
+		String name, String url) {
 
 		Results<DataSource> results = contactsEngineClient.getDataSources(
 			faroProject, null, null, name, null, null, 1, 1, null);
@@ -143,7 +146,7 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		}
 
 		return contactsEngineClient.addDataSource(
-			faroProject, new DummyCredentials(), new Author(), name, url,
+			faroProject, credentials, new Author(), name, url,
 			provider, null, DataSource.Status.ACTIVE.name());
 	}
 
@@ -296,8 +299,8 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 	protected LiferayUsersDataCreator createLiferayData() {
 		DataSource dataSource = createDataSource(
-			faroProject, getLiferayProvider(), _LIFERAY_DATA_SOURCE_NAME,
-			"beryl.com");
+			faroProject, new TokenCredentials(), getLiferayProvider(),
+			_LIFERAY_DATA_SOURCE_NAME, "beryl.com");
 
 		// Individuals
 
@@ -385,8 +388,8 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		LiferayUsersDataCreator liferayUsersDataCreator) {
 
 		DataSource dataSource = createDataSource(
-			faroProject, getSalesforceProvider(), _SALESFORCE_DATA_SOURCE_NAME,
-			"http://salesforce.example.faro.com");
+			faroProject, new DummyCredentials(), getSalesforceProvider(),
+			_SALESFORCE_DATA_SOURCE_NAME, "http://salesforce.example.faro.com");
 
 		// Accounts
 
