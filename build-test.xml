@@ -7178,6 +7178,7 @@ go</echo>
 									<fileset
 										dir="${test.app.server.liferay.home}/data"
 									>
+										<exclude if:true="${keep.hypersonicdb}" name="document_library/**" />
 										<exclude if:true="${keep.hypersonicdb}" name="hypersonic/lportal.lobs" />
 										<exclude if:true="${keep.hypersonicdb}" name="hypersonic/lportal.properties" />
 										<exclude if:true="${keep.hypersonicdb}" name="hypersonic/lportal.script" />
