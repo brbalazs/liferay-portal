@@ -13386,6 +13386,15 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 					</then>
 				</if>
 
+				<get-testcase-property property.name="delete.precompile.jsp.folder" />
+
+				<if>
+					<equals arg1="${delete.precompile.jsp.folder}" arg2="true" />
+					<then>
+						<delete dir="${liferay.home}/work" />
+					</then>
+				</if>
+
 				<if>
 					<available file="${liferay.home}/tmp/${theme.file.name}" />
 					<then>
