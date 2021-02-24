@@ -187,15 +187,18 @@ public class AnalyticEventsDataCreator extends DataCreator {
 		}
 
 		for (String formTitle : _FORM_TITLES) {
+			Map<String, Object> formAssetEvent =
+				new HashMap<String, Object>() {
+					{
+						put("formId", number.randomNumber(8, false));
+						put("title", formTitle);
+					}
+				};
+
 			_assetEvents.add(
-				_createEvent(
-					"Form", "formSubmitted",
-					new HashMap<String, Object>() {
-						{
-							put("formId", number.randomNumber(8, false));
-							put("title", formTitle);
-						}
-					}));
+				_createEvent("Form", "formSubmitted", formAssetEvent));
+			_assetEvents.add(
+				_createEvent("Form", "formViewed", formAssetEvent));
 		}
 
 		for (int i = 0; i < 10; i++) {
