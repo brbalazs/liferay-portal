@@ -550,15 +550,14 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 	private static final int _LIFERAY_ANALYTIC_EVENTS_MAX_COUNT_PER_USER = 50;
 
-	private static final String _LIFERAY_DATA_SOURCE_NAME =
-		"LIFERAY-DATASOURCE-FARO-EXAMPLE";
+	private static final String _LIFERAY_DATA_SOURCE_NAME = "Beryl Commerce";
 
 	private static final int _LIFERAY_INDIVIDUALS_COUNT = 100;
 
 	private static final int _SALESFORCE_ACCOUNTS_COUNT = 10;
 
 	private static final String _SALESFORCE_DATA_SOURCE_NAME =
-		"SALESFORCE-DATASOURCE-FARO-EXAMPLE";
+		"Beryl Salesforce";
 
 	private static final int _SALESFORCE_INDIVIDUALS_COUNT = 100;
 
