@@ -144,16 +144,27 @@ public class AnalyticEventsDataCreator extends DataCreator {
 
 	private void _createEvents() {
 		for (String blogTitle : _BLOG_TITLES) {
+			long blogEntryId = number.randomNumber(8, false);
+
+			Map<String, Object> blogAssetEvent =
+				new HashMap<String, Object>() {
+					{
+						put("classPK", blogEntryId);
+						put("depth", number.randomNumber(2, false));
+						put("entryId", blogEntryId);
+						put("numberOfWords", number.randomNumber());
+						put("score", number.randomDouble(1, 0, 1));
+						put("title", blogTitle);
+					}
+				};
+
 			_assetEvents.add(
-				_createEvent(
-					"Blog", "blogViewed",
-					new HashMap<String, Object>() {
-						{
-							put("entryId", number.randomNumber(8, false));
-							put("numberOfWords", number.randomNumber());
-							put("title", blogTitle);
-						}
-					}));
+				_createEvent("Blog", "blogDepthReached", blogAssetEvent));
+			_assetEvents.add(
+				_createEvent("Blog", "blogViewed", blogAssetEvent));
+			_assetEvents.add(_createEvent("Blog", "posted", blogAssetEvent));
+			_assetEvents.add(
+				_createEvent("Blog", "VOTE", blogAssetEvent));
 		}
 
 		for (int i = 0; i < 10; i++) {
