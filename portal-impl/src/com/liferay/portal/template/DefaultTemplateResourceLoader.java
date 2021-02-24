@@ -73,7 +73,6 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 
 		_templateResourceParsers = templateResourceParsers;
 		_modificationCheckInterval = modificationCheckInterval;
-
 		_multiVMPool = multiVMPool;
 
 		String portalCacheName = TemplateResourceLoader.class.getName();

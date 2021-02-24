@@ -61,7 +61,6 @@ public class DefaultMBListDisplayContext implements MBListDisplayContext {
 		long categoryId) {
 
 		_request = request;
-
 		_categoryId = categoryId;
 	}
 

@@ -62,7 +62,6 @@ public class DefaultMBAdminListDisplayContext
 		long categoryId) {
 
 		_request = request;
-
 		_categoryId = categoryId;
 	}
 

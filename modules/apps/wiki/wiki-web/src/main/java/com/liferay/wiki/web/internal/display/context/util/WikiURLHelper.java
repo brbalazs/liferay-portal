@@ -36,7 +36,6 @@ public class WikiURLHelper {
 		WikiGroupServiceConfiguration wikiGroupServiceConfiguration) {
 
 		_wikiRequestHelper = wikiRequestHelper;
-
 		_wikiGroupServiceConfiguration = wikiGroupServiceConfiguration;
 
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
@@ -48,7 +47,6 @@ public class WikiURLHelper {
 		WikiGroupServiceConfiguration wikiGroupServiceConfiguration) {
 
 		_wikiRequestHelper = wikiRequestHelper;
-
 		_wikiGroupServiceConfiguration = wikiGroupServiceConfiguration;
 
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
