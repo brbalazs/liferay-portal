@@ -126,7 +126,7 @@ exports[`AttributeView should render 1`] = `
               <td
                 class="table-column-text-end"
               >
-                Feb 18, 2021
+                Oct 10, 2011
               </td>
             </tr>
           </tbody>
@@ -142,7 +142,7 @@ exports[`AttributeView should render 1`] = `
               <td
                 class="table-column-text-end"
               >
-                Feb 18, 2021
+                Oct 10, 2011
               </td>
             </tr>
           </tbody>
@@ -158,7 +158,7 @@ exports[`AttributeView should render 1`] = `
               <td
                 class="table-column-text-end"
               >
-                Feb 18, 2021
+                Oct 10, 2011
               </td>
             </tr>
           </tbody>
