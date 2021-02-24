@@ -97,8 +97,22 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			liferayUsersDataCreator.getDataSourceId(), pageContextsDataCreator);
 
 		AnalyticEventsDataCreator analyticEventsDataCreator =
-			createAnalyticEvents(
-				liferayUsersDataCreator, pageContextsDataCreator);
+			new AnalyticEventsDataCreator(
+				contactsEngineClient, faroProject, pageContextsDataCreator);
+
+		createIdentityAnalyticEvents(
+			analyticEventsDataCreator, liferayUsersDataCreator);
+
+		poll(
+			() -> contactsEngineClient.getActivities(
+				faroProject, null, null, null, null, null, null, -2, 1, 0,
+				null),
+			analyticEventsDataCreator.getActivitiesCount(),
+			analyticEventsDataCreator.getActivitiesCount() * Time.SECOND / 2,
+			"activities");
+
+		createAnalyticEvents(
+			analyticEventsDataCreator, liferayUsersDataCreator);
 
 		poll(
 			() -> contactsEngineClient.getActivities(
@@ -117,13 +131,9 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		curateInterests();
 	}
 
-	protected AnalyticEventsDataCreator createAnalyticEvents(
-		LiferayUsersDataCreator liferayUsersDataCreator,
-		PageContextsDataCreator pageContextsDataCreator) {
-
-		AnalyticEventsDataCreator analyticEventsDataCreator =
-			new AnalyticEventsDataCreator(
-				contactsEngineClient, faroProject, pageContextsDataCreator);
+	protected void createAnalyticEvents(
+		AnalyticEventsDataCreator analyticEventsDataCreator,
+		LiferayUsersDataCreator liferayUsersDataCreator) {
 
 		for (Map<String, Object> liferayUser :
 				liferayUsersDataCreator.getObjects()) {
@@ -141,8 +151,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			new Object[] {liferayUsersDataCreator.getDataSourceId(), null});
 
 		analyticEventsDataCreator.execute();
-
-		return analyticEventsDataCreator;
 	}
 
 	protected DataSource createDataSource(
@@ -182,6 +190,24 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		contactsEngineClient.patchFieldMappings(
 			faroProject, dataSourceId, context, ownerType, fieldMappingMaps);
+	}
+
+	protected void createIdentityAnalyticEvents(
+		AnalyticEventsDataCreator analyticEventsDataCreator,
+		LiferayUsersDataCreator liferayUsersDataCreator) {
+
+		for (Map<String, Object> liferayUser :
+				liferayUsersDataCreator.getObjects()) {
+
+			analyticEventsDataCreator.create(
+				1, false,
+				new Object[] {
+					liferayUser.get("osbAsahDataSourceId"),
+					liferayUser.get("uuid")
+				});
+		}
+
+		analyticEventsDataCreator.execute();
 	}
 
 	protected void createIndividualSegments(String channelId) throws Exception {
@@ -569,7 +595,7 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 				return;
 			}
 
-			Thread.sleep(30 * Time.SECOND);
+			Thread.sleep(10 * Time.SECOND);
 		}
 	}
 
