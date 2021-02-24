@@ -76,7 +76,7 @@ definition {
 		property delete.precompiled.jsps = "true";
 		property portal.smoke = "false";
 
-		Smoke.viewWelcomeContentPage();
+		Smoke.viewWelcomePage();
 
 		Smoke.runSmoke();
 	}
