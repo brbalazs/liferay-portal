@@ -114,6 +114,13 @@ exports[`ConnectDXPModal renders 1`] = `
               </div>
             </div>
           </div>
+          <a
+            class="button-root btn btn-secondary more-information-link mt-4 btn-outline-borderless"
+            href="https://learn.liferay.com/analytics-cloud/latest/en/getting-started/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html"
+            target="_blank"
+          >
+            More Information
+          </a>
         </div>
         <div
           class="modal-footer d-flex justify-content-between"
