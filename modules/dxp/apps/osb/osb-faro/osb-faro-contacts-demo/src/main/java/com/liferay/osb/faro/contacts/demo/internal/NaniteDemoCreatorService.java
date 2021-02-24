@@ -571,9 +571,12 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		new HashMap<String, String>() {
 			{
 				put(
-					"engineers",
-					"contains(demographics/jobTitle/value, 'engineer')");
-				put("everybody", "demographics/email/value ne null");
+					"Annual Revenue > $500K",
+					"(accounts.filter(filter='(" +
+						"organization/annualRevenue/value gt 500000)'))");
+				put(
+					"managers",
+					"contains(demographics/jobTitle/value, 'manager')");
 			}
 		};
 

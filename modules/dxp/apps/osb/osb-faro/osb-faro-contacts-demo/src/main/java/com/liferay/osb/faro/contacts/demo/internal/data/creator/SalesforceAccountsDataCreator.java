@@ -55,7 +55,7 @@ public class SalesforceAccountsDataCreator extends DataCreator {
 		Map<String, Object> salesforceAccount = new HashMap<>();
 
 		salesforceAccount.put(
-			"AnnualRevenue", number.numberBetween(0, 1000) * 100000);
+			"AnnualRevenue", number.numberBetween(0, 1000) * 1000);
 		salesforceAccount.put("BillingCity", address.city());
 		salesforceAccount.put("BillingCountry", address.country());
 		salesforceAccount.put("BillingPostalCode", address.zipCode());
