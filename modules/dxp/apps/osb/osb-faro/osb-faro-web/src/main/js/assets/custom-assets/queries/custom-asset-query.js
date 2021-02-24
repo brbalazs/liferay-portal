@@ -26,14 +26,16 @@ export default metric =>
 			) {
 				${metric} {
 					histogram {
-						key
-						previousValue
-						previousValueKey
-						value
-						valueKey
-						trend {
-							percentage
-							trendClassification
+						metrics {
+							key
+							previousValue
+							previousValueKey
+							value
+							valueKey
+							trend {
+								percentage
+								trendClassification
+							}
 						}
 					}
 					previousValue
