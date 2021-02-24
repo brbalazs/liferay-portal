@@ -38,14 +38,16 @@ import java.util.concurrent.TimeUnit;
 public class AnalyticEventsDataCreator extends DataCreator {
 
 	public AnalyticEventsDataCreator(
-		ContactsEngineClient contactsEngineClient, FaroProject faroProject) {
+		ContactsEngineClient contactsEngineClient, FaroProject faroProject,
+		PageContextsDataCreator pageContextsDataCreator) {
 
 		super(
 			contactsEngineClient, faroProject, "osbasahcerebroraw",
 			"analytics-events");
 
 		_createEvents();
-		_pageContextsDataCreator.create(10, true);
+
+		_pageContextsDataCreator = pageContextsDataCreator;
 	}
 
 	public long getActivitiesCount() {
@@ -153,25 +155,23 @@ public class AnalyticEventsDataCreator extends DataCreator {
 		for (String blogTitle : _BLOG_TITLES) {
 			long blogEntryId = number.randomNumber(8, false);
 
-			Map<String, Object> blogAssetEvent =
-				new HashMap<String, Object>() {
-					{
-						put("classPK", blogEntryId);
-						put("depth", number.randomNumber(2, false));
-						put("entryId", blogEntryId);
-						put("numberOfWords", number.randomNumber());
-						put("score", number.randomDouble(1, 0, 1));
-						put("title", blogTitle);
-					}
-				};
+			Map<String, Object> blogAssetEvent = new HashMap<String, Object>() {
+				{
+					put("classPK", blogEntryId);
+					put("depth", number.randomNumber(2, false));
+					put("entryId", blogEntryId);
+					put("numberOfWords", number.randomNumber());
+					put("score", number.randomDouble(1, 0, 1));
+					put("title", blogTitle);
+				}
+			};
 
 			_assetEvents.add(
 				_createEvent("Blog", "blogDepthReached", blogAssetEvent));
 			_assetEvents.add(
 				_createEvent("Blog", "blogViewed", blogAssetEvent));
 			_assetEvents.add(_createEvent("Blog", "posted", blogAssetEvent));
-			_assetEvents.add(
-				_createEvent("Blog", "VOTE", blogAssetEvent));
+			_assetEvents.add(_createEvent("Blog", "VOTE", blogAssetEvent));
 		}
 
 		for (int i = 0; i < 10; i++) {
@@ -194,13 +194,12 @@ public class AnalyticEventsDataCreator extends DataCreator {
 		}
 
 		for (String formTitle : _FORM_TITLES) {
-			Map<String, Object> formAssetEvent =
-				new HashMap<String, Object>() {
-					{
-						put("formId", number.randomNumber(8, false));
-						put("title", formTitle);
-					}
-				};
+			Map<String, Object> formAssetEvent = new HashMap<String, Object>() {
+				{
+					put("formId", number.randomNumber(8, false));
+					put("title", formTitle);
+				}
+			};
 
 			_assetEvents.add(
 				_createEvent("Form", "formSubmitted", formAssetEvent));
@@ -257,8 +256,7 @@ public class AnalyticEventsDataCreator extends DataCreator {
 	private long _activitiesCount;
 	private final List<Map<String, Object>> _assetEvents = new ArrayList<>();
 	private final ObjectMapper _objectMapper = new ObjectMapper();
-	private final PageContextsDataCreator _pageContextsDataCreator =
-		new PageContextsDataCreator();
+	private final PageContextsDataCreator _pageContextsDataCreator;
 	private Map<String, Object> _pageEvent = new HashMap<>();
 
 }
