@@ -71,6 +71,14 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		createSalesforceData(liferayUsersDataCreator);
 
+		String channelId = getChannelId();
+
+		createIndividualSegments(channelId);
+
+		createMembershipChanges(channelId, _individualSegments.size());
+
+		createMembershipChanges(null, _SALESFORCE_ACCOUNTS_COUNT);
+
 		FaroThreadLocal.setCacheEnabled(false);
 
 		int individualsCount =
@@ -93,13 +101,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			analyticEventsDataCreator.getActivitiesCount() * Time.SECOND / 2,
 			"activities");
 
-		String channelId = getChannelId();
-
-		createIndividualSegments(channelId);
-
-		createMembershipChanges(channelId, _individualSegments.size());
-
-		createMembershipChanges(null, _SALESFORCE_ACCOUNTS_COUNT);
 
 		createLiferayAssociations(channelId, liferayUsersDataCreator);
 
