@@ -236,6 +236,26 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 								);
 							}
 
+							function <portlet:namespace />setUpStartAutoSave() {
+								var container = document.querySelector(
+									'#<%= ddmFormDisplayContext.getContainerId() %>'
+								);
+
+								container.onclick = function (event) {
+									<portlet:namespace />startAutoSave();
+
+									container.onclick = null;
+									container.onkeypress = null;
+								};
+
+								container.onkeypress = function (event) {
+									<portlet:namespace />startAutoSave();
+
+									container.onclick = null;
+									container.onkeypress = null;
+								};
+							}
+
 							function <portlet:namespace />startAutoSave() {
 								<portlet:namespace />clearInterval(<portlet:namespace />intervalId);
 
@@ -245,7 +265,7 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 							<portlet:namespace />form = Liferay.component('<%= ddmFormDisplayContext.getContainerId() %>DDMForm');
 
 							if (<portlet:namespace />form) {
-								<portlet:namespace />startAutoSave();
+								<portlet:namespace />setUpStartAutoSave();
 
 								<portlet:namespace />fireFormView();
 							}
@@ -256,7 +276,7 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 										<portlet:namespace />form = Liferay.component('<%= ddmFormDisplayContext.getContainerId() %>DDMForm');
 
 										if (<portlet:namespace />form) {
-											<portlet:namespace />startAutoSave();
+											<portlet:namespace />setUpStartAutoSave();
 
 											<portlet:namespace />fireFormView();
 										}
