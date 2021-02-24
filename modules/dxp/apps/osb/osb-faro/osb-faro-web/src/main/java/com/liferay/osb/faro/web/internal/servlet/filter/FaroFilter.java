@@ -24,6 +24,9 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"after-filter=URL Rewrite Filter", "dispatcher=FORWARD",
+		"before-filter=URL Rewrite Filter", "dispatcher=FORWARD",
 		"dispatcher=REQUEST", "servlet-context-name=",
 		"servlet-filter-name=Faro Filter", "url-pattern=/o/proxy/download/*",
 		"url-pattern=/web/guest/*", "url-pattern=/workspace/*"
@@ -52,6 +55,14 @@ public class FaroFilter extends BaseFilter {
 	public boolean isFilterEnabled(
 		HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse) {
+
+		String uri = httpServletRequest.getRequestURI();
+
+		Matcher matcher = _pattern.matcher(uri);
+
+		if (matcher.find()) {
+			return false;
+		}
 
 		String ppid = httpServletRequest.getParameter("p_p_id");
 
@@ -116,6 +127,9 @@ public class FaroFilter extends BaseFilter {
 	private static final String _SAML_SP_SESSION_KEY = "SAML_SP_SESSION_KEY";
 
 	private static final Log _log = LogFactoryUtil.getLog(FaroFilter.class);
+
+	private static final Pattern _pattern = Pattern.compile(
+		"/workspace/(.*)/endpoints/(.*)");
 
 	@Reference
 	private Portal _portal;
