@@ -37,9 +37,9 @@ describe('AttributeView', () => {
 	it('should render with a table', async() => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
-				<StaticRouter>
+				<RenderWithRouter>
 					<AttributeView groupId='23' />
-				</StaticRouter>
+				</RenderWithRouter>
 			</Provider>
 		);
 
