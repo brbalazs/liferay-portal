@@ -2,7 +2,7 @@ import BasePage from 'settings/components/BasePage';
 import Label from 'shared/components/Label';
 import React from 'react';
 import Table from 'shared/components/table';
-import {formatUTCDate} from 'shared/util/date';
+import {DateCell} from 'shared/components/table/cell-components';
 import {getDefinitions, getEvents} from 'shared/util/breadcrumbs';
 import {HasModal} from 'shared/types';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
@@ -10,9 +10,9 @@ import {useParams} from 'react-router-dom';
 
 // TODO: LRAC-7479 Use the graphql query instead of mocked data
 const MOCKED_ITEMS = [
-	{lastSeen: new Date(), sampleData: 'IBM'},
-	{lastSeen: new Date(), sampleData: 'Facebook'},
-	{lastSeen: new Date(), sampleData: 'ABC'}
+	{lastSeen: new Date('2011-10-10T14:48:00'), sampleData: 'IBM'},
+	{lastSeen: new Date('2011-10-10T14:48:00'), sampleData: 'Facebook'},
+	{lastSeen: new Date('2011-10-10T14:48:00'), sampleData: 'ABC'}
 ];
 
 const TableWithData = () => (
@@ -25,10 +25,12 @@ const TableWithData = () => (
 			},
 			{
 				accessor: 'lastSeen',
-				cellRenderer: ({data: {lastSeen}}) => (
-					<td className='table-column-text-end'>
-						{formatUTCDate(lastSeen, 'll')}
-					</td>
+				cellRenderer: ({data}) => (
+					<DateCell
+						className='table-column-text-end'
+						data={data}
+						datePath='lastSeen'
+					/>
 				),
 				className: 'table-column-text-end',
 				label: Liferay.Language.get('last-seen'),
