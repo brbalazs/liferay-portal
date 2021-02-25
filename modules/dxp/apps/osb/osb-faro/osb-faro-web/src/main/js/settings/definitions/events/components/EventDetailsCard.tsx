@@ -30,7 +30,7 @@ const MOCKED_ATTRIBUTES = [
 	{
 		attributeId: 'myid3',
 		defaultDataType: 'TYPE3',
-		description: 'mydescription',
+		description: '',
 		displayName: 'displayNamehere',
 		id: 'myid3',
 		name: 'anothernamet',
@@ -49,7 +49,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 	groupId
 }) => {
 	const [codeLines, setCodeLines] = useState([
-		`Analytics.send('${eventName}', {`,
+		`Analytics.track('${eventName}', {`,
 		'});'
 	]);
 
@@ -99,7 +99,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 				</Card.Title>
 			</Card.Header>
 
-			<Card.Body>
+			<Card.Body className='pb-0'>
 				<span className='mt-2 mb-4 w-50'>
 					{Liferay.Language.get(
 						'use-this-script-to-start-sending-events-to-analytics-cloud.-you-can-customize-which-attributes-to-send-with-a-specific-event.-selecting-the-attributes-below-will-generate-a-new-sample-script'
@@ -108,7 +108,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 
 				<Label>{Liferay.Language.get('sample-javascript-colon')}</Label>
 
-				<CodeSnippet codeLines={codeLines}></CodeSnippet>
+				<CodeSnippet codeLines={codeLines} />
 			</Card.Body>
 
 			<Table
@@ -122,7 +122,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 					attributesColumns.description,
 					attributesColumns.sampleValue,
 					attributesColumns.defaultDataType
-				]}
+				].map(column => ({...column, sortable: false}))}
 				items={MOCKED_ATTRIBUTES}
 				onSelectItemsChange={selectedAttribute =>
 					selectedAttributes.has(selectedAttribute.id)
@@ -130,7 +130,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 						: addSelectedAttribute(selectedAttribute)
 				}
 				rowIdentifier='id'
-				selectedItemsIOMap={OrderedMap(selectedAttributes)}
+				selectedItemsIOMap={selectedAttributes}
 				showCheckbox
 			/>
 		</Card>
