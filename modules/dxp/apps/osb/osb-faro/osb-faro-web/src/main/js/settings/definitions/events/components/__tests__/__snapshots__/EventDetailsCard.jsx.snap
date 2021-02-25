@@ -15,7 +15,7 @@ exports[`EventDetailsCard should render 1`] = `
       </h5>
     </div>
     <div
-      class="card-body"
+      class="card-body pb-0"
     >
       <span
         class="mt-2 mb-4 w-50"
@@ -37,7 +37,7 @@ exports[`EventDetailsCard should render 1`] = `
         <button
           aria-label="Click to Copy"
           class="button-root btn btn-secondary copy-button"
-          data-clipboard-text="Analytics.send('viewArticle', {
+          data-clipboard-text="Analytics.track('viewArticle', {
 	'firstTest': '1',
 	'testingtest': '2',
 	'anothernamet': '3',
@@ -51,7 +51,7 @@ exports[`EventDetailsCard should render 1`] = `
         <code
           class="code-container"
         >
-          Analytics.send('viewArticle', {
+          Analytics.track('viewArticle', {
 	'firstTest': '1',
 	'testingtest': '2',
 	'anothernamet': '3',
@@ -73,30 +73,12 @@ exports[`EventDetailsCard should render 1`] = `
             <th
               class="table-head-title"
             >
-              <a
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=name&page=1"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  Attribute
-                </span>
-              </a>
+              Attribute
             </th>
             <th
               class="table-head-title"
             >
-              <a
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=displayName&page=1"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  Display Name
-                </span>
-              </a>
+              Display Name
             </th>
             <th
               class="table-head-title"
@@ -106,30 +88,12 @@ exports[`EventDetailsCard should render 1`] = `
             <th
               class="table-head-title"
             >
-              <a
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=sampleValue&page=1"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  Sample Value
-                </span>
-              </a>
+              Sample Value
             </th>
             <th
               class="table-head-title"
             >
-              <a
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=defaultDataType&page=1"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  Data Typecast
-                </span>
-              </a>
+              Data Typecast
             </th>
           </tr>
         </thead>
@@ -172,7 +136,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/myid1"
+                      href="/workspace/23/settings/definitions/events/attributes/4486"
                     >
                       firstTest
                     </a>
@@ -247,7 +211,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/myid2"
+                      href="/workspace/23/settings/definitions/events/attributes/4588"
                     >
                       testingtest
                     </a>
@@ -322,7 +286,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/myid3"
+                      href="/workspace/23/settings/definitions/events/attributes/4581"
                     >
                       anothernamet
                     </a>
@@ -338,7 +302,9 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=""
             >
-              mydescription
+              <i>
+                No Description
+              </i>
             </td>
             <td
               class=""
