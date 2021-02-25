@@ -15,7 +15,6 @@
 package com.liferay.dynamic.data.mapping.form.builder.internal.servlet;
 
 import com.liferay.dynamic.data.mapping.expression.DDMExpressionFunction;
-import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -144,14 +143,14 @@ public class DDMFormFunctionsServlet extends BaseDDMFormBuilderServlet {
 
 		String key = entry.getKey();
 
-		String labelLanguageKey = key + CharPool.UNDERLINE + "function";
+		String labelLanguageKey = key + "_function";
 
 		jsonObject.put(
 			"label", LanguageUtil.get(resourceBundle, labelLanguageKey));
 
 		jsonObject.put("value", key);
 
-		String tooltipLanguageKey = key + CharPool.UNDERLINE + "tooltip";
+		String tooltipLanguageKey = key + "_tooltip";
 
 		jsonObject.put(
 			"tooltip", LanguageUtil.get(resourceBundle, tooltipLanguageKey));

@@ -769,8 +769,7 @@ public class MediaWikiImporter implements WikiImporter {
 	protected String translateMediaWikiImagePaths(String content) {
 		return content.replaceAll(
 			_imagesPattern.pattern(),
-			StringBundler.concat(
-				"$1$2", SHARED_IMAGES_TITLE, StringPool.SLASH, "$3$4"));
+			StringBundler.concat("$1$2", SHARED_IMAGES_TITLE, "/$3$4"));
 	}
 
 	protected String translateMediaWikiToCreole(

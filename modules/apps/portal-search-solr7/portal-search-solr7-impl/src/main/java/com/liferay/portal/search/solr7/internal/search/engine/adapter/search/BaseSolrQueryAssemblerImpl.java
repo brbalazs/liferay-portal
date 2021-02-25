@@ -83,8 +83,7 @@ public class BaseSolrQueryAssemblerImpl implements BaseSolrQueryAssembler {
 
 		filterQueries.add(
 			StringBundler.concat(
-				StringPool.OPEN_CURLY_BRACE, "!tag", StringPool.EQUAL, tag,
-				StringPool.CLOSE_CURLY_BRACE, filterString));
+				"{!tag=", tag, StringPool.CLOSE_CURLY_BRACE, filterString));
 	}
 
 	protected void excludeTags(

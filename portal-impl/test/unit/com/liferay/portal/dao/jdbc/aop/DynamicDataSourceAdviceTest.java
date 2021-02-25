@@ -14,7 +14,6 @@
 
 package com.liferay.portal.dao.jdbc.aop;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.jdbc.aop.DynamicDataSourceTargetSource;
 import com.liferay.portal.kernel.dao.jdbc.aop.MasterDataSource;
 import com.liferay.portal.kernel.dao.jdbc.aop.Operation;
@@ -182,8 +181,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_writeDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method1",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method1", _getCurrentMethod());
 
 			_testMethod1 = true;
 		}
@@ -195,8 +193,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_writeDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method2",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method2", _getCurrentMethod());
 
 			_testMethod2 = true;
 		}
@@ -208,8 +205,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_readDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method3",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method3", _getCurrentMethod());
 
 			_testMethod3 = true;
 		}
@@ -222,8 +218,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_writeDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method4",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method4", _getCurrentMethod());
 
 			_testMethod4 = true;
 		}
@@ -236,8 +231,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_writeDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method5",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method5", _getCurrentMethod());
 
 			_testMethod5 = true;
 		}
@@ -254,8 +248,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_readDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method6",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method6", _getCurrentMethod());
 
 			methodInvocation = createMethodInvocation(this, "method1");
 
@@ -266,8 +259,7 @@ public class DynamicDataSourceAdviceTest {
 			Assert.assertSame(
 				_writeDataSource, _dynamicDataSourceTargetSource.getTarget());
 			Assert.assertEquals(
-				TestClass.class.getName() + StringPool.PERIOD + "method6",
-				_getCurrentMethod());
+				TestClass.class.getName() + ".method6", _getCurrentMethod());
 
 			_testMethod6 = true;
 		}

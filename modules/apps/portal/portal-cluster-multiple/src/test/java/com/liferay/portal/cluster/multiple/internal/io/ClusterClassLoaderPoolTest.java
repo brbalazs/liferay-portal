@@ -108,8 +108,8 @@ public class ClusterClassLoaderPoolTest {
 		Thread thread = new Thread(
 			futureTask,
 			StringBundler.concat(
-				ClusterClassLoaderPoolTest.class.getName(), StringPool.DASH,
-				"testConcurrentRegister"));
+				ClusterClassLoaderPoolTest.class.getName(),
+				"-testConcurrentRegister"));
 
 		thread.start();
 
@@ -154,8 +154,8 @@ public class ClusterClassLoaderPoolTest {
 		Thread thread = new Thread(
 			futureTask,
 			StringBundler.concat(
-				ClusterClassLoaderPoolTest.class.getName(), StringPool.DASH,
-				"testConcurrentUnregister"));
+				ClusterClassLoaderPoolTest.class.getName(),
+				"-testConcurrentUnregister"));
 
 		thread.start();
 
