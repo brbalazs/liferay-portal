@@ -92,14 +92,14 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 	};
 
 	return (
-		<Card key='cardContainer' pageDisplay>
+		<Card key='cardContainer'>
 			<Card.Header>
 				<Card.Title>
 					{Liferay.Language.get('send-this-event')}
 				</Card.Title>
 			</Card.Header>
 
-			<Card.Body className='pb-0'>
+			<Card.Body>
 				<span className='mt-2 mb-4 w-50'>
 					{Liferay.Language.get(
 						'use-this-script-to-start-sending-events-to-analytics-cloud.-you-can-customize-which-attributes-to-send-with-a-specific-event.-selecting-the-attributes-below-will-generate-a-new-sample-script'
