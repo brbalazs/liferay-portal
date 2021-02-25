@@ -34,7 +34,7 @@ describe('EventDetailsCard', () => {
 		expect(container.querySelector('.copy-button')).toHaveAttribute(
 			'data-clipboard-text',
 			[
-				"Analytics.send('viewArticle', {",
+				"Analytics.track('viewArticle', {",
 				"\n\t'testingtest': '2',",
 				"\n\t'anothernamet': '3',",
 				'\n});'

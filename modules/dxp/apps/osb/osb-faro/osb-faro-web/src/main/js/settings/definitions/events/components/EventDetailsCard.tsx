@@ -10,29 +10,29 @@ import {Map, OrderedMap} from 'immutable';
 // TODO: LRAC-7486 Use eventId to fetch related attributes
 const MOCKED_ATTRIBUTES = [
 	{
-		attributeId: 'myid1',
+		attributeId: '4486',
 		defaultDataType: 'TYPE',
 		description: 'mydescription',
 		displayName: 'displayNamehere',
-		id: 'myid1',
+		id: '4486',
 		name: 'firstTest',
 		sampleValue: '1'
 	},
 	{
-		attributeId: 'myid2',
+		attributeId: '4588',
 		defaultDataType: 'TYPE2',
 		description: 'seconddescription',
 		displayName: 'seconddisplay',
-		id: 'myid2',
+		id: '4588',
 		name: 'testingtest',
 		sampleValue: '2'
 	},
 	{
-		attributeId: 'myid3',
+		attributeId: '4581',
 		defaultDataType: 'TYPE3',
 		description: '',
 		displayName: 'displayNamehere',
-		id: 'myid3',
+		id: '4581',
 		name: 'anothernamet',
 		sampleValue: '3'
 	}
