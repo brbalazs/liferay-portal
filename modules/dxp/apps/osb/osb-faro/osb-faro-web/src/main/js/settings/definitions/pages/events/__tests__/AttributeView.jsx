@@ -22,7 +22,7 @@ const RenderWithRouter = ({children}) => (
 );
 
 describe('AttributeView', () => {
-	it('should render', async() => {
+	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<RenderWithRouter>
@@ -34,7 +34,7 @@ describe('AttributeView', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with a table', async() => {
+	it('should render with a table', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<RenderWithRouter>
