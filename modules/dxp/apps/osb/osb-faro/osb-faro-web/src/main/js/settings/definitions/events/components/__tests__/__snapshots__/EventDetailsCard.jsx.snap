@@ -3,7 +3,7 @@
 exports[`EventDetailsCard should render 1`] = `
 <div>
   <div
-    class="card card-root page-display"
+    class="card card-root"
   >
     <div
       class="card-header"
@@ -15,7 +15,7 @@ exports[`EventDetailsCard should render 1`] = `
       </h5>
     </div>
     <div
-      class="card-body pb-0"
+      class="card-body"
     >
       <span
         class="mt-2 mb-4 w-50"
