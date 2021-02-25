@@ -145,6 +145,8 @@ export const attributesColumns = {
 	},
 	description: {
 		accessor: 'description',
+		dataFormatter: value =>
+			value || <i>{Liferay.Language.get('no-description')}</i>,
 		label: Liferay.Language.get('description'),
 		sortable: false
 	},
