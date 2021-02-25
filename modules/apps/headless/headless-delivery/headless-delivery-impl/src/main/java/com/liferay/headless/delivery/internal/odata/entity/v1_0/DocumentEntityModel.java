@@ -15,7 +15,6 @@
 package com.liferay.headless.delivery.internal.odata.entity.v1_0;
 
 import com.liferay.headless.common.spi.odata.entity.EntityFieldsMapFactory;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.odata.entity.CollectionEntityField;
@@ -54,8 +53,7 @@ public class DocumentEntityModel implements EntityModel {
 				locale -> Field.MODIFIED_DATE),
 			new IdEntityField(
 				"encodingFormat",
-				locale -> Field.getSortableFieldName(
-					StringBundler.concat("mimeType_String")),
+				locale -> Field.getSortableFieldName("mimeType_String"),
 				mimeType -> {
 					String encodingFormat = String.valueOf(mimeType);
 
@@ -67,8 +65,7 @@ public class DocumentEntityModel implements EntityModel {
 				"sizeInBytes", locale -> Field.getSortableFieldName("size")),
 			new StringEntityField(
 				"fileExtension",
-				locale -> Field.getSortableFieldName(
-					StringBundler.concat("extension_String"))),
+				locale -> Field.getSortableFieldName("extension_String")),
 			new StringEntityField(
 				"title",
 				locale -> Field.getSortableFieldName(

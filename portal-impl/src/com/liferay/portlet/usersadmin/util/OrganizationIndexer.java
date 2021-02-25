@@ -251,8 +251,7 @@ public class OrganizationIndexer extends BaseIndexer<Organization> {
 			return "name";
 		}
 		else if (orderByCol.equals("type")) {
-			return Field.getSortableFieldName(
-				StringBundler.concat("type_String"));
+			return Field.getSortableFieldName("type_String");
 		}
 
 		return orderByCol;

@@ -15,7 +15,6 @@
 package com.liferay.portal.cluster.multiple.internal.io;
 
 import com.liferay.petra.lang.ClassLoaderPool;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.test.CaptureHandler;
 import com.liferay.portal.kernel.test.JDKLoggerTestUtil;
@@ -107,9 +106,8 @@ public class ClusterClassLoaderPoolTest {
 
 		Thread thread = new Thread(
 			futureTask,
-			StringBundler.concat(
-				ClusterClassLoaderPoolTest.class.getName(),
-				"-testConcurrentRegister"));
+			ClusterClassLoaderPoolTest.class.getName() +
+				"-testConcurrentRegister");
 
 		thread.start();
 
@@ -153,9 +151,8 @@ public class ClusterClassLoaderPoolTest {
 
 		Thread thread = new Thread(
 			futureTask,
-			StringBundler.concat(
-				ClusterClassLoaderPoolTest.class.getName(),
-				"-testConcurrentUnregister"));
+			ClusterClassLoaderPoolTest.class.getName() +
+				"-testConcurrentUnregister");
 
 		thread.start();
 
