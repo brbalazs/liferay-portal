@@ -1,5 +1,5 @@
 dependencies {
-	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.10.3"
+	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.10.5.1"
 	compileInclude group: "io.netty", name: "netty-buffer", version: "4.1.50.Final"
 	compileInclude group: "io.netty", name: "netty-codec", version: "4.1.50.Final"
 	compileInclude group: "io.netty", name: "netty-codec-http", version: "4.1.50.Final"
