@@ -73,7 +73,7 @@ public class ExportPortlet extends MVCPortlet {
 
 		Group group = themeDisplay.getSiteGroup();
 
-		if ((!group.hasPublicLayouts() && group.hasPrivateLayouts()) ||
+		if ((group.hasPrivateLayouts() && !group.hasPublicLayouts()) ||
 			group.isLayoutSetPrototype()) {
 
 			renderRequest.setAttribute(
