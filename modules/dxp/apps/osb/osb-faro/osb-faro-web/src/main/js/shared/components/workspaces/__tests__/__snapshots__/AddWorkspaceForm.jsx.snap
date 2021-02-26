@@ -129,11 +129,6 @@ exports[`AddWorkspaceForm should render 1`] = `
               class="instructions"
             >
               Select a timezone that will be used for all data reporting in your workspace.
-              <strong
-                class="ml-1"
-              >
-                Cannot be changed after creation.
-              </strong>
             </p>
             <div
               class="form-group time-zone-picker-root form-group-autofit"
