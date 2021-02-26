@@ -663,7 +663,7 @@ export class SegmentGrowthWithList extends React.Component {
 						alwaysShowSelectedTooltip
 						data={data}
 						hasSelectedPoint={hasSelectedPoint}
-						individualCount={individualCounts}
+						individualCounts={individualCounts}
 						onPointSelect={onPointSelect}
 						selectedPoint={selectedPoint}
 					/>
