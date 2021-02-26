@@ -463,7 +463,11 @@ gradle.beforeProject {
 		}
 
 		pluginManager.withPlugin("com.liferay.theme.defaults.plugin") {
-			LiferayThemeDefaultsGulpPlugin.INSTANCE.apply(project);
+			File gitRepoDir = _getRootDir(project.projectDir, ".gitrepo")
+
+			if (gitRepoDir == null) {
+				LiferayThemeDefaultsGulpPlugin.INSTANCE.apply(project);
+			}
 		}
 
 		pluginManager.withPlugin("eclipse") {
