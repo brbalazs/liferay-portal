@@ -281,12 +281,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										{Liferay.Language.get(
 											'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
 										)}
-
-										<strong className='ml-1'>
-											{Liferay.Language.get(
-												'cannot-be-changed-after-creation'
-											)}
-										</strong>
 									</p>
 
 									<TimeZonePicker
