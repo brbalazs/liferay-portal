@@ -1,11 +1,8 @@
 import * as API from 'shared/api';
 import FaroConstants from 'shared/util/constants';
-import React from 'react';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
-import {formatUTCDateFromUnix} from 'shared/util/date';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
 import {toPromise} from 'shared/components/form';
 
 const {
@@ -207,7 +204,7 @@ export function getDataSourceDisplayObject(
 		return STATUS_DISPLAY[actionNeeded];
 	}
 
-	const {lastSyncDate, state, status} = dataSource;
+	const {state, status} = dataSource;
 
 	const active = status === dataSourceStatuses.active;
 
@@ -240,38 +237,10 @@ export function getDataSourceDisplayObject(
 		case undefinedError:
 			return {
 				...STATUS_DISPLAY[undefinedError],
-				message: [
-					STATUS_DISPLAY[undefinedError].message,
-					lastSyncDate && (
-						<LastSyncDate
-							date={lastSyncDate}
-							key='LAST_SYNC_DATE'
-						/>
-					)
-				]
+				message: [STATUS_DISPLAY[undefinedError].message]
 			};
 		default:
 			return STATUS_DISPLAY.default;
-	}
-}
-
-interface ILastSyncDateProps extends React.HTMLAttributes<HTMLElement> {
-	date: number;
-}
-
-class LastSyncDate extends React.Component<ILastSyncDateProps> {
-	render() {
-		const {className, date} = this.props;
-
-		return (
-			<p className={className}>
-				<b>
-					{`${sub(Liferay.Language.get('last-successful-sync-x'), [
-						formatUTCDateFromUnix(date, 'l - LT')
-					])} GMT`}
-				</b>
-			</p>
-		);
 	}
 }
 

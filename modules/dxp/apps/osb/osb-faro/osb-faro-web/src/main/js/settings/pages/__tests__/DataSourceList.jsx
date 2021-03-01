@@ -9,8 +9,7 @@ import {
 	DataSourceList,
 	DataSourceName,
 	disableRow,
-	StatusRenderer,
-	SyncTimeRenderer
+	StatusRenderer
 } from '../DataSourceList';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
@@ -218,14 +217,6 @@ describe('CellRenderers', () => {
 		);
 
 		expect(container.querySelector('a')).toBeNull();
-	});
-
-	it('should handle null lastSyncDate for a dataSource', () => {
-		const {container} = render(
-			<SyncTimeRenderer data={{lastSyncDate: null}} />
-		);
-
-		expect(container).toMatchSnapshot();
 	});
 });
 

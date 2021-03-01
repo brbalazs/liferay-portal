@@ -26,7 +26,7 @@ import {
 } from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {fromJS} from 'immutable';
-import {get, isNil} from 'lodash';
+import {get} from 'lodash';
 import {
 	getDataSourceDisplayObject,
 	validAnalyticsConfig,
@@ -124,18 +124,6 @@ const dateFormatter = (date, timeZoneId) =>
 	formatDateToTimeZone(date, 'll', timeZoneId);
 
 export const disableRow = ({state}) => state === inProgressDeleting;
-
-export const SyncTimeRenderer = ({data}, timeZoneId) => {
-	const {lastSyncDate} = data;
-
-	return (
-		<td>
-			{!isNil(lastSyncDate)
-				? dateFormatter(lastSyncDate, timeZoneId)
-				: '-'}
-		</td>
-	);
-};
 
 export const StatusRenderer = ({data}) => {
 	const {display, label} = getDataSourceDisplayObject(
@@ -396,12 +384,6 @@ export class DataSourceList extends React.Component {
 								dataFormatter: date =>
 									dateFormatter(date, timeZoneId),
 								label: Liferay.Language.get('date-added')
-							},
-							{
-								cellRenderer: data =>
-									SyncTimeRenderer(data, timeZoneId),
-								label: Liferay.Language.get('last-synced'),
-								sortable: false
 							},
 							{
 								cellRenderer: StatusRenderer,

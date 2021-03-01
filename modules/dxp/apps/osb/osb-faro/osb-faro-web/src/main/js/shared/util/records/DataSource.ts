@@ -7,7 +7,6 @@ interface IDataSource {
 	event?: string;
 	fileName?: string;
 	id?: string;
-	lastSyncDate?: number;
 	name?: string;
 	properties?: Map<string, any>;
 	provider?: Map<string, any>;
@@ -27,7 +26,6 @@ export default class DataSource
 		event: null,
 		fileName: null,
 		id: null,
-		lastSyncDate: null,
 		name: '',
 		properties: null,
 		provider: null,
@@ -46,7 +44,6 @@ export default class DataSource
 	event?: string;
 	fileName?: string;
 	id?: string;
-	lastSyncDate?: number;
 	name?: string;
 	properties?: Map<string, any>;
 	provider?: Map<string, any>;

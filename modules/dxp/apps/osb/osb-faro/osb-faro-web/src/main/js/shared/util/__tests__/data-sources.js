@@ -181,7 +181,6 @@ describe('data-sources', () => {
 		it('should return the undefined error state display object if the state is UNDEFINED_ERROR', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					lastSyncDate: data.getTimestamp(-1),
 					state: undefinedError,
 					status: dataSourceStatuses.inactive
 				})

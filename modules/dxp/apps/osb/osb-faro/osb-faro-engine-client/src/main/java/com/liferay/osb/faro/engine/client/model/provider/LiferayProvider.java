@@ -16,7 +16,6 @@ package com.liferay.osb.faro.engine.client.model.provider;
 
 import com.liferay.osb.faro.engine.client.model.Provider;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,10 +56,6 @@ public class LiferayProvider implements Provider {
 			return _analyticsKey;
 		}
 
-		public Date getLastSyncTime() {
-			return _lastSyncTime;
-		}
-
 		public List<Container> getSites() {
 			return _sites;
 		}
@@ -77,30 +72,17 @@ public class LiferayProvider implements Provider {
 			_enableAllSites = enableAllSites;
 		}
 
-		public void setLastSyncTime(Date lastSyncTime) {
-			_lastSyncTime = lastSyncTime;
-		}
-
 		public void setSites(List<Container> sites) {
 			_sites = sites;
 		}
 
 		private String _analyticsKey;
 		private boolean _enableAllSites;
-		private Date _lastSyncTime;
 		private List<Container> _sites;
 
 	}
 
 	public static class ContactsConfiguration {
-
-		public Date getLastSuccessfulAuditEventTime() {
-			return _lastSuccessfulAuditEventTime;
-		}
-
-		public Date getLastSyncTime() {
-			return _lastSyncTime;
-		}
 
 		public List<Container> getOrganizations() {
 			return _organizations;
@@ -118,16 +100,6 @@ public class LiferayProvider implements Provider {
 			_enableAllContacts = enableAllContacts;
 		}
 
-		public void setLastSuccessfulAuditEventTime(
-			Date lastSuccessfulAuditEventTime) {
-
-			_lastSuccessfulAuditEventTime = lastSuccessfulAuditEventTime;
-		}
-
-		public void setLastSyncTime(Date lastSyncTime) {
-			_lastSyncTime = lastSyncTime;
-		}
-
 		public void setOrganizations(List<Container> organizations) {
 			_organizations = organizations;
 		}
@@ -137,8 +109,6 @@ public class LiferayProvider implements Provider {
 		}
 
 		private boolean _enableAllContacts;
-		private Date _lastSuccessfulAuditEventTime;
-		private Date _lastSyncTime;
 		private List<Container> _organizations;
 		private List<Container> _userGroups;
 

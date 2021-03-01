@@ -75,28 +75,6 @@ public class DataSourceDisplay implements FaroEntityDisplay {
 				_fileName = dlFileEntry.getDescription();
 			}
 		}
-		else if (_providerType.equals(LiferayProvider.TYPE)) {
-			LiferayProvider liferayProvider = (LiferayProvider)_provider;
-
-			LiferayProvider.AnalyticsConfiguration analyticsConfiguration =
-				liferayProvider.getAnalyticsConfiguration();
-
-			if (analyticsConfiguration != null) {
-				_lastSyncDate = analyticsConfiguration.getLastSyncTime();
-			}
-
-			LiferayProvider.ContactsConfiguration contactsConfiguration =
-				liferayProvider.getContactsConfiguration();
-
-			if ((contactsConfiguration != null) &&
-				(contactsConfiguration.getLastSyncTime() != null) &&
-				((_lastSyncDate == null) ||
-				 _lastSyncDate.before(
-					 contactsConfiguration.getLastSyncTime()))) {
-
-				_lastSyncDate = contactsConfiguration.getLastSyncTime();
-			}
-		}
 
 		_state = dataSource.getState();
 		_status = dataSource.getStatus();
@@ -149,7 +127,6 @@ public class DataSourceDisplay implements FaroEntityDisplay {
 	private Event _event;
 	private String _fileName;
 	private String _id;
-	private Date _lastSyncDate;
 	private String _name;
 	private Provider _provider;
 	private String _providerType;

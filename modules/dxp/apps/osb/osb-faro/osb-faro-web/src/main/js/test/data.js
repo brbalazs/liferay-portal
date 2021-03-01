@@ -372,7 +372,6 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 		event: null,
 		fileName: null,
 		id: String(seed),
-		lastSyncDate: getTimestamp(),
 		name: `CSV${seed}`,
 		properties: {},
 		provider: {
@@ -397,7 +396,6 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 		event: null,
 		fileName: null,
 		id: String(seed),
-		lastSyncDate: getTimestamp(),
 		name: `Liferay${seed}`,
 		properties: {},
 		provider: {
@@ -478,7 +476,6 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 		event: null,
 		fileName: null,
 		id: String(seed),
-		lastSyncDate: getTimestamp(),
 		name: 'Salesforce{seed}',
 		properties: {},
 		provider: {
