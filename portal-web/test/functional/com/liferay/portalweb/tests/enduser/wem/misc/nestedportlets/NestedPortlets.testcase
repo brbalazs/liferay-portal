@@ -35,11 +35,6 @@ definition {
 
 		Portlet.addPG(portletName = "Web Content Display");
 
-		Portlet.dragAndDropPortletToColumnPG(
-			columnNumberFrom = "1",
-			columnNumberTo = "2",
-			portletName = "Web Content Display");
-
 		Navigator.gotoPage(pageName = "Nested Portlets Page");
 
 		Portlet.addPG(portletName = "Nested Applications");
@@ -49,7 +44,7 @@ definition {
 		Navigator.gotoPage(pageName = "Nested Portlets Page");
 
 		NestedPortlets.dragAndDropPortletToPortletColumnPG(
-			columnNumberFrom = "2",
+			columnNumberFrom = "1",
 			portletColumnNumberTo = "1",
 			portletName = "Web Content Display");
 
