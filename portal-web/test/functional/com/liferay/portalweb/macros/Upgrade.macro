@@ -1942,6 +1942,17 @@ definition {
 
 		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
 
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Document",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
 		Navigator.gotoPage(pageName = "Document");
 
 		var key_menuItem = "List";
@@ -1985,111 +1996,111 @@ definition {
 			key_dmDocumentSize = "22KB"
 		);
 
-		Navigator.gotoPage(pageName = "Message Boards");
+		// Navigator.gotoPage(pageName = "Message Boards");
 
-		MessageboardsThread.gotoPG(
-			lastPostUserName = "Test Test",
-			replyCount = "0",
-			startedByUserName = "Test Test",
-			threadBody = "Message Boards Body",
-			threadSubject = "Message Boards Subject"
-		);
+		// MessageboardsThread.gotoPG(
+		// 	lastPostUserName = "Test Test",
+		// 	replyCount = "0",
+		// 	startedByUserName = "Test Test",
+		// 	threadBody = "Message Boards Body",
+		// 	threadSubject = "Message Boards Subject"
+		// );
 
-		MessageboardsThread.viewPG(
-			threadBody = "Message Boards Body",
-			threadSubject = "Message Boards Subject"
-		);
+		// MessageboardsThread.viewPG(
+		// 	threadBody = "Message Boards Body",
+		// 	threadSubject = "Message Boards Subject"
+		// );
 
-		Navigator.gotoPage(pageName = "Wiki");
+		// Navigator.gotoPage(pageName = "Wiki");
 
-		WikiPage.viewFrontPagePG(
-			wikiPageContent = "Wiki Front Page Content",
-			wikiPageTitle = "FrontPage"
-		);
+		// WikiPage.viewFrontPagePG(
+		// 	wikiPageContent = "Wiki Front Page Content",
+		// 	wikiPageTitle = "FrontPage"
+		// );
 
-		Navigator.gotoPage(pageName = "Blogs");
+		// Navigator.gotoPage(pageName = "Blogs");
 
-		BlogsEntry.viewEntry(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title"
-		);
+		// BlogsEntry.viewEntry(
+		// 	entryContent = "Blogs Entry Content",
+		// 	entryTitle = "Blogs Entry Title"
+		// );
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		// Navigator.openSiteURL(siteName = "Site Name");
 
-		AssertVisible(locator1 = "Home#PAGE_ACTIVE", key_pageName = "Site Page");
+		// AssertVisible(locator1 = "Home#PAGE_ACTIVE", key_pageName = "Site Page");
 
-		SignOut.signOut();
+		// SignOut.signOut();
 
-		SignIn.signIn(userEmailAddress = "user@liferay.com");
+		// SignIn.signIn(userEmailAddress = "user@liferay.com");
 
-		Smoke.viewWelcomePage(userFirstName = "Userfn", userLastName = "Userln");
+		// Smoke.viewWelcomePage(userFirstName = "Userfn", userLastName = "Userln");
 
-		Navigator.gotoPage(pageName = "Web Content");
+		// Navigator.gotoPage(pageName = "Web Content");
 
-		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
+		// WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
 
-		Navigator.gotoPage(pageName = "Document");
+		// Navigator.gotoPage(pageName = "Document");
 
-		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+		// LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
-		DMDocument.viewPG(dmDocumentTitle = "Document1");
+		// DMDocument.viewPG(dmDocumentTitle = "Document1");
 
-		AssertTextEquals(
-			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_UPLOADED_BY",
-			value1 = "Test Test"
-		);
+		// AssertTextEquals(
+		// 	locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_UPLOADED_BY",
+		// 	value1 = "Test Test"
+		// );
 
-		DMDocument.expandInfo();
+		// DMDocument.expandInfo();
 
-		AssertTextEquals(
-			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_VERSION",
-			value1 = "VERSION 1.0",
-			key_dmDocumentVersionNumber = "1.0"
-		);
+		// AssertTextEquals(
+		// 	locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_VERSION",
+		// 	value1 = "VERSION 1.0",
+		// 	key_dmDocumentVersionNumber = "1.0"
+		// );
 
-		AssertTextEquals(
-			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_WORKFLOW_STATUS",
-			value1 = "APPROVED"
-		);
+		// AssertTextEquals(
+		// 	locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_WORKFLOW_STATUS",
+		// 	value1 = "APPROVED"
+		// );
 
-		AssertTextEquals(
-			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_DOWNLOAD",
-			value1 = "Download",
-			key_dmDocumentSize = "22KB"
-		);
+		// AssertTextEquals(
+		// 	locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_DOWNLOAD",
+		// 	value1 = "Download",
+		// 	key_dmDocumentSize = "22KB"
+		// );
 
-		Navigator.gotoPage(pageName = "Message Boards");
+		// Navigator.gotoPage(pageName = "Message Boards");
 
-		MessageboardsThread.gotoPG(
-			lastPostUserName = "Test Test",
-			replyCount = "0",
-			startedByUserName = "Test Test",
-			threadBody = "Message Boards Body",
-			threadSubject = "Message Boards Subject"
-		);
+		// MessageboardsThread.gotoPG(
+		// 	lastPostUserName = "Test Test",
+		// 	replyCount = "0",
+		// 	startedByUserName = "Test Test",
+		// 	threadBody = "Message Boards Body",
+		// 	threadSubject = "Message Boards Subject"
+		// );
 
-		MessageboardsThread.viewPG(
-			threadBody = "Message Boards Body",
-			threadSubject = "Message Boards Subject"
-		);
+		// MessageboardsThread.viewPG(
+		// 	threadBody = "Message Boards Body",
+		// 	threadSubject = "Message Boards Subject"
+		// );
 
-		Navigator.gotoPage(pageName = "Wiki");
+		// Navigator.gotoPage(pageName = "Wiki");
 
-		WikiPage.viewFrontPagePG(
-			wikiPageContent = "Wiki Front Page Content",
-			wikiPageTitle = "FrontPage"
-		);
+		// WikiPage.viewFrontPagePG(
+		// 	wikiPageContent = "Wiki Front Page Content",
+		// 	wikiPageTitle = "FrontPage"
+		// );
 
-		Navigator.gotoPage(pageName = "Blogs");
+		// Navigator.gotoPage(pageName = "Blogs");
 
-		BlogsEntry.viewEntry(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title"
-		);
+		// BlogsEntry.viewEntry(
+		// 	entryContent = "Blogs Entry Content",
+		// 	entryTitle = "Blogs Entry Title"
+		// );
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		// Navigator.openSiteURL(siteName = "Site Name");
 
-		AssertVisible(locator1 = "Home#PAGE_ACTIVE", key_pageName = "Site Page");
+		// AssertVisible(locator1 = "Home#PAGE_ACTIVE", key_pageName = "Site Page");
 
 		SignOut.signOut();
 
