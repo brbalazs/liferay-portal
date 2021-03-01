@@ -358,6 +358,12 @@
 			if (link.length) {
 				var url = link.attr('href');
 
+				// LPS-127302
+
+				if (url === 'javascript:;') {
+					return;
+				}
+
 				var newWindow = link.attr('target') == '_blank';
 
 				var hrefFm = $(document.hrefFm);
