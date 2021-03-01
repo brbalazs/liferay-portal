@@ -351,8 +351,10 @@ definition {
 			locator1 = "ReportContent#REASON_SELECT",
 			value1 = "${flagReason}");
 
+		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_MODAL_FOOTER");
+
 		AssertClick(
-			locator1 = "Button#REPORT",
+			locator1 = "ReportContent#REPORT_BUTTON",
 			value1 = "Report");
 
 		AssertTextEquals.assertPartialText(
