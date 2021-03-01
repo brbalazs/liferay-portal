@@ -3917,6 +3917,10 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
 	</target>
 
+	<target name="functional-jboss71-mysql57-jdk8">
+		<run-functional-test app.server.type="jboss" database.type="mysql" database.version="5.7" />
+	</target>
+
 	<target name="functional-orcllinux6-tomcat90-mysql57-jdk8">
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
 	</target>
@@ -4083,6 +4087,10 @@ log.sanitizer.enabled=false</echo>
 
 	<target name="functional-suse15-tomcat90-mysql57-jdk8">
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
+	</target>
+
+	<target name="functional-tcserver40-mysql57-jdk8">
+		<run-functional-test app.server.type="tcserver" database.type="mysql" database.version="5.7" />
 	</target>
 
 	<target name="functional-tomcat90-db2111-jdk8">
