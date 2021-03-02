@@ -12,7 +12,7 @@ dist: bionic
 env:
     global:
         - NODE_OPTIONS=--max_old_space_size=2048
-jdk: oraclejdk8
+jdk: openjdk8
 jobs:
     include:
         - stage: push docker image
