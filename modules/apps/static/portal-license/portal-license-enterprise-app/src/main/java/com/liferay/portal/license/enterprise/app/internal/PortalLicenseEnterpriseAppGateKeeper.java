@@ -224,15 +224,26 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData = iterator.next();
 
-			String lpkgPath = _getLPKGPath(
-				portalLicenseEnterpriseAppBlockedBundleData.getLocation());
+			String webContextPath =
+				portalLicenseEnterpriseAppBlockedBundleData.getWebContextPath();
+
+			String location =
+				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
+
+			if (location.contains("protocol=lpkg")) {
+				if (webContextPath != null) {
+					_webContextPathMap.put(webContextPath, productId);
+				}
+
+				iterator.remove();
+
+				continue;
+			}
+
+			String lpkgPath = _getLPKGPath(location);
 
 			if (lpkgPath != null) {
 				lpkgPaths.add(lpkgPath);
-
-				String webContextPath =
-					portalLicenseEnterpriseAppBlockedBundleData.
-						getWebContextPath();
 
 				if (webContextPath != null) {
 					_webContextPathMap.put(webContextPath, productId);
