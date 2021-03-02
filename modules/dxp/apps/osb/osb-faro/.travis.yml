@@ -8,7 +8,7 @@ cache:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
     timeout: 600
-dist: trusty
+dist: bionic
 env:
     global:
         - NODE_OPTIONS=--max_old_space_size=2048
