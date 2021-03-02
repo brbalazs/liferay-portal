@@ -22,7 +22,11 @@ jobs:
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
         - stage: javascript tests
           script: ./gradlew packageRunWebpack packageRunTest
-          after_success: ./gradlew packageRunCoveralls
+          after_success:
+              - test $TRAVIS_BRANCH = "7.1.x" &&
+                test $TRAVIS_EVENT_TYPE = "push" &&
+                test $TRAVIS_REPO_SLUG = "liferay/com-liferay-osb-faro-private" &&
+                ./gradlew packageRunCoveralls
 services:
     - docker
 sudo: required
