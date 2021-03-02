@@ -1,81 +1,40 @@
 import BaseDropdown from './base-dropdown';
-import Promise from 'metal-promise';
-import React, {useEffect, useState} from 'react';
+import EVENT_DEFINITION_QUERY from 'event-analysis/queries/EventDefinitionQuery';
+import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuery';
+import React, {useState} from 'react';
+import {close, modalTypes, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
 import {Event, EventTypes} from '../types';
-
-// TODO: LRAC-7466 Replace Mock Data
-const MOCKED_DEFAULT_EVENTS_LIST = [
-	{
-		description: 'Blah blah blah blah',
-		displayName: 'Abandoned Form',
-		id: '0',
-		name: 'abandonedForm',
-		type: EventTypes.Default
-	},
-	{
-		description: 'Blah blah blah blah',
-		displayName: 'Add credit card ',
-		id: '1',
-		name: 'addCreditCard',
-		type: EventTypes.Default
-	},
-	{
-		displayName: 'Download',
-		id: '2',
-		name: 'download',
-
-		type: EventTypes.Default
-	}
-];
-
-// TODO: LRAC-7466 Replace Mock Data
-const MOCKED_CUSTOM_EVENTS_LIST = [
-	{
-		displayName: 'Form Submit',
-		id: '3',
-		name: 'formSubmit',
-		type: EventTypes.Custom
-	},
-	{
-		displayName: 'Filed Ticket',
-		id: '4',
-		name: 'filedTicket',
-		type: EventTypes.Custom
-	},
-	{
-		displayName: 'Read Article',
-		id: '5',
-		name: 'readArticle',
-		type: EventTypes.Custom
-	}
-];
-
-const MOCKED_MAP = {
-	all: [...MOCKED_DEFAULT_EVENTS_LIST, ...MOCKED_CUSTOM_EVENTS_LIST],
-	[EventTypes.Custom]: MOCKED_CUSTOM_EVENTS_LIST,
-	[EventTypes.Default]: MOCKED_DEFAULT_EVENTS_LIST
-};
+import {Modal} from 'shared/types';
+import {SafeResults} from 'shared/hoc/util';
+import {useQuery} from '@apollo/react-hooks';
 
 interface IAnalysisDropdownProps {
+	close: Modal.close;
 	eventId?: string;
 	onEventChange: (event: Event) => void;
+	open: Modal.open;
 	trigger: React.ReactElement;
 }
 
 const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
+	close,
 	eventId,
 	onEventChange,
+	open,
 	trigger
 }) => {
 	const [query, setQuery] = useState('');
 	const [eventType, setEventType] = useState<EventTypes | 'all'>('all');
-	const [events, setEvents] = useState<Event[]>([]);
 
-	useEffect(() => {
-		Promise.resolve(MOCKED_MAP[eventType]).then(response =>
-			setEvents(response)
-		);
-	}, [eventType]);
+	const result = useQuery(EVENT_DEFINITIONS_QUERY, {
+		variables: {
+			eventType,
+			keyword: '',
+			page: 0,
+			size: 200
+		}
+	});
 
 	return (
 		<BaseDropdown trigger={trigger}>
@@ -103,29 +62,45 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 						title={Liferay.Language.get('events')}
 					/>
 
-					<BaseDropdown.SearchableList
-						activeId={eventId}
-						items={events}
-						onEditClick={() => {
-							// TODO: LRAC-7407 Connect to edit modal
-							setActive(false);
-						}}
-						onItemClick={(event: Event) => {
-							if (event.id !== eventId) {
-								onEventChange(event);
+					<SafeResults {...result} page={false} pageDisplay={false}>
+						{({
+							eventDefinitions: {eventDefinitions}
+						}: {
+							eventDefinitions: {eventDefinitions: Event[]};
+						}) => (
+							<BaseDropdown.SearchableList
+								activeId={eventId}
+								items={eventDefinitions}
+								onEditClick={(event: Event) => {
+									open(
+										modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+										{
+											id: event.id,
+											onCancel: close,
+											query: EVENT_DEFINITION_QUERY
+										}
+									);
 
-								setActive(false);
-								setEventType('all');
-								setQuery('');
-							}
-						}}
-						onQueryChange={setQuery}
-						query={query}
-					/>
+									setActive(false);
+								}}
+								onItemClick={(event: Event) => {
+									if (event.id !== eventId) {
+										onEventChange(event);
+
+										setActive(false);
+										setEventType('all');
+										setQuery('');
+									}
+								}}
+								onQueryChange={setQuery}
+								query={query}
+							/>
+						)}
+					</SafeResults>
 				</>
 			)}
 		</BaseDropdown>
 	);
 };
 
-export default AnalysisDropdown;
+export default connect(null, {close, open})(AnalysisDropdown);

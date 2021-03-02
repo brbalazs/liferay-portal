@@ -6,7 +6,7 @@ interface IInfoCardPopoverProps {
 	dataType: DataTypes;
 	description: string;
 	name: string;
-	onEditClick: (id: string) => void;
+	onEditClick?: (id: string) => void;
 }
 
 const InfoCardPopover: React.FC<IInfoCardPopoverProps> = ({

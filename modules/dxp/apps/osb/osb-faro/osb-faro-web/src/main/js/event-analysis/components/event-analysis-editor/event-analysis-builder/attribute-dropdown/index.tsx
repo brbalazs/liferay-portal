@@ -1,70 +1,36 @@
 import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
-import Promise from 'metal-promise';
-import React, {useEffect, useState} from 'react';
+import EVENT_ATTRIBUTE_DEFINITION_QUERY from 'event-analysis/queries/EventAttributeDefinitionQuery';
+import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import React, {useState} from 'react';
 import {AddAttribute, EditAttribute} from '../../context/attributes';
-import {Attribute, AttributeTypes, DataTypes, Filter} from '../../types';
+import {Attribute, AttributeTypes, Filter} from '../../types';
 import {BREAKDOWN_FNS_MAP} from '../../utils';
-
-// TODO: LRAC-7466: Connect API
-const MOCKED_EVENT_ATTRIBUTE_LIST = [
-	{
-		defaultDataType: DataTypes.Duration,
-		displayName: 'Time on Page',
-		id: '1',
-		name: 'timeOnPage',
-		type: AttributeTypes.Event
-	},
-	{
-		defaultDataType: DataTypes.Date,
-		displayName: 'Date Created',
-		id: '2',
-		name: 'dateCreated',
-		type: AttributeTypes.Event
-	},
-	{
-		defaultDataType: DataTypes.Boolean,
-		displayName: 'Answered',
-		id: '3',
-		name: 'answered',
-		type: AttributeTypes.Event
-	},
-	{
-		defaultDataType: DataTypes.String,
-		displayName: 'Filed Ticket',
-		id: '4',
-		name: 'filedTicket',
-		type: AttributeTypes.Event
-	},
-	{
-		defaultDataType: DataTypes.Number,
-		displayName: 'Read Article',
-		id: '5',
-		name: 'readArticle',
-		type: AttributeTypes.Event
-	}
-];
-
-const MOCKED_MAP = {
-	[AttributeTypes.Event]: MOCKED_EVENT_ATTRIBUTE_LIST
-};
+import {close, modalTypes, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
+import {Modal} from 'shared/types';
+import {SafeResults} from 'shared/hoc/util';
+import {useQuery} from '@apollo/react-hooks';
 
 interface IAttributeDropdownProps {
 	attribute?: Attribute;
+	close: Modal.close;
 	disabledIds: string[];
 	filter?: Filter;
 	onAttributeSelect: AddAttribute | EditAttribute;
+	open: Modal.open;
 	trigger: React.ReactElement;
 }
 
 const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	attribute,
+	close,
 	disabledIds,
 	filter,
 	onAttributeSelect,
+	open,
 	trigger
 }) => {
-	const [attributesList, setAttributesList] = useState<Attribute[]>([]); // TODO: LRAC-7466: Remove one we have actual requests
 	const [attributeType, setAttributeType] = useState<AttributeTypes>(
 		AttributeTypes.Event
 	);
@@ -73,13 +39,13 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 		filter ? attribute : null
 	);
 
-	useEffect(() => {
-		const mockRequest = Promise.resolve(MOCKED_MAP[attributeType]).then(
-			response => setAttributesList(response)
-		);
-
-		return () => mockRequest.cancel();
-	}, [attributeType]);
+	const result = useQuery(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+		variables: {
+			keyword: '',
+			page: 0,
+			size: 200
+		}
+	});
 
 	const oldAttributeId = attribute ? attribute.id : null;
 
@@ -114,40 +80,66 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 								title={Liferay.Language.get('attributes')}
 							/>
 
-							<BaseDropdown.SearchableList
-								activeId={oldAttributeId}
-								disabledIds={disabledIds}
-								items={attributesList}
-								onEditClick={() => {
-									// TODO: LRAC-7407 Connect to edit modal
+							<SafeResults
+								page={false}
+								pageDisplay={false}
+								{...result}
+							>
+								{({
+									eventAttributeDefinitions: {
+										eventAttributeDefinitions
+									}
+								}: {
+									eventAttributeDefinitions: {
+										eventAttributeDefinitions: Attribute[];
+									};
+								}) => (
+									<BaseDropdown.SearchableList
+										activeId={oldAttributeId}
+										disabledIds={disabledIds}
+										items={eventAttributeDefinitions}
+										onEditClick={(attribute: Attribute) => {
+											open(
+												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+												{
+													id: attribute.id,
+													onCancel: close,
+													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+													showTypecast: true
+												}
+											);
 
-									setActive(false);
-								}}
-								onItemClick={(attribute: Attribute) => {
-									const {
-										defaultDataType,
-										id: attributeId
-									} = attribute;
+											setActive(false);
+										}}
+										onItemClick={(attribute: Attribute) => {
+											const {
+												defaultDataType,
+												id: attributeId
+											} = attribute;
 
-									const breakdownFn =
-										BREAKDOWN_FNS_MAP[defaultDataType];
+											const breakdownFn =
+												BREAKDOWN_FNS_MAP[
+													defaultDataType
+												];
 
-									onAttributeSelect({
-										attribute,
-										attributeId,
-										breakdown: breakdownFn({
-											attributeId,
-											type: attributeType
-										}),
-										oldAttributeId
-									});
+											onAttributeSelect({
+												attribute,
+												attributeId,
+												breakdown: breakdownFn({
+													attributeId,
+													type: attributeType
+												}),
+												oldAttributeId
+											});
 
-									setActive(false);
-								}}
-								onItemFilterClick={setSelectedAttribute}
-								onQueryChange={setQuery}
-								query={query}
-							/>
+											setActive(false);
+										}}
+										onItemFilterClick={setSelectedAttribute}
+										onQueryChange={setQuery}
+										query={query}
+									/>
+								)}
+							</SafeResults>
 						</>
 					)}
 
@@ -160,11 +152,23 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 							onAttributeChange={params => {
 								setSelectedAttribute(params);
 							}}
-							onEditClick={() => {
-								// TODO: LRAC-7407 Connect to edit modal
+							onEditClick={
+								selectedAttribute.id === oldAttributeId
+									? null
+									: () => {
+											open(
+												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+												{
+													id: selectedAttribute.id,
+													onCancel: close,
+													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+													showTypecast: true
+												}
+											);
 
-								setActive(false);
-							}}
+											setActive(false);
+									  }
+							}
 						/>
 					)}
 				</>
@@ -173,4 +177,4 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	);
 };
 
-export default AttributeDropdown;
+export default connect(null, {close, open})(AttributeDropdown);

@@ -37,7 +37,7 @@ interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
 	oldAttributeId?: string;
 	onActiveChange: (active: boolean) => void;
 	onAttributeChange: (attribute?: Attribute) => void;
-	onEditClick: (id: string) => void;
+	onEditClick?: (id: string) => void;
 }
 
 const AttributeFilter: React.FC<IAttributeFilterProps> = ({

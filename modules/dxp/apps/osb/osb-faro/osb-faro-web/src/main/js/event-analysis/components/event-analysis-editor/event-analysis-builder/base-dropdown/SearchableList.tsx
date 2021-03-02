@@ -1,5 +1,6 @@
 import ClayDropdown from '@clayui/drop-down';
 import ListItem from './ListItem';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import {Attribute, Breakdown, Event, Filter} from '../../types';
 import {spritemap} from 'shared/util/constants';
@@ -8,7 +9,7 @@ interface ISearchableListProps {
 	activeId?: string;
 	disabledIds?: string[];
 	items: (Attribute | Event)[];
-	onEditClick: () => void;
+	onEditClick: (item?: Attribute | Event) => void;
 	onItemClick: (
 		item: Attribute | Event,
 		breakdown?: Breakdown,
@@ -36,6 +37,8 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 			.includes(query.toLowerCase())
 	);
 
+	const noResults = !filteredItems.length;
+
 	return (
 		<>
 			<ClayDropdown.Search
@@ -48,28 +51,32 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 				value={query}
 			/>
 
-			<ClayDropdown.ItemList>
-				{filteredItems.map(item => (
-					<ListItem
-						active={activeId === item.id}
-						disabled={
-							disabledIds &&
-							disabledIds.some(
-								id => id === item.id && id !== activeId
-							)
-						}
-						item={item}
-						key={item.id}
-						onClick={() => onItemClick(item)}
-						onEditClick={onEditClick}
-						onFilterClick={
-							onItemFilterClick
-								? () => onItemFilterClick(item as Attribute)
-								: null
-						}
-					/>
-				))}
-			</ClayDropdown.ItemList>
+			{noResults && <NoResultsDisplay spacer />}
+
+			{!noResults && (
+				<ClayDropdown.ItemList className='base-dropdown-list'>
+					{filteredItems.map(item => (
+						<ListItem
+							active={activeId === item.id}
+							disabled={
+								disabledIds &&
+								disabledIds.some(
+									id => id === item.id && id !== activeId
+								)
+							}
+							item={item}
+							key={item.id}
+							onClick={() => onItemClick(item)}
+							onEditClick={() => onEditClick(item)}
+							onFilterClick={
+								onItemFilterClick
+									? () => onItemFilterClick(item as Attribute)
+									: null
+							}
+						/>
+					))}
+				</ClayDropdown.ItemList>
+			)}
 		</>
 	);
 };

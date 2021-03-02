@@ -7,7 +7,7 @@ interface IFilterInfoProps {
 	dataType: DataTypes;
 	description?: string;
 	name: string;
-	onEditClick: (id: string) => void;
+	onEditClick?: (id: string) => void;
 	showDescription?: boolean;
 }
 
@@ -22,13 +22,15 @@ const FilterInfo: React.FC<IFilterInfoProps> = ({
 		<div className='filter-name d-flex align-items-center justify-content-between'>
 			{name}
 
-			<Button
-				borderless
-				icon='pencil'
-				iconAlignment='left'
-				onClick={onEditClick}
-				size='sm'
-			/>
+			{onEditClick && (
+				<Button
+					borderless
+					icon='pencil'
+					iconAlignment='left'
+					onClick={onEditClick}
+					size='sm'
+				/>
+			)}
 		</div>
 
 		{showDescription && (

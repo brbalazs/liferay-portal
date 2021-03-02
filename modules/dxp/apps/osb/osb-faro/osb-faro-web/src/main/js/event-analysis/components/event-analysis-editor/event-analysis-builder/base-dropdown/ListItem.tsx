@@ -85,17 +85,17 @@ const ListItem: React.FC<IListItemProps> = ({
 				}
 				description={description}
 				name={displayName || name}
-				onEditClick={() => {
-					if (_overlayRef && _overlayRef.current) {
-						_overlayRef.current.hideOverlay();
-					}
+				onEditClick={
+					active || disabled
+						? null
+						: () => {
+								if (_overlayRef && _overlayRef.current) {
+									_overlayRef.current.hideOverlay();
+								}
 
-					onEditClick();
-
-					/** TODO: LRAC-7407 Open modal from settings page and reference the ID
-					 *  Must check if event or attribute by using isAttribute util
-					 **/
-				}}
+								onEditClick();
+						  }
+				}
 			/>
 		</Overlay>
 	);
