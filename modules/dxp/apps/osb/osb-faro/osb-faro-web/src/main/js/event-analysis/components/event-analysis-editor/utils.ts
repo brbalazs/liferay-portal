@@ -26,6 +26,14 @@ export const BOOLEAN_LABEL_MAP = {
 	true: Liferay.Language.get('true')
 };
 
+export const DATA_TYPE_LABELS_MAP = {
+	[DataTypes.Boolean]: Liferay.Language.get('boolean'),
+	[DataTypes.Date]: Liferay.Language.get('date'),
+	[DataTypes.Duration]: Liferay.Language.get('duration'),
+	[DataTypes.Number]: Liferay.Language.get('number'),
+	[DataTypes.String]: Liferay.Language.get('string')
+};
+
 export const DATE_GROUPING_LABELS_MAP = {
 	[DateGroupings.Dates]: Liferay.Language.get('date'),
 	[DateGroupings.Months]: Liferay.Language.get('month'),

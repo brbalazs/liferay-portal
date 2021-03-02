@@ -9,6 +9,7 @@ import CSVPreviewModal from 'settings/components/csv/CSVPreviewModal';
 import DeleteChannelModal from 'settings/components/DeleteChannelModal';
 import DeleteConfirmationModal from 'shared/components/DeleteConfirmationModal';
 import dom from 'metal-dom';
+import EditAttributeEventModal from 'event-analysis/components/EditAttributeEventModal';
 import ExportLogModal from 'settings/components/ExportLogModal';
 import FieldPreviewModal from 'settings/components/data-transformation-list/FieldPreviewModal';
 import IndividualAttributesModal from 'settings/components/IndividualAttributesModal';
@@ -47,6 +48,7 @@ const COMPONENT_MAP = {
 	[modalTypes.CSV_PREVIEW_MODAL]: CSVPreviewModal,
 	[modalTypes.DELETE_CHANNEL_MODAL]: DeleteChannelModal,
 	[modalTypes.DELETE_CONFIRMATION_MODAL]: DeleteConfirmationModal,
+	[modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL]: EditAttributeEventModal,
 	[modalTypes.EXPORT_LOG_MODAL]: ExportLogModal,
 	[modalTypes.FIELD_PREVIEW_MODAL]: FieldPreviewModal,
 	[modalTypes.INDIVIDUAL_ATTRIBUTES_MODAL]: IndividualAttributesModal,
