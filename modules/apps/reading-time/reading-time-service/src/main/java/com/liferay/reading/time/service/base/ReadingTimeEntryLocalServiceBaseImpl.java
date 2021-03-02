@@ -48,9 +48,12 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.reading.time.model.ReadingTimeEntry;
 import com.liferay.reading.time.service.ReadingTimeEntryLocalService;
+import com.liferay.reading.time.service.ReadingTimeEntryLocalServiceUtil;
 import com.liferay.reading.time.service.persistence.ReadingTimeEntryPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -74,7 +77,7 @@ public abstract class ReadingTimeEntryLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ReadingTimeEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.reading.time.service.ReadingTimeEntryLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ReadingTimeEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ReadingTimeEntryLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -587,11 +590,15 @@ public abstract class ReadingTimeEntryLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.reading.time.model.ReadingTimeEntry",
 			readingTimeEntryLocalService);
+
+		_setLocalServiceUtilService(readingTimeEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.reading.time.model.ReadingTimeEntry");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -633,6 +640,23 @@ public abstract class ReadingTimeEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		ReadingTimeEntryLocalService readingTimeEntryLocalService) {
+
+		try {
+			Field field =
+				ReadingTimeEntryLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, readingTimeEntryLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

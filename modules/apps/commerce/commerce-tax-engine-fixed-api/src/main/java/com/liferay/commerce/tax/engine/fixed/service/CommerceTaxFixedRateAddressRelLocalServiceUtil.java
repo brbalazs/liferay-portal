@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.tax.engine.fixed.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAddressRel;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceTaxFixedRateAddressRel. This utility wraps
@@ -48,24 +54,20 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param commerceTaxFixedRateAddressRel the commerce tax fixed rate address rel
 	 * @return the commerce tax fixed rate address rel that was added
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
-				com.liferay.commerce.tax.engine.fixed.model.
-					CommerceTaxFixedRateAddressRel
-						commerceTaxFixedRateAddressRel) {
+	public static CommerceTaxFixedRateAddressRel
+		addCommerceTaxFixedRateAddressRel(
+			CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel) {
 
 		return getService().addCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRel);
 	}
 
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
-					long userId, long groupId, long commerceTaxMethodId,
-					long cpTaxCategoryId, long commerceCountryId,
-					long commerceRegionId, String zip, double rate)
-				throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceTaxFixedRateAddressRel
+			addCommerceTaxFixedRateAddressRel(
+				long userId, long groupId, long commerceTaxMethodId,
+				long cpTaxCategoryId, long commerceCountryId,
+				long commerceRegionId, String zip, double rate)
+		throws PortalException {
 
 		return getService().addCommerceTaxFixedRateAddressRel(
 			userId, groupId, commerceTaxMethodId, cpTaxCategoryId,
@@ -76,15 +78,13 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
 	@Deprecated
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel addCommerceTaxFixedRateAddressRel(
-					long commerceTaxMethodId, long cpTaxCategoryId,
-					long commerceCountryId, long commerceRegionId, String zip,
-					double rate,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-				throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceTaxFixedRateAddressRel
+			addCommerceTaxFixedRateAddressRel(
+				long commerceTaxMethodId, long cpTaxCategoryId,
+				long commerceCountryId, long commerceRegionId, String zip,
+				double rate,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceTaxFixedRateAddressRel(
 			commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
@@ -97,10 +97,9 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param commerceTaxFixedRateAddressRelId the primary key for the new commerce tax fixed rate address rel
 	 * @return the new commerce tax fixed rate address rel
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel createCommerceTaxFixedRateAddressRel(
-				long commerceTaxFixedRateAddressRelId) {
+	public static CommerceTaxFixedRateAddressRel
+		createCommerceTaxFixedRateAddressRel(
+			long commerceTaxFixedRateAddressRelId) {
 
 		return getService().createCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRelId);
@@ -116,12 +115,9 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param commerceTaxFixedRateAddressRel the commerce tax fixed rate address rel
 	 * @return the commerce tax fixed rate address rel that was removed
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel deleteCommerceTaxFixedRateAddressRel(
-				com.liferay.commerce.tax.engine.fixed.model.
-					CommerceTaxFixedRateAddressRel
-						commerceTaxFixedRateAddressRel) {
+	public static CommerceTaxFixedRateAddressRel
+		deleteCommerceTaxFixedRateAddressRel(
+			CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel) {
 
 		return getService().deleteCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRel);
@@ -138,11 +134,10 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @return the commerce tax fixed rate address rel that was removed
 	 * @throws PortalException if a commerce tax fixed rate address rel with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel deleteCommerceTaxFixedRateAddressRel(
-					long commerceTaxFixedRateAddressRelId)
-				throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceTaxFixedRateAddressRel
+			deleteCommerceTaxFixedRateAddressRel(
+				long commerceTaxFixedRateAddressRelId)
+		throws PortalException {
 
 		return getService().deleteCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRelId);
@@ -173,17 +168,14 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -193,9 +185,7 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -211,9 +201,8 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -231,10 +220,9 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -246,9 +234,7 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -260,37 +246,34 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
-				long commerceTaxFixedRateAddressRelId) {
+	public static CommerceTaxFixedRateAddressRel
+		fetchCommerceTaxFixedRateAddressRel(
+			long commerceTaxFixedRateAddressRelId) {
 
 		return getService().fetchCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRelId);
 	}
 
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
-				long commerceTaxMethodId, long cpTaxCategoryId,
-				long commerceCountryId, long commerceRegionId, String zip) {
+	public static CommerceTaxFixedRateAddressRel
+		fetchCommerceTaxFixedRateAddressRel(
+			long commerceTaxMethodId, long cpTaxCategoryId,
+			long commerceCountryId, long commerceRegionId, String zip) {
 
 		return getService().fetchCommerceTaxFixedRateAddressRel(
 			commerceTaxMethodId, cpTaxCategoryId, commerceCountryId,
 			commerceRegionId, zip);
 	}
 
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel fetchCommerceTaxFixedRateAddressRel(
-				long commerceTaxMethodId, long commerceCountryId,
-				long commerceRegionId, String zip) {
+	public static CommerceTaxFixedRateAddressRel
+		fetchCommerceTaxFixedRateAddressRel(
+			long commerceTaxMethodId, long commerceCountryId,
+			long commerceRegionId, String zip) {
 
 		return getService().fetchCommerceTaxFixedRateAddressRel(
 			commerceTaxMethodId, commerceCountryId, commerceRegionId, zip);
@@ -309,11 +292,10 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @return the commerce tax fixed rate address rel
 	 * @throws PortalException if a commerce tax fixed rate address rel with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel getCommerceTaxFixedRateAddressRel(
-					long commerceTaxFixedRateAddressRelId)
-				throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceTaxFixedRateAddressRel
+			getCommerceTaxFixedRateAddressRel(
+				long commerceTaxFixedRateAddressRelId)
+		throws PortalException {
 
 		return getService().getCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRelId);
@@ -330,30 +312,25 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce tax fixed rate address rels (not inclusive)
 	 * @return the range of commerce tax fixed rate address rels
 	 */
-	public static java.util.List
-		<com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel> getCommerceTaxFixedRateAddressRels(
-				int start, int end) {
+	public static List<CommerceTaxFixedRateAddressRel>
+		getCommerceTaxFixedRateAddressRels(int start, int end) {
 
 		return getService().getCommerceTaxFixedRateAddressRels(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel> getCommerceTaxFixedRateAddressRels(
-				long cpTaxCategoryId, int start, int end) {
+	public static List<CommerceTaxFixedRateAddressRel>
+		getCommerceTaxFixedRateAddressRels(
+			long cpTaxCategoryId, int start, int end) {
 
 		return getService().getCommerceTaxFixedRateAddressRels(
 			cpTaxCategoryId, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel> getCommerceTaxFixedRateAddressRels(
-				long cpTaxCategoryId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.commerce.tax.engine.fixed.model.
-						CommerceTaxFixedRateAddressRel> orderByComparator) {
+	public static List<CommerceTaxFixedRateAddressRel>
+		getCommerceTaxFixedRateAddressRels(
+			long cpTaxCategoryId, int start, int end,
+			OrderByComparator<CommerceTaxFixedRateAddressRel>
+				orderByComparator) {
 
 		return getService().getCommerceTaxFixedRateAddressRels(
 			cpTaxCategoryId, start, end, orderByComparator);
@@ -375,24 +352,19 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 			cpTaxCategoryId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel>
-				getCommerceTaxMethodFixedRateAddressRels(
-					long commerceTaxMethodId, int start, int end) {
+	public static List<CommerceTaxFixedRateAddressRel>
+		getCommerceTaxMethodFixedRateAddressRels(
+			long commerceTaxMethodId, int start, int end) {
 
 		return getService().getCommerceTaxMethodFixedRateAddressRels(
 			commerceTaxMethodId, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel>
-				getCommerceTaxMethodFixedRateAddressRels(
-					long commerceTaxMethodId, int start, int end,
-					com.liferay.portal.kernel.util.OrderByComparator
-						<com.liferay.commerce.tax.engine.fixed.model.
-							CommerceTaxFixedRateAddressRel> orderByComparator) {
+	public static List<CommerceTaxFixedRateAddressRel>
+		getCommerceTaxMethodFixedRateAddressRels(
+			long commerceTaxMethodId, int start, int end,
+			OrderByComparator<CommerceTaxFixedRateAddressRel>
+				orderByComparator) {
 
 		return getService().getCommerceTaxMethodFixedRateAddressRels(
 			commerceTaxMethodId, start, end, orderByComparator);
@@ -424,9 +396,8 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -441,24 +412,19 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	 * @param commerceTaxFixedRateAddressRel the commerce tax fixed rate address rel
 	 * @return the commerce tax fixed rate address rel that was updated
 	 */
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel updateCommerceTaxFixedRateAddressRel(
-				com.liferay.commerce.tax.engine.fixed.model.
-					CommerceTaxFixedRateAddressRel
-						commerceTaxFixedRateAddressRel) {
+	public static CommerceTaxFixedRateAddressRel
+		updateCommerceTaxFixedRateAddressRel(
+			CommerceTaxFixedRateAddressRel commerceTaxFixedRateAddressRel) {
 
 		return getService().updateCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRel);
 	}
 
-	public static
-		com.liferay.commerce.tax.engine.fixed.model.
-			CommerceTaxFixedRateAddressRel updateCommerceTaxFixedRateAddressRel(
-					long commerceTaxFixedRateAddressRelId,
-					long commerceCountryId, long commerceRegionId, String zip,
-					double rate)
-				throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceTaxFixedRateAddressRel
+			updateCommerceTaxFixedRateAddressRel(
+				long commerceTaxFixedRateAddressRelId, long commerceCountryId,
+				long commerceRegionId, String zip, double rate)
+		throws PortalException {
 
 		return getService().updateCommerceTaxFixedRateAddressRel(
 			commerceTaxFixedRateAddressRelId, commerceCountryId,
@@ -466,30 +432,9 @@ public class CommerceTaxFixedRateAddressRelLocalServiceUtil {
 	}
 
 	public static CommerceTaxFixedRateAddressRelLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceTaxFixedRateAddressRelLocalService,
-		 CommerceTaxFixedRateAddressRelLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceTaxFixedRateAddressRelLocalService.class);
-
-		ServiceTracker
-			<CommerceTaxFixedRateAddressRelLocalService,
-			 CommerceTaxFixedRateAddressRelLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceTaxFixedRateAddressRelLocalService,
-					 CommerceTaxFixedRateAddressRelLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceTaxFixedRateAddressRelLocalService.class,
-						 null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceTaxFixedRateAddressRelLocalService _service;
 
 }

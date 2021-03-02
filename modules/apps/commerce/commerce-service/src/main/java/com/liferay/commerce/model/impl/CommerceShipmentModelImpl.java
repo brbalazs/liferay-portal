@@ -807,6 +807,8 @@ public class CommerceShipmentModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 

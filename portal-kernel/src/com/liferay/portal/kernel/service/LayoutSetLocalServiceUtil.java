@@ -14,7 +14,16 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.LayoutSet;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.InputStream;
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for LayoutSet. This utility wraps
@@ -46,15 +55,12 @@ public class LayoutSetLocalServiceUtil {
 	 * @param layoutSet the layout set
 	 * @return the layout set that was added
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet addLayoutSet(
-		com.liferay.portal.kernel.model.LayoutSet layoutSet) {
-
+	public static LayoutSet addLayoutSet(LayoutSet layoutSet) {
 		return getService().addLayoutSet(layoutSet);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet addLayoutSet(
-			long groupId, boolean privateLayout)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet addLayoutSet(long groupId, boolean privateLayout)
+		throws PortalException {
 
 		return getService().addLayoutSet(groupId, privateLayout);
 	}
@@ -65,9 +71,7 @@ public class LayoutSetLocalServiceUtil {
 	 * @param layoutSetId the primary key for the new layout set
 	 * @return the new layout set
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet createLayoutSet(
-		long layoutSetId) {
-
+	public static LayoutSet createLayoutSet(long layoutSetId) {
 		return getService().createLayoutSet(layoutSetId);
 	}
 
@@ -81,9 +85,7 @@ public class LayoutSetLocalServiceUtil {
 	 * @param layoutSet the layout set
 	 * @return the layout set that was removed
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet deleteLayoutSet(
-		com.liferay.portal.kernel.model.LayoutSet layoutSet) {
-
+	public static LayoutSet deleteLayoutSet(LayoutSet layoutSet) {
 		return getService().deleteLayoutSet(layoutSet);
 	}
 
@@ -98,16 +100,15 @@ public class LayoutSetLocalServiceUtil {
 	 * @return the layout set that was removed
 	 * @throws PortalException if a layout set with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet deleteLayoutSet(
-			long layoutSetId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet deleteLayoutSet(long layoutSetId)
+		throws PortalException {
 
 		return getService().deleteLayoutSet(layoutSetId);
 	}
 
 	public static void deleteLayoutSet(
 			long groupId, boolean privateLayout, ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteLayoutSet(groupId, privateLayout, serviceContext);
 	}
@@ -115,17 +116,14 @@ public class LayoutSetLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -135,9 +133,7 @@ public class LayoutSetLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -153,9 +149,8 @@ public class LayoutSetLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -173,10 +168,9 @@ public class LayoutSetLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -188,9 +182,7 @@ public class LayoutSetLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -202,33 +194,29 @@ public class LayoutSetLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet fetchLayoutSet(
-		long layoutSetId) {
-
+	public static LayoutSet fetchLayoutSet(long layoutSetId) {
 		return getService().fetchLayoutSet(layoutSetId);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet fetchLayoutSet(
+	public static LayoutSet fetchLayoutSet(
 		long groupId, boolean privateLayout) {
 
 		return getService().fetchLayoutSet(groupId, privateLayout);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet fetchLayoutSet(
-		String virtualHostname) {
-
+	public static LayoutSet fetchLayoutSet(String virtualHostname) {
 		return getService().fetchLayoutSet(virtualHostname);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet
-			fetchLayoutSetByLogoId(boolean privateLayout, long logoId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet fetchLayoutSetByLogoId(
+			boolean privateLayout, long logoId)
+		throws PortalException {
 
 		return getService().fetchLayoutSetByLogoId(privateLayout, logoId);
 	}
@@ -253,23 +241,20 @@ public class LayoutSetLocalServiceUtil {
 	 * @return the layout set
 	 * @throws PortalException if a layout set with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet getLayoutSet(
-			long layoutSetId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet getLayoutSet(long layoutSetId)
+		throws PortalException {
 
 		return getService().getLayoutSet(layoutSetId);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet getLayoutSet(
-			long groupId, boolean privateLayout)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet getLayoutSet(long groupId, boolean privateLayout)
+		throws PortalException {
 
 		return getService().getLayoutSet(groupId, privateLayout);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet getLayoutSet(
-			String virtualHostname)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet getLayoutSet(String virtualHostname)
+		throws PortalException {
 
 		return getService().getLayoutSet(virtualHostname);
 	}
@@ -285,14 +270,12 @@ public class LayoutSetLocalServiceUtil {
 	 * @param end the upper bound of the range of layout sets (not inclusive)
 	 * @return the range of layout sets
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.LayoutSet>
-		getLayoutSets(int start, int end) {
-
+	public static List<LayoutSet> getLayoutSets(int start, int end) {
 		return getService().getLayoutSets(start, end);
 	}
 
-	public static java.util.List<com.liferay.portal.kernel.model.LayoutSet>
-		getLayoutSetsByLayoutSetPrototypeUuid(String layoutSetPrototypeUuid) {
+	public static List<LayoutSet> getLayoutSetsByLayoutSetPrototypeUuid(
+		String layoutSetPrototypeUuid) {
 
 		return getService().getLayoutSetsByLayoutSetPrototypeUuid(
 			layoutSetPrototypeUuid);
@@ -319,9 +302,8 @@ public class LayoutSetLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -336,9 +318,7 @@ public class LayoutSetLocalServiceUtil {
 	 * @param layoutSet the layout set
 	 * @return the layout set that was updated
 	 */
-	public static com.liferay.portal.kernel.model.LayoutSet updateLayoutSet(
-		com.liferay.portal.kernel.model.LayoutSet layoutSet) {
-
+	public static LayoutSet updateLayoutSet(LayoutSet layoutSet) {
 		return getService().updateLayoutSet(layoutSet);
 	}
 
@@ -356,49 +336,48 @@ public class LayoutSetLocalServiceUtil {
 			long groupId, boolean privateLayout,
 			boolean layoutSetPrototypeLinkEnabled,
 			String layoutSetPrototypeUuid)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().updateLayoutSetPrototypeLinkEnabled(
 			groupId, privateLayout, layoutSetPrototypeLinkEnabled,
 			layoutSetPrototypeUuid);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateLogo(
+	public static LayoutSet updateLogo(
 			long groupId, boolean privateLayout, boolean logo, byte[] bytes)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateLogo(groupId, privateLayout, logo, bytes);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateLogo(
+	public static LayoutSet updateLogo(
 			long groupId, boolean privateLayout, boolean logo,
 			java.io.File file)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateLogo(groupId, privateLayout, logo, file);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateLogo(
-			long groupId, boolean privateLayout, boolean logo,
-			java.io.InputStream is)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet updateLogo(
+			long groupId, boolean privateLayout, boolean logo, InputStream is)
+		throws PortalException {
 
 		return getService().updateLogo(groupId, privateLayout, logo, is);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateLogo(
-			long groupId, boolean privateLayout, boolean logo,
-			java.io.InputStream is, boolean cleanUpStream)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet updateLogo(
+			long groupId, boolean privateLayout, boolean logo, InputStream is,
+			boolean cleanUpStream)
+		throws PortalException {
 
 		return getService().updateLogo(
 			groupId, privateLayout, logo, is, cleanUpStream);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateLookAndFeel(
+	public static LayoutSet updateLookAndFeel(
 			long groupId, boolean privateLayout, String themeId,
 			String colorSchemeId, String css)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateLookAndFeel(
 			groupId, privateLayout, themeId, colorSchemeId, css);
@@ -406,42 +385,36 @@ public class LayoutSetLocalServiceUtil {
 
 	public static void updateLookAndFeel(
 			long groupId, String themeId, String colorSchemeId, String css)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().updateLookAndFeel(groupId, themeId, colorSchemeId, css);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updatePageCount(
-			long groupId, boolean privateLayout)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static LayoutSet updatePageCount(long groupId, boolean privateLayout)
+		throws PortalException {
 
 		return getService().updatePageCount(groupId, privateLayout);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateSettings(
+	public static LayoutSet updateSettings(
 			long groupId, boolean privateLayout, String settings)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateSettings(groupId, privateLayout, settings);
 	}
 
-	public static com.liferay.portal.kernel.model.LayoutSet updateVirtualHost(
+	public static LayoutSet updateVirtualHost(
 			long groupId, boolean privateLayout, String virtualHostname)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateVirtualHost(
 			groupId, privateLayout, virtualHostname);
 	}
 
 	public static LayoutSetLocalService getService() {
-		if (_service == null) {
-			_service = (LayoutSetLocalService)PortalBeanLocatorUtil.locate(
-				LayoutSetLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static LayoutSetLocalService _service;
+	private static volatile LayoutSetLocalService _service;
 
 }

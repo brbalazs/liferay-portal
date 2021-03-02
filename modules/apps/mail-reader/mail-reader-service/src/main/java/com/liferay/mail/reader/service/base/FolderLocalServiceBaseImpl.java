@@ -16,6 +16,7 @@ package com.liferay.mail.reader.service.base;
 
 import com.liferay.mail.reader.model.Folder;
 import com.liferay.mail.reader.service.FolderLocalService;
+import com.liferay.mail.reader.service.FolderLocalServiceUtil;
 import com.liferay.mail.reader.service.persistence.AccountPersistence;
 import com.liferay.mail.reader.service.persistence.AttachmentPersistence;
 import com.liferay.mail.reader.service.persistence.FolderPersistence;
@@ -49,6 +50,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -71,7 +74,7 @@ public abstract class FolderLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FolderLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mail.reader.service.FolderLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FolderLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FolderLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -640,11 +643,15 @@ public abstract class FolderLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.mail.reader.model.Folder", folderLocalService);
+
+		_setLocalServiceUtilService(folderLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.mail.reader.model.Folder");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -686,6 +693,22 @@ public abstract class FolderLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		FolderLocalService folderLocalService) {
+
+		try {
+			Field field = FolderLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, folderLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.bom.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.bom.model.CommerceBOMDefinition;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceBOMDefinition. This utility wraps
@@ -48,19 +54,16 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was added
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-		addCommerceBOMDefinition(
-			com.liferay.commerce.bom.model.CommerceBOMDefinition
-				commerceBOMDefinition) {
+	public static CommerceBOMDefinition addCommerceBOMDefinition(
+		CommerceBOMDefinition commerceBOMDefinition) {
 
 		return getService().addCommerceBOMDefinition(commerceBOMDefinition);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-			addCommerceBOMDefinition(
-				long userId, long commerceBOMFolderId,
-				long cpAttachmentFileEntryId, String name, String friendlyUrl)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMDefinition addCommerceBOMDefinition(
+			long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+			String name, String friendlyUrl)
+		throws PortalException {
 
 		return getService().addCommerceBOMDefinition(
 			userId, commerceBOMFolderId, cpAttachmentFileEntryId, name,
@@ -73,8 +76,8 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param commerceBOMDefinitionId the primary key for the new commerce bom definition
 	 * @return the new commerce bom definition
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-		createCommerceBOMDefinition(long commerceBOMDefinitionId) {
+	public static CommerceBOMDefinition createCommerceBOMDefinition(
+		long commerceBOMDefinitionId) {
 
 		return getService().createCommerceBOMDefinition(
 			commerceBOMDefinitionId);
@@ -91,11 +94,9 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @return the commerce bom definition that was removed
 	 * @throws PortalException
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-			deleteCommerceBOMDefinition(
-				com.liferay.commerce.bom.model.CommerceBOMDefinition
-					commerceBOMDefinition)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMDefinition deleteCommerceBOMDefinition(
+			CommerceBOMDefinition commerceBOMDefinition)
+		throws PortalException {
 
 		return getService().deleteCommerceBOMDefinition(commerceBOMDefinition);
 	}
@@ -111,16 +112,16 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @return the commerce bom definition that was removed
 	 * @throws PortalException if a commerce bom definition with the primary key could not be found
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-			deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMDefinition deleteCommerceBOMDefinition(
+			long commerceBOMDefinitionId)
+		throws PortalException {
 
 		return getService().deleteCommerceBOMDefinition(
 			commerceBOMDefinitionId);
 	}
 
 	public static void deleteCommerceBOMDefinitions(long commerceBOMFolderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteCommerceBOMDefinitions(commerceBOMFolderId);
 	}
@@ -128,17 +129,14 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -148,9 +146,7 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -166,9 +162,8 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -186,10 +181,9 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -201,9 +195,7 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -215,14 +207,14 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-		fetchCommerceBOMDefinition(long commerceBOMDefinitionId) {
+	public static CommerceBOMDefinition fetchCommerceBOMDefinition(
+		long commerceBOMDefinitionId) {
 
 		return getService().fetchCommerceBOMDefinition(commerceBOMDefinitionId);
 	}
@@ -240,9 +232,9 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @return the commerce bom definition
 	 * @throws PortalException if a commerce bom definition with the primary key could not be found
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-			getCommerceBOMDefinition(long commerceBOMDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMDefinition getCommerceBOMDefinition(
+			long commerceBOMDefinitionId)
+		throws PortalException {
 
 		return getService().getCommerceBOMDefinition(commerceBOMDefinitionId);
 	}
@@ -258,9 +250,8 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce bom definitions (not inclusive)
 	 * @return the range of commerce bom definitions
 	 */
-	public static java.util.List
-		<com.liferay.commerce.bom.model.CommerceBOMDefinition>
-			getCommerceBOMDefinitions(int start, int end) {
+	public static List<CommerceBOMDefinition> getCommerceBOMDefinitions(
+		int start, int end) {
 
 		return getService().getCommerceBOMDefinitions(start, end);
 	}
@@ -293,9 +284,8 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -310,48 +300,25 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was updated
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-		updateCommerceBOMDefinition(
-			com.liferay.commerce.bom.model.CommerceBOMDefinition
-				commerceBOMDefinition) {
+	public static CommerceBOMDefinition updateCommerceBOMDefinition(
+		CommerceBOMDefinition commerceBOMDefinition) {
 
 		return getService().updateCommerceBOMDefinition(commerceBOMDefinition);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinition
-			updateCommerceBOMDefinition(
-				long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
-				String name)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMDefinition updateCommerceBOMDefinition(
+			long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
+			String name)
+		throws PortalException {
 
 		return getService().updateCommerceBOMDefinition(
 			commerceBOMDefinitionId, cpAttachmentFileEntryId, name);
 	}
 
 	public static CommerceBOMDefinitionLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceBOMDefinitionLocalService, CommerceBOMDefinitionLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceBOMDefinitionLocalService.class);
-
-		ServiceTracker
-			<CommerceBOMDefinitionLocalService,
-			 CommerceBOMDefinitionLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceBOMDefinitionLocalService,
-					 CommerceBOMDefinitionLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceBOMDefinitionLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceBOMDefinitionLocalService _service;
 
 }

@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.model.SamlSpSession;
 import com.liferay.saml.persistence.service.SamlSpSessionLocalService;
+import com.liferay.saml.persistence.service.SamlSpSessionLocalServiceUtil;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpConnectionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpSessionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSsoSessionPersistence;
@@ -51,6 +52,8 @@ import com.liferay.saml.persistence.service.persistence.SamlSpMessagePersistence
 import com.liferay.saml.persistence.service.persistence.SamlSpSessionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -74,7 +77,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SamlSpSessionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.saml.persistence.service.SamlSpSessionLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SamlSpSessionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SamlSpSessionLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -788,11 +791,15 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.saml.persistence.model.SamlSpSession",
 			samlSpSessionLocalService);
+
+		_setLocalServiceUtilService(samlSpSessionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.saml.persistence.model.SamlSpSession");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -834,6 +841,22 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SamlSpSessionLocalService samlSpSessionLocalService) {
+
+		try {
+			Field field = SamlSpSessionLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, samlSpSessionLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

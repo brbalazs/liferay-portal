@@ -964,7 +964,7 @@ public class CalendarResourceModelImpl
 
 	@Override
 	public void setCode(String code) {
-		_columnBitmask |= CODE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalCode == null) {
 			_originalCode = _code;

@@ -14,9 +14,15 @@
 
 package com.liferay.portal.security.wedeploy.auth.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for WeDeployAuthApp. This utility wraps
@@ -37,13 +43,10 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.security.wedeploy.auth.service.impl.WeDeployAuthAppLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-				addWeDeployAuthApp(
-					long userId, String name, String redirectURI,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static WeDeployAuthApp addWeDeployAuthApp(
+			long userId, String name, String redirectURI,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addWeDeployAuthApp(
 			userId, name, redirectURI, serviceContext);
@@ -59,11 +62,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param weDeployAuthApp the we deploy auth app
 	 * @return the we deploy auth app that was added
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			addWeDeployAuthApp(
-				com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-					weDeployAuthApp) {
+	public static WeDeployAuthApp addWeDeployAuthApp(
+		WeDeployAuthApp weDeployAuthApp) {
 
 		return getService().addWeDeployAuthApp(weDeployAuthApp);
 	}
@@ -74,9 +74,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param weDeployAuthAppId the primary key for the new we deploy auth app
 	 * @return the new we deploy auth app
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			createWeDeployAuthApp(long weDeployAuthAppId) {
+	public static WeDeployAuthApp createWeDeployAuthApp(
+		long weDeployAuthAppId) {
 
 		return getService().createWeDeployAuthApp(weDeployAuthAppId);
 	}
@@ -84,10 +83,9 @@ public class WeDeployAuthAppLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -103,10 +101,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @return the we deploy auth app that was removed
 	 * @throws PortalException if a we deploy auth app with the primary key could not be found
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-				deleteWeDeployAuthApp(long weDeployAuthAppId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static WeDeployAuthApp deleteWeDeployAuthApp(long weDeployAuthAppId)
+		throws PortalException {
 
 		return getService().deleteWeDeployAuthApp(weDeployAuthAppId);
 	}
@@ -121,18 +117,13 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param weDeployAuthApp the we deploy auth app
 	 * @return the we deploy auth app that was removed
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			deleteWeDeployAuthApp(
-				com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-					weDeployAuthApp) {
+	public static WeDeployAuthApp deleteWeDeployAuthApp(
+		WeDeployAuthApp weDeployAuthApp) {
 
 		return getService().deleteWeDeployAuthApp(weDeployAuthApp);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -142,9 +133,7 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -160,9 +149,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -180,10 +168,9 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -195,9 +182,7 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -209,22 +194,18 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			fetchWeDeployAuthApp(long weDeployAuthAppId) {
-
+	public static WeDeployAuthApp fetchWeDeployAuthApp(long weDeployAuthAppId) {
 		return getService().fetchWeDeployAuthApp(weDeployAuthAppId);
 	}
 
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			fetchWeDeployAuthApp(String redirectURI, String clientId) {
+	public static WeDeployAuthApp fetchWeDeployAuthApp(
+		String redirectURI, String clientId) {
 
 		return getService().fetchWeDeployAuthApp(redirectURI, clientId);
 	}
@@ -254,9 +235,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -268,10 +248,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @return the we deploy auth app
 	 * @throws PortalException if a we deploy auth app with the primary key could not be found
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-				getWeDeployAuthApp(long weDeployAuthAppId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static WeDeployAuthApp getWeDeployAuthApp(long weDeployAuthAppId)
+		throws PortalException {
 
 		return getService().getWeDeployAuthApp(weDeployAuthAppId);
 	}
@@ -287,9 +265,8 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param end the upper bound of the range of we deploy auth apps (not inclusive)
 	 * @return the range of we deploy auth apps
 	 */
-	public static java.util.List
-		<com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp>
-			getWeDeployAuthApps(int start, int end) {
+	public static List<WeDeployAuthApp> getWeDeployAuthApps(
+		int start, int end) {
 
 		return getService().getWeDeployAuthApps(start, end);
 	}
@@ -313,37 +290,16 @@ public class WeDeployAuthAppLocalServiceUtil {
 	 * @param weDeployAuthApp the we deploy auth app
 	 * @return the we deploy auth app that was updated
 	 */
-	public static
-		com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-			updateWeDeployAuthApp(
-				com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp
-					weDeployAuthApp) {
+	public static WeDeployAuthApp updateWeDeployAuthApp(
+		WeDeployAuthApp weDeployAuthApp) {
 
 		return getService().updateWeDeployAuthApp(weDeployAuthApp);
 	}
 
 	public static WeDeployAuthAppLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<WeDeployAuthAppLocalService, WeDeployAuthAppLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			WeDeployAuthAppLocalService.class);
-
-		ServiceTracker<WeDeployAuthAppLocalService, WeDeployAuthAppLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<WeDeployAuthAppLocalService, WeDeployAuthAppLocalService>(
-						bundle.getBundleContext(),
-						WeDeployAuthAppLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile WeDeployAuthAppLocalService _service;
 
 }

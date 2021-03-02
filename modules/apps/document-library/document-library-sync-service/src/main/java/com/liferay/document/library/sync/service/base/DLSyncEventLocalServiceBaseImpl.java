@@ -16,6 +16,7 @@ package com.liferay.document.library.sync.service.base;
 
 import com.liferay.document.library.sync.model.DLSyncEvent;
 import com.liferay.document.library.sync.service.DLSyncEventLocalService;
+import com.liferay.document.library.sync.service.DLSyncEventLocalServiceUtil;
 import com.liferay.document.library.sync.service.persistence.DLSyncEventPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>DLSyncEventLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.document.library.sync.service.DLSyncEventLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>DLSyncEventLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>DLSyncEventLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -414,11 +417,15 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.document.library.sync.model.DLSyncEvent",
 			dlSyncEventLocalService);
+
+		_setLocalServiceUtilService(dlSyncEventLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.sync.model.DLSyncEvent");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -460,6 +467,22 @@ public abstract class DLSyncEventLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		DLSyncEventLocalService dlSyncEventLocalService) {
+
+		try {
+			Field field = DLSyncEventLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, dlSyncEventLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

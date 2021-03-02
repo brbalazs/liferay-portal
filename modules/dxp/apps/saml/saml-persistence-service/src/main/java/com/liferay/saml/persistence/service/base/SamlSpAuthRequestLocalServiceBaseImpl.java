@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 import com.liferay.saml.persistence.service.SamlSpAuthRequestLocalService;
+import com.liferay.saml.persistence.service.SamlSpAuthRequestLocalServiceUtil;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpConnectionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpSessionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSsoSessionPersistence;
@@ -51,6 +52,8 @@ import com.liferay.saml.persistence.service.persistence.SamlSpMessagePersistence
 import com.liferay.saml.persistence.service.persistence.SamlSpSessionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -74,7 +77,7 @@ public abstract class SamlSpAuthRequestLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SamlSpAuthRequestLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.saml.persistence.service.SamlSpAuthRequestLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SamlSpAuthRequestLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SamlSpAuthRequestLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -802,11 +805,15 @@ public abstract class SamlSpAuthRequestLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.saml.persistence.model.SamlSpAuthRequest",
 			samlSpAuthRequestLocalService);
+
+		_setLocalServiceUtilService(samlSpAuthRequestLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.saml.persistence.model.SamlSpAuthRequest");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -849,6 +856,23 @@ public abstract class SamlSpAuthRequestLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SamlSpAuthRequestLocalService samlSpAuthRequestLocalService) {
+
+		try {
+			Field field =
+				SamlSpAuthRequestLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, samlSpAuthRequestLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -521,7 +521,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setTableId(long tableId) {
-		_columnBitmask |= TABLEID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalTableId) {
 			_setOriginalTableId = true;
@@ -544,7 +544,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setColumnId(long columnId) {
-		_columnBitmask |= COLUMNID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalColumnId) {
 			_setOriginalColumnId = true;
@@ -567,7 +567,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setRowId(long rowId) {
-		_columnBitmask |= ROWID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalRowId) {
 			_setOriginalRowId = true;

@@ -481,6 +481,8 @@ public class TicketModelImpl
 
 	@Override
 	public void setTicketId(long ticketId) {
+		_columnBitmask = -1L;
+
 		_ticketId = ticketId;
 	}
 

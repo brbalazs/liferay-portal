@@ -726,6 +726,8 @@ public class CommerceBOMEntryModelImpl
 
 	@Override
 	public void setNumber(int number) {
+		_columnBitmask = -1L;
+
 		_number = number;
 	}
 

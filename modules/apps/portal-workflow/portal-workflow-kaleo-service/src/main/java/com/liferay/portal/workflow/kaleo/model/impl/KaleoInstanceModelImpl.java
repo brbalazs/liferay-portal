@@ -661,7 +661,7 @@ public class KaleoInstanceModelImpl
 
 	@Override
 	public void setKaleoInstanceId(long kaleoInstanceId) {
-		_columnBitmask |= KALEOINSTANCEID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalKaleoInstanceId) {
 			_setOriginalKaleoInstanceId = true;

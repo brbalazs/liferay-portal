@@ -26,10 +26,13 @@ import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.social.kernel.service.SocialActivityInterpreterLocalService;
+import com.liferay.social.kernel.service.SocialActivityInterpreterLocalServiceUtil;
 import com.liferay.social.kernel.service.persistence.SocialActivityFinder;
 import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 import com.liferay.social.kernel.service.persistence.SocialActivitySetFinder;
 import com.liferay.social.kernel.service.persistence.SocialActivitySetPersistence;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -51,7 +54,7 @@ public abstract class SocialActivityInterpreterLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SocialActivityInterpreterLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.social.kernel.service.SocialActivityInterpreterLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SocialActivityInterpreterLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SocialActivityInterpreterLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -246,9 +249,11 @@ public abstract class SocialActivityInterpreterLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setLocalServiceUtilService(socialActivityInterpreterLocalService);
 	}
 
 	public void destroy() {
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -282,6 +287,24 @@ public abstract class SocialActivityInterpreterLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SocialActivityInterpreterLocalService
+			socialActivityInterpreterLocalService) {
+
+		try {
+			Field field =
+				SocialActivityInterpreterLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, socialActivityInterpreterLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

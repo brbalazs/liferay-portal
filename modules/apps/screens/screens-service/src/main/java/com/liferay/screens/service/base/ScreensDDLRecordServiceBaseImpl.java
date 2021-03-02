@@ -29,6 +29,9 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensDDLRecordService;
+import com.liferay.screens.service.ScreensDDLRecordServiceUtil;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -50,7 +53,7 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ScreensDDLRecordService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.screens.service.ScreensDDLRecordServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ScreensDDLRecordService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ScreensDDLRecordServiceUtil</code>.
 	 */
 
 	/**
@@ -427,9 +430,11 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(screensDDLRecordService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -463,6 +468,22 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		ScreensDDLRecordService screensDDLRecordService) {
+
+		try {
+			Field field = ScreensDDLRecordServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, screensDDLRecordService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

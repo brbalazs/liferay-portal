@@ -16,6 +16,7 @@ package com.liferay.commerce.service.base;
 
 import com.liferay.commerce.model.CommerceAvailabilityEstimate;
 import com.liferay.commerce.service.CommerceAvailabilityEstimateLocalService;
+import com.liferay.commerce.service.CommerceAvailabilityEstimateLocalServiceUtil;
 import com.liferay.commerce.service.persistence.CPDAvailabilityEstimatePersistence;
 import com.liferay.commerce.service.persistence.CPDefinitionInventoryPersistence;
 import com.liferay.commerce.service.persistence.CommerceAddressPersistence;
@@ -72,6 +73,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -95,7 +98,7 @@ public abstract class CommerceAvailabilityEstimateLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceAvailabilityEstimateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CommerceAvailabilityEstimateLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceAvailabilityEstimateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceAvailabilityEstimateLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -1449,11 +1452,15 @@ public abstract class CommerceAvailabilityEstimateLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.model.CommerceAvailabilityEstimate",
 			commerceAvailabilityEstimateLocalService);
+
+		_setLocalServiceUtilService(commerceAvailabilityEstimateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.model.CommerceAvailabilityEstimate");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -1496,6 +1503,24 @@ public abstract class CommerceAvailabilityEstimateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceAvailabilityEstimateLocalService
+			commerceAvailabilityEstimateLocalService) {
+
+		try {
+			Field field =
+				CommerceAvailabilityEstimateLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAvailabilityEstimateLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

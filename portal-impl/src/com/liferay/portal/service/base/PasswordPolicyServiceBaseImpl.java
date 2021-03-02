@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.model.PasswordPolicy;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.service.PasswordPolicyService;
+import com.liferay.portal.kernel.service.PasswordPolicyServiceUtil;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.PasswordPolicyFinder;
 import com.liferay.portal.kernel.service.persistence.PasswordPolicyPersistence;
@@ -32,6 +33,8 @@ import com.liferay.portal.kernel.service.persistence.PasswordPolicyRelPersistenc
 import com.liferay.portal.kernel.service.persistence.UserFinder;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -53,7 +56,7 @@ public abstract class PasswordPolicyServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>PasswordPolicyService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.kernel.service.PasswordPolicyServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>PasswordPolicyService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>PasswordPolicyServiceUtil</code>.
 	 */
 
 	/**
@@ -390,9 +393,11 @@ public abstract class PasswordPolicyServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(passwordPolicyService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -434,6 +439,22 @@ public abstract class PasswordPolicyServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		PasswordPolicyService passwordPolicyService) {
+
+		try {
+			Field field = PasswordPolicyServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, passwordPolicyService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

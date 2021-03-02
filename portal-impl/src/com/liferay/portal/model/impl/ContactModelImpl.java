@@ -977,6 +977,8 @@ public class ContactModelImpl
 
 	@Override
 	public void setContactId(long contactId) {
+		_columnBitmask = -1L;
+
 		_contactId = contactId;
 	}
 

@@ -16,6 +16,7 @@ package com.liferay.dynamic.data.lists.service.base;
 
 import com.liferay.dynamic.data.lists.model.DDLRecordSet;
 import com.liferay.dynamic.data.lists.service.DDLRecordSetLocalService;
+import com.liferay.dynamic.data.lists.service.DDLRecordSetLocalServiceUtil;
 import com.liferay.dynamic.data.lists.service.persistence.DDLRecordFinder;
 import com.liferay.dynamic.data.lists.service.persistence.DDLRecordPersistence;
 import com.liferay.dynamic.data.lists.service.persistence.DDLRecordSetFinder;
@@ -57,6 +58,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -79,7 +82,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>DDLRecordSetLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.dynamic.data.lists.service.DDLRecordSetLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>DDLRecordSetLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>DDLRecordSetLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -837,11 +840,15 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.dynamic.data.lists.model.DDLRecordSet",
 			ddlRecordSetLocalService);
+
+		_setLocalServiceUtilService(ddlRecordSetLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.lists.model.DDLRecordSet");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -883,6 +890,22 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		DDLRecordSetLocalService ddlRecordSetLocalService) {
+
+		try {
+			Field field = DDLRecordSetLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, ddlRecordSetLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

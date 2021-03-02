@@ -16,6 +16,7 @@ package com.liferay.knowledge.base.service.base;
 
 import com.liferay.knowledge.base.model.KBTemplate;
 import com.liferay.knowledge.base.service.KBTemplateService;
+import com.liferay.knowledge.base.service.KBTemplateServiceUtil;
 import com.liferay.knowledge.base.service.persistence.KBArticleFinder;
 import com.liferay.knowledge.base.service.persistence.KBArticlePersistence;
 import com.liferay.knowledge.base.service.persistence.KBCommentPersistence;
@@ -35,6 +36,8 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -56,7 +59,7 @@ public abstract class KBTemplateServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>KBTemplateService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.knowledge.base.service.KBTemplateServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>KBTemplateService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>KBTemplateServiceUtil</code>.
 	 */
 
 	/**
@@ -589,9 +592,11 @@ public abstract class KBTemplateServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(kbTemplateService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -633,6 +638,20 @@ public abstract class KBTemplateServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(KBTemplateService kbTemplateService) {
+		try {
+			Field field = KBTemplateServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, kbTemplateService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

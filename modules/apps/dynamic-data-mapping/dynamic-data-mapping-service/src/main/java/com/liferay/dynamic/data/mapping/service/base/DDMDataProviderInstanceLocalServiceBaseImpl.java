@@ -16,6 +16,7 @@ package com.liferay.dynamic.data.mapping.service.base;
 
 import com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance;
 import com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceLocalService;
+import com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceLocalServiceUtil;
 import com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstanceFinder;
 import com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstanceLinkPersistence;
 import com.liferay.dynamic.data.mapping.service.persistence.DDMDataProviderInstancePersistence;
@@ -53,6 +54,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -75,7 +78,7 @@ public abstract class DDMDataProviderInstanceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>DDMDataProviderInstanceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>DDMDataProviderInstanceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>DDMDataProviderInstanceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -729,11 +732,15 @@ public abstract class DDMDataProviderInstanceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance",
 			ddmDataProviderInstanceLocalService);
+
+		_setLocalServiceUtilService(ddmDataProviderInstanceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.mapping.model.DDMDataProviderInstance");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -776,6 +783,24 @@ public abstract class DDMDataProviderInstanceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		DDMDataProviderInstanceLocalService
+			ddmDataProviderInstanceLocalService) {
+
+		try {
+			Field field =
+				DDMDataProviderInstanceLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, ddmDataProviderInstanceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

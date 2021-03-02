@@ -799,6 +799,8 @@ public class CPOptionCategoryModelImpl
 
 	@Override
 	public void setTitle(String title) {
+		_columnBitmask = -1L;
+
 		_title = title;
 	}
 
@@ -964,6 +966,8 @@ public class CPOptionCategoryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 

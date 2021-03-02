@@ -16,6 +16,7 @@ package com.liferay.invitation.invite.members.service.base;
 
 import com.liferay.invitation.invite.members.model.MemberRequest;
 import com.liferay.invitation.invite.members.service.MemberRequestLocalService;
+import com.liferay.invitation.invite.members.service.MemberRequestLocalServiceUtil;
 import com.liferay.invitation.invite.members.service.persistence.MemberRequestPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -48,6 +49,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -70,7 +73,7 @@ public abstract class MemberRequestLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MemberRequestLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.invitation.invite.members.service.MemberRequestLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MemberRequestLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MemberRequestLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -609,11 +612,15 @@ public abstract class MemberRequestLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.invitation.invite.members.model.MemberRequest",
 			memberRequestLocalService);
+
+		_setLocalServiceUtilService(memberRequestLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.invitation.invite.members.model.MemberRequest");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -655,6 +662,22 @@ public abstract class MemberRequestLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		MemberRequestLocalService memberRequestLocalService) {
+
+		try {
+			Field field = MemberRequestLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, memberRequestLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

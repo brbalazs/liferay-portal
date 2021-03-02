@@ -14,10 +14,6 @@
 
 package com.liferay.portal.background.task.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * Provides the remote service utility for BackgroundTask. This utility wraps
  * <code>com.liferay.portal.background.task.service.impl.BackgroundTaskServiceImpl</code> and is an
@@ -38,13 +34,16 @@ public class BackgroundTaskServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.background.task.service.impl.BackgroundTaskServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static int getBackgroundTasksCount(
-		long groupId, String taskExecutorClassName, String completed) {
+		long groupId, java.lang.String taskExecutorClassName,
+		java.lang.String completed) {
 
 		return getService().getBackgroundTasksCount(
 			groupId, taskExecutorClassName, completed);
 	}
 
-	public static String getBackgroundTaskStatusJSON(long backgroundTaskId) {
+	public static java.lang.String getBackgroundTaskStatusJSON(
+		long backgroundTaskId) {
+
 		return getService().getBackgroundTaskStatusJSON(backgroundTaskId);
 	}
 
@@ -53,30 +52,14 @@ public class BackgroundTaskServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static String getOSGiServiceIdentifier() {
+	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static BackgroundTaskService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<BackgroundTaskService, BackgroundTaskService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(BackgroundTaskService.class);
-
-		ServiceTracker<BackgroundTaskService, BackgroundTaskService>
-			serviceTracker =
-				new ServiceTracker
-					<BackgroundTaskService, BackgroundTaskService>(
-						bundle.getBundleContext(), BackgroundTaskService.class,
-						null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile BackgroundTaskService _service;
 
 }

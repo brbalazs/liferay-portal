@@ -16,6 +16,7 @@ package com.liferay.mobile.device.rules.service.base;
 
 import com.liferay.mobile.device.rules.model.MDRRuleGroup;
 import com.liferay.mobile.device.rules.service.MDRRuleGroupService;
+import com.liferay.mobile.device.rules.service.MDRRuleGroupServiceUtil;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupFinder;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupInstancePersistence;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupPersistence;
@@ -32,6 +33,8 @@ import com.liferay.portal.kernel.service.persistence.GroupPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -53,7 +56,7 @@ public abstract class MDRRuleGroupServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MDRRuleGroupService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mobile.device.rules.service.MDRRuleGroupServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MDRRuleGroupService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MDRRuleGroupServiceUtil</code>.
 	 */
 
 	/**
@@ -437,9 +440,11 @@ public abstract class MDRRuleGroupServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(mdrRuleGroupService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -481,6 +486,22 @@ public abstract class MDRRuleGroupServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		MDRRuleGroupService mdrRuleGroupService) {
+
+		try {
+			Field field = MDRRuleGroupServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, mdrRuleGroupService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

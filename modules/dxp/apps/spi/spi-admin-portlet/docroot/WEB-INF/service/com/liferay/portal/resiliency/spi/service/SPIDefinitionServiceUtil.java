@@ -14,7 +14,10 @@
 
 package com.liferay.portal.resiliency.spi.service;
 
-import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.resiliency.spi.model.SPIDefinition;
+
+import java.util.List;
 
 /**
  * Provides the remote service utility for SPIDefinition. This utility wraps
@@ -35,22 +38,20 @@ public class SPIDefinitionServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.resiliency.spi.service.impl.SPIDefinitionServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			addSPIDefinition(
-				String name, String connectorAddress, int connectorPort,
-				String description, String jvmArguments, String portletIds,
-				String servletContextNames, String typeSettings,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition addSPIDefinition(
+			String name, String connectorAddress, int connectorPort,
+			String description, String jvmArguments, String portletIds,
+			String servletContextNames, String typeSettings,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addSPIDefinition(
 			name, connectorAddress, connectorPort, description, jvmArguments,
 			portletIds, servletContextNames, typeSettings, serviceContext);
 	}
 
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			deleteSPIDefinition(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition deleteSPIDefinition(long spiDefinitionId)
+		throws PortalException {
 
 		return getService().deleteSPIDefinition(spiDefinitionId);
 	}
@@ -66,65 +67,55 @@ public class SPIDefinitionServiceUtil {
 
 	public static com.liferay.portal.kernel.util.Tuple
 			getPortletIdsAndServletContextNames()
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getPortletIdsAndServletContextNames();
 	}
 
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			getSPIDefinition(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition getSPIDefinition(long spiDefinitionId)
+		throws PortalException {
 
 		return getService().getSPIDefinition(spiDefinitionId);
 	}
 
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			getSPIDefinition(long companyId, String name)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition getSPIDefinition(long companyId, String name)
+		throws PortalException {
 
 		return getService().getSPIDefinition(companyId, name);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.resiliency.spi.model.SPIDefinition>
-				getSPIDefinitions()
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static List<SPIDefinition> getSPIDefinitions()
+		throws PortalException {
 
 		return getService().getSPIDefinitions();
 	}
 
-	public static void startSPI(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void startSPI(long spiDefinitionId) throws PortalException {
 		getService().startSPI(spiDefinitionId);
 	}
 
 	public static long startSPIinBackground(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().startSPIinBackground(spiDefinitionId);
 	}
 
-	public static void stopSPI(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void stopSPI(long spiDefinitionId) throws PortalException {
 		getService().stopSPI(spiDefinitionId);
 	}
 
 	public static long stopSPIinBackground(long spiDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().stopSPIinBackground(spiDefinitionId);
 	}
 
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			updateSPIDefinition(
-				long spiDefinitionId, String connectorAddress,
-				int connectorPort, String description, String jvmArguments,
-				String portletIds, String servletContextNames,
-				String typeSettings,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition updateSPIDefinition(
+			long spiDefinitionId, String connectorAddress, int connectorPort,
+			String description, String jvmArguments, String portletIds,
+			String servletContextNames, String typeSettings,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateSPIDefinition(
 			spiDefinitionId, connectorAddress, connectorPort, description,
@@ -132,11 +123,10 @@ public class SPIDefinitionServiceUtil {
 			serviceContext);
 	}
 
-	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
-			updateTypeSettings(
-				long userId, long spiDefinitionId, String recoveryOptions,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SPIDefinition updateTypeSettings(
+			long userId, long spiDefinitionId, String recoveryOptions,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateTypeSettings(
 			userId, spiDefinitionId, recoveryOptions, serviceContext);
@@ -147,15 +137,9 @@ public class SPIDefinitionServiceUtil {
 	}
 
 	public static SPIDefinitionService getService() {
-		if (_service == null) {
-			_service = (SPIDefinitionService)PortletBeanLocatorUtil.locate(
-				ServletContextUtil.getServletContextName(),
-				SPIDefinitionService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static SPIDefinitionService _service;
+	private static volatile SPIDefinitionService _service;
 
 }

@@ -14,9 +14,16 @@
 
 package com.liferay.commerce.product.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.product.model.CPTaxCategory;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for CPTaxCategory. This utility wraps
@@ -48,19 +55,15 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was added
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-		addCPTaxCategory(
-			com.liferay.commerce.product.model.CPTaxCategory cpTaxCategory) {
-
+	public static CPTaxCategory addCPTaxCategory(CPTaxCategory cpTaxCategory) {
 		return getService().addCPTaxCategory(cpTaxCategory);
 	}
 
-	public static com.liferay.commerce.product.model.CPTaxCategory
-			addCPTaxCategory(
-				java.util.Map<java.util.Locale, String> nameMap,
-				java.util.Map<java.util.Locale, String> descriptionMap,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPTaxCategory addCPTaxCategory(
+			Map<java.util.Locale, String> nameMap,
+			Map<java.util.Locale, String> descriptionMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCPTaxCategory(
 			nameMap, descriptionMap, serviceContext);
@@ -78,9 +81,7 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param CPTaxCategoryId the primary key for the new cp tax category
 	 * @return the new cp tax category
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-		createCPTaxCategory(long CPTaxCategoryId) {
-
+	public static CPTaxCategory createCPTaxCategory(long CPTaxCategoryId) {
 		return getService().createCPTaxCategory(CPTaxCategoryId);
 	}
 
@@ -99,10 +100,8 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @return the cp tax category that was removed
 	 * @throws PortalException
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-			deleteCPTaxCategory(
-				com.liferay.commerce.product.model.CPTaxCategory cpTaxCategory)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPTaxCategory deleteCPTaxCategory(CPTaxCategory cpTaxCategory)
+		throws PortalException {
 
 		return getService().deleteCPTaxCategory(cpTaxCategory);
 	}
@@ -118,9 +117,8 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @return the cp tax category that was removed
 	 * @throws PortalException if a cp tax category with the primary key could not be found
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-			deleteCPTaxCategory(long CPTaxCategoryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPTaxCategory deleteCPTaxCategory(long CPTaxCategoryId)
+		throws PortalException {
 
 		return getService().deleteCPTaxCategory(CPTaxCategoryId);
 	}
@@ -128,17 +126,14 @@ public class CPTaxCategoryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -148,9 +143,7 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -166,9 +159,8 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -186,10 +178,9 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -201,9 +192,7 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -215,22 +204,18 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.product.model.CPTaxCategory
-		fetchCPTaxCategory(long CPTaxCategoryId) {
-
+	public static CPTaxCategory fetchCPTaxCategory(long CPTaxCategoryId) {
 		return getService().fetchCPTaxCategory(CPTaxCategoryId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.CPTaxCategory>
-			findCPTaxCategoriesByCompanyId(
-				long companyId, String keyword, int start, int end) {
+	public static List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end) {
 
 		return getService().findCPTaxCategoriesByCompanyId(
 			companyId, keyword, start, end);
@@ -253,26 +238,17 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param end the upper bound of the range of cp tax categories (not inclusive)
 	 * @return the range of cp tax categories
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.model.CPTaxCategory> getCPTaxCategories(
-			int start, int end) {
-
+	public static List<CPTaxCategory> getCPTaxCategories(int start, int end) {
 		return getService().getCPTaxCategories(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.CPTaxCategory> getCPTaxCategories(
-			long companyId) {
-
+	public static List<CPTaxCategory> getCPTaxCategories(long companyId) {
 		return getService().getCPTaxCategories(companyId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.CPTaxCategory> getCPTaxCategories(
-			long companyId, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.commerce.product.model.CPTaxCategory>
-					orderByComparator) {
+	public static List<CPTaxCategory> getCPTaxCategories(
+		long companyId, int start, int end,
+		OrderByComparator<CPTaxCategory> orderByComparator) {
 
 		return getService().getCPTaxCategories(
 			companyId, start, end, orderByComparator);
@@ -298,9 +274,8 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @return the cp tax category
 	 * @throws PortalException if a cp tax category with the primary key could not be found
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-			getCPTaxCategory(long CPTaxCategoryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPTaxCategory getCPTaxCategory(long CPTaxCategoryId)
+		throws PortalException {
 
 		return getService().getCPTaxCategory(CPTaxCategoryId);
 	}
@@ -324,9 +299,8 @@ public class CPTaxCategoryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -341,45 +315,25 @@ public class CPTaxCategoryLocalServiceUtil {
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was updated
 	 */
-	public static com.liferay.commerce.product.model.CPTaxCategory
-		updateCPTaxCategory(
-			com.liferay.commerce.product.model.CPTaxCategory cpTaxCategory) {
+	public static CPTaxCategory updateCPTaxCategory(
+		CPTaxCategory cpTaxCategory) {
 
 		return getService().updateCPTaxCategory(cpTaxCategory);
 	}
 
-	public static com.liferay.commerce.product.model.CPTaxCategory
-			updateCPTaxCategory(
-				long cpTaxCategoryId,
-				java.util.Map<java.util.Locale, String> nameMap,
-				java.util.Map<java.util.Locale, String> descriptionMap)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPTaxCategory updateCPTaxCategory(
+			long cpTaxCategoryId, Map<java.util.Locale, String> nameMap,
+			Map<java.util.Locale, String> descriptionMap)
+		throws PortalException {
 
 		return getService().updateCPTaxCategory(
 			cpTaxCategoryId, nameMap, descriptionMap);
 	}
 
 	public static CPTaxCategoryLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CPTaxCategoryLocalService, CPTaxCategoryLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CPTaxCategoryLocalService.class);
-
-		ServiceTracker<CPTaxCategoryLocalService, CPTaxCategoryLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<CPTaxCategoryLocalService, CPTaxCategoryLocalService>(
-						bundle.getBundleContext(),
-						CPTaxCategoryLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CPTaxCategoryLocalService _service;
 
 }

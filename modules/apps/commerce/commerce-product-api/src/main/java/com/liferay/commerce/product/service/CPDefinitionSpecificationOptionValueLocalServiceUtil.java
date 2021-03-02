@@ -14,9 +14,16 @@
 
 package com.liferay.commerce.product.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for CPDefinitionSpecificationOptionValue. This utility wraps
@@ -48,27 +55,22 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was added
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			addCPDefinitionSpecificationOptionValue(
-				com.liferay.commerce.product.model.
-					CPDefinitionSpecificationOptionValue
-						cpDefinitionSpecificationOptionValue) {
+	public static CPDefinitionSpecificationOptionValue
+		addCPDefinitionSpecificationOptionValue(
+			CPDefinitionSpecificationOptionValue
+				cpDefinitionSpecificationOptionValue) {
 
 		return getService().addCPDefinitionSpecificationOptionValue(
 			cpDefinitionSpecificationOptionValue);
 	}
 
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				addCPDefinitionSpecificationOptionValue(
-					long cpDefinitionId, long cpSpecificationOptionId,
-					long cpOptionCategoryId,
-					java.util.Map<java.util.Locale, String> valueMap,
-					double priority,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			addCPDefinitionSpecificationOptionValue(
+				long cpDefinitionId, long cpSpecificationOptionId,
+				long cpOptionCategoryId, Map<java.util.Locale, String> valueMap,
+				double priority,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCPDefinitionSpecificationOptionValue(
 			cpDefinitionId, cpSpecificationOptionId, cpOptionCategoryId,
@@ -81,10 +83,9 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param CPDefinitionSpecificationOptionValueId the primary key for the new cp definition specification option value
 	 * @return the new cp definition specification option value
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			createCPDefinitionSpecificationOptionValue(
-				long CPDefinitionSpecificationOptionValueId) {
+	public static CPDefinitionSpecificationOptionValue
+		createCPDefinitionSpecificationOptionValue(
+			long CPDefinitionSpecificationOptionValueId) {
 
 		return getService().createCPDefinitionSpecificationOptionValue(
 			CPDefinitionSpecificationOptionValueId);
@@ -101,13 +102,11 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @return the cp definition specification option value that was removed
 	 * @throws PortalException
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				deleteCPDefinitionSpecificationOptionValue(
-					com.liferay.commerce.product.model.
-						CPDefinitionSpecificationOptionValue
-							cpDefinitionSpecificationOptionValue)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			deleteCPDefinitionSpecificationOptionValue(
+				CPDefinitionSpecificationOptionValue
+					cpDefinitionSpecificationOptionValue)
+		throws PortalException {
 
 		return getService().deleteCPDefinitionSpecificationOptionValue(
 			cpDefinitionSpecificationOptionValue);
@@ -124,11 +123,10 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @return the cp definition specification option value that was removed
 	 * @throws PortalException if a cp definition specification option value with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				deleteCPDefinitionSpecificationOptionValue(
-					long CPDefinitionSpecificationOptionValueId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			deleteCPDefinitionSpecificationOptionValue(
+				long CPDefinitionSpecificationOptionValueId)
+		throws PortalException {
 
 		return getService().deleteCPDefinitionSpecificationOptionValue(
 			CPDefinitionSpecificationOptionValueId);
@@ -136,7 +134,7 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 
 	public static void deleteCPDefinitionSpecificationOptionValues(
 			long cpDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteCPDefinitionSpecificationOptionValues(
 			cpDefinitionId);
@@ -144,7 +142,7 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 
 	public static void deleteCPSpecificationOptionDefinitionValues(
 			long cpSpecificationOptionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteCPSpecificationOptionDefinitionValues(
 			cpSpecificationOptionId);
@@ -153,17 +151,14 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -173,9 +168,7 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -191,9 +184,8 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -211,10 +203,9 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -226,9 +217,7 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -240,26 +229,23 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			fetchCPDefinitionSpecificationOptionValue(
-				long CPDefinitionSpecificationOptionValueId) {
+	public static CPDefinitionSpecificationOptionValue
+		fetchCPDefinitionSpecificationOptionValue(
+			long CPDefinitionSpecificationOptionValueId) {
 
 		return getService().fetchCPDefinitionSpecificationOptionValue(
 			CPDefinitionSpecificationOptionValueId);
 	}
 
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			fetchCPDefinitionSpecificationOptionValue(
-				long cpDefinitionId,
-				long cpDefinitionSpecificationOptionValueId) {
+	public static CPDefinitionSpecificationOptionValue
+		fetchCPDefinitionSpecificationOptionValue(
+			long cpDefinitionId, long cpDefinitionSpecificationOptionValueId) {
 
 		return getService().fetchCPDefinitionSpecificationOptionValue(
 			cpDefinitionId, cpDefinitionSpecificationOptionValueId);
@@ -272,10 +258,9 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param groupId the primary key of the group
 	 * @return the matching cp definition specification option value, or <code>null</code> if a matching cp definition specification option value could not be found
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			fetchCPDefinitionSpecificationOptionValueByUuidAndGroupId(
-				String uuid, long groupId) {
+	public static CPDefinitionSpecificationOptionValue
+		fetchCPDefinitionSpecificationOptionValueByUuidAndGroupId(
+			String uuid, long groupId) {
 
 		return getService().
 			fetchCPDefinitionSpecificationOptionValueByUuidAndGroupId(
@@ -295,11 +280,10 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @return the cp definition specification option value
 	 * @throws PortalException if a cp definition specification option value with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				getCPDefinitionSpecificationOptionValue(
-					long CPDefinitionSpecificationOptionValueId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			getCPDefinitionSpecificationOptionValue(
+				long CPDefinitionSpecificationOptionValueId)
+		throws PortalException {
 
 		return getService().getCPDefinitionSpecificationOptionValue(
 			CPDefinitionSpecificationOptionValueId);
@@ -313,11 +297,10 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @return the matching cp definition specification option value
 	 * @throws PortalException if a matching cp definition specification option value could not be found
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				getCPDefinitionSpecificationOptionValueByUuidAndGroupId(
-					String uuid, long groupId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			getCPDefinitionSpecificationOptionValueByUuidAndGroupId(
+				String uuid, long groupId)
+		throws PortalException {
 
 		return getService().
 			getCPDefinitionSpecificationOptionValueByUuidAndGroupId(
@@ -335,44 +318,34 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param end the upper bound of the range of cp definition specification option values (not inclusive)
 	 * @return the range of cp definition specification option values
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValues(int start, int end) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValues(int start, int end) {
 
 		return getService().getCPDefinitionSpecificationOptionValues(
 			start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValues(
-					long cpDefinitionId, int start, int end,
-					com.liferay.portal.kernel.util.OrderByComparator
-						<com.liferay.commerce.product.model.
-							CPDefinitionSpecificationOptionValue>
-								orderByComparator) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValues(
+			long cpDefinitionId, int start, int end,
+			OrderByComparator<CPDefinitionSpecificationOptionValue>
+				orderByComparator) {
 
 		return getService().getCPDefinitionSpecificationOptionValues(
 			cpDefinitionId, start, end, orderByComparator);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValues(
-					long cpDefinitionId, long cpOptionCategoryId) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValues(
+			long cpDefinitionId, long cpOptionCategoryId) {
 
 		return getService().getCPDefinitionSpecificationOptionValues(
 			cpDefinitionId, cpOptionCategoryId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValuesByC_CSO(
-					long cpDefinitionId, long cpSpecificationOptionId) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValuesByC_CSO(
+			long cpDefinitionId, long cpSpecificationOptionId) {
 
 		return getService().getCPDefinitionSpecificationOptionValuesByC_CSO(
 			cpDefinitionId, cpSpecificationOptionId);
@@ -385,11 +358,9 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching cp definition specification option values, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
-					String uuid, long companyId) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
+			String uuid, long companyId) {
 
 		return getService().
 			getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
@@ -406,15 +377,11 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the range of matching cp definition specification option values, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
-					String uuid, long companyId, int start, int end,
-					com.liferay.portal.kernel.util.OrderByComparator
-						<com.liferay.commerce.product.model.
-							CPDefinitionSpecificationOptionValue>
-								orderByComparator) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
+			String uuid, long companyId, int start, int end,
+			OrderByComparator<CPDefinitionSpecificationOptionValue>
+				orderByComparator) {
 
 		return getService().
 			getCPDefinitionSpecificationOptionValuesByUuidAndCompanyId(
@@ -437,21 +404,16 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 			cpDefinitionId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPSpecificationOptionDefinitionValues(
-					long cpSpecificationOptionId) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPSpecificationOptionDefinitionValues(long cpSpecificationOptionId) {
 
 		return getService().getCPSpecificationOptionDefinitionValues(
 			cpSpecificationOptionId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.model.
-			CPDefinitionSpecificationOptionValue>
-				getCPSpecificationOptionDefinitionValues(
-					long cpSpecificationOptionId, int start, int end) {
+	public static List<CPDefinitionSpecificationOptionValue>
+		getCPSpecificationOptionDefinitionValues(
+			long cpSpecificationOptionId, int start, int end) {
 
 		return getService().getCPSpecificationOptionDefinitionValues(
 			cpSpecificationOptionId, start, end);
@@ -491,9 +453,8 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -508,39 +469,32 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was updated
 	 */
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-			updateCPDefinitionSpecificationOptionValue(
-				com.liferay.commerce.product.model.
-					CPDefinitionSpecificationOptionValue
-						cpDefinitionSpecificationOptionValue) {
+	public static CPDefinitionSpecificationOptionValue
+		updateCPDefinitionSpecificationOptionValue(
+			CPDefinitionSpecificationOptionValue
+				cpDefinitionSpecificationOptionValue) {
 
 		return getService().updateCPDefinitionSpecificationOptionValue(
 			cpDefinitionSpecificationOptionValue);
 	}
 
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				updateCPDefinitionSpecificationOptionValue(
-					long cpDefinitionSpecificationOptionValueId,
-					long cpOptionCategoryId,
-					java.util.Map<java.util.Locale, String> valueMap,
-					double priority,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue
+			updateCPDefinitionSpecificationOptionValue(
+				long cpDefinitionSpecificationOptionValueId,
+				long cpOptionCategoryId, Map<java.util.Locale, String> valueMap,
+				double priority,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateCPDefinitionSpecificationOptionValue(
 			cpDefinitionSpecificationOptionValueId, cpOptionCategoryId,
 			valueMap, priority, serviceContext);
 	}
 
-	public static
-		com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue
-				updateCPOptionCategoryId(
-					long cpDefinitionSpecificationOptionValueId,
-					long cpOptionCategoryId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CPDefinitionSpecificationOptionValue updateCPOptionCategoryId(
+			long cpDefinitionSpecificationOptionValueId,
+			long cpOptionCategoryId)
+		throws PortalException {
 
 		return getService().updateCPOptionCategoryId(
 			cpDefinitionSpecificationOptionValueId, cpOptionCategoryId);
@@ -549,30 +503,10 @@ public class CPDefinitionSpecificationOptionValueLocalServiceUtil {
 	public static CPDefinitionSpecificationOptionValueLocalService
 		getService() {
 
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CPDefinitionSpecificationOptionValueLocalService,
-		 CPDefinitionSpecificationOptionValueLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CPDefinitionSpecificationOptionValueLocalService.class);
-
-		ServiceTracker
-			<CPDefinitionSpecificationOptionValueLocalService,
-			 CPDefinitionSpecificationOptionValueLocalService> serviceTracker =
-				new ServiceTracker
-					<CPDefinitionSpecificationOptionValueLocalService,
-					 CPDefinitionSpecificationOptionValueLocalService>(
-						 bundle.getBundleContext(),
-						 CPDefinitionSpecificationOptionValueLocalService.class,
-						 null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CPDefinitionSpecificationOptionValueLocalService
+		_service;
 
 }

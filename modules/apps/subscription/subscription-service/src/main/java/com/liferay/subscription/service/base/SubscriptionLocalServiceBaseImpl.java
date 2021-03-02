@@ -43,9 +43,12 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.subscription.model.Subscription;
 import com.liferay.subscription.service.SubscriptionLocalService;
+import com.liferay.subscription.service.SubscriptionLocalServiceUtil;
 import com.liferay.subscription.service.persistence.SubscriptionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -69,7 +72,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SubscriptionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.subscription.service.SubscriptionLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SubscriptionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SubscriptionLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -548,11 +551,15 @@ public abstract class SubscriptionLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.subscription.model.Subscription",
 			subscriptionLocalService);
+
+		_setLocalServiceUtilService(subscriptionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.subscription.model.Subscription");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -594,6 +601,22 @@ public abstract class SubscriptionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SubscriptionLocalService subscriptionLocalService) {
+
+		try {
+			Field field = SubscriptionLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, subscriptionLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

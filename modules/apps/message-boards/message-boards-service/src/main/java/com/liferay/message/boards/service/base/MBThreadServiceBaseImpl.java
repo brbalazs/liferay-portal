@@ -17,6 +17,7 @@ package com.liferay.message.boards.service.base;
 import com.liferay.asset.kernel.service.persistence.AssetEntryPersistence;
 import com.liferay.message.boards.model.MBThread;
 import com.liferay.message.boards.service.MBThreadService;
+import com.liferay.message.boards.service.MBThreadServiceUtil;
 import com.liferay.message.boards.service.persistence.MBCategoryFinder;
 import com.liferay.message.boards.service.persistence.MBCategoryPersistence;
 import com.liferay.message.boards.service.persistence.MBMessageFinder;
@@ -40,6 +41,8 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -60,7 +63,7 @@ public abstract class MBThreadServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MBThreadService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.message.boards.service.MBThreadServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MBThreadService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MBThreadServiceUtil</code>.
 	 */
 
 	/**
@@ -738,9 +741,11 @@ public abstract class MBThreadServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(mbThreadService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -782,6 +787,20 @@ public abstract class MBThreadServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(MBThreadService mbThreadService) {
+		try {
+			Field field = MBThreadServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, mbThreadService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

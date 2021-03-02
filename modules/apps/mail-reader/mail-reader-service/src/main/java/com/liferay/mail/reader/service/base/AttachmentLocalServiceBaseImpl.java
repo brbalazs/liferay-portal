@@ -16,6 +16,7 @@ package com.liferay.mail.reader.service.base;
 
 import com.liferay.mail.reader.model.Attachment;
 import com.liferay.mail.reader.service.AttachmentLocalService;
+import com.liferay.mail.reader.service.AttachmentLocalServiceUtil;
 import com.liferay.mail.reader.service.persistence.AccountPersistence;
 import com.liferay.mail.reader.service.persistence.AttachmentPersistence;
 import com.liferay.mail.reader.service.persistence.FolderPersistence;
@@ -49,6 +50,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -71,7 +74,7 @@ public abstract class AttachmentLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>AttachmentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mail.reader.service.AttachmentLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>AttachmentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>AttachmentLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -646,11 +649,15 @@ public abstract class AttachmentLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.mail.reader.model.Attachment", attachmentLocalService);
+
+		_setLocalServiceUtilService(attachmentLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.mail.reader.model.Attachment");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -692,6 +699,22 @@ public abstract class AttachmentLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		AttachmentLocalService attachmentLocalService) {
+
+		try {
+			Field field = AttachmentLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, attachmentLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

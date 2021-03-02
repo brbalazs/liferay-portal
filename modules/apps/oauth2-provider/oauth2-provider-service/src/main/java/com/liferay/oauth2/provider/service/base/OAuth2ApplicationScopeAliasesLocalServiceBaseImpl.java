@@ -16,6 +16,7 @@ package com.liferay.oauth2.provider.service.base;
 
 import com.liferay.oauth2.provider.model.OAuth2ApplicationScopeAliases;
 import com.liferay.oauth2.provider.service.OAuth2ApplicationScopeAliasesLocalService;
+import com.liferay.oauth2.provider.service.OAuth2ApplicationScopeAliasesLocalServiceUtil;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ApplicationScopeAliasesPersistence;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantFinder;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantPersistence;
@@ -46,6 +47,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -69,7 +72,7 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>OAuth2ApplicationScopeAliasesLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth2.provider.service.OAuth2ApplicationScopeAliasesLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>OAuth2ApplicationScopeAliasesLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>OAuth2ApplicationScopeAliasesLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -522,11 +525,15 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.oauth2.provider.model.OAuth2ApplicationScopeAliases",
 			oAuth2ApplicationScopeAliasesLocalService);
+
+		_setLocalServiceUtilService(oAuth2ApplicationScopeAliasesLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth2.provider.model.OAuth2ApplicationScopeAliases");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -569,6 +576,24 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		OAuth2ApplicationScopeAliasesLocalService
+			oAuth2ApplicationScopeAliasesLocalService) {
+
+		try {
+			Field field =
+				OAuth2ApplicationScopeAliasesLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, oAuth2ApplicationScopeAliasesLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

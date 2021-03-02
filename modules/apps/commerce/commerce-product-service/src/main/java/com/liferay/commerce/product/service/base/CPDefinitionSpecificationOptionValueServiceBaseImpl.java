@@ -16,6 +16,7 @@ package com.liferay.commerce.product.service.base;
 
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueService;
+import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueServiceUtil;
 import com.liferay.commerce.product.service.persistence.CPAttachmentFileEntryFinder;
 import com.liferay.commerce.product.service.persistence.CPAttachmentFileEntryPersistence;
 import com.liferay.commerce.product.service.persistence.CPDefinitionFinder;
@@ -57,6 +58,8 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -78,7 +81,7 @@ public abstract class CPDefinitionSpecificationOptionValueServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CPDefinitionSpecificationOptionValueService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CPDefinitionSpecificationOptionValueService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CPDefinitionSpecificationOptionValueServiceUtil</code>.
 	 */
 
 	/**
@@ -1752,9 +1755,11 @@ public abstract class CPDefinitionSpecificationOptionValueServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(cpDefinitionSpecificationOptionValueService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -1797,6 +1802,24 @@ public abstract class CPDefinitionSpecificationOptionValueServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		CPDefinitionSpecificationOptionValueService
+			cpDefinitionSpecificationOptionValueService) {
+
+		try {
+			Field field =
+				CPDefinitionSpecificationOptionValueServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, cpDefinitionSpecificationOptionValueService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

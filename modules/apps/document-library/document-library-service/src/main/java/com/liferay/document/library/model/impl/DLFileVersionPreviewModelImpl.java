@@ -389,6 +389,8 @@ public class DLFileVersionPreviewModelImpl
 
 	@Override
 	public void setDlFileVersionPreviewId(long dlFileVersionPreviewId) {
+		_columnBitmask = -1L;
+
 		_dlFileVersionPreviewId = dlFileVersionPreviewId;
 	}
 

@@ -589,7 +589,7 @@ public class BlogsStatsUserModelImpl
 
 	@Override
 	public void setEntryCount(int entryCount) {
-		_columnBitmask |= ENTRYCOUNT_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalEntryCount) {
 			_setOriginalEntryCount = true;

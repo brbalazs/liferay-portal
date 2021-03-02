@@ -21,6 +21,7 @@ import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.mobile.device.rules.model.MDRRuleGroupInstance;
 import com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceLocalService;
+import com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceLocalServiceUtil;
 import com.liferay.mobile.device.rules.service.persistence.MDRActionPersistence;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupFinder;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupInstancePersistence;
@@ -59,6 +60,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -81,7 +84,7 @@ public abstract class MDRRuleGroupInstanceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MDRRuleGroupInstanceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MDRRuleGroupInstanceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MDRRuleGroupInstanceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -912,11 +915,15 @@ public abstract class MDRRuleGroupInstanceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.mobile.device.rules.model.MDRRuleGroupInstance",
 			mdrRuleGroupInstanceLocalService);
+
+		_setLocalServiceUtilService(mdrRuleGroupInstanceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.mobile.device.rules.model.MDRRuleGroupInstance");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -959,6 +966,23 @@ public abstract class MDRRuleGroupInstanceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		MDRRuleGroupInstanceLocalService mdrRuleGroupInstanceLocalService) {
+
+		try {
+			Field field =
+				MDRRuleGroupInstanceLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, mdrRuleGroupInstanceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -1213,7 +1213,7 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask |= NAME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalName == null) {
 			_originalName = _name;

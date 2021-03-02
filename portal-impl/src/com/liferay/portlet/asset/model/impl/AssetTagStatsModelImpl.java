@@ -461,6 +461,8 @@ public class AssetTagStatsModelImpl
 
 	@Override
 	public void setAssetCount(int assetCount) {
+		_columnBitmask = -1L;
+
 		_assetCount = assetCount;
 	}
 

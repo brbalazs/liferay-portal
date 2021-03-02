@@ -16,6 +16,7 @@ package com.liferay.commerce.currency.service.base;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil;
 import com.liferay.commerce.currency.service.persistence.CommerceCurrencyFinder;
 import com.liferay.commerce.currency.service.persistence.CommerceCurrencyPersistence;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
@@ -53,6 +54,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -75,7 +78,7 @@ public abstract class CommerceCurrencyLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceCurrencyLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceCurrencyLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceCurrencyLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -658,11 +661,15 @@ public abstract class CommerceCurrencyLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.currency.model.CommerceCurrency",
 			commerceCurrencyLocalService);
+
+		_setLocalServiceUtilService(commerceCurrencyLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.currency.model.CommerceCurrency");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -704,6 +711,23 @@ public abstract class CommerceCurrencyLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceCurrencyLocalService commerceCurrencyLocalService) {
+
+		try {
+			Field field =
+				CommerceCurrencyLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceCurrencyLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

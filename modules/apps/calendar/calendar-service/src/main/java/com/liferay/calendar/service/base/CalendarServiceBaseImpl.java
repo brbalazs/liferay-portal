@@ -16,6 +16,7 @@ package com.liferay.calendar.service.base;
 
 import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.service.CalendarService;
+import com.liferay.calendar.service.CalendarServiceUtil;
 import com.liferay.calendar.service.persistence.CalendarBookingFinder;
 import com.liferay.calendar.service.persistence.CalendarBookingPersistence;
 import com.liferay.calendar.service.persistence.CalendarFinder;
@@ -37,6 +38,8 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -57,7 +60,7 @@ public abstract class CalendarServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CalendarService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.calendar.service.CalendarServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CalendarService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CalendarServiceUtil</code>.
 	 */
 
 	/**
@@ -615,9 +618,11 @@ public abstract class CalendarServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(calendarService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -659,6 +664,20 @@ public abstract class CalendarServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(CalendarService calendarService) {
+		try {
+			Field field = CalendarServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, calendarService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

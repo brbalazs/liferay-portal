@@ -932,7 +932,7 @@ public class AccountModelImpl
 
 	@Override
 	public void setAddress(String address) {
-		_columnBitmask |= ADDRESS_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalAddress == null) {
 			_originalAddress = _address;

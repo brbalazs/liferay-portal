@@ -30,6 +30,9 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensJournalArticleService;
+import com.liferay.screens.service.ScreensJournalArticleServiceUtil;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -51,7 +54,7 @@ public abstract class ScreensJournalArticleServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ScreensJournalArticleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.screens.service.ScreensJournalArticleServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ScreensJournalArticleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ScreensJournalArticleServiceUtil</code>.
 	 */
 
 	/**
@@ -475,9 +478,11 @@ public abstract class ScreensJournalArticleServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(screensJournalArticleService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -511,6 +516,23 @@ public abstract class ScreensJournalArticleServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		ScreensJournalArticleService screensJournalArticleService) {
+
+		try {
+			Field field =
+				ScreensJournalArticleServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, screensJournalArticleService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

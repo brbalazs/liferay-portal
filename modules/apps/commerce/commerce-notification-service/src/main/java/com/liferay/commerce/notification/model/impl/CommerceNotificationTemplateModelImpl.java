@@ -1016,6 +1016,8 @@ public class CommerceNotificationTemplateModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
+		_columnBitmask = -1L;
+
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1032,6 +1034,8 @@ public class CommerceNotificationTemplateModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask = -1L;
+
 		_name = name;
 	}
 

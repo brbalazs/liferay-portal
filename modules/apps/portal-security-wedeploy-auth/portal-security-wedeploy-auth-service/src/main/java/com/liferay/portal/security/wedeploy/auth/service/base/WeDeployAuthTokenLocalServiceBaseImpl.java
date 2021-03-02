@@ -41,11 +41,14 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken;
 import com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthTokenLocalService;
+import com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthTokenLocalServiceUtil;
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthAppPersistence;
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthTokenPersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -69,7 +72,7 @@ public abstract class WeDeployAuthTokenLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>WeDeployAuthTokenLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthTokenLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>WeDeployAuthTokenLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>WeDeployAuthTokenLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -578,11 +581,15 @@ public abstract class WeDeployAuthTokenLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken",
 			weDeployAuthTokenLocalService);
+
+		_setLocalServiceUtilService(weDeployAuthTokenLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -625,6 +632,23 @@ public abstract class WeDeployAuthTokenLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		WeDeployAuthTokenLocalService weDeployAuthTokenLocalService) {
+
+		try {
+			Field field =
+				WeDeployAuthTokenLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, weDeployAuthTokenLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

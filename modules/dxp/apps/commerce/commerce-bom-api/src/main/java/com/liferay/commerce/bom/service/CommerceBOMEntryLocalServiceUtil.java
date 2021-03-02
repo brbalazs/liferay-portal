@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.bom.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.bom.model.CommerceBOMEntry;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceBOMEntry. This utility wraps
@@ -48,19 +54,17 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was added
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-		addCommerceBOMEntry(
-			com.liferay.commerce.bom.model.CommerceBOMEntry commerceBOMEntry) {
+	public static CommerceBOMEntry addCommerceBOMEntry(
+		CommerceBOMEntry commerceBOMEntry) {
 
 		return getService().addCommerceBOMEntry(commerceBOMEntry);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-			addCommerceBOMEntry(
-				long userId, int number, String cpInstanceUuid, long cProductId,
-				long commerceBOMDefinitionId, double positionX,
-				double positionY, double radius)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMEntry addCommerceBOMEntry(
+			long userId, int number, String cpInstanceUuid, long cProductId,
+			long commerceBOMDefinitionId, double positionX, double positionY,
+			double radius)
+		throws PortalException {
 
 		return getService().addCommerceBOMEntry(
 			userId, number, cpInstanceUuid, cProductId, commerceBOMDefinitionId,
@@ -73,8 +77,8 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param commerceBOMEntryId the primary key for the new commerce bom entry
 	 * @return the new commerce bom entry
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-		createCommerceBOMEntry(long commerceBOMEntryId) {
+	public static CommerceBOMEntry createCommerceBOMEntry(
+		long commerceBOMEntryId) {
 
 		return getService().createCommerceBOMEntry(commerceBOMEntryId);
 	}
@@ -89,9 +93,8 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was removed
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-		deleteCommerceBOMEntry(
-			com.liferay.commerce.bom.model.CommerceBOMEntry commerceBOMEntry) {
+	public static CommerceBOMEntry deleteCommerceBOMEntry(
+		CommerceBOMEntry commerceBOMEntry) {
 
 		return getService().deleteCommerceBOMEntry(commerceBOMEntry);
 	}
@@ -107,9 +110,9 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @return the commerce bom entry that was removed
 	 * @throws PortalException if a commerce bom entry with the primary key could not be found
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-			deleteCommerceBOMEntry(long commerceBOMEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMEntry deleteCommerceBOMEntry(
+			long commerceBOMEntryId)
+		throws PortalException {
 
 		return getService().deleteCommerceBOMEntry(commerceBOMEntryId);
 	}
@@ -117,17 +120,14 @@ public class CommerceBOMEntryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -137,9 +137,7 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -155,9 +153,8 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -175,10 +172,9 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -190,9 +186,7 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -204,14 +198,14 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-		fetchCommerceBOMEntry(long commerceBOMEntryId) {
+	public static CommerceBOMEntry fetchCommerceBOMEntry(
+		long commerceBOMEntryId) {
 
 		return getService().fetchCommerceBOMEntry(commerceBOMEntryId);
 	}
@@ -233,16 +227,14 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce bom entries (not inclusive)
 	 * @return the range of commerce bom entries
 	 */
-	public static java.util.List
-		<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
-			int start, int end) {
+	public static List<CommerceBOMEntry> getCommerceBOMEntries(
+		int start, int end) {
 
 		return getService().getCommerceBOMEntries(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
-			long commerceBOMDefinitionId, int start, int end) {
+	public static List<CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end) {
 
 		return getService().getCommerceBOMEntries(
 			commerceBOMDefinitionId, start, end);
@@ -268,9 +260,8 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @return the commerce bom entry
 	 * @throws PortalException if a commerce bom entry with the primary key could not be found
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-			getCommerceBOMEntry(long commerceBOMEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMEntry getCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException {
 
 		return getService().getCommerceBOMEntry(commerceBOMEntryId);
 	}
@@ -294,9 +285,8 @@ public class CommerceBOMEntryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -311,19 +301,16 @@ public class CommerceBOMEntryLocalServiceUtil {
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was updated
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-		updateCommerceBOMEntry(
-			com.liferay.commerce.bom.model.CommerceBOMEntry commerceBOMEntry) {
+	public static CommerceBOMEntry updateCommerceBOMEntry(
+		CommerceBOMEntry commerceBOMEntry) {
 
 		return getService().updateCommerceBOMEntry(commerceBOMEntry);
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMEntry
-			updateCommerceBOMEntry(
-				long commerceBOMEntryId, int number, String cpInstanceUuid,
-				long cProductId, double positionX, double positionY,
-				double radius)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceBOMEntry updateCommerceBOMEntry(
+			long commerceBOMEntryId, int number, String cpInstanceUuid,
+			long cProductId, double positionX, double positionY, double radius)
+		throws PortalException {
 
 		return getService().updateCommerceBOMEntry(
 			commerceBOMEntryId, number, cpInstanceUuid, cProductId, positionX,
@@ -331,29 +318,9 @@ public class CommerceBOMEntryLocalServiceUtil {
 	}
 
 	public static CommerceBOMEntryLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceBOMEntryLocalService, CommerceBOMEntryLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceBOMEntryLocalService.class);
-
-		ServiceTracker
-			<CommerceBOMEntryLocalService, CommerceBOMEntryLocalService>
-				serviceTracker =
-					new ServiceTracker
-						<CommerceBOMEntryLocalService,
-						 CommerceBOMEntryLocalService>(
-							 bundle.getBundleContext(),
-							 CommerceBOMEntryLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceBOMEntryLocalService _service;
 
 }

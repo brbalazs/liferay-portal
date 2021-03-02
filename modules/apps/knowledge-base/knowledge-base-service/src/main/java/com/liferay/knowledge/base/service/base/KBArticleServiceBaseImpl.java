@@ -19,6 +19,7 @@ import com.liferay.asset.kernel.service.persistence.AssetLinkPersistence;
 import com.liferay.expando.kernel.service.persistence.ExpandoRowPersistence;
 import com.liferay.knowledge.base.model.KBArticle;
 import com.liferay.knowledge.base.service.KBArticleService;
+import com.liferay.knowledge.base.service.KBArticleServiceUtil;
 import com.liferay.knowledge.base.service.persistence.KBArticleFinder;
 import com.liferay.knowledge.base.service.persistence.KBArticlePersistence;
 import com.liferay.knowledge.base.service.persistence.KBCommentPersistence;
@@ -42,6 +43,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -62,7 +65,7 @@ public abstract class KBArticleServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>KBArticleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.knowledge.base.service.KBArticleServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>KBArticleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>KBArticleServiceUtil</code>.
 	 */
 
 	/**
@@ -896,9 +899,11 @@ public abstract class KBArticleServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(kbArticleService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -940,6 +945,20 @@ public abstract class KBArticleServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(KBArticleService kbArticleService) {
+		try {
+			Field field = KBArticleServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, kbArticleService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

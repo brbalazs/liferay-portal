@@ -1133,6 +1133,8 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 
@@ -1253,6 +1255,8 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setPriority(double priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 
@@ -1281,7 +1285,7 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;

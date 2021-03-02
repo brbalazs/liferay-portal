@@ -16,6 +16,7 @@ package com.liferay.blogs.service.base;
 
 import com.liferay.blogs.model.BlogsStatsUser;
 import com.liferay.blogs.service.BlogsStatsUserLocalService;
+import com.liferay.blogs.service.BlogsStatsUserLocalServiceUtil;
 import com.liferay.blogs.service.persistence.BlogsEntryFinder;
 import com.liferay.blogs.service.persistence.BlogsEntryPersistence;
 import com.liferay.blogs.service.persistence.BlogsStatsUserFinder;
@@ -48,6 +49,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -70,7 +73,7 @@ public abstract class BlogsStatsUserLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>BlogsStatsUserLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.blogs.service.BlogsStatsUserLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>BlogsStatsUserLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>BlogsStatsUserLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -541,11 +544,15 @@ public abstract class BlogsStatsUserLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.blogs.model.BlogsStatsUser",
 			blogsStatsUserLocalService);
+
+		_setLocalServiceUtilService(blogsStatsUserLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.blogs.model.BlogsStatsUser");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -587,6 +594,22 @@ public abstract class BlogsStatsUserLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		BlogsStatsUserLocalService blogsStatsUserLocalService) {
+
+		try {
+			Field field = BlogsStatsUserLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, blogsStatsUserLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

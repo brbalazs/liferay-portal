@@ -14,9 +14,9 @@
 
 package com.liferay.portal.workflow.kaleo.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
+
+import java.util.List;
 
 /**
  * Provides the remote service utility for KaleoDefinition. This utility wraps
@@ -44,9 +44,8 @@ public class KaleoDefinitionServiceUtil {
 	 * @deprecated As of Judson (7.1.x), with no direct replacement
 	 */
 	@Deprecated
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>
-			getKaleoDefinitions(int start, int end) {
+	public static List<KaleoDefinition> getKaleoDefinitions(
+		int start, int end) {
 
 		return getService().getKaleoDefinitions(start, end);
 	}
@@ -55,9 +54,8 @@ public class KaleoDefinitionServiceUtil {
 	 * @deprecated As of Judson (7.1.x), with no direct replacement
 	 */
 	@Deprecated
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>
-			getKaleoDefinitions(long companyId, int start, int end) {
+	public static List<KaleoDefinition> getKaleoDefinitions(
+		long companyId, int start, int end) {
 
 		return getService().getKaleoDefinitions(companyId, start, end);
 	}
@@ -72,25 +70,9 @@ public class KaleoDefinitionServiceUtil {
 	}
 
 	public static KaleoDefinitionService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<KaleoDefinitionService, KaleoDefinitionService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(KaleoDefinitionService.class);
-
-		ServiceTracker<KaleoDefinitionService, KaleoDefinitionService>
-			serviceTracker =
-				new ServiceTracker
-					<KaleoDefinitionService, KaleoDefinitionService>(
-						bundle.getBundleContext(), KaleoDefinitionService.class,
-						null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile KaleoDefinitionService _service;
 
 }

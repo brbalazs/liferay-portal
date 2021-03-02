@@ -585,6 +585,8 @@ public class CommerceAccountUserRelModelImpl
 
 	@Override
 	public void setUserId(long userId) {
+		_columnBitmask = -1L;
+
 		_userId = userId;
 	}
 

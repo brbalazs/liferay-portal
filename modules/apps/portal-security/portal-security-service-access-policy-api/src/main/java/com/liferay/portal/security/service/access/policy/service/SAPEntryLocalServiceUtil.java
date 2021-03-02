@@ -14,9 +14,16 @@
 
 package com.liferay.portal.security.service.access.policy.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.security.service.access.policy.model.SAPEntry;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for SAPEntry. This utility wraps
@@ -37,15 +44,12 @@ public class SAPEntryLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.security.service.access.policy.service.impl.SAPEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				addSAPEntry(
-					long userId, String allowedServiceSignatures,
-					boolean defaultSAPEntry, boolean enabled, String name,
-					java.util.Map<java.util.Locale, String> titleMap,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry addSAPEntry(
+			long userId, String allowedServiceSignatures,
+			boolean defaultSAPEntry, boolean enabled, String name,
+			Map<java.util.Locale, String> titleMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addSAPEntry(
 			userId, allowedServiceSignatures, defaultSAPEntry, enabled, name,
@@ -62,17 +66,12 @@ public class SAPEntryLocalServiceUtil {
 	 * @param sapEntry the sap entry
 	 * @return the sap entry that was added
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-			addSAPEntry(
-				com.liferay.portal.security.service.access.policy.model.SAPEntry
-					sapEntry) {
-
+	public static SAPEntry addSAPEntry(SAPEntry sapEntry) {
 		return getService().addSAPEntry(sapEntry);
 	}
 
 	public static void checkSystemSAPEntries(long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().checkSystemSAPEntries(companyId);
 	}
@@ -83,20 +82,16 @@ public class SAPEntryLocalServiceUtil {
 	 * @param sapEntryId the primary key for the new sap entry
 	 * @return the new sap entry
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-			createSAPEntry(long sapEntryId) {
-
+	public static SAPEntry createSAPEntry(long sapEntryId) {
 		return getService().createSAPEntry(sapEntryId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -112,10 +107,8 @@ public class SAPEntryLocalServiceUtil {
 	 * @return the sap entry that was removed
 	 * @throws PortalException if a sap entry with the primary key could not be found
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				deleteSAPEntry(long sapEntryId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry deleteSAPEntry(long sapEntryId)
+		throws PortalException {
 
 		return getService().deleteSAPEntry(sapEntryId);
 	}
@@ -131,19 +124,13 @@ public class SAPEntryLocalServiceUtil {
 	 * @return the sap entry that was removed
 	 * @throws PortalException
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				deleteSAPEntry(
-					com.liferay.portal.security.service.access.policy.model.
-						SAPEntry sapEntry)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry deleteSAPEntry(SAPEntry sapEntry)
+		throws PortalException {
 
 		return getService().deleteSAPEntry(sapEntry);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -153,9 +140,7 @@ public class SAPEntryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -171,9 +156,8 @@ public class SAPEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -191,10 +175,9 @@ public class SAPEntryLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -206,9 +189,7 @@ public class SAPEntryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -220,23 +201,18 @@ public class SAPEntryLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-			fetchSAPEntry(long sapEntryId) {
-
+	public static SAPEntry fetchSAPEntry(long sapEntryId) {
 		return getService().fetchSAPEntry(sapEntryId);
 	}
 
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				fetchSAPEntry(long companyId, String name)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry fetchSAPEntry(long companyId, String name)
+		throws PortalException {
 
 		return getService().fetchSAPEntry(companyId, name);
 	}
@@ -248,9 +224,8 @@ public class SAPEntryLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching sap entry, or <code>null</code> if a matching sap entry could not be found
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-			fetchSAPEntryByUuidAndCompanyId(String uuid, long companyId) {
+	public static SAPEntry fetchSAPEntryByUuidAndCompanyId(
+		String uuid, long companyId) {
 
 		return getService().fetchSAPEntryByUuidAndCompanyId(uuid, companyId);
 	}
@@ -261,20 +236,14 @@ public class SAPEntryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static java.util.List
-		<com.liferay.portal.security.service.access.policy.model.SAPEntry>
-			getCompanySAPEntries(long companyId, int start, int end) {
+	public static List<SAPEntry> getCompanySAPEntries(
+		long companyId, int start, int end) {
 
 		return getService().getCompanySAPEntries(companyId, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.security.service.access.policy.model.SAPEntry>
-			getCompanySAPEntries(
-				long companyId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.security.service.access.policy.model.
-						SAPEntry> obc) {
+	public static List<SAPEntry> getCompanySAPEntries(
+		long companyId, int start, int end, OrderByComparator<SAPEntry> obc) {
 
 		return getService().getCompanySAPEntries(companyId, start, end, obc);
 	}
@@ -283,9 +252,8 @@ public class SAPEntryLocalServiceUtil {
 		return getService().getCompanySAPEntriesCount(companyId);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.security.service.access.policy.model.SAPEntry>
-			getDefaultSAPEntries(long companyId, boolean defaultSAPEntry) {
+	public static List<SAPEntry> getDefaultSAPEntries(
+		long companyId, boolean defaultSAPEntry) {
 
 		return getService().getDefaultSAPEntries(companyId, defaultSAPEntry);
 	}
@@ -317,9 +285,8 @@ public class SAPEntryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -335,10 +302,7 @@ public class SAPEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of sap entries (not inclusive)
 	 * @return the range of sap entries
 	 */
-	public static java.util.List
-		<com.liferay.portal.security.service.access.policy.model.SAPEntry>
-			getSAPEntries(int start, int end) {
-
+	public static List<SAPEntry> getSAPEntries(int start, int end) {
 		return getService().getSAPEntries(start, end);
 	}
 
@@ -358,18 +322,12 @@ public class SAPEntryLocalServiceUtil {
 	 * @return the sap entry
 	 * @throws PortalException if a sap entry with the primary key could not be found
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				getSAPEntry(long sapEntryId)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static SAPEntry getSAPEntry(long sapEntryId) throws PortalException {
 		return getService().getSAPEntry(sapEntryId);
 	}
 
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				getSAPEntry(long companyId, String name)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry getSAPEntry(long companyId, String name)
+		throws PortalException {
 
 		return getService().getSAPEntry(companyId, name);
 	}
@@ -382,23 +340,19 @@ public class SAPEntryLocalServiceUtil {
 	 * @return the matching sap entry
 	 * @throws PortalException if a matching sap entry could not be found
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				getSAPEntryByUuidAndCompanyId(String uuid, long companyId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry getSAPEntryByUuidAndCompanyId(
+			String uuid, long companyId)
+		throws PortalException {
 
 		return getService().getSAPEntryByUuidAndCompanyId(uuid, companyId);
 	}
 
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-				updateSAPEntry(
-					long sapEntryId, String allowedServiceSignatures,
-					boolean defaultSAPEntry, boolean enabled, String name,
-					java.util.Map<java.util.Locale, String> titleMap,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static SAPEntry updateSAPEntry(
+			long sapEntryId, String allowedServiceSignatures,
+			boolean defaultSAPEntry, boolean enabled, String name,
+			Map<java.util.Locale, String> titleMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateSAPEntry(
 			sapEntryId, allowedServiceSignatures, defaultSAPEntry, enabled,
@@ -415,34 +369,14 @@ public class SAPEntryLocalServiceUtil {
 	 * @param sapEntry the sap entry
 	 * @return the sap entry that was updated
 	 */
-	public static
-		com.liferay.portal.security.service.access.policy.model.SAPEntry
-			updateSAPEntry(
-				com.liferay.portal.security.service.access.policy.model.SAPEntry
-					sapEntry) {
-
+	public static SAPEntry updateSAPEntry(SAPEntry sapEntry) {
 		return getService().updateSAPEntry(sapEntry);
 	}
 
 	public static SAPEntryLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<SAPEntryLocalService, SAPEntryLocalService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(SAPEntryLocalService.class);
-
-		ServiceTracker<SAPEntryLocalService, SAPEntryLocalService>
-			serviceTracker =
-				new ServiceTracker<SAPEntryLocalService, SAPEntryLocalService>(
-					bundle.getBundleContext(), SAPEntryLocalService.class,
-					null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile SAPEntryLocalService _service;
 
 }

@@ -17,6 +17,7 @@ package com.liferay.analytics.message.storage.service.base;
 import com.liferay.analytics.message.storage.model.AnalyticsMessage;
 import com.liferay.analytics.message.storage.model.AnalyticsMessageBodyBlobModel;
 import com.liferay.analytics.message.storage.service.AnalyticsMessageLocalService;
+import com.liferay.analytics.message.storage.service.AnalyticsMessageLocalServiceUtil;
 import com.liferay.analytics.message.storage.service.persistence.AnalyticsMessagePersistence;
 import com.liferay.petra.io.AutoDeleteFileInputStream;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -52,6 +53,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.sql.Blob;
 
 import java.util.List;
@@ -76,7 +79,7 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>AnalyticsMessageLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.analytics.message.storage.service.AnalyticsMessageLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>AnalyticsMessageLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>AnalyticsMessageLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -532,11 +535,15 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 
 			_useTempFile = true;
 		}
+
+		_setLocalServiceUtilService(analyticsMessageLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.analytics.message.storage.model.AnalyticsMessage");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -578,6 +585,23 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		AnalyticsMessageLocalService analyticsMessageLocalService) {
+
+		try {
+			Field field =
+				AnalyticsMessageLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, analyticsMessageLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

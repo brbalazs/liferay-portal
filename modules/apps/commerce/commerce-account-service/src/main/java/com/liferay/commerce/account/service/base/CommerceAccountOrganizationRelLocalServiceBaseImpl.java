@@ -16,6 +16,7 @@ package com.liferay.commerce.account.service.base;
 
 import com.liferay.commerce.account.model.CommerceAccountOrganizationRel;
 import com.liferay.commerce.account.service.CommerceAccountOrganizationRelLocalService;
+import com.liferay.commerce.account.service.CommerceAccountOrganizationRelLocalServiceUtil;
 import com.liferay.commerce.account.service.persistence.CommerceAccountFinder;
 import com.liferay.commerce.account.service.persistence.CommerceAccountGroupCommerceAccountRelPersistence;
 import com.liferay.commerce.account.service.persistence.CommerceAccountGroupFinder;
@@ -54,6 +55,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -77,7 +80,7 @@ public abstract class CommerceAccountOrganizationRelLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceAccountOrganizationRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.account.service.CommerceAccountOrganizationRelLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceAccountOrganizationRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceAccountOrganizationRelLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -850,11 +853,15 @@ public abstract class CommerceAccountOrganizationRelLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.account.model.CommerceAccountOrganizationRel",
 			commerceAccountOrganizationRelLocalService);
+
+		_setLocalServiceUtilService(commerceAccountOrganizationRelLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.account.model.CommerceAccountOrganizationRel");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -897,6 +904,24 @@ public abstract class CommerceAccountOrganizationRelLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceAccountOrganizationRelLocalService
+			commerceAccountOrganizationRelLocalService) {
+
+		try {
+			Field field =
+				CommerceAccountOrganizationRelLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAccountOrganizationRelLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

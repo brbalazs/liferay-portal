@@ -893,6 +893,8 @@ public class CPSpecificationOptionModelImpl
 
 	@Override
 	public void setTitle(String title) {
+		_columnBitmask = -1L;
+
 		_title = title;
 	}
 

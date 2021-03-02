@@ -14,7 +14,16 @@
 
 package com.liferay.document.library.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.document.library.kernel.model.DLFileEntryMetadata;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for DLFileEntryMetadata. This utility wraps
@@ -46,10 +55,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param dlFileEntryMetadata the document library file entry metadata
 	 * @return the document library file entry metadata that was added
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		addDLFileEntryMetadata(
-			com.liferay.document.library.kernel.model.DLFileEntryMetadata
-				dlFileEntryMetadata) {
+	public static DLFileEntryMetadata addDLFileEntryMetadata(
+		DLFileEntryMetadata dlFileEntryMetadata) {
 
 		return getService().addDLFileEntryMetadata(dlFileEntryMetadata);
 	}
@@ -60,8 +67,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param fileEntryMetadataId the primary key for the new document library file entry metadata
 	 * @return the new document library file entry metadata
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		createDLFileEntryMetadata(long fileEntryMetadataId) {
+	public static DLFileEntryMetadata createDLFileEntryMetadata(
+		long fileEntryMetadataId) {
 
 		return getService().createDLFileEntryMetadata(fileEntryMetadataId);
 	}
@@ -76,10 +83,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param dlFileEntryMetadata the document library file entry metadata
 	 * @return the document library file entry metadata that was removed
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		deleteDLFileEntryMetadata(
-			com.liferay.document.library.kernel.model.DLFileEntryMetadata
-				dlFileEntryMetadata) {
+	public static DLFileEntryMetadata deleteDLFileEntryMetadata(
+		DLFileEntryMetadata dlFileEntryMetadata) {
 
 		return getService().deleteDLFileEntryMetadata(dlFileEntryMetadata);
 	}
@@ -95,29 +100,28 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @return the document library file entry metadata that was removed
 	 * @throws PortalException if a document library file entry metadata with the primary key could not be found
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-			deleteDLFileEntryMetadata(long fileEntryMetadataId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static DLFileEntryMetadata deleteDLFileEntryMetadata(
+			long fileEntryMetadataId)
+		throws PortalException {
 
 		return getService().deleteDLFileEntryMetadata(fileEntryMetadataId);
 	}
 
 	public static void deleteFileEntryMetadata(
-			com.liferay.document.library.kernel.model.DLFileEntryMetadata
-				fileEntryMetadata)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			DLFileEntryMetadata fileEntryMetadata)
+		throws PortalException {
 
 		getService().deleteFileEntryMetadata(fileEntryMetadata);
 	}
 
 	public static void deleteFileEntryMetadata(long fileEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteFileEntryMetadata(fileEntryId);
 	}
 
 	public static void deleteFileVersionFileEntryMetadata(long fileVersionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteFileVersionFileEntryMetadata(fileVersionId);
 	}
@@ -125,17 +129,14 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -145,9 +146,7 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -163,9 +162,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -183,10 +181,9 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -198,9 +195,7 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -212,14 +207,14 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		fetchDLFileEntryMetadata(long fileEntryMetadataId) {
+	public static DLFileEntryMetadata fetchDLFileEntryMetadata(
+		long fileEntryMetadataId) {
 
 		return getService().fetchDLFileEntryMetadata(fileEntryMetadataId);
 	}
@@ -231,7 +226,7 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching document library file entry metadata, or <code>null</code> if a matching document library file entry metadata could not be found
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
+	public static DLFileEntryMetadata
 		fetchDLFileEntryMetadataByUuidAndCompanyId(
 			String uuid, long companyId) {
 
@@ -239,14 +234,14 @@ public class DLFileEntryMetadataLocalServiceUtil {
 			uuid, companyId);
 	}
 
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		fetchFileEntryMetadata(long fileEntryMetadataId) {
+	public static DLFileEntryMetadata fetchFileEntryMetadata(
+		long fileEntryMetadataId) {
 
 		return getService().fetchFileEntryMetadata(fileEntryMetadataId);
 	}
 
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		fetchFileEntryMetadata(long ddmStructureId, long fileVersionId) {
+	public static DLFileEntryMetadata fetchFileEntryMetadata(
+		long ddmStructureId, long fileVersionId) {
 
 		return getService().fetchFileEntryMetadata(
 			ddmStructureId, fileVersionId);
@@ -265,9 +260,9 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @return the document library file entry metadata
 	 * @throws PortalException if a document library file entry metadata with the primary key could not be found
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-			getDLFileEntryMetadata(long fileEntryMetadataId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static DLFileEntryMetadata getDLFileEntryMetadata(
+			long fileEntryMetadataId)
+		throws PortalException {
 
 		return getService().getDLFileEntryMetadata(fileEntryMetadataId);
 	}
@@ -280,10 +275,9 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @return the matching document library file entry metadata
 	 * @throws PortalException if a matching document library file entry metadata could not be found
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-			getDLFileEntryMetadataByUuidAndCompanyId(
-				String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static DLFileEntryMetadata getDLFileEntryMetadataByUuidAndCompanyId(
+			String uuid, long companyId)
+		throws PortalException {
 
 		return getService().getDLFileEntryMetadataByUuidAndCompanyId(
 			uuid, companyId);
@@ -300,9 +294,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param end the upper bound of the range of document library file entry metadatas (not inclusive)
 	 * @return the range of document library file entry metadatas
 	 */
-	public static java.util.List
-		<com.liferay.document.library.kernel.model.DLFileEntryMetadata>
-			getDLFileEntryMetadatas(int start, int end) {
+	public static List<DLFileEntryMetadata> getDLFileEntryMetadatas(
+		int start, int end) {
 
 		return getService().getDLFileEntryMetadatas(start, end);
 	}
@@ -316,23 +309,22 @@ public class DLFileEntryMetadataLocalServiceUtil {
 		return getService().getDLFileEntryMetadatasCount();
 	}
 
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-			getFileEntryMetadata(long fileEntryMetadataId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static DLFileEntryMetadata getFileEntryMetadata(
+			long fileEntryMetadataId)
+		throws PortalException {
 
 		return getService().getFileEntryMetadata(fileEntryMetadataId);
 	}
 
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-			getFileEntryMetadata(long ddmStructureId, long fileVersionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static DLFileEntryMetadata getFileEntryMetadata(
+			long ddmStructureId, long fileVersionId)
+		throws PortalException {
 
 		return getService().getFileEntryMetadata(ddmStructureId, fileVersionId);
 	}
 
-	public static java.util.List
-		<com.liferay.document.library.kernel.model.DLFileEntryMetadata>
-			getFileVersionFileEntryMetadatas(long fileVersionId) {
+	public static List<DLFileEntryMetadata> getFileVersionFileEntryMetadatas(
+		long fileVersionId) {
 
 		return getService().getFileVersionFileEntryMetadatas(fileVersionId);
 	}
@@ -351,16 +343,14 @@ public class DLFileEntryMetadataLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static java.util.List
-		<com.liferay.document.library.kernel.model.DLFileEntryMetadata>
-			getMismatchedCompanyIdFileEntryMetadatas() {
+	public static List<DLFileEntryMetadata>
+		getMismatchedCompanyIdFileEntryMetadatas() {
 
 		return getService().getMismatchedCompanyIdFileEntryMetadatas();
 	}
 
-	public static java.util.List
-		<com.liferay.document.library.kernel.model.DLFileEntryMetadata>
-			getNoStructuresFileEntryMetadatas() {
+	public static List<DLFileEntryMetadata>
+		getNoStructuresFileEntryMetadatas() {
 
 		return getService().getNoStructuresFileEntryMetadatas();
 	}
@@ -377,9 +367,8 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -394,24 +383,21 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	 * @param dlFileEntryMetadata the document library file entry metadata
 	 * @return the document library file entry metadata that was updated
 	 */
-	public static com.liferay.document.library.kernel.model.DLFileEntryMetadata
-		updateDLFileEntryMetadata(
-			com.liferay.document.library.kernel.model.DLFileEntryMetadata
-				dlFileEntryMetadata) {
+	public static DLFileEntryMetadata updateDLFileEntryMetadata(
+		DLFileEntryMetadata dlFileEntryMetadata) {
 
 		return getService().updateDLFileEntryMetadata(dlFileEntryMetadata);
 	}
 
 	public static void updateFileEntryMetadata(
 			long companyId,
-			java.util.List<com.liferay.dynamic.data.mapping.kernel.DDMStructure>
+			List<com.liferay.dynamic.data.mapping.kernel.DDMStructure>
 				ddmStructures,
 			long fileEntryId, long fileVersionId,
-			java.util.Map
-				<String, com.liferay.dynamic.data.mapping.kernel.DDMFormValues>
-					ddmFormValuesMap,
+			Map<String, com.liferay.dynamic.data.mapping.kernel.DDMFormValues>
+				ddmFormValuesMap,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().updateFileEntryMetadata(
 			companyId, ddmStructures, fileEntryId, fileVersionId,
@@ -420,11 +406,10 @@ public class DLFileEntryMetadataLocalServiceUtil {
 
 	public static void updateFileEntryMetadata(
 			long fileEntryTypeId, long fileEntryId, long fileVersionId,
-			java.util.Map
-				<String, com.liferay.dynamic.data.mapping.kernel.DDMFormValues>
-					ddmFormValuesMap,
+			Map<String, com.liferay.dynamic.data.mapping.kernel.DDMFormValues>
+				ddmFormValuesMap,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().updateFileEntryMetadata(
 			fileEntryTypeId, fileEntryId, fileVersionId, ddmFormValuesMap,
@@ -432,15 +417,9 @@ public class DLFileEntryMetadataLocalServiceUtil {
 	}
 
 	public static DLFileEntryMetadataLocalService getService() {
-		if (_service == null) {
-			_service =
-				(DLFileEntryMetadataLocalService)PortalBeanLocatorUtil.locate(
-					DLFileEntryMetadataLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static DLFileEntryMetadataLocalService _service;
+	private static volatile DLFileEntryMetadataLocalService _service;
 
 }

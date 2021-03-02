@@ -16,6 +16,7 @@ package com.liferay.oauth2.provider.service.base;
 
 import com.liferay.oauth2.provider.model.OAuth2Authorization;
 import com.liferay.oauth2.provider.service.OAuth2AuthorizationLocalService;
+import com.liferay.oauth2.provider.service.OAuth2AuthorizationLocalServiceUtil;
 import com.liferay.oauth2.provider.service.persistence.OAuth2AuthorizationPersistence;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantFinder;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantPersistence;
@@ -46,6 +47,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -68,7 +71,7 @@ public abstract class OAuth2AuthorizationLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>OAuth2AuthorizationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth2.provider.service.OAuth2AuthorizationLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>OAuth2AuthorizationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>OAuth2AuthorizationLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -681,11 +684,15 @@ public abstract class OAuth2AuthorizationLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.oauth2.provider.model.OAuth2Authorization",
 			oAuth2AuthorizationLocalService);
+
+		_setLocalServiceUtilService(oAuth2AuthorizationLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth2.provider.model.OAuth2Authorization");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -728,6 +735,23 @@ public abstract class OAuth2AuthorizationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		OAuth2AuthorizationLocalService oAuth2AuthorizationLocalService) {
+
+		try {
+			Field field =
+				OAuth2AuthorizationLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, oAuth2AuthorizationLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

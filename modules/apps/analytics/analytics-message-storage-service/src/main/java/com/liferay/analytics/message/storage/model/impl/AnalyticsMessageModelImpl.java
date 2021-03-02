@@ -440,6 +440,8 @@ public class AnalyticsMessageModelImpl
 
 	@Override
 	public void setAnalyticsMessageId(long analyticsMessageId) {
+		_columnBitmask = -1L;
+
 		_analyticsMessageId = analyticsMessageId;
 	}
 

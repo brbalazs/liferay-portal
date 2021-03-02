@@ -16,6 +16,7 @@ package com.liferay.document.library.service.base;
 
 import com.liferay.document.library.model.DLFileVersionPreview;
 import com.liferay.document.library.service.DLFileVersionPreviewLocalService;
+import com.liferay.document.library.service.DLFileVersionPreviewLocalServiceUtil;
 import com.liferay.document.library.service.persistence.DLFileVersionPreviewPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class DLFileVersionPreviewLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>DLFileVersionPreviewLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.document.library.service.DLFileVersionPreviewLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>DLFileVersionPreviewLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>DLFileVersionPreviewLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -444,11 +447,15 @@ public abstract class DLFileVersionPreviewLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.document.library.model.DLFileVersionPreview",
 			dlFileVersionPreviewLocalService);
+
+		_setLocalServiceUtilService(dlFileVersionPreviewLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.model.DLFileVersionPreview");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -491,6 +498,23 @@ public abstract class DLFileVersionPreviewLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		DLFileVersionPreviewLocalService dlFileVersionPreviewLocalService) {
+
+		try {
+			Field field =
+				DLFileVersionPreviewLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, dlFileVersionPreviewLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

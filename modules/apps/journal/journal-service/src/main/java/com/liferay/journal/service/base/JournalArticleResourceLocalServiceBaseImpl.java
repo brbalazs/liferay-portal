@@ -16,6 +16,7 @@ package com.liferay.journal.service.base;
 
 import com.liferay.journal.model.JournalArticleResource;
 import com.liferay.journal.service.JournalArticleResourceLocalService;
+import com.liferay.journal.service.JournalArticleResourceLocalServiceUtil;
 import com.liferay.journal.service.persistence.JournalArticleResourcePersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class JournalArticleResourceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>JournalArticleResourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.journal.service.JournalArticleResourceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>JournalArticleResourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>JournalArticleResourceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -509,11 +512,15 @@ public abstract class JournalArticleResourceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.journal.model.JournalArticleResource",
 			journalArticleResourceLocalService);
+
+		_setLocalServiceUtilService(journalArticleResourceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.journal.model.JournalArticleResource");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -556,6 +563,23 @@ public abstract class JournalArticleResourceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		JournalArticleResourceLocalService journalArticleResourceLocalService) {
+
+		try {
+			Field field =
+				JournalArticleResourceLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, journalArticleResourceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

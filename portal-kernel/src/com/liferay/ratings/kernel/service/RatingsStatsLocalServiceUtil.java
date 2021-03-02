@@ -14,7 +14,16 @@
 
 package com.liferay.ratings.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.ratings.kernel.model.RatingsStats;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for RatingsStats. This utility wraps
@@ -46,15 +55,11 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param ratingsStats the ratings stats
 	 * @return the ratings stats that was added
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats addRatingsStats(
-		com.liferay.ratings.kernel.model.RatingsStats ratingsStats) {
-
+	public static RatingsStats addRatingsStats(RatingsStats ratingsStats) {
 		return getService().addRatingsStats(ratingsStats);
 	}
 
-	public static com.liferay.ratings.kernel.model.RatingsStats addStats(
-		long classNameId, long classPK) {
-
+	public static RatingsStats addStats(long classNameId, long classPK) {
 		return getService().addStats(classNameId, classPK);
 	}
 
@@ -64,19 +69,16 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param statsId the primary key for the new ratings stats
 	 * @return the new ratings stats
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats
-		createRatingsStats(long statsId) {
-
+	public static RatingsStats createRatingsStats(long statsId) {
 		return getService().createRatingsStats(statsId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -92,9 +94,8 @@ public class RatingsStatsLocalServiceUtil {
 	 * @return the ratings stats that was removed
 	 * @throws PortalException if a ratings stats with the primary key could not be found
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats
-			deleteRatingsStats(long statsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static RatingsStats deleteRatingsStats(long statsId)
+		throws PortalException {
 
 		return getService().deleteRatingsStats(statsId);
 	}
@@ -109,10 +110,7 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param ratingsStats the ratings stats
 	 * @return the ratings stats that was removed
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats
-		deleteRatingsStats(
-			com.liferay.ratings.kernel.model.RatingsStats ratingsStats) {
-
+	public static RatingsStats deleteRatingsStats(RatingsStats ratingsStats) {
 		return getService().deleteRatingsStats(ratingsStats);
 	}
 
@@ -120,9 +118,7 @@ public class RatingsStatsLocalServiceUtil {
 		getService().deleteStats(className, classPK);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -132,9 +128,7 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -150,9 +144,8 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -170,10 +163,9 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -185,9 +177,7 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -199,21 +189,17 @@ public class RatingsStatsLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.ratings.kernel.model.RatingsStats
-		fetchRatingsStats(long statsId) {
-
+	public static RatingsStats fetchRatingsStats(long statsId) {
 		return getService().fetchRatingsStats(statsId);
 	}
 
-	public static com.liferay.ratings.kernel.model.RatingsStats fetchStats(
-		String className, long classPK) {
-
+	public static RatingsStats fetchStats(String className, long classPK) {
 		return getService().fetchStats(className, classPK);
 	}
 
@@ -242,9 +228,8 @@ public class RatingsStatsLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -256,9 +241,8 @@ public class RatingsStatsLocalServiceUtil {
 	 * @return the ratings stats
 	 * @throws PortalException if a ratings stats with the primary key could not be found
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats getRatingsStats(
-			long statsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static RatingsStats getRatingsStats(long statsId)
+		throws PortalException {
 
 		return getService().getRatingsStats(statsId);
 	}
@@ -274,9 +258,7 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param end the upper bound of the range of ratings statses (not inclusive)
 	 * @return the range of ratings statses
 	 */
-	public static java.util.List<com.liferay.ratings.kernel.model.RatingsStats>
-		getRatingsStatses(int start, int end) {
-
+	public static List<RatingsStats> getRatingsStatses(int start, int end) {
 		return getService().getRatingsStatses(start, end);
 	}
 
@@ -289,10 +271,7 @@ public class RatingsStatsLocalServiceUtil {
 		return getService().getRatingsStatsesCount();
 	}
 
-	public static com.liferay.ratings.kernel.model.RatingsStats getStats(
-			long statsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static RatingsStats getStats(long statsId) throws PortalException {
 		return getService().getStats(statsId);
 	}
 
@@ -300,22 +279,20 @@ public class RatingsStatsLocalServiceUtil {
 	 * @deprecated As of Judson (7.1.x), with no direct replacement
 	 */
 	@Deprecated
-	public static java.util.List<com.liferay.ratings.kernel.model.RatingsStats>
-		getStats(String className, java.util.List<Long> classPKs) {
+	public static List<RatingsStats> getStats(
+		String className, List<Long> classPKs) {
 
 		return getService().getStats(className, classPKs);
 	}
 
-	public static com.liferay.ratings.kernel.model.RatingsStats getStats(
-			String className, long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static RatingsStats getStats(String className, long classPK)
+		throws PortalException {
 
 		return getService().getStats(className, classPK);
 	}
 
-	public static java.util.Map
-		<Long, com.liferay.ratings.kernel.model.RatingsStats> getStats(
-			String className, long[] classPKs) {
+	public static Map<Long, RatingsStats> getStats(
+		String className, long[] classPKs) {
 
 		return getService().getStats(className, classPKs);
 	}
@@ -330,22 +307,14 @@ public class RatingsStatsLocalServiceUtil {
 	 * @param ratingsStats the ratings stats
 	 * @return the ratings stats that was updated
 	 */
-	public static com.liferay.ratings.kernel.model.RatingsStats
-		updateRatingsStats(
-			com.liferay.ratings.kernel.model.RatingsStats ratingsStats) {
-
+	public static RatingsStats updateRatingsStats(RatingsStats ratingsStats) {
 		return getService().updateRatingsStats(ratingsStats);
 	}
 
 	public static RatingsStatsLocalService getService() {
-		if (_service == null) {
-			_service = (RatingsStatsLocalService)PortalBeanLocatorUtil.locate(
-				RatingsStatsLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static RatingsStatsLocalService _service;
+	private static volatile RatingsStatsLocalService _service;
 
 }

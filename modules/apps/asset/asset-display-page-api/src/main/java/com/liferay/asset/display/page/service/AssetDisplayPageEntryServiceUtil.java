@@ -14,9 +14,9 @@
 
 package com.liferay.asset.display.page.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.asset.display.page.model.AssetDisplayPageEntry;
+
+import java.util.List;
 
 /**
  * Provides the remote service utility for AssetDisplayPageEntry. This utility wraps
@@ -37,11 +37,10 @@ public class AssetDisplayPageEntryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.asset.display.page.service.impl.AssetDisplayPageEntryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.asset.display.page.model.AssetDisplayPageEntry
-			addAssetDisplayPageEntry(
-				long userId, long groupId, long classNameId, long classPK,
-				long layoutPageTemplateEntryId, int type,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+	public static AssetDisplayPageEntry addAssetDisplayPageEntry(
+			long userId, long groupId, long classNameId, long classPK,
+			long layoutPageTemplateEntryId, int type,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws Exception {
 
 		return getService().addAssetDisplayPageEntry(
@@ -49,11 +48,10 @@ public class AssetDisplayPageEntryServiceUtil {
 			type, serviceContext);
 	}
 
-	public static com.liferay.asset.display.page.model.AssetDisplayPageEntry
-			addAssetDisplayPageEntry(
-				long userId, long groupId, long classNameId, long classPK,
-				long layoutPageTemplateEntryId,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+	public static AssetDisplayPageEntry addAssetDisplayPageEntry(
+			long userId, long groupId, long classNameId, long classPK,
+			long layoutPageTemplateEntryId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws Exception {
 
 		return getService().addAssetDisplayPageEntry(
@@ -68,19 +66,17 @@ public class AssetDisplayPageEntryServiceUtil {
 		getService().deleteAssetDisplayPageEntry(groupId, classNameId, classPK);
 	}
 
-	public static com.liferay.asset.display.page.model.AssetDisplayPageEntry
-			fetchAssetDisplayPageEntry(
-				long groupId, long classNameId, long classPK)
+	public static AssetDisplayPageEntry fetchAssetDisplayPageEntry(
+			long groupId, long classNameId, long classPK)
 		throws Exception {
 
 		return getService().fetchAssetDisplayPageEntry(
 			groupId, classNameId, classPK);
 	}
 
-	public static java.util.List
-		<com.liferay.asset.display.page.model.AssetDisplayPageEntry>
-			getAssetDisplayPageEntriesByLayoutPageTemplateEntryId(
-				long layoutPageTemplateEntryId) {
+	public static List<AssetDisplayPageEntry>
+		getAssetDisplayPageEntriesByLayoutPageTemplateEntryId(
+			long layoutPageTemplateEntryId) {
 
 		return getService().
 			getAssetDisplayPageEntriesByLayoutPageTemplateEntryId(
@@ -105,10 +101,9 @@ public class AssetDisplayPageEntryServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static com.liferay.asset.display.page.model.AssetDisplayPageEntry
-			updateAssetDisplayPageEntry(
-				long assetDisplayPageEntryId, long layoutPageTemplateEntryId,
-				int type)
+	public static AssetDisplayPageEntry updateAssetDisplayPageEntry(
+			long assetDisplayPageEntryId, long layoutPageTemplateEntryId,
+			int type)
 		throws Exception {
 
 		return getService().updateAssetDisplayPageEntry(
@@ -116,29 +111,9 @@ public class AssetDisplayPageEntryServiceUtil {
 	}
 
 	public static AssetDisplayPageEntryService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<AssetDisplayPageEntryService, AssetDisplayPageEntryService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			AssetDisplayPageEntryService.class);
-
-		ServiceTracker
-			<AssetDisplayPageEntryService, AssetDisplayPageEntryService>
-				serviceTracker =
-					new ServiceTracker
-						<AssetDisplayPageEntryService,
-						 AssetDisplayPageEntryService>(
-							 bundle.getBundleContext(),
-							 AssetDisplayPageEntryService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile AssetDisplayPageEntryService _service;
 
 }

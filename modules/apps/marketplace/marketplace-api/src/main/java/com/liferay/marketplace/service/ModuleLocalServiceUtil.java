@@ -14,9 +14,15 @@
 
 package com.liferay.marketplace.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.marketplace.model.Module;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for Module. This utility wraps
@@ -43,19 +49,19 @@ public class ModuleLocalServiceUtil {
 	 String, String, String)}
 	 */
 	@Deprecated
-	public static com.liferay.marketplace.model.Module addModule(
+	public static Module addModule(
 			long userId, long appId, String bundleSymbolicName,
 			String bundleVersion, String contextName)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addModule(
 			userId, appId, bundleSymbolicName, bundleVersion, contextName);
 	}
 
-	public static com.liferay.marketplace.model.Module addModule(
+	public static Module addModule(
 			long appId, String bundleSymbolicName, String bundleVersion,
 			String contextName)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addModule(
 			appId, bundleSymbolicName, bundleVersion, contextName);
@@ -71,9 +77,7 @@ public class ModuleLocalServiceUtil {
 	 * @param module the module
 	 * @return the module that was added
 	 */
-	public static com.liferay.marketplace.model.Module addModule(
-		com.liferay.marketplace.model.Module module) {
-
+	public static Module addModule(Module module) {
 		return getService().addModule(module);
 	}
 
@@ -83,9 +87,7 @@ public class ModuleLocalServiceUtil {
 	 * @param moduleId the primary key for the new module
 	 * @return the new module
 	 */
-	public static com.liferay.marketplace.model.Module createModule(
-		long moduleId) {
-
+	public static Module createModule(long moduleId) {
 		return getService().createModule(moduleId);
 	}
 
@@ -100,10 +102,7 @@ public class ModuleLocalServiceUtil {
 	 * @return the module that was removed
 	 * @throws PortalException if a module with the primary key could not be found
 	 */
-	public static com.liferay.marketplace.model.Module deleteModule(
-			long moduleId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static Module deleteModule(long moduleId) throws PortalException {
 		return getService().deleteModule(moduleId);
 	}
 
@@ -117,9 +116,7 @@ public class ModuleLocalServiceUtil {
 	 * @param module the module
 	 * @return the module that was removed
 	 */
-	public static com.liferay.marketplace.model.Module deleteModule(
-		com.liferay.marketplace.model.Module module) {
-
+	public static Module deleteModule(Module module) {
 		return getService().deleteModule(module);
 	}
 
@@ -130,17 +127,14 @@ public class ModuleLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -150,9 +144,7 @@ public class ModuleLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -168,9 +160,8 @@ public class ModuleLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -188,10 +179,9 @@ public class ModuleLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -203,9 +193,7 @@ public class ModuleLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -217,19 +205,17 @@ public class ModuleLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.marketplace.model.Module fetchModule(
-		long moduleId) {
-
+	public static Module fetchModule(long moduleId) {
 		return getService().fetchModule(moduleId);
 	}
 
-	public static com.liferay.marketplace.model.Module fetchModule(
+	public static Module fetchModule(
 		long appId, String bundleSymbolicName, String bundleVersion,
 		String contextName) {
 
@@ -244,8 +230,8 @@ public class ModuleLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching module, or <code>null</code> if a matching module could not be found
 	 */
-	public static com.liferay.marketplace.model.Module
-		fetchModuleByUuidAndCompanyId(String uuid, long companyId) {
+	public static Module fetchModuleByUuidAndCompanyId(
+		String uuid, long companyId) {
 
 		return getService().fetchModuleByUuidAndCompanyId(uuid, companyId);
 	}
@@ -270,9 +256,7 @@ public class ModuleLocalServiceUtil {
 	 * @return the module
 	 * @throws PortalException if a module with the primary key could not be found
 	 */
-	public static com.liferay.marketplace.model.Module getModule(long moduleId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static Module getModule(long moduleId) throws PortalException {
 		return getService().getModule(moduleId);
 	}
 
@@ -284,9 +268,9 @@ public class ModuleLocalServiceUtil {
 	 * @return the matching module
 	 * @throws PortalException if a matching module could not be found
 	 */
-	public static com.liferay.marketplace.model.Module
-			getModuleByUuidAndCompanyId(String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static Module getModuleByUuidAndCompanyId(
+			String uuid, long companyId)
+		throws PortalException {
 
 		return getService().getModuleByUuidAndCompanyId(uuid, companyId);
 	}
@@ -302,15 +286,11 @@ public class ModuleLocalServiceUtil {
 	 * @param end the upper bound of the range of modules (not inclusive)
 	 * @return the range of modules
 	 */
-	public static java.util.List<com.liferay.marketplace.model.Module>
-		getModules(int start, int end) {
-
+	public static List<Module> getModules(int start, int end) {
 		return getService().getModules(start, end);
 	}
 
-	public static java.util.List<com.liferay.marketplace.model.Module>
-		getModules(long appId) {
-
+	public static List<Module> getModules(long appId) {
 		return getService().getModules(appId);
 	}
 
@@ -335,9 +315,8 @@ public class ModuleLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -352,29 +331,14 @@ public class ModuleLocalServiceUtil {
 	 * @param module the module
 	 * @return the module that was updated
 	 */
-	public static com.liferay.marketplace.model.Module updateModule(
-		com.liferay.marketplace.model.Module module) {
-
+	public static Module updateModule(Module module) {
 		return getService().updateModule(module);
 	}
 
 	public static ModuleLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<ModuleLocalService, ModuleLocalService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(ModuleLocalService.class);
-
-		ServiceTracker<ModuleLocalService, ModuleLocalService> serviceTracker =
-			new ServiceTracker<ModuleLocalService, ModuleLocalService>(
-				bundle.getBundleContext(), ModuleLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile ModuleLocalService _service;
 
 }

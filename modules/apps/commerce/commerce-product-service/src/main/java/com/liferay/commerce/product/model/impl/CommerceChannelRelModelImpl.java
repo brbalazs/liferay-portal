@@ -611,6 +611,8 @@ public class CommerceChannelRelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 

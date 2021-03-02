@@ -817,6 +817,8 @@ public class CPDefinitionLinkModelImpl
 
 	@Override
 	public void setPriority(double priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 

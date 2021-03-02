@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ClusterGroup;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for ClusterGroup. This utility wraps
@@ -46,21 +54,17 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param clusterGroup the cluster group
 	 * @return the cluster group that was added
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup addClusterGroup(
-		com.liferay.portal.kernel.model.ClusterGroup clusterGroup) {
-
+	public static ClusterGroup addClusterGroup(ClusterGroup clusterGroup) {
 		return getService().addClusterGroup(clusterGroup);
 	}
 
-	public static com.liferay.portal.kernel.model.ClusterGroup addClusterGroup(
-		String name, java.util.List<String> clusterNodeIds) {
+	public static ClusterGroup addClusterGroup(
+		String name, List<String> clusterNodeIds) {
 
 		return getService().addClusterGroup(name, clusterNodeIds);
 	}
 
-	public static com.liferay.portal.kernel.model.ClusterGroup
-		addWholeClusterGroup(String name) {
-
+	public static ClusterGroup addWholeClusterGroup(String name) {
 		return getService().addWholeClusterGroup(name);
 	}
 
@@ -70,9 +74,7 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param clusterGroupId the primary key for the new cluster group
 	 * @return the new cluster group
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup
-		createClusterGroup(long clusterGroupId) {
-
+	public static ClusterGroup createClusterGroup(long clusterGroupId) {
 		return getService().createClusterGroup(clusterGroupId);
 	}
 
@@ -86,10 +88,7 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param clusterGroup the cluster group
 	 * @return the cluster group that was removed
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup
-		deleteClusterGroup(
-			com.liferay.portal.kernel.model.ClusterGroup clusterGroup) {
-
+	public static ClusterGroup deleteClusterGroup(ClusterGroup clusterGroup) {
 		return getService().deleteClusterGroup(clusterGroup);
 	}
 
@@ -104,9 +103,8 @@ public class ClusterGroupLocalServiceUtil {
 	 * @return the cluster group that was removed
 	 * @throws PortalException if a cluster group with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup
-			deleteClusterGroup(long clusterGroupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ClusterGroup deleteClusterGroup(long clusterGroupId)
+		throws PortalException {
 
 		return getService().deleteClusterGroup(clusterGroupId);
 	}
@@ -114,17 +112,14 @@ public class ClusterGroupLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -134,9 +129,7 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -152,9 +145,8 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -172,10 +164,9 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -187,9 +178,7 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -201,15 +190,13 @@ public class ClusterGroupLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.ClusterGroup
-		fetchClusterGroup(long clusterGroupId) {
-
+	public static ClusterGroup fetchClusterGroup(long clusterGroupId) {
 		return getService().fetchClusterGroup(clusterGroupId);
 	}
 
@@ -226,9 +213,8 @@ public class ClusterGroupLocalServiceUtil {
 	 * @return the cluster group
 	 * @throws PortalException if a cluster group with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup getClusterGroup(
-			long clusterGroupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ClusterGroup getClusterGroup(long clusterGroupId)
+		throws PortalException {
 
 		return getService().getClusterGroup(clusterGroupId);
 	}
@@ -244,9 +230,7 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param end the upper bound of the range of cluster groups (not inclusive)
 	 * @return the range of cluster groups
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.ClusterGroup>
-		getClusterGroups(int start, int end) {
-
+	public static List<ClusterGroup> getClusterGroups(int start, int end) {
 		return getService().getClusterGroups(start, end);
 	}
 
@@ -278,9 +262,8 @@ public class ClusterGroupLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -295,22 +278,14 @@ public class ClusterGroupLocalServiceUtil {
 	 * @param clusterGroup the cluster group
 	 * @return the cluster group that was updated
 	 */
-	public static com.liferay.portal.kernel.model.ClusterGroup
-		updateClusterGroup(
-			com.liferay.portal.kernel.model.ClusterGroup clusterGroup) {
-
+	public static ClusterGroup updateClusterGroup(ClusterGroup clusterGroup) {
 		return getService().updateClusterGroup(clusterGroup);
 	}
 
 	public static ClusterGroupLocalService getService() {
-		if (_service == null) {
-			_service = (ClusterGroupLocalService)PortalBeanLocatorUtil.locate(
-				ClusterGroupLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static ClusterGroupLocalService _service;
+	private static volatile ClusterGroupLocalService _service;
 
 }

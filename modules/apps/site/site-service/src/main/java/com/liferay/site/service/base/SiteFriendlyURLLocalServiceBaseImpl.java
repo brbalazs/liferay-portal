@@ -47,9 +47,12 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.site.model.SiteFriendlyURL;
 import com.liferay.site.service.SiteFriendlyURLLocalService;
+import com.liferay.site.service.SiteFriendlyURLLocalServiceUtil;
 import com.liferay.site.service.persistence.SiteFriendlyURLPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -73,7 +76,7 @@ public abstract class SiteFriendlyURLLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SiteFriendlyURLLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.site.service.SiteFriendlyURLLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SiteFriendlyURLLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SiteFriendlyURLLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -599,11 +602,15 @@ public abstract class SiteFriendlyURLLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.site.model.SiteFriendlyURL",
 			siteFriendlyURLLocalService);
+
+		_setLocalServiceUtilService(siteFriendlyURLLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.site.model.SiteFriendlyURL");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -645,6 +652,23 @@ public abstract class SiteFriendlyURLLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SiteFriendlyURLLocalService siteFriendlyURLLocalService) {
+
+		try {
+			Field field =
+				SiteFriendlyURLLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, siteFriendlyURLLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

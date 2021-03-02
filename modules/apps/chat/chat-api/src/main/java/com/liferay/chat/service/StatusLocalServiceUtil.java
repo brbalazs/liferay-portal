@@ -14,9 +14,15 @@
 
 package com.liferay.chat.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.chat.model.Status;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for Status. This utility wraps
@@ -48,9 +54,7 @@ public class StatusLocalServiceUtil {
 	 * @param status the status
 	 * @return the status that was added
 	 */
-	public static com.liferay.chat.model.Status addStatus(
-		com.liferay.chat.model.Status status) {
-
+	public static Status addStatus(Status status) {
 		return getService().addStatus(status);
 	}
 
@@ -60,17 +64,16 @@ public class StatusLocalServiceUtil {
 	 * @param statusId the primary key for the new status
 	 * @return the new status
 	 */
-	public static com.liferay.chat.model.Status createStatus(long statusId) {
+	public static Status createStatus(long statusId) {
 		return getService().createStatus(statusId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -86,9 +89,7 @@ public class StatusLocalServiceUtil {
 	 * @return the status that was removed
 	 * @throws PortalException if a status with the primary key could not be found
 	 */
-	public static com.liferay.chat.model.Status deleteStatus(long statusId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static Status deleteStatus(long statusId) throws PortalException {
 		return getService().deleteStatus(statusId);
 	}
 
@@ -102,15 +103,11 @@ public class StatusLocalServiceUtil {
 	 * @param status the status
 	 * @return the status that was removed
 	 */
-	public static com.liferay.chat.model.Status deleteStatus(
-		com.liferay.chat.model.Status status) {
-
+	public static Status deleteStatus(Status status) {
 		return getService().deleteStatus(status);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -120,9 +117,7 @@ public class StatusLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -138,9 +133,8 @@ public class StatusLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -158,10 +152,9 @@ public class StatusLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -173,9 +166,7 @@ public class StatusLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -187,13 +178,13 @@ public class StatusLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.chat.model.Status fetchStatus(long statusId) {
+	public static Status fetchStatus(long statusId) {
 		return getService().fetchStatus(statusId);
 	}
 
@@ -203,14 +194,14 @@ public class StatusLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static java.util.List<Object[]> getAllStatuses(
+	public static List<Object[]> getAllStatuses(
 		long companyId, long userId, long modifiedDate, int start, int end) {
 
 		return getService().getAllStatuses(
 			companyId, userId, modifiedDate, start, end);
 	}
 
-	public static java.util.List<Object[]> getGroupStatuses(
+	public static List<Object[]> getGroupStatuses(
 		long userId, long modifiedDate, String[] groupNames, int start,
 		int end) {
 
@@ -237,21 +228,20 @@ public class StatusLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.util.List<Object[]> getSocialStatuses(
+	public static List<Object[]> getSocialStatuses(
 		long userId, int type, long modifiedDate, int start, int end) {
 
 		return getService().getSocialStatuses(
 			userId, type, modifiedDate, start, end);
 	}
 
-	public static java.util.List<Object[]> getSocialStatuses(
+	public static List<Object[]> getSocialStatuses(
 		long userId, int[] types, long modifiedDate, int start, int end) {
 
 		return getService().getSocialStatuses(
@@ -265,9 +255,7 @@ public class StatusLocalServiceUtil {
 	 * @return the status
 	 * @throws PortalException if a status with the primary key could not be found
 	 */
-	public static com.liferay.chat.model.Status getStatus(long statusId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static Status getStatus(long statusId) throws PortalException {
 		return getService().getStatus(statusId);
 	}
 
@@ -282,9 +270,7 @@ public class StatusLocalServiceUtil {
 	 * @param end the upper bound of the range of statuses (not inclusive)
 	 * @return the range of statuses
 	 */
-	public static java.util.List<com.liferay.chat.model.Status> getStatuses(
-		int start, int end) {
-
+	public static List<Status> getStatuses(int start, int end) {
 		return getService().getStatuses(start, end);
 	}
 
@@ -297,17 +283,15 @@ public class StatusLocalServiceUtil {
 		return getService().getStatusesCount();
 	}
 
-	public static com.liferay.chat.model.Status getUserStatus(long userId) {
+	public static Status getUserStatus(long userId) {
 		return getService().getUserStatus(userId);
 	}
 
-	public static com.liferay.chat.model.Status updateStatus(
-		long userId, long modifiedDate) {
-
+	public static Status updateStatus(long userId, long modifiedDate) {
 		return getService().updateStatus(userId, modifiedDate);
 	}
 
-	public static com.liferay.chat.model.Status updateStatus(
+	public static Status updateStatus(
 		long userId, long modifiedDate, int online, int awake,
 		String activePanelIds, String message, int playSound) {
 
@@ -326,29 +310,14 @@ public class StatusLocalServiceUtil {
 	 * @param status the status
 	 * @return the status that was updated
 	 */
-	public static com.liferay.chat.model.Status updateStatus(
-		com.liferay.chat.model.Status status) {
-
+	public static Status updateStatus(Status status) {
 		return getService().updateStatus(status);
 	}
 
 	public static StatusLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<StatusLocalService, StatusLocalService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(StatusLocalService.class);
-
-		ServiceTracker<StatusLocalService, StatusLocalService> serviceTracker =
-			new ServiceTracker<StatusLocalService, StatusLocalService>(
-				bundle.getBundleContext(), StatusLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile StatusLocalService _service;
 
 }

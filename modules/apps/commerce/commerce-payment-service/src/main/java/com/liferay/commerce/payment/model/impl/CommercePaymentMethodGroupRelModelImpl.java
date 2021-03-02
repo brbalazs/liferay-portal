@@ -1077,6 +1077,8 @@ public class CommercePaymentMethodGroupRelModelImpl
 
 	@Override
 	public void setPriority(double priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 

@@ -399,7 +399,7 @@ public class ResourceActionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask |= NAME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -444,6 +444,8 @@ public class ResourceActionModelImpl
 
 	@Override
 	public void setBitwiseValue(long bitwiseValue) {
+		_columnBitmask = -1L;
+
 		_bitwiseValue = bitwiseValue;
 	}
 

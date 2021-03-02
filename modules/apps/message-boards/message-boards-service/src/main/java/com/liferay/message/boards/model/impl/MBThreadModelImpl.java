@@ -1149,7 +1149,7 @@ public class MBThreadModelImpl
 
 	@Override
 	public void setLastPostDate(Date lastPostDate) {
-		_columnBitmask |= LASTPOSTDATE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalLastPostDate == null) {
 			_originalLastPostDate = _lastPostDate;
@@ -1170,7 +1170,7 @@ public class MBThreadModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalPriority) {
 			_setOriginalPriority = true;

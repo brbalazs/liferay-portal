@@ -41,11 +41,14 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp;
 import com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthAppLocalService;
+import com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthAppLocalServiceUtil;
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthAppPersistence;
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthTokenPersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -69,7 +72,7 @@ public abstract class WeDeployAuthAppLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>WeDeployAuthAppLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.security.wedeploy.auth.service.WeDeployAuthAppLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>WeDeployAuthAppLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>WeDeployAuthAppLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -572,11 +575,15 @@ public abstract class WeDeployAuthAppLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp",
 			weDeployAuthAppLocalService);
+
+		_setLocalServiceUtilService(weDeployAuthAppLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthApp");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -618,6 +625,23 @@ public abstract class WeDeployAuthAppLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		WeDeployAuthAppLocalService weDeployAuthAppLocalService) {
+
+		try {
+			Field field =
+				WeDeployAuthAppLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, weDeployAuthAppLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

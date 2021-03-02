@@ -16,6 +16,7 @@ package com.liferay.commerce.notification.service.base;
 
 import com.liferay.commerce.notification.model.CommerceNotificationAttachment;
 import com.liferay.commerce.notification.service.CommerceNotificationAttachmentLocalService;
+import com.liferay.commerce.notification.service.CommerceNotificationAttachmentLocalServiceUtil;
 import com.liferay.commerce.notification.service.persistence.CommerceNotificationAttachmentPersistence;
 import com.liferay.commerce.notification.service.persistence.CommerceNotificationQueueEntryPersistence;
 import com.liferay.commerce.notification.service.persistence.CommerceNotificationTemplateCommerceAccountGroupRelPersistence;
@@ -55,6 +56,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -78,7 +81,7 @@ public abstract class CommerceNotificationAttachmentLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceNotificationAttachmentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.notification.service.CommerceNotificationAttachmentLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceNotificationAttachmentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceNotificationAttachmentLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -892,11 +895,15 @@ public abstract class CommerceNotificationAttachmentLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.notification.model.CommerceNotificationAttachment",
 			commerceNotificationAttachmentLocalService);
+
+		_setLocalServiceUtilService(commerceNotificationAttachmentLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.notification.model.CommerceNotificationAttachment");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -939,6 +946,24 @@ public abstract class CommerceNotificationAttachmentLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceNotificationAttachmentLocalService
+			commerceNotificationAttachmentLocalService) {
+
+		try {
+			Field field =
+				CommerceNotificationAttachmentLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceNotificationAttachmentLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

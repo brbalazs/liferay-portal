@@ -968,6 +968,8 @@ public class MBMessageModelImpl
 
 	@Override
 	public void setMessageId(long messageId) {
+		_columnBitmask = -1L;
+
 		_messageId = messageId;
 	}
 
@@ -1080,6 +1082,8 @@ public class MBMessageModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 

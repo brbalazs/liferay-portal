@@ -746,6 +746,8 @@ public class KaleoNotificationRecipientModelImpl
 	public void setKaleoNotificationRecipientId(
 		long kaleoNotificationRecipientId) {
 
+		_columnBitmask = -1L;
+
 		_kaleoNotificationRecipientId = kaleoNotificationRecipientId;
 	}
 

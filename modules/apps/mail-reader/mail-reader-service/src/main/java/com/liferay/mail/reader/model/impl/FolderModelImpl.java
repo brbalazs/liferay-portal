@@ -582,7 +582,7 @@ public class FolderModelImpl
 
 	@Override
 	public void setFullName(String fullName) {
-		_columnBitmask |= FULLNAME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalFullName == null) {
 			_originalFullName = _fullName;

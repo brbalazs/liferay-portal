@@ -764,7 +764,7 @@ public class SocialActivityModelImpl
 
 	@Override
 	public void setCreateDate(long createDate) {
-		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalCreateDate) {
 			_setOriginalCreateDate = true;

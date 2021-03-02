@@ -19,6 +19,7 @@ import com.liferay.asset.kernel.service.persistence.AssetLinkPersistence;
 import com.liferay.expando.kernel.service.persistence.ExpandoValuePersistence;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.service.JournalFolderService;
+import com.liferay.journal.service.JournalFolderServiceUtil;
 import com.liferay.journal.service.persistence.JournalArticleFinder;
 import com.liferay.journal.service.persistence.JournalArticlePersistence;
 import com.liferay.journal.service.persistence.JournalFolderFinder;
@@ -41,6 +42,8 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -61,7 +64,7 @@ public abstract class JournalFolderServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>JournalFolderService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.journal.service.JournalFolderServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>JournalFolderService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>JournalFolderServiceUtil</code>.
 	 */
 
 	/**
@@ -823,9 +826,11 @@ public abstract class JournalFolderServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(journalFolderService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -867,6 +872,22 @@ public abstract class JournalFolderServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		JournalFolderService journalFolderService) {
+
+		try {
+			Field field = JournalFolderServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, journalFolderService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

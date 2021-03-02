@@ -915,7 +915,7 @@ public class KaleoDefinitionModelImpl
 
 	@Override
 	public void setVersion(int version) {
-		_columnBitmask |= VERSION_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;

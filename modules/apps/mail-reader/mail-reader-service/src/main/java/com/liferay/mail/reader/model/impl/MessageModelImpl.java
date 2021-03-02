@@ -880,6 +880,8 @@ public class MessageModelImpl
 
 	@Override
 	public void setSentDate(Date sentDate) {
+		_columnBitmask = -1L;
+
 		_sentDate = sentDate;
 	}
 

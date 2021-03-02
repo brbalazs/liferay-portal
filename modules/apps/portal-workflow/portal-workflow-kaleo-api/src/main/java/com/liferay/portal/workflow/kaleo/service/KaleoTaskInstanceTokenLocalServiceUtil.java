@@ -14,9 +14,16 @@
 
 package com.liferay.portal.workflow.kaleo.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken;
+
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for KaleoTaskInstanceToken. This utility wraps
@@ -48,64 +55,55 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param kaleoTaskInstanceToken the kaleo task instance token
 	 * @return the kaleo task instance token that was added
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-		addKaleoTaskInstanceToken(
-			com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-				kaleoTaskInstanceToken) {
+	public static KaleoTaskInstanceToken addKaleoTaskInstanceToken(
+		KaleoTaskInstanceToken kaleoTaskInstanceToken) {
 
 		return getService().addKaleoTaskInstanceToken(kaleoTaskInstanceToken);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			addKaleoTaskInstanceToken(
-				long kaleoInstanceTokenId, long kaleoTaskId,
-				String kaleoTaskName,
-				java.util.Collection
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskAssignment> kaleoTaskAssignments,
-				java.util.Date dueDate,
-				java.util.Map<String, java.io.Serializable> workflowContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken addKaleoTaskInstanceToken(
+			long kaleoInstanceTokenId, long kaleoTaskId, String kaleoTaskName,
+			java.util.Collection
+				<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment>
+					kaleoTaskAssignments,
+			java.util.Date dueDate, Map<String, Serializable> workflowContext,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addKaleoTaskInstanceToken(
 			kaleoInstanceTokenId, kaleoTaskId, kaleoTaskName,
 			kaleoTaskAssignments, dueDate, workflowContext, serviceContext);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			assignKaleoTaskInstanceToken(
-				long kaleoTaskInstanceTokenId,
-				java.util.Collection
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskAssignment> kaleoTaskAssignments,
-				java.util.Map<String, java.io.Serializable> workflowContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken assignKaleoTaskInstanceToken(
+			long kaleoTaskInstanceTokenId,
+			java.util.Collection
+				<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment>
+					kaleoTaskAssignments,
+			Map<String, Serializable> workflowContext,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().assignKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId, kaleoTaskAssignments, workflowContext,
 			serviceContext);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			assignKaleoTaskInstanceToken(
-				long kaleoTaskInstanceTokenId, String assigneeClassName,
-				long assigneeClassPK,
-				java.util.Map<String, java.io.Serializable> workflowContext,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken assignKaleoTaskInstanceToken(
+			long kaleoTaskInstanceTokenId, String assigneeClassName,
+			long assigneeClassPK, Map<String, Serializable> workflowContext,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().assignKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId, assigneeClassName, assigneeClassPK,
 			workflowContext, serviceContext);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			completeKaleoTaskInstanceToken(
-				long kaleoTaskInstanceTokenId,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken completeKaleoTaskInstanceToken(
+			long kaleoTaskInstanceTokenId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().completeKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId, serviceContext);
@@ -117,8 +115,8 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param kaleoTaskInstanceTokenId the primary key for the new kaleo task instance token
 	 * @return the new kaleo task instance token
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-		createKaleoTaskInstanceToken(long kaleoTaskInstanceTokenId) {
+	public static KaleoTaskInstanceToken createKaleoTaskInstanceToken(
+		long kaleoTaskInstanceTokenId) {
 
 		return getService().createKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId);
@@ -152,10 +150,8 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param kaleoTaskInstanceToken the kaleo task instance token
 	 * @return the kaleo task instance token that was removed
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-		deleteKaleoTaskInstanceToken(
-			com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-				kaleoTaskInstanceToken) {
+	public static KaleoTaskInstanceToken deleteKaleoTaskInstanceToken(
+		KaleoTaskInstanceToken kaleoTaskInstanceToken) {
 
 		return getService().deleteKaleoTaskInstanceToken(
 			kaleoTaskInstanceToken);
@@ -172,9 +168,9 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @return the kaleo task instance token that was removed
 	 * @throws PortalException if a kaleo task instance token with the primary key could not be found
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			deleteKaleoTaskInstanceToken(long kaleoTaskInstanceTokenId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken deleteKaleoTaskInstanceToken(
+			long kaleoTaskInstanceTokenId)
+		throws PortalException {
 
 		return getService().deleteKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId);
@@ -183,17 +179,14 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -203,9 +196,7 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -221,9 +212,8 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -241,10 +231,9 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -256,9 +245,7 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -270,14 +257,14 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-		fetchKaleoTaskInstanceToken(long kaleoTaskInstanceTokenId) {
+	public static KaleoTaskInstanceToken fetchKaleoTaskInstanceToken(
+		long kaleoTaskInstanceTokenId) {
 
 		return getService().fetchKaleoTaskInstanceToken(
 			kaleoTaskInstanceTokenId);
@@ -289,10 +276,8 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getCompanyKaleoTaskInstanceTokens(
-				long companyId, int start, int end) {
+	public static List<KaleoTaskInstanceToken>
+		getCompanyKaleoTaskInstanceTokens(long companyId, int start, int end) {
 
 		return getService().getCompanyKaleoTaskInstanceTokens(
 			companyId, start, end);
@@ -316,22 +301,17 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @return the kaleo task instance token
 	 * @throws PortalException if a kaleo task instance token with the primary key could not be found
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			getKaleoTaskInstanceToken(long kaleoTaskInstanceTokenId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken getKaleoTaskInstanceToken(
+			long kaleoTaskInstanceTokenId)
+		throws PortalException {
 
 		return getService().getKaleoTaskInstanceToken(kaleoTaskInstanceTokenId);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getKaleoTaskInstanceTokens(
-				Boolean completed, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskInstanceToken> orderByComparator,
-				com.liferay.portal.kernel.service.ServiceContext
-					serviceContext) {
+	public static List<KaleoTaskInstanceToken> getKaleoTaskInstanceTokens(
+		Boolean completed, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getKaleoTaskInstanceTokens(
 			completed, start, end, orderByComparator, serviceContext);
@@ -348,61 +328,44 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param end the upper bound of the range of kaleo task instance tokens (not inclusive)
 	 * @return the range of kaleo task instance tokens
 	 */
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getKaleoTaskInstanceTokens(int start, int end) {
+	public static List<KaleoTaskInstanceToken> getKaleoTaskInstanceTokens(
+		int start, int end) {
 
 		return getService().getKaleoTaskInstanceTokens(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getKaleoTaskInstanceTokens(
-				java.util.List<Long> roleIds, Boolean completed, int start,
-				int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskInstanceToken> orderByComparator,
-				com.liferay.portal.kernel.service.ServiceContext
-					serviceContext) {
+	public static List<KaleoTaskInstanceToken> getKaleoTaskInstanceTokens(
+		List<Long> roleIds, Boolean completed, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getKaleoTaskInstanceTokens(
 			roleIds, completed, start, end, orderByComparator, serviceContext);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getKaleoTaskInstanceTokens(
-				long kaleoInstanceId, Boolean completed, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskInstanceToken> orderByComparator,
-				com.liferay.portal.kernel.service.ServiceContext
-					serviceContext) {
+	public static List<KaleoTaskInstanceToken> getKaleoTaskInstanceTokens(
+		long kaleoInstanceId, Boolean completed, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getKaleoTaskInstanceTokens(
 			kaleoInstanceId, completed, start, end, orderByComparator,
 			serviceContext);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			getKaleoTaskInstanceTokens(long kaleoInstanceId, long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken getKaleoTaskInstanceTokens(
+			long kaleoInstanceId, long kaleoTaskId)
+		throws PortalException {
 
 		return getService().getKaleoTaskInstanceTokens(
 			kaleoInstanceId, kaleoTaskId);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getKaleoTaskInstanceTokens(
-				String assigneeClassName, long assigneeClassPK,
-				Boolean completed, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskInstanceToken> orderByComparator,
-				com.liferay.portal.kernel.service.ServiceContext
-					serviceContext) {
+	public static List<KaleoTaskInstanceToken> getKaleoTaskInstanceTokens(
+		String assigneeClassName, long assigneeClassPK, Boolean completed,
+		int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getKaleoTaskInstanceTokens(
 			assigneeClassName, assigneeClassPK, completed, start, end,
@@ -427,7 +390,7 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	}
 
 	public static int getKaleoTaskInstanceTokensCount(
-		java.util.List<Long> roleIds, Boolean completed,
+		List<Long> roleIds, Boolean completed,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getKaleoTaskInstanceTokensCount(
@@ -462,22 +425,17 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-			getSubmittingUserKaleoTaskInstanceTokens(
-				long userId, Boolean completed, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.portal.workflow.kaleo.model.
-						KaleoTaskInstanceToken> orderByComparator,
-				com.liferay.portal.kernel.service.ServiceContext
-					serviceContext) {
+	public static List<KaleoTaskInstanceToken>
+		getSubmittingUserKaleoTaskInstanceTokens(
+			long userId, Boolean completed, int start, int end,
+			OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().getSubmittingUserKaleoTaskInstanceTokens(
 			userId, completed, start, end, orderByComparator, serviceContext);
@@ -493,35 +451,28 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 
 	public static boolean hasPendingKaleoTaskForms(
 			long kaleoTaskInstanceTokenId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().hasPendingKaleoTaskForms(kaleoTaskInstanceTokenId);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken> search(
-			String keywords, Boolean completed, Boolean searchByUserRoles,
-			int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-					orderByComparator,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+	public static List<KaleoTaskInstanceToken> search(
+		String keywords, Boolean completed, Boolean searchByUserRoles,
+		int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().search(
 			keywords, completed, searchByUserRoles, start, end,
 			orderByComparator, serviceContext);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken> search(
-			String taskName, String assetType, Long[] assetPrimaryKeys,
-			java.util.Date dueDateGT, java.util.Date dueDateLT,
-			Boolean completed, Boolean searchByUserRoles, boolean andOperator,
-			int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-					orderByComparator,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+	public static List<KaleoTaskInstanceToken> search(
+		String taskName, String assetType, Long[] assetPrimaryKeys,
+		java.util.Date dueDateGT, java.util.Date dueDateLT, Boolean completed,
+		Boolean searchByUserRoles, boolean andOperator, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().search(
 			taskName, assetType, assetPrimaryKeys, dueDateGT, dueDateLT,
@@ -529,16 +480,13 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 			orderByComparator, serviceContext);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken> search(
-			String assetTitle, String taskName, String[] assetTypes,
-			Long[] assetPrimaryKeys, java.util.Date dueDateGT,
-			java.util.Date dueDateLT, Boolean completed,
-			Boolean searchByUserRoles, boolean andOperator, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-					orderByComparator,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+	public static List<KaleoTaskInstanceToken> search(
+		String assetTitle, String taskName, String[] assetTypes,
+		Long[] assetPrimaryKeys, java.util.Date dueDateGT,
+		java.util.Date dueDateLT, Boolean completed, Boolean searchByUserRoles,
+		boolean andOperator, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().search(
 			assetTitle, taskName, assetTypes, assetPrimaryKeys, dueDateGT,
@@ -546,14 +494,11 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 			orderByComparator, serviceContext);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken> search(
-			String keywords, String[] assetTypes, Boolean completed,
-			Boolean searchByUserRoles, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>
-					orderByComparator,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+	public static List<KaleoTaskInstanceToken> search(
+		String keywords, String[] assetTypes, Boolean completed,
+		Boolean searchByUserRoles, int start, int end,
+		OrderByComparator<KaleoTaskInstanceToken> orderByComparator,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().search(
 			keywords, assetTypes, completed, searchByUserRoles, start, end,
@@ -622,11 +567,10 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 			keywords, assetTypes, completed, searchByUserRoles, serviceContext);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-			updateDueDate(
-				long kaleoTaskInstanceTokenId, java.util.Date dueDate,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoTaskInstanceToken updateDueDate(
+			long kaleoTaskInstanceTokenId, java.util.Date dueDate,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateDueDate(
 			kaleoTaskInstanceTokenId, dueDate, serviceContext);
@@ -642,39 +586,17 @@ public class KaleoTaskInstanceTokenLocalServiceUtil {
 	 * @param kaleoTaskInstanceToken the kaleo task instance token
 	 * @return the kaleo task instance token that was updated
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-		updateKaleoTaskInstanceToken(
-			com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken
-				kaleoTaskInstanceToken) {
+	public static KaleoTaskInstanceToken updateKaleoTaskInstanceToken(
+		KaleoTaskInstanceToken kaleoTaskInstanceToken) {
 
 		return getService().updateKaleoTaskInstanceToken(
 			kaleoTaskInstanceToken);
 	}
 
 	public static KaleoTaskInstanceTokenLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<KaleoTaskInstanceTokenLocalService, KaleoTaskInstanceTokenLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			KaleoTaskInstanceTokenLocalService.class);
-
-		ServiceTracker
-			<KaleoTaskInstanceTokenLocalService,
-			 KaleoTaskInstanceTokenLocalService> serviceTracker =
-				new ServiceTracker
-					<KaleoTaskInstanceTokenLocalService,
-					 KaleoTaskInstanceTokenLocalService>(
-						 bundle.getBundleContext(),
-						 KaleoTaskInstanceTokenLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile KaleoTaskInstanceTokenLocalService _service;
 
 }

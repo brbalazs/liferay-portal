@@ -28,10 +28,13 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.sync.model.SyncDevice;
 import com.liferay.sync.service.SyncDeviceService;
+import com.liferay.sync.service.SyncDeviceServiceUtil;
 import com.liferay.sync.service.persistence.SyncDLFileVersionDiffPersistence;
 import com.liferay.sync.service.persistence.SyncDLObjectFinder;
 import com.liferay.sync.service.persistence.SyncDLObjectPersistence;
 import com.liferay.sync.service.persistence.SyncDevicePersistence;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -53,7 +56,7 @@ public abstract class SyncDeviceServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SyncDeviceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.sync.service.SyncDeviceServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SyncDeviceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SyncDeviceServiceUtil</code>.
 	 */
 
 	/**
@@ -419,9 +422,11 @@ public abstract class SyncDeviceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(syncDeviceService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -463,6 +468,20 @@ public abstract class SyncDeviceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(SyncDeviceService syncDeviceService) {
+		try {
+			Field field = SyncDeviceServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, syncDeviceService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

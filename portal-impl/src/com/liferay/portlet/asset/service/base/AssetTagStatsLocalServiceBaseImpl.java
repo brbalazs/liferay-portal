@@ -16,6 +16,7 @@ package com.liferay.portlet.asset.service.base;
 
 import com.liferay.asset.kernel.model.AssetTagStats;
 import com.liferay.asset.kernel.service.AssetTagStatsLocalService;
+import com.liferay.asset.kernel.service.AssetTagStatsLocalServiceUtil;
 import com.liferay.asset.kernel.service.persistence.AssetTagStatsPersistence;
 import com.liferay.counter.kernel.service.persistence.CounterPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -44,6 +45,8 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -69,7 +72,7 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>AssetTagStatsLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.asset.kernel.service.AssetTagStatsLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>AssetTagStatsLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>AssetTagStatsLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -436,11 +439,15 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.asset.kernel.model.AssetTagStats",
 			assetTagStatsLocalService);
+
+		_setLocalServiceUtilService(assetTagStatsLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.asset.kernel.model.AssetTagStats");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -482,6 +489,22 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		AssetTagStatsLocalService assetTagStatsLocalService) {
+
+		try {
+			Field field = AssetTagStatsLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, assetTagStatsLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

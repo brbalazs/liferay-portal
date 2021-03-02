@@ -14,7 +14,15 @@
 
 package com.liferay.announcements.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.announcements.kernel.model.AnnouncementsDelivery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for AnnouncementsDelivery. This utility wraps
@@ -46,17 +54,15 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param announcementsDelivery the announcements delivery
 	 * @return the announcements delivery that was added
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-		addAnnouncementsDelivery(
-			com.liferay.announcements.kernel.model.AnnouncementsDelivery
-				announcementsDelivery) {
+	public static AnnouncementsDelivery addAnnouncementsDelivery(
+		AnnouncementsDelivery announcementsDelivery) {
 
 		return getService().addAnnouncementsDelivery(announcementsDelivery);
 	}
 
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			addUserDelivery(long userId, String type)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery addUserDelivery(
+			long userId, String type)
+		throws PortalException {
 
 		return getService().addUserDelivery(userId, type);
 	}
@@ -67,8 +73,8 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param deliveryId the primary key for the new announcements delivery
 	 * @return the new announcements delivery
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-		createAnnouncementsDelivery(long deliveryId) {
+	public static AnnouncementsDelivery createAnnouncementsDelivery(
+		long deliveryId) {
 
 		return getService().createAnnouncementsDelivery(deliveryId);
 	}
@@ -83,10 +89,8 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param announcementsDelivery the announcements delivery
 	 * @return the announcements delivery that was removed
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-		deleteAnnouncementsDelivery(
-			com.liferay.announcements.kernel.model.AnnouncementsDelivery
-				announcementsDelivery) {
+	public static AnnouncementsDelivery deleteAnnouncementsDelivery(
+		AnnouncementsDelivery announcementsDelivery) {
 
 		return getService().deleteAnnouncementsDelivery(announcementsDelivery);
 	}
@@ -102,9 +106,9 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @return the announcements delivery that was removed
 	 * @throws PortalException if a announcements delivery with the primary key could not be found
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			deleteAnnouncementsDelivery(long deliveryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery deleteAnnouncementsDelivery(
+			long deliveryId)
+		throws PortalException {
 
 		return getService().deleteAnnouncementsDelivery(deliveryId);
 	}
@@ -113,15 +117,11 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 		getService().deleteDeliveries(userId);
 	}
 
-	public static void deleteDelivery(
-		com.liferay.announcements.kernel.model.AnnouncementsDelivery delivery) {
-
+	public static void deleteDelivery(AnnouncementsDelivery delivery) {
 		getService().deleteDelivery(delivery);
 	}
 
-	public static void deleteDelivery(long deliveryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void deleteDelivery(long deliveryId) throws PortalException {
 		getService().deleteDelivery(deliveryId);
 	}
 
@@ -132,17 +132,14 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -152,9 +149,7 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -170,9 +165,8 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -190,10 +184,9 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -205,9 +198,7 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -219,14 +210,14 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-		fetchAnnouncementsDelivery(long deliveryId) {
+	public static AnnouncementsDelivery fetchAnnouncementsDelivery(
+		long deliveryId) {
 
 		return getService().fetchAnnouncementsDelivery(deliveryId);
 	}
@@ -248,9 +239,8 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param end the upper bound of the range of announcements deliveries (not inclusive)
 	 * @return the range of announcements deliveries
 	 */
-	public static java.util.List
-		<com.liferay.announcements.kernel.model.AnnouncementsDelivery>
-			getAnnouncementsDeliveries(int start, int end) {
+	public static List<AnnouncementsDelivery> getAnnouncementsDeliveries(
+		int start, int end) {
 
 		return getService().getAnnouncementsDeliveries(start, end);
 	}
@@ -271,16 +261,15 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @return the announcements delivery
 	 * @throws PortalException if a announcements delivery with the primary key could not be found
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			getAnnouncementsDelivery(long deliveryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery getAnnouncementsDelivery(
+			long deliveryId)
+		throws PortalException {
 
 		return getService().getAnnouncementsDelivery(deliveryId);
 	}
 
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			getDelivery(long deliveryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery getDelivery(long deliveryId)
+		throws PortalException {
 
 		return getService().getDelivery(deliveryId);
 	}
@@ -304,24 +293,21 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.util.List
-		<com.liferay.announcements.kernel.model.AnnouncementsDelivery>
-				getUserDeliveries(long userId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static List<AnnouncementsDelivery> getUserDeliveries(long userId)
+		throws PortalException {
 
 		return getService().getUserDeliveries(userId);
 	}
 
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			getUserDelivery(long userId, String type)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery getUserDelivery(
+			long userId, String type)
+		throws PortalException {
 
 		return getService().getUserDelivery(userId, type);
 	}
@@ -336,17 +322,15 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 * @param announcementsDelivery the announcements delivery
 	 * @return the announcements delivery that was updated
 	 */
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-		updateAnnouncementsDelivery(
-			com.liferay.announcements.kernel.model.AnnouncementsDelivery
-				announcementsDelivery) {
+	public static AnnouncementsDelivery updateAnnouncementsDelivery(
+		AnnouncementsDelivery announcementsDelivery) {
 
 		return getService().updateAnnouncementsDelivery(announcementsDelivery);
 	}
 
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			updateDelivery(long userId, String type, boolean email, boolean sms)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery updateDelivery(
+			long userId, String type, boolean email, boolean sms)
+		throws PortalException {
 
 		return getService().updateDelivery(userId, type, email, sms);
 	}
@@ -356,25 +340,18 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 	 #updateDelivery(long, String, boolean, boolean)}
 	 */
 	@Deprecated
-	public static com.liferay.announcements.kernel.model.AnnouncementsDelivery
-			updateDelivery(
-				long userId, String type, boolean email, boolean sms,
-				boolean website)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AnnouncementsDelivery updateDelivery(
+			long userId, String type, boolean email, boolean sms,
+			boolean website)
+		throws PortalException {
 
 		return getService().updateDelivery(userId, type, email, sms, website);
 	}
 
 	public static AnnouncementsDeliveryLocalService getService() {
-		if (_service == null) {
-			_service =
-				(AnnouncementsDeliveryLocalService)PortalBeanLocatorUtil.locate(
-					AnnouncementsDeliveryLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static AnnouncementsDeliveryLocalService _service;
+	private static volatile AnnouncementsDeliveryLocalService _service;
 
 }

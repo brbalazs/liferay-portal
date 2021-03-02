@@ -16,6 +16,7 @@ package com.liferay.commerce.tax.service.base;
 
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalServiceUtil;
 import com.liferay.commerce.tax.service.persistence.CommerceTaxMethodPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -46,6 +47,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -68,7 +71,7 @@ public abstract class CommerceTaxMethodLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceTaxMethodLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.tax.service.CommerceTaxMethodLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceTaxMethodLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceTaxMethodLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -534,11 +537,15 @@ public abstract class CommerceTaxMethodLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.tax.model.CommerceTaxMethod",
 			commerceTaxMethodLocalService);
+
+		_setLocalServiceUtilService(commerceTaxMethodLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.tax.model.CommerceTaxMethod");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -581,6 +588,23 @@ public abstract class CommerceTaxMethodLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceTaxMethodLocalService commerceTaxMethodLocalService) {
+
+		try {
+			Field field =
+				CommerceTaxMethodLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceTaxMethodLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -16,6 +16,7 @@ package com.liferay.oauth2.provider.service.base;
 
 import com.liferay.oauth2.provider.model.OAuth2ScopeGrant;
 import com.liferay.oauth2.provider.service.OAuth2ScopeGrantLocalService;
+import com.liferay.oauth2.provider.service.OAuth2ScopeGrantLocalServiceUtil;
 import com.liferay.oauth2.provider.service.persistence.OAuth2AuthorizationPersistence;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantFinder;
 import com.liferay.oauth2.provider.service.persistence.OAuth2ScopeGrantPersistence;
@@ -46,6 +47,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -68,7 +71,7 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>OAuth2ScopeGrantLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth2.provider.service.OAuth2ScopeGrantLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>OAuth2ScopeGrantLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>OAuth2ScopeGrantLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -663,11 +666,15 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.oauth2.provider.model.OAuth2ScopeGrant",
 			oAuth2ScopeGrantLocalService);
+
+		_setLocalServiceUtilService(oAuth2ScopeGrantLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth2.provider.model.OAuth2ScopeGrant");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -709,6 +716,23 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		OAuth2ScopeGrantLocalService oAuth2ScopeGrantLocalService) {
+
+		try {
+			Field field =
+				OAuth2ScopeGrantLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, oAuth2ScopeGrantLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

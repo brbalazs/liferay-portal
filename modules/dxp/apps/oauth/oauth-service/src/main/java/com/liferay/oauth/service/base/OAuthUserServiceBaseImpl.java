@@ -16,6 +16,7 @@ package com.liferay.oauth.service.base;
 
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.service.OAuthUserService;
+import com.liferay.oauth.service.OAuthUserServiceUtil;
 import com.liferay.oauth.service.persistence.OAuthApplicationPersistence;
 import com.liferay.oauth.service.persistence.OAuthUserPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -30,6 +31,8 @@ import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -51,7 +54,7 @@ public abstract class OAuthUserServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>OAuthUserService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth.service.OAuthUserServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>OAuthUserService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>OAuthUserServiceUtil</code>.
 	 */
 
 	/**
@@ -352,9 +355,11 @@ public abstract class OAuthUserServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(oAuthUserService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -396,6 +401,20 @@ public abstract class OAuthUserServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(OAuthUserService oAuthUserService) {
+		try {
+			Field field = OAuthUserServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, oAuthUserService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

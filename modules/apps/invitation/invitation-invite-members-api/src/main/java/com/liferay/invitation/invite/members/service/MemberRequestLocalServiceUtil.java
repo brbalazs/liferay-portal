@@ -14,9 +14,15 @@
 
 package com.liferay.invitation.invite.members.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.invitation.invite.members.model.MemberRequest;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for MemberRequest. This utility wraps
@@ -37,13 +43,11 @@ public class MemberRequestLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.invitation.invite.members.service.impl.MemberRequestLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			addMemberRequest(
-				long userId, long groupId, long receiverUserId,
-				String receiverEmailAddress, long invitedRoleId,
-				long invitedTeamId,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static MemberRequest addMemberRequest(
+			long userId, long groupId, long receiverUserId,
+			String receiverEmailAddress, long invitedRoleId, long invitedTeamId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addMemberRequest(
 			userId, groupId, receiverUserId, receiverEmailAddress,
@@ -60,11 +64,7 @@ public class MemberRequestLocalServiceUtil {
 	 * @param memberRequest the member request
 	 * @return the member request that was added
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-		addMemberRequest(
-			com.liferay.invitation.invite.members.model.MemberRequest
-				memberRequest) {
-
+	public static MemberRequest addMemberRequest(MemberRequest memberRequest) {
 		return getService().addMemberRequest(memberRequest);
 	}
 
@@ -72,7 +72,7 @@ public class MemberRequestLocalServiceUtil {
 			long userId, long groupId, long[] receiverUserIds,
 			long invitedRoleId, long invitedTeamId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().addMemberRequests(
 			userId, groupId, receiverUserIds, invitedRoleId, invitedTeamId,
@@ -83,7 +83,7 @@ public class MemberRequestLocalServiceUtil {
 			long userId, long groupId, String[] emailAddresses,
 			long invitedRoleId, long invitedTeamId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().addMemberRequests(
 			userId, groupId, emailAddresses, invitedRoleId, invitedTeamId,
@@ -96,9 +96,7 @@ public class MemberRequestLocalServiceUtil {
 	 * @param memberRequestId the primary key for the new member request
 	 * @return the new member request
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-		createMemberRequest(long memberRequestId) {
-
+	public static MemberRequest createMemberRequest(long memberRequestId) {
 		return getService().createMemberRequest(memberRequestId);
 	}
 
@@ -113,9 +111,8 @@ public class MemberRequestLocalServiceUtil {
 	 * @return the member request that was removed
 	 * @throws PortalException if a member request with the primary key could not be found
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			deleteMemberRequest(long memberRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static MemberRequest deleteMemberRequest(long memberRequestId)
+		throws PortalException {
 
 		return getService().deleteMemberRequest(memberRequestId);
 	}
@@ -130,10 +127,8 @@ public class MemberRequestLocalServiceUtil {
 	 * @param memberRequest the member request
 	 * @return the member request that was removed
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-		deleteMemberRequest(
-			com.liferay.invitation.invite.members.model.MemberRequest
-				memberRequest) {
+	public static MemberRequest deleteMemberRequest(
+		MemberRequest memberRequest) {
 
 		return getService().deleteMemberRequest(memberRequest);
 	}
@@ -141,17 +136,14 @@ public class MemberRequestLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -161,9 +153,7 @@ public class MemberRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -179,9 +169,8 @@ public class MemberRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -199,10 +188,9 @@ public class MemberRequestLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -214,9 +202,7 @@ public class MemberRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -228,15 +214,13 @@ public class MemberRequestLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-		fetchMemberRequest(long memberRequestId) {
-
+	public static MemberRequest fetchMemberRequest(long memberRequestId) {
 		return getService().fetchMemberRequest(memberRequestId);
 	}
 
@@ -260,16 +244,15 @@ public class MemberRequestLocalServiceUtil {
 	 * @return the member request
 	 * @throws PortalException if a member request with the primary key could not be found
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			getMemberRequest(long memberRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static MemberRequest getMemberRequest(long memberRequestId)
+		throws PortalException {
 
 		return getService().getMemberRequest(memberRequestId);
 	}
 
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			getMemberRequest(long groupId, long receiverUserId, int status)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static MemberRequest getMemberRequest(
+			long groupId, long receiverUserId, int status)
+		throws PortalException {
 
 		return getService().getMemberRequest(groupId, receiverUserId, status);
 	}
@@ -285,10 +268,7 @@ public class MemberRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of member requests (not inclusive)
 	 * @return the range of member requests
 	 */
-	public static java.util.List
-		<com.liferay.invitation.invite.members.model.MemberRequest>
-			getMemberRequests(int start, int end) {
-
+	public static List<MemberRequest> getMemberRequests(int start, int end) {
 		return getService().getMemberRequests(start, end);
 	}
 
@@ -313,16 +293,14 @@ public class MemberRequestLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.util.List
-		<com.liferay.invitation.invite.members.model.MemberRequest>
-			getReceiverMemberRequest(long receiverUserId, int start, int end) {
+	public static List<MemberRequest> getReceiverMemberRequest(
+		long receiverUserId, int start, int end) {
 
 		return getService().getReceiverMemberRequest(
 			receiverUserId, start, end);
@@ -332,10 +310,8 @@ public class MemberRequestLocalServiceUtil {
 		return getService().getReceiverMemberRequestCount(receiverUserId);
 	}
 
-	public static java.util.List
-		<com.liferay.invitation.invite.members.model.MemberRequest>
-			getReceiverStatusMemberRequest(
-				long receiverUserId, int status, int start, int end) {
+	public static List<MemberRequest> getReceiverStatusMemberRequest(
+		long receiverUserId, int status, int start, int end) {
 
 		return getService().getReceiverStatusMemberRequest(
 			receiverUserId, status, start, end);
@@ -354,8 +330,8 @@ public class MemberRequestLocalServiceUtil {
 		return getService().hasPendingMemberRequest(groupId, receiverUserId);
 	}
 
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			updateMemberRequest(long userId, long memberRequestId, int status)
+	public static MemberRequest updateMemberRequest(
+			long userId, long memberRequestId, int status)
 		throws Exception {
 
 		return getService().updateMemberRequest(
@@ -372,42 +348,23 @@ public class MemberRequestLocalServiceUtil {
 	 * @param memberRequest the member request
 	 * @return the member request that was updated
 	 */
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-		updateMemberRequest(
-			com.liferay.invitation.invite.members.model.MemberRequest
-				memberRequest) {
+	public static MemberRequest updateMemberRequest(
+		MemberRequest memberRequest) {
 
 		return getService().updateMemberRequest(memberRequest);
 	}
 
-	public static com.liferay.invitation.invite.members.model.MemberRequest
-			updateMemberRequest(String key, long receiverUserId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static MemberRequest updateMemberRequest(
+			String key, long receiverUserId)
+		throws PortalException {
 
 		return getService().updateMemberRequest(key, receiverUserId);
 	}
 
 	public static MemberRequestLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<MemberRequestLocalService, MemberRequestLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			MemberRequestLocalService.class);
-
-		ServiceTracker<MemberRequestLocalService, MemberRequestLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<MemberRequestLocalService, MemberRequestLocalService>(
-						bundle.getBundleContext(),
-						MemberRequestLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile MemberRequestLocalService _service;
 
 }

@@ -30,6 +30,9 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensCommentService;
+import com.liferay.screens.service.ScreensCommentServiceUtil;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -51,7 +54,7 @@ public abstract class ScreensCommentServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ScreensCommentService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.screens.service.ScreensCommentServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ScreensCommentService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ScreensCommentServiceUtil</code>.
 	 */
 
 	/**
@@ -487,9 +490,11 @@ public abstract class ScreensCommentServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(screensCommentService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -523,6 +528,22 @@ public abstract class ScreensCommentServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		ScreensCommentService screensCommentService) {
+
+		try {
+			Field field = ScreensCommentServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, screensCommentService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

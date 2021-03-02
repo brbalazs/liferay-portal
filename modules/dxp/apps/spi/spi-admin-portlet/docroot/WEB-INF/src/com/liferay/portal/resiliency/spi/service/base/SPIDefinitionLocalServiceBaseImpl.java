@@ -42,9 +42,12 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalService;
+import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 import com.liferay.portal.resiliency.spi.service.persistence.SPIDefinitionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -68,7 +71,7 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SPIDefinitionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SPIDefinitionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SPIDefinitionLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -570,11 +573,15 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 		PersistedModelLocalServiceRegistryUtil.register(
 			"com.liferay.portal.resiliency.spi.model.SPIDefinition",
 			spiDefinitionLocalService);
+
+		_setLocalServiceUtilService(spiDefinitionLocalService);
 	}
 
 	public void destroy() {
 		PersistedModelLocalServiceRegistryUtil.unregister(
 			"com.liferay.portal.resiliency.spi.model.SPIDefinition");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -616,6 +623,22 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SPIDefinitionLocalService spiDefinitionLocalService) {
+
+		try {
+			Field field = SPIDefinitionLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, spiDefinitionLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

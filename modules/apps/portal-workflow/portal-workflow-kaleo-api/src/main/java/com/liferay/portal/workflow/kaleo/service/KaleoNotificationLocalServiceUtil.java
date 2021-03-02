@@ -14,9 +14,15 @@
 
 package com.liferay.portal.workflow.kaleo.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.workflow.kaleo.model.KaleoNotification;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for KaleoNotification. This utility wraps
@@ -48,22 +54,19 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param kaleoNotification the kaleo notification
 	 * @return the kaleo notification that was added
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-		addKaleoNotification(
-			com.liferay.portal.workflow.kaleo.model.KaleoNotification
-				kaleoNotification) {
+	public static KaleoNotification addKaleoNotification(
+		KaleoNotification kaleoNotification) {
 
 		return getService().addKaleoNotification(kaleoNotification);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-			addKaleoNotification(
-				String kaleoClassName, long kaleoClassPK,
-				long kaleoDefinitionVersionId, String kaleoNodeName,
-				com.liferay.portal.workflow.kaleo.definition.Notification
-					notification,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoNotification addKaleoNotification(
+			String kaleoClassName, long kaleoClassPK,
+			long kaleoDefinitionVersionId, String kaleoNodeName,
+			com.liferay.portal.workflow.kaleo.definition.Notification
+				notification,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addKaleoNotification(
 			kaleoClassName, kaleoClassPK, kaleoDefinitionVersionId,
@@ -76,8 +79,8 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param kaleoNotificationId the primary key for the new kaleo notification
 	 * @return the new kaleo notification
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-		createKaleoNotification(long kaleoNotificationId) {
+	public static KaleoNotification createKaleoNotification(
+		long kaleoNotificationId) {
 
 		return getService().createKaleoNotification(kaleoNotificationId);
 	}
@@ -103,10 +106,8 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param kaleoNotification the kaleo notification
 	 * @return the kaleo notification that was removed
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-		deleteKaleoNotification(
-			com.liferay.portal.workflow.kaleo.model.KaleoNotification
-				kaleoNotification) {
+	public static KaleoNotification deleteKaleoNotification(
+		KaleoNotification kaleoNotification) {
 
 		return getService().deleteKaleoNotification(kaleoNotification);
 	}
@@ -122,9 +123,9 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @return the kaleo notification that was removed
 	 * @throws PortalException if a kaleo notification with the primary key could not be found
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-			deleteKaleoNotification(long kaleoNotificationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoNotification deleteKaleoNotification(
+			long kaleoNotificationId)
+		throws PortalException {
 
 		return getService().deleteKaleoNotification(kaleoNotificationId);
 	}
@@ -132,17 +133,14 @@ public class KaleoNotificationLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -152,9 +150,7 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -170,9 +166,8 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -190,10 +185,9 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -205,9 +199,7 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -219,14 +211,14 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-		fetchKaleoNotification(long kaleoNotificationId) {
+	public static KaleoNotification fetchKaleoNotification(
+		long kaleoNotificationId) {
 
 		return getService().fetchKaleoNotification(kaleoNotificationId);
 	}
@@ -251,9 +243,9 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @return the kaleo notification
 	 * @throws PortalException if a kaleo notification with the primary key could not be found
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-			getKaleoNotification(long kaleoNotificationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static KaleoNotification getKaleoNotification(
+			long kaleoNotificationId)
+		throws PortalException {
 
 		return getService().getKaleoNotification(kaleoNotificationId);
 	}
@@ -269,25 +261,20 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param end the upper bound of the range of kaleo notifications (not inclusive)
 	 * @return the range of kaleo notifications
 	 */
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoNotification>
-			getKaleoNotifications(int start, int end) {
+	public static List<KaleoNotification> getKaleoNotifications(
+		int start, int end) {
 
 		return getService().getKaleoNotifications(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoNotification>
-			getKaleoNotifications(String kaleoClassName, long kaleoClassPK) {
+	public static List<KaleoNotification> getKaleoNotifications(
+		String kaleoClassName, long kaleoClassPK) {
 
 		return getService().getKaleoNotifications(kaleoClassName, kaleoClassPK);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.workflow.kaleo.model.KaleoNotification>
-			getKaleoNotifications(
-				String kaleoClassName, long kaleoClassPK,
-				String executionType) {
+	public static List<KaleoNotification> getKaleoNotifications(
+		String kaleoClassName, long kaleoClassPK, String executionType) {
 
 		return getService().getKaleoNotifications(
 			kaleoClassName, kaleoClassPK, executionType);
@@ -314,9 +301,8 @@ public class KaleoNotificationLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -331,38 +317,16 @@ public class KaleoNotificationLocalServiceUtil {
 	 * @param kaleoNotification the kaleo notification
 	 * @return the kaleo notification that was updated
 	 */
-	public static com.liferay.portal.workflow.kaleo.model.KaleoNotification
-		updateKaleoNotification(
-			com.liferay.portal.workflow.kaleo.model.KaleoNotification
-				kaleoNotification) {
+	public static KaleoNotification updateKaleoNotification(
+		KaleoNotification kaleoNotification) {
 
 		return getService().updateKaleoNotification(kaleoNotification);
 	}
 
 	public static KaleoNotificationLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<KaleoNotificationLocalService, KaleoNotificationLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			KaleoNotificationLocalService.class);
-
-		ServiceTracker
-			<KaleoNotificationLocalService, KaleoNotificationLocalService>
-				serviceTracker =
-					new ServiceTracker
-						<KaleoNotificationLocalService,
-						 KaleoNotificationLocalService>(
-							 bundle.getBundleContext(),
-							 KaleoNotificationLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile KaleoNotificationLocalService _service;
 
 }

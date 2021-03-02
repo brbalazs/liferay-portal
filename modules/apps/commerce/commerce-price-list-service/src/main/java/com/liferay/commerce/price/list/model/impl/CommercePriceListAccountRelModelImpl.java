@@ -817,6 +817,8 @@ public class CommercePriceListAccountRelModelImpl
 
 	@Override
 	public void setOrder(int order) {
+		_columnBitmask = -1L;
+
 		_order = order;
 	}
 

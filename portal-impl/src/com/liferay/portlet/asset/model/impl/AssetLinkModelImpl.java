@@ -592,6 +592,8 @@ public class AssetLinkModelImpl
 
 	@Override
 	public void setWeight(int weight) {
+		_columnBitmask = -1L;
+
 		_weight = weight;
 	}
 

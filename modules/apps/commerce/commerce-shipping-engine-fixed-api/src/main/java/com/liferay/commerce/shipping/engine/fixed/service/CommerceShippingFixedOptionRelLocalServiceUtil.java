@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.shipping.engine.fixed.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceShippingFixedOptionRel. This utility wraps
@@ -48,24 +54,23 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param commerceShippingFixedOptionRel the commerce shipping fixed option rel
 	 * @return the commerce shipping fixed option rel that was added
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
-			com.liferay.commerce.shipping.engine.fixed.model.
-				CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
+	public static CommerceShippingFixedOptionRel
+		addCommerceShippingFixedOptionRel(
+			CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
 
 		return getService().addCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRel);
 	}
 
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+			addCommerceShippingFixedOptionRel(
 				long userId, long groupId, long commerceShippingMethodId,
 				long commerceShippingFixedOptionId,
 				long commerceInventoryWarehouseId, long commerceCountryId,
 				long commerceRegionId, String zip, double weightFrom,
 				double weightTo, java.math.BigDecimal fixedPrice,
 				java.math.BigDecimal rateUnitWeightPrice, double ratePercentage)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addCommerceShippingFixedOptionRel(
 			userId, groupId, commerceShippingMethodId,
@@ -78,8 +83,8 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
 	@Deprecated
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel addCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+			addCommerceShippingFixedOptionRel(
 				long commerceShippingMethodId,
 				long commerceShippingFixedOptionId,
 				long commerceInventoryWarehouseId, long commerceCountryId,
@@ -87,7 +92,7 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 				double weightTo, java.math.BigDecimal fixedPrice,
 				java.math.BigDecimal rateUnitWeightPrice, double ratePercentage,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addCommerceShippingFixedOptionRel(
 			commerceShippingMethodId, commerceShippingFixedOptionId,
@@ -102,8 +107,8 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param commerceShippingFixedOptionRelId the primary key for the new commerce shipping fixed option rel
 	 * @return the new commerce shipping fixed option rel
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel createCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+		createCommerceShippingFixedOptionRel(
 			long commerceShippingFixedOptionRelId) {
 
 		return getService().createCommerceShippingFixedOptionRel(
@@ -120,10 +125,9 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param commerceShippingFixedOptionRel the commerce shipping fixed option rel
 	 * @return the commerce shipping fixed option rel that was removed
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel deleteCommerceShippingFixedOptionRel(
-			com.liferay.commerce.shipping.engine.fixed.model.
-				CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
+	public static CommerceShippingFixedOptionRel
+		deleteCommerceShippingFixedOptionRel(
+			CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
 
 		return getService().deleteCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRel);
@@ -140,10 +144,10 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @return the commerce shipping fixed option rel that was removed
 	 * @throws PortalException if a commerce shipping fixed option rel with the primary key could not be found
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel deleteCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+			deleteCommerceShippingFixedOptionRel(
 				long commerceShippingFixedOptionRelId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().deleteCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRelId);
@@ -159,17 +163,14 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -179,9 +180,7 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -197,9 +196,8 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -217,10 +215,9 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -232,9 +229,7 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -246,22 +241,22 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+		fetchCommerceShippingFixedOptionRel(
 			long commerceShippingFixedOptionRelId) {
 
 		return getService().fetchCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRelId);
 	}
 
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+		fetchCommerceShippingFixedOptionRel(
 			long commerceShippingFixedOptionId, long commerceCountryId,
 			long commerceRegionId, String zip, double weight) {
 
@@ -283,10 +278,10 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @return the commerce shipping fixed option rel
 	 * @throws PortalException if a commerce shipping fixed option rel with the primary key could not be found
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel getCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+			getCommerceShippingFixedOptionRel(
 				long commerceShippingFixedOptionRelId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRelId);
@@ -303,30 +298,25 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce shipping fixed option rels (not inclusive)
 	 * @return the range of commerce shipping fixed option rels
 	 */
-	public static java.util.List
-		<com.liferay.commerce.shipping.engine.fixed.model.
-			CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-				int start, int end) {
+	public static List<CommerceShippingFixedOptionRel>
+		getCommerceShippingFixedOptionRels(int start, int end) {
 
 		return getService().getCommerceShippingFixedOptionRels(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.shipping.engine.fixed.model.
-			CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-				long commerceShippingFixedOptionId, int start, int end) {
+	public static List<CommerceShippingFixedOptionRel>
+		getCommerceShippingFixedOptionRels(
+			long commerceShippingFixedOptionId, int start, int end) {
 
 		return getService().getCommerceShippingFixedOptionRels(
 			commerceShippingFixedOptionId, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.shipping.engine.fixed.model.
-			CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-				long commerceShippingFixedOptionId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.commerce.shipping.engine.fixed.model.
-						CommerceShippingFixedOptionRel> orderByComparator) {
+	public static List<CommerceShippingFixedOptionRel>
+		getCommerceShippingFixedOptionRels(
+			long commerceShippingFixedOptionId, int start, int end,
+			OrderByComparator<CommerceShippingFixedOptionRel>
+				orderByComparator) {
 
 		return getService().getCommerceShippingFixedOptionRels(
 			commerceShippingFixedOptionId, start, end, orderByComparator);
@@ -348,24 +338,19 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 			commerceShippingFixedOptionId);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.shipping.engine.fixed.model.
-			CommerceShippingFixedOptionRel>
-				getCommerceShippingMethodFixedOptionRels(
-					long commerceShippingMethodId, int start, int end) {
+	public static List<CommerceShippingFixedOptionRel>
+		getCommerceShippingMethodFixedOptionRels(
+			long commerceShippingMethodId, int start, int end) {
 
 		return getService().getCommerceShippingMethodFixedOptionRels(
 			commerceShippingMethodId, start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.shipping.engine.fixed.model.
-			CommerceShippingFixedOptionRel>
-				getCommerceShippingMethodFixedOptionRels(
-					long commerceShippingMethodId, int start, int end,
-					com.liferay.portal.kernel.util.OrderByComparator
-						<com.liferay.commerce.shipping.engine.fixed.model.
-							CommerceShippingFixedOptionRel> orderByComparator) {
+	public static List<CommerceShippingFixedOptionRel>
+		getCommerceShippingMethodFixedOptionRels(
+			long commerceShippingMethodId, int start, int end,
+			OrderByComparator<CommerceShippingFixedOptionRel>
+				orderByComparator) {
 
 		return getService().getCommerceShippingMethodFixedOptionRels(
 			commerceShippingMethodId, start, end, orderByComparator);
@@ -397,9 +382,8 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -414,23 +398,22 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	 * @param commerceShippingFixedOptionRel the commerce shipping fixed option rel
 	 * @return the commerce shipping fixed option rel that was updated
 	 */
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel updateCommerceShippingFixedOptionRel(
-			com.liferay.commerce.shipping.engine.fixed.model.
-				CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
+	public static CommerceShippingFixedOptionRel
+		updateCommerceShippingFixedOptionRel(
+			CommerceShippingFixedOptionRel commerceShippingFixedOptionRel) {
 
 		return getService().updateCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRel);
 	}
 
-	public static com.liferay.commerce.shipping.engine.fixed.model.
-		CommerceShippingFixedOptionRel updateCommerceShippingFixedOptionRel(
+	public static CommerceShippingFixedOptionRel
+			updateCommerceShippingFixedOptionRel(
 				long commerceShippingFixedOptionRelId,
 				long commerceInventoryWarehouseId, long commerceCountryId,
 				long commerceRegionId, String zip, double weightFrom,
 				double weightTo, java.math.BigDecimal fixedPrice,
 				java.math.BigDecimal rateUnitWeightPrice, double ratePercentage)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateCommerceShippingFixedOptionRel(
 			commerceShippingFixedOptionRelId, commerceInventoryWarehouseId,
@@ -439,30 +422,9 @@ public class CommerceShippingFixedOptionRelLocalServiceUtil {
 	}
 
 	public static CommerceShippingFixedOptionRelLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceShippingFixedOptionRelLocalService,
-		 CommerceShippingFixedOptionRelLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceShippingFixedOptionRelLocalService.class);
-
-		ServiceTracker
-			<CommerceShippingFixedOptionRelLocalService,
-			 CommerceShippingFixedOptionRelLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceShippingFixedOptionRelLocalService,
-					 CommerceShippingFixedOptionRelLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceShippingFixedOptionRelLocalService.class,
-						 null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceShippingFixedOptionRelLocalService _service;
 
 }

@@ -756,6 +756,8 @@ public class UserNotificationEventModelImpl
 
 	@Override
 	public void setTimestamp(long timestamp) {
+		_columnBitmask = -1L;
+
 		_timestamp = timestamp;
 	}
 

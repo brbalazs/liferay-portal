@@ -16,6 +16,7 @@ package com.liferay.journal.service.base;
 
 import com.liferay.journal.model.JournalContentSearch;
 import com.liferay.journal.service.JournalContentSearchLocalService;
+import com.liferay.journal.service.JournalContentSearchLocalServiceUtil;
 import com.liferay.journal.service.persistence.JournalContentSearchPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -47,6 +48,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -69,7 +72,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>JournalContentSearchLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.journal.service.JournalContentSearchLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>JournalContentSearchLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>JournalContentSearchLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -567,11 +570,15 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.journal.model.JournalContentSearch",
 			journalContentSearchLocalService);
+
+		_setLocalServiceUtilService(journalContentSearchLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.journal.model.JournalContentSearch");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -614,6 +621,23 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		JournalContentSearchLocalService journalContentSearchLocalService) {
+
+		try {
+			Field field =
+				JournalContentSearchLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, journalContentSearchLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

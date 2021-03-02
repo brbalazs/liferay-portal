@@ -700,6 +700,8 @@ public class KaleoTaskAssignmentModelImpl
 
 	@Override
 	public void setKaleoTaskAssignmentId(long kaleoTaskAssignmentId) {
+		_columnBitmask = -1L;
+
 		_kaleoTaskAssignmentId = kaleoTaskAssignmentId;
 	}
 

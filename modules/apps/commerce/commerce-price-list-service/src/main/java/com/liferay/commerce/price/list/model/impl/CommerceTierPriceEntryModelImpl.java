@@ -1265,7 +1265,7 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void setMinQuantity(int minQuantity) {
-		_columnBitmask |= MINQUANTITY_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalMinQuantity) {
 			_setOriginalMinQuantity = true;

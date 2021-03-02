@@ -16,6 +16,7 @@ package com.liferay.oauth.service.base;
 
 import com.liferay.oauth.model.OAuthApplication;
 import com.liferay.oauth.service.OAuthApplicationLocalService;
+import com.liferay.oauth.service.OAuthApplicationLocalServiceUtil;
 import com.liferay.oauth.service.persistence.OAuthApplicationPersistence;
 import com.liferay.oauth.service.persistence.OAuthUserPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -48,6 +49,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -70,7 +73,7 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>OAuthApplicationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.oauth.service.OAuthApplicationLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>OAuthApplicationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>OAuthApplicationLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -619,11 +622,15 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.oauth.model.OAuthApplication",
 			oAuthApplicationLocalService);
+
+		_setLocalServiceUtilService(oAuthApplicationLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth.model.OAuthApplication");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -665,6 +672,23 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		OAuthApplicationLocalService oAuthApplicationLocalService) {
+
+		try {
+			Field field =
+				OAuthApplicationLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, oAuthApplicationLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceRegion. This utility wraps
@@ -48,17 +54,17 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param commerceRegion the commerce region
 	 * @return the commerce region that was added
 	 */
-	public static com.liferay.commerce.model.CommerceRegion addCommerceRegion(
-		com.liferay.commerce.model.CommerceRegion commerceRegion) {
+	public static CommerceRegion addCommerceRegion(
+		CommerceRegion commerceRegion) {
 
 		return getService().addCommerceRegion(commerceRegion);
 	}
 
-	public static com.liferay.commerce.model.CommerceRegion addCommerceRegion(
+	public static CommerceRegion addCommerceRegion(
 			long commerceCountryId, String name, String code, double priority,
 			boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addCommerceRegion(
 			commerceCountryId, name, code, priority, active, serviceContext);
@@ -70,9 +76,7 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param commerceRegionId the primary key for the new commerce region
 	 * @return the new commerce region
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-		createCommerceRegion(long commerceRegionId) {
-
+	public static CommerceRegion createCommerceRegion(long commerceRegionId) {
 		return getService().createCommerceRegion(commerceRegionId);
 	}
 
@@ -87,10 +91,9 @@ public class CommerceRegionLocalServiceUtil {
 	 * @return the commerce region that was removed
 	 * @throws PortalException
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-			deleteCommerceRegion(
-				com.liferay.commerce.model.CommerceRegion commerceRegion)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceRegion deleteCommerceRegion(
+			CommerceRegion commerceRegion)
+		throws PortalException {
 
 		return getService().deleteCommerceRegion(commerceRegion);
 	}
@@ -106,15 +109,14 @@ public class CommerceRegionLocalServiceUtil {
 	 * @return the commerce region that was removed
 	 * @throws PortalException if a commerce region with the primary key could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-			deleteCommerceRegion(long commerceRegionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceRegion deleteCommerceRegion(long commerceRegionId)
+		throws PortalException {
 
 		return getService().deleteCommerceRegion(commerceRegionId);
 	}
 
 	public static void deleteCommerceRegions(long commerceCountryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteCommerceRegions(commerceCountryId);
 	}
@@ -122,17 +124,14 @@ public class CommerceRegionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -142,9 +141,7 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -160,9 +157,8 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -180,10 +176,9 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -195,9 +190,7 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -209,15 +202,13 @@ public class CommerceRegionLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.model.CommerceRegion fetchCommerceRegion(
-		long commerceRegionId) {
-
+	public static CommerceRegion fetchCommerceRegion(long commerceRegionId) {
 		return getService().fetchCommerceRegion(commerceRegionId);
 	}
 
@@ -228,8 +219,8 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching commerce region, or <code>null</code> if a matching commerce region could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-		fetchCommerceRegionByUuidAndCompanyId(String uuid, long companyId) {
+	public static CommerceRegion fetchCommerceRegionByUuidAndCompanyId(
+		String uuid, long companyId) {
 
 		return getService().fetchCommerceRegionByUuidAndCompanyId(
 			uuid, companyId);
@@ -248,16 +239,15 @@ public class CommerceRegionLocalServiceUtil {
 	 * @return the commerce region
 	 * @throws PortalException if a commerce region with the primary key could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceRegion getCommerceRegion(
-			long commerceRegionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceRegion getCommerceRegion(long commerceRegionId)
+		throws PortalException {
 
 		return getService().getCommerceRegion(commerceRegionId);
 	}
 
-	public static com.liferay.commerce.model.CommerceRegion getCommerceRegion(
+	public static CommerceRegion getCommerceRegion(
 			long commerceCountryId, String code)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getCommerceRegion(commerceCountryId, code);
 	}
@@ -270,9 +260,9 @@ public class CommerceRegionLocalServiceUtil {
 	 * @return the matching commerce region
 	 * @throws PortalException if a matching commerce region could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-			getCommerceRegionByUuidAndCompanyId(String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceRegion getCommerceRegionByUuidAndCompanyId(
+			String uuid, long companyId)
+		throws PortalException {
 
 		return getService().getCommerceRegionByUuidAndCompanyId(
 			uuid, companyId);
@@ -289,42 +279,35 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce regions (not inclusive)
 	 * @return the range of commerce regions
 	 */
-	public static java.util.List<com.liferay.commerce.model.CommerceRegion>
-		getCommerceRegions(int start, int end) {
-
+	public static List<CommerceRegion> getCommerceRegions(int start, int end) {
 		return getService().getCommerceRegions(start, end);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceRegion>
-		getCommerceRegions(long commerceCountryId, boolean active) {
+	public static List<CommerceRegion> getCommerceRegions(
+		long commerceCountryId, boolean active) {
 
 		return getService().getCommerceRegions(commerceCountryId, active);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceRegion>
-		getCommerceRegions(
-			long commerceCountryId, boolean active, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.commerce.model.CommerceRegion> orderByComparator) {
+	public static List<CommerceRegion> getCommerceRegions(
+		long commerceCountryId, boolean active, int start, int end,
+		OrderByComparator<CommerceRegion> orderByComparator) {
 
 		return getService().getCommerceRegions(
 			commerceCountryId, active, start, end, orderByComparator);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceRegion>
-		getCommerceRegions(
-			long commerceCountryId, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.commerce.model.CommerceRegion> orderByComparator) {
+	public static List<CommerceRegion> getCommerceRegions(
+		long commerceCountryId, int start, int end,
+		OrderByComparator<CommerceRegion> orderByComparator) {
 
 		return getService().getCommerceRegions(
 			commerceCountryId, start, end, orderByComparator);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceRegion>
-			getCommerceRegions(
-				long companyId, String countryTwoLettersISOCode, boolean active)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static List<CommerceRegion> getCommerceRegions(
+			long companyId, String countryTwoLettersISOCode, boolean active)
+		throws PortalException {
 
 		return getService().getCommerceRegions(
 			companyId, countryTwoLettersISOCode, active);
@@ -376,16 +359,15 @@ public class CommerceRegionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static com.liferay.commerce.model.CommerceRegion setActive(
+	public static CommerceRegion setActive(
 			long commerceRegionId, boolean active)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().setActive(commerceRegionId, active);
 	}
@@ -400,46 +382,26 @@ public class CommerceRegionLocalServiceUtil {
 	 * @param commerceRegion the commerce region
 	 * @return the commerce region that was updated
 	 */
-	public static com.liferay.commerce.model.CommerceRegion
-		updateCommerceRegion(
-			com.liferay.commerce.model.CommerceRegion commerceRegion) {
+	public static CommerceRegion updateCommerceRegion(
+		CommerceRegion commerceRegion) {
 
 		return getService().updateCommerceRegion(commerceRegion);
 	}
 
-	public static com.liferay.commerce.model.CommerceRegion
-			updateCommerceRegion(
-				long commerceRegionId, String name, String code,
-				double priority, boolean active,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceRegion updateCommerceRegion(
+			long commerceRegionId, String name, String code, double priority,
+			boolean active,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().updateCommerceRegion(
 			commerceRegionId, name, code, priority, active, serviceContext);
 	}
 
 	public static CommerceRegionLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceRegionLocalService, CommerceRegionLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceRegionLocalService.class);
-
-		ServiceTracker<CommerceRegionLocalService, CommerceRegionLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<CommerceRegionLocalService, CommerceRegionLocalService>(
-						bundle.getBundleContext(),
-						CommerceRegionLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceRegionLocalService _service;
 
 }

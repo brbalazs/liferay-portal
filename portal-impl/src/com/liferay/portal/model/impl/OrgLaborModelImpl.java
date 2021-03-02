@@ -759,7 +759,7 @@ public class OrgLaborModelImpl
 
 	@Override
 	public void setOrganizationId(long organizationId) {
-		_columnBitmask |= ORGANIZATIONID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalOrganizationId) {
 			_setOriginalOrganizationId = true;
@@ -782,6 +782,8 @@ public class OrgLaborModelImpl
 
 	@Override
 	public void setTypeId(long typeId) {
+		_columnBitmask = -1L;
+
 		_typeId = typeId;
 	}
 

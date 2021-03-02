@@ -14,7 +14,10 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the remote service utility for ResourceBlock. This utility wraps
@@ -40,7 +43,7 @@ public class ResourceBlockServiceUtil {
 	public static void addCompanyScopePermission(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().addCompanyScopePermission(
 			scopeGroupId, companyId, name, roleId, actionId);
@@ -49,7 +52,7 @@ public class ResourceBlockServiceUtil {
 	public static void addGroupScopePermission(
 			long scopeGroupId, long companyId, long groupId, String name,
 			long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().addGroupScopePermission(
 			scopeGroupId, companyId, groupId, name, roleId, actionId);
@@ -58,7 +61,7 @@ public class ResourceBlockServiceUtil {
 	public static void addIndividualScopePermission(
 			long companyId, long groupId, String name, long primKey,
 			long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().addIndividualScopePermission(
 			companyId, groupId, name, primKey, roleId, actionId);
@@ -76,7 +79,7 @@ public class ResourceBlockServiceUtil {
 	public static void removeAllGroupScopePermissions(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().removeAllGroupScopePermissions(
 			scopeGroupId, companyId, name, roleId, actionId);
@@ -85,7 +88,7 @@ public class ResourceBlockServiceUtil {
 	public static void removeCompanyScopePermission(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().removeCompanyScopePermission(
 			scopeGroupId, companyId, name, roleId, actionId);
@@ -94,7 +97,7 @@ public class ResourceBlockServiceUtil {
 	public static void removeGroupScopePermission(
 			long scopeGroupId, long companyId, long groupId, String name,
 			long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().removeGroupScopePermission(
 			scopeGroupId, companyId, groupId, name, roleId, actionId);
@@ -103,7 +106,7 @@ public class ResourceBlockServiceUtil {
 	public static void removeIndividualScopePermission(
 			long companyId, long groupId, String name, long primKey,
 			long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().removeIndividualScopePermission(
 			companyId, groupId, name, primKey, roleId, actionId);
@@ -111,8 +114,8 @@ public class ResourceBlockServiceUtil {
 
 	public static void setCompanyScopePermissions(
 			long scopeGroupId, long companyId, String name, long roleId,
-			java.util.List<String> actionIds)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			List<String> actionIds)
+		throws PortalException {
 
 		getService().setCompanyScopePermissions(
 			scopeGroupId, companyId, name, roleId, actionIds);
@@ -120,8 +123,8 @@ public class ResourceBlockServiceUtil {
 
 	public static void setGroupScopePermissions(
 			long scopeGroupId, long companyId, long groupId, String name,
-			long roleId, java.util.List<String> actionIds)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			long roleId, List<String> actionIds)
+		throws PortalException {
 
 		getService().setGroupScopePermissions(
 			scopeGroupId, companyId, groupId, name, roleId, actionIds);
@@ -129,8 +132,8 @@ public class ResourceBlockServiceUtil {
 
 	public static void setIndividualScopePermissions(
 			long companyId, long groupId, String name, long primKey,
-			long roleId, java.util.List<String> actionIds)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			long roleId, List<String> actionIds)
+		throws PortalException {
 
 		getService().setIndividualScopePermissions(
 			companyId, groupId, name, primKey, roleId, actionIds);
@@ -138,22 +141,17 @@ public class ResourceBlockServiceUtil {
 
 	public static void setIndividualScopePermissions(
 			long companyId, long groupId, String name, long primKey,
-			java.util.Map<Long, String[]> roleIdsToActionIds)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			Map<Long, String[]> roleIdsToActionIds)
+		throws PortalException {
 
 		getService().setIndividualScopePermissions(
 			companyId, groupId, name, primKey, roleIdsToActionIds);
 	}
 
 	public static ResourceBlockService getService() {
-		if (_service == null) {
-			_service = (ResourceBlockService)PortalBeanLocatorUtil.locate(
-				ResourceBlockService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static ResourceBlockService _service;
+	private static volatile ResourceBlockService _service;
 
 }

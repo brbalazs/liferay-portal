@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.ResourceTypePermission;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for ResourceTypePermission. This utility wraps
@@ -48,10 +56,8 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param resourceTypePermission the resource type permission
 	 * @return the resource type permission that was added
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		addResourceTypePermission(
-			com.liferay.portal.kernel.model.ResourceTypePermission
-				resourceTypePermission) {
+	public static ResourceTypePermission addResourceTypePermission(
+		ResourceTypePermission resourceTypePermission) {
 
 		return getService().addResourceTypePermission(resourceTypePermission);
 	}
@@ -62,8 +68,8 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param resourceTypePermissionId the primary key for the new resource type permission
 	 * @return the new resource type permission
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		createResourceTypePermission(long resourceTypePermissionId) {
+	public static ResourceTypePermission createResourceTypePermission(
+		long resourceTypePermissionId) {
 
 		return getService().createResourceTypePermission(
 			resourceTypePermissionId);
@@ -72,10 +78,9 @@ public class ResourceTypePermissionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -91,9 +96,9 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @return the resource type permission that was removed
 	 * @throws PortalException if a resource type permission with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-			deleteResourceTypePermission(long resourceTypePermissionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ResourceTypePermission deleteResourceTypePermission(
+			long resourceTypePermissionId)
+		throws PortalException {
 
 		return getService().deleteResourceTypePermission(
 			resourceTypePermissionId);
@@ -109,18 +114,14 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param resourceTypePermission the resource type permission
 	 * @return the resource type permission that was removed
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		deleteResourceTypePermission(
-			com.liferay.portal.kernel.model.ResourceTypePermission
-				resourceTypePermission) {
+	public static ResourceTypePermission deleteResourceTypePermission(
+		ResourceTypePermission resourceTypePermission) {
 
 		return getService().deleteResourceTypePermission(
 			resourceTypePermission);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -130,9 +131,7 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -148,9 +147,8 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -168,10 +166,9 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -183,9 +180,7 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -197,22 +192,21 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		fetchResourceTypePermission(long resourceTypePermissionId) {
+	public static ResourceTypePermission fetchResourceTypePermission(
+		long resourceTypePermissionId) {
 
 		return getService().fetchResourceTypePermission(
 			resourceTypePermissionId);
 	}
 
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		fetchResourceTypePermission(
-			long companyId, long groupId, String name, long roleId) {
+	public static ResourceTypePermission fetchResourceTypePermission(
+		long companyId, long groupId, String name, long roleId) {
 
 		return getService().fetchResourceTypePermission(
 			companyId, groupId, name, roleId);
@@ -237,10 +231,9 @@ public class ResourceTypePermissionLocalServiceUtil {
 			companyId, groupId, name, roleId);
 	}
 
-	public static java.util.List
-		<com.liferay.portal.kernel.model.ResourceTypePermission>
-			getGroupScopeResourceTypePermissions(
-				long companyId, String name, long roleId) {
+	public static List<ResourceTypePermission>
+		getGroupScopeResourceTypePermissions(
+			long companyId, String name, long roleId) {
 
 		return getService().getGroupScopeResourceTypePermissions(
 			companyId, name, roleId);
@@ -265,9 +258,8 @@ public class ResourceTypePermissionLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -288,9 +280,9 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @return the resource type permission
 	 * @throws PortalException if a resource type permission with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-			getResourceTypePermission(long resourceTypePermissionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ResourceTypePermission getResourceTypePermission(
+			long resourceTypePermissionId)
+		throws PortalException {
 
 		return getService().getResourceTypePermission(resourceTypePermissionId);
 	}
@@ -306,9 +298,8 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param end the upper bound of the range of resource type permissions (not inclusive)
 	 * @return the range of resource type permissions
 	 */
-	public static java.util.List
-		<com.liferay.portal.kernel.model.ResourceTypePermission>
-			getResourceTypePermissions(int start, int end) {
+	public static List<ResourceTypePermission> getResourceTypePermissions(
+		int start, int end) {
 
 		return getService().getResourceTypePermissions(start, end);
 	}
@@ -322,16 +313,15 @@ public class ResourceTypePermissionLocalServiceUtil {
 		return getService().getResourceTypePermissionsCount();
 	}
 
-	public static java.util.List
-		<com.liferay.portal.kernel.model.ResourceTypePermission>
-			getRoleResourceTypePermissions(long roleId) {
+	public static List<ResourceTypePermission> getRoleResourceTypePermissions(
+		long roleId) {
 
 		return getService().getRoleResourceTypePermissions(roleId);
 	}
 
 	public static boolean hasCompanyScopePermission(
 			long companyId, String name, long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().hasCompanyScopePermission(
 			companyId, name, roleId, actionId);
@@ -339,7 +329,7 @@ public class ResourceTypePermissionLocalServiceUtil {
 
 	public static boolean hasEitherScopePermission(
 			long companyId, String name, long roleId, String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().hasEitherScopePermission(
 			companyId, name, roleId, actionId);
@@ -348,7 +338,7 @@ public class ResourceTypePermissionLocalServiceUtil {
 	public static boolean hasGroupScopePermission(
 			long companyId, long groupId, String name, long roleId,
 			String actionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().hasGroupScopePermission(
 			companyId, groupId, name, roleId, actionId);
@@ -380,26 +370,17 @@ public class ResourceTypePermissionLocalServiceUtil {
 	 * @param resourceTypePermission the resource type permission
 	 * @return the resource type permission that was updated
 	 */
-	public static com.liferay.portal.kernel.model.ResourceTypePermission
-		updateResourceTypePermission(
-			com.liferay.portal.kernel.model.ResourceTypePermission
-				resourceTypePermission) {
+	public static ResourceTypePermission updateResourceTypePermission(
+		ResourceTypePermission resourceTypePermission) {
 
 		return getService().updateResourceTypePermission(
 			resourceTypePermission);
 	}
 
 	public static ResourceTypePermissionLocalService getService() {
-		if (_service == null) {
-			_service =
-				(ResourceTypePermissionLocalService)
-					PortalBeanLocatorUtil.locate(
-						ResourceTypePermissionLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static ResourceTypePermissionLocalService _service;
+	private static volatile ResourceTypePermissionLocalService _service;
 
 }

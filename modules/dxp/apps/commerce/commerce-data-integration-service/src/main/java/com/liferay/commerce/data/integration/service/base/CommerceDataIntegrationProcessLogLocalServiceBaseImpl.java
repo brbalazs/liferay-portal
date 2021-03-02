@@ -16,6 +16,7 @@ package com.liferay.commerce.data.integration.service.base;
 
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalServiceUtil;
 import com.liferay.commerce.data.integration.service.persistence.CommerceDataIntegrationProcessLogPersistence;
 import com.liferay.commerce.data.integration.service.persistence.CommerceDataIntegrationProcessPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -47,6 +48,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -70,7 +73,7 @@ public abstract class CommerceDataIntegrationProcessLogLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceDataIntegrationProcessLogLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceDataIntegrationProcessLogLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceDataIntegrationProcessLogLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -628,11 +631,16 @@ public abstract class CommerceDataIntegrationProcessLogLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog",
 			commerceDataIntegrationProcessLogLocalService);
+
+		_setLocalServiceUtilService(
+			commerceDataIntegrationProcessLogLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -675,6 +683,24 @@ public abstract class CommerceDataIntegrationProcessLogLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceDataIntegrationProcessLogLocalService
+			commerceDataIntegrationProcessLogLocalService) {
+
+		try {
+			Field field =
+				CommerceDataIntegrationProcessLogLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceDataIntegrationProcessLogLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

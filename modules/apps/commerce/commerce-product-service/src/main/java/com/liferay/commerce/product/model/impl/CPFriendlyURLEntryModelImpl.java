@@ -763,7 +763,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setClassNameId(long classNameId) {
-		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalClassNameId) {
 			_setOriginalClassNameId = true;
@@ -785,7 +785,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setClassPK(long classPK) {
-		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalClassPK) {
 			_setOriginalClassPK = true;
@@ -837,7 +837,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setUrlTitle(String urlTitle) {
-		_columnBitmask |= URLTITLE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalUrlTitle == null) {
 			_originalUrlTitle = _urlTitle;

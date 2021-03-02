@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.reports.engine.console.model.Source;
 import com.liferay.portal.reports.engine.console.service.SourceLocalService;
+import com.liferay.portal.reports.engine.console.service.SourceLocalServiceUtil;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionFinder;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionPersistence;
 import com.liferay.portal.reports.engine.console.service.persistence.EntryFinder;
@@ -56,6 +57,8 @@ import com.liferay.portal.reports.engine.console.service.persistence.SourcePersi
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -79,7 +82,7 @@ public abstract class SourceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.reports.engine.console.service.SourceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SourceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -792,11 +795,15 @@ public abstract class SourceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.portal.reports.engine.console.model.Source",
 			sourceLocalService);
+
+		_setLocalServiceUtilService(sourceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.reports.engine.console.model.Source");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -838,6 +845,22 @@ public abstract class SourceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SourceLocalService sourceLocalService) {
+
+		try {
+			Field field = SourceLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, sourceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -18,6 +18,7 @@ import com.liferay.asset.kernel.service.persistence.AssetEntryPersistence;
 import com.liferay.asset.kernel.service.persistence.AssetLinkPersistence;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.service.CalendarBookingService;
+import com.liferay.calendar.service.CalendarBookingServiceUtil;
 import com.liferay.calendar.service.persistence.CalendarBookingFinder;
 import com.liferay.calendar.service.persistence.CalendarBookingPersistence;
 import com.liferay.calendar.service.persistence.CalendarFinder;
@@ -44,6 +45,8 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.social.kernel.service.persistence.SocialActivityCounterPersistence;
 import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 
+import java.lang.reflect.Field;
+
 import javax.sql.DataSource;
 
 /**
@@ -64,7 +67,7 @@ public abstract class CalendarBookingServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CalendarBookingService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.calendar.service.CalendarBookingServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CalendarBookingService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CalendarBookingServiceUtil</code>.
 	 */
 
 	/**
@@ -994,9 +997,11 @@ public abstract class CalendarBookingServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(calendarBookingService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -1038,6 +1043,22 @@ public abstract class CalendarBookingServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		CalendarBookingService calendarBookingService) {
+
+		try {
+			Field field = CalendarBookingServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, calendarBookingService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

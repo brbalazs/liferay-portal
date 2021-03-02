@@ -706,6 +706,8 @@ public class SPIDefinitionModelImpl
 
 	@Override
 	public void setSpiDefinitionId(long spiDefinitionId) {
+		_columnBitmask = -1L;
+
 		_spiDefinitionId = spiDefinitionId;
 	}
 

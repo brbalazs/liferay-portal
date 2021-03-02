@@ -44,10 +44,13 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.trash.model.TrashEntry;
 import com.liferay.trash.service.TrashEntryLocalService;
+import com.liferay.trash.service.TrashEntryLocalServiceUtil;
 import com.liferay.trash.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.service.persistence.TrashVersionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -71,7 +74,7 @@ public abstract class TrashEntryLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>TrashEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.trash.service.TrashEntryLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>TrashEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>TrashEntryLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -624,11 +627,15 @@ public abstract class TrashEntryLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.trash.model.TrashEntry", trashEntryLocalService);
+
+		_setLocalServiceUtilService(trashEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.trash.model.TrashEntry");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -670,6 +677,22 @@ public abstract class TrashEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		TrashEntryLocalService trashEntryLocalService) {
+
+		try {
+			Field field = TrashEntryLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, trashEntryLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -870,6 +870,8 @@ public class CPOptionValueModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask = -1L;
+
 		_name = name;
 	}
 
@@ -925,6 +927,8 @@ public class CPOptionValueModelImpl
 
 	@Override
 	public void setPriority(double priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 

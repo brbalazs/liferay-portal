@@ -14,9 +14,15 @@
 
 package com.liferay.saml.persistence.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.saml.persistence.model.SamlSpAuthRequest;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for SamlSpAuthRequest. This utility wraps
@@ -48,18 +54,15 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param samlSpAuthRequest the saml sp auth request
 	 * @return the saml sp auth request that was added
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		addSamlSpAuthRequest(
-			com.liferay.saml.persistence.model.SamlSpAuthRequest
-				samlSpAuthRequest) {
+	public static SamlSpAuthRequest addSamlSpAuthRequest(
+		SamlSpAuthRequest samlSpAuthRequest) {
 
 		return getService().addSamlSpAuthRequest(samlSpAuthRequest);
 	}
 
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		addSamlSpAuthRequest(
-			String samlIdpEntityId, String samlSpAuthRequestKey,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+	public static SamlSpAuthRequest addSamlSpAuthRequest(
+		String samlIdpEntityId, String samlSpAuthRequestKey,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addSamlSpAuthRequest(
 			samlIdpEntityId, samlSpAuthRequestKey, serviceContext);
@@ -71,8 +74,8 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param samlSpAuthnRequestId the primary key for the new saml sp auth request
 	 * @return the new saml sp auth request
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		createSamlSpAuthRequest(long samlSpAuthnRequestId) {
+	public static SamlSpAuthRequest createSamlSpAuthRequest(
+		long samlSpAuthnRequestId) {
 
 		return getService().createSamlSpAuthRequest(samlSpAuthnRequestId);
 	}
@@ -84,10 +87,9 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -103,9 +105,9 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @return the saml sp auth request that was removed
 	 * @throws PortalException if a saml sp auth request with the primary key could not be found
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-			deleteSamlSpAuthRequest(long samlSpAuthnRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SamlSpAuthRequest deleteSamlSpAuthRequest(
+			long samlSpAuthnRequestId)
+		throws PortalException {
 
 		return getService().deleteSamlSpAuthRequest(samlSpAuthnRequestId);
 	}
@@ -120,17 +122,13 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param samlSpAuthRequest the saml sp auth request
 	 * @return the saml sp auth request that was removed
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		deleteSamlSpAuthRequest(
-			com.liferay.saml.persistence.model.SamlSpAuthRequest
-				samlSpAuthRequest) {
+	public static SamlSpAuthRequest deleteSamlSpAuthRequest(
+		SamlSpAuthRequest samlSpAuthRequest) {
 
 		return getService().deleteSamlSpAuthRequest(samlSpAuthRequest);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -140,9 +138,7 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -158,9 +154,8 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -178,10 +173,9 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -193,9 +187,7 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -207,21 +199,20 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		fetchSamlSpAuthRequest(long samlSpAuthnRequestId) {
+	public static SamlSpAuthRequest fetchSamlSpAuthRequest(
+		long samlSpAuthnRequestId) {
 
 		return getService().fetchSamlSpAuthRequest(samlSpAuthnRequestId);
 	}
 
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		fetchSamlSpAuthRequest(
-			String samlIdpEntityId, String samlSpAuthRequestKey) {
+	public static SamlSpAuthRequest fetchSamlSpAuthRequest(
+		String samlIdpEntityId, String samlSpAuthRequestKey) {
 
 		return getService().fetchSamlSpAuthRequest(
 			samlIdpEntityId, samlSpAuthRequestKey);
@@ -252,9 +243,8 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -266,17 +256,16 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @return the saml sp auth request
 	 * @throws PortalException if a saml sp auth request with the primary key could not be found
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-			getSamlSpAuthRequest(long samlSpAuthnRequestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SamlSpAuthRequest getSamlSpAuthRequest(
+			long samlSpAuthnRequestId)
+		throws PortalException {
 
 		return getService().getSamlSpAuthRequest(samlSpAuthnRequestId);
 	}
 
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-			getSamlSpAuthRequest(
-				String samlIdpEntityId, String samlSpAuthRequestKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SamlSpAuthRequest getSamlSpAuthRequest(
+			String samlIdpEntityId, String samlSpAuthRequestKey)
+		throws PortalException {
 
 		return getService().getSamlSpAuthRequest(
 			samlIdpEntityId, samlSpAuthRequestKey);
@@ -293,9 +282,8 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of saml sp auth requests (not inclusive)
 	 * @return the range of saml sp auth requests
 	 */
-	public static java.util.List
-		<com.liferay.saml.persistence.model.SamlSpAuthRequest>
-			getSamlSpAuthRequests(int start, int end) {
+	public static List<SamlSpAuthRequest> getSamlSpAuthRequests(
+		int start, int end) {
 
 		return getService().getSamlSpAuthRequests(start, end);
 	}
@@ -319,38 +307,16 @@ public class SamlSpAuthRequestLocalServiceUtil {
 	 * @param samlSpAuthRequest the saml sp auth request
 	 * @return the saml sp auth request that was updated
 	 */
-	public static com.liferay.saml.persistence.model.SamlSpAuthRequest
-		updateSamlSpAuthRequest(
-			com.liferay.saml.persistence.model.SamlSpAuthRequest
-				samlSpAuthRequest) {
+	public static SamlSpAuthRequest updateSamlSpAuthRequest(
+		SamlSpAuthRequest samlSpAuthRequest) {
 
 		return getService().updateSamlSpAuthRequest(samlSpAuthRequest);
 	}
 
 	public static SamlSpAuthRequestLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<SamlSpAuthRequestLocalService, SamlSpAuthRequestLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			SamlSpAuthRequestLocalService.class);
-
-		ServiceTracker
-			<SamlSpAuthRequestLocalService, SamlSpAuthRequestLocalService>
-				serviceTracker =
-					new ServiceTracker
-						<SamlSpAuthRequestLocalService,
-						 SamlSpAuthRequestLocalService>(
-							 bundle.getBundleContext(),
-							 SamlSpAuthRequestLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile SamlSpAuthRequestLocalService _service;
 
 }

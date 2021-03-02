@@ -28,7 +28,10 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.push.notifications.model.PushNotificationsDevice;
 import com.liferay.push.notifications.service.PushNotificationsDeviceService;
+import com.liferay.push.notifications.service.PushNotificationsDeviceServiceUtil;
 import com.liferay.push.notifications.service.persistence.PushNotificationsDevicePersistence;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -50,7 +53,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>PushNotificationsDeviceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.push.notifications.service.PushNotificationsDeviceServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>PushNotificationsDeviceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>PushNotificationsDeviceServiceUtil</code>.
 	 */
 
 	/**
@@ -295,9 +298,11 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(pushNotificationsDeviceService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -340,6 +345,23 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		PushNotificationsDeviceService pushNotificationsDeviceService) {
+
+		try {
+			Field field =
+				PushNotificationsDeviceServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, pushNotificationsDeviceService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

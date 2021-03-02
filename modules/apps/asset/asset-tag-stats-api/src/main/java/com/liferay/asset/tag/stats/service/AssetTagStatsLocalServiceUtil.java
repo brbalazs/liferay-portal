@@ -14,9 +14,15 @@
 
 package com.liferay.asset.tag.stats.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.asset.tag.stats.model.AssetTagStats;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for AssetTagStats. This utility wraps
@@ -48,10 +54,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param assetTagStats the asset tag stats
 	 * @return the asset tag stats that was added
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-		addAssetTagStats(
-			com.liferay.asset.tag.stats.model.AssetTagStats assetTagStats) {
-
+	public static AssetTagStats addAssetTagStats(AssetTagStats assetTagStats) {
 		return getService().addAssetTagStats(assetTagStats);
 	}
 
@@ -62,9 +65,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param classNameId the asset entry's class name ID
 	 * @return the asset tag statistics instance
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats addTagStats(
-		long tagId, long classNameId) {
-
+	public static AssetTagStats addTagStats(long tagId, long classNameId) {
 		return getService().addTagStats(tagId, classNameId);
 	}
 
@@ -74,9 +75,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param tagStatsId the primary key for the new asset tag stats
 	 * @return the new asset tag stats
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-		createAssetTagStats(long tagStatsId) {
-
+	public static AssetTagStats createAssetTagStats(long tagStatsId) {
 		return getService().createAssetTagStats(tagStatsId);
 	}
 
@@ -90,9 +89,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param assetTagStats the asset tag stats
 	 * @return the asset tag stats that was removed
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-		deleteAssetTagStats(
-			com.liferay.asset.tag.stats.model.AssetTagStats assetTagStats) {
+	public static AssetTagStats deleteAssetTagStats(
+		AssetTagStats assetTagStats) {
 
 		return getService().deleteAssetTagStats(assetTagStats);
 	}
@@ -108,9 +106,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @return the asset tag stats that was removed
 	 * @throws PortalException if a asset tag stats with the primary key could not be found
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-			deleteAssetTagStats(long tagStatsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AssetTagStats deleteAssetTagStats(long tagStatsId)
+		throws PortalException {
 
 		return getService().deleteAssetTagStats(tagStatsId);
 	}
@@ -118,10 +115,9 @@ public class AssetTagStatsLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -131,9 +127,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 *
 	 * @param tagStats the asset tag statistics instance
 	 */
-	public static void deleteTagStats(
-		com.liferay.asset.tag.stats.model.AssetTagStats tagStats) {
-
+	public static void deleteTagStats(AssetTagStats tagStats) {
 		getService().deleteTagStats(tagStats);
 	}
 
@@ -142,9 +136,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 *
 	 * @param tagStatsId the primary key of the asset tag statistics instance
 	 */
-	public static void deleteTagStats(long tagStatsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void deleteTagStats(long tagStatsId) throws PortalException {
 		getService().deleteTagStats(tagStatsId);
 	}
 
@@ -167,9 +159,7 @@ public class AssetTagStatsLocalServiceUtil {
 		getService().deleteTagStatsByTagId(tagId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -179,9 +169,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -197,9 +185,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -217,10 +204,9 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -232,9 +218,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -246,15 +230,13 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-		fetchAssetTagStats(long tagStatsId) {
-
+	public static AssetTagStats fetchAssetTagStats(long tagStatsId) {
 		return getService().fetchAssetTagStats(tagStatsId);
 	}
 
@@ -271,9 +253,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @return the asset tag stats
 	 * @throws PortalException if a asset tag stats with the primary key could not be found
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-			getAssetTagStats(long tagStatsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AssetTagStats getAssetTagStats(long tagStatsId)
+		throws PortalException {
 
 		return getService().getAssetTagStats(tagStatsId);
 	}
@@ -289,10 +270,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param end the upper bound of the range of asset tag statses (not inclusive)
 	 * @return the range of asset tag statses
 	 */
-	public static java.util.List
-		<com.liferay.asset.tag.stats.model.AssetTagStats> getAssetTagStatses(
-			int start, int end) {
-
+	public static List<AssetTagStats> getAssetTagStatses(int start, int end) {
 		return getService().getAssetTagStatses(start, end);
 	}
 
@@ -324,9 +302,8 @@ public class AssetTagStatsLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -351,9 +328,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @return the range of asset tag statistics associated with the asset entry
 	 matching the class name ID
 	 */
-	public static java.util.List
-		<com.liferay.asset.tag.stats.model.AssetTagStats> getTagStats(
-			long classNameId, int start, int end) {
+	public static List<AssetTagStats> getTagStats(
+		long classNameId, int start, int end) {
 
 		return getService().getTagStats(classNameId, start, end);
 	}
@@ -367,9 +343,7 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @return Returns the asset tag statistics instance with the tag and asset
 	 entry  matching the class name ID
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats getTagStats(
-		long tagId, long classNameId) {
-
+	public static AssetTagStats getTagStats(long tagId, long classNameId) {
 		return getService().getTagStats(tagId, classNameId);
 	}
 
@@ -383,9 +357,8 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param assetTagStats the asset tag stats
 	 * @return the asset tag stats that was updated
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-		updateAssetTagStats(
-			com.liferay.asset.tag.stats.model.AssetTagStats assetTagStats) {
+	public static AssetTagStats updateAssetTagStats(
+		AssetTagStats assetTagStats) {
 
 		return getService().updateAssetTagStats(assetTagStats);
 	}
@@ -397,34 +370,16 @@ public class AssetTagStatsLocalServiceUtil {
 	 * @param classNameId the asset entry's class name ID
 	 * @return the updated asset tag statistics instance
 	 */
-	public static com.liferay.asset.tag.stats.model.AssetTagStats
-			updateTagStats(long tagId, long classNameId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static AssetTagStats updateTagStats(long tagId, long classNameId)
+		throws PortalException {
 
 		return getService().updateTagStats(tagId, classNameId);
 	}
 
 	public static AssetTagStatsLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<AssetTagStatsLocalService, AssetTagStatsLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			AssetTagStatsLocalService.class);
-
-		ServiceTracker<AssetTagStatsLocalService, AssetTagStatsLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<AssetTagStatsLocalService, AssetTagStatsLocalService>(
-						bundle.getBundleContext(),
-						AssetTagStatsLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile AssetTagStatsLocalService _service;
 
 }

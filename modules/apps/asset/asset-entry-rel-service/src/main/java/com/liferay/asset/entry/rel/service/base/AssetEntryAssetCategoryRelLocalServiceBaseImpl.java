@@ -16,6 +16,7 @@ package com.liferay.asset.entry.rel.service.base;
 
 import com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel;
 import com.liferay.asset.entry.rel.service.AssetEntryAssetCategoryRelLocalService;
+import com.liferay.asset.entry.rel.service.AssetEntryAssetCategoryRelLocalServiceUtil;
 import com.liferay.asset.entry.rel.service.persistence.AssetEntryAssetCategoryRelPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class AssetEntryAssetCategoryRelLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>AssetEntryAssetCategoryRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.asset.entry.rel.service.AssetEntryAssetCategoryRelLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>AssetEntryAssetCategoryRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>AssetEntryAssetCategoryRelLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -454,11 +457,15 @@ public abstract class AssetEntryAssetCategoryRelLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel",
 			assetEntryAssetCategoryRelLocalService);
+
+		_setLocalServiceUtilService(assetEntryAssetCategoryRelLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -501,6 +508,24 @@ public abstract class AssetEntryAssetCategoryRelLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		AssetEntryAssetCategoryRelLocalService
+			assetEntryAssetCategoryRelLocalService) {
+
+		try {
+			Field field =
+				AssetEntryAssetCategoryRelLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, assetEntryAssetCategoryRelLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

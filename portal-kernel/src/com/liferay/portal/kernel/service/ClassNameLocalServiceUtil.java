@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for ClassName. This utility wraps
@@ -46,15 +54,11 @@ public class ClassNameLocalServiceUtil {
 	 * @param className the class name
 	 * @return the class name that was added
 	 */
-	public static com.liferay.portal.kernel.model.ClassName addClassName(
-		com.liferay.portal.kernel.model.ClassName className) {
-
+	public static ClassName addClassName(ClassName className) {
 		return getService().addClassName(className);
 	}
 
-	public static com.liferay.portal.kernel.model.ClassName addClassName(
-		String value) {
-
+	public static ClassName addClassName(String value) {
 		return getService().addClassName(value);
 	}
 
@@ -68,9 +72,7 @@ public class ClassNameLocalServiceUtil {
 	 * @param classNameId the primary key for the new class name
 	 * @return the new class name
 	 */
-	public static com.liferay.portal.kernel.model.ClassName createClassName(
-		long classNameId) {
-
+	public static ClassName createClassName(long classNameId) {
 		return getService().createClassName(classNameId);
 	}
 
@@ -84,9 +86,7 @@ public class ClassNameLocalServiceUtil {
 	 * @param className the class name
 	 * @return the class name that was removed
 	 */
-	public static com.liferay.portal.kernel.model.ClassName deleteClassName(
-		com.liferay.portal.kernel.model.ClassName className) {
-
+	public static ClassName deleteClassName(ClassName className) {
 		return getService().deleteClassName(className);
 	}
 
@@ -101,9 +101,8 @@ public class ClassNameLocalServiceUtil {
 	 * @return the class name that was removed
 	 * @throws PortalException if a class name with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ClassName deleteClassName(
-			long classNameId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ClassName deleteClassName(long classNameId)
+		throws PortalException {
 
 		return getService().deleteClassName(classNameId);
 	}
@@ -111,17 +110,14 @@ public class ClassNameLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -131,9 +127,7 @@ public class ClassNameLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -149,9 +143,8 @@ public class ClassNameLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -169,10 +162,9 @@ public class ClassNameLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -184,9 +176,7 @@ public class ClassNameLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -198,27 +188,21 @@ public class ClassNameLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.ClassName fetchByClassNameId(
-		long classNameId) {
-
+	public static ClassName fetchByClassNameId(long classNameId) {
 		return getService().fetchByClassNameId(classNameId);
 	}
 
-	public static com.liferay.portal.kernel.model.ClassName fetchClassName(
-		long classNameId) {
-
+	public static ClassName fetchClassName(long classNameId) {
 		return getService().fetchClassName(classNameId);
 	}
 
-	public static com.liferay.portal.kernel.model.ClassName fetchClassName(
-		String value) {
-
+	public static ClassName fetchClassName(String value) {
 		return getService().fetchClassName(value);
 	}
 
@@ -235,16 +219,13 @@ public class ClassNameLocalServiceUtil {
 	 * @return the class name
 	 * @throws PortalException if a class name with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.ClassName getClassName(
-			long classNameId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ClassName getClassName(long classNameId)
+		throws PortalException {
 
 		return getService().getClassName(classNameId);
 	}
 
-	public static com.liferay.portal.kernel.model.ClassName getClassName(
-		String value) {
-
+	public static ClassName getClassName(String value) {
 		return getService().getClassName(value);
 	}
 
@@ -267,9 +248,7 @@ public class ClassNameLocalServiceUtil {
 	 * @param end the upper bound of the range of class names (not inclusive)
 	 * @return the range of class names
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.ClassName>
-		getClassNames(int start, int end) {
-
+	public static List<ClassName> getClassNames(int start, int end) {
 		return getService().getClassNames(start, end);
 	}
 
@@ -301,9 +280,8 @@ public class ClassNameLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -326,21 +304,14 @@ public class ClassNameLocalServiceUtil {
 	 * @param className the class name
 	 * @return the class name that was updated
 	 */
-	public static com.liferay.portal.kernel.model.ClassName updateClassName(
-		com.liferay.portal.kernel.model.ClassName className) {
-
+	public static ClassName updateClassName(ClassName className) {
 		return getService().updateClassName(className);
 	}
 
 	public static ClassNameLocalService getService() {
-		if (_service == null) {
-			_service = (ClassNameLocalService)PortalBeanLocatorUtil.locate(
-				ClassNameLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static ClassNameLocalService _service;
+	private static volatile ClassNameLocalService _service;
 
 }

@@ -40,9 +40,12 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.wiki.model.WikiPageResource;
 import com.liferay.wiki.service.WikiPageResourceLocalService;
+import com.liferay.wiki.service.WikiPageResourceLocalServiceUtil;
 import com.liferay.wiki.service.persistence.WikiPageResourcePersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -66,7 +69,7 @@ public abstract class WikiPageResourceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>WikiPageResourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.wiki.service.WikiPageResourceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>WikiPageResourceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>WikiPageResourceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -487,11 +490,15 @@ public abstract class WikiPageResourceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.wiki.model.WikiPageResource",
 			wikiPageResourceLocalService);
+
+		_setLocalServiceUtilService(wikiPageResourceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.wiki.model.WikiPageResource");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -533,6 +540,23 @@ public abstract class WikiPageResourceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		WikiPageResourceLocalService wikiPageResourceLocalService) {
+
+		try {
+			Field field =
+				WikiPageResourceLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, wikiPageResourceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

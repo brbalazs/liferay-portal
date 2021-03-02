@@ -881,7 +881,7 @@ public class CommerceMLForecastAlertEntryModelImpl
 
 	@Override
 	public void setTimestamp(Date timestamp) {
-		_columnBitmask |= TIMESTAMP_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalTimestamp == null) {
 			_originalTimestamp = _timestamp;

@@ -16,6 +16,7 @@ package com.liferay.polls.service.base;
 
 import com.liferay.polls.model.PollsVote;
 import com.liferay.polls.service.PollsVoteService;
+import com.liferay.polls.service.PollsVoteServiceUtil;
 import com.liferay.polls.service.persistence.PollsChoicePersistence;
 import com.liferay.polls.service.persistence.PollsQuestionFinder;
 import com.liferay.polls.service.persistence.PollsQuestionPersistence;
@@ -31,6 +32,8 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -52,7 +55,7 @@ public abstract class PollsVoteServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>PollsVoteService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.polls.service.PollsVoteServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>PollsVoteService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>PollsVoteServiceUtil</code>.
 	 */
 
 	/**
@@ -349,9 +352,11 @@ public abstract class PollsVoteServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(pollsVoteService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -393,6 +398,20 @@ public abstract class PollsVoteServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(PollsVoteService pollsVoteService) {
+		try {
+			Field field = PollsVoteServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, pollsVoteService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

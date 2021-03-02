@@ -14,9 +14,15 @@
 
 package com.liferay.sync.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.sync.model.SyncDLObject;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for SyncDLObject. This utility wraps
@@ -46,7 +52,7 @@ public class SyncDLObjectLocalServiceUtil {
 	 String, String, long, String)}
 	 */
 	@Deprecated
-	public static com.liferay.sync.model.SyncDLObject addSyncDLObject(
+	public static SyncDLObject addSyncDLObject(
 			long companyId, long userId, String userName, long modifiedTime,
 			long repositoryId, long parentFolderId, String treePath,
 			String name, String extension, String mimeType, String description,
@@ -54,7 +60,7 @@ public class SyncDLObjectLocalServiceUtil {
 			long versionId, long size, String checksum, String event,
 			java.util.Date lockExpirationDate, long lockUserId,
 			String lockUserName, String type, long typePK, String typeUuid)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addSyncDLObject(
 			companyId, userId, userName, modifiedTime, repositoryId,
@@ -64,7 +70,7 @@ public class SyncDLObjectLocalServiceUtil {
 			typeUuid);
 	}
 
-	public static com.liferay.sync.model.SyncDLObject addSyncDLObject(
+	public static SyncDLObject addSyncDLObject(
 			long companyId, long userId, String userName, long modifiedTime,
 			long repositoryId, long parentFolderId, String treePath,
 			String name, String extension, String mimeType, String description,
@@ -73,7 +79,7 @@ public class SyncDLObjectLocalServiceUtil {
 			String lanTokenKey, java.util.Date lockExpirationDate,
 			long lockUserId, String lockUserName, String type, long typePK,
 			String typeUuid)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addSyncDLObject(
 			companyId, userId, userName, modifiedTime, repositoryId,
@@ -93,9 +99,7 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param syncDLObject the sync dl object
 	 * @return the sync dl object that was added
 	 */
-	public static com.liferay.sync.model.SyncDLObject addSyncDLObject(
-		com.liferay.sync.model.SyncDLObject syncDLObject) {
-
+	public static SyncDLObject addSyncDLObject(SyncDLObject syncDLObject) {
 		return getService().addSyncDLObject(syncDLObject);
 	}
 
@@ -105,19 +109,16 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param syncDLObjectId the primary key for the new sync dl object
 	 * @return the new sync dl object
 	 */
-	public static com.liferay.sync.model.SyncDLObject createSyncDLObject(
-		long syncDLObjectId) {
-
+	public static SyncDLObject createSyncDLObject(long syncDLObjectId) {
 		return getService().createSyncDLObject(syncDLObjectId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -133,9 +134,8 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @return the sync dl object that was removed
 	 * @throws PortalException if a sync dl object with the primary key could not be found
 	 */
-	public static com.liferay.sync.model.SyncDLObject deleteSyncDLObject(
-			long syncDLObjectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SyncDLObject deleteSyncDLObject(long syncDLObjectId)
+		throws PortalException {
 
 		return getService().deleteSyncDLObject(syncDLObjectId);
 	}
@@ -150,9 +150,7 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param syncDLObject the sync dl object
 	 * @return the sync dl object that was removed
 	 */
-	public static com.liferay.sync.model.SyncDLObject deleteSyncDLObject(
-		com.liferay.sync.model.SyncDLObject syncDLObject) {
-
+	public static SyncDLObject deleteSyncDLObject(SyncDLObject syncDLObject) {
 		return getService().deleteSyncDLObject(syncDLObject);
 	}
 
@@ -160,9 +158,7 @@ public class SyncDLObjectLocalServiceUtil {
 		getService().deleteSyncDLObjects(version, type);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -172,9 +168,7 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -190,9 +184,8 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -210,10 +203,9 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -225,9 +217,7 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -239,21 +229,17 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.sync.model.SyncDLObject fetchSyncDLObject(
-		long syncDLObjectId) {
-
+	public static SyncDLObject fetchSyncDLObject(long syncDLObjectId) {
 		return getService().fetchSyncDLObject(syncDLObjectId);
 	}
 
-	public static com.liferay.sync.model.SyncDLObject fetchSyncDLObject(
-		String type, long typePK) {
-
+	public static SyncDLObject fetchSyncDLObject(String type, long typePK) {
 		return getService().fetchSyncDLObject(type, typePK);
 	}
 
@@ -286,9 +272,8 @@ public class SyncDLObjectLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -300,9 +285,8 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @return the sync dl object
 	 * @throws PortalException if a sync dl object with the primary key could not be found
 	 */
-	public static com.liferay.sync.model.SyncDLObject getSyncDLObject(
-			long syncDLObjectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SyncDLObject getSyncDLObject(long syncDLObjectId)
+		throws PortalException {
 
 		return getService().getSyncDLObject(syncDLObjectId);
 	}
@@ -318,14 +302,12 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param end the upper bound of the range of sync dl objects (not inclusive)
 	 * @return the range of sync dl objects
 	 */
-	public static java.util.List<com.liferay.sync.model.SyncDLObject>
-		getSyncDLObjects(int start, int end) {
-
+	public static List<SyncDLObject> getSyncDLObjects(int start, int end) {
 		return getService().getSyncDLObjects(start, end);
 	}
 
-	public static java.util.List<com.liferay.sync.model.SyncDLObject>
-		getSyncDLObjects(long repositoryId, long parentFolderId) {
+	public static List<SyncDLObject> getSyncDLObjects(
+		long repositoryId, long parentFolderId) {
 
 		return getService().getSyncDLObjects(repositoryId, parentFolderId);
 	}
@@ -339,23 +321,20 @@ public class SyncDLObjectLocalServiceUtil {
 		return getService().getSyncDLObjectsCount();
 	}
 
-	public static void moveSyncDLObjects(
-			com.liferay.sync.model.SyncDLObject parentSyncDLObject)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static void moveSyncDLObjects(SyncDLObject parentSyncDLObject)
+		throws PortalException {
 
 		getService().moveSyncDLObjects(parentSyncDLObject);
 	}
 
-	public static void restoreSyncDLObjects(
-			com.liferay.sync.model.SyncDLObject parentSyncDLObject)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static void restoreSyncDLObjects(SyncDLObject parentSyncDLObject)
+		throws PortalException {
 
 		getService().restoreSyncDLObjects(parentSyncDLObject);
 	}
 
-	public static void trashSyncDLObjects(
-			com.liferay.sync.model.SyncDLObject parentSyncDLObject)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static void trashSyncDLObjects(SyncDLObject parentSyncDLObject)
+		throws PortalException {
 
 		getService().trashSyncDLObjects(parentSyncDLObject);
 	}
@@ -370,32 +349,14 @@ public class SyncDLObjectLocalServiceUtil {
 	 * @param syncDLObject the sync dl object
 	 * @return the sync dl object that was updated
 	 */
-	public static com.liferay.sync.model.SyncDLObject updateSyncDLObject(
-		com.liferay.sync.model.SyncDLObject syncDLObject) {
-
+	public static SyncDLObject updateSyncDLObject(SyncDLObject syncDLObject) {
 		return getService().updateSyncDLObject(syncDLObject);
 	}
 
 	public static SyncDLObjectLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<SyncDLObjectLocalService, SyncDLObjectLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(SyncDLObjectLocalService.class);
-
-		ServiceTracker<SyncDLObjectLocalService, SyncDLObjectLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<SyncDLObjectLocalService, SyncDLObjectLocalService>(
-						bundle.getBundleContext(),
-						SyncDLObjectLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile SyncDLObjectLocalService _service;
 
 }

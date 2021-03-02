@@ -21,6 +21,7 @@ import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.message.boards.model.MBThreadFlag;
 import com.liferay.message.boards.service.MBThreadFlagLocalService;
+import com.liferay.message.boards.service.MBThreadFlagLocalServiceUtil;
 import com.liferay.message.boards.service.persistence.MBThreadFlagPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -50,6 +51,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -72,7 +75,7 @@ public abstract class MBThreadFlagLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MBThreadFlagLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.message.boards.service.MBThreadFlagLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MBThreadFlagLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MBThreadFlagLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -554,11 +557,15 @@ public abstract class MBThreadFlagLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.message.boards.model.MBThreadFlag",
 			mbThreadFlagLocalService);
+
+		_setLocalServiceUtilService(mbThreadFlagLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.message.boards.model.MBThreadFlag");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -600,6 +607,22 @@ public abstract class MBThreadFlagLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		MBThreadFlagLocalService mbThreadFlagLocalService) {
+
+		try {
+			Field field = MBThreadFlagLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, mbThreadFlagLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

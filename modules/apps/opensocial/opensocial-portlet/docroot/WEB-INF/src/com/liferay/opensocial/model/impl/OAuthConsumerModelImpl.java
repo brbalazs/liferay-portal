@@ -544,7 +544,7 @@ public class OAuthConsumerModelImpl
 
 	@Override
 	public void setServiceName(String serviceName) {
-		_columnBitmask |= SERVICENAME_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalServiceName == null) {
 			_originalServiceName = _serviceName;

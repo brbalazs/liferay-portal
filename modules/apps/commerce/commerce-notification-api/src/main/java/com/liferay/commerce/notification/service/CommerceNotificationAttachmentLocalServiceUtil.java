@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.notification.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.notification.model.CommerceNotificationAttachment;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceNotificationAttachment. This utility wraps
@@ -48,25 +54,20 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param commerceNotificationAttachment the commerce notification attachment
 	 * @return the commerce notification attachment that was added
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			addCommerceNotificationAttachment(
-				com.liferay.commerce.notification.model.
-					CommerceNotificationAttachment
-						commerceNotificationAttachment) {
+	public static CommerceNotificationAttachment
+		addCommerceNotificationAttachment(
+			CommerceNotificationAttachment commerceNotificationAttachment) {
 
 		return getService().addCommerceNotificationAttachment(
 			commerceNotificationAttachment);
 	}
 
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-				addCommerceNotificationAttachment(
-					long commerceNotificationQueueEntryId, long fileEntryId,
-					boolean deleteOnSend,
-					com.liferay.portal.kernel.service.ServiceContext
-						serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceNotificationAttachment
+			addCommerceNotificationAttachment(
+				long commerceNotificationQueueEntryId, long fileEntryId,
+				boolean deleteOnSend,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceNotificationAttachment(
 			commerceNotificationQueueEntryId, fileEntryId, deleteOnSend,
@@ -79,10 +80,9 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param commerceNotificationAttachmentId the primary key for the new commerce notification attachment
 	 * @return the new commerce notification attachment
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			createCommerceNotificationAttachment(
-				long commerceNotificationAttachmentId) {
+	public static CommerceNotificationAttachment
+		createCommerceNotificationAttachment(
+			long commerceNotificationAttachmentId) {
 
 		return getService().createCommerceNotificationAttachment(
 			commerceNotificationAttachmentId);
@@ -98,12 +98,9 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param commerceNotificationAttachment the commerce notification attachment
 	 * @return the commerce notification attachment that was removed
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			deleteCommerceNotificationAttachment(
-				com.liferay.commerce.notification.model.
-					CommerceNotificationAttachment
-						commerceNotificationAttachment) {
+	public static CommerceNotificationAttachment
+		deleteCommerceNotificationAttachment(
+			CommerceNotificationAttachment commerceNotificationAttachment) {
 
 		return getService().deleteCommerceNotificationAttachment(
 			commerceNotificationAttachment);
@@ -120,11 +117,10 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @return the commerce notification attachment that was removed
 	 * @throws PortalException if a commerce notification attachment with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-				deleteCommerceNotificationAttachment(
-					long commerceNotificationAttachmentId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceNotificationAttachment
+			deleteCommerceNotificationAttachment(
+				long commerceNotificationAttachmentId)
+		throws PortalException {
 
 		return getService().deleteCommerceNotificationAttachment(
 			commerceNotificationAttachmentId);
@@ -140,17 +136,14 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -160,9 +153,7 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -178,9 +169,8 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -198,10 +188,9 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -213,9 +202,7 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -227,16 +214,15 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			fetchCommerceNotificationAttachment(
-				long commerceNotificationAttachmentId) {
+	public static CommerceNotificationAttachment
+		fetchCommerceNotificationAttachment(
+			long commerceNotificationAttachmentId) {
 
 		return getService().fetchCommerceNotificationAttachment(
 			commerceNotificationAttachmentId);
@@ -249,10 +235,9 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param groupId the primary key of the group
 	 * @return the matching commerce notification attachment, or <code>null</code> if a matching commerce notification attachment could not be found
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			fetchCommerceNotificationAttachmentByUuidAndGroupId(
-				String uuid, long groupId) {
+	public static CommerceNotificationAttachment
+		fetchCommerceNotificationAttachmentByUuidAndGroupId(
+			String uuid, long groupId) {
 
 		return getService().fetchCommerceNotificationAttachmentByUuidAndGroupId(
 			uuid, groupId);
@@ -271,11 +256,10 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @return the commerce notification attachment
 	 * @throws PortalException if a commerce notification attachment with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-				getCommerceNotificationAttachment(
-					long commerceNotificationAttachmentId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceNotificationAttachment
+			getCommerceNotificationAttachment(
+				long commerceNotificationAttachmentId)
+		throws PortalException {
 
 		return getService().getCommerceNotificationAttachment(
 			commerceNotificationAttachmentId);
@@ -289,11 +273,10 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @return the matching commerce notification attachment
 	 * @throws PortalException if a matching commerce notification attachment could not be found
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-				getCommerceNotificationAttachmentByUuidAndGroupId(
-					String uuid, long groupId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceNotificationAttachment
+			getCommerceNotificationAttachmentByUuidAndGroupId(
+				String uuid, long groupId)
+		throws PortalException {
 
 		return getService().getCommerceNotificationAttachmentByUuidAndGroupId(
 			uuid, groupId);
@@ -310,20 +293,17 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce notification attachments (not inclusive)
 	 * @return the range of commerce notification attachments
 	 */
-	public static java.util.List
-		<com.liferay.commerce.notification.model.CommerceNotificationAttachment>
-			getCommerceNotificationAttachments(int start, int end) {
+	public static List<CommerceNotificationAttachment>
+		getCommerceNotificationAttachments(int start, int end) {
 
 		return getService().getCommerceNotificationAttachments(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.notification.model.CommerceNotificationAttachment>
-			getCommerceNotificationAttachments(
-				long commerceNotificationQueueEntryId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.commerce.notification.model.
-						CommerceNotificationAttachment> orderByComparator) {
+	public static List<CommerceNotificationAttachment>
+		getCommerceNotificationAttachments(
+			long commerceNotificationQueueEntryId, int start, int end,
+			OrderByComparator<CommerceNotificationAttachment>
+				orderByComparator) {
 
 		return getService().getCommerceNotificationAttachments(
 			commerceNotificationQueueEntryId, start, end, orderByComparator);
@@ -336,10 +316,9 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching commerce notification attachments, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.notification.model.CommerceNotificationAttachment>
-			getCommerceNotificationAttachmentsByUuidAndCompanyId(
-				String uuid, long companyId) {
+	public static List<CommerceNotificationAttachment>
+		getCommerceNotificationAttachmentsByUuidAndCompanyId(
+			String uuid, long companyId) {
 
 		return getService().
 			getCommerceNotificationAttachmentsByUuidAndCompanyId(
@@ -356,13 +335,11 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the range of matching commerce notification attachments, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.notification.model.CommerceNotificationAttachment>
-			getCommerceNotificationAttachmentsByUuidAndCompanyId(
-				String uuid, long companyId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.commerce.notification.model.
-						CommerceNotificationAttachment> orderByComparator) {
+	public static List<CommerceNotificationAttachment>
+		getCommerceNotificationAttachmentsByUuidAndCompanyId(
+			String uuid, long companyId, int start, int end,
+			OrderByComparator<CommerceNotificationAttachment>
+				orderByComparator) {
 
 		return getService().
 			getCommerceNotificationAttachmentsByUuidAndCompanyId(
@@ -405,9 +382,8 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -422,42 +398,18 @@ public class CommerceNotificationAttachmentLocalServiceUtil {
 	 * @param commerceNotificationAttachment the commerce notification attachment
 	 * @return the commerce notification attachment that was updated
 	 */
-	public static
-		com.liferay.commerce.notification.model.CommerceNotificationAttachment
-			updateCommerceNotificationAttachment(
-				com.liferay.commerce.notification.model.
-					CommerceNotificationAttachment
-						commerceNotificationAttachment) {
+	public static CommerceNotificationAttachment
+		updateCommerceNotificationAttachment(
+			CommerceNotificationAttachment commerceNotificationAttachment) {
 
 		return getService().updateCommerceNotificationAttachment(
 			commerceNotificationAttachment);
 	}
 
 	public static CommerceNotificationAttachmentLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceNotificationAttachmentLocalService,
-		 CommerceNotificationAttachmentLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceNotificationAttachmentLocalService.class);
-
-		ServiceTracker
-			<CommerceNotificationAttachmentLocalService,
-			 CommerceNotificationAttachmentLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceNotificationAttachmentLocalService,
-					 CommerceNotificationAttachmentLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceNotificationAttachmentLocalService.class,
-						 null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceNotificationAttachmentLocalService _service;
 
 }

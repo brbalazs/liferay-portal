@@ -1031,7 +1031,7 @@ public class JournalFeedModelImpl
 
 	@Override
 	public void setFeedId(String feedId) {
-		_columnBitmask |= FEEDID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalFeedId == null) {
 			_originalFeedId = _feedId;

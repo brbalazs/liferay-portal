@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.product.type.virtual.order.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.product.type.virtual.order.model.CommerceVirtualOrderItem;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceVirtualOrderItem. This utility wraps
@@ -48,40 +54,34 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param commerceVirtualOrderItem the commerce virtual order item
 	 * @return the commerce virtual order item that was added
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem addCommerceVirtualOrderItem(
-			com.liferay.commerce.product.type.virtual.order.model.
-				CommerceVirtualOrderItem commerceVirtualOrderItem) {
+	public static CommerceVirtualOrderItem addCommerceVirtualOrderItem(
+		CommerceVirtualOrderItem commerceVirtualOrderItem) {
 
 		return getService().addCommerceVirtualOrderItem(
 			commerceVirtualOrderItem);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem addCommerceVirtualOrderItem(
-				long commerceOrderItemId, long fileEntryId, String url,
-				int activationStatus, long duration, int usages, int maxUsages,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem addCommerceVirtualOrderItem(
+			long commerceOrderItemId, long fileEntryId, String url,
+			int activationStatus, long duration, int usages, int maxUsages,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceVirtualOrderItem(
 			commerceOrderItemId, fileEntryId, url, activationStatus, duration,
 			usages, maxUsages, serviceContext);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem addCommerceVirtualOrderItem(
-				long commerceOrderItemId,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem addCommerceVirtualOrderItem(
+			long commerceOrderItemId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceVirtualOrderItem(
 			commerceOrderItemId, serviceContext);
 	}
 
-	public static void checkCommerceVirtualOrderItems()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void checkCommerceVirtualOrderItems() throws PortalException {
 		getService().checkCommerceVirtualOrderItems();
 	}
 
@@ -91,9 +91,8 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param commerceVirtualOrderItemId the primary key for the new commerce virtual order item
 	 * @return the new commerce virtual order item
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem createCommerceVirtualOrderItem(
-			long commerceVirtualOrderItemId) {
+	public static CommerceVirtualOrderItem createCommerceVirtualOrderItem(
+		long commerceVirtualOrderItemId) {
 
 		return getService().createCommerceVirtualOrderItem(
 			commerceVirtualOrderItemId);
@@ -109,10 +108,8 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param commerceVirtualOrderItem the commerce virtual order item
 	 * @return the commerce virtual order item that was removed
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem deleteCommerceVirtualOrderItem(
-			com.liferay.commerce.product.type.virtual.order.model.
-				CommerceVirtualOrderItem commerceVirtualOrderItem) {
+	public static CommerceVirtualOrderItem deleteCommerceVirtualOrderItem(
+		CommerceVirtualOrderItem commerceVirtualOrderItem) {
 
 		return getService().deleteCommerceVirtualOrderItem(
 			commerceVirtualOrderItem);
@@ -129,10 +126,9 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @return the commerce virtual order item that was removed
 	 * @throws PortalException if a commerce virtual order item with the primary key could not be found
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem deleteCommerceVirtualOrderItem(
-				long commerceVirtualOrderItemId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem deleteCommerceVirtualOrderItem(
+			long commerceVirtualOrderItemId)
+		throws PortalException {
 
 		return getService().deleteCommerceVirtualOrderItem(
 			commerceVirtualOrderItemId);
@@ -148,17 +144,14 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -168,9 +161,7 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -186,9 +177,8 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -206,10 +196,9 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -221,9 +210,7 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -235,24 +222,22 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem fetchCommerceVirtualOrderItem(
-			long commerceVirtualOrderItemId) {
+	public static CommerceVirtualOrderItem fetchCommerceVirtualOrderItem(
+		long commerceVirtualOrderItemId) {
 
 		return getService().fetchCommerceVirtualOrderItem(
 			commerceVirtualOrderItemId);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem
-			fetchCommerceVirtualOrderItemByCommerceOrderItemId(
-				long commerceOrderItemId) {
+	public static CommerceVirtualOrderItem
+		fetchCommerceVirtualOrderItemByCommerceOrderItemId(
+			long commerceOrderItemId) {
 
 		return getService().fetchCommerceVirtualOrderItemByCommerceOrderItemId(
 			commerceOrderItemId);
@@ -265,8 +250,8 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param groupId the primary key of the group
 	 * @return the matching commerce virtual order item, or <code>null</code> if a matching commerce virtual order item could not be found
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem fetchCommerceVirtualOrderItemByUuidAndGroupId(
+	public static CommerceVirtualOrderItem
+		fetchCommerceVirtualOrderItemByUuidAndGroupId(
 			String uuid, long groupId) {
 
 		return getService().fetchCommerceVirtualOrderItemByUuidAndGroupId(
@@ -286,10 +271,9 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @return the commerce virtual order item
 	 * @throws PortalException if a commerce virtual order item with the primary key could not be found
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem getCommerceVirtualOrderItem(
-				long commerceVirtualOrderItemId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem getCommerceVirtualOrderItem(
+			long commerceVirtualOrderItemId)
+		throws PortalException {
 
 		return getService().getCommerceVirtualOrderItem(
 			commerceVirtualOrderItemId);
@@ -303,10 +287,10 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @return the matching commerce virtual order item
 	 * @throws PortalException if a matching commerce virtual order item could not be found
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem getCommerceVirtualOrderItemByUuidAndGroupId(
+	public static CommerceVirtualOrderItem
+			getCommerceVirtualOrderItemByUuidAndGroupId(
 				String uuid, long groupId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getCommerceVirtualOrderItemByUuidAndGroupId(
 			uuid, groupId);
@@ -323,21 +307,15 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce virtual order items (not inclusive)
 	 * @return the range of commerce virtual order items
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.type.virtual.order.model.
-			CommerceVirtualOrderItem> getCommerceVirtualOrderItems(
-				int start, int end) {
+	public static List<CommerceVirtualOrderItem> getCommerceVirtualOrderItems(
+		int start, int end) {
 
 		return getService().getCommerceVirtualOrderItems(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.commerce.product.type.virtual.order.model.
-			CommerceVirtualOrderItem> getCommerceVirtualOrderItems(
-				long groupId, long commerceAccountId, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.commerce.product.type.virtual.order.model.
-						CommerceVirtualOrderItem> orderByComparator) {
+	public static List<CommerceVirtualOrderItem> getCommerceVirtualOrderItems(
+		long groupId, long commerceAccountId, int start, int end,
+		OrderByComparator<CommerceVirtualOrderItem> orderByComparator) {
 
 		return getService().getCommerceVirtualOrderItems(
 			groupId, commerceAccountId, start, end, orderByComparator);
@@ -350,11 +328,9 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching commerce virtual order items, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.type.virtual.order.model.
-			CommerceVirtualOrderItem>
-				getCommerceVirtualOrderItemsByUuidAndCompanyId(
-					String uuid, long companyId) {
+	public static List<CommerceVirtualOrderItem>
+		getCommerceVirtualOrderItemsByUuidAndCompanyId(
+			String uuid, long companyId) {
 
 		return getService().getCommerceVirtualOrderItemsByUuidAndCompanyId(
 			uuid, companyId);
@@ -370,14 +346,10 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the range of matching commerce virtual order items, or an empty list if no matches were found
 	 */
-	public static java.util.List
-		<com.liferay.commerce.product.type.virtual.order.model.
-			CommerceVirtualOrderItem>
-				getCommerceVirtualOrderItemsByUuidAndCompanyId(
-					String uuid, long companyId, int start, int end,
-					com.liferay.portal.kernel.util.OrderByComparator
-						<com.liferay.commerce.product.type.virtual.order.model.
-							CommerceVirtualOrderItem> orderByComparator) {
+	public static List<CommerceVirtualOrderItem>
+		getCommerceVirtualOrderItemsByUuidAndCompanyId(
+			String uuid, long companyId, int start, int end,
+			OrderByComparator<CommerceVirtualOrderItem> orderByComparator) {
 
 		return getService().getCommerceVirtualOrderItemsByUuidAndCompanyId(
 			uuid, companyId, start, end, orderByComparator);
@@ -432,17 +404,16 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem incrementCommerceVirtualOrderItemUsages(
+	public static CommerceVirtualOrderItem
+			incrementCommerceVirtualOrderItemUsages(
 				long commerceVirtualOrderItemId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().incrementCommerceVirtualOrderItemUsages(
 			commerceVirtualOrderItemId);
@@ -450,7 +421,7 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 
 	public static void setActive(
 			long commerceVirtualOrderItemId, boolean active)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().setActive(commerceVirtualOrderItemId, active);
 	}
@@ -465,60 +436,36 @@ public class CommerceVirtualOrderItemLocalServiceUtil {
 	 * @param commerceVirtualOrderItem the commerce virtual order item
 	 * @return the commerce virtual order item that was updated
 	 */
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem updateCommerceVirtualOrderItem(
-			com.liferay.commerce.product.type.virtual.order.model.
-				CommerceVirtualOrderItem commerceVirtualOrderItem) {
+	public static CommerceVirtualOrderItem updateCommerceVirtualOrderItem(
+		CommerceVirtualOrderItem commerceVirtualOrderItem) {
 
 		return getService().updateCommerceVirtualOrderItem(
 			commerceVirtualOrderItem);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem updateCommerceVirtualOrderItem(
-				long commerceVirtualOrderItemId, long fileEntryId, String url,
-				int activationStatus, long duration, int usages, int maxUsages,
-				boolean active)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem updateCommerceVirtualOrderItem(
+			long commerceVirtualOrderItemId, long fileEntryId, String url,
+			int activationStatus, long duration, int usages, int maxUsages,
+			boolean active)
+		throws PortalException {
 
 		return getService().updateCommerceVirtualOrderItem(
 			commerceVirtualOrderItemId, fileEntryId, url, activationStatus,
 			duration, usages, maxUsages, active);
 	}
 
-	public static com.liferay.commerce.product.type.virtual.order.model.
-		CommerceVirtualOrderItem updateCommerceVirtualOrderItemDates(
-				long commerceVirtualOrderItemId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceVirtualOrderItem updateCommerceVirtualOrderItemDates(
+			long commerceVirtualOrderItemId)
+		throws PortalException {
 
 		return getService().updateCommerceVirtualOrderItemDates(
 			commerceVirtualOrderItemId);
 	}
 
 	public static CommerceVirtualOrderItemLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceVirtualOrderItemLocalService,
-		 CommerceVirtualOrderItemLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceVirtualOrderItemLocalService.class);
-
-		ServiceTracker
-			<CommerceVirtualOrderItemLocalService,
-			 CommerceVirtualOrderItemLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceVirtualOrderItemLocalService,
-					 CommerceVirtualOrderItemLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceVirtualOrderItemLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceVirtualOrderItemLocalService _service;
 
 }

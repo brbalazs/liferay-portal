@@ -28,7 +28,10 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionService;
+import com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil;
 import com.liferay.portal.resiliency.spi.service.persistence.SPIDefinitionPersistence;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -50,7 +53,7 @@ public abstract class SPIDefinitionServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SPIDefinitionService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SPIDefinitionService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SPIDefinitionServiceUtil</code>.
 	 */
 
 	/**
@@ -331,9 +334,11 @@ public abstract class SPIDefinitionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(spiDefinitionService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -375,6 +380,22 @@ public abstract class SPIDefinitionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		SPIDefinitionService spiDefinitionService) {
+
+		try {
+			Field field = SPIDefinitionServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, spiDefinitionService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

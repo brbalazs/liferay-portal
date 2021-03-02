@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.WebDAVProps;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for WebDAVProps. This utility wraps
@@ -46,9 +54,7 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param webDAVProps the web dav props
 	 * @return the web dav props that was added
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps addWebDAVProps(
-		com.liferay.portal.kernel.model.WebDAVProps webDAVProps) {
-
+	public static WebDAVProps addWebDAVProps(WebDAVProps webDAVProps) {
 		return getService().addWebDAVProps(webDAVProps);
 	}
 
@@ -58,19 +64,16 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param webDavPropsId the primary key for the new web dav props
 	 * @return the new web dav props
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps createWebDAVProps(
-		long webDavPropsId) {
-
+	public static WebDAVProps createWebDAVProps(long webDavPropsId) {
 		return getService().createWebDAVProps(webDavPropsId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -86,9 +89,8 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @return the web dav props that was removed
 	 * @throws PortalException if a web dav props with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps deleteWebDAVProps(
-			long webDavPropsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static WebDAVProps deleteWebDAVProps(long webDavPropsId)
+		throws PortalException {
 
 		return getService().deleteWebDAVProps(webDavPropsId);
 	}
@@ -107,15 +109,11 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param webDAVProps the web dav props
 	 * @return the web dav props that was removed
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps deleteWebDAVProps(
-		com.liferay.portal.kernel.model.WebDAVProps webDAVProps) {
-
+	public static WebDAVProps deleteWebDAVProps(WebDAVProps webDAVProps) {
 		return getService().deleteWebDAVProps(webDAVProps);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -125,9 +123,7 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -143,9 +139,8 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -163,10 +158,9 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -178,9 +172,7 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -192,15 +184,13 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.WebDAVProps fetchWebDAVProps(
-		long webDavPropsId) {
-
+	public static WebDAVProps fetchWebDAVProps(long webDavPropsId) {
 		return getService().fetchWebDAVProps(webDavPropsId);
 	}
 
@@ -229,9 +219,8 @@ public class WebDAVPropsLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -243,14 +232,13 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @return the web dav props
 	 * @throws PortalException if a web dav props with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps getWebDAVProps(
-			long webDavPropsId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static WebDAVProps getWebDAVProps(long webDavPropsId)
+		throws PortalException {
 
 		return getService().getWebDAVProps(webDavPropsId);
 	}
 
-	public static com.liferay.portal.kernel.model.WebDAVProps getWebDAVProps(
+	public static WebDAVProps getWebDAVProps(
 		long companyId, String className, long classPK) {
 
 		return getService().getWebDAVProps(companyId, className, classPK);
@@ -267,9 +255,7 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param end the upper bound of the range of web dav propses (not inclusive)
 	 * @return the range of web dav propses
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.WebDAVProps>
-		getWebDAVPropses(int start, int end) {
-
+	public static List<WebDAVProps> getWebDAVPropses(int start, int end) {
 		return getService().getWebDAVPropses(start, end);
 	}
 
@@ -282,9 +268,8 @@ public class WebDAVPropsLocalServiceUtil {
 		return getService().getWebDAVPropsesCount();
 	}
 
-	public static void storeWebDAVProps(
-			com.liferay.portal.kernel.model.WebDAVProps webDAVProps)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static void storeWebDAVProps(WebDAVProps webDAVProps)
+		throws PortalException {
 
 		getService().storeWebDAVProps(webDAVProps);
 	}
@@ -299,21 +284,14 @@ public class WebDAVPropsLocalServiceUtil {
 	 * @param webDAVProps the web dav props
 	 * @return the web dav props that was updated
 	 */
-	public static com.liferay.portal.kernel.model.WebDAVProps updateWebDAVProps(
-		com.liferay.portal.kernel.model.WebDAVProps webDAVProps) {
-
+	public static WebDAVProps updateWebDAVProps(WebDAVProps webDAVProps) {
 		return getService().updateWebDAVProps(webDAVProps);
 	}
 
 	public static WebDAVPropsLocalService getService() {
-		if (_service == null) {
-			_service = (WebDAVPropsLocalService)PortalBeanLocatorUtil.locate(
-				WebDAVPropsLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static WebDAVPropsLocalService _service;
+	private static volatile WebDAVPropsLocalService _service;
 
 }

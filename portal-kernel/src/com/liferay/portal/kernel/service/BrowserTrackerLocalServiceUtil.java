@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.BrowserTracker;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for BrowserTracker. This utility wraps
@@ -46,9 +54,8 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param browserTracker the browser tracker
 	 * @return the browser tracker that was added
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		addBrowserTracker(
-			com.liferay.portal.kernel.model.BrowserTracker browserTracker) {
+	public static BrowserTracker addBrowserTracker(
+		BrowserTracker browserTracker) {
 
 		return getService().addBrowserTracker(browserTracker);
 	}
@@ -59,9 +66,7 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param browserTrackerId the primary key for the new browser tracker
 	 * @return the new browser tracker
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		createBrowserTracker(long browserTrackerId) {
-
+	public static BrowserTracker createBrowserTracker(long browserTrackerId) {
 		return getService().createBrowserTracker(browserTrackerId);
 	}
 
@@ -75,9 +80,8 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param browserTracker the browser tracker
 	 * @return the browser tracker that was removed
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		deleteBrowserTracker(
-			com.liferay.portal.kernel.model.BrowserTracker browserTracker) {
+	public static BrowserTracker deleteBrowserTracker(
+		BrowserTracker browserTracker) {
 
 		return getService().deleteBrowserTracker(browserTracker);
 	}
@@ -93,9 +97,8 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @return the browser tracker that was removed
 	 * @throws PortalException if a browser tracker with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-			deleteBrowserTracker(long browserTrackerId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static BrowserTracker deleteBrowserTracker(long browserTrackerId)
+		throws PortalException {
 
 		return getService().deleteBrowserTracker(browserTrackerId);
 	}
@@ -103,10 +106,9 @@ public class BrowserTrackerLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -115,9 +117,7 @@ public class BrowserTrackerLocalServiceUtil {
 		getService().deleteUserBrowserTracker(userId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -127,9 +127,7 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -145,9 +143,8 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -165,10 +162,9 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -180,9 +176,7 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -194,15 +188,13 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		fetchBrowserTracker(long browserTrackerId) {
-
+	public static BrowserTracker fetchBrowserTracker(long browserTrackerId) {
 		return getService().fetchBrowserTracker(browserTrackerId);
 	}
 
@@ -219,15 +211,14 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @return the browser tracker
 	 * @throws PortalException if a browser tracker with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-			getBrowserTracker(long browserTrackerId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static BrowserTracker getBrowserTracker(long browserTrackerId)
+		throws PortalException {
 
 		return getService().getBrowserTracker(browserTrackerId);
 	}
 
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		getBrowserTracker(long userId, long browserKey) {
+	public static BrowserTracker getBrowserTracker(
+		long userId, long browserKey) {
 
 		return getService().getBrowserTracker(userId, browserKey);
 	}
@@ -243,9 +234,7 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param end the upper bound of the range of browser trackers (not inclusive)
 	 * @return the range of browser trackers
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.BrowserTracker>
-		getBrowserTrackers(int start, int end) {
-
+	public static List<BrowserTracker> getBrowserTrackers(int start, int end) {
 		return getService().getBrowserTrackers(start, end);
 	}
 
@@ -277,9 +266,8 @@ public class BrowserTrackerLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -294,28 +282,22 @@ public class BrowserTrackerLocalServiceUtil {
 	 * @param browserTracker the browser tracker
 	 * @return the browser tracker that was updated
 	 */
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		updateBrowserTracker(
-			com.liferay.portal.kernel.model.BrowserTracker browserTracker) {
+	public static BrowserTracker updateBrowserTracker(
+		BrowserTracker browserTracker) {
 
 		return getService().updateBrowserTracker(browserTracker);
 	}
 
-	public static com.liferay.portal.kernel.model.BrowserTracker
-		updateBrowserTracker(long userId, long browserKey) {
+	public static BrowserTracker updateBrowserTracker(
+		long userId, long browserKey) {
 
 		return getService().updateBrowserTracker(userId, browserKey);
 	}
 
 	public static BrowserTrackerLocalService getService() {
-		if (_service == null) {
-			_service = (BrowserTrackerLocalService)PortalBeanLocatorUtil.locate(
-				BrowserTrackerLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static BrowserTrackerLocalService _service;
+	private static volatile BrowserTrackerLocalService _service;
 
 }

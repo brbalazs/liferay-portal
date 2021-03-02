@@ -1513,6 +1513,8 @@ public class CPInstanceModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 
@@ -1759,7 +1761,7 @@ public class CPInstanceModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;

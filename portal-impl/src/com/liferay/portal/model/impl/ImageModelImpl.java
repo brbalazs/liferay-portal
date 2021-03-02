@@ -478,6 +478,8 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 
 	@Override
 	public void setImageId(long imageId) {
+		_columnBitmask = -1L;
+
 		_imageId = imageId;
 	}
 

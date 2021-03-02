@@ -14,7 +14,15 @@
 
 package com.liferay.social.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.social.kernel.model.SocialRequest;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for SocialRequest. This utility wraps
@@ -56,10 +64,10 @@ public class SocialRequestLocalServiceUtil {
 	 * @param receiverUserId the primary key of the user receiving the request
 	 * @return the social request
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest addRequest(
+	public static SocialRequest addRequest(
 			long userId, long groupId, String className, long classPK, int type,
 			String extraData, long receiverUserId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addRequest(
 			userId, groupId, className, classPK, type, extraData,
@@ -76,10 +84,7 @@ public class SocialRequestLocalServiceUtil {
 	 * @param socialRequest the social request
 	 * @return the social request that was added
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-		addSocialRequest(
-			com.liferay.social.kernel.model.SocialRequest socialRequest) {
-
+	public static SocialRequest addSocialRequest(SocialRequest socialRequest) {
 		return getService().addSocialRequest(socialRequest);
 	}
 
@@ -89,19 +94,16 @@ public class SocialRequestLocalServiceUtil {
 	 * @param requestId the primary key for the new social request
 	 * @return the new social request
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-		createSocialRequest(long requestId) {
-
+	public static SocialRequest createSocialRequest(long requestId) {
 		return getService().createSocialRequest(requestId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -121,9 +123,7 @@ public class SocialRequestLocalServiceUtil {
 	 *
 	 * @param requestId the primary key of the social request
 	 */
-	public static void deleteRequest(long requestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void deleteRequest(long requestId) throws PortalException {
 		getService().deleteRequest(requestId);
 	}
 
@@ -132,9 +132,7 @@ public class SocialRequestLocalServiceUtil {
 	 *
 	 * @param request the social request to be removed
 	 */
-	public static void deleteRequest(
-		com.liferay.social.kernel.model.SocialRequest request) {
-
+	public static void deleteRequest(SocialRequest request) {
 		getService().deleteRequest(request);
 	}
 
@@ -153,9 +151,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @return the social request that was removed
 	 * @throws PortalException if a social request with the primary key could not be found
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-			deleteSocialRequest(long requestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SocialRequest deleteSocialRequest(long requestId)
+		throws PortalException {
 
 		return getService().deleteSocialRequest(requestId);
 	}
@@ -170,9 +167,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param socialRequest the social request
 	 * @return the social request that was removed
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-		deleteSocialRequest(
-			com.liferay.social.kernel.model.SocialRequest socialRequest) {
+	public static SocialRequest deleteSocialRequest(
+		SocialRequest socialRequest) {
 
 		return getService().deleteSocialRequest(socialRequest);
 	}
@@ -186,9 +182,7 @@ public class SocialRequestLocalServiceUtil {
 		getService().deleteUserRequests(userId);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -198,9 +192,7 @@ public class SocialRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -216,9 +208,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -236,10 +227,9 @@ public class SocialRequestLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -251,9 +241,7 @@ public class SocialRequestLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -265,15 +253,13 @@ public class SocialRequestLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.social.kernel.model.SocialRequest
-		fetchSocialRequest(long requestId) {
-
+	public static SocialRequest fetchSocialRequest(long requestId) {
 		return getService().fetchSocialRequest(requestId);
 	}
 
@@ -284,8 +270,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param groupId the primary key of the group
 	 * @return the matching social request, or <code>null</code> if a matching social request could not be found
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-		fetchSocialRequestByUuidAndGroupId(String uuid, long groupId) {
+	public static SocialRequest fetchSocialRequestByUuidAndGroupId(
+		String uuid, long groupId) {
 
 		return getService().fetchSocialRequestByUuidAndGroupId(uuid, groupId);
 	}
@@ -315,9 +301,8 @@ public class SocialRequestLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -340,8 +325,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getReceiverUserRequests(long receiverUserId, int start, int end) {
+	public static List<SocialRequest> getReceiverUserRequests(
+		long receiverUserId, int start, int end) {
 
 		return getService().getReceiverUserRequests(receiverUserId, start, end);
 	}
@@ -366,9 +351,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getReceiverUserRequests(
-			long receiverUserId, int status, int start, int end) {
+	public static List<SocialRequest> getReceiverUserRequests(
+		long receiverUserId, int status, int start, int end) {
 
 		return getService().getReceiverUserRequests(
 			receiverUserId, status, start, end);
@@ -406,9 +390,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @return the social request
 	 * @throws PortalException if a social request with the primary key could not be found
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-			getSocialRequest(long requestId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SocialRequest getSocialRequest(long requestId)
+		throws PortalException {
 
 		return getService().getSocialRequest(requestId);
 	}
@@ -421,9 +404,9 @@ public class SocialRequestLocalServiceUtil {
 	 * @return the matching social request
 	 * @throws PortalException if a matching social request could not be found
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-			getSocialRequestByUuidAndGroupId(String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SocialRequest getSocialRequestByUuidAndGroupId(
+			String uuid, long groupId)
+		throws PortalException {
 
 		return getService().getSocialRequestByUuidAndGroupId(uuid, groupId);
 	}
@@ -439,9 +422,7 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of social requests (not inclusive)
 	 * @return the range of social requests
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getSocialRequests(int start, int end) {
-
+	public static List<SocialRequest> getSocialRequests(int start, int end) {
 		return getService().getSocialRequests(start, end);
 	}
 
@@ -452,8 +433,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching social requests, or an empty list if no matches were found
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getSocialRequestsByUuidAndCompanyId(String uuid, long companyId) {
+	public static List<SocialRequest> getSocialRequestsByUuidAndCompanyId(
+		String uuid, long companyId) {
 
 		return getService().getSocialRequestsByUuidAndCompanyId(
 			uuid, companyId);
@@ -469,12 +450,9 @@ public class SocialRequestLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the range of matching social requests, or an empty list if no matches were found
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getSocialRequestsByUuidAndCompanyId(
-			String uuid, long companyId, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<com.liferay.social.kernel.model.SocialRequest>
-					orderByComparator) {
+	public static List<SocialRequest> getSocialRequestsByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<SocialRequest> orderByComparator) {
 
 		return getService().getSocialRequestsByUuidAndCompanyId(
 			uuid, companyId, start, end, orderByComparator);
@@ -507,8 +485,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getUserRequests(long userId, int start, int end) {
+	public static List<SocialRequest> getUserRequests(
+		long userId, int start, int end) {
 
 		return getService().getUserRequests(userId, start, end);
 	}
@@ -533,8 +511,8 @@ public class SocialRequestLocalServiceUtil {
 	 * @param end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
 	 */
-	public static java.util.List<com.liferay.social.kernel.model.SocialRequest>
-		getUserRequests(long userId, int status, int start, int end) {
+	public static List<SocialRequest> getUserRequests(
+		long userId, int status, int start, int end) {
 
 		return getService().getUserRequests(userId, status, start, end);
 	}
@@ -623,10 +601,10 @@ public class SocialRequestLocalServiceUtil {
 	 * @param themeDisplay the theme display
 	 * @return the updated social request
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest updateRequest(
+	public static SocialRequest updateRequest(
 			long requestId, int status,
 			com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().updateRequest(requestId, status, themeDisplay);
 	}
@@ -641,22 +619,16 @@ public class SocialRequestLocalServiceUtil {
 	 * @param socialRequest the social request
 	 * @return the social request that was updated
 	 */
-	public static com.liferay.social.kernel.model.SocialRequest
-		updateSocialRequest(
-			com.liferay.social.kernel.model.SocialRequest socialRequest) {
+	public static SocialRequest updateSocialRequest(
+		SocialRequest socialRequest) {
 
 		return getService().updateSocialRequest(socialRequest);
 	}
 
 	public static SocialRequestLocalService getService() {
-		if (_service == null) {
-			_service = (SocialRequestLocalService)PortalBeanLocatorUtil.locate(
-				SocialRequestLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static SocialRequestLocalService _service;
+	private static volatile SocialRequestLocalService _service;
 
 }

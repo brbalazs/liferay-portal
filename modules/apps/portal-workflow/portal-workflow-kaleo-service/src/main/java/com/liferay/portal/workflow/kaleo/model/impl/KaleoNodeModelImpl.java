@@ -573,6 +573,8 @@ public class KaleoNodeModelImpl
 
 	@Override
 	public void setKaleoNodeId(long kaleoNodeId) {
+		_columnBitmask = -1L;
+
 		_kaleoNodeId = kaleoNodeId;
 	}
 

@@ -16,6 +16,7 @@ package com.liferay.chat.service.base;
 
 import com.liferay.chat.model.Status;
 import com.liferay.chat.service.StatusLocalService;
+import com.liferay.chat.service.StatusLocalServiceUtil;
 import com.liferay.chat.service.persistence.EntryFinder;
 import com.liferay.chat.service.persistence.EntryPersistence;
 import com.liferay.chat.service.persistence.StatusFinder;
@@ -49,6 +50,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -71,7 +74,7 @@ public abstract class StatusLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>StatusLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.chat.service.StatusLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>StatusLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>StatusLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -588,11 +591,15 @@ public abstract class StatusLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.chat.model.Status", statusLocalService);
+
+		_setLocalServiceUtilService(statusLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.chat.model.Status");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -634,6 +641,22 @@ public abstract class StatusLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		StatusLocalService statusLocalService) {
+
+		try {
+			Field field = StatusLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, statusLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

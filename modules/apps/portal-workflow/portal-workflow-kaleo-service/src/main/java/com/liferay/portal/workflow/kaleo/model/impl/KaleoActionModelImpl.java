@@ -983,6 +983,8 @@ public class KaleoActionModelImpl
 
 	@Override
 	public void setPriority(int priority) {
+		_columnBitmask = -1L;
+
 		_priority = priority;
 	}
 

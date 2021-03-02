@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.model.CommerceOrderNote;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceOrderNote. This utility wraps
@@ -48,29 +54,26 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param commerceOrderNote the commerce order note
 	 * @return the commerce order note that was added
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-		addCommerceOrderNote(
-			com.liferay.commerce.model.CommerceOrderNote commerceOrderNote) {
+	public static CommerceOrderNote addCommerceOrderNote(
+		CommerceOrderNote commerceOrderNote) {
 
 		return getService().addCommerceOrderNote(commerceOrderNote);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-			addCommerceOrderNote(
-				long commerceOrderId, String content, boolean restricted,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote addCommerceOrderNote(
+			long commerceOrderId, String content, boolean restricted,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceOrderNote(
 			commerceOrderId, content, restricted, serviceContext);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-			addCommerceOrderNote(
-				long commerceOrderId, String content, boolean restricted,
-				String externalReferenceCode,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote addCommerceOrderNote(
+			long commerceOrderId, String content, boolean restricted,
+			String externalReferenceCode,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addCommerceOrderNote(
 			commerceOrderId, content, restricted, externalReferenceCode,
@@ -83,8 +86,8 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param commerceOrderNoteId the primary key for the new commerce order note
 	 * @return the new commerce order note
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-		createCommerceOrderNote(long commerceOrderNoteId) {
+	public static CommerceOrderNote createCommerceOrderNote(
+		long commerceOrderNoteId) {
 
 		return getService().createCommerceOrderNote(commerceOrderNoteId);
 	}
@@ -99,9 +102,8 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param commerceOrderNote the commerce order note
 	 * @return the commerce order note that was removed
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-		deleteCommerceOrderNote(
-			com.liferay.commerce.model.CommerceOrderNote commerceOrderNote) {
+	public static CommerceOrderNote deleteCommerceOrderNote(
+		CommerceOrderNote commerceOrderNote) {
 
 		return getService().deleteCommerceOrderNote(commerceOrderNote);
 	}
@@ -117,9 +119,9 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @return the commerce order note that was removed
 	 * @throws PortalException if a commerce order note with the primary key could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-			deleteCommerceOrderNote(long commerceOrderNoteId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote deleteCommerceOrderNote(
+			long commerceOrderNoteId)
+		throws PortalException {
 
 		return getService().deleteCommerceOrderNote(commerceOrderNoteId);
 	}
@@ -131,17 +133,14 @@ public class CommerceOrderNoteLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -151,9 +150,7 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -169,9 +166,8 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -189,10 +185,9 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -204,9 +199,7 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -218,22 +211,21 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-		fetchByExternalReferenceCode(
-			long companyId, String externalReferenceCode) {
+	public static CommerceOrderNote fetchByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
 
 		return getService().fetchByExternalReferenceCode(
 			companyId, externalReferenceCode);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-		fetchCommerceOrderNote(long commerceOrderNoteId) {
+	public static CommerceOrderNote fetchCommerceOrderNote(
+		long commerceOrderNoteId) {
 
 		return getService().fetchCommerceOrderNote(commerceOrderNoteId);
 	}
@@ -245,9 +237,8 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param externalReferenceCode the commerce order note's external reference code
 	 * @return the matching commerce order note, or <code>null</code> if a matching commerce order note could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-		fetchCommerceOrderNoteByReferenceCode(
-			long companyId, String externalReferenceCode) {
+	public static CommerceOrderNote fetchCommerceOrderNoteByReferenceCode(
+		long companyId, String externalReferenceCode) {
 
 		return getService().fetchCommerceOrderNoteByReferenceCode(
 			companyId, externalReferenceCode);
@@ -266,9 +257,9 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @return the commerce order note
 	 * @throws PortalException if a commerce order note with the primary key could not be found
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-			getCommerceOrderNote(long commerceOrderNoteId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote getCommerceOrderNote(
+			long commerceOrderNoteId)
+		throws PortalException {
 
 		return getService().getCommerceOrderNote(commerceOrderNoteId);
 	}
@@ -284,20 +275,20 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce order notes (not inclusive)
 	 * @return the range of commerce order notes
 	 */
-	public static java.util.List<com.liferay.commerce.model.CommerceOrderNote>
-		getCommerceOrderNotes(int start, int end) {
+	public static List<CommerceOrderNote> getCommerceOrderNotes(
+		int start, int end) {
 
 		return getService().getCommerceOrderNotes(start, end);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceOrderNote>
-		getCommerceOrderNotes(long commerceOrderId, boolean restricted) {
+	public static List<CommerceOrderNote> getCommerceOrderNotes(
+		long commerceOrderId, boolean restricted) {
 
 		return getService().getCommerceOrderNotes(commerceOrderId, restricted);
 	}
 
-	public static java.util.List<com.liferay.commerce.model.CommerceOrderNote>
-		getCommerceOrderNotes(long commerceOrderId, int start, int end) {
+	public static List<CommerceOrderNote> getCommerceOrderNotes(
+		long commerceOrderId, int start, int end) {
 
 		return getService().getCommerceOrderNotes(commerceOrderId, start, end);
 	}
@@ -341,9 +332,8 @@ public class CommerceOrderNoteLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -358,38 +348,34 @@ public class CommerceOrderNoteLocalServiceUtil {
 	 * @param commerceOrderNote the commerce order note
 	 * @return the commerce order note that was updated
 	 */
-	public static com.liferay.commerce.model.CommerceOrderNote
-		updateCommerceOrderNote(
-			com.liferay.commerce.model.CommerceOrderNote commerceOrderNote) {
+	public static CommerceOrderNote updateCommerceOrderNote(
+		CommerceOrderNote commerceOrderNote) {
 
 		return getService().updateCommerceOrderNote(commerceOrderNote);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-			updateCommerceOrderNote(
-				long commerceOrderNoteId, String content, boolean restricted)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote updateCommerceOrderNote(
+			long commerceOrderNoteId, String content, boolean restricted)
+		throws PortalException {
 
 		return getService().updateCommerceOrderNote(
 			commerceOrderNoteId, content, restricted);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-			updateCommerceOrderNote(
-				long commerceOrderNoteId, String content, boolean restricted,
-				String externalReferenceCode)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote updateCommerceOrderNote(
+			long commerceOrderNoteId, String content, boolean restricted,
+			String externalReferenceCode)
+		throws PortalException {
 
 		return getService().updateCommerceOrderNote(
 			commerceOrderNoteId, content, restricted, externalReferenceCode);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderNote
-			upsertCommerceOrderNote(
-				long commerceOrderNoteId, long commerceOrderId, String content,
-				boolean restricted, String externalReferenceCode,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceOrderNote upsertCommerceOrderNote(
+			long commerceOrderNoteId, long commerceOrderId, String content,
+			boolean restricted, String externalReferenceCode,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().upsertCommerceOrderNote(
 			commerceOrderNoteId, commerceOrderId, content, restricted,
@@ -397,29 +383,9 @@ public class CommerceOrderNoteLocalServiceUtil {
 	}
 
 	public static CommerceOrderNoteLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceOrderNoteLocalService, CommerceOrderNoteLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceOrderNoteLocalService.class);
-
-		ServiceTracker
-			<CommerceOrderNoteLocalService, CommerceOrderNoteLocalService>
-				serviceTracker =
-					new ServiceTracker
-						<CommerceOrderNoteLocalService,
-						 CommerceOrderNoteLocalService>(
-							 bundle.getBundleContext(),
-							 CommerceOrderNoteLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceOrderNoteLocalService _service;
 
 }

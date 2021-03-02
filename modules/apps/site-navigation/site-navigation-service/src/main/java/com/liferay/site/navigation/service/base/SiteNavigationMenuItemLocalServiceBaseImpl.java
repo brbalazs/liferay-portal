@@ -47,10 +47,13 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.site.navigation.model.SiteNavigationMenuItem;
 import com.liferay.site.navigation.service.SiteNavigationMenuItemLocalService;
+import com.liferay.site.navigation.service.SiteNavigationMenuItemLocalServiceUtil;
 import com.liferay.site.navigation.service.persistence.SiteNavigationMenuItemPersistence;
 import com.liferay.site.navigation.service.persistence.SiteNavigationMenuPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -74,7 +77,7 @@ public abstract class SiteNavigationMenuItemLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SiteNavigationMenuItemLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.site.navigation.service.SiteNavigationMenuItemLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SiteNavigationMenuItemLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SiteNavigationMenuItemLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -676,11 +679,15 @@ public abstract class SiteNavigationMenuItemLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.site.navigation.model.SiteNavigationMenuItem",
 			siteNavigationMenuItemLocalService);
+
+		_setLocalServiceUtilService(siteNavigationMenuItemLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.site.navigation.model.SiteNavigationMenuItem");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -723,6 +730,23 @@ public abstract class SiteNavigationMenuItemLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SiteNavigationMenuItemLocalService siteNavigationMenuItemLocalService) {
+
+		try {
+			Field field =
+				SiteNavigationMenuItemLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, siteNavigationMenuItemLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

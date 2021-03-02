@@ -1055,6 +1055,8 @@ public class CommerceShippingFixedOptionRelModelImpl
 
 	@Override
 	public void setCommerceCountryId(long commerceCountryId) {
+		_columnBitmask = -1L;
+
 		_commerceCountryId = commerceCountryId;
 	}
 

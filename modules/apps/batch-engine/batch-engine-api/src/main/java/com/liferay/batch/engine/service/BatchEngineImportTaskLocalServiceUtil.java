@@ -14,9 +14,17 @@
 
 package com.liferay.batch.engine.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.batch.engine.model.BatchEngineImportTask;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.InputStream;
+import java.io.Serializable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for BatchEngineImportTask. This utility wraps
@@ -48,22 +56,18 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param batchEngineImportTask the batch engine import task
 	 * @return the batch engine import task that was added
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		addBatchEngineImportTask(
-			com.liferay.batch.engine.model.BatchEngineImportTask
-				batchEngineImportTask) {
+	public static BatchEngineImportTask addBatchEngineImportTask(
+		BatchEngineImportTask batchEngineImportTask) {
 
 		return getService().addBatchEngineImportTask(batchEngineImportTask);
 	}
 
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		addBatchEngineImportTask(
-			long companyId, long userId, long batchSize, String callbackURL,
-			String className, byte[] content, String contentType,
-			String executeStatus,
-			java.util.Map<String, String> fieldNameMappingMap, String operation,
-			java.util.Map<String, java.io.Serializable> parameters,
-			String taskItemDelegateName) {
+	public static BatchEngineImportTask addBatchEngineImportTask(
+		long companyId, long userId, long batchSize, String callbackURL,
+		String className, byte[] content, String contentType,
+		String executeStatus, Map<String, String> fieldNameMappingMap,
+		String operation, Map<String, Serializable> parameters,
+		String taskItemDelegateName) {
 
 		return getService().addBatchEngineImportTask(
 			companyId, userId, batchSize, callbackURL, className, content,
@@ -77,8 +81,8 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param batchEngineImportTaskId the primary key for the new batch engine import task
 	 * @return the new batch engine import task
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		createBatchEngineImportTask(long batchEngineImportTaskId) {
+	public static BatchEngineImportTask createBatchEngineImportTask(
+		long batchEngineImportTaskId) {
 
 		return getService().createBatchEngineImportTask(
 			batchEngineImportTaskId);
@@ -94,10 +98,8 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param batchEngineImportTask the batch engine import task
 	 * @return the batch engine import task that was removed
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		deleteBatchEngineImportTask(
-			com.liferay.batch.engine.model.BatchEngineImportTask
-				batchEngineImportTask) {
+	public static BatchEngineImportTask deleteBatchEngineImportTask(
+		BatchEngineImportTask batchEngineImportTask) {
 
 		return getService().deleteBatchEngineImportTask(batchEngineImportTask);
 	}
@@ -113,9 +115,9 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @return the batch engine import task that was removed
 	 * @throws PortalException if a batch engine import task with the primary key could not be found
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-			deleteBatchEngineImportTask(long batchEngineImportTaskId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static BatchEngineImportTask deleteBatchEngineImportTask(
+			long batchEngineImportTaskId)
+		throws PortalException {
 
 		return getService().deleteBatchEngineImportTask(
 			batchEngineImportTaskId);
@@ -124,17 +126,14 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -144,9 +143,7 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -162,9 +159,8 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -182,10 +178,9 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -197,9 +192,7 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -211,14 +204,14 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		fetchBatchEngineImportTask(long batchEngineImportTaskId) {
+	public static BatchEngineImportTask fetchBatchEngineImportTask(
+		long batchEngineImportTaskId) {
 
 		return getService().fetchBatchEngineImportTask(batchEngineImportTaskId);
 	}
@@ -230,7 +223,7 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching batch engine import task, or <code>null</code> if a matching batch engine import task could not be found
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
+	public static BatchEngineImportTask
 		fetchBatchEngineImportTaskByUuidAndCompanyId(
 			String uuid, long companyId) {
 
@@ -251,9 +244,9 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @return the batch engine import task
 	 * @throws PortalException if a batch engine import task with the primary key could not be found
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-			getBatchEngineImportTask(long batchEngineImportTaskId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static BatchEngineImportTask getBatchEngineImportTask(
+			long batchEngineImportTaskId)
+		throws PortalException {
 
 		return getService().getBatchEngineImportTask(batchEngineImportTaskId);
 	}
@@ -266,10 +259,10 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @return the matching batch engine import task
 	 * @throws PortalException if a matching batch engine import task could not be found
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
+	public static BatchEngineImportTask
 			getBatchEngineImportTaskByUuidAndCompanyId(
 				String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getBatchEngineImportTaskByUuidAndCompanyId(
 			uuid, companyId);
@@ -286,16 +279,14 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param end the upper bound of the range of batch engine import tasks (not inclusive)
 	 * @return the range of batch engine import tasks
 	 */
-	public static java.util.List
-		<com.liferay.batch.engine.model.BatchEngineImportTask>
-			getBatchEngineImportTasks(int start, int end) {
+	public static List<BatchEngineImportTask> getBatchEngineImportTasks(
+		int start, int end) {
 
 		return getService().getBatchEngineImportTasks(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.batch.engine.model.BatchEngineImportTask>
-			getBatchEngineImportTasks(String executeStatus) {
+	public static List<BatchEngineImportTask> getBatchEngineImportTasks(
+		String executeStatus) {
 
 		return getService().getBatchEngineImportTasks(executeStatus);
 	}
@@ -311,7 +302,7 @@ public class BatchEngineImportTaskLocalServiceUtil {
 
 	public static
 		com.liferay.batch.engine.model.BatchEngineImportTaskContentBlobModel
-			getContentBlobModel(java.io.Serializable primaryKey) {
+			getContentBlobModel(Serializable primaryKey) {
 
 		return getService().getContentBlobModel(primaryKey);
 	}
@@ -343,14 +334,13 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static java.io.InputStream openContentInputStream(
+	public static InputStream openContentInputStream(
 		long batchEngineImportTaskId) {
 
 		return getService().openContentInputStream(batchEngineImportTaskId);
@@ -366,38 +356,16 @@ public class BatchEngineImportTaskLocalServiceUtil {
 	 * @param batchEngineImportTask the batch engine import task
 	 * @return the batch engine import task that was updated
 	 */
-	public static com.liferay.batch.engine.model.BatchEngineImportTask
-		updateBatchEngineImportTask(
-			com.liferay.batch.engine.model.BatchEngineImportTask
-				batchEngineImportTask) {
+	public static BatchEngineImportTask updateBatchEngineImportTask(
+		BatchEngineImportTask batchEngineImportTask) {
 
 		return getService().updateBatchEngineImportTask(batchEngineImportTask);
 	}
 
 	public static BatchEngineImportTaskLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<BatchEngineImportTaskLocalService, BatchEngineImportTaskLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			BatchEngineImportTaskLocalService.class);
-
-		ServiceTracker
-			<BatchEngineImportTaskLocalService,
-			 BatchEngineImportTaskLocalService> serviceTracker =
-				new ServiceTracker
-					<BatchEngineImportTaskLocalService,
-					 BatchEngineImportTaskLocalService>(
-						 bundle.getBundleContext(),
-						 BatchEngineImportTaskLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile BatchEngineImportTaskLocalService _service;
 
 }

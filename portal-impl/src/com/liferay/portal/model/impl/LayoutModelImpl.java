@@ -1232,7 +1232,7 @@ public class LayoutModelImpl
 
 	@Override
 	public void setParentLayoutId(long parentLayoutId) {
-		_columnBitmask |= PARENTLAYOUTID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalParentLayoutId) {
 			_setOriginalParentLayoutId = true;
@@ -1953,7 +1953,7 @@ public class LayoutModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalPriority) {
 			_setOriginalPriority = true;

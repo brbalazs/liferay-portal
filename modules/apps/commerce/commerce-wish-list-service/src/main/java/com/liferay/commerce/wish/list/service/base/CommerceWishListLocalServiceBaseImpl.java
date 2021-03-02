@@ -16,6 +16,7 @@ package com.liferay.commerce.wish.list.service.base;
 
 import com.liferay.commerce.wish.list.model.CommerceWishList;
 import com.liferay.commerce.wish.list.service.CommerceWishListLocalService;
+import com.liferay.commerce.wish.list.service.CommerceWishListLocalServiceUtil;
 import com.liferay.commerce.wish.list.service.persistence.CommerceWishListItemPersistence;
 import com.liferay.commerce.wish.list.service.persistence.CommerceWishListPersistence;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
@@ -53,6 +54,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -75,7 +78,7 @@ public abstract class CommerceWishListLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>CommerceWishListLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.wish.list.service.CommerceWishListLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>CommerceWishListLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceWishListLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -716,11 +719,15 @@ public abstract class CommerceWishListLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.commerce.wish.list.model.CommerceWishList",
 			commerceWishListLocalService);
+
+		_setLocalServiceUtilService(commerceWishListLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.commerce.wish.list.model.CommerceWishList");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -762,6 +769,23 @@ public abstract class CommerceWishListLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		CommerceWishListLocalService commerceWishListLocalService) {
+
+		try {
+			Field field =
+				CommerceWishListLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceWishListLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

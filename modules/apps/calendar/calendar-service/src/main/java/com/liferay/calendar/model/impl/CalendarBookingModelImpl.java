@@ -1390,6 +1390,8 @@ public class CalendarBookingModelImpl
 
 	@Override
 	public void setTitle(String title) {
+		_columnBitmask = -1L;
+
 		_title = title;
 	}
 
@@ -1571,6 +1573,8 @@ public class CalendarBookingModelImpl
 
 	@Override
 	public void setStartTime(long startTime) {
+		_columnBitmask = -1L;
+
 		_startTime = startTime;
 	}
 

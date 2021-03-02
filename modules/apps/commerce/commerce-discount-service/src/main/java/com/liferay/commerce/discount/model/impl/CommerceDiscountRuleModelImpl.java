@@ -635,6 +635,8 @@ public class CommerceDiscountRuleModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
 		_createDate = createDate;
 	}
 

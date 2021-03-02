@@ -14,7 +14,15 @@
 
 package com.liferay.portal.kernel.service;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.SystemEvent;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for SystemEvent. This utility wraps
@@ -35,21 +43,21 @@ public class SystemEventLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.service.impl.SystemEventLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent addSystemEvent(
+	public static SystemEvent addSystemEvent(
 			long userId, long groupId, String className, long classPK,
 			String classUuid, String referrerClassName, int type,
 			String extraData)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addSystemEvent(
 			userId, groupId, className, classPK, classUuid, referrerClassName,
 			type, extraData);
 	}
 
-	public static com.liferay.portal.kernel.model.SystemEvent addSystemEvent(
+	public static SystemEvent addSystemEvent(
 			long companyId, String className, long classPK, String classUuid,
 			String referrerClassName, int type, String extraData)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addSystemEvent(
 			companyId, className, classPK, classUuid, referrerClassName, type,
@@ -66,15 +74,11 @@ public class SystemEventLocalServiceUtil {
 	 * @param systemEvent the system event
 	 * @return the system event that was added
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent addSystemEvent(
-		com.liferay.portal.kernel.model.SystemEvent systemEvent) {
-
+	public static SystemEvent addSystemEvent(SystemEvent systemEvent) {
 		return getService().addSystemEvent(systemEvent);
 	}
 
-	public static void checkSystemEvents()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static void checkSystemEvents() throws PortalException {
 		getService().checkSystemEvents();
 	}
 
@@ -84,19 +88,16 @@ public class SystemEventLocalServiceUtil {
 	 * @param systemEventId the primary key for the new system event
 	 * @return the new system event
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent createSystemEvent(
-		long systemEventId) {
-
+	public static SystemEvent createSystemEvent(long systemEventId) {
 		return getService().createSystemEvent(systemEventId);
 	}
 
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
@@ -112,9 +113,8 @@ public class SystemEventLocalServiceUtil {
 	 * @return the system event that was removed
 	 * @throws PortalException if a system event with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent deleteSystemEvent(
-			long systemEventId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SystemEvent deleteSystemEvent(long systemEventId)
+		throws PortalException {
 
 		return getService().deleteSystemEvent(systemEventId);
 	}
@@ -129,9 +129,7 @@ public class SystemEventLocalServiceUtil {
 	 * @param systemEvent the system event
 	 * @return the system event that was removed
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent deleteSystemEvent(
-		com.liferay.portal.kernel.model.SystemEvent systemEvent) {
-
+	public static SystemEvent deleteSystemEvent(SystemEvent systemEvent) {
 		return getService().deleteSystemEvent(systemEvent);
 	}
 
@@ -145,9 +143,7 @@ public class SystemEventLocalServiceUtil {
 		getService().deleteSystemEvents(groupId, systemEventSetKey);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -157,9 +153,7 @@ public class SystemEventLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -175,9 +169,8 @@ public class SystemEventLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -195,10 +188,9 @@ public class SystemEventLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -210,9 +202,7 @@ public class SystemEventLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -224,19 +214,17 @@ public class SystemEventLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.portal.kernel.model.SystemEvent fetchSystemEvent(
-		long systemEventId) {
-
+	public static SystemEvent fetchSystemEvent(long systemEventId) {
 		return getService().fetchSystemEvent(systemEventId);
 	}
 
-	public static com.liferay.portal.kernel.model.SystemEvent fetchSystemEvent(
+	public static SystemEvent fetchSystemEvent(
 		long groupId, long classNameId, long classPK, int type) {
 
 		return getService().fetchSystemEvent(
@@ -268,9 +256,8 @@ public class SystemEventLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -282,9 +269,8 @@ public class SystemEventLocalServiceUtil {
 	 * @return the system event
 	 * @throws PortalException if a system event with the primary key could not be found
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent getSystemEvent(
-			long systemEventId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static SystemEvent getSystemEvent(long systemEventId)
+		throws PortalException {
 
 		return getService().getSystemEvent(systemEventId);
 	}
@@ -300,21 +286,18 @@ public class SystemEventLocalServiceUtil {
 	 * @param end the upper bound of the range of system events (not inclusive)
 	 * @return the range of system events
 	 */
-	public static java.util.List<com.liferay.portal.kernel.model.SystemEvent>
-		getSystemEvents(int start, int end) {
-
+	public static List<SystemEvent> getSystemEvents(int start, int end) {
 		return getService().getSystemEvents(start, end);
 	}
 
-	public static java.util.List<com.liferay.portal.kernel.model.SystemEvent>
-		getSystemEvents(long groupId, long classNameId, long classPK) {
+	public static List<SystemEvent> getSystemEvents(
+		long groupId, long classNameId, long classPK) {
 
 		return getService().getSystemEvents(groupId, classNameId, classPK);
 	}
 
-	public static java.util.List<com.liferay.portal.kernel.model.SystemEvent>
-		getSystemEvents(
-			long groupId, long classNameId, long classPK, int type) {
+	public static List<SystemEvent> getSystemEvents(
+		long groupId, long classNameId, long classPK, int type) {
 
 		return getService().getSystemEvents(
 			groupId, classNameId, classPK, type);
@@ -339,27 +322,18 @@ public class SystemEventLocalServiceUtil {
 	 * @param systemEvent the system event
 	 * @return the system event that was updated
 	 */
-	public static com.liferay.portal.kernel.model.SystemEvent updateSystemEvent(
-		com.liferay.portal.kernel.model.SystemEvent systemEvent) {
-
+	public static SystemEvent updateSystemEvent(SystemEvent systemEvent) {
 		return getService().updateSystemEvent(systemEvent);
 	}
 
-	public static boolean validateGroup(long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
+	public static boolean validateGroup(long groupId) throws PortalException {
 		return getService().validateGroup(groupId);
 	}
 
 	public static SystemEventLocalService getService() {
-		if (_service == null) {
-			_service = (SystemEventLocalService)PortalBeanLocatorUtil.locate(
-				SystemEventLocalService.class.getName());
-		}
-
 		return _service;
 	}
 
-	private static SystemEventLocalService _service;
+	private static volatile SystemEventLocalService _service;
 
 }

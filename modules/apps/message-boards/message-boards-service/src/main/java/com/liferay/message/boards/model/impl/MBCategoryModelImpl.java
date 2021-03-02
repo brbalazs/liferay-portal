@@ -965,7 +965,7 @@ public class MBCategoryModelImpl
 
 	@Override
 	public void setParentCategoryId(long parentCategoryId) {
-		_columnBitmask |= PARENTCATEGORYID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalParentCategoryId) {
 			_setOriginalParentCategoryId = true;
@@ -993,6 +993,8 @@ public class MBCategoryModelImpl
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask = -1L;
+
 		_name = name;
 	}
 

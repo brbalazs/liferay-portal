@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalService;
+import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpConnectionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSpSessionPersistence;
 import com.liferay.saml.persistence.service.persistence.SamlIdpSsoSessionPersistence;
@@ -51,6 +52,8 @@ import com.liferay.saml.persistence.service.persistence.SamlSpMessagePersistence
 import com.liferay.saml.persistence.service.persistence.SamlSpSessionPersistence;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -74,7 +77,7 @@ public abstract class SamlSpIdpConnectionLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>SamlSpIdpConnectionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>SamlSpIdpConnectionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>SamlSpIdpConnectionLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -813,11 +816,15 @@ public abstract class SamlSpIdpConnectionLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.saml.persistence.model.SamlSpIdpConnection",
 			samlSpIdpConnectionLocalService);
+
+		_setLocalServiceUtilService(samlSpIdpConnectionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.saml.persistence.model.SamlSpIdpConnection");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -860,6 +867,23 @@ public abstract class SamlSpIdpConnectionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService) {
+
+		try {
+			Field field =
+				SamlSpIdpConnectionLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, samlSpIdpConnectionLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

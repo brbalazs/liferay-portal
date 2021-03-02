@@ -14,9 +14,15 @@
 
 package com.liferay.commerce.application.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.commerce.application.model.CommerceApplicationModel;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CommerceApplicationModel. This utility wraps
@@ -48,22 +54,17 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was added
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-			addCommerceApplicationModel(
-				com.liferay.commerce.application.model.CommerceApplicationModel
-					commerceApplicationModel) {
+	public static CommerceApplicationModel addCommerceApplicationModel(
+		CommerceApplicationModel commerceApplicationModel) {
 
 		return getService().addCommerceApplicationModel(
 			commerceApplicationModel);
 	}
 
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-				addCommerceApplicationModel(
-					long userId, long commerceApplicationBrandId, String name,
-					String year)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceApplicationModel addCommerceApplicationModel(
+			long userId, long commerceApplicationBrandId, String name,
+			String year)
+		throws PortalException {
 
 		return getService().addCommerceApplicationModel(
 			userId, commerceApplicationBrandId, name, year);
@@ -75,9 +76,8 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param commerceApplicationModelId the primary key for the new commerce application model
 	 * @return the new commerce application model
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-			createCommerceApplicationModel(long commerceApplicationModelId) {
+	public static CommerceApplicationModel createCommerceApplicationModel(
+		long commerceApplicationModelId) {
 
 		return getService().createCommerceApplicationModel(
 			commerceApplicationModelId);
@@ -94,12 +94,9 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @return the commerce application model that was removed
 	 * @throws PortalException
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-				deleteCommerceApplicationModel(
-					com.liferay.commerce.application.model.
-						CommerceApplicationModel commerceApplicationModel)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceApplicationModel deleteCommerceApplicationModel(
+			CommerceApplicationModel commerceApplicationModel)
+		throws PortalException {
 
 		return getService().deleteCommerceApplicationModel(
 			commerceApplicationModel);
@@ -116,10 +113,9 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @return the commerce application model that was removed
 	 * @throws PortalException if a commerce application model with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-				deleteCommerceApplicationModel(long commerceApplicationModelId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceApplicationModel deleteCommerceApplicationModel(
+			long commerceApplicationModelId)
+		throws PortalException {
 
 		return getService().deleteCommerceApplicationModel(
 			commerceApplicationModelId);
@@ -127,7 +123,7 @@ public class CommerceApplicationModelLocalServiceUtil {
 
 	public static void deleteCommerceApplicationModels(
 			long commerceApplicationBrandId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteCommerceApplicationModels(
 			commerceApplicationBrandId);
@@ -136,17 +132,14 @@ public class CommerceApplicationModelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -156,9 +149,7 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -174,9 +165,8 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -194,10 +184,9 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -209,9 +198,7 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -223,15 +210,14 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-			fetchCommerceApplicationModel(long commerceApplicationModelId) {
+	public static CommerceApplicationModel fetchCommerceApplicationModel(
+		long commerceApplicationModelId) {
 
 		return getService().fetchCommerceApplicationModel(
 			commerceApplicationModelId);
@@ -250,10 +236,9 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @return the commerce application model
 	 * @throws PortalException if a commerce application model with the primary key could not be found
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-				getCommerceApplicationModel(long commerceApplicationModelId)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceApplicationModel getCommerceApplicationModel(
+			long commerceApplicationModelId)
+		throws PortalException {
 
 		return getService().getCommerceApplicationModel(
 			commerceApplicationModelId);
@@ -270,9 +255,8 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param end the upper bound of the range of commerce application models (not inclusive)
 	 * @return the range of commerce application models
 	 */
-	public static java.util.List
-		<com.liferay.commerce.application.model.CommerceApplicationModel>
-			getCommerceApplicationModels(int start, int end) {
+	public static List<CommerceApplicationModel> getCommerceApplicationModels(
+		int start, int end) {
 
 		return getService().getCommerceApplicationModels(start, end);
 	}
@@ -305,9 +289,8 @@ public class CommerceApplicationModelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -322,50 +305,25 @@ public class CommerceApplicationModelLocalServiceUtil {
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was updated
 	 */
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-			updateCommerceApplicationModel(
-				com.liferay.commerce.application.model.CommerceApplicationModel
-					commerceApplicationModel) {
+	public static CommerceApplicationModel updateCommerceApplicationModel(
+		CommerceApplicationModel commerceApplicationModel) {
 
 		return getService().updateCommerceApplicationModel(
 			commerceApplicationModel);
 	}
 
-	public static
-		com.liferay.commerce.application.model.CommerceApplicationModel
-				updateCommerceApplicationModel(
-					long commerceApplicationModelId, String name, String year)
-			throws com.liferay.portal.kernel.exception.PortalException {
+	public static CommerceApplicationModel updateCommerceApplicationModel(
+			long commerceApplicationModelId, String name, String year)
+		throws PortalException {
 
 		return getService().updateCommerceApplicationModel(
 			commerceApplicationModelId, name, year);
 	}
 
 	public static CommerceApplicationModelLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<CommerceApplicationModelLocalService,
-		 CommerceApplicationModelLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceApplicationModelLocalService.class);
-
-		ServiceTracker
-			<CommerceApplicationModelLocalService,
-			 CommerceApplicationModelLocalService> serviceTracker =
-				new ServiceTracker
-					<CommerceApplicationModelLocalService,
-					 CommerceApplicationModelLocalService>(
-						 bundle.getBundleContext(),
-						 CommerceApplicationModelLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceApplicationModelLocalService _service;
 
 }

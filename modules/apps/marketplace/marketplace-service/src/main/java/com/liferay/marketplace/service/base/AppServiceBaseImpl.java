@@ -16,6 +16,7 @@ package com.liferay.marketplace.service.base;
 
 import com.liferay.marketplace.model.App;
 import com.liferay.marketplace.service.AppService;
+import com.liferay.marketplace.service.AppServiceUtil;
 import com.liferay.marketplace.service.persistence.AppPersistence;
 import com.liferay.marketplace.service.persistence.ModulePersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -30,6 +31,8 @@ import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -50,7 +53,7 @@ public abstract class AppServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>AppService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.marketplace.service.AppServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>AppService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>AppServiceUtil</code>.
 	 */
 
 	/**
@@ -323,9 +326,11 @@ public abstract class AppServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(appService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -367,6 +372,19 @@ public abstract class AppServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(AppService appService) {
+		try {
+			Field field = AppServiceUtil.class.getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, appService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

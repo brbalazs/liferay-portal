@@ -969,6 +969,8 @@ public class KaleoLogModelImpl
 
 	@Override
 	public void setKaleoLogId(long kaleoLogId) {
+		_columnBitmask = -1L;
+
 		_kaleoLogId = kaleoLogId;
 	}
 

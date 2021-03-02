@@ -21,6 +21,7 @@ import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.polls.model.PollsChoice;
 import com.liferay.polls.service.PollsChoiceLocalService;
+import com.liferay.polls.service.PollsChoiceLocalServiceUtil;
 import com.liferay.polls.service.persistence.PollsChoicePersistence;
 import com.liferay.polls.service.persistence.PollsQuestionFinder;
 import com.liferay.polls.service.persistence.PollsQuestionPersistence;
@@ -53,6 +54,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -75,7 +78,7 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>PollsChoiceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.polls.service.PollsChoiceLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>PollsChoiceLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>PollsChoiceLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -653,11 +656,15 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.polls.model.PollsChoice", pollsChoiceLocalService);
+
+		_setLocalServiceUtilService(pollsChoiceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.polls.model.PollsChoice");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -699,6 +706,22 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		PollsChoiceLocalService pollsChoiceLocalService) {
+
+		try {
+			Field field = PollsChoiceLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, pollsChoiceLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -1076,7 +1076,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setNodeId(long nodeId) {
-		_columnBitmask |= NODEID_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalNodeId) {
 			_setOriginalNodeId = true;
@@ -1104,7 +1104,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask |= TITLE_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (_originalTitle == null) {
 			_originalTitle = _title;
@@ -1125,7 +1125,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setVersion(double version) {
-		_columnBitmask |= VERSION_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;

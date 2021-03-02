@@ -16,6 +16,7 @@ package com.liferay.mobile.device.rules.service.base;
 
 import com.liferay.mobile.device.rules.model.MDRRuleGroupInstance;
 import com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceService;
+import com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceServiceUtil;
 import com.liferay.mobile.device.rules.service.persistence.MDRActionPersistence;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupFinder;
 import com.liferay.mobile.device.rules.service.persistence.MDRRuleGroupInstancePersistence;
@@ -34,6 +35,8 @@ import com.liferay.portal.kernel.service.persistence.LayoutSetPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -55,7 +58,7 @@ public abstract class MDRRuleGroupInstanceServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>MDRRuleGroupInstanceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.mobile.device.rules.service.MDRRuleGroupInstanceServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>MDRRuleGroupInstanceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>MDRRuleGroupInstanceServiceUtil</code>.
 	 */
 
 	/**
@@ -573,9 +576,11 @@ public abstract class MDRRuleGroupInstanceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setServiceUtilService(mdrRuleGroupInstanceService);
 	}
 
 	public void destroy() {
+		_setServiceUtilService(null);
 	}
 
 	/**
@@ -618,6 +623,23 @@ public abstract class MDRRuleGroupInstanceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setServiceUtilService(
+		MDRRuleGroupInstanceService mdrRuleGroupInstanceService) {
+
+		try {
+			Field field =
+				MDRRuleGroupInstanceServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, mdrRuleGroupInstanceService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 
