@@ -169,31 +169,6 @@ public class OptionResourceImpl
 		return _addOrUpdateOption(option);
 	}
 
-	private Option _toOption(Long cpOptionId) throws Exception {
-		return _optionDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpOptionId, contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private Option _updateOption(CPOption cpOption, Option option)
-		throws Exception {
-
-		Option.FieldType fieldType = option.getFieldType();
-
-		cpOption = _cpOptionService.updateCPOption(
-			cpOption.getCPOptionId(),
-			LanguageUtils.getLocalizedMap(option.getName()),
-			LanguageUtils.getLocalizedMap(option.getDescription()),
-			fieldType.getValue(),
-			GetterUtil.get(option.getFacetable(), cpOption.isFacetable()),
-			GetterUtil.get(option.getRequired(), cpOption.isRequired()),
-			GetterUtil.get(
-				option.getSkuContributor(), cpOption.isSkuContributor()),
-			option.getKey(), _serviceContextHelper.getServiceContext());
-
-		return _toOption(cpOption.getCPOptionId());
-	}
-
 	private Option _addOrUpdateOption(Option option) throws Exception {
 		Option.FieldType fieldType = option.getFieldType();
 
@@ -225,6 +200,31 @@ public class OptionResourceImpl
 			_optionValueResource.postOptionIdOptionValue(
 				cpOption.getCPOptionId(), optionValue);
 		}
+	}
+
+	private Option _toOption(Long cpOptionId) throws Exception {
+		return _optionDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpOptionId, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private Option _updateOption(CPOption cpOption, Option option)
+		throws Exception {
+
+		Option.FieldType fieldType = option.getFieldType();
+
+		cpOption = _cpOptionService.updateCPOption(
+			cpOption.getCPOptionId(),
+			LanguageUtils.getLocalizedMap(option.getName()),
+			LanguageUtils.getLocalizedMap(option.getDescription()),
+			fieldType.getValue(),
+			GetterUtil.get(option.getFacetable(), cpOption.isFacetable()),
+			GetterUtil.get(option.getRequired(), cpOption.isRequired()),
+			GetterUtil.get(
+				option.getSkuContributor(), cpOption.isSkuContributor()),
+			option.getKey(), _serviceContextHelper.getServiceContext());
+
+		return _toOption(cpOption.getCPOptionId());
 	}
 
 	private static final EntityModel _entityModel = new OptionEntityModel();

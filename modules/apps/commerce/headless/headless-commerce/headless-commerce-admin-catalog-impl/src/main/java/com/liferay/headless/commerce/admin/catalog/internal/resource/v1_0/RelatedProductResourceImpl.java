@@ -142,6 +142,20 @@ public class RelatedProductResourceImpl
 		return _addOrUpdateRelatedProduct(cpDefinition, relatedProduct);
 	}
 
+	private RelatedProduct _addOrUpdateRelatedProduct(
+			CPDefinition cpDefinition, RelatedProduct relatedProduct)
+		throws Exception {
+
+		CPDefinitionLink cpDefinitionLink =
+			RelatedProductUtil.upsertCPDefinitionLink(
+				_cpDefinitionLinkService, _cpDefinitionService, relatedProduct,
+				cpDefinition.getCPDefinitionId(),
+				_serviceContextHelper.getServiceContext(
+					cpDefinition.getGroupId()));
+
+		return _toRelatedProduct(cpDefinitionLink.getCPDefinitionLinkId());
+	}
+
 	private Page<RelatedProduct> _getRelatedProductPage(
 			CPDefinition cpDefinition, String type, Pagination pagination)
 		throws Exception {
@@ -192,20 +206,6 @@ public class RelatedProductResourceImpl
 		}
 
 		return relatedProducts;
-	}
-
-	private RelatedProduct _addOrUpdateRelatedProduct(
-			CPDefinition cpDefinition, RelatedProduct relatedProduct)
-		throws Exception {
-
-		CPDefinitionLink cpDefinitionLink =
-			RelatedProductUtil.upsertCPDefinitionLink(
-				_cpDefinitionLinkService, _cpDefinitionService, relatedProduct,
-				cpDefinition.getCPDefinitionId(),
-				_serviceContextHelper.getServiceContext(
-					cpDefinition.getGroupId()));
-
-		return _toRelatedProduct(cpDefinitionLink.getCPDefinitionLinkId());
 	}
 
 	@Reference

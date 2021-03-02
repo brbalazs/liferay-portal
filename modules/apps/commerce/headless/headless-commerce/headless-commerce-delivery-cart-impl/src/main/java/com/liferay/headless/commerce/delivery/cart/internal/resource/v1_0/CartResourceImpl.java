@@ -206,131 +206,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			commerceAccount.getCommerceAccountId(), commerceCurrencyId);
 	}
 
-	private long _getCommerceRegionId(
-			CommerceAddress commerceAddress, CommerceCountry commerceCountry,
-			Address address)
-		throws PortalException {
-
-		if (Validator.isNull(address.getRegionISOCode()) &&
-			(commerceAddress != null)) {
-
-			return commerceAddress.getCommerceRegionId();
-		}
-
-		if (Validator.isNull(address.getRegionISOCode()) ||
-			(commerceCountry == null)) {
-
-			return 0;
-		}
-
-		CommerceRegion commerceRegion =
-			_commerceRegionLocalService.getCommerceRegion(
-				commerceCountry.getCommerceCountryId(),
-				address.getRegionISOCode());
-
-		return commerceRegion.getCommerceRegionId();
-	}
-
-	private Cart _toCart(CommerceOrder commerceOrder) throws Exception {
-		return _cartDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceOrder.getCommerceOrderId(),
-				contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private List<Cart> _toCarts(List<CommerceOrder> commerceOrders)
-		throws Exception {
-
-		List<Cart> carts = new ArrayList<>();
-
-		for (CommerceOrder commerceOrder : commerceOrders) {
-			carts.add(_toCart(commerceOrder));
-		}
-
-		return carts;
-	}
-
-	private void _updateCommerceOrderAddress(
-			CommerceOrder commerceOrder, Address address, int type,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		CommerceAddress commerceAddress =
-			_commerceAddressService.getCommerceAddress(
-				commerceOrder.getShippingAddressId());
-
-		CommerceCountry commerceCountry = commerceAddress.getCommerceCountry();
-
-		_commerceAddressService.updateCommerceAddress(
-			commerceAddress.getCommerceAddressId(), address.getName(),
-			GetterUtil.get(
-				address.getDescription(), commerceAddress.getDescription()),
-			address.getStreet1(),
-			GetterUtil.get(address.getStreet2(), commerceAddress.getStreet2()),
-			GetterUtil.get(address.getStreet3(), commerceAddress.getStreet3()),
-			address.getCity(),
-			GetterUtil.get(address.getZip(), commerceAddress.getZip()),
-			_getCommerceRegionId(commerceAddress, commerceCountry, address),
-			commerceCountry.getCommerceCountryId(),
-			GetterUtil.get(
-				address.getPhoneNumber(), commerceAddress.getPhoneNumber()),
-			type, serviceContext);
-	}
-
-	private void _updateOrder(CommerceOrder commerceOrder, Cart cart)
-		throws Exception {
-
-		long commerceShippingMethodId =
-			commerceOrder.getCommerceShippingMethodId();
-
-		CommerceShippingMethod commerceShippingMethod =
-			_commerceShippingMethodService.fetchCommerceShippingMethod(
-				commerceOrder.getGroupId(), cart.getShippingMethod());
-
-		if (commerceShippingMethod != null) {
-			commerceShippingMethodId =
-				commerceShippingMethod.getCommerceShippingMethodId();
-		}
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
-
-		commerceOrder = _commerceOrderService.updateCommerceOrder(
-			commerceOrder.getCommerceOrderId(),
-			GetterUtil.get(
-				cart.getBillingAddressId(),
-				commerceOrder.getBillingAddressId()),
-			GetterUtil.get(
-				cart.getShippingAddressId(),
-				commerceOrder.getShippingAddressId()),
-			GetterUtil.get(
-				cart.getPaymentMethod(),
-				commerceOrder.getCommercePaymentMethodKey()),
-			commerceShippingMethodId,
-			GetterUtil.get(
-				cart.getShippingOption(),
-				commerceOrder.getShippingOptionName()),
-			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
-			commerceOrder.getShippingAmount(), commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus(), commerceContext);
-
-		// Expando
-
-		Map<String, ?> customFields = cart.getCustomFields();
-
-		if ((customFields != null) && !customFields.isEmpty()) {
-			ExpandoUtil.updateExpando(
-				contextCompany.getCompanyId(), CommerceOrder.class,
-				commerceOrder.getPrimaryKey(), customFields);
-		}
-
-		// Update nested resources
-
-		_addOrUpdateNestedResources(cart, commerceOrder, commerceContext);
-	}
-
 	private void _addOrUpdateBillingAddress(
 			CommerceOrder commerceOrder, Address address, int type,
 			CommerceContext commerceContext, ServiceContext serviceContext)
@@ -477,6 +352,131 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
 			commerceOrder.getShippingAmount(), commerceOrder.getTotal(),
 			commerceOrder.getAdvanceStatus(), commerceContext);
+	}
+
+	private long _getCommerceRegionId(
+			CommerceAddress commerceAddress, CommerceCountry commerceCountry,
+			Address address)
+		throws PortalException {
+
+		if (Validator.isNull(address.getRegionISOCode()) &&
+			(commerceAddress != null)) {
+
+			return commerceAddress.getCommerceRegionId();
+		}
+
+		if (Validator.isNull(address.getRegionISOCode()) ||
+			(commerceCountry == null)) {
+
+			return 0;
+		}
+
+		CommerceRegion commerceRegion =
+			_commerceRegionLocalService.getCommerceRegion(
+				commerceCountry.getCommerceCountryId(),
+				address.getRegionISOCode());
+
+		return commerceRegion.getCommerceRegionId();
+	}
+
+	private Cart _toCart(CommerceOrder commerceOrder) throws Exception {
+		return _cartDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				commerceOrder.getCommerceOrderId(),
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private List<Cart> _toCarts(List<CommerceOrder> commerceOrders)
+		throws Exception {
+
+		List<Cart> carts = new ArrayList<>();
+
+		for (CommerceOrder commerceOrder : commerceOrders) {
+			carts.add(_toCart(commerceOrder));
+		}
+
+		return carts;
+	}
+
+	private void _updateCommerceOrderAddress(
+			CommerceOrder commerceOrder, Address address, int type,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		CommerceAddress commerceAddress =
+			_commerceAddressService.getCommerceAddress(
+				commerceOrder.getShippingAddressId());
+
+		CommerceCountry commerceCountry = commerceAddress.getCommerceCountry();
+
+		_commerceAddressService.updateCommerceAddress(
+			commerceAddress.getCommerceAddressId(), address.getName(),
+			GetterUtil.get(
+				address.getDescription(), commerceAddress.getDescription()),
+			address.getStreet1(),
+			GetterUtil.get(address.getStreet2(), commerceAddress.getStreet2()),
+			GetterUtil.get(address.getStreet3(), commerceAddress.getStreet3()),
+			address.getCity(),
+			GetterUtil.get(address.getZip(), commerceAddress.getZip()),
+			_getCommerceRegionId(commerceAddress, commerceCountry, address),
+			commerceCountry.getCommerceCountryId(),
+			GetterUtil.get(
+				address.getPhoneNumber(), commerceAddress.getPhoneNumber()),
+			type, serviceContext);
+	}
+
+	private void _updateOrder(CommerceOrder commerceOrder, Cart cart)
+		throws Exception {
+
+		long commerceShippingMethodId =
+			commerceOrder.getCommerceShippingMethodId();
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.fetchCommerceShippingMethod(
+				commerceOrder.getGroupId(), cart.getShippingMethod());
+
+		if (commerceShippingMethod != null) {
+			commerceShippingMethodId =
+				commerceShippingMethod.getCommerceShippingMethodId();
+		}
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			contextCompany.getCompanyId(), commerceOrder.getGroupId(),
+			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
+			commerceOrder.getCommerceAccountId());
+
+		commerceOrder = _commerceOrderService.updateCommerceOrder(
+			commerceOrder.getCommerceOrderId(),
+			GetterUtil.get(
+				cart.getBillingAddressId(),
+				commerceOrder.getBillingAddressId()),
+			GetterUtil.get(
+				cart.getShippingAddressId(),
+				commerceOrder.getShippingAddressId()),
+			GetterUtil.get(
+				cart.getPaymentMethod(),
+				commerceOrder.getCommercePaymentMethodKey()),
+			commerceShippingMethodId,
+			GetterUtil.get(
+				cart.getShippingOption(),
+				commerceOrder.getShippingOptionName()),
+			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
+			commerceOrder.getShippingAmount(), commerceOrder.getTotal(),
+			commerceOrder.getAdvanceStatus(), commerceContext);
+
+		// Expando
+
+		Map<String, ?> customFields = cart.getCustomFields();
+
+		if ((customFields != null) && !customFields.isEmpty()) {
+			ExpandoUtil.updateExpando(
+				contextCompany.getCompanyId(), CommerceOrder.class,
+				commerceOrder.getPrimaryKey(), customFields);
+		}
+
+		// Update nested resources
+
+		_addOrUpdateNestedResources(cart, commerceOrder, commerceContext);
 	}
 
 	@Reference

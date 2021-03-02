@@ -242,6 +242,16 @@ public class SkuResourceImpl
 		return _addOrUpdateSKU(cpDefinition, sku);
 	}
 
+	private Sku _addOrUpdateSKU(CPDefinition cpDefinition, Sku sku)
+		throws Exception {
+
+		CPInstance cpInstance = SkuUtil.upsertCPInstance(
+			_cpInstanceService, sku, cpDefinition,
+			_serviceContextHelper.getServiceContext(cpDefinition.getGroupId()));
+
+		return _toSku(cpInstance.getCPInstanceId());
+	}
+
 	private Sku _toSku(Long cpInstanceId) throws Exception {
 		return _skuDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
@@ -288,16 +298,6 @@ public class SkuResourceImpl
 				sku.getNeverExpire(),
 				(cpInstance.getExpirationDate() == null) ? true : false),
 			sku.getUnspsc(), serviceContext);
-
-		return _toSku(cpInstance.getCPInstanceId());
-	}
-
-	private Sku _addOrUpdateSKU(CPDefinition cpDefinition, Sku sku)
-		throws Exception {
-
-		CPInstance cpInstance = SkuUtil.upsertCPInstance(
-			_cpInstanceService, sku, cpDefinition,
-			_serviceContextHelper.getServiceContext(cpDefinition.getGroupId()));
 
 		return _toSku(cpInstance.getCPInstanceId());
 	}

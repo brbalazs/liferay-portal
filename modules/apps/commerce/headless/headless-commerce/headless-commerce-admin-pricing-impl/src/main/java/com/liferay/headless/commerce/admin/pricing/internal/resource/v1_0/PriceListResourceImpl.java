@@ -205,6 +205,63 @@ public class PriceListResourceImpl
 		return _toPriceList(commercePriceList.getCommercePriceListId());
 	}
 
+	private CommercePriceList _addOrUpdatePriceList(PriceList priceList)
+		throws Exception {
+
+		CommerceCatalog commerceCatalog =
+			_commerceCatalogService.getCommerceCatalog(
+				priceList.getCatalogId());
+
+		CommerceCurrency commerceCurrency =
+			_commerceCurrencyService.getCommerceCurrency(
+				contextCompany.getCompanyId(), priceList.getCurrencyCode());
+
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
+
+		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
+			serviceContext.getTimeZone());
+
+		DateConfig displayDateConfig = new DateConfig(displayCalendar);
+
+		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
+			serviceContext.getTimeZone());
+
+		expirationCalendar.add(Calendar.MONTH, 1);
+
+		DateConfig expirationDateConfig = new DateConfig(expirationCalendar);
+
+		CommercePriceList commercePriceList =
+			_commercePriceListService.upsertCommercePriceList(
+				commerceCatalog.getGroupId(), contextUser.getUserId(), 0L,
+				commerceCurrency.getCommerceCurrencyId(), priceList.getName(),
+				GetterUtil.get(priceList.getPriority(), 0D),
+				displayDateConfig.getMonth(), displayDateConfig.getDay(),
+				displayDateConfig.getYear(), displayDateConfig.getHour(),
+				displayDateConfig.getMinute(), expirationDateConfig.getMonth(),
+				expirationDateConfig.getDay(), expirationDateConfig.getYear(),
+				expirationDateConfig.getHour(),
+				expirationDateConfig.getMinute(),
+				priceList.getExternalReferenceCode(),
+				GetterUtil.getBoolean(priceList.getNeverExpire(), true),
+				serviceContext);
+
+		// Expando
+
+		Map<String, ?> customFields = priceList.getCustomFields();
+
+		if ((customFields != null) && !customFields.isEmpty()) {
+			ExpandoUtil.updateExpando(
+				serviceContext.getCompanyId(), CommercePriceList.class,
+				commercePriceList.getPrimaryKey(), customFields);
+		}
+
+		// Update nested resources
+
+		return _updateNestedResources(
+			priceList, commercePriceList, serviceContext);
+	}
+
 	private PriceList _toPriceList(Long commercePriceListId) throws Exception {
 		return _priceListDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
@@ -315,63 +372,6 @@ public class PriceListResourceImpl
 			expirationDateConfig.getHour(), expirationDateConfig.getMinute(),
 			GetterUtil.getBoolean(priceList.getNeverExpire(), true),
 			serviceContext);
-
-		// Expando
-
-		Map<String, ?> customFields = priceList.getCustomFields();
-
-		if ((customFields != null) && !customFields.isEmpty()) {
-			ExpandoUtil.updateExpando(
-				serviceContext.getCompanyId(), CommercePriceList.class,
-				commercePriceList.getPrimaryKey(), customFields);
-		}
-
-		// Update nested resources
-
-		return _updateNestedResources(
-			priceList, commercePriceList, serviceContext);
-	}
-
-	private CommercePriceList _addOrUpdatePriceList(PriceList priceList)
-		throws Exception {
-
-		CommerceCatalog commerceCatalog =
-			_commerceCatalogService.getCommerceCatalog(
-				priceList.getCatalogId());
-
-		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.getCommerceCurrency(
-				contextCompany.getCompanyId(), priceList.getCurrencyCode());
-
-		ServiceContext serviceContext =
-			_serviceContextHelper.getServiceContext();
-
-		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		DateConfig displayDateConfig = new DateConfig(displayCalendar);
-
-		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		expirationCalendar.add(Calendar.MONTH, 1);
-
-		DateConfig expirationDateConfig = new DateConfig(expirationCalendar);
-
-		CommercePriceList commercePriceList =
-			_commercePriceListService.upsertCommercePriceList(
-				commerceCatalog.getGroupId(), contextUser.getUserId(), 0L,
-				commerceCurrency.getCommerceCurrencyId(), priceList.getName(),
-				GetterUtil.get(priceList.getPriority(), 0D),
-				displayDateConfig.getMonth(), displayDateConfig.getDay(),
-				displayDateConfig.getYear(), displayDateConfig.getHour(),
-				displayDateConfig.getMinute(), expirationDateConfig.getMonth(),
-				expirationDateConfig.getDay(), expirationDateConfig.getYear(),
-				expirationDateConfig.getHour(),
-				expirationDateConfig.getMinute(),
-				priceList.getExternalReferenceCode(),
-				GetterUtil.getBoolean(priceList.getNeverExpire(), true),
-				serviceContext);
 
 		// Expando
 

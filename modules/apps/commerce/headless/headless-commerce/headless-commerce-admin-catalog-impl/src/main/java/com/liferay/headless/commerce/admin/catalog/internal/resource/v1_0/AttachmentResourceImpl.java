@@ -349,55 +349,6 @@ public class AttachmentResourceImpl
 		return _addOrUpdateProductImage(cpDefinition, attachmentUrl);
 	}
 
-	private Page<Attachment> _getAttachmentPage(
-			CPDefinition cpDefinition, int type, Pagination pagination)
-		throws Exception {
-
-		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
-			_cpAttachmentFileEntryService.getCPAttachmentFileEntries(
-				_classNameLocalService.getClassNameId(
-					cpDefinition.getModelClass()),
-				cpDefinition.getCPDefinitionId(), type,
-				WorkflowConstants.STATUS_APPROVED,
-				pagination.getStartPosition(), pagination.getEndPosition());
-
-		int totalItems =
-			_cpAttachmentFileEntryService.getCPAttachmentFileEntriesCount(
-				_classNameLocalService.getClassNameId(
-					cpDefinition.getModelClass()),
-				cpDefinition.getCPDefinitionId(), type,
-				WorkflowConstants.STATUS_APPROVED);
-
-		return Page.of(
-			_toAttachments(cpAttachmentFileEntries), pagination, totalItems);
-	}
-
-	private Attachment _toAttachment(Long cpAttachmentFileEntryId)
-		throws Exception {
-
-		return _attachmentDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				cpAttachmentFileEntryId,
-				contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private List<Attachment> _toAttachments(
-			List<CPAttachmentFileEntry> cpAttachmentFileEntries)
-		throws Exception {
-
-		List<Attachment> attachments = new ArrayList<>();
-
-		for (CPAttachmentFileEntry cpAttachmentFileEntry :
-				cpAttachmentFileEntries) {
-
-			attachments.add(
-				_toAttachment(
-					cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
-		}
-
-		return attachments;
-	}
-
 	private Attachment _addOrUpdateAttachment(
 			CPDefinition cpDefinition, int type, Attachment attachment)
 		throws Exception {
@@ -505,6 +456,55 @@ public class AttachmentResourceImpl
 		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
 			attachment);
+	}
+
+	private Page<Attachment> _getAttachmentPage(
+			CPDefinition cpDefinition, int type, Pagination pagination)
+		throws Exception {
+
+		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
+			_cpAttachmentFileEntryService.getCPAttachmentFileEntries(
+				_classNameLocalService.getClassNameId(
+					cpDefinition.getModelClass()),
+				cpDefinition.getCPDefinitionId(), type,
+				WorkflowConstants.STATUS_APPROVED,
+				pagination.getStartPosition(), pagination.getEndPosition());
+
+		int totalItems =
+			_cpAttachmentFileEntryService.getCPAttachmentFileEntriesCount(
+				_classNameLocalService.getClassNameId(
+					cpDefinition.getModelClass()),
+				cpDefinition.getCPDefinitionId(), type,
+				WorkflowConstants.STATUS_APPROVED);
+
+		return Page.of(
+			_toAttachments(cpAttachmentFileEntries), pagination, totalItems);
+	}
+
+	private Attachment _toAttachment(Long cpAttachmentFileEntryId)
+		throws Exception {
+
+		return _attachmentDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				cpAttachmentFileEntryId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private List<Attachment> _toAttachments(
+			List<CPAttachmentFileEntry> cpAttachmentFileEntries)
+		throws Exception {
+
+		List<Attachment> attachments = new ArrayList<>();
+
+		for (CPAttachmentFileEntry cpAttachmentFileEntry :
+				cpAttachmentFileEntries) {
+
+			attachments.add(
+				_toAttachment(
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId()));
+		}
+
+		return attachments;
 	}
 
 	@Reference

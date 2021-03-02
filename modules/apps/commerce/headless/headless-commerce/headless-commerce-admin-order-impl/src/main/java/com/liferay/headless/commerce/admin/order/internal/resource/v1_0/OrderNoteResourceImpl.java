@@ -199,6 +199,25 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 			_commerceOrderService.getCommerceOrder(id), orderNote);
 	}
 
+	private OrderNote _addOrUpdateOrderNote(
+			CommerceOrder commerceOrder, OrderNote orderNote)
+		throws Exception {
+
+		CommerceOrderNote commerceOrderNote =
+			_commerceOrderNoteService.upsertCommerceOrderNote(
+				GetterUtil.get(orderNote.getId(), 0L),
+				commerceOrder.getCommerceOrderId(), orderNote.getContent(),
+				GetterUtil.get(orderNote.getRestricted(), false),
+				orderNote.getExternalReferenceCode(),
+				_serviceContextHelper.getServiceContext(
+					commerceOrder.getGroupId()));
+
+		return _orderNoteDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				commerceOrderNote.getCommerceOrderNoteId(),
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
 	private List<OrderNote> _toOrderNotes(
 			List<CommerceOrderNote> commerceOrderNotes)
 		throws Exception {
@@ -226,25 +245,6 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 				orderNote.getContent(), commerceOrderNote.getContent()),
 			GetterUtil.get(
 				orderNote.getRestricted(), commerceOrderNote.isRestricted()));
-
-		return _orderNoteDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceOrderNote.getCommerceOrderNoteId(),
-				contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private OrderNote _addOrUpdateOrderNote(
-			CommerceOrder commerceOrder, OrderNote orderNote)
-		throws Exception {
-
-		CommerceOrderNote commerceOrderNote =
-			_commerceOrderNoteService.upsertCommerceOrderNote(
-				GetterUtil.get(orderNote.getId(), 0L),
-				commerceOrder.getCommerceOrderId(), orderNote.getContent(),
-				GetterUtil.get(orderNote.getRestricted(), false),
-				orderNote.getExternalReferenceCode(),
-				_serviceContextHelper.getServiceContext(
-					commerceOrder.getGroupId()));
 
 		return _orderNoteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(

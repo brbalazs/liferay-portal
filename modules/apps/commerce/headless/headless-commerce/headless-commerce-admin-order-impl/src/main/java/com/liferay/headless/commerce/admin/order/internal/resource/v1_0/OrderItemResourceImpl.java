@@ -234,30 +234,20 @@ public class OrderItemResourceImpl
 			_commerceOrderService.getCommerceOrder(id), orderItem);
 	}
 
-	private OrderItem _toOrderItem(long commerceOrderItemId) throws Exception {
-		return _orderItemDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				commerceOrderItemId,
-				contextAcceptLanguage.getPreferredLocale()));
-	}
-
-	private OrderItem _updateOrderItem(
-			CommerceOrderItem commerceOrderItem, OrderItem orderItem)
+	private OrderItem _addOrUpdateOrderItem(
+			CommerceOrder commerceOrder, OrderItem orderItem)
 		throws Exception {
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderItem.getCommerceOrderId());
-
-		commerceOrderItem = _commerceOrderItemService.updateCommerceOrderItem(
-			commerceOrderItem.getCommerceOrderItemId(),
-			GetterUtil.get(
-				orderItem.getQuantity(), commerceOrderItem.getQuantity()),
-			_commerceContextFactory.create(
-				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-				contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-				commerceOrder.getCommerceAccountId()),
-			_serviceContextHelper.getServiceContext(
-				commerceOrderItem.getGroupId()));
+		CommerceOrderItem commerceOrderItem =
+			OrderItemUtil.upsertCommerceOrderItem(
+				_cpInstanceService, _commerceOrderItemService, orderItem,
+				commerceOrder,
+				_commerceContextFactory.create(
+					contextCompany.getCompanyId(), commerceOrder.getGroupId(),
+					contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
+					commerceOrder.getCommerceAccountId()),
+				_serviceContextHelper.getServiceContext(
+					commerceOrder.getGroupId()));
 
 		// Pricing
 
@@ -335,20 +325,30 @@ public class OrderItemResourceImpl
 		return _toOrderItem(commerceOrderItem.getCommerceOrderItemId());
 	}
 
-	private OrderItem _addOrUpdateOrderItem(
-			CommerceOrder commerceOrder, OrderItem orderItem)
+	private OrderItem _toOrderItem(long commerceOrderItemId) throws Exception {
+		return _orderItemDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				commerceOrderItemId,
+				contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	private OrderItem _updateOrderItem(
+			CommerceOrderItem commerceOrderItem, OrderItem orderItem)
 		throws Exception {
 
-		CommerceOrderItem commerceOrderItem =
-			OrderItemUtil.upsertCommerceOrderItem(
-				_cpInstanceService, _commerceOrderItemService, orderItem,
-				commerceOrder,
-				_commerceContextFactory.create(
-					contextCompany.getCompanyId(), commerceOrder.getGroupId(),
-					contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-					commerceOrder.getCommerceAccountId()),
-				_serviceContextHelper.getServiceContext(
-					commerceOrder.getGroupId()));
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			commerceOrderItem.getCommerceOrderId());
+
+		commerceOrderItem = _commerceOrderItemService.updateCommerceOrderItem(
+			commerceOrderItem.getCommerceOrderItemId(),
+			GetterUtil.get(
+				orderItem.getQuantity(), commerceOrderItem.getQuantity()),
+			_commerceContextFactory.create(
+				contextCompany.getCompanyId(), commerceOrder.getGroupId(),
+				contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
+				commerceOrder.getCommerceAccountId()),
+			_serviceContextHelper.getServiceContext(
+				commerceOrderItem.getGroupId()));
 
 		// Pricing
 
