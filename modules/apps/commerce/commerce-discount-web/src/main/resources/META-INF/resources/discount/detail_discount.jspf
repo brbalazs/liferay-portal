@@ -193,9 +193,14 @@ if (!usePercentage) {
 			A.one('#<portlet:namespace />level1Label').html(
 				'<liferay-ui:message key="level1" />'
 			);
-			A.one('#<portlet:namespace />level1Value').val(
+
+			var level1Value = A.one('#<portlet:namespace />level1Value');
+
+			if(level1Value) {
+				level1Value.val(
 				'<%= (commerceDiscount == null) ? 0 : commerceDiscountDisplayContext.round(commerceDiscount.getLevel1()) %>'
-			);
+				);
+			}
 
 			A.all(
 				'#<portlet:namespace />maximumDiscountAmountContainer .input-item-retractable'
