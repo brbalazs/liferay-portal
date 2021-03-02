@@ -72,7 +72,7 @@ public class ProductOptionValueResourceImpl
 			Long id, ProductOptionValue productOptionValue)
 		throws Exception {
 
-		return _upsertProductOptionValue(id, productOptionValue);
+		return _addOrUpdateProductOptionValue(id, productOptionValue);
 	}
 
 	private ProductOptionValue _toProductOptionValue(
@@ -103,7 +103,7 @@ public class ProductOptionValueResourceImpl
 		return productOptionValues;
 	}
 
-	private ProductOptionValue _upsertProductOptionValue(
+	private ProductOptionValue _addOrUpdateProductOptionValue(
 			long productOptionId, ProductOptionValue productOptionValue)
 		throws Exception {
 

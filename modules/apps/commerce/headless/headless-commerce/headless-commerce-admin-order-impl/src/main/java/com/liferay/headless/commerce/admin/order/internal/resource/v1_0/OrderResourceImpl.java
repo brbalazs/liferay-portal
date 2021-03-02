@@ -213,7 +213,7 @@ public class OrderResourceImpl
 
 	@Override
 	public Order postOrder(Order order) throws Exception {
-		CommerceOrder commerceOrder = _upsertOrder(order);
+		CommerceOrder commerceOrder = _addOrUpdateOrder(order);
 
 		return _orderHelper.toOrder(
 			commerceOrder.getCommerceOrderId(),
@@ -459,7 +459,7 @@ public class OrderResourceImpl
 		return commerceOrder;
 	}
 
-	private CommerceOrder _upsertOrder(Order order) throws Exception {
+	private CommerceOrder _addOrUpdateOrder(Order order) throws Exception {
 		CommerceChannel commerceChannel =
 			_commerceChannelLocalService.getCommerceChannel(
 				order.getChannelId());

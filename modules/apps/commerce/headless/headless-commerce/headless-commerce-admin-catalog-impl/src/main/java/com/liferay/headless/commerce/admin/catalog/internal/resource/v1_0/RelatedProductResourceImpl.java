@@ -123,7 +123,7 @@ public class RelatedProductResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertRelatedProduct(cpDefinition, relatedProduct);
+		return _addOrUpdateRelatedProduct(cpDefinition, relatedProduct);
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class RelatedProductResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertRelatedProduct(cpDefinition, relatedProduct);
+		return _addOrUpdateRelatedProduct(cpDefinition, relatedProduct);
 	}
 
 	private Page<RelatedProduct> _getRelatedProductPage(
@@ -194,7 +194,7 @@ public class RelatedProductResourceImpl
 		return relatedProducts;
 	}
 
-	private RelatedProduct _upsertRelatedProduct(
+	private RelatedProduct _addOrUpdateRelatedProduct(
 			CPDefinition cpDefinition, RelatedProduct relatedProduct)
 		throws Exception {
 

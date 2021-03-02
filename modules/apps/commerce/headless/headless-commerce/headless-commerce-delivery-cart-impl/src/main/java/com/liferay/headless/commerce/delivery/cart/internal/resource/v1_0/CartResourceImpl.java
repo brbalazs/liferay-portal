@@ -328,10 +328,10 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 		// Update nested resources
 
-		_upsertNestedResources(cart, commerceOrder, commerceContext);
+		_addOrUpdateNestedResources(cart, commerceOrder, commerceContext);
 	}
 
-	private void _upsertBillingAddress(
+	private void _addOrUpdateBillingAddress(
 			CommerceOrder commerceOrder, Address address, int type,
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws Exception {
@@ -360,7 +360,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			commerceOrder.getAdvanceStatus(), commerceContext);
 	}
 
-	private void _upsertCommerceOrderItem(
+	private void _addOrUpdateCommerceOrderItem(
 			CartItem cartItem, CommerceOrder commerceOrder,
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws Exception {
@@ -378,7 +378,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			commerceContext, serviceContext);
 	}
 
-	private void _upsertNestedResources(
+	private void _addOrUpdateNestedResources(
 			Cart cart, CommerceOrder commerceOrder,
 			CommerceContext commerceContext)
 		throws Exception {
@@ -395,7 +395,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 				commerceOrder.getCommerceOrderId());
 
 			for (CartItem cartItem : orderItems) {
-				_upsertCommerceOrderItem(
+				_addOrUpdateCommerceOrderItem(
 					cartItem, commerceOrder, commerceContext, serviceContext);
 			}
 		}
@@ -417,7 +417,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		Address shippingAddress = cart.getShippingAddress();
 
 		if (shippingAddress != null) {
-			commerceOrder = _upsertShippingAddress(
+			commerceOrder = _addOrUpdateShippingAddress(
 				commerceOrder, shippingAddress, type, commerceContext,
 				serviceContext);
 		}
@@ -443,14 +443,14 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			Address billingAddress = cart.getBillingAddress();
 
 			if (billingAddress != null) {
-				_upsertBillingAddress(
+				_addOrUpdateBillingAddress(
 					commerceOrder, billingAddress, type, commerceContext,
 					serviceContext);
 			}
 		}
 	}
 
-	private CommerceOrder _upsertShippingAddress(
+	private CommerceOrder _addOrUpdateShippingAddress(
 			CommerceOrder commerceOrder, Address address, int type,
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws Exception {

@@ -188,14 +188,14 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 					externalReferenceCode);
 		}
 
-		return _upsertOrderNote(commerceOrder, orderNote);
+		return _addOrUpdateOrderNote(commerceOrder, orderNote);
 	}
 
 	@Override
 	public OrderNote postOrderIdOrderNote(Long id, OrderNote orderNote)
 		throws Exception {
 
-		return _upsertOrderNote(
+		return _addOrUpdateOrderNote(
 			_commerceOrderService.getCommerceOrder(id), orderNote);
 	}
 
@@ -233,7 +233,7 @@ public class OrderNoteResourceImpl extends BaseOrderNoteResourceImpl {
 				contextAcceptLanguage.getPreferredLocale()));
 	}
 
-	private OrderNote _upsertOrderNote(
+	private OrderNote _addOrUpdateOrderNote(
 			CommerceOrder commerceOrder, OrderNote orderNote)
 		throws Exception {
 

@@ -159,7 +159,7 @@ public class ProductOptionResourceImpl
 					externalReferenceCode);
 		}
 
-		return Page.of(_upsertProductOptions(cpDefinition, productOptions));
+		return Page.of(_addOrUpdateProductOptions(cpDefinition, productOptions));
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class ProductOptionResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return Page.of(_upsertProductOptions(cpDefinition, productOptions));
+		return Page.of(_addOrUpdateProductOptions(cpDefinition, productOptions));
 	}
 
 	private ProductOption _toProductOption(Long cpDefinitionOptionRelId)
@@ -239,7 +239,7 @@ public class ProductOptionResourceImpl
 			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 	}
 
-	private List<ProductOption> _upsertProductOptions(
+	private List<ProductOption> _addOrUpdateProductOptions(
 			CPDefinition cpDefinition, ProductOption[] productOptions)
 		throws Exception {
 

@@ -215,7 +215,7 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 		}
 
 		CommercePriceModifier commercePriceModifier =
-			_upsertCommercePriceModifier(commercePriceList, priceModifier);
+			_addOrUpdateCommercePriceModifier(commercePriceList, priceModifier);
 
 		return _toPriceModifier(
 			commercePriceModifier.getCommercePriceModifierId());
@@ -227,7 +227,7 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 		throws Exception {
 
 		CommercePriceModifier commercePriceModifier =
-			_upsertCommercePriceModifier(
+			_addOrUpdateCommercePriceModifier(
 				_commercePriceListService.getCommercePriceList(id),
 				priceModifier);
 
@@ -373,7 +373,7 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 		return commercePriceModifier;
 	}
 
-	private CommercePriceModifier _upsertCommercePriceModifier(
+	private CommercePriceModifier _addOrUpdateCommercePriceModifier(
 			CommercePriceList commercePriceList, PriceModifier priceModifier)
 		throws PortalException {
 

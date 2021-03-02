@@ -118,7 +118,7 @@ public class SpecificationResourceImpl
 	public Specification postSpecification(Specification specification)
 		throws Exception {
 
-		return _upsertSpecification(specification);
+		return _addOrUpdateSpecification(specification);
 	}
 
 	private long _getCPOptionCategoryId(Specification specification) {
@@ -166,7 +166,7 @@ public class SpecificationResourceImpl
 			_serviceContextHelper.getServiceContext());
 	}
 
-	private Specification _upsertSpecification(Specification specification)
+	private Specification _addOrUpdateSpecification(Specification specification)
 		throws Exception {
 
 		Long specificationId = specification.getId();

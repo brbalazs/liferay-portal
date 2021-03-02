@@ -238,7 +238,7 @@ public class ProductResourceImpl
 
 	@Override
 	public Product postProduct(Product product) throws Exception {
-		CPDefinition cpDefinition = _upsertProduct(product);
+		CPDefinition cpDefinition = _addOrUpdateProduct(product);
 
 		return _toProduct(cpDefinition.getCPDefinitionId());
 	}
@@ -653,7 +653,7 @@ public class ProductResourceImpl
 		return _updateNestedResources(product, cpDefinition, serviceContext);
 	}
 
-	private CPDefinition _upsertProduct(Product product) throws Exception {
+	private CPDefinition _addOrUpdateProduct(Product product) throws Exception {
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.getCommerceCatalog(
 				product.getCatalogId());

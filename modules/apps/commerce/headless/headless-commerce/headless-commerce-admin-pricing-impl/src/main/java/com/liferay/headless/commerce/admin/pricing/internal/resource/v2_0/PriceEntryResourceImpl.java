@@ -239,7 +239,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 					externalReferenceCode);
 		}
 
-		CommercePriceEntry commercePriceEntry = _upsertCommercePriceEntry(
+		CommercePriceEntry commercePriceEntry = _addOrUpdateCommercePriceEntry(
 			commercePriceList, priceEntry);
 
 		return _toPriceEntry(commercePriceEntry.getCommercePriceEntryId());
@@ -249,7 +249,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 	public PriceEntry postPriceListIdPriceEntry(Long id, PriceEntry priceEntry)
 		throws Exception {
 
-		CommercePriceEntry commercePriceEntry = _upsertCommercePriceEntry(
+		CommercePriceEntry commercePriceEntry = _addOrUpdateCommercePriceEntry(
 			_commercePriceListService.getCommercePriceList(id), priceEntry);
 
 		return _toPriceEntry(commercePriceEntry.getCommercePriceEntryId());
@@ -405,7 +405,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 		return commercePriceEntry;
 	}
 
-	private CommercePriceEntry _upsertCommercePriceEntry(
+	private CommercePriceEntry _addOrUpdateCommercePriceEntry(
 			CommercePriceList commercePriceList, PriceEntry priceEntry)
 		throws PortalException {
 

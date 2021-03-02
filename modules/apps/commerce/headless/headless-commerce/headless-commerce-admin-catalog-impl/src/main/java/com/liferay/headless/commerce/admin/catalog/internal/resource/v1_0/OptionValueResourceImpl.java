@@ -108,14 +108,14 @@ public class OptionValueResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertOptionValue(cpOption, optionValue);
+		return _addOrUpdateOptionValue(cpOption, optionValue);
 	}
 
 	@Override
 	public OptionValue postOptionIdOptionValue(Long id, OptionValue optionValue)
 		throws Exception {
 
-		return _upsertOptionValue(
+		return _addOrUpdateOptionValue(
 			_cpOptionService.getCPOption(id), optionValue);
 	}
 
@@ -139,7 +139,7 @@ public class OptionValueResourceImpl
 		return productOptionValues;
 	}
 
-	private OptionValue _upsertOptionValue(
+	private OptionValue _addOrUpdateOptionValue(
 			CPOption cpOption, OptionValue optionValue)
 		throws Exception {
 

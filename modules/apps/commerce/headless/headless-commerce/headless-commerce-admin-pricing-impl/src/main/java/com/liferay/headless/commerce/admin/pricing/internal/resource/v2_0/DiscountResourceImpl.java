@@ -207,7 +207,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 
 	@Override
 	public Discount postDiscount(Discount discount) throws Exception {
-		CommerceDiscount commerceDiscount = _upsertCommerceDiscount(discount);
+		CommerceDiscount commerceDiscount = _addOrUpdateCommerceDiscount(discount);
 
 		return _toDiscount(commerceDiscount.getCommerceDiscountId());
 	}
@@ -551,7 +551,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 		return commerceDiscount;
 	}
 
-	private CommerceDiscount _upsertCommerceDiscount(Discount discount)
+	private CommerceDiscount _addOrUpdateCommerceDiscount(Discount discount)
 		throws PortalException {
 
 		ServiceContext serviceContext =

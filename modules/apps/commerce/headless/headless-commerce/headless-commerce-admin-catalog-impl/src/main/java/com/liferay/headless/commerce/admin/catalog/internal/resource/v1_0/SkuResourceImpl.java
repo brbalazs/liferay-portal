@@ -226,7 +226,7 @@ public class SkuResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertSKU(cpDefinition, sku);
+		return _addOrUpdateSKU(cpDefinition, sku);
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class SkuResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertSKU(cpDefinition, sku);
+		return _addOrUpdateSKU(cpDefinition, sku);
 	}
 
 	private Sku _toSku(Long cpInstanceId) throws Exception {
@@ -292,7 +292,7 @@ public class SkuResourceImpl
 		return _toSku(cpInstance.getCPInstanceId());
 	}
 
-	private Sku _upsertSKU(CPDefinition cpDefinition, Sku sku)
+	private Sku _addOrUpdateSKU(CPDefinition cpDefinition, Sku sku)
 		throws Exception {
 
 		CPInstance cpInstance = SkuUtil.upsertCPInstance(

@@ -65,7 +65,7 @@ public class ProductSpecificationResourceImpl
 			Long id, ProductSpecification productSpecification)
 		throws Exception {
 
-		return _upsertProductSpecification(id, productSpecification);
+		return _addOrUpdateProductSpecification(id, productSpecification);
 	}
 
 	private ProductSpecification _toProductSpecification(
@@ -94,7 +94,7 @@ public class ProductSpecificationResourceImpl
 				_serviceContextHelper.getServiceContext());
 	}
 
-	private ProductSpecification _upsertProductSpecification(
+	private ProductSpecification _addOrUpdateProductSpecification(
 			Long id, ProductSpecification productSpecification)
 		throws Exception {
 

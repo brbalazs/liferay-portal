@@ -155,7 +155,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachment);
+		return _addOrUpdateProductAttachment(cpDefinition, attachment);
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachmentBase64);
+		return _addOrUpdateProductAttachment(cpDefinition, attachmentBase64);
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachmentUrl);
+		return _addOrUpdateProductAttachment(cpDefinition, attachmentUrl);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductImage(cpDefinition, attachment);
+		return _addOrUpdateProductImage(cpDefinition, attachment);
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductImage(cpDefinition, attachmentBase64);
+		return _addOrUpdateProductImage(cpDefinition, attachmentBase64);
 	}
 
 	@Override
@@ -252,7 +252,7 @@ public class AttachmentResourceImpl
 					externalReferenceCode);
 		}
 
-		return _upsertProductImage(cpDefinition, attachmentUrl);
+		return _addOrUpdateProductImage(cpDefinition, attachmentUrl);
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachment);
+		return _addOrUpdateProductAttachment(cpDefinition, attachment);
 	}
 
 	@Override
@@ -283,7 +283,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachmentBase64);
+		return _addOrUpdateProductAttachment(cpDefinition, attachmentBase64);
 	}
 
 	@Override
@@ -299,7 +299,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductAttachment(cpDefinition, attachmentUrl);
+		return _addOrUpdateProductAttachment(cpDefinition, attachmentUrl);
 	}
 
 	@Override
@@ -314,7 +314,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductImage(cpDefinition, attachment);
+		return _addOrUpdateProductImage(cpDefinition, attachment);
 	}
 
 	@Override
@@ -330,7 +330,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductImage(cpDefinition, attachmentBase64);
+		return _addOrUpdateProductImage(cpDefinition, attachmentBase64);
 	}
 
 	@Override
@@ -346,7 +346,7 @@ public class AttachmentResourceImpl
 				"Unable to find Product with ID: " + id);
 		}
 
-		return _upsertProductImage(cpDefinition, attachmentUrl);
+		return _addOrUpdateProductImage(cpDefinition, attachmentUrl);
 	}
 
 	private Page<Attachment> _getAttachmentPage(
@@ -398,7 +398,7 @@ public class AttachmentResourceImpl
 		return attachments;
 	}
 
-	private Attachment _upsertAttachment(
+	private Attachment _addOrUpdateAttachment(
 			CPDefinition cpDefinition, int type, Attachment attachment)
 		throws Exception {
 
@@ -416,7 +416,7 @@ public class AttachmentResourceImpl
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
-	private Attachment _upsertAttachment(
+	private Attachment _addOrUpdateAttachment(
 			CPDefinition cpDefinition, int type,
 			AttachmentBase64 attachmentBase64)
 		throws Exception {
@@ -435,7 +435,7 @@ public class AttachmentResourceImpl
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
-	private Attachment _upsertAttachment(
+	private Attachment _addOrUpdateAttachment(
 			CPDefinition cpDefinition, int type, AttachmentUrl attachmentUrl)
 		throws Exception {
 
@@ -453,56 +453,56 @@ public class AttachmentResourceImpl
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
 
-	private Attachment _upsertProductAttachment(
+	private Attachment _addOrUpdateProductAttachment(
 			CPDefinition cpDefinition, Attachment attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_OTHER,
 			attachment);
 	}
 
-	private Attachment _upsertProductAttachment(
+	private Attachment _addOrUpdateProductAttachment(
 			CPDefinition cpDefinition, AttachmentBase64 attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_OTHER,
 			attachment);
 	}
 
-	private Attachment _upsertProductAttachment(
+	private Attachment _addOrUpdateProductAttachment(
 			CPDefinition cpDefinition, AttachmentUrl attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_OTHER,
 			attachment);
 	}
 
-	private Attachment _upsertProductImage(
+	private Attachment _addOrUpdateProductImage(
 			CPDefinition cpDefinition, Attachment attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
 			attachment);
 	}
 
-	private Attachment _upsertProductImage(
+	private Attachment _addOrUpdateProductImage(
 			CPDefinition cpDefinition, AttachmentBase64 attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
 			attachment);
 	}
 
-	private Attachment _upsertProductImage(
+	private Attachment _addOrUpdateProductImage(
 			CPDefinition cpDefinition, AttachmentUrl attachment)
 		throws Exception {
 
-		return _upsertAttachment(
+		return _addOrUpdateAttachment(
 			cpDefinition, CPAttachmentFileEntryConstants.TYPE_IMAGE,
 			attachment);
 	}
