@@ -27,6 +27,7 @@ jobs:
                 test $TRAVIS_EVENT_TYPE = "push" &&
                 test $TRAVIS_REPO_SLUG = "liferay/com-liferay-osb-faro-private" &&
                 ./gradlew packageRunCoveralls
+language: java
+os: linux
 services:
     - docker
-sudo: required
