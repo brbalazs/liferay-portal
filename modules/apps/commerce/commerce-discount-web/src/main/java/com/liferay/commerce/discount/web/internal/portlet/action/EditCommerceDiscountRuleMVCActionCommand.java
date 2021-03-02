@@ -107,7 +107,7 @@ public class EditCommerceDiscountRuleMVCActionCommand
 				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter(
-					"mvcPath", "/edit_discount_rule.jsp");
+					"mvcRenderCommandName", "editCommerceDiscountRule");
 			}
 			else {
 				throw e;
