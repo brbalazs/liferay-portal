@@ -60,13 +60,13 @@ public class FileEntryAMImageFileEntryItemSelectorReturnTypeResolver
 		String previewURL = null;
 
 		if (fileEntry.getGroupId() == fileEntry.getRepositoryId()) {
-			previewURL = DLUtil.getImagePreviewURL(
+			previewURL = DLUtil.getPreviewURL(
 				fileEntry, fileEntry.getFileVersion(), themeDisplay,
 				StringPool.BLANK, false, false);
 		}
 		else {
 			previewURL = PortletFileRepositoryUtil.getPortletFileEntryURL(
-				themeDisplay, fileEntry, "&imagePreview=1", false);
+				themeDisplay, fileEntry, StringPool.BLANK, false);
 		}
 
 		fileEntryJSONObject.put("url", previewURL);

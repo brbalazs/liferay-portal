@@ -79,7 +79,7 @@ public class FileEntryAMImageFileEntryItemSelectorReturnTypeResolverTest {
 		long fileEntryId = jsonObject.getLong("fileEntryId");
 
 		Assert.assertEquals(
-			DLUtil.getImagePreviewURL(
+			DLUtil.getPreviewURL(
 				fileEntry, fileEntry.getFileVersion(), null, StringPool.BLANK,
 				false, false),
 			url);
