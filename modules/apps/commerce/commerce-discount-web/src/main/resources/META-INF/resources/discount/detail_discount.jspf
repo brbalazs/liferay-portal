@@ -118,7 +118,7 @@ if (!usePercentage) {
 			</aui:input>
 
 			<div class="input-group-item input-group-item-shrink">
-				<aui:button name="level1PlusButton" value="+" />
+				<aui:button cssClass='<%= usePercentage ? StringPool.BLANK : "hide" %>' name="level1PlusButton" value="+" />
 			</div>
 
 			<div class="input-group-item input-group-item-shrink">
