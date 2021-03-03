@@ -52,9 +52,9 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 	onAttributeChange,
 	onEditClick
 }) => {
-	const {defaultDataType, displayName, id, name} = attribute;
+	const {dataType, displayName, id, name} = attribute;
 
-	const FilterBody = FILTERS_MAP[defaultDataType];
+	const FilterBody = FILTERS_MAP[dataType];
 
 	return (
 		<div className='attribute-filter'>
@@ -71,7 +71,7 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 				</Button>
 
 				<FilterInfo
-					dataType={defaultDataType}
+					dataType={dataType}
 					name={displayName || name}
 					onEditClick={onEditClick}
 				/>

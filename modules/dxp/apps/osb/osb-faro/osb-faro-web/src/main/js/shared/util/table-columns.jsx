@@ -132,12 +132,12 @@ export const assetsListColumns = {
  */
 
 export const attributesColumns = {
-	defaultDataType: {
-		accessor: 'defaultDataType',
-		cellRenderer: ({data: {defaultDataType}}) => (
+	dataType: {
+		accessor: 'dataType',
+		cellRenderer: ({data: {dataType}}) => (
 			<td>
 				<Label display='primary' uppercase>
-					{defaultDataType}
+					{dataType}
 				</Label>
 			</td>
 		),

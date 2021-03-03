@@ -30,7 +30,7 @@ describe('BaseDropdownListItem', () => {
 		const {container} = render(
 			<ListItem
 				item={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'
@@ -49,7 +49,7 @@ describe('BaseDropdownListItem', () => {
 			<ListItem
 				disabled
 				item={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'
@@ -68,7 +68,7 @@ describe('BaseDropdownListItem', () => {
 			<ListItem
 				active
 				item={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'

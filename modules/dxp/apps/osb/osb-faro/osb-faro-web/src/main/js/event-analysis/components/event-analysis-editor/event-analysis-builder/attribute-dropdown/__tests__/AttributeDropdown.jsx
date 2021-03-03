@@ -34,7 +34,7 @@ describe('AttributeDropdown', () => {
 		const {getByTestId} = render(
 			<AttributeDropdown
 				attribute={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'

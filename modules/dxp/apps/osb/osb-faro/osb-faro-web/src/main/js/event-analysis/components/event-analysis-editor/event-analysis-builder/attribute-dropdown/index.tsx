@@ -113,14 +113,12 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 										}}
 										onItemClick={(attribute: Attribute) => {
 											const {
-												defaultDataType,
+												dataType,
 												id: attributeId
 											} = attribute;
 
 											const breakdownFn =
-												BREAKDOWN_FNS_MAP[
-													defaultDataType
-												];
+												BREAKDOWN_FNS_MAP[dataType];
 
 											onAttributeSelect({
 												attribute,

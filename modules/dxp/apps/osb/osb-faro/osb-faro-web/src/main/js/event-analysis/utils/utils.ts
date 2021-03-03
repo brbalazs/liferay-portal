@@ -194,7 +194,7 @@ export const getBreakdownDisplay = (
 };
 
 export const isAttribute = (item: Attribute | Event): item is Attribute =>
-	(item as Attribute).defaultDataType !== undefined;
+	(item as Attribute).dataType !== undefined;
 
 export const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({
 	attributeId,

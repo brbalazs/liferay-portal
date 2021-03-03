@@ -12,7 +12,7 @@ describe('AttributeFilter', () => {
 		const {container} = render(
 			<WrappedAttributeFilter
 				attribute={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'

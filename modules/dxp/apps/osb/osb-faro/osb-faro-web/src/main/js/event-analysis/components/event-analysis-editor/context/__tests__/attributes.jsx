@@ -13,7 +13,7 @@ describe('attributes', () => {
 	const initialAttributes = {
 		attributes: {
 			1: {
-				defaultDataType: 'boolean',
+				dataType: 'boolean',
 				id: '1',
 				name: 'booleanName'
 			}
@@ -37,7 +37,7 @@ describe('attributes', () => {
 
 	describe('attributesReducer', () => {
 		const attribute = {
-			defaultDataType: 'string',
+			dataType: 'string',
 			id: '0',
 			name: 'testName'
 		};
@@ -118,12 +118,12 @@ describe('attributes', () => {
 			const initialState = {
 				attributes: {
 					1: {
-						defaultDataType: 'boolean',
+						dataType: 'boolean',
 						id: '1',
 						name: 'booleanName'
 					},
 					2: {
-						defaultDataType: 'duration',
+						dataType: 'duration',
 						id: '2',
 						name: 'durationName'
 					}
@@ -173,12 +173,12 @@ describe('attributes', () => {
 			const initialState = {
 				attributes: {
 					1: {
-						defaultDataType: 'boolean',
+						dataType: 'boolean',
 						id: '1',
 						name: 'booleanName'
 					},
 					2: {
-						defaultDataType: 'duration',
+						dataType: 'duration',
 						id: '2',
 						name: 'durationName'
 					}

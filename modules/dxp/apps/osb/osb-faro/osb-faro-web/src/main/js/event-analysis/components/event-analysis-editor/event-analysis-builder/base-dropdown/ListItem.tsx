@@ -80,7 +80,7 @@ const ListItem: React.FC<IListItemProps> = ({
 			<InfoCardPopover
 				dataType={
 					isAttribute(item as Attribute)
-						? (item as Attribute).defaultDataType
+						? (item as Attribute).dataType
 						: null
 				}
 				description={description}

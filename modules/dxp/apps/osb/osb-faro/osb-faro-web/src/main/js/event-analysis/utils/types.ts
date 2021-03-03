@@ -41,7 +41,7 @@ export enum Operators {
 }
 
 export type Attribute = {
-	defaultDataType: DataTypes;
+	dataType: DataTypes;
 	description?: string;
 	displayName?: string;
 	id: string;

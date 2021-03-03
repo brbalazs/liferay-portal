@@ -7,7 +7,7 @@ const withData = () => WrapperComponent => props => {
 	const MOCKED_ITEMS = [
 		{
 			attributeId: '1',
-			defaultDataType: 'TYPE',
+			dataType: 'TYPE',
 			description: 'mydescription',
 			displayName: 'displayNamehere',
 			name: 'firstTest',
@@ -15,7 +15,7 @@ const withData = () => WrapperComponent => props => {
 		},
 		{
 			attributeId: '2',
-			defaultDataType: 'TYPE2',
+			dataType: 'TYPE2',
 			description: 'seconddescription',
 			displayName: 'seconddisplay',
 			name: 'testingtest',
@@ -23,7 +23,7 @@ const withData = () => WrapperComponent => props => {
 		},
 		{
 			attributeId: '3',
-			defaultDataType: 'TYPE3',
+			dataType: 'TYPE3',
 			description: 'mydescription',
 			displayName: 'displayNamehere',
 			name: 'anothernamet',
@@ -39,7 +39,7 @@ const AttributeList = withBaseResults(withData, {
 		attributesColumns.displayName,
 		attributesColumns.description,
 		attributesColumns.sampleValue,
-		attributesColumns.defaultDataType
+		attributesColumns.dataType
 	],
 	rowIdentifier: 'attributeId',
 	showDropdownRangeKey: false

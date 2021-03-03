@@ -18,8 +18,8 @@ export default gql`
 			attributes {
 				name
 				attributeId
+				dataType
 				displayName
-				defaultDataType
 				sampleValue
 				description
 			}

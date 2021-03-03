@@ -12,7 +12,7 @@ describe('AttributeChip', () => {
 		const {container} = render(
 			<AttributeChipContext
 				attribute={{
-					defaultDataType: 'string',
+					dataType: 'string',
 					displayName: 'Article View',
 					id: '0',
 					name: 'articleView'
