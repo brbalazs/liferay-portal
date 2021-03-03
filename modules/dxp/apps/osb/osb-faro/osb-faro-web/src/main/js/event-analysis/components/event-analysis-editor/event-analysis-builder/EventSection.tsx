@@ -6,7 +6,7 @@ import {
 	DeleteAllAttributes,
 	withAttributesConsumer
 } from '../context/attributes';
-import {Event} from '../types';
+import {Event} from 'event-analysis/utils/types';
 
 interface IEventSectionProps {
 	deleteAllAttributes: DeleteAllAttributes;

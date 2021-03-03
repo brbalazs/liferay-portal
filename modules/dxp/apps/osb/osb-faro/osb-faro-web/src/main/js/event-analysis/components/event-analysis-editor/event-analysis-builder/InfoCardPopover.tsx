@@ -1,6 +1,6 @@
 import FilterInfo from './FilterInfo';
 import React from 'react';
-import {DataTypes} from '../types';
+import {DataTypes} from 'event-analysis/utils/types';
 
 interface IInfoCardPopoverProps {
 	dataType: DataTypes;

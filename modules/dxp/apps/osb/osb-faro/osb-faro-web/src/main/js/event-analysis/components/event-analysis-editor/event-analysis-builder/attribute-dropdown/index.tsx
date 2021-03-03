@@ -4,8 +4,8 @@ import EVENT_ATTRIBUTE_DEFINITION_QUERY from 'event-analysis/queries/EventAttrib
 import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
 import {AddAttribute, EditAttribute} from '../../context/attributes';
-import {Attribute, AttributeTypes, Filter} from '../../types';
-import {BREAKDOWN_FNS_MAP} from '../../utils';
+import {Attribute, AttributeTypes, Filter} from 'event-analysis/utils/types';
+import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Modal} from 'shared/types';
@@ -177,4 +177,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AttributeDropdown);
+export default connect(
+	null,
+	{close, open}
+)(AttributeDropdown);

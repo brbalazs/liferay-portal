@@ -1,5 +1,5 @@
 import React, {createContext, useReducer} from 'react';
-import {Attribute, Breakdown, Filter} from '../types';
+import {Attribute, Breakdown, Filter} from 'event-analysis/utils/types';
 import {deletePropertyFromObject} from 'shared/util/object';
 import {moveItem, replaceAtIndex} from 'shared/util/array';
 

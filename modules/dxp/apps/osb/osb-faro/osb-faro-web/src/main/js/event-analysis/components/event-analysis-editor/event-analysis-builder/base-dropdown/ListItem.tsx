@@ -4,8 +4,8 @@ import getCN from 'classnames';
 import InfoCardPopover from '../InfoCardPopover';
 import Overlay from 'shared/components/Overlay';
 import React, {useRef} from 'react';
-import {Attribute, Event} from '../../types';
-import {isAttribute} from '../../utils';
+import {Attribute, Event} from 'event-analysis/utils/types';
+import {isAttribute} from 'event-analysis/utils/utils';
 
 interface IListItemProps {
 	active?: boolean;

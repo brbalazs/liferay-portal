@@ -17,7 +17,7 @@ import {
 	Breakdowns,
 	DataTypes,
 	Filters
-} from '../../../types';
+} from 'event-analysis/utils/types';
 
 const FILTERS_MAP = {
 	[DataTypes.Boolean]: BooleanFilter,

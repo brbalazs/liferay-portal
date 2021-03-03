@@ -4,7 +4,13 @@ import Checkbox from 'shared/components/Checkbox';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
 import React, {useEffect, useState} from 'react';
-import {Attribute, Breakdown, CalculationTypes, Event, Filter} from './types';
+import {
+	Attribute,
+	Breakdown,
+	CalculationTypes,
+	Event,
+	Filter
+} from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {
 	withAttributesConsumer,

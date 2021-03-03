@@ -1,7 +1,7 @@
 import AttributeSection from './AttributeSection';
 import EventSection from './EventSection';
 import React from 'react';
-import {Event} from '../types';
+import {Event} from 'event-analysis/utils/types';
 
 interface IEventAnalysisBuilderProps {
 	event?: Event;

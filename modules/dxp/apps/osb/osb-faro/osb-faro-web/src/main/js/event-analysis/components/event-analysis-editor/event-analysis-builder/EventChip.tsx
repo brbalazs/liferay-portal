@@ -2,7 +2,7 @@ import Button from 'shared/components/Button';
 import Chip from 'shared/components/Chip';
 import EventDropdown from './EventDropdown';
 import React from 'react';
-import {Event} from '../types';
+import {Event} from 'event-analysis/utils/types';
 
 interface IEventChipProps {
 	event: Event;

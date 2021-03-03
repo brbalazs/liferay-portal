@@ -4,8 +4,8 @@ import React from 'react';
 import {
 	createNumberBreakdown,
 	NUMBER_OPERATOR_LONGHAND_LABELS_MAP
-} from '../../../utils';
-import {IFilterProps, Operators} from '../../../types';
+} from 'event-analysis/utils/utils';
+import {IFilterProps, Operators} from 'event-analysis/utils/types';
 import {sub} from 'shared/util/lang';
 
 const DEFAULT_NUMBER_BIN = 10;

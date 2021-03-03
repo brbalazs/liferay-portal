@@ -4,7 +4,7 @@ import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuer
 import React, {useState} from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
-import {Event, EventTypes} from '../types';
+import {Event, EventTypes} from 'event-analysis/utils/types';
 import {Modal} from 'shared/types';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
@@ -103,4 +103,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AnalysisDropdown);
+export default connect(
+	null,
+	{close, open}
+)(AnalysisDropdown);

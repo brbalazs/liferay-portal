@@ -1,8 +1,11 @@
 import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import React from 'react';
-import {BOOLEAN_LABEL_MAP, createBooleanBreakdown} from '../../../utils';
-import {IFilterProps, Operators} from '../../../types';
+import {
+	BOOLEAN_LABEL_MAP,
+	createBooleanBreakdown
+} from 'event-analysis/utils/utils';
+import {IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const BOOLEAN_OPTIONS = ['true', 'false'];
 

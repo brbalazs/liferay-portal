@@ -4,10 +4,15 @@ import Chip from 'shared/components/Chip';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {useEffect, useRef, useState} from 'react';
-import {Attribute, Breakdown, DataTypes, Filter} from '../types';
+import {
+	Attribute,
+	Breakdown,
+	DataTypes,
+	Filter
+} from 'event-analysis/utils/types';
 import {DeleteAttribute, EditAttribute} from '../context/attributes';
 import {DropTargetMonitor, useDrag, useDrop} from 'react-dnd';
-import {getBreakdownDisplay} from '../utils';
+import {getBreakdownDisplay} from 'event-analysis/utils/utils';
 import {mergeRef} from 'shared/util/util';
 
 const HOVER_TYPES = {

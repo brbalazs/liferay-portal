@@ -1,7 +1,7 @@
 import Button from 'shared/components/Button';
 import Label from 'shared/components/Label';
 import React from 'react';
-import {DataTypes} from '../types';
+import {DataTypes} from 'event-analysis/utils/types';
 
 interface IFilterInfoProps {
 	dataType: DataTypes;

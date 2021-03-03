@@ -4,9 +4,9 @@ import React from 'react';
 import {
 	createDurationBreakdown,
 	DURATION_OPERATOR_LONGHAND_LABELS_MAP
-} from '../../../utils';
+} from 'event-analysis/utils/utils';
 import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
-import {IFilterProps, Operators} from '../../../types';
+import {IFilterProps, Operators} from 'event-analysis/utils/types';
 import {sub} from 'shared/util/lang';
 
 const DEFAULT_DURATION_BIN = 60000;

@@ -2,7 +2,7 @@ import ClayDropdown from '@clayui/drop-down';
 import ListItem from './ListItem';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
-import {Attribute, Breakdown, Event, Filter} from '../../types';
+import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
 import {spritemap} from 'shared/util/constants';
 
 interface ISearchableListProps {

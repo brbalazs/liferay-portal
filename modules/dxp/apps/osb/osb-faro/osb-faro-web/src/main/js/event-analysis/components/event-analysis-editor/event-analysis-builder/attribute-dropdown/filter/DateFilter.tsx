@@ -8,8 +8,12 @@ import {
 	createDateBreakdown,
 	DATE_GROUPING_LABELS_MAP,
 	DATE_OPERATOR_LONGHAND_LABELS_MAP
-} from '../../../utils';
-import {DateGroupings, IFilterProps, Operators} from '../../../types';
+} from 'event-analysis/utils/utils';
+import {
+	DateGroupings,
+	IFilterProps,
+	Operators
+} from 'event-analysis/utils/types';
 import {sub} from 'shared/util/lang';
 
 const DATE_GROUPING_OPTIONS = [

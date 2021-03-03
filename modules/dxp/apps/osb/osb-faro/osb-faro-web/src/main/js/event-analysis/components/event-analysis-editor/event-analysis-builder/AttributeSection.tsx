@@ -10,7 +10,7 @@ import {
 	MoveAttribute,
 	withAttributesConsumer
 } from '../context/attributes';
-import {Attributes, Breakdowns, Filters} from '../types';
+import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
 const MAX_ATTRIBUTES = 3;

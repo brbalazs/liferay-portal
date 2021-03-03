@@ -4,8 +4,8 @@ import React from 'react';
 import {
 	createStringBreakdown,
 	STRING_OPERATOR_LABELS_MAP
-} from '../../../utils';
-import {IFilterProps, Operators} from '../../../types';
+} from 'event-analysis/utils/utils';
+import {IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const STRING_OPTIONS = [
 	Operators.Contains,
