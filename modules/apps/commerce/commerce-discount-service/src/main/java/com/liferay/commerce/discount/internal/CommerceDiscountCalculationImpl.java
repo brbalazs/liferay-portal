@@ -205,12 +205,10 @@ public class CommerceDiscountCalculationImpl
 
 		BigDecimal[] values = new BigDecimal[4];
 
-		if (commerceDiscount.isUsePercentage()) {
-			values[0] = commerceDiscount.getLevel1();
-			values[1] = commerceDiscount.getLevel2();
-			values[2] = commerceDiscount.getLevel3();
-			values[3] = commerceDiscount.getLevel4();
-		}
+		values[0] = commerceDiscount.getLevel1();
+		values[1] = commerceDiscount.getLevel2();
+		values[2] = commerceDiscount.getLevel3();
+		values[3] = commerceDiscount.getLevel4();
 
 		BigDecimal currentDiscountAmount = BigDecimal.ZERO;
 
