@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -314,6 +315,15 @@ public abstract class BaseEngineClient {
 	protected String getEngineURL(FaroProject faroProject) {
 		if (Validator.isNotNull(_engineURL)) {
 			return _engineURL;
+		}
+
+		if (faroProject.isSharedCluster()) {
+			try {
+				return EngineServiceURLUtil.getBackendExternalURL(faroProject);
+			}
+			catch (URISyntaxException e) {
+				_log.error(e, e);
+			}
 		}
 
 		if (faroProject.isTrial() &&
