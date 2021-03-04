@@ -40,15 +40,11 @@ const {
 const BASE_TIMESTAMP = 1531263666366;
 
 export function getTimestamp(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP)
-		.add(change, unit)
-		.valueOf();
+	return moment(BASE_TIMESTAMP).add(change, unit).valueOf();
 }
 
 export function getDate(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP)
-		.add(change, unit)
-		.toDate();
+	return moment(BASE_TIMESTAMP).add(change, unit).toDate();
 }
 
 export function getImmutableMock(Record, mockFn, id, config) {
@@ -856,6 +852,30 @@ export function mockAddOns() {
 			price: 250
 		}
 	];
+}
+
+export function mockEventAttributeDefinition(seed = 0, data = {}) {
+	return {
+		dataType: 'string',
+		description: null,
+		displayName: null,
+		id: seed,
+		name: `name-${seed}`,
+		sampleValue: `samplevalue-${seed}`,
+		...data
+	};
+}
+
+export function mockEventDefinition(seed = 0, data = {}) {
+	return {
+		description: null,
+		displayName: null,
+		eventAttributeDefinitions: [mockEventAttributeDefinition(1)],
+		id: String(seed),
+		name: `name-${seed}`,
+		type: 'default',
+		...data
+	};
 }
 
 export function mockPlan({data = {}, individuals = {}, pageViews = {}} = {}) {

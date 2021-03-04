@@ -1,68 +1,69 @@
+import Constants from 'shared/util/constants';
+import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuery';
 import React from 'react';
 import {eventListColumns} from 'shared/util/table-columns';
+import {EventTypes} from 'event-analysis/utils/types';
+import {get} from 'lodash';
+import {NAME} from 'shared/util/pagination';
+import {useQuery} from '@apollo/react-hooks';
 import {withBaseResults} from 'shared/hoc';
 
-// TODO: LRAC-7329 Use the graphql query instead of mocked data
-const withData = () => WrapperComponent => props => (
-	<WrapperComponent {...props}></WrapperComponent>
-);
+const {
+	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
+} = Constants;
 
-const TableWithData = withBaseResults(withData, {
-	emptyDescription:
-		'visit-our-documentation-to-learn-how-to-add-custom-events-on-your-site',
-	emptyTitle: 'create-some-custom-events',
+const withData = () => WrapperComponent => ({
+	customEvent = false,
+	delta = defaultDelta,
+	orderBy,
+	orderByField,
+	page = defaultPage,
+	query,
+	...otherProps
+}) => {
+	const {data, error, loading} = useQuery(EVENT_DEFINITIONS_QUERY, {
+		variables: {
+			eventType: customEvent ? EventTypes.Custom : EventTypes.Default,
+			keyword: query,
+			page: Number(page) - 1,
+			size: delta,
+			sort: {
+				column: orderByField,
+				type: orderBy.toUpperCase()
+			}
+		}
+	});
+
+	return (
+		<WrapperComponent
+			{...otherProps}
+			delta={delta}
+			error={error}
+			items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
+			loading={loading}
+			noResultsProps={{
+				icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
+			}}
+			page={page}
+			query={query}
+			total={get(data, ['eventDefinitions', 'total'], 0)}
+		/>
+	);
+};
+
+const EventList = withBaseResults(withData, {
+	defaultOrderBy: orderDefault,
+	defaultOrderByField: NAME,
+	emptyDescription: Liferay.Language.get(
+		'visit-our-documentation-to-learn-how-to-add-custom-events-on-your-site'
+	),
+	emptyTitle: Liferay.Language.get('create-some-custom-events'),
 	getColumns: ({channelId, groupId}) => [
 		eventListColumns.getName({channelId, groupId}),
 		eventListColumns.displayName,
 		eventListColumns.description
 	],
-	rowIdentifier: 'eventId',
+	rowIdentifier: 'id',
 	showDropdownRangeKey: false
 });
-
-interface IEventListProps {
-	customEvents: boolean;
-}
-
-const EventList: React.FC<IEventListProps> = ({
-	customEvents = false,
-	...props
-}) => {
-	// TODO: LRAC-7329 Get rid of this hardcoded mocked items
-	let MOCKED_ITEMS = [
-		{
-			description: 'mydescription',
-			displayName: 'displayNamehere',
-			eventId: '3345',
-			eventType: 'DEFAULT',
-			name: 'firstTest'
-		},
-		{
-			description: 'seconddescription',
-			displayName: 'seconddisplay',
-			eventId: '3356',
-			eventType: 'DEFAULT',
-			name: 'testingtest'
-		},
-		{
-			description: 'mydescription',
-			displayName: 'displayNamehere',
-			eventId: '3357',
-			eventType: 'DEFAULT',
-			name: 'anothernamet'
-		}
-	];
-
-	if (customEvents) {
-		// TODO: LRAC-7329 modify query to fetch only custom events
-		MOCKED_ITEMS = MOCKED_ITEMS.map(item => ({
-			...item,
-			displayName: `${item.displayName}CUSTOM`,
-			eventType: 'CUSTOM'
-		}));
-	}
-
-	return <TableWithData {...props} items={MOCKED_ITEMS} />;
-};
-
 export default EventList;

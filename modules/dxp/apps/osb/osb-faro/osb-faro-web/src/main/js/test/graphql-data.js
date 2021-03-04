@@ -1,3 +1,5 @@
+import EventAttributeDefinitionsQuery from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
@@ -426,6 +428,59 @@ export function mockDXPEntitiesBag(entityName, items) {
 				...item
 			})),
 			total: items.length
+		}
+	};
+}
+
+export function mockEventAttributeDefinitionsReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: EventAttributeDefinitionsQuery,
+			variables: {
+				page: 0,
+				size: items.length,
+				sort: {
+					column: 'name',
+					type: 'ASC'
+				},
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventAttributeDefinitions: {
+					__typename: 'EventAttributeDefinitionBag',
+					eventAttributeDefinitions: items,
+					total: items.length
+				}
+			}
+		}
+	};
+}
+
+export function mockEventDefinitionsReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: EventDefinitionsQuery,
+			variables: {
+				eventType: 'default',
+				page: 0,
+				size: items.length,
+				sort: {
+					column: 'name',
+					type: 'ASC'
+				},
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventDefinitions: {
+					__typename: 'EventDefinitionBag',
+					eventDefinitions: items,
+					total: items.length
+				}
+			}
 		}
 	};
 }

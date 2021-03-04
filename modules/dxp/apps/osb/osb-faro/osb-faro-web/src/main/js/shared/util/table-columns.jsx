@@ -346,6 +346,7 @@ export const detailsListColumns = {
 export const eventListColumns = {
 	description: {
 		accessor: 'description',
+		className: 'table-cell-expand text-truncate',
 		label: Liferay.Language.get('description'),
 		sortable: false
 	},
