@@ -56,6 +56,14 @@ public class CommercePriceListChannelRelServiceUtil {
 			commercePriceListChannelRelId);
 	}
 
+	public static void deleteCommercePriceListChannelRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws PortalException {
+
+		getService().deleteCommercePriceListChannelRelsByCommercePriceListId(
+			commercePriceListId);
+	}
+
 	public static CommercePriceListChannelRel fetchCommercePriceListChannelRel(
 			long commerceChannelId, long commercePriceListId)
 		throws PortalException {
