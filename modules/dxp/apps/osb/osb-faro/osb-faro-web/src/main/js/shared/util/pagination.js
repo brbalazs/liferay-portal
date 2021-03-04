@@ -26,6 +26,7 @@ export const DATE_CHANGED = 'dateChanged';
 export const DATE_CREATED = 'dateCreated';
 export const DATE_FIRST = 'dateFirst';
 export const DATE_RECORDED = 'dateRecorded';
+export const DISPLAY_NAME = 'displayName';
 export const DOWNLOADS_METRIC = 'downloadsMetric';
 export const EMAIL_ADDRESS = 'emailAddress';
 export const ENTRANCES_METRIC = 'entrancesMetric';

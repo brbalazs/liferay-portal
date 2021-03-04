@@ -13,6 +13,7 @@ export default gql`
 				displayName
 				id
 				name
+				sampleValue
 			}
 			total
 		}

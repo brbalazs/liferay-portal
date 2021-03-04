@@ -14,6 +14,7 @@ const defaultHOC = WrappedComponent => props => <WrappedComponent {...props} />;
 
 const withBaseResults = (withData, configs) => {
 	const {
+		defaultOrderBy,
 		defaultOrderByField,
 		disableSearch = false,
 		emptyDescription,
@@ -61,6 +62,7 @@ const withBaseResults = (withData, configs) => {
 			const delta = router ? router.query.delta : otherProps.delta;
 			const orderBy =
 				(router ? router.query.orderBy : otherProps.orderBy) ||
+				defaultOrderBy ||
 				orderDescending;
 			const orderByField =
 				(router

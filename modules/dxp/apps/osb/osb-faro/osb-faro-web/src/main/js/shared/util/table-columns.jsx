@@ -131,20 +131,22 @@ export const assetsListColumns = {
  * Attribute List Columns
  */
 
-export const attributesColumns = {
+export const attributeListColumns = {
 	dataType: {
 		accessor: 'dataType',
 		cellRenderer: ({data: {dataType}}) => (
 			<td>
-				<Label display='primary' uppercase>
+				<Label display='info' size='lg' uppercase>
 					{dataType}
 				</Label>
 			</td>
 		),
-		label: Liferay.Language.get('data-typecast')
+		label: Liferay.Language.get('data-typecast'),
+		sortable: false
 	},
 	description: {
 		accessor: 'description',
+		className: 'table-cell-expand text-truncate',
 		dataFormatter: value =>
 			value || <i>{Liferay.Language.get('no-description')}</i>,
 		label: Liferay.Language.get('description'),
@@ -158,9 +160,9 @@ export const attributesColumns = {
 		accessor: 'name',
 		cellRenderer: NameCell,
 		cellRendererProps: {
-			routeFn: ({data: {attributeId}}) =>
+			routeFn: ({data: {id}}) =>
 				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
-					attributeId,
+					attributeId: id,
 					channelId,
 					groupId
 				})
@@ -173,7 +175,8 @@ export const attributesColumns = {
 	},
 	sampleValue: {
 		accessor: 'sampleValue',
-		label: Liferay.Language.get('sample-value')
+		label: Liferay.Language.get('sample-value'),
+		sortable: false
 	}
 };
 
@@ -354,10 +357,10 @@ export const eventListColumns = {
 		accessor: 'name',
 		cellRenderer: NameCell,
 		cellRendererProps: {
-			routeFn: ({data: {eventId}}) =>
+			routeFn: ({data: {id}}) =>
 				toRoute(Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW, {
 					channelId,
-					eventId,
+					eventId: id,
 					groupId
 				})
 		},

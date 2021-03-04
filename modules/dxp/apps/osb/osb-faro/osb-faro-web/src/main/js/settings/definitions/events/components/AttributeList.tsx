@@ -1,47 +1,67 @@
+import Constants from 'shared/util/constants';
+import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React from 'react';
-import {attributesColumns} from 'shared/util/table-columns';
+import {attributeListColumns} from 'shared/util/table-columns';
+import {get} from 'lodash';
+import {NAME} from 'shared/util/pagination';
+import {useQuery} from '@apollo/react-hooks';
 import {withBaseResults} from 'shared/hoc';
 
-// TODO: LRAC-7330 Use the graphql query instead of mocked data
-const withData = () => WrapperComponent => props => {
-	const MOCKED_ITEMS = [
-		{
-			attributeId: '1',
-			dataType: 'TYPE',
-			description: 'mydescription',
-			displayName: 'displayNamehere',
-			name: 'firstTest',
-			sampleValue: '1'
-		},
-		{
-			attributeId: '2',
-			dataType: 'TYPE2',
-			description: 'seconddescription',
-			displayName: 'seconddisplay',
-			name: 'testingtest',
-			sampleValue: '2'
-		},
-		{
-			attributeId: '3',
-			dataType: 'TYPE3',
-			description: 'mydescription',
-			displayName: 'displayNamehere',
-			name: 'anothernamet',
-			sampleValue: '3'
+const {
+	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
+} = Constants;
+
+const withData = () => WrapperComponent => ({
+	delta = defaultDelta,
+	orderBy,
+	orderByField,
+	page = defaultPage,
+	query,
+	...otherProps
+}) => {
+	const {data, error, loading} = useQuery(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+		variables: {
+			keyword: query,
+			page: Number(page) - 1,
+			size: delta,
+			sort: {
+				column: orderByField,
+				type: orderBy.toUpperCase()
+			}
 		}
-	];
-	return <WrapperComponent {...props} items={MOCKED_ITEMS} />;
+	});
+
+	return (
+		<WrapperComponent
+			{...otherProps}
+			delta={delta}
+			entityLabel={Liferay.Language.get('attributes').toLowerCase()}
+			error={error}
+			items={get(
+				data,
+				['eventAttributeDefinitions', 'eventAttributeDefinitions'],
+				[]
+			)}
+			loading={loading}
+			page={page}
+			query={query}
+			total={get(data, ['eventAttributeDefinitions', 'total'], 0)}
+		/>
+	);
 };
 
 const AttributeList = withBaseResults(withData, {
+	defaultOrderBy: orderDefault,
+	defaultOrderByField: NAME,
+	emptyTitle: Liferay.Language.get('empty-title-pages'),
 	getColumns: ({channelId, groupId}) => [
-		attributesColumns.getName({channelId, groupId}),
-		attributesColumns.displayName,
-		attributesColumns.description,
-		attributesColumns.sampleValue,
-		attributesColumns.dataType
+		attributeListColumns.getName({channelId, groupId}),
+		attributeListColumns.displayName,
+		attributeListColumns.description,
+		attributeListColumns.sampleValue,
+		attributeListColumns.dataType
 	],
-	rowIdentifier: 'attributeId',
+	rowIdentifier: 'id',
 	showDropdownRangeKey: false
 });
 
