@@ -80,7 +80,7 @@ public class LiferayExperimentsDataCreator extends DataCreator {
 		experiment.put("status", "RUNNING");
 		experiment.put("type", "AB");
 		experiment.put(
-			"variants",
+			"dxpVariants",
 			Arrays.asList(
 				new HashMap() {
 					{
