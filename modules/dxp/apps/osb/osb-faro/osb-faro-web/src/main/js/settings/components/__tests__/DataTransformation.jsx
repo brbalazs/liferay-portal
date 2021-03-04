@@ -128,7 +128,7 @@ describe('DataTransformation', () => {
 		expect(queryByText('TestNo default match')).toBeFalsy();
 	});
 
-	it('should render w/ the done button disabled if there are duplicate SCV field mappings', () => {
+	it('should render w/ the done button disabled if there are duplicate CSV field mappings', () => {
 		API.dataSource.fetchMappings.mockReturnValue(
 			Promise.resolve([
 				mockMapping('Has default match 1', {

@@ -16,7 +16,7 @@ exports[`CreateMappingModal should render 1`] = `
         <h4
           class="modal-title"
         >
-          Create New SCV Field
+          Create New CSV Field
         </h4>
         <button
           class="button-root btn btn-secondary close"

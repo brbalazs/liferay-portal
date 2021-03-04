@@ -109,7 +109,7 @@ class CreateMappingModal extends React.Component {
 			>
 				<Modal.Header
 					onClose={onClose}
-					title={Liferay.Language.get('create-new-scv-field')}
+					title={Liferay.Language.get('create-new-csv-field')}
 				/>
 
 				<Form
