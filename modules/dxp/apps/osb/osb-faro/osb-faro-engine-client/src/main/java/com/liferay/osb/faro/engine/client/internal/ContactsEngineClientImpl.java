@@ -941,11 +941,7 @@ public class ContactsEngineClientImpl
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, orderByFields);
 
-		FilterBuilder filterBuilder = new FilterBuilder();
-
-		filterBuilder.addSearchFilter(query, "keyword.raw");
-
-		uriVariables.put("filter", filterBuilder.build());
+		uriVariables.put("keyword", query);
 
 		PagedResources pagedResources = get(
 			faroProject, Rels.BLOCKED_KEYWORDS,

@@ -50,10 +50,7 @@ function fetchBlockedKeywords({
 		groupId,
 		orderByFields: [
 			{
-				fieldName:
-					orderByField === KEYWORD
-						? `${orderByField}.raw`
-						: orderByField,
+				fieldName: orderByField,
 				orderBy
 			}
 		],
