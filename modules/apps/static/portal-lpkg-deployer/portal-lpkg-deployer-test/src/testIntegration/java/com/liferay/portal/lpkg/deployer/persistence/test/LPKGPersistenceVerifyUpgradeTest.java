@@ -59,7 +59,6 @@ public class LPKGPersistenceVerifyUpgradeTest {
 		}
 
 		Assert.assertNotNull(jarBundle);
-
 		Assert.assertEquals(Bundle.ACTIVE, jarBundle.getState());
 
 		Version version = new Version(2, 0, 0);
@@ -67,9 +66,7 @@ public class LPKGPersistenceVerifyUpgradeTest {
 		Assert.assertEquals(version, jarBundle.getVersion());
 
 		Assert.assertNotNull(lpkgBundle);
-
 		Assert.assertEquals(Bundle.ACTIVE, lpkgBundle.getState());
-
 		Assert.assertEquals(version, lpkgBundle.getVersion());
 	}
 
