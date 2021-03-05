@@ -62,24 +62,6 @@ public class LiferayExperimentsDataCreator extends DataCreator {
 		experiment.put("dxpSegmentId", "DEFAULT");
 		experiment.put("dxpSegmentName", "Anyone");
 		experiment.put(
-			"goal",
-			new HashMap<String, String>() {
-				{
-					put("metric", "BOUNCE_RATE");
-					put("target", "");
-				}
-			});
-		experiment.put("modifiedDate", dateString);
-
-		Map<String, Object> pageContext = (Map<String, Object>)params[0];
-
-		experiment.put("name", pageContext.get("title") + " Testing");
-		experiment.put("pageURL", pageContext.get("canonicalUrl"));
-
-		experiment.put("startedDate", dateString);
-		experiment.put("status", "RUNNING");
-		experiment.put("type", "AB");
-		experiment.put(
 			"dxpVariants",
 			Arrays.asList(
 				new HashMap() {
@@ -113,6 +95,24 @@ public class LiferayExperimentsDataCreator extends DataCreator {
 						put("trafficSplit", 33);
 					}
 				}));
+		experiment.put(
+			"goal",
+			new HashMap<String, String>() {
+				{
+					put("metric", "BOUNCE_RATE");
+					put("target", "");
+				}
+			});
+		experiment.put("modifiedDate", dateString);
+
+		Map<String, Object> pageContext = (Map<String, Object>)params[0];
+
+		experiment.put("name", pageContext.get("title") + " Testing");
+		experiment.put("pageURL", pageContext.get("canonicalUrl"));
+
+		experiment.put("startedDate", dateString);
+		experiment.put("status", "RUNNING");
+		experiment.put("type", "AB");
 
 		return experiment;
 	}
