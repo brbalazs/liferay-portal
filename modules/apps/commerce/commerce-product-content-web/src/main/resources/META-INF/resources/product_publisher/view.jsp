@@ -47,9 +47,9 @@ SearchContainer searchContainer = cpPublisherDisplayContext.getSearchContainer()
 	</c:when>
 	<c:when test="<%= cpPublisherDisplayContext.isRenderSelectionCustomRenderer() %>">
 		<liferay-commerce-product:product-list-renderer
-			CPDataSourceResult = "<%= cpPublisherDisplayContext.getCPDataSourceResult() %>"
-			entryKeys = "<%= cpPublisherDisplayContext.getCPContentListEntryRendererKeys() %>"
-			key = "<%= cpPublisherDisplayContext.getCPContentListRendererKey() %>"
+			CPDataSourceResult="<%= cpPublisherDisplayContext.getCPDataSourceResult() %>"
+			entryKeys="<%= cpPublisherDisplayContext.getCPContentListEntryRendererKeys() %>"
+			key="<%= cpPublisherDisplayContext.getCPContentListRendererKey() %>"
 		/>
 
 		<c:if test="<%= cpPublisherDisplayContext.isPaginate() %>">

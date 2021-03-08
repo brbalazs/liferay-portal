@@ -32,12 +32,15 @@ String productContentId = renderResponse.getNamespace() + cpCatalogEntry.getCPDe
 String quantityInputId = renderResponse.getNamespace() + cpCatalogEntry.getCPDefinitionId() + "Quantity";
 %>
 
-<liferay-commerce:quantity-input CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>" useSelect="<%= true %>" />
+<liferay-commerce:quantity-input
+	CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>"
+	useSelect="<%= true %>"
+/>
 
 <liferay-commerce-cart:add-to-cart
 	CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>"
 	CPInstanceId="<%= cpInstanceId %>"
-	elementClasses="btn-lg btn-default"
-	productContentId='<%= productContentId %>'
-	taglibQuantityInputId='<%= quantityInputId %>'
+	elementClasses="btn-default btn-lg"
+	productContentId="<%= productContentId %>"
+	taglibQuantityInputId="<%= quantityInputId %>"
 />
