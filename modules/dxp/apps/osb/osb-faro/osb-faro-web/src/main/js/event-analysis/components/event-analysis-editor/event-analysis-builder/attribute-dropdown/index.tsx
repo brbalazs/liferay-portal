@@ -1,5 +1,6 @@
 import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
+import Constants from 'shared/util/constants';
 import EVENT_ATTRIBUTE_DEFINITION_QUERY from 'event-analysis/queries/EventAttributeDefinitionQuery';
 import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
@@ -9,8 +10,13 @@ import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Modal} from 'shared/types';
+import {NAME} from 'shared/util/pagination';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
+
+const {
+	pagination: {orderDefault}
+} = Constants;
 
 interface IAttributeDropdownProps {
 	attribute?: Attribute;
@@ -43,7 +49,11 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 		variables: {
 			keyword: '',
 			page: 0,
-			size: 200
+			size: 200,
+			sort: {
+				column: NAME,
+				type: orderDefault.toUpperCase()
+			}
 		}
 	});
 
@@ -175,7 +185,4 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AttributeDropdown);
+export default connect(null, {close, open})(AttributeDropdown);

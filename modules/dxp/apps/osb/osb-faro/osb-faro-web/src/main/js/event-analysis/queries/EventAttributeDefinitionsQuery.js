@@ -5,8 +5,14 @@ export default gql`
 		$keyword: String
 		$page: Int!
 		$size: Int!
+		$sort: Sort!
 	) {
-		eventAttributeDefinitions(keyword: $keyword, page: $page, size: $size) {
+		eventAttributeDefinitions(
+			keyword: $keyword
+			page: $page
+			size: $size
+			sort: $sort
+		) {
 			eventAttributeDefinitions {
 				dataType
 				description

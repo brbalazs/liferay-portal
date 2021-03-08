@@ -6,12 +6,14 @@ export default gql`
 		$keyword: String
 		$page: Int!
 		$size: Int!
+		$sort: Sort!
 	) {
 		eventDefinitions(
 			eventType: $eventType
 			keyword: $keyword
 			page: $page
 			size: $size
+			sort: $sort
 		) {
 			eventDefinitions {
 				description

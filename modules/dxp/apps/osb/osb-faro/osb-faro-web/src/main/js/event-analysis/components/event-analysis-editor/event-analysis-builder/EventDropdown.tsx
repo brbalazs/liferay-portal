@@ -1,4 +1,5 @@
 import BaseDropdown from './base-dropdown';
+import Constants from 'shared/util/constants';
 import EVENT_DEFINITION_QUERY from 'event-analysis/queries/EventDefinitionQuery';
 import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuery';
 import React, {useState} from 'react';
@@ -6,8 +7,13 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Event, EventTypes} from 'event-analysis/utils/types';
 import {Modal} from 'shared/types';
+import {NAME} from 'shared/util/pagination';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
+
+const {
+	pagination: {orderDefault}
+} = Constants;
 
 interface IAnalysisDropdownProps {
 	close: Modal.close;
@@ -32,7 +38,11 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 			eventType,
 			keyword: '',
 			page: 0,
-			size: 200
+			size: 200,
+			sort: {
+				column: NAME,
+				type: orderDefault.toUpperCase()
+			}
 		}
 	});
 
@@ -103,7 +113,4 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AnalysisDropdown);
+export default connect(null, {close, open})(AnalysisDropdown);
