@@ -54,8 +54,8 @@ interface Action extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 interface IPageActionsProps {
-	actions: Action[];
-	actionsDisplayLimit: number;
+	actions?: Action[];
+	actionsDisplayLimit?: number;
 	label?: string;
 }
 
