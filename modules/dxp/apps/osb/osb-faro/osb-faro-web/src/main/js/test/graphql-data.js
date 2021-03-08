@@ -1,4 +1,8 @@
+import EventAttributeDefinitionQuery, {
+	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
+} from 'event-analysis/queries/EventAttributeDefinitionQuery';
 import EventAttributeDefinitionsQuery from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import EventDefinitionQuery from 'event-analysis/queries/EventDefinitionQuery';
 import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
@@ -432,6 +436,47 @@ export function mockDXPEntitiesBag(entityName, items) {
 	};
 }
 
+export function mockEventAttributeDefinitionReq(item, mockVariables = {}) {
+	return {
+		request: {
+			query: EventAttributeDefinitionQuery,
+			variables: {
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventAttributeDefinition: {
+					__typename: 'EventAttributeDefinition',
+					...item
+				}
+			}
+		}
+	};
+}
+
+export function mockEventAttributeDefinitionWithRecentValuesReq(
+	item,
+	mockVariables = {}
+) {
+	return {
+		request: {
+			query: EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY,
+			variables: {
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventAttributeDefinition: {
+					__typename: 'EventAttributeDefinition',
+					...item
+				}
+			}
+		}
+	};
+}
+
 export function mockEventAttributeDefinitionsReq(items, mockVariables = {}) {
 	return {
 		request: {
@@ -452,6 +497,25 @@ export function mockEventAttributeDefinitionsReq(items, mockVariables = {}) {
 					__typename: 'EventAttributeDefinitionBag',
 					eventAttributeDefinitions: items,
 					total: items.length
+				}
+			}
+		}
+	};
+}
+
+export function mockEventDefinitionReq(item, mockVariables = {}) {
+	return {
+		request: {
+			query: EventDefinitionQuery,
+			variables: {
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventDefinition: {
+					__typename: 'EventDefinition',
+					...item
 				}
 			}
 		}

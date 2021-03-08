@@ -46,6 +46,10 @@ export type Attribute = {
 	displayName?: string;
 	id: string;
 	name: string;
+	recentValues?: {
+		lastSeenDate: string;
+		value: string;
+	}[];
 	sampleValue?: string;
 };
 

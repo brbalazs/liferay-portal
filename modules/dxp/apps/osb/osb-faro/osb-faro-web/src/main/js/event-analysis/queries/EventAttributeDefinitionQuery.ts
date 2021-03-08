@@ -1,4 +1,15 @@
+import {Attribute} from '../utils/types';
 import {gql} from 'apollo-boost';
+
+export interface EventAttributeDefinitionData {
+	eventDefinition: Attribute[];
+	total: number;
+}
+
+export interface EventAttributeDefinitionVariables {
+	displayName?: string;
+	id?: string;
+}
 
 export default gql`
 	query EventAttributeDefinition($displayName: String, $id: String) {
