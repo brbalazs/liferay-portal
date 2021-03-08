@@ -14,12 +14,12 @@
 
 package com.liferay.portal.service.impl;
 
+import com.liferay.expando.kernel.model.ExpandoRow;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.exportimport.kernel.lar.MissingReferences;
 import com.liferay.exportimport.kernel.model.ExportImportConfiguration;
 import com.liferay.exportimport.kernel.staging.MergeLayoutPrototypesThreadLocal;
-import com.liferay.expando.kernel.model.ExpandoRow;
-import com.liferay.expando.kernel.model.ExpandoTableConstants;
 import com.liferay.layouts.admin.kernel.model.LayoutTypePortletConstants;
 import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
@@ -545,15 +545,15 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		// Expando
 
 		List<ExpandoRow> rows = expandoRowLocalService.getRows(
-				layout.getCompanyId(), Layout.class.getName(),
-				ExpandoTableConstants.DEFAULT_TABLE_NAME, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
+			layout.getCompanyId(), Layout.class.getName(),
+			ExpandoTableConstants.DEFAULT_TABLE_NAME, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
 
-			for (ExpandoRow row : rows) {
-				if (row.getClassPK() == layout.getPlid()) {
-					expandoRowLocalService.deleteRow(row);
-				}
+		for (ExpandoRow row : rows) {
+			if (row.getClassPK() == layout.getPlid()) {
+				expandoRowLocalService.deleteRow(row);
 			}
+		}
 
 		// Icon
 
