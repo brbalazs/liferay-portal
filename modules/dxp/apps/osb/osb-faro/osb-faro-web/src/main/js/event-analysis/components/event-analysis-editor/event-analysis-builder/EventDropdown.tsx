@@ -113,4 +113,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AnalysisDropdown);
+export default connect(
+	null,
+	{close, open}
+)(AnalysisDropdown);

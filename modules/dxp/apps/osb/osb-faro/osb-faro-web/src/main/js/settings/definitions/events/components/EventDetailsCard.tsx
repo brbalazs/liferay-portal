@@ -3,8 +3,8 @@ import CodeSnippet from 'shared/components/CodeSnippet';
 import Label from 'shared/components/form/Label';
 import React, {useEffect, useState} from 'react';
 import Table from 'shared/components/table';
-import {Attribute} from 'event-analysis/components/event-analysis-editor/types';
-import {attributesColumns} from 'shared/util/table-columns';
+import {Attribute} from 'event-analysis/utils/types';
+import {attributeListColumns} from 'shared/util/table-columns';
 import {Map, OrderedMap} from 'immutable';
 
 // TODO: LRAC-7486 Use eventId to fetch related attributes
@@ -114,14 +114,14 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 			<Table
 				className='mb-0'
 				columns={[
-					attributesColumns.getName({
+					attributeListColumns.getName({
 						channelId: 'channelId',
 						groupId
 					}),
-					attributesColumns.displayName,
-					attributesColumns.description,
-					attributesColumns.sampleValue,
-					attributesColumns.defaultDataType
+					attributeListColumns.displayName,
+					attributeListColumns.description,
+					attributeListColumns.sampleValue,
+					attributeListColumns.defaultDataType
 				].map(column => ({...column, sortable: false}))}
 				items={MOCKED_ATTRIBUTES}
 				onSelectItemsChange={selectedAttribute =>
