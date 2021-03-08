@@ -160,6 +160,11 @@ public class ExpandoRowLocalServiceWrapper
 	}
 
 	@Override
+	public void deleteRows(long companyId, long classNameId, long classPK) {
+		_expandoRowLocalService.deleteRows(companyId, classNameId, classPK);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _expandoRowLocalService.dynamicQuery();
 	}
