@@ -2,12 +2,13 @@ import com.liferay.gradle.util.copy.StripPathSegmentsAction
 
 task buildClay(type: Copy)
 task buildJQuery(type: Copy)
-task buildJQueryPluginsForm
+task buildJQueryForm(type: Copy)
 task buildLiferayAMDLoader(type: Copy)
 task buildLodash(type: Copy)
 task buildSvg4everybody(type: Copy)
 
 File jsDestinationDir = file("tmp/META-INF/resources")
+File jqueryDestinationDir = new File(jsDestinationDir, "jquery")
 
 buildClay {
 	File clayDestinationDir = new File(jsDestinationDir, "clay")
@@ -27,8 +28,6 @@ buildClay {
 }
 
 buildJQuery {
-	File jqueryDestinationDir = new File(jsDestinationDir, "jquery")
-
 	dependsOn npmInstall
 
 	doFirst {
@@ -43,24 +42,19 @@ buildJQuery {
 	into jqueryDestinationDir
 }
 
-buildJQueryPluginsForm {
-	File jQueryPluginsFormJsFile = file("src/main/resources/META-INF/resources/jquery/form.js")
+buildJQueryForm {
+	dependsOn buildJQuery
 
-	dependsOn npmInstall
+	eachFile new StripPathSegmentsAction(2)
 
-	doLast {
-		String text = file(npmInstall.nodeModulesDir + "/jquery-form/jquery.form.js").text
+	from npmInstall.nodeModulesDir
 
-		text = text.replace("typeof define === 'function'", "false && typeof define === 'function'")
+	include "@liferay/jquery-form/jquery.form.js"
 
-		text = ";(function(jQuery){" + System.getProperty("line.separator") + text + '})(AUI.$);'
+	includeEmptyDirs = false
+	into jqueryDestinationDir
 
-		jQueryPluginsFormJsFile.text = text
-	}
-
-	onlyIf {
-		!jQueryPluginsFormJsFile.exists()
-	}
+	rename "jquery.form.js", "form.js"
 }
 
 buildLiferayAMDLoader {
@@ -117,7 +111,7 @@ buildSvg4everybody {
 classes {
 	dependsOn buildClay
 	dependsOn buildJQuery
-	dependsOn buildJQueryPluginsForm
+	dependsOn buildJQueryForm
 	dependsOn buildLiferayAMDLoader
 	dependsOn buildLodash
 	dependsOn buildSvg4everybody
