@@ -859,7 +859,7 @@ export function mockEventAttributeDefinition(seed = 0, data = {}) {
 		dataType: 'string',
 		description: null,
 		displayName: null,
-		id: seed,
+		id: String(seed),
 		name: `name-${seed}`,
 		sampleValue: `samplevalue-${seed}`,
 		...data

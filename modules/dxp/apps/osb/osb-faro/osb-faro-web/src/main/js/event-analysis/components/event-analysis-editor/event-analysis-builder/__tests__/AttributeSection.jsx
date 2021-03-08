@@ -1,28 +1,36 @@
 import AttributeSection from '../AttributeSection';
+import client from 'shared/apollo/client';
+import mockStore from 'test/mock-store';
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-components';
+import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
 describe('AttributeSection', () => {
+	const WrappedComponent = props => (
+		<ApolloProvider client={client}>
+			<Provider store={mockStore()}>
+				<AttributeSection
+					attributes={[]}
+					breakdowns={[]}
+					filters={[]}
+					{...props}
+				/>
+			</Provider>
+		</ApolloProvider>
+	);
+
 	it('render', () => {
-		const {container} = render(
-			<AttributeSection
-				attributes={[]}
-				breakdowns={[]}
-				filters={[]}
-				onAttributesChange={jest.fn()}
-				onBreakdownsChange={jest.fn()}
-				onFiltersChange={jest.fn()}
-			/>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('render with breakdown & filter', () => {
 		const {container} = render(
-			<AttributeSection
+			<WrappedComponent
 				attributes={[
 					{
 						displayName: 'Article Title',
@@ -54,9 +62,6 @@ describe('AttributeSection', () => {
 						value: ['Stuff']
 					}
 				]}
-				onAttributesChange={jest.fn()}
-				onBreakdownsChange={jest.fn()}
-				onFiltersChange={jest.fn()}
 			/>
 		);
 

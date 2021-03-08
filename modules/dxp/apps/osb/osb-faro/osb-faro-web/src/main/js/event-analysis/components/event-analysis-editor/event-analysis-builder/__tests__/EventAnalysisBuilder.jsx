@@ -1,19 +1,31 @@
+import client from 'shared/apollo/client';
 import EventAnalysisBuilder from '../index';
+import mockStore from 'test/mock-store';
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-components';
+import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
 describe('Event Analysis Builder', () => {
+	const WrappedComponent = props => (
+		<ApolloProvider client={client}>
+			<Provider store={mockStore()}>
+				<EventAnalysisBuilder {...props} />
+			</Provider>
+		</ApolloProvider>
+	);
+
 	it('render', () => {
-		const {container} = render(<EventAnalysisBuilder />);
+		const {container} = render(<WrappedComponent />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('render with filters & breakdowns', () => {
 		const {container} = render(
-			<EventAnalysisBuilder
+			<WrappedComponent
 				attributes={[
 					{
 						id: '321321',
@@ -48,10 +60,7 @@ describe('Event Analysis Builder', () => {
 						value: ['Stuff']
 					}
 				]}
-				onAttributesChange={jest.fn()}
-				onBreakdownsChange={jest.fn()}
 				onEventChange={jest.fn()}
-				onFiltersChange={jest.fn()}
 			/>
 		);
 
