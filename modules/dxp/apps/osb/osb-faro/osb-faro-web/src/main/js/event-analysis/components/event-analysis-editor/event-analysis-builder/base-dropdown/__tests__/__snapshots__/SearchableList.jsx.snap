@@ -42,7 +42,7 @@ exports[`BaseDropdownSearchableList should render 1`] = `
     </div>
   </form>
   <ul
-    class="list-unstyled"
+    class="list-unstyled base-dropdown-list"
   >
     <li>
       <span

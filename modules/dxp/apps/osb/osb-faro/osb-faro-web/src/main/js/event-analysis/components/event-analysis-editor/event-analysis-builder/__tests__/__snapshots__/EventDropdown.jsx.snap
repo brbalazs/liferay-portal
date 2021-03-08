@@ -34,7 +34,7 @@ exports[`EventDropdown render 2`] = `
     >
       <li
         class="card-tab active"
-        data-testid="all"
+        data-testid="ALL"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -50,7 +50,7 @@ exports[`EventDropdown render 2`] = `
       </li>
       <li
         class="card-tab"
-        data-testid="default"
+        data-testid="DEFAULT"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -66,7 +66,7 @@ exports[`EventDropdown render 2`] = `
       </li>
       <li
         class="card-tab"
-        data-testid="custom"
+        data-testid="CUSTOM"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -122,7 +122,7 @@ exports[`EventDropdown render 2`] = `
     </div>
   </form>
   <ul
-    class="list-unstyled"
+    class="list-unstyled base-dropdown-list"
   >
     <li>
       <span
@@ -133,7 +133,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Abandoned Form
+          name-0
         </button>
       </span>
     </li>
@@ -146,7 +146,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Add credit card 
+          name-1
         </button>
       </span>
     </li>
@@ -159,7 +159,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Download
+          name-2
         </button>
       </span>
     </li>
@@ -172,7 +172,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Form Submit
+          name-3
         </button>
       </span>
     </li>
@@ -185,7 +185,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Filed Ticket
+          name-4
         </button>
       </span>
     </li>
@@ -198,7 +198,59 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Read Article
+          name-5
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-6
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-7
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-8
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-9
         </button>
       </span>
     </li>

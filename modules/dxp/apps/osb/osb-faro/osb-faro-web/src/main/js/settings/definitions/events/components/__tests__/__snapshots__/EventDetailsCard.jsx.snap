@@ -38,9 +38,11 @@ exports[`EventDetailsCard should render 1`] = `
           aria-label="Click to Copy"
           class="button-root btn btn-secondary copy-button"
           data-clipboard-text="Analytics.track('viewArticle', {
-	'firstTest': '1',
-	'testingtest': '2',
-	'anothernamet': '3',
+	'name-0': 'samplevalue-0',
+	'name-1': 'samplevalue-1',
+	'name-2': 'samplevalue-2',
+	'name-3': 'samplevalue-3',
+	'name-4': 'samplevalue-4',
 });"
           data-tooltip-response="Copied"
           title="Click to Copy"
@@ -52,9 +54,11 @@ exports[`EventDetailsCard should render 1`] = `
           class="code-container"
         >
           Analytics.track('viewArticle', {
-	'firstTest': '1',
-	'testingtest': '2',
-	'anothernamet': '3',
+	'name-0': 'samplevalue-0',
+	'name-1': 'samplevalue-1',
+	'name-2': 'samplevalue-2',
+	'name-3': 'samplevalue-3',
+	'name-4': 'samplevalue-4',
 });
         </code>
       </div>
@@ -81,7 +85,7 @@ exports[`EventDetailsCard should render 1`] = `
               Display Name
             </th>
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand text-truncate"
             >
               Description
             </th>
@@ -136,9 +140,9 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/4486"
+                      href="/workspace/23/settings/definitions/events/attributes/0"
                     >
-                      firstTest
+                      name-0
                     </a>
                   </div>
                 </div>
@@ -147,26 +151,26 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=""
             >
-              displayNamehere
+              -
+            </td>
+            <td
+              class=" table-cell-expand text-truncate"
+            >
+              -
             </td>
             <td
               class=""
             >
-              mydescription
-            </td>
-            <td
-              class=""
-            >
-              1
+              samplevalue-0
             </td>
             <td>
               <div
-                class="label label-root label-primary label-uppercase"
+                class="label label-root label-info label-lg label-uppercase"
               >
                 <span
                   class="label-item"
                 >
-                  TYPE
+                  string
                 </span>
               </div>
             </td>
@@ -211,9 +215,9 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/4588"
+                      href="/workspace/23/settings/definitions/events/attributes/1"
                     >
-                      testingtest
+                      name-1
                     </a>
                   </div>
                 </div>
@@ -222,26 +226,26 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=""
             >
-              seconddisplay
+              -
+            </td>
+            <td
+              class=" table-cell-expand text-truncate"
+            >
+              -
             </td>
             <td
               class=""
             >
-              seconddescription
-            </td>
-            <td
-              class=""
-            >
-              2
+              samplevalue-1
             </td>
             <td>
               <div
-                class="label label-root label-primary label-uppercase"
+                class="label label-root label-info label-lg label-uppercase"
               >
                 <span
                   class="label-item"
                 >
-                  TYPE2
+                  string
                 </span>
               </div>
             </td>
@@ -286,9 +290,9 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/4581"
+                      href="/workspace/23/settings/definitions/events/attributes/2"
                     >
-                      anothernamet
+                      name-2
                     </a>
                   </div>
                 </div>
@@ -297,28 +301,176 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=""
             >
-              displayNamehere
+              -
+            </td>
+            <td
+              class=" table-cell-expand text-truncate"
+            >
+              -
             </td>
             <td
               class=""
             >
-              <i>
-                No Description
-              </i>
-            </td>
-            <td
-              class=""
-            >
-              3
+              samplevalue-2
             </td>
             <td>
               <div
-                class="label label-root label-primary label-uppercase"
+                class="label label-root label-info label-lg label-uppercase"
               >
                 <span
                   class="label-item"
                 >
-                  TYPE3
+                  string
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="mb-0"
+        >
+          <tr
+            class="clickable table-active"
+          >
+            <td
+              class=""
+            >
+              <div
+                class="custom-control custom-checkbox"
+              >
+                <label>
+                  <input
+                    checked=""
+                    class="custom-control-input"
+                    type="checkbox"
+                    value="true"
+                  />
+                  <span
+                    class="custom-control-label"
+                  />
+                </label>
+              </div>
+            </td>
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/settings/definitions/events/attributes/3"
+                    >
+                      name-3
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              -
+            </td>
+            <td
+              class=" table-cell-expand text-truncate"
+            >
+              -
+            </td>
+            <td
+              class=""
+            >
+              samplevalue-3
+            </td>
+            <td>
+              <div
+                class="label label-root label-info label-lg label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  string
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="mb-0"
+        >
+          <tr
+            class="clickable table-active"
+          >
+            <td
+              class=""
+            >
+              <div
+                class="custom-control custom-checkbox"
+              >
+                <label>
+                  <input
+                    checked=""
+                    class="custom-control-input"
+                    type="checkbox"
+                    value="true"
+                  />
+                  <span
+                    class="custom-control-label"
+                  />
+                </label>
+              </div>
+            </td>
+            <td
+              class="name-cell-root"
+            >
+              <div
+                class="content-container"
+              >
+                <div
+                  class="text-truncate"
+                >
+                  <div
+                    class="table-title text-truncate"
+                  >
+                    <a
+                      class="text-truncate"
+                      href="/workspace/23/settings/definitions/events/attributes/4"
+                    >
+                      name-4
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td
+              class=""
+            >
+              -
+            </td>
+            <td
+              class=" table-cell-expand text-truncate"
+            >
+              -
+            </td>
+            <td
+              class=""
+            >
+              samplevalue-4
+            </td>
+            <td>
+              <div
+                class="label label-root label-info label-lg label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  string
                 </span>
               </div>
             </td>

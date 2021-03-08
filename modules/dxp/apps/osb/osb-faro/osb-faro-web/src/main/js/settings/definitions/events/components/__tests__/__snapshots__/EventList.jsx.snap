@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventList should list only custom events 1`] = `
-<td
-  class=""
->
-  seconddisplayCUSTOM
-</td>
-`;
-
 exports[`EventList should render 1`] = `
 <div>
   <div
@@ -76,12 +68,24 @@ exports[`EventList should render 1`] = `
           >
             <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
-              href="/?orderBy=asc&orderByField=name&page=1"
+              href="/?orderBy=desc&orderByField=name&page=1"
             >
               <span
                 class="text-truncate"
               >
                 Event Name
+              </span>
+              <span
+                class="inline-item inline-item-after"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
+                  />
+                </svg>
               </span>
             </a>
           </th>
@@ -100,7 +104,7 @@ exports[`EventList should render 1`] = `
             </a>
           </th>
           <th
-            class="table-head-title"
+            class="table-head-title table-cell-expand text-truncate"
           >
             Description
           </th>
@@ -124,9 +128,9 @@ exports[`EventList should render 1`] = `
                 >
                   <a
                     class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/3345"
+                    href="/workspace/23/settings/definitions/events/0"
                   >
-                    firstTest
+                    name-0
                   </a>
                 </div>
               </div>
@@ -135,92 +139,103 @@ exports[`EventList should render 1`] = `
           <td
             class=""
           >
-            displayNamehere
+            -
           </td>
           <td
-            class=""
+            class=" table-cell-expand text-truncate"
           >
-            mydescription
-          </td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr
-          class=""
-        >
-          <td
-            class="name-cell-root"
-          >
-            <div
-              class="content-container"
-            >
-              <div
-                class="text-truncate"
-              >
-                <div
-                  class="table-title text-truncate"
-                >
-                  <a
-                    class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/3356"
-                  >
-                    testingtest
-                  </a>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            class=""
-          >
-            seconddisplay
-          </td>
-          <td
-            class=""
-          >
-            seconddescription
-          </td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr
-          class=""
-        >
-          <td
-            class="name-cell-root"
-          >
-            <div
-              class="content-container"
-            >
-              <div
-                class="text-truncate"
-              >
-                <div
-                  class="table-title text-truncate"
-                >
-                  <a
-                    class="text-truncate"
-                    href="/workspace/23/settings/definitions/events/3357"
-                  >
-                    anothernamet
-                  </a>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            class=""
-          >
-            displayNamehere
-          </td>
-          <td
-            class=""
-          >
-            mydescription
+            -
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <nav
+    class="navbar navbar-root pagination-bar-root"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        aria-haspopup="true"
+        class="dropdown dropdown-root pagination-items-per-page"
+      >
+        <button
+          class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+          type="button"
+        >
+          <span
+            class="text-truncate"
+          >
+            1 Item
+          </span>
+          
+          <span
+            class="caret-root"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="pagination-results"
+      >
+        Showing 1 to 1 of 1 entry.
+      </div>
+      <ul
+        class="pagination pagination-root"
+      >
+        <li
+          class="page-item disabled"
+        >
+          <a
+            class="button-root btn btn-unstyled page-link link-disabled"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-left"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
+              />
+            </svg>
+          </a>
+        </li>
+        <li
+          class="page-item active"
+        >
+          <a
+            class="button-root btn btn-unstyled page-link"
+            href="/?page=1"
+          >
+            1
+          </a>
+        </li>
+        <li
+          class="page-item disabled"
+        >
+          <a
+            class="button-root btn btn-unstyled page-link link-disabled"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </div>
 `;

@@ -37,7 +37,7 @@ exports[`AttributeView should render 1`] = `
         <span
           class="breadcrumb-text-truncate"
         >
-          company
+          name-0
         </span>
       </li>
     </ol>
@@ -48,26 +48,23 @@ exports[`AttributeView should render 1`] = `
         class="header-text"
       >
         <h3
-          class="inline-text"
+          class=""
         >
           <span
             class="text-truncate"
             data-tooltip="false"
             title=""
           >
-            company
+            name-0
           </span>
         </h3>
-        <span
-          class="ml-2"
-        >
-          organization
-        </span>
         <div
           class="description"
         >
-          <div>
-            somedescription
+          <div
+            class="no-description"
+          >
+            No Description
           </div>
           <div
             class="label label-root label-primary label-uppercase"
@@ -83,12 +80,12 @@ exports[`AttributeView should render 1`] = `
       <div
         class="page-actions-container"
       >
-        <a
+        <button
           class="button-root btn btn-secondary"
-          href="/workspace/23/settings/definitions/events/attributes/12345?edit=true"
+          type="button"
         >
           Edit
-        </a>
+        </button>
       </div>
     </div>
     <div>
@@ -121,44 +118,12 @@ exports[`AttributeView should render 1`] = `
               <td
                 class=""
               >
-                IBM
+                RecentValue
               </td>
               <td
                 class="table-column-text-end"
               >
-                Oct 10, 2011
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr
-              class=""
-            >
-              <td
-                class=""
-              >
-                Facebook
-              </td>
-              <td
-                class="table-column-text-end"
-              >
-                Oct 10, 2011
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr
-              class=""
-            >
-              <td
-                class=""
-              >
-                ABC
-              </td>
-              <td
-                class="table-column-text-end"
-              >
-                Oct 10, 2011
+                Jul 10, 2018
               </td>
             </tr>
           </tbody>

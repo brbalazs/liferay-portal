@@ -90,7 +90,7 @@ exports[`AttributeDropdown render 2`] = `
     </div>
   </form>
   <ul
-    class="list-unstyled"
+    class="list-unstyled base-dropdown-list"
   >
     <li>
       <span
@@ -101,7 +101,7 @@ exports[`AttributeDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Time on Page
+          name-0
         </button>
         <button
           class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -127,7 +127,7 @@ exports[`AttributeDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Date Created
+          name-1
         </button>
         <button
           class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -153,7 +153,7 @@ exports[`AttributeDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Answered
+          name-2
         </button>
         <button
           class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -179,7 +179,7 @@ exports[`AttributeDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Filed Ticket
+          name-3
         </button>
         <button
           class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -205,7 +205,137 @@ exports[`AttributeDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          Read Article
+          name-4
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-5
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-6
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-7
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-8
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          name-9
         </button>
         <button
           class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
