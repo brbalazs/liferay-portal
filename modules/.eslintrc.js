@@ -37,6 +37,7 @@ config = {
 	rules: {
 		'liferay-portal/no-global-fetch': 'off',
 		'liferay-portal/no-metal-plugins': 'off',
+		'no-for-of-loops/no-for-of-loops': 'error',
 		'notice/notice': [
 			'error',
 			{
