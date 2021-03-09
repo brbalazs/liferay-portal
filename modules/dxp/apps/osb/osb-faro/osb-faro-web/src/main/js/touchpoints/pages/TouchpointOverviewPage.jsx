@@ -4,7 +4,6 @@ import DevicesCard from '../hocs/DevicesCard';
 import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
-import {AUDIENCE_VIEWER_MODE} from 'shared/util/constants';
 
 /**
  * Touchpoint Overview Page
@@ -30,11 +29,11 @@ export default function TouchpointOverviewPage() {
 						)}
 						label={Liferay.Language.get('audience')}
 						legacyDropdownRangeKey={false}
+						metricAction={Liferay.Language.get('view')}
 						segmentsTitle={Liferay.Language.get(
 							'segments-at-the-time-of-view'
 						)}
 						uniqueVisitorsTitle={Liferay.Language.get('visitors')}
-						viewerMode={AUDIENCE_VIEWER_MODE.VIEW}
 					/>
 				</div>
 			</div>
