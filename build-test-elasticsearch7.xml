@@ -102,6 +102,9 @@ xpack.security.transport.ssl.verification_mode: certificate</echo>
 pid.file: ${elastic.kibana.dir}/bin/pid-kibana
 server.basePath: "/o/portal-search-elasticsearch-xpack-monitoring/xpack-monitoring-proxy"
 server.rewriteBasePath: false</echo>
+
+			<echo append="true" file="${elastic.kibana.dir}/config/node.options">
+${line.separator}--tls-max-v1.2</echo>
 		</sequential>
 	</macrodef>
 
