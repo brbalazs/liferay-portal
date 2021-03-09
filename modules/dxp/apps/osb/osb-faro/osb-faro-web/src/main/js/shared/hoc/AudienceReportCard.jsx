@@ -29,9 +29,9 @@ const withAudienceReportCard = withData => {
 		knownIndividualsTitle,
 		label,
 		legacyDropdownRangeKey,
+		metricAction,
 		segmentsTitle,
-		uniqueVisitorsTitle,
-		viewerMode
+		uniqueVisitorsTitle
 	}) => (
 		<BaseCard
 			className={className}
@@ -45,11 +45,11 @@ const withAudienceReportCard = withData => {
 						filters={filters}
 						interval={interval}
 						knownIndividualsTitle={knownIndividualsTitle}
+						metricAction={metricAction}
 						rangeSelectors={rangeSelectors}
 						router={router}
 						segmentsTitle={segmentsTitle}
 						uniqueVisitorsTitle={uniqueVisitorsTitle}
-						viewerMode={viewerMode}
 					/>
 				</Card.Body>
 			)}

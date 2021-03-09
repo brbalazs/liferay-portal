@@ -4,7 +4,6 @@ import InfoPopover from 'shared/components/InfoPopover';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {AUDIENCE_VIEWER_MODE} from 'shared/util/constants';
 import {AXIS} from 'shared/util/recharts';
 import {
 	Cell,
@@ -275,58 +274,45 @@ const AudienceReport = ({
 	segmentsTitle = Liferay.Language.get('viewer-segments'),
 	uniqueVisitors,
 	uniqueVisitorsTitle = Liferay.Language.get('visitors'),
-	viewerMode
-}) => {
-	const viewerModeSubtext =
-		viewerMode === AUDIENCE_VIEWER_MODE.VIEW
-			? Liferay.Language.get('view').toLowerCase()
-			: Liferay.Language.get('preview').toLowerCase();
+	metricAction = Liferay.Language.get('view')
+}) => (
+	<div className={`${CLASSNAME} row w-100`}>
+		<div className='col-sm-6'>
+			<div className='row'>
+				<div className='col-sm-6 text-center'>
+					<Title title={uniqueVisitorsTitle} />
 
-	return (
-		<div className={`${CLASSNAME} row w-100`}>
-			<div className='col-sm-6'>
-				<div className='row'>
-					<div className='col-sm-6 text-center'>
-						<Title title={uniqueVisitorsTitle} />
+					{renderDonutChart(uniqueVisitors)}
+				</div>
+				<div className='col-sm-6 text-center'>
+					<Title
+						helperText={sub(
+							Liferay.Language.get(
+								'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
+							),
+							[metricAction]
+						)}
+						title={knownIndividualsTitle}
+					/>
 
-						{renderDonutChart(uniqueVisitors)}
-					</div>
-					<div className='col-sm-6 text-center'>
-						<Title
-							helperText={
-								viewerMode &&
-								sub(
-									Liferay.Language.get(
-										'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
-									),
-									[viewerModeSubtext]
-								)
-							}
-							title={knownIndividualsTitle}
-						/>
-
-						{renderDonutChart(knownIndividuals)}
-					</div>
+					{renderDonutChart(knownIndividuals)}
 				</div>
 			</div>
-			<div className='col-sm-6 pl-5'>
-				<Title
-					helperText={
-						viewerMode &&
-						sub(
-							Liferay.Language.get(
-								'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
-							),
-							[viewerModeSubtext]
-						)
-					}
-					title={segmentsTitle}
-				/>
-
-				{renderBarChart(segments)}
-			</div>
 		</div>
-	);
-};
+		<div className='col-sm-6 pl-5'>
+			<Title
+				helperText={sub(
+					Liferay.Language.get(
+						'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
+					),
+					[metricAction]
+				)}
+				title={segmentsTitle}
+			/>
+
+			{renderBarChart(segments)}
+		</div>
+	</div>
+);
 
 export default AudienceReport;
