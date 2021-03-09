@@ -2488,9 +2488,9 @@ alloy-ui@^3.1.0-deprecated.1, alloy-ui@^3.1.0-deprecated.40:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/alloy-ui/-/alloy-ui-3.1.0.tgz#95842e4c793abbfe84aa8abfc5a637cd36dda823"
 
-alloyeditor@2.11.16:
-  version "2.11.16"
-  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.11.16.tgz#03c538c482f86f6207a05d33bbcf090ab0b7945a"
+alloyeditor@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.12.0.tgz#8ff149be5984fecfbf00a9bd64d05ebb92fbe5bf"
   dependencies:
     clay-css "^2.11.1"
     prop-types "^15.6.2"
@@ -4621,7 +4621,6 @@ clay-component@2.22.2, clay-component@^2.22.2:
 clay-css@2.22.2, clay-css@^2.11.1, clay-css@^2.16.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/clay-css/-/clay-css-2.22.2.tgz#b8a2b52c80164b71f9511674e2d103766064d5d0"
-  integrity sha512-IDbU1JvTe3L3u4YskIYNwL+/qXBzKrM8alW4e2gzA9u9Rb7qPYzkFBrbZeGLWwUq7FyZcPuMdcJLHGitWM6jDQ==
 
 clay-data-provider@2.22.2, clay-data-provider@^2.22.2:
   version "2.22.2"
