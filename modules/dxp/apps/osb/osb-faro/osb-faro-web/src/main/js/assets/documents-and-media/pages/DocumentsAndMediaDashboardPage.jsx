@@ -4,7 +4,6 @@ import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
 import TouchpointsListCard from '../../shared/hocs/TouchpointsListCard';
-import {AUDIENCE_VIEWER_MODE} from '../../../shared/util/constants';
 
 /**
  * Documents And Media Dashboard Page
@@ -26,12 +25,17 @@ export default function DocumentsAndMediaDashboardPage() {
 				<div className='col-sm-12'>
 					<AudienceReportCard
 						knownIndividualsTitle={Liferay.Language.get(
-							'segmented-previews'
+							'segmented-downloads'
 						)}
 						label={Liferay.Language.get('audience')}
 						legacyDropdownRangeKey={false}
-						uniqueVisitorsTitle={Liferay.Language.get('previews')}
-						viewerMode={AUDIENCE_VIEWER_MODE.PREVIEW}
+						metricAction={Liferay.Language.get(
+							'download'
+						).toLowerCase()}
+						segmentsTitle={Liferay.Language.get(
+							'downloader-segments'
+						)}
+						uniqueVisitorsTitle={Liferay.Language.get('downloads')}
 					/>
 				</div>
 			</div>
