@@ -106,7 +106,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 					return (
 						<>
 							<Modal.Header
-								onClose={close}
+								onClose={() => onCancel()}
 								title={
 									displayName
 										? `${name} - ${displayName}`
