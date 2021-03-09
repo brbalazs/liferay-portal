@@ -16,6 +16,14 @@ export default gql`
 		eventDefinition(displayName: $displayName, id: $id) {
 			description
 			displayName
+			eventAttributeDefinitions {
+				dataType
+				description
+				displayName
+				id
+				name
+				sampleValue
+			}
 			id
 			name
 			type

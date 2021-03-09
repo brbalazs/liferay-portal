@@ -68,6 +68,7 @@ export type Breakdowns = {[key: string]: Breakdown};
 export type Event = {
 	description?: string;
 	displayName?: string;
+	eventAttributeDefinitions?: Attribute[];
 	id: string;
 	name: string;
 	type: EventTypes;

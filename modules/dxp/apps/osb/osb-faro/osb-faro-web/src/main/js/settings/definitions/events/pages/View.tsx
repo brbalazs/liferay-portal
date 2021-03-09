@@ -1,59 +1,83 @@
 import BasePage from 'settings/components/BasePage';
+import EVENT_DEFINITION_QUERY, {
+	EventDefinitionData,
+	EventDefinitionVariables
+} from 'event-analysis/queries/EventDefinitionQuery';
 import EventDetailsCard from '../components/EventDetailsCard';
 import React from 'react';
+import {close, modalTypes, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
+import {Event} from 'event-analysis/utils/types';
 import {getDefinitions, getEvents} from 'shared/util/breadcrumbs';
-import {HasModal} from 'shared/types';
-import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
-import {useParams} from 'react-router-dom';
+import {HasModal, Modal} from 'shared/types';
+import {SafeResults} from 'shared/hoc/util';
+import {useQuery} from '@apollo/react-hooks';
 
 interface IViewProps extends React.HTMLAttributes<HTMLElement>, HasModal {
+	close: Modal.close;
+	eventId: string;
 	groupId: string;
+	open: Modal.open;
 }
 
-const View: React.FC<IViewProps> = ({groupId}) => {
-	// TODO: Use useQuery hook and the isEditing to open modal => const isEditing = useQuery('edit');
-	const {eventId} = useParams();
-
-	// TODO: When able o fetch the event, use the fetched event here instead
-	const event = {
-		description: 'somedescription',
-		displayName: 'View Article',
-		name: 'viewArticle'
-	};
-
-	const {description, displayName, name} = event;
+const View: React.FC<IViewProps> = ({close, eventId, groupId, open}) => {
+	const result = useQuery<EventDefinitionData, EventDefinitionVariables>(
+		EVENT_DEFINITION_QUERY,
+		{
+			variables: {id: eventId}
+		}
+	);
 
 	const viewEventPageActions = [
 		{
-			href: setUriQueryValues(
-				{edit: true},
-				toRoute(Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW, {
-					eventId,
-					groupId
+			label: Liferay.Language.get('edit'),
+			onClick: () =>
+				open(modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL, {
+					id: eventId,
+					onCancel: close,
+					query: EVENT_DEFINITION_QUERY
 				})
-			),
-			label: Liferay.Language.get('edit')
 		}
 	];
 
 	return (
-		<BasePage
-			breadcrumbItems={[
-				getDefinitions({groupId}),
-				getEvents({groupId}),
-				{active: true, label: displayName}
-			]}
-			groupId={groupId}
-			pageActions={viewEventPageActions}
-			pageDescription={
-				description || Liferay.Language.get('no-description')
-			}
-			pageTitle={name}
-			subTitle={displayName}
-		>
-			<EventDetailsCard eventName={name} groupId={groupId} />
-		</BasePage>
+		<SafeResults {...result}>
+			{({
+				eventDefinition: {
+					description,
+					displayName,
+					eventAttributeDefinitions,
+					name
+				}
+			}: {
+				eventDefinition: Event;
+			}) => (
+				<BasePage
+					breadcrumbItems={[
+						getDefinitions({groupId}),
+						getEvents({groupId}),
+						{active: true, label: displayName}
+					]}
+					groupId={groupId}
+					pageActions={viewEventPageActions}
+					pageDescription={
+						description || Liferay.Language.get('no-description')
+					}
+					pageTitle={name}
+					subTitle={displayName}
+				>
+					<EventDetailsCard
+						eventAttributes={eventAttributeDefinitions}
+						eventName={name}
+						groupId={groupId}
+					/>
+				</BasePage>
+			)}
+		</SafeResults>
 	);
 };
 
-export default View;
+export default connect(
+	null,
+	{close, open}
+)(View);
