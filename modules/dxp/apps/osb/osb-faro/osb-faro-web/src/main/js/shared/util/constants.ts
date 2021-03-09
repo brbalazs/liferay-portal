@@ -192,14 +192,6 @@ export const TIME_RANGE_LABELS = {
 export const spritemap = '/o/osb-faro-web/dist/sprite.svg';
 
 /**
- * AudienceCard viewer mode
- */
-export enum AUDIENCE_VIEWER_MODE {
-	PREVIEW = 'PREVIEW',
-	VIEW = 'VIEW'
-}
-
-/**
  * Jobs
  */
 export enum jobRunStatuses {
