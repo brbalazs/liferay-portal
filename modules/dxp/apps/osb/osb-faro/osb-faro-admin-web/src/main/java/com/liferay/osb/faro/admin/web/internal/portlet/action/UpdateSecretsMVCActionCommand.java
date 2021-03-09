@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -55,17 +54,14 @@ public class UpdateSecretsMVCActionCommand extends BaseMVCActionCommand {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		if (!permissionChecker.isOmniadmin() ||
-			Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
-			Validator.isNull(_ELASTICSEARCH_USER)) {
-
+		if (!permissionChecker.isOmniadmin()) {
 			return;
 		}
 
 		long faroProjectId = ParamUtil.getLong(actionRequest, "faroProjectId");
 
 		if (faroProjectId > 0) {
-			_updateSecrets(
+			_workspaceEngineClient.updateSecrets(
 				_faroProjectLocalService.getFaroProject(faroProjectId));
 		}
 		else {
@@ -73,36 +69,10 @@ public class UpdateSecretsMVCActionCommand extends BaseMVCActionCommand {
 					_faroProjectLocalService.getFaroProjects(
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
-				_updateSecrets(faroProject);
+				_workspaceEngineClient.updateSecrets(faroProject);
 			}
 		}
 	}
-
-	private void _updateSecrets(FaroProject faroProject) throws Exception {
-		if (_workspaceEngineClient.hasSecret(
-				faroProject.getWeDeployKey(), "elasticsearchpassword")) {
-
-			_workspaceEngineClient.updateSecret(
-				faroProject.getWeDeployKey(), "elasticsearchpassword",
-				_ELASTICSEARCH_PASSWORD);
-			_workspaceEngineClient.updateSecret(
-				faroProject.getWeDeployKey(), "elasticsearchuser",
-				_ELASTICSEARCH_USER);
-		}
-		else {
-			_workspaceEngineClient.createElasticsearchSecrets(
-				faroProject.getWeDeployKey());
-
-			_workspaceEngineClient.attachElasticsearchSecrets(
-				faroProject.getWeDeployKey());
-		}
-	}
-
-	private static final String _ELASTICSEARCH_PASSWORD = System.getenv(
-		"ELASTICSEARCH_PASSWORD");
-
-	private static final String _ELASTICSEARCH_USER = System.getenv(
-		"ELASTICSEARCH_USER");
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;

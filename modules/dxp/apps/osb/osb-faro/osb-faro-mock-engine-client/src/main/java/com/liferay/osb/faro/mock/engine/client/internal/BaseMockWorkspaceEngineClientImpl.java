@@ -19,6 +19,7 @@ import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
+import com.liferay.osb.faro.model.FaroProject;
 
 import java.util.List;
 
@@ -29,31 +30,6 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class BaseMockWorkspaceEngineClientImpl
 	implements WorkspaceEngineClient {
-
-	@Override
-	public void attachElasticsearchSecrets(String weDeployKey)
-		throws Exception {
-
-		workspaceEngineClient.attachElasticsearchSecrets(weDeployKey);
-	}
-
-	@Override
-	public void attachSecrets(
-		String weDeployKey, String serviceId, String... envVarSecretNames) {
-
-		workspaceEngineClient.attachSecrets(
-			weDeployKey, serviceId, envVarSecretNames);
-	}
-
-	@Override
-	public void createElasticsearchSecrets(String weDeployKey) {
-		workspaceEngineClient.createElasticsearchSecrets(weDeployKey);
-	}
-
-	@Override
-	public void createSecret(String weDeployKey, String name, String value) {
-		workspaceEngineClient.createSecret(weDeployKey, name, value);
-	}
 
 	@Override
 	public Workspace createWorkspace(String region, boolean trial) {
@@ -91,13 +67,8 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	}
 
 	@Override
-	public boolean hasSecret(String weDeployKey, String name) {
-		return workspaceEngineClient.hasSecret(weDeployKey, name);
-	}
-
-	@Override
-	public void updateSecret(String weDeployKey, String name, String value) {
-		workspaceEngineClient.updateSecret(weDeployKey, name, value);
+	public void updateSecrets(FaroProject faroProject) throws Exception {
+		workspaceEngineClient.updateSecrets(faroProject);
 	}
 
 	@Override

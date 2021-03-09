@@ -18,6 +18,7 @@ import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
+import com.liferay.osb.faro.model.FaroProject;
 
 import java.util.List;
 
@@ -25,15 +26,6 @@ import java.util.List;
  * @author Matthew Kong
  */
 public interface WorkspaceEngineClient {
-
-	public void attachElasticsearchSecrets(String weDeployKey) throws Exception;
-
-	public void attachSecrets(
-		String weDeployKey, String serviceId, String... envVarSecretNames);
-
-	public void createElasticsearchSecrets(String weDeployKey);
-
-	public void createSecret(String weDeployKey, String name, String value);
 
 	public Workspace createWorkspace(String region, boolean trial);
 
@@ -49,9 +41,7 @@ public interface WorkspaceEngineClient {
 
 	public Workspace getWorkspace(String weDeployKey) throws Exception;
 
-	public boolean hasSecret(String weDeployKey, String secretName);
-
-	public void updateSecret(String weDeployKey, String name, String value);
+	public void updateSecrets(FaroProject faroProject) throws Exception;
 
 	public void updateServices(String weDeployKey, String operation)
 		throws Exception;

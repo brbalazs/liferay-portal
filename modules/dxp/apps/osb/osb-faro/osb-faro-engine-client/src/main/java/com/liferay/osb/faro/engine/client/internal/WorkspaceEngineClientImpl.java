@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -66,116 +67,6 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component(immediate = true, service = WorkspaceEngineClient.class)
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
-
-	@Override
-	public void attachElasticsearchSecrets(String weDeployKey)
-		throws Exception {
-
-		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
-			Validator.isNull(_ELASTICSEARCH_USER)) {
-
-			return;
-		}
-
-		long startTime = System.currentTimeMillis();
-
-		List<LCPService> lcpServices = getLCPServices(weDeployKey);
-
-		while (lcpServices.isEmpty()) {
-			Thread.sleep(10 * Time.SECOND);
-
-			lcpServices = getLCPServices(weDeployKey);
-
-			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
-				_log.error("Unable to deploy services to " + weDeployKey);
-
-				return;
-			}
-		}
-
-		for (LCPService lcpService : lcpServices) {
-			attachSecrets(
-				weDeployKey, lcpService.getServiceId(),
-				"ELASTICSEARCH_PASSWORD", "elasticsearchpassword",
-				"ELASTICSEARCH_USER", "elasticsearchuser");
-		}
-	}
-
-	@Override
-	public void attachSecrets(
-		String weDeployKey, String serviceId, String... envVarSecretNames) {
-
-		if ((envVarSecretNames.length % 2) != 0) {
-			return;
-		}
-
-		getRestTemplate().exchange(
-			StringBundler.concat(
-				_PROJECT_API_URL, getProjectId(weDeployKey), "/services/",
-				serviceId, "/secrets"),
-			HttpMethod.POST,
-			new HttpEntity<Object>(
-				new HashMap<String, List<Map<String, String>>>() {
-					{
-						put(
-							"attachments",
-							new ArrayList<Map<String, String>>() {
-								{
-									for (int i = 0;
-										 i < envVarSecretNames.length; i += 2) {
-
-										String envVarName =
-											envVarSecretNames[i];
-										String secretName =
-											envVarSecretNames[i + 1];
-
-										add(
-											new HashMap<String, String>() {
-												{
-													put(
-														"envVarName",
-														envVarName);
-													put(
-														"secretName",
-														secretName);
-												}
-											});
-									}
-								}
-							});
-					}
-				}),
-			Void.class);
-	}
-
-	@Override
-	public void createElasticsearchSecrets(String weDeployKey) {
-		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
-			Validator.isNull(_ELASTICSEARCH_USER)) {
-
-			return;
-		}
-
-		createSecret(
-			weDeployKey, "elasticsearchpassword", _ELASTICSEARCH_PASSWORD);
-		createSecret(weDeployKey, "elasticsearchuser", _ELASTICSEARCH_USER);
-	}
-
-	@Override
-	public void createSecret(String weDeployKey, String name, String value) {
-		getRestTemplate().exchange(
-			StringBundler.concat(
-				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets"),
-			HttpMethod.POST,
-			new HttpEntity<Object>(
-				new HashMap<String, String>() {
-					{
-						put("name", name);
-						put("value", value);
-					}
-				}),
-			Void.class);
-	}
 
 	@Override
 	public Workspace createWorkspace(String region, boolean trial) {
@@ -313,35 +204,34 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	}
 
 	@Override
-	public boolean hasSecret(String weDeployKey, String name) {
-		try {
-			getRestTemplate().exchange(
-				StringBundler.concat(
-					_PROJECT_API_URL + getProjectId(weDeployKey), "/secrets/",
-					name),
-				HttpMethod.GET, null, Object.class);
+	public void updateSecrets(FaroProject faroProject) throws Exception {
+		List<String> envVarSecretNames = new ArrayList<>();
 
-			return true;
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
+		for (String secretKey : _secretKeys) {
+			String secretValue = System.getenv(secretKey);
 
-	@Override
-	public void updateSecret(String weDeployKey, String name, String value) {
-		getRestTemplate().exchange(
-			StringBundler.concat(
-				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets/", name),
-			HttpMethod.PUT,
-			new HttpEntity<Object>(
-				new HashMap<String, String>() {
-					{
-						put("name", name);
-						put("value", value);
-					}
-				}),
-			Void.class);
+			if (Validator.isNull(secretValue)) {
+				continue;
+			}
+
+			String secretName = getSecretName(secretKey);
+
+			if (hasSecret(faroProject.getWeDeployKey(), secretName)) {
+				updateSecret(
+					faroProject.getWeDeployKey(), secretName, secretValue);
+			}
+			else {
+				createSecret(
+					faroProject.getWeDeployKey(), secretName, secretValue);
+
+				envVarSecretNames.add(secretKey);
+				envVarSecretNames.add(secretName);
+			}
+		}
+
+		attachSecrets(
+			faroProject.getWeDeployKey(),
+			envVarSecretNames.toArray(new String[0]));
 	}
 
 	@Override
@@ -388,6 +278,78 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		String weDeployKey, String sha, boolean trial) {
 
 		return buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
+	}
+
+	protected void attachSecrets(
+			String weDeployKey, String... envVarSecretNames)
+		throws Exception {
+
+		long startTime = System.currentTimeMillis();
+
+		List<LCPService> lcpServices = getLCPServices(weDeployKey);
+
+		while (lcpServices.isEmpty()) {
+			Thread.sleep(10 * Time.SECOND);
+
+			lcpServices = getLCPServices(weDeployKey);
+
+			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
+				_log.error("Unable to deploy services to " + weDeployKey);
+
+				return;
+			}
+		}
+
+		for (LCPService lcpService : lcpServices) {
+			attachSecrets(
+				weDeployKey, lcpService.getServiceId(), envVarSecretNames);
+		}
+	}
+
+	protected void attachSecrets(
+		String weDeployKey, String serviceId, String... envVarSecretNames) {
+
+		if ((envVarSecretNames.length % 2) != 0) {
+			return;
+		}
+
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/services/",
+				serviceId, "/secrets"),
+			HttpMethod.POST,
+			new HttpEntity<Object>(
+				new HashMap<String, List<Map<String, String>>>() {
+					{
+						put(
+							"attachments",
+							new ArrayList<Map<String, String>>() {
+								{
+									for (int i = 0;
+										 i < envVarSecretNames.length; i += 2) {
+
+										String envVarName =
+											envVarSecretNames[i];
+										String secretName =
+											envVarSecretNames[i + 1];
+
+										add(
+											new HashMap<String, String>() {
+												{
+													put(
+														"envVarName",
+														envVarName);
+													put(
+														"secretName",
+														secretName);
+												}
+											});
+									}
+								}
+							});
+					}
+				}),
+			Void.class);
 	}
 
 	protected List<LCPBuildService> buildWorkspace(
@@ -449,9 +411,29 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			Void.class);
 	}
 
+	protected void createSecret(String weDeployKey, String name, String value) {
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets"),
+			HttpMethod.POST,
+			new HttpEntity<Object>(
+				new HashMap<String, String>() {
+					{
+						put("name", name);
+						put("value", value);
+					}
+				}),
+			Void.class);
+	}
+
 	protected Workspace createWorkspace(LCPProject lcpProject, boolean trial) {
 		createElasticSearchLink(lcpProject);
-		createElasticsearchSecrets(lcpProject.getProjectId());
+
+		for (String secretKey : _secretKeys) {
+			createSecret(
+				lcpProject.getProjectId(), getSecretName(secretKey),
+				System.getenv(secretKey));
+		}
 
 		Workspace workspace = new Workspace();
 
@@ -482,6 +464,27 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return restTemplate;
 	}
 
+	protected String getSecretName(String secretKey) {
+		secretKey = StringUtil.toLowerCase(secretKey);
+
+		return StringUtil.removeSubstring(secretKey, StringPool.UNDERLINE);
+	}
+
+	protected boolean hasSecret(String weDeployKey, String name) {
+		try {
+			getRestTemplate().exchange(
+				StringBundler.concat(
+					_PROJECT_API_URL + getProjectId(weDeployKey), "/secrets/",
+					name),
+				HttpMethod.GET, null, Object.class);
+
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
 	protected boolean isReady(FaroProject faroProject) {
 		try {
 			_contactsEngineClient.getIndividuals(
@@ -494,11 +497,20 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		}
 	}
 
-	private static final String _ELASTICSEARCH_PASSWORD = System.getenv(
-		"ELASTICSEARCH_PASSWORD");
-
-	private static final String _ELASTICSEARCH_USER = System.getenv(
-		"ELASTICSEARCH_USER");
+	protected void updateSecret(String weDeployKey, String name, String value) {
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets/", name),
+			HttpMethod.PUT,
+			new HttpEntity<Object>(
+				new HashMap<String, String>() {
+					{
+						put("name", name);
+						put("value", value);
+					}
+				}),
+			Void.class);
+	}
 
 	private static final String _PROJECT_API_URL = GetterUtil.getString(
 		System.getenv("FARO_DXP_CLOUD_API_URL"),
@@ -515,6 +527,9 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		WorkspaceEngineClientImpl.class);
+
+	private static final List<String> _secretKeys = Arrays.asList(
+		"ELASTICSEARCH_PASSWORD", "ELASTICSEARCH_USER", "OSB_ASAH_TOKEN");
 
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,
@@ -551,7 +566,22 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		}
 
 		protected void doRun() throws Exception {
-			attachElasticsearchSecrets(_workspace.getWeDeployKey());
+			List<String> envVarSecretNames = new ArrayList<>();
+
+			for (String secretKey : _secretKeys) {
+				String secretValue = System.getenv(secretKey);
+
+				if (Validator.isNull(secretValue)) {
+					continue;
+				}
+
+				envVarSecretNames.add(secretKey);
+				envVarSecretNames.add(getSecretName(secretKey));
+			}
+
+			attachSecrets(
+				_workspace.getWeDeployKey(),
+				envVarSecretNames.toArray(new String[0]));
 
 			for (int i = 0; i < 3; i++) {
 				Thread.sleep(Time.HOUR);
