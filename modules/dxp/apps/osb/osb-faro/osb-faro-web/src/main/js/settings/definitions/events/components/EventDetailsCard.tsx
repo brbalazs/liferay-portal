@@ -7,44 +7,14 @@ import {Attribute} from 'event-analysis/utils/types';
 import {attributeListColumns} from 'shared/util/table-columns';
 import {Map, OrderedMap} from 'immutable';
 
-// TODO: LRAC-7486 Use eventId to fetch related attributes
-const MOCKED_ATTRIBUTES = [
-	{
-		attributeId: '4486',
-		defaultDataType: 'TYPE',
-		description: 'mydescription',
-		displayName: 'displayNamehere',
-		id: '4486',
-		name: 'firstTest',
-		sampleValue: '1'
-	},
-	{
-		attributeId: '4588',
-		defaultDataType: 'TYPE2',
-		description: 'seconddescription',
-		displayName: 'seconddisplay',
-		id: '4588',
-		name: 'testingtest',
-		sampleValue: '2'
-	},
-	{
-		attributeId: '4581',
-		defaultDataType: 'TYPE3',
-		description: '',
-		displayName: 'displayNamehere',
-		id: '4581',
-		name: 'anothernamet',
-		sampleValue: '3'
-	}
-];
-
 interface IEventDetailsCardProps {
+	eventAttributes: Attribute[];
 	eventName: string;
 	groupId: string;
 }
 
-// TODO: LRAC-7486 Receive eventId when able to fetch the attributes
 const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
+	eventAttributes,
 	eventName,
 	groupId
 }) => {
@@ -54,8 +24,8 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 	]);
 
 	const [selectedAttributes, setSelectedAttributes] = useState(
-		OrderedMap<string, Map<string, string>>(
-			MOCKED_ATTRIBUTES.map(
+		OrderedMap<string, Map<string, any>>(
+			eventAttributes.map(
 				attribute =>
 					[attribute.id, Map(attribute)] as [
 						string,
@@ -121,9 +91,9 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 					attributeListColumns.displayName,
 					attributeListColumns.description,
 					attributeListColumns.sampleValue,
-					attributeListColumns.defaultDataType
+					attributeListColumns.dataType
 				].map(column => ({...column, sortable: false}))}
-				items={MOCKED_ATTRIBUTES}
+				items={eventAttributes}
 				onSelectItemsChange={selectedAttribute =>
 					selectedAttributes.has(selectedAttribute.id)
 						? removeSelectedAttribute(selectedAttribute.id)
