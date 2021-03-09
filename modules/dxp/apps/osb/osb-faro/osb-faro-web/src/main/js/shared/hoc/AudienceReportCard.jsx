@@ -39,10 +39,11 @@ const withAudienceReportCard = withData => {
 			legacyDropdownRangeKey={legacyDropdownRangeKey}
 			minHeight={536}
 		>
-			{({filters, rangeSelectors, router}) => (
+			{({filters, interval, rangeSelectors, router}) => (
 				<Card.Body>
 					<AudienceReportWithData
 						filters={filters}
+						interval={interval}
 						knownIndividualsTitle={knownIndividualsTitle}
 						rangeSelectors={rangeSelectors}
 						router={router}

@@ -59,11 +59,12 @@ const withLocationsCard = (withLocations, withCountries) => {
 			legacyDropdownRangeKey={legacyDropdownRangeKey}
 			minHeight={536}
 		>
-			{({filters, rangeSelectors, router}) => (
+			{({filters, interval, rangeSelectors, router}) => (
 				<Card.Body>
 					<LocationsGeoMap
 						filters={filters}
 						height={400}
+						interval={interval}
 						metricLabel={metricLabel}
 						rangeSelectors={rangeSelectors}
 						router={router}

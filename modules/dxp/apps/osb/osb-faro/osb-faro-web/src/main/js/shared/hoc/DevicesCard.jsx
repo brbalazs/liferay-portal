@@ -132,11 +132,12 @@ const withDevicesCard = withDevices => {
 				legacyDropdownRangeKey={legacyDropdownRangeKey}
 				minHeight={536}
 			>
-				{({filters, rangeSelectors, router}) => (
+				{({filters, interval, rangeSelectors, router}) => (
 					<Card.Body>
 						<TabsWithDevices
 							activeTab={activeTab}
 							filters={filters}
+							interval={interval}
 							items={[
 								{
 									label: OPERATING_SYSTEM

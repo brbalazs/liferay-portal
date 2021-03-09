@@ -38,10 +38,11 @@ const FormAbandonmentCard = ({className, label, legacyDropdownRangeKey}) => (
 		legacyDropdownRangeKey={legacyDropdownRangeKey}
 		minHeight={536}
 	>
-		{({filters, rangeSelectors, router}) => (
+		{({filters, interval, rangeSelectors, router}) => (
 			<Card.Body>
 				<FormAbandonmentWithData
 					filters={filters}
+					interval={interval}
 					rangeSelectors={rangeSelectors}
 					router={router}
 				/>

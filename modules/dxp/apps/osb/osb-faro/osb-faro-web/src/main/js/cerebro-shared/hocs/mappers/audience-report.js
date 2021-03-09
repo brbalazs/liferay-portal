@@ -250,8 +250,12 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 	 * @param {object} param0 props
 	 * @param {object} param1 context
 	 */
-	const mapPropsToOptions = ({filters, rangeSelectors, router: {params}}) =>
-		getVariables({filters, params, rangeSelectors});
+	const mapPropsToOptions = ({
+		filters,
+		interval,
+		rangeSelectors,
+		router: {params}
+	}) => getVariables({filters, interval, params, rangeSelectors});
 
 	return {
 		options: mapPropsToOptions,
