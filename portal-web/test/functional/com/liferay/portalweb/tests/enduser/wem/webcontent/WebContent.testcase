@@ -2488,13 +2488,10 @@ definition {
 	@description = "This is a use case for LPS-98669."
 	@priority = "4"
 	test SelectLinkToPagePage {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
 		for (var pageName : list "P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12") {
-			SitePages.addPublicPage(pageName = "${pageName}");
+			JSONLayout.addPublicLayout(
+				groupName = "Guest",
+				layoutName = "${pageName}");
 		}
 
 		ProductMenu.gotoPortlet(
