@@ -1,8 +1,13 @@
 import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
 import Constants from 'shared/util/constants';
-import EVENT_ATTRIBUTE_DEFINITION_QUERY from 'event-analysis/queries/EventAttributeDefinitionQuery';
-import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
+	UPDATE_EVENT_ATTRIBUTE_DEFINITION
+} from 'event-analysis/queries/EventAttributeDefinitionQuery';
+import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+	EventAttributeDefinitionsData,
+	EventAttributeDefinitionsVariables
+} from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
 import {AddAttribute, EditAttribute} from '../../context/attributes';
 import {Attribute, AttributeTypes, Filter} from 'event-analysis/utils/types';
@@ -45,7 +50,10 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 		filter ? attribute : null
 	);
 
-	const result = useQuery(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+	const result = useQuery<
+		EventAttributeDefinitionsData,
+		EventAttributeDefinitionsVariables
+	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 		variables: {
 			keyword: '',
 			page: 0,
@@ -113,6 +121,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
 												{
 													id: attribute.id,
+													mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
 													onCancel: close,
 													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 													showTypecast: true
@@ -168,6 +177,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
 												{
 													id: selectedAttribute.id,
+													mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
 													onCancel: close,
 													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 													showTypecast: true

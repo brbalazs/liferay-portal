@@ -3,7 +3,8 @@ import Card from 'shared/components/Card';
 import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY,
 	EventAttributeDefinitionData,
-	EventAttributeDefinitionVariables
+	EventAttributeDefinitionVariables,
+	UPDATE_EVENT_ATTRIBUTE_DEFINITION
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
 import Label from 'shared/components/Label';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
@@ -46,6 +47,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 			onClick: () =>
 				open(modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL, {
 					id: attributeId,
+					mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
 					onCancel: close,
 					query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 					showTypecast: true

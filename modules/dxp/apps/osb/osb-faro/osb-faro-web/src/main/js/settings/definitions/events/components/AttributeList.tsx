@@ -1,5 +1,8 @@
 import Constants from 'shared/util/constants';
-import EVENT_ATTRIBUTE_DEFINITIONS_QUERY from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+	EventAttributeDefinitionsData,
+	EventAttributeDefinitionsVariables
+} from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React from 'react';
 import {attributeListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
@@ -19,7 +22,10 @@ const withData = () => WrapperComponent => ({
 	query,
 	...otherProps
 }) => {
-	const {data, error, loading} = useQuery(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+	const {data, error, loading} = useQuery<
+		EventAttributeDefinitionsData,
+		EventAttributeDefinitionsVariables
+	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 		variables: {
 			keyword: query,
 			page: Number(page) - 1,

@@ -4,17 +4,27 @@ import client from 'shared/apollo/client';
 import Form, {toPromise, validateMaxLength} from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React from 'react';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {Attribute, DataTypes, Event} from '../utils/types';
+import {connect} from 'react-redux';
 import {DATA_TYPE_LABELS_MAP} from '../utils/utils';
 import {debounce, get} from 'lodash/fp';
+import {DocumentNode} from 'graphql';
+import {
+	EventAttributeDefinitionData,
+	EventAttributeDefinitionVariables,
+	UpdateEventAttributeDefinitionVariables
+} from '../queries/EventAttributeDefinitionQuery';
 import {
 	EventDefinitionData,
-	EventDefinitionVariables
+	EventDefinitionVariables,
+	UpdateEventDefinitionVariables
 } from '../queries/EventDefinitionQuery';
 import {SafeResults} from 'shared/hoc/util';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
-import {useQuery} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
 
 const DATA_TYPE_OPTIONS = [
 	DataTypes.Boolean,
@@ -25,24 +35,33 @@ const DATA_TYPE_OPTIONS = [
 ];
 
 interface IEditAttributeEventModalProps {
+	addAlert: Alert.AddAlert;
 	id: string;
+	mutation: DocumentNode;
 	onCancel: Types.Modal.close;
-	query: string;
+	query: DocumentNode;
 	showTypecast?: boolean;
 }
 
 const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
+	addAlert,
 	id,
+	mutation,
 	onCancel,
 	query,
-	showTypecast // TODO: rename this to something in regards to attributes and events
+	showTypecast
 }) => {
-	const result = useQuery<EventDefinitionData, EventDefinitionVariables>(
-		query,
-		{
-			variables: {id}
-		}
-	);
+	const [update] = useMutation<
+		EventDefinitionData | EventAttributeDefinitionData,
+		UpdateEventDefinitionVariables | UpdateEventAttributeDefinitionVariables
+	>(mutation);
+	const result = useQuery<
+		EventDefinitionData | EventAttributeDefinitionData,
+		EventDefinitionVariables | EventAttributeDefinitionVariables
+	>(query, {
+		fetchPolicy: 'no-cache',
+		variables: {id}
+	});
 
 	const dataMapper = get(
 		showTypecast ? 'eventAttributeDefinition' : 'eventDefinition'
@@ -59,7 +78,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 						variables: {displayName: value}
 					})
 					.then(({data}) => {
-						if (data) {
+						if (dataMapper(data)) {
 							error = (sub(
 								Liferay.Language.get(
 									'an-x-already-exists-with-that-display-name.-please-enter-a-different-display-name'
@@ -86,8 +105,6 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 			}
 		}
 	);
-
-	const handleSubmit = () => {};
 
 	return (
 		<Modal>
@@ -127,7 +144,44 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 												displayName: displayName || ''
 										  }
 								}
-								onSubmit={handleSubmit}
+								onSubmit={(variables, {setSubmitting}) => {
+									update({
+										variables: {
+											id,
+											...variables
+										}
+									})
+										.then(({data}) => {
+											const {displayName, name} = get(
+												showTypecast
+													? 'updateEventAttributeDefinition'
+													: 'updateEventDefinition'
+											)(data);
+											addAlert({
+												alertType: Alert.Types.SUCCESS,
+												message: sub(
+													Liferay.Language.get(
+														'x-has-been-updated'
+													),
+													[displayName || name]
+												) as string
+											});
+
+											setSubmitting(false);
+
+											onCancel();
+										})
+										.catch(() => {
+											addAlert({
+												alertType: Alert.Types.ERROR,
+												message: Liferay.Language.get(
+													'there-was-an-error-processing-your-request.-please-try-again'
+												)
+											});
+
+											setSubmitting(false);
+										});
+								}}
 							>
 								{({handleSubmit, isSubmitting, isValid}) => (
 									<Form.Form onSubmit={handleSubmit}>
@@ -237,4 +291,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 	);
 };
 
-export default EditAttributeEventModal;
+export default connect(
+	null,
+	{addAlert}
+)(EditAttributeEventModal);
