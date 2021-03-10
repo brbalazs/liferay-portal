@@ -1131,7 +1131,7 @@ public class ProjectController extends BaseFaroController {
 			_fieldMappingController.addDefaultFieldMappings(groupId);
 
 			if (!StringUtil.equals(
-					faroProject.getCorpProjectUuid(), _PROJECT_ID) ||
+					faroProject.getCorpProjectUuid(), _PROJECT_ID) &&
 				!faroProject.isSharedCluster()) {
 
 				faroProject.setServices(
