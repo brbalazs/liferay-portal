@@ -1,8 +1,25 @@
+import {Event, EventTypes} from '../utils/types';
 import {gql} from 'apollo-boost';
+
+export interface EventDefinitionsData {
+	eventDefinition: Event[];
+	total: number;
+}
+
+export interface EventDefinitionsVariables {
+	eventType: EventTypes;
+	keyword?: string;
+	page?: number;
+	size: number;
+	sort: {
+		column: string;
+		type: 'ASC' | 'DESC';
+	};
+}
 
 export default gql`
 	query EventDefinitions(
-		$eventType: String!
+		$eventType: EventDefinitionType!
 		$keyword: String
 		$page: Int!
 		$size: Int!

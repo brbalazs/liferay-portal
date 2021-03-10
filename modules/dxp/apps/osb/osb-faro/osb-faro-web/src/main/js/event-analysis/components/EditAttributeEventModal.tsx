@@ -75,20 +75,24 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 				return client
 					.query({
 						query,
-						variables: {displayName: value}
+						variables: {displayName: value.trim()}
 					})
 					.then(({data}) => {
 						if (dataMapper(data)) {
-							error = (sub(
+							error = sub(
 								Liferay.Language.get(
 									'an-x-already-exists-with-that-display-name.-please-enter-a-different-display-name'
 								),
 								[
 									showTypecast
-										? Liferay.Language.get('attribute')
-										: Liferay.Language.get('event')
+										? Liferay.Language.get(
+												'attribute'
+										  ).toLowerCase()
+										: Liferay.Language.get(
+												'event'
+										  ).toLowerCase()
 								]
-							) as string).toLowerCase();
+							) as string;
 						}
 
 						return error;

@@ -1,5 +1,8 @@
 import Constants from 'shared/util/constants';
-import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuery';
+import EVENT_DEFINITIONS_QUERY, {
+	EventDefinitionsData,
+	EventDefinitionsVariables
+} from 'event-analysis/queries/EventDefinitionsQuery';
 import React from 'react';
 import {eventListColumns} from 'shared/util/table-columns';
 import {EventTypes} from 'event-analysis/utils/types';
@@ -21,7 +24,10 @@ const withData = () => WrapperComponent => ({
 	query,
 	...otherProps
 }) => {
-	const {data, error, loading} = useQuery(EVENT_DEFINITIONS_QUERY, {
+	const {data, error, loading} = useQuery<
+		EventDefinitionsData,
+		EventDefinitionsVariables
+	>(EVENT_DEFINITIONS_QUERY, {
 		variables: {
 			eventType: customEvent ? EventTypes.Custom : EventTypes.Default,
 			keyword: query,

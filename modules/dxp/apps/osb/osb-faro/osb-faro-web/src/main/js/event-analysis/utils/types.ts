@@ -26,8 +26,9 @@ export enum DateGroupings {
 }
 
 export enum EventTypes {
-	Custom = 'custom',
-	Default = 'default'
+	All = 'ALL',
+	Custom = 'CUSTOM',
+	Default = 'DEFAULT'
 }
 
 export enum Operators {

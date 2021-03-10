@@ -1,7 +1,12 @@
 import BaseDropdown from './base-dropdown';
 import Constants from 'shared/util/constants';
-import EVENT_DEFINITION_QUERY from 'event-analysis/queries/EventDefinitionQuery';
-import EVENT_DEFINITIONS_QUERY from 'event-analysis/queries/EventDefinitionsQuery';
+import EVENT_DEFINITION_QUERY, {
+	UPDATE_EVENT_DEFINITION
+} from 'event-analysis/queries/EventDefinitionQuery';
+import EVENT_DEFINITIONS_QUERY, {
+	EventDefinitionsData,
+	EventDefinitionsVariables
+} from 'event-analysis/queries/EventDefinitionsQuery';
 import React, {useState} from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
@@ -31,20 +36,23 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	trigger
 }) => {
 	const [query, setQuery] = useState('');
-	const [eventType, setEventType] = useState<EventTypes | 'all'>('all');
+	const [eventType, setEventType] = useState<EventTypes>(EventTypes.All);
 
-	const result = useQuery(EVENT_DEFINITIONS_QUERY, {
-		variables: {
-			eventType,
-			keyword: '',
-			page: 0,
-			size: 200,
-			sort: {
-				column: NAME,
-				type: orderDefault.toUpperCase()
+	const result = useQuery<EventDefinitionsData | EventDefinitionsVariables>(
+		EVENT_DEFINITIONS_QUERY,
+		{
+			variables: {
+				eventType,
+				keyword: '',
+				page: 0,
+				size: 200,
+				sort: {
+					column: NAME,
+					type: orderDefault.toUpperCase()
+				}
 			}
 		}
-	});
+	);
 
 	return (
 		<BaseDropdown trigger={trigger}>
@@ -54,8 +62,8 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 						activeTabId={eventType}
 						tabs={[
 							{
-								onClick: () => setEventType('all'),
-								tabId: 'all',
+								onClick: () => setEventType(EventTypes.All),
+								tabId: EventTypes.All,
 								title: Liferay.Language.get('all')
 							},
 							{
@@ -86,6 +94,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 										modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
 										{
 											id: event.id,
+											mutation: UPDATE_EVENT_DEFINITION,
 											onCancel: close,
 											query: EVENT_DEFINITION_QUERY
 										}
@@ -98,7 +107,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 										onEventChange(event);
 
 										setActive(false);
-										setEventType('all');
+										setEventType(EventTypes.All);
 										setQuery('');
 									}
 								}}

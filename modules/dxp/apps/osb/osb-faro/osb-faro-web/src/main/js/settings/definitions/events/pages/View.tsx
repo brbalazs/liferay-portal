@@ -1,7 +1,8 @@
 import BasePage from 'settings/components/BasePage';
 import EVENT_DEFINITION_QUERY, {
 	EventDefinitionData,
-	EventDefinitionVariables
+	EventDefinitionVariables,
+	UPDATE_EVENT_DEFINITION
 } from 'event-analysis/queries/EventDefinitionQuery';
 import EventDetailsCard from '../components/EventDetailsCard';
 import React from 'react';
@@ -34,6 +35,7 @@ const View: React.FC<IViewProps> = ({close, eventId, groupId, open}) => {
 			onClick: () =>
 				open(modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL, {
 					id: eventId,
+					mutation: UPDATE_EVENT_DEFINITION,
 					onCancel: close,
 					query: EVENT_DEFINITION_QUERY
 				})

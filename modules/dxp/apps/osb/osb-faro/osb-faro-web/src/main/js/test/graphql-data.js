@@ -527,7 +527,7 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 		request: {
 			query: EventDefinitionsQuery,
 			variables: {
-				eventType: 'default',
+				eventType: 'DEFAULT',
 				page: 0,
 				size: items.length,
 				sort: {
