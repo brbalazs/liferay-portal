@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
+import Constants from 'shared/util/constants';
 import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -10,6 +11,10 @@ import {Routes, toRoute} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {User} from 'shared/util/records';
 import {withRequest} from 'shared/hoc';
+
+const {
+	pagination: {cur: defaultPage}
+} = Constants;
 
 interface INoPropertiesAvailableProps
 	extends React.HTMLAttributes<HTMLDivElement> {
@@ -104,7 +109,8 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 
 export default compose<any>(
 	withRequest(
-		({groupId}) => API.dataSource.search({groupId}),
+		({groupId}) =>
+			API.dataSource.search({delta: 1, groupId, page: defaultPage}),
 		({total}) => ({
 			dataSources: !!total
 		})
