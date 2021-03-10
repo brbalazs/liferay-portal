@@ -229,9 +229,13 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			}
 		}
 
-		attachSecrets(
-			faroProject.getWeDeployKey(),
-			envVarSecretNames.toArray(new String[0]));
+		for (LCPService lcpService :
+				getLCPServices(faroProject.getWeDeployKey())) {
+
+			attachSecrets(
+				faroProject.getWeDeployKey(), lcpService.getServiceId(),
+				envVarSecretNames.toArray(new String[0]));
+		}
 	}
 
 	@Override
@@ -278,32 +282,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		String weDeployKey, String sha, boolean trial) {
 
 		return buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
-	}
-
-	protected void attachSecrets(
-			String weDeployKey, String... envVarSecretNames)
-		throws Exception {
-
-		long startTime = System.currentTimeMillis();
-
-		List<LCPService> lcpServices = getLCPServices(weDeployKey);
-
-		while (lcpServices.isEmpty()) {
-			Thread.sleep(10 * Time.SECOND);
-
-			lcpServices = getLCPServices(weDeployKey);
-
-			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
-				_log.error("Unable to deploy services to " + weDeployKey);
-
-				return;
-			}
-		}
-
-		for (LCPService lcpService : lcpServices) {
-			attachSecrets(
-				weDeployKey, lcpService.getServiceId(), envVarSecretNames);
-		}
 	}
 
 	protected void attachSecrets(
@@ -512,6 +490,28 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			Void.class);
 	}
 
+	protected List<LCPService> waitForLCPServices(String weDeployKey)
+		throws Exception {
+
+		long startTime = System.currentTimeMillis();
+
+		List<LCPService> lcpServices = getLCPServices(weDeployKey);
+
+		while (lcpServices.isEmpty()) {
+			Thread.sleep(10 * Time.SECOND);
+
+			lcpServices = getLCPServices(weDeployKey);
+
+			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
+				_log.error("Unable to deploy services to " + weDeployKey);
+
+				return Collections.emptyList();
+			}
+		}
+
+		return lcpServices;
+	}
+
 	private static final String _PROJECT_API_URL = GetterUtil.getString(
 		System.getenv("FARO_DXP_CLOUD_API_URL"),
 		"https://api.liferay.cloud/projects/");
@@ -579,9 +579,13 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 				envVarSecretNames.add(getSecretName(secretKey));
 			}
 
-			attachSecrets(
-				_workspace.getWeDeployKey(),
-				envVarSecretNames.toArray(new String[0]));
+			for (LCPService lcpService :
+					waitForLCPServices(_workspace.getWeDeployKey())) {
+
+				attachSecrets(
+					_workspace.getWeDeployKey(), lcpService.getServiceId(),
+					envVarSecretNames.toArray(new String[0]));
+			}
 
 			for (int i = 0; i < 3; i++) {
 				Thread.sleep(Time.HOUR);
