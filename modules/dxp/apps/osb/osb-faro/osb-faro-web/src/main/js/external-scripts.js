@@ -10,7 +10,7 @@
  * sure that we only do comparisons to string or number literals.
  */
 
-let key = 'bWGQygxqYFCgDhkX6HhHJAZMBp9DGTbZ';
+let key = 'PTRIB8pyPqJIyZavjaTq0IVRypezSWyJ';
 
 if (FARO_ENV === 'prd') {
 	key = 'tcXcIh0trmFf4rxL3hgErPkrLxBBYeZy';
