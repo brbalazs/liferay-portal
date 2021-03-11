@@ -3,6 +3,7 @@ import BaseListPage from 'contacts/components/BaseListPage';
 import BasePage from 'shared/components/base-page';
 import ClayButton from '@clayui/button';
 import FaroConstants from 'shared/util/constants';
+import Promise from 'metal-promise';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import RowActions from 'shared/components/table/RowActions';
 import {
@@ -38,17 +39,30 @@ import {User} from 'shared/util/records';
 
 const {segmentStates, segmentTypes} = FaroConstants;
 
-function fetchSegments({
-	channelId,
-	delta,
-	filterBy,
-	groupId,
-	orderBy,
-	orderByField,
-	page,
-	query
-}) {
-	const stateFilterISet = filterBy.get('state', Set());
+interface FetchSegmentsParams {
+	channelId: string;
+	delta?: string | number;
+	filterBy: Map<string, Set<string>>;
+	groupId: string;
+	orderBy: string;
+	orderByField: string;
+	page: string | number;
+	query: string;
+}
+
+function fetchSegments(params: FetchSegmentsParams): any {
+	const {
+		channelId,
+		delta,
+		filterBy,
+		groupId,
+		orderBy,
+		orderByField,
+		page,
+		query
+	} = params;
+
+	const stateFilterISet = filterBy.get('state') || Set();
 
 	return API.individualSegment.search({
 		channelId,
@@ -67,7 +81,7 @@ function fetchSegments({
 	});
 }
 
-function fetchDisabledSegments({channelId, groupId}) {
+function fetchDisabledSegments(channelId: string, groupId: string): any {
 	return API.individualSegment.search({
 		channelId,
 		delta: 1,
@@ -82,7 +96,7 @@ interface IListProps {
 	close: Modal.close;
 	currentUser: User;
 	delta?: string | number;
-	filterBy?: Map<any, any>;
+	filterBy?: Map<string, Set<string>>;
 	groupId: string;
 	history: any;
 	open: Modal.open;
@@ -111,6 +125,7 @@ export const List: React.FC<IListProps> = ({
 }) => {
 	const [alerts, setAlerts] = useState([]);
 	const _tableRef = useRef<any>();
+	const _disableSegmentsRequestRef = useRef<Promise>();
 	const {
 		showUnassignedAlert,
 		unassignedSegments,
@@ -118,11 +133,13 @@ export const List: React.FC<IListProps> = ({
 	} = useContext(UnassignedSegmentsContext);
 
 	useEffect(() => {
-		getDisabledSegmentsAlert();
+		_disableSegmentsRequestRef.current = getDisabledSegmentsAlert();
+
+		return () => _disableSegmentsRequestRef.current.cancel();
 	}, []);
 
 	const getDisabledSegmentsAlert = () =>
-		fetchDisabledSegments({channelId, groupId}).then(({total}) => {
+		fetchDisabledSegments(channelId, groupId).then(({total}) => {
 			if (total) {
 				setAlerts(() => handleDisabledSegmentsAlert());
 			}
