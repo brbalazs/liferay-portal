@@ -330,6 +330,12 @@ export default class GeomapReact extends React.Component {
 			? this._geoMapInstance.getSize()
 			: {};
 
-		return <div ref={this._containerRef} style={{height, width}} />;
+		return (
+			<div
+				className='geomap-container'
+				ref={this._containerRef}
+				style={{height, width}}
+			/>
+		);
 	}
 }

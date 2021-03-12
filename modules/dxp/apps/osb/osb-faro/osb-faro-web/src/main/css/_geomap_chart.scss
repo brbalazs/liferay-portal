@@ -6,6 +6,10 @@ $c: '.analytics-geomap';
 	flex-direction: column;
 	width: 100%;
 
+	.geomap-container {
+		position: relative;
+	}
+
 	.no-results-root {
 		margin-top: 62px;
 	}
