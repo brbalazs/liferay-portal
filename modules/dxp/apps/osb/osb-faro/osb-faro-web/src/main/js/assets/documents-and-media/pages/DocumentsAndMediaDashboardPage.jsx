@@ -33,7 +33,7 @@ export default function DocumentsAndMediaDashboardPage() {
 							'download'
 						).toLowerCase()}
 						segmentsTitle={Liferay.Language.get(
-							'downloader-segments'
+							'downloaded-segments'
 						)}
 						uniqueVisitorsTitle={Liferay.Language.get('downloads')}
 					/>
