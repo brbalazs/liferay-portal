@@ -78,7 +78,8 @@ public class CommerceAccountOrganizationRelAdminDisplayContext
 			"mvcRenderCommandName", "/users_admin/edit_organization");
 		portletURL.setParameter(
 			"redirect", commerceAccountAdminRequestHelper.getCurrentURL());
-		portletURL.setParameter("organization", String.valueOf(organizationId));
+		portletURL.setParameter(
+			"organizationId", String.valueOf(organizationId));
 
 		return portletURL.toString();
 	}
