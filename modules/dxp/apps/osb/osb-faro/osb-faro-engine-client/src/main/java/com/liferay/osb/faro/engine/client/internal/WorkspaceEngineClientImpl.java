@@ -307,7 +307,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 										 i < envVarSecretNames.length; i += 2) {
 
 										String envVarName =
-											envVarSecretNames[i];
+											getAsahEnvVarName(
+												envVarSecretNames[i]);
 										String secretName =
 											envVarSecretNames[i + 1];
 
@@ -440,6 +441,14 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			new HttpComponentsClientHttpRequestFactory());
 
 		return restTemplate;
+	}
+
+	protected String getAsahEnvVarName(String envVarName) {
+		if (StringUtil.equals(envVarName, "OSB_ASAH_TOKEN")) {
+			return "OSB_ASAH_SECURITY_TOKEN";
+		}
+
+		return envVarName;
 	}
 
 	protected String getSecretName(String secretKey) {
