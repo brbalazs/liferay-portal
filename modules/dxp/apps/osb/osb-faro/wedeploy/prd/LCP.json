@@ -13,8 +13,7 @@
 		"OSB_API_URL": "https://web.liferay.com",
 		"OSB_ASAH_BACKEND_URL": "https://osbasahbackend-{weDeployKey}",
 		"OSB_ASAH_MONOLITH_URL": "https://osbasahmonolith-{weDeployKey}",
-		"OSB_ASAH_PUBLISHER_URL": "https://osbasahpublisher-{weDeployKey}",
-		"OSB_ASAH_TOKEN": "9ZPgFSdEntvRPjgRcstSgkUCBzKyjz4hbuaGbdW9h3BHcJbZLuuSqd6BpFLhRErS"
+		"OSB_ASAH_PUBLISHER_URL": "https://osbasahpublisher-{weDeployKey}"
 	},
 	"ports": [
 		{
