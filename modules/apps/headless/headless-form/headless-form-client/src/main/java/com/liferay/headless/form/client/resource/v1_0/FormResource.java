@@ -21,6 +21,8 @@ import com.liferay.headless.form.client.http.HttpInvoker;
 import com.liferay.headless.form.client.pagination.Page;
 import com.liferay.headless.form.client.pagination.Pagination;
 import com.liferay.headless.form.client.problem.Problem;
+import com.liferay.headless.form.client.serdes.v1_0.FormContextSerDes;
+import com.liferay.headless.form.client.serdes.v1_0.FormDocumentSerDes;
 import com.liferay.headless.form.client.serdes.v1_0.FormSerDes;
 
 import java.io.File;
@@ -148,7 +150,7 @@ public interface FormResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -228,7 +230,7 @@ public interface FormResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -252,8 +254,7 @@ public interface FormResource {
 			}
 
 			try {
-				return com.liferay.headless.form.client.serdes.v1_0.
-					FormContextSerDes.toDTO(content);
+				return FormContextSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -313,7 +314,7 @@ public interface FormResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -337,8 +338,7 @@ public interface FormResource {
 			}
 
 			try {
-				return com.liferay.headless.form.client.serdes.v1_0.
-					FormDocumentSerDes.toDTO(content);
+				return FormDocumentSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -403,7 +403,7 @@ public interface FormResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);

@@ -17,6 +17,7 @@ package com.liferay.headless.form.client.resource.v1_0;
 import com.liferay.headless.form.client.dto.v1_0.FormDocument;
 import com.liferay.headless.form.client.http.HttpInvoker;
 import com.liferay.headless.form.client.problem.Problem;
+import com.liferay.headless.form.client.serdes.v1_0.FormDocumentSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -134,7 +135,7 @@ public interface FormDocumentResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -215,7 +216,7 @@ public interface FormDocumentResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -288,7 +289,7 @@ public interface FormDocumentResource {
 
 			String content = httpResponse.getContent();
 
-			if (httpResponse.getStatusCode() / 100 != 2) {
+			if ((httpResponse.getStatusCode() / 100) != 2) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response content: " + content);
@@ -312,8 +313,7 @@ public interface FormDocumentResource {
 			}
 
 			try {
-				return com.liferay.headless.form.client.serdes.v1_0.
-					FormDocumentSerDes.toDTO(content);
+				return FormDocumentSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(

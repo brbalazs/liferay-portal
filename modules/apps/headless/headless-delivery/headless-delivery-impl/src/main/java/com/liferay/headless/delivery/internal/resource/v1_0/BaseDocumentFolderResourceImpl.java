@@ -88,11 +88,11 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@DELETE
 	@Operation(
 		description = "Deletes the document folder and returns a 204 if the operation succeeds."
 	)
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
@@ -110,9 +110,9 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
 	@DELETE
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
@@ -120,8 +120,8 @@ public abstract class BaseDocumentFolderResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response deleteDocumentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -146,9 +146,9 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the document folder.")
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
@@ -168,15 +168,15 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}' -d $'{"customFields": ___, "description": ___, "name": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Updates only the fields received in the request body. Any other fields are left untouched."
 	)
-	@PATCH
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
+	@PATCH
 	@Path("/document-folders/{documentFolderId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DocumentFolder")})
@@ -246,17 +246,17 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}' -d $'{"customFields": ___, "description": ___, "name": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Replaces the document folder with the information sent in the request body. Any missing fields are deleted, unless they are required."
 	)
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
 	@Path("/document-folders/{documentFolderId}")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public DocumentFolder putDocumentFolder(
 			@NotNull @Parameter(hidden = true) @PathParam("documentFolderId")
@@ -272,18 +272,18 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
 	@Path("/document-folders/batch")
 	@Produces("application/json")
+	@PUT
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response putDocumentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -309,12 +309,12 @@ public abstract class BaseDocumentFolderResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}/subscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
 	@Path("/document-folders/{documentFolderId}/subscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public void putDocumentFolderSubscribe(
 			@NotNull @Parameter(hidden = true) @PathParam("documentFolderId")
@@ -328,12 +328,12 @@ public abstract class BaseDocumentFolderResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{documentFolderId}/unsubscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "documentFolderId")}
 	)
 	@Path("/document-folders/{documentFolderId}/unsubscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public void putDocumentFolderUnsubscribe(
 			@NotNull @Parameter(hidden = true) @PathParam("documentFolderId")
@@ -346,11 +346,11 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the folder's subfolders. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "parentDocumentFolderId"),
@@ -367,11 +367,12 @@ public abstract class BaseDocumentFolderResourceImpl
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Page<DocumentFolder> getDocumentFolderDocumentFoldersPage(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("parentDocumentFolderId") Long parentDocumentFolderId,
+			@PathParam("parentDocumentFolderId")
+				Long parentDocumentFolderId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context com.liferay.portal.vulcan.aggregation.Aggregation
-				aggregation,
+			@Context
+				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -384,23 +385,24 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders' -d $'{"customFields": ___, "description": ___, "name": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Creates a new folder in a folder identified by `parentDocumentFolderId`."
 	)
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "parentDocumentFolderId")
 		}
 	)
 	@Path("/document-folders/{parentDocumentFolderId}/document-folders")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public DocumentFolder postDocumentFolderDocumentFolder(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("parentDocumentFolderId") Long parentDocumentFolderId,
+			@PathParam("parentDocumentFolderId")
+				Long parentDocumentFolderId,
 			DocumentFolder documentFolder)
 		throws Exception {
 
@@ -412,11 +414,11 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/document-folders'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the site's document folders. Results can be paginated, filtered, searched, flattened, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -435,8 +437,8 @@ public abstract class BaseDocumentFolderResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context com.liferay.portal.vulcan.aggregation.Aggregation
-				aggregation,
+			@Context
+				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -449,12 +451,12 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/document-folders' -d $'{"customFields": ___, "description": ___, "name": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Creates a new document folder.")
-	@POST
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "siteId")})
 	@Path("/sites/{siteId}/document-folders")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public DocumentFolder postSiteDocumentFolder(
@@ -470,9 +472,8 @@ public abstract class BaseDocumentFolderResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/document-folders/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -480,12 +481,13 @@ public abstract class BaseDocumentFolderResourceImpl
 		}
 	)
 	@Path("/sites/{siteId}/document-folders/batch")
+	@POST
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response postSiteDocumentFolderBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -586,7 +588,7 @@ public abstract class BaseDocumentFolderResourceImpl
 		for (DocumentFolder documentFolder : documentFolders) {
 			putDocumentFolder(
 				documentFolder.getId() != null ? documentFolder.getId() :
-				(Long)parameters.get("documentFolderId"),
+					(Long)parameters.get("documentFolderId"),
 				documentFolder);
 		}
 	}

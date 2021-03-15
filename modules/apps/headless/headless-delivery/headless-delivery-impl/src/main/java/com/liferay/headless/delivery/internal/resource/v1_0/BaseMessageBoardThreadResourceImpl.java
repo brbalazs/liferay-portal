@@ -81,7 +81,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseMessageBoardThreadResourceImpl
-	implements MessageBoardThreadResource, EntityModelResource,
+	implements EntityModelResource, MessageBoardThreadResource,
 			   VulcanBatchEngineTaskItemDelegate<MessageBoardThread> {
 
 	/**
@@ -89,11 +89,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-sections/{messageBoardSectionId}/message-board-threads'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the message board section's threads. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardSectionId"),
@@ -112,9 +112,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public Page<MessageBoardThread>
 			getMessageBoardSectionMessageBoardThreadsPage(
 				@NotNull @Parameter(hidden = true)
-				@PathParam("messageBoardSectionId") Long messageBoardSectionId,
+				@PathParam("messageBoardSectionId")
+					Long messageBoardSectionId,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context
+					com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -128,12 +130,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-sections/{messageBoardSectionId}/message-board-threads' -d $'{"articleBody": ___, "customFields": ___, "headline": ___, "keywords": ___, "showAsQuestion": ___, "taxonomyCategoryIds": ___, "threadType": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Creates a new message board thread inside a section."
 	)
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardSectionId")
@@ -142,11 +143,13 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Path(
 		"/message-board-sections/{messageBoardSectionId}/message-board-threads"
 	)
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public MessageBoardThread postMessageBoardSectionMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardSectionId") Long messageBoardSectionId,
+			@PathParam("messageBoardSectionId")
+				Long messageBoardSectionId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -158,9 +161,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-sections/{messageBoardSectionId}/message-board-threads/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardSectionId"),
@@ -170,13 +172,15 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Path(
 		"/message-board-sections/{messageBoardSectionId}/message-board-threads/batch"
 	)
+	@POST
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response postMessageBoardSectionMessageBoardThreadBatch(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardSectionId") Long messageBoardSectionId,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@PathParam("messageBoardSectionId")
+				Long messageBoardSectionId,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -201,11 +205,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@DELETE
 	@Operation(
 		description = "Deletes the message board thread and returns a 204 if the operation succeeds."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -216,7 +220,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public void deleteMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -225,9 +230,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
 	@DELETE
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
@@ -235,8 +240,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response deleteMessageBoardThreadBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -261,9 +266,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the message board thread.")
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -274,7 +279,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public MessageBoardThread getMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 
 		return new MessageBoardThread();
@@ -285,23 +291,24 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}' -d $'{"articleBody": ___, "customFields": ___, "headline": ___, "keywords": ___, "showAsQuestion": ___, "taxonomyCategoryIds": ___, "threadType": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Updates only the fields received in the request body, leaving any other fields untouched."
 	)
-	@PATCH
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
 		}
 	)
+	@PATCH
 	@Path("/message-board-threads/{messageBoardThreadId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public MessageBoardThread patchMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId,
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -399,12 +406,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}' -d $'{"articleBody": ___, "customFields": ___, "headline": ___, "keywords": ___, "showAsQuestion": ___, "taxonomyCategoryIds": ___, "threadType": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Replaces the message board thread with the information sent in the request body. Any missing fields are deleted, unless they are required."
 	)
-	@PUT
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -412,10 +418,12 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	)
 	@Path("/message-board-threads/{messageBoardThreadId}")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public MessageBoardThread putMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId,
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -427,18 +435,18 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
 	@Path("/message-board-threads/batch")
 	@Produces("application/json")
+	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response putMessageBoardThreadBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -463,11 +471,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/my-rating'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@DELETE
 	@Operation(
 		description = "Deletes the message board thread's rating and returns a 204 if the operation succeeds."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -478,7 +486,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public void deleteMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -487,9 +496,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/my-rating'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the message board thread's rating.")
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -500,7 +509,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Rating getMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 
 		return new Rating();
@@ -511,21 +521,22 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/my-rating' -d $'{"ratingValue": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Creates the message board thread's rating.")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
 		}
 	)
 	@Path("/message-board-threads/{messageBoardThreadId}/my-rating")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Rating postMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId,
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId,
 			Rating rating)
 		throws Exception {
 
@@ -537,12 +548,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/my-rating' -d $'{"ratingValue": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Replaces the rating with the information sent in the request body. Any missing fields are deleted, unless they are required."
 	)
-	@PUT
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -550,10 +560,12 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	)
 	@Path("/message-board-threads/{messageBoardThreadId}/my-rating")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Rating putMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId,
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId,
 			Rating rating)
 		throws Exception {
 
@@ -566,7 +578,6 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/subscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -574,10 +585,12 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	)
 	@Path("/message-board-threads/{messageBoardThreadId}/subscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public void putMessageBoardThreadSubscribe(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -587,7 +600,6 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/message-board-threads/{messageBoardThreadId}/unsubscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "messageBoardThreadId")
@@ -595,10 +607,12 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	)
 	@Path("/message-board-threads/{messageBoardThreadId}/unsubscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public void putMessageBoardThreadUnsubscribe(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("messageBoardThreadId") Long messageBoardThreadId)
+			@PathParam("messageBoardThreadId")
+				Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -607,11 +621,11 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/message-board-threads'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the site's message board threads. Results can be paginated, filtered, searched, flattened, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -630,8 +644,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context com.liferay.portal.vulcan.aggregation.Aggregation
-				aggregation,
+			@Context
+				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -644,12 +658,12 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/message-board-threads' -d $'{"articleBody": ___, "customFields": ___, "headline": ___, "keywords": ___, "showAsQuestion": ___, "taxonomyCategoryIds": ___, "threadType": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Creates a new message board thread.")
-	@POST
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "siteId")})
 	@Path("/sites/{siteId}/message-board-threads")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public MessageBoardThread postSiteMessageBoardThread(
@@ -665,9 +679,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/message-board-threads/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -675,12 +688,13 @@ public abstract class BaseMessageBoardThreadResourceImpl
 		}
 	)
 	@Path("/sites/{siteId}/message-board-threads/batch")
+	@POST
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response postSiteMessageBoardThreadBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -782,8 +796,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 		for (MessageBoardThread messageBoardThread : messageBoardThreads) {
 			putMessageBoardThread(
 				messageBoardThread.getId() != null ?
-				messageBoardThread.getId() :
-				(Long)parameters.get("messageBoardThreadId"),
+					messageBoardThread.getId() :
+						(Long)parameters.get("messageBoardThreadId"),
 				messageBoardThread);
 		}
 	}

@@ -558,7 +558,7 @@ public abstract class BaseOrganizationResourceTestCase {
 		Long irrelevantParentOrganizationId =
 			testGetOrganizationOrganizationsPage_getIrrelevantParentOrganizationId();
 
-		if ((irrelevantParentOrganizationId != null)) {
+		if (irrelevantParentOrganizationId != null) {
 			Organization irrelevantOrganization =
 				testGetOrganizationOrganizationsPage_addOrganization(
 					irrelevantParentOrganizationId,

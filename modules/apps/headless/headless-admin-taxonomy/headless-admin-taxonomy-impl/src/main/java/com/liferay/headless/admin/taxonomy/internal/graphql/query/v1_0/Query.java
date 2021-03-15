@@ -130,8 +130,8 @@ public class Query {
 		description = "Retrieves a taxonomy category's child taxonomy categories. Results can be paginated, filtered, searched, and sorted."
 	)
 	public TaxonomyCategoryPage taxonomyCategoryTaxonomyCategories(
-			@GraphQLName("parentTaxonomyCategoryId") Long
-				parentTaxonomyCategoryId,
+			@GraphQLName("parentTaxonomyCategoryId")
+				Long parentTaxonomyCategoryId,
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,

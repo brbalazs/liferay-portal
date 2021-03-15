@@ -81,11 +81,11 @@ public abstract class BaseContentSetElementResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/content-sets/{contentSetId}/content-set-elements'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the content set's elements (e.g., structured content, blogs, etc.). Results can be paginated."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "contentSetId"),
@@ -97,8 +97,8 @@ public abstract class BaseContentSetElementResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ContentSetElement")})
 	public Page<ContentSetElement> getContentSetContentSetElementsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("contentSetId") Long
-				contentSetId,
+			@NotNull @Parameter(hidden = true) @PathParam("contentSetId")
+				Long contentSetId,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -110,11 +110,11 @@ public abstract class BaseContentSetElementResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/content-sets/by-key/{key}/content-set-elements'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the content set elements by key. Results can be paginated."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -140,11 +140,11 @@ public abstract class BaseContentSetElementResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/sites/{siteId}/content-sets/by-uuid/{uuid}/content-set-elements'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the content set elements by UUID. Results can be paginated."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -158,10 +158,10 @@ public abstract class BaseContentSetElementResourceImpl
 	@Tags(value = {@Tag(name = "ContentSetElement")})
 	public Page<ContentSetElement>
 			getSiteContentSetByUuidContentSetElementsPage(
-				@NotNull @Parameter(hidden = true) @PathParam("siteId") Long
-					siteId,
-				@NotNull @Parameter(hidden = true) @PathParam("uuid") String
-					uuid,
+				@NotNull @Parameter(hidden = true) @PathParam("siteId")
+					Long siteId,
+				@NotNull @Parameter(hidden = true) @PathParam("uuid")
+					String uuid,
 				@Context Pagination pagination)
 		throws Exception {
 

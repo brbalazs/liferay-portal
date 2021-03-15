@@ -67,8 +67,8 @@ public abstract class BaseWorkflowLogResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-logs/{workflowLogId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowLogId")}
 	)
@@ -76,8 +76,8 @@ public abstract class BaseWorkflowLogResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowLog")})
 	public WorkflowLog getWorkflowLog(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowLogId") Long
-				workflowLogId)
+			@NotNull @Parameter(hidden = true) @PathParam("workflowLogId")
+				Long workflowLogId)
 		throws Exception {
 
 		return new WorkflowLog();
@@ -88,8 +88,8 @@ public abstract class BaseWorkflowLogResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}/workflow-logs'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "workflowTaskId"),
@@ -101,8 +101,8 @@ public abstract class BaseWorkflowLogResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowLog")})
 	public Page<WorkflowLog> getWorkflowTaskWorkflowLogsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId,
 			@Context Pagination pagination)
 		throws Exception {
 

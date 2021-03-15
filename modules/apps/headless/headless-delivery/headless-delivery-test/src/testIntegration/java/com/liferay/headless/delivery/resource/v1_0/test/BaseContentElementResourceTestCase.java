@@ -215,7 +215,7 @@ public abstract class BaseContentElementResourceTestCase {
 		Long irrelevantSiteId =
 			testGetSiteContentElementsPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			ContentElement irrelevantContentElement =
 				testGetSiteContentElementsPage_addContentElement(
 					irrelevantSiteId, randomIrrelevantContentElement());

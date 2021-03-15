@@ -276,7 +276,7 @@ public abstract class BaseUserAccountResourceTestCase {
 		Long irrelevantOrganizationId =
 			testGetOrganizationUserAccountsPage_getIrrelevantOrganizationId();
 
-		if ((irrelevantOrganizationId != null)) {
+		if (irrelevantOrganizationId != null) {
 			UserAccount irrelevantUserAccount =
 				testGetOrganizationUserAccountsPage_addUserAccount(
 					irrelevantOrganizationId, randomIrrelevantUserAccount());
@@ -587,7 +587,7 @@ public abstract class BaseUserAccountResourceTestCase {
 		Long irrelevantSiteId =
 			testGetSiteUserAccountsPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			UserAccount irrelevantUserAccount =
 				testGetSiteUserAccountsPage_addUserAccount(
 					irrelevantSiteId, randomIrrelevantUserAccount());

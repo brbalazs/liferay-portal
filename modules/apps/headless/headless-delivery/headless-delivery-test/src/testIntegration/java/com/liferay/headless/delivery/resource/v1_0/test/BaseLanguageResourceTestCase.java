@@ -204,7 +204,7 @@ public abstract class BaseLanguageResourceTestCase {
 		Long siteId = testGetSiteLanguagesPage_getSiteId();
 		Long irrelevantSiteId = testGetSiteLanguagesPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			Language irrelevantLanguage = testGetSiteLanguagesPage_addLanguage(
 				irrelevantSiteId, randomIrrelevantLanguage());
 

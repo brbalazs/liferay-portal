@@ -271,7 +271,7 @@ public abstract class BaseWorkflowLogResourceTestCase {
 		Long irrelevantWorkflowTaskId =
 			testGetWorkflowTaskWorkflowLogsPage_getIrrelevantWorkflowTaskId();
 
-		if ((irrelevantWorkflowTaskId != null)) {
+		if (irrelevantWorkflowTaskId != null) {
 			WorkflowLog irrelevantWorkflowLog =
 				testGetWorkflowTaskWorkflowLogsPage_addWorkflowLog(
 					irrelevantWorkflowTaskId, randomIrrelevantWorkflowLog());

@@ -217,7 +217,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 		Long irrelevantSiteId =
 			testGetSiteTaxonomyVocabulariesPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			TaxonomyVocabulary irrelevantTaxonomyVocabulary =
 				testGetSiteTaxonomyVocabulariesPage_addTaxonomyVocabulary(
 					irrelevantSiteId, randomIrrelevantTaxonomyVocabulary());

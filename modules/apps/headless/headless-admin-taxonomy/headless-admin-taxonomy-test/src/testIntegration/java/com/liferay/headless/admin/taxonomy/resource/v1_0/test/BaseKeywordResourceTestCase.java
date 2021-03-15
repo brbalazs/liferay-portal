@@ -341,7 +341,7 @@ public abstract class BaseKeywordResourceTestCase {
 		Long siteId = testGetSiteKeywordsPage_getSiteId();
 		Long irrelevantSiteId = testGetSiteKeywordsPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			Keyword irrelevantKeyword = testGetSiteKeywordsPage_addKeyword(
 				irrelevantSiteId, randomIrrelevantKeyword());
 

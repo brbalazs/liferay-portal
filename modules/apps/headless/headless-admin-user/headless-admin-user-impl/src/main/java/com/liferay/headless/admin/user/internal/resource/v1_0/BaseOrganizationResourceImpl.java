@@ -74,7 +74,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseOrganizationResourceImpl
-	implements OrganizationResource, EntityModelResource,
+	implements EntityModelResource, OrganizationResource,
 			   VulcanBatchEngineTaskItemDelegate<Organization> {
 
 	/**
@@ -82,11 +82,11 @@ public abstract class BaseOrganizationResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/organizations'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the organizations. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "flatten"),
@@ -115,9 +115,9 @@ public abstract class BaseOrganizationResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/organizations/{organizationId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the organization.")
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "organizationId")}
 	)
@@ -125,8 +125,8 @@ public abstract class BaseOrganizationResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Organization")})
 	public Organization getOrganization(
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
-				organizationId)
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
+				Long organizationId)
 		throws Exception {
 
 		return new Organization();
@@ -137,11 +137,11 @@ public abstract class BaseOrganizationResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/organizations/{parentOrganizationId}/organizations'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the parent organization's child organizations. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "parentOrganizationId"),
@@ -158,7 +158,8 @@ public abstract class BaseOrganizationResourceImpl
 	@Tags(value = {@Tag(name = "Organization")})
 	public Page<Organization> getOrganizationOrganizationsPage(
 			@NotNull @Parameter(hidden = true)
-			@PathParam("parentOrganizationId") Long parentOrganizationId,
+			@PathParam("parentOrganizationId")
+				Long parentOrganizationId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,

@@ -207,7 +207,7 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 		Long irrelevantRoleId =
 			testGetRoleWorkflowTasksPage_getIrrelevantRoleId();
 
-		if ((irrelevantRoleId != null)) {
+		if (irrelevantRoleId != null) {
 			WorkflowTask irrelevantWorkflowTask =
 				testGetRoleWorkflowTasksPage_addWorkflowTask(
 					irrelevantRoleId, randomIrrelevantWorkflowTask());

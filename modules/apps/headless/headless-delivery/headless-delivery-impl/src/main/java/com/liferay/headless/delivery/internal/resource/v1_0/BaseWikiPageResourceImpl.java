@@ -79,19 +79,19 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseWikiPageResourceImpl
-	implements WikiPageResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<WikiPage> {
+	implements EntityModelResource, VulcanBatchEngineTaskItemDelegate<WikiPage>,
+			   WikiPageResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the wiki page's of a node. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "wikiNodeId"),
@@ -106,11 +106,11 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Page<WikiPage> getWikiNodeWikiPagesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
-				wikiNodeId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
+				Long wikiNodeId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context com.liferay.portal.vulcan.aggregation.Aggregation
-				aggregation,
+			@Context
+				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -123,19 +123,19 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages' -d $'{"content": ___, "customFields": ___, "description": ___, "encodingFormat": ___, "headline": ___, "keywords": ___, "taxonomyCategoryIds": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Creates a new wiki page")
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiNodeId")}
 	)
 	@Path("/wiki-nodes/{wikiNodeId}/wiki-pages")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage postWikiNodeWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
-				wikiNodeId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
+				Long wikiNodeId,
 			WikiPage wikiPage)
 		throws Exception {
 
@@ -147,9 +147,8 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "wikiNodeId"),
@@ -157,13 +156,14 @@ public abstract class BaseWikiPageResourceImpl
 		}
 	)
 	@Path("/wiki-nodes/{wikiNodeId}/wiki-pages/batch")
+	@POST
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response postWikiNodeWikiPageBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
-				wikiNodeId,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
+				Long wikiNodeId,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -189,16 +189,16 @@ public abstract class BaseWikiPageResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/subscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiPageId")}
 	)
 	@Path("/wiki-page/{wikiPageId}/subscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void putWikiPageSubscribe(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
-				wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
+				Long wikiPageId)
 		throws Exception {
 	}
 
@@ -208,16 +208,16 @@ public abstract class BaseWikiPageResourceImpl
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/unsubscribe'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@PUT
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiPageId")}
 	)
 	@Path("/wiki-page/{wikiPageId}/unsubscribe")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void putWikiPageUnsubscribe(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
-				wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
+				Long wikiPageId)
 		throws Exception {
 	}
 
@@ -226,9 +226,9 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the child wiki page's of a wiki page.")
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "parentWikiPageId")}
 	)
@@ -248,16 +248,16 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages' -d $'{"content": ___, "customFields": ___, "description": ___, "encodingFormat": ___, "headline": ___, "keywords": ___, "taxonomyCategoryIds": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Creates a child wiki page of the parent wiki page."
 	)
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "parentWikiPageId")}
 	)
 	@Path("/wiki-pages/{parentWikiPageId}/wiki-pages")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage postWikiPageWikiPage(
@@ -274,11 +274,11 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@DELETE
 	@Operation(
 		description = "Deletes the wiki page and returns a 204 if the operation succeeds."
 	)
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiPageId")}
 	)
@@ -286,8 +286,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void deleteWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
-				wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
+				Long wikiPageId)
 		throws Exception {
 	}
 
@@ -296,9 +296,9 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
 	@DELETE
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
@@ -306,8 +306,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response deleteWikiPageBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -332,9 +332,9 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the wiki page")
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiPageId")}
 	)
@@ -342,8 +342,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage getWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
-				wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
+				Long wikiPageId)
 		throws Exception {
 
 		return new WikiPage();
@@ -354,21 +354,21 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}' -d $'{"content": ___, "customFields": ___, "description": ___, "encodingFormat": ___, "headline": ___, "keywords": ___, "taxonomyCategoryIds": ___, "viewableBy": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Replaces the wiki page with the information sent in the request body. Any missing fields are deleted, unless they are required."
 	)
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "wikiPageId")}
 	)
 	@Path("/wiki-pages/{wikiPageId}")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage putWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
-				wikiPageId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
+				Long wikiPageId,
 			WikiPage wikiPage)
 		throws Exception {
 
@@ -380,18 +380,18 @@ public abstract class BaseWikiPageResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-delivery/v1.0/wiki-pages/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
 	@Path("/wiki-pages/batch")
 	@Produces("application/json")
+	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response putWikiPageBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -492,7 +492,7 @@ public abstract class BaseWikiPageResourceImpl
 		for (WikiPage wikiPage : wikiPages) {
 			putWikiPage(
 				wikiPage.getId() != null ? wikiPage.getId() :
-				(Long)parameters.get("wikiPageId"),
+					(Long)parameters.get("wikiPageId"),
 				wikiPage);
 		}
 	}

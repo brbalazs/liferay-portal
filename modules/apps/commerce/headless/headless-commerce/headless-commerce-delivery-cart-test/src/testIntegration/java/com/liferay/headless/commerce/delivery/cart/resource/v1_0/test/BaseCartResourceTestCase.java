@@ -396,7 +396,7 @@ public abstract class BaseCartResourceTestCase {
 		Long irrelevantChannelId =
 			testGetChannelCartsPage_getIrrelevantChannelId();
 
-		if ((irrelevantChannelId != null)) {
+		if (irrelevantChannelId != null) {
 			Cart irrelevantCart = testGetChannelCartsPage_addCart(
 				irrelevantChannelId, randomIrrelevantCart());
 

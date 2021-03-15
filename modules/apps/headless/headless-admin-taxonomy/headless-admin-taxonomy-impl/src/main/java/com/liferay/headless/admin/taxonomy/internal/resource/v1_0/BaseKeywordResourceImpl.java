@@ -79,7 +79,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseKeywordResourceImpl
-	implements KeywordResource, EntityModelResource,
+	implements EntityModelResource, KeywordResource,
 			   VulcanBatchEngineTaskItemDelegate<Keyword> {
 
 	/**
@@ -87,18 +87,18 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/keywords/{keywordId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@DELETE
 	@Operation(
 		description = "Deletes the keyword and returns a 204 if the operation succeeds."
 	)
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "keywordId")})
 	@Path("/keywords/{keywordId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Keyword")})
 	public void deleteKeyword(
-			@NotNull @Parameter(hidden = true) @PathParam("keywordId") Long
-				keywordId)
+			@NotNull @Parameter(hidden = true) @PathParam("keywordId")
+				Long keywordId)
 		throws Exception {
 	}
 
@@ -107,9 +107,9 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/keywords/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
 	@DELETE
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
@@ -117,8 +117,8 @@ public abstract class BaseKeywordResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Response deleteKeywordBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -143,16 +143,16 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/keywords/{keywordId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves a keyword.")
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "keywordId")})
 	@Path("/keywords/{keywordId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Keyword getKeyword(
-			@NotNull @Parameter(hidden = true) @PathParam("keywordId") Long
-				keywordId)
+			@NotNull @Parameter(hidden = true) @PathParam("keywordId")
+				Long keywordId)
 		throws Exception {
 
 		return new Keyword();
@@ -163,19 +163,19 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/keywords/{keywordId}' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(
 		description = "Replaces the keyword with the information sent in the request body. Any missing fields are deleted, unless required."
 	)
-	@PUT
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "keywordId")})
 	@Path("/keywords/{keywordId}")
 	@Produces({"application/json", "application/xml"})
+	@PUT
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Keyword putKeyword(
-			@NotNull @Parameter(hidden = true) @PathParam("keywordId") Long
-				keywordId,
+			@NotNull @Parameter(hidden = true) @PathParam("keywordId")
+				Long keywordId,
 			Keyword keyword)
 		throws Exception {
 
@@ -187,18 +187,18 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/keywords/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@PUT
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.QUERY, name = "callbackURL")}
 	)
 	@Path("/keywords/batch")
 	@Produces("application/json")
+	@PUT
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Response putKeywordBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -223,11 +223,11 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/sites/{siteId}/keywords'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves a Site's keywords. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -256,12 +256,12 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/sites/{siteId}/keywords' -d $'{"name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Inserts a new keyword in a Site.")
-	@POST
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "siteId")})
 	@Path("/sites/{siteId}/keywords")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Keyword postSiteKeyword(
@@ -277,9 +277,8 @@ public abstract class BaseKeywordResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-taxonomy/v1.0/sites/{siteId}/keywords/batch'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes("application/json")
-	@POST
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -287,12 +286,13 @@ public abstract class BaseKeywordResourceImpl
 		}
 	)
 	@Path("/sites/{siteId}/keywords/batch")
+	@POST
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Keyword")})
 	public Response postSiteKeywordBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL") String
-				callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL")
+				String callbackURL,
 			Object object)
 		throws Exception {
 
@@ -392,7 +392,7 @@ public abstract class BaseKeywordResourceImpl
 		for (Keyword keyword : keywords) {
 			putKeyword(
 				keyword.getId() != null ? keyword.getId() :
-				(Long)parameters.get("keywordId"),
+					(Long)parameters.get("keywordId"),
 				keyword);
 		}
 	}

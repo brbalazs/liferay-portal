@@ -451,7 +451,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 		Long irrelevantParentDocumentFolderId =
 			testGetDocumentFolderDocumentFoldersPage_getIrrelevantParentDocumentFolderId();
 
-		if ((irrelevantParentDocumentFolderId != null)) {
+		if (irrelevantParentDocumentFolderId != null) {
 			DocumentFolder irrelevantDocumentFolder =
 				testGetDocumentFolderDocumentFoldersPage_addDocumentFolder(
 					irrelevantParentDocumentFolderId,
@@ -808,7 +808,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 		Long irrelevantSiteId =
 			testGetSiteDocumentFoldersPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			DocumentFolder irrelevantDocumentFolder =
 				testGetSiteDocumentFoldersPage_addDocumentFolder(
 					irrelevantSiteId, randomIrrelevantDocumentFolder());

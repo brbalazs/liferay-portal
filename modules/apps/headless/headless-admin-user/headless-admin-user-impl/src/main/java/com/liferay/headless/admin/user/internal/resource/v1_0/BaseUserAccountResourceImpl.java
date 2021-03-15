@@ -74,7 +74,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseUserAccountResourceImpl
-	implements UserAccountResource, EntityModelResource,
+	implements EntityModelResource, UserAccountResource,
 			   VulcanBatchEngineTaskItemDelegate<UserAccount> {
 
 	/**
@@ -82,11 +82,11 @@ public abstract class BaseUserAccountResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/my-user-account'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves information about the user who made the request."
 	)
+	@Override
 	@Path("/my-user-account")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "UserAccount")})
@@ -99,11 +99,11 @@ public abstract class BaseUserAccountResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/organizations/{organizationId}/user-accounts'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the organization's members (users). Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "organizationId"),
@@ -118,8 +118,8 @@ public abstract class BaseUserAccountResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "UserAccount")})
 	public Page<UserAccount> getOrganizationUserAccountsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
-				organizationId,
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
+				Long organizationId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
@@ -133,11 +133,11 @@ public abstract class BaseUserAccountResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/sites/{siteId}/user-accounts'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the site members' user accounts. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
@@ -166,11 +166,11 @@ public abstract class BaseUserAccountResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/user-accounts'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the user accounts. Results can be paginated, filtered, searched, and sorted."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "search"),
@@ -197,9 +197,9 @@ public abstract class BaseUserAccountResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/user-accounts/{userAccountId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the user account.")
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "userAccountId")}
 	)
@@ -207,8 +207,8 @@ public abstract class BaseUserAccountResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "UserAccount")})
 	public UserAccount getUserAccount(
-			@NotNull @Parameter(hidden = true) @PathParam("userAccountId") Long
-				userAccountId)
+			@NotNull @Parameter(hidden = true) @PathParam("userAccountId")
+				Long userAccountId)
 		throws Exception {
 
 		return new UserAccount();

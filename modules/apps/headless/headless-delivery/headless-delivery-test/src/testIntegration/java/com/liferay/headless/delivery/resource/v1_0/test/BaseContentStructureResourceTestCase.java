@@ -281,7 +281,7 @@ public abstract class BaseContentStructureResourceTestCase {
 		Long irrelevantSiteId =
 			testGetSiteContentStructuresPage_getIrrelevantSiteId();
 
-		if ((irrelevantSiteId != null)) {
+		if (irrelevantSiteId != null) {
 			ContentStructure irrelevantContentStructure =
 				testGetSiteContentStructuresPage_addContentStructure(
 					irrelevantSiteId, randomIrrelevantContentStructure());

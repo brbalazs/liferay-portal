@@ -73,7 +73,7 @@ import javax.ws.rs.core.UriInfo;
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseRoleResourceImpl
-	implements RoleResource, EntityModelResource,
+	implements EntityModelResource, RoleResource,
 			   VulcanBatchEngineTaskItemDelegate<Role> {
 
 	/**
@@ -81,11 +81,11 @@ public abstract class BaseRoleResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/roles'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(
 		description = "Retrieves the portal instance's roles. Results can be paginated."
 	)
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
@@ -106,9 +106,9 @@ public abstract class BaseRoleResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-user/v1.0/roles/{roleId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
 	@Operation(description = "Retrieves the role.")
+	@Override
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "roleId")})
 	@Path("/roles/{roleId}")
 	@Produces({"application/json", "application/xml"})

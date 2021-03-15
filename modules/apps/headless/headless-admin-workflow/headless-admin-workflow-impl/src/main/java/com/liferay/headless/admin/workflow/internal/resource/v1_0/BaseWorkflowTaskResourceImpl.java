@@ -72,8 +72,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/roles/{roleId}/workflow-tasks'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "roleId"),
@@ -97,8 +97,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/assigned-to-me'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
@@ -120,8 +120,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/assigned-to-my-roles'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
@@ -143,8 +143,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}'  -u 'test@liferay.com:test'
 	 */
-	@Override
 	@GET
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowTaskId")}
 	)
@@ -152,8 +152,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask getWorkflowTask(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId)
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId)
 		throws Exception {
 
 		return new WorkflowTask();
@@ -164,18 +164,18 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}/assign-to-me' -d $'{"comment": ___, "dueDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowTaskId")}
 	)
 	@Path("/workflow-tasks/{workflowTaskId}/assign-to-me")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskAssignToMe(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId,
 			WorkflowTaskAssignToMe workflowTaskAssignToMe)
 		throws Exception {
 
@@ -187,18 +187,18 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}/assign-to-user' -d $'{"assigneeId": ___, "comment": ___, "dueDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowTaskId")}
 	)
 	@Path("/workflow-tasks/{workflowTaskId}/assign-to-user")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskAssignToUser(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId,
 			WorkflowTaskAssignToUser workflowTaskAssignToUser)
 		throws Exception {
 
@@ -210,18 +210,18 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}/change-transition' -d $'{"transition": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowTaskId")}
 	)
 	@Path("/workflow-tasks/{workflowTaskId}/change-transition")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskChangeTransition(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId,
 			ChangeTransition changeTransition)
 		throws Exception {
 
@@ -233,18 +233,18 @@ public abstract class BaseWorkflowTaskResourceImpl
 	 *
 	 * curl -X 'POST' 'http://localhost:8080/o/headless-admin-workflow/v1.0/workflow-tasks/{workflowTaskId}/update-due-date' -d $'{"comment": ___, "dueDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
-	@Override
 	@Consumes({"application/json", "application/xml"})
-	@POST
+	@Override
 	@Parameters(
 		value = {@Parameter(in = ParameterIn.PATH, name = "workflowTaskId")}
 	)
 	@Path("/workflow-tasks/{workflowTaskId}/update-due-date")
+	@POST
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskUpdateDueDate(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
-				workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
+				Long workflowTaskId,
 			WorkflowTaskAssignToMe workflowTaskAssignToMe)
 		throws Exception {
 

@@ -54,8 +54,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @GraphQLName("StructuredContent")
 @JsonFilter("Liferay.Vulcan")
 @Schema(
-	requiredProperties = {"title"},
-	description = "Represents content that has fields and is rendered by a template backed by a `ContentStructure`. This is modeled internally as a `JournalArticle`."
+	description = "Represents content that has fields and is rendered by a template backed by a `ContentStructure`. This is modeled internally as a `JournalArticle`.",
+	requiredProperties = {"title"}
 )
 @XmlRootElement(name = "StructuredContent")
 public class StructuredContent implements Serializable {
