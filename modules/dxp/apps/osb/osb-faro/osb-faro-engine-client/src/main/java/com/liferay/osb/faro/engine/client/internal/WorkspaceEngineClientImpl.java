@@ -223,10 +223,10 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			else {
 				createSecret(
 					faroProject.getWeDeployKey(), secretName, secretValue);
-
-				envVarSecretNames.add(secretKey);
-				envVarSecretNames.add(secretName);
 			}
+
+			envVarSecretNames.add(secretKey);
+			envVarSecretNames.add(secretName);
 		}
 
 		for (LCPService lcpService :
