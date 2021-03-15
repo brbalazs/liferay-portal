@@ -15,7 +15,7 @@ AUI.add(
 			NAME: 'layoutcustomizationsettings',
 
 			prototype: {
-				initializer(config) {
+				initializer: function initializer(config) {
 					var instance = this;
 
 					instance._controls = instance.byId(
@@ -28,7 +28,7 @@ AUI.add(
 					instance._bindUI();
 				},
 
-				destroy(event) {
+				destroy: function destroy(event) {
 					var instance = this;
 
 					var columns = A.all('.portlet-column');
@@ -50,7 +50,7 @@ AUI.add(
 					}
 				},
 
-				_bindUI() {
+				_bindUI: function _bindUI() {
 					var instance = this;
 
 					var manageCustomization = instance._manageCustomization;
@@ -68,7 +68,7 @@ AUI.add(
 						var columns = A.all('.portlet-column');
 
 						Liferay.publish('updatedLayout', {
-							defaultFn(event) {
+							defaultFn: function defaultFn(event) {
 								columns.each(function(item, index) {
 									var overlayMask = item.getData(
 										'customizationControls'
@@ -86,7 +86,7 @@ AUI.add(
 					}
 				},
 
-				_createCustomizationMask(column) {
+				_createCustomizationMask: function _createCustomizationMask(column) {
 					var instance = this;
 
 					var columnId = column.attr('id');
@@ -102,7 +102,7 @@ AUI.add(
 					var cssClass = 'customizable-layout-column';
 
 					var overlayMask = new A.OverlayMask({
-						cssClass,
+						cssClass: cssClass,
 						target: column,
 						zIndex: 10
 					}).render();
@@ -159,7 +159,7 @@ AUI.add(
 					return overlayMask;
 				},
 
-				_onChangeCustomization(event) {
+				_onChangeCustomization: function _onChangeCustomization(event) {
 					var instance = this;
 
 					var checkbox = event.currentTarget;
@@ -192,12 +192,12 @@ AUI.add(
 					A.io.request(
 						themeDisplay.getPathMain() + '/portal/update_layout',
 						{
-							data
+							data: data
 						}
 					);
 				},
 
-				_onManageCustomization(event) {
+				_onManageCustomization: function _onManageCustomization(event) {
 					var instance = this;
 
 					var customizationsHandle = instance._customizationsHandle;
