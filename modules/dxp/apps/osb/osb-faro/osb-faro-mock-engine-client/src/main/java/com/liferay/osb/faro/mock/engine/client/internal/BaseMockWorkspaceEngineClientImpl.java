@@ -67,7 +67,7 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	}
 
 	@Override
-	public void updateSecrets(FaroProject faroProject) throws Exception {
+	public void updateSecrets(FaroProject faroProject) {
 		workspaceEngineClient.updateSecrets(faroProject);
 	}
 

@@ -204,37 +204,50 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	}
 
 	@Override
-	public void updateSecrets(FaroProject faroProject) throws Exception {
+	public void updateSecrets(FaroProject faroProject) {
 		List<String> envVarSecretNames = new ArrayList<>();
 
-		for (String secretKey : _secretKeys) {
-			String secretValue = System.getenv(secretKey);
+		try {
+			for (String secretKey : _secretKeys) {
+				String secretValue = System.getenv(secretKey);
 
-			if (Validator.isNull(secretValue)) {
-				continue;
+				if (Validator.isNull(secretValue)) {
+					continue;
+				}
+
+				String secretName = getSecretName(secretKey);
+
+				if (hasSecret(faroProject.getWeDeployKey(), secretName)) {
+					updateSecret(
+						faroProject.getWeDeployKey(), secretName, secretValue);
+				}
+				else {
+					createSecret(
+						faroProject.getWeDeployKey(), secretName, secretValue);
+				}
+
+				envVarSecretNames.add(secretKey);
+				envVarSecretNames.add(secretName);
 			}
 
-			String secretName = getSecretName(secretKey);
+			for (LCPService lcpService :
+					getLCPServices(faroProject.getWeDeployKey())) {
 
-			if (hasSecret(faroProject.getWeDeployKey(), secretName)) {
-				updateSecret(
-					faroProject.getWeDeployKey(), secretName, secretValue);
-			}
-			else {
-				createSecret(
-					faroProject.getWeDeployKey(), secretName, secretValue);
+				attachSecrets(
+					faroProject.getWeDeployKey(), lcpService.getServiceId(),
+					envVarSecretNames.toArray(new String[0]));
 			}
 
-			envVarSecretNames.add(secretKey);
-			envVarSecretNames.add(secretName);
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Successfully updated secrets to " +
+						faroProject.getWeDeployKey());
+			}
 		}
-
-		for (LCPService lcpService :
-				getLCPServices(faroProject.getWeDeployKey())) {
-
-			attachSecrets(
-				faroProject.getWeDeployKey(), lcpService.getServiceId(),
-				envVarSecretNames.toArray(new String[0]));
+		catch (Exception e) {
+			_log.error(
+				"Unable to update secrets to " + faroProject.getWeDeployKey(),
+				e);
 		}
 	}
 
@@ -306,9 +319,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 									for (int i = 0;
 										 i < envVarSecretNames.length; i += 2) {
 
-										String envVarName =
-											getAsahEnvVarName(
-												envVarSecretNames[i]);
+										String envVarName = getAsahEnvVarName(
+											envVarSecretNames[i]);
 										String secretName =
 											envVarSecretNames[i + 1];
 
@@ -423,6 +435,14 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return workspace;
 	}
 
+	protected String getAsahEnvVarName(String envVarName) {
+		if (StringUtil.equals(envVarName, "OSB_ASAH_TOKEN")) {
+			return "OSB_ASAH_SECURITY_TOKEN";
+		}
+
+		return envVarName;
+	}
+
 	protected String getProjectId(String weDeployKey) {
 		return StringUtil.removeSubstring(weDeployKey, ".lfr.cloud");
 	}
@@ -441,14 +461,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			new HttpComponentsClientHttpRequestFactory());
 
 		return restTemplate;
-	}
-
-	protected String getAsahEnvVarName(String envVarName) {
-		if (StringUtil.equals(envVarName, "OSB_ASAH_TOKEN")) {
-			return "OSB_ASAH_SECURITY_TOKEN";
-		}
-
-		return envVarName;
 	}
 
 	protected String getSecretName(String secretKey) {

@@ -41,7 +41,7 @@ public interface WorkspaceEngineClient {
 
 	public Workspace getWorkspace(String weDeployKey) throws Exception;
 
-	public void updateSecrets(FaroProject faroProject) throws Exception;
+	public void updateSecrets(FaroProject faroProject);
 
 	public void updateServices(String weDeployKey, String operation)
 		throws Exception;
