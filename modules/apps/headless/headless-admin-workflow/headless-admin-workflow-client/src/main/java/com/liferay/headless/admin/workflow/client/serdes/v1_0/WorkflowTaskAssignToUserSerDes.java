@@ -194,9 +194,6 @@ public class WorkflowTaskAssignToUserSerDes {
 						toDate((String)jsonParserFieldValue));
 				}
 			}
-			else if (jsonParserFieldName.equals("status")) {
-				throw new IllegalArgumentException();
-			}
 		}
 
 	}

@@ -387,9 +387,6 @@ public class WorkflowTaskSerDes {
 						toStrings((Object[])jsonParserFieldValue));
 				}
 			}
-			else if (jsonParserFieldName.equals("status")) {
-				throw new IllegalArgumentException();
-			}
 		}
 
 	}
