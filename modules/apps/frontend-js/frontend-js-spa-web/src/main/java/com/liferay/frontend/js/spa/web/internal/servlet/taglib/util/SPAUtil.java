@@ -15,7 +15,6 @@
 package com.liferay.frontend.js.spa.web.internal.servlet.taglib.util;
 
 import com.liferay.frontend.js.spa.web.configuration.SPAConfiguration;
-import com.liferay.frontend.js.spa.web.configuration.SPAConfigurationUtil;
 import com.liferay.osgi.util.StringPlus;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -39,7 +38,6 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.ResourceBundleLoaderUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -317,8 +315,6 @@ public class SPAUtil {
 		new CopyOnWriteArrayList<>();
 	private static volatile String _navigationExceptionSelectorsString;
 
-	private long _cacheExpirationTime;
-
 	static {
 		Class<?> clazz = ServletResponseConstants.class;
 
@@ -340,6 +336,7 @@ public class SPAUtil {
 		_REDIRECT_PARAM_NAME = portletNamespace.concat("redirect");
 	}
 
+	private long _cacheExpirationTime;
 	private ServiceTracker<Object, Object> _navigationExceptionSelectorTracker;
 
 	@Reference
