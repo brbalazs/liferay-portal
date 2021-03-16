@@ -265,10 +265,39 @@ public abstract class AssetCategoryLocalServiceBaseImpl
 	 * @return the matching asset category, or <code>null</code> if a matching asset category could not be found
 	 */
 	@Override
-	public AssetCategory fetchAssetCategoryByReferenceCode(
+	public AssetCategory fetchAssetCategoryByExternalReferenceCode(
 		long companyId, String externalReferenceCode) {
 
 		return assetCategoryPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchAssetCategoryByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public AssetCategory fetchAssetCategoryByReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return fetchAssetCategoryByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the asset category with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the asset category's external reference code
+	 * @return the matching asset category
+	 * @throws PortalException if a matching asset category could not be found
+	 */
+	@Override
+	public AssetCategory getAssetCategoryByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return assetCategoryPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

@@ -282,10 +282,40 @@ public abstract class CommercePricingClassLocalServiceBaseImpl
 	 * @return the matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
 	 */
 	@Override
+	public CommercePricingClass
+		fetchCommercePricingClassByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return commercePricingClassPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommercePricingClassByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
 	public CommercePricingClass fetchCommercePricingClassByReferenceCode(
 		long companyId, String externalReferenceCode) {
 
-		return commercePricingClassPersistence.fetchByC_ERC(
+		return fetchCommercePricingClassByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the commerce pricing class with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce pricing class's external reference code
+	 * @return the matching commerce pricing class
+	 * @throws PortalException if a matching commerce pricing class could not be found
+	 */
+	@Override
+	public CommercePricingClass getCommercePricingClassByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return commercePricingClassPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

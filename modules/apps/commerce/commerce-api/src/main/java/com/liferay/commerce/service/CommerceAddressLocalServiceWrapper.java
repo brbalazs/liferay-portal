@@ -316,6 +316,20 @@ public class CommerceAddressLocalServiceWrapper
 	 */
 	@Override
 	public com.liferay.commerce.model.CommerceAddress
+		fetchCommerceAddressByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return _commerceAddressLocalService.
+			fetchCommerceAddressByExternalReferenceCode(
+				companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceAddressByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public com.liferay.commerce.model.CommerceAddress
 		fetchCommerceAddressByReferenceCode(
 			long companyId, String externalReferenceCode) {
 
@@ -393,6 +407,25 @@ public class CommerceAddressLocalServiceWrapper
 
 		return _commerceAddressLocalService.getCommerceAddress(
 			commerceAddressId);
+	}
+
+	/**
+	 * Returns the commerce address with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce address's external reference code
+	 * @return the matching commerce address
+	 * @throws PortalException if a matching commerce address could not be found
+	 */
+	@Override
+	public com.liferay.commerce.model.CommerceAddress
+			getCommerceAddressByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceAddressLocalService.
+			getCommerceAddressByExternalReferenceCode(
+				companyId, externalReferenceCode);
 	}
 
 	/**

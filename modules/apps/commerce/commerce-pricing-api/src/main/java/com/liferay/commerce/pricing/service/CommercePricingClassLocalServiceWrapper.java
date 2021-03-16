@@ -273,6 +273,20 @@ public class CommercePricingClassLocalServiceWrapper
 	 */
 	@Override
 	public com.liferay.commerce.pricing.model.CommercePricingClass
+		fetchCommercePricingClassByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return _commercePricingClassLocalService.
+			fetchCommercePricingClassByExternalReferenceCode(
+				companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommercePricingClassByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
 		fetchCommercePricingClassByReferenceCode(
 			long companyId, String externalReferenceCode) {
 
@@ -324,6 +338,25 @@ public class CommercePricingClassLocalServiceWrapper
 	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId) {
 		return _commercePricingClassLocalService.
 			getCommercePricingClassByCPDefinition(cpDefinitionId);
+	}
+
+	/**
+	 * Returns the commerce pricing class with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce pricing class's external reference code
+	 * @return the matching commerce pricing class
+	 * @throws PortalException if a matching commerce pricing class could not be found
+	 */
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
+			getCommercePricingClassByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassLocalService.
+			getCommercePricingClassByExternalReferenceCode(
+				companyId, externalReferenceCode);
 	}
 
 	/**

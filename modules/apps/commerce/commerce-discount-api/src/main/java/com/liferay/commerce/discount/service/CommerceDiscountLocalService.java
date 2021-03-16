@@ -280,6 +280,14 @@ public interface CommerceDiscountLocalService
 	 * @return the matching commerce discount, or <code>null</code> if a matching commerce discount could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceDiscount fetchCommerceDiscountByExternalReferenceCode(
+		long companyId, String externalReferenceCode);
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceDiscountByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceDiscount fetchCommerceDiscountByReferenceCode(
 		long companyId, String externalReferenceCode);
 
@@ -358,6 +366,19 @@ public interface CommerceDiscountLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceDiscount getCommerceDiscount(long commerceDiscountId)
+		throws PortalException;
+
+	/**
+	 * Returns the commerce discount with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce discount's external reference code
+	 * @return the matching commerce discount
+	 * @throws PortalException if a matching commerce discount could not be found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceDiscount getCommerceDiscountByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
 		throws PortalException;
 
 	/**

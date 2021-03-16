@@ -270,6 +270,19 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 	 * @return the matching commerce inventory warehouse item, or <code>null</code> if a matching commerce inventory warehouse item could not be found
 	 */
 	public static CommerceInventoryWarehouseItem
+		fetchCommerceInventoryWarehouseItemByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return getService().
+			fetchCommerceInventoryWarehouseItemByExternalReferenceCode(
+				companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceInventoryWarehouseItemByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	public static CommerceInventoryWarehouseItem
 		fetchCommerceInventoryWarehouseItemByReferenceCode(
 			long companyId, String externalReferenceCode) {
 
@@ -297,6 +310,24 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 
 		return getService().getCommerceInventoryWarehouseItem(
 			commerceInventoryWarehouseItemId);
+	}
+
+	/**
+	 * Returns the commerce inventory warehouse item with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce inventory warehouse item's external reference code
+	 * @return the matching commerce inventory warehouse item
+	 * @throws PortalException if a matching commerce inventory warehouse item could not be found
+	 */
+	public static CommerceInventoryWarehouseItem
+			getCommerceInventoryWarehouseItemByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return getService().
+			getCommerceInventoryWarehouseItemByExternalReferenceCode(
+				companyId, externalReferenceCode);
 	}
 
 	public static CommerceInventoryWarehouseItem

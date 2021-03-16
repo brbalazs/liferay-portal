@@ -291,10 +291,41 @@ public abstract class CommercePriceModifierLocalServiceBaseImpl
 	 * @return the matching commerce price modifier, or <code>null</code> if a matching commerce price modifier could not be found
 	 */
 	@Override
+	public CommercePriceModifier
+		fetchCommercePriceModifierByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return commercePriceModifierPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommercePriceModifierByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
 	public CommercePriceModifier fetchCommercePriceModifierByReferenceCode(
 		long companyId, String externalReferenceCode) {
 
-		return commercePriceModifierPersistence.fetchByC_ERC(
+		return fetchCommercePriceModifierByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the commerce price modifier with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce price modifier's external reference code
+	 * @return the matching commerce price modifier
+	 * @throws PortalException if a matching commerce price modifier could not be found
+	 */
+	@Override
+	public CommercePriceModifier
+			getCommercePriceModifierByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return commercePriceModifierPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

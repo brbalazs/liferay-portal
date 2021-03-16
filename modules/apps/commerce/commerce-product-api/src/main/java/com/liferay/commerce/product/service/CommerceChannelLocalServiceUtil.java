@@ -231,6 +231,17 @@ public class CommerceChannelLocalServiceUtil {
 	 * @param externalReferenceCode the commerce channel's external reference code
 	 * @return the matching commerce channel, or <code>null</code> if a matching commerce channel could not be found
 	 */
+	public static CommerceChannel fetchCommerceChannelByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return getService().fetchCommerceChannelByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceChannelByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
 	public static CommerceChannel fetchCommerceChannelByReferenceCode(
 		long companyId, String externalReferenceCode) {
 
@@ -261,6 +272,22 @@ public class CommerceChannelLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getCommerceChannel(commerceChannelId);
+	}
+
+	/**
+	 * Returns the commerce channel with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce channel's external reference code
+	 * @return the matching commerce channel
+	 * @throws PortalException if a matching commerce channel could not be found
+	 */
+	public static CommerceChannel getCommerceChannelByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return getService().getCommerceChannelByExternalReferenceCode(
+			companyId, externalReferenceCode);
 	}
 
 	public static CommerceChannel getCommerceChannelByGroupId(long groupId)

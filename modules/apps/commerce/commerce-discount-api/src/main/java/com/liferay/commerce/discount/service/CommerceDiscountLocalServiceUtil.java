@@ -331,6 +331,17 @@ public class CommerceDiscountLocalServiceUtil {
 	 * @param externalReferenceCode the commerce discount's external reference code
 	 * @return the matching commerce discount, or <code>null</code> if a matching commerce discount could not be found
 	 */
+	public static CommerceDiscount fetchCommerceDiscountByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return getService().fetchCommerceDiscountByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceDiscountByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
 	public static CommerceDiscount fetchCommerceDiscountByReferenceCode(
 		long companyId, String externalReferenceCode) {
 
@@ -460,6 +471,22 @@ public class CommerceDiscountLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getCommerceDiscount(commerceDiscountId);
+	}
+
+	/**
+	 * Returns the commerce discount with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce discount's external reference code
+	 * @return the matching commerce discount
+	 * @throws PortalException if a matching commerce discount could not be found
+	 */
+	public static CommerceDiscount getCommerceDiscountByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return getService().getCommerceDiscountByExternalReferenceCode(
+			companyId, externalReferenceCode);
 	}
 
 	/**

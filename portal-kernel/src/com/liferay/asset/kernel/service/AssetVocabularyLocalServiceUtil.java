@@ -263,6 +263,17 @@ public class AssetVocabularyLocalServiceUtil {
 	 * @param externalReferenceCode the asset vocabulary's external reference code
 	 * @return the matching asset vocabulary, or <code>null</code> if a matching asset vocabulary could not be found
 	 */
+	public static AssetVocabulary fetchAssetVocabularyByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return getService().fetchAssetVocabularyByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchAssetVocabularyByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
 	public static AssetVocabulary fetchAssetVocabularyByReferenceCode(
 		long companyId, String externalReferenceCode) {
 
@@ -364,6 +375,22 @@ public class AssetVocabularyLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getAssetVocabulary(vocabularyId);
+	}
+
+	/**
+	 * Returns the asset vocabulary with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the asset vocabulary's external reference code
+	 * @return the matching asset vocabulary
+	 * @throws PortalException if a matching asset vocabulary could not be found
+	 */
+	public static AssetVocabulary getAssetVocabularyByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return getService().getAssetVocabularyByExternalReferenceCode(
+			companyId, externalReferenceCode);
 	}
 
 	/**

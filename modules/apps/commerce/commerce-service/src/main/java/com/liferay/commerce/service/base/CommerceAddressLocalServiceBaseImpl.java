@@ -263,10 +263,39 @@ public abstract class CommerceAddressLocalServiceBaseImpl
 	 * @return the matching commerce address, or <code>null</code> if a matching commerce address could not be found
 	 */
 	@Override
-	public CommerceAddress fetchCommerceAddressByReferenceCode(
+	public CommerceAddress fetchCommerceAddressByExternalReferenceCode(
 		long companyId, String externalReferenceCode) {
 
 		return commerceAddressPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceAddressByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public CommerceAddress fetchCommerceAddressByReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return fetchCommerceAddressByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the commerce address with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce address's external reference code
+	 * @return the matching commerce address
+	 * @throws PortalException if a matching commerce address could not be found
+	 */
+	@Override
+	public CommerceAddress getCommerceAddressByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return commerceAddressPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

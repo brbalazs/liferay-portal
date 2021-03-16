@@ -272,10 +272,41 @@ public abstract class CommerceAccountGroupCommerceAccountRelLocalServiceBaseImpl
 	 */
 	@Override
 	public CommerceAccountGroupCommerceAccountRel
-		fetchCommerceAccountGroupCommerceAccountRelByReferenceCode(
+		fetchCommerceAccountGroupCommerceAccountRelByExternalReferenceCode(
 			long companyId, String externalReferenceCode) {
 
 		return commerceAccountGroupCommerceAccountRelPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceAccountGroupCommerceAccountRelByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public CommerceAccountGroupCommerceAccountRel
+		fetchCommerceAccountGroupCommerceAccountRelByReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return fetchCommerceAccountGroupCommerceAccountRelByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the commerce account group commerce account rel with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce account group commerce account rel's external reference code
+	 * @return the matching commerce account group commerce account rel
+	 * @throws PortalException if a matching commerce account group commerce account rel could not be found
+	 */
+	@Override
+	public CommerceAccountGroupCommerceAccountRel
+			getCommerceAccountGroupCommerceAccountRelByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return commerceAccountGroupCommerceAccountRelPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

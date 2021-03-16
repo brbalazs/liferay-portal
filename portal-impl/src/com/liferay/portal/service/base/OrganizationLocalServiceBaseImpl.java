@@ -286,10 +286,39 @@ public abstract class OrganizationLocalServiceBaseImpl
 	 * @return the matching organization, or <code>null</code> if a matching organization could not be found
 	 */
 	@Override
-	public Organization fetchOrganizationByReferenceCode(
+	public Organization fetchOrganizationByExternalReferenceCode(
 		long companyId, String externalReferenceCode) {
 
 		return organizationPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchOrganizationByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public Organization fetchOrganizationByReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return fetchOrganizationByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the organization with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the organization's external reference code
+	 * @return the matching organization
+	 * @throws PortalException if a matching organization could not be found
+	 */
+	@Override
+	public Organization getOrganizationByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return organizationPersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 

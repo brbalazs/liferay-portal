@@ -271,6 +271,23 @@ public class CommerceCatalogLocalServiceWrapper
 			commerceCatalogId);
 	}
 
+	/**
+	 * Returns the commerce catalog with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce catalog's external reference code
+	 * @return the matching commerce catalog, or <code>null</code> if a matching commerce catalog could not be found
+	 */
+	@Override
+	public com.liferay.commerce.product.model.CommerceCatalog
+		fetchCommerceCatalogByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return _commerceCatalogLocalService.
+			fetchCommerceCatalogByExternalReferenceCode(
+				companyId, externalReferenceCode);
+	}
+
 	@Override
 	public com.liferay.commerce.product.model.CommerceCatalog
 		fetchCommerceCatalogByGroupId(long groupId) {
@@ -280,12 +297,9 @@ public class CommerceCatalogLocalServiceWrapper
 	}
 
 	/**
-	 * Returns the commerce catalog with the matching external reference code and company.
-	 *
-	 * @param companyId the primary key of the company
-	 * @param externalReferenceCode the commerce catalog's external reference code
-	 * @return the matching commerce catalog, or <code>null</code> if a matching commerce catalog could not be found
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceCatalogByExternalReferenceCode(long, String)}
 	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.product.model.CommerceCatalog
 		fetchCommerceCatalogByReferenceCode(
@@ -316,6 +330,25 @@ public class CommerceCatalogLocalServiceWrapper
 
 		return _commerceCatalogLocalService.getCommerceCatalog(
 			commerceCatalogId);
+	}
+
+	/**
+	 * Returns the commerce catalog with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce catalog's external reference code
+	 * @return the matching commerce catalog
+	 * @throws PortalException if a matching commerce catalog could not be found
+	 */
+	@Override
+	public com.liferay.commerce.product.model.CommerceCatalog
+			getCommerceCatalogByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceCatalogLocalService.
+			getCommerceCatalogByExternalReferenceCode(
+				companyId, externalReferenceCode);
 	}
 
 	@Override

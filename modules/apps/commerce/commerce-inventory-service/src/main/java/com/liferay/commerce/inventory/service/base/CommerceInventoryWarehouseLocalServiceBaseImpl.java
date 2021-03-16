@@ -265,10 +265,41 @@ public abstract class CommerceInventoryWarehouseLocalServiceBaseImpl
 	 */
 	@Override
 	public CommerceInventoryWarehouse
-		fetchCommerceInventoryWarehouseByReferenceCode(
+		fetchCommerceInventoryWarehouseByExternalReferenceCode(
 			long companyId, String externalReferenceCode) {
 
 		return commerceInventoryWarehousePersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchCommerceInventoryWarehouseByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public CommerceInventoryWarehouse
+		fetchCommerceInventoryWarehouseByReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return fetchCommerceInventoryWarehouseByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the commerce inventory warehouse with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the commerce inventory warehouse's external reference code
+	 * @return the matching commerce inventory warehouse
+	 * @throws PortalException if a matching commerce inventory warehouse could not be found
+	 */
+	@Override
+	public CommerceInventoryWarehouse
+			getCommerceInventoryWarehouseByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return commerceInventoryWarehousePersistence.findByC_ERC(
 			companyId, externalReferenceCode);
 	}
 
