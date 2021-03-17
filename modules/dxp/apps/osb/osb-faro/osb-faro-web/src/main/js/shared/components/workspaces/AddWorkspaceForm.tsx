@@ -156,6 +156,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								: '',
 						incidentReportEmailAddresses:
 							(project &&
+								project.incidentReportEmailAddresses &&
 								project.incidentReportEmailAddresses.toArray()) ||
 							[],
 						name: (project && project.name) || '',
