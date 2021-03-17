@@ -1925,8 +1925,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.cluster.multiple.jar!jgroups.jar</file-name>
-				<version>3.6.16.Final</version>
+				<file-name>com.liferay.portal.cluster.multiple.jar!org.jgroups.jar</file-name>
+				<version>3.6.16.LIFERAY-PATCHED-1</version>
 				<project-name>JGroups</project-name>
 				<project-url>http://www.jgroups.org</project-url>
 				<licenses>
