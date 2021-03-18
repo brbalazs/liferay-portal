@@ -109,13 +109,11 @@ xpack.security.transport.ssl.verification_mode: certificate</echo>
 
 	<macrodef name="configure-kibana-properties">
 		<sequential>
-			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.hosts: "http://localhost:9200"
+			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">
+elasticsearch.hosts: "http://localhost:9200"
 pid.file: ${elastic.kibana.dir}/bin/pid-kibana
 server.basePath: "/o/portal-search-elasticsearch-xpack-monitoring/xpack-monitoring-proxy"
 server.rewriteBasePath: false</echo>
-
-			<echo append="true" file="${elastic.kibana.dir}/config/node.options">
-${line.separator}--tls-max-v1.2</echo>
 		</sequential>
 	</macrodef>
 
@@ -137,6 +135,8 @@ xpack.security.sessionTimeout: 600000</echo>
 				<replacetoken><![CDATA[elasticsearch.hosts: "http://localhost:9200"]]></replacetoken>
 				<replacevalue><![CDATA[elasticsearch.hosts: "https://localhost:9200"]]></replacevalue>
 			</replace>
+
+			<echo append="true" file="${elastic.kibana.dir}/config/node.options" if:true="${elasticsearch.jdk11.enabled}">${line.separator}--tls-max-v1.2</echo>
 		</sequential>
 	</macrodef>
 
