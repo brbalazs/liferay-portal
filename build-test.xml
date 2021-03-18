@@ -4152,7 +4152,7 @@ go</echo>
 				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch">
-						<property name="jdk.version" value="openjdk11" />
+						<property name="elasticsearch.jdk11.enabled" value="true" />
 					</ant>
 				</then>
 				<elseif>
@@ -4190,7 +4190,7 @@ go</echo>
 				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7-jdk11" />
 				<then>
 					<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch">
-						<property name="jdk.version" value="openjdk11" />
+						<property name="elasticsearch.jdk11.enabled" value="true" />
 					</ant>
 				</then>
 				<elseif>
