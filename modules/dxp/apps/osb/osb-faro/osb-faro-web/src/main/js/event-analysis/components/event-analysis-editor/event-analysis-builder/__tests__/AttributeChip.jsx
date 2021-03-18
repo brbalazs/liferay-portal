@@ -18,14 +18,14 @@ describe('AttributeChip', () => {
 				<Provider store={mockStore()}>
 					<AttributeChipContext
 						attribute={{
-							dataType: 'string',
+							dataType: 'STRING',
 							displayName: 'Article View',
 							id: '0',
 							name: 'articleView'
 						}}
 						breakdown={{
 							attributeId: '0',
-							dataType: 'string',
+							dataType: 'STRING',
 							type: 'event'
 						}}
 						filter={{

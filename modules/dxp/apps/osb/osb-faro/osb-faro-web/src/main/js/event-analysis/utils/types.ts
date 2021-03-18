@@ -12,11 +12,11 @@ export enum CalculationTypes {
 }
 
 export enum DataTypes {
-	Boolean = 'boolean',
-	Date = 'date',
-	Duration = 'duration',
-	Number = 'number',
-	String = 'string'
+	Boolean = 'BOOLEAN',
+	Date = 'DATE',
+	Duration = 'DURATION',
+	Number = 'NUMBER',
+	String = 'STRING'
 }
 
 export enum DateGroupings {

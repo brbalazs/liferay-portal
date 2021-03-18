@@ -64,7 +64,7 @@ describe('AttributeDropdown', () => {
 		const {getByTestId} = render(
 			<WrappedComponent
 				attribute={{
-					dataType: 'string',
+					dataType: 'STRING',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'

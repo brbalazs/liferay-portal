@@ -8,7 +8,7 @@ describe('InfoCardPopover', () => {
 	it('render', () => {
 		const {container} = render(
 			<InfoCardPopover
-				dataType='string'
+				dataType='STRING'
 				description='Test description'
 				name='Test Name'
 				onEditClick={jest.fn()}

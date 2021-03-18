@@ -8,7 +8,7 @@ describe('FilterInfo', () => {
 	it('render', () => {
 		const {container} = render(
 			<FilterInfo
-				dataType='string'
+				dataType='STRING'
 				description='Test description'
 				name='Test Name'
 				onEditClick={jest.fn()}
@@ -24,7 +24,7 @@ describe('FilterInfo', () => {
 	it('render w/o info', () => {
 		const {container} = render(
 			<FilterInfo
-				dataType='string'
+				dataType='STRING'
 				description='Test description'
 				name='Test Name'
 				onEditClick={jest.fn()}

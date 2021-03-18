@@ -1,6 +1,7 @@
 import Button from 'shared/components/Button';
 import Label from 'shared/components/Label';
 import React from 'react';
+import {DATA_TYPE_LABELS_MAP} from 'event-analysis/utils/utils';
 import {DataTypes} from 'event-analysis/utils/types';
 
 interface IFilterInfoProps {
@@ -41,7 +42,7 @@ const FilterInfo: React.FC<IFilterInfoProps> = ({
 
 		{dataType && (
 			<Label display='info' uppercase>
-				{dataType}
+				{DATA_TYPE_LABELS_MAP[dataType]}
 			</Label>
 		)}
 	</div>
