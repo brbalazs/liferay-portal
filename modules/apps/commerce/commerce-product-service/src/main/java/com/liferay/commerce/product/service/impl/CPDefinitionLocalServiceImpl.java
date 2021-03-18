@@ -574,10 +574,10 @@ public class CPDefinitionLocalServiceImpl
 
 		// CPDisplayLayout
 
-		CPDisplayLayout cpDisplayLayout = cpDisplayLayoutPersistence.fetchByC_C(
+		List<CPDisplayLayout> cpDisplayLayouts = cpDisplayLayoutPersistence.findByC_C(
 			cpDefinitionClassNameId, cpDefinitionId);
 
-		if (cpDisplayLayout != null) {
+		for (CPDisplayLayout cpDisplayLayout : cpDisplayLayouts) {
 			CPDisplayLayout newCPDisplayLayout =
 				(CPDisplayLayout)cpDisplayLayout.clone();
 
@@ -730,7 +730,7 @@ public class CPDefinitionLocalServiceImpl
 
 		// Commerce product display layout
 
-		cpDisplayLayoutLocalService.deleteCPDisplayLayout(
+		cpDisplayLayoutLocalService.deleteCPDisplayLayouts(
 			CPDefinition.class, cpDefinition.getCPDefinitionId());
 
 		// Commerce product version contributors

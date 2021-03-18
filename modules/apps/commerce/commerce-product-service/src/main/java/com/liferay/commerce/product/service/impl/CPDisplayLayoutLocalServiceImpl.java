@@ -125,36 +125,21 @@ public class CPDisplayLayoutLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CPDisplayLayout deleteCPDisplayLayout(Class<?> clazz, long classPK) {
-		long classNameId = classNameLocalService.getClassNameId(clazz);
-
-		CPDisplayLayout cpDisplayLayout = cpDisplayLayoutPersistence.fetchByC_C(
-			classNameId, classPK);
-
-		if (cpDisplayLayout != null) {
+		try {
 			if ((clazz == CPDefinition.class) &&
 				cpDefinitionLocalService.isVersionable(classPK)) {
 
-				try {
-					CPDefinition newCPDefinition =
+
 						cpDefinitionLocalService.copyCPDefinition(classPK);
 
-					cpDisplayLayout = cpDisplayLayoutPersistence.findByC_C(
-						classNameId, newCPDefinition.getCPDefinitionId());
-				}
-				catch (PortalException pe) {
-					throw new SystemException(pe);
+
 				}
 			}
-
-			do {
-				cpDisplayLayoutPersistence.remove(cpDisplayLayout);
-
-				cpDisplayLayout = cpDisplayLayoutPersistence.fetchByC_C(
-					cpDisplayLayout.getClassNameId(),
-					cpDisplayLayout.getClassPK());
-			}
-			while (cpDisplayLayout != null);
+		catch (PortalException pe) {
+			throw new SystemException(pe);
 		}
+
+		cpDisplayLayoutLocalService.deleteCPDisplayLayouts(clazz, classPK);
 
 		return null;
 	}
@@ -170,14 +155,25 @@ public class CPDisplayLayoutLocalServiceImpl
 		cpDisplayLayoutPersistence.removeByG_L(groupId, layoutUuid);
 	}
 
-	/**
-	 * @deprecated As of Athanasius (7.3.x)
-	 */
+	@Override
+	public void deleteCPDisplayLayouts(Class<?> clazz, long classPK) {
+		List<CPDisplayLayout> cpDisplayLayouts =
+			cpDisplayLayoutPersistence.findByC_C(
+				classNameLocalService.getClassNameId(clazz), classPK);
+		for (CPDisplayLayout cpDisplayLayout : cpDisplayLayouts) {
+			cpDisplayLayoutLocalService.deleteCPDisplayLayout(cpDisplayLayout);
+		}
+	}
+
+
+		/**
+		 * @deprecated As of Athanasius (7.3.x)
+		 */
 	@Deprecated
 	@Override
 	public CPDisplayLayout fetchCPDisplayLayout(Class<?> clazz, long classPK) {
-		return cpDisplayLayoutPersistence.fetchByC_C(
-			classNameLocalService.getClassNameId(clazz), classPK);
+		return cpDisplayLayoutPersistence.fetchByC_C_First(
+			classNameLocalService.getClassNameId(clazz), classPK, null);
 	}
 
 	@Override

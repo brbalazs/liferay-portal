@@ -20,6 +20,7 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.base.CPDefinitionServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -248,7 +249,8 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 		_checkCommerceCatalogPermissionByCPDefinitionId(
 			cpDefinitionId, ActionKeys.VIEW);
 
-		return cpDefinitionLocalService.getLayoutUuid(cpDefinitionId);
+		return cpDefinitionLocalService.getLayoutUuid(
+				GroupConstants.DEFAULT_LIVE_GROUP_ID, cpDefinitionId);
 	}
 
 	@Override
@@ -377,7 +379,8 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 			cpDefinitionId, ActionKeys.UPDATE);
 
 		cpDisplayLayoutLocalService.addCPDisplayLayout(
-			CPDefinition.class, cpDefinitionId, layoutUuid, serviceContext);
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			CPDefinition.class, cpDefinitionId, layoutUuid);
 	}
 
 	@Override
