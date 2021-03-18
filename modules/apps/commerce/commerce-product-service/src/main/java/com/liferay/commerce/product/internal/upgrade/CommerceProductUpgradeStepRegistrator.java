@@ -180,6 +180,8 @@ public class CommerceProductUpgradeStepRegistrator
 			new com.liferay.commerce.product.internal.upgrade.v2_6_0.
 				CPInstanceUpgradeProcess());
 
+		registry.register("2.6.0", "2.6.1", new DummyUpgradeProcess());
+
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE PRODUCT UPGRADE STEP REGISTRATOR FINISHED");
 		}
