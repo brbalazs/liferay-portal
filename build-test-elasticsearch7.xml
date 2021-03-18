@@ -121,7 +121,8 @@ ${line.separator}--tls-max-v1.2</echo>
 
 	<macrodef name="configure-kibana-x-pack-security-properties">
 		<sequential>
-			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.password: "${elastic.xpack.elastic.user.password}"
+			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">
+elasticsearch.password: "${elastic.xpack.elastic.user.password}"
 elasticsearch.ssl.certificateAuthorities: [ "${elasticsearch.dir}/config/certs/ca/ca.crt" ]
 elasticsearch.username: "elastic"
 server.ssl.certificate: ${elasticsearch.dir}/config/certs/localhost/localhost.crt
@@ -854,12 +855,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 		<configure-kibana-properties />
 
-		<if>
-			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
-			<then>
-				<configure-kibana-x-pack-security-properties />
-			</then>
-		</if>
+		<configure-kibana-x-pack-security-properties if:true="${elastic.xpack.enabled}" />
 
 		<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash" osfamily="unix">
 			<arg value="-c" />
