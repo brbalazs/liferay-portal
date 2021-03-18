@@ -664,8 +664,6 @@ xpack.monitoring.collection.enabled: true</echo>
 
 			<var name="elasticsearch.node.number" value="0" />
 
-			<get-java-jdk-home />
-
 			<antelope:repeat count="${elasticsearch.cluster.size}">
 				<math
 					datatype="int"
@@ -691,7 +689,7 @@ xpack.monitoring.collection.enabled: true</echo>
 						<then>
 							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
 								<arg value="-c" />
-								<arg value="sudo -H -u shutdown bash -c 'export JAVA_HOME=${java.jdk.home} &amp;&amp; ./elasticsearch -d -v -p pid-elasticsearch'" />
+								<arg value="sudo -H -u shutdown bash -c './elasticsearch -d -v -p pid-elasticsearch'" />
 							</exec>
 						</then>
 					</elseif>
