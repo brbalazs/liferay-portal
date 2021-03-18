@@ -1868,7 +1868,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.petra.json.web.service.client.jar!jackson-databind.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.5.1</version>
 				<project-name>jackson-databind</project-name>
 				<project-url>http://github.com/FasterXML/jackson</project-url>
 				<licenses>
@@ -1961,7 +1961,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.odata.impl.jar!jackson-databind.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.5.1</version>
 				<project-name>jackson-databind</project-name>
 				<project-url>http://github.com/FasterXML/jackson</project-url>
 				<licenses>
@@ -1991,7 +1991,7 @@
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -3891,7 +3891,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!jackson-databind.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.5.1</version>
 				<project-name>jackson-databind</project-name>
 				<project-url>http://github.com/FasterXML/jackson</project-url>
 				<licenses>
@@ -4336,12 +4336,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.vulcan.impl.jar!guava.jar</file-name>
-				<version>27.1-jre</version>
+				<version>30.0-jre</version>
 				<project-name>Guava: Google Core Libraries for Java</project-name>
 				<project-url>https://github.com/google/guava/</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -4581,7 +4581,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!jackson-databind.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.5.1</version>
 				<project-name>jackson-databind</project-name>
 				<project-url>http://github.com/FasterXML/jackson</project-url>
 				<licenses>
@@ -8376,7 +8376,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/vorbis-java-tika.jar</file-name>
-				<version>0.8</version>
+				<version>0.8.LIFERAY-PATCHED-1</version>
 				<project-name>Vorbis</project-name>
 				<project-url>http://xiph.org/vorbis</project-url>
 				<licenses>
