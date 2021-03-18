@@ -37,7 +37,7 @@ exports[`InfoCardPopover render 1`] = `
         <span
           class="label-item"
         >
-          string
+          String
         </span>
       </div>
     </div>
