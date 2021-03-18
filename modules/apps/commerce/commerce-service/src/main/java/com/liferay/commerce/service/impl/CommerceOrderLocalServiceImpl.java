@@ -1032,7 +1032,9 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
 		commerceOrder.setSubtotal(subtotal);
+		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setSubtotalWithTaxAmount(subtotalWithTaxAmount);
+		commerceOrder.setShippingWithTaxAmount(shippingWithTaxAmount);
 
 		if (commerceContext != null) {
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation =
@@ -1050,7 +1052,7 @@ public class CommerceOrderLocalServiceImpl
 				CommerceMoney shippingDiscountAmount =
 					shippingDiscountValue.getDiscountAmount();
 
-				shippingAmount = shippingAmount.subtract(
+				commerceOrder.setShippingDiscountAmount(
 					shippingDiscountAmount.getPrice());
 			}
 
@@ -1061,14 +1063,12 @@ public class CommerceOrderLocalServiceImpl
 				CommerceMoney shippingDiscountWithTaxAmount =
 					shippingDiscountValueWithTaxAmount.getDiscountAmount();
 
-				shippingWithTaxAmount = shippingWithTaxAmount.subtract(
+				commerceOrder.setShippingDiscountWithTaxAmount(
 					shippingDiscountWithTaxAmount.getPrice());
 			}
 		}
 
-		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setTotal(total);
-		commerceOrder.setShippingWithTaxAmount(shippingWithTaxAmount);
 		commerceOrder.setTotalWithTaxAmount(totalWithTaxAmount);
 		commerceOrder.setAdvanceStatus(advanceStatus);
 		commerceOrder.setExternalReferenceCode(externalReferenceCode);
@@ -1130,6 +1130,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
 		commerceOrder.setSubtotal(subtotal);
+		commerceOrder.setShippingAmount(shippingAmount);
 
 		if (commerceContext != null) {
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation =
@@ -1147,12 +1148,11 @@ public class CommerceOrderLocalServiceImpl
 				CommerceMoney shippingDiscountAmount =
 					shippingDiscountValue.getDiscountAmount();
 
-				shippingAmount = shippingAmount.subtract(
+				commerceOrder.setShippingDiscountAmount(
 					shippingDiscountAmount.getPrice());
 			}
 		}
 
-		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setTotal(total);
 		commerceOrder.setAdvanceStatus(advanceStatus);
 		commerceOrder.setExternalReferenceCode(externalReferenceCode);
