@@ -417,6 +417,20 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 		</sequential>
 	</macrodef>
 
+	<macrodef name="set-up-standard-elasticsearch">
+		<sequential>
+			<unzip-elasticsearch />
+
+			<set-jdk jdk.version="${jdk.version}" />
+
+			<prepare-elasticsearch-analyzers />
+
+			<configure-elasticsearch-properties />
+
+			<configure-portal-remote-elasticsearch-osgi-properties />
+		</sequential>
+	</macrodef>
+
 	<macrodef name="set-x-pack-user-passwords">
 		<sequential>
 			<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash" osfamily="unix" outputproperty="elastic.xpack.user.passwords">
@@ -478,6 +492,8 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="start-elasticsearch-with-ccr">
 		<sequential>
+			<set-up-standard-elasticsearch />
+
 			<prepare-additional-elasticsearch-bundles total.bundles="2" />
 
 			<configure-elasticsearch-local-cluster-properties />
@@ -501,6 +517,8 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="start-elasticsearch-with-clustering">
 		<sequential>
+			<set-up-standard-elasticsearch />
+
 			<prepare-additional-elasticsearch-bundles total.bundles="${elasticsearch.cluster.size}" />
 
 			<var name="elasticsearch.node.number" value="1" />
@@ -533,6 +551,8 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="start-elasticsearch-with-xpack">
 		<sequential>
+			<set-up-standard-elasticsearch />
+
 			<generate-x-pack-security-certificates />
 
 			<generate-x-pack-security-truststores />
@@ -756,16 +776,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 	<target name="start-elasticsearch">
 		<lstopwatch action="start" name="start.elasticsearch" />
 
-		<unzip-elasticsearch />
-
-		<set-jdk jdk.version="${jdk.version}" />
-
-		<prepare-elasticsearch-analyzers />
-
-		<configure-elasticsearch-properties />
-
-		<configure-portal-remote-elasticsearch-osgi-properties />
-
 		<if>
 			<isset property="env.JENKINS_HOME" />
 			<then>
@@ -792,6 +802,8 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				<start-elasticsearch-with-clustering />
 			</case>
 			<default>
+				<set-up-standard-elasticsearch />
+
 				<antcall target="start-elasticsearch-node" />
 			</default>
 		</switch>
