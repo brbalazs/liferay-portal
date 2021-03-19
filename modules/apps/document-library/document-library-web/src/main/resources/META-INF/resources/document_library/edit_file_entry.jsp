@@ -401,9 +401,7 @@ if (portletTitleBasedNavigation) {
 										}
 								%>
 
-										<c:if test="<%= !dlEditFileEntryDisplayContext.isDDMStructureVisible(ddmStructure) %>">
-											<div class="hide">
-										</c:if>
+										<div class="<%= !dlEditFileEntryDisplayContext.isDDMStructureVisible(ddmStructure) ? "hide" : "" %> file-entry-type-fields">
 
 										<liferay-ddm:html
 											classNameId="<%= PortalUtil.getClassNameId(com.liferay.dynamic.data.mapping.model.DDMStructure.class) %>"
