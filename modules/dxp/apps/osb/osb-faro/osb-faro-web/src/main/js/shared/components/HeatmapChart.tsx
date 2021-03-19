@@ -132,9 +132,21 @@ const updateChart = (chartElement, props) => {
 		.on('mouseenter', (d, i, nodes) => {
 			tooltip.style('opacity', 1);
 
+			tooltip.html(renderTooltip(d));
+
+			const {width: widthRect, x: pageXRect} = d3
+				.select(nodes[i])
+				._groups[0][0].getBoundingClientRect();
+
+			const {
+				width: widthTooltip
+			} = tooltip.node().getBoundingClientRect();
+
 			tooltip
-				.html(renderTooltip(d))
-				.style('left', `${d3.event.pageX}px`)
+				.style(
+					'left',
+					`${pageXRect + widthRect / 2 - widthTooltip / 2}px`
+				)
 				.style('top', `${d3.event.pageY + 28}px`);
 
 			d3.select(nodes[i]).style(
