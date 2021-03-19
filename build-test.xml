@@ -12656,8 +12656,6 @@ jdbc.default.password=${database.mysql.password}</echo>
 			</then>
 		</if>
 
-		<antcall target="clean-up-mobile-device" />
-
 		<antcall target="clean-up-selenium-driver" />
 	</target>
 
