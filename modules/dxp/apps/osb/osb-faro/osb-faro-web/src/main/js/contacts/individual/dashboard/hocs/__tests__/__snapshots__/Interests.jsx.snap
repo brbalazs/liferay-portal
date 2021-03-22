@@ -185,8 +185,6 @@ exports[`Interests renders 1`] = `
               </h4>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -249,8 +247,6 @@ exports[`Interests renders 1`] = `
               </h4>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -313,8 +309,6 @@ exports[`Interests renders 1`] = `
               </h4>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -377,8 +371,6 @@ exports[`Interests renders 1`] = `
               </h4>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >

@@ -171,8 +171,6 @@ exports[`Suppressed User List should render 1`] = `
               <span />
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >

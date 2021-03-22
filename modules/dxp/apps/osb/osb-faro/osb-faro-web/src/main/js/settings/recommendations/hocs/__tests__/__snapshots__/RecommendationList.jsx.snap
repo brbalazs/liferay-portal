@@ -278,8 +278,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -355,8 +353,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -432,8 +428,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -509,8 +503,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -586,8 +578,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -663,8 +653,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -740,8 +728,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -817,8 +803,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >
@@ -894,8 +878,6 @@ exports[`RecommendationList should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class="clickable"
           >

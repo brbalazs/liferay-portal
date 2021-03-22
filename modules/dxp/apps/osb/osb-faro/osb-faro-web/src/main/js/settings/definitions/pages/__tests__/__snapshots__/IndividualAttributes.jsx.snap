@@ -190,8 +190,6 @@ exports[`IndividualAttributes should render 1`] = `
                     3 years ago
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -220,8 +218,6 @@ exports[`IndividualAttributes should render 1`] = `
                     3 years ago
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -250,8 +246,6 @@ exports[`IndividualAttributes should render 1`] = `
                     3 years ago
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -280,8 +274,6 @@ exports[`IndividualAttributes should render 1`] = `
                     3 years ago
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >

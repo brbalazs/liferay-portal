@@ -232,8 +232,6 @@ exports[`AccountDetails should render 1`] = `
                   7 days ago
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -272,8 +270,6 @@ exports[`AccountDetails should render 1`] = `
                   7 days ago
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >

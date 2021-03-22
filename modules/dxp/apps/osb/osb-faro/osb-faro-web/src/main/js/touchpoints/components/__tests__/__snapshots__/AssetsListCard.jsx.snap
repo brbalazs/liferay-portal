@@ -98,10 +98,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -137,10 +133,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -176,10 +168,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -215,10 +203,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -254,10 +238,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -293,10 +273,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -332,10 +308,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >
@@ -371,10 +343,6 @@ exports[`AssetsListCard should render component with items 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class="table-hover"
-        >
           <tr
             class=""
           >

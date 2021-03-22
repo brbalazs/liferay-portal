@@ -244,8 +244,6 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                 email0@liferay.com
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class=""
             >

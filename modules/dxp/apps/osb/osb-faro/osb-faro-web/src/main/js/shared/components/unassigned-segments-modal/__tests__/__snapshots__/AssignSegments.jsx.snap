@@ -117,8 +117,6 @@ exports[`AssignSegments should render 1`] = `
                   </select>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >

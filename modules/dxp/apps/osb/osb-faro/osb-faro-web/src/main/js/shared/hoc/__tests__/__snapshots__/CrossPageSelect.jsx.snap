@@ -408,8 +408,6 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
             orange
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class="clickable"
         >
@@ -437,8 +435,6 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
             apple
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class="clickable"
         >
@@ -466,8 +462,6 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
             banana
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class="clickable"
         >
@@ -495,8 +489,6 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
             grapefruit
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class="clickable"
         >
@@ -524,8 +516,6 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
             strawberry
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class="clickable"
         >

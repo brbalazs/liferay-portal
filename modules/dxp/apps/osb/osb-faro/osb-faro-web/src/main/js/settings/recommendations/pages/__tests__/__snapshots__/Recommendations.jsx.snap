@@ -312,8 +312,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -389,8 +387,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -466,8 +462,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -543,8 +537,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -620,8 +612,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -697,8 +687,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -774,8 +762,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -851,8 +837,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >
@@ -928,8 +912,6 @@ exports[`Recommendations should render 1`] = `
                   </div>
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class="clickable"
               >

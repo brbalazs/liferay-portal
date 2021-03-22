@@ -232,8 +232,6 @@ exports[`IndividualDetails should render 1`] = `
                   -
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -272,8 +270,6 @@ exports[`IndividualDetails should render 1`] = `
                   -
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -312,8 +308,6 @@ exports[`IndividualDetails should render 1`] = `
                   -
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -352,8 +346,6 @@ exports[`IndividualDetails should render 1`] = `
                   -
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >

@@ -178,8 +178,6 @@ exports[`VariantTableCard should render 1`] = `
               </div>
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >

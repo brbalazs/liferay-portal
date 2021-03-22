@@ -95,8 +95,6 @@ exports[`OutputVersionsCard should render 1`] = `
                 </div>
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class=""
             >
@@ -131,8 +129,6 @@ exports[`OutputVersionsCard should render 1`] = `
                 </div>
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class=""
             >
@@ -167,8 +163,6 @@ exports[`OutputVersionsCard should render 1`] = `
                 </div>
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class=""
             >

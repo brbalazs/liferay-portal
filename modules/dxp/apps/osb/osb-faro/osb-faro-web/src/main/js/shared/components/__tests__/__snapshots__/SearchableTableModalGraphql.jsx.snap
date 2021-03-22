@@ -178,8 +178,6 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                 fooOrganization-0
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class="clickable"
             >
@@ -207,8 +205,6 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                 fooOrganization-1
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class="clickable"
             >
@@ -236,8 +232,6 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                 fooOrganization-2
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class="clickable"
             >
@@ -265,8 +259,6 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                 fooOrganization-3
               </td>
             </tr>
-          </tbody>
-          <tbody>
             <tr
               class="clickable"
             >

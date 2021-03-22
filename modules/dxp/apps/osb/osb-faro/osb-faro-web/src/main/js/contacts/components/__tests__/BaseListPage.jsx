@@ -6,7 +6,12 @@ import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {ChannelContext} from 'shared/context/channel';
-import {cleanup, render, waitForElement} from '@testing-library/react';
+import {
+	cleanup,
+	render,
+	waitForElement,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
 import {mockChannelContext} from 'test/mock-channel-context';
 import {noop, times} from 'lodash';
 import {Provider} from 'react-redux';
@@ -64,7 +69,9 @@ describe('BaseListPage', () => {
 	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
 
-		await waitForElement(() => container.querySelector('tbody'));
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		expect(container).toMatchSnapshot();
 	});

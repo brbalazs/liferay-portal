@@ -3,7 +3,11 @@ import mockStore from 'test/mock-store';
 import moment from 'moment';
 import React from 'react';
 import RequestListQuery from '../../queries/RequestListQuery';
-import {cleanup, render} from '@testing-library/react';
+import {
+	cleanup,
+	render,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
 import {GDPR_REQUEST_STATUSES, GDPR_REQUEST_TYPES} from 'shared/util/constants';
 import {Map, Set} from 'immutable';
 import {mockDataControlTaskBag} from 'test/graphql-data';
@@ -138,12 +142,14 @@ describe('RequestList', () => {
 	it('should render a request row as checkable with a download button if the status is "DONE"', async () => {
 		const {container} = render(<DefaultComponent />);
 
-		await waitForLoading(container);
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
-			'.table > tbody:nth-of-type(4) > tr'
+			'.table > tbody > tr:nth-of-type(4)'
 		);
 
 		expect(
@@ -158,12 +164,14 @@ describe('RequestList', () => {
 	it('should render a request row as disabled with no download button if the status is not "DONE"', async () => {
 		const {container} = render(<DefaultComponent />);
 
-		await waitForLoading(container);
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
-			'.table > tbody:nth-of-type(1) > tr'
+			'.table > tbody > tr:nth-of-type(1)'
 		);
 
 		expect(
@@ -178,12 +186,14 @@ describe('RequestList', () => {
 	it('should render a request row as disabled with a "download expired" message if the request status is EXPIRED', async () => {
 		const {container} = render(<DefaultComponent />);
 
-		await waitForLoading(container);
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		jest.runAllTimers();
 
 		const rowElement = container.querySelector(
-			'.table > tbody:nth-of-type(3) > tr'
+			'.table > tbody > tr:nth-of-type(3)'
 		);
 
 		expect(

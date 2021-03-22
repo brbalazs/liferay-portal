@@ -302,10 +302,6 @@ exports[`RequestList should render 1`] = `
               <span />
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable disabled"
           >
@@ -369,10 +365,6 @@ exports[`RequestList should render 1`] = `
               <span />
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable disabled"
           >
@@ -440,10 +432,6 @@ exports[`RequestList should render 1`] = `
               </span>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable"
           >
@@ -514,10 +502,6 @@ exports[`RequestList should render 1`] = `
               </span>
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable disabled"
           >
@@ -581,10 +565,6 @@ exports[`RequestList should render 1`] = `
               <span />
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable disabled"
           >
@@ -648,10 +628,6 @@ exports[`RequestList should render 1`] = `
               <span />
             </td>
           </tr>
-        </tbody>
-        <tbody
-          class=""
-        >
           <tr
             class="clickable"
           >

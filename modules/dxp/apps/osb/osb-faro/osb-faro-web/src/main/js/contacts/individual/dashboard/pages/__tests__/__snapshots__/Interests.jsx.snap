@@ -194,8 +194,6 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                     </h4>
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -258,8 +256,6 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                     </h4>
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -322,8 +318,6 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                     </h4>
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
@@ -386,8 +380,6 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                     </h4>
                   </td>
                 </tr>
-              </tbody>
-              <tbody>
                 <tr
                   class=""
                 >
