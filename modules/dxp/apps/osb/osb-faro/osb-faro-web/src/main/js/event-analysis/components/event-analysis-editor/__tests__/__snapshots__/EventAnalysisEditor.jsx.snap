@@ -126,8 +126,10 @@ exports[`Event Analysis Editor render 1`] = `
         </div>
       </div>
     </div>
-    <div>
-      Insert Chart Component here
+    <div
+      class="breakdown-empty"
+    >
+      Add an event to analyze
     </div>
   </div>
 </div>
