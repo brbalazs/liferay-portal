@@ -26,24 +26,18 @@ const MediansChart = () => {
 
 				return empty ? (
 					<NoResultsDisplay
+						description={Liferay.Language.get(
+							'metrics-will-show-once-there-are-visitors-to-your-variants'
+						)}
 						icon={{
 							border: false,
 							size: 'xl',
 							symbol: 'ac-chart'
 						}}
-					>
-						<div>
-							{Liferay.Language.get(
-								'we-are-currently-collecting-data'
-							)}
-						</div>
-
-						<div>
-							{Liferay.Language.get(
-								'metrics-will-show-once-there-are-visitors-to-your-variants'
-							)}
-						</div>
-					</NoResultsDisplay>
+						title={Liferay.Language.get(
+							'we-are-currently-collecting-data'
+						)}
+					/>
 				) : (
 					<>
 						<BarChartHTML {...mediansData} />
