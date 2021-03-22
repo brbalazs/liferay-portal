@@ -845,9 +845,7 @@ public class AssetCategoryLocalServiceImpl
 		ProjectionList projectionList = ProjectionFactoryUtil.projectionList();
 
 		projectionList.add(ProjectionFactoryUtil.count("categoryId"));
-
 		projectionList.add(ProjectionFactoryUtil.sum("leftCategoryId"));
-
 		projectionList.add(ProjectionFactoryUtil.sum("rightCategoryId"));
 
 		dynamicQuery.setProjection(projectionList);
