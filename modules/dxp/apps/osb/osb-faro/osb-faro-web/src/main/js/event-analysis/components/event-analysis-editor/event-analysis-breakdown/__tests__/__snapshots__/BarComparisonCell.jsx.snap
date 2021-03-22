@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BarComparisonCell render 1`] = `
+<div>
+  <div
+    class="table-responsive table-root bar-comparison-root"
+  >
+    <table
+      class="table"
+    >
+      <thead>
+        <tr>
+          <th
+            class="table-head-title table-column-event-name"
+          >
+            Event Name
+          </th>
+          <th
+            class="table-head-title"
+          >
+            Total Events
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            class="table-column-event-name"
+          >
+            View Article
+          </td>
+          <td>
+            <div
+              class="metric-bar-root breakdown-table-bar"
+            >
+              <div
+                class="bar bar-primary bar-default"
+                style="width: 100%; background-color: rgb(24, 127, 255);"
+              />
+              <div
+                class="info-wrapper align-items-center d-flex justify-content-between"
+              >
+                <span
+                  class="ml-2"
+                >
+                  3,367
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`BarComparisonCell render two tables when comparing segment and event 1`] = `
+<div>
+  <div
+    class="table-responsive table-root bar-comparison-root"
+  >
+    <table
+      class="table"
+    >
+      <thead>
+        <tr>
+          <th
+            class="table-head-title table-column-event-name"
+          >
+            View Article
+          </th>
+          <th
+            class="table-head-title"
+          >
+            Total Events
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            class="table-column-event-name"
+          >
+            All Individuals
+          </td>
+          <td>
+            <div
+              class="metric-bar-root breakdown-table-bar"
+            >
+              <div
+                class="bar bar-primary bar-default"
+                style="width: 100%; background-color: rgb(24, 127, 255);"
+              />
+              <div
+                class="info-wrapper align-items-center d-flex justify-content-between"
+              >
+                <span
+                  class="ml-2"
+                >
+                  1,717
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="table-column-event-name"
+          >
+            Segmented
+          </td>
+          <td>
+            <div
+              class="metric-bar-root breakdown-table-bar"
+            >
+              <div
+                class="bar bar-primary bar-default"
+                style="width: 96%; background-color: rgb(75, 155, 255);"
+              />
+              <div
+                class="info-wrapper align-items-center d-flex justify-content-between"
+              >
+                <span
+                  class="ml-2"
+                >
+                  1,650
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      class="table"
+    >
+      <thead>
+        <tr>
+          <th
+            class="table-head-title table-column-event-name"
+          >
+            View Article
+          </th>
+          <th
+            class="table-head-title"
+          >
+            Total Events
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            class="table-column-event-name"
+          >
+            All Individuals
+          </td>
+          <td>
+            <div
+              class="metric-bar-root breakdown-table-bar"
+            >
+              <div
+                class="bar bar-primary bar-default"
+                style="width: 41%; background-color: rgb(49, 190, 136);"
+              />
+              <div
+                class="info-wrapper align-items-center d-flex justify-content-between"
+              >
+                <span
+                  class="ml-2"
+                >
+                  700
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="table-column-event-name"
+          >
+            Segmented
+          </td>
+          <td>
+            <div
+              class="metric-bar-root breakdown-table-bar"
+            >
+              <div
+                class="bar bar-primary bar-default"
+                style="width: 29%; background-color: rgb(60, 205, 149);"
+              />
+              <div
+                class="info-wrapper align-items-center d-flex justify-content-between"
+              >
+                <span
+                  class="ml-2"
+                >
+                  500
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
