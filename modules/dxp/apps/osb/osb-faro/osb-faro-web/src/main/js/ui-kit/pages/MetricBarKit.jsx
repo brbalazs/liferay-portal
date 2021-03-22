@@ -11,9 +11,9 @@ export default class MetricBarKit extends React.Component {
 					this.props.className ? ` ${this.props.className}` : ''
 				}
 			>
-				{SIZES.map(size => (
+				{Object.values(SIZES).map(size => (
 					<Row key={size}>
-						{DISPLAYS.map(display => (
+						{Object.values(DISPLAYS).map(display => (
 							<Item key={display}>
 								<span
 									style={{
