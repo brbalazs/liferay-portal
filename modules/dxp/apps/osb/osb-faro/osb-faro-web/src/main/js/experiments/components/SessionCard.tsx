@@ -6,6 +6,7 @@ import getSessionMapper from 'experiments/hocs/mappers/experiment-session-mapper
 import getSessionVariantsMapper from 'experiments/hocs/mappers/experiment-session-variants-mapper';
 import Icon from 'shared/components/Icon';
 import LineChart from 'experiments/components/LineChart';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext} from 'react';
 import {DocumentNode} from 'graphql';
 import {
@@ -114,7 +115,29 @@ const SessionCard: React.FC<ISessionCardProps> = ({label}) => {
 						loading={loading || fakeLoading}
 						{...result}
 					>
-						{props => <LineChart {...mapper(props)} />}
+						{props => {
+							const {empty, ...chartProps} = mapper(props);
+
+							if (empty) {
+								return (
+									<NoResultsDisplay
+										description={Liferay.Language.get(
+											'metrics-will-show-once-there-are-visitors-to-your-variants'
+										)}
+										icon={{
+											border: false,
+											size: 'xl',
+											symbol: 'ac-chart'
+										}}
+										title={Liferay.Language.get(
+											'we-are-currently-collecting-data'
+										)}
+									/>
+								);
+							}
+
+							return <LineChart {...chartProps} />;
+						}}
 					</SafeResults>
 				}
 			</Card.Body>
