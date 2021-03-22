@@ -319,8 +319,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 									for (int i = 0;
 										 i < envVarSecretNames.length; i += 2) {
 
-										String envVarName = getAsahEnvVarName(
-											envVarSecretNames[i]);
+										String envVarName =
+											envVarSecretNames[i];
 										String secretName =
 											envVarSecretNames[i + 1];
 
@@ -441,14 +441,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return workspace;
 	}
 
-	protected String getAsahEnvVarName(String envVarName) {
-		if (StringUtil.equals(envVarName, "OSB_ASAH_TOKEN")) {
-			return "OSB_ASAH_SECURITY_TOKEN";
-		}
-
-		return envVarName;
-	}
-
 	protected String getProjectId(String weDeployKey) {
 		return StringUtil.removeSubstring(weDeployKey, ".lfr.cloud");
 	}
@@ -556,7 +548,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		WorkspaceEngineClientImpl.class);
 
 	private static final List<String> _secretKeys = Arrays.asList(
-		"ELASTICSEARCH_PASSWORD", "ELASTICSEARCH_USER", "OSB_ASAH_TOKEN");
+		"ELASTICSEARCH_PASSWORD", "ELASTICSEARCH_USER",
+		"OSB_ASAH_SECURITY_TOKEN");
 
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,

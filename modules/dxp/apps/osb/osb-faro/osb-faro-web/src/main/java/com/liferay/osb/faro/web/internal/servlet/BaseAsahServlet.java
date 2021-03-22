@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.servlet;
 
+import com.liferay.osb.faro.engine.client.constants.TokenConstants;
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.web.internal.util.FaroProjectThreadLocal;
@@ -64,7 +65,7 @@ public abstract class BaseAsahServlet extends HttpServlet {
 		String url = uri.toString();
 
 		return DigestUtils.sha256Hex(
-			_ASAH_TOKEN.concat(
+			TokenConstants.OSB_ASAH_SECURITY_TOKEN.concat(
 				url.substring(0, url.lastIndexOf(uri.getPath()))));
 	}
 
@@ -73,8 +74,6 @@ public abstract class BaseAsahServlet extends HttpServlet {
 
 	protected static final String ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";
-
-	private static final String _ASAH_TOKEN = System.getenv("OSB_ASAH_TOKEN");
 
 	private static final long serialVersionUID = 1L;
 

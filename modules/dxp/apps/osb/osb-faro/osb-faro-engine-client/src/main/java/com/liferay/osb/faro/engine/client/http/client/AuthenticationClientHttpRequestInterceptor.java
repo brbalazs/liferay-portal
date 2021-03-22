@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.engine.client.http.client;
 
+import com.liferay.osb.faro.engine.client.constants.TokenConstants;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.util.GetterUtil;
 
@@ -55,7 +56,7 @@ public class AuthenticationClientHttpRequestInterceptor
 			httpHeaders.add(
 				_ASAH_SECURITY_SIGNATURE_HEADER,
 				DigestUtils.sha256Hex(
-					_ASAH_TOKEN.concat(
+					TokenConstants.OSB_ASAH_SECURITY_TOKEN.concat(
 						HttpRequestUtil.getOriginalURL(httpRequest))));
 		}
 		catch (Exception e) {
@@ -69,8 +70,6 @@ public class AuthenticationClientHttpRequestInterceptor
 
 	private static final String _ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";
-
-	private static final String _ASAH_TOKEN = System.getenv("OSB_ASAH_TOKEN");
 
 	private final FaroProject _faroProject;
 

@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.servlet.filter;
 
+import com.liferay.osb.faro.engine.client.constants.TokenConstants;
 import com.liferay.osb.faro.web.internal.util.ServletRequestUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -61,7 +62,7 @@ public class EmailServletFilter extends BaseFilter {
 		if (!Objects.equals(
 				faroBackendSecuritySignature,
 				DigestUtils.sha256Hex(
-					_ASAH_TOKEN.concat(
+					TokenConstants.OSB_ASAH_SECURITY_TOKEN.concat(
 						ServletRequestUtil.getOriginalURL(
 							httpServletRequest))))) {
 
@@ -107,8 +108,6 @@ public class EmailServletFilter extends BaseFilter {
 					faroBackendSecuritySignature));
 		}
 	}
-
-	private static final String _ASAH_TOKEN = System.getenv("OSB_ASAH_TOKEN");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		EmailServletFilter.class);
