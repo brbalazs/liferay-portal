@@ -421,9 +421,15 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		createElasticSearchLink(lcpProject);
 
 		for (String secretKey : _secretKeys) {
+			String secretValue = System.getenv(secretKey);
+
+			if (Validator.isNull(secretValue)) {
+				continue;
+			}
+
 			createSecret(
 				lcpProject.getProjectId(), getSecretName(secretKey),
-				System.getenv(secretKey));
+				secretValue);
 		}
 
 		Workspace workspace = new Workspace();
