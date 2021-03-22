@@ -2,35 +2,31 @@
 
 exports[`Row should render 1`] = `
 <div>
-  <tbody>
-    <tr
-      class=""
-    />
-  </tbody>
+  <tr
+    class=""
+  />
 </div>
 `;
 
 exports[`Row should render with data 1`] = `
 <div>
-  <tbody>
-    <tr
+  <tr
+    class=""
+  >
+    <td
       class=""
     >
-      <td
-        class=""
+      <h4
+        class="table-title text-truncate"
       >
-        <h4
-          class="table-title text-truncate"
-        >
-          Foo Bar
-        </h4>
-      </td>
-      <td
-        class=""
-      >
-        50,000
-      </td>
-    </tr>
-  </tbody>
+        Foo Bar
+      </h4>
+    </td>
+    <td
+      class=""
+    >
+      50,000
+    </td>
+  </tr>
 </div>
 `;

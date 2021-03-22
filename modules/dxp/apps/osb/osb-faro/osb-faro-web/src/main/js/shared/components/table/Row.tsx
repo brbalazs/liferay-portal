@@ -30,7 +30,6 @@ interface IRowProps {
 }
 
 const Row: React.FC<IRowProps> = ({
-	className,
 	clickable = false,
 	columns = [],
 	data = {},
@@ -137,14 +136,12 @@ const Row: React.FC<IRowProps> = ({
 		'table-active': selected
 	});
 
-	const RowGroup = header ? 'thead' : 'tbody';
-
 	const directNestedTable = nestedTables
 		? nestedTables[nestedLevel]
 		: undefined;
 
 	return (
-		<RowGroup className={className}>
+		<>
 			<tr className={classes} onClick={handleExpand}>
 				{!header && showCheckbox && (
 					<Cell>
@@ -273,7 +270,7 @@ const Row: React.FC<IRowProps> = ({
 					</td>
 				</tr>
 			)}
-		</RowGroup>
+		</>
 	);
 };
 

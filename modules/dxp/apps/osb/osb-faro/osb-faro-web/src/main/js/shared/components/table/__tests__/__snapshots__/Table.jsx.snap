@@ -57,8 +57,6 @@ exports[`Table should render 1`] = `
             50,000
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class=""
         >
@@ -73,8 +71,6 @@ exports[`Table should render 1`] = `
             50,000
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class=""
         >
@@ -89,8 +85,6 @@ exports[`Table should render 1`] = `
             50,000
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class=""
         >
@@ -105,8 +99,6 @@ exports[`Table should render 1`] = `
             50,000
           </td>
         </tr>
-      </tbody>
-      <tbody>
         <tr
           class=""
         >

@@ -247,53 +247,72 @@ class Table extends React.Component {
 				)}
 			>
 				<table className={classes}>
-					<Row
-						columns={columns}
-						expandable={!!directNestedTable}
-						header
-						headerLink={!internalSort && !onSortChange}
-						onSort={this.handleSort}
-						orderParams={orderParams}
-						renderInlineRowActions={renderInlineRowActions}
-						renderRowActions={renderRowActions}
-						showCheckbox={showCheckbox}
-					/>
+					<thead>
+						<Row
+							columns={columns}
+							expandable={!!directNestedTable}
+							header
+							headerLink={!internalSort && !onSortChange}
+							onSort={this.handleSort}
+							orderParams={orderParams}
+							renderInlineRowActions={renderInlineRowActions}
+							renderRowActions={renderRowActions}
+							showCheckbox={showCheckbox}
+						/>
+					</thead>
 
-					{itemsSorted.map((item, rowIndex) => {
-						const disabled = checkDisabled(item);
+					{!!itemsSorted.length && (
+						<tbody className={className}>
+							{itemsSorted.map((item, rowIndex) => {
+								const disabled = checkDisabled(item);
 
-						return (
-							<Row
-								className={className}
-								clickable={
-									!!directNestedTable ||
-									onRowClick ||
-									onSelectItemsChange
-								}
-								columns={columns}
-								data={item}
-								disabled={disabled}
-								expandable={!!directNestedTable}
-								items={items}
-								itemsSelected={!selectedItemsIOMap.isEmpty()}
-								key={getRowIdentifierValue(item, rowIdentifier)}
-								nestedLevel={nestedLevel}
-								nestedTables={nestedTables}
-								onClick={disabled ? noop : this.handleItemClick}
-								onRowDelete={onRowDelete}
-								onRowSave={onRowSave}
-								renderInlineRowActions={renderInlineRowActions}
-								renderRowActions={renderRowActions}
-								rowIndex={rowIndex}
-								selected={
-									onSelectItemsChange
-										? selectedItemsIOMap.has(item.id)
-										: null
-								}
-								showCheckbox={showCheckbox}
-							/>
-						);
-					})}
+								return (
+									<Row
+										className={className}
+										clickable={
+											!!directNestedTable ||
+											onRowClick ||
+											onSelectItemsChange
+										}
+										columns={columns}
+										data={item}
+										disabled={disabled}
+										expandable={!!directNestedTable}
+										items={items}
+										itemsSelected={
+											!selectedItemsIOMap.isEmpty()
+										}
+										key={getRowIdentifierValue(
+											item,
+											rowIdentifier
+										)}
+										nestedLevel={nestedLevel}
+										nestedTables={nestedTables}
+										onClick={
+											disabled
+												? noop
+												: this.handleItemClick
+										}
+										onRowDelete={onRowDelete}
+										onRowSave={onRowSave}
+										renderInlineRowActions={
+											renderInlineRowActions
+										}
+										renderRowActions={renderRowActions}
+										rowIndex={rowIndex}
+										selected={
+											onSelectItemsChange
+												? selectedItemsIOMap.has(
+														item.id
+												  )
+												: null
+										}
+										showCheckbox={showCheckbox}
+									/>
+								);
+							})}
+						</tbody>
+					)}
 				</table>
 
 				{loading && <Spinner overlay />}
