@@ -39,6 +39,10 @@ const {
 
 const BASE_TIMESTAMP = 1531263666366;
 
+export function getRandom(min, max) {
+	return Math.floor(Math.random() * (max - min)) + min;
+}
+
 export function getTimestamp(change = 0, unit = 'days') {
 	return moment(BASE_TIMESTAMP).add(change, unit).valueOf();
 }
@@ -1051,3 +1055,137 @@ export function mockTreeItem(seed = 0, parentId = 0) {
 		parentId: parentId || undefined
 	};
 }
+
+export function getDummyEvent(event) {
+	return [
+		{
+			breakdownItems: [
+				{
+					name: 'All Individuals',
+					previousValue: getRandom(100, 2000),
+					value: getRandom(100, 2000)
+				}
+			],
+			isLeafNode: true,
+			name: event.name,
+			previousValue: getRandom(100, 2000),
+			value: getRandom(100, 2000)
+		}
+	];
+}
+
+export function getDummyBreakdown(i, event, attributes, order, currentLevel) {
+	const isNextLeaf = currentLevel === order.length;
+	const attribute = attributes[order[currentLevel - 1]];
+
+	const breakdownItems = isNextLeaf
+		? getDummyEvent(event)
+		: getDummyBreakdowns(event, order, attributes, ++currentLevel);
+
+	return {
+		breakdownItems,
+		isLeafNode: false,
+		name: `${attribute.name} [${i}]`,
+		previousValue: getRandom(1000, 10000),
+		value: getRandom(1000, 10000)
+	};
+}
+
+export function getDummyBreakdowns(event, order, attributes, currentLevel = 1) {
+	const count = currentLevel <= 2 ? getRandom(1, 3) : 1;
+	const breakdowns = [];
+
+	for (let index = 0; index < count; index++) {
+		breakdowns.push(
+			getDummyBreakdown(index, event, attributes, order, currentLevel)
+		);
+	}
+
+	return breakdowns;
+}
+
+export function getDummyBreakdownData(event, attributes, order) {
+	return {
+		breakdownItems: order.length
+			? getDummyBreakdowns(event, order, attributes)
+			: getDummyEvent(event),
+		count: 25,
+		totalEvents: 100000
+	};
+}
+
+export const mockBreakdownData = (
+	comparePrevious = false,
+	compareSegment = false,
+	compareEvent = false
+) => ({
+	breakdownItems: [
+		{
+			breakdownItems: [
+				{
+					breakdownItems: [
+						{
+							name: 'All Individuals',
+							value: 1717,
+							...(comparePrevious ? {previousValue: 2633} : {})
+						},
+						...(compareSegment
+							? [
+									{
+										name: 'Segmented',
+										value: 1650,
+										...(comparePrevious
+											? {previousValue: 2400}
+											: {})
+									}
+							  ]
+							: [])
+					],
+					isLeafNode: true,
+					name: 'View Article',
+					value: 3367,
+					...(comparePrevious ? {previousValue: 5033} : {})
+				},
+
+				...(compareEvent
+					? [
+							{
+								breakdownItems: [
+									{
+										name: 'All Individuals',
+										value: 700,
+										...(comparePrevious
+											? {previousValue: 800}
+											: {})
+									},
+									...(compareSegment
+										? [
+												{
+													name: 'Segmented',
+													value: 500,
+													...(comparePrevious
+														? {previousValue: 700}
+														: {})
+												}
+										  ]
+										: [])
+								],
+								isLeafNode: true,
+								name: 'Read Article',
+								value: 1200,
+								...(comparePrevious
+									? {previousValue: 1500}
+									: {})
+							}
+					  ]
+					: [])
+			],
+			isLeafNode: false,
+			name: 'articleTitle [0]',
+			value: 3367,
+			...(comparePrevious ? {previousValue: 5033} : {})
+		}
+	],
+	count: 1,
+	totalEvents: 5033
+});
