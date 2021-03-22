@@ -90,3 +90,29 @@ export interface IFilterProps {
 	filter?: Filter;
 	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
 }
+
+export type BreakdownDataItem = {
+	name: string;
+	previousValue?: number;
+	value: number;
+	isLeafNode: boolean;
+	breakdownItems?: BreakdownDataItem[];
+};
+
+export type BreakdownData = {
+	count: number;
+	totalEvents: number;
+	breakdownItems: BreakdownDataItem[];
+};
+
+export type ParsedBreakdownItem = {
+	events: BreakdownDataItem[];
+	index: string;
+	breakdown0: BreakdownDataItem & {rowSpan: number};
+	[key: string]:
+		| BreakdownDataItem & {rowSpan: number}
+		| BreakdownDataItem[]
+		| string;
+};
+
+export type ParsedBreakdownData = ParsedBreakdownItem[];

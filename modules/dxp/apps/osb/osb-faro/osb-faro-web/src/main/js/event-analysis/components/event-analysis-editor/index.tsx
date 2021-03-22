@@ -1,3 +1,4 @@
+import BreakdownTable from './event-analysis-breakdown';
 import Card from 'shared/components/Card';
 import CardTabs, {CardTabSizes} from 'shared/components/CardTabs';
 import Checkbox from 'shared/components/Checkbox';
@@ -98,7 +99,11 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 				</div>
 			</div>
 
-			<div>{'Insert Chart Component here'}</div>
+			<BreakdownTable
+				compareToPrevious={compareToPrevious}
+				event={event}
+				rangeSelectors={rangeSelectors}
+			/>
 		</Card>
 	);
 };

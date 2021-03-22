@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BreakdownTable render 1`] = `
+<div>
+  <div
+    class="breakdown-table-root"
+  >
+    <div
+      class="table-responsive table-root flex-grow-1"
+    >
+      <table
+        class="table table-autofit table-hover table-bordered table-heading-nowrap table-nowrap"
+      >
+        <thead>
+          <tr
+            class=""
+          >
+            <th
+              class="table-head-title"
+            >
+              <button
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                type="button"
+              >
+                <span
+                  class="text-truncate"
+                />
+              </button>
+            </th>
+            <th
+              class="table-head-title"
+            >
+              <button
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                type="button"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  Events
+                </span>
+              </button>
+            </th>
+            <th
+              class="table-head-title"
+            >
+              <button
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                type="button"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  % of 
+                </span>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class=""
+          >
+            <td
+              class="font-weight-semibold align-top"
+              rowindex="0"
+              rowspan="1"
+            >
+              articleTitle [0]
+            </td>
+            <td
+              class="align-top"
+              rowindex="0"
+            >
+              <div
+                class="table-responsive table-root bar-comparison-root"
+              >
+                <table
+                  class="table"
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        class="table-head-title table-column-event-name"
+                      >
+                        Event Name
+                      </th>
+                      <th
+                        class="table-head-title"
+                      >
+                        Total Events
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td
+                        class="table-column-event-name"
+                      >
+                        View Article
+                      </td>
+                      <td>
+                        <div
+                          class="metric-bar-root breakdown-table-bar"
+                        >
+                          <div
+                            class="bar bar-primary bar-default"
+                            style="width: 67%; background-color: rgb(24, 127, 255);"
+                          />
+                          <div
+                            class="info-wrapper align-items-center d-flex justify-content-between"
+                          >
+                            <span
+                              class="ml-2"
+                            >
+                              3,367
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        class="table-column-event-name"
+                      >
+                        Previous Value
+                      </td>
+                      <td>
+                        <div
+                          class="metric-bar-root breakdown-table-bar"
+                        >
+                          <div
+                            class="bar dots bar-primary bar-default"
+                            style="width: 100%; background-color: rgb(151, 197, 255);"
+                          />
+                          <div
+                            class="info-wrapper align-items-center d-flex justify-content-between"
+                          >
+                            <span
+                              class="ml-2"
+                            >
+                              5,033
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+            <td
+              class="align-top"
+              rowindex="0"
+            >
+              <ul
+                class="percentage-column"
+              >
+                <li>
+                  66.9%
+                </li>
+                <li>
+                  100%
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BreakdownTable render with single event 1`] = `
+<div>
+  <div
+    class="breakdown-table-root breakdown-single-event"
+  >
+    <div
+      class="table-responsive table-root bar-comparison-root"
+    >
+      <table
+        class="table"
+      >
+        <thead>
+          <tr>
+            <th
+              class="table-head-title table-column-event-name"
+            >
+              Event Name
+            </th>
+            <th
+              class="table-head-title"
+            >
+              Total Events
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class="table-column-event-name"
+            >
+              View Article
+            </td>
+            <td>
+              <div
+                class="metric-bar-root breakdown-table-bar"
+              >
+                <div
+                  class="bar bar-primary bar-default"
+                  style="width: 67%; background-color: rgb(24, 127, 255);"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="ml-2"
+                  >
+                    3,367
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="table-column-event-name"
+            >
+              Previous Value
+            </td>
+            <td>
+              <div
+                class="metric-bar-root breakdown-table-bar"
+              >
+                <div
+                  class="bar dots bar-primary bar-default"
+                  style="width: 100%; background-color: rgb(151, 197, 255);"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="ml-2"
+                  >
+                    5,033
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

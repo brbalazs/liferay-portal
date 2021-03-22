@@ -2,10 +2,14 @@ import {
 	Attribute,
 	AttributeTypes,
 	Breakdown,
+	BreakdownData,
+	BreakdownDataItem,
 	DataTypes,
 	DateGroupings,
 	Filter,
-	Operators
+	Operators,
+	ParsedBreakdownData,
+	ParsedBreakdownItem
 } from './types';
 import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
@@ -248,3 +252,69 @@ export const BREAKDOWN_FNS_MAP = {
 	[DataTypes.Number]: createNumberBreakdown,
 	[DataTypes.String]: createStringBreakdown
 };
+
+export const parserBreakdownData = (
+	{breakdownItems}: BreakdownData | BreakdownDataItem,
+	rows: ParsedBreakdownData = [{} as ParsedBreakdownItem],
+	level: number = 1
+): ParsedBreakdownData => {
+	breakdownItems.forEach(data => {
+		const {
+			breakdownItems: nextBreakdownItems,
+			isLeafNode: isLeafCurrentNode,
+			...node
+		} = data;
+
+		const isLeafNextNode =
+			nextBreakdownItems && nextBreakdownItems[0].isLeafNode;
+		const currentRowIndex = rows.length - 1;
+
+		Object.assign(rows[currentRowIndex], {
+			[`breakdown${level}`]: {
+				...node,
+				rowSpan:
+					!isLeafCurrentNode && !isLeafNextNode
+						? nextBreakdownItems.length
+						: 1
+			},
+			index: currentRowIndex
+		});
+
+		if (!isLeafNextNode) {
+			parserBreakdownData(data, rows, level + 1);
+		} else {
+			Object.assign(rows[currentRowIndex], {
+				events: nextBreakdownItems
+			});
+
+			rows.push({} as ParsedBreakdownItem);
+		}
+	});
+
+	return rows.filter(obj => Object.keys(obj).length !== 0);
+};
+
+export const getMaxEventValue = (parsedData, compareToPrevious: boolean) =>
+	parsedData.reduce(
+		(prev, {events}) =>
+			events.reduce(
+				(prev2, {breakdownItems: segments, previousValue, value}) =>
+					segments.length <= 1
+						? Math.max(
+								value,
+								prev2,
+								compareToPrevious && previousValue
+						  )
+						: segments.reduce(
+								(prev3, {previousValue, value}) =>
+									Math.max(
+										value,
+										prev3,
+										compareToPrevious && previousValue
+									),
+								prev2
+						  ),
+				prev
+			),
+		0
+	);
