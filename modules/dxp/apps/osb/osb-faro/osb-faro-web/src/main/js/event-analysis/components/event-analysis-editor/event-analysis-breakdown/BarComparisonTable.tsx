@@ -1,0 +1,69 @@
+import getCN from 'classnames';
+import MetricBar, {DISPLAYS, SIZES} from 'shared/components/MetricBar';
+import React from 'react';
+import {Event} from 'event-analysis/utils/types';
+
+export type BarComparisonTableItems = {
+	isPreviousValue: boolean;
+	name: string;
+	percent: number;
+	style: {
+		'background-color': string;
+	};
+	value: number;
+}[];
+
+interface IBarComparisonTableProps extends React.HTMLAttributes<HTMLElement> {
+	event: Event;
+	isComparingSegment: boolean;
+	items: BarComparisonTableItems;
+}
+
+const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
+	event,
+	isComparingSegment,
+	items = []
+}) => (
+	<table className='table'>
+		<thead>
+			<tr>
+				<th className='table-head-title table-column-event-name'>
+					{!isComparingSegment
+						? Liferay.Language.get('event-name')
+						: event.displayName
+						? event.displayName
+						: event.name}
+				</th>
+				<th className='table-head-title'>
+					{Liferay.Language.get('total-events')}
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{items.map(({isPreviousValue, name, percent, style, value}, i) => (
+				<tr key={i}>
+					<td className='table-column-event-name'>{name}</td>
+					<td>
+						<MetricBar
+							barClassName={getCN({
+								dots: isPreviousValue
+							})}
+							barStyle={style}
+							className='breakdown-table-bar'
+							display={DISPLAYS.Primary}
+							percent={percent}
+							size={SIZES.Default}
+						>
+							<span className='ml-2'>
+								{Number(value).toLocaleString()}
+							</span>
+						</MetricBar>
+					</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+);
+
+export default BarComparisonTable;
