@@ -18,33 +18,44 @@ const EventSection: React.FC<IEventSectionProps> = ({
 	deleteAllAttributes,
 	event,
 	onEventChange
-}) => (
-	<div className='event-section-root'>
-		<div className='section-header'>{Liferay.Language.get('analyze')}</div>
+}) => {
+	const handleEventChange = (event: Event): void => {
+		onEventChange(event);
 
-		<div className='event-list'>
-			{event && <EventChip event={event} onEventChange={onEventChange} />}
+		deleteAllAttributes();
+	};
 
-			{!event && (
-				<EventDropdown
-					onEventChange={(event: Event) => {
-						onEventChange(event);
+	return (
+		<div className='event-section-root'>
+			<div className='section-header'>
+				{Liferay.Language.get('analyze')}
+			</div>
 
-						deleteAllAttributes();
-					}}
-					trigger={
-						<Button
-							className='add-event-button'
-							display='primary'
-							icon='plus'
-							iconAlignment='left'
-							size='sm'
-						/>
-					}
-				/>
-			)}
+			<div className='event-list'>
+				{event && (
+					<EventChip
+						event={event}
+						onEventChange={handleEventChange}
+					/>
+				)}
+
+				{!event && (
+					<EventDropdown
+						onEventChange={handleEventChange}
+						trigger={
+							<Button
+								className='add-event-button'
+								display='primary'
+								icon='plus'
+								iconAlignment='left'
+								size='sm'
+							/>
+						}
+					/>
+				)}
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default withAttributesConsumer(EventSection);
