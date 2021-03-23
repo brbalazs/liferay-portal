@@ -1,4 +1,5 @@
 import BundleRouter from 'route-middleware/BundleRouter';
+import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Loading from 'shared/pages/Loading';
 import Nav from 'shared/components/Nav';
@@ -41,19 +42,29 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 
 	return (
 		<Card key='cardContainer' pageDisplay>
-			<Nav className='page-subnav mx-4 my-3' display='underline'>
-				{NAV_ITEMS.map(({label, route}) => (
-					<Nav.Item
-						active={matchedRoute === route}
-						href={toRoute(route, {groupId})}
-						key={route}
-					>
-						<div className='mb-2'>
-							<b>{label}</b>
-						</div>
-					</Nav.Item>
-				))}
-			</Nav>
+			<div className='d-flex justify-content-between'>
+				<Nav className='page-subnav mx-4 my-3' display='underline'>
+					{NAV_ITEMS.map(({label, route}) => (
+						<Nav.Item
+							active={matchedRoute === route}
+							href={toRoute(route, {groupId})}
+							key={route}
+						>
+							<div className='mb-2'>
+								<b>{label}</b>
+							</div>
+						</Nav.Item>
+					))}
+				</Nav>
+
+				{matchedRoute === Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM && (
+					<div className='d-flex align-items-center mx-4'>
+						<Button borderless icon='ac-block' iconAlignment='left'>
+							{Liferay.Language.get('block-list')}
+						</Button>
+					</div>
+				)}
+			</div>
 
 			<Suspense fallback={<Loading />}>
 				<Switch>
