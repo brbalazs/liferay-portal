@@ -7,7 +7,8 @@
 	},
 	"extends": [
 		"liferay",
-		"plugin:jsx-a11y/recommended"
+		"plugin:jsx-a11y/recommended",
+		"plugin:prettier/recommended"
 	],
 	"globals": {
 		"FARO_ENV": true,
@@ -23,7 +24,7 @@
 			"jsx": true,
 			"legacyDecorators": true
 		},
-		"ecmaVersion": 2017,
+		"ecmaVersion": 2020,
 		"sourceType": "module"
 	},
 	"plugins": [
@@ -64,6 +65,7 @@
 			}
 		],
 		"no-console": 2,
+		"no-import-assign": 0,
 		"no-mixed-spaces-and-tabs": [
 			2,
 			"smart-tabs"
@@ -158,14 +160,6 @@
 			}
 		],
 		"sort-vars": 2,
-		"space-before-function-paren": [
-			"error",
-			{
-				"anonymous": "never",
-				"asyncArrow": "always",
-				"named": "never"
-			}
-		],
 		"valid-jsdoc": 0
 	},
 	"settings": {
