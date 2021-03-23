@@ -125,6 +125,6 @@ describe('BreakdownTable', () => {
 			/>
 		);
 
-		expect(queryByText('Add an event to analyze')).toBeTruthy();
+		expect(queryByText('Add an event to analyze.')).toBeTruthy();
 	});
 });

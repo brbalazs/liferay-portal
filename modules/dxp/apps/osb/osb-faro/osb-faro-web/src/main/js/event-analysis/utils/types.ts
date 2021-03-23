@@ -110,7 +110,7 @@ export type ParsedBreakdownItem = {
 	index: string;
 	breakdown0: BreakdownDataItem & {rowSpan: number};
 	[key: string]:
-		| BreakdownDataItem & {rowSpan: number}
+		| (BreakdownDataItem & {rowSpan: number})
 		| BreakdownDataItem[]
 		| string;
 };

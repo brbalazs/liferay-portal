@@ -2,13 +2,13 @@ import getCN from 'classnames';
 import React from 'react';
 import {round} from 'lodash';
 
-export enum DISPLAYS {
+export enum Displays {
 	Danger = 'danger',
 	Primary = 'primary',
 	Warning = 'warning'
 }
 
-export enum SIZES {
+export enum Sizes {
 	Xs = 'xs',
 	Sm = 'sm',
 	Md = 'md',
@@ -19,9 +19,9 @@ export enum SIZES {
 interface IMetricBarProps extends React.HTMLAttributes<HTMLElement> {
 	barClassName?: string;
 	barStyle?: {[key: string]: string};
-	display: DISPLAYS;
+	display: Displays;
 	percent: number;
-	size: SIZES;
+	size: Sizes;
 }
 
 const MetricBar: React.FC<IMetricBarProps> = ({
@@ -31,7 +31,7 @@ const MetricBar: React.FC<IMetricBarProps> = ({
 	className,
 	display,
 	percent = 0,
-	size = SIZES.Default
+	size = Sizes.Default
 }) => {
 	const barClasses = getCN('bar', barClassName, {
 		[`bar-${display}`]: display,

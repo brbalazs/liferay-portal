@@ -1,6 +1,9 @@
 import BarComparisonCell from '../BarComparisonCell';
 import React from 'react';
-import {getMaxEventValue, parserBreakdownData} from 'event-analysis/utils/utils';
+import {
+	getMaxEventValue,
+	parserBreakdownData
+} from 'event-analysis/utils/utils';
 import {mockBreakdownData} from 'test/data';
 import {render} from '@testing-library/react';
 

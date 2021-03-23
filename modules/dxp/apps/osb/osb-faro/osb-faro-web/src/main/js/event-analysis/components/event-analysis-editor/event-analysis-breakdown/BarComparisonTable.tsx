@@ -1,5 +1,5 @@
 import getCN from 'classnames';
-import MetricBar, {DISPLAYS, SIZES} from 'shared/components/MetricBar';
+import MetricBar, {Displays, Sizes} from 'shared/components/MetricBar';
 import React from 'react';
 import {Event} from 'event-analysis/utils/types';
 
@@ -51,9 +51,9 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 							})}
 							barStyle={style}
 							className='breakdown-table-bar'
-							display={DISPLAYS.Primary}
+							display={Displays.Primary}
 							percent={percent}
-							size={SIZES.Default}
+							size={Sizes.Default}
 						>
 							<span className='ml-2'>
 								{Number(value).toLocaleString()}

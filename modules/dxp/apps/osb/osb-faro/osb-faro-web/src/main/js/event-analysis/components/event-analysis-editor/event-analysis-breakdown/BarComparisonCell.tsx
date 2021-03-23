@@ -97,7 +97,7 @@ const getItems = (
 			name,
 			percent: value / topValue,
 			style: {
-				'background-color': MAP_COLORS[color][i].current
+				backgroundColor: MAP_COLORS[color][i].current
 			},
 			value
 		});
@@ -108,7 +108,7 @@ const getItems = (
 				name: Liferay.Language.get('previous-value'),
 				percent: previousValue / topValue,
 				style: {
-					'background-color': MAP_COLORS[color][i].previous
+					backgroundColor: MAP_COLORS[color][i].previous
 				},
 				value: previousValue
 			});

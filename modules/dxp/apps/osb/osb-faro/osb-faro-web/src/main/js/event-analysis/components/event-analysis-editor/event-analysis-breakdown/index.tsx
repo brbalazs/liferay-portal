@@ -4,11 +4,19 @@ import PercentOfCell from './PercentOfCell';
 import React, {useEffect, useMemo} from 'react';
 import Table from 'shared/components/table';
 import WithEmptyState from './hoc/WithEmptyState';
-import {Attributes, Breakdowns, Event, Filters} from 'event-analysis/utils/types';
+import {
+	Attributes,
+	Breakdowns,
+	Event,
+	Filters
+} from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {get, isNil} from 'lodash';
 import {getDummyBreakdownData} from 'test/data';
-import {getMaxEventValue, parserBreakdownData} from 'event-analysis/utils/utils';
+import {
+	getMaxEventValue,
+	parserBreakdownData
+} from 'event-analysis/utils/utils';
 import {sub} from 'shared/util/lang';
 import {withAttributesConsumer} from '../context/attributes';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
@@ -117,7 +125,7 @@ const getColumns = ({
 	totalEvents
 }) => {
 	const columns = order.map((id, i) => ({
-		cellRenderer: ({className, data, ...otherProps}) => {
+		cellRenderer: ({className, data}) => {
 			const dataValue = get(data, `breakdown${i + 1}`);
 
 			if (isNil(dataValue)) {
@@ -132,7 +140,6 @@ const getColumns = ({
 						className
 					)}
 					rowSpan={dataValue.rowSpan}
-					{...otherProps}
 				>
 					{dataValue.name}
 				</td>
@@ -142,8 +149,8 @@ const getColumns = ({
 	}));
 
 	columns.push({
-		cellRenderer: ({className, data: {events}, ...otherProps}) => (
-			<td className={getCN('align-top', className)} {...otherProps}>
+		cellRenderer: ({className, data: {events}}) => (
+			<td className={getCN('align-top', className)}>
 				<BarComparisonCell
 					compareToPrevious={compareToPrevious}
 					event={event}
@@ -156,8 +163,8 @@ const getColumns = ({
 	});
 
 	columns.push({
-		cellRenderer: ({className, data: {events}, ...otherProps}) => (
-			<td className={getCN('align-top', className)} {...otherProps}>
+		cellRenderer: ({className, data: {events}}) => (
+			<td className={getCN('align-top', className)}>
 				<PercentOfCell
 					compareToPrevious={compareToPrevious}
 					events={events}
@@ -171,7 +178,4 @@ const getColumns = ({
 	return columns;
 };
 
-export default compose(
-	withAttributesConsumer,
-	WithEmptyState
-)(BreakdownTable);
+export default compose(withAttributesConsumer, WithEmptyState)(BreakdownTable);

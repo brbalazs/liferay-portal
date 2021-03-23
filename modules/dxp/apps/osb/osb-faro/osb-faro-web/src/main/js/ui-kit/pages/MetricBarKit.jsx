@@ -1,5 +1,5 @@
 import Item from '../components/Item';
-import MetricBar, {DISPLAYS, SIZES} from 'shared/components/MetricBar';
+import MetricBar, {Displays, Sizes} from 'shared/components/MetricBar';
 import React from 'react';
 import Row from '../components/Row';
 
@@ -11,9 +11,9 @@ export default class MetricBarKit extends React.Component {
 					this.props.className ? ` ${this.props.className}` : ''
 				}
 			>
-				{Object.values(SIZES).map(size => (
+				{Object.values(Sizes).map(size => (
 					<Row key={size}>
-						{Object.values(DISPLAYS).map(display => (
+						{Object.values(Displays).map(display => (
 							<Item key={display}>
 								<span
 									style={{
