@@ -142,8 +142,5 @@ export default compose(
 	withHistory,
 	withAdminPermission,
 	withDataSource,
-	connect(
-		null,
-		{addAlert}
-	)
+	connect(null, {addAlert})
 )(ClearData);

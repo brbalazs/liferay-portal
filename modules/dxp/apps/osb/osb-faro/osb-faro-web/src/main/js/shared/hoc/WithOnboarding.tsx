@@ -16,10 +16,7 @@ const withOnboarding = (
 	}>
 ) =>
 	compose<any>(
-		connect(
-			null,
-			{close, open}
-		),
+		connect(null, {close, open}),
 		withCurrentUser,
 		graphql(SitesDashboardQuery, {options: {variables: {type: null}}})
 	)(({close, currentUser, data, groupId, open, ...otherProps}) => {

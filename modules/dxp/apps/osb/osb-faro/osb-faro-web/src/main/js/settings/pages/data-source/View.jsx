@@ -45,7 +45,4 @@ export class View extends React.Component {
 	}
 }
 
-export default compose(
-	withRouter,
-	withDataSource
-)(View);
+export default compose(withRouter, withDataSource)(View);

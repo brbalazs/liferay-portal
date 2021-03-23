@@ -52,7 +52,9 @@ describe('CustomNumberInput', () => {
 				touched={false}
 				valid
 				value={fromJS({
-					criterionGroup: {items: [{operatorName: 'eq', value: null}]}
+					criterionGroup: {
+						items: [{operatorName: 'eq', value: null}]
+					}
 				})}
 			/>
 		);

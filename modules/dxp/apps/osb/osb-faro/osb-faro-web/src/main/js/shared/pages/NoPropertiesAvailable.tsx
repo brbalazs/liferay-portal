@@ -115,8 +115,5 @@ export default compose<any>(
 			dataSources: !!total
 		})
 	),
-	connect(
-		null,
-		{close, open, setBackURL}
-	)
+	connect(null, {close, open, setBackURL})
 )(NoPropertiesAvailable);

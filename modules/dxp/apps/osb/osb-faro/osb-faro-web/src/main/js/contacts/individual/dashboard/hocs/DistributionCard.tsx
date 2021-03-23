@@ -17,7 +17,6 @@ const IndividualsDistributionCard = ({channelId, groupId, ...otherProps}) => (
 	/>
 );
 
-export default connect(
-	null,
-	{fetchDistribution: fetchIndividualsDistribution}
-)(IndividualsDistributionCard);
+export default connect(null, {fetchDistribution: fetchIndividualsDistribution})(
+	IndividualsDistributionCard
+);

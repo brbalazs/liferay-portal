@@ -50,10 +50,9 @@ const DurationFilter: React.FC<IFilterProps> = ({
 				onFilterSubmit({
 					breakdown: createDurationBreakdown({
 						attributeId,
-						bin: getMillisecondsFromTime(bin.replace(
-							/_/g,
-							'0'
-						) as string),
+						bin: getMillisecondsFromTime(
+							bin.replace(/_/g, '0') as string
+						),
 						type: attributeType
 					}),
 					filter: {

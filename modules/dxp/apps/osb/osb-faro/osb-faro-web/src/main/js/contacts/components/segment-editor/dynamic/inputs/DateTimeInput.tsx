@@ -14,9 +14,7 @@ interface IDateTimeInputProps extends ISegmentEditorInputBase {
 	value: string;
 }
 
-export default class DateTimeInput extends React.Component<
-	IDateTimeInputProps
-> {
+export default class DateTimeInput extends React.Component<IDateTimeInputProps> {
 	@autobind
 	handleDateChange(value) {
 		this.props.onChange({

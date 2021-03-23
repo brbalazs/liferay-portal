@@ -107,7 +107,4 @@ const SelectEntityFromModal: React.FC<ISelectEntityFromModalProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(SelectEntityFromModal);
+export default connect(null, {close, open})(SelectEntityFromModal);

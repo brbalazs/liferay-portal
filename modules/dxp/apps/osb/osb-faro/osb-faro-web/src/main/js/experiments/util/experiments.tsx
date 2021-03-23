@@ -134,10 +134,7 @@ export const formatHistogramKeyValue: FormatHistogramKeyValue = (
 	}, {});
 
 export const formatProcessedDate = date =>
-	moment
-		.utc(date)
-		.startOf('day')
-		.toDate();
+	moment.utc(date).startOf('day').toDate();
 
 export const formatYAxis: FormatYAxisFn = metricUnit => value => {
 	if (value % 1 === 0) {

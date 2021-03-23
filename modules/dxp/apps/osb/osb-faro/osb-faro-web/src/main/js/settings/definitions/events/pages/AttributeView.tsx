@@ -132,7 +132,4 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AttributeView);
+export default connect(null, {close, open})(AttributeView);

@@ -9,6 +9,9 @@ import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
  * @description Forms Metrics
  */
 const withFormsMetrics = () =>
-	graphql(FormMetricsQuery, getMetricsMapper(result => result.form, metrics));
+	graphql(
+		FormMetricsQuery,
+		getMetricsMapper(result => result.form, metrics)
+	);
 
 export default withMetricsCard(withFormsMetrics);

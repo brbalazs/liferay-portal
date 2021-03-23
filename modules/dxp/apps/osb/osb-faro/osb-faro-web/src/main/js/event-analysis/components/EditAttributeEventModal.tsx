@@ -295,7 +295,4 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{addAlert}
-)(EditAttributeEventModal);
+export default connect(null, {addAlert})(EditAttributeEventModal);

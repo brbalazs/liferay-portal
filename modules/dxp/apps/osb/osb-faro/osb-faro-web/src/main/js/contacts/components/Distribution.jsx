@@ -228,9 +228,7 @@ export class Distribution extends React.Component {
 			fieldMappingSelected: {context, name}
 		} = this.state;
 
-		const filter = `${context}/${name}/value ${RELATIONAL_OPERATORS.EQ} '${
-			distributionValues[0]
-		}'`;
+		const filter = `${context}/${name}/value ${RELATIONAL_OPERATORS.EQ} '${distributionValues[0]}'`;
 
 		return filter;
 	}

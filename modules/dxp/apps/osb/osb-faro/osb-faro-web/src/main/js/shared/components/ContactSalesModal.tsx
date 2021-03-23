@@ -43,7 +43,4 @@ const ContactSalesModal: React.FC<IContactSalesModalProps> = ({
 	</Modal>
 );
 
-export default connect(
-	null,
-	{addAlert}
-)(ContactSalesModal);
+export default connect(null, {addAlert})(ContactSalesModal);

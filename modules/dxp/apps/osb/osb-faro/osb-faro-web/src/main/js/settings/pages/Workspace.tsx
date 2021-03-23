@@ -101,13 +101,10 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 };
 
 export default compose(
-	connect(
-		null,
-		{
-			addAlert,
-			updateProject
-		}
-	),
+	connect(null, {
+		addAlert,
+		updateProject
+	}),
 	withCurrentUser,
 	withHistory,
 	withProject(true),

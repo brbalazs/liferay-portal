@@ -535,7 +535,4 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AddWorkspaceForm);
+export default connect(null, {close, open})(AddWorkspaceForm);

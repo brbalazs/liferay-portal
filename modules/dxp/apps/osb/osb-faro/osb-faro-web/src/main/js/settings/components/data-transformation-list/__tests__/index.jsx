@@ -66,12 +66,9 @@ describe('DataTransformationList', () => {
 
 		component.instance().handleChange(0, item);
 
-		expect(
-			spy.mock.calls[0][0]
-				.first()
-				.get('suggestion')
-				.toJS()
-		).toEqual(item);
+		expect(spy.mock.calls[0][0].first().get('suggestion').toJS()).toEqual(
+			item
+		);
 	});
 
 	it('should call props.onChange when source fields change', () => {
@@ -85,12 +82,7 @@ describe('DataTransformationList', () => {
 
 		component.instance().handleChange(0, item, true);
 
-		expect(
-			spy.mock.calls[0][0]
-				.first()
-				.get('source')
-				.toJS()
-		).toEqual(item);
+		expect(spy.mock.calls[0][0].first().get('source').toJS()).toEqual(item);
 	});
 
 	it('should remove first field', () => {

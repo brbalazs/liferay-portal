@@ -126,8 +126,9 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 		<BasePage
 			{...otherProps}
 			className={getCN('data-source-base-page-root', className)}
-			documentTitle={`${documentTitle ||
-				pageTitle} - ${Liferay.Language.get('data-sources')}`}
+			documentTitle={`${
+				documentTitle || pageTitle
+			} - ${Liferay.Language.get('data-sources')}`}
 			groupId={groupId}
 			pageActions={
 				id && showDelete && currentUser.isAdmin()
@@ -166,8 +167,5 @@ const getOwnChildren = (store, ownProps) => ({
 
 export default compose<any>(
 	withHistory,
-	connect(
-		getOwnChildren,
-		{addAlert, close, deleteDataSource, open}
-	)
+	connect(getOwnChildren, {addAlert, close, deleteDataSource, open})
 )(BaseDataSourcePage);

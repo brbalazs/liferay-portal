@@ -58,12 +58,7 @@ const attachChart = (chartElement: HTMLElement, props: HeatmapChartIProps) => {
 
 	svg.append('g')
 		.attr('class', 'axis column-axis')
-		.call(
-			d3
-				.axisTop(x)
-				.tickSize(0)
-				.tickFormat(columnAxisFormatter)
-		)
+		.call(d3.axisTop(x).tickSize(0).tickFormat(columnAxisFormatter))
 		.select('.domain')
 		.remove();
 
@@ -76,12 +71,7 @@ const attachChart = (chartElement: HTMLElement, props: HeatmapChartIProps) => {
 
 	svg.append('g')
 		.attr('class', 'axis row-axis')
-		.call(
-			d3
-				.axisLeft(y)
-				.tickSize(0)
-				.tickFormat(rowAxisFormatter)
-		)
+		.call(d3.axisLeft(y).tickSize(0).tickFormat(rowAxisFormatter))
 		.select('.domain')
 		.remove();
 
@@ -132,10 +122,7 @@ const updateChart = (chartElement, props) => {
 	const svg = d3.select(chartElement);
 
 	// Build color scale
-	const colorScale = d3
-		.scaleThreshold()
-		.domain(thresholds)
-		.range(colorRange);
+	const colorScale = d3.scaleThreshold().domain(thresholds).range(colorRange);
 
 	// Update the square colors
 	svg.select('.rects')
@@ -211,10 +198,7 @@ export const getNicedExtent = ([min, max]: [number, number]): [
 	number,
 	number
 ] => {
-	const threshold = d3
-		.scaleQuantize()
-		.domain([min, max])
-		.nice(3);
+	const threshold = d3.scaleQuantize().domain([min, max]).nice(3);
 
 	const thresholds = threshold.ticks(4);
 

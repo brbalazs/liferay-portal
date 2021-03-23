@@ -18,9 +18,7 @@ import {ISegmentEditorCustomInputBase} from '../utils/types';
 
 const DATE_OPERATORS = SUPPORTED_OPERATORS[PROPERTY_TYPES.DATE];
 
-export default class CustomDateInput extends React.Component<
-	ISegmentEditorCustomInputBase
-> {
+export default class CustomDateInput extends React.Component<ISegmentEditorCustomInputBase> {
 	@autobind
 	handleDateChange(newDate) {
 		const {onChange, value} = this.props;

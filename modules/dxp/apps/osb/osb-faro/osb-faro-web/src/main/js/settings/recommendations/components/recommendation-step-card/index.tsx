@@ -140,23 +140,29 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		const key = job ? 'updateJob' : 'createJob';
 
 		mutationFn()
-			.then(({data: {[key]: {name}}}) => {
-				addAlert({
-					alertType: Alert.Types.SUCCESS,
-					message: sub(
-						Liferay.Language.get(
-							'x-recommendation-model-has-been-saved'
-						),
-						[name]
-					) as string
-				});
+			.then(
+				({
+					data: {
+						[key]: {name}
+					}
+				}) => {
+					addAlert({
+						alertType: Alert.Types.SUCCESS,
+						message: sub(
+							Liferay.Language.get(
+								'x-recommendation-model-has-been-saved'
+							),
+							[name]
+						) as string
+					});
 
-				history.push(
-					toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
-						groupId
-					})
-				);
-			})
+					history.push(
+						toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
+							groupId
+						})
+					);
+				}
+			)
 			.catch(() => {
 				addAlert({
 					alertType: Alert.Types.ERROR,
@@ -303,8 +309,5 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 export default compose<any>(
 	withHistory,
-	connect(
-		null,
-		{addAlert}
-	)
+	connect(null, {addAlert})
 )(RecommendationStepCard);

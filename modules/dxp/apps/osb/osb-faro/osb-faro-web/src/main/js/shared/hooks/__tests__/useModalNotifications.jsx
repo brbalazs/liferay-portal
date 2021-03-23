@@ -18,10 +18,7 @@ import {range} from 'lodash';
 
 jest.unmock('react-dom');
 
-const WrapperComponent = connect(
-	null,
-	{close, open}
-)(({close, open}) => {
+const WrapperComponent = connect(null, {close, open})(({close, open}) => {
 	useModalNotifications(close, '23', open);
 
 	return (

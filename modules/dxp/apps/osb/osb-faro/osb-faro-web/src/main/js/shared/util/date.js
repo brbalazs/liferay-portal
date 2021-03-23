@@ -76,11 +76,7 @@ export const applyTimeZone = (date, timeZoneId = DEFAULT_TIMEZONE_ID) =>
 
 export function generateDateRange(period = 30, interval = 'days') {
 	return rangeRight(0, period).map(cur =>
-		moment
-			.utc()
-			.startOf(interval)
-			.subtract(cur, interval)
-			.valueOf()
+		moment.utc().startOf(interval).subtract(cur, interval).valueOf()
 	);
 }
 
@@ -103,11 +99,7 @@ export const getISODate = date => moment.utc(date).toISOString();
 export const getDateNow = () => moment.utc();
 
 export function getDateRangeLabel(dates, interval, key) {
-	const firstDate = flow(
-		head,
-		get(key),
-		formatUTCDate
-	)(dates);
+	const firstDate = flow(head, get(key), formatUTCDate)(dates);
 	const lastDate = formatUTCDate(getLastDate(dates, interval, key));
 
 	return `${firstDate} - ${lastDate}`;
@@ -141,10 +133,7 @@ export function getEndDate(date, interval) {
  *  @returns {number} Date in unix time.
  */
 export function getFirstDate(dates, key) {
-	return flow(
-		head,
-		get(key)
-	)(dates);
+	return flow(head, get(key))(dates);
 }
 
 /**
@@ -153,10 +142,7 @@ export function getFirstDate(dates, key) {
  *  @returns {number} Date in unix time.
  */
 export function getLastDate(dates, interval, key) {
-	const date = flow(
-		last,
-		get(key)
-	)(dates);
+	const date = flow(last, get(key))(dates);
 
 	return getEndDate(date, interval);
 }

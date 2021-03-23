@@ -168,10 +168,7 @@ export default class Toolbar extends React.Component {
 			history.push(
 				setUriQueryValues(
 					{
-						[field]: filterBy
-							.get(field)
-							.delete(value)
-							.toArray(),
+						[field]: filterBy.get(field).delete(value).toArray(),
 						page: cur
 					},
 					window.location.href

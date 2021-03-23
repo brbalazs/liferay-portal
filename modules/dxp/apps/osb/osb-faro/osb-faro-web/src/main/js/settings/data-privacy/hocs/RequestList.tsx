@@ -468,9 +468,6 @@ const RequestList: React.FC<IRequestListProps> = ({
 export default compose<any>(
 	withSelectionProvider,
 	withFilters({destructured: false, filterFields: [STATUSES, TYPES, PERIOD]}),
-	connect(
-		null,
-		{addAlert, close, open}
-	),
+	connect(null, {addAlert, close, open}),
 	withHistory
 )(RequestList);

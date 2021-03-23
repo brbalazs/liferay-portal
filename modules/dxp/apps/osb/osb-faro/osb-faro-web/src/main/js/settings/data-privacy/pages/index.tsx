@@ -5,16 +5,16 @@ import RouteNotFound from 'shared/components/RouteNotFound';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
-const Overview = lazy(() =>
-	import(/* webpackChunkName: "DataPrivacyOverview" */ './Overview')
+const Overview = lazy(
+	() => import(/* webpackChunkName: "DataPrivacyOverview" */ './Overview')
 );
 
-const RequestLog = lazy(() =>
-	import(/* webpackChunkName: "RequestLog" */ './RequestLog')
+const RequestLog = lazy(
+	() => import(/* webpackChunkName: "RequestLog" */ './RequestLog')
 );
 
-const SuppressedUsers = lazy(() =>
-	import(/* webpackChunkName: "SupressedUsers" */ './SuppressedUsers')
+const SuppressedUsers = lazy(
+	() => import(/* webpackChunkName: "SupressedUsers" */ './SuppressedUsers')
 );
 
 interface IDataPrivacyProps extends React.HTMLAttributes<HTMLDivElement> {

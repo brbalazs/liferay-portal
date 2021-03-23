@@ -22,9 +22,7 @@ interface ICustomNumberInputProps extends ISegmentEditorCustomInputBase {
 	valid: boolean;
 }
 
-export default class CustomNumberInput extends React.Component<
-	ICustomNumberInputProps
-> {
+export default class CustomNumberInput extends React.Component<ICustomNumberInputProps> {
 	getSelectedOperatorKey() {
 		const criterionIMap = this.props.value.getIn(
 			['criterionGroup', 'items', 0],

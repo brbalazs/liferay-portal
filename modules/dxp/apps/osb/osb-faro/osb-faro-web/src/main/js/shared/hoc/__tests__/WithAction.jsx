@@ -10,17 +10,19 @@ describe('withAction', () => {
 	const mapStateToRemoteData = () => new RemoteData({loading: false});
 
 	it('should return a new Component', () => {
-		const WrappedComponent = withAction(action, mapStateToRemoteData)(
-			jest.fn()
-		);
+		const WrappedComponent = withAction(
+			action,
+			mapStateToRemoteData
+		)(jest.fn());
 
 		expect(WrappedComponent).toBeInstanceOf(Function);
 	});
 
 	it('should render the wrapped component', () => {
-		const WrappedComponent = withAction(action, mapStateToRemoteData)(
-			() => <div>{'foo'}</div>
-		);
+		const WrappedComponent = withAction(
+			action,
+			mapStateToRemoteData
+		)(() => <div>{'foo'}</div>);
 
 		const component = renderWithStore(WrappedComponent);
 
@@ -28,9 +30,10 @@ describe('withAction', () => {
 	});
 
 	it('should render loading if the RemoteData is loading and data is null', () => {
-		const WrappedComponent = withAction(action, () => new RemoteData())(
-			jest.fn()
-		);
+		const WrappedComponent = withAction(
+			action,
+			() => new RemoteData()
+		)(jest.fn());
 
 		const component = renderWithStore(WrappedComponent);
 

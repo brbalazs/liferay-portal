@@ -264,10 +264,13 @@ class DropdownMenu extends React.Component {
 				show: false
 			});
 		} else if (!isTopLevel && show && parentNode) {
-			this._elementRef.current.style.top = `${parentNode.getBoundingClientRect()
-				.top + scrollY}px`;
-			this._elementRef.current.style.left = `${parentNode.getBoundingClientRect()
-				.left + parentNode.getBoundingClientRect().width}px`;
+			this._elementRef.current.style.top = `${
+				parentNode.getBoundingClientRect().top + scrollY
+			}px`;
+			this._elementRef.current.style.left = `${
+				parentNode.getBoundingClientRect().left +
+				parentNode.getBoundingClientRect().width
+			}px`;
 		}
 	}
 

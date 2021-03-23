@@ -195,7 +195,4 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AttributeDropdown);
+export default connect(null, {close, open})(AttributeDropdown);

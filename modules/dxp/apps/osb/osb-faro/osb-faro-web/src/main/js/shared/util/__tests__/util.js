@@ -25,12 +25,12 @@ describe('util', () => {
 		let source;
 		let target;
 
-		afterEach(function() {
+		afterEach(function () {
 			dom.exitDocument(source);
 			dom.exitDocument(target);
 		});
 
-		beforeEach(function() {
+		beforeEach(function () {
 			dom.enterDocument(
 				`<div id="source" class="popover clay-popover-top hide analytics-popover no-content">
 				<div class="arrow"></div>

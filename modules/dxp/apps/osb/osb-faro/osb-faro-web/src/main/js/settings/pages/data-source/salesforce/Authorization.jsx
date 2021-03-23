@@ -145,10 +145,7 @@ export class SalesforceAuthorization extends React.Component {
 	}
 }
 
-export default connect(
-	null,
-	{
-		createSalesforceDataSource,
-		updateSalesforceDataSource
-	}
-)(SalesforceAuthorization);
+export default connect(null, {
+	createSalesforceDataSource,
+	updateSalesforceDataSource
+})(SalesforceAuthorization);

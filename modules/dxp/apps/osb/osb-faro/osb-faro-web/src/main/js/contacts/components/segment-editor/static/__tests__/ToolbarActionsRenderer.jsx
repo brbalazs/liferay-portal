@@ -15,7 +15,12 @@ describe('ToolbarActionsRenderer', () => {
 	it('should render secondary button actions if items are selected', () => {
 		const {container} = render(
 			<ToolbarActionsRenderer
-				selectedItemsIOMap={new OrderedMap([[1, {}], [2, {}]])}
+				selectedItemsIOMap={
+					new OrderedMap([
+						[1, {}],
+						[2, {}]
+					])
+				}
 			/>
 		);
 
@@ -25,7 +30,12 @@ describe('ToolbarActionsRenderer', () => {
 	it('should not render remove button when showAdded is true', () => {
 		const {container} = render(
 			<ToolbarActionsRenderer
-				selectedItemsIOMap={new OrderedMap([[1, {}], [2, {}]])}
+				selectedItemsIOMap={
+					new OrderedMap([
+						[1, {}],
+						[2, {}]
+					])
+				}
 				showAdded
 			/>
 		);

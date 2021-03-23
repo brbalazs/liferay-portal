@@ -287,10 +287,7 @@ export class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
 	}
 }
 
-export default connect(
-	null,
-	{
-		close,
-		open
-	}
-)(Toolbar);
+export default connect(null, {
+	close,
+	open
+})(Toolbar);

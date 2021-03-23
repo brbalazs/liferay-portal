@@ -75,9 +75,7 @@ export const toThousandsBase = (number, setFactor) => {
 export const toFixedPoint = number => {
 	const format = d3.format(',.0f');
 
-	return removeZeroPrecision(format(number))
-		.trim()
-		.toUpperCase();
+	return removeZeroPrecision(format(number)).trim().toUpperCase();
 };
 
 /**

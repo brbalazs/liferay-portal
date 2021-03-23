@@ -22,7 +22,7 @@ class CriteriaBuilder extends React.Component<ICriteriaBuilderProps> {
 	 * @param {boolean} root True if the criteriaItems are from the root group to clean.
 	 */
 	cleanCriteriaMapItems(
-		criteriaItems: (Criteria)[],
+		criteriaItems: Criteria[],
 		root?: boolean
 	): Criteria[] {
 		const criteria = criteriaItems

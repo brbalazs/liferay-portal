@@ -677,7 +677,10 @@ describe('isEmptyData', () => {
 	});
 
 	it('should return true if the data arrays contain values that are all zero', () => {
-		const mockChartData = [[0, 0, 0], [0, 0, 0]];
+		const mockChartData = [
+			[0, 0, 0],
+			[0, 0, 0]
+		];
 
 		expect(isEmptyData(mockChartData)).toBe(true);
 	});

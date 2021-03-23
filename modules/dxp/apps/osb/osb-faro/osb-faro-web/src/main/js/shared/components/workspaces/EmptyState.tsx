@@ -75,7 +75,4 @@ export const CardEmpty: React.FC<ICardItemProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(EmptyState);
+export default connect(null, {close, open})(EmptyState);

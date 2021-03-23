@@ -54,9 +54,10 @@ describe('WithPolling', () => {
 
 		const mockStopCondition = ({foo}) => foo !== 'bar';
 
-		const WrappedComponent = withPolling(mockRequest, mockStopCondition)(
-			TestComponent
-		);
+		const WrappedComponent = withPolling(
+			mockRequest,
+			mockStopCondition
+		)(TestComponent);
 
 		shallow(<WrappedComponent />);
 

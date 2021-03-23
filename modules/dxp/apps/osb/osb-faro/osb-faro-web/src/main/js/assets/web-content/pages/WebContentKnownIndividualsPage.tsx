@@ -5,9 +5,9 @@ interface IWebContentKnownIndividualsPageProps {
 	router: object;
 }
 
-const WebContentKnownIndividualsPage: React.FC<
-	IWebContentKnownIndividualsPageProps
-> = ({router}) => (
+const WebContentKnownIndividualsPage: React.FC<IWebContentKnownIndividualsPageProps> = ({
+	router
+}) => (
 	<div className='row'>
 		<div className='col-sm-12'>
 			<KnownIndividualsListCard router={router} />

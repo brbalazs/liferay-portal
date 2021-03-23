@@ -7,9 +7,7 @@ interface IInterestsPageProps extends React.HTMLAttributes<HTMLDivElement> {
 	};
 }
 
-export default class InterestsPage extends React.Component<
-	IInterestsPageProps
-> {
+export default class InterestsPage extends React.Component<IInterestsPageProps> {
 	render() {
 		const {router} = this.props;
 

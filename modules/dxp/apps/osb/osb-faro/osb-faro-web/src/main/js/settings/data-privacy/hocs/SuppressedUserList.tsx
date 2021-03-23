@@ -148,7 +148,4 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 	</Card>
 );
 
-export default connect(
-	null,
-	{addAlert}
-)(SuppressedUserList);
+export default connect(null, {addAlert})(SuppressedUserList);

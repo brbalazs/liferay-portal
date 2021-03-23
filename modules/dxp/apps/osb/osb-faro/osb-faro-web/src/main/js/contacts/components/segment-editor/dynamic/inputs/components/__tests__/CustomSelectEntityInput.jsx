@@ -16,7 +16,9 @@ jest.unmock('react-dom');
 const mockSegment = data.getImmutableMock(Segment, data.mockSegment, 0, {
 	referencedObjects: {
 		organizations: {
-			123: data.mockGraphqlOrganization('123', {name: 'Foo Organization'})
+			123: data.mockGraphqlOrganization('123', {
+				name: 'Foo Organization'
+			})
 		}
 	}
 });

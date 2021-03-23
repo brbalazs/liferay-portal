@@ -26,7 +26,7 @@ function comparePaths(curRoute, nextRoute) {
 	});
 }
 
-export default function(routesArr) {
+export default function (routesArr) {
 	const splitRoutes = routesArr.map(route =>
 		isString(route) ? route.split('/') : route
 	);

@@ -14,9 +14,10 @@ interface IIndividualsDistributionProps {
 	router: object;
 }
 
-export const IndividualsDistribution: React.FC<
-	IIndividualsDistributionProps
-> = ({knownIndividualCount, ...otherProps}) => (
+export const IndividualsDistribution: React.FC<IIndividualsDistributionProps> = ({
+	knownIndividualCount,
+	...otherProps
+}) => (
 	<div className='individuals-dashboard-distribution-root container-fluid'>
 		<div className='row'>
 			<div className='col-xl-12'>
@@ -44,8 +45,5 @@ export default compose<any>(
 			knownIndividualCount: error ? 0 : get(data, 'total', null)
 		})
 	),
-	connect(
-		null,
-		{fetchDistribution: fetchIndividualsDistribution}
-	)
+	connect(null, {fetchDistribution: fetchIndividualsDistribution})
 )(IndividualsDistribution);

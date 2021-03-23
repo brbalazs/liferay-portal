@@ -14,10 +14,7 @@ export type Tab = {
 	title: string;
 };
 
-const WrappedTable = compose<any>(
-	withError({page: false}),
-	withEmpty()
-)(Table);
+const WrappedTable = compose<any>(withError({page: false}), withEmpty())(Table);
 
 interface ITableTabsProps {
 	activeTabId: tabId;

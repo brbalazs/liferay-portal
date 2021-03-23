@@ -12,9 +12,7 @@ interface ISegmentDurationInputProps extends ISegmentEditorInputBase {
 	value: string | number;
 }
 
-export default class SegmentDurationInput extends React.Component<
-	ISegmentDurationInputProps
-> {
+export default class SegmentDurationInput extends React.Component<ISegmentDurationInputProps> {
 	@autobind
 	handleBlur() {
 		const {onChange, value} = this.props;

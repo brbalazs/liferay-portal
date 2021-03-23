@@ -14,9 +14,10 @@ const rejectRequest = jest.fn(() => Promise.reject(mockFailData));
 describe('WithQuery', () => {
 	afterEach(cleanup);
 	it('should pass result props to the wrapped component', () => {
-		const WrappedComponent = withQuery(request, val => val)(({data}) => (
-			<div>{data && data.test}</div>
-		));
+		const WrappedComponent = withQuery(
+			request,
+			val => val
+		)(({data}) => <div>{data && data.test}</div>);
 
 		const {queryByText} = render(<WrappedComponent />);
 
@@ -26,9 +27,10 @@ describe('WithQuery', () => {
 	});
 
 	it('should return an error', () => {
-		const WrappedComponent = withQuery(rejectRequest, val => val)(
-			({error}) => <div>{error && 'error'}</div>
-		);
+		const WrappedComponent = withQuery(
+			rejectRequest,
+			val => val
+		)(({error}) => <div>{error && 'error'}</div>);
 
 		const {queryByText} = render(<WrappedComponent />);
 

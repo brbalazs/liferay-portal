@@ -442,9 +442,6 @@ export class UserList extends React.Component {
 }
 
 export default compose(
-	connect(
-		null,
-		{addAlert, close, open}
-	),
+	connect(null, {addAlert, close, open}),
 	withSelectionProvider
 )(UserList);

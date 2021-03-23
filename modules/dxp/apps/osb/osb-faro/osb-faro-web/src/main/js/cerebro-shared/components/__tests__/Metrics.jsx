@@ -14,9 +14,13 @@ import {render} from '@testing-library/react';
 jest.unmock('react-dom');
 
 const dateKeysIMap = Map(
-	['2018-01-01', '2018-01-02', '2018-01-03', '2018-01-04', '2018-01-05'].map(
-		date => [getDate(date), date.split('/').map(getDate)]
-	)
+	[
+		'2018-01-01',
+		'2018-01-02',
+		'2018-01-03',
+		'2018-01-04',
+		'2018-01-05'
+	].map(date => [getDate(date), date.split('/').map(getDate)])
 );
 
 const items = [

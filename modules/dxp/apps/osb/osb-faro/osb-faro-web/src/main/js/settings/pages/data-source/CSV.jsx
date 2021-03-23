@@ -305,10 +305,4 @@ export class CSV extends React.Component {
 	}
 }
 
-export default compose(
-	connect(
-		null,
-		{close, open}
-	),
-	withCurrentUser
-)(CSV);
+export default compose(connect(null, {close, open}), withCurrentUser)(CSV);

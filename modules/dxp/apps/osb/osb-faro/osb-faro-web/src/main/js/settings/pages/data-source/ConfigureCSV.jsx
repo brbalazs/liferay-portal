@@ -188,16 +188,12 @@ class ConfigureCSV extends React.Component {
 
 export {ConfigureCSV as ConfigureCSVTesting};
 
-const ConnectedConfigureCSV = connect(
-	null,
-	{addAlert, close, open}
-)(ConfigureCSV);
+const ConnectedConfigureCSV = connect(null, {addAlert, close, open})(
+	ConfigureCSV
+);
 export {ConnectedConfigureCSV as ConfigureCSV};
 
 export default compose(
 	withAdminPermission,
-	connect(
-		null,
-		{addAlert, close, open}
-	)
+	connect(null, {addAlert, close, open})
 )(ConfigureCSV);

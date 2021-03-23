@@ -20,7 +20,4 @@ const SegmentDistributionCard = ({channelId, groupId, id, ...otherProps}) => (
 	/>
 );
 
-export default connect(
-	null,
-	{fetchDistribution}
-)(SegmentDistributionCard);
+export default connect(null, {fetchDistribution})(SegmentDistributionCard);

@@ -201,7 +201,4 @@ export class AccountProfileRoutes extends React.Component {
 	}
 }
 
-export default compose(
-	withRouter,
-	withAccount
-)(AccountProfileRoutes);
+export default compose(withRouter, withAccount)(AccountProfileRoutes);

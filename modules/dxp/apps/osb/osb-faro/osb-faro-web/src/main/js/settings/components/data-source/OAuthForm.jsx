@@ -564,10 +564,4 @@ export class OAuthForm extends React.Component {
 	}
 }
 
-export default compose(
-	withHistory,
-	connect(
-		null,
-		{addAlert}
-	)
-)(OAuthForm);
+export default compose(withHistory, connect(null, {addAlert}))(OAuthForm);

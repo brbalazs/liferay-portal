@@ -12,7 +12,10 @@ const ITEM_COMPONENT_MOCK = {
 
 const MESSAGE = 'message';
 
-const SELECTED_ITEMS_MOCK = [{id: 1, name: 'test1'}, {id: 2, name: 'test2'}];
+const SELECTED_ITEMS_MOCK = [
+	{id: 1, name: 'test1'},
+	{id: 2, name: 'test2'}
+];
 
 describe('SelectItemsModal', () => {
 	afterEach(cleanup);

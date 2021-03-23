@@ -270,11 +270,7 @@ describe('getIntervalHandle functions', () => {
 describe('handleDayInterval', () => {
 	it('should extract an array of dates from a start and end date using the handleFn argument as step', () => {
 		// function to step two days
-		const handleFn = date =>
-			moment
-				.utc(date)
-				.add(2, 'days')
-				.valueOf();
+		const handleFn = date => moment.utc(date).add(2, 'days').valueOf();
 		const lastDate = moment.utc('2020-06-18').valueOf();
 
 		const intervals = handleDayInterval(handleFn, mockDate, lastDate);

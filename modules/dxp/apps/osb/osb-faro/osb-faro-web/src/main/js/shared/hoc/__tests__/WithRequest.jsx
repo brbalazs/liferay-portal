@@ -53,12 +53,7 @@ describe('withRequest', () => {
 
 		const component = shallow(<WrappedComponent groupId='23' />);
 
-		const props = component
-			.dive()
-			.dive()
-			.dive()
-			.shallow()
-			.props();
+		const props = component.dive().dive().dive().shallow().props();
 
 		const hasFooProperty = Object.prototype.hasOwnProperty.call(
 			props,

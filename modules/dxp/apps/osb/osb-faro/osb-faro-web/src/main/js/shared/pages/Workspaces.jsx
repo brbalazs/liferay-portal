@@ -194,8 +194,5 @@ export default compose(
 	WithJoinableProjects,
 	withProjects,
 	redirectIf(routingFn),
-	connect(
-		null,
-		{clearStore, close, open}
-	)
+	connect(null, {clearStore, close, open})
 )(Workspaces);

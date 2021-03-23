@@ -79,7 +79,4 @@ const View: React.FC<IViewProps> = ({close, eventId, groupId, open}) => {
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(View);
+export default connect(null, {close, open})(View);

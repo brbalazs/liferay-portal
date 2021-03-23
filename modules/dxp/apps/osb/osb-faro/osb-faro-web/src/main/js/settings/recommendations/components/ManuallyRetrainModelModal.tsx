@@ -64,15 +64,21 @@ const ManuallyRetrainModelModal: React.FC<IManuallyRetrainModelModalProps> = ({
 					start: 0
 				}
 			})
-			.then(({data: {activities: {total}}}) => {
-				if (total < ACTIVITIES_THRESHOLD) {
-					error = Liferay.Language.get(
-						'the-interaction-period-does-not-meet-the-1000-event-minimum-required-to-train-the-model.-please-add-pages-or-increase-the-period'
-					);
-				}
+			.then(
+				({
+					data: {
+						activities: {total}
+					}
+				}) => {
+					if (total < ACTIVITIES_THRESHOLD) {
+						error = Liferay.Language.get(
+							'the-interaction-period-does-not-meet-the-1000-event-minimum-required-to-train-the-model.-please-add-pages-or-increase-the-period'
+						);
+					}
 
-				return error;
-			});
+					return error;
+				}
+			);
 	};
 
 	const availableJobRuns = get(

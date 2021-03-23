@@ -19,10 +19,7 @@ const SIX_ROWS = 42;
  */
 export function isSelected(dateOrRange, date) {
 	if (moment.isMoment(dateOrRange)) {
-		return dateOrRange
-			.clone()
-			.startOf('day')
-			.isSame(date);
+		return dateOrRange.clone().startOf('day').isSame(date);
 	}
 
 	const {end, start} = dateOrRange;

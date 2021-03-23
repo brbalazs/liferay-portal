@@ -177,9 +177,7 @@ export class SegmentGrowthChart extends React.Component {
 											label: Liferay.Language.get(
 												'net-change'
 											),
-											value: `${netChange[0]}(${
-												netChange[1]
-											}%)`
+											value: `${netChange[0]}(${netChange[1]}%)`
 										}
 								  ]
 						}
@@ -563,9 +561,7 @@ export class SelectedPointInfo extends React.Component {
 									Liferay.Language.get('net-change-x'),
 									[
 										<b key='CHANGE'>
-											{`${changeValues[0]}(${
-												changeValues[1]
-											}%)`}
+											{`${changeValues[0]}(${changeValues[1]}%)`}
 										</b>
 									],
 									false

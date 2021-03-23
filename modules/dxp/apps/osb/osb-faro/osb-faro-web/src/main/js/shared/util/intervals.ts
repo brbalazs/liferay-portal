@@ -24,10 +24,7 @@ export const createDateKeysIMap = (
 		const dateStart = item[dateKey];
 		const dateEnd =
 			interval === 'W'
-				? moment
-						.utc(dateStart, 'x')
-						.add('6', 'days')
-						.valueOf()
+				? moment.utc(dateStart, 'x').add('6', 'days').valueOf()
 				: null;
 
 		return [dateStart, [dateStart, dateEnd]];
@@ -162,11 +159,7 @@ export const getByCustomRangeKey = (
 
 export const getNextSunday = (date: number): number =>
 	// TIMEZONE
-	moment
-		.utc(date)
-		.day(7)
-		.startOf('day')
-		.valueOf();
+	moment.utc(date).day(7).startOf('day').valueOf();
 
 export const getNextFirstOrFifteenth = (date: number): number => {
 	if (moment.utc(date).get('date') >= 15) {
@@ -184,8 +177,4 @@ export const getNextFirstOrFifteenth = (date: number): number => {
 };
 
 export const getNextFirst = (date: number): number =>
-	moment
-		.utc(date)
-		.endOf('month')
-		.add(1)
-		.valueOf();
+	moment.utc(date).endOf('month').add(1).valueOf();

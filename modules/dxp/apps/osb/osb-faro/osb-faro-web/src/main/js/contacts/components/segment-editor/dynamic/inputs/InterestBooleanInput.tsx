@@ -6,9 +6,7 @@ import {getPropertyValue, setPropertyValue} from '../utils/custom-inputs';
 import {INTEREST_BOOLEAN_OPTIONS} from '../utils/constants';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
 
-export default class InterestBooleanInput extends React.Component<
-	ISegmentEditorCustomInputBase
-> {
+export default class InterestBooleanInput extends React.Component<ISegmentEditorCustomInputBase> {
 	@autobind
 	handleChange(event) {
 		const {onChange, value} = this.props;

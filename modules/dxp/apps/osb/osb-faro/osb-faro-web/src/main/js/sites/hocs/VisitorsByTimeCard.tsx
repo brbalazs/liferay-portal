@@ -73,9 +73,9 @@ const VisitorsByTimeCard: React.FC<IVisitorsByTimeCardProps> = ({
 	className,
 	label
 }) => {
-	const {router} = useContext(BasePage.Context as React.Context<
-		IBasePageContext
-	>);
+	const {router} = useContext(
+		BasePage.Context as React.Context<IBasePageContext>
+	);
 
 	return (
 		<CardWithRangeKey

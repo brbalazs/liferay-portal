@@ -56,7 +56,7 @@ export function isInRange(dateOrRange, date) {
 
 	const {end, start} = dateOrRange;
 
-	return start && date.isAfter(start) && (end && date.isBefore(end));
+	return start && date.isAfter(start) && end && date.isBefore(end);
 }
 
 /**

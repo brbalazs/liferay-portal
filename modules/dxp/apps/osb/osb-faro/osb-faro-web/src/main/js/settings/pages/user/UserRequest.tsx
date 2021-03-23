@@ -198,8 +198,5 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 
 export default compose<any>(
 	withAdminPermission,
-	connect(
-		null,
-		{addAlert, close, open}
-	)
+	connect(null, {addAlert, close, open})
 )(UserRequest);

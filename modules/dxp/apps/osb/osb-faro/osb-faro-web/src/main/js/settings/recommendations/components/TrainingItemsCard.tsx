@@ -127,7 +127,4 @@ const TrainingItemsCard: React.FC<ITrainingItemsCardProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(TrainingItemsCard);
+export default connect(null, {close, open})(TrainingItemsCard);

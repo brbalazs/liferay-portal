@@ -311,8 +311,5 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 export default compose<any>(
 	withCurrentUser,
 	withHistory,
-	connect(
-		null,
-		{addAlert, close, open}
-	)
+	connect(null, {addAlert, close, open})
 )(SearchCard);

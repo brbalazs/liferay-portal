@@ -5,9 +5,7 @@ interface ITouchpointsPageProps {
 	router: object;
 }
 
-export default class TouchpointsPage extends React.Component<
-	ITouchpointsPageProps
-> {
+export default class TouchpointsPage extends React.Component<ITouchpointsPageProps> {
 	render() {
 		const {router} = this.props;
 

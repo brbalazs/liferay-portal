@@ -5,8 +5,8 @@ import RouteNotFound from 'shared/components/RouteNotFound';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
-const AccessTokenList = lazy(() =>
-	import(/* webpackChunkName: "AccessTokenList" */ './AccessTokenList')
+const AccessTokenList = lazy(
+	() => import(/* webpackChunkName: "AccessTokenList" */ './AccessTokenList')
 );
 
 interface IApisProps extends React.HTMLAttributes<HTMLDivElement> {

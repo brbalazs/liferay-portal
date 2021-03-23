@@ -66,10 +66,7 @@ const SelectEntityInput: React.FC<ISelectEntityInputProps> = ({
 		} else {
 			addEntities({
 				entityType,
-				payload: items
-					.map(Map)
-					.valueSeq()
-					.toArray()
+				payload: items.map(Map).valueSeq().toArray()
 			});
 
 			onItemsChange(items);

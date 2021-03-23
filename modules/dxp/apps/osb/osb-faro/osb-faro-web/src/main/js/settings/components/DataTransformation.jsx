@@ -527,9 +527,6 @@ export class DataTransformation extends React.Component {
 }
 
 export default compose(
-	connect(
-		null,
-		{addAlert}
-	),
+	connect(null, {addAlert}),
 	hasRequest
 )(DataTransformation);

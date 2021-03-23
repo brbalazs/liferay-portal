@@ -64,7 +64,4 @@ export class IndividualFieldMapping extends React.Component {
 	}
 }
 
-export default compose(
-	withCurrentUser,
-	withDataSource
-)(IndividualFieldMapping);
+export default compose(withCurrentUser, withDataSource)(IndividualFieldMapping);

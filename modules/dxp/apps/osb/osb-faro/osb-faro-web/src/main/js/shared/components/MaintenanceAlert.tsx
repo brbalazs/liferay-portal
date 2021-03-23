@@ -111,8 +111,5 @@ export const mapState = (
 
 export default compose<any>(
 	withRouter,
-	connect(
-		mapState,
-		{setMaintenanceSeen}
-	)
+	connect(mapState, {setMaintenanceSeen})
 )(MaintenanceAlert);

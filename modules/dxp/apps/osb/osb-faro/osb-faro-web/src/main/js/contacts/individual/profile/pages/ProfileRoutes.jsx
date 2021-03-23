@@ -155,7 +155,4 @@ export class IndividualProfileRoutes extends React.Component {
 	}
 }
 
-export default compose(
-	withRouter,
-	withIndividual
-)(IndividualProfileRoutes);
+export default compose(withRouter, withIndividual)(IndividualProfileRoutes);

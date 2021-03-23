@@ -25,9 +25,7 @@ export interface ICustomStringInputProps extends ISegmentEditorCustomInputBase {
 	valid: boolean;
 }
 
-export default class CustomStringInput extends React.Component<
-	ICustomStringInputProps
-> {
+export default class CustomStringInput extends React.Component<ICustomStringInputProps> {
 	static defaultProps = {
 		autocomplete: true
 	};

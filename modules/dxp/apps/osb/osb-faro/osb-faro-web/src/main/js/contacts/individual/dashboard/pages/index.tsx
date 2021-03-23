@@ -8,32 +8,39 @@ import {getMatchedRoute, Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const Distribution = lazy(() =>
-	import(
-		/* webpackChunkName: "IndividualsDashboardDistribution" */ './Distribution'
-	)
+const Distribution = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "IndividualsDashboardDistribution" */ './Distribution'
+		)
 );
 
-const KnownIndividuals = lazy(() =>
-	import(
-		/* webpackChunkName: "IndividualsDashboardKnownIndividuals" */ './KnownIndividuals'
-	)
+const KnownIndividuals = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "IndividualsDashboardKnownIndividuals" */ './KnownIndividuals'
+		)
 );
 
-const InterestDetails = lazy(() =>
-	import(
-		/* webpackChunkName: "IndividualsDashboardInterestDetails" */ './InterestDetails'
-	)
+const InterestDetails = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "IndividualsDashboardInterestDetails" */ './InterestDetails'
+		)
 );
 
-const Interests = lazy(() =>
-	import(
-		/* webpackChunkName: "IndividualsDashboardInterests" */ './Interests'
-	)
+const Interests = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "IndividualsDashboardInterests" */ './Interests'
+		)
 );
 
-const Overview = lazy(() =>
-	import(/* webpackChunkName: "IndividualsDashboardOverview" */ './Overview')
+const Overview = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "IndividualsDashboardOverview" */ './Overview'
+		)
 );
 
 const NAV_ITEMS = [

@@ -298,13 +298,10 @@ class LiferayOverview extends React.Component<ILiferayOverviewProps> {
 	}
 }
 
-export default connect(
-	null,
-	{
-		addAlert,
-		close,
-		fetchDataSource,
-		open,
-		updateLiferayDataSource
-	}
-)(LiferayOverview);
+export default connect(null, {
+	addAlert,
+	close,
+	fetchDataSource,
+	open,
+	updateLiferayDataSource
+})(LiferayOverview);

@@ -11,7 +11,7 @@ interface IEventChipProps {
 
 const EventChip: React.FC<IEventChipProps> = React.forwardRef<
 	HTMLDivElement,
-	IEventChipProps & {onClick?:() => void}
+	IEventChipProps & {onClick?: () => void}
 >(({event: {displayName, name}, onClick, onEventChange}, ref) => (
 	<Chip
 		className='event-chip-root'

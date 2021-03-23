@@ -317,10 +317,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 export default compose<any>(
 	withHistory,
-	connect(
-		null,
-		{
-			fetchDataSource
-		}
-	)
+	connect(null, {
+		fetchDataSource
+	})
 )(ConnectDXP);

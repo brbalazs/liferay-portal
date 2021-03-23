@@ -196,10 +196,7 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 		} else {
 			addEntities({
 				entityType: EntityType.Assets,
-				payload: items
-					.map(Map)
-					.valueSeq()
-					.toArray()
+				payload: items.map(Map).valueSeq().toArray()
 			});
 
 			onChange(

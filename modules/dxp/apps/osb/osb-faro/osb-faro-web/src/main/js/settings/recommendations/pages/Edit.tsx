@@ -54,7 +54,4 @@ const Edit: React.FC<IEditProps> = ({job, router}) => {
 	);
 };
 
-export default compose<any>(
-	withAdminPermission,
-	withRecommendation
-)(Edit);
+export default compose<any>(withAdminPermission, withRecommendation)(Edit);

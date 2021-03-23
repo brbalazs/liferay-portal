@@ -6,44 +6,52 @@ import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
-const Overview = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsOverview" */ './Overview')
+const Overview = lazy(
+	() => import(/* webpackChunkName: "DefinitionsOverview" */ './Overview')
 );
 
-const IndividualAttributes = lazy(() =>
-	import(
-		/* webpackChunkName: "DefinitionsIndividualAttributes" */ './IndividualAttributes'
-	)
+const IndividualAttributes = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsIndividualAttributes" */ './IndividualAttributes'
+		)
 );
 
-const InterestTopics = lazy(() =>
-	import(
-		/* webpackChunkName: "DefinitionsInterestTopics" */ './InterestTopics'
-	)
+const InterestTopics = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsInterestTopics" */ './InterestTopics'
+		)
 );
 
-const TrackedBehaviors = lazy(() =>
-	import(/* webpackChunkName: "TrackedBehaviors" */ './TrackedBehaviors')
+const TrackedBehaviors = lazy(
+	() =>
+		import(/* webpackChunkName: "TrackedBehaviors" */ './TrackedBehaviors')
 );
 
-const Search = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsSearch" */ './search/Search')
+const Search = lazy(
+	() => import(/* webpackChunkName: "DefinitionsSearch" */ './search/Search')
 );
 
-const Events = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsEvents" */ '../events/pages/Events')
+const Events = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsEvents" */ '../events/pages/Events'
+		)
 );
 
-const EventView = lazy(() =>
-	import(
-		/* webpackChunkName: "DefinitionsEventView" */ '../events/pages/View'
-	)
+const EventView = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsEventView" */ '../events/pages/View'
+		)
 );
 
-const AttributeView = lazy(() =>
-	import(
-		/* webpackChunkName: "DefinitionsAttributeView" */ '../events/pages/AttributeView'
-	)
+const AttributeView = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsAttributeView" */ '../events/pages/AttributeView'
+		)
 );
 
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}

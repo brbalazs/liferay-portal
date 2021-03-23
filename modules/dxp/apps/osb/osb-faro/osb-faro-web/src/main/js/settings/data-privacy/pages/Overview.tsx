@@ -312,8 +312,5 @@ export const Overview: React.FC<IOverviewProps> = ({
 
 export default compose<any>(
 	withCurrentUser,
-	connect(
-		null,
-		{close, open}
-	)
+	connect(null, {close, open})
 )(Overview);

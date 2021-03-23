@@ -235,7 +235,4 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(Items);
+export default connect(null, {close, open})(Items);

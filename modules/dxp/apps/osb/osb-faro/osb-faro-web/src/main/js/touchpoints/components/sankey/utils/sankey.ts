@@ -75,7 +75,10 @@ export function getInternalData(sankeyData, width, height) {
 		.iterations(0)
 		.nodeWidth(SANKEY_NODE_WIDTH)
 		.nodePadding(SANKEY_NODE_PADDING)
-		.extent([[xMargin, yMargin], [width - xMargin, height - yMargin]]);
+		.extent([
+			[xMargin, yMargin],
+			[width - xMargin, height - yMargin]
+		]);
 
 	return makeSankey(sankeyData);
 }

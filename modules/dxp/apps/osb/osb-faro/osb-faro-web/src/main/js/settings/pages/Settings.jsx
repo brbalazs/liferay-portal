@@ -175,7 +175,9 @@ export class Settings extends React.Component {
 						icon: 'ac-star',
 						label: Liferay.Language.get('recommendations'),
 						route: Routes.SETTINGS_RECOMMENDATIONS,
-						url: toRoute(Routes.SETTINGS_RECOMMENDATIONS, {groupId})
+						url: toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
+							groupId
+						})
 					}
 				].filter(Boolean),
 				label: Liferay.Language.get('workspace-data')

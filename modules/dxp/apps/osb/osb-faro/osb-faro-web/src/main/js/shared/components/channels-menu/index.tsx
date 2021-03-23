@@ -96,7 +96,9 @@ export const ChannelsMenu: React.FC<IChannelsMenuProps> = ({
 
 							<ClayDropDown.Search
 								className='header-search'
-								formProps={{onSubmit: e => e.preventDefault()}}
+								formProps={{
+									onSubmit: e => e.preventDefault()
+								}}
 								onChange={e => setSearchTerm(e.target.value)}
 								placeholder={Liferay.Language.get('search')}
 								value={searchTerm}
@@ -168,7 +170,4 @@ const ChannelsButton = React.forwardRef<
 	</button>
 ));
 
-export default connect(
-	null,
-	{updateDefaultChannelId}
-)(ChannelsMenu);
+export default connect(null, {updateDefaultChannelId})(ChannelsMenu);

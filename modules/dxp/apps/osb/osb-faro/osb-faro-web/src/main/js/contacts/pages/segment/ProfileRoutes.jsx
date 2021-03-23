@@ -253,7 +253,4 @@ export class SegmentProfileRoutes extends React.Component {
 	}
 }
 
-export default compose(
-	withRouter,
-	withSegment(true)
-)(SegmentProfileRoutes);
+export default compose(withRouter, withSegment(true))(SegmentProfileRoutes);

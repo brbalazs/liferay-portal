@@ -30,9 +30,9 @@ export const mapPropsToOptions = ({
 	router: RouterType;
 	toolbarProps: {filterByOptions: FilterOptionType[]};
 }) => {
-	const {variables, ...otherOptions} = getMapPropsToOptions(RequestListQuery)(
-		{defaultSort, router, toolbarProps, ...otherProps}
-	);
+	const {variables, ...otherOptions} = getMapPropsToOptions(
+		RequestListQuery
+	)({defaultSort, router, toolbarProps, ...otherProps});
 
 	const {filterByOptions} = toolbarProps;
 

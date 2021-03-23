@@ -107,9 +107,7 @@ interface ICriteriaSidebarItemProps {
 	type: string;
 }
 
-export class CriteriaSidebarItem extends React.Component<
-	ICriteriaSidebarItemProps
-> {
+export class CriteriaSidebarItem extends React.Component<ICriteriaSidebarItemProps> {
 	render() {
 		const {
 			className,

@@ -148,15 +148,12 @@ export class AddWorkspace extends React.Component {
 }
 
 export default compose(
-	connect(
-		null,
-		{
-			addAlert,
-			configureProject,
-			createProject,
-			createTrialProject
-		}
-	),
+	connect(null, {
+		addAlert,
+		configureProject,
+		createProject,
+		createTrialProject
+	}),
 	optional(withProject, {idPropName: 'corpProjectUuid'}),
 	redirectIf(routingFn)
 )(AddWorkspace);

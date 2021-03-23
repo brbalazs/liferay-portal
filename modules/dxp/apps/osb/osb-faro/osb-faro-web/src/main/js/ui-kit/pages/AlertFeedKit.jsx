@@ -8,10 +8,7 @@ import {PropTypes} from 'prop-types';
 
 const TIMEOUT = 2000;
 
-@connect(
-	null,
-	{addAlert, updateAlert}
-)
+@connect(null, {addAlert, updateAlert})
 export default class AlertFeedKit extends React.Component {
 	static propTypes = {
 		addAlert: PropTypes.func.isRequired,

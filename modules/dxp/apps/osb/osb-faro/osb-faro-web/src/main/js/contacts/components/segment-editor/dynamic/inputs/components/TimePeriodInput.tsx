@@ -8,9 +8,7 @@ interface ITimePeriodInputProps extends ISegmentEditorInputBase {
 	value: string;
 }
 
-export default class TimePeriodInput extends React.Component<
-	ITimePeriodInputProps
-> {
+export default class TimePeriodInput extends React.Component<ITimePeriodInputProps> {
 	@autobind
 	handleTimePeriodChange(event) {
 		const {value} = event.target;

@@ -1,7 +1,7 @@
 import * as date from 'shared/util/date';
 import moment from 'moment';
 
-export default function() {
+export default function () {
 	return jest.spyOn(Date, 'now').mockImplementation(() => 0);
 }
 

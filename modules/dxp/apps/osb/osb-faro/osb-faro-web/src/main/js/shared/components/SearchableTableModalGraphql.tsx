@@ -33,9 +33,7 @@ interface ISearchableTableModalGraphQLProps extends IPagination {
 	title?: string;
 }
 
-const SearchableTableModalGraphql: React.FC<
-	ISearchableTableModalGraphQLProps
-> = ({
+const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> = ({
 	className,
 	columns,
 	delta = 10,

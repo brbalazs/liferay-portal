@@ -131,10 +131,7 @@ export class ConfigurationOverview extends React.Component {
 
 export default compose(
 	withHistory,
-	connect(
-		null,
-		{addAlert}
-	),
+	connect(null, {addAlert}),
 	withPolling(API.dataSource.fetchProgress, stopPollingCondition, {
 		propName: 'progress',
 		requestProps: ['id']

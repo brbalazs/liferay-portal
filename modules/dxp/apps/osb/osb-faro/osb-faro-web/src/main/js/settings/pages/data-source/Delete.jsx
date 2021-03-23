@@ -155,8 +155,5 @@ export default compose(
 	withHistory,
 	withAdminPermission,
 	withDataSource,
-	connect(
-		null,
-		{addAlert, deleteDataSource}
-	)
+	connect(null, {addAlert, deleteDataSource})
 )(Delete);

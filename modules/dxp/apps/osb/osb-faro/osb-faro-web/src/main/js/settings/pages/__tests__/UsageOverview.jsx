@@ -41,18 +41,8 @@ describe('UsageOverview', () => {
 			<UsageOverview {...defaultProps} project={mockProject} />
 		);
 
-		expect(
-			component
-				.find('Alert')
-				.at(0)
-				.prop('type')
-		).toBe('warning');
-		expect(
-			component
-				.find('Alert')
-				.at(1)
-				.prop('type')
-		).toBe('danger');
+		expect(component.find('Alert').at(0).prop('type')).toBe('warning');
+		expect(component.find('Alert').at(1).prop('type')).toBe('danger');
 	});
 
 	it('should render with an approaching limit warning if a metric is approaching plan limit', () => {

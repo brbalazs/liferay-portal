@@ -17,7 +17,4 @@ const SegmentDistribution = ({segment, ...otherProps}) => (
 	</div>
 );
 
-export default connect(
-	null,
-	{fetchDistribution}
-)(SegmentDistribution);
+export default connect(null, {fetchDistribution})(SegmentDistribution);

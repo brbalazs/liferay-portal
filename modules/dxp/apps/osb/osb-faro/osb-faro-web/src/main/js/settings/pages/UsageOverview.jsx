@@ -265,7 +265,4 @@ export class UsageOverview extends React.Component {
 	}
 }
 
-export default compose(
-	withCurrentUser,
-	withProject
-)(UsageOverview);
+export default compose(withCurrentUser, withProject)(UsageOverview);

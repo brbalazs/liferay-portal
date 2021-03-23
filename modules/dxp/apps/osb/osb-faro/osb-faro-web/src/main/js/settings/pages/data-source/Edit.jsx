@@ -34,7 +34,4 @@ export class Edit extends React.Component {
 	}
 }
 
-export default compose(
-	withAdminPermission,
-	withDataSource
-)(Edit);
+export default compose(withAdminPermission, withDataSource)(Edit);

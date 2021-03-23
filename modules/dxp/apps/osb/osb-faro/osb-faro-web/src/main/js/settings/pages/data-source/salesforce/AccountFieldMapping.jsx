@@ -61,7 +61,4 @@ export class AccountFieldMapping extends React.Component {
 	}
 }
 
-export default compose(
-	withCurrentUser,
-	withDataSource
-)(AccountFieldMapping);
+export default compose(withCurrentUser, withDataSource)(AccountFieldMapping);

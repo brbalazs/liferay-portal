@@ -9,6 +9,9 @@ import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
  * @description Blogs Metrics
  */
 const withBlogsMetrics = () =>
-	graphql(BlogMetricsQuery, getMetricsMapper(result => result.blog, metrics));
+	graphql(
+		BlogMetricsQuery,
+		getMetricsMapper(result => result.blog, metrics)
+	);
 
 export default withMetricsCard(withBlogsMetrics);

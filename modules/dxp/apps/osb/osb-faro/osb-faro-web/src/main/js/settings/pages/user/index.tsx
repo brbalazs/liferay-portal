@@ -11,11 +11,11 @@ import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch, withRouter} from 'react-router-dom';
 import {User as UserRecord} from 'shared/util/records';
 
-const UserList = lazy(() =>
-	import(/* webpackChunkName: "UserManagement" */ './UserList')
+const UserList = lazy(
+	() => import(/* webpackChunkName: "UserManagement" */ './UserList')
 );
-const UserRequest = lazy(() =>
-	import(/* webpackChunkName: "UserRequest" */ './UserRequest')
+const UserRequest = lazy(
+	() => import(/* webpackChunkName: "UserRequest" */ './UserRequest')
 );
 
 interface IUserProps extends React.HTMLAttributes<HTMLElement> {
@@ -106,7 +106,4 @@ export const User: React.FC<IUserProps> = ({
 	);
 };
 
-export default compose<any>(
-	withRouter,
-	withCurrentUser
-)(User);
+export default compose<any>(withRouter, withCurrentUser)(User);

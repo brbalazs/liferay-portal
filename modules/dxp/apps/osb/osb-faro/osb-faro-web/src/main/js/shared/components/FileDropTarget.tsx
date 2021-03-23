@@ -229,7 +229,4 @@ export class FileDropTarget extends React.Component<IFileDropTargetProps> {
 	}
 }
 
-export default connect(
-	null,
-	{addAlert}
-)(FileDropTarget);
+export default connect(null, {addAlert})(FileDropTarget);

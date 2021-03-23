@@ -9,7 +9,10 @@ import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
  * @description Site Metrics
  */
 const withSiteMetrics = () =>
-	graphql(SiteMetricsQuery, getMetricsMapper(result => result.site, metrics));
+	graphql(
+		SiteMetricsQuery,
+		getMetricsMapper(result => result.site, metrics)
+	);
 
 export default withMetricsCard(withSiteMetrics, {
 	legacyDropdownRangeKey: false,

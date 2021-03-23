@@ -48,7 +48,7 @@ interface IAttributeChipProps {
 
 const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 	any,
-	IAttributeChipProps & {onClick?:() => void}
+	IAttributeChipProps & {onClick?: () => void}
 >(
 	(
 		{attribute, breakdown, filter, index, onClick, onCloseClick, onMove},

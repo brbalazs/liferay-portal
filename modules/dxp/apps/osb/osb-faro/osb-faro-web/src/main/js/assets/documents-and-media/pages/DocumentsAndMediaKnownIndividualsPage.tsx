@@ -5,9 +5,9 @@ interface IDocumentsAndMediaKnownIndividualsPageProps {
 	router: object;
 }
 
-const DocumentsAndMediaKnownIndividualsPage: React.FC<
-	IDocumentsAndMediaKnownIndividualsPageProps
-> = ({router}) => (
+const DocumentsAndMediaKnownIndividualsPage: React.FC<IDocumentsAndMediaKnownIndividualsPageProps> = ({
+	router
+}) => (
 	<div className='row'>
 		<div className='col-sm-12'>
 			<KnownIndividualsListCard router={router} />
