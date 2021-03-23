@@ -59,7 +59,15 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 
 				{matchedRoute === Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM && (
 					<div className='d-flex align-items-center mx-4'>
-						<Button borderless icon='ac-block' iconAlignment='left'>
+						<Button
+							borderless
+							href={toRoute(
+								Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST,
+								{groupId}
+							)}
+							icon='ac-block'
+							iconAlignment='left'
+						>
 							{Liferay.Language.get('block-list')}
 						</Button>
 					</div>

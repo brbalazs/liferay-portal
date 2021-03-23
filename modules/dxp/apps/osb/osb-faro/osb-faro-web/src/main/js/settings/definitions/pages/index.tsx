@@ -6,6 +6,11 @@ import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
+const EventBlockList = lazy(
+	() =>
+		import(/* webpackChunkName: "BlockList" */ '../events/pages/BlockList')
+);
+
 const Overview = lazy(
 	() => import(/* webpackChunkName: "DefinitionsOverview" */ './Overview')
 );
@@ -109,6 +114,14 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 						Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
 						Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
 					]}
+				/>
+			)}
+
+			{DEVELOPER_MODE && (
+				// TODO: LRAC-7254 Move events route out of devmode
+				<BundleRouter
+					data={EventBlockList}
+					path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}
 				/>
 			)}
 

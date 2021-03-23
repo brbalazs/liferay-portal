@@ -270,6 +270,8 @@ export const Routes = buildRoutes({
 														'/:attributeId(\\d+)'
 												}
 											},
+											SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST:
+												'/block-list',
 											SETTINGS_DEFINITIONS_EVENTS_CUSTOM:
 												'/custom',
 											SETTINGS_DEFINITIONS_EVENTS_DEFAULT:
