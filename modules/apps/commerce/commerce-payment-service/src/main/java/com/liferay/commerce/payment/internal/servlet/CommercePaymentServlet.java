@@ -150,6 +150,18 @@ public class CommercePaymentServlet extends HttpServlet {
 
 				httpServletResponse.sendRedirect(_nextUrl);
 			}
+
+			if (CommercePaymentConstants.
+					COMMERCE_PAYMENT_METHOD_TYPE_ONLINE_STANDARD ==
+						commercePaymentMethodType) {
+
+				_commercePaymentEngine.completePayment(
+					_commerceOrderId,
+					commercePaymentResult.getAuthTransactionId(),
+					httpServletRequest);
+
+				httpServletResponse.sendRedirect(_nextUrl);
+			}
 		}
 		catch (Exception e) {
 			_log.error(e, e);
