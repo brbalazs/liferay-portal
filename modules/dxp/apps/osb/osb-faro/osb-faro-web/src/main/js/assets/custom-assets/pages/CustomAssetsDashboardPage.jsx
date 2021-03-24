@@ -10,12 +10,15 @@ import Icon from 'shared/components/Icon';
 import React from 'react';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
+import {addAlert, alertTypes} from 'shared/actions/alerts';
 import {ChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
+import {sub} from 'shared/util/lang';
 
 /**
  * Blogs Dashboard Page
@@ -25,6 +28,12 @@ class CustomAssetsDashboardPage extends React.Component {
 	static contextType = ChannelContext;
 
 	static propTypes = {
+		/**
+		 * @type {function}
+		 * @default undefined
+		 */
+		addAlert: PropTypes.func.isRequired,
+
 		/**
 		 * @type {object}
 		 * @default undefined
@@ -109,6 +118,47 @@ class CustomAssetsDashboardPage extends React.Component {
 	}
 
 	@autobind
+	handleDeleteReport(id) {
+		const {
+			props: {
+				addAlert,
+				currentUser: {id: modifiedByUserId, name: modifiedByUserName},
+				mutate,
+				router: {
+					params: {id: dashboardId}
+				}
+			},
+			state: {definition}
+		} = this;
+
+		const itemExcluded = definition.rows[id];
+		const rows = definition.rows.filter((item, index) => index !== id);
+
+		mutate({
+			variables: {
+				dashboardId,
+				definition: JSON.stringify({rows}),
+				modifiedByUserId,
+				modifiedByUserName
+			}
+		}).then(({data: {dashboard: {definition}}}) => {
+			this.setState({
+				definition: JSON.parse(definition)
+			});
+
+			addAlert({
+				alertType: alertTypes.SUCCESS,
+				message: sub(
+					Liferay.Language.get(
+						'x-has-been-deleted-from-this-dashboard'
+					),
+					[itemExcluded.panels[0].title]
+				)
+			});
+		});
+	}
+
+	@autobind
 	handleGetReport(report) {
 		const {currentUser, mutate, router} = this.props;
 		const {id: dashboardId} = router.params;
@@ -150,6 +200,7 @@ class CustomAssetsDashboardPage extends React.Component {
 							itemQuery={getQuery(metric)}
 							label={title}
 							legacyDropdownRangeKey={false}
+							onRemoveAsset={this.handleDeleteReport}
 							panel={{chartType, metric}}
 							rangeSelectors={getRangeSelectorsFromQuery(
 								router.query
@@ -286,5 +337,9 @@ export default compose(
 	withTimeRangeQuery(),
 	withCustomAssetsDashboardData(),
 	withCustomAssetsReportMutation(),
-	withCurrentUser
+	withCurrentUser,
+	connect(
+		null,
+		{addAlert}
+	)
 )(WrappedPageComponent);
