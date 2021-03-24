@@ -66,7 +66,8 @@ public class LayoutItemSelectorViewDisplayContext {
 		throws PortalException, PortletException {
 
 		return Arrays.asList(
-			_getSitesAndLibrariesBreadcrumb(), _getHomeBreadcrumb());
+			_getSitesAndAssetLibrariesBreadcrumbEntry(),
+			_getHomeBreadcrumbEntry());
 	}
 
 	public boolean isCheckDisplayPage() {
@@ -114,7 +115,7 @@ public class LayoutItemSelectorViewDisplayContext {
 		return _layoutItemSelectorCriterion.isShowHiddenPages();
 	}
 
-	private BreadcrumbEntry _getHomeBreadcrumb() throws PortalException {
+	private BreadcrumbEntry _getHomeBreadcrumbEntry() throws PortalException {
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)_httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -126,7 +127,7 @@ public class LayoutItemSelectorViewDisplayContext {
 		return breadcrumbEntry;
 	}
 
-	private BreadcrumbEntry _getSitesAndLibrariesBreadcrumb()
+	private BreadcrumbEntry _getSitesAndAssetLibrariesBreadcrumbEntry()
 		throws PortletException {
 
 		BreadcrumbEntry breadcrumbEntry = new BreadcrumbEntry();
