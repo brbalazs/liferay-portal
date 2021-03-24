@@ -490,6 +490,12 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			return true;
 		}
 		catch (Exception e) {
+			_log.error(
+				String.format(
+					"Failed to check if workspace %s is ready",
+					faroProject.getWeDeployKey()),
+				e);
+
 			return false;
 		}
 	}
