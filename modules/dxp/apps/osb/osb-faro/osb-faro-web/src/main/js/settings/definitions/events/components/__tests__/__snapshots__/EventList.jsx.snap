@@ -64,7 +64,7 @@ exports[`EventList should render 1`] = `
           class=""
         >
           <th
-            class="table-head-title"
+            class="table-head-title table-cell-expand"
           >
             <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -115,7 +115,7 @@ exports[`EventList should render 1`] = `
           class=""
         >
           <td
-            class="name-cell-root"
+            class="name-cell-root table-cell-expand"
           >
             <div
               class="content-container"

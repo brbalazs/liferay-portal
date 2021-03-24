@@ -1,0 +1,452 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlockList should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/definitions"
+        >
+          Definitions
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/definitions/events/custom"
+        >
+          Events
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          Block List
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header"
+    >
+      <div
+        class="header-text"
+      >
+        <h3
+          class=""
+        >
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Block List
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          Blocked events are not processed by Analytics Cloud.
+        </div>
+      </div>
+      <div
+        class="page-actions-container"
+      />
+    </div>
+    <div>
+      <div
+        class="card card-root page-display"
+      >
+        <div
+          class="toolbar-root"
+        >
+          <nav
+            class="navbar navbar-root management-bar management-bar-light navbar-expand"
+          >
+            <div
+              class="container-fluid"
+            >
+              <ul
+                class="nav-root front-nav navbar-nav"
+                role="tablist"
+              />
+              <div
+                class="navbar-form navbar-form-autofit"
+              >
+                <div
+                  class="input-group search"
+                >
+                  <div
+                    class="input-group-item"
+                  >
+                    <input
+                      class="input-root form-control input-group-inset input-group-inset-after"
+                      placeholder="Search"
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      class="input-group-inset-item input-group-inset-item-after"
+                    >
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
+                      >
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-search"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="table-responsive table-root flex-grow-1"
+        >
+          <table
+            class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+          >
+            <thead>
+              <tr
+                class=""
+              >
+                <th
+                  class="table-head-title table-cell-expand"
+                >
+                  <a
+                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                    href="/?orderBy=desc&orderByField=name&page=1"
+                  >
+                    <span
+                      class="text-truncate"
+                    >
+                      Event Name
+                    </span>
+                    <span
+                      class="inline-item inline-item-after"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </th>
+                <th
+                  class="table-head-title table-cell-expand"
+                >
+                  Last Seen URL
+                </th>
+                <th
+                  class="table-head-title"
+                >
+                  <a
+                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                    href="/?orderBy=asc&orderByField=lastSeenDate&page=1"
+                  >
+                    <span
+                      class="text-truncate"
+                    >
+                      Last Seen
+                    </span>
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root table-cell-expand"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        name-0
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class=" table-cell-expand"
+                >
+                  https//:www.liferay.com/0
+                </td>
+                <td>
+                  Jul 10, 2018
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root table-cell-expand"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        name-1
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class=" table-cell-expand"
+                >
+                  https//:www.liferay.com/1
+                </td>
+                <td>
+                  Jul 10, 2018
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root table-cell-expand"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        name-2
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class=" table-cell-expand"
+                >
+                  https//:www.liferay.com/2
+                </td>
+                <td>
+                  Jul 10, 2018
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root table-cell-expand"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        name-3
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class=" table-cell-expand"
+                >
+                  https//:www.liferay.com/3
+                </td>
+                <td>
+                  Jul 10, 2018
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root table-cell-expand"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        name-4
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class=" table-cell-expand"
+                >
+                  https//:www.liferay.com/4
+                </td>
+                <td>
+                  Jul 10, 2018
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav
+          class="navbar navbar-root pagination-bar-root"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              aria-haspopup="true"
+              class="dropdown dropdown-root pagination-items-per-page"
+            >
+              <button
+                class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+                type="button"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  2 Items
+                </span>
+                
+                <span
+                  class="caret-root"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <div
+              class="pagination-results"
+            >
+              Showing 1 to 2 of 5 entries.
+            </div>
+            <ul
+              class="pagination pagination-root"
+            >
+              <li
+                class="page-item disabled"
+              >
+                <a
+                  class="button-root btn btn-unstyled page-link link-disabled"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-angle-left"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li
+                class="page-item active"
+              >
+                <a
+                  class="button-root btn btn-unstyled page-link"
+                  href="/?page=1"
+                >
+                  1
+                </a>
+              </li>
+              <li
+                class="page-item"
+              >
+                <a
+                  class="button-root btn btn-unstyled page-link"
+                  href="/?page=2"
+                >
+                  2
+                </a>
+              </li>
+              <li
+                class="page-item"
+              >
+                <a
+                  class="button-root btn btn-unstyled page-link"
+                  href="/?page=3"
+                >
+                  3
+                </a>
+              </li>
+              <li
+                class="page-item"
+              >
+                <a
+                  class="button-root btn btn-unstyled page-link"
+                  href="/?page=2"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-angle-right"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+`;

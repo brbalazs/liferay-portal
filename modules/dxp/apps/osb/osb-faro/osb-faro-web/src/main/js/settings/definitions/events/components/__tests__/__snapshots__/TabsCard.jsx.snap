@@ -5,65 +5,69 @@ exports[`TabsCard should render 1`] = `
   <div
     class="card card-root page-display"
   >
-    <ul
-      class="nav-root page-subnav mx-4 my-3 nav nav-underline"
-      role="tablist"
+    <div
+      class="d-flex justify-content-between"
     >
-      <li
-        class="nav-item"
-        role="presentation"
+      <ul
+        class="nav-root page-subnav mx-4 my-3 nav nav-underline"
+        role="tablist"
       >
-        <a
-          class="nav-link"
-          href="/workspace/23/settings/definitions/events/default"
-          role="tab"
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <div
-            class="mb-2"
+          <a
+            class="nav-link"
+            href="/workspace/23/settings/definitions/events/default"
+            role="tab"
           >
-            <b>
-              Default Events
-            </b>
-          </div>
-        </a>
-      </li>
-      <li
-        class="nav-item"
-        role="presentation"
-      >
-        <a
-          class="nav-link"
-          href="/workspace/23/settings/definitions/events/custom"
-          role="tab"
+            <div
+              class="mb-2"
+            >
+              <b>
+                Default Events
+              </b>
+            </div>
+          </a>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <div
-            class="mb-2"
+          <a
+            class="nav-link"
+            href="/workspace/23/settings/definitions/events/custom"
+            role="tab"
           >
-            <b>
-              Custom Events
-            </b>
-          </div>
-        </a>
-      </li>
-      <li
-        class="nav-item"
-        role="presentation"
-      >
-        <a
-          class="nav-link"
-          href="/workspace/23/settings/definitions/events/attributes"
-          role="tab"
+            <div
+              class="mb-2"
+            >
+              <b>
+                Custom Events
+              </b>
+            </div>
+          </a>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <div
-            class="mb-2"
+          <a
+            class="nav-link"
+            href="/workspace/23/settings/definitions/events/attributes"
+            role="tab"
           >
-            <b>
-              Attributes
-            </b>
-          </div>
-        </a>
-      </li>
-    </ul>
+            <div
+              class="mb-2"
+            >
+              <b>
+                Attributes
+              </b>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 `;
