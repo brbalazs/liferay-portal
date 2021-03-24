@@ -1,4 +1,5 @@
 import BaseCard from 'cerebro-shared/components/base-card';
+import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getMetricsMapper from 'cerebro-shared/hocs/mappers/metrics';
 import Metrics from 'cerebro-shared/components/Metrics';
@@ -26,17 +27,32 @@ const CHARTS = {
 const Chart = props => {
 	const {
 		handleShowPreviousChanged,
+		id,
+		onRemoveAsset,
 		panel: {chartType},
 		showPrevious
 	} = props;
 	const Chart = CHARTS[chartType].component;
 
 	return (
-		<Chart
-			onShowPreviousChange={handleShowPreviousChanged}
-			showPrevious={showPrevious}
-			{...props}
-		/>
+		<>
+			<Chart
+				onShowPreviousChange={handleShowPreviousChanged}
+				showPrevious={showPrevious}
+				{...props}
+			/>
+			<div className='d-flex justify-content-end'>
+				<Button
+					aria-label={Liferay.Language.get('delete')}
+					borderless
+					display='secondary'
+					icon='trash'
+					iconAlignment='right'
+					onClick={() => onRemoveAsset(Number(id))}
+					size='sm'
+				/>
+			</div>
+		</>
 	);
 };
 
@@ -109,6 +125,7 @@ const AssetCard = ({
 	itemQuery,
 	label,
 	legacyDropdownRangeKey,
+	onRemoveAsset,
 	panel
 }) => {
 	const AssetComponent = compose(
@@ -139,6 +156,7 @@ const AssetCard = ({
 						chartHeight={416}
 						handleShowPreviousChanged={handleShowPreviousChanged}
 						id={String(id)}
+						onRemoveAsset={onRemoveAsset}
 						panel={panel}
 						rangeSelectors={rangeSelectors}
 						router={router}
