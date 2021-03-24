@@ -354,19 +354,45 @@ export const eventListColumns = {
 		accessor: 'displayName',
 		label: Liferay.Language.get('display-name')
 	},
-	getName: ({channelId, groupId}) => ({
+	getLastSeenDate: timeZoneId => ({
+		accessor: 'lastSeenDate',
+		cellRenderer: ({data}) => (
+			<DateCell
+				data={data}
+				dateFormatter={date =>
+					formatDateToTimeZone(date, 'll', timeZoneId)
+				}
+				datePath='lastSeenDate'
+			/>
+		),
+		label: Liferay.Language.get('last-seen')
+	}),
+	getName: ({groupId}) => ({
 		accessor: 'name',
 		cellRenderer: NameCell,
 		cellRendererProps: {
 			routeFn: ({data: {id}}) =>
 				toRoute(Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW, {
-					channelId,
 					eventId: id,
 					groupId
 				})
 		},
+
+		className: 'table-cell-expand',
 		label: Liferay.Language.get('event-name')
-	})
+	}),
+	lastSeenURL: {
+		accessor: 'lastSeenURL',
+		className: 'table-cell-expand',
+		label: Liferay.Language.get('last-seen-url'),
+		sortable: false
+	},
+	name: {
+		accessor: 'name',
+		cellRenderer: NameCell,
+		className: 'table-cell-expand',
+		label: Liferay.Language.get('event-name')
+	}
 };
 
 /**

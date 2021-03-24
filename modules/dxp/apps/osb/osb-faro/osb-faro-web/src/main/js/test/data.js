@@ -851,6 +851,16 @@ export function mockAddOns() {
 	];
 }
 
+export function mockBlockedCustomEventDefinition(seed = 0, data = {}) {
+	return {
+		id: String(seed),
+		lastSeenDate: getISODate(getTimestamp()),
+		lastSeenURL: `https//:www.liferay.com/${seed}`,
+		name: `name-${seed}`,
+		...data
+	};
+}
+
 export function mockEventAttributeDefinition(seed = 0, data = {}) {
 	return {
 		dataType: 'string',

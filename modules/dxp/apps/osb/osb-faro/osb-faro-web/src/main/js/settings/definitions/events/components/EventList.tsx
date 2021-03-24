@@ -64,8 +64,8 @@ const EventList = withBaseResults(withData, {
 		'visit-our-documentation-to-learn-how-to-add-custom-events-on-your-site'
 	),
 	emptyTitle: Liferay.Language.get('create-some-custom-events'),
-	getColumns: ({channelId, groupId}) => [
-		eventListColumns.getName({channelId, groupId}),
+	getColumns: ({groupId}) => [
+		eventListColumns.getName({groupId}),
 		eventListColumns.displayName,
 		eventListColumns.description
 	],

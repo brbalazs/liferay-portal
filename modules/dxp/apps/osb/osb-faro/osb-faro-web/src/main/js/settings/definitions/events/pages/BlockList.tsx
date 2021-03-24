@@ -1,13 +1,20 @@
 import BasePage from 'settings/components/BasePage';
+import BlockListCard from '../components/BlockListCard';
 import React from 'react';
+import {connect} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 import {Routes, toRoute} from 'shared/util/router';
 
 interface IBlockListProps {
 	groupId: string;
+	timeZoneId: string;
 }
 
-const BlockList: React.FC<IBlockListProps> = ({groupId}) => (
+const BlockList: React.FC<IBlockListProps> = ({
+	groupId,
+	timeZoneId,
+	...otherProps
+}) => (
 	<BasePage
 		breadcrumbItems={[
 			getDefinitions({groupId}),
@@ -25,8 +32,20 @@ const BlockList: React.FC<IBlockListProps> = ({groupId}) => (
 		)}
 		pageTitle={Liferay.Language.get('block-list')}
 	>
-		{/* <BlockListCard groupId={groupId} /> */}
+		<BlockListCard
+			groupId={groupId}
+			timeZoneId={timeZoneId}
+			{...otherProps}
+		/>
 	</BasePage>
 );
 
-export default BlockList;
+export default connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(BlockList);
