@@ -1064,6 +1064,18 @@ definition {
 		PortletEntry.save();
 	}
 
+	macro editEmailAddressCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Button.clickSave();
+
+		Alert.viewSuccessMessage();
+	}
+
 	macro editEmailViaMyAccount {
 		Navigator.openURL();
 
