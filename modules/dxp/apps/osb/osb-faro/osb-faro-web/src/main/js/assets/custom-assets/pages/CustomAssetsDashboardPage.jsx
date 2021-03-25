@@ -141,21 +141,27 @@ class CustomAssetsDashboardPage extends React.Component {
 				modifiedByUserId,
 				modifiedByUserName
 			}
-		}).then(({data: {dashboard: {definition}}}) => {
-			this.setState({
-				definition: JSON.parse(definition)
-			});
+		}).then(
+			({
+				data: {
+					dashboard: {definition}
+				}
+			}) => {
+				this.setState({
+					definition: JSON.parse(definition)
+				});
 
-			addAlert({
-				alertType: alertTypes.SUCCESS,
-				message: sub(
-					Liferay.Language.get(
-						'x-has-been-deleted-from-this-dashboard'
-					),
-					[itemExcluded.panels[0].title]
-				)
-			});
-		});
+				addAlert({
+					alertType: alertTypes.SUCCESS,
+					message: sub(
+						Liferay.Language.get(
+							'x-has-been-deleted-from-this-dashboard'
+						),
+						[itemExcluded.panels[0].title]
+					)
+				});
+			}
+		);
 	}
 
 	@autobind
@@ -338,8 +344,5 @@ export default compose(
 	withCustomAssetsDashboardData(),
 	withCustomAssetsReportMutation(),
 	withCurrentUser,
-	connect(
-		null,
-		{addAlert}
-	)
+	connect(null, {addAlert})
 )(WrappedPageComponent);
