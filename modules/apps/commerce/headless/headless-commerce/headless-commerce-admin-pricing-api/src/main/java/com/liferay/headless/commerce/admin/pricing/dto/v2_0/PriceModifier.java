@@ -830,6 +830,7 @@ public class PriceModifier implements Serializable {
 	}
 
 	@Schema(
+		accessMode = Schema.AccessMode.READ_ONLY,
 		defaultValue = "com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifier",
 		name = "x-class-name"
 	)

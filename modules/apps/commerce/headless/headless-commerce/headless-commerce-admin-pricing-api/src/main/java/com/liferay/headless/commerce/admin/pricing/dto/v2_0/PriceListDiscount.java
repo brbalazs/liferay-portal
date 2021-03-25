@@ -378,6 +378,7 @@ public class PriceListDiscount implements Serializable {
 	}
 
 	@Schema(
+		accessMode = Schema.AccessMode.READ_ONLY,
 		defaultValue = "com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListDiscount",
 		name = "x-class-name"
 	)

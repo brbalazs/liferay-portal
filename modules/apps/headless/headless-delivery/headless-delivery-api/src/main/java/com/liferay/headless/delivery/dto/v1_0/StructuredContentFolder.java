@@ -664,6 +664,7 @@ public class StructuredContentFolder implements Serializable {
 	}
 
 	@Schema(
+		accessMode = Schema.AccessMode.READ_ONLY,
 		defaultValue = "com.liferay.headless.delivery.dto.v1_0.StructuredContentFolder",
 		name = "x-class-name"
 	)
