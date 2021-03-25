@@ -126,10 +126,10 @@ public class Page<T> {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler("{\"actions\":");
+		StringBundler sb = new StringBundler("{\"actions\": ");
 
 		sb.append(_toString((Map)_actions));
-		sb.append(", \"items\":[");
+		sb.append(", \"items\": [");
 
 		Iterator<T> iterator = _items.iterator();
 
@@ -137,15 +137,15 @@ public class Page<T> {
 			sb.append(iterator.next());
 
 			if (iterator.hasNext()) {
-				sb.append(",");
+				sb.append(", ");
 			}
 		}
 
-		sb.append("], \"page\":");
+		sb.append("], \"page\": ");
 		sb.append(_page);
-		sb.append(", \"pageSize\":");
+		sb.append(", \"pageSize\": ");
 		sb.append(_pageSize);
-		sb.append(", \"totalCount\":");
+		sb.append(", \"totalCount\": ");
 		sb.append(_totalCount);
 		sb.append("}");
 
