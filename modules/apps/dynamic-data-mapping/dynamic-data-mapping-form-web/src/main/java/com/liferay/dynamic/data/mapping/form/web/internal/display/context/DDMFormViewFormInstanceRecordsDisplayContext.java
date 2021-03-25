@@ -163,7 +163,7 @@ public class DDMFormViewFormInstanceRecordsDisplayContext {
 								formFieldValue, value.getDefaultLocale());
 					}
 
-					return HtmlUtil.escape(renderedFormFieldValueString);
+					return renderedFormFieldValueString;
 				}
 
 			});
