@@ -5,7 +5,7 @@ exports[`withEmptyState should render with an empty state 1`] = `
   <div
     class="breakdown-empty"
   >
-    Add an event to analyze
+    Add an event to analyze.
   </div>
 </div>
 `;

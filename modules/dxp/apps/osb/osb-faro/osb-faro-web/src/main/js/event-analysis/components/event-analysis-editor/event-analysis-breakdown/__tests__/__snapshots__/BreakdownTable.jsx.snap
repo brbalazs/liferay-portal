@@ -63,14 +63,12 @@ exports[`BreakdownTable render 1`] = `
           >
             <td
               class="font-weight-semibold align-top"
-              rowindex="0"
               rowspan="1"
             >
               articleTitle [0]
             </td>
             <td
               class="align-top"
-              rowindex="0"
             >
               <div
                 class="table-responsive table-root bar-comparison-root"
@@ -151,7 +149,6 @@ exports[`BreakdownTable render 1`] = `
             </td>
             <td
               class="align-top"
-              rowindex="0"
             >
               <ul
                 class="percentage-column"

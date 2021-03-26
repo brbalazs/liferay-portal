@@ -186,7 +186,7 @@ exports[`Create Event Analysis render 1`] = `
           <div
             class="breakdown-empty"
           >
-            Add an event to analyze
+            Add an event to analyze.
           </div>
         </div>
       </span>
