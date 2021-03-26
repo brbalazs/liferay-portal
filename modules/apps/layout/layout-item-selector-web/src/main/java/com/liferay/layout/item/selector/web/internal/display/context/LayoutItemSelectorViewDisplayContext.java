@@ -133,7 +133,7 @@ public class LayoutItemSelectorViewDisplayContext {
 		BreadcrumbEntry breadcrumbEntry = new BreadcrumbEntry();
 
 		breadcrumbEntry.setTitle(
-			LanguageUtil.get(_httpServletRequest, "sites-and-libraries"));
+			LanguageUtil.get(_httpServletRequest, "sites"));
 
 		PortletURL portletURL = PortletURLUtil.clone(
 			_portletURL, PortalUtil.getLiferayPortletResponse(_renderResponse));
