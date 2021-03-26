@@ -3,6 +3,7 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Loading from 'shared/pages/Loading';
 import Nav from 'shared/components/Nav';
+import NotificationAlertList from 'shared/components/NotificationAlertList';
 import React, {lazy, Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router';
@@ -40,6 +41,9 @@ interface ITabsCardProps {
 const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 	const matchedRoute = getMatchedRoute(NAV_ITEMS);
 
+	const customEventTab =
+		matchedRoute === Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM;
+
 	return (
 		<Card key='cardContainer' pageDisplay>
 			<div className='d-flex justify-content-between'>
@@ -57,7 +61,7 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 					))}
 				</Nav>
 
-				{matchedRoute === Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM && (
+				{customEventTab && (
 					<div className='d-flex align-items-center mx-4'>
 						<Button
 							borderless
@@ -73,6 +77,12 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 					</div>
 				)}
 			</div>
+
+			{customEventTab && (
+				<div className='mx-4'>
+					<NotificationAlertList groupId={groupId} />
+				</div>
+			)}
 
 			<Suspense fallback={<Loading />}>
 				<Switch>
