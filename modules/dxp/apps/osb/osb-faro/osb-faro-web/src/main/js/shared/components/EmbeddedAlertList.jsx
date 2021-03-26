@@ -17,17 +17,28 @@ export default class EmbeddedAlertList extends React.Component {
 
 		return (
 			<div className={getCN('embedded-alert-list-root', className)}>
-				{alerts.map(({alertType, message, ...otherParams}, i) => {
-					const alertConfig = alertType
-						? ALERT_CONFIG_MAP[alertType]
-						: {};
+				{alerts.map(
+					(
+						{alertType, customComponent, message, ...otherParams},
+						i
+					) => {
+						if (customComponent) {
+							const CustomAlert = customComponent;
 
-					return (
-						<Alert {...alertConfig} key={i} {...otherParams}>
-							{message}
-						</Alert>
-					);
-				})}
+							return <CustomAlert key={i} />;
+						}
+
+						const alertConfig = alertType
+							? ALERT_CONFIG_MAP[alertType]
+							: {};
+
+						return (
+							<Alert {...alertConfig} key={i} {...otherParams}>
+								{message}
+							</Alert>
+						);
+					}
+				)}
 			</div>
 		);
 	}
