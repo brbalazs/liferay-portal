@@ -29,7 +29,6 @@ Immutable.Map {
         "event": null,
         "fileName": null,
         "id": null,
-        "lastSyncDate": null,
         "name": "",
         "properties": null,
         "provider": null,

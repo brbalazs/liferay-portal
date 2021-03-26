@@ -33,7 +33,6 @@ exports[`IndividualFieldMapping should render 1`] = `
       "event": null,
       "fileName": null,
       "id": "1",
-      "lastSyncDate": 1531263666366,
       "name": "Salesforce{seed}",
       "properties": Object {},
       "provider": Object {

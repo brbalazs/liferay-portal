@@ -14,9 +14,6 @@ Object {
   "label": "Inactive",
   "message": Array [
     "A server error occurred while connected to your data source. Analytics Cloud will attempt to automatically reconnect during its next regularly scheduled sync.",
-    <LastSyncDate
-      date={1531177266366}
-    />,
   ],
 }
 `;
