@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -259,7 +258,7 @@ public class SelectDDMFormFieldTemplateContextContributor
 
 		Map<String, String> optionMap = new HashMap<>();
 
-		optionMap.put("label", HtmlUtil.escape(optionLabel));
+		optionMap.put("label", optionLabel);
 		optionMap.put("selected", optionSelected ? "true" : "false");
 		optionMap.put("value", optionValue);
 
