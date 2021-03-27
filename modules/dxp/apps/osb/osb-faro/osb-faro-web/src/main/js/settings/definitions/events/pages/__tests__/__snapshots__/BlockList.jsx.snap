@@ -6,6 +6,9 @@ exports[`BlockList should render 1`] = `
     class="settings-base-page-root"
   >
     <div
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
+    <div
       class="maintenance-alert-root"
     />
     <ol
@@ -210,8 +213,6 @@ exports[`BlockList should render 1`] = `
                   Jul 10, 2018
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -241,8 +242,6 @@ exports[`BlockList should render 1`] = `
                   Jul 10, 2018
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -272,8 +271,6 @@ exports[`BlockList should render 1`] = `
                   Jul 10, 2018
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >
@@ -303,8 +300,6 @@ exports[`BlockList should render 1`] = `
                   Jul 10, 2018
                 </td>
               </tr>
-            </tbody>
-            <tbody>
               <tr
                 class=""
               >

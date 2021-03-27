@@ -6,6 +6,9 @@ exports[`View should render a CSV data-source page 1`] = `
     class="settings-base-page-root csv-data-source-root"
   >
     <div
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
+    <div
       class="maintenance-alert-root"
     />
     <ol
@@ -223,6 +226,9 @@ exports[`View should render a Liferay data-source old page 1`] = `
     class="settings-base-page-root data-source-base-page-root"
   >
     <div
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
+    <div
       class="maintenance-alert-root"
     />
     <ol
@@ -304,6 +310,9 @@ exports[`View should render a Liferay data-source page 1`] = `
   <div
     class="settings-base-page-root data-source-base-page-root"
   >
+    <div
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
     <div
       class="maintenance-alert-root"
     />
@@ -607,6 +616,9 @@ exports[`View should render a Salesforce data-source page 1`] = `
   <div
     class="settings-base-page-root data-source-base-page-root salesforce-data-source-root"
   >
+    <div
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
     <div
       class="maintenance-alert-root"
     />

@@ -143,8 +143,6 @@ exports[`BlockListCard should render 1`] = `
               Jul 10, 2018
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -174,8 +172,6 @@ exports[`BlockListCard should render 1`] = `
               Jul 10, 2018
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -205,8 +201,6 @@ exports[`BlockListCard should render 1`] = `
               Jul 10, 2018
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >
@@ -236,8 +230,6 @@ exports[`BlockListCard should render 1`] = `
               Jul 10, 2018
             </td>
           </tr>
-        </tbody>
-        <tbody>
           <tr
             class=""
           >

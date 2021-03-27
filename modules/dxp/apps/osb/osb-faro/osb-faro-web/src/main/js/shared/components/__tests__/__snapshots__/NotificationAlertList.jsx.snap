@@ -3,39 +3,43 @@
 exports[`NotificationAlertList should render 1`] = `
 <div>
   <div
-    class="alert alert-dismissible alert-info"
-    role="alert"
+    class="embedded-alert-list-root notification-alert-list-root"
   >
-    <span
-      class="alert-indicator"
+    <div
+      class="alert alert-dismissible alert-info"
+      role="alert"
     >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-exclamation-full"
-        viewBox=""
+      <span
+        class="alert-indicator"
       >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#exclamation-full"
-        />
-      </svg>
-    </span>
-    <strong
-      class="lead"
-    >
-      Info:
-    </strong>
-    Workspace timezone has changed to  as of today. Please allow 1-2 days for the data to adjust to this new setting.
-    <button
-      class="close"
-    >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-times"
-        viewBox=""
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-exclamation-full"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#exclamation-full"
+          />
+        </svg>
+      </span>
+      <strong
+        class="lead"
       >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
-        />
-      </svg>
-    </button>
+        Info:
+      </strong>
+      Workspace timezone has changed to  as of today. Please allow 1-2 days for the data to adjust to this new setting.
+      <button
+        class="close"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-times"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 `;
