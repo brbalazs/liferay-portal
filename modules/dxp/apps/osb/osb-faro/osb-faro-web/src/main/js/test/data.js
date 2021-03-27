@@ -15,8 +15,8 @@ import {fromJS, List, Map} from 'immutable';
 import {getISODate} from 'shared/util/date';
 import {Metric} from 'shared/util/records';
 import {
-	NotificationSubtype,
-	NotificationType
+	NotificationSubtypes,
+	NotificationTypes
 } from 'shared/util/records/Notification';
 
 const {
@@ -633,8 +633,8 @@ export function mockMembershipChangeAggregation(seed = 0, data = {}) {
 export function mockNotification(seed = 0, data = {}) {
 	return {
 		id: String(seed),
-		subtype: NotificationSubtype.TIME_ZONE_CHANGED,
-		type: NotificationType.ALERT,
+		subtype: NotificationSubtypes.TimeZoneChanged,
+		type: NotificationTypes.Alert,
 		...data
 	};
 }

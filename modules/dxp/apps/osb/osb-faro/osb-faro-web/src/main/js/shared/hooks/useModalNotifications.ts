@@ -1,7 +1,7 @@
 import * as API from 'shared/api';
 import Notification, {
-	NotificationSubtype,
-	NotificationType
+	NotificationSubtypes,
+	NotificationTypes
 } from 'shared/util/records/Notification';
 import {Modal} from 'shared/types';
 import {modalTypes} from 'shared/actions/modals';
@@ -30,7 +30,7 @@ const renderTimeZoneAdminModal = (
 
 const modalNotificationStrategies = new Map<string, Function>([
 	[
-		NotificationSubtype.TIME_ZONE_ADMIN,
+		NotificationSubtypes.TimeZoneAdmin,
 		(params: IModalNotificationRenderProps) =>
 			renderTimeZoneAdminModal(
 				modalTypes.TIME_ZONE_SELECTION_MODAL,
@@ -70,7 +70,7 @@ function useModalNotifications(
 		API.notifications
 			.fetchNotifications({
 				groupId,
-				type: NotificationType.MODAL
+				type: NotificationTypes.Modal
 			})
 			.then(handleRender);
 	}, []);

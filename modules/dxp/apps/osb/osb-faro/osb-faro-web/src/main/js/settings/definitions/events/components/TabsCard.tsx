@@ -6,6 +6,7 @@ import Nav from 'shared/components/Nav';
 import NotificationAlertList from 'shared/components/NotificationAlertList';
 import React, {lazy, Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
+import {NotificationSubtypes} from 'shared/util/records/Notification';
 import {Switch} from 'react-router';
 
 const AttributeList = lazy(
@@ -78,9 +79,14 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 				)}
 			</div>
 
-			{customEventTab && (
+			{customEventTab && ( // TODO: LRAC-7641 Make request to new backend API and wait for response before displaying
 				<div className='mx-4'>
-					<NotificationAlertList groupId={groupId} />
+					<NotificationAlertList
+						groupId={groupId}
+						subtypes={[
+							NotificationSubtypes.CustomEventDefinitionLimitReached
+						]}
+					/>
 				</div>
 			)}
 

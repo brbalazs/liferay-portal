@@ -1,31 +1,32 @@
 import {Record} from 'immutable';
 
-export enum NotificationType {
-	ALERT = 'ALERT',
-	MODAL = 'MODAL'
+export enum NotificationTypes {
+	Alert = 'ALERT',
+	Modal = 'MODAL'
 }
 
-export enum NotificationSubtype {
-	CUSTOM_EVENT_LIMIT_REACHED = 'CUSTOM_EVENT_LIMIT_REACHED',
-	TIME_ZONE_CHANGED = 'TIME_ZONE_CHANGED',
-	TIME_ZONE_ADMIN = 'TIME_ZONE_ADMIN'
+export enum NotificationSubtypes {
+	CustomEventDefinitionLimitReached = 'CUSTOM_EVENT_DEFINITION_LIMIT_REACHED',
+	TimeZoneAdmin = 'TIME_ZONE_ADMIN',
+	TimeZoneChanged = 'TIME_ZONE_CHANGED'
 }
+
 interface INotification {
 	id: string;
-	subtype: string;
-	type: NotificationType;
+	subtype: NotificationSubtypes;
+	type: NotificationTypes;
 }
 
 export default class Notification
 	extends Record({
 		id: '',
-		subtype: '',
-		type: ''
+		subtype: null,
+		type: null
 	})
 	implements INotification {
 	id: string;
-	subtype: string;
-	type: NotificationType;
+	subtype: NotificationSubtypes;
+	type: NotificationTypes;
 
 	constructor(props = {}) {
 		super(props);

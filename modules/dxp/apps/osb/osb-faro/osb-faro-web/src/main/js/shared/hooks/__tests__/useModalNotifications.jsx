@@ -10,8 +10,8 @@ import {connect} from 'react-redux';
 import {fireEvent, render} from '@testing-library/react';
 import {mockGetDateNow} from 'test/mock-date';
 import {
-	NotificationSubtype,
-	NotificationType
+	NotificationSubtypes,
+	NotificationTypes
 } from 'shared/util/records/Notification';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
@@ -36,8 +36,8 @@ describe('useModalNotifications', () => {
 			Promise.resolve(
 				range(1).map(i =>
 					data.mockNotification(i, {
-						subtype: NotificationSubtype.TIME_ZONE_ADMIN,
-						type: NotificationType.MODAL
+						subtype: NotificationSubtypes.TimeZoneAdmin,
+						type: NotificationTypes.Modal
 					})
 				)
 			)
@@ -62,8 +62,8 @@ describe('useModalNotifications', () => {
 			Promise.resolve(
 				range(2).map(i =>
 					data.mockNotification(i, {
-						subtype: NotificationSubtype.TIME_ZONE_ADMIN,
-						type: NotificationType.MODAL
+						subtype: NotificationSubtypes.TimeZoneAdmin,
+						type: NotificationTypes.Modal
 					})
 				)
 			)

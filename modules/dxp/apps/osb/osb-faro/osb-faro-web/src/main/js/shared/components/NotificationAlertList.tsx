@@ -4,15 +4,15 @@ import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
 import React from 'react';
 import TimeZoneAlert from './TimeZoneAlert';
 import {
-	NotificationSubtype,
-	NotificationType
+	NotificationSubtypes,
+	NotificationTypes
 } from 'shared/util/records/Notification';
 import {Routes, toRoute} from 'shared/util/router';
 import {useRequest} from 'shared/hooks';
 
 const notificationStrategies = new Map<string, Function>([
 	[
-		NotificationSubtype.TIME_ZONE_CHANGED,
+		NotificationSubtypes.TimeZoneChanged,
 		(
 			groupId: string,
 			notificationId: string,
@@ -30,7 +30,7 @@ const notificationStrategies = new Map<string, Function>([
 		})
 	],
 	[
-		NotificationSubtype.CUSTOM_EVENT_LIMIT_REACHED,
+		NotificationSubtypes.CustomEventDefinitionLimitReached,
 		(groupId, notificationId, stripe, onClose) => ({
 			alertType: 'warning',
 			className: 'd-flex align-items-center',
@@ -67,41 +67,54 @@ const notificationStrategies = new Map<string, Function>([
 interface INotificationAlertListProps {
 	groupId: string;
 	stripe?: boolean;
+	subtypes?: NotificationSubtypes[];
 }
 
 const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	groupId,
-	stripe = false
+	stripe = false,
+	subtypes = [NotificationSubtypes.TimeZoneChanged]
 }) => {
 	const {data, loading, refetch} = useRequest(
 		API.notifications.fetchNotifications,
 		{
 			groupId,
-			type: NotificationType.ALERT
+			type: NotificationTypes.Alert
 		}
 	);
 
 	const removeNotification = notificationId => {
-		API.notifications.readNotification(groupId, notificationId).then(() => {
-			refetch();
-		});
+		API.notifications
+			.readNotification(groupId, notificationId)
+			.then(() => refetch());
 	};
 
 	const notifications =
 		loading || !data
 			? []
-			: data.map(({id, subtype}) => {
-					const transformer = notificationStrategies.get(subtype);
-
-					if (transformer) {
-						return transformer(
-							groupId,
-							id,
-							stripe,
-							removeNotification
-						);
+			: [
+					...data,
+					// TODO: LRAC-7641 Remove mock data
+					{
+						id: 32835,
+						subtype: 'CUSTOM_EVENT_DEFINITION_LIMIT_REACHED',
+						type: 'ALERT'
 					}
-			  });
+			  ]
+					// TODO: LRAC-7641 Remove filter
+					.filter(({subtype}) => subtypes.includes(subtype))
+					.map(({id, subtype}) => {
+						const transformer = notificationStrategies.get(subtype);
+
+						if (transformer) {
+							return transformer(
+								groupId,
+								id,
+								stripe,
+								removeNotification
+							);
+						}
+					});
 
 	return <EmbeddedAlertList alerts={notifications} />;
 };
