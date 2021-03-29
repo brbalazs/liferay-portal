@@ -121,7 +121,7 @@ describe('DataSourceList', () => {
 		jest.runAllTimers();
 
 		expect(
-			container.querySelector('.embedded-alert-list-root')
+			container.querySelectorAll('.embedded-alert-list-root')[1]
 		).toMatchSnapshot();
 	});
 
@@ -147,7 +147,7 @@ describe('DataSourceList', () => {
 		jest.runAllTimers();
 
 		expect(
-			container.querySelector('.embedded-alert-list-root')
+			container.querySelectorAll('.embedded-alert-list-root')[1]
 		).toMatchSnapshot();
 	});
 
@@ -171,7 +171,7 @@ describe('DataSourceList', () => {
 		jest.runAllTimers();
 
 		expect(
-			container.querySelector('.embedded-alert-list-root')
+			container.querySelectorAll('.embedded-alert-list-root')[1]
 		).toMatchSnapshot();
 	});
 
@@ -197,7 +197,7 @@ describe('DataSourceList', () => {
 		jest.runAllTimers();
 
 		expect(
-			container.querySelector('.embedded-alert-list-root')
+			container.querySelectorAll('.embedded-alert-list-root')[1]
 		).toMatchSnapshot();
 	});
 });

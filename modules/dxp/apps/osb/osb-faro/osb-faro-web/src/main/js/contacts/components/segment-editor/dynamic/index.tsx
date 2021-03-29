@@ -10,6 +10,7 @@ import NavigationWarning from 'shared/components/NavigationWarning';
 import Promise from 'metal-promise';
 import React from 'react';
 import Toolbar from './Toolbar';
+import {AlertTypes} from 'shared/components/Alert';
 import {
 	buildQueryString,
 	translateQueryToCriteria,
@@ -243,7 +244,7 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 																			'error'
 																		),
 																		type:
-																			'danger'
+																			AlertTypes.Danger
 																	}
 																]}
 															/>

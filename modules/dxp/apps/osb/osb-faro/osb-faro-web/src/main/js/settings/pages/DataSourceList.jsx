@@ -325,6 +325,7 @@ export class DataSourceList extends React.Component {
 	render() {
 		const {
 			props: {
+				className,
 				currentUser,
 				delta,
 				filterBy,
@@ -340,9 +341,7 @@ export class DataSourceList extends React.Component {
 
 		return (
 			<BasePage
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
+				className={className}
 				groupId={groupId}
 				key='dataSourceListpage'
 				pageDescription={Liferay.Language.get(

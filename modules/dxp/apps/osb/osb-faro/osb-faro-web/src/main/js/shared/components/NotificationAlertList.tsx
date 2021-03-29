@@ -116,7 +116,12 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 						}
 					});
 
-	return <EmbeddedAlertList alerts={notifications} />;
+	return (
+		<EmbeddedAlertList
+			alerts={notifications}
+			className='notification-alert-list-root'
+		/>
+	);
 };
 
 export default NotificationAlertList;
