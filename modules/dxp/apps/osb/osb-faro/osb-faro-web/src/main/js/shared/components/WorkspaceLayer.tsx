@@ -5,12 +5,12 @@ import useModalNotifications from 'shared/hooks/useModalNotifications';
 import {close, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {helpWidget} from 'shared/hoc';
 import {matchPath} from 'react-router';
 import {Modal} from 'shared/types';
 import {Project} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
+import {withHelpWidget} from 'shared/hoc';
 
 // App Routes with Sidebar
 const AppSidebarRoutes = lazy(
@@ -109,5 +109,5 @@ export default compose(
 		},
 		{close, open}
 	),
-	helpWidget
+	withHelpWidget
 )(WorkspaceLayer);

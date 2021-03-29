@@ -1,4 +1,4 @@
-import Button from 'shared/components/Button';
+import HelperWidget from 'shared/components/HelperWidget';
 import React from 'react';
 import {Modal} from 'shared/types';
 
@@ -12,23 +12,13 @@ interface IWrappedComponentProps {
 	workspaceName: string;
 }
 
-const HelpWidget = (
+const withHelpWidget = (
 	WrappedComponent: React.ComponentType<IWrappedComponentProps>
 ) => props => (
 	<>
 		<WrappedComponent {...props} />
-		<div className='helper-widget-wrapper'>
-			<Button
-				aria-label={Liferay.Language.get('help')}
-				borderless
-				className='button-helper'
-				display='defaut'
-				icon='ac-question-mark'
-				iconAlignment='right'
-				size='sm'
-			/>
-		</div>
+		<HelperWidget />
 	</>
 );
 
-export default HelpWidget;
+export default withHelpWidget;
