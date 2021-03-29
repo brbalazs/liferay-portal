@@ -48,13 +48,14 @@ boolean comment = GetterUtil.getBoolean((String)request.getAttribute("view_comme
 	</div>
 </c:if>
 
-<%
-if (microblogsEntries != null) {
+<c:if test="<%= microblogsEntries != null %>">
+
+	<%
 	for (MicroblogsEntry microblogsEntry : microblogsEntries) {
 		String userFullName = HtmlUtil.escape(PortalUtil.getUserName(microblogsEntry));
 
 		User curUser = UserLocalServiceUtil.fetchUserById(microblogsEntry.getUserId());
-%>
+	%>
 
 		<div class="microblogs-entry" id="<portlet:namespace />microblogsEntry<%= microblogsEntry.getMicroblogsEntryId() %>">
 			<span class="thumbnail">
@@ -162,7 +163,8 @@ if (microblogsEntries != null) {
 			<div class="comments-container reply" id="<portlet:namespace />commentsContainer<%= microblogsEntry.getMicroblogsEntryId() %>"><!-- --></div>
 		</div>
 
-<%
+	<%
 	}
-}
-%>
+	%>
+
+</c:if>

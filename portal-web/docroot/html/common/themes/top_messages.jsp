@@ -36,8 +36,11 @@ if (!user.isDefaultUser() && !locale.equals(user.getLocale())) {
 <%
 String jspPath = (String)PortalMessages.get(request, PortalMessages.KEY_JSP_PATH);
 String message = (String)PortalMessages.get(request, PortalMessages.KEY_MESSAGE);
+%>
 
-if (Validator.isNotNull(jspPath) || Validator.isNotNull(message)) {
+<c:if test="<%= Validator.isNotNull(jspPath) || Validator.isNotNull(message) %>">
+
+	<%
 	String cssClass = GetterUtil.getString(PortalMessages.get(request, PortalMessages.KEY_CSS_CLASS), "alert-info");
 	String portletId = (String)PortalMessages.get(request, PortalMessages.KEY_PORTLET_ID);
 	int timeout = GetterUtil.getInteger(PortalMessages.get(request, PortalMessages.KEY_TIMEOUT), 10000);
@@ -46,7 +49,7 @@ if (Validator.isNotNull(jspPath) || Validator.isNotNull(message)) {
 	if (useAnimation) {
 		cssClass = cssClass + " hide";
 	}
-%>
+	%>
 
 	<div class="alert-notifications alert-notifications-fixed" id="portalMessageContainer">
 		<div class="alert alert-dismissible <%= cssClass %>">
@@ -80,7 +83,4 @@ if (Validator.isNotNull(jspPath) || Validator.isNotNull(message)) {
 
 		banner.show();
 	</aui:script>
-
-<%
-}
-%>
+</c:if>

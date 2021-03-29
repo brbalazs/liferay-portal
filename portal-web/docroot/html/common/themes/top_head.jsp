@@ -24,19 +24,23 @@
 
 <%-- Available Translations --%>
 
-<%
-if (!themeDisplay.isSignedIn() && layout.isPublicLayout()) {
+<c:if test="<%= !themeDisplay.isSignedIn() && layout.isPublicLayout() %>">
+
+	<%
 	String completeURL = PortalUtil.getCurrentCompleteURL(request);
 
 	String canonicalURL = PortalUtil.getCanonicalURL(completeURL, themeDisplay, layout, false, false);
-%>
+	%>
 
 	<link data-senna-track="temporary" href="<%= HtmlUtil.escapeAttribute(canonicalURL) %>" rel="canonical" />
 
 	<%
 	Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(themeDisplay.getSiteGroupId());
+	%>
 
-	if (availableLocales.size() > 1) {
+	<c:if test="<%= availableLocales.size() > 1 %>">
+
+		<%
 		Map<Locale, String> alternateURLs = PortalUtil.getAlternateURLs(canonicalURL, themeDisplay, layout);
 
 		Locale defaultLocale = LocaleUtil.getDefault();
@@ -44,7 +48,7 @@ if (!themeDisplay.isSignedIn() && layout.isPublicLayout()) {
 		for (Map.Entry<Locale, String> entry : alternateURLs.entrySet()) {
 			Locale availableLocale = entry.getKey();
 			String alternateURL = entry.getValue();
-	%>
+		%>
 
 			<c:if test="<%= availableLocale.equals(defaultLocale) %>">
 				<link data-senna-track="temporary" href="<%= HtmlUtil.escapeAttribute(canonicalURL) %>" hreflang="x-default" rel="alternate" />
@@ -52,14 +56,12 @@ if (!themeDisplay.isSignedIn() && layout.isPublicLayout()) {
 
 			<link data-senna-track="temporary" href="<%= HtmlUtil.escapeAttribute(alternateURL) %>" hreflang="<%= LocaleUtil.toW3cLanguageId(availableLocale) %>" rel="alternate" />
 
-	<%
+		<%
 		}
-	}
-	%>
+		%>
 
-<%
-}
-%>
+	</c:if>
+</c:if>
 
 <%-- Portal CSS --%>
 
@@ -150,17 +152,23 @@ if (layout != null) {
 
 <%
 List<String> markupHeaders = (List<String>)request.getAttribute(MimeResponse.MARKUP_HEAD_ELEMENT);
-
-if (markupHeaders != null) {
-	for (String markupHeader : markupHeaders) {
 %>
+
+<c:if test="<%= markupHeaders != null %>">
+
+	<%
+	for (String markupHeader : markupHeaders) {
+	%>
 
 		<%= markupHeader %>
 
-<%
+	<%
 	}
-}
+	%>
 
+</c:if>
+
+<%
 com.liferay.petra.string.StringBundler pageTopSB = OutputTag.getDataSB(request, WebKeys.PAGE_TOP);
 %>
 

@@ -100,10 +100,7 @@ OAuth2Application oAuth2Application = oAuth2AdminPortletDisplayContext.getOAuth2
 						<aui:input checked="<%= checked %>" data="<%= data %>" label="<%= grantType.name() %>" name="<%= name %>" type="checkbox" />
 					</div>
 
-					<%
-					if (grantType.isRequiresRedirectURI()) {
-					%>
-
+					<c:if test="<%= grantType.isRequiresRedirectURI() %>">
 						<aui:script use="aui-base">
 							$('#<portlet:namespace /><%= name %>').on(
 								'click',
@@ -112,9 +109,9 @@ OAuth2Application oAuth2Application = oAuth2AdminPortletDisplayContext.getOAuth2
 								}
 							);
 						</aui:script>
+					</c:if>
 
 				<%
-					}
 				}
 				%>
 

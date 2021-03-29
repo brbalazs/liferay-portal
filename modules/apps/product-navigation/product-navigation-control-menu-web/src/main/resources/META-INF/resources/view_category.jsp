@@ -76,11 +76,14 @@ for (String portletId : PortletCategoryUtil.getFirstChildPortletIds(portletCateg
 }
 
 portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
+%>
 
-if (!categories.isEmpty() || !portlets.isEmpty()) {
+<c:if test="<%= !categories.isEmpty() || !portlets.isEmpty() %>">
+
+	<%
 	String panelId = renderResponse.getNamespace() + "portletCategory" + portletCategoryIndex;
 	String title = Validator.isNotNull(externalPortletCategory) ? externalPortletCategory : LanguageUtil.get(request, portletCategory.getName());
-%>
+	%>
 
 	<input id="<portlet:namespace />portletCategory<%= portletCategoryIndex %>CategoryPath" type="hidden" value="<%= newCategoryPath.replace(':', '-') %>" />
 
@@ -257,7 +260,4 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 			</div>
 		</div>
 	</div>
-
-<%
-}
-%>
+</c:if>

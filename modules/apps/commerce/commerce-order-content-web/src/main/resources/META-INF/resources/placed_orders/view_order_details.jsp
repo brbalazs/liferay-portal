@@ -56,18 +56,21 @@ if (commerceOrder != null) {
 
 	<%
 	CommerceOrderValidatorException cove = (CommerceOrderValidatorException)errorException;
-
-	if (cove != null) {
-		for (CommerceOrderValidatorResult commerceOrderValidatorResult : cove.getCommerceOrderValidatorResults()) {
 	%>
+
+	<c:if test="<%= cove != null %>">
+
+		<%
+		for (CommerceOrderValidatorResult commerceOrderValidatorResult : cove.getCommerceOrderValidatorResults()) {
+		%>
 
 			<liferay-ui:message key="<%= commerceOrderValidatorResult.getLocalizedMessage() %>" />
 
-	<%
+		<%
 		}
-	}
-	%>
+		%>
 
+	</c:if>
 </liferay-ui:error>
 
 <div class="commerce-panel">

@@ -200,10 +200,9 @@ if ((row == null) && portletName.equals(DLPortletKeys.MEDIA_GALLERY_DISPLAY)) {
 					}
 					catch (RepositoryException re) {
 					}
-
-					if ((localRepository != null) && localRepository.isCapabilityProvided(TemporaryFileEntriesCapability.class)) {
 					%>
 
+					<c:if test="<%= (localRepository != null) && localRepository.isCapabilityProvided(TemporaryFileEntriesCapability.class) %>">
 						<portlet:actionURL name="/document_library/edit_folder" var="deleteExpiredTemporaryFileEntriesURL">
 							<portlet:param name="<%= Constants.CMD %>" value="deleteExpiredTemporaryFileEntries" />
 							<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -214,11 +213,7 @@ if ((row == null) && portletName.equals(DLPortletKeys.MEDIA_GALLERY_DISPLAY)) {
 							message="delete-expired-temporary-files"
 							url="<%= deleteExpiredTemporaryFileEntriesURL %>"
 						/>
-
-					<%
-					}
-					%>
-
+					</c:if>
 				</c:if>
 			</c:when>
 			<c:otherwise>

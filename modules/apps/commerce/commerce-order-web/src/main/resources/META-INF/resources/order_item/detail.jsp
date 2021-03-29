@@ -45,18 +45,21 @@ Date requestedDeliveryDate = commerceOrderItem.getRequestedDeliveryDate();
 
 			<%
 			CommerceOrderValidatorException cove = (CommerceOrderValidatorException)errorException;
-
-			if (cove != null) {
-				for (CommerceOrderValidatorResult commerceOrderValidatorResult : cove.getCommerceOrderValidatorResults()) {
 			%>
+
+			<c:if test="<%= cove != null %>">
+
+				<%
+				for (CommerceOrderValidatorResult commerceOrderValidatorResult : cove.getCommerceOrderValidatorResults()) {
+				%>
 
 					<liferay-ui:message key="<%= commerceOrderValidatorResult.getLocalizedMessage() %>" />
 
-			<%
+				<%
 				}
-			}
-			%>
+				%>
 
+			</c:if>
 		</liferay-ui:error>
 
 		<aui:input bean="<%= commerceOrderItem %>" model="<%= CommerceOrderItem.class %>" name="quantity">

@@ -62,8 +62,11 @@ boolean viewInContext = GetterUtil.getBoolean(request.getAttribute("liferay-asse
 			}
 
 			AssetRenderer<?> assetRenderer = assetRendererFactory.getAssetRenderer(assetLinkEntry.getClassPK());
+		%>
 
-			if (assetRenderer.hasViewPermission(permissionChecker)) {
+			<c:if test="<%= assetRenderer.hasViewPermission(permissionChecker) %>">
+
+				<%
 				Group group = GroupLocalServiceUtil.getGroup(assetLinkEntry.getGroupId());
 
 				Group scopeGroup = themeDisplay.getScopeGroup();
@@ -115,16 +118,16 @@ boolean viewInContext = GetterUtil.getBoolean(request.getAttribute("liferay-asse
 				if (Validator.isNull(viewURL)) {
 					viewURL = viewAssetURL.toString();
 				}
-		%>
+				%>
 
 				<li class="asset-links-list-item">
 					<aui:a href="<%= viewURL %>" target='<%= themeDisplay.isStatePopUp() ? "_blank" : "_self" %>'>
 						<%= HtmlUtil.escape(assetLinkEntry.getTitle(locale)) %>
 					</aui:a>
 				</li>
+			</c:if>
 
 		<%
-			}
 		}
 		%>
 

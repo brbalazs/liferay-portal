@@ -14,6 +14,8 @@
  */
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.util.MaintenanceUtil" %>
 
@@ -52,20 +54,13 @@ if (Objects.equals(session.getId(), MaintenanceUtil.getSessionId())) {
 														</td>
 													</tr>
 
-													<%
-													if (invokingSession) {
-													%>
-
+													<c:if test="<%= invokingSession %>">
 														<tr>
 															<td>
 																<%= MaintenanceUtil.getStatus() %>
 															</td>
 														</tr>
-
-													<%
-													}
-													%>
-
+													</c:if>
 												</table>
 
 												<br />

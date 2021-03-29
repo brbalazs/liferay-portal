@@ -54,10 +54,13 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		AssetVocabulary vocabulary = vocabularies.get(i);
 
 		String vocabularyNavigation = _buildVocabularyNavigation(vocabulary, categoryId, portletURL, themeDisplay);
-
-		if (Validator.isNotNull(vocabularyNavigation)) {
-			hidePortletWhenEmpty = false;
 	%>
+
+		<c:if test="<%= Validator.isNotNull(vocabularyNavigation) %>">
+
+			<%
+			hidePortletWhenEmpty = false;
+			%>
 
 			<liferay-ui:panel
 				collapsible="<%= false %>"
@@ -68,26 +71,26 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			>
 				<%= vocabularyNavigation %>
 			</liferay-ui:panel>
+		</c:if>
 
 	<%
-		}
 	}
 	%>
 
 </liferay-ui:panel-container>
 
-<%
-if (hidePortletWhenEmpty) {
+<c:if test="<%= hidePortletWhenEmpty %>">
+
+	<%
 	renderRequest.setAttribute(WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
-%>
+	%>
 
 	<div class="alert alert-info">
 		<liferay-ui:message key="there-are-no-categories" />
 	</div>
+</c:if>
 
 <%
-}
-
 if (categoryId > 0) {
 	AssetCategoryUtil.addPortletBreadcrumbEntries(categoryId, request, portletURL, false);
 }

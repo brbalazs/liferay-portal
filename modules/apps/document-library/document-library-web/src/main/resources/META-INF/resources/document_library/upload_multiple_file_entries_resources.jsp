@@ -167,8 +167,9 @@ else {
 						</liferay-ui:icon-menu>
 					</div>
 
-					<%
-					if (fileEntryTypeId > 0) {
+					<c:if test="<%= fileEntryTypeId > 0 %>">
+
+						<%
 						try {
 							List<DDMStructure> ddmStructures = fileEntryType.getDDMStructures();
 
@@ -186,7 +187,7 @@ else {
 								if (groupId <= 0) {
 									groupId = ddmStructure.getGroupId();
 								}
-					%>
+						%>
 
 								<aui:input name="ddmFormFieldNamespace" type="hidden" value="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>" />
 
@@ -203,13 +204,14 @@ else {
 									/>
 								</div>
 
-					<%
+						<%
 							}
 						}
 						catch (Exception e) {
 						}
-					}
-					%>
+						%>
+
+					</c:if>
 
 					<aui:script sandbox="<%= true %>">
 						$('#<portlet:namespace />documentTypeSelector .lfr-menu-list').on(

@@ -34,33 +34,31 @@ List groupNames = (List)objArray[8];
 
 <div id="<portlet:namespace />groupDiv<%= HtmlUtil.escapeAttribute(target) %>">
 	<span class="permission-scopes" id="<portlet:namespace />groupHTML<%= HtmlUtil.escapeAttribute(target) %>">
+		<c:choose>
+			<c:when test="<%= supportsFilterByGroup && !groups.isEmpty() %>">
 
-		<%
-		if (supportsFilterByGroup && !groups.isEmpty()) {
-			for (int i = 0; i < groups.size(); i++) {
-				Group group = (Group)groups.get(i);
+				<%
+				for (int i = 0; i < groups.size(); i++) {
+					Group group = (Group)groups.get(i);
 
-				String taglibHREF = "javascript:" + liferayPortletResponse.getNamespace() + "removeGroup(" + i + ", '" + HtmlUtil.escapeJS(target) + "');";
-		%>
+					String taglibHREF = "javascript:" + liferayPortletResponse.getNamespace() + "removeGroup(" + i + ", '" + HtmlUtil.escapeJS(target) + "');";
+				%>
 
-				<span class="lfr-token">
-					<span class="lfr-token-text"><%= HtmlUtil.escape(group.getDescriptiveName(locale)) %></span>
+					<span class="lfr-token">
+						<span class="lfr-token-text"><%= HtmlUtil.escape(group.getDescriptiveName(locale)) %></span>
 
-					<aui:a cssClass="icon icon-remove lfr-token-close" href="<%= taglibHREF %>" />
-				</span>
+						<aui:a cssClass="icon icon-remove lfr-token-close" href="<%= taglibHREF %>" />
+					</span>
 
-		<%
-			}
-		}
-		else if (role.getType() == RoleConstants.TYPE_REGULAR) {
-		%>
+				<%
+				}
+				%>
 
-			<liferay-ui:message key="all-sites" />
-
-		<%
-		}
-		%>
-
+			</c:when>
+			<c:when test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
+				<liferay-ui:message key="all-sites" />
+			</c:when>
+		</c:choose>
 	</span>
 
 	<%

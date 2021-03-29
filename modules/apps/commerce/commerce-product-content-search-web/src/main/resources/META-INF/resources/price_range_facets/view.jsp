@@ -67,10 +67,9 @@ CPPriceRangeFacetsDisplayContext cpPriceRangeFacetsDisplayContext = (CPPriceRang
 						FacetCollector facetCollector = facet.getFacetCollector();
 
 						List<TermCollector> termCollectors = facetCollector.getTermCollectors();
-
-						if (!termCollectors.isEmpty()) {
 						%>
 
+						<c:if test="<%= !termCollectors.isEmpty() %>">
 							<aui:form method="post" name='<%= "assetEntriesFacetForm_" + facet.getFieldName() %>'>
 								<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= facet.getFieldName() %>" />
 
@@ -112,11 +111,7 @@ CPPriceRangeFacetsDisplayContext cpPriceRangeFacetsDisplayContext = (CPPriceRang
 
 								</aui:fieldset>
 							</aui:form>
-
-						<%
-						}
-						%>
-
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<div class="alert alert-info">

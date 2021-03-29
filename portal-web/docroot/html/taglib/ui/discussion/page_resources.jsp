@@ -29,8 +29,11 @@ Discussion discussion = CommentManagerUtil.getDiscussion(discussionTaglibHelper.
 DiscussionComment rootDiscussionComment = (discussion == null) ? null : discussion.getRootDiscussionComment();
 
 DiscussionCommentIterator discussionCommentIterator = (rootDiscussionComment == null) ? null : rootDiscussionComment.getThreadDiscussionCommentIterator(rootIndexPage - 1);
+%>
 
-if (discussionCommentIterator != null) {
+<c:if test="<%= discussionCommentIterator != null %>">
+
+	<%
 	while (discussionCommentIterator.hasNext()) {
 		rootIndexPage = discussionCommentIterator.getIndexPage();
 
@@ -41,15 +44,16 @@ if (discussionCommentIterator != null) {
 		request.setAttribute("liferay-ui:discussion:depth", 0);
 		request.setAttribute("liferay-ui:discussion:discussion", discussion);
 		request.setAttribute("liferay-ui:discussion:discussionComment", discussionCommentIterator.next());
-%>
+	%>
 
 		<liferay-util:include page="/html/taglib/ui/discussion/view_message_thread.jsp" />
 
-<%
+	<%
 		index = GetterUtil.getInteger(request.getAttribute("liferay-ui:discussion:index"));
 	}
-}
-%>
+	%>
+
+</c:if>
 
 <aui:script sandbox="<%= true %>">
 	var rootIndexPage = $('#<%= namespace %>rootIndexPage');
