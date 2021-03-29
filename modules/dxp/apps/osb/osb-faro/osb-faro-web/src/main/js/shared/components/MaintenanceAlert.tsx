@@ -1,4 +1,4 @@
-import Alert from 'shared/components/Alert';
+import Alert, {AlertTypes} from 'shared/components/Alert';
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
@@ -66,7 +66,7 @@ export class MaintenanceAlert extends React.Component<IMaintenanceAlertProps> {
 						onClose={this.handleDismissClick}
 						stripe={stripe}
 						title={Liferay.Language.get('scheduled-maintenance')}
-						type='warning'
+						type={AlertTypes.Warning}
 					>
 						{sub(
 							Liferay.Language.get(

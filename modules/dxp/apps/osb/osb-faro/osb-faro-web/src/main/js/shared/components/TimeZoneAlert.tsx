@@ -1,4 +1,4 @@
-import Alert from 'shared/components/Alert';
+import Alert, {AlertTypes} from 'shared/components/Alert';
 import React from 'react';
 import {connect} from 'react-redux';
 import {sub} from 'shared/util/lang';
@@ -21,7 +21,7 @@ const TimeZoneAlert: React.FC<ITimeZoneAlertModalProps> = ({
 		onClose={onClose}
 		stripe={stripe}
 		title={Liferay.Language.get('info')}
-		type={Alert.TYPES.info}
+		type={AlertTypes.Info}
 	>
 		{sub(
 			Liferay.Language.get(

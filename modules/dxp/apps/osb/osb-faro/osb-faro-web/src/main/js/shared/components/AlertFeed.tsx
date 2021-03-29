@@ -1,4 +1,4 @@
-import Alert, {ALERT_CONFIG_MAP} from './Alert';
+import Alert, {ALERT_CONFIG_MAP, AlertTypes} from './Alert';
 import getCN from 'classnames';
 import React from 'react';
 import {Alert as AlertType} from 'shared/types';
@@ -11,10 +11,9 @@ const {danger, info, secondary, success, warning} = ALERT_CONFIG_MAP;
 
 type AlertDisplaysType = {
 	[alertType: string]: {
-		display?: string;
 		iconSymbol?: string;
 		title?: string;
-		type?: string;
+		type?: AlertTypes;
 	};
 };
 
@@ -65,7 +64,6 @@ export const AlertFeed: React.FC<IAlertFeedProps> = ({
 							<Alert
 								iconSymbol={symbol}
 								id={id}
-								notification={alertIMap.get('notification')}
 								onClose={removeAlert}
 								title={label}
 								type={display}

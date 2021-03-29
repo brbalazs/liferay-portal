@@ -1,4 +1,4 @@
-import Alert from 'shared/components/Alert';
+import Alert, {AlertTypes} from 'shared/components/Alert';
 import BaseModal from 'experiments/components/modals/BaseModal';
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
@@ -118,7 +118,7 @@ const RunExperimentModal = ({dxpVariants, experimentId, observer, onClose}) => {
 			{estimatedDaysError && (
 				<Alert
 					title={String(estimatedDaysError)}
-					type={Alert.TYPES.danger}
+					type={AlertTypes.Danger}
 				/>
 			)}
 

@@ -8,7 +8,7 @@ import Label from 'shared/components/Label';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {ALERT_TYPE_MAP} from 'shared/components/Alert';
+import {AlertTypes} from 'shared/components/Alert';
 import {ChannelContext} from 'shared/context/channel';
 import {compose} from 'shared/hoc';
 import {getMatchedRoute, Routes, SEGMENTS, toRoute} from 'shared/util/router';
@@ -18,7 +18,6 @@ import {Switch, withRouter} from 'react-router-dom';
 import {withSegment} from 'shared/hoc/WithSegment';
 
 const {segmentStates, segmentTypes} = FaroConstants;
-const {danger, info} = ALERT_TYPE_MAP;
 
 const Overview = lazy(() =>
 	import(/* webpackChunkName: "SegmentOverview" */ './Overview')
@@ -78,7 +77,7 @@ export class SegmentProfileRoutes extends React.Component {
 		if (segment.get('state') === segmentStates.inProgress) {
 			return [
 				{
-					alertType: info,
+					alertType: AlertTypes.Info,
 					message: Liferay.Language.get(
 						'segment-data-is-processing-please-check-back-later'
 					),
@@ -88,7 +87,7 @@ export class SegmentProfileRoutes extends React.Component {
 		} else if (this.checkDisabled()) {
 			return [
 				{
-					alertType: danger,
+					alertType: AlertTypes.Danger,
 					message: Liferay.Language.get(
 						'this-segment-is-disabled-because-some-criteria-has-been-affected-by-removal-of-a-data-source.-to-continue-using-this-segment-please-update-the-criteria'
 					),

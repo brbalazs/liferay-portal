@@ -19,7 +19,7 @@ import {
 } from 'shared/util/pagination';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
-import {ALERT_CONFIG_MAP, ALERT_TYPE_MAP} from 'shared/components/Alert';
+import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser, withFilters} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -174,7 +174,7 @@ export const List: React.FC<IListProps> = ({
 				false
 			),
 			onClose: () => setAlerts(() => []),
-			...ALERT_CONFIG_MAP[ALERT_TYPE_MAP.warning]
+			...ALERT_CONFIG_MAP[AlertTypes.Warning]
 		}
 	];
 
@@ -210,7 +210,7 @@ export const List: React.FC<IListProps> = ({
 			),
 			onClose: () =>
 				unassignedSegmentsDispatch({type: ActionType.updateShowAlert}),
-			...ALERT_CONFIG_MAP[ALERT_TYPE_MAP.warning]
+			...ALERT_CONFIG_MAP[AlertTypes.Warning]
 		};
 	};
 

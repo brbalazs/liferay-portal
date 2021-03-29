@@ -1,4 +1,4 @@
-import Alert from 'shared/components/Alert';
+import Alert, {AlertTypes} from 'shared/components/Alert';
 import ClayButton from '@clayui/button';
 import ClayModal from '@clayui/modal';
 import React, {useState} from 'react';
@@ -79,7 +79,7 @@ const BaseModal: React.FC<IBaseModalProps> = ({
 			<ClayModal.Header>{title}</ClayModal.Header>
 			<ClayModal.Body>
 				{submitError && (
-					<Alert type={Alert.TYPES.danger}>
+					<Alert type={AlertTypes.Danger}>
 						{Liferay.Language.get('sorry-an-error-occurred')}
 					</Alert>
 				)}
