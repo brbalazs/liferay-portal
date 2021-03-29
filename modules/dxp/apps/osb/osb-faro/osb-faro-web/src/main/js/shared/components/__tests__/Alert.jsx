@@ -1,4 +1,4 @@
-import Alert from '../Alert';
+import Alert, {AlertTypes} from '../Alert';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
@@ -45,7 +45,7 @@ describe('Alert', () => {
 	});
 
 	it('should render with a specific type', () => {
-		const {container} = render(<Alert type={Alert.TYPES.info} />);
+		const {container} = render(<Alert type={AlertTypes.Info} />);
 		expect(container.querySelector('.alert-info')).toBeTruthy();
 	});
 
