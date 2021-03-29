@@ -3,7 +3,9 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useEffect} from 'react';
 import useModalNotifications from 'shared/hooks/useModalNotifications';
 import {close, open} from 'shared/actions/modals';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {helpWidget} from 'shared/hoc';
 import {matchPath} from 'react-router';
 import {Modal} from 'shared/types';
 import {Project} from 'shared/util/records';
@@ -84,25 +86,28 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	);
 };
 
-export default connect(
-	(store, {location: {pathname}}) => {
-		const {
-			params: {groupId}
-		} = matchPath(pathname, {
-			path: Routes.WORKSPACE_WITH_ID
-		});
+export default compose(
+	connect(
+		(store, {location: {pathname}}) => {
+			const {
+				params: {groupId}
+			} = matchPath(pathname, {
+				path: Routes.WORKSPACE_WITH_ID
+			});
 
-		const project =
-			store.getIn(['projects', groupId, 'data'], new Project()) ||
-			new Project();
+			const project =
+				store.getIn(['projects', groupId, 'data'], new Project()) ||
+				new Project();
 
-		return {
-			currentUserId: store.getIn(['currentUser', 'data']),
-			faroSubscriptionIMap: project.get('faroSubscription'),
-			groupId,
-			serverLocation: project.get('serverLocation'),
-			workspaceName: project.get('name')
-		};
-	},
-	{close, open}
+			return {
+				currentUserId: store.getIn(['currentUser', 'data']),
+				faroSubscriptionIMap: project.get('faroSubscription'),
+				groupId,
+				serverLocation: project.get('serverLocation'),
+				workspaceName: project.get('name')
+			};
+		},
+		{close, open}
+	),
+	helpWidget
 )(WorkspaceLayer);
