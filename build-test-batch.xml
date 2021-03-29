@@ -3973,6 +3973,26 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
 	</target>
 
+	<target name="functional-smoke-bundle-jboss-mysql57-jdk8">
+		<antcall target="functional-bundle-jboss-mysql57-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tcserver-mysql57-jdk8">
+		<antcall target="functional-bundle-tcserver-mysql57-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-db2111-jdk8">
+		<antcall target="functional-bundle-tomcat-db2111-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-hypersonic20-jdk8">
+		<antcall target="functional-bundle-tomcat-hypersonic20-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-mariadb102-jdk8">
+		<antcall target="functional-bundle-tomcat-mariadb102-jdk8" />
+	</target>
+
 	<target name="functional-smoke-bundle-tomcat-mysql56-jdk8">
 		<antcall target="functional-bundle-tomcat-mysql56-jdk8" />
 	</target>
@@ -3983,6 +4003,26 @@ log.sanitizer.enabled=false</echo>
 
 	<target name="functional-smoke-bundle-tomcat-mysql57-jdk11_open">
 		<antcall target="functional-bundle-tomcat-mysql57-jdk11_open" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-oracle122-jdk8">
+		<antcall target="functional-bundle-tomcat-oracle122-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-postgresql10-jdk8">
+		<antcall target="functional-bundle-tomcat-postgresql10-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-tomcat-sybase160-jdk8">
+		<antcall target="functional-bundle-tomcat-sybase160-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-weblogic-mysql57-jdk8">
+		<antcall target="functional-bundle-weblogic-mysql57-jdk8" />
+	</target>
+
+	<target name="functional-smoke-bundle-wildfly-mysql57-jdk8">
+		<antcall target="functional-bundle-wildfly-mysql57-jdk8" />
 	</target>
 
 	<target name="functional-smoke-jboss71-mysql57-jdk8">
