@@ -133,7 +133,7 @@ class AssetsListCard extends React.Component {
 					className='table-hover'
 					columns={tableColumns}
 					items={items}
-					rowIdentifier={['assetId', 'assetTitle']}
+					rowIdentifier={['assetId', 'title']}
 				/>
 			</div>
 		);
