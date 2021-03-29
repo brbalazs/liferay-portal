@@ -141,27 +141,34 @@ class CustomAssetsDashboardPage extends React.Component {
 				modifiedByUserId,
 				modifiedByUserName
 			}
-		}).then(
-			({
-				data: {
-					dashboard: {definition}
-				}
-			}) => {
-				this.setState({
-					definition: JSON.parse(definition)
-				});
+		})
+			.then(
+				({
+					data: {
+						dashboard: {definition}
+					}
+				}) => {
+					this.setState({
+						definition: JSON.parse(definition)
+					});
 
+					addAlert({
+						alertType: alertTypes.SUCCESS,
+						message: sub(
+							Liferay.Language.get(
+								'x-has-been-deleted-from-this-dashboard'
+							),
+							[itemExcluded.panels[0].title]
+						)
+					});
+				}
+			)
+			.catch(() =>
 				addAlert({
-					alertType: alertTypes.SUCCESS,
-					message: sub(
-						Liferay.Language.get(
-							'x-has-been-deleted-from-this-dashboard'
-						),
-						[itemExcluded.panels[0].title]
-					)
-				});
-			}
-		);
+					alertType: alertTypes.ERROR,
+					message: Liferay.Language.get('error')
+				})
+			);
 	}
 
 	@autobind
