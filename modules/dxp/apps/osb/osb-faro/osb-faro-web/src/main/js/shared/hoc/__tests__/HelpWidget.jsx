@@ -12,11 +12,7 @@ describe('HelpWidget', () => {
 	it('should render a wrapped component', () => {
 		const WrappedComponent = HelpWidget(wrappedComponentText);
 
-		const {container} = render(
-			<WrappedComponent
-                groupId='123'
-			/>
-		);
+		const {container} = render(<WrappedComponent groupId='123' />);
 
 		expect(container.textContent).toBe('wrapped component text');
 	});
@@ -24,11 +20,7 @@ describe('HelpWidget', () => {
 	it('should render a helper widget', () => {
 		const WrappedComponent = HelpWidget(wrappedComponentText);
 
-		const {container} = render(
-			<WrappedComponent
-                groupId='123'
-			/>
-		);
+		const {container} = render(<WrappedComponent groupId='123' />);
 
 		expect(container.querySelector('.helper-widget-wrapper')).toBeTruthy();
 	});
