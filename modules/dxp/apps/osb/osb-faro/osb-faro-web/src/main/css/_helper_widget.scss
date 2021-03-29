@@ -1,0 +1,15 @@
+.helper-widget-wrapper {
+    background-color: $info;
+    border-radius: 50%;
+    bottom: 16px;
+    height: 40px;
+    position: fixed;
+    right: 16px;
+    width: 40px; 
+    
+    .button-helper {
+        position: relative;
+        top: 1px;
+        right: 2px;
+    }
+}

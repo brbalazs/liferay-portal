@@ -6,6 +6,7 @@ export {default as checkProjectState} from './CheckProjectState';
 export {default as checkExperimentLink} from './CheckExperimentLink';
 export {default as checkSegmentLink} from './CheckSegmentLink';
 export {default as checkValidChannel} from './CheckValidChannel';
+export {default as helpWidget} from './HelpWidget';
 export {default as optional} from './Optional';
 export {default as redirectIf} from './RedirectIf';
 export {default as withAccount} from './WithAccount';
