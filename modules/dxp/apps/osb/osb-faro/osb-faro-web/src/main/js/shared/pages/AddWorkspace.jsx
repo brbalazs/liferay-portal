@@ -48,6 +48,7 @@ export class AddWorkspace extends React.Component {
 		incidentReportEmailAddresses,
 		name,
 		serverLocation,
+		sharedCluster,
 		timeZoneId
 	}) {
 		const {
@@ -67,7 +68,8 @@ export class AddWorkspace extends React.Component {
 			timeZoneId,
 			...(state === unconfigured
 				? {groupId}
-				: {corpProjectUuid, serverLocation})
+				: {corpProjectUuid, serverLocation}),
+			sharedCluster
 		};
 
 		const createFn =

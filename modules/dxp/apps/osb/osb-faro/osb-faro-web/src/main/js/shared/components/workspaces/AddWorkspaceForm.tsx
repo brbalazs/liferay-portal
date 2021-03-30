@@ -163,6 +163,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
+						sharedCluster: true,
 						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||

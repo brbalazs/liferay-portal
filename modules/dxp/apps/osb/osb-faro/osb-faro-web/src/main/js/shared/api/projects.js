@@ -55,6 +55,7 @@ export function createTrial({
 	incidentReportEmailAddresses,
 	name,
 	serverLocation,
+	sharedCluster,
 	timeZoneId
 }) {
 	return sendRequest({
@@ -64,6 +65,7 @@ export function createTrial({
 			incidentReportEmailAddresses,
 			name,
 			serverLocation,
+			sharedCluster,
 			timeZoneId
 		},
 		method: 'POST',
