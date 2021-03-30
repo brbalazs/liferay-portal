@@ -48,7 +48,6 @@ export class AddWorkspace extends React.Component {
 		incidentReportEmailAddresses,
 		name,
 		serverLocation,
-		sharedCluster,
 		timeZoneId
 	}) {
 		const {
@@ -65,11 +64,11 @@ export class AddWorkspace extends React.Component {
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
 			incidentReportEmailAddresses,
 			name,
+			sharedCluster: FARO_ENV === 'uat',
 			timeZoneId,
 			...(state === unconfigured
 				? {groupId}
-				: {corpProjectUuid, serverLocation}),
-			sharedCluster
+				: {corpProjectUuid, serverLocation})
 		};
 
 		const createFn =

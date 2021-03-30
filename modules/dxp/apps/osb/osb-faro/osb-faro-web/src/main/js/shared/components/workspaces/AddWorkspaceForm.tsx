@@ -34,13 +34,19 @@ const {
 	projectLocations: {EU, EU2, SA, UAT, US}
 } = Constants;
 
-const projectLocations = [
+let projectLocations = [
 	{label: Liferay.Language.get('location-eu'), value: EU},
 	{label: Liferay.Language.get('location-eu2'), value: EU2},
 	{label: Liferay.Language.get('location-sa'), value: SA},
-	{label: Liferay.Language.get('location-uat'), value: UAT},
 	{label: Liferay.Language.get('location-us'), value: US}
 ];
+
+if (FARO_ENV === 'uat') {
+	projectLocations = [
+		...projectLocations,
+		{label: Liferay.Language.get('location-uat'), value: UAT}
+	];
+}
 
 interface IAddWorkspaceFormProps extends React.HTMLAttributes<HTMLElement> {
 	close: Modal.close;
@@ -163,7 +169,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
-						sharedCluster: true,
 						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||
