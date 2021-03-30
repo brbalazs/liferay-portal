@@ -230,14 +230,15 @@ public class DDMFormTemplateContextFactoryImpl
 	protected String getRequiredFieldsWarningMessageHTML(
 		ResourceBundle resourceBundle, HttpServletRequest httpServletRequest) {
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(4);
 
-		sb.append("<label class=\"required-warning\">");
+		sb.append("<p aria-hidden=\"true\" ");
+		sb.append("class=\"h5 required-warning text-secondary\">");
 		sb.append(
 			LanguageUtil.format(
 				resourceBundle, "all-fields-marked-with-x-are-required",
 				getRequiredMarkTagHTML(httpServletRequest), false));
-		sb.append("</label>");
+		sb.append("</p>");
 
 		return sb.toString();
 	}

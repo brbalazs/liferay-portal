@@ -45,7 +45,7 @@ AUI.add(
 
 		var TPL_REPEATABLE_TOOLBAR = '<div class="lfr-ddm-form-field-repeatable-toolbar">' + TPL_REPEATABLE_ADD + '</div>';
 
-		var TPL_REQURIED_FIELDS = '<label class="hide required-warning">{message}</label>';
+		var TPL_REQURIED_FIELDS = '<p aria-hidden="true" class="hide h5 required-warning text-secondary">{message}</p>';
 
 		var Util = Liferay.DDM.Renderer.Util;
 
