@@ -31,13 +31,14 @@ import {
 
 const {
 	faroURL,
-	projectLocations: {EU, EU2, SA, US}
+	projectLocations: {EU, EU2, SA, UAT, US}
 } = Constants;
 
 const projectLocations = [
 	{label: Liferay.Language.get('location-eu'), value: EU},
 	{label: Liferay.Language.get('location-eu2'), value: EU2},
 	{label: Liferay.Language.get('location-sa'), value: SA},
+	{label: Liferay.Language.get('location-uat'), value: UAT},
 	{label: Liferay.Language.get('location-us'), value: US}
 ];
 
