@@ -29,13 +29,15 @@ AUI.add(
 				if (!tabView || (tabView && tabView.get('destroyed'))) {
 					var tabs = instance.get('container').one('.lfr-ddm-form-tabs');
 
-					tabView = new A.TabView(
-						{
-							srcNode: tabs
-						}
-					);
+					if (tabs) {
+						tabView = new A.TabView(
+							{
+								srcNode: tabs
+							}
+						);
 
-					instance._tabView = tabView;
+						instance._tabView = tabView;
+					}
 				}
 
 				return tabView;
