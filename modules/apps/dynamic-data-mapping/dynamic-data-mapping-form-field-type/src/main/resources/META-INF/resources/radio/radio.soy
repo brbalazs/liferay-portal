@@ -29,9 +29,10 @@
 
 	<div class="form-group liferay-ddm-form-field-radio {$visible ? '' : 'hide'}"
 		data-fieldname="{$name}">
-		<div>
+		<fieldset>
+
 			{if $showLabel or $required}
-				<label for="{$name}">
+				<legend class="lfr-ddm-legend">
 					{if $showLabel}
 						{$label}{sp}
 					{/if}
@@ -42,33 +43,33 @@
 							<use xlink:href="{$pathThemeImages}/lexicon/icons.svg#asterisk"/>
 						</svg>
 					{/if}
-				</label>
+				</legend>
 			{/if}
-		</div>
 
-		{foreach $option in $options}
+			{foreach $option in $options}
 
-			<div class="custom-control {$inline ? 'custom-control-inline' : ''} custom-radio">
-				<label for="{$name}_{$option.value}">
-						<input {if $option.value == $displayValue}checked{/if}
-						{if $dir}dir="{$dir}"{/if}
-						{if $readOnly}disabled{/if}
-						class="custom-control-input"
-						id="{$name}_{$option.value}"
-						name="{$name}"
-						type="radio"
-						value="{$option.value}" />
-					<span class="custom-control-label">
-						<span class="custom-control-label-text">{$option.label}</span>
-					</span>
-				</label>
-			</div>
-		{/foreach}
+				<div class="custom-control {$inline ? 'custom-control-inline' : ''} custom-radio">
+					<label for="{$name}_{$option.value}">
+							<input {if $option.value == $displayValue}checked{/if}
+							{if $dir}dir="{$dir}"{/if}
+							{if $readOnly}disabled{/if}
+							class="custom-control-input"
+							id="{$name}_{$option.value}"
+							name="{$name}"
+							type="radio"
+							value="{$option.value}" />
+						<span class="custom-control-label">
+							<span class="custom-control-label-text">{$option.label}</span>
+						</span>
+					</label>
+				</div>
+			{/foreach}
 
-		{if $showLabel}
-			{if $tip}
-				<span class="form-text">{$tip}</span>
+			{if $showLabel}
+				{if $tip}
+					<span class="form-text">{$tip}</span>
+				{/if}
 			{/if}
-		{/if}
+		</fieldset>
 	</div>
 {/template}

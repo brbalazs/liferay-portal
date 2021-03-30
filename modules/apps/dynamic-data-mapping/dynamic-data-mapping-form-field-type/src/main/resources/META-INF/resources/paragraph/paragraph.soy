@@ -17,10 +17,12 @@
 	{@param visible: bool}
 
 	<div class="form-group{$visible ? '' : ' hide'} liferay-ddm-form-field-paragraph" data-fieldname="{$name}">
-		{if $label}
-			<label for="{$name}">{$label}</label>
-		{/if}
+		<fieldset>
+			{if $label}
+				<legend class="lfr-ddm-legend">{$label}</legend>
+			{/if}
 
-		<div>{$text}</div>
+			<div>{$text}</div>
+		</fieldset>
 	</div>
 {/template}

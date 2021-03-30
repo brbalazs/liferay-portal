@@ -29,10 +29,10 @@
 
 	<div class="form-group liferay-ddm-form-field-checkbox-multiple"
 		data-fieldname="{$name}">
+		<fieldset>
 
-		<div>
 			{if $showLabel or $required}
-				<label for="{$name}">
+				<legend class="lfr-ddm-legend">
 					{if $showLabel}
 						{$label}{sp}
 					{/if}
@@ -44,64 +44,37 @@
 								xlink:href="{$pathThemeImages}/lexicon/icons.svg#asterisk"/>
 						</svg>
 					{/if}
-				</label>
+				</legend>
 			{/if}
-		</div>
 
-		{foreach $option in $options}
-			{let $checked kind="attributes"}
-				{if $displayValue}
-					{foreach $currentValue in $displayValue}
-						{if $currentValue == $option.value}
-							checked
-						{/if}
-					{/foreach}
-				{/if}
-			{/let}
-
-			{if $showAsSwitcher}
-				<div class="lfr-ddm-form-field-checkbox-switch {$inline ? 'lfr-ddm-form-field-checkbox-switch-inline' : ''}">
-					<label class="toggle-switch toggle-switch-option-{$option.value}"
-						for="{$name}_{$option.value}">
-
-						<input {$checked}
-							{if $readOnly}disabled{/if}
-							class="toggle-switch-check"
-							id="{$name}_{$option.value}"
-							name="{$name}"
-							type="checkbox"
-							value="{$option.value}" />
-
-						<span aria-hidden="true" class="toggle-switch-bar">
-							<span class="toggle-switch-handle"></span>
-						</span>
-						<span class="toggle-switch-text toggle-switch-text-right">
-							{$option.label}{sp}
-
-							{if $required and length($options) == 1}
-								<svg aria-hidden="true" class="lexicon-icon lexicon-icon-asterisk reference-mark">
-									<use xlink:href="{$pathThemeImages}/lexicon/icons.svg#asterisk" />
-								</svg>
+			{foreach $option in $options}
+				{let $checked kind="attributes"}
+					{if $displayValue}
+						{foreach $currentValue in $displayValue}
+							{if $currentValue == $option.value}
+								checked
 							{/if}
-						</span>
-					</label>
-				</div>
-			{else}
-				<div class="form-check custom-checkbox {$inline ? 'form-check-inline' : 'custom-control'}">
-					<label class="form-check-label-option-{$option.value}"
-						for="{$name}_{$option.value}">
+						{/foreach}
+					{/if}
+				{/let}
 
-						<input {$checked}
-							{if $dir}dir="{$dir}"{/if}
-							{if $readOnly}disabled{/if}
-							class="custom-control-input"
-							id="{$name}_{$option.value}"
-							name="{$name}"
-							type="checkbox"
-							value="{$option.value}" />
+				{if $showAsSwitcher}
+					<div class="lfr-ddm-form-field-checkbox-switch {$inline ? 'lfr-ddm-form-field-checkbox-switch-inline' : ''}">
+						<label class="toggle-switch toggle-switch-option-{$option.value}"
+							for="{$name}_{$option.value}">
 
-						<span class="form-check-description custom-control-label">
-							<span class="custom-control-label-text">
+							<input {$checked}
+								{if $readOnly}disabled{/if}
+								class="toggle-switch-check"
+								id="{$name}_{$option.value}"
+								name="{$name}"
+								type="checkbox"
+								value="{$option.value}" />
+
+							<span aria-hidden="true" class="toggle-switch-bar">
+								<span class="toggle-switch-handle"></span>
+							</span>
+							<span class="toggle-switch-text toggle-switch-text-right">
 								{$option.label}{sp}
 
 								{if $required and length($options) == 1}
@@ -110,16 +83,43 @@
 									</svg>
 								{/if}
 							</span>
-						</span>
-					</label>
-				</div>
-			{/if}
-		{/foreach}
+						</label>
+					</div>
+				{else}
+					<div class="form-check custom-checkbox {$inline ? 'form-check-inline' : 'custom-control'}">
+						<label class="form-check-label-option-{$option.value}"
+							for="{$name}_{$option.value}">
 
-		{if $showLabel}
-			{if $tip}
-				<span class="form-text">{$tip}</span>
+							<input {$checked}
+								{if $dir}dir="{$dir}"{/if}
+								{if $readOnly}disabled{/if}
+								class="custom-control-input"
+								id="{$name}_{$option.value}"
+								name="{$name}"
+								type="checkbox"
+								value="{$option.value}" />
+
+							<span class="form-check-description custom-control-label">
+								<span class="custom-control-label-text">
+									{$option.label}{sp}
+
+									{if $required and length($options) == 1}
+										<svg aria-hidden="true" class="lexicon-icon lexicon-icon-asterisk reference-mark">
+											<use xlink:href="{$pathThemeImages}/lexicon/icons.svg#asterisk" />
+										</svg>
+									{/if}
+								</span>
+							</span>
+						</label>
+					</div>
+				{/if}
+			{/foreach}
+
+			{if $showLabel}
+				{if $tip}
+					<span class="form-text">{$tip}</span>
+				{/if}
 			{/if}
-		{/if}
+		</fieldset>
 	</div>
 {/template}
