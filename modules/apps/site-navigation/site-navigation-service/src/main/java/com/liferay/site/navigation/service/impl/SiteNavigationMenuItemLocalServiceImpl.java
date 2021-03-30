@@ -115,7 +115,6 @@ public class SiteNavigationMenuItemLocalServiceImpl
 				siteNavigationMenuItem.getSiteNavigationMenuId(),
 				siteNavigationMenuItemId);
 
-
 		List<SiteNavigationMenuItem> siblingsSiteNavigationMenuItems =
 			getSiteNavigationMenuItems(
 				siteNavigationMenuItem.getSiteNavigationMenuId(),
