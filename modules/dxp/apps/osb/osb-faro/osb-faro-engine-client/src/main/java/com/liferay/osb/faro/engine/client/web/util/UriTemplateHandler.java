@@ -14,13 +14,10 @@
 
 package com.liferay.osb.faro.engine.client.web.util;
 
-import com.github.fge.uritemplate.URITemplate;
-import com.github.fge.uritemplate.vars.VariableMap;
-import com.github.fge.uritemplate.vars.VariableMapBuilder;
+import com.damnhandy.uri.template.UriTemplate;
 
 import java.net.URI;
 
-import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.web.util.DefaultUriTemplateHandler;
@@ -33,27 +30,11 @@ public class UriTemplateHandler extends DefaultUriTemplateHandler {
 	@Override
 	public URI expand(String uriTemplateString, Map<String, ?> uriVariables) {
 		try {
-			URITemplate uriTemplate = new URITemplate(uriTemplateString);
+			UriTemplate uriTemplate = UriTemplate.fromTemplate(
+				uriTemplateString);
 
-			VariableMapBuilder variableMapBuilder = VariableMap.newBuilder();
-
-			for (Map.Entry<String, ?> entry : uriVariables.entrySet()) {
-				Object value = entry.getValue();
-
-				if (value == null) {
-					continue;
-				}
-
-				if (value instanceof Collection<?>) {
-					variableMapBuilder.addListValue(
-						entry.getKey(), (Collection<?>)value);
-				}
-				else {
-					variableMapBuilder.addScalarValue(entry.getKey(), value);
-				}
-			}
-
-			return uriTemplate.toURI(variableMapBuilder.freeze());
+			return new URI(
+				uriTemplate.expand((Map<String, Object>)uriVariables));
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
