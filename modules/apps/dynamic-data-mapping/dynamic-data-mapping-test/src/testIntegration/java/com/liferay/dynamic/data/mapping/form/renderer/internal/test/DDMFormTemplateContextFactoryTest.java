@@ -20,6 +20,7 @@ import com.liferay.dynamic.data.mapping.form.renderer.DDMFormTemplateContextFact
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -200,11 +201,15 @@ public class DDMFormTemplateContextFactoryTest {
 
 		String value = (String)method.invoke(sanitizedContent);
 
-		Assert.assertTrue(
-			value,
-			value.startsWith(
-				"<label class=\"required-warning\">All fields marked with "));
-		Assert.assertTrue(value, value.endsWith(" are required.</label>"));
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("<p aria-hidden=\"true\" ");
+		sb.append("class=\"h5 required-warning text-secondary\">");
+		sb.append("All fields marked with ");
+
+		Assert.assertTrue(value, value.startsWith(sb.toString()));
+
+		Assert.assertTrue(value, value.endsWith(" are required.</p>"));
 	}
 
 	@Test
