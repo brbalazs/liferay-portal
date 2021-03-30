@@ -5,13 +5,13 @@ import {sub} from 'shared/util/lang';
 
 const TIME_ZONE_COUNTRY_REGEX = /\([^)]+.*/;
 
-interface ITimeZoneAlertModalProps {
+interface ITimeZoneAlertProps {
 	onClose: () => void;
 	stripe: boolean;
 	timeZone: string;
 }
 
-const TimeZoneAlert: React.FC<ITimeZoneAlertModalProps> = ({
+const TimeZoneAlert: React.FC<ITimeZoneAlertProps> = ({
 	onClose,
 	stripe,
 	timeZone

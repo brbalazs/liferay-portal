@@ -86,7 +86,7 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	const removeNotification = notificationId => {
 		API.notifications
 			.readNotification(groupId, notificationId)
-			.then(() => refetch());
+			.then(refetch);
 	};
 
 	const notifications =
