@@ -164,7 +164,7 @@ long formInstanceId = ddmFormDisplayContext.getFormInstanceId();
 								String description = HtmlUtil.escape(formInstance.getDescription(displayLocale));
 								%>
 
-								<c:if test="<%= Validator.isNotNull(description) %>">
+								<c:if test="<%= Validator.isNotNull(description) && Validator.isNotNull(description.trim()) %>">
 									<p class="ddm-form-description h5"><%= description %></p>
 								</c:if>
 							</div>
