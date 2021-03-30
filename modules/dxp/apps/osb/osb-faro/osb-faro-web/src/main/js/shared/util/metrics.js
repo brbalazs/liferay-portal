@@ -140,6 +140,44 @@ export const getMetricsData = (
 
 		const compositeData = compositeMetrics
 			? {
+					compositeContent: compositeMetrics.reduce(
+						(
+							acc,
+							{
+								name: compositeMetricName,
+								title: compositeMetricTitle,
+								type: compositeMetricType
+							}
+						) => {
+							acc[compositeMetricName] = {
+								details: {
+									color: getStatsColor(
+										result[compositeMetricName].trend
+											.trendClassification
+									),
+									icon: getIcon(
+										result[compositeMetricName].trend
+											.percentage
+									),
+									label: `${toRounded(
+										Math.abs(
+											result[compositeMetricName].trend
+												.percentage
+										)
+									)}%`
+								},
+								name: compositeMetricName,
+								title: compositeMetricTitle,
+								type: compositeMetricType,
+								value: metricFormatter(
+									result[compositeMetricName].value
+								)
+							};
+
+							return acc;
+						},
+						{}
+					),
 					compositeData: compositeMetrics.reduce(
 						(acc, {name: compositeMetricName}) => {
 							acc[compositeMetricName] =

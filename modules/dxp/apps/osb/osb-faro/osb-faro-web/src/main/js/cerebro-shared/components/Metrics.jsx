@@ -27,7 +27,7 @@ import {
 	YAxis
 } from 'recharts';
 import {find, get, last} from 'lodash';
-import {formatXAxisDate} from 'shared/util/charts';
+import {formatXAxisDate, getMetricFormatter} from 'shared/util/charts';
 import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
 import {LAST_24_HOURS, YESTERDAY} from 'shared/util/constants';
@@ -244,6 +244,7 @@ export default class MainMetrics extends React.Component {
 
 		const {
 			chartData,
+			compositeContent,
 			content: {name, title},
 			dateKeysIMap,
 			format,
@@ -363,6 +364,34 @@ export default class MainMetrics extends React.Component {
 
 					<Legend
 						align='right'
+						formatter={(label, {dataKey}) => {
+							if (
+								compositeContent &&
+								dataKey !== 'data_previous'
+							) {
+								const {dataName} = barData.find(
+									({id}) => id === dataKey
+								);
+
+								const {type, value} = compositeContent[
+									dataName
+								];
+
+								const formatMetric = getMetricFormatter(type);
+
+								const total = formatMetric(Number(value));
+
+								return (
+									<>
+										{`${label}:`}
+
+										<b className='ml-1'>{total}</b>
+									</>
+								);
+							}
+
+							return label;
+						}}
 						iconSize={8}
 						onMouseEnter={({dataKey}) =>
 							this.setState({hoveredLegendItem: dataKey})
