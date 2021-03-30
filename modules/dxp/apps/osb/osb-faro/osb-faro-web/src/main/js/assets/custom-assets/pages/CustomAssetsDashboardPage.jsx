@@ -131,7 +131,7 @@ class CustomAssetsDashboardPage extends React.Component {
 			state: {definition}
 		} = this;
 
-		const itemExcluded = definition.rows[id];
+		const excludedItem = definition.rows[id];
 		const rows = definition.rows.filter((item, index) => index !== id);
 
 		mutate({
@@ -158,7 +158,7 @@ class CustomAssetsDashboardPage extends React.Component {
 							Liferay.Language.get(
 								'x-has-been-deleted-from-this-dashboard'
 							),
-							[itemExcluded.panels[0].title]
+							[excludedItem.panels[0].title]
 						)
 					});
 				}

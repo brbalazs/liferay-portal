@@ -41,6 +41,7 @@ const Chart = props => {
 				showPrevious={showPrevious}
 				{...props}
 			/>
+
 			<div className='d-flex justify-content-end'>
 				<Button
 					aria-label={Liferay.Language.get('delete')}
