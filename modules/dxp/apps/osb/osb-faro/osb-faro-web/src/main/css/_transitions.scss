@@ -1,6 +1,59 @@
 $slideUpDuration: 150ms;
 $slideUpLength: 8px;
 
+/* ---------- Carousel group ---------- */
+
+.transition-carousel-group {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+/* ---------- Carousel left ---------- */
+
+.transition-carousel-left-enter {
+	flex-shrink: 0;
+	transform: translateX(100%);
+}
+
+.transition-carousel-left-enter-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+.transition-carousel-left-exit {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-left-exit-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+/* ---------- Carousel right ---------- */
+
+.transition-carousel-right-enter {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-right-enter-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+.transition-carousel-right-exit {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-right-exit-active {
+	transform: translateX(-200%);
+	transition: transform 250ms ease-in-out;
+}
+
 /* ---------- Fade in & out ---------- */
 
 .transition-fade-in-out-enter {

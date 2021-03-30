@@ -14,6 +14,7 @@ import {Attribute, AttributeTypes, Filter} from 'event-analysis/utils/types';
 import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {Modal} from 'shared/types';
 import {NAME} from 'shared/util/pagination';
 import {SafeResults} from 'shared/hoc/util';
@@ -80,116 +81,135 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 			trigger={trigger}
 		>
 			{({setActive}) => (
-				<>
+				<TransitionGroup className='transition-carousel-group'>
 					{!selectedAttribute && (
-						<>
-							<BaseDropdown.Header
-								activeTabId={attributeType}
-								tabs={[
-									{
-										onClick: () =>
-											setAttributeType(
-												AttributeTypes.Event
-											),
-										tabId: AttributeTypes.Event,
-										title: Liferay.Language.get('event')
-									}
-								]}
-								title={Liferay.Language.get('attributes')}
-							/>
+						<CSSTransition
+							classNames='transition-carousel-right'
+							timeout={250}
+						>
+							<div className='d-flex flex-column'>
+								<BaseDropdown.Header
+									activeTabId={attributeType}
+									tabs={[
+										{
+											onClick: () =>
+												setAttributeType(
+													AttributeTypes.Event
+												),
+											tabId: AttributeTypes.Event,
+											title: Liferay.Language.get('event')
+										}
+									]}
+									title={Liferay.Language.get('attributes')}
+								/>
 
-							<SafeResults
-								page={false}
-								pageDisplay={false}
-								{...result}
-							>
-								{({
-									eventAttributeDefinitions: {
-										eventAttributeDefinitions
-									}
-								}: {
-									eventAttributeDefinitions: {
-										eventAttributeDefinitions: Attribute[];
-									};
-								}) => (
-									<BaseDropdown.SearchableList
-										activeId={oldAttributeId}
-										disabledIds={disabledIds}
-										items={eventAttributeDefinitions}
-										onEditClick={(attribute: Attribute) => {
-											open(
-												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-												{
-													id: attribute.id,
-													mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-													onCancel: close,
-													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
-													showTypecast: true
-												}
-											);
+								<SafeResults
+									page={false}
+									pageDisplay={false}
+									{...result}
+								>
+									{({
+										eventAttributeDefinitions: {
+											eventAttributeDefinitions
+										}
+									}: {
+										eventAttributeDefinitions: {
+											eventAttributeDefinitions: Attribute[];
+										};
+									}) => (
+										<BaseDropdown.SearchableList
+											activeId={oldAttributeId}
+											disabledIds={disabledIds}
+											items={eventAttributeDefinitions}
+											onEditClick={(
+												attribute: Attribute
+											) => {
+												open(
+													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+													{
+														id: attribute.id,
+														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+														onCancel: close,
+														query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+														showTypecast: true
+													}
+												);
 
-											setActive(false);
-										}}
-										onItemClick={(attribute: Attribute) => {
-											const {
-												dataType,
-												id: attributeId
-											} = attribute;
+												setActive(false);
+											}}
+											onItemClick={(
+												attribute: Attribute
+											) => {
+												const {
+													dataType,
+													id: attributeId
+												} = attribute;
 
-											const breakdownFn =
-												BREAKDOWN_FNS_MAP[dataType];
+												const breakdownFn =
+													BREAKDOWN_FNS_MAP[dataType];
 
-											onAttributeSelect({
-												attribute,
-												attributeId,
-												breakdown: breakdownFn({
+												onAttributeSelect({
+													attribute,
 													attributeId,
-													type: attributeType
-												}),
-												oldAttributeId
-											});
+													breakdown: breakdownFn({
+														attributeId,
+														type: attributeType
+													}),
+													oldAttributeId
+												});
 
-											setActive(false);
-										}}
-										onItemFilterClick={setSelectedAttribute}
-										onQueryChange={setQuery}
-										query={query}
-									/>
-								)}
-							</SafeResults>
-						</>
+												setActive(false);
+											}}
+											onItemFilterClick={
+												setSelectedAttribute
+											}
+											onQueryChange={setQuery}
+											query={query}
+										/>
+									)}
+								</SafeResults>
+							</div>
+						</CSSTransition>
 					)}
 
 					{selectedAttribute && (
-						<AttributeFilter
-							attribute={selectedAttribute}
-							attributeType={attributeType}
-							oldAttributeId={oldAttributeId}
-							onActiveChange={setActive}
-							onAttributeChange={params => {
-								setSelectedAttribute(params);
-							}}
-							onEditClick={
-								selectedAttribute.id === oldAttributeId
-									? null
-									: () => {
-											open(
-												modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-												{
-													id: selectedAttribute.id,
-													mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-													onCancel: close,
-													query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
-													showTypecast: true
-												}
-											);
+						<CSSTransition
+							classNames='transition-carousel-left'
+							timeout={250}
+						>
+							<div className='w-100'>
+								<AttributeFilter
+									attribute={selectedAttribute}
+									attributeType={attributeType}
+									oldAttributeId={oldAttributeId}
+									onActiveChange={setActive}
+									onAttributeChange={params => {
+										setSelectedAttribute(params);
+									}}
+									onEditClick={
+										selectedAttribute.id === oldAttributeId
+											? null
+											: () => {
+													open(
+														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+														{
+															id:
+																selectedAttribute.id,
+															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+															onCancel: close,
+															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+															showTypecast: true
+														}
+													);
 
-											setActive(false);
-									  }
-							}
-						/>
+													setActive(false);
+											  }
+									}
+								/>
+							</div>
+						</CSSTransition>
 					)}
-				</>
+				</TransitionGroup>
 			)}
 		</BaseDropdown>
 	);
