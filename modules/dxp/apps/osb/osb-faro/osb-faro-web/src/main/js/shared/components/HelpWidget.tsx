@@ -1,12 +1,12 @@
 import Button from 'shared/components/Button';
 import React from 'react';
 
-const HelperWidget = () => (
-	<div className='helper-widget-wrapper'>
+const HelpWidget = () => (
+	<div className='help-widget-wrapper'>
 		<Button
 			aria-label={Liferay.Language.get('help')}
 			borderless
-			className='helper-button'
+			className='help-button'
 			display='defaut'
 			icon='ac-question-mark'
 			iconAlignment='right'
@@ -15,4 +15,4 @@ const HelperWidget = () => (
 	</div>
 );
 
-export default HelperWidget;
+export default HelpWidget;

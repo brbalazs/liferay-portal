@@ -1,4 +1,4 @@
-import HelperWidget from 'shared/components/HelperWidget';
+import HelpWidget from 'shared/components/HelpWidget';
 import React from 'react';
 import {Modal} from 'shared/types';
 
@@ -17,7 +17,8 @@ const withHelpWidget = (
 ) => props => (
 	<>
 		<WrappedComponent {...props} />
-		<HelperWidget />
+
+		<HelpWidget />
 	</>
 );
 

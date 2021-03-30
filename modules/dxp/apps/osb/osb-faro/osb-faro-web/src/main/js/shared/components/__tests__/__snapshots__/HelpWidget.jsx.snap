@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HelperWidget should render 1`] = `
+exports[`HelpWidget should render 1`] = `
 <div>
   <div
-    class="helper-widget-wrapper"
+    class="help-widget-wrapper"
   >
     <button
       aria-label="Help"
-      class="button-root btn btn-defaut helper-button btn-outline-borderless btn-sm"
+      class="button-root btn btn-defaut help-button btn-outline-borderless btn-sm"
       type="button"
     >
       <svg
