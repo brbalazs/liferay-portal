@@ -412,12 +412,13 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public String addProject(FaroProject faroProject) throws Exception {
-
 		String projectId =
 			"asah" +
 				StringUtil.replace(
 					String.valueOf(UUID.randomUUID()), CharPool.DASH,
 					StringPool.BLANK);
+
+		faroProject.setWeDeployKey(projectId);
 
 		post(
 			faroProject, Collections.emptyMap(), "/projects",
