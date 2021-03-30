@@ -61,7 +61,6 @@ import com.liferay.osb.faro.engine.client.model.StringPagedResources;
 import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
 import com.liferay.osb.faro.engine.client.model.provider.SalesforceProvider;
-import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.engine.client.util.FilterBuilder;
 import com.liferay.osb.faro.engine.client.util.FilterConstants;
 import com.liferay.osb.faro.engine.client.util.FilterUtil;
@@ -413,7 +412,6 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public String addProject(FaroProject faroProject) throws Exception {
-		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		String projectId =
 			"asah" +
@@ -421,9 +419,9 @@ public class ContactsEngineClientImpl
 					String.valueOf(UUID.randomUUID()), CharPool.DASH,
 					StringPool.BLANK);
 
-		restTemplate.postForEntity(
-			EngineServiceURLUtil.getBackendURL(faroProject, "/projects"),
-			new AsahProject(projectId), Void.class);
+		post(
+			faroProject, Collections.emptyMap(), "/projects",
+			Collections.emptyMap(), new AsahProject(projectId), Void.class);
 
 		return projectId;
 	}
