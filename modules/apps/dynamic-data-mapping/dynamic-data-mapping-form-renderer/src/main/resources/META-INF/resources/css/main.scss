@@ -80,10 +80,30 @@ body .ddm-user-view-content {
 		margin-bottom: 25px;
 		padding-left: 32px;
 
+		.reference-mark {
+			color: #B95000;
+			font-size: 6px;
+		}
+
 		.icon-asterisk {
 			margin-left: 4px;
 		}
 	}
+
+	.lfr-ddm-legend {
+		color: #272833;
+		font-size: 0.875rem;
+		font-weight: 600;
+		margin-bottom: 0.25rem;
+		max-width: 100%;
+		word-wrap: break-word;
+
+		.reference-mark {
+			color: rgb(185, 80, 0);
+			font-size: 6px;
+		}
+	}
+
 
 	.select-arrow-down-container:focus {
 		outline: none;

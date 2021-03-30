@@ -176,3 +176,30 @@
 	left: -13px;
 	top: 32px;
 }
+
+.form-builder-content {
+	.form-builder-pages-header {
+		.required-warning {
+			.reference-mark {
+				color: #B95000;
+				font-size: 6px;
+			}
+		}
+	}
+
+	.form-builder-layout {
+		.lfr-ddm-legend {
+			color: #272833;
+			font-size: 0.875rem;
+			font-weight: 600;
+			margin-bottom: 0.25rem;
+			max-width: 100%;
+			word-wrap: break-word;
+
+			.reference-mark {
+				color: rgb(185, 80, 0);
+				font-size: 6px;
+			}
+		}
+	}
+}
