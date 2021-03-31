@@ -132,7 +132,7 @@ class CustomAssetsDashboardPage extends React.Component {
 		} = this;
 
 		const excludedItem = definition.rows[id];
-		const previousDefition = {...definition};
+		const previousDefinition = {...definition};
 		const rows = definition.rows.filter((item, index) => index !== id);
 
 		this.setState({definition: {rows}});
@@ -167,7 +167,7 @@ class CustomAssetsDashboardPage extends React.Component {
 				}
 			)
 			.catch(() => {
-				this.setState({definition: previousDefition});
+				this.setState({definition: previousDefinition});
 
 				addAlert({
 					alertType: alertTypes.ERROR,
