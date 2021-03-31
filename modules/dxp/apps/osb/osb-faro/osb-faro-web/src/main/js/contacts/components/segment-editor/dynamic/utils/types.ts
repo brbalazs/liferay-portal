@@ -56,6 +56,7 @@ export interface ISegmentEditorInputBase {
 	className?: string;
 	displayValue?: string;
 	groupId?: string;
+	id?: string;
 	onChange: (params: Criterion | Criterion[]) => void;
 	operatorRenderer?: React.ElementType;
 	property?: Property;

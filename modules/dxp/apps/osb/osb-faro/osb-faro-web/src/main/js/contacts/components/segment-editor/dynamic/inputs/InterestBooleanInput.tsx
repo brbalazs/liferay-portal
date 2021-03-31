@@ -7,6 +7,20 @@ import {INTEREST_BOOLEAN_OPTIONS} from '../utils/constants';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
 
 export default class InterestBooleanInput extends React.Component<ISegmentEditorCustomInputBase> {
+	componentDidMount() {
+		const {
+			id,
+			property: {entityName, type}
+		} = this.props;
+
+		if (!id) {
+			analytics.track('Dynamic Segment Creation - Completed Attribute', {
+				entityName,
+				type
+			});
+		}
+	}
+
 	@autobind
 	handleChange(event) {
 		const {onChange, value} = this.props;

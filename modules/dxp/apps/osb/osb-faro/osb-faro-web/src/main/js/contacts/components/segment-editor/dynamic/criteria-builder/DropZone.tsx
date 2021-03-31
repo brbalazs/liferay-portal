@@ -83,11 +83,21 @@ const drop = (
 	const {
 		criteriaGroupId: startGroupId,
 		criterion,
+		id,
 		index: startIndex,
 		property
 	} = monitor.getItem();
 
 	const itemType = monitor.getItemType();
+
+	if (itemType === DragTypes.Property && !id) {
+		const {entityName, type} = property;
+
+		analytics.track('Dynamic Segment Creation - Added Attribute', {
+			entityName,
+			type
+		});
+	}
 
 	if (property) {
 		addProperty(property);

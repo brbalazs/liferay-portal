@@ -80,7 +80,7 @@ type FormValues = {
 interface ISegmentEditorProps {
 	channelId: string;
 	groupId: string;
-	id: string;
+	id?: string;
 	onSubmit: (
 		form: FormValues,
 		ref: React.Ref<Formik>,
@@ -258,6 +258,7 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 																groupId={
 																	groupId
 																}
+																id={id}
 																name='criteria'
 																validate={
 																	validateSegmentEditor

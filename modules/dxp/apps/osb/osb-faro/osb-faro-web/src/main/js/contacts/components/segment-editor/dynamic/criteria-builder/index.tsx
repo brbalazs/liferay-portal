@@ -9,6 +9,7 @@ interface ICriteriaBuilderProps {
 	channelId: string;
 	criteria: CriterionGroup;
 	groupId: string;
+	id?: string;
 	onChange: (items: Criteria) => void;
 }
 
@@ -153,7 +154,7 @@ class CriteriaBuilder extends React.Component<ICriteriaBuilderProps> {
 	}
 
 	render() {
-		const {channelId, criteria, groupId} = this.props;
+		const {channelId, criteria, groupId, id} = this.props;
 
 		return (
 			<div className='criteria-builder-root'>
@@ -162,6 +163,7 @@ class CriteriaBuilder extends React.Component<ICriteriaBuilderProps> {
 					criteria={criteria}
 					criteriaGroupId={criteria && criteria.criteriaGroupId}
 					groupId={groupId}
+					id={id}
 					onChange={this.handleCriteriaChange}
 					onMove={this.handleCriterionMove}
 					root

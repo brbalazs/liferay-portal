@@ -5,6 +5,7 @@ import {ISegmentEditorCustomInputBase} from '../utils/types';
 
 const CustomBooleanInput: React.FC<ISegmentEditorCustomInputBase> = ({
 	displayValue,
+	id,
 	onChange,
 	operatorRenderer,
 	property,
@@ -16,6 +17,7 @@ const CustomBooleanInput: React.FC<ISegmentEditorCustomInputBase> = ({
 	return (
 		<BooleanInput
 			displayValue={displayValue}
+			id={id}
 			onChange={handleChange}
 			operatorRenderer={operatorRenderer}
 			property={property}

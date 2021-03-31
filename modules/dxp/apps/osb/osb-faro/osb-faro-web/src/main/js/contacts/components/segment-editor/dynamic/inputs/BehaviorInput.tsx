@@ -98,12 +98,27 @@ interface IBehaviorInputProps extends ISegmentEditorCustomInputBase {
 export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 	static contextType = ReferencedObjectsContext;
 
-	componentDidMount() {
-		this.validateAsset();
-	}
+	_completedAnalytics = false;
 
 	componentDidUpdate() {
+		const {
+			id,
+			property: {entityName, type},
+			valid: {asset, dateFilter, occurenceCount}
+		} = this.props;
+
 		this.validateAsset();
+
+		const valid = asset && dateFilter && occurenceCount;
+
+		if (!id && valid && !this._completedAnalytics) {
+			this._completedAnalytics = true;
+
+			analytics.track('Dynamic Segment Creation - Completed Attribute', {
+				entityName,
+				type
+			});
+		}
 	}
 
 	@autobind

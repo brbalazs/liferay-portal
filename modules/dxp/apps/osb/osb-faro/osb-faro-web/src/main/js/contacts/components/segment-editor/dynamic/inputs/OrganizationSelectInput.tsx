@@ -1,7 +1,7 @@
 import Constants from 'shared/util/constants';
 import CustomSelectEntityInput from './components/CustomSelectEntityInput';
 import OrganizationsQuery from '../queries/OrganizationsQuery';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {EntityType} from '../context/referencedObjects';
 import {
 	getMapResultToProps,
@@ -21,28 +21,50 @@ interface IOrganizationSelectProps extends ISegmentEditorCustomInputBase {
 }
 
 const OrganizationSelectInput: React.FC<IOrganizationSelectProps> = ({
+	id,
+	property,
+	valid,
 	...otherProps
-}) => (
-	<CustomSelectEntityInput
-		className='organization-select-input-root'
-		columns={organizationsListColumns}
-		entityLabel={Liferay.Language.get('organizations')}
-		entityType={EntityType.Organizations}
-		graphqlProps={{
-			graphqlQuery: OrganizationsQuery,
-			mapPropsToOptions,
-			mapResultToProps: getMapResultToProps('organizations')
-		}}
-		orderBy={orderAscending}
-		orderByField={NAME}
-		orderByOptions={[
-			{
-				label: Liferay.Language.get('name'),
-				value: NAME
-			}
-		]}
-		{...otherProps}
-	/>
-);
+}) => {
+	let _completedAnalytics = false;
+
+	const {entityName, type} = property;
+
+	useEffect(() => {
+		if (!id && valid && !_completedAnalytics) {
+			_completedAnalytics = true;
+
+			analytics.track('Dynamic Segment Creation - Completed Attribute', {
+				entityName,
+				type
+			});
+		}
+	});
+
+	return (
+		<CustomSelectEntityInput
+			className='organization-select-input-root'
+			columns={organizationsListColumns}
+			entityLabel={Liferay.Language.get('organizations')}
+			entityType={EntityType.Organizations}
+			graphqlProps={{
+				graphqlQuery: OrganizationsQuery,
+				mapPropsToOptions,
+				mapResultToProps: getMapResultToProps('organizations')
+			}}
+			orderBy={orderAscending}
+			orderByField={NAME}
+			orderByOptions={[
+				{
+					label: Liferay.Language.get('name'),
+					value: NAME
+				}
+			]}
+			property={property}
+			valid={valid}
+			{...otherProps}
+		/>
+	);
+};
 
 export default OrganizationSelectInput;

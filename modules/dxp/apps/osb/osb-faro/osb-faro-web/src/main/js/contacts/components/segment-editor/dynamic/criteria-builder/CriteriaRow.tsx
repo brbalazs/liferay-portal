@@ -181,6 +181,7 @@ interface ICriteriaRowProps {
 	criterion: Criterion;
 	dragging?: boolean;
 	groupId: string;
+	id?: string;
 	hover?: boolean;
 	index: number;
 	onAdd: (index: number, criterion: Criterion) => void;
@@ -369,7 +370,7 @@ class CriteriaRow extends React.Component<
 
 	renderValueInput() {
 		const {
-			props: {channelId, criterion, groupId, timeZoneId},
+			props: {channelId, criterion, groupId, id, timeZoneId},
 			state: {selectedProperty}
 		} = this;
 
@@ -408,6 +409,7 @@ class CriteriaRow extends React.Component<
 				channelId={channelId}
 				displayValue={label || ''}
 				groupId={groupId}
+				id={id}
 				onChange={this.handleTypedInputChange}
 				operatorRenderer={this.renderOperator}
 				options={options}

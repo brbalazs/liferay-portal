@@ -78,6 +78,7 @@ interface ICriteriaGroupProps {
 	criteriaGroupId: string;
 	dragging?: boolean;
 	groupId: string;
+	id?: string;
 	index?: number;
 	onChange: (newCriterionGroup: CriterionGroup) => void;
 	onMove: OnMove;
@@ -206,7 +207,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 	}
 
 	renderConjunction(index) {
-		const {criteria, criteriaGroupId, onMove} = this.props;
+		const {criteria, criteriaGroupId, id, onMove} = this.props;
 
 		return (
 			<>
@@ -214,6 +215,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 					before
 					criteriaGroupId={criteriaGroupId}
 					dropIndex={index}
+					id={id}
 					onCriterionAdd={this.handleCriterionAdd}
 					onMove={onMove}
 				/>
@@ -226,6 +228,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 				<DropZone
 					criteriaGroupId={criteriaGroupId}
 					dropIndex={index}
+					id={id}
 					onCriterionAdd={this.handleCriterionAdd}
 					onMove={onMove}
 				/>
@@ -234,7 +237,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 	}
 
 	renderCriterion(criterion, index) {
-		const {channelId, criteriaGroupId, groupId, onMove} = this.props;
+		const {channelId, criteriaGroupId, groupId, id, onMove} = this.props;
 
 		const criterionGroup = isCriterionGroup(criterion);
 
@@ -252,6 +255,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 						criteria={criterion}
 						criteriaGroupId={criterion.criteriaGroupId}
 						groupId={groupId}
+						id={id}
 						index={index}
 						onChange={this.handleCriterionChange(index)}
 						onMove={onMove}
@@ -263,6 +267,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 						criteriaGroupId={criteriaGroupId}
 						criterion={criterion}
 						groupId={groupId}
+						id={id}
 						index={index}
 						onAdd={this.handleCriterionAdd}
 						onChange={this.handleCriterionChange(index)}
@@ -274,6 +279,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 				<DropZone
 					criteriaGroupId={criteriaGroupId}
 					dropIndex={index + 1}
+					id={id}
 					onCriterionAdd={this.handleCriterionAdd}
 					onMove={onMove}
 				/>
@@ -288,6 +294,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 			criteria,
 			criteriaGroupId,
 			dragging,
+			id,
 			onMove,
 			root
 		} = this.props;
@@ -307,12 +314,16 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 		return connectDragPreview(
 			<div className={classes}>
 				{this.isCriteriaEmpty() ? (
-					<EmptyDropZone onCriterionAdd={this.handleCriterionAdd} />
+					<EmptyDropZone
+						id={id}
+						onCriterionAdd={this.handleCriterionAdd}
+					/>
 				) : (
 					<>
 						<DropZone
 							criteriaGroupId={criteriaGroupId}
 							dropIndex={0}
+							id={id}
 							onCriterionAdd={this.handleCriterionAdd}
 							onMove={onMove}
 						/>

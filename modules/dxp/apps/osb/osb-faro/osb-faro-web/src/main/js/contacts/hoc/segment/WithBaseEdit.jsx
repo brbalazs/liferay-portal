@@ -159,12 +159,13 @@ export default WrappedComponent => {
 							: segment;
 
 						analytics.track(
-							'Segment Created',
+							`${segmentType[0]}${segmentType
+								.slice(1)
+								.toLowerCase()} Segment Creation - Saved`,
 							{
 								channelId,
 								createDelta: Date.now() - this._startDate,
-								segmentId: id,
-								segmentType
+								segmentId: id
 							},
 							{ip: '0'}
 						);
