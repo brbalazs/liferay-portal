@@ -134,9 +134,9 @@ const updateChart = (chartElement, props) => {
 
 			tooltip.html(renderTooltip(d));
 
-			const {width: widthRect, x: pageXRect} = d3
-				.select(nodes[i])
-				._groups[0][0].getBoundingClientRect();
+			const {width: widthRect, x: pageXRect} = nodes[
+				i
+			].getBoundingClientRect();
 
 			const {
 				width: widthTooltip
