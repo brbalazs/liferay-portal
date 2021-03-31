@@ -132,7 +132,10 @@ class CustomAssetsDashboardPage extends React.Component {
 		} = this;
 
 		const excludedItem = definition.rows[id];
+		const previousDefition = {...definition};
 		const rows = definition.rows.filter((item, index) => index !== id);
+
+		this.setState({definition: {rows}});
 
 		mutate({
 			variables: {
@@ -163,12 +166,16 @@ class CustomAssetsDashboardPage extends React.Component {
 					});
 				}
 			)
-			.catch(() =>
+			.catch(() => {
+				this.setState({definition: previousDefition});
+
 				addAlert({
 					alertType: alertTypes.ERROR,
-					message: Liferay.Language.get('error')
-				})
-			);
+					message: Liferay.Language.get(
+						'an-unexpected-error-occurred'
+					)
+				});
+			});
 	}
 
 	@autobind
