@@ -56,7 +56,8 @@ public class StreamUtil {
 
 		Stream<T> stream = values.stream();
 
-		return stream.collect(Collectors.toMap(keyMapper, valueMapper));
+		return stream.collect(
+			Collectors.toMap(keyMapper, valueMapper, (key1, key2) -> key1));
 	}
 
 	public static <T, R> Map<String, R> toMap(
@@ -68,7 +69,7 @@ public class StreamUtil {
 		return stream.filter(
 			filter
 		).collect(
-			Collectors.toMap(keyMapper, valueMapper)
+			Collectors.toMap(keyMapper, valueMapper, (key1, key2) -> key1)
 		);
 	}
 
