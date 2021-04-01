@@ -47,7 +47,7 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 					<td>
 						<MetricBar
 							barClassName={getCN({
-								dots: isPreviousValue
+								lines: isPreviousValue
 							})}
 							barStyle={style}
 							className='breakdown-table-bar'

@@ -71,21 +71,20 @@
 			justify-content: flex-start;
 	
 			.bar {
-				border-radius: 0 4px 4px 0;
+				border-radius: 0;
 			}
-			.dots {
-				background-image: radial-gradient(
-						circle,
-						rgba(0, 0, 0, 0.2) 21%,
-						transparent 21%
-					),
-					radial-gradient(
-						circle,
-						rgba(0, 0, 0, 0.2) 21%,
-						transparent 21%
-					);
-				background-position: -4px -4px, 4px 4px;
-				background-size: 16px;
+
+			.lines {
+				background-image: linear-gradient(
+					135deg, 
+					rgba(0,0,0,0.2) 5%,
+					rgba(0,0,0,0) 5%,
+					rgba(0,0,0,0) 50%,
+					rgba(0,0,0,0.2) 50%,
+					rgba(0,0,0,0.2) 55%,
+					rgba(0,0,0,0) 55%,
+					rgba(0,0,0,0) 100%);
+				background-size: 10px 10px;
 			}
 	
 			.info-wrapper {
