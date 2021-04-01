@@ -211,7 +211,7 @@ definition {
 			idpKeepAliveURL = "http://localhost:8080/c/portal/saml/keep_alive",
 			samlEntityID = "samlsp2",
 			spKeepAliveURL = "http://www.baker.com:9080/c/portal/saml/keep_alive",
-			spURL = "http://www.baker.com:10080"
+			spURL = "http://www.baker.com:9080"
 		);
 
 		User.logoutPG();
@@ -1336,8 +1336,6 @@ definition {
 
 	@priority = "4"
 	test ViewSPInitiatedSSOWithMultipleIdPsAndAssertRenderLoginPortletWithoutIdpsMatched {
-		property app.server.bundles.size = "1";
-		property databases.size = "1";
 		property test.name.skip.portal.instance = "SAML#ViewSPInitiatedSSOWithMultipleIdPsAndAssertRenderLoginPortletWithoutIdpsMatched";
 
 		ProductMenu.gotoPortlet(
@@ -1480,7 +1478,7 @@ definition {
 			locator1 = "CPSAMLAdmin#INFO_MESSAGE",
 			value1 = "You must configure at least one identity provider connection for SAML to function.");
 
-		User.logoutPG(specificURL = "http://www.baker.com:10080");
+		User.logoutPG(specificURL = "http://www.baker.com:9080");
 
 		User.viewLoggedOutPG();
 
