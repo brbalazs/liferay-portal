@@ -74,6 +74,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 			if (value !== dataMapper(result.data).displayName) {
 				return client
 					.query({
+						fetchPolicy: 'no-cache',
 						query,
 						variables: {displayName: value.trim()}
 					})
