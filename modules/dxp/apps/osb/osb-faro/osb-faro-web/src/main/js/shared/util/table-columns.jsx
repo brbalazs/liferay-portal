@@ -167,11 +167,11 @@ export const attributeListColumns = {
 					groupId
 				})
 		},
-		label: Liferay.Language.get('attribute')
+		label: Liferay.Language.get('attribute-name')
 	}),
 	name: {
 		accessor: 'name',
-		label: Liferay.Language.get('attribute')
+		label: Liferay.Language.get('attribute-name')
 	},
 	sampleValue: {
 		accessor: 'sampleValue',
