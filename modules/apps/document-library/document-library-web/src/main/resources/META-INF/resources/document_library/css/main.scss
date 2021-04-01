@@ -2,6 +2,10 @@
 @import "mixins";
 
 .portlet-document-library, .portlet-document-library-display {
+	.file-entry-type-fields .CodeMirror {
+		height: 100%;
+	}
+
 	.file-entry-list-description {
 		font-style: italic;
 		margin-left: 10px;
