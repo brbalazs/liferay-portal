@@ -1121,6 +1121,7 @@ definition {
 
 	@priority = "4"
 	test ViewSingleLogoutAndForceAuthWithMultipleSPs {
+		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "SAML#ViewSingleLogoutAndForceAuthWithMultipleSPs";
 
 		User.logoutAndLoginPG(
