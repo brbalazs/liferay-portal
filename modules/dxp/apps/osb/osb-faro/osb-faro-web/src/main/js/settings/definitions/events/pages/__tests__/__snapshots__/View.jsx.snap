@@ -39,7 +39,9 @@ exports[`Event View page should render 1`] = `
       >
         <span
           class="breadcrumb-text-truncate"
-        />
+        >
+          name-0
+        </span>
       </li>
     </ol>
     <div
@@ -144,7 +146,7 @@ exports[`Event View page should render 1`] = `
                 <th
                   class="table-head-title"
                 >
-                  Attribute
+                  Attribute Name
                 </th>
                 <th
                   class="table-head-title"

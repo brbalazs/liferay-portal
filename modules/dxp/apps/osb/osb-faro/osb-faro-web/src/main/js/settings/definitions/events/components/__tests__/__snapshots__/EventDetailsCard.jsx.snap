@@ -77,7 +77,7 @@ exports[`EventDetailsCard should render 1`] = `
             <th
               class="table-head-title"
             >
-              Attribute
+              Attribute Name
             </th>
             <th
               class="table-head-title"

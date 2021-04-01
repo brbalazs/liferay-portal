@@ -73,7 +73,7 @@ exports[`AttributeList should render 1`] = `
               <span
                 class="text-truncate"
               >
-                Attribute
+                Attribute Name
               </span>
               <span
                 class="inline-item inline-item-after"

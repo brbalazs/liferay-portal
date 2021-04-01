@@ -137,7 +137,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <th
-                  class="table-head-title table-cell-expand"
+                  class="table-head-title"
                 >
                   <a
                     class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -188,7 +188,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="name-cell-root"
                 >
                   <div
                     class="content-container"
@@ -217,7 +217,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="name-cell-root"
                 >
                   <div
                     class="content-container"
@@ -246,7 +246,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="name-cell-root"
                 >
                   <div
                     class="content-container"
@@ -275,7 +275,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="name-cell-root"
                 >
                   <div
                     class="content-container"
@@ -304,7 +304,7 @@ exports[`BlockList should render 1`] = `
                 class=""
               >
                 <td
-                  class="name-cell-root table-cell-expand"
+                  class="name-cell-root"
                 >
                   <div
                     class="content-container"
