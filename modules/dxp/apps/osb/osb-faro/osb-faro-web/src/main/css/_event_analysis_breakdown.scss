@@ -93,6 +93,12 @@
 		}
 	}
 
+	.breakdown-category {
+		display: block;
+		text-transform: uppercase;
+		font-size: 10px;
+	}
+
 	.percentage-column {
 		list-style: none;
 		margin-bottom: 0;
@@ -130,10 +136,20 @@
 			width: unset;
 		}
 
+		td:first-child, th:first-child {
+			padding-left: 16px;
+		}
+		
+		td:last-child, th:last-child {
+			padding-right: 16px;
+		}
+
 		th {
 			border-left-width: 0;
 			border-right-width: 0;
 			font-weight: $fontWeightRegular;
+			padding: 8px 16px;
+			vertical-align: middle;
 		}
 
 		th:first-child {

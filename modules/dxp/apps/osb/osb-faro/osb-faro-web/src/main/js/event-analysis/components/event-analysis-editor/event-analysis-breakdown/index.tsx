@@ -80,6 +80,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 		const columns = getColumns({
 			attributes,
+			breakdowns,
 			compareToPrevious,
 			event,
 			highestValue,
@@ -118,6 +119,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 const getColumns = ({
 	attributes,
+	breakdowns,
 	compareToPrevious,
 	event,
 	highestValue,
@@ -145,7 +147,14 @@ const getColumns = ({
 				</td>
 			);
 		},
-		label: attributes[id].displayName
+		label: (
+			<div>
+				<span className='breakdown-category'>
+					{breakdowns[id].type}
+				</span>
+				{attributes[id].displayName || attributes[id].name}
+			</div>
+		)
 	}));
 
 	columns.push({
@@ -172,7 +181,9 @@ const getColumns = ({
 				/>
 			</td>
 		),
-		label: sub(Liferay.Language.get('percent-of-x'), [event.displayName])
+		label: sub(Liferay.Language.get('percent-of-x'), [
+			event.displayName || event.name
+		])
 	});
 
 	return columns;
