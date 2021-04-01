@@ -48,7 +48,7 @@ export interface UpdateEventAttributeDefinitionVariables {
 
 export const UPDATE_EVENT_ATTRIBUTE_DEFINITION = gql`
 	mutation UpdateEventAttributeDefinition(
-		$dataType: String
+		$dataType: EventAttributeDefinitionDataType
 		$description: String
 		$displayName: String
 		$id: String!
