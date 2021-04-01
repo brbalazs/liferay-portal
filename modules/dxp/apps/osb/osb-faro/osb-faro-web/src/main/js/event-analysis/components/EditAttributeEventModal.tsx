@@ -1,7 +1,11 @@
 import * as Types from 'shared/types';
 import Button from 'shared/components/Button';
 import client from 'shared/apollo/client';
-import Form, {toPromise, validateMaxLength} from 'shared/components/form';
+import Form, {
+	toPromise,
+	validateMaxLength,
+	validateRequired
+} from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
@@ -71,7 +75,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 		(value: string): Promise<string> => {
 			let error = '';
 
-			if (value !== dataMapper(result.data).displayName) {
+			if (value && value !== dataMapper(result.data).displayName) {
 				return client
 					.query({
 						fetchPolicy: 'no-cache',
@@ -198,8 +202,10 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 															'display-name'
 														)}
 														name='displayName'
+														required
 														type='text'
 														validate={sequence([
+															validateRequired,
 															validateMaxLength(
 																50
 															),
