@@ -142,9 +142,61 @@ definition {
 
 	@priority = "4"
 	test AssertKeepAliveToKeepMySAMLSessionAlive {
-		property app.server.bundles.size = "2";
-		property databases.size = "2";
 		property test.name.skip.portal.instance = "SAML#AssertKeepAliveToKeepMySAMLSessionAlive";
+
+		User.logoutAndLoginPG(
+			nodePort = "9080",
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Virtual Instances");
+
+		PortalInstances.addCP(
+			mailDomain = "www.able.com",
+			virtualHost = "www.able.com",
+			webId = "www.able.com");
+
+		PortalInstances.addCP(
+			mailDomain = "www.baker.com",
+			virtualHost = "www.baker.com",
+			webId = "www.baker.com");
+
+		User.firstLoginPG(
+			password = "test",
+			userEmailAddress = "test@www.able.com",
+			virtualHostsURL = "http://www.able.com:9080");
+
+		User.openUsersAdmin(baseURL = "http://www.able.com:9080");
+
+		User.editEmailAddressCP(
+			password = "test",
+			userEmailAddress = "test@liferay.com",
+			userScreenName = "test");
+
+		User.logoutPG(specificURL = "http://www.able.com:9080/");
+
+		User.viewLoggedOutPG();
+
+		User.firstLoginPG(
+			password = "test",
+			userEmailAddress = "test@www.baker.com",
+			virtualHostsURL = "http://www.baker.com:9080");
+
+		User.openUsersAdmin(baseURL = "http://www.baker.com:9080");
+
+		User.editEmailAddressCP(
+			password = "test",
+			userEmailAddress = "test@liferay.com",
+			userScreenName = "test");
+
+		User.logoutPG(specificURL = "http://www.baker.com:9080/");
+
+		User.viewLoggedOutPG();
+
+		User.firstLoginPG();
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -158,7 +210,7 @@ definition {
 		SAML.configureLiferaySAMLAsSP(
 			idpKeepAliveURL = "http://localhost:8080/c/portal/saml/keep_alive",
 			samlEntityID = "samlsp2",
-			spKeepAliveURL = "http://www.baker.com:10080/c/portal/saml/keep_alive",
+			spKeepAliveURL = "http://www.baker.com:9080/c/portal/saml/keep_alive",
 			spURL = "http://www.baker.com:10080"
 		);
 
@@ -170,7 +222,7 @@ definition {
 
 		User.viewLoggedOutPG();
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		User.viewLoggedOutPG();
 
@@ -187,7 +239,7 @@ definition {
 
 		User.viewLoggedInPG(userFirstName = "Test");
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		Navigator.gotoLoginPage();
 
