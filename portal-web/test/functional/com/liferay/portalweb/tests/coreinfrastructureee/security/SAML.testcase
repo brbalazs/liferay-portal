@@ -1121,9 +1121,61 @@ definition {
 
 	@priority = "4"
 	test ViewSingleLogoutAndForceAuthWithMultipleSPs {
-		property app.server.bundles.size = "2";
-		property databases.size = "2";
 		property test.name.skip.portal.instance = "SAML#ViewSingleLogoutAndForceAuthWithMultipleSPs";
+
+		User.logoutAndLoginPG(
+			nodePort = "9080",
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Virtual Instances");
+
+		PortalInstances.addCP(
+			mailDomain = "www.able.com",
+			virtualHost = "www.able.com",
+			webId = "www.able.com");
+
+		PortalInstances.addCP(
+			mailDomain = "www.baker.com",
+			virtualHost = "www.baker.com",
+			webId = "www.baker.com");
+
+		User.firstLoginPG(
+			password = "test",
+			userEmailAddress = "test@www.able.com",
+			virtualHostsURL = "http://www.able.com:9080");
+
+		User.openUsersAdmin(baseURL = "http://www.able.com:9080");
+
+		User.editEmailAddressCP(
+			password = "test",
+			userEmailAddress = "test@liferay.com",
+			userScreenName = "test");
+
+		User.logoutPG(specificURL = "http://www.able.com:9080/");
+
+		User.viewLoggedOutPG();
+
+		User.firstLoginPG(
+			password = "test",
+			userEmailAddress = "test@www.baker.com",
+			virtualHostsURL = "http://www.baker.com:9080");
+
+		User.openUsersAdmin(baseURL = "http://www.baker.com:9080");
+
+		User.editEmailAddressCP(
+			password = "test",
+			userEmailAddress = "test@liferay.com",
+			userScreenName = "test");
+
+		User.logoutPG(specificURL = "http://www.baker.com:9080/");
+
+		User.viewLoggedOutPG();
+
+		User.firstLoginPG();
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -1134,7 +1186,7 @@ definition {
 
 		SAML.configureLiferaySAMLAsSP(
 			samlEntityID = "samlsp2",
-			spURL = "http://www.baker.com:10080"
+			spURL = "http://www.baker.com:9080"
 		);
 
 		User.logoutPG();
@@ -1156,7 +1208,7 @@ definition {
 
 		User.viewLoggedInPG(userFirstName = "Test");
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		Navigator.gotoLoginPage();
 
@@ -1176,7 +1228,7 @@ definition {
 
 		// Verify second SP is logged out
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		User.viewLoggedOutPG();
 
@@ -1199,7 +1251,7 @@ definition {
 			samlEntityID = "samlidp"
 		);
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		Navigator.gotoLoginPage();
 
@@ -1216,7 +1268,7 @@ definition {
 			samlEntityID = "samlidp"
 		);
 
-		User.logoutPG(specificURL = "http://www.baker.com:10080");
+		User.logoutPG(specificURL = "http://www.baker.com:9080");
 
 		User.viewLoggedOutPG();
 
@@ -1228,7 +1280,7 @@ definition {
 
 		User.viewLoggedInPG(userFirstName = "Test");
 
-		Navigator.openSpecificURL(url = "http://www.baker.com:10080");
+		Navigator.openSpecificURL(url = "http://www.baker.com:9080");
 
 		Navigator.gotoLoginPage();
 
