@@ -58,7 +58,7 @@ const View: React.FC<IViewProps> = ({close, eventId, groupId, open}) => {
 					breadcrumbItems={[
 						getDefinitions({groupId}),
 						getEvents({groupId}),
-						{active: true, label: displayName}
+						{active: true, label: displayName || name}
 					]}
 					groupId={groupId}
 					pageActions={viewEventPageActions}

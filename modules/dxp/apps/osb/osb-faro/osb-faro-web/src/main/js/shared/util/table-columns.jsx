@@ -377,8 +377,6 @@ export const eventListColumns = {
 					groupId
 				})
 		},
-
-		className: 'table-cell-expand',
 		label: Liferay.Language.get('event-name')
 	}),
 	lastSeenURL: {
@@ -390,7 +388,6 @@ export const eventListColumns = {
 	name: {
 		accessor: 'name',
 		cellRenderer: NameCell,
-		className: 'table-cell-expand',
 		label: Liferay.Language.get('event-name')
 	}
 };

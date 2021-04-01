@@ -146,11 +146,13 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 										? {
 												dataType,
 												description: description || '',
-												displayName: displayName || ''
+												displayName:
+													displayName || name || ''
 										  }
 										: {
 												description: description || '',
-												displayName: displayName || ''
+												displayName:
+													displayName || name || ''
 										  }
 								}
 								onSubmit={(variables, {setSubmitting}) => {
