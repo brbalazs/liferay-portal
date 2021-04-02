@@ -159,7 +159,11 @@ export class SegmentEditStatic extends React.Component {
 
 	@autobind
 	handleAddEntitiesModal() {
-		const {close, entityLabel, groupId, open} = this.props;
+		const {close, entityLabel, groupId, id, open} = this.props;
+
+		if (!id) {
+			analytics.track('Static Segment Creation - Clicked Add Members');
+		}
 
 		open(modalTypes.SEARCHABLE_TABLE_MODAL, {
 			checkDisabled: this.isCurrentMember,
@@ -174,6 +178,10 @@ export class SegmentEditStatic extends React.Component {
 			onClose: close,
 			onSubmit: itemsIOMap => {
 				this.handleStageEntityAdditions(itemsIOMap);
+
+				if (!id) {
+					analytics.track('Static Segment Creation - Added Members');
+				}
 
 				close();
 			},
