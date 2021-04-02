@@ -10,19 +10,29 @@ import {
 import {Routes, toRoute} from 'shared/util/router';
 import {useRequest} from 'shared/hooks';
 
+type NotificationStrategyParams = {
+	groupId: string;
+	modifiedTime?: number;
+	notificationId: string;
+	onClose;
+	stripe?: boolean;
+};
+
 const notificationStrategies = new Map<string, Function>([
 	[
 		NotificationSubtypes.TimeZoneChanged,
-		(
-			groupId: string,
-			notificationId: string,
-			stripe: boolean,
-			onClose
-		) => ({
+		({
+			groupId,
+			modifiedTime,
+			notificationId,
+			onClose,
+			stripe
+		}: NotificationStrategyParams) => ({
 			customComponent: () => (
 				<TimeZoneAlert
 					groupId={groupId}
 					key={notificationId}
+					modifiedTime={modifiedTime}
 					onClose={() => onClose(notificationId)}
 					stripe={stripe}
 				/>
@@ -31,7 +41,12 @@ const notificationStrategies = new Map<string, Function>([
 	],
 	[
 		NotificationSubtypes.CustomEventDefinitionLimitReached,
-		(groupId, notificationId, stripe, onClose) => ({
+		({
+			groupId,
+			notificationId,
+			onClose,
+			stripe
+		}: NotificationStrategyParams) => ({
 			alertType: 'warning',
 			className: 'd-flex align-items-center',
 			id: notificationId,
@@ -103,16 +118,17 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 			  ]
 					// TODO: LRAC-7641 Remove filter
 					.filter(({subtype}) => subtypes.includes(subtype))
-					.map(({id, subtype}) => {
+					.map(({id, modifiedTime, subtype}) => {
 						const transformer = notificationStrategies.get(subtype);
 
 						if (transformer) {
-							return transformer(
+							return transformer({
 								groupId,
 								id,
-								stripe,
-								removeNotification
-							);
+								modifiedTime,
+								onClose: removeNotification,
+								stripe
+							});
 						}
 					});
 

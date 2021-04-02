@@ -12,7 +12,7 @@ describe('TimeZoneAlert', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<TimeZoneAlert onClose={jest.fn()} />
+					<TimeZoneAlert groupId='23' onClose={jest.fn()} />
 				</StaticRouter>
 			</Provider>
 		);

@@ -633,6 +633,7 @@ export function mockMembershipChangeAggregation(seed = 0, data = {}) {
 export function mockNotification(seed = 0, data = {}) {
 	return {
 		id: String(seed),
+		modifiedTime: Date.now(),
 		subtype: NotificationSubtypes.TimeZoneChanged,
 		type: NotificationTypes.Alert,
 		...data

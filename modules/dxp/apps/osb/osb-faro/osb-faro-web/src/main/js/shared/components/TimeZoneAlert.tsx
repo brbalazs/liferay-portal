@@ -1,20 +1,26 @@
 import Alert, {AlertTypes} from 'shared/components/Alert';
 import React from 'react';
+import {applyTimeZone} from 'shared/util/date';
 import {connect} from 'react-redux';
+import {Map} from 'immutable';
 import {sub} from 'shared/util/lang';
 
 const TIME_ZONE_COUNTRY_REGEX = /\([^)]+.*/;
 
 interface ITimeZoneAlertProps {
+	displayTimeZone: string;
+	modifiedTime: number;
 	onClose: () => void;
 	stripe: boolean;
-	timeZone: string;
+	timeZoneId: string;
 }
 
 const TimeZoneAlert: React.FC<ITimeZoneAlertProps> = ({
+	displayTimeZone,
+	modifiedTime,
 	onClose,
 	stripe,
-	timeZone
+	timeZoneId
 }) => (
 	<Alert
 		iconSymbol='exclamation-full'
@@ -25,21 +31,24 @@ const TimeZoneAlert: React.FC<ITimeZoneAlertProps> = ({
 	>
 		{sub(
 			Liferay.Language.get(
-				'workspace-timezone-has-changed-to-x-as-of-today.-please-allow-1-2-days-for-the-data-to-adjust-to-this-new-setting.'
+				'workspace-timezone-has-changed-to-x-as-of-x.-please-allow-1-2-days-for-the-data-to-adjust-to-this-new-setting.'
 			),
-			[timeZone]
+			[
+				displayTimeZone.replace(TIME_ZONE_COUNTRY_REGEX, ''),
+				applyTimeZone(modifiedTime, timeZoneId).fromNow()
+			]
 		)}
 	</Alert>
 );
 
-export default connect(
-	(state, {groupId}) => ({
-		timeZone: state
-			.getIn(
-				['projects', groupId, 'data', 'timeZone', 'displayTimeZone'],
-				''
-			)
-			.replace(TIME_ZONE_COUNTRY_REGEX, '')
-	}),
-	null
-)(TimeZoneAlert);
+export default connect((state, {groupId}) => {
+	const timeZone = state.getIn(
+		['projects', groupId, 'data', 'timeZone'],
+		Map()
+	);
+
+	return {
+		displayTimeZone: timeZone.get('displayTimeZone', ''),
+		timeZoneId: timeZone.get('timeZoneId', '')
+	};
+}, null)(TimeZoneAlert);
