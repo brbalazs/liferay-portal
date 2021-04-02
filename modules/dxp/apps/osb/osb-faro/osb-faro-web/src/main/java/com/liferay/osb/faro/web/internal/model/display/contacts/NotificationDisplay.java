@@ -27,11 +27,13 @@ public class NotificationDisplay {
 
 	public NotificationDisplay(FaroNotification faroNotification) {
 		_id = faroNotification.getFaroNotificationId();
+		_modifiedTime = faroNotification.getModifiedTime();
 		_subtype = faroNotification.getSubtype();
 		_type = faroNotification.getType();
 	}
 
 	private long _id;
+	private long _modifiedTime;
 	private String _subtype;
 	private String _type;
 
