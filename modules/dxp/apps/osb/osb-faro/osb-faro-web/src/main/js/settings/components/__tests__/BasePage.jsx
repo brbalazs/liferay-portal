@@ -105,7 +105,7 @@ describe('BasePage', () => {
 		);
 
 		expect(getByText('testPageTitle').parentElement).toHaveClass(
-			'inline-text'
+			'title-text'
 		);
 		expect(getByText('mysubtitle').parentElement).toBeTruthy();
 	});

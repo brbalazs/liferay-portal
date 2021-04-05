@@ -1,12 +1,6 @@
 .header-text {
-    h3 {
-        &.inline-text {
-            display: inline;
-
-            > * {
-                display: inline;
-            }
-        }
-        
-    }
+	.subtitle-text,
+	.title-text {
+		min-width: 50px;
+	}
 }

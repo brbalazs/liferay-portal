@@ -54,19 +54,18 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 			>
 				<div className='header-text'>
 					{pageTitle && (
-						<>
-							<h3
-								className={getCN({
-									['inline-text']: subTitle
-								})}
-							>
+						<div className='d-flex'>
+							<h3 className='title-text text-truncate'>
 								<TextTruncate title={pageTitle} />
 							</h3>
 
 							{subTitle && (
-								<span className='ml-2'>{subTitle}</span>
+								<TextTruncate
+									className='subtitle-text ml-2'
+									title={subTitle}
+								/>
 							)}
-						</>
+						</div>
 					)}
 
 					{pageDescription && (
