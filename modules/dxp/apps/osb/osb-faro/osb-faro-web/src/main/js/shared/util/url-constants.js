@@ -9,6 +9,7 @@ export default {
 		'https://help.liferay.com/hc/en-us/categories/360000608871-Liferay-Analytics-Cloud-Admin-Guide',
 	DOCUMENTATION_LINK:
 		'https://help.liferay.com/hc/en-us/articles/360006653312-Managing-Data-Sources',
+	HELP_CENTER: 'https://learn.liferay.com',
 	HELP_CONNECT_DXP:
 		'https://learn.liferay.com/analytics-cloud/latest/en/getting-started/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
 	HELP_LIFERAY: 'https://help.liferay.com',
