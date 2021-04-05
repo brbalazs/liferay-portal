@@ -25,20 +25,24 @@ make sure "Expose daemon on tcp://localhost:2375 without TLS" on the "General" p
 If you are new to the project, here is a non exhaustive list of the technologies we are using. It is important to be familiar
 with them if you are going to contribute:
 
+* [Typescript](https://www.typescriptlang.org/) as our programming language.
+* [Apollo](https://www.apollographql.com/) for our graphql implementation.
 * [Redux](https://redux.js.org/) for state management.
-* [metal-jsx](https://metaljs.com/) for our view layer.
+* [React](https://reactjs.org/) for our view layer.
 * [Webpack](https://webpack.js.org/) for bundling and fast re-deploying.
 * [Babel](https://babeljs.io/) so we can write modern Javascript.
-* [Jest](https://facebook.github.io/jest/) as our unit-testin framework.
+* [Jest](https://facebook.github.io/jest/) as our unit-testing framework.
+* [Testing-Library/React](https://testing-library.com/docs/react-testing-library/intro/) as our testing utilities.
 * [Sass](https://sass-lang.com/) as our CSS pre-processor.
 * [Clay](https://clayui.com/) as our CSS and markup foundation.
 * [Lodash](https://lodash.com/) as our JS utility library.
 * [Prettier](https://prettier.io/) to format our code.
-* [ESlint](https://eslint.org/) as our linter.
+* [ESLint](https://eslint.org/) as our linter.
+* [MJML](https://mjml.io/) as our email framework.
 
 Our code is organized into components and pages. Components are resuable views, and pages are specialized components that are mapped to a URL
-using `metal-router`. Most of our components are located under `shared`. Our pages will be under another directory that relates to
-a sub-application in Faro. Right now there are three of these: `contacts`, `settings`, and `ui-kit`.
+using `react-router`. Most of our components are located under `shared`. Our pages will be under another directory that relates to
+a sub-application in Faro. Right now there are these: `assets`, `contacts`, `event-analysis`, `experiments`, `settings`, `sites`, `test`, `touchpoints`, and `ui-kit`.
 
 #### Pull Requests
 
