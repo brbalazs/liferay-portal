@@ -192,7 +192,7 @@
 </tr>
 <tr>
 	<td>FIELD_LABEL</td>
-	<td>//div[contains(@data-fieldname,'${key_fieldName}')]//label</td>
+	<td>//div[contains(@data-fieldname,'${key_fieldName}')]//label | //div[contains(@data-fieldname,'${key_fieldName}')]//legend</td>
 	<td></td>
 </tr>
 <tr>
