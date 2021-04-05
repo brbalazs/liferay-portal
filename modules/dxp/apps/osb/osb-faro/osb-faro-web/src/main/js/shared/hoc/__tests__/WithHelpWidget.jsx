@@ -20,6 +20,6 @@ describe('withHelpWidget', () => {
 
 		const {container} = render(<WrappedComponent groupId='123' />);
 
-		expect(container.querySelector('.help-widget-wrapper')).toBeTruthy();
+		expect(container.querySelector('.help-widget-root')).toBeTruthy();
 	});
 });
