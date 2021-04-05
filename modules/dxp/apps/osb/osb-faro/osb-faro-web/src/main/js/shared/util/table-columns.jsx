@@ -352,6 +352,7 @@ export const eventListColumns = {
 	},
 	displayName: {
 		accessor: 'displayName',
+		className: 'table-cell-expand-small text-truncate',
 		label: Liferay.Language.get('display-name')
 	},
 	getLastSeenDate: timeZoneId => ({
@@ -377,17 +378,19 @@ export const eventListColumns = {
 					groupId
 				})
 		},
+		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('event-name')
 	}),
 	lastSeenURL: {
 		accessor: 'lastSeenURL',
-		className: 'table-cell-expand',
+		className: 'table-cell-expand text-truncate',
 		label: Liferay.Language.get('last-seen-url'),
 		sortable: false
 	},
 	name: {
 		accessor: 'name',
 		cellRenderer: NameCell,
+		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('event-name')
 	}
 };

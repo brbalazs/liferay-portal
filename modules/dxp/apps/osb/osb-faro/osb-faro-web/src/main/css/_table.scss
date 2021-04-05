@@ -19,7 +19,8 @@
 		}
 	}
 
-	td, th {
+	td,
+	th {
 		padding: 16px;
 
 		&:first-child {
@@ -28,6 +29,10 @@
 
 		&:last-child {
 			padding-right: $listPadding;
+		}
+
+		&.text-truncate {
+			display: table-cell;
 		}
 	}
 
@@ -60,7 +65,7 @@
 		}
 
 		.table-title .text-truncate {
-			display: block
+			display: block;
 		}
 	}
 
