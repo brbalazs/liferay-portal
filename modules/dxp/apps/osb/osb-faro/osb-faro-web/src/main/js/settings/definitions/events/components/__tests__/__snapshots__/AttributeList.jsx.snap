@@ -64,7 +64,7 @@ exports[`AttributeList should render 1`] = `
           class=""
         >
           <th
-            class="table-head-title"
+            class="table-head-title table-cell-expand-small"
           >
             <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -90,7 +90,7 @@ exports[`AttributeList should render 1`] = `
             </a>
           </th>
           <th
-            class="table-head-title"
+            class="table-head-title table-cell-expand-small text-truncate"
           >
             <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -109,7 +109,7 @@ exports[`AttributeList should render 1`] = `
             Description
           </th>
           <th
-            class="table-head-title"
+            class="table-head-title table-cell-expand-smaller text-truncate"
           >
             Sample Value
           </th>
@@ -125,7 +125,7 @@ exports[`AttributeList should render 1`] = `
           class=""
         >
           <td
-            class="name-cell-root"
+            class="name-cell-root table-cell-expand-small"
           >
             <div
               class="content-container"
@@ -147,7 +147,7 @@ exports[`AttributeList should render 1`] = `
             </div>
           </td>
           <td
-            class=""
+            class=" table-cell-expand-small text-truncate"
           >
             -
           </td>
@@ -157,7 +157,7 @@ exports[`AttributeList should render 1`] = `
             -
           </td>
           <td
-            class=""
+            class=" table-cell-expand-smaller text-truncate"
           >
             samplevalue-0
           </td>

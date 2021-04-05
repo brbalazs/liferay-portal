@@ -261,17 +261,21 @@ exports[`View should render a Liferay data-source old page 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Configure Liferay DXP
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Configure Liferay DXP
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >
@@ -345,17 +349,21 @@ exports[`View should render a Liferay data-source page 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Liferay123
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Liferay123
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >
@@ -651,17 +659,21 @@ exports[`View should render a Salesforce data-source page 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Configure Salesforce
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Configure Salesforce
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >

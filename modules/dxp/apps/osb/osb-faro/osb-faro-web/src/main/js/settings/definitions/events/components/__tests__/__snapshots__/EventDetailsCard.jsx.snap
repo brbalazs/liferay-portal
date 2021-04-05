@@ -75,12 +75,12 @@ exports[`EventDetailsCard should render 1`] = `
           >
             <th />
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand-small"
             >
               Attribute Name
             </th>
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand-small text-truncate"
             >
               Display Name
             </th>
@@ -90,7 +90,7 @@ exports[`EventDetailsCard should render 1`] = `
               Description
             </th>
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand-smaller text-truncate"
             >
               Sample Value
             </th>
@@ -127,7 +127,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -149,7 +149,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class=""
+              class=" table-cell-expand-small text-truncate"
             >
               -
             </td>
@@ -159,7 +159,7 @@ exports[`EventDetailsCard should render 1`] = `
               -
             </td>
             <td
-              class=""
+              class=" table-cell-expand-smaller text-truncate"
             >
               samplevalue-0
             </td>
@@ -198,7 +198,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -220,7 +220,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class=""
+              class=" table-cell-expand-small text-truncate"
             >
               -
             </td>
@@ -230,7 +230,7 @@ exports[`EventDetailsCard should render 1`] = `
               -
             </td>
             <td
-              class=""
+              class=" table-cell-expand-smaller text-truncate"
             >
               samplevalue-1
             </td>
@@ -269,7 +269,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -291,7 +291,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class=""
+              class=" table-cell-expand-small text-truncate"
             >
               -
             </td>
@@ -301,7 +301,7 @@ exports[`EventDetailsCard should render 1`] = `
               -
             </td>
             <td
-              class=""
+              class=" table-cell-expand-smaller text-truncate"
             >
               samplevalue-2
             </td>
@@ -340,7 +340,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -362,7 +362,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class=""
+              class=" table-cell-expand-small text-truncate"
             >
               -
             </td>
@@ -372,7 +372,7 @@ exports[`EventDetailsCard should render 1`] = `
               -
             </td>
             <td
-              class=""
+              class=" table-cell-expand-smaller text-truncate"
             >
               samplevalue-3
             </td>
@@ -411,7 +411,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -433,7 +433,7 @@ exports[`EventDetailsCard should render 1`] = `
               </div>
             </td>
             <td
-              class=""
+              class=" table-cell-expand-small text-truncate"
             >
               -
             </td>
@@ -443,7 +443,7 @@ exports[`EventDetailsCard should render 1`] = `
               -
             </td>
             <td
-              class=""
+              class=" table-cell-expand-smaller text-truncate"
             >
               samplevalue-4
             </td>

@@ -17,17 +17,21 @@ exports[`Data Privacy Overview should render 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Data Control & Privacy
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Data Control & Privacy
+            </span>
+          </h3>
+        </div>
       </div>
       <div
         class="page-actions-container"

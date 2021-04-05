@@ -50,17 +50,21 @@ exports[`Event View page should render 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            name-0
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              name-0
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >
@@ -144,12 +148,12 @@ exports[`Event View page should render 1`] = `
               >
                 <th />
                 <th
-                  class="table-head-title"
+                  class="table-head-title table-cell-expand-small"
                 >
                   Attribute Name
                 </th>
                 <th
-                  class="table-head-title"
+                  class="table-head-title table-cell-expand-small text-truncate"
                 >
                   Display Name
                 </th>
@@ -159,7 +163,7 @@ exports[`Event View page should render 1`] = `
                   Description
                 </th>
                 <th
-                  class="table-head-title"
+                  class="table-head-title table-cell-expand-smaller text-truncate"
                 >
                   Sample Value
                 </th>
@@ -196,7 +200,7 @@ exports[`Event View page should render 1`] = `
                   </div>
                 </td>
                 <td
-                  class="name-cell-root"
+                  class="name-cell-root table-cell-expand-small"
                 >
                   <div
                     class="content-container"
@@ -218,7 +222,7 @@ exports[`Event View page should render 1`] = `
                   </div>
                 </td>
                 <td
-                  class=""
+                  class=" table-cell-expand-small text-truncate"
                 >
                   -
                 </td>
@@ -228,7 +232,7 @@ exports[`Event View page should render 1`] = `
                   -
                 </td>
                 <td
-                  class=""
+                  class=" table-cell-expand-smaller text-truncate"
                 >
                   samplevalue-1
                 </td>

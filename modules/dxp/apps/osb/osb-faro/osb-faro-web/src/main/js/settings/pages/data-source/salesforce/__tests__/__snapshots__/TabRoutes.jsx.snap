@@ -40,17 +40,21 @@ exports[`SalesforceTabRoutes should render 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Configure Salesforce
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Configure Salesforce
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >

@@ -67,7 +67,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <th
-              class="table-head-title"
+              class="table-head-title table-cell-expand-small"
             >
               <a
                 class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -93,7 +93,7 @@ exports[`BlockListCard should render 1`] = `
               </a>
             </th>
             <th
-              class="table-head-title table-cell-expand"
+              class="table-head-title table-cell-expand text-truncate"
             >
               Last Seen URL
             </th>
@@ -118,7 +118,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -135,7 +135,7 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class=" table-cell-expand text-truncate"
             >
               https//:www.liferay.com/0
             </td>
@@ -147,7 +147,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -164,7 +164,7 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class=" table-cell-expand text-truncate"
             >
               https//:www.liferay.com/1
             </td>
@@ -176,7 +176,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -193,7 +193,7 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class=" table-cell-expand text-truncate"
             >
               https//:www.liferay.com/2
             </td>
@@ -205,7 +205,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -222,7 +222,7 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class=" table-cell-expand text-truncate"
             >
               https//:www.liferay.com/3
             </td>
@@ -234,7 +234,7 @@ exports[`BlockListCard should render 1`] = `
             class=""
           >
             <td
-              class="name-cell-root"
+              class="name-cell-root table-cell-expand-small"
             >
               <div
                 class="content-container"
@@ -251,7 +251,7 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class=" table-cell-expand text-truncate"
             >
               https//:www.liferay.com/4
             </td>

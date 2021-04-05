@@ -50,17 +50,21 @@ exports[`DataSourceDelete should render 1`] = `
       <div
         class="header-text"
       >
-        <h3
-          class=""
+        <div
+          class="d-flex"
         >
-          <span
-            class="text-truncate"
-            data-tooltip="false"
-            title=""
+          <h3
+            class="title-text text-truncate"
           >
-            Confirm Removal of "Liferay1"
-          </span>
-        </h3>
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Confirm Removal of "Liferay1"
+            </span>
+          </h3>
+        </div>
         <div
           class="description"
         >
