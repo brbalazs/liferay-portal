@@ -154,6 +154,7 @@ export const attributeListColumns = {
 	},
 	displayName: {
 		accessor: 'displayName',
+		className: 'table-cell-expand-small text-truncate',
 		label: Liferay.Language.get('display-name')
 	},
 	getName: ({channelId, groupId}) => ({
@@ -167,14 +168,17 @@ export const attributeListColumns = {
 					groupId
 				})
 		},
+		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('attribute-name')
 	}),
 	name: {
 		accessor: 'name',
+		className: 'table-cell-expand-small text-truncate',
 		label: Liferay.Language.get('attribute-name')
 	},
 	sampleValue: {
 		accessor: 'sampleValue',
+		className: 'table-cell-expand-smaller text-truncate',
 		label: Liferay.Language.get('sample-value'),
 		sortable: false
 	}
