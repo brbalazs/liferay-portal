@@ -9,4 +9,9 @@ describe('HelpWidget', () => {
 		const {container} = render(<HelpWidget />);
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render a dropdown', () => {
+		const {getByText} = render(<HelpWidget />);
+		expect(getByText('Report an Issue')).toBeTruthy();
+	});
 });

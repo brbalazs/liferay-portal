@@ -3,22 +3,26 @@
 exports[`HelpWidget should render 1`] = `
 <div>
   <div
-    class="help-widget-wrapper"
+    class="help-widget-root"
   >
-    <button
-      aria-label="Help"
-      class="button-root btn btn-defaut help-button btn-outline-borderless btn-sm"
-      type="button"
+    <div
+      class="dropdown"
     >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-ac-question-mark"
-        viewBox=""
+      <button
+        aria-label="Help"
+        class="button-root btn btn-defaut dropdown-toggle help-button btn-outline-borderless btn-sm"
+        type="button"
       >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-question-mark"
-        />
-      </svg>
-    </button>
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-ac-question-mark"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-question-mark"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 `;
