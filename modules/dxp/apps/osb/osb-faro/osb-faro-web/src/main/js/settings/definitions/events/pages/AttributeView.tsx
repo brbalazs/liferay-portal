@@ -105,6 +105,8 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 							columns={[
 								{
 									accessor: 'value',
+									className:
+										'table-cell-expand-small text-truncate',
 									label: Liferay.Language.get('sample-data'),
 									sortable: false
 								},
