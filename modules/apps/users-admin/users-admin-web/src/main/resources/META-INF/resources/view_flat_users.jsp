@@ -128,9 +128,7 @@ boolean showRestoreButton = viewUsersManagementToolbarDisplayContext.isShowResto
 
 		showDeleteButton = !results.isEmpty() && showDeleteButton;
 		showRestoreButton = !results.isEmpty() && showRestoreButton;
-		%>
 
-		<%
 		if (!showDeleteButton && !showRestoreButton) {
 			userSearchContainer.setRowChecker(null);
 		}

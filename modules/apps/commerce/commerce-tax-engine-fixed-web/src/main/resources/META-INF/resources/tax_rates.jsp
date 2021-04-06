@@ -18,9 +18,7 @@
 
 <%
 CommerceTaxFixedRatesDisplayContext commerceTaxFixedRatesDisplayContext = (CommerceTaxFixedRatesDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-%>
 
-<%
 Map<String, String> contextParams = new HashMap<>();
 
 contextParams.put("commerceChannelId", String.valueOf(commerceTaxFixedRatesDisplayContext.getCommerceChannelId()));
