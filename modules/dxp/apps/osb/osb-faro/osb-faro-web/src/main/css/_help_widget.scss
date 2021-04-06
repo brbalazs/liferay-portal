@@ -1,12 +1,8 @@
 .help-dropdown-root {
     position: fixed;
 
-    li {
+    li:not(:last-child) {
         border-bottom: 1px solid $mainLighten74;
-
-        &:last-child {
-            border-bottom: none;
-        }
     }
 }
 
@@ -20,9 +16,10 @@
     width: 40px; 
     
     .help-button {
+        border-radius: 50%;
+        left: 2px;
+        padding: 8px 10px 10px 8px;
         position: relative;
-        top: 1px;
-        right: 2px;
-        padding-bottom: 13px;
+        top: 2px;
     }
 }
