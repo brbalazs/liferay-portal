@@ -52,70 +52,88 @@ const BarComparisonCell: React.FC<IBarComparisonCellProps> = ({
 	events = [],
 	topValue
 }) => {
-	const isComparingEvent = events.length > 1;
 	const isComparingSegment = get(events[0], 'breakdownItems', []).length > 1;
 
-	const items = isComparingSegment
-		? getItems(events[0].breakdownItems, compareToPrevious, topValue)
-		: getItems(events, compareToPrevious, topValue);
+	const sections = getSections(
+		events,
+		compareToPrevious,
+		isComparingSegment,
+		topValue
+	);
 
 	return (
 		<div className='table-responsive table-root bar-comparison-root'>
-			<BarComparisonTable
-				event={event}
-				isComparingSegment={isComparingSegment}
-				items={items}
-			/>
-
-			{isComparingSegment && isComparingEvent && (
+			{sections.map((items, i) => (
 				<BarComparisonTable
 					event={event}
 					isComparingSegment={isComparingSegment}
-					items={getItems(
-						events[1].breakdownItems,
-						compareToPrevious,
-						topValue,
-						BAR_COMPARISON_COLORS.Green
-					)}
+					items={items}
+					key={i}
 				/>
-			)}
+			))}
 		</div>
 	);
 };
 
-const getItems = (
+const getSections = (
 	events: BreakdownDataItem[],
 	compareToPrevious: boolean,
-	topValue: number,
-	color: BAR_COMPARISON_COLORS = BAR_COMPARISON_COLORS.Blue
-): BarComparisonTableItems => {
-	const data = [];
+	isComparingSegment: boolean,
+	topValue: number
+): BarComparisonTableItems[] => {
+	const isComparingEvent = events.length > 1;
 
-	events.forEach(({name, previousValue, value}, i) => {
+	const sections = [];
+	let data = [];
+
+	const addToData = (
+		{name, previousValue = undefined, value},
+		color,
+		index
+	) => {
 		data.push({
 			isPreviousValue: false,
 			name,
 			percent: value / topValue,
 			style: {
-				backgroundColor: MAP_COLORS[color][i].current
+				backgroundColor: MAP_COLORS[color][index].current
 			},
 			value
 		});
 
-		if (compareToPrevious) {
+		if (compareToPrevious && previousValue) {
 			data.push({
 				isPreviousValue: true,
 				name: Liferay.Language.get('previous-value'),
 				percent: previousValue / topValue,
 				style: {
-					backgroundColor: MAP_COLORS[color][i].previous
+					backgroundColor: MAP_COLORS[color][index].previous
 				},
 				value: previousValue
 			});
 		}
+	};
+
+	events.forEach((event, i) => {
+		const color =
+			i === 0 ? BAR_COMPARISON_COLORS.Blue : BAR_COMPARISON_COLORS.Green;
+
+		if (i !== 0 && isComparingEvent && isComparingSegment) {
+			sections.push([...data]);
+			data = [];
+		}
+
+		if (isComparingSegment) {
+			event.breakdownItems.forEach((item, i) => {
+				addToData(item, color, i);
+			});
+		} else {
+			addToData(event, color, i);
+		}
 	});
 
-	return data;
+	sections.push([...data]);
+	return sections;
 };
 
 export default BarComparisonCell;
