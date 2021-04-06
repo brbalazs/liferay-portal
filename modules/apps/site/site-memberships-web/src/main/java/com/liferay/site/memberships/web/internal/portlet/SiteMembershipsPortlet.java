@@ -305,12 +305,12 @@ public class SiteMembershipsPortlet extends MVCPortlet {
 			return;
 		}
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		Group group = _getGroup(actionRequest, actionResponse);
 
 		long[] roleIds = ParamUtil.getLongValues(actionRequest, "rowIds");
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
 
 		List<UserGroupRole> userGroupRoles =
 			_userGroupRoleLocalService.getUserGroupRoles(
