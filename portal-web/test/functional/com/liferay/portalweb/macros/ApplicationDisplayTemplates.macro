@@ -165,6 +165,14 @@ definition {
 		PortletEntry.save();
 	}
 
+	macro gotoWidgetTemplatesEllipsisItem {
+		Click.waitForMenuToggleJSClick(
+			key_tableEntry = "${widgetTemplateName}",
+			locator1 = "LexiconTable#TABLE_ENTRY_ELLIPSIS_LINK");
+
+		MenuItem.clickNoError(menuItem = "${item}");
+	}
+
 	macro selectPortletADT {
 		Portlet.gotoPortletOptions(
 			portletName = "${portletName}",
