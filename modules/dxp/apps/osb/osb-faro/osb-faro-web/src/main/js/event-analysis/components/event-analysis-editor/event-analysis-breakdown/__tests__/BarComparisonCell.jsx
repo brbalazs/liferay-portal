@@ -44,7 +44,7 @@ describe('BarComparisonCell', () => {
 		);
 
 		expect(container.querySelectorAll('tbody > tr').length).toBe(2);
-		expect(container.querySelector('.metric-bar-root .dots')).toBeTruthy();
+		expect(container.querySelector('.metric-bar-root .lines')).toBeTruthy();
 		expect(queryByText('Previous Value')).toBeTruthy();
 	});
 

@@ -60,7 +60,7 @@ describe('BarComparisonTable', () => {
 
 		expect(container).toMatchSnapshot();
 
-		expect(container.querySelector('.metric-bar-root .dots')).toBeTruthy();
+		expect(container.querySelector('.metric-bar-root .lines')).toBeTruthy();
 	});
 
 	it('change the header when comparing segments', () => {
