@@ -15,21 +15,16 @@
 	align-items: center;
 	border: 1px solid $lightBackground;
 	display: flex;
-	height: 124px;
 	justify-content: center;
-
-	.single-event {
-		border: 1px solid $lightBackground;
-		padding-bottom: 36px;
-		padding-top: 40px;
-	}
+	min-height: 124px;
+	padding-right: 24px;
 }
 
 .breakdown-table-root {
 	margin: 0 16px 24px;
 
 	.bar-comparison-root .table {
-		margin-top: 20px;
+		margin-top: 10px;
 		table-layout: fixed;
 	
 		td, th {
@@ -95,8 +90,8 @@
 
 	.breakdown-category {
 		display: block;
-		text-transform: uppercase;
 		font-size: 10px;
+		text-transform: uppercase;
 	}
 
 	.percentage-column {
