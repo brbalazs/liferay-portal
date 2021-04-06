@@ -3,11 +3,24 @@
 <project basedir="." name="portal-test-elasticsearch" xmlns:antelope="antlib:ise.antelope.tasks" xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<import file="build-test.xml" />
 
+	<get-testcase-property if:set="env.JENKINS_HOME" property.name="elastic.override.version" />
 	<propertycopy from="suite.elastic.version[${env.CI_TEST_SUITE}]" name="suite.elastic.version" silent="true" />
 
-	<condition else="7.12.0" property="elasticsearch.version" value="${suite.elastic.version}">
-		<isset property="suite.elastic.version" />
-	</condition>
+	<if>
+		<isset property="elastic.override.version" />
+		<then>
+			<property name="elasticsearch.version" value="${elastic.override.version}" />
+		</then>
+		<elseif>
+			<isset property="suite.elastic.version" />
+			<then>
+				<property name="elasticsearch.version" value="${suite.elastic.version}" />
+			</then>
+		</elseif>
+		<else>
+			<property name="elasticsearch.version" value="7.12.0" />
+		</else>
+	</if>
 
 	<property name="elastic.kibana.dir" value="${app.server.parent.dir}/kibana-${elasticsearch.version}" />
 	<property name="elastic.kibana.tar.name.linux" value="kibana-${elasticsearch.version}-linux-x86_64.tar.gz" />
