@@ -33,6 +33,7 @@ import React from 'react';
 import {AttributesContext} from '../../context/attributes';
 import {getDummyBreakdownData} from 'test/data';
 import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 
 const initialAttributes = {
 	attributes: {
@@ -66,15 +67,17 @@ describe('BreakdownTable', () => {
 
 	it('render', () => {
 		const {container} = render(
-			<AttributesContext.Provider value={initialAttributes}>
-				<BreakdownTable
-					compareToPrevious
-					event={event}
-					rangeSelectors={{
-						rangeKey: '30'
-					}}
-				/>
-			</AttributesContext.Provider>
+			<StaticRouter>
+				<AttributesContext.Provider value={initialAttributes}>
+					<BreakdownTable
+						compareToPrevious
+						event={event}
+						rangeSelectors={{
+							rangeKey: '30'
+						}}
+					/>
+				</AttributesContext.Provider>
+			</StaticRouter>
 		);
 
 		expect(container).toMatchSnapshot();
