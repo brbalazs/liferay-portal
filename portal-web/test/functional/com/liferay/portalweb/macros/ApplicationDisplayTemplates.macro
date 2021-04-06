@@ -173,6 +173,14 @@ definition {
 		MenuItem.clickNoError(menuItem = "${item}");
 	}
 
+	macro searchGlobalADT {
+		Search.searchCP(searchTerm = "${templateName}");
+
+		AssertTextEquals(
+			locator1 = "ApplicationDisplayTemplates#ADT_TABLE_NAME_1",
+			value1 = "${templateName}");
+	}
+
 	macro selectPortletADT {
 		Portlet.gotoPortletOptions(
 			portletName = "${portletName}",
