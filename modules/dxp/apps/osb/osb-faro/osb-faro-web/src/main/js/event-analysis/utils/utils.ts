@@ -266,7 +266,7 @@ export const parserBreakdownData = (
 		} = data;
 
 		const isLeafNextNode =
-			nextBreakdownItems && nextBreakdownItems[0].isLeafNode;
+			nextBreakdownItems.length > 0 && nextBreakdownItems[0].isLeafNode;
 		const currentRowIndex = rows.length - 1;
 
 		Object.assign(rows[currentRowIndex], {
@@ -296,9 +296,16 @@ export const parserBreakdownData = (
 
 export const getMaxEventValue = (parsedData, compareToPrevious: boolean) =>
 	parsedData.reduce(
-		(prev, {events}) =>
+		(prev, {events = []}) =>
 			events.reduce(
-				(prev2, {breakdownItems: segments, previousValue, value}) =>
+				(
+					prev2,
+					{
+						breakdownItems: segments = [],
+						previousValue = 0,
+						value = 0
+					}
+				) =>
 					segments.length <= 1
 						? Math.max(
 								value,

@@ -135,7 +135,17 @@ const getColumns = ({
 			const dataValue = get(data, `breakdown${i + 1}`);
 
 			if (isNil(dataValue)) {
-				return null;
+				return (
+					<td
+						className={getCN(
+							'align-top',
+							'empty-breakdown-column',
+							className
+						)}
+					>
+						{Liferay.Language.get('no-results')}
+					</td>
+				);
 			}
 
 			return (
@@ -162,16 +172,32 @@ const getColumns = ({
 	}));
 
 	columns.push({
-		cellRenderer: ({className, data: {events}}) => (
-			<td className={getCN('align-top', className)}>
-				<BarComparisonCell
-					compareToPrevious={compareToPrevious}
-					event={event}
-					events={events}
-					topValue={highestValue}
-				/>
-			</td>
-		),
+		cellRenderer: ({className, data: {events}}) => {
+			if (isNil(events)) {
+				return (
+					<td
+						className={getCN(
+							'align-top',
+							'empty-breakdown-column',
+							className
+						)}
+					>
+						{Liferay.Language.get('no-results')}
+					</td>
+				);
+			}
+
+			return (
+				<td className={getCN('align-top', className)}>
+					<BarComparisonCell
+						compareToPrevious={compareToPrevious}
+						event={event}
+						events={events}
+						topValue={highestValue}
+					/>
+				</td>
+			);
+		},
 		label: Liferay.Language.get('events')
 	});
 
