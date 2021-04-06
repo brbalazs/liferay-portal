@@ -19,6 +19,7 @@ import {
 } from 'event-analysis/utils/utils';
 import {sub} from 'shared/util/lang';
 import {withAttributesConsumer} from '../context/attributes';
+import {withPaginationBar} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
 export interface IBreakdownTableProps
@@ -31,6 +32,8 @@ export interface IBreakdownTableProps
 	filters: Filters;
 	order: string[];
 }
+
+const TableWithPagination = compose(withPaginationBar())(Table);
 
 const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	attributes,
@@ -53,17 +56,17 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		rangeSelectors
 	]);
 
-	const [items, totalEvents] = useMemo(() => {
+	const [count, items, totalEvents] = useMemo(() => {
 		// TODO: LRAC-7333 Add request and remove Dummy data
 		const data = getDummyBreakdownData(event, attributes, order);
 
 		if (!Object.keys(attributes).length) {
-			return [data.breakdownItems, data.totalEvents];
+			return [data.count, data.breakdownItems, data.totalEvents];
 		}
 
 		const items = parserBreakdownData(data);
 
-		return [items, data.totalEvents];
+		return [data.count, items, data.totalEvents];
 	}, [attributes, order]);
 
 	const [highestValue, columns] = useMemo(() => {
@@ -106,12 +109,13 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 	return (
 		<div className='breakdown-table-root'>
-			<Table
+			<TableWithPagination
 				bordered
 				columns={columns}
 				internalSort
 				items={items}
 				rowIdentifier='index'
+				total={count}
 			/>
 		</div>
 	);
