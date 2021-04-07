@@ -100,17 +100,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			new AnalyticEventsDataCreator(
 				contactsEngineClient, faroProject, pageContextsDataCreator);
 
-		createIdentityAnalyticEvents(
-			analyticEventsDataCreator, liferayUsersDataCreator);
-
-		poll(
-			() -> contactsEngineClient.getActivities(
-				faroProject, null, null, null, null, null, null, -2, 1, 0,
-				null),
-			analyticEventsDataCreator.getActivitiesCount(),
-			analyticEventsDataCreator.getActivitiesCount() * Time.SECOND / 2,
-			"activities");
-
 		createAnalyticEvents(
 			analyticEventsDataCreator, liferayUsersDataCreator);
 
@@ -135,13 +124,16 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		AnalyticEventsDataCreator analyticEventsDataCreator,
 		LiferayUsersDataCreator liferayUsersDataCreator) {
 
-		for (Map<String, Object> liferayUser :
+		for (Map<String, Object> dxpEntity :
 				liferayUsersDataCreator.getObjects()) {
+
+			Map<String, Object> liferayUser =
+				(Map<String, Object>)dxpEntity.get("objectJSONObject");
 
 			analyticEventsDataCreator.createRandom(
 				_LIFERAY_ANALYTIC_EVENTS_MAX_COUNT_PER_USER, false,
 				new Object[] {
-					liferayUser.get("osbAsahDataSourceId"),
+					liferayUsersDataCreator.getDataSourceId(),
 					liferayUser.get("uuid")
 				});
 		}
@@ -190,24 +182,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		contactsEngineClient.patchFieldMappings(
 			faroProject, dataSourceId, context, ownerType, fieldMappingMaps);
-	}
-
-	protected void createIdentityAnalyticEvents(
-		AnalyticEventsDataCreator analyticEventsDataCreator,
-		LiferayUsersDataCreator liferayUsersDataCreator) {
-
-		for (Map<String, Object> liferayUser :
-				liferayUsersDataCreator.getObjects()) {
-
-			analyticEventsDataCreator.create(
-				1, false,
-				new Object[] {
-					liferayUser.get("osbAsahDataSourceId"),
-					liferayUser.get("uuid")
-				});
-		}
-
-		analyticEventsDataCreator.execute();
 	}
 
 	protected void createIndividualSegments(String channelId) throws Exception {
@@ -327,8 +301,11 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 				liferayRolesDataCreator, liferayTeamsDataCreator,
 				liferayUserGroupsDataCreator);
 
-		for (Map<String, Object> liferayUser :
+		for (Map<String, Object> dxpEntity :
 				liferayUsersDataCreator.getObjects()) {
+
+			Map<String, Object> liferayUser =
+				(Map<String, Object>)dxpEntity.get("objectJSONObject");
 
 			liferayAssociationsDataCreator.create(new Object[] {liferayUser});
 		}
@@ -358,16 +335,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			FieldMappingConstants.getLiferayFieldMappingMaps(),
 			FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
 			FieldMappingConstants.OWNER_TYPE_INDIVIDUAL);
-
-		// Nanites
-
-		Map<String, Object> dxpIndividualsNaniteContext = new HashMap<>();
-
-		dxpIndividualsNaniteContext.put("dataSourceId", dataSource.getId());
-		dxpIndividualsNaniteContext.put("type", "reprocess");
-
-		contactsEngineClient.addNanite(
-			faroProject, "DXPIndividualsNanite", dxpIndividualsNaniteContext);
 
 		return liferayUsersDataCreator;
 	}
@@ -462,12 +429,13 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			new SalesforceIndividualsDataCreator(
 				contactsEngineClient, faroProject, dataSource.getId());
 
-		for (Map<String, Object> liferayUser :
+		for (Map<String, Object> dxpEntity :
 				liferayUsersDataCreator.getObjects()) {
 
 			salesforceIndividualsDataCreator.create(
 				new Object[] {
-					liferayUser, salesforceAccountsDataCreator.getRandom()
+					dxpEntity.get("objectJSONObject"),
+					salesforceAccountsDataCreator.getRandom()
 				});
 		}
 
