@@ -136,6 +136,14 @@ export function fetchJoinableProjects() {
 	});
 }
 
+export function sendIssue(currentUrl, description, groupId, title) {
+	return sendRequest({
+		data: {currentUrl, description, title},
+		method: 'POST',
+		path: `main/project/${groupId}/issues`
+	});
+}
+
 export function sendRequestAccess(groupId) {
 	return sendRequest({
 		method: 'POST',
