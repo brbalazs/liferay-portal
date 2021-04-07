@@ -73,9 +73,8 @@ public abstract class BaseLayoutsItemSelectorView
 		LayoutItemSelectorViewDisplayContext
 			layoutItemSelectorViewDisplayContext =
 				new LayoutItemSelectorViewDisplayContext(
-					(HttpServletRequest)servletRequest,
-					layoutItemSelectorCriterion, portletURL,
-					itemSelectedEventName, isPrivateLayout());
+					(HttpServletRequest)request, layoutItemSelectorCriterion,
+					portletURL, itemSelectedEventName, isPrivateLayout());
 
 		request.setAttribute(
 			LayoutsItemSelectorWebKeys.
