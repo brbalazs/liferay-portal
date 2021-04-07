@@ -18,7 +18,8 @@ export default {
 	SALESFORCE_ADD_DOCUMENTATION:
 		'https://developer.salesforce.com/page/Connected_Apps',
 	SALESFORCE_LOGIN: 'https://login.salesforce.com',
-	TERMS_AND_CONDITIONS: 'https://web.liferay.com/legal/doc/SSA/AC/1001810'
+	TERMS_AND_CONDITIONS: 'https://web.liferay.com/legal/doc/SSA/AC/1001810',
+	TICKET_PAGE_LINK: 'https://help.liferay.com/hc/requests/new'
 };
 
 export const ApisPath = '/api/reports';
