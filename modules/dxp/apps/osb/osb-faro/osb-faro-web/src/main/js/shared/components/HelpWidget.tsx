@@ -2,13 +2,29 @@ import Button from 'shared/components/Button';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
 import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
+import {close, modalTypes, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
+import {Modal} from 'shared/types';
 
-// TODO: LRAC-7603 Create Help Modal
-const DROPDOWN_ITEMS = [
-	{
-		label: Liferay.Language.get('report-an-issue'),
-		onClick: () => {}
-	},
+const getDropdownItems = (
+	close: Modal.close,
+	open: Modal.open,
+	showModal: boolean
+): object[] => [
+	showModal
+		? {
+				label: Liferay.Language.get('report-an-issue'),
+				onClick: () => {
+					open(modalTypes.HELP_WIDGET_MODAL, {
+						onClose: close
+					});
+				}
+		  }
+		: {
+				href: urlConstants.TICKET_PAGE_LINK,
+				label: Liferay.Language.get('report-an-issue'),
+				target: '_blank'
+		  },
 	{
 		href: urlConstants.HELP_CENTER,
 		label: Liferay.Language.get('help-center'),
@@ -16,11 +32,17 @@ const DROPDOWN_ITEMS = [
 	}
 ];
 
-const HelpWidget = () => (
+interface IHelpWidgetProps {
+	close: Modal.close;
+	open: Modal.open;
+	showModal: boolean;
+}
+
+const HelpWidget: React.FC<IHelpWidgetProps> = ({close, open, showModal}) => (
 	<div className='help-widget-root'>
 		<ClayDropDownWithItems
 			alignmentPosition={Align.TopLeft}
-			items={DROPDOWN_ITEMS}
+			items={getDropdownItems(close, open, showModal)}
 			menuElementAttrs={{
 				className: 'help-dropdown-root'
 			}}
@@ -39,4 +61,4 @@ const HelpWidget = () => (
 	</div>
 );
 
-export default HelpWidget;
+export default connect(null, {close, open})(HelpWidget);

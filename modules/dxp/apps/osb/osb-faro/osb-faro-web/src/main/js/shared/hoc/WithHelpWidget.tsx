@@ -1,6 +1,7 @@
 import HelpWidget from 'shared/components/HelpWidget';
 import React from 'react';
 import {Modal} from 'shared/types';
+import {PLANS} from 'shared/util/subscriptions';
 
 interface IWrappedComponentProps {
 	close: Modal.close;
@@ -14,12 +15,17 @@ interface IWrappedComponentProps {
 
 const withHelpWidget = (
 	WrappedComponent: React.ComponentType<IWrappedComponentProps>
-) => props => (
-	<>
-		<WrappedComponent {...props} />
+) => props => {
+	const basicTier =
+		props.faroSubscriptionIMap.get('name') === PLANS.basic.name;
 
-		<HelpWidget />
-	</>
-);
+	return (
+		<>
+			<WrappedComponent {...props} />
+
+			<HelpWidget showModal={basicTier} />
+		</>
+	);
+};
 
 export default withHelpWidget;
