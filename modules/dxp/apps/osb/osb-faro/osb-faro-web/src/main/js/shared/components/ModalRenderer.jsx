@@ -12,6 +12,7 @@ import dom from 'metal-dom';
 import EditAttributeEventModal from 'event-analysis/components/EditAttributeEventModal';
 import ExportLogModal from 'settings/components/ExportLogModal';
 import FieldPreviewModal from 'settings/components/data-transformation-list/FieldPreviewModal';
+import HelpWidgetModal from './help-widget-modal';
 import IndividualAttributesModal from 'settings/components/IndividualAttributesModal';
 import InputModal from './InputModal';
 import InterestTopicModal from 'settings/components/InterestTopicsModal';
@@ -51,6 +52,7 @@ const COMPONENT_MAP = {
 	[modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL]: EditAttributeEventModal,
 	[modalTypes.EXPORT_LOG_MODAL]: ExportLogModal,
 	[modalTypes.FIELD_PREVIEW_MODAL]: FieldPreviewModal,
+	[modalTypes.HELP_WIDGET_MODAL]: HelpWidgetModal,
 	[modalTypes.INDIVIDUAL_ATTRIBUTES_MODAL]: IndividualAttributesModal,
 	[modalTypes.INPUT_MODAL]: InputModal,
 	[modalTypes.INSERT_BLOCKED_KEYWORDS]: InterestTopicModal,
