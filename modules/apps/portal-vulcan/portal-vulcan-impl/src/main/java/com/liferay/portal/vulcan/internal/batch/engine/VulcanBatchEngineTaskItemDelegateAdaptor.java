@@ -146,9 +146,8 @@ public class VulcanBatchEngineTaskItemDelegateAdaptor<T>
 
 				parameters.put(
 					key,
-					String.valueOf(
-						siteParamConverterProvider.getGroupId(
-							_company.getCompanyId(), String.valueOf(value))));
+					siteParamConverterProvider.getGroupId(
+						_company.getCompanyId(), String.valueOf(value)));
 			}
 		}
 
