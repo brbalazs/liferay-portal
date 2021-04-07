@@ -33,7 +33,7 @@ export interface IBreakdownTableProps
 	order: string[];
 }
 
-const TableWithPagination = compose(withPaginationBar())(Table);
+const TableWithPagination = withPaginationBar()(Table);
 
 const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	attributes,
