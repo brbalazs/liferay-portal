@@ -1119,7 +1119,7 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 
 	private static String _parseToString(
 			Tika tika, TikaInputStream tikaInputStream)
-		throws IOException, SAXException, TikaException {
+		throws IOException, TikaException {
 
 		UniversalEncodingDetector universalEncodingDetector =
 			new UniversalEncodingDetector();
@@ -1175,6 +1175,12 @@ public class FileImpl implements com.liferay.portal.kernel.util.File {
 			parser.parse(
 				tikaInputStream, new BodyContentHandler(writeOutContentHandler),
 				metadata, parseContext);
+		}
+		catch (SAXException saxException) {
+			if (!writeOutContentHandler.isWriteLimitReached(saxException)) {
+				throw new TikaException(
+					"Unexpected SAX processing failure", saxException);
+			}
 		}
 		finally {
 			tikaInputStream.close();
