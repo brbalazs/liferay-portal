@@ -1,12 +1,6 @@
 definition {
 
 	macro addClassificationRuleCP {
-		var key_deviceFamilyName = "${mobileDeviceFamilyName}";
-
-		AssertClick(
-			locator1 = "MobileDevice#DEVICE_FAMILY_TABLE_NAME_LINK",
-			value1 = "${mobileDeviceFamilyName}");
-
 		LexiconEntry.gotoAdd();
 
 		AssertTextEquals.assertPartialText(
@@ -54,6 +48,14 @@ definition {
 		var key_pageName = "${redirectPageName}";
 
 		AssertVisible(locator1 = "Home#PAGE_ACTIVE");
+	}
+
+	macro gotoMobileDeviceFamily {
+		var key_deviceFamilyName = "${mobileDeviceFamilyName}";
+
+		AssertClick(
+			locator1 = "MobileDevice#DEVICE_FAMILY_TABLE_NAME_LINK",
+			value1 = "${mobileDeviceFamilyName}");
 	}
 
 	macro previewPG {
