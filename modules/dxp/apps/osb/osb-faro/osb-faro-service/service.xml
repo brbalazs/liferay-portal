@@ -248,14 +248,18 @@
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		<finder name="Key" return-type="FaroMemberRequest" unique="true">
+		<finder name="Key" return-type="FaroUser" unique="true">
 			<finder-column name="key" />
 		</finder>
-		<finder name="G_L" return-type="FaroMemberRequest">
+		<finder name="G_L" return-type="FaroUser">
 			<finder-column name="groupId" />
 			<finder-column name="liveUserId" />
 		</finder>
-		<finder name="G_E" return-type="FaroMemberRequest" unique="true">
+		<finder name="G_R" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="roleId" />
+		</finder>
+		<finder name="G_E" return-type="FaroUser" unique="true">
 			<finder-column name="groupId" />
 			<finder-column name="emailAddress" />
 		</finder>
