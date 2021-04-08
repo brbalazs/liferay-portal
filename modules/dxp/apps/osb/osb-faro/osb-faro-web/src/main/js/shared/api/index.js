@@ -12,6 +12,7 @@ import * as fieldMappings from './field-mappings';
 import * as individuals from './individuals';
 import * as individualSegment from './individual-segment';
 import * as interests from './interests';
+import * as issue from './issue';
 import * as notifications from './notifications';
 import * as pagesVisited from './pages-visited';
 import * as preferences from './preferences';
@@ -34,6 +35,7 @@ export {
 	individualSegment,
 	individuals,
 	interests,
+	issue,
 	notifications,
 	pagesVisited,
 	preferences,
