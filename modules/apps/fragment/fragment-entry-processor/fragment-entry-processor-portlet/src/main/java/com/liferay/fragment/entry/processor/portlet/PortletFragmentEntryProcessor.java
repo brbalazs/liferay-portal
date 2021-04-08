@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portlet.PortletPreferencesImpl;
 import com.liferay.portlet.configuration.kernel.util.PortletConfigurationApplicationType;
 
 import java.util.List;
@@ -419,13 +420,23 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 		String portletPreferencesXml = PortletPreferencesFactoryUtil.toXML(
 			jxPortletPreferences);
 
+		long plid = 0L;
+
+		if (jxPortletPreferences instanceof PortletPreferencesImpl) {
+			PortletPreferencesImpl portletPreferences =
+				(PortletPreferencesImpl)jxPortletPreferences;
+
+			plid = portletPreferences.getPlid();
+		}
+
 		for (com.liferay.portal.kernel.model.PortletPreferences
 				portletPreferences : portletPreferencesList) {
 
-			Layout layout = _layoutLocalService.getLayout(
+			Layout layout = _layoutLocalService.fetchLayout(
 				portletPreferences.getPlid());
 
-			if ((groupId != layout.getGroupId()) ||
+			if (((layout != null) && (groupId != layout.getGroupId())) ||
+				((layout == null) && (plid != portletPreferences.getPlid())) ||
 				Objects.equals(
 					portletPreferences.getPreferences(),
 					portletPreferencesXml)) {
