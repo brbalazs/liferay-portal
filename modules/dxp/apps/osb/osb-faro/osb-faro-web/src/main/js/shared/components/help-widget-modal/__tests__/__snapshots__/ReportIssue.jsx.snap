@@ -3,7 +3,7 @@
 exports[`ReportIssue should render 1`] = `
 <div>
   <div
-    class="modal-header title-modal"
+    class="modal-header"
   >
     <h4
       class="modal-title"

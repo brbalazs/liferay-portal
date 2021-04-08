@@ -11,7 +11,7 @@ exports[`HelpWidgetModal Should render 1`] = `
       class="modal-content"
     >
       <div
-        class="modal-header title-modal"
+        class="modal-header"
       >
         <h4
           class="modal-title"
