@@ -1,23 +1,6 @@
 .help-widget-modal-root {
-    .description {
-        color: $mainLighten28;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 28px;
-        text-align: center;
-    }
-    
-    .modal-body {
-        border-bottom: 1px solid $mainLighten74;
-    }
-    
-    .sub-title {
-        font-size: 20px;
-        font-weight: 700;
-    }
-
-    .title-modal {
-        border-bottom: 1px solid $mainLighten74 !important;
-        margin-bottom: 24px;
-    }
+	.description {
+		color: $mainLighten28;
+		font-size: $fontSizeMedium;
+	}
 }

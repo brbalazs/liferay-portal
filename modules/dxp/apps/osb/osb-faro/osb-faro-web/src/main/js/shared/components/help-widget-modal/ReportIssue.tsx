@@ -5,14 +5,10 @@ import Form, {
 } from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React from 'react';
+import {IHelpWidgetScreenProps} from './types';
 import {sequence} from 'shared/util/promise';
 
-interface IReportIssueProps {
-	onClose: () => void;
-	onNext: (increment?: number) => void;
-}
-
-const ReportIssue: React.FC<IReportIssueProps> = ({onClose, onNext}) => {
+const ReportIssue: React.FC<IHelpWidgetScreenProps> = ({onClose, onNext}) => {
 	// TODO: LRAC-7604 Connect modal form to backend
 	const onSubmit = () => {
 		onNext();
@@ -21,7 +17,6 @@ const ReportIssue: React.FC<IReportIssueProps> = ({onClose, onNext}) => {
 	return (
 		<>
 			<Modal.Header
-				className='title-modal'
 				onClose={onClose}
 				title={Liferay.Language.get('report-an-issue')}
 			/>
@@ -74,7 +69,7 @@ const ReportIssue: React.FC<IReportIssueProps> = ({onClose, onNext}) => {
 							</Button>
 
 							<Button
-								disabled={isSubmitting || !isValid}
+								disabled={!isValid}
 								display='primary'
 								loading={isSubmitting}
 								type='submit'
