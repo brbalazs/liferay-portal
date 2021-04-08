@@ -17,7 +17,6 @@ package com.liferay.osb.faro.web.internal.controller.main;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
-import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.FaroController;
@@ -68,8 +67,6 @@ public class IssueController extends BaseFaroController {
 			throw new FaroException("The workspace is not free tier");
 		}
 
-		LCPProject lcpProject = _workspaceEngineClient.getLCPProject(
-			faroProject.getWeDeployKey());
 		Date submissionDate = new Date();
 		User user = getUser();
 
@@ -81,10 +78,11 @@ public class IssueController extends BaseFaroController {
 				StringBundler.concat(
 					"Account Name: ", faroProject.getAccountName(), "\n",
 					"Current URL: ", currentURL, "\n", "Data Center Region: ",
-					lcpProject.getCluster(), "\n", "Issue Title: ", title, "\n",
-					"Submission Date: ", submissionDate.toString(), "\n",
-					"User Name: ", user.getFullName(), "\n", "Workspace Name: ",
-					faroProject.getName(), "\n", "Description: ", description),
+					faroProject.getServerLocation(), "\n", "Issue Title: ",
+					title, "\n", "Submission Date: ", submissionDate.toString(),
+					"\n", "User Name: ", user.getFullName(), "\n",
+					"Workspace Name: ", faroProject.getName(), "\n",
+					"Description: ", description),
 				false));
 	}
 
