@@ -150,6 +150,14 @@ definition {
 	}
 
 	macro viewEntryName {
+		AssertTextEquals(
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
+			value1 = "${rowEntry}",
+			key_rowEntry = "${rowEntry}"
+		);
+	}
+
+	macro viewEntryNamePartial {
 		AssertTextEquals.assertPartialText(
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
 			value1 = "${rowEntry}",

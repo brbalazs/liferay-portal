@@ -312,7 +312,7 @@ definition {
 	}
 
 	macro viewNoSiteOrWorkflowLinksCP {
-		LexiconEntry.viewEntryName(rowEntry = "Site Template Name");
+		LexiconEntry.viewEntryNamePartial(rowEntry = "Site Template Name");
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Manage",
