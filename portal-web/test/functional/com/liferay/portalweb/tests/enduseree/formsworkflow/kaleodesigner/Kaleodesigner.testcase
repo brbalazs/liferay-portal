@@ -473,19 +473,17 @@ definition {
 	test ConfigureTaskTimersViaSourceTab {
 		property test.name.skip.portal.instance = "Kaleodesigner#ConfigureTaskTimersViaSourceTab";
 
-		var fileContent = TestCase.getFileContent(fileName = "workflow_definition_task_timers.xml");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Workflow"
 		);
 
-		Workflow.addNewDefinition(
-			workflowDefinitionTitle = "New Workflow Definition Title"
-		);
+		Workflow.uploadDefinition(
+			workflowDefinitionFile = "workflow_definition_task_timers.xml",
+			workflowDefinitionTitle = "New Workflow Definition Title");
 
-		KaleoDesigner.addNodeViaSourceXML(sourceXML = "${fileContent}");
+		Workflow.gotoEditWorkflowDefinition(workflowDefinitionTitle = "New Workflow Definition Title");
 
 		KaleoDesigner.selectNode(nodeNodeLabel = "__TIMER_REVIEW__");
 
