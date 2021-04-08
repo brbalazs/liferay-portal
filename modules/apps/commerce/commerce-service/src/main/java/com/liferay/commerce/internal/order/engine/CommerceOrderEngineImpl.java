@@ -36,13 +36,9 @@ import com.liferay.commerce.exception.CommerceOrderStatusException;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
 import com.liferay.commerce.internal.order.status.CompletedCommerceOrderStatusImpl;
 import com.liferay.commerce.internal.order.status.ShippedCommerceOrderStatusImpl;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.inventory.type.CommerceInventoryAuditTypeConstants;
-import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -54,16 +50,11 @@ import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.payment.method.CommercePaymentMethod;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
-import com.liferay.commerce.product.model.CPInstance;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.service.CommerceAddressLocalService;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
-import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
-import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
 import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelperUtil;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -247,44 +238,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				commerceInventoryBookedQuantity.
 					getCommerceInventoryBookedQuantityId());
 		}
-
-		// Low stock action
-
-		long companyId = commerceOrder.getCompanyId();
-
-		for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
-
-			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-				commerceOrderItem.getCPInstanceId());
-
-			CPDefinitionInventory cpDefinitionInventory =
-				_cpDefinitionInventoryLocalService.
-					fetchCPDefinitionInventoryByCPDefinitionId(
-						cpInstance.getCPDefinitionId());
-
-			CommerceLowStockActivity commerceLowStockActivity =
-				_commerceLowStockActivityRegistry.getCommerceLowStockActivity(
-					cpDefinitionInventory);
-
-			if (commerceLowStockActivity == null) {
-				return;
-			}
-
-			int stockQuantity = _commerceInventoryEngine.getStockQuantity(
-				companyId, commerceOrderItem.getSku());
-
-			CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
-				_cpDefinitionInventoryEngineRegistry.
-					getCPDefinitionInventoryEngine(cpDefinitionInventory);
-
-			if (stockQuantity <=
-					cpDefinitionInventoryEngine.getMinStockQuantity(
-						cpInstance)) {
-
-				commerceLowStockActivity.execute(cpInstance);
-			}
-		}
 	}
 
 	private CommerceOrder _checkCommerceOrderShipmentStatus(
@@ -426,6 +379,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 		if ((commerceOrder.getPaymentStatus() ==
 				CommerceOrderConstants.PAYMENT_STATUS_PAID) ||
+			(commercePaymentMethod == null) ||
 			((commercePaymentMethod != null) &&
 			 (commercePaymentMethod.getPaymentType() ==
 				 CommercePaymentConstants.
@@ -500,6 +454,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 					message.put(
 						"commerceOrderId", commerceOrder.getCommerceOrderId());
+					message.put("orderStatus", commerceOrder.getOrderStatus());
 
 					MessageBusUtil.sendMessage(
 						CommerceDestinationNames.ORDER_STATUS, message);
@@ -630,12 +585,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		_commerceInventoryBookedQuantityLocalService;
 
 	@Reference
-	private CommerceInventoryEngine _commerceInventoryEngine;
-
-	@Reference
-	private CommerceLowStockActivityRegistry _commerceLowStockActivityRegistry;
-
-	@Reference
 	private CommerceNotificationHelper _commerceNotificationHelper;
 
 	@Reference
@@ -671,17 +620,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 	@Reference
 	private ConfigurationProvider _configurationProvider;
-
-	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private UserLocalService _userLocalService;
