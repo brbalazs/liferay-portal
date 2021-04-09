@@ -1195,7 +1195,7 @@ public class ProjectController extends BaseFaroController {
 	}
 
 	private void _sendTimeZoneNotification(long groupId) {
-		List<FaroUser> faroUsers = _faroUserLocalService.findByG_S(
+		List<FaroUser> faroUsers = _faroUserLocalService.getFaroUsersByStatus(
 			groupId, FaroUserConstants.STATUS_APPROVED);
 
 		for (FaroUser faroUser : faroUsers) {

@@ -171,15 +171,20 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<FaroUser> findByG_S(long groupId, int status) {
-		return faroUserPersistence.findByG_S(groupId, status);
-	}
-
-	@Override
 	public FaroUser getFaroUser(long groupId, long liveUserId)
 		throws PortalException {
 
 		return faroUserPersistence.findByG_L(groupId, liveUserId);
+	}
+
+	@Override
+	public List<FaroUser> getFaroUsersByRoleId(long groupId, long roleId) {
+		return faroUserPersistence.findByG_R(groupId, roleId);
+	}
+
+	@Override
+	public List<FaroUser> getFaroUsersByStatus(long groupId, int status) {
+		return faroUserPersistence.findByG_S(groupId, status);
 	}
 
 	@Override
