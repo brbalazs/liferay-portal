@@ -149,7 +149,7 @@ exports[`AttributeList should render 1`] = `
           <td
             class=" table-cell-expand-small text-truncate"
           >
-            -
+            displayName-0
           </td>
           <td
             class=" table-cell-expand text-truncate"

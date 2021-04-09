@@ -151,7 +151,7 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=" table-cell-expand-small text-truncate"
             >
-              -
+              displayName-0
             </td>
             <td
               class=" table-cell-expand text-truncate"
@@ -222,7 +222,7 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=" table-cell-expand-small text-truncate"
             >
-              -
+              displayName-1
             </td>
             <td
               class=" table-cell-expand text-truncate"
@@ -293,7 +293,7 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=" table-cell-expand-small text-truncate"
             >
-              -
+              displayName-2
             </td>
             <td
               class=" table-cell-expand text-truncate"
@@ -364,7 +364,7 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=" table-cell-expand-small text-truncate"
             >
-              -
+              displayName-3
             </td>
             <td
               class=" table-cell-expand text-truncate"
@@ -435,7 +435,7 @@ exports[`EventDetailsCard should render 1`] = `
             <td
               class=" table-cell-expand-small text-truncate"
             >
-              -
+              displayName-4
             </td>
             <td
               class=" table-cell-expand text-truncate"

@@ -40,7 +40,7 @@ exports[`Event View page should render 1`] = `
         <span
           class="breadcrumb-text-truncate"
         >
-          name-0
+          displayName-0
         </span>
       </li>
     </ol>
@@ -64,6 +64,13 @@ exports[`Event View page should render 1`] = `
               name-0
             </span>
           </h3>
+          <span
+            class="text-truncate subtitle-text ml-2"
+            data-tooltip="false"
+            title=""
+          >
+            displayName-0
+          </span>
         </div>
         <div
           class="description"
@@ -224,7 +231,7 @@ exports[`Event View page should render 1`] = `
                 <td
                   class=" table-cell-expand-small text-truncate"
                 >
-                  -
+                  displayName-1
                 </td>
                 <td
                   class=" table-cell-expand text-truncate"

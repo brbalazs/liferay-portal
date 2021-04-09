@@ -403,7 +403,10 @@ exports[`List should render 1`] = `
                             </a>
                             <button
                               alt="Delete"
+                              aria-label="Delete"
                               class="button-root btn btn-unstyled component-action quick-action-item"
+                              data-tooltip="true"
+                              title="Delete"
                               type="button"
                             >
                               <svg

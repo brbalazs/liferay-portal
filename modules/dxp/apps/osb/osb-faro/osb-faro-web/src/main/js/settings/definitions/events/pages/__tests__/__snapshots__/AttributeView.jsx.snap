@@ -64,6 +64,13 @@ exports[`AttributeView should render 1`] = `
               name-0
             </span>
           </h3>
+          <span
+            class="text-truncate subtitle-text ml-2"
+            data-tooltip="false"
+            title=""
+          >
+            displayName-0
+          </span>
         </div>
         <div
           class="description"

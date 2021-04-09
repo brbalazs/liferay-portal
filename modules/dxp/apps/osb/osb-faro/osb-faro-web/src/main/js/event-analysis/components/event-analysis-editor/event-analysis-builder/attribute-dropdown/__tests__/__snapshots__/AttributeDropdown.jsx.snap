@@ -107,7 +107,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-0
+              displayName-0
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -133,7 +133,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-1
+              displayName-1
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -159,7 +159,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-2
+              displayName-2
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -185,7 +185,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-3
+              displayName-3
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -211,7 +211,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-4
+              displayName-4
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -237,7 +237,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-5
+              displayName-5
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -263,7 +263,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-6
+              displayName-6
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -289,7 +289,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-7
+              displayName-7
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -315,7 +315,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-8
+              displayName-8
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
@@ -341,7 +341,7 @@ exports[`AttributeDropdown render 2`] = `
               class="button-root btn btn-unstyled dropdown-item-primary-button"
               type="button"
             >
-              name-9
+              displayName-9
             </button>
             <button
               class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"

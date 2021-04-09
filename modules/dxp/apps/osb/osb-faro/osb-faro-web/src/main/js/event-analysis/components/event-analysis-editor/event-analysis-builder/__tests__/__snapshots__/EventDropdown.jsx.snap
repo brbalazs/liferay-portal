@@ -133,7 +133,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-0
+          displayName-0
         </button>
       </span>
     </li>
@@ -146,7 +146,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-1
+          displayName-1
         </button>
       </span>
     </li>
@@ -159,7 +159,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-2
+          displayName-2
         </button>
       </span>
     </li>
@@ -172,7 +172,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-3
+          displayName-3
         </button>
       </span>
     </li>
@@ -185,7 +185,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-4
+          displayName-4
         </button>
       </span>
     </li>
@@ -198,7 +198,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-5
+          displayName-5
         </button>
       </span>
     </li>
@@ -211,7 +211,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-6
+          displayName-6
         </button>
       </span>
     </li>
@@ -224,7 +224,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-7
+          displayName-7
         </button>
       </span>
     </li>
@@ -237,7 +237,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-8
+          displayName-8
         </button>
       </span>
     </li>
@@ -250,7 +250,7 @@ exports[`EventDropdown render 2`] = `
           class="button-root btn btn-unstyled dropdown-item-primary-button"
           type="button"
         >
-          name-9
+          displayName-9
         </button>
       </span>
     </li>

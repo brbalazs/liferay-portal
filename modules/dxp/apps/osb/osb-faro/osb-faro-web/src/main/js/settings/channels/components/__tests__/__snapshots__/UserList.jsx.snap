@@ -159,8 +159,11 @@ exports[`ChannelUserList should render 1`] = `
               >
                 <button
                   alt="Delete"
+                  aria-label="Delete"
                   class="button-root btn btn-unstyled component-action quick-action-item"
                   data-testid="delete-user"
+                  data-tooltip="true"
+                  title="Delete"
                   type="button"
                 >
                   <svg
