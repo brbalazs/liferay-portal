@@ -13,6 +13,10 @@ const AttributeList = lazy(
 	() => import(/* webpackChunkName: "AttributeList" */ './AttributeList')
 );
 
+const CustomEventList = lazy(
+	() => import(/* webpackChunkName: "CustomEventList" */ './CustomEventList')
+);
+
 const EventList = lazy(
 	() => import(/* webpackChunkName: "EventList" */ './EventList')
 );
@@ -72,6 +76,7 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 							)}
 							icon='ac-block'
 							iconAlignment='left'
+							size='sm'
 						>
 							{Liferay.Language.get('block-list')}
 						</Button>
@@ -99,8 +104,7 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 					/>
 
 					<BundleRouter
-						componentProps={{customEvent: true}}
-						data={EventList}
+						data={CustomEventList}
 						exact
 						path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
 					/>

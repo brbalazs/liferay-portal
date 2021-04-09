@@ -16,7 +16,6 @@ const {
 } = Constants;
 
 const withData = () => WrapperComponent => ({
-	customEvent = false,
 	delta = defaultDelta,
 	orderBy,
 	orderByField,
@@ -28,8 +27,9 @@ const withData = () => WrapperComponent => ({
 		EventDefinitionsData,
 		EventDefinitionsVariables
 	>(EVENT_DEFINITIONS_QUERY, {
+		fetchPolicy: 'no-cache',
 		variables: {
-			eventType: customEvent ? EventTypes.Custom : EventTypes.Default,
+			eventType: EventTypes.Default,
 			keyword: query,
 			page: Number(page) - 1,
 			size: delta,

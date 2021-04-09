@@ -870,7 +870,7 @@ export function mockEventAttributeDefinition(seed = 0, data = {}) {
 	return {
 		dataType: 'string',
 		description: null,
-		displayName: null,
+		displayName: `displayName-${seed}`,
 		id: String(seed),
 		name: `name-${seed}`,
 		sampleValue: `samplevalue-${seed}`,
@@ -881,11 +881,11 @@ export function mockEventAttributeDefinition(seed = 0, data = {}) {
 export function mockEventDefinition(seed = 0, data = {}) {
 	return {
 		description: null,
-		displayName: null,
+		displayName: `displayName-${seed}`,
 		eventAttributeDefinitions: [mockEventAttributeDefinition(1)],
 		id: String(seed),
 		name: `name-${seed}`,
-		type: 'default',
+		type: 'DEFAULT',
 		...data
 	};
 }
