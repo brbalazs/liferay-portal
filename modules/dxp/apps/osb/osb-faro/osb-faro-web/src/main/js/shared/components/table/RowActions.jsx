@@ -10,7 +10,7 @@ export default class RowActions extends React.Component {
 	};
 
 	static propTypes = {
-		actions: PropTypes.array.isRequired,
+		actions: PropTypes.array,
 		quickActions: PropTypes.array
 	};
 
@@ -24,9 +24,12 @@ export default class RowActions extends React.Component {
 						{quickActions.map(({iconSymbol, label, ...props}) => (
 							<Button
 								alt={label}
+								aria-label={label}
 								className='component-action quick-action-item'
+								data-tooltip
 								display='unstyled'
 								key={label}
+								title={label}
 								{...props}
 							>
 								<Icon symbol={iconSymbol} />
@@ -35,22 +38,24 @@ export default class RowActions extends React.Component {
 					</div>
 				)}
 
-				<Dropdown
-					align='bottomRight'
-					buttonProps={{
-						className: 'component-action',
-						display: 'unstyled'
-					}}
-					className='dropdown-action'
-					icon='ellipsis-v'
-					showCaret={false}
-				>
-					{actions.map(({label, ...props}) => (
-						<Dropdown.Item hideOnClick key={label} {...props}>
-							{label}
-						</Dropdown.Item>
-					))}
-				</Dropdown>
+				{actions && (
+					<Dropdown
+						align='bottomRight'
+						buttonProps={{
+							className: 'component-action',
+							display: 'unstyled'
+						}}
+						className='dropdown-action'
+						icon='ellipsis-v'
+						showCaret={false}
+					>
+						{actions.map(({label, ...props}) => (
+							<Dropdown.Item hideOnClick key={label} {...props}>
+								{label}
+							</Dropdown.Item>
+						))}
+					</Dropdown>
+				)}
 			</>
 		);
 	}
