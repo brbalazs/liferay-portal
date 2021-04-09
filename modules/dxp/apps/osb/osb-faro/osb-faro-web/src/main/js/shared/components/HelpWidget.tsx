@@ -4,7 +4,9 @@ import urlConstants from 'shared/util/url-constants';
 import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {Map} from 'immutable';
 import {Modal} from 'shared/types';
+import {PLANS} from 'shared/util/subscriptions';
 
 const getDropdownItems = ({
 	close,
@@ -41,37 +43,54 @@ const getDropdownItems = ({
 
 interface IHelpWidgetProps {
 	close: Modal.close;
+	faroSubscriptionIMap: Map<string, any>;
 	groupId: string;
 	open: Modal.open;
-	showModal: boolean;
 }
 
 const HelpWidget: React.FC<IHelpWidgetProps> = ({
 	close,
+	faroSubscriptionIMap,
 	groupId,
-	open,
-	showModal
-}) => (
-	<div className='help-widget-root'>
-		<ClayDropDownWithItems
-			alignmentPosition={Align.TopLeft}
-			items={getDropdownItems({close, groupId, open, showModal})}
-			menuElementAttrs={{
-				className: 'help-dropdown-root'
-			}}
-			trigger={
-				<Button
-					aria-label={Liferay.Language.get('help')}
-					borderless
-					className='help-button'
-					display='defaut'
-					icon='ac-question-mark'
-					iconAlignment='right'
-					size='sm'
-				/>
-			}
-		/>
-	</div>
-);
+	open
+}) => {
+	const basicTier = faroSubscriptionIMap.get('name') === PLANS.basic.name;
 
-export default connect(null, {close, open})(HelpWidget);
+	return (
+		<div className='help-widget-root'>
+			<ClayDropDownWithItems
+				alignmentPosition={Align.TopLeft}
+				items={getDropdownItems({
+					close,
+					groupId,
+					open,
+					showModal: basicTier
+				})}
+				menuElementAttrs={{
+					className: 'help-dropdown-root'
+				}}
+				trigger={
+					<Button
+						aria-label={Liferay.Language.get('help')}
+						borderless
+						className='help-button'
+						display='defaut'
+						icon='ac-question-mark'
+						iconAlignment='right'
+						size='sm'
+					/>
+				}
+			/>
+		</div>
+	);
+};
+
+export default connect(
+	(store, {groupId}) => ({
+		faroSubscriptionIMap: store.getIn(
+			['projects', groupId, 'data', 'faroSubscription'],
+			Map()
+		)
+	}),
+	{close, open}
+)(HelpWidget);
