@@ -182,7 +182,8 @@ public class CommerceCatalogLocalServiceImpl
 			commerceCatalogPersistence.findByCompanyId(companyId);
 
 		for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-			commerceCatalogPersistence.remove(commerceCatalog);
+			commerceCatalogLocalService.forceDeleteCommerceCatalog(
+				commerceCatalog);
 		}
 	}
 
@@ -210,6 +211,36 @@ public class CommerceCatalogLocalServiceImpl
 		}
 
 		return null;
+	}
+
+	@Indexable(type = IndexableType.DELETE)
+	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
+	public CommerceCatalog forceDeleteCommerceCatalog(
+			CommerceCatalog commerceCatalog)
+		throws PortalException {
+
+		long groupId = commerceCatalog.getGroupId();
+
+		// Commerce catalog
+
+		commerceCatalogPersistence.remove(commerceCatalog);
+
+		// Group
+
+		Group group = groupLocalService.fetchGroup(
+			groupId);
+
+		if (group != null) {
+			groupLocalService.deleteGroup(groupId);
+		}
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceCatalog, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		return commerceCatalog;
 	}
 
 	@Override
