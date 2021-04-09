@@ -349,13 +349,16 @@ public class UpgradeClient {
 		}
 
 		_appendClassPath(sb, new File(_jarDir, "lib"));
+
 		_appendClassPath(sb, _jarDir);
+
 		_appendClassPath(sb, _appServer.getGlobalLibDir());
 
 		sb.append(_appServer.getPortalClassesDir());
 		sb.append(File.pathSeparator);
 
 		_appendClassPath(sb, _appServer.getPortalLibDir());
+
 		_appendClassPath(sb, _appServer.getExtraLibDirs());
 
 		return sb.toString();
