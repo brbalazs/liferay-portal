@@ -6,16 +6,23 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Modal} from 'shared/types';
 
-const getDropdownItems = (
-	close: Modal.close,
-	open: Modal.open,
-	showModal: boolean
-): object[] => [
+const getDropdownItems = ({
+	close,
+	groupId,
+	open,
+	showModal
+}: {
+	close: Modal.close;
+	groupId: string;
+	open: Modal.open;
+	showModal: boolean;
+}): {href?: string; label: string; onClick?: () => void; target?: string}[] => [
 	showModal
 		? {
 				label: Liferay.Language.get('report-an-issue'),
 				onClick: () => {
 					open(modalTypes.HELP_WIDGET_MODAL, {
+						groupId,
 						onClose: close
 					});
 				}
@@ -34,15 +41,21 @@ const getDropdownItems = (
 
 interface IHelpWidgetProps {
 	close: Modal.close;
+	groupId: string;
 	open: Modal.open;
 	showModal: boolean;
 }
 
-const HelpWidget: React.FC<IHelpWidgetProps> = ({close, open, showModal}) => (
+const HelpWidget: React.FC<IHelpWidgetProps> = ({
+	close,
+	groupId,
+	open,
+	showModal
+}) => (
 	<div className='help-widget-root'>
 		<ClayDropDownWithItems
 			alignmentPosition={Align.TopLeft}
-			items={getDropdownItems(close, open, showModal)}
+			items={getDropdownItems({close, groupId, open, showModal})}
 			menuElementAttrs={{
 				className: 'help-dropdown-root'
 			}}

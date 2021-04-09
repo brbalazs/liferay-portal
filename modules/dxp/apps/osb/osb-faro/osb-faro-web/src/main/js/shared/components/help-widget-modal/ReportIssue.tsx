@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Form, {
 	validateMaxLength,
@@ -5,13 +6,38 @@ import Form, {
 } from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React from 'react';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
+import {connect} from 'react-redux';
 import {IHelpWidgetScreenProps} from './types';
 import {sequence} from 'shared/util/promise';
 
-const ReportIssue: React.FC<IHelpWidgetScreenProps> = ({onClose, onNext}) => {
-	// TODO: LRAC-7604 Connect modal form to backend
-	const onSubmit = () => {
-		onNext();
+const ReportIssue: React.FC<
+	IHelpWidgetScreenProps & {addAlert: Alert.AddAlert}
+> = ({addAlert, groupId, onClose, onNext}) => {
+	const onSubmit = ({description, issueTitle}, {setSubmitting}) => {
+		API.issue
+			.create({
+				currentUrl: window.location.href,
+				description,
+				groupId,
+				title: issueTitle
+			})
+			.then(() => {
+				setSubmitting(false);
+
+				onNext();
+			})
+			.catch(() => {
+				addAlert({
+					alertType: Alert.Types.ERROR,
+					message: Liferay.Language.get(
+						'there-was-an-error-processing-your-request.-please-try-again'
+					)
+				});
+
+				setSubmitting(false);
+			});
 	};
 
 	return (
@@ -84,4 +110,4 @@ const ReportIssue: React.FC<IHelpWidgetScreenProps> = ({onClose, onNext}) => {
 	);
 };
 
-export default ReportIssue;
+export default connect(null, {addAlert})(ReportIssue);

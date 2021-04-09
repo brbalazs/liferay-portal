@@ -16,14 +16,15 @@ interface IWrappedComponentProps {
 const withHelpWidget = (
 	WrappedComponent: React.ComponentType<IWrappedComponentProps>
 ) => props => {
-	const basicTier =
-		props.faroSubscriptionIMap.get('name') === PLANS.basic.name;
+	const {faroSubscriptionIMap, groupId} = props;
+
+	const basicTier = faroSubscriptionIMap.get('name') === PLANS.basic.name;
 
 	return (
 		<>
 			<WrappedComponent {...props} />
 
-			<HelpWidget showModal={basicTier} />
+			<HelpWidget groupId={groupId} showModal={basicTier} />
 		</>
 	);
 };
