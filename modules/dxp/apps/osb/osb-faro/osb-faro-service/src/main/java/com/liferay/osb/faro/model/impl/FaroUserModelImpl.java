@@ -131,9 +131,11 @@ public class FaroUserModelImpl
 
 	public static final long LIVEUSERID_COLUMN_BITMASK = 8L;
 
-	public static final long STATUS_COLUMN_BITMASK = 16L;
+	public static final long ROLEID_COLUMN_BITMASK = 16L;
 
-	public static final long FAROUSERID_COLUMN_BITMASK = 32L;
+	public static final long STATUS_COLUMN_BITMASK = 32L;
+
+	public static final long FAROUSERID_COLUMN_BITMASK = 64L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.osb.faro.service.util.ServiceProps.get(
@@ -650,7 +652,19 @@ public class FaroUserModelImpl
 
 	@Override
 	public void setRoleId(long roleId) {
+		_columnBitmask |= ROLEID_COLUMN_BITMASK;
+
+		if (!_setOriginalRoleId) {
+			_setOriginalRoleId = true;
+
+			_originalRoleId = _roleId;
+		}
+
 		_roleId = roleId;
+	}
+
+	public long getOriginalRoleId() {
+		return _originalRoleId;
 	}
 
 	@Override
@@ -840,6 +854,10 @@ public class FaroUserModelImpl
 
 		_setOriginalLiveUserId = false;
 
+		_originalRoleId = _roleId;
+
+		_setOriginalRoleId = false;
+
 		_originalEmailAddress = _emailAddress;
 
 		_originalKey = _key;
@@ -980,6 +998,8 @@ public class FaroUserModelImpl
 	private long _originalLiveUserId;
 	private boolean _setOriginalLiveUserId;
 	private long _roleId;
+	private long _originalRoleId;
+	private boolean _setOriginalRoleId;
 	private String _emailAddress;
 	private String _originalEmailAddress;
 	private String _key;

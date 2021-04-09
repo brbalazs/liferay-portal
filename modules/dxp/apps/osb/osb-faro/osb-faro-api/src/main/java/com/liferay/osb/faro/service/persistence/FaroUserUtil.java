@@ -408,6 +408,189 @@ public class FaroUserUtil {
 	}
 
 	/**
+	 * Returns all the faro users where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @return the matching faro users
+	 */
+	public static List<FaroUser> findByG_R(long groupId, long roleId) {
+		return getPersistence().findByG_R(groupId, roleId);
+	}
+
+	/**
+	 * Returns a range of all the faro users where groupId = &#63; and roleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @return the range of matching faro users
+	 */
+	public static List<FaroUser> findByG_R(
+		long groupId, long roleId, int start, int end) {
+
+		return getPersistence().findByG_R(groupId, roleId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro users where groupId = &#63; and roleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching faro users
+	 */
+	public static List<FaroUser> findByG_R(
+		long groupId, long roleId, int start, int end,
+		OrderByComparator<FaroUser> orderByComparator) {
+
+		return getPersistence().findByG_R(
+			groupId, roleId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro users where groupId = &#63; and roleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching faro users
+	 */
+	public static List<FaroUser> findByG_R(
+		long groupId, long roleId, int start, int end,
+		OrderByComparator<FaroUser> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByG_R(
+			groupId, roleId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first faro user in the ordered set where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro user
+	 * @throws NoSuchFaroUserException if a matching faro user could not be found
+	 */
+	public static FaroUser findByG_R_First(
+			long groupId, long roleId,
+			OrderByComparator<FaroUser> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroUserException {
+
+		return getPersistence().findByG_R_First(
+			groupId, roleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first faro user in the ordered set where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro user, or <code>null</code> if a matching faro user could not be found
+	 */
+	public static FaroUser fetchByG_R_First(
+		long groupId, long roleId,
+		OrderByComparator<FaroUser> orderByComparator) {
+
+		return getPersistence().fetchByG_R_First(
+			groupId, roleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last faro user in the ordered set where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro user
+	 * @throws NoSuchFaroUserException if a matching faro user could not be found
+	 */
+	public static FaroUser findByG_R_Last(
+			long groupId, long roleId,
+			OrderByComparator<FaroUser> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroUserException {
+
+		return getPersistence().findByG_R_Last(
+			groupId, roleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last faro user in the ordered set where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro user, or <code>null</code> if a matching faro user could not be found
+	 */
+	public static FaroUser fetchByG_R_Last(
+		long groupId, long roleId,
+		OrderByComparator<FaroUser> orderByComparator) {
+
+		return getPersistence().fetchByG_R_Last(
+			groupId, roleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the faro users before and after the current faro user in the ordered set where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param faroUserId the primary key of the current faro user
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next faro user
+	 * @throws NoSuchFaroUserException if a faro user with the primary key could not be found
+	 */
+	public static FaroUser[] findByG_R_PrevAndNext(
+			long faroUserId, long groupId, long roleId,
+			OrderByComparator<FaroUser> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroUserException {
+
+		return getPersistence().findByG_R_PrevAndNext(
+			faroUserId, groupId, roleId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the faro users where groupId = &#63; and roleId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 */
+	public static void removeByG_R(long groupId, long roleId) {
+		getPersistence().removeByG_R(groupId, roleId);
+	}
+
+	/**
+	 * Returns the number of faro users where groupId = &#63; and roleId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param roleId the role ID
+	 * @return the number of matching faro users
+	 */
+	public static int countByG_R(long groupId, long roleId) {
+		return getPersistence().countByG_R(groupId, roleId);
+	}
+
+	/**
 	 * Returns the faro user where groupId = &#63; and emailAddress = &#63; or throws a <code>NoSuchFaroUserException</code> if it could not be found.
 	 *
 	 * @param groupId the group ID

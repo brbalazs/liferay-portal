@@ -16,6 +16,7 @@ package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.FaroNotificationLocalService;
+import com.liferay.osb.faro.service.FaroNotificationLocalServiceUtil;
 import com.liferay.osb.faro.service.persistence.FaroNotificationPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FaroNotificationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.service.FaroNotificationLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FaroNotificationLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FaroNotificationLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -425,11 +428,15 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.osb.faro.model.FaroNotification",
 			faroNotificationLocalService);
+
+		_setLocalServiceUtilService(faroNotificationLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.model.FaroNotification");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -471,6 +478,23 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		FaroNotificationLocalService faroNotificationLocalService) {
+
+		try {
+			Field field =
+				FaroNotificationLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, faroNotificationLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.contacts.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for ContactsLayoutTemplate. This utility wraps
@@ -48,18 +54,15 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was added
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		addContactsLayoutTemplate(
-			com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-				contactsLayoutTemplate) {
+	public static ContactsLayoutTemplate addContactsLayoutTemplate(
+		ContactsLayoutTemplate contactsLayoutTemplate) {
 
 		return getService().addContactsLayoutTemplate(contactsLayoutTemplate);
 	}
 
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		addContactsLayoutTemplate(
-			long groupId, long userId, String headerContactsCardTemplateIds,
-			String name, String settings, int type) {
+	public static ContactsLayoutTemplate addContactsLayoutTemplate(
+		long groupId, long userId, String headerContactsCardTemplateIds,
+		String name, String settings, int type) {
 
 		return getService().addContactsLayoutTemplate(
 			groupId, userId, headerContactsCardTemplateIds, name, settings,
@@ -72,8 +75,8 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param contactsLayoutTemplateId the primary key for the new contacts layout template
 	 * @return the new contacts layout template
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		createContactsLayoutTemplate(long contactsLayoutTemplateId) {
+	public static ContactsLayoutTemplate createContactsLayoutTemplate(
+		long contactsLayoutTemplateId) {
 
 		return getService().createContactsLayoutTemplate(
 			contactsLayoutTemplateId);
@@ -89,10 +92,8 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was removed
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		deleteContactsLayoutTemplate(
-			com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-				contactsLayoutTemplate) {
+	public static ContactsLayoutTemplate deleteContactsLayoutTemplate(
+		ContactsLayoutTemplate contactsLayoutTemplate) {
 
 		return getService().deleteContactsLayoutTemplate(
 			contactsLayoutTemplate);
@@ -109,9 +110,9 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @return the contacts layout template that was removed
 	 * @throws PortalException if a contacts layout template with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-			deleteContactsLayoutTemplate(long contactsLayoutTemplateId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ContactsLayoutTemplate deleteContactsLayoutTemplate(
+			long contactsLayoutTemplateId)
+		throws PortalException {
 
 		return getService().deleteContactsLayoutTemplate(
 			contactsLayoutTemplateId);
@@ -124,17 +125,14 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -144,9 +142,7 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -162,9 +158,8 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -182,10 +177,9 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -197,9 +191,7 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -211,14 +203,14 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		fetchContactsLayoutTemplate(long contactsLayoutTemplateId) {
+	public static ContactsLayoutTemplate fetchContactsLayoutTemplate(
+		long contactsLayoutTemplateId) {
 
 		return getService().fetchContactsLayoutTemplate(
 			contactsLayoutTemplateId);
@@ -237,9 +229,9 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @return the contacts layout template
 	 * @throws PortalException if a contacts layout template with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-			getContactsLayoutTemplate(long contactsLayoutTemplateId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ContactsLayoutTemplate getContactsLayoutTemplate(
+			long contactsLayoutTemplateId)
+		throws PortalException {
 
 		return getService().getContactsLayoutTemplate(contactsLayoutTemplateId);
 	}
@@ -255,17 +247,14 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param end the upper bound of the range of contacts layout templates (not inclusive)
 	 * @return the range of contacts layout templates
 	 */
-	public static java.util.List
-		<com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate>
-			getContactsLayoutTemplates(int start, int end) {
+	public static List<ContactsLayoutTemplate> getContactsLayoutTemplates(
+		int start, int end) {
 
 		return getService().getContactsLayoutTemplates(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate>
-			getContactsLayoutTemplates(
-				long groupId, int type, int start, int end) {
+	public static List<ContactsLayoutTemplate> getContactsLayoutTemplates(
+		long groupId, int type, int start, int end) {
 
 		return getService().getContactsLayoutTemplates(
 			groupId, type, start, end);
@@ -299,9 +288,8 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -316,21 +304,17 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was updated
 	 */
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-		updateContactsLayoutTemplate(
-			com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-				contactsLayoutTemplate) {
+	public static ContactsLayoutTemplate updateContactsLayoutTemplate(
+		ContactsLayoutTemplate contactsLayoutTemplate) {
 
 		return getService().updateContactsLayoutTemplate(
 			contactsLayoutTemplate);
 	}
 
-	public static com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate
-			updateContactsLayoutTemplate(
-				long contactsLayoutTemplateId,
-				String headerContactsCardTemplateIds, String name,
-				String settings)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static ContactsLayoutTemplate updateContactsLayoutTemplate(
+			long contactsLayoutTemplateId, String headerContactsCardTemplateIds,
+			String name, String settings)
+		throws PortalException {
 
 		return getService().updateContactsLayoutTemplate(
 			contactsLayoutTemplateId, headerContactsCardTemplateIds, name,
@@ -338,29 +322,9 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 	}
 
 	public static ContactsLayoutTemplateLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<ContactsLayoutTemplateLocalService, ContactsLayoutTemplateLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			ContactsLayoutTemplateLocalService.class);
-
-		ServiceTracker
-			<ContactsLayoutTemplateLocalService,
-			 ContactsLayoutTemplateLocalService> serviceTracker =
-				new ServiceTracker
-					<ContactsLayoutTemplateLocalService,
-					 ContactsLayoutTemplateLocalService>(
-						 bundle.getBundleContext(),
-						 ContactsLayoutTemplateLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile ContactsLayoutTemplateLocalService _service;
 
 }

@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for FaroProjectEmailAddressDomain. This utility wraps
@@ -48,16 +54,15 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was added
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		addFaroProjectEmailAddressDomain(
-			com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
-				faroProjectEmailAddressDomain) {
+			FaroProjectEmailAddressDomain faroProjectEmailAddressDomain) {
 
 		return getService().addFaroProjectEmailAddressDomain(
 			faroProjectEmailAddressDomain);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		addFaroProjectEmailAddressDomain(
 			long groupId, long faroProjectId, String emailDomain) {
 
@@ -66,8 +71,7 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	}
 
 	public static void addFaroProjectEmailAddressDomains(
-		long groupId, long faroProjectId,
-		java.util.List<String> emailAddressDomains) {
+		long groupId, long faroProjectId, List<String> emailAddressDomains) {
 
 		getService().addFaroProjectEmailAddressDomains(
 			groupId, faroProjectId, emailAddressDomains);
@@ -79,7 +83,7 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param faroProjectEmailAddressDomainId the primary key for the new faro project email address domain
 	 * @return the new faro project email address domain
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		createFaroProjectEmailAddressDomain(
 			long faroProjectEmailAddressDomainId) {
 
@@ -97,10 +101,9 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was removed
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		deleteFaroProjectEmailAddressDomain(
-			com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
-				faroProjectEmailAddressDomain) {
+			FaroProjectEmailAddressDomain faroProjectEmailAddressDomain) {
 
 		return getService().deleteFaroProjectEmailAddressDomain(
 			faroProjectEmailAddressDomain);
@@ -117,10 +120,10 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @return the faro project email address domain that was removed
 	 * @throws PortalException if a faro project email address domain with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 			deleteFaroProjectEmailAddressDomain(
 				long faroProjectEmailAddressDomainId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().deleteFaroProjectEmailAddressDomain(
 			faroProjectEmailAddressDomainId);
@@ -129,17 +132,14 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -149,9 +149,7 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -167,9 +165,8 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -187,10 +184,9 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -202,9 +198,7 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -216,13 +210,13 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		fetchFaroProjectEmailAddressDomain(
 			long faroProjectEmailAddressDomainId) {
 
@@ -243,10 +237,10 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @return the faro project email address domain
 	 * @throws PortalException if a faro project email address domain with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 			getFaroProjectEmailAddressDomain(
 				long faroProjectEmailAddressDomainId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().getFaroProjectEmailAddressDomain(
 			faroProjectEmailAddressDomainId);
@@ -263,25 +257,21 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param end the upper bound of the range of faro project email address domains (not inclusive)
 	 * @return the range of faro project email address domains
 	 */
-	public static java.util.List
-		<com.liferay.osb.faro.model.FaroProjectEmailAddressDomain>
-			getFaroProjectEmailAddressDomains(int start, int end) {
+	public static List<FaroProjectEmailAddressDomain>
+		getFaroProjectEmailAddressDomains(int start, int end) {
 
 		return getService().getFaroProjectEmailAddressDomains(start, end);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.faro.model.FaroProjectEmailAddressDomain>
-			getFaroProjectEmailAddressDomainsByFaroProjectId(
-				long faroProjectId) {
+	public static List<FaroProjectEmailAddressDomain>
+		getFaroProjectEmailAddressDomainsByFaroProjectId(long faroProjectId) {
 
 		return getService().getFaroProjectEmailAddressDomainsByFaroProjectId(
 			faroProjectId);
 	}
 
-	public static java.util.List
-		<com.liferay.osb.faro.model.FaroProjectEmailAddressDomain>
-			getFaroProjectEmailAddressDomainsByGroupId(long groupId) {
+	public static List<FaroProjectEmailAddressDomain>
+		getFaroProjectEmailAddressDomainsByGroupId(long groupId) {
 
 		return getService().getFaroProjectEmailAddressDomainsByGroupId(groupId);
 	}
@@ -314,9 +304,8 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -331,39 +320,18 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was updated
 	 */
-	public static com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
+	public static FaroProjectEmailAddressDomain
 		updateFaroProjectEmailAddressDomain(
-			com.liferay.osb.faro.model.FaroProjectEmailAddressDomain
-				faroProjectEmailAddressDomain) {
+			FaroProjectEmailAddressDomain faroProjectEmailAddressDomain) {
 
 		return getService().updateFaroProjectEmailAddressDomain(
 			faroProjectEmailAddressDomain);
 	}
 
 	public static FaroProjectEmailAddressDomainLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<FaroProjectEmailAddressDomainLocalService,
-		 FaroProjectEmailAddressDomainLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			FaroProjectEmailAddressDomainLocalService.class);
-
-		ServiceTracker
-			<FaroProjectEmailAddressDomainLocalService,
-			 FaroProjectEmailAddressDomainLocalService> serviceTracker =
-				new ServiceTracker
-					<FaroProjectEmailAddressDomainLocalService,
-					 FaroProjectEmailAddressDomainLocalService>(
-						 bundle.getBundleContext(),
-						 FaroProjectEmailAddressDomainLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroProjectEmailAddressDomainLocalService _service;
 
 }

@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.model.FaroNotification;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for FaroNotification. This utility wraps
@@ -48,17 +54,15 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param faroNotification the faro notification
 	 * @return the faro notification that was added
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-		addFaroNotification(
-			com.liferay.osb.faro.model.FaroNotification faroNotification) {
+	public static FaroNotification addFaroNotification(
+		FaroNotification faroNotification) {
 
 		return getService().addFaroNotification(faroNotification);
 	}
 
-	public static com.liferay.osb.faro.model.FaroNotification
-		addFaroNotification(
-			long userId, long groupId, long ownerId, String scope, String type,
-			String subtype) {
+	public static FaroNotification addFaroNotification(
+		long userId, long groupId, long ownerId, String scope, String type,
+		String subtype) {
 
 		return getService().addFaroNotification(
 			userId, groupId, ownerId, scope, type, subtype);
@@ -74,8 +78,8 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param faroNotificationId the primary key for the new faro notification
 	 * @return the new faro notification
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-		createFaroNotification(long faroNotificationId) {
+	public static FaroNotification createFaroNotification(
+		long faroNotificationId) {
 
 		return getService().createFaroNotification(faroNotificationId);
 	}
@@ -90,9 +94,8 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param faroNotification the faro notification
 	 * @return the faro notification that was removed
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-		deleteFaroNotification(
-			com.liferay.osb.faro.model.FaroNotification faroNotification) {
+	public static FaroNotification deleteFaroNotification(
+		FaroNotification faroNotification) {
 
 		return getService().deleteFaroNotification(faroNotification);
 	}
@@ -108,9 +111,9 @@ public class FaroNotificationLocalServiceUtil {
 	 * @return the faro notification that was removed
 	 * @throws PortalException if a faro notification with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-			deleteFaroNotification(long faroNotificationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroNotification deleteFaroNotification(
+			long faroNotificationId)
+		throws PortalException {
 
 		return getService().deleteFaroNotification(faroNotificationId);
 	}
@@ -124,17 +127,14 @@ public class FaroNotificationLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -144,9 +144,7 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -162,9 +160,8 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -182,10 +179,9 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -197,9 +193,7 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -211,21 +205,20 @@ public class FaroNotificationLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.model.FaroNotification
-		fetchFaroNotification(long faroNotificationId) {
+	public static FaroNotification fetchFaroNotification(
+		long faroNotificationId) {
 
 		return getService().fetchFaroNotification(faroNotificationId);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsLast30Days(
-			long groupId, String type, long userId) {
+	public static List<FaroNotification> findFaroNotificationsLast30Days(
+		long groupId, String type, long userId) {
 
 		return getService().findFaroNotificationsLast30Days(
 			groupId, type, userId);
@@ -244,9 +237,8 @@ public class FaroNotificationLocalServiceUtil {
 	 * @return the faro notification
 	 * @throws PortalException if a faro notification with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-			getFaroNotification(long faroNotificationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroNotification getFaroNotification(long faroNotificationId)
+		throws PortalException {
 
 		return getService().getFaroNotification(faroNotificationId);
 	}
@@ -262,8 +254,8 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @return the range of faro notifications
 	 */
-	public static java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		getFaroNotifications(int start, int end) {
+	public static List<FaroNotification> getFaroNotifications(
+		int start, int end) {
 
 		return getService().getFaroNotifications(start, end);
 	}
@@ -296,9 +288,8 @@ public class FaroNotificationLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -313,37 +304,16 @@ public class FaroNotificationLocalServiceUtil {
 	 * @param faroNotification the faro notification
 	 * @return the faro notification that was updated
 	 */
-	public static com.liferay.osb.faro.model.FaroNotification
-		updateFaroNotification(
-			com.liferay.osb.faro.model.FaroNotification faroNotification) {
+	public static FaroNotification updateFaroNotification(
+		FaroNotification faroNotification) {
 
 		return getService().updateFaroNotification(faroNotification);
 	}
 
 	public static FaroNotificationLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<FaroNotificationLocalService, FaroNotificationLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			FaroNotificationLocalService.class);
-
-		ServiceTracker
-			<FaroNotificationLocalService, FaroNotificationLocalService>
-				serviceTracker =
-					new ServiceTracker
-						<FaroNotificationLocalService,
-						 FaroNotificationLocalService>(
-							 bundle.getBundleContext(),
-							 FaroNotificationLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroNotificationLocalService _service;
 
 }

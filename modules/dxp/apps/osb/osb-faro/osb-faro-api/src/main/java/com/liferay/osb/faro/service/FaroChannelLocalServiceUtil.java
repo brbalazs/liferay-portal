@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.model.FaroChannel;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for FaroChannel. This utility wraps
@@ -48,32 +54,30 @@ public class FaroChannelLocalServiceUtil {
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was added
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel addFaroChannel(
-		com.liferay.osb.faro.model.FaroChannel faroChannel) {
-
+	public static FaroChannel addFaroChannel(FaroChannel faroChannel) {
 		return getService().addFaroChannel(faroChannel);
 	}
 
-	public static com.liferay.osb.faro.model.FaroChannel addFaroChannel(
+	public static FaroChannel addFaroChannel(
 			long userId, String name, String channelId, long workspaceGroupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addFaroChannel(
 			userId, name, channelId, workspaceGroupId);
 	}
 
 	public static void addUsers(
-			long companyId, String channelId,
-			java.util.List<Long> invitedUserIds, long userId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			long companyId, String channelId, List<Long> invitedUserIds,
+			long userId)
+		throws PortalException {
 
 		getService().addUsers(companyId, channelId, invitedUserIds, userId);
 	}
 
 	public static int countFaroUsers(
 			String channelId, boolean available, String query,
-			java.util.List<Integer> statuses)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			List<Integer> statuses)
+		throws PortalException {
 
 		return getService().countFaroUsers(
 			channelId, available, query, statuses);
@@ -85,9 +89,7 @@ public class FaroChannelLocalServiceUtil {
 	 * @param faroChannelId the primary key for the new faro channel
 	 * @return the new faro channel
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel createFaroChannel(
-		long faroChannelId) {
-
+	public static FaroChannel createFaroChannel(long faroChannelId) {
 		return getService().createFaroChannel(faroChannelId);
 	}
 
@@ -102,9 +104,8 @@ public class FaroChannelLocalServiceUtil {
 	 * @return the faro channel that was removed
 	 * @throws PortalException
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel deleteFaroChannel(
-			com.liferay.osb.faro.model.FaroChannel faroChannel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroChannel deleteFaroChannel(FaroChannel faroChannel)
+		throws PortalException {
 
 		return getService().deleteFaroChannel(faroChannel);
 	}
@@ -120,22 +121,20 @@ public class FaroChannelLocalServiceUtil {
 	 * @return the faro channel that was removed
 	 * @throws PortalException if a faro channel with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel deleteFaroChannel(
-			long faroChannelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroChannel deleteFaroChannel(long faroChannelId)
+		throws PortalException {
 
 		return getService().deleteFaroChannel(faroChannelId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroChannel deleteFaroChannel(
-			String channelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroChannel deleteFaroChannel(String channelId)
+		throws PortalException {
 
 		return getService().deleteFaroChannel(channelId);
 	}
 
 	public static void deleteFaroChannels(long workspaceGroupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		getService().deleteFaroChannels(workspaceGroupId);
 	}
@@ -143,17 +142,14 @@ public class FaroChannelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -163,9 +159,7 @@ public class FaroChannelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -181,9 +175,8 @@ public class FaroChannelLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -201,10 +194,9 @@ public class FaroChannelLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -216,9 +208,7 @@ public class FaroChannelLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -230,25 +220,22 @@ public class FaroChannelLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.model.FaroChannel fetchFaroChannel(
-		long faroChannelId) {
-
+	public static FaroChannel fetchFaroChannel(long faroChannelId) {
 		return getService().fetchFaroChannel(faroChannelId);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroUser>
-			findFaroUsers(
-				String channelId, boolean available, String query,
-				java.util.List<Integer> statuses, int start, int end,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<com.liferay.osb.faro.model.FaroUser> orderByComparator)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static List<com.liferay.osb.faro.model.FaroUser> findFaroUsers(
+			String channelId, boolean available, String query,
+			List<Integer> statuses, int start, int end,
+			OrderByComparator<com.liferay.osb.faro.model.FaroUser>
+				orderByComparator)
+		throws PortalException {
 
 		return getService().findFaroUsers(
 			channelId, available, query, statuses, start, end,
@@ -268,16 +255,14 @@ public class FaroChannelLocalServiceUtil {
 	 * @return the faro channel
 	 * @throws PortalException if a faro channel with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel getFaroChannel(
-			long faroChannelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroChannel getFaroChannel(long faroChannelId)
+		throws PortalException {
 
 		return getService().getFaroChannel(faroChannelId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroChannel getFaroChannel(
-			String channelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroChannel getFaroChannel(String channelId)
+		throws PortalException {
 
 		return getService().getFaroChannel(channelId);
 	}
@@ -293,9 +278,7 @@ public class FaroChannelLocalServiceUtil {
 	 * @param end the upper bound of the range of faro channels (not inclusive)
 	 * @return the range of faro channels
 	 */
-	public static java.util.List<com.liferay.osb.faro.model.FaroChannel>
-		getFaroChannels(int start, int end) {
-
+	public static List<FaroChannel> getFaroChannels(int start, int end) {
 		return getService().getFaroChannels(start, end);
 	}
 
@@ -327,24 +310,21 @@ public class FaroChannelLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeUsers(
-			String channelId, java.util.List<Long> userIds)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static void removeUsers(String channelId, List<Long> userIds)
+		throws PortalException {
 
 		getService().removeUsers(channelId, userIds);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroChannel> search(
+	public static List<FaroChannel> search(
 		long groupId, String query, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator
-			<com.liferay.osb.faro.model.FaroChannel> orderByComparator) {
+		OrderByComparator<FaroChannel> orderByComparator) {
 
 		return getService().search(
 			groupId, query, start, end, orderByComparator);
@@ -364,32 +344,14 @@ public class FaroChannelLocalServiceUtil {
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was updated
 	 */
-	public static com.liferay.osb.faro.model.FaroChannel updateFaroChannel(
-		com.liferay.osb.faro.model.FaroChannel faroChannel) {
-
+	public static FaroChannel updateFaroChannel(FaroChannel faroChannel) {
 		return getService().updateFaroChannel(faroChannel);
 	}
 
 	public static FaroChannelLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<FaroChannelLocalService, FaroChannelLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(FaroChannelLocalService.class);
-
-		ServiceTracker<FaroChannelLocalService, FaroChannelLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<FaroChannelLocalService, FaroChannelLocalService>(
-						bundle.getBundleContext(),
-						FaroChannelLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroChannelLocalService _service;
 
 }

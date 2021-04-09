@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.service.FaroEmailLocalService;
+import com.liferay.osb.faro.service.FaroEmailLocalServiceUtil;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -26,6 +27,8 @@ import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
+import java.lang.reflect.Field;
 
 import javax.sql.DataSource;
 
@@ -47,7 +50,7 @@ public abstract class FaroEmailLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FaroEmailLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.service.FaroEmailLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FaroEmailLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FaroEmailLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -94,9 +97,11 @@ public abstract class FaroEmailLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		_setLocalServiceUtilService(faroEmailLocalService);
 	}
 
 	public void destroy() {
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -130,6 +135,22 @@ public abstract class FaroEmailLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		FaroEmailLocalService faroEmailLocalService) {
+
+		try {
+			Field field = FaroEmailLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, faroEmailLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

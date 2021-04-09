@@ -56,9 +56,9 @@ public interface FaroProject extends FaroProjectModel, PersistedModel {
 
 		};
 
-	public boolean isAllowedIPAddress(String ipAddress);
-
 	public String getProjectId();
+
+	public boolean isAllowedIPAddress(String ipAddress);
 
 	public boolean isTrial();
 

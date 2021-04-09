@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.model.FaroPreferences;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for FaroPreferences. This utility wraps
@@ -48,8 +54,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was added
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences addFaroPreferences(
-		com.liferay.osb.faro.model.FaroPreferences faroPreferences) {
+	public static FaroPreferences addFaroPreferences(
+		FaroPreferences faroPreferences) {
 
 		return getService().addFaroPreferences(faroPreferences);
 	}
@@ -60,8 +66,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param faroPreferencesId the primary key for the new faro preferences
 	 * @return the new faro preferences
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences
-		createFaroPreferences(long faroPreferencesId) {
+	public static FaroPreferences createFaroPreferences(
+		long faroPreferencesId) {
 
 		return getService().createFaroPreferences(faroPreferencesId);
 	}
@@ -76,9 +82,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was removed
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences
-		deleteFaroPreferences(
-			com.liferay.osb.faro.model.FaroPreferences faroPreferences) {
+	public static FaroPreferences deleteFaroPreferences(
+		FaroPreferences faroPreferences) {
 
 		return getService().deleteFaroPreferences(faroPreferences);
 	}
@@ -94,15 +99,14 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @return the faro preferences that was removed
 	 * @throws PortalException if a faro preferences with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences
-			deleteFaroPreferences(long faroPreferencesId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroPreferences deleteFaroPreferences(long faroPreferencesId)
+		throws PortalException {
 
 		return getService().deleteFaroPreferences(faroPreferencesId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroPreferences
-		deleteFaroPreferences(long groupId, long ownerId) {
+	public static FaroPreferences deleteFaroPreferences(
+		long groupId, long ownerId) {
 
 		return getService().deleteFaroPreferences(groupId, ownerId);
 	}
@@ -114,17 +118,14 @@ public class FaroPreferencesLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -134,9 +135,7 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -152,9 +151,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -172,10 +170,9 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -187,9 +184,7 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -201,20 +196,18 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.model.FaroPreferences
-		fetchFaroPreferences(long faroPreferencesId) {
-
+	public static FaroPreferences fetchFaroPreferences(long faroPreferencesId) {
 		return getService().fetchFaroPreferences(faroPreferencesId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroPreferences
-		fetchFaroPreferences(long groupId, long ownerId) {
+	public static FaroPreferences fetchFaroPreferences(
+		long groupId, long ownerId) {
 
 		return getService().fetchFaroPreferences(groupId, ownerId);
 	}
@@ -232,9 +225,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @return the faro preferences
 	 * @throws PortalException if a faro preferences with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences getFaroPreferences(
-			long faroPreferencesId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroPreferences getFaroPreferences(long faroPreferencesId)
+		throws PortalException {
 
 		return getService().getFaroPreferences(faroPreferencesId);
 	}
@@ -250,8 +242,8 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param end the upper bound of the range of faro preferenceses (not inclusive)
 	 * @return the range of faro preferenceses
 	 */
-	public static java.util.List<com.liferay.osb.faro.model.FaroPreferences>
-		getFaroPreferenceses(int start, int end) {
+	public static List<FaroPreferences> getFaroPreferenceses(
+		int start, int end) {
 
 		return getService().getFaroPreferenceses(start, end);
 	}
@@ -284,16 +276,15 @@ public class FaroPreferencesLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static com.liferay.osb.faro.model.FaroPreferences savePreferences(
+	public static FaroPreferences savePreferences(
 			long userId, long groupId, long ownerId, String preferences)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().savePreferences(
 			userId, groupId, ownerId, preferences);
@@ -309,35 +300,16 @@ public class FaroPreferencesLocalServiceUtil {
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was updated
 	 */
-	public static com.liferay.osb.faro.model.FaroPreferences
-		updateFaroPreferences(
-			com.liferay.osb.faro.model.FaroPreferences faroPreferences) {
+	public static FaroPreferences updateFaroPreferences(
+		FaroPreferences faroPreferences) {
 
 		return getService().updateFaroPreferences(faroPreferences);
 	}
 
 	public static FaroPreferencesLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<FaroPreferencesLocalService, FaroPreferencesLocalService>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			FaroPreferencesLocalService.class);
-
-		ServiceTracker<FaroPreferencesLocalService, FaroPreferencesLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<FaroPreferencesLocalService, FaroPreferencesLocalService>(
-						bundle.getBundleContext(),
-						FaroPreferencesLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroPreferencesLocalService _service;
 
 }

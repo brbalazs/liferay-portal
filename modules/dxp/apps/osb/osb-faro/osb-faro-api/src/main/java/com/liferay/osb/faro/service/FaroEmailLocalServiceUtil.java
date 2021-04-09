@@ -14,10 +14,6 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * Provides the local service utility for FaroEmail. This utility wraps
  * <code>com.liferay.osb.faro.service.impl.FaroEmailLocalServiceImpl</code> and
@@ -43,7 +39,7 @@ public class FaroEmailLocalServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static String getOSGiServiceIdentifier() {
+	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
@@ -53,30 +49,16 @@ public class FaroEmailLocalServiceUtil {
 		return getService().getResourceBundle(locale);
 	}
 
-	public static String getTemplate(String name) throws Exception {
+	public static java.lang.String getTemplate(java.lang.String name)
+		throws java.lang.Exception {
+
 		return getService().getTemplate(name);
 	}
 
 	public static FaroEmailLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<FaroEmailLocalService, FaroEmailLocalService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(FaroEmailLocalService.class);
-
-		ServiceTracker<FaroEmailLocalService, FaroEmailLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<FaroEmailLocalService, FaroEmailLocalService>(
-						bundle.getBundleContext(), FaroEmailLocalService.class,
-						null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroEmailLocalService _service;
 
 }

@@ -16,6 +16,7 @@ package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
 import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalService;
+import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalServiceUtil;
 import com.liferay.osb.faro.service.persistence.FaroProjectEmailAddressDomainPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -67,7 +70,7 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FaroProjectEmailAddressDomainLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FaroProjectEmailAddressDomainLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FaroProjectEmailAddressDomainLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -457,11 +460,15 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.osb.faro.model.FaroProjectEmailAddressDomain",
 			faroProjectEmailAddressDomainLocalService);
+
+		_setLocalServiceUtilService(faroProjectEmailAddressDomainLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.model.FaroProjectEmailAddressDomain");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -504,6 +511,24 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		FaroProjectEmailAddressDomainLocalService
+			faroProjectEmailAddressDomainLocalService) {
+
+		try {
+			Field field =
+				FaroProjectEmailAddressDomainLocalServiceUtil.class.
+					getDeclaredField("_service");
+
+			field.setAccessible(true);
+
+			field.set(null, faroProjectEmailAddressDomainLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

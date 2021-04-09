@@ -16,6 +16,7 @@ package com.liferay.osb.faro.contacts.service.base;
 
 import com.liferay.osb.faro.contacts.model.ContactsCardTemplate;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
+import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalServiceUtil;
 import com.liferay.osb.faro.contacts.service.persistence.ContactsCardTemplatePersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class ContactsCardTemplateLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ContactsCardTemplateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ContactsCardTemplateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ContactsCardTemplateLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -444,11 +447,15 @@ public abstract class ContactsCardTemplateLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.osb.faro.contacts.model.ContactsCardTemplate",
 			contactsCardTemplateLocalService);
+
+		_setLocalServiceUtilService(contactsCardTemplateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.contacts.model.ContactsCardTemplate");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -491,6 +498,23 @@ public abstract class ContactsCardTemplateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		ContactsCardTemplateLocalService contactsCardTemplateLocalService) {
+
+		try {
+			Field field =
+				ContactsCardTemplateLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, contactsCardTemplateLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

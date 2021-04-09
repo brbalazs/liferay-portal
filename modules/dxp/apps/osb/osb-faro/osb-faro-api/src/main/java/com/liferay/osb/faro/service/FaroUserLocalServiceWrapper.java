@@ -232,13 +232,6 @@ public class FaroUserLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.osb.faro.model.FaroUser> findByG_S(
-		long groupId, int status) {
-
-		return _faroUserLocalService.findByG_S(groupId, status);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -283,6 +276,20 @@ public class FaroUserLocalServiceWrapper
 		int start, int end) {
 
 		return _faroUserLocalService.getFaroUsers(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.faro.model.FaroUser>
+		getFaroUsersByRoleId(long groupId, long roleId) {
+
+		return _faroUserLocalService.getFaroUsersByRoleId(groupId, roleId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.faro.model.FaroUser>
+		getFaroUsersByStatus(long groupId, int status) {
+
+		return _faroUserLocalService.getFaroUsersByStatus(groupId, status);
 	}
 
 	/**

@@ -16,6 +16,7 @@ package com.liferay.osb.faro.contacts.service.base;
 
 import com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
+import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalServiceUtil;
 import com.liferay.osb.faro.contacts.service.persistence.ContactsLayoutTemplatePersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -44,6 +45,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -66,7 +69,7 @@ public abstract class ContactsLayoutTemplateLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ContactsLayoutTemplateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ContactsLayoutTemplateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ContactsLayoutTemplateLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -448,11 +451,15 @@ public abstract class ContactsLayoutTemplateLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate",
 			contactsLayoutTemplateLocalService);
+
+		_setLocalServiceUtilService(contactsLayoutTemplateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -495,6 +502,23 @@ public abstract class ContactsLayoutTemplateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		ContactsLayoutTemplateLocalService contactsLayoutTemplateLocalService) {
+
+		try {
+			Field field =
+				ContactsLayoutTemplateLocalServiceUtil.class.getDeclaredField(
+					"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, contactsLayoutTemplateLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -16,6 +16,7 @@ package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.service.FaroProjectLocalServiceUtil;
 import com.liferay.osb.faro.service.persistence.FaroChannelFinder;
 import com.liferay.osb.faro.service.persistence.FaroChannelPersistence;
 import com.liferay.osb.faro.service.persistence.FaroPreferencesPersistence;
@@ -53,6 +54,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -75,7 +78,7 @@ public abstract class FaroProjectLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FaroProjectLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.osb.faro.service.FaroProjectLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FaroProjectLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FaroProjectLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -736,11 +739,15 @@ public abstract class FaroProjectLocalServiceBaseImpl
 	public void afterPropertiesSet() {
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.osb.faro.model.FaroProject", faroProjectLocalService);
+
+		_setLocalServiceUtilService(faroProjectLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.model.FaroProject");
+
+		_setLocalServiceUtilService(null);
 	}
 
 	/**
@@ -782,6 +789,22 @@ public abstract class FaroProjectLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
+		}
+	}
+
+	private void _setLocalServiceUtilService(
+		FaroProjectLocalService faroProjectLocalService) {
+
+		try {
+			Field field = FaroProjectLocalServiceUtil.class.getDeclaredField(
+				"_service");
+
+			field.setAccessible(true);
+
+			field.set(null, faroProjectLocalService);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

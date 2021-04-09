@@ -197,8 +197,6 @@ public interface FaroUserLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FaroUser fetchFaroUser(long groupId, long liveUserId);
 
-	public List<FaroUser> findByG_S(long groupId, int status);
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -229,6 +227,12 @@ public interface FaroUserLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FaroUser> getFaroUsers(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FaroUser> getFaroUsersByRoleId(long groupId, long roleId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FaroUser> getFaroUsersByStatus(long groupId, int status);
 
 	/**
 	 * Returns the number of faro users.

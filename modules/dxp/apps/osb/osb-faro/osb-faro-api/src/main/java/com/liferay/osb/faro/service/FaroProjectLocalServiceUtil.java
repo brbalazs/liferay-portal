@@ -14,9 +14,15 @@
 
 package com.liferay.osb.faro.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for FaroProject. This utility wraps
@@ -48,20 +54,18 @@ public class FaroProjectLocalServiceUtil {
 	 * @param faroProject the faro project
 	 * @return the faro project that was added
 	 */
-	public static com.liferay.osb.faro.model.FaroProject addFaroProject(
-		com.liferay.osb.faro.model.FaroProject faroProject) {
-
+	public static FaroProject addFaroProject(FaroProject faroProject) {
 		return getService().addFaroProject(faroProject);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject addFaroProject(
+	public static FaroProject addFaroProject(
 			long userId, String name, String accountKey, String accountName,
 			String corpProjectName, String corpProjectUuid,
-			java.util.List<String> emailAddressDomains, String friendlyURL,
+			List<String> emailAddressDomains, String friendlyURL,
 			String incidentReportEmailAddresses, String serverLocation,
 			String services, String state, String subscription,
 			String timeZoneId, String weDeployKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addFaroProject(
 			userId, name, accountKey, accountName, corpProjectName,
@@ -76,9 +80,7 @@ public class FaroProjectLocalServiceUtil {
 	 * @param faroProjectId the primary key for the new faro project
 	 * @return the new faro project
 	 */
-	public static com.liferay.osb.faro.model.FaroProject createFaroProject(
-		long faroProjectId) {
-
+	public static FaroProject createFaroProject(long faroProjectId) {
 		return getService().createFaroProject(faroProjectId);
 	}
 
@@ -92,9 +94,7 @@ public class FaroProjectLocalServiceUtil {
 	 * @param faroProject the faro project
 	 * @return the faro project that was removed
 	 */
-	public static com.liferay.osb.faro.model.FaroProject deleteFaroProject(
-		com.liferay.osb.faro.model.FaroProject faroProject) {
-
+	public static FaroProject deleteFaroProject(FaroProject faroProject) {
 		return getService().deleteFaroProject(faroProject);
 	}
 
@@ -109,16 +109,14 @@ public class FaroProjectLocalServiceUtil {
 	 * @return the faro project that was removed
 	 * @throws PortalException if a faro project with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroProject deleteFaroProject(
-			long faroProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroProject deleteFaroProject(long faroProjectId)
+		throws PortalException {
 
 		return getService().deleteFaroProject(faroProjectId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-			deleteFaroProjectByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroProject deleteFaroProjectByGroupId(long groupId)
+		throws PortalException {
 
 		return getService().deleteFaroProjectByGroupId(groupId);
 	}
@@ -126,17 +124,14 @@ public class FaroProjectLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
-
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -146,9 +141,7 @@ public class FaroProjectLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -164,9 +157,8 @@ public class FaroProjectLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -184,10 +176,9 @@ public class FaroProjectLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -199,9 +190,7 @@ public class FaroProjectLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -213,32 +202,28 @@ public class FaroProjectLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject fetchFaroProject(
-		long faroProjectId) {
-
+	public static FaroProject fetchFaroProject(long faroProjectId) {
 		return getService().fetchFaroProject(faroProjectId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-		fetchFaroProjectByCorpProjectUuid(String corpProjectUuid) {
+	public static FaroProject fetchFaroProjectByCorpProjectUuid(
+		String corpProjectUuid) {
 
 		return getService().fetchFaroProjectByCorpProjectUuid(corpProjectUuid);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-		fetchFaroProjectByGroupId(long groupId) {
-
+	public static FaroProject fetchFaroProjectByGroupId(long groupId) {
 		return getService().fetchFaroProjectByGroupId(groupId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-		fetchFaroProjectByWeDeployKey(String weDeployKey) {
+	public static FaroProject fetchFaroProjectByWeDeployKey(
+		String weDeployKey) {
 
 		return getService().fetchFaroProjectByWeDeployKey(weDeployKey);
 	}
@@ -256,23 +241,20 @@ public class FaroProjectLocalServiceUtil {
 	 * @return the faro project
 	 * @throws PortalException if a faro project with the primary key could not be found
 	 */
-	public static com.liferay.osb.faro.model.FaroProject getFaroProject(
-			long faroProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroProject getFaroProject(long faroProjectId)
+		throws PortalException {
 
 		return getService().getFaroProject(faroProjectId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-			getFaroProjectByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroProject getFaroProjectByGroupId(long groupId)
+		throws PortalException {
 
 		return getService().getFaroProjectByGroupId(groupId);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject
-			getFaroProjectByWeDeployKey(String weDeployKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static FaroProject getFaroProjectByWeDeployKey(String weDeployKey)
+		throws PortalException {
 
 		return getService().getFaroProjectByWeDeployKey(weDeployKey);
 	}
@@ -288,28 +270,22 @@ public class FaroProjectLocalServiceUtil {
 	 * @param end the upper bound of the range of faro projects (not inclusive)
 	 * @return the range of faro projects
 	 */
-	public static java.util.List<com.liferay.osb.faro.model.FaroProject>
-		getFaroProjects(int start, int end) {
-
+	public static List<FaroProject> getFaroProjects(int start, int end) {
 		return getService().getFaroProjects(start, end);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroProject>
-		getFaroProjects(String serverLocation) {
-
+	public static List<FaroProject> getFaroProjects(String serverLocation) {
 		return getService().getFaroProjects(serverLocation);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroProject>
-		getFaroProjectsByEmailAddressDomain(String emailAddressDomains) {
+	public static List<FaroProject> getFaroProjectsByEmailAddressDomain(
+		String emailAddressDomains) {
 
 		return getService().getFaroProjectsByEmailAddressDomain(
 			emailAddressDomains);
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroProject>
-		getFaroProjectsByUserId(long userId) {
-
+	public static List<FaroProject> getFaroProjectsByUserId(long userId) {
 		return getService().getFaroProjectsByUserId(userId);
 	}
 
@@ -329,9 +305,9 @@ public class FaroProjectLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static java.util.List<com.liferay.osb.faro.model.FaroProject>
-			getJoinableFaroProjects(com.liferay.portal.kernel.model.User user)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static List<FaroProject> getJoinableFaroProjects(
+			com.liferay.portal.kernel.model.User user)
+		throws PortalException {
 
 		return getService().getJoinableFaroProjects(user);
 	}
@@ -348,9 +324,8 @@ public class FaroProjectLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -371,44 +346,24 @@ public class FaroProjectLocalServiceUtil {
 	 * @param faroProject the faro project
 	 * @return the faro project that was updated
 	 */
-	public static com.liferay.osb.faro.model.FaroProject updateFaroProject(
-		com.liferay.osb.faro.model.FaroProject faroProject) {
-
+	public static FaroProject updateFaroProject(FaroProject faroProject) {
 		return getService().updateFaroProject(faroProject);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject updateState(
-		long faroProjectId, String state) {
-
+	public static FaroProject updateState(long faroProjectId, String state) {
 		return getService().updateState(faroProjectId, state);
 	}
 
-	public static com.liferay.osb.faro.model.FaroProject updateSubscription(
+	public static FaroProject updateSubscription(
 		long faroProjectId, String subscription) {
 
 		return getService().updateSubscription(faroProjectId, subscription);
 	}
 
 	public static FaroProjectLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker
-		<FaroProjectLocalService, FaroProjectLocalService> _serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(FaroProjectLocalService.class);
-
-		ServiceTracker<FaroProjectLocalService, FaroProjectLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<FaroProjectLocalService, FaroProjectLocalService>(
-						bundle.getBundleContext(),
-						FaroProjectLocalService.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile FaroProjectLocalService _service;
 
 }
