@@ -131,6 +131,7 @@ export const withSelection: (
 	const WithSelection: React.FC<IwithSelectionProps> = ({
 		checkDisabled = () => false,
 		items = [],
+		showCheckbox = true,
 		toolbarProps = {},
 		...otherProps
 	}) => {
@@ -146,7 +147,7 @@ export const withSelection: (
 			onSelectItemsChange: item =>
 				selectionDispatch({payload: {item}, type: ACTION_TYPES.toggle}),
 			selectedItemsIOMap: selectedItems,
-			showCheckbox: true,
+			showCheckbox,
 			toolbarProps: {
 				...toolbarProps,
 				alwaysShowSearch: true,
@@ -161,7 +162,7 @@ export const withSelection: (
 				selectEntirePage: allChecked,
 				selectEntirePageIndeterminate:
 					!allChecked && !selectedItems.isEmpty(),
-				showCheckbox: true
+				showCheckbox
 			}
 		};
 
