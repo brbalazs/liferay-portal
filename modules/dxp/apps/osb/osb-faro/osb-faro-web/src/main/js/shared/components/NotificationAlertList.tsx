@@ -3,6 +3,9 @@ import Button from 'shared/components/Button';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
 import React from 'react';
 import TimeZoneAlert from './TimeZoneAlert';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
+import {connect} from 'react-redux';
 import {
 	NotificationSubtypes,
 	NotificationTypes
@@ -80,12 +83,14 @@ const notificationStrategies = new Map<string, Function>([
 ]);
 
 interface INotificationAlertListProps {
+	addAlert: Alert.AddAlert;
 	groupId: string;
 	stripe?: boolean;
 	subtypes?: NotificationSubtypes[];
 }
 
 const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
+	addAlert,
 	groupId,
 	stripe = false,
 	subtypes = [NotificationSubtypes.TimeZoneChanged]
@@ -101,7 +106,16 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	const removeNotification = notificationId => {
 		API.notifications
 			.readNotification(groupId, notificationId)
-			.then(refetch);
+			.then(refetch)
+			.catch(() => {
+				addAlert({
+					alertType: Alert.Types.ERROR,
+					message: Liferay.Language.get(
+						'there-was-an-error-processing-your-request.-please-try-again'
+					),
+					timeout: false
+				});
+			});
 	};
 
 	const notifications =
@@ -124,8 +138,8 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 						if (transformer) {
 							return transformer({
 								groupId,
-								id,
 								modifiedTime,
+								notificationId: id,
 								onClose: removeNotification,
 								stripe
 							});
@@ -140,4 +154,4 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	);
 };
 
-export default NotificationAlertList;
+export default connect(null, {addAlert})(NotificationAlertList);
