@@ -56,6 +56,13 @@ export type Attribute = {
 
 export type Attributes = {[key: string]: Attribute};
 
+export type BlockedCustomEvent = {
+	id: string;
+	name: string;
+	lastSeenDate: string;
+	lastSeenURL: string;
+};
+
 export type Breakdown = {
 	attributeId: string;
 	bin?: number;
