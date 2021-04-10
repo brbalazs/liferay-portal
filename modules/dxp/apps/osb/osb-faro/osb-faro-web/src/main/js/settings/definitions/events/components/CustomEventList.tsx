@@ -9,6 +9,7 @@ import React from 'react';
 import RowActions from 'shared/components/table/RowActions';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
+import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Event, EventTypes} from 'event-analysis/utils/types';
@@ -87,7 +88,13 @@ const CustomEventList = withCrossPageSelect(withData, {
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false,
-	withQueryOptions: Component => ({addAlert, currentUser, ...otherProps}) => {
+	withQueryOptions: Component => ({
+		addAlert,
+		close,
+		currentUser,
+		open,
+		...otherProps
+	}) => {
 		const {
 			delta,
 			groupId,
@@ -104,73 +111,101 @@ const CustomEventList = withCrossPageSelect(withData, {
 		const handleBlockEvents = (events: Event[] = []) => {
 			const eventsCount = events.length;
 
-			// TODO: LRAC-7606 Add BlockCustomEventDefinitions mutation
-			return Promise.resolve()
-				.then(() => {
-					selectionDispatch({
-						type: 'clear-all'
-					});
+			open(modalTypes.CONFIRMATION_MODAL, {
+				message: (
+					<p className='text-secondary'>
+						{eventsCount > 1
+							? Liferay.Language.get(
+									'blocking-events-will-result-in-the-deletion-of-their-display-names-and-descriptions.-you-must-reassign-these-values-if-you-wish-to-unblock-these-events-in-the-future'
+							  )
+							: sub(
+									Liferay.Language.get(
+										'blocking-x-will-result-in-the-deletion-of-its-display-name-and-description.-you-must-reassign-these-values-if-you-wish-to-unblock-the-event-in-the-future'
+									),
+									[events[0].displayName]
+							  )}
+					</p>
+				),
+				modalVariant: 'modal-warning',
+				onClose: close,
+				onSubmit: () => {
+					// TODO: LRAC-7606 Add BlockCustomEventDefinitions mutation
+					Promise.resolve()
+						.then(() => {
+							selectionDispatch({
+								type: 'clear-all'
+							});
 
-					const updatedPage = eventsCount > 1 ? 1 : Number(page);
+							const updatedPage =
+								eventsCount > 1 ? 1 : Number(page);
 
-					if (updatedPage !== Number(page)) {
-						history.push(
-							setUriQueryValues(
-								{
-									orderBy,
-									orderByField,
-									page: updatedPage
-								},
-								toRoute(
-									Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
-									{
-										groupId
+							if (updatedPage !== Number(page)) {
+								history.push(
+									setUriQueryValues(
+										{
+											orderBy,
+											orderByField,
+											page: updatedPage
+										},
+										toRoute(
+											Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
+											{
+												groupId
+											}
+										)
+									)
+								);
+							} else {
+								refetch({
+									fetchPolicy: 'no-cache',
+									variables: {
+										keywords: query,
+										size: delta,
+										sort: {
+											column: orderByField,
+											type: orderBy.toUpperCase()
+										},
+										start: updatedPage - 1
 									}
-								)
-							)
-						);
-					} else {
-						refetch({
-							fetchPolicy: 'no-cache',
-							variables: {
-								keywords: query,
-								size: delta,
-								sort: {
-									column: orderByField,
-									type: orderBy.toUpperCase()
-								},
-								start: updatedPage - 1
+								});
 							}
-						});
-					}
 
-					addAlert({
-						alertType: Alert.Types.SUCCESS,
-						message:
-							eventsCount > 1
-								? sub(
-										Liferay.Language.get(
-											'x-events-have-been-added-to-the-block-list'
-										),
-										[eventsCount]
-								  )
-								: sub(
-										Liferay.Language.get(
-											'x-has-been-added-to-the-block-list'
-										),
-										[events[0].displayName]
-								  )
-					});
-				})
-				.catch(() =>
-					addAlert({
-						alertType: Alert.Types.ERROR,
-						message: Liferay.Language.get(
-							'there-was-an-error-processing-your-request.-please-try-again'
-						),
-						timeout: false
-					})
-				);
+							addAlert({
+								alertType: Alert.Types.SUCCESS,
+								message:
+									eventsCount > 1
+										? sub(
+												Liferay.Language.get(
+													'x-events-have-been-added-to-the-block-list'
+												),
+												[eventsCount]
+										  )
+										: sub(
+												Liferay.Language.get(
+													'x-has-been-added-to-the-block-list'
+												),
+												[events[0].displayName]
+										  )
+							});
+						})
+						.catch(() =>
+							addAlert({
+								alertType: Alert.Types.ERROR,
+								message: Liferay.Language.get(
+									'there-was-an-error-processing-your-request.-please-try-again'
+								),
+								timeout: false
+							})
+						);
+				},
+				submitButtonDisplay: 'warning',
+				submitMessage: Liferay.Language.get('block'),
+				title:
+					eventsCount > 1
+						? Liferay.Language.get('block-events')
+						: Liferay.Language.get('block-event'),
+				titleIcon: 'warning'
+			});
 		};
 
 		const renderRowActions = ({data}: {data: Event}) => (
@@ -228,5 +263,5 @@ const CustomEventList = withCrossPageSelect(withData, {
 export default compose<any>(
 	withSelectionProvider,
 	withCurrentUser,
-	connect(null, {addAlert})
+	connect(null, {addAlert, close, open})
 )(CustomEventList);
