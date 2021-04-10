@@ -22,7 +22,7 @@ const withData = () => WrapperComponent => ({
 	query,
 	...otherProps
 }) => {
-	const {data, error, loading} = useQuery<
+	const {data, error, loading, refetch} = useQuery<
 		EventAttributeDefinitionsData,
 		EventAttributeDefinitionsVariables
 	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
@@ -51,6 +51,7 @@ const withData = () => WrapperComponent => ({
 			loading={loading}
 			page={page}
 			query={query}
+			refetch={refetch}
 			total={get(data, ['eventAttributeDefinitions', 'total'], 0)}
 		/>
 	);

@@ -22,7 +22,7 @@ import {
 	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {withCrossPageSelect, withCurrentUser, withHistory} from 'shared/hoc';
+import {withCrossPageSelect, withCurrentUser} from 'shared/hoc';
 
 const {
 	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
@@ -87,12 +87,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false,
-	withQueryOptions: Component => ({
-		addAlert,
-		currentUser,
-		refetch,
-		...otherProps
-	}) => {
+	withQueryOptions: Component => ({addAlert, currentUser, ...otherProps}) => {
 		const {
 			delta,
 			groupId,
@@ -100,7 +95,8 @@ const CustomEventList = withCrossPageSelect(withData, {
 			orderBy,
 			orderByField,
 			page,
-			query = ''
+			query = '',
+			refetch
 		} = otherProps;
 
 		const {selectedItems, selectionDispatch} = useSelectionContext();
@@ -232,6 +228,5 @@ const CustomEventList = withCrossPageSelect(withData, {
 export default compose<any>(
 	withSelectionProvider,
 	withCurrentUser,
-	connect(null, {addAlert}),
-	withHistory
+	connect(null, {addAlert})
 )(CustomEventList);
