@@ -253,7 +253,9 @@ const CustomEventList = withCrossPageSelect(withData, {
 						  )
 						: null
 				}
-				renderRowActions={authorized ? renderRowActions : null}
+				renderRowActions={
+					authorized && !selectedItems.size ? renderRowActions : null
+				}
 				showCheckbox={authorized}
 			/>
 		);
