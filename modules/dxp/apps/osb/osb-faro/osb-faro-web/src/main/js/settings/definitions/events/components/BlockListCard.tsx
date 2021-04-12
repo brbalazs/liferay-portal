@@ -50,31 +50,29 @@ const withData = () => WrapperComponent => ({
 	};
 
 	return (
-		<Card pageDisplay>
-			<WrapperComponent
-				{...otherProps}
-				delta={delta}
-				error={error}
-				items={get(
-					data,
-					[
-						'blockedCustomEventDefinitions',
-						'blockedCustomEventDefinitions'
-					],
-					[]
-				)}
-				loading={loading}
-				noResultsProps={{
-					icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
-				}}
-				orderBy={orderBy}
-				orderByField={orderByField}
-				page={page}
-				query={query}
-				refetch={refetch}
-				total={get(data, ['blockedCustomEventDefinitions', 'total'], 0)}
-			/>
-		</Card>
+		<WrapperComponent
+			{...otherProps}
+			delta={delta}
+			error={error}
+			items={get(
+				data,
+				[
+					'blockedCustomEventDefinitions',
+					'blockedCustomEventDefinitions'
+				],
+				[]
+			)}
+			loading={loading}
+			noResultsProps={{
+				icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
+			}}
+			orderBy={orderBy}
+			orderByField={orderByField}
+			page={page}
+			query={query}
+			refetch={refetch}
+			total={get(data, ['blockedCustomEventDefinitions', 'total'], 0)}
+		/>
 	);
 };
 
@@ -193,39 +191,43 @@ const BlockListCard = withCrossPageSelect(withData, {
 		const authorized = currentUser.isAdmin();
 
 		return (
-			<Component
-				{...otherProps}
-				renderNav={
-					authorized && selectedItems.size
-						? () => (
-								<Nav>
-									<Nav.Item>
-										<Button
-											borderless
-											className='nav-btn'
-											display='outline-secondary'
-											icon='undo'
-											iconAlignment='left'
-											onClick={() => {
-												handleUnblockEvents(
-													selectedItems.toArray()
-												);
-											}}
-										>
-											{Liferay.Language.get(
-												'unblock-events'
-											)}
-										</Button>
-									</Nav.Item>
-								</Nav>
-						  )
-						: null
-				}
-				renderRowActions={
-					authorized && !selectedItems.size ? renderRowActions : null
-				}
-				showCheckbox={authorized}
-			/>
+			<Card pageDisplay>
+				<Component
+					{...otherProps}
+					renderNav={
+						authorized && selectedItems.size
+							? () => (
+									<Nav>
+										<Nav.Item>
+											<Button
+												borderless
+												className='nav-btn'
+												display='outline-secondary'
+												icon='undo'
+												iconAlignment='left'
+												onClick={() => {
+													handleUnblockEvents(
+														selectedItems.toArray()
+													);
+												}}
+											>
+												{Liferay.Language.get(
+													'unblock-events'
+												)}
+											</Button>
+										</Nav.Item>
+									</Nav>
+							  )
+							: null
+					}
+					renderRowActions={
+						authorized && !selectedItems.size
+							? renderRowActions
+							: null
+					}
+					showCheckbox={authorized}
+				/>
+			</Card>
 		);
 	}
 });
