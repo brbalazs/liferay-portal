@@ -1,5 +1,5 @@
 import BackButton from 'contacts/components/BackButton';
-import InterestDetails from 'sites/hocs/InterestDetails';
+import InterestDetails from 'shared/components/InterestDetails';
 import React from 'react';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
@@ -44,7 +44,10 @@ export default class InterestDetailsPage extends React.Component<IInterestDetail
 							label={Liferay.Language.get('back-to-interests')}
 						/>
 
-						<InterestDetails router={router} />
+						<InterestDetails
+							className='sites-interest-details-root'
+							router={router}
+						/>
 					</div>
 				</div>
 			</div>

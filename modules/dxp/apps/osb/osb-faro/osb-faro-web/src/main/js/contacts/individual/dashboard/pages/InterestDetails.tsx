@@ -1,5 +1,5 @@
 import BackButton from 'contacts/components/BackButton';
-import InterestDetails from '../hocs/InterestDetails';
+import InterestDetails from 'shared/components/InterestDetails';
 import React from 'react';
 import {isNil, pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';

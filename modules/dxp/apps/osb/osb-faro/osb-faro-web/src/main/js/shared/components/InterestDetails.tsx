@@ -1,4 +1,5 @@
 import Card from 'shared/components/Card';
+import getCN from 'classnames';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
@@ -9,7 +10,7 @@ import {
 	metricsListColumns,
 	sitePagesListColumns
 } from 'shared/util/table-columns';
-import {RangeSelectors} from 'shared/types';
+import {RangeSelectors, RouterType} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {VISITORS_METRIC} from 'shared/util/pagination';
@@ -26,10 +27,7 @@ const withData = () =>
 
 interface ITableWithDataProps {
 	rangeSelectors: RangeSelectors;
-	router: {
-		params: object;
-		query: object;
-	};
+	router: RouterType;
 }
 
 const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
@@ -78,14 +76,22 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 	})
 );
 
-const InterestDetails = ({router}) => {
+interface IInterestDetailsProps {
+	className?: string;
+	router: RouterType;
+}
+
+const InterestDetails: React.FC<IInterestDetailsProps> = ({
+	className,
+	router
+}) => {
 	const {
 		params: {interestId},
 		query
 	} = router;
 
 	return (
-		<Card pageDisplay>
+		<Card className={getCN(className)} pageDisplay>
 			<Card.Header className='align-items-center d-flex justify-content-between'>
 				<Card.Title>
 					{sub(

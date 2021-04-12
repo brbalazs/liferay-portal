@@ -108,7 +108,7 @@ exports[`InterestDetails renders 1`] = `
                 <span
                   class="text-truncate"
                 >
-                  Visitors
+                  Unique Visitors
                 </span>
                 <span
                   class="inline-item inline-item-after"
