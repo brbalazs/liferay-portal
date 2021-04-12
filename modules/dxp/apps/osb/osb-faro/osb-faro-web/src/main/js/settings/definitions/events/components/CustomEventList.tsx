@@ -212,7 +212,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 			<RowActions
 				quickActions={[
 					{
-						iconSymbol: 'undo',
+						iconSymbol: 'ac-block',
 						label: Liferay.Language.get('block-event'),
 						onClick: () => {
 							handleBlockEvents([data]);
@@ -236,7 +236,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 											borderless
 											className='nav-btn'
 											display='outline-secondary'
-											icon='undo'
+											icon='ac-block'
 											iconAlignment='left'
 											onClick={() => {
 												handleBlockEvents(
