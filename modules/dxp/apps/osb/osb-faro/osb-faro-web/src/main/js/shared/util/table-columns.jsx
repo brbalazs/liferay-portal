@@ -711,7 +711,7 @@ export const metricsListColumns = {
 		accessor: 'visitorsMetric',
 		className: 'table-column-text-end',
 		dataFormatter: data => data.toLocaleString(),
-		label: Liferay.Language.get('visitors')
+		label: Liferay.Language.get('unique-visitors')
 	}
 };
 

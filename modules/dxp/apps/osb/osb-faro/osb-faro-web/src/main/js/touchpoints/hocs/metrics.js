@@ -2,7 +2,7 @@ export default [
 	{
 		name: 'visitorsMetric',
 		sortField: 'visitorsMetric',
-		title: Liferay.Language.get('visitors'),
+		title: Liferay.Language.get('unique-visitors'),
 		type: 'number'
 	},
 	{

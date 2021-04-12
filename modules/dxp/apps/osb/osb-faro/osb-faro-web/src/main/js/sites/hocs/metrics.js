@@ -15,7 +15,7 @@ export default [
 			}
 		],
 		name: 'visitorsMetric',
-		title: Liferay.Language.get('visitors'),
+		title: Liferay.Language.get('unique-visitors'),
 		type: 'number'
 	},
 	{
