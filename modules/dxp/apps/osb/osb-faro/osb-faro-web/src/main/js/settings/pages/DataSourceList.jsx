@@ -3,7 +3,10 @@ import autobind from 'autobind-decorator';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants, {DataSourceStates} from 'shared/util/constants';
+import Constants, {
+	DataSourceStates,
+	DataSourceStatuses
+} from 'shared/util/constants';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
 import Icon from 'shared/components/Icon';
 import Label from 'shared/components/Label';
@@ -38,7 +41,6 @@ import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
-	dataSourceStatuses,
 	dataSourceTypes: {csv, liferay, salesforce},
 	pagination
 } = Constants;
@@ -113,7 +115,7 @@ const AnalyticsCell = ({data}) => (
 const ContactsCell = ({data}) => (
 	<td>
 		{validContactsConfig(new DataSource(fromJS(data))) &&
-			data.status === dataSourceStatuses.active && (
+			data.status === DataSourceStatuses.Active && (
 				<Icon symbol='check' />
 			)}
 	</td>

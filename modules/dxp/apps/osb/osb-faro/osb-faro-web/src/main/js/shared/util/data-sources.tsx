@@ -1,7 +1,8 @@
 import * as API from 'shared/api';
 import Constants, {
 	CredentialTypes,
-	DataSourceStates
+	DataSourceStates,
+	DataSourceStatuses
 } from 'shared/util/constants';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
@@ -9,7 +10,6 @@ import {Routes, toRoute} from 'shared/util/router';
 import {toPromise} from 'shared/components/form';
 
 const {
-	dataSourceStatuses,
 	dataSourceTypes: {csv, liferay, salesforce},
 	entityTypes: {dataSource}
 } = Constants;
@@ -198,7 +198,7 @@ export function getDataSourceDisplayObject(
 
 	const {state, status} = dataSource;
 
-	const active = status === dataSourceStatuses.active;
+	const active = status === DataSourceStatuses.Active;
 
 	const credentialsType = dataSource.getIn(['credentials', 'type']);
 
@@ -307,7 +307,7 @@ export function validContactsConfig(dataSource: DataSource): boolean {
 
 	switch (providerType) {
 		case csv:
-			return status === dataSourceStatuses.active;
+			return status === DataSourceStatuses.Active;
 		case liferay:
 			return Boolean(
 				contactsConfiguration.get('enableAllContacts') ||

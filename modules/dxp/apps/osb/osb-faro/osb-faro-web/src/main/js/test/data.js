@@ -1,7 +1,9 @@
 import Constants, {
 	AssetTypes,
 	CredentialTypes,
+	DataSourceProgressStatuses,
 	DataSourceStates,
+	DataSourceStatuses,
 	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,
@@ -28,8 +30,6 @@ const {
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
-	dataSourceProgressStatuses,
-	dataSourceStatuses,
 	dataSourceTypes,
 	projectStates,
 	segmentStates,
@@ -383,7 +383,7 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 		},
 		providerType: dataSourceTypes.csv,
 		state: DataSourceStates.Ready,
-		status: dataSourceStatuses.active,
+		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,
 		url: 'liferay.example.faro.com',
 		...data
@@ -410,7 +410,7 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 		},
 		providerType: dataSourceTypes.liferay,
 		state: DataSourceStates.CredentialsValid,
-		status: dataSourceStatuses.active,
+		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,
 		url: `https://www.faro-${seed}.io`,
 		...data
@@ -455,13 +455,13 @@ export function mockProgress(data) {
 		accounts: {
 			dateRecorded: getTimestamp(),
 			processedOperations: 100,
-			status: dataSourceProgressStatuses.completed,
+			status: DataSourceProgressStatuses.Completed,
 			totalOperations: 100
 		},
 		individuals: {
 			dateRecorded: getTimestamp(),
 			processedOperations: 100,
-			status: dataSourceProgressStatuses.completed,
+			status: DataSourceProgressStatuses.Completed,
 			totalOperations: 100
 		},
 		...data
@@ -489,7 +489,7 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 		},
 		providerType: dataSourceTypes.salesforce,
 		state: DataSourceStates.CredentialsValid,
-		status: dataSourceStatuses.active,
+		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,
 		url: 'https://login.salesforce.com',
 		...data

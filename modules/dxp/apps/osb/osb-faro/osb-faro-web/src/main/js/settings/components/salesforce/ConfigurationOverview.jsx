@@ -1,12 +1,15 @@
 import * as API from 'shared/api';
 import BaseConfigurationOverview from 'settings/components/data-source/BaseConfigurationOverview';
-import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {compose, withHistory, withPolling} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
+import {
+	DataSourceProgressStatuses,
+	DataSourceStatuses
+} from 'shared/util/constants';
 import {get} from 'lodash';
 import {getServiceAlertConfig} from 'shared/util/data-sources';
 import {getServiceError} from 'shared/util/request';
@@ -14,14 +17,12 @@ import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
-const {dataSourceProgressStatuses, dataSourceStatuses} = FaroConstants;
-
 const stopPollingCondition = ({accounts, individuals}, {dataSource}) =>
-	dataSourceStatuses.active !== dataSource.status ||
+	DataSourceStatuses.Active !== dataSource.status ||
 	[accounts, individuals].every(entity =>
 		[
-			dataSourceProgressStatuses.completed,
-			dataSourceProgressStatuses.failed
+			DataSourceProgressStatuses.Completed,
+			DataSourceProgressStatuses.Failed
 		].includes(get(entity, 'status'))
 	);
 

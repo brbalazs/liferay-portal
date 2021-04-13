@@ -227,6 +227,10 @@ export enum jobTypes {
 	itemSimilarity = 'CONTENT_RECOMMENDATION_ITEM_SIMILARITY'
 }
 
+/**
+ * FaroConstants
+ */
+
 export enum ActivityActions {
 	Comments = 3,
 	Downloads = 0,
@@ -243,6 +247,26 @@ export enum Applications {
 export enum ChannelPermissionTypes {
 	AllUsers = 0,
 	SelectUsers = 1
+}
+
+export enum DataSourceDisplayStatuses {
+	Active = 'ACTIVE',
+	Configuring = 'CONFIGURING',
+	DeleteError = 'DELETE_ERROR',
+	InDeletion = 'IN_DELETION',
+	Inactive = 'INACTIVE'
+}
+
+export enum DataSourceProgressStatuses {
+	Completed = 'COMPLETED',
+	Failed = 'FAILED',
+	InProgress = 'IN_PROGRESS',
+	Started = 'STARTED'
+}
+
+export enum DataSourcesStatuses {
+	Active = 'ACTIVE',
+	Inactive = 'INACTIVE'
 }
 
 export enum EntityTypes {

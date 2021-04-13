@@ -1,15 +1,16 @@
 import BaseConfigurationItem, {
 	getStatusMessage
 } from 'settings/components/data-source/BaseConfigurationItem';
-
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
+import {
+	DataSourceProgressStatuses,
+	DataSourceStatuses
+} from 'shared/util/constants';
 import {get} from 'lodash';
 import {PropTypes} from 'prop-types';
-const {dataSourceProgressStatuses, dataSourceStatuses} = FaroConstants;
 
 const ConfigurationItem = ({
 	buttonParams,
@@ -25,12 +26,12 @@ const ConfigurationItem = ({
 	const total = get(progress, 'totalOperations', 0);
 
 	const configured = Boolean(
-		configuration && status === dataSourceStatuses.active
+		configuration && status === DataSourceStatuses.Active
 	);
 
 	const inProgress = [
-		dataSourceProgressStatuses.inProgress,
-		dataSourceProgressStatuses.started
+		DataSourceProgressStatuses.InProgress,
+		DataSourceProgressStatuses.Started
 	].includes(get(progress, 'status'));
 
 	return (

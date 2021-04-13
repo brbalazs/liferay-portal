@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import BaseTabsPage, {
 	tabIds
 } from 'settings/components/data-source/BaseTabsPage';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {DataSourceStatuses} from 'shared/util/constants';
 import OAuthForm from 'settings/components/data-source/OAuthForm';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
@@ -17,10 +17,7 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
-const {
-	dataSourceStatuses: {active},
-	dataSourceTypes
-} = FaroConstants;
+const {dataSourceTypes} = FaroConstants;
 
 export class SalesforceAuthorization extends React.Component {
 	static propTypes = {
@@ -55,7 +52,7 @@ export class SalesforceAuthorization extends React.Component {
 			groupId,
 			id,
 			name: dataSourceName,
-			status: active,
+			status: DataSourceStatuses.Active,
 			url
 		}).then(response => {
 			analytics.track('Created Salesforce Datasource');

@@ -2,6 +2,9 @@ import {
 	ActivityActions,
 	Applications,
 	ChannelPermissionTypes,
+	DataSourceDisplayStatuses,
+	DataSourceProgressStatuses,
+	DataSourceStatuses,
 	EntityTypes
 } from 'shared/util/constants';
 export {};
@@ -12,7 +15,13 @@ declare global {
 			activityActions: {[key: string]: ActivityActions};
 			applications: {[key: string]: Applications};
 			channelPermissionTypes: {[key: string]: ChannelPermissionTypes};
-			dataSourceStatuses: {[key: string]: string};
+			dataSourceDisplayStatuses: {
+				[key: string]: DataSourceDisplayStatuses;
+			};
+			dataSourceProgressStatuses: {
+				[key: string]: DataSourceProgressStatuses;
+			};
+			dataSourceStatuses: {[key: string]: DataSourceStatuses};
 			dataSourceTypes: {[key: string]: string};
 			entityTypes: {[key: string]: EntityTypes};
 			fieldContexts: {[key: string]: string};

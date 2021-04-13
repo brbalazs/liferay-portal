@@ -1,10 +1,11 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import Constants, {
-	CredentialTypes,
-	DataSourceStates
-} from 'shared/util/constants';
 import Promise from 'metal-promise';
+import {
+	CredentialTypes,
+	DataSourceStates,
+	DataSourceStatuses
+} from 'shared/util/constants';
 import {DataSource} from 'shared/util/records';
 import {
 	dataSourceRedirectFn,
@@ -21,8 +22,6 @@ import {
 import {fromJS} from 'immutable';
 import {noop, range} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {dataSourceStatuses} = Constants;
 
 function getMockLiferayDataSource(id, config) {
 	return data.getImmutableMock(
@@ -107,7 +106,7 @@ describe('data-sources', () => {
 						analyticsConfiguration: {sites: [{id: '1'}]}
 					},
 					state: DataSourceStates.CredentialsValid,
-					status: dataSourceStatuses.inactive
+					status: DataSourceStatuses.Inactive
 				})
 			);
 
@@ -118,7 +117,7 @@ describe('data-sources', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					state: DataSourceStates.CredentialsValid,
-					status: dataSourceStatuses.inactive
+					status: DataSourceStatuses.Inactive
 				})
 			);
 
@@ -167,7 +166,7 @@ describe('data-sources', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					state: undefined,
-					status: dataSourceStatuses.inactive
+					status: DataSourceStatuses.Inactive
 				})
 			);
 
@@ -178,7 +177,7 @@ describe('data-sources', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					state: DataSourceStates.UndefinedError,
-					status: dataSourceStatuses.inactive
+					status: DataSourceStatuses.Inactive
 				})
 			);
 
@@ -189,7 +188,7 @@ describe('data-sources', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					state: DataSourceStates.Disconnected,
-					status: dataSourceStatuses.inactive
+					status: DataSourceStatuses.Inactive
 				})
 			);
 
