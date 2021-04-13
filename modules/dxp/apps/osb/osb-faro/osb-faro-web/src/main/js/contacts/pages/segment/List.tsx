@@ -2,7 +2,7 @@ import * as API from 'shared/api';
 import BaseListPage from 'contacts/components/BaseListPage';
 import BasePage from 'shared/components/base-page';
 import ClayButton from '@clayui/button';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import RowActions from 'shared/components/table/RowActions';
@@ -37,7 +37,7 @@ import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {User} from 'shared/util/records';
 
-const {segmentStates, segmentTypes} = FaroConstants;
+const {segmentTypes} = FaroConstants;
 
 interface FetchSegmentsParams {
 	channelId: string;
@@ -86,7 +86,7 @@ function fetchDisabledSegments(channelId: string, groupId: string): any {
 		channelId,
 		delta: 1,
 		groupId,
-		state: segmentStates.disabled
+		state: SegmentStates.Disabled
 	});
 }
 
@@ -165,7 +165,7 @@ export const List: React.FC<IListProps> = ({
 						to={setUriQueryValue(
 							window.location.href,
 							SEGMENT_STATE,
-							segmentStates.disabled
+							SegmentStates.Disabled
 						)}
 					>
 						{Liferay.Language.get('view-disabled-segments')}
@@ -352,7 +352,7 @@ export const List: React.FC<IListProps> = ({
 					values: [
 						{
 							label: Liferay.Language.get('disabled-segments'),
-							value: segmentStates.disabled
+							value: SegmentStates.Disabled
 						}
 					]
 				}

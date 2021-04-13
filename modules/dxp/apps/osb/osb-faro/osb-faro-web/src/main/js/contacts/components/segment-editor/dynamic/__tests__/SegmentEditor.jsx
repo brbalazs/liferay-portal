@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import SegmentEditor, {validateSegmentEditor} from '../index';
@@ -7,8 +6,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {cleanup, render} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {Segment} from 'shared/util/records';
-
-const {segmentStates} = FaroConstants;
+import {SegmentStates} from 'shared/util/constants';
 
 jest.mock('contacts/components/segment-editor/dynamic/criteria-sidebar/index');
 
@@ -41,7 +39,7 @@ describe('SegmentEditor', () => {
 							data.mockSegment,
 							123,
 							{
-								state: segmentStates.disabled
+								state: SegmentStates.Disabled
 							}
 						)}
 					/>

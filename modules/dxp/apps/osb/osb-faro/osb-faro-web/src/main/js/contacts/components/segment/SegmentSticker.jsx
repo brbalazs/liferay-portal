@@ -1,11 +1,11 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import React from 'react';
 import Sticker from 'shared/components/Sticker';
 
-const {segmentStates, segmentTypes} = FaroConstants;
+const {segmentTypes} = FaroConstants;
 
 export default ({segmentType, state}) => {
-	const disabled = state === segmentStates.disabled;
+	const disabled = state === SegmentStates.Disabled;
 
 	const getSymbol = () => {
 		if (disabled) {

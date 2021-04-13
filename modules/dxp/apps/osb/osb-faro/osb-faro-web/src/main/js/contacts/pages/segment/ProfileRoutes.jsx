@@ -2,7 +2,7 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import BundleRouter from 'route-middleware/BundleRouter';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import getCN from 'classnames';
 import Label from 'shared/components/Label';
 import Loading from 'shared/pages/Loading';
@@ -17,7 +17,7 @@ import {Segment} from 'shared/util/records';
 import {Switch, withRouter} from 'react-router-dom';
 import {withSegment} from 'shared/hoc/WithSegment';
 
-const {segmentStates, segmentTypes} = FaroConstants;
+const {segmentTypes} = FaroConstants;
 
 const Overview = lazy(() =>
 	import(/* webpackChunkName: "SegmentOverview" */ './Overview')
@@ -68,13 +68,13 @@ export class SegmentProfileRoutes extends React.Component {
 	};
 
 	checkDisabled() {
-		return this.props.segment.get('state') === segmentStates.disabled;
+		return this.props.segment.get('state') === SegmentStates.Disabled;
 	}
 
 	getAlerts() {
 		const {segment} = this.props;
 
-		if (segment.get('state') === segmentStates.inProgress) {
+		if (segment.get('state') === SegmentStates.InProgress) {
 			return [
 				{
 					alertType: AlertTypes.Info,

@@ -11,7 +11,8 @@ import {
 	FieldOwnerTypes,
 	FieldTypes,
 	PreferencesScopes,
-	ProjectStates
+	ProjectStates,
+	SegmentStates
 } from 'shared/util/constants';
 export {};
 
@@ -48,6 +49,7 @@ declare global {
 			preferencesScopes: {[key: string]: PreferencesScopes};
 			projectLocations: {[key: string]: string};
 			projectStates: {[key: string]: ProjectStates};
+			segmentStates: {[key: string]: SegmentStates};
 			segmentTypes: {[key: string]: string};
 			timeIntervals: {[key: string]: string};
 			userName: string;

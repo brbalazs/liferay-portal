@@ -10,7 +10,8 @@ import Constants, {
 	jobRunFrequencies,
 	jobStatuses,
 	jobTypes,
-	ProjectStates
+	ProjectStates,
+	SegmentStates
 } from 'shared/util/constants';
 import moment from 'moment';
 import TimeZone from 'shared/util/records/TimeZone';
@@ -32,7 +33,6 @@ const {
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
-	segmentStates,
 	subscriptionStatuses,
 	userRoleNames
 } = Constants;
@@ -696,7 +696,7 @@ export function mockSegment(seed = 0, data = {}) {
 		lastActivityDate: getTimestamp(),
 		name: `Seattle${seed}`,
 		properties: {},
-		state: segmentStates.ready,
+		state: SegmentStates.Ready,
 		type: EntityTypes.IndividualsSegment,
 		...data
 	};

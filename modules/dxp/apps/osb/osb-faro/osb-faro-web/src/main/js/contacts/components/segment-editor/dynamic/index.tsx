@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import CriteriaBuilder from './criteria-builder';
 import CriteriaSidebar from './criteria-sidebar';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import Form, {withField} from 'shared/components/form';
 import HTML5Backend from 'react-dnd-html5-backend';
 import NavigationWarning from 'shared/components/NavigationWarning';
@@ -30,7 +30,7 @@ import {
 	withReferencedObjectsProvider
 } from './context/referencedObjects';
 
-const {segmentStates, segmentTypes} = FaroConstants;
+const {segmentTypes} = FaroConstants;
 
 /**
  * Returns an error message if the criteria contains an invalid row.
@@ -231,7 +231,7 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 												<div className='container-fluid container-fluid-max-xl'>
 													<div className='content-wrapper'>
 														{segmentState ===
-															segmentStates.disabled && (
+															SegmentStates.Disabled && (
 															<EmbeddedAlertList
 																alerts={[
 																	{

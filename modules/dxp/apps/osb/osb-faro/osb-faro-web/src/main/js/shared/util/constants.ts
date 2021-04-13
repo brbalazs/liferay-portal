@@ -322,6 +322,12 @@ export enum ProjectStates {
 	Unconfigured = 'UNCONFIGURED'
 }
 
+export enum SegmentStates {
+	Disabled = 'DISABLED',
+	InProgress = 'IN_PROGRESS',
+	Ready = 'READY'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

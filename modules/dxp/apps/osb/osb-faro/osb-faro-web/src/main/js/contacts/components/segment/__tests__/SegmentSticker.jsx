@@ -1,11 +1,11 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import React from 'react';
 import SegmentSticker from '../SegmentSticker';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-const {segmentStates, segmentTypes} = FaroConstants;
+const {segmentTypes} = FaroConstants;
 
 describe('SegmentSticker', () => {
 	it('should render', () => {
@@ -28,7 +28,7 @@ describe('SegmentSticker', () => {
 
 	it('should render with a disabled segment icon', () => {
 		const {container} = render(
-			<SegmentSticker state={segmentStates.disabled} />
+			<SegmentSticker state={SegmentStates.Disabled} />
 		);
 
 		expect(container.querySelector('use')).toHaveAttribute(
