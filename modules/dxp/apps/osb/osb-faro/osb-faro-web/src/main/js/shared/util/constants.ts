@@ -36,6 +36,17 @@ export enum AcquisitionTypes {
 	SourceMedium = 'SOURCE_MEDIUM'
 }
 
+export enum AssetNames {
+	BlogViewed = 'blogViewed',
+	CommentPosted = 'commentPosted',
+	DocumentDownloaded = 'documentDownloaded',
+	DocumentPreviewed = 'documentPreviewed',
+	FormSubmitted = 'formSubmitted',
+	FormViewed = 'formViewed',
+	PageViewed = 'pageViewed',
+	WebContentViewed = 'webContentViewed'
+}
+
 export enum AssetTypes {
 	Asset = 'Asset',
 	Blog = 'Blog',
@@ -97,17 +108,6 @@ export const ASSET_METRICS = [
 		type: 'number'
 	}
 ];
-
-export const assetNames = {
-	blogViewed: 'blogViewed',
-	commentPosted: 'commentPosted',
-	documentDownloaded: 'documentDownloaded',
-	documentPreviewed: 'documentPreviewed',
-	formSubmitted: 'formSubmitted',
-	formViewed: 'formViewed',
-	pageViewed: 'pageViewed',
-	webContentViewed: 'webContentViewed'
-};
 
 const compositionTypes = {
 	accountInterests: 'accountInterests',
@@ -257,7 +257,6 @@ export enum EntityTypes {
 
 const Constants: Window['faroConstants'] = {
 	...window.faroConstants,
-	assetNames,
 	compositionTypes,
 	credentialTypes,
 	dataSourceStates

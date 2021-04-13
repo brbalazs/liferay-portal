@@ -1,4 +1,5 @@
 import FaroConstants, {
+	AssetTypes,
 	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,

@@ -1,6 +1,5 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
-import Constants from 'shared/util/constants';
 import DateFilterConjunctionInput from './components/DateFilterConjunctionInput';
 import Form from 'shared/components/form';
 import getCN from 'classnames';
@@ -9,6 +8,7 @@ import React from 'react';
 import SelectEntityFromModal from './components/SelectEntityFromModal';
 import {ACTIVITY_KEY, OCCURENCE_OPTIONS} from '../utils/constants';
 import {activityAssetsListColumns} from 'shared/util/table-columns';
+import {AssetNames} from 'shared/util/constants';
 import {buildOrderByFields, COUNT} from 'shared/util/pagination';
 import {ClaySelectWithOption} from '@clayui/select';
 import {
@@ -27,8 +27,6 @@ import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {isNull} from 'lodash';
 import {isValid, parseActivityKey} from '../utils/utils';
 import {Modal} from 'shared/types/Modal';
-
-const {assetNames} = Constants;
 
 const isValidOccurenceCount = occurenceCount =>
 	isValid(occurenceCount) && occurenceCount >= 0;
@@ -55,15 +53,15 @@ export const AssetItem: React.FC<{
 );
 
 const ASSET_MODAL_CONFIG_MAP = {
-	[assetNames.commentPosted]: {
+	[AssetNames.CommentPosted]: {
 		columns: [activityAssetsListColumns.commentCount],
 		label: Liferay.Language.get('comments')
 	},
-	[assetNames.documentDownloaded]: {
+	[AssetNames.DocumentDownloaded]: {
 		columns: [activityAssetsListColumns.downloadCount],
 		label: Liferay.Language.get('downloads')
 	},
-	[assetNames.formSubmitted]: {
+	[AssetNames.FormSubmitted]: {
 		columns: [activityAssetsListColumns.submissionCount],
 		label: Liferay.Language.get('submissions')
 	}
