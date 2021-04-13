@@ -1,13 +1,13 @@
-import FaroConstants from 'shared/util/constants';
+import Constants, {TimeIntervals} from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
 import {INDIVIDUAL_COUNT, NAME, SCORE} from 'shared/util/pagination';
 
 const {
-	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending},
-	timeIntervals: {day: DEFAULT_TIME_INTERVAL}
-} = FaroConstants;
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending}
+} = Constants;
 
 const DEFAULT_MAX = 30;
+const DEFAULT_TIME_INTERVAL = TimeIntervals.Day;
 
 export function fetch(params) {
 	return search({

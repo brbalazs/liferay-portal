@@ -1,15 +1,14 @@
-import Constants, {SegmentTypes} from 'shared/util/constants';
+import Constants, {SegmentTypes, TimeIntervals} from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
 import {NAME} from 'shared/util/pagination';
 
 const {
-	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDefault},
-	timeIntervals
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDefault}
 } = Constants;
 
 const DEFAULT_MAX = 30;
 
-const DEFAULT_INTERVAL = timeIntervals.day;
+const DEFAULT_INTERVAL = TimeIntervals.Day;
 
 export function addIndividuals({groupId, individualIds, selectedSegmentId}) {
 	return sendRequest({

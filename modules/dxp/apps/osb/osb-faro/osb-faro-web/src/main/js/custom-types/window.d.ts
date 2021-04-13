@@ -14,7 +14,8 @@ import {
 	ProjectStates,
 	SegmentStates,
 	SegmentTypes,
-	SubscriptionStatuses
+	SubscriptionStatuses,
+	TimeIntervals
 } from 'shared/util/constants';
 export {};
 
@@ -54,7 +55,7 @@ declare global {
 			segmentStates: {[key: string]: SegmentStates};
 			segmentTypes: {[key: string]: SegmentTypes};
 			subscriptionStatuses: {[key: string]: SubscriptionStatuses};
-			timeIntervals: {[key: string]: string};
+			timeIntervals: {[key: string]: TimeIntervals};
 			userName: string;
 		};
 		hbspt: {

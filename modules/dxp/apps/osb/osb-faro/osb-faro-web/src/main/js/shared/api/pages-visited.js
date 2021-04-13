@@ -1,17 +1,16 @@
-import FaroConstants from 'shared/util/constants';
+import Constants, {TimeIntervals} from 'shared/util/constants';
 import moment from 'moment';
 import sendRequest from 'shared/util/request';
 import {TITLE} from 'shared/util/pagination';
 
 const {
-	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending},
-	timeIntervals
-} = FaroConstants;
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending}
+} = Constants;
 
 export const INTERVALS_MAP = {
-	[timeIntervals.day]: 1,
-	[timeIntervals.month]: 30,
-	[timeIntervals.week]: 7
+	[TimeIntervals.Day]: 1,
+	[TimeIntervals.Month]: 30,
+	[TimeIntervals.Week]: 7
 };
 
 export function search(params) {

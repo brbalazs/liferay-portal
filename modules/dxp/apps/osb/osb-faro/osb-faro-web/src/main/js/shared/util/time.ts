@@ -1,4 +1,4 @@
-import Constants, {
+import {
 	CUSTOM_RANGE,
 	LAST_180_DAYS,
 	LAST_24_HOURS,
@@ -6,16 +6,15 @@ import Constants, {
 	LAST_30_DAYS,
 	LAST_90_DAYS,
 	LAST_YEAR,
+	TimeIntervals,
 	YESTERDAY
 } from 'shared/util/constants';
 import {Interval} from 'shared/types';
 
-const {timeIntervals} = Constants;
-
 export const INTERVAL_KEY_MAP: {[s: string]: Interval} = {
-	[timeIntervals.day]: 'D',
-	[timeIntervals.month]: 'M',
-	[timeIntervals.week]: 'W'
+	[TimeIntervals.Day]: 'D',
+	[TimeIntervals.Month]: 'M',
+	[TimeIntervals.Week]: 'W'
 };
 
 export const UNITS: string[] = [

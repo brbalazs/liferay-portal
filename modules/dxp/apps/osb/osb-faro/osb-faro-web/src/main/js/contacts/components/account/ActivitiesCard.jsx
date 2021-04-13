@@ -4,7 +4,6 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChangeLegend from 'contacts/components/ChangeLegend';
-import Constants from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
 import React from 'react';
@@ -13,14 +12,10 @@ import {Account} from 'shared/util/records';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {buildLegendItems} from 'shared/util/activities';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
+import {EntityTypes, TimeIntervals} from 'shared/util/constants';
 import {getSafeChange} from 'shared/util/change';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {
-	entityTypes: {account},
-	timeIntervals
-} = Constants;
 
 @hasRequest
 export default class ActivitiesCard extends React.Component {
@@ -54,9 +49,9 @@ export default class ActivitiesCard extends React.Component {
 		return API.activities.fetchHistory({
 			channelId,
 			contactsEntityId: id,
-			contactsEntityType: account,
+			contactsEntityType: EntityTypes.Account,
 			groupId,
-			interval: timeIntervals.day,
+			interval: TimeIntervals.Day,
 			max: DEFAULT_ACTIVITY_MAX
 		});
 	}
@@ -75,9 +70,9 @@ export default class ActivitiesCard extends React.Component {
 			.fetchHistory({
 				channelId,
 				contactsEntityId: id,
-				contactsEntityType: account,
+				contactsEntityType: EntityTypes.Account,
 				groupId,
-				interval: timeIntervals.day,
+				interval: TimeIntervals.Day,
 				max: DEFAULT_ACTIVITY_MAX
 			})
 			.then(
@@ -129,7 +124,7 @@ export default class ActivitiesCard extends React.Component {
 
 					<ActivitiesChart
 						history={history}
-						interval={timeIntervals.day}
+						interval={TimeIntervals.Day}
 						rangeSelectors={{rangeKey: DEFAULT_ACTIVITY_MAX}}
 					/>
 				</>

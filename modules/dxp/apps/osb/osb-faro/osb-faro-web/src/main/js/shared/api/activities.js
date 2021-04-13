@@ -1,10 +1,10 @@
-import FaroConstants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
 import {pickBy} from 'lodash';
+import {TimeIntervals} from 'shared/util/constants';
 
 export const DEFAULT_ACTIVITY_MAX = 30;
 
-export const DEFAULT_ACTIVITY_INTERVAL = FaroConstants.timeIntervals.day;
+export const DEFAULT_ACTIVITY_INTERVAL = TimeIntervals.Day;
 
 export function fetchHistory({
 	channelId = '',

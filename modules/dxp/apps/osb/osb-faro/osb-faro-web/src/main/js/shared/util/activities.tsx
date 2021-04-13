@@ -1,6 +1,10 @@
-import Constants, {AssetTypes} from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
+import {
+	ActivityActions,
+	AssetTypes,
+	TimeIntervals
+} from 'shared/util/constants';
 import {
 	countBy,
 	filter,
@@ -19,49 +23,44 @@ import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
-const {
-	activityActions: {comments, downloads, previews, submissions, visits},
-	timeIntervals
-} = Constants;
-
 export const CHART_ACTIVITY_ID = 'activities';
 export const CHART_ID = 'individualActivity';
 
 const ACTIVITY_ACTIONS_TITLE_LANG_MAP = {
-	[comments]: Liferay.Language.get('commented-on-x'),
-	[downloads]: Liferay.Language.get('downloaded-x'),
-	[previews]: Liferay.Language.get('previewed-x'),
-	[submissions]: Liferay.Language.get('submitted-x'),
-	[visits]: Liferay.Language.get('visited-x')
+	[ActivityActions.Comments]: Liferay.Language.get('commented-on-x'),
+	[ActivityActions.Downloads]: Liferay.Language.get('downloaded-x'),
+	[ActivityActions.Previews]: Liferay.Language.get('previewed-x'),
+	[ActivityActions.Submissions]: Liferay.Language.get('submitted-x'),
+	[ActivityActions.Visits]: Liferay.Language.get('visited-x')
 };
 
 const ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP = {
-	[comments]: {
+	[ActivityActions.Comments]: {
 		plural: Liferay.Language.get('x-comments'),
 		singular: Liferay.Language.get('x-comment')
 	},
-	[downloads]: {
+	[ActivityActions.Downloads]: {
 		plural: Liferay.Language.get('x-downloads'),
 		singular: Liferay.Language.get('x-download')
 	},
-	[previews]: {
+	[ActivityActions.Previews]: {
 		plural: Liferay.Language.get('x-previews'),
 		singular: Liferay.Language.get('x-preview')
 	},
-	[submissions]: {
+	[ActivityActions.Submissions]: {
 		plural: Liferay.Language.get('x-submissions'),
 		singular: Liferay.Language.get('x-submission')
 	},
-	[visits]: {
+	[ActivityActions.Visits]: {
 		plural: Liferay.Language.get('x-visits'),
 		singular: Liferay.Language.get('x-visit')
 	}
 };
 
 export const INTERVAL_MAP = {
-	D: timeIntervals.day,
-	M: timeIntervals.month,
-	W: timeIntervals.week
+	D: TimeIntervals.Day,
+	M: TimeIntervals.Month,
+	W: TimeIntervals.Week
 };
 
 /**

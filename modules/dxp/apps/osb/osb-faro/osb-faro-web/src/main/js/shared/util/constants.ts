@@ -339,6 +339,14 @@ export enum SubscriptionStatuses {
 	Over = 2
 }
 
+export enum TimeIntervals {
+	Day = 'day',
+	Month = 'month',
+	Quarter = 'quarter',
+	Week = 'week',
+	Year = 'year'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;
