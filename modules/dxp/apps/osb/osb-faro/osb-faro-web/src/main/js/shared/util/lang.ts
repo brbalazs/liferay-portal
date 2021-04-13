@@ -1,7 +1,6 @@
-import Constants from 'shared/util/constants';
+import Constants, {AcquisitionTypes} from 'shared/util/constants';
 
 const {
-	acquisitionTypes,
 	assetTypes,
 	compositionTypes,
 	dataSourceTypes: {csv, liferay},
@@ -70,9 +69,9 @@ export const getPluralMessage = (
 };
 
 export const ACQUISITION_LABEL_MAP = {
-	[acquisitionTypes.channel]: Liferay.Language.get('channel'),
-	[acquisitionTypes.referrer]: Liferay.Language.get('referrer'),
-	[acquisitionTypes.sourceMedium]: Liferay.Language.get('source-medium')
+	[AcquisitionTypes.Channel]: Liferay.Language.get('channel'),
+	[AcquisitionTypes.Referrer]: Liferay.Language.get('referrer'),
+	[AcquisitionTypes.SourceMedium]: Liferay.Language.get('source-medium')
 };
 
 export const ASSET_TYPE_LANG_MAP = {

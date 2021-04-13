@@ -1,5 +1,5 @@
 import AcquisitionsQuery from '../queries/AcquisitionsQuery';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {AcquisitionTypes} from 'shared/util/constants';
 import {ACQUISITION_LABEL_MAP} from 'shared/util/lang';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {
@@ -9,8 +9,10 @@ import {
 import {graphql} from '@apollo/react-hoc';
 import {withTableTabs} from './TableTabs';
 
+const {Channel, Referrer, SourceMedium} = AcquisitionTypes;
+
 const {
-	acquisitionTypes: {channel, referrer, sourceMedium},
+	// acquisitionTypes: {channel, referrer, sourceMedium},
 	compositionTypes: {acquisitions}
 } = FaroConstants;
 
@@ -41,21 +43,21 @@ const withAcquisitions = () =>
 
 const Tabs = [
 	{
-		getColumns: getColumnsFn(channel),
+		getColumns: getColumnsFn(Channel),
 		rowIdentifier: ROW_IDENTIFIER,
-		tabId: channel,
+		tabId: Channel,
 		title: Liferay.Language.get('channels')
 	},
 	{
-		getColumns: getColumnsFn(sourceMedium),
+		getColumns: getColumnsFn(SourceMedium),
 		rowIdentifier: ROW_IDENTIFIER,
-		tabId: sourceMedium,
+		tabId: SourceMedium,
 		title: Liferay.Language.get('source-medium')
 	},
 	{
-		getColumns: getColumnsFn(referrer),
+		getColumns: getColumnsFn(Referrer),
 		rowIdentifier: ROW_IDENTIFIER,
-		tabId: referrer,
+		tabId: Referrer,
 		title: Liferay.Language.get('referrers')
 	}
 ];

@@ -30,6 +30,12 @@ export const POSITIONS = [
 /**
  * Assets
  */
+export enum AcquisitionTypes {
+	Channel= 'CHANNEL',
+	Referrer= 'REFERRER',
+	SourceMedium= 'SOURCE_MEDIUM'
+};
+
 const acquisitionTypes = {
 	channel: 'CHANNEL',
 	referrer: 'REFERRER',
@@ -240,6 +246,11 @@ export enum Applications {
 	Main = 'main'
 }
 
+export enum ChannelPermissionTypes {
+	AllUsers = 0,
+	SelectUsers = 1
+}
+
 export enum EntityTypes {
 	Account = 0,
 	AccountsSegment = 3,
@@ -250,7 +261,7 @@ export enum EntityTypes {
 	Page = 6
 }
 
-const Constants: any = {
+const Constants: Window['faroConstants'] = {
 	...window.faroConstants,
 	acquisitionTypes,
 	assetNames,
