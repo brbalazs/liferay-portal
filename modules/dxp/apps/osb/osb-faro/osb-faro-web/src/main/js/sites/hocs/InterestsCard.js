@@ -2,10 +2,10 @@ import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
-import FaroConstants from 'shared/util/constants';
 import InterestsQuery from 'sites/queries/InterestsQuery';
 import React, {useContext} from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {CompositionTypes} from 'shared/util/constants';
 import {
 	getMapResultToProps,
 	mapCardPropsToOptions
@@ -14,14 +14,10 @@ import {graphql} from '@apollo/react-hoc';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {withTableData} from 'shared/hoc';
 
-const {
-	compositionTypes: {siteInterests}
-} = FaroConstants;
-
 const withData = () =>
 	graphql(InterestsQuery, {
 		options: mapCardPropsToOptions,
-		props: getMapResultToProps(siteInterests)
+		props: getMapResultToProps(CompositionTypes.SiteInterests)
 	});
 
 const TableWithData = withTableData(withData, {

@@ -1,13 +1,9 @@
-import FaroConstants from 'shared/util/constants';
+import {CompositionTypes} from 'shared/util/constants';
 import {
 	getMapResultToProps,
 	mapCardPropsToOptions,
 	mapPropsToOptions
 } from '../composition-query';
-
-const {
-	compositionTypes: {siteInterests}
-} = FaroConstants;
 
 const mockData = {
 	siteInterests: {
@@ -35,7 +31,9 @@ describe('Composition Query Mapper', () => {
 	describe('getMapResultToProps', () => {
 		it('should map interests list query result to props', () => {
 			expect(
-				getMapResultToProps(siteInterests)({data: mockData})
+				getMapResultToProps(CompositionTypes.SiteInterests)({
+					data: mockData
+				})
 			).toEqual(
 				expect.objectContaining({
 					items: expect.any(Array),

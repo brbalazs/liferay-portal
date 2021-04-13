@@ -1,5 +1,5 @@
 import AcquisitionsQuery from '../queries/AcquisitionsQuery';
-import FaroConstants, {AcquisitionTypes} from 'shared/util/constants';
+import {AcquisitionTypes, CompositionTypes} from 'shared/util/constants';
 import {ACQUISITION_LABEL_MAP} from 'shared/util/lang';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {
@@ -10,10 +10,6 @@ import {graphql} from '@apollo/react-hoc';
 import {withTableTabs} from './TableTabs';
 
 const {Channel, Referrer, SourceMedium} = AcquisitionTypes;
-
-const {
-	compositionTypes: {acquisitions}
-} = FaroConstants;
 
 const ROW_IDENTIFIER = 'name';
 
@@ -37,7 +33,7 @@ const getColumnsFn = acquisitionType => {
 const withAcquisitions = () =>
 	graphql(AcquisitionsQuery, {
 		options: mapCardPropsToOptions,
-		props: getMapResultToProps(acquisitions)
+		props: getMapResultToProps(CompositionTypes.Acquisitions)
 	});
 
 const Tabs = [

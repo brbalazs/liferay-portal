@@ -1,7 +1,10 @@
-import Constants, {AcquisitionTypes, AssetTypes} from 'shared/util/constants';
+import Constants, {
+	AcquisitionTypes,
+	AssetTypes,
+	CompositionTypes
+} from 'shared/util/constants';
 
 const {
-	compositionTypes,
 	dataSourceTypes: {csv, liferay},
 	entityTypes: {
 		account,
@@ -82,11 +85,11 @@ export const ASSET_TYPE_LANG_MAP = {
 };
 
 export const COMPOSITION_LABEL_MAP = {
-	[compositionTypes.accountInterests]: Liferay.Language.get('interests'),
-	[compositionTypes.acquisitions]: Liferay.Language.get('acquisitions'),
-	[compositionTypes.segmentInterests]: Liferay.Language.get('interests'),
-	[compositionTypes.siteInterests]: Liferay.Language.get('interests'),
-	[compositionTypes.searchTerms]: Liferay.Language.get('search-terms')
+	[CompositionTypes.AccountInterests]: Liferay.Language.get('interests'),
+	[CompositionTypes.Acquisitions]: Liferay.Language.get('acquisitions'),
+	[CompositionTypes.SegmentInterests]: Liferay.Language.get('interests'),
+	[CompositionTypes.SiteInterests]: Liferay.Language.get('interests'),
+	[CompositionTypes.SearchTerms]: Liferay.Language.get('search-terms')
 };
 
 export const DETAILS_LABEL_MAP = {

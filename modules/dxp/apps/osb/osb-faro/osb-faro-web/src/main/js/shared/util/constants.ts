@@ -109,14 +109,14 @@ export const ASSET_METRICS = [
 	}
 ];
 
-const compositionTypes = {
-	accountInterests: 'accountInterests',
-	acquisitions: 'acquisitions',
-	individualInterests: 'individualInterests',
-	searchTerms: 'searchTerms',
-	segmentInterests: 'individualSegmentInterests',
-	siteInterests: 'siteInterests'
-};
+export enum CompositionTypes {
+	AccountInterests = 'accountInterests',
+	Acquisitions = 'acquisitions',
+	IndividualInterests = 'individualInterests',
+	SearchTerms = 'searchTerms',
+	SegmentInterests = 'individualSegmentInterests',
+	SiteInterests = 'siteInterests'
+}
 
 export enum credentialTypes {
 	oAuth1 = 'OAuth 1 Authentication',
@@ -257,7 +257,6 @@ export enum EntityTypes {
 
 const Constants: Window['faroConstants'] = {
 	...window.faroConstants,
-	compositionTypes,
 	credentialTypes,
 	dataSourceStates
 };

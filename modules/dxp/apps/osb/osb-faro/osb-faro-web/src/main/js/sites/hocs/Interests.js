@@ -1,6 +1,6 @@
 import Card from 'shared/components/Card';
+import Constants, {CompositionTypes} from 'shared/util/constants';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
-import FaroConstants from 'shared/util/constants';
 import InterestsQuery from 'sites/queries/InterestsQuery';
 import React from 'react';
 import {compose} from 'redux';
@@ -18,15 +18,14 @@ import {useChannelContext} from 'shared/context/channel';
 import {withHistory, withPaginationBar, withTableData} from 'shared/hoc';
 
 const {
-	compositionTypes: {siteInterests},
 	pagination: {cur: defaultPage, delta: defaultDelta}
-} = FaroConstants;
+} = Constants;
 
 const withData = () =>
 	compose(
 		graphql(InterestsQuery, {
 			options: mapPropsToOptions,
-			props: getMapResultToProps(siteInterests)
+			props: getMapResultToProps(CompositionTypes.SiteInterests)
 		}),
 		withPaginationBar({defaultDelta})
 	);

@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
+import Constants, {CompositionTypes} from 'shared/util/constants';
 import InterestsQuery from '../queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
@@ -13,14 +13,13 @@ import {sub} from 'shared/util/lang';
 import {withBaseResults} from 'shared/hoc';
 
 const {
-	compositionTypes: {individualInterests},
 	pagination: {cur: defaultPage, delta: defaultDelta}
-} = FaroConstants;
+} = Constants;
 
 const withData = () =>
 	graphql(InterestsQuery, {
 		options: mapPropsToOptions,
-		props: getMapResultToProps(individualInterests)
+		props: getMapResultToProps(CompositionTypes.IndividualInterests)
 	});
 
 const TableWithData = withBaseResults(withData, {

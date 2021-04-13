@@ -1,14 +1,10 @@
-import FaroConstants from 'shared/util/constants';
 import {COMPOSITION_FRAGMENT} from 'shared/queries/fragments';
+import {CompositionTypes} from 'shared/util/constants';
 import {gql} from 'apollo-boost';
 
-const {
-	compositionTypes: {accountInterests, segmentInterests}
-} = FaroConstants;
-
 const INTERESTS_ID_MAP = {
-	[accountInterests]: 'accountId',
-	[segmentInterests]: 'individualSegmentId'
+	[CompositionTypes.AccountInterests]: 'accountId',
+	[CompositionTypes.SegmentInterests]: 'individualSegmentId'
 };
 
 export default queryName => gql`

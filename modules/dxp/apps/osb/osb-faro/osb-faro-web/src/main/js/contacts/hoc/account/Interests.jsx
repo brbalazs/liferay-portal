@@ -1,8 +1,8 @@
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import getInterestsQuery from 'contacts/queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {CompositionTypes} from 'shared/util/constants';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
@@ -12,14 +12,10 @@ import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {withBaseResults} from 'shared/hoc';
 
-const {
-	compositionTypes: {accountInterests}
-} = FaroConstants;
-
 const withData = () =>
-	graphql(getInterestsQuery(accountInterests), {
+	graphql(getInterestsQuery(CompositionTypes.AccountInterests), {
 		options: mapPropsToOptions,
-		props: getMapResultToProps(accountInterests)
+		props: getMapResultToProps(CompositionTypes.AccountInterests)
 	});
 
 const TableWithData = withBaseResults(withData, {

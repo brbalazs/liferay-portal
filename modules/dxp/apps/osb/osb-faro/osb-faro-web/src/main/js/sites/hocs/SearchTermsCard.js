@@ -1,9 +1,9 @@
 import BasePage from 'shared/components/base-page';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
-import FaroConstants from 'shared/util/constants';
 import React, {useContext} from 'react';
 import SearchTermsQuery from 'sites/queries/SearchTermsQuery';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {CompositionTypes} from 'shared/util/constants';
 import {
 	getMapResultToProps,
 	mapCardPropsToOptions
@@ -11,14 +11,10 @@ import {
 import {graphql} from '@apollo/react-hoc';
 import {withTableData} from 'shared/hoc';
 
-const {
-	compositionTypes: {searchTerms}
-} = FaroConstants;
-
 const withData = () =>
 	graphql(SearchTermsQuery, {
 		options: mapCardPropsToOptions,
-		props: getMapResultToProps(searchTerms)
+		props: getMapResultToProps(CompositionTypes.SearchTerms)
 	});
 
 const TableWithData = withTableData(withData, {
