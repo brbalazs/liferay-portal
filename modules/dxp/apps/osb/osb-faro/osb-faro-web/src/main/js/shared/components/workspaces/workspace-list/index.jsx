@@ -1,16 +1,12 @@
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import WorkspaceListItem from './ListItem';
+import {DataSourceStates} from 'shared/util/constants';
 import {getPlanLabel} from 'shared/util/subscriptions';
 import {noop} from 'lodash';
 import {Project} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {
-	dataSourceStates: {unconfigured}
-} = FaroConstants;
 
 export default class WorkspaceList extends React.Component {
 	static defaultProps = {
@@ -38,7 +34,7 @@ export default class WorkspaceList extends React.Component {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId: friendlyURL.replace('/', '')
 			});
-		} else if (!!groupId && state !== unconfigured) {
+		} else if (!!groupId && state !== DataSourceStates.Unconfigured) {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId
 			});
@@ -76,7 +72,10 @@ export default class WorkspaceList extends React.Component {
 							<WorkspaceListItem
 								accountName={name}
 								className={className}
-								configured={!!groupId && state !== unconfigured}
+								configured={
+									!!groupId &&
+									state !== DataSourceStates.Unconfigured
+								}
 								corpProjectName={corpProjectName}
 								disabled={checkDisabled(project)}
 								groupId={groupId}

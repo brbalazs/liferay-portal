@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
+import Constants, {DataSourceStates} from 'shared/util/constants';
 import Form, {
 	toPromise,
 	validateProtocol,
@@ -27,10 +27,7 @@ import {Routes, toRoute} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {validateUniqueName} from 'shared/util/data-sources';
 
-const {
-	dataSourceStates: {credentialsInvalid, urlInvalid},
-	dataSourceTypes
-} = FaroConstants;
+const {dataSourceTypes} = Constants;
 
 export class OAuthForm extends React.Component {
 	static defaultProps = {
@@ -157,7 +154,7 @@ export class OAuthForm extends React.Component {
 	}
 
 	checkCredentials(dataSourceState) {
-		if (dataSourceState === credentialsInvalid) {
+		if (dataSourceState === DataSourceStates.CredentialsInvalid) {
 			this.handleRemoveOwner();
 		}
 	}
@@ -377,8 +374,8 @@ export class OAuthForm extends React.Component {
 		const dataSourceState = get(dataSource, 'state');
 
 		const dataSourceCredentialsInvalid =
-			dataSourceState === credentialsInvalid ||
-			dataSourceState === urlInvalid;
+			dataSourceState === DataSourceStates.CredentialsInvalid ||
+			dataSourceState === DataSourceStates.UrlInvalid;
 
 		const credentialsIMap = (
 			get(dataSource, 'credentials') || new Map()

@@ -1,18 +1,14 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
+import {DataSourceStates} from 'shared/util/constants';
 import {fromJS} from 'immutable';
 import {Project, User} from 'shared/util/records';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {Routes, setUriQueryValue, toRoute} from 'shared/util/router';
 import {routingFn, SelectWorkspaceAccount} from '../SelectWorkspaceAccount';
-
-const {
-	dataSourceStates: {unconfigured}
-} = FaroConstants;
 
 const mockBusinessProject = new Project(
 	data.mockProject(123, {
@@ -44,7 +40,7 @@ describe('SelectWorkspaceAccount', () => {
 				data.mockProject(123, {
 					faroSubscription: fromJS(mockBasicSubscription),
 					name: '',
-					state: unconfigured
+					state: DataSourceStates.Unconfigured
 				})
 			)
 		];

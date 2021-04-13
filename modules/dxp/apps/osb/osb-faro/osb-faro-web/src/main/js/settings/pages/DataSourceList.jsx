@@ -3,8 +3,8 @@ import autobind from 'autobind-decorator';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
+import Constants, {DataSourceStates} from 'shared/util/constants';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
-import FaroConstants from 'shared/util/constants';
 import Icon from 'shared/components/Icon';
 import Label from 'shared/components/Label';
 import Nav from 'shared/components/Nav';
@@ -38,11 +38,10 @@ import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
-	dataSourceStates: {credentialsInvalid, inProgressDeleting, urlInvalid},
 	dataSourceStatuses,
 	dataSourceTypes: {csv, liferay, salesforce},
 	pagination
-} = FaroConstants;
+} = Constants;
 
 function getAlertMessage(dataSource, currentUser, count, groupId) {
 	const admin = currentUser.isAdmin();
@@ -123,7 +122,8 @@ const ContactsCell = ({data}) => (
 const dateFormatter = (date, timeZoneId) =>
 	formatDateToTimeZone(date, 'll', timeZoneId);
 
-export const disableRow = ({state}) => state === inProgressDeleting;
+export const disableRow = ({state}) =>
+	state === DataSourceStates.InProgressDeleting;
 
 export const StatusRenderer = ({data}) => {
 	const {display, label} = getDataSourceDisplayObject(
@@ -202,7 +202,10 @@ export class DataSourceList extends React.Component {
 			cur: pagination.cur,
 			delta: 1,
 			groupId,
-			states: [credentialsInvalid, urlInvalid]
+			states: [
+				DataSourceStates.CredentialsInvalid,
+				DataSourceStates.UrlInvalid
+			]
 		});
 	}
 

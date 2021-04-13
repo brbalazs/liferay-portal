@@ -1,5 +1,5 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
+import Constants, {DataSourceStates} from 'shared/util/constants';
 import React from 'react';
 import {DataSource} from 'shared/util/records';
 import {fireEvent, render} from '@testing-library/react';
@@ -9,7 +9,7 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
-const {dataSourceStates, dataSourceStatuses, dataSourceTypes} = FaroConstants;
+const {dataSourceStatuses, dataSourceTypes} = Constants;
 
 React.createRef = jest.fn();
 
@@ -154,7 +154,7 @@ describe('OAuthForm', () => {
 						DataSource,
 						data.mockLiferayDataSource,
 						{
-							state: dataSourceStates.undefinedError,
+							state: DataSourceStates.UndefinedError,
 							status: dataSourceStatuses.inactive
 						}
 					)}

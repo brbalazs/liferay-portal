@@ -1,6 +1,7 @@
 import Constants, {
 	AssetTypes,
 	CredentialTypes,
+	DataSourceStates,
 	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,
@@ -28,7 +29,6 @@ const {
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
 	dataSourceProgressStatuses,
-	dataSourceStates,
 	dataSourceStatuses,
 	dataSourceTypes,
 	projectStates,
@@ -382,7 +382,7 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 			type: dataSourceTypes.csv
 		},
 		providerType: dataSourceTypes.csv,
-		state: dataSourceStates.ready,
+		state: DataSourceStates.Ready,
 		status: dataSourceStatuses.active,
 		type: EntityTypes.DataSource,
 		url: 'liferay.example.faro.com',
@@ -409,7 +409,7 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 			type: dataSourceTypes.liferay
 		},
 		providerType: dataSourceTypes.liferay,
-		state: dataSourceStates.credentialsValid,
+		state: DataSourceStates.CredentialsValid,
 		status: dataSourceStatuses.active,
 		type: EntityTypes.DataSource,
 		url: `https://www.faro-${seed}.io`,
@@ -488,7 +488,7 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 			type: dataSourceTypes.salesforce
 		},
 		providerType: dataSourceTypes.salesforce,
-		state: dataSourceStates.credentialsValid,
+		state: DataSourceStates.CredentialsValid,
 		status: dataSourceStatuses.active,
 		type: EntityTypes.DataSource,
 		url: 'https://login.salesforce.com',

@@ -124,18 +124,18 @@ export enum CredentialTypes {
 	Token = 'Token Authentication'
 }
 
-export enum dataSourceStates {
-	actionNeeded = 'ACTION_NEEDED',
-	analyticsClientConfigurationFailure = 'ANALYTICS_CLIENT_CONFIGURATION_FAILURE',
-	credentialsInvalid = 'CREDENTIALS_INVALID',
-	credentialsValid = 'CREDENTIALS_VALID',
-	disconnected = 'DISCONNECTED',
-	inProgressDeleting = 'IN_PROGRESS_DELETING',
-	liferayVersionInvalid = 'LIFERAY_VERSION_INVALID',
-	undefinedError = 'UNDEFINED_ERROR',
-	ready = 'READY',
-	urlInvalid = 'URL_INVALID',
-	unconfigured = 'UNCONFIGURED'
+export enum DataSourceStates {
+	ActionNeeded = 'ACTION_NEEDED',
+	AnalyticsClientConfigurationFailure = 'ANALYTICS_CLIENT_CONFIGURATION_FAILURE',
+	CredentialsInvalid = 'CREDENTIALS_INVALID',
+	CredentialsValid = 'CREDENTIALS_VALID',
+	Disconnected = 'DISCONNECTED',
+	InProgressDeleting = 'IN_PROGRESS_DELETING',
+	LiferayVersionInvalid = 'LIFERAY_VERSION_INVALID',
+	UndefinedError = 'UNDEFINED_ERROR',
+	Ready = 'READY',
+	UrlInvalid = 'URL_INVALID',
+	Unconfigured = 'UNCONFIGURED'
 }
 
 export enum userStatuses {
@@ -255,9 +255,6 @@ export enum EntityTypes {
 	Page = 6
 }
 
-const Constants: Window['faroConstants'] = {
-	...window.faroConstants,
-	dataSourceStates
-};
+const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

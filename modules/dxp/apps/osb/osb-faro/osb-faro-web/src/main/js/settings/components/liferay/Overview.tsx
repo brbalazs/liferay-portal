@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
 import Form, {
 	toPromise,
 	validateMaxLength,
@@ -16,6 +15,7 @@ import {addAlert, alertTypes} from '../../../shared/actions/alerts';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
+import {DataSourceStates} from 'shared/util/constants';
 import {
 	fetchDataSource,
 	updateLiferayDataSource
@@ -23,8 +23,6 @@ import {
 import {noop} from 'lodash';
 import {sequence} from 'shared/util/promise';
 import {validateUniqueName} from 'shared/util/data-sources';
-
-const {dataSourceStates} = Constants;
 
 const getStatusLabel = (configured: boolean): React.ReactNode => (
 	<Label display={configured ? 'success' : 'secondary'} size='lg' uppercase>
@@ -191,7 +189,7 @@ class LiferayOverview extends React.Component<ILiferayOverviewProps> {
 	render() {
 		const {currentUser, dataSource} = this.props;
 
-		const disconnected = dataSource.state === dataSourceStates.disconnected;
+		const disconnected = dataSource.state === DataSourceStates.Disconnected;
 
 		return (
 			<Sheet className='liferay-data-source-root'>

@@ -1,6 +1,5 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -11,15 +10,12 @@ import {
 	disableRow,
 	StatusRenderer
 } from '../DataSourceList';
+import {DataSourceStates} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
 
 jest.unmock('react-dom');
-
-const {
-	dataSourceStates: {credentialsInvalid, inProgressDeleting, ready}
-} = Constants;
 
 const defaultProps = {
 	currentUser: new User(data.mockUser()),
@@ -109,7 +105,7 @@ describe('DataSourceList', () => {
 						credentials: {
 							oAuthOwner: {emailAddress: 'test@liferay.com'}
 						},
-						state: credentialsInvalid
+						state: DataSourceStates.CredentialsInvalid
 					})
 				],
 				total: 1
@@ -133,7 +129,7 @@ describe('DataSourceList', () => {
 						credentials: {
 							oAuthOwner: {emailAddress: 'test@liferay.com'}
 						},
-						state: credentialsInvalid
+						state: DataSourceStates.credentialsInvalid
 					})
 				],
 				total: 1
@@ -159,7 +155,7 @@ describe('DataSourceList', () => {
 						credentials: {
 							oAuthOwner: {emailAddress: 'test@liferay.com'}
 						},
-						state: credentialsInvalid
+						state: DataSourceStates.CredentialsInvalid
 					})
 				],
 				total: 2
@@ -183,7 +179,7 @@ describe('DataSourceList', () => {
 						credentials: {
 							oAuthOwner: {emailAddress: 'test@liferay.com'}
 						},
-						state: credentialsInvalid
+						state: DataSourceStates.CredentialsInvalid
 					})
 				],
 				total: 2
@@ -213,7 +209,9 @@ describe('CellRenderers', () => {
 
 	it('should render as disabled if the datasource is in the process of being deleted', () => {
 		const {container} = render(
-			<DataSourceName data={{state: inProgressDeleting}} />
+			<DataSourceName
+				data={{state: DataSourceStates.InProgressDeleting}}
+			/>
 		);
 
 		expect(container.querySelector('a')).toBeNull();
@@ -222,10 +220,12 @@ describe('CellRenderers', () => {
 
 describe('disableRow', () => {
 	it('should return true if datasource state is inProgressDeleting', () => {
-		expect(disableRow({state: inProgressDeleting})).toBe(true);
+		expect(disableRow({state: DataSourceStates.InProgressDeleting})).toBe(
+			true
+		);
 	});
 
 	it('should return false if datasource state is NOT inProgressDeleting', () => {
-		expect(disableRow({state: ready})).toBe(false);
+		expect(disableRow({state: DataSourceStates.Ready})).toBe(false);
 	});
 });

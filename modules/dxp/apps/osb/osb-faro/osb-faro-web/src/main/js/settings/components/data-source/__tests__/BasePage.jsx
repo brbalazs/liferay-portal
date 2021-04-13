@@ -1,6 +1,6 @@
 import * as data from 'test/data';
 import BaseDataSourcePage from '../BasePage';
-import FaroConstants from 'shared/util/constants';
+import Constants, {DataSourceStates} from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
@@ -11,9 +11,8 @@ import {StaticRouter} from 'react-router-dom';
 jest.unmock('react-dom');
 
 const {
-	dataSourceStates: {undefinedError},
 	userRoleNames: {member}
-} = FaroConstants;
+} = Constants;
 
 describe('BaseDataSourcePage', () => {
 	afterEach(cleanup);
@@ -104,7 +103,7 @@ describe('BaseDataSourcePage', () => {
 							DataSource,
 							data.mockSalesforceDataSource,
 							'test',
-							{state: undefinedError}
+							{state: DataSourceStates.UndefinedError}
 						)}
 						groupId='23'
 						id='test'

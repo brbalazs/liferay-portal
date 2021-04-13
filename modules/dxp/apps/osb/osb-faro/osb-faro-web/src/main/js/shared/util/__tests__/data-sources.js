@@ -1,6 +1,9 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import Constants, {CredentialTypes} from 'shared/util/constants';
+import Constants, {
+	CredentialTypes,
+	DataSourceStates
+} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import {DataSource} from 'shared/util/records';
 import {
@@ -19,21 +22,7 @@ import {fromJS} from 'immutable';
 import {noop, range} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 
-const {
-	dataSourceStates: {
-		actionNeeded,
-		analyticsClientConfigurationFailure,
-		credentialsInvalid,
-		credentialsValid,
-		disconnected,
-		inProgressDeleting,
-		liferayVersionInvalid,
-		ready,
-		undefinedError,
-		urlInvalid
-	},
-	dataSourceStatuses
-} = Constants;
+const {dataSourceStatuses} = Constants;
 
 function getMockLiferayDataSource(id, config) {
 	return data.getImmutableMock(
@@ -52,7 +41,7 @@ describe('data-sources', () => {
 
 			const result = dataSourceRedirectFn({
 				dataSource: getMockLiferayDataSource(id, {
-					state: urlInvalid
+					state: DataSourceStates.UrlInvalid
 				}),
 				groupId
 			});
@@ -68,7 +57,7 @@ describe('data-sources', () => {
 
 			const result = dataSourceRedirectFn({
 				dataSource: getMockLiferayDataSource(id, {
-					state: ready
+					state: DataSourceStates.Ready
 				}),
 				groupId
 			});
@@ -79,14 +68,14 @@ describe('data-sources', () => {
 
 	describe('isDataSourceValid', () => {
 		it.each`
-			state                    | isValid
-			${credentialsInvalid}    | ${false}
-			${credentialsValid}      | ${true}
-			${liferayVersionInvalid} | ${false}
-			${ready}                 | ${true}
-			${undefinedError}        | ${false}
-			${urlInvalid}            | ${false}
-			${null}                  | ${false}
+			state                                     | isValid
+			${DataSourceStates.CredentialsInvalid}    | ${false}
+			${DataSourceStates.CredentialsValid}      | ${true}
+			${DataSourceStates.LiferayVersionInvalid} | ${false}
+			${DataSourceStates.Ready}                 | ${true}
+			${DataSourceStates.UndefinedError}        | ${false}
+			${DataSourceStates.UrlInvalid}            | ${false}
+			${null}                                   | ${false}
 		`(
 			'should return whether the datasource state is considered valid',
 			({isValid, state}) => {
@@ -104,7 +93,7 @@ describe('data-sources', () => {
 					provider: {
 						contactsConfiguration: {enableAllContacts: true}
 					},
-					state: credentialsValid
+					state: DataSourceStates.CredentialsValid
 				})
 			);
 
@@ -117,7 +106,7 @@ describe('data-sources', () => {
 					provider: {
 						analyticsConfiguration: {sites: [{id: '1'}]}
 					},
-					state: credentialsValid,
+					state: DataSourceStates.CredentialsValid,
 					status: dataSourceStatuses.inactive
 				})
 			);
@@ -128,42 +117,50 @@ describe('data-sources', () => {
 		it('should return the authenticated state display object if credentials are valid but active is false', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: credentialsValid,
+					state: DataSourceStates.CredentialsValid,
 					status: dataSourceStatuses.inactive
 				})
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[credentialsValid]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.CredentialsValid]
+			);
 		});
 
 		it('should return the invalid credentials state display object if credentials are invalid', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: credentialsInvalid
+					state: DataSourceStates.CredentialsInvalid
 				})
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[credentialsInvalid]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.CredentialsInvalid]
+			);
 		});
 
 		it('should return the invalid credentials state display object if the state is ANALYTICS_CLIENT_CONFIGURATION_FAILURE', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: analyticsClientConfigurationFailure
+					state: DataSourceStates.AnalyticsClientConfigurationFailure
 				})
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[credentialsInvalid]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.CredentialsInvalid]
+			);
 		});
 
 		it('should return the "in-progress deletion" state display object if the data source state is in deletion', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: inProgressDeleting
+					state: DataSourceStates.InProgressDeleting
 				})
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[inProgressDeleting]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.InProgressDeleting]
+			);
 		});
 
 		it('should return the not configured state display object if the state does match any of the state types', () => {
@@ -180,7 +177,7 @@ describe('data-sources', () => {
 		it('should return the undefined error state display object if the state is UNDEFINED_ERROR', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: undefinedError,
+					state: DataSourceStates.UndefinedError,
 					status: dataSourceStatuses.inactive
 				})
 			);
@@ -191,7 +188,7 @@ describe('data-sources', () => {
 		it('should return the disconnected state display object if the state is DISCONNECTED', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					state: disconnected,
+					state: DataSourceStates.Disconnected,
 					status: dataSourceStatuses.inactive
 				})
 			);
@@ -207,7 +204,9 @@ describe('data-sources', () => {
 				true
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[actionNeeded]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.ActionNeeded]
+			);
 		});
 
 		xit('should return the "action needed" state display object if the data source state is in oAuth2 Authentication', () => {
@@ -218,7 +217,9 @@ describe('data-sources', () => {
 				true
 			);
 
-			expect(result).toEqual(STATUS_DISPLAY[actionNeeded]);
+			expect(result).toEqual(
+				STATUS_DISPLAY[DataSourceStates.ActionNeeded]
+			);
 		});
 	});
 

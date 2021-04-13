@@ -1,6 +1,6 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import Constants from 'shared/util/constants';
+import Constants, {DataSourceStates} from 'shared/util/constants';
 import LiferayOverview from '../Overview';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
@@ -10,7 +10,7 @@ import {DataSource, User} from 'shared/util/records';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 
-const {dataSourceStates, dataSourceStatuses} = Constants;
+const {dataSourceStatuses} = Constants;
 
 jest.unmock('react-dom');
 
@@ -116,7 +116,7 @@ describe('LiferayOverview', () => {
 					data.mockLiferayDataSource,
 					0,
 					{
-						state: dataSourceStates.disconnected,
+						state: DataSourceStates.Disconnected,
 						status: dataSourceStatuses.inactive
 					}
 				)}

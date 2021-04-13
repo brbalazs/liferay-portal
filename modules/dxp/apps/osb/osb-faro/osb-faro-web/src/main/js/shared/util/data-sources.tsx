@@ -1,23 +1,14 @@
 import * as API from 'shared/api';
-import Constants, {CredentialTypes} from 'shared/util/constants';
+import Constants, {
+	CredentialTypes,
+	DataSourceStates
+} from 'shared/util/constants';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {toPromise} from 'shared/components/form';
 
 const {
-	dataSourceStates: {
-		actionNeeded,
-		analyticsClientConfigurationFailure,
-		credentialsInvalid,
-		credentialsValid,
-		disconnected,
-		inProgressDeleting,
-		liferayVersionInvalid,
-		ready,
-		undefinedError,
-		urlInvalid
-	},
 	dataSourceStatuses,
 	dataSourceTypes: {csv, liferay, salesforce},
 	entityTypes: {dataSource}
@@ -67,7 +58,7 @@ export function getServiceAlertConfig(code) {
  * Object map for displaying a DataSource status/state
  */
 export const STATUS_DISPLAY = {
-	[actionNeeded]: {
+	[DataSourceStates.ActionNeeded]: {
 		display: 'warning',
 		label: Liferay.Language.get('action-needed'),
 		message: Liferay.Language.get('action-needed')
@@ -79,14 +70,14 @@ export const STATUS_DISPLAY = {
 			'all-data-coming-from-this-data-source-is-up-to-date.-there-are-no-errors-to-report'
 		)
 	},
-	[credentialsInvalid]: {
+	[DataSourceStates.CredentialsInvalid]: {
 		display: 'warning',
 		label: Liferay.Language.get('invalid-credentials'),
 		message: Liferay.Language.get(
 			'the-authorization-for-this-data-source-has-expired.-please-reauthorize-the-token-in-the-oauth-tab'
 		)
 	},
-	[credentialsValid]: {
+	[DataSourceStates.CredentialsValid]: {
 		display: 'info',
 		label: Liferay.Language.get('authenticated'),
 		message: Liferay.Language.get(
@@ -100,21 +91,21 @@ export const STATUS_DISPLAY = {
 			'data-source-has-not-been-created.-please-authorize-and-save-to-get-started'
 		)
 	},
-	[disconnected]: {
+	[DataSourceStates.Disconnected]: {
 		display: 'secondary',
 		label: Liferay.Language.get('disconnected'),
 		message: Liferay.Language.get(
 			'the-data-source-is-disconnected.-data-is-no-longer-being-synced-from-dxp,-but-you-can-reconnect-to-resume-syncing'
 		)
 	},
-	[inProgressDeleting]: {
+	[DataSourceStates.InProgressDeleting]: {
 		display: 'info',
 		label: Liferay.Language.get('deletion-in-progress'),
 		message: Liferay.Language.get(
 			'this-data-source-and-its-related-data-are-currently-being-deleted'
 		)
 	},
-	[liferayVersionInvalid]: {
+	[DataSourceStates.LiferayVersionInvalid]: {
 		display: 'warning',
 		label: Liferay.Language.get('unsupported-version'),
 		message: Liferay.Language.get(
@@ -128,7 +119,7 @@ export const STATUS_DISPLAY = {
 			'you-have-successfully-authenticated-your-token-with-your-data-source.-you-can-now-configure-your-data-in-dxp'
 		)
 	},
-	[undefinedError]: {
+	[DataSourceStates.UndefinedError]: {
 		display: 'warning',
 		label: Liferay.Language.get('inactive'),
 		message: Liferay.Language.get(
@@ -160,7 +151,9 @@ export function dataSourceRedirectFn({dataSource, groupId}) {
  * @returns {boolean} - True if this state is valid or false if not valid.
  */
 export function isDataSourceValid(state) {
-	return [credentialsValid, ready].includes(state);
+	return [DataSourceStates.CredentialsValid, DataSourceStates.Ready].includes(
+		state
+	);
 }
 
 /**
@@ -200,7 +193,7 @@ export function getDataSourceDisplayObject(
 		return STATUS_DISPLAY.default;
 	}
 	if (showActionNeededStatus && hasLegacyDXPConnection(dataSource)) {
-		return STATUS_DISPLAY[actionNeeded];
+		return STATUS_DISPLAY[DataSourceStates.ActionNeeded];
 	}
 
 	const {state, status} = dataSource;
@@ -210,13 +203,13 @@ export function getDataSourceDisplayObject(
 	const credentialsType = dataSource.getIn(['credentials', 'type']);
 
 	switch (state) {
-		case analyticsClientConfigurationFailure:
-		case credentialsInvalid:
-		case urlInvalid:
-			return STATUS_DISPLAY[credentialsInvalid];
-		case disconnected:
-			return STATUS_DISPLAY[disconnected];
-		case credentialsValid:
+		case DataSourceStates.AnalyticsClientConfigurationFailure:
+		case DataSourceStates.CredentialsInvalid:
+		case DataSourceStates.UrlInvalid:
+			return STATUS_DISPLAY[DataSourceStates.CredentialsInvalid];
+		case DataSourceStates.Disconnected:
+			return STATUS_DISPLAY[DataSourceStates.Disconnected];
+		case DataSourceStates.CredentialsValid:
 			if (
 				(validContactsConfig(dataSource) && active) ||
 				validAnalyticsConfig(dataSource)
@@ -226,17 +219,19 @@ export function getDataSourceDisplayObject(
 
 			return credentialsType === CredentialTypes.Token
 				? STATUS_DISPLAY.tokenCredentialsValid
-				: STATUS_DISPLAY[credentialsValid];
-		case inProgressDeleting:
-			return STATUS_DISPLAY[inProgressDeleting];
-		case liferayVersionInvalid:
-			return STATUS_DISPLAY[liferayVersionInvalid];
-		case ready:
+				: STATUS_DISPLAY[DataSourceStates.CredentialsValid];
+		case DataSourceStates.InProgressDeleting:
+			return STATUS_DISPLAY[DataSourceStates.InProgressDeleting];
+		case DataSourceStates.LiferayVersionInvalid:
+			return STATUS_DISPLAY[DataSourceStates.LiferayVersionInvalid];
+		case DataSourceStates.Ready:
 			return STATUS_DISPLAY.active;
-		case undefinedError:
+		case DataSourceStates.UndefinedError:
 			return {
-				...STATUS_DISPLAY[undefinedError],
-				message: [STATUS_DISPLAY[undefinedError].message]
+				...STATUS_DISPLAY[DataSourceStates.UndefinedError],
+				message: [
+					STATUS_DISPLAY[DataSourceStates.UndefinedError].message
+				]
 			};
 		default:
 			return STATUS_DISPLAY.default;

@@ -1,6 +1,5 @@
 import AddWorkspaceForm from 'shared/components/workspaces/AddWorkspaceForm';
 import autobind from 'autobind-decorator';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
@@ -12,17 +11,18 @@ import {
 	createTrialProject
 } from 'shared/actions/projects';
 import {connect} from 'react-redux';
+import {DataSourceStates} from 'shared/util/constants';
 import {Project} from '../util/records';
 import {PropTypes} from 'prop-types';
 import {Redirect} from 'react-router';
 import {Routes, toRoute} from 'shared/util/router';
 
-const {
-	dataSourceStates: {unconfigured}
-} = FaroConstants;
-
 export const routingFn = ({project}) => {
-	if (project && project.groupId && project.state !== unconfigured) {
+	if (
+		project &&
+		project.groupId &&
+		project.state !== DataSourceStates.Unconfigured
+	) {
 		return toRoute(Routes.WORKSPACE_WITH_ID, {groupId: project.groupId});
 	} else {
 		return null;
@@ -66,13 +66,13 @@ export class AddWorkspace extends React.Component {
 			name,
 			sharedCluster: FARO_ENV === 'uat',
 			timeZoneId,
-			...(state === unconfigured
+			...(state === DataSourceStates.Unconfigured
 				? {groupId}
 				: {corpProjectUuid, serverLocation})
 		};
 
 		const createFn =
-			state === unconfigured
+			state === DataSourceStates.Unconfigured
 				? configureProject
 				: corpProjectUuid
 				? createProject

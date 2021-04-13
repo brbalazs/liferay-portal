@@ -1,17 +1,15 @@
 import * as data from 'test/data';
 import BaseTabsPage from '../BaseTabsPage';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
+import {DataSourceStates} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {Routes} from 'shared/util/router';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
-
-const {dataSourceStates} = FaroConstants;
 
 function getSalesforceDataSourceMock(id, config) {
 	return data.getImmutableMock(
@@ -81,7 +79,7 @@ describe('BaseTabsPage', () => {
 		const {getAllByText, getByText} = render(
 			<DefaultComponent
 				dataSource={getSalesforceDataSourceMock(0, {
-					state: dataSourceStates.ready
+					state: DataSourceStates.Ready
 				})}
 			/>
 		);
@@ -101,7 +99,7 @@ describe('BaseTabsPage', () => {
 		const {getAllByText, getByText} = render(
 			<DefaultComponent
 				dataSource={getSalesforceDataSourceMock(0, {
-					state: dataSourceStates.credentialsInvalid
+					state: DataSourceStates.CredentialsInvalid
 				})}
 			/>
 		);

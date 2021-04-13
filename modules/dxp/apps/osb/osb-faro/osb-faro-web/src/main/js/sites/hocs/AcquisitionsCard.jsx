@@ -1,6 +1,6 @@
 import AcquisitionsQuery from '../queries/AcquisitionsQuery';
-import {AcquisitionTypes, CompositionTypes} from 'shared/util/constants';
 import {ACQUISITION_LABEL_MAP} from 'shared/util/lang';
+import {AcquisitionTypes, CompositionTypes} from 'shared/util/constants';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {
 	getMapResultToProps,
