@@ -1,13 +1,11 @@
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import urlConstants from 'shared/util/url-constants';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
 import {fetchProject} from 'shared/actions/projects';
+import {ProjectStates} from 'shared/util/constants';
 import {withPolling} from 'shared/hoc';
-
-const {projectStates} = Constants;
 
 const ActivatingDisplay = () => (
 	<WorkspacesBasePage title={Liferay.Language.get('activating-workspace')}>
@@ -47,5 +45,5 @@ const ActivatingDisplay = () => (
 
 export default withPolling(
 	fetchProject,
-	({state}) => state !== projectStates.activating
+	({state}) => state !== ProjectStates.Activating
 )(ActivatingDisplay);

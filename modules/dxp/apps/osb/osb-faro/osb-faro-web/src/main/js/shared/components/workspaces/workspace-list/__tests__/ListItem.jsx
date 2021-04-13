@@ -1,13 +1,11 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import WorkspaceListItem from '../ListItem';
 import {cleanup, fireEvent, render} from '@testing-library/react';
+import {ProjectStates} from 'shared/util/constants';
 import {StaticRouter} from 'react-router-dom';
-
-const {projectStates} = FaroConstants;
 
 jest.unmock('react-dom');
 
@@ -19,7 +17,7 @@ describe('WorkspaceListItem', () => {
 			<StaticRouter>
 				<WorkspaceListItem
 					accountName=''
-					projectState={projectStates.ready}
+					projectState={ProjectStates.Ready}
 				/>
 			</StaticRouter>
 		);
@@ -34,7 +32,7 @@ describe('WorkspaceListItem', () => {
 
 		const {queryByText} = render(
 			<StaticRouter>
-				<WorkspaceListItem projectState={projectStates.unavailable} />
+				<WorkspaceListItem projectState={ProjectStates.Unavailable} />
 			</StaticRouter>
 		);
 
@@ -56,7 +54,7 @@ describe('WorkspaceListItem', () => {
 			<StaticRouter>
 				<WorkspaceListItem
 					isJoinableProjects
-					projectState={projectStates.READY}
+					projectState={ProjectStates.rEADY}
 				/>
 			</StaticRouter>
 		);
@@ -67,7 +65,7 @@ describe('WorkspaceListItem', () => {
 	it('should render a workspace with a deactivated project', () => {
 		const {queryByText} = render(
 			<StaticRouter>
-				<WorkspaceListItem projectState={projectStates.deactivated} />
+				<WorkspaceListItem projectState={ProjectStates.Deactivated} />
 			</StaticRouter>
 		);
 		expect(queryByText('Activate')).toBeTruthy();

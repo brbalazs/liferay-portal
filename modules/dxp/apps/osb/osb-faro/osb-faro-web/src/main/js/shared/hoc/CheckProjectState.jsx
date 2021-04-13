@@ -1,5 +1,4 @@
 import ActivatingDisplay from 'shared/components/workspaces/ActivatingDisplay';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import SuccessDisplay from 'shared/components/workspaces/SuccessDisplay';
 import withAction from './WithAction';
@@ -8,8 +7,7 @@ import WorkspacesErrorDisplay from 'shared/components/workspaces/ErrorDisplay';
 import {compose} from 'redux';
 import {fetchProject} from '../actions/projects';
 import {LocalStorageMechanism, Storage} from 'metal-storage';
-
-const {projectStates} = FaroConstants;
+import {ProjectStates} from 'shared/util/constants';
 
 /**
  * HOC for conditionally rendering SettingUpWorkspace.
@@ -41,8 +39,8 @@ export default compose(
 		}
 
 		switch (project.state) {
-			case projectStates.ready:
-			case projectStates.scheduled:
+			case ProjectStates.Ready:
+			case ProjectStates.Scheduled:
 				return (
 					<WrappedComponent
 						className={className}
@@ -51,9 +49,9 @@ export default compose(
 					/>
 				);
 
-			case projectStates.deactivated:
-			case projectStates.maintenance:
-			case projectStates.unavailable:
+			case ProjectStates.Deactivated:
+			case ProjectStates.Maintenance:
+			case ProjectStates.Unavailable:
 				return (
 					<WorkspacesErrorDisplay
 						className={className}
@@ -61,7 +59,7 @@ export default compose(
 					/>
 				);
 
-			case projectStates.activating:
+			case ProjectStates.Activating:
 				return <ActivatingDisplay groupId={project.groupId} />;
 
 			default:

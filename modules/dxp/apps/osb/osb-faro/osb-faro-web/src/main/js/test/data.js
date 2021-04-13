@@ -9,7 +9,8 @@ import Constants, {
 	jobRunDataPeriods,
 	jobRunFrequencies,
 	jobStatuses,
-	jobTypes
+	jobTypes,
+	ProjectStates
 } from 'shared/util/constants';
 import moment from 'moment';
 import TimeZone from 'shared/util/records/TimeZone';
@@ -31,7 +32,6 @@ const {
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
-	projectStates,
 	segmentStates,
 	subscriptionStatuses,
 	userRoleNames
@@ -935,7 +935,7 @@ export function mockProject(seed = 1, data = {}) {
 		name: `project${seed}`,
 		percentageComplete: 0,
 		recommendationsEnabled: true,
-		state: projectStates.ready,
+		state: ProjectStates.Ready,
 		timeZone: new TimeZone(),
 		userId: seed,
 		...data

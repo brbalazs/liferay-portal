@@ -310,6 +310,18 @@ export enum PreferencesScopes {
 	Group = 'group'
 }
 
+export enum ProjectStates {
+	Activating = 'ACTIVATING',
+	AutoRedeployFailed = 'AUTO_REDEPLOY_FAILED',
+	Deactivated = 'DEACTIVATED',
+	Maintenance = 'MAINTENANCE',
+	NotReady = 'NOT READY',
+	Ready = 'READY',
+	Scheduled = 'SCHEDULED',
+	Unavailable = 'UNAVAILABLE',
+	Unconfigured = 'UNCONFIGURED'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

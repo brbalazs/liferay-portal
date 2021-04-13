@@ -1,5 +1,5 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {ProjectStates} from 'shared/util/constants';
 import middleware from 'shared/store/configure-middleware';
 import React from 'react';
 import reducers from 'shared/reducers';
@@ -18,7 +18,7 @@ import {fromJS, List} from 'immutable';
 import {Provider} from 'react-redux';
 import {shallow} from 'enzyme';
 
-const {projectStates, userRoleNames} = FaroConstants;
+const {userRoleNames} = FaroConstants;
 
 function toRD(data) {
 	return new RemoteData({data, loading: false});
@@ -100,31 +100,31 @@ export const mockStoreData = fromJS({
 			)
 		),
 		24: toRD(
-			new Project(data.mockProject('24', {state: projectStates.notReady}))
+			new Project(data.mockProject('24', {state: ProjectStates.NotReady}))
 		),
 		25: toRD(
 			new Project(
-				data.mockProject('25', {state: projectStates.maintenance})
+				data.mockProject('25', {state: ProjectStates.Maintenance})
 			)
 		),
 		26: toRD(
 			new Project(
-				data.mockProject('26', {state: projectStates.unavailable})
+				data.mockProject('26', {state: ProjectStates.Unavailable})
 			)
 		),
 		27: toRD(
 			new Project(
-				data.mockProject('27', {state: projectStates.scheduled})
+				data.mockProject('27', {state: ProjectStates.Scheduled})
 			)
 		),
 		28: toRD(
 			new Project(
-				data.mockProject('28', {state: projectStates.activating})
+				data.mockProject('28', {state: ProjectStates.Activating})
 			)
 		),
 		29: toRD(
 			new Project(
-				data.mockProject('29', {state: projectStates.deactivated})
+				data.mockProject('29', {state: ProjectStates.Deactivated})
 			)
 		),
 		corpProjectUuid23: toRD(new Project(fromJS(data.mockProject('23')))),

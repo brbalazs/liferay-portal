@@ -1,17 +1,15 @@
 import Alert, {AlertTypes} from 'shared/components/Alert';
 import autobind from 'autobind-decorator';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import moment from 'moment';
 import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Project} from 'shared/util/records';
+import {ProjectStates} from 'shared/util/constants';
 import {setMaintenanceSeen} from 'shared/actions/maintenance-seen';
 import {sub} from 'shared/util/lang';
 import {withRouter} from 'react-router-dom';
-
-const {projectStates} = FaroConstants;
 
 interface IMaintenanceAlertProps {
 	alertDismissed: boolean;
@@ -56,7 +54,7 @@ export class MaintenanceAlert extends React.Component<IMaintenanceAlertProps> {
 			stripe
 		} = this.props;
 
-		const showAlert = state === projectStates.scheduled && !alertDismissed;
+		const showAlert = state === ProjectStates.Scheduled && !alertDismissed;
 
 		return (
 			<div className={getCN('maintenance-alert-root', className)}>

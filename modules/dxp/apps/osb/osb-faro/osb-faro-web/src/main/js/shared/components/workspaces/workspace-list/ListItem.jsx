@@ -1,18 +1,16 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import TextTruncate from 'shared/components/TextTruncate';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
+import {ProjectStates} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {withHistory} from 'shared/hoc';
-
-const {projectStates} = FaroConstants;
 
 @withHistory
 @hasRequest
@@ -28,7 +26,7 @@ export default class WorkspaceListItem extends React.Component {
 		isJoinableProjects: PropTypes.bool,
 		name: PropTypes.string,
 		planInfo: PropTypes.string,
-		projectState: PropTypes.oneOf(Object.values(projectStates)),
+		projectState: PropTypes.oneOf(Object.values(ProjectStates)),
 		requested: PropTypes.bool
 	};
 
@@ -127,8 +125,8 @@ export default class WorkspaceListItem extends React.Component {
 			state: {projectState}
 		} = this;
 
-		const available = projectState !== projectStates.unavailable;
-		const deactivated = projectState === projectStates.deactivated;
+		const available = projectState !== ProjectStates.Unavailable;
+		const deactivated = projectState === ProjectStates.Deactivated;
 
 		if (isJoinableProjects) {
 			return this.renderProjectJoin();
@@ -189,8 +187,8 @@ export default class WorkspaceListItem extends React.Component {
 			state: {projectState}
 		} = this;
 
-		const available = projectState !== projectStates.unavailable;
-		const deactivated = projectState === projectStates.deactivated;
+		const available = projectState !== ProjectStates.Unavailable;
+		const deactivated = projectState === ProjectStates.Deactivated;
 
 		if (isJoinableProjects) {
 			return (
@@ -253,8 +251,8 @@ export default class WorkspaceListItem extends React.Component {
 			state: {loading, projectState}
 		} = this;
 
-		const available = projectState !== projectStates.unavailable;
-		const deactivated = projectState === projectStates.deactivated;
+		const available = projectState !== ProjectStates.Unavailable;
+		const deactivated = projectState === ProjectStates.Deactivated;
 
 		const classes = getCN(
 			'list-group-item',

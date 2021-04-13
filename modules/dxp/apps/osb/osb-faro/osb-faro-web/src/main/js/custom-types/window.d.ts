@@ -10,7 +10,8 @@ import {
 	FieldContexts,
 	FieldOwnerTypes,
 	FieldTypes,
-	PreferencesScopes
+	PreferencesScopes,
+	ProjectStates
 } from 'shared/util/constants';
 export {};
 
@@ -46,6 +47,7 @@ declare global {
 			portletNamespace: string;
 			preferencesScopes: {[key: string]: PreferencesScopes};
 			projectLocations: {[key: string]: string};
+			projectStates: {[key: string]: ProjectStates};
 			segmentTypes: {[key: string]: string};
 			timeIntervals: {[key: string]: string};
 			userName: string;

@@ -1,23 +1,19 @@
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import StepList from './StepList';
 import WorkspacesBasePage from './BasePage';
 import {Link} from 'react-router-dom';
+import {ProjectStates} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
-
-const {
-	projectStates: {deactivated, maintenance, unavailable}
-} = FaroConstants;
 
 export const NO_ACCOUNT = 'noAccount';
 export const NO_SUBSCRIPTION = 'noSubscription';
 
 const DETAILS_MAP = {
-	[deactivated]: [
+	[ProjectStates.Deactivated]: [
 		Liferay.Language.get('this-workspace-is-currently-inactive')
 	],
-	[maintenance]: [
+	[ProjectStates.Maintenance]: [
 		Liferay.Language.get(
 			'analytics-cloud-is-undergoing-scheduled-maintenance.-we-expect-to-be-back-online-in-a-couple-of-hours.-thank-you-for-your-patience'
 		)
@@ -32,7 +28,7 @@ const DETAILS_MAP = {
 			'you-must-be-a-current-dxp-subscriber-to-get-the-basic-tier-of-analytics-cloud'
 		)
 	],
-	[unavailable]: [
+	[ProjectStates.Unavailable]: [
 		Liferay.Language.get(
 			'analytics-cloud-is-temporarily-unavailable.-we-apologize-for-any-inconvenience,-we-plan-to-be-back-up-shortly'
 		)
@@ -40,7 +36,7 @@ const DETAILS_MAP = {
 };
 
 const STEP_LIST_MAP = {
-	[deactivated]: {
+	[ProjectStates.Deactivated]: {
 		secondaryInfo: Liferay.Language.get(
 			'please-go-to-the-workspace-list-to-reactivate'
 		)
@@ -78,11 +74,13 @@ const STEP_LIST_MAP = {
 };
 
 const TITLE_MAP = {
-	[deactivated]: Liferay.Language.get('inactive-workspace'),
-	[maintenance]: Liferay.Language.get('scheduled-maintenance'),
+	[ProjectStates.Deactivated]: Liferay.Language.get('inactive-workspace'),
+	[ProjectStates.Maintenance]: Liferay.Language.get('scheduled-maintenance'),
 	[NO_ACCOUNT]: Liferay.Language.get('account-not-found'),
 	[NO_SUBSCRIPTION]: Liferay.Language.get('dxp-subscription-not-found'),
-	[unavailable]: Liferay.Language.get('service-temporarily-unavailable')
+	[ProjectStates.Unavailable]: Liferay.Language.get(
+		'service-temporarily-unavailable'
+	)
 };
 
 export default class WorkspacesErrorDisplay extends React.Component {
