@@ -1,9 +1,9 @@
-import FaroConstants from 'shared/util/constants';
+import Constants, {SubscriptionStatuses} from 'shared/util/constants';
 import {fromJS, List, Map} from 'immutable';
 import {isNil} from 'lodash';
 import {Metric, Plan} from 'shared/util/records';
 
-const {subscriptionPlans, subscriptionStatuses} = FaroConstants;
+const {subscriptionPlans} = Constants;
 
 export const INDIVIDUALS = 'individuals';
 
@@ -72,9 +72,9 @@ export {addOns as ADD_ONS};
 export {plans as PLANS};
 
 export const STATUS_DISPLAY_MAP = {
-	[subscriptionStatuses.ok]: 'primary',
-	[subscriptionStatuses.approaching]: 'warning',
-	[subscriptionStatuses.over]: 'danger'
+	[SubscriptionStatuses.Ok]: 'primary',
+	[SubscriptionStatuses.Approaching]: 'warning',
+	[SubscriptionStatuses.Over]: 'danger'
 };
 
 export const DEFAULT_ADDONS = {
@@ -153,7 +153,7 @@ export function formatPlanData(subscriptionIMap) {
 					limit: subscriptionIMap.get('individualsLimit', 0),
 					status: subscriptionIMap.get(
 						'individualsStatus',
-						subscriptionStatuses.ok
+						SubscriptionStatuses.Ok
 					)
 				}),
 				pageViews: new Metric({
@@ -161,7 +161,7 @@ export function formatPlanData(subscriptionIMap) {
 					limit: subscriptionIMap.get('pageViewsLimit', 0),
 					status: subscriptionIMap.get(
 						'pageViewsStatus',
-						subscriptionStatuses.ok
+						SubscriptionStatuses.Ok
 					)
 				})
 			},

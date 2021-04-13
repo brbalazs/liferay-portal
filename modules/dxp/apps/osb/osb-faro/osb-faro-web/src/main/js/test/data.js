@@ -11,7 +11,8 @@ import Constants, {
 	jobStatuses,
 	jobTypes,
 	ProjectStates,
-	SegmentStates
+	SegmentStates,
+	SubscriptionStatuses
 } from 'shared/util/constants';
 import moment from 'moment';
 import TimeZone from 'shared/util/records/TimeZone';
@@ -33,7 +34,6 @@ const {
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
-	subscriptionStatuses,
 	userRoleNames
 } = Constants;
 
@@ -717,11 +717,11 @@ export function mockSubscription(data = {}) {
 		endDate: getTimestamp(),
 		individualsCount: 2057,
 		individualsLimit: 105000,
-		individualsStatus: subscriptionStatuses.ok,
+		individualsStatus: SubscriptionStatuses.Ok,
 		name: 'Liferay Analytics Cloud Enterprise',
 		pageViewsCount: 100023,
 		pageViewsLimit: 7000000,
-		pageViewsStatus: subscriptionStatuses.ok,
+		pageViewsStatus: SubscriptionStatuses.Ok,
 		startDate: getTimestamp(-2),
 		...data
 	};
@@ -907,13 +907,13 @@ export function mockPlan({data = {}, individuals = {}, pageViews = {}} = {}) {
 			individuals: new Metric({
 				count: 2057,
 				limit: 105000,
-				status: subscriptionStatuses.ok,
+				status: SubscriptionStatuses.Ok,
 				...individuals
 			}),
 			pageViews: new Metric({
 				count: 0,
 				limit: 7000000,
-				status: subscriptionStatuses.ok,
+				status: SubscriptionStatuses.Ok,
 				...pageViews
 			})
 		},

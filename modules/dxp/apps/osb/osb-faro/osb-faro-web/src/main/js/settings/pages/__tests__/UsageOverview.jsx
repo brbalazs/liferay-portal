@@ -1,12 +1,12 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {SubscriptionStatuses} from 'shared/util/constants';
 import React from 'react';
 import {fromJS} from 'immutable';
 import {Project, User} from 'shared/util/records';
 import {shallow} from 'enzyme';
 import {UsageOverview} from '../UsageOverview';
 
-const {subscriptionStatuses, userRoleNames} = FaroConstants;
+const {userRoleNames} = FaroConstants;
 
 const defaultProps = {
 	currentUser: new User(data.mockUser()),
@@ -30,8 +30,8 @@ describe('UsageOverview', () => {
 			data.mockProject(23, {
 				faroSubscription: fromJS(
 					data.mockSubscription({
-						individualsStatus: subscriptionStatuses.approaching,
-						pageViewsStatus: subscriptionStatuses.over
+						individualsStatus: SubscriptionStatuses.Approaching,
+						pageViewsStatus: SubscriptionStatuses.Over
 					})
 				)
 			})
@@ -52,7 +52,7 @@ describe('UsageOverview', () => {
 					data.mockSubscription({
 						pageViewsCount: 0,
 						pageViewsLimit: 7000000,
-						pageViewsStatus: subscriptionStatuses.approaching
+						pageViewsStatus: SubscriptionStatuses.Approaching
 					})
 				)
 			})
@@ -70,7 +70,7 @@ describe('UsageOverview', () => {
 			data.mockProject(23, {
 				faroSubscription: fromJS(
 					data.mockSubscription({
-						individualsStatus: subscriptionStatuses.over
+						individualsStatus: SubscriptionStatuses.Over
 					})
 				)
 			})
@@ -88,7 +88,7 @@ describe('UsageOverview', () => {
 			data.mockProject(23, {
 				faroSubscription: fromJS(
 					data.mockSubscription({
-						pageViewsStatus: subscriptionStatuses.approaching
+						pageViewsStatus: SubscriptionStatuses.Approaching
 					})
 				)
 			})

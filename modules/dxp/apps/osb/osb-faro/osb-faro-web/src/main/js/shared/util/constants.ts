@@ -333,6 +333,12 @@ export enum SegmentTypes {
 	Static = 'STATIC'
 }
 
+export enum SubscriptionStatuses {
+	Approaching = 1,
+	Ok = 0,
+	Over = 2
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

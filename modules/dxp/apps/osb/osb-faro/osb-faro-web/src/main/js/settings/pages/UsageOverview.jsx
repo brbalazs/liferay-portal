@@ -2,7 +2,6 @@ import AddOnsList from '../components/usage-overview/AddOnsList';
 import Alert from 'shared/components/Alert';
 import BasePage from 'settings/components/BasePage';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import PlansList from '../components/usage-overview/PlansList';
 import React from 'react';
 import UsageMetric from '../components/usage-overview/UsageMetric';
@@ -21,8 +20,7 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sortBy} from 'lodash';
 import {sub} from 'shared/util/lang';
-
-const {subscriptionStatuses} = FaroConstants;
+import {SubscriptionStatuses} from 'shared/util/constants';
 
 const PLAN_LEVEL_MAP = {
 	[PLANS.basic.name]: 0,
@@ -39,7 +37,7 @@ const getAlertContent = (alert, currentUser) => {
 	const admin = currentUser.isAdmin();
 
 	switch (alert.statusCode) {
-		case subscriptionStatuses.approaching:
+		case SubscriptionStatuses.Approaching:
 			return {
 				message: sub(
 					admin
@@ -59,7 +57,7 @@ const getAlertContent = (alert, currentUser) => {
 				),
 				title: Liferay.Language.get('usage-limit-approaching')
 			};
-		case subscriptionStatuses.over:
+		case SubscriptionStatuses.Over:
 			return {
 				message: sub(
 					admin
@@ -102,8 +100,8 @@ export class UsageOverview extends React.Component {
 		const pageViews = metrics.get('pageViews');
 
 		const noAlerts =
-			individuals.status === subscriptionStatuses.ok &&
-			pageViews.status === subscriptionStatuses.ok;
+			individuals.status === SubscriptionStatuses.Ok &&
+			pageViews.status === SubscriptionStatuses.Ok;
 
 		const alerts = [
 			{
@@ -118,7 +116,7 @@ export class UsageOverview extends React.Component {
 				statusCode: pageViews.status,
 				type: PAGEVIEWS
 			}
-		].filter(alert => alert.statusCode > subscriptionStatuses.ok);
+		].filter(alert => alert.statusCode > SubscriptionStatuses.Ok);
 
 		return noAlerts ? null : (
 			<div>

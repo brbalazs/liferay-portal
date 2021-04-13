@@ -1,13 +1,12 @@
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import UsageMetric from '../UsageMetric';
 import {fromJS} from 'immutable';
 import {mockPlan} from 'test/data';
 import {Plan} from 'shared/util/records';
 import {render} from '@testing-library/react';
+import {SubscriptionStatuses} from 'shared/util/constants';
 
 jest.unmock('react-dom');
-const {subscriptionStatuses} = FaroConstants;
 
 const DefaultComponent = ({count, limit, status}) => (
 	<UsageMetric
@@ -46,7 +45,7 @@ describe('UsageMetric', () => {
 		const props = {
 			count: 6500000,
 			limit: 7000000,
-			status: subscriptionStatuses.approaching
+			status: SubscriptionStatuses.Approaching
 		};
 
 		const {container} = render(<DefaultComponent {...props} />);
@@ -58,7 +57,7 @@ describe('UsageMetric', () => {
 		const props = {
 			count: 7500000,
 			limit: 7000000,
-			status: subscriptionStatuses.over
+			status: SubscriptionStatuses.Over
 		};
 
 		const {container} = render(<DefaultComponent {...props} />);

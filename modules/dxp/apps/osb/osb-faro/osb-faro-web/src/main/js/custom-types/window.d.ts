@@ -13,7 +13,8 @@ import {
 	PreferencesScopes,
 	ProjectStates,
 	SegmentStates,
-	SegmentTypes
+	SegmentTypes,
+	SubscriptionStatuses
 } from 'shared/util/constants';
 export {};
 
@@ -52,6 +53,7 @@ declare global {
 			projectStates: {[key: string]: ProjectStates};
 			segmentStates: {[key: string]: SegmentStates};
 			segmentTypes: {[key: string]: SegmentTypes};
+			subscriptionStatuses: {[key: string]: SubscriptionStatuses};
 			timeIntervals: {[key: string]: string};
 			userName: string;
 		};
