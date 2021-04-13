@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants from 'shared/util/constants';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -20,14 +19,11 @@ import {
 } from 'recharts';
 import {connect} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
+import {FieldTypes} from 'shared/util/constants';
 import {getBarColor} from 'shared/util/charts';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
 import {noop, pickBy} from 'lodash';
-
-const {
-	fieldTypes: {number}
-} = FaroConstants;
 
 const BAR_WIDTH = 30;
 const CHART_DATA_ID = 'count';
@@ -122,7 +118,7 @@ class DistributionChart extends React.Component<
 
 		const individualFieldDistribution = individualFieldDistributionIList.toJS();
 
-		const histogram = propertyType === number;
+		const histogram = propertyType === FieldTypes.Number;
 
 		const yAxisTicks = this.getYAxisTicks(
 			individualFieldDistribution,

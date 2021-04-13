@@ -292,6 +292,19 @@ export enum FieldContexts {
 	Organization = 'organization'
 }
 
+export enum FieldOwnerTypes {
+	Account = 'account',
+	Individual = 'individual',
+	Organization = 'organization'
+}
+
+export enum FieldTypes {
+	Boolean = 'Boolean',
+	Date = 'Date',
+	Number = 'Number',
+	String = 'Text'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

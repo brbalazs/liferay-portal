@@ -1,4 +1,3 @@
-import Constants, {FieldContexts} from 'shared/util/constants';
 import dateFns from 'date-fns';
 import {
 	CONJUNCTIONS,
@@ -11,6 +10,7 @@ import {
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
+import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {getUid} from 'metal';
 import {
 	INDIVIDUAL_PROPERTIES,
@@ -35,8 +35,6 @@ const {
 	NOT_ORGANIZATIONS_FILTER,
 	NOT_SESSIONS_FILTER
 } = NOT_OPERATORS;
-
-const {fieldOwnerTypes} = Constants;
 
 const GROUP_ID_NAMESPACE = 'group_';
 const ROW_ID_NAMESPACE = 'row_';
@@ -276,7 +274,7 @@ export const convertFieldMappingToAccountProperty = (
 		id,
 		label: displayName || name,
 		name: context ? `${context}/${name}/value` : name,
-		propertyKey: fieldOwnerTypes.account,
+		propertyKey: FieldOwnerTypes.Account,
 		type: CUSTOM_REGEX.test(type)
 			? type.toLowerCase()
 			: `account-${type.toLowerCase()}`
@@ -315,7 +313,7 @@ export const convertFieldMappingToIndividualProperty = (
 		id,
 		label: displayName || name,
 		name: context ? `${context}/${name}/value` : name,
-		propertyKey: fieldOwnerTypes.individual,
+		propertyKey: FieldOwnerTypes.Individual,
 		type: type.toLowerCase()
 	});
 };
@@ -352,7 +350,7 @@ export const convertFieldMappingToOrganizationProperty = (
 		id,
 		label: displayName || name,
 		name: context ? `${context}/${name}/value` : name,
-		propertyKey: fieldOwnerTypes.organization,
+		propertyKey: FieldOwnerTypes.Organization,
 		type: `organization-${type.toLowerCase()}`
 	});
 };
@@ -366,11 +364,11 @@ export const convertFieldMappingsToProperties = (
 	fieldMappingsIMap.map((ownerTypeGroup, key) => {
 		let conversionFn;
 
-		if (key === fieldOwnerTypes.account) {
+		if (key === FieldOwnerTypes.Account) {
 			conversionFn = convertFieldMappingToAccountProperty;
-		} else if (key === fieldOwnerTypes.individual) {
+		} else if (key === FieldOwnerTypes.Individual) {
 			conversionFn = convertFieldMappingToIndividualProperty;
-		} else if (key === fieldOwnerTypes.organization) {
+		} else if (key === FieldOwnerTypes.Organization) {
 			conversionFn = convertFieldMappingToOrganizationProperty;
 		}
 

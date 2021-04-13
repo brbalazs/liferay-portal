@@ -1,14 +1,12 @@
-import Constants from 'shared/util/constants';
 import React, {createContext, useEffect, useReducer} from 'react';
 import {
 	convertFieldMappingsToProperties,
 	getPropertyContextFromRaw,
 	getPropertyNameFromRaw
 } from '../utils/utils';
+import {FieldOwnerTypes} from 'shared/util/constants';
 import {Map} from 'immutable';
 import {Property, Segment} from 'shared/util/records';
-
-const {fieldOwnerTypes} = Constants;
 
 export enum ActionType {
 	AddEntities = 'addEntities',
@@ -71,9 +69,9 @@ export const referencedPropertiesReducer = (
 		case ActionType.AddProperty:
 			if (
 				[
-					fieldOwnerTypes.account,
-					fieldOwnerTypes.individual,
-					fieldOwnerTypes.organization
+					FieldOwnerTypes.Account,
+					FieldOwnerTypes.Individual,
+					FieldOwnerTypes.Organization
 				].includes(payload.propertyKey)
 			) {
 				return state.setIn(

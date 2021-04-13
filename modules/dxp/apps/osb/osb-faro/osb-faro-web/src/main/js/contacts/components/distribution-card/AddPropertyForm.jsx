@@ -1,6 +1,5 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import Form, {
 	toPromise,
 	validateMaxLength,
@@ -15,15 +14,12 @@ import {
 	numberOfBinsMask
 } from 'contacts/components/Distribution';
 import {DistributionTab} from 'shared/util/records';
+import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY} from 'shared/actions/distributions';
 import {isBlank} from 'shared/util/util';
 import {List} from 'immutable';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
-
-const {
-	fieldTypes: {number}
-} = FaroConstants;
 
 const validateNumberOfBins = numberOfBins => {
 	let error = '';
@@ -200,7 +196,8 @@ const AddPropertyForm = ({
 												name='property'
 												onSelect={({rawType}) =>
 													setShowBin(
-														rawType === number
+														rawType ===
+															FieldTypes.number
 													)
 												}
 												ref={_formSelectFieldInputRef}

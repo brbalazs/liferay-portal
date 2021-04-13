@@ -1,26 +1,24 @@
 import * as fieldMappingsAPI from 'shared/api/field-mappings';
 import autobind from 'autobind-decorator';
-import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import React from 'react';
 import SelectInput from 'shared/components/SelectInput';
 import Sticker from 'shared/components/Sticker';
 import TextTruncate from 'shared/components/TextTruncate';
+import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
 
-const {fieldTypes} = FaroConstants;
-
 const ITEM_DISPLAY_LANG_MAP = {
-	[fieldTypes.date]: Liferay.Language.get('field-avatar-date'),
-	[fieldTypes.number]: Liferay.Language.get('field-avatar-number'),
-	[fieldTypes.boolean]: Liferay.Language.get('field-avatar-boolean'),
-	[fieldTypes.string]: Liferay.Language.get('field-avatar-string')
+	[FieldTypes.Date]: Liferay.Language.get('field-avatar-date'),
+	[FieldTypes.Number]: Liferay.Language.get('field-avatar-number'),
+	[FieldTypes.Boolean]: Liferay.Language.get('field-avatar-boolean'),
+	[FieldTypes.String]: Liferay.Language.get('field-avatar-string')
 };
 
 const STICKER_DISPLAY_MAP = {
-	[fieldTypes.boolean]: 'boolean',
-	[fieldTypes.date]: 'date',
-	[fieldTypes.number]: 'number',
-	[fieldTypes.string]: 'string'
+	[FieldTypes.Boolean]: 'boolean',
+	[FieldTypes.Date]: 'date',
+	[FieldTypes.Number]: 'number',
+	[FieldTypes.String]: 'string'
 };
 
 const Item = ({name, rawType}) => (

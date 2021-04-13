@@ -4,8 +4,8 @@ import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/ChartTooltip';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
+import Constants, {FieldContexts, FieldTypes} from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
 import Label from 'shared/components/form/Label';
@@ -55,9 +55,8 @@ import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
-	fieldTypes: {number},
 	pagination: {orderDefault}
-} = FaroConstants;
+} = Constants;
 
 const SearchableEntityTableHOC = withStatefulPagination(
 	SearchableEntityTable,
@@ -191,7 +190,7 @@ export class Distribution extends React.Component {
 
 		const histogramNumberOfBinsChanged =
 			hasChanges(prevProps, this.props, 'numberOfBins') &&
-			fieldMappingSelected.rawType === number;
+			fieldMappingSelected.rawType === FieldTypes.Number;
 
 		if (fieldMappingSelectedChanged || histogramNumberOfBinsChanged) {
 			this.handleFetchDistributionData();
@@ -337,7 +336,7 @@ export class Distribution extends React.Component {
 				this.setState(
 					{
 						fieldMappingSelected: fieldMapping,
-						histogram: fieldMapping.rawType === number,
+						histogram: fieldMapping.rawType === FieldTypes.Number,
 						selectedContext: fieldMapping.context
 					},
 					() => this.handleFetchDistributionData()
@@ -410,7 +409,7 @@ export class Distribution extends React.Component {
 		} = this;
 
 		const buildFn =
-			rawType === number
+			rawType === FieldTypes.Number
 				? this.buildNumberFilter
 				: this.buildStringFilter;
 
@@ -455,7 +454,7 @@ export class Distribution extends React.Component {
 
 		const {fieldMappingId, history} = this.props;
 
-		const histogram = rawType === number;
+		const histogram = rawType === FieldTypes.Number;
 
 		this.handleOverlayClose();
 

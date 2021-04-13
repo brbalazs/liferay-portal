@@ -1,5 +1,4 @@
 import * as API from 'shared/api';
-import Constants, {FieldContexts} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import {compose} from 'redux';
@@ -9,6 +8,7 @@ import {
 	convertFieldMappingToOrganizationProperty
 } from '../utils/utils';
 import {createInterestProperty} from '../utils/utils';
+import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {
 	INDIVIDUAL_PROPERTIES,
 	ORGANIZATION_PROPERTIES,
@@ -19,8 +19,6 @@ import {List} from 'immutable';
 import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {withRequest} from 'shared/hoc';
-
-const {fieldOwnerTypes} = Constants;
 
 const MAX_DELTA = 500;
 
@@ -37,26 +35,26 @@ const fetchPropertyGroups = ({
 			context: FieldContexts.Demographics,
 			delta: MAX_DELTA,
 			groupId,
-			ownerType: fieldOwnerTypes.individual
+			ownerType: FieldOwnerTypes.Individual
 		}),
 		API.fieldMappings.search({
 			context: FieldContexts.Custom,
 			delta: MAX_DELTA,
 			groupId,
-			ownerType: fieldOwnerTypes.individual
+			ownerType: FieldOwnerTypes.Individual
 		}),
 		API.fieldMappings.search({
 			context: FieldContexts.Organization,
 			delta: MAX_DELTA,
 			groupId,
-			ownerType: fieldOwnerTypes.account
+			ownerType: FieldOwnerTypes.Account
 		}),
 		Promise.resolve(ORGANIZATION_PROPERTIES),
 		API.fieldMappings.search({
 			context: FieldContexts.Custom,
 			delta: MAX_DELTA,
 			groupId,
-			ownerType: fieldOwnerTypes.organization
+			ownerType: FieldOwnerTypes.Organization
 		}),
 		API.interests.searchKeywords({delta: MAX_DELTA, groupId}),
 		Promise.resolve(SESSION_PROPERTIES),
@@ -109,7 +107,7 @@ const mapResultToProps = ([
 		label: sub(Liferay.Language.get('x-attributes'), [
 			Liferay.Language.get('organization')
 		]) as string,
-		propertyKey: fieldOwnerTypes.organization,
+		propertyKey: FieldOwnerTypes.Organization,
 		propertySubgroups: List([
 			new PropertySubgroup({properties: organizationProperties}),
 			new PropertySubgroup({
@@ -135,14 +133,14 @@ const mapResultToProps = ([
 			label: sub(Liferay.Language.get('x-attributes'), [
 				Liferay.Language.get('individual')
 			]) as string,
-			propertyKey: fieldOwnerTypes.individual,
+			propertyKey: FieldOwnerTypes.Individual,
 			propertySubgroups: individualSubgroupsIList
 		}),
 		new PropertyGroup({
 			label: sub(Liferay.Language.get('x-attributes'), [
 				Liferay.Language.get('account')
 			]) as string,
-			propertyKey: fieldOwnerTypes.account,
+			propertyKey: FieldOwnerTypes.Account,
 			propertySubgroups: List([
 				new PropertySubgroup({
 					properties: List(

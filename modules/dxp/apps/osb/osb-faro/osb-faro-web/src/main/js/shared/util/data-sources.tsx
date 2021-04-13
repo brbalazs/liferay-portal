@@ -1,12 +1,12 @@
 import * as API from 'shared/api';
-import Constants, {
+import {alertTypes} from 'shared/actions/alerts';
+import {
 	CredentialTypes,
 	DataSourceStates,
 	DataSourceStatuses,
 	DataSourceTypes,
 	EntityTypes
 } from 'shared/util/constants';
-import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {toPromise} from 'shared/components/form';

@@ -7,7 +7,9 @@ import {
 	DataSourceStatuses,
 	DataSourceTypes,
 	EntityTypes,
-	FieldContexts
+	FieldContexts,
+	FieldOwnerTypes,
+	FieldTypes
 } from 'shared/util/constants';
 export {};
 
@@ -26,9 +28,11 @@ declare global {
 			dataSourceStatuses: {[key: string]: DataSourceStatuses};
 			dataSourceTypes: {[key: string]: DataSourceTypes};
 			entityTypes: {[key: string]: EntityTypes};
+			faroURL: string;
 			fieldContexts: {[key: string]: FieldContexts};
-			fieldTypes: {[key: string]: string};
-			pathThemeImages: string;
+			fieldOwnerTypes: {[key: string]: FieldOwnerTypes};
+			fieldTypes: {[key: string]: FieldTypes};
+			locale: string;
 			pagination: {
 				cur: number;
 				delta: number;
@@ -37,10 +41,13 @@ declare global {
 				orderDefault: string;
 				orderDescending: string;
 			};
+			pathThemeImages: string;
+			portletNamespace: string;
 			preferencesScopes: {[key: string]: string};
 			projectLocations: {[key: string]: string};
 			segmentTypes: {[key: string]: string};
 			timeIntervals: {[key: string]: string};
+			userName: string;
 		};
 		hbspt: {
 			forms: {

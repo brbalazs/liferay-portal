@@ -4,8 +4,8 @@ import Promise from 'metal-promise';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {cleanup, render} from '@testing-library/react';
-import {FieldContexts} from 'shared/util/constants';
 import {DistributionTab} from 'shared/util/records';
+import {FieldContexts} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 
 jest.unmock('react-dom');

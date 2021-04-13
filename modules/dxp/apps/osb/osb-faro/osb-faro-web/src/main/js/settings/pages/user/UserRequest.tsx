@@ -173,7 +173,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 			]}
 			dataSourceFn={handleGetUsers}
 			dataSourceParams={{groupId}}
-			delta={parseInt(delta)}
+			delta={parseInt(delta as string)}
 			entityLabel={Liferay.Language.get('users')}
 			navRenderer={null}
 			orderBy={orderBy}
@@ -188,7 +188,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					value: EMAIL_ADDRESS
 				}
 			]}
-			page={parseInt(page)}
+			page={parseInt(page as string)}
 			query={query}
 			ref={tableRef}
 			showCheckbox={false}
