@@ -1,13 +1,11 @@
 import Alert from 'shared/components/Alert';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
+import {DataSourceTypes} from 'shared/util/constants';
 import {getTempCredentials} from 'shared/util/oauth';
 import {PropTypes} from 'prop-types';
-
-const {dataSourceTypes} = FaroConstants;
 
 export default class OAuthKit extends React.Component {
 	static propTypes = {
@@ -41,7 +39,7 @@ export default class OAuthKit extends React.Component {
 			consumerKey,
 			consumerSecret,
 			groupId: this.props.groupId,
-			type: dataSourceTypes.liferay
+			type: DataSourceTypes.Liferay
 		})
 			.then(tempCredentials => {
 				setSubmitting(false);

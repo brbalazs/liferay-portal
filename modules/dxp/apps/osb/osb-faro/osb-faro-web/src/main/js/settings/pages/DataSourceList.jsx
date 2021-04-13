@@ -5,7 +5,8 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants, {
 	DataSourceStates,
-	DataSourceStatuses
+	DataSourceStatuses,
+	DataSourceTypes
 } from 'shared/util/constants';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
 import Icon from 'shared/components/Icon';
@@ -40,10 +41,7 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
-const {
-	dataSourceTypes: {csv, liferay, salesforce},
-	pagination
-} = Constants;
+const {pagination} = Constants;
 
 function getAlertMessage(dataSource, currentUser, count, groupId) {
 	const admin = currentUser.isAdmin();
@@ -144,11 +142,11 @@ export const StatusRenderer = ({data}) => {
 
 const typeFormatter = type => {
 	switch (type) {
-		case csv:
+		case DataSourceTypes.Csv:
 			return Liferay.Language.get('.csv');
-		case liferay:
+		case DataSourceTypes.Liferay:
 			return Liferay.Language.get('liferay-portal');
-		case salesforce:
+		case DataSourceTypes.Salesforce:
 			return Liferay.Language.get('salesforce');
 		default:
 			return '';

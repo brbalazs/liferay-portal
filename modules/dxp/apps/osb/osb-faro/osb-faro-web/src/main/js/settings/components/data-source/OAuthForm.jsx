@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import Constants, {DataSourceStates} from 'shared/util/constants';
 import Form, {
 	toPromise,
 	validateProtocol,
@@ -14,6 +13,7 @@ import {addAlert, alertTypes} from 'shared/actions/alerts';
 import {compose, withHistory} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
+import {DataSourceStates, DataSourceTypes} from 'shared/util/constants';
 import {get, isUndefined} from 'lodash';
 import {getOAuthWindowErrorMessage} from 'shared/util/oauth';
 import {getTempCredentials} from 'shared/util/oauth';
@@ -26,8 +26,6 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {validateUniqueName} from 'shared/util/data-sources';
-
-const {dataSourceTypes} = Constants;
 
 export class OAuthForm extends React.Component {
 	static defaultProps = {
@@ -52,8 +50,8 @@ export class OAuthForm extends React.Component {
 		onSubmit: PropTypes.func.isRequired,
 		redirectRoute: PropTypes.string,
 		type: PropTypes.oneOf([
-			dataSourceTypes.liferay,
-			dataSourceTypes.salesforce
+			DataSourceTypes.Liferay,
+			DataSourceTypes.Salesforce
 		]).isRequired
 	};
 

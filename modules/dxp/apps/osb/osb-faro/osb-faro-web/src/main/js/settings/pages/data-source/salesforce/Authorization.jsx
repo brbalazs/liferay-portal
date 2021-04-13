@@ -3,7 +3,6 @@ import autobind from 'autobind-decorator';
 import BaseTabsPage, {
 	tabIds
 } from 'settings/components/data-source/BaseTabsPage';
-import FaroConstants, {DataSourceStatuses} from 'shared/util/constants';
 import OAuthForm from 'settings/components/data-source/OAuthForm';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
@@ -13,11 +12,10 @@ import {
 	updateSalesforceDataSource
 } from 'shared/actions/data-sources';
 import {DataSource, User} from 'shared/util/records';
+import {DataSourceStatuses, DataSourceTypes} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-
-const {dataSourceTypes} = FaroConstants;
 
 export class SalesforceAuthorization extends React.Component {
 	static propTypes = {
@@ -135,7 +133,7 @@ export class SalesforceAuthorization extends React.Component {
 					redirectRoute={
 						Routes.SETTINGS_SALESFORCE_CONFIGURATION_STATUS
 					}
-					type={dataSourceTypes.salesforce}
+					type={DataSourceTypes.Salesforce}
 				/>
 			</BaseTabsPage>
 		);

@@ -1,16 +1,15 @@
 import BaseDataSourcePage from './BasePage';
 import ClayBadge from '@clayui/badge';
-import FaroConstants from 'shared/util/constants';
 import Nav from 'shared/components/Nav';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import {DataSource} from 'shared/util/records';
+import {DataSourceTypes} from 'shared/util/constants';
 import {isDataSourceValid} from 'shared/util/data-sources';
 import {Map} from 'immutable';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-const {dataSourceTypes} = FaroConstants;
 
 export const tabIds = {
 	AUTHORIZATION: 'authorization',
@@ -18,11 +17,11 @@ export const tabIds = {
 };
 
 const CONFIGURATIONS_MAP = {
-	[dataSourceTypes.liferay]: [
+	[DataSourceTypes.Liferay]: [
 		'analyticsConfiguration',
 		'contactsConfiguration'
 	],
-	[dataSourceTypes.salesforce]: [
+	[DataSourceTypes.Salesforce]: [
 		'accountsConfiguration',
 		'contactsConfiguration'
 	]

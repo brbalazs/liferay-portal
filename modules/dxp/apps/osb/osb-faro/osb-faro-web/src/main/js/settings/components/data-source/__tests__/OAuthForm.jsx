@@ -1,18 +1,17 @@
 import * as data from 'test/data';
-import Constants, {
-	DataSourceStates,
-	DataSourceStatuses
-} from 'shared/util/constants';
 import React from 'react';
 import {DataSource} from 'shared/util/records';
+import {
+	DataSourceStates,
+	DataSourceStatuses,
+	DataSourceTypes
+} from 'shared/util/constants';
 import {fireEvent, render} from '@testing-library/react';
 import {OAUTH_CALLBACK_URL} from 'shared/util/oauth';
 import {OAuthForm} from '../OAuthForm';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
-
-const {dataSourceTypes} = Constants;
 
 React.createRef = jest.fn();
 
@@ -34,7 +33,7 @@ const defaultProps = {
 	groupId: '23',
 	onAuthorize: jest.fn(),
 	onSubmit: jest.fn(),
-	type: dataSourceTypes.liferay
+	type: DataSourceTypes.Liferay
 };
 
 describe('OAuthForm', () => {
@@ -136,7 +135,7 @@ describe('OAuthForm', () => {
 						data.mockSalesforceDataSource
 					)}
 					id='23'
-					type={dataSourceTypes.salesforce}
+					type={DataSourceTypes.Salesforce}
 				/>
 			</StaticRouter>
 		);
@@ -162,7 +161,7 @@ describe('OAuthForm', () => {
 						}
 					)}
 					id='23'
-					type={dataSourceTypes.liferay}
+					type={DataSourceTypes.Liferay}
 				/>
 			</StaticRouter>
 		);

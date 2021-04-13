@@ -1,4 +1,4 @@
-import FaroConstants from '../constants';
+import {DataSourceTypes, EntityTypes} from '../constants';
 import {
 	getDataSourceLangKey,
 	getPluralMessage,
@@ -40,17 +40,15 @@ describe('sub', () => {
 
 describe('getTypeLangKey', () => {
 	it('should lang key for account', () => {
-		expect(getTypeLangKey(FaroConstants.entityTypes.account)).toBe(
-			'Accounts'
-		);
+		expect(getTypeLangKey(EntityTypes.Account)).toBe('Accounts');
 	});
 });
 
 describe('getDataSourceLangKey', () => {
 	it('should return a lang key for a data-source type', () => {
-		expect(
-			getDataSourceLangKey(FaroConstants.dataSourceTypes.liferay)
-		).toBe('Liferay DXP');
+		expect(getDataSourceLangKey(DataSourceTypes.Liferay)).toBe(
+			'Liferay DXP'
+		);
 	});
 });
 

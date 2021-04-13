@@ -2,19 +2,16 @@ import * as API from 'shared/api';
 import Constants, {
 	CredentialTypes,
 	DataSourceStates,
-	DataSourceStatuses
+	DataSourceStatuses,
+	DataSourceTypes,
+	EntityTypes
 } from 'shared/util/constants';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {toPromise} from 'shared/components/form';
 
-const {
-	dataSourceTypes: {csv, liferay, salesforce},
-	entityTypes: {dataSource}
-} = Constants;
-
-export const LIFERAY_SITE_TYPE = `${dataSource}-site`;
+export const LIFERAY_SITE_TYPE = `${EntityTypes.DataSource}-site`;
 
 /**
  * Default timeout for a dataSource warning alert
@@ -255,7 +252,7 @@ export function getIdsFromConfiguration(configIMap, key) {
  * Check if a DataSource is considered legacy (DXP and not token authentication)
  */
 export const hasLegacyDXPConnection = (dataSource: DataSource) =>
-	dataSource.providerType === liferay &&
+	dataSource.providerType === DataSourceTypes.Liferay &&
 	dataSource.getIn(['credentials', 'type']) !== CredentialTypes.Token;
 
 /**
@@ -264,7 +261,10 @@ export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 export function validAnalyticsConfig(dataSource: DataSource): boolean {
 	const {provider, providerType} = dataSource;
 
-	if (providerType === liferay && !hasLegacyDXPConnection(dataSource)) {
+	if (
+		providerType === DataSourceTypes.Liferay &&
+		!hasLegacyDXPConnection(dataSource)
+	) {
 		return dataSource.sitesSelected;
 	}
 
@@ -276,13 +276,13 @@ export function validAnalyticsConfig(dataSource: DataSource): boolean {
 	}
 
 	switch (providerType) {
-		case liferay:
+		case DataSourceTypes.Liferay:
 			return Boolean(
 				analyticsConfiguration.get('enableAllSites') ||
 					analyticsConfiguration.get('sites').size
 			);
 		// TODO: Add validation on salesforce anlayticsConfiguration
-		case salesforce:
+		case DataSourceTypes.Salesforce:
 		default:
 			return Boolean(analyticsConfiguration);
 	}
@@ -294,28 +294,31 @@ export function validAnalyticsConfig(dataSource: DataSource): boolean {
 export function validContactsConfig(dataSource: DataSource): boolean {
 	const {provider, providerType, status} = dataSource;
 
-	if (providerType === liferay && !hasLegacyDXPConnection(dataSource)) {
+	if (
+		providerType === DataSourceTypes.Liferay &&
+		!hasLegacyDXPConnection(dataSource)
+	) {
 		return dataSource.contactsSelected;
 	}
 
 	const contactsConfiguration =
 		provider && provider.get('contactsConfiguration');
 
-	if (!contactsConfiguration && providerType !== csv) {
+	if (!contactsConfiguration && providerType !== DataSourceTypes.Csv) {
 		return false;
 	}
 
 	switch (providerType) {
-		case csv:
+		case DataSourceTypes.Csv:
 			return status === DataSourceStatuses.Active;
-		case liferay:
+		case DataSourceTypes.Liferay:
 			return Boolean(
 				contactsConfiguration.get('enableAllContacts') ||
 					contactsConfiguration.get('organizations').size ||
 					contactsConfiguration.get('userGroups').size
 			);
 		// TODO: Add validation on salesforce contactsConfiguration
-		case salesforce:
+		case DataSourceTypes.Salesforce:
 		default:
 			return Boolean(contactsConfiguration);
 	}

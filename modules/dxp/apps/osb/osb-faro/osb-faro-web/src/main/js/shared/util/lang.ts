@@ -1,11 +1,11 @@
 import Constants, {
 	AcquisitionTypes,
 	AssetTypes,
-	CompositionTypes
+	CompositionTypes,
+	DataSourceTypes
 } from 'shared/util/constants';
 
 const {
-	dataSourceTypes: {csv, liferay},
 	entityTypes: {
 		account,
 		asset,
@@ -119,8 +119,8 @@ const ENTITY_LANG_MAP = {
 };
 
 const DATA_SOURCE_LANG_MAP = {
-	[csv]: Liferay.Language.get('csv'),
-	[liferay]: Liferay.Language.get('liferay-dxp')
+	[DataSourceTypes.Csv]: Liferay.Language.get('csv'),
+	[DataSourceTypes.Liferay]: Liferay.Language.get('liferay-dxp')
 };
 
 export const getDataSourceLangKey = (type: string): string =>

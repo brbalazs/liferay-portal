@@ -264,9 +264,15 @@ export enum DataSourceProgressStatuses {
 	Started = 'STARTED'
 }
 
-export enum DataSourcesStatuses {
+export enum DataSourceStatuses {
 	Active = 'ACTIVE',
 	Inactive = 'INACTIVE'
+}
+
+export enum DataSourceTypes {
+	Csv = 'CSV',
+	Liferay = 'LIFERAY',
+	Salesforce = 'SALESFORCE'
 }
 
 export enum EntityTypes {

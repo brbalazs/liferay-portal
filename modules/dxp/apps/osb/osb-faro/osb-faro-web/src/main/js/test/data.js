@@ -4,6 +4,7 @@ import Constants, {
 	DataSourceProgressStatuses,
 	DataSourceStates,
 	DataSourceStatuses,
+	DataSourceTypes,
 	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,
@@ -30,7 +31,6 @@ const {
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	criterionTypes,
-	dataSourceTypes,
 	projectStates,
 	segmentStates,
 	subscriptionStatuses,
@@ -379,9 +379,9 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 		name: `CSV${seed}`,
 		properties: {},
 		provider: {
-			type: dataSourceTypes.csv
+			type: DataSourceTypes.Csv
 		},
-		providerType: dataSourceTypes.csv,
+		providerType: DataSourceTypes.Csv,
 		state: DataSourceStates.Ready,
 		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,
@@ -406,9 +406,9 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 			analyticsConfiguration: null,
 			contactsConfiguration: null,
 			instanceInfo: {},
-			type: dataSourceTypes.liferay
+			type: DataSourceTypes.Liferay
 		},
-		providerType: dataSourceTypes.liferay,
+		providerType: DataSourceTypes.Liferay,
 		state: DataSourceStates.CredentialsValid,
 		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,
@@ -485,9 +485,9 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 		provider: {
 			analyticsConfiguration: null,
 			contactsConfiguration: null,
-			type: dataSourceTypes.salesforce
+			type: DataSourceTypes.Salesforce
 		},
-		providerType: dataSourceTypes.salesforce,
+		providerType: DataSourceTypes.Salesforce,
 		state: DataSourceStates.CredentialsValid,
 		status: DataSourceStatuses.Active,
 		type: EntityTypes.DataSource,

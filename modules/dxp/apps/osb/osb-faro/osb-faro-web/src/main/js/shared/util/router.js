@@ -1,10 +1,10 @@
-import FaroConstants from '../util/constants';
+import Constants, {DataSourceTypes, EntityTypes} from '../util/constants';
 import pathToRegexp from 'path-to-regexp';
 import Uri from 'metal-uri';
 import {invert, isEmpty, isString, memoize} from 'lodash';
 import {matchPath, useLocation} from 'react-router-dom';
 
-const {cur: defaultCur, orderDefault} = FaroConstants.pagination;
+const {cur: defaultCur, orderDefault} = Constants.pagination;
 
 /* Resource Types */
 
@@ -349,27 +349,17 @@ export function toRoute(route, options) {
 	return getCompiledRoute(route)(options);
 }
 
-const {
-	account,
-	asset,
-	individual,
-	individualsSegment,
-	page
-} = FaroConstants.entityTypes;
-
 const ROUTE_TO_TYPE_MAP = {
-	[ACCOUNTS]: account,
-	[ASSETS]: asset,
-	[INDIVIDUALS]: individual,
-	[PAGES]: page,
-	[SEGMENTS]: individualsSegment
+	[ACCOUNTS]: EntityTypes.Account,
+	[ASSETS]: EntityTypes.Asset,
+	[INDIVIDUALS]: EntityTypes.Individual,
+	[PAGES]: EntityTypes.Page,
+	[SEGMENTS]: EntityTypes.IndividualsSegment
 };
 
-const {csv, liferay} = FaroConstants.dataSourceTypes;
-
 const PROVIDER_ROUTE_TO_TYPE_MAP = {
-	[CSV]: csv,
-	[LIFERAY]: liferay
+	[CSV]: DataSourceTypes.Csv,
+	[LIFERAY]: DataSourceTypes.Liferay
 };
 
 const TYPE_TO_ROUTE_MAP = {

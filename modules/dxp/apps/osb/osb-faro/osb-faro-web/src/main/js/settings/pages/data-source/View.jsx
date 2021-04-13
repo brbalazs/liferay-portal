@@ -1,5 +1,4 @@
 import CSV from './CSV';
-import FaroConstants from 'shared/util/constants';
 import LiferayDataSource from './Liferay';
 import LiferayDataSourceOld from './LiferayOld';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
@@ -7,16 +6,15 @@ import React from 'react';
 import Salesforce from './Salesforce';
 import {compose, withDataSource} from 'shared/hoc';
 import {DataSource} from 'shared/util/records';
+import {DataSourceTypes} from 'shared/util/constants';
 import {hasLegacyDXPConnection} from 'shared/util/data-sources';
 import {PropTypes} from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-const {dataSourceTypes} = FaroConstants;
-
 const PAGE_MAP = {
-	[dataSourceTypes.csv]: CSV,
-	[dataSourceTypes.liferay]: LiferayDataSource,
-	[dataSourceTypes.salesforce]: Salesforce
+	[DataSourceTypes.Csv]: CSV,
+	[DataSourceTypes.Liferay]: LiferayDataSource,
+	[DataSourceTypes.Salesforce]: Salesforce
 };
 
 const getPageComponent = dataSource =>

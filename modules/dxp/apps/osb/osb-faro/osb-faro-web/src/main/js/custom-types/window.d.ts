@@ -5,6 +5,7 @@ import {
 	DataSourceDisplayStatuses,
 	DataSourceProgressStatuses,
 	DataSourceStatuses,
+	DataSourceTypes,
 	EntityTypes
 } from 'shared/util/constants';
 export {};
@@ -22,7 +23,7 @@ declare global {
 				[key: string]: DataSourceProgressStatuses;
 			};
 			dataSourceStatuses: {[key: string]: DataSourceStatuses};
-			dataSourceTypes: {[key: string]: string};
+			dataSourceTypes: {[key: string]: DataSourceTypes};
 			entityTypes: {[key: string]: EntityTypes};
 			fieldContexts: {[key: string]: string};
 			fieldTypes: {[key: string]: string};

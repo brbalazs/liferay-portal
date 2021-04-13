@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
-import Constants, {CredentialTypes} from 'shared/util/constants';
 import CopyButton from 'shared/components/CopyButton';
 import DataSourceQuery from 'shared/queries/DataSourceQuery';
 import getCN from 'classnames';
@@ -13,6 +12,7 @@ import urlConstants from 'shared/util/url-constants';
 import {ActionType, useChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {CredentialTypes, DataSourceTypes} from 'shared/util/constants';
 import {DataSource} from 'shared/util/records';
 import {fetchDataSource} from 'shared/actions/data-sources';
 import {get, noop} from 'lodash';
@@ -21,7 +21,6 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
-const {dataSourceTypes} = Constants;
 const {HELP_CONNECT_DXP} = urlConstants;
 const TIMEOUT_INTERVAL = 5000;
 
@@ -74,7 +73,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 				column: 'dateCreated',
 				type: 'DESC'
 			},
-			type: dataSourceTypes.liferay
+			type: DataSourceTypes.Liferay
 		}
 	});
 

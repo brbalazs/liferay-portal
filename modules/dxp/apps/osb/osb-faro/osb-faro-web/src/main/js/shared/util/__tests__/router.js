@@ -1,4 +1,3 @@
-import FaroConstants from '../constants';
 import {
 	ACCOUNTS,
 	buildRoutes,
@@ -18,6 +17,7 @@ import {
 	setUriQueryValues,
 	toRoute
 } from '../router';
+import {DataSourceTypes, EntityTypes} from '../constants';
 import {Map, Set} from 'immutable';
 
 describe('setUriFilterValues', () => {
@@ -55,15 +55,13 @@ describe('setUriQueryValues', () => {
 
 describe('getType', () => {
 	it('should return type for a given route name', () => {
-		expect(getType(ACCOUNTS)).toBe(FaroConstants.entityTypes.account);
+		expect(getType(ACCOUNTS)).toBe(EntityTypes.Account);
 	});
 });
 
 describe('getDataSourceType', () => {
 	it('should return a data-source type for a given route name', () => {
-		expect(getDataSourceType(LIFERAY)).toBe(
-			FaroConstants.dataSourceTypes.liferay
-		);
+		expect(getDataSourceType(LIFERAY)).toBe(DataSourceTypes.Liferay);
 	});
 });
 
@@ -80,13 +78,11 @@ describe('getMatchedRoute', () => {
 
 describe('getRouteName', () => {
 	it('should return route name for a given type', () => {
-		expect(getRouteName(FaroConstants.entityTypes.account)).toBe(ACCOUNTS);
+		expect(getRouteName(EntityTypes.Account)).toBe(ACCOUNTS);
 	});
 
 	it('should return route name for the segment types', () => {
-		expect(getRouteName(FaroConstants.entityTypes.individualsSegment)).toBe(
-			SEGMENTS
-		);
+		expect(getRouteName(EntityTypes.IndividualsSegment)).toBe(SEGMENTS);
 	});
 });
 
