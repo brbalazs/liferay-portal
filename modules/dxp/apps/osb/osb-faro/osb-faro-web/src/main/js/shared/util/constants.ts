@@ -227,6 +227,29 @@ export enum jobTypes {
 	itemSimilarity = 'CONTENT_RECOMMENDATION_ITEM_SIMILARITY'
 }
 
+export enum ActivityActions {
+	Comments = 3,
+	Downloads = 0,
+	Previews = 4,
+	Submissions = 1,
+	Visits = 2
+}
+
+export enum Applications {
+	Contacts = 'contacts',
+	Main = 'main'
+}
+
+export enum EntityTypes {
+	Account = 0,
+	AccountsSegment = 3,
+	Asset = 5,
+	DataSource = 1,
+	Individual = 2,
+	IndividualsSegment = 4,
+	Page = 6
+}
+
 const Constants: any = {
 	...window.faroConstants,
 	acquisitionTypes,

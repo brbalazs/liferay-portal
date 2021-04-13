@@ -1,4 +1,4 @@
-import FaroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
 import {
@@ -23,7 +23,7 @@ const {
 	activityActions: {comments, downloads, previews, submissions, visits},
 	assetTypes,
 	timeIntervals
-} = FaroConstants;
+} = Constants;
 
 export const CHART_ACTIVITY_ID = 'activities';
 export const CHART_ID = 'individualActivity';

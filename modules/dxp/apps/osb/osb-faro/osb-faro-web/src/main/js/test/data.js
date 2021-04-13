@@ -1,4 +1,5 @@
 import FaroConstants, {
+	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,
 	jobStatuses,
@@ -30,7 +31,6 @@ const {
 	dataSourceStates,
 	dataSourceStatuses,
 	dataSourceTypes,
-	entityTypes,
 	projectStates,
 	segmentStates,
 	subscriptionStatuses,
@@ -90,7 +90,7 @@ export function mockIndividual(seed = 0, properties) {
 			title: 'Developer',
 			...properties
 		},
-		type: FaroConstants.entityTypes.individual
+		type: EntityTypes.Individual
 	};
 }
 
@@ -167,7 +167,7 @@ export function mockAccount(seed = 1, data = {}) {
 			website: 'www.liferay.com',
 			yearStarted: '2003'
 		},
-		type: entityTypes.account,
+		type: EntityTypes.Account,
 		...data
 	};
 }
@@ -384,7 +384,7 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 		providerType: dataSourceTypes.csv,
 		state: dataSourceStates.ready,
 		status: dataSourceStatuses.active,
-		type: entityTypes.dataSource,
+		type: EntityTypes.DataSource,
 		url: 'liferay.example.faro.com',
 		...data
 	};
@@ -411,7 +411,7 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 		providerType: dataSourceTypes.liferay,
 		state: dataSourceStates.credentialsValid,
 		status: dataSourceStatuses.active,
-		type: entityTypes.dataSource,
+		type: EntityTypes.DataSource,
 		url: `https://www.faro-${seed}.io`,
 		...data
 	};
@@ -490,7 +490,7 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 		providerType: dataSourceTypes.salesforce,
 		state: dataSourceStates.credentialsValid,
 		status: dataSourceStatuses.active,
-		type: entityTypes.dataSource,
+		type: EntityTypes.DataSource,
 		url: 'https://login.salesforce.com',
 		...data
 	};
@@ -697,7 +697,7 @@ export function mockSegment(seed = 0, data = {}) {
 		name: `Seattle${seed}`,
 		properties: {},
 		state: segmentStates.ready,
-		type: entityTypes.individualsSegment,
+		type: EntityTypes.IndividualsSegment,
 		...data
 	};
 }

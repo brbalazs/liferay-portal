@@ -1,11 +1,18 @@
+import {
+	ActivityActions,
+	Applications,
+	EntityTypes
+} from 'shared/util/constants';
 export {};
 
 declare global {
 	interface Window {
 		faroConstants: {
+			activityActions: {[key: string]: ActivityActions};
+			applications: {[key: string]: Applications};
 			dataSourceStatuses: {[key: string]: string};
 			dataSourceTypes: {[key: string]: string};
-			entityTypes: {[key: string]: number};
+			entityTypes: {[key: string]: EntityTypes};
 			fieldContexts: {[key: string]: string};
 			fieldTypes: {[key: string]: string};
 			pathThemeImages: string;

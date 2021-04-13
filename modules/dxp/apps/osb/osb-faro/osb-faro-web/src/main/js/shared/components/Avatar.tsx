@@ -1,10 +1,8 @@
-import Constants from '../util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import Sticker, {getDisplayForId, getSymbol} from './Sticker';
+import {EntityTypes} from '../util/constants';
 import {get} from 'lodash';
-
-const {entityTypes} = Constants;
 
 const getInitials = (first: string, last: string): string => {
 	let retVal = first ? first.substring(0, 1) : '';
@@ -23,7 +21,7 @@ interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
 			familyName: string;
 			givenName: string;
 		};
-		type: number;
+		type: EntityTypes;
 	};
 }
 
@@ -45,10 +43,10 @@ const Avatar: React.FC<IAvatarProps> = ({
 							backgroundImage: `url(${image})`
 					  }
 			}
-			symbol={type !== entityTypes.individual ? getSymbol(type) : null}
+			symbol={type !== EntityTypes.Individual ? getSymbol(type) : null}
 			{...otherProps}
 		>
-			{type === entityTypes.individual &&
+			{type === EntityTypes.Individual &&
 				!image &&
 				getInitials(properties.givenName, properties.familyName)}
 		</Sticker>
