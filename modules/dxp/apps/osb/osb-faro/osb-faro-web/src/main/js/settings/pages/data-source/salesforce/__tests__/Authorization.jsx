@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
@@ -7,12 +6,9 @@ import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {SalesforceAuthorization} from '../Authorization';
 import {StaticRouter} from 'react-router-dom';
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
-
-const {
-	userRoleNames: {member}
-} = FaroConstants;
 
 const DefaultComponent = props => (
 	<Provider store={mockStore()}>
@@ -44,7 +40,7 @@ describe('SalesforceAuthorization', () => {
 		const {queryByText} = render(
 			<DefaultComponent
 				currentUser={data.getImmutableMock(User, data.mockUser, '24', {
-					roleName: member
+					roleName: UserRoleNames.Member
 				})}
 			/>
 		);

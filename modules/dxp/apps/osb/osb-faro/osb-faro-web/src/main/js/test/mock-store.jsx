@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import FaroConstants, {ProjectStates} from 'shared/util/constants';
 import middleware from 'shared/store/configure-middleware';
 import React from 'react';
 import reducers from 'shared/reducers';
@@ -15,10 +14,9 @@ import {
 } from 'shared/util/records';
 import {createStore} from 'redux';
 import {fromJS, List} from 'immutable';
+import {ProjectStates, UserRoleNames} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {shallow} from 'enzyme';
-
-const {userRoleNames} = FaroConstants;
 
 function toRD(data) {
 	return new RemoteData({data, loading: false});
@@ -139,7 +137,7 @@ export const mockStoreData = fromJS({
 			new User(
 				data.mockUser('24', {
 					groupId: '23',
-					roleName: userRoleNames.member
+					roleName: UserRoleNames.Member
 				})
 			)
 		),

@@ -1,18 +1,14 @@
 import * as data from 'test/data';
 import BaseDataSourcePage from '../BasePage';
-import Constants, {DataSourceStates} from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {DataSource, User} from 'shared/util/records';
+import {DataSourceStates, UserRoleNames} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
-
-const {
-	userRoleNames: {member}
-} = Constants;
 
 describe('BaseDataSourcePage', () => {
 	afterEach(cleanup);
@@ -68,7 +64,7 @@ describe('BaseDataSourcePage', () => {
 							data.mockUser,
 							'23',
 							{
-								roleName: member
+								roleName: UserRoleNames.Member
 							}
 						)}
 						dataSource={data.getImmutableMock(
@@ -96,7 +92,7 @@ describe('BaseDataSourcePage', () => {
 							data.mockUser,
 							'23',
 							{
-								roleName: member
+								roleName: UserRoleNames.Member
 							}
 						)}
 						dataSource={data.getImmutableMock(

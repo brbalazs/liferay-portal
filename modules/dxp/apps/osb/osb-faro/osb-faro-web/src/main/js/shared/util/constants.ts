@@ -362,6 +362,17 @@ export enum TimeSpans {
 	Yesterday = 'yesterday'
 }
 
+export enum UserRoleNames {
+	Administrator = 'Site Administrator',
+	Member = 'Site Member',
+	Owner = 'Site Owner'
+}
+
+export enum UserStatuses {
+	Approved = 0,
+	Pending = 1
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

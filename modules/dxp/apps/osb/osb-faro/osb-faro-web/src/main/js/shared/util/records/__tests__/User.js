@@ -1,15 +1,11 @@
-import FaroConstants from 'shared/util/constants';
 import User from '../User';
+import {UserRoleNames} from 'shared/util/constants';
 
-const {
-	userRoleNames: {administrator, member, owner}
-} = FaroConstants;
+const adminUser = new User({roleName: UserRoleNames.Administrator});
 
-const adminUser = new User({roleName: administrator});
+const memberUser = new User({roleName: UserRoleNames.Member});
 
-const memberUser = new User({roleName: member});
-
-const ownerUser = new User({roleName: owner});
+const ownerUser = new User({roleName: UserRoleNames.Owner});
 
 describe('User', () => {
 	it('should return a new User', () => {
@@ -19,13 +15,24 @@ describe('User', () => {
 	});
 
 	it('should be able to determine if a user has a permission, given an array of roles or a single role', () => {
-		const user = new User({roleName: member});
+		const user = new User({roleName: UserRoleNames.Member});
 
-		expect(user.hasPermission([administrator, owner])).toBe(false);
+		expect(
+			user.hasPermission([
+				UserRoleNames.Administrator,
+				UserRoleNames.Owner
+			])
+		).toBe(false);
 
-		expect(user.hasPermission([administrator, member, owner])).toBe(true);
+		expect(
+			user.hasPermission([
+				UserRoleNames.Administrator,
+				UserRoleNames.Member,
+				UserRoleNames.Owner
+			])
+		).toBe(true);
 
-		expect(user.hasPermission(member)).toBe(true);
+		expect(user.hasPermission(UserRoleNames.Member)).toBe(true);
 	});
 
 	it('should be able to determine if a user is a member', () => {

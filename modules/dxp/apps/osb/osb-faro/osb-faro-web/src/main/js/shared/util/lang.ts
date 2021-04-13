@@ -1,21 +1,11 @@
-import Constants, {
+import {
 	AcquisitionTypes,
 	AssetTypes,
 	CompositionTypes,
-	DataSourceTypes
+	DataSourceTypes,
+	EntityTypes,
+	UserRoleNames
 } from 'shared/util/constants';
-
-const {
-	entityTypes: {
-		account,
-		asset,
-		dataSource,
-		individual,
-		individualsSegment,
-		page
-	},
-	userRoleNames
-} = Constants;
 
 const SPLIT_REGEX = /({\d+})/g;
 
@@ -110,12 +100,12 @@ export const DETAILS_LABEL_MAP = {
 };
 
 const ENTITY_LANG_MAP = {
-	[account]: Liferay.Language.get('accounts'),
-	[asset]: Liferay.Language.get('assets'),
-	[dataSource]: Liferay.Language.get('data-source'),
-	[individual]: Liferay.Language.get('individuals'),
-	[individualsSegment]: Liferay.Language.get('segments'),
-	[page]: Liferay.Language.get('pages')
+	[EntityTypes.Account]: Liferay.Language.get('accounts'),
+	[EntityTypes.Asset]: Liferay.Language.get('assets'),
+	[EntityTypes.DataSource]: Liferay.Language.get('data-source'),
+	[EntityTypes.Individual]: Liferay.Language.get('individuals'),
+	[EntityTypes.IndividualsSegment]: Liferay.Language.get('segments'),
+	[EntityTypes.Page]: Liferay.Language.get('pages')
 };
 
 const DATA_SOURCE_LANG_MAP = {
@@ -128,15 +118,13 @@ export const getDataSourceLangKey = (type: string): string =>
 
 export const getTypeLangKey = (type: string): string => ENTITY_LANG_MAP[type];
 
-export const getDisplayRole = (roleName: string): string => {
-	const {administrator, member, owner} = userRoleNames;
-
+export const getDisplayRole = (roleName: UserRoleNames): string => {
 	switch (roleName) {
-		case administrator:
+		case UserRoleNames.Administrator:
 			return Liferay.Language.get('admin');
-		case owner:
+		case UserRoleNames.Owner:
 			return Liferay.Language.get('owner');
-		case member:
+		case UserRoleNames.Member:
 			return Liferay.Language.get('member');
 		default:
 			return roleName;

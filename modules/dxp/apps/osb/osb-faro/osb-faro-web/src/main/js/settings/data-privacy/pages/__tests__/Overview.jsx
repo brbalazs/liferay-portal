@@ -1,5 +1,4 @@
 import client from 'shared/apollo/client';
-import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
@@ -9,10 +8,7 @@ import {Overview} from '../Overview';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
 import {User} from 'shared/util/records';
-
-const {
-	userRoleNames: {member}
-} = Constants;
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
@@ -45,7 +41,11 @@ describe('Data Privacy Overview', () => {
 					<StaticRouter>
 						<Overview
 							currentUser={
-								new User(mockUser(0, {roleName: member}))
+								new User(
+									mockUser(0, {
+										roleName: UserRoleNames.Member
+									})
+								)
 							}
 							groupId='23'
 						/>

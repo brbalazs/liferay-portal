@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import SalesforceTabRoutes from '../TabRoutes';
@@ -8,15 +7,12 @@ import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {Routes, toRoute} from 'shared/util/router';
 import {StaticRouter} from 'react-router';
-
-const {
-	userRoleNames: {administrator}
-} = Constants;
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
 const defaultProps = {
-	currentUser: new User({roleName: administrator}),
+	currentUser: new User({roleName: UserRoleNames.Administrator}),
 	dataSource: data.getImmutableMock(
 		DataSource,
 		data.mockSalesforceDataSource

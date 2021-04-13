@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
@@ -7,10 +6,9 @@ import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
 import {UserList} from '../UserList';
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
-
-const {userRoleNames} = FaroConstants;
 
 const defaultProps = {
 	currentUser: new User(data.mockUser()),
@@ -40,7 +38,7 @@ describe('UserList', () => {
 		const {container, queryByTestId, queryByText} = render(
 			<DefaultComponent
 				currentUser={
-					new User(data.mockUser(0, {roleName: userRoleNames.member}))
+					new User(data.mockUser(0, {roleName: UserRoleNames.Member}))
 				}
 			/>
 		);

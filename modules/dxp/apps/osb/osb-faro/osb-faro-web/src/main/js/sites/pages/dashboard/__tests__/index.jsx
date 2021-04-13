@@ -1,7 +1,6 @@
 import * as data from 'test/data';
 import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
-import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
@@ -13,16 +12,17 @@ import {mockChannelContext} from 'test/mock-channel-context';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Provider} from 'react-redux';
 import {User} from 'shared/util/records';
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
-const {
-	userRoleNames: {administrator, member}
-} = Constants;
+const ADMIN_USER = new User(
+	data.mockUser(24, {roleName: UserRoleNames.Administrator})
+);
 
-const ADMIN_USER = new User(data.mockUser(24, {roleName: administrator}));
-
-const MEMBER_USER = new User(data.mockUser(23, {roleName: member}));
+const MEMBER_USER = new User(
+	data.mockUser(23, {roleName: UserRoleNames.Member})
+);
 
 const MOCK_CONTEXT = {
 	rangeKey: {defaultValue: '30'},

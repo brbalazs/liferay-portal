@@ -1,6 +1,5 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -9,10 +8,9 @@ import {InterestTopics} from '../InterestTopics';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
-
-const {userRoleNames} = FaroConstants;
 
 const defaultProps = {
 	currentUser: new User(data.mockUser()),
@@ -20,7 +18,7 @@ const defaultProps = {
 };
 
 const mockMemberUser = new User(
-	data.mockUser(0, {roleName: userRoleNames.member})
+	data.mockUser(0, {roleName: UserRoleNames.Member})
 );
 
 const DefaultComponent = props => (

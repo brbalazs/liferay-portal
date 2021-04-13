@@ -1,11 +1,6 @@
-import FaroConstants from 'shared/util/constants';
 import {isArray} from 'lodash';
 import {Record} from 'immutable';
-
-const {
-	userRoleNames: {administrator, member, owner},
-	userStatuses: {approved}
-} = FaroConstants;
+import {UserRoleNames, UserStatuses} from 'shared/util/constants';
 
 export default class User extends (new Record({
 	emailAddress: null,
@@ -14,7 +9,7 @@ export default class User extends (new Record({
 	name: '',
 	roleName: null,
 	screenName: '',
-	status: approved,
+	status: UserStatuses.Approved,
 	userId: null
 })) {
 	constructor(params = {}) {
@@ -30,14 +25,17 @@ export default class User extends (new Record({
 	}
 
 	isAdmin() {
-		return this.roleName === administrator || this.roleName === owner;
+		return (
+			this.roleName === UserRoleNames.Administrator ||
+			this.roleName === UserRoleNames.Owner
+		);
 	}
 
 	isMember() {
-		return this.roleName === member;
+		return this.roleName === UserRoleNames.Member;
 	}
 
 	isOwner() {
-		return this.roleName === owner;
+		return this.roleName === UserRoleNames.Owner;
 	}
 }

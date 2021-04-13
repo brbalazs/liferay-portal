@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
 import Icon from 'shared/components/Icon';
 import Nav from 'shared/components/Nav';
 import React from 'react';
@@ -32,15 +31,14 @@ import {getDisplayRole, getPluralMessage, sub} from 'shared/util/lang';
 import {PropTypes} from 'prop-types';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {User} from 'shared/util/records';
+import {UserRoleNames} from 'shared/util/constants';
 
-const {
-	userRoleNames: {administrator, member}
-} = FaroConstants;
-
-const userRoleOptions = [member, administrator].map(role => ({
-	label: getDisplayRole(role),
-	value: role
-}));
+const userRoleOptions = [UserRoleNames.Member, UserRoleNames.Administrator].map(
+	role => ({
+		label: getDisplayRole(role),
+		value: role
+	})
+);
 
 export class UserList extends React.Component {
 	static contextType = SelectionContext;

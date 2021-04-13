@@ -1,15 +1,11 @@
 import ErrorPage from '../pages/ErrorPage';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import withCurrentUser from './WithCurrentUser';
 import {compose} from 'redux';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from '../util/router';
 import {User} from '../util/records';
-
-const {
-	userRoleNames: {administrator, owner}
-} = FaroConstants;
+import {UserRoleNames} from 'shared/util/constants';
 
 /**
  * Creates an HOC that renders a component only if the current user's role
@@ -66,6 +62,9 @@ const withPermission = roles =>
  * @param {Component}
  * @returns {Component}
  */
-export const withAdminPermission = withPermission([administrator, owner]);
+export const withAdminPermission = withPermission([
+	UserRoleNames.Administrator,
+	UserRoleNames.Owner
+]);
 
 export default withPermission;

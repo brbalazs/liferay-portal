@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
 import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
 import InputList from 'shared/components/InputList';
@@ -10,9 +9,8 @@ import React, {useState} from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
+import {UserRoleNames} from 'shared/util/constants';
 import {validateEmail} from 'shared/util/email-validators';
-
-const {userRoleNames} = Constants;
 
 const TIMEOUT_INTERVAL = 1500;
 
@@ -47,7 +45,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 				.inviteMany({
 					emailAddresses: emails,
 					groupId,
-					roleName: userRoleNames.member
+					roleName: UserRoleNames.Member
 				})
 				.then(users => {
 					setLoading(false);

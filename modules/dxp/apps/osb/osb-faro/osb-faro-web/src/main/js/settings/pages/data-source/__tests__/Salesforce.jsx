@@ -1,5 +1,4 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import Salesforce from '../Salesforce';
@@ -8,17 +7,14 @@ import {Provider} from 'react-redux';
 import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {Routes, toRoute} from 'shared/util/router';
 import {StaticRouter} from 'react-router';
+import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
 jest.useRealTimers();
 
-const {
-	userRoleNames: {administrator}
-} = FaroConstants;
-
 const defaultProps = {
-	currentUser: new User({roleName: administrator}),
+	currentUser: new User({roleName: UserRoleNames.Administrator}),
 	dataSource: data.getImmutableMock(
 		DataSource,
 		data.mockSalesforceDataSource

@@ -1,4 +1,5 @@
 import Constants, {
+	ActivityActions,
 	AssetTypes,
 	CredentialTypes,
 	DataSourceProgressStatuses,
@@ -12,7 +13,8 @@ import Constants, {
 	jobTypes,
 	ProjectStates,
 	SegmentStates,
-	SubscriptionStatuses
+	SubscriptionStatuses,
+	UserRoleNames
 } from 'shared/util/constants';
 import moment from 'moment';
 import TimeZone from 'shared/util/records/TimeZone';
@@ -30,11 +32,9 @@ import {
 } from 'shared/util/records/Notification';
 
 const {
-	activityActions,
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
-	criterionTypes,
-	userRoleNames
+	criterionTypes
 } = Constants;
 
 const BASE_TIMESTAMP = 1531263666366;
@@ -817,7 +817,7 @@ export function mockActivityHistory(data = {}) {
 
 export function mockAction(seed = 0, data = {}) {
 	return {
-		action: activityActions.visits,
+		action: ActivityActions.Visits,
 		activityKey: `key_${seed}`,
 		assetType: AssetTypes.Form,
 		canonicalUrl: `https://www.liferay${seed}.com`,
@@ -1021,14 +1021,14 @@ export function mockUser(seed = 0, data = {}) {
 		emailAddress: 'test@liferay.com',
 		id: seed,
 		name: 'Test Test',
-		roleName: userRoleNames.owner,
+		roleName: UserRoleNames.Owner,
 		status: 1,
 		...data
 	};
 }
 
 export function mockMemberUser(seed, data) {
-	return mockUser(seed, {roleName: userRoleNames.member, ...data});
+	return mockUser(seed, {roleName: UserRoleNames.Member, ...data});
 }
 
 export function mockUserGroup(seed = 0, data = {}) {

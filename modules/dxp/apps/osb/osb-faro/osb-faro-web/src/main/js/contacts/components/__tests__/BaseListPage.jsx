@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
 import BaseListPage from '../BaseListPage';
-import FaroConstants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -17,11 +16,10 @@ import {noop, times} from 'lodash';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
-
-const {userRoleNames} = FaroConstants;
+import {UserRoleNames} from 'shared/util/constants';
 
 const MEMBER_USER = new User(
-	data.mockUser(24, {roleName: userRoleNames.member})
+	data.mockUser(24, {roleName: UserRoleNames.Member})
 );
 
 const TOTAL = 5;

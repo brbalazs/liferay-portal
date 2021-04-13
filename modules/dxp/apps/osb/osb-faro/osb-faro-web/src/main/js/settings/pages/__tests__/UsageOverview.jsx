@@ -1,12 +1,10 @@
 import * as data from 'test/data';
-import FaroConstants, {SubscriptionStatuses} from 'shared/util/constants';
 import React from 'react';
 import {fromJS} from 'immutable';
 import {Project, User} from 'shared/util/records';
 import {shallow} from 'enzyme';
+import {SubscriptionStatuses, UserRoleNames} from 'shared/util/constants';
 import {UsageOverview} from '../UsageOverview';
-
-const {userRoleNames} = FaroConstants;
 
 const defaultProps = {
 	currentUser: new User(data.mockUser()),
@@ -98,7 +96,7 @@ describe('UsageOverview', () => {
 			<UsageOverview
 				{...defaultProps}
 				currentUser={
-					new User(data.mockUser(0, {roleName: userRoleNames.member}))
+					new User(data.mockUser(0, {roleName: UserRoleNames.Member}))
 				}
 				project={mockProject}
 			/>
