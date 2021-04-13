@@ -4,7 +4,6 @@ import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
 import DistributionChart from './DistributionChart';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import Tabs from './Tabs';
@@ -17,10 +16,7 @@ import {
 import {connect} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
 import {List, Map} from 'immutable';
-
-const {
-	preferencesScopes: {group}
-} = FaroConstants;
+import {PreferencesScopes} from 'shared/util/constants';
 
 interface IDistributionCardProps extends React.HTMLAttributes<HTMLElement> {
 	addAlert: (object) => Promise<any>;
@@ -225,7 +221,12 @@ class DistributionCard extends React.Component<
 export default connect(
 	(state, {distributionKey}) => {
 		const distributionTabs = state.getIn(
-			['preferences', group, 'distributionCardTabs', distributionKey],
+			[
+				'preferences',
+				PreferencesScopes.Group,
+				'distributionCardTabs',
+				distributionKey
+			],
 			Map()
 		);
 

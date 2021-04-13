@@ -1,28 +1,24 @@
-import FaroConstants from 'shared/util/constants';
 import reducer from '../preferences';
 import {DistributionTab, RemoteData} from 'shared/util/records';
 import {List, Map} from 'immutable';
 import {actionTypes as preferencesActionTypes} from 'shared/actions/preferences';
-
-const {
-	preferencesScopes: {user}
-} = FaroConstants;
+import {PreferencesScopes} from 'shared/util/constants';
 
 describe('Preferences Reducer', () => {
 	it('should get default channel id', () => {
 		const defaultChannelId = '123';
 
 		const action = {
-			meta: {scope: user},
+			meta: {scope: PreferencesScopes.User},
 			payload: {defaultChannelId},
 			type: preferencesActionTypes.FETCH_DEFAULT_CHANNEL_ID_SUCCESS
 		};
 
 		const state = reducer(new Map(), action);
 
-		expect(state.getIn([user, 'defaultChannelId', 'data'])).toEqual(
-			defaultChannelId
-		);
+		expect(
+			state.getIn([PreferencesScopes.User, 'defaultChannelId', 'data'])
+		).toEqual(defaultChannelId);
 	});
 
 	it('should update default channel id', () => {
@@ -31,7 +27,7 @@ describe('Preferences Reducer', () => {
 		const prevDefaultChannelId = '321';
 
 		const action = {
-			meta: {scope: user},
+			meta: {scope: PreferencesScopes.User},
 			payload: {defaultChannelId},
 			type: preferencesActionTypes.UPDATE_DEFAULT_CHANNEL_ID_SUCCESS
 		};
@@ -46,15 +42,19 @@ describe('Preferences Reducer', () => {
 			})
 		});
 
-		expect(prevState.getIn([user, 'defaultChannelId', 'data'])).toEqual(
-			prevDefaultChannelId
-		);
+		expect(
+			prevState.getIn([
+				PreferencesScopes.User,
+				'defaultChannelId',
+				'data'
+			])
+		).toEqual(prevDefaultChannelId);
 
 		const state = reducer(prevState, action);
 
-		expect(state.getIn([user, 'defaultChannelId', 'data'])).toEqual(
-			defaultChannelId
-		);
+		expect(
+			state.getIn([PreferencesScopes.User, 'defaultChannelId', 'data'])
+		).toEqual(defaultChannelId);
 	});
 
 	it('should update upgradeModalSeen', () => {
@@ -63,7 +63,7 @@ describe('Preferences Reducer', () => {
 		const prevUpgradeModalSeen = false;
 
 		const action = {
-			meta: {scope: user},
+			meta: {scope: PreferencesScopes.User},
 			payload: upgradeModalSeen,
 			type: preferencesActionTypes.UPDATE_UPGRADE_MODAL_SEEN_SUCCESS
 		};
@@ -78,15 +78,19 @@ describe('Preferences Reducer', () => {
 			})
 		});
 
-		expect(prevState.getIn([user, 'upgradeModalSeen', 'data'])).toEqual(
-			prevUpgradeModalSeen
-		);
+		expect(
+			prevState.getIn([
+				PreferencesScopes.User,
+				'upgradeModalSeen',
+				'data'
+			])
+		).toEqual(prevUpgradeModalSeen);
 
 		const state = reducer(prevState, action);
 
-		expect(state.getIn([user, 'upgradeModalSeen', 'data'])).toEqual(
-			upgradeModalSeen
-		);
+		expect(
+			state.getIn([PreferencesScopes.User, 'upgradeModalSeen', 'data'])
+		).toEqual(upgradeModalSeen);
 	});
 
 	it('should get distribution tabs', () => {
@@ -99,7 +103,7 @@ describe('Preferences Reducer', () => {
 		const order = ['test'];
 
 		const action = {
-			meta: {id, scope: user},
+			meta: {id, scope: PreferencesScopes.User},
 			payload: {distributionCardTabPreferencesMap, order},
 			type: preferencesActionTypes.FETCH_DISTRIBUTION_TABS_SUCCESS
 		};
@@ -107,7 +111,13 @@ describe('Preferences Reducer', () => {
 		const state = reducer(new Map(), action);
 
 		expect(
-			state.getIn([user, 'distributionCardTabs', id, 'data', 0])
+			state.getIn([
+				PreferencesScopes.User,
+				'distributionCardTabs',
+				id,
+				'data',
+				0
+			])
 		).toEqual(
 			new DistributionTab({
 				context: 'demographics',
@@ -127,7 +137,7 @@ describe('Preferences Reducer', () => {
 		const order = ['test'];
 
 		const action = {
-			meta: {id, scope: user},
+			meta: {id, scope: PreferencesScopes.User},
 			payload: {distributionCardTabPreferencesMap, order},
 			type: preferencesActionTypes.ADD_DISTRIBUTION_TABS_SUCCESS
 		};
@@ -135,7 +145,13 @@ describe('Preferences Reducer', () => {
 		const state = reducer(new Map(), action);
 
 		expect(
-			state.getIn([user, 'distributionCardTabs', id, 'data', 0])
+			state.getIn([
+				PreferencesScopes.User,
+				'distributionCardTabs',
+				id,
+				'data',
+				0
+			])
 		).toEqual(
 			new DistributionTab({
 				context: 'demographics',
@@ -149,7 +165,7 @@ describe('Preferences Reducer', () => {
 		const id = '123';
 
 		const action = {
-			meta: {id, scope: user},
+			meta: {id, scope: PreferencesScopes.User},
 			payload: {distributionCardTabPreferencesMap: {}, order: []},
 			type: preferencesActionTypes.REMOVE_DISTRIBUTION_TABS_SUCCESS
 		};
@@ -177,7 +193,12 @@ describe('Preferences Reducer', () => {
 		const state = reducer(prevState, action);
 
 		expect(
-			state.getIn([user, 'distributionCardTabs', id, 'data']).size
+			state.getIn([
+				PreferencesScopes.User,
+				'distributionCardTabs',
+				id,
+				'data'
+			]).size
 		).toBe(0);
 	});
 });

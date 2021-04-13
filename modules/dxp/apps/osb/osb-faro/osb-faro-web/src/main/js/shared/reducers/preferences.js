@@ -1,20 +1,22 @@
-import FaroConstants from 'shared/util/constants';
 import {actionTypes} from '../actions/preferences';
 import {createReducer} from 'redux-toolbox';
 import {DistributionTab} from 'shared/util/records';
 import {Map} from 'immutable';
-
-const {
-	preferencesScopes: {user}
-} = FaroConstants;
+import {PreferencesScopes} from 'shared/util/constants';
 
 /* Distribution Tabs */
-const handleDistributionTabFailure = (state, {meta: {id, scope = user}}) =>
+const handleDistributionTabFailure = (
+	state,
+	{meta: {id, scope = PreferencesScopes.User}}
+) =>
 	state.mergeIn([scope, 'distributionCardTabs', id], {
 		error: true,
 		loading: false
 	});
-const handleDistributionTabRequest = (state, {meta: {id, scope = user}}) =>
+const handleDistributionTabRequest = (
+	state,
+	{meta: {id, scope = PreferencesScopes.User}}
+) =>
 	state.mergeIn([scope, 'distributionCardTabs', id], {
 		error: false,
 		loading: true
@@ -22,7 +24,7 @@ const handleDistributionTabRequest = (state, {meta: {id, scope = user}}) =>
 const handleDistributionTabSuccess = (
 	state,
 	{
-		meta: {id, scope = user},
+		meta: {id, scope = PreferencesScopes.User},
 		payload: {distributionCardTabPreferencesMap, order}
 	}
 ) =>
@@ -37,32 +39,40 @@ const handleDistributionTabSuccess = (
 /* Default Channel Id */
 const handleDefaultChannelIdSuccess = (
 	state,
-	{meta: {scope = user}, payload}
+	{meta: {scope = PreferencesScopes.User}, payload}
 ) =>
 	state.mergeIn([scope, 'defaultChannelId'], {
 		data: payload.defaultChannelId,
 		error: false,
 		loading: false
 	});
-const handleDefaultChannelIdRequest = (state, {meta: {scope = user}}) =>
-	state.mergeIn([scope, 'defaultChannelId'], {error: false, loading: true});
-const handleDefaultChannelIdFailure = (state, {meta: {scope = user}}) =>
-	state.mergeIn([scope, 'defaultChannelId'], {error: true, loading: false});
+const handleDefaultChannelIdRequest = (
+	state,
+	{meta: {scope = PreferencesScopes.User}}
+) => state.mergeIn([scope, 'defaultChannelId'], {error: false, loading: true});
+const handleDefaultChannelIdFailure = (
+	state,
+	{meta: {scope = PreferencesScopes.User}}
+) => state.mergeIn([scope, 'defaultChannelId'], {error: true, loading: false});
 
 /* Upgrade Modal Seen */
 const handleUpgradeModalSeenSuccess = (
 	state,
-	{meta: {scope = user}, payload}
+	{meta: {scope = PreferencesScopes.User}, payload}
 ) =>
 	state.mergeIn([scope, 'upgradeModalSeen'], {
 		data: payload,
 		error: false,
 		loading: false
 	});
-const handleUpgradeModalSeenRequest = (state, {meta: {scope = user}}) =>
-	state.mergeIn([scope, 'upgradeModalSeen'], {error: false, loading: true});
-const handleUpgradeModalSeenFailure = (state, {meta: {scope = user}}) =>
-	state.mergeIn([scope, 'upgradeModalSeen'], {error: true, loading: false});
+const handleUpgradeModalSeenRequest = (
+	state,
+	{meta: {scope = PreferencesScopes.User}}
+) => state.mergeIn([scope, 'upgradeModalSeen'], {error: false, loading: true});
+const handleUpgradeModalSeenFailure = (
+	state,
+	{meta: {scope = PreferencesScopes.User}}
+) => state.mergeIn([scope, 'upgradeModalSeen'], {error: true, loading: false});
 
 const actionHandlers = {
 	[actionTypes.ADD_DISTRIBUTION_TABS_SUCCESS]: handleDistributionTabSuccess,

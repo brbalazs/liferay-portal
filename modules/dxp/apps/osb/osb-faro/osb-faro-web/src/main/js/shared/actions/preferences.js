@@ -1,11 +1,7 @@
 import * as API from 'shared/api';
-import FaroConstants from 'shared/util/constants';
 import {CALL_API} from '../middleware/api';
 import {createActionTypes} from 'redux-toolbox';
-
-const {
-	preferencesScopes: {group, user}
-} = FaroConstants;
+import {PreferencesScopes} from 'shared/util/constants';
 
 export const actionTypes = {
 	...createActionTypes('add', 'distribution_tabs'),
@@ -33,7 +29,7 @@ export function addDistributionTab({
 					distributionTab,
 					distributionTabId,
 					groupId,
-					scope: group,
+					scope: PreferencesScopes.Group,
 					segmentId: id
 				},
 				requestFn: API.preferences.addDistributionTab,
@@ -44,7 +40,7 @@ export function addDistributionTab({
 				]
 			},
 			id: distributionKey,
-			scope: group
+			scope: PreferencesScopes.Group
 		},
 		type: 'NO_OP'
 	};
@@ -54,7 +50,7 @@ export function fetchDefaultChannelId(groupId = 0) {
 	return {
 		meta: {
 			[CALL_API]: {
-				data: {groupId, scope: user},
+				data: {groupId, scope: PreferencesScopes.User},
 				requestFn: API.preferences.fetchDefaultChannelId,
 				types: [
 					actionTypes.FETCH_DEFAULT_CHANNEL_ID_REQUEST,
@@ -62,7 +58,7 @@ export function fetchDefaultChannelId(groupId = 0) {
 					actionTypes.FETCH_DEFAULT_CHANNEL_ID_FAILURE
 				]
 			},
-			scope: user
+			scope: PreferencesScopes.User
 		},
 		type: 'NO_OP'
 	};
@@ -74,7 +70,7 @@ export function fetchDistributionTabs({distributionKey, groupId, id}) {
 			[CALL_API]: {
 				data: {
 					groupId,
-					scope: group,
+					scope: PreferencesScopes.Group,
 					segmentId: id
 				},
 				requestFn: API.preferences.fetchDistributionTabs,
@@ -85,7 +81,7 @@ export function fetchDistributionTabs({distributionKey, groupId, id}) {
 				]
 			},
 			id: distributionKey,
-			scope: group
+			scope: PreferencesScopes.Group
 		},
 		type: 'NO_OP'
 	};
@@ -95,7 +91,7 @@ export function fetchUpgradeModalSeen(groupId) {
 	return {
 		meta: {
 			[CALL_API]: {
-				data: {groupId, scope: user},
+				data: {groupId, scope: PreferencesScopes.User},
 				requestFn: API.preferences.fetchUpgradeModalSeen,
 				types: [
 					actionTypes.FETCH_UPGRADE_MODAL_SEEN_REQUEST,
@@ -103,7 +99,7 @@ export function fetchUpgradeModalSeen(groupId) {
 					actionTypes.FETCH_UPGRADE_MODAL_SEEN_FAILURE
 				]
 			},
-			scope: user
+			scope: PreferencesScopes.User
 		},
 		type: 'NO_OP'
 	};
@@ -121,7 +117,7 @@ export function removeDistributionTab({
 				data: {
 					distributionTabId,
 					groupId,
-					scope: group,
+					scope: PreferencesScopes.Group,
 					segmentId: id
 				},
 				requestFn: API.preferences.removeDistributionTab,
@@ -132,7 +128,7 @@ export function removeDistributionTab({
 				]
 			},
 			id: distributionKey,
-			scope: group
+			scope: PreferencesScopes.Group
 		},
 		type: 'NO_OP'
 	};
@@ -142,7 +138,11 @@ export function updateDefaultChannelId({defaultChannelId, groupId}) {
 	return {
 		meta: {
 			[CALL_API]: {
-				data: {defaultChannelId, groupId, scope: user},
+				data: {
+					defaultChannelId,
+					groupId,
+					scope: PreferencesScopes.User
+				},
 				requestFn: API.preferences.updateDefaultChannelId,
 				types: [
 					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_REQUEST,
@@ -150,7 +150,7 @@ export function updateDefaultChannelId({defaultChannelId, groupId}) {
 					actionTypes.UPDATE_DEFAULT_CHANNEL_ID_FAILURE
 				]
 			},
-			scope: user
+			scope: PreferencesScopes.User
 		},
 		type: 'NO_OP'
 	};
@@ -160,7 +160,11 @@ export function updateUpgradeModalSeen({groupId, upgradeModalSeen}) {
 	return {
 		meta: {
 			[CALL_API]: {
-				data: {groupId, scope: user, upgradeModalSeen},
+				data: {
+					groupId,
+					scope: PreferencesScopes.User,
+					upgradeModalSeen
+				},
 				requestFn: API.preferences.updateUpgradeModalSeen,
 				types: [
 					actionTypes.UPDATE_UPGRADE_MODAL_SEEN_REQUEST,
@@ -168,7 +172,7 @@ export function updateUpgradeModalSeen({groupId, upgradeModalSeen}) {
 					actionTypes.UPDATE_UPGRADE_MODAL_SEEN_FAILURE
 				]
 			},
-			scope: user
+			scope: PreferencesScopes.User
 		},
 		type: 'NO_OP'
 	};

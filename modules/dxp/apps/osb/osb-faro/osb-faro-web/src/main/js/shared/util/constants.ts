@@ -305,6 +305,11 @@ export enum FieldTypes {
 	String = 'Text'
 }
 
+export enum PreferencesScopes {
+	User = 'user',
+	Group = 'group'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

@@ -9,7 +9,8 @@ import {
 	EntityTypes,
 	FieldContexts,
 	FieldOwnerTypes,
-	FieldTypes
+	FieldTypes,
+	PreferencesScopes
 } from 'shared/util/constants';
 export {};
 
@@ -43,7 +44,7 @@ declare global {
 			};
 			pathThemeImages: string;
 			portletNamespace: string;
-			preferencesScopes: {[key: string]: string};
+			preferencesScopes: {[key: string]: PreferencesScopes};
 			projectLocations: {[key: string]: string};
 			segmentTypes: {[key: string]: string};
 			timeIntervals: {[key: string]: string};
