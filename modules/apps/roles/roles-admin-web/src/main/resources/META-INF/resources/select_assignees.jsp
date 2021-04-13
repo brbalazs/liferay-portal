@@ -94,7 +94,7 @@ PortletURL portletURL = editRoleAssignmentsManagementToolbarDisplayContext.getPo
 	searchContainer.on(
 		'rowToggled',
 		function(event) {
-			var nodes = event.elements.currentPageSelectedElements.getDOMNodes();
+			var nodes = event.elements.allSelectedElements.getDOMNodes();
 
 			var <portlet:namespace />assigneeIds = nodes.map(
 				function(node) {
