@@ -4,9 +4,9 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	LAST_24_HOURS,
 	PROPERTY_TYPES,
-	RELATIONAL_OPERATORS
+	RELATIONAL_OPERATORS,
+	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property, Segment} from 'shared/util/records';
@@ -47,7 +47,7 @@ describe('BehaviorDisplay', () => {
 					Map({
 						operatorName: RELATIONAL_OPERATORS.GT,
 						propertyName: 'day',
-						value: LAST_24_HOURS
+						value: TimeSpans.Last24Hours
 					})
 				])
 			}),

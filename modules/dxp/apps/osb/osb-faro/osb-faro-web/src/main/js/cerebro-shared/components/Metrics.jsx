@@ -30,8 +30,8 @@ import {find, get, last} from 'lodash';
 import {formatXAxisDate, getMetricFormatter} from 'shared/util/charts';
 import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
-import {LAST_24_HOURS, YESTERDAY} from 'shared/util/constants';
 import {Map} from 'immutable';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {toInt} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-metrics';
@@ -49,7 +49,10 @@ export const METRIC_TOOLTIP_LABEL_MAP = {
 export const tooltipLabelTitle = rangeKey => {
 	let label;
 
-	if (rangeKey === LAST_24_HOURS || rangeKey === YESTERDAY) {
+	if (
+		rangeKey === RangeKeyTimeRanges.Last24Hours ||
+		rangeKey === RangeKeyTimeRanges.Yesterday
+	) {
 		label = Liferay.Language.get('time');
 	} else {
 		label = Liferay.Language.get('date');

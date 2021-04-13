@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map, Set} from 'immutable';
 import {Modal} from './Modal';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 export {Alert} from './Alert';
 export {Modal} from './Modal';
@@ -72,13 +73,13 @@ export interface IPaginationUnsorted
 
 export type RangeSelectors = {
 	rangeEnd: string;
-	rangeKey: string;
+	rangeKey: RangeKeyTimeRanges;
 	rangeStart: string;
 };
 
 export type SafeRangeSelectors = {
 	rangeEnd: string;
-	rangeKey: number;
+	rangeKey: number | null;
 	rangeStart: string;
 };
 

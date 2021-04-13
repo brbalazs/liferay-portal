@@ -26,7 +26,7 @@ import {
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
-import {LAST_30_DAYS} from 'shared/util/constants';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 const METRIC_TYPENAME_MAP = {
 	histogram: 'HistogramMetric',
@@ -359,7 +359,9 @@ export function mockIndividualMetricsReq() {
 			variables: {
 				channelId: '123123',
 				interval: INTERVAL_KEY_MAP.week,
-				...getSafeRangeSelectors({rangeKey: LAST_30_DAYS})
+				...getSafeRangeSelectors({
+					rangeKey: RangeKeyTimeRanges.Last30Days
+				})
 			}
 		},
 		result: {
@@ -827,7 +829,9 @@ export function mockTouchpointsReq(items, mockVariables = {}) {
 				terms: 'test',
 				title: '',
 				touchpoint: '',
-				...getSafeRangeSelectors({rangeKey: LAST_30_DAYS}),
+				...getSafeRangeSelectors({
+					rangeKey: RangeKeyTimeRanges.Last30Days
+				}),
 				...mockVariables
 			}
 		},

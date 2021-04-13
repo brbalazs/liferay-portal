@@ -7,11 +7,11 @@ import {Criterion} from '../../utils/types';
 import {
 	EVER,
 	FUNCTIONAL_OPERATORS,
-	LAST_24_HOURS,
 	RELATIONAL_OPERATORS,
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS,
-	TIME_PERIOD_OPTIONS
+	TIME_PERIOD_OPTIONS,
+	TimeSpans
 } from '../../utils/constants';
 import {Map} from 'immutable';
 
@@ -62,7 +62,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					propertyName,
 					touched: false,
 					valid: true,
-					value: LAST_24_HOURS
+					value: TimeSpans.Last24Hours
 				});
 				break;
 			case BETWEEN:

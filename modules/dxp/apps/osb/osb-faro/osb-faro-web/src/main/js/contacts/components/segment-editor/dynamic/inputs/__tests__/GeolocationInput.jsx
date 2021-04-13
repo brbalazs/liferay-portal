@@ -3,8 +3,8 @@ import GeolocationInput from '../GeolocationInput';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from '../../utils/custom-inputs';
-import {LAST_7_DAYS, RELATIONAL_OPERATORS} from '../../utils/constants';
 import {Property} from 'shared/util/records';
+import {RELATIONAL_OPERATORS, TimeSpans} from '../../utils/constants';
 
 jest.unmock('react-dom');
 
@@ -20,7 +20,7 @@ const mockValue = createCustomValueMap([
 			{
 				operatorName: RELATIONAL_OPERATORS.EQ,
 				propertyName: 'completeDate',
-				value: LAST_7_DAYS
+				value: TimeSpans.Last7Days
 			},
 			{
 				operatorName: RELATIONAL_OPERATORS.EQ,
@@ -48,7 +48,7 @@ const emptyMockValue = createCustomValueMap([
 			{
 				operatorName: RELATIONAL_OPERATORS.EQ,
 				propertyName: 'completeDate',
-				value: LAST_7_DAYS
+				value: TimeSpans.Last7Days
 			}
 		]
 	}
@@ -119,7 +119,7 @@ describe('GeolocationInput', () => {
 							{
 								operatorName: RELATIONAL_OPERATORS.EQ,
 								propertyName: 'completeDate',
-								value: LAST_7_DAYS
+								value: TimeSpans.Last7Days
 							},
 							{
 								operatorName: RELATIONAL_OPERATORS.EQ,
@@ -156,7 +156,7 @@ describe('GeolocationInput', () => {
 							{
 								operatorName: RELATIONAL_OPERATORS.EQ,
 								propertyName: 'completeDate',
-								value: LAST_7_DAYS
+								value: TimeSpans.Last7Days
 							},
 							{
 								operatorName: RELATIONAL_OPERATORS.EQ,

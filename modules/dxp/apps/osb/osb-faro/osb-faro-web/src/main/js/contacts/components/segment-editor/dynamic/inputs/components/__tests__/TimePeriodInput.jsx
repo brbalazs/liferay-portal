@@ -1,7 +1,7 @@
 import React from 'react';
 import TimePeriodInput from '../TimePeriodInput';
 import {cleanup, render} from '@testing-library/react';
-import {LAST_7_DAYS} from '../../../utils/constants';
+import {TimeSpans} from '../../../utils/constants';
 
 jest.unmock('react-dom');
 
@@ -10,7 +10,7 @@ describe('TimePeriodInput', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<TimePeriodInput onChange={jest.fn()} value={LAST_7_DAYS} />
+			<TimePeriodInput onChange={jest.fn()} value={TimeSpans.Last7Days} />
 		);
 
 		expect(container).toMatchSnapshot();

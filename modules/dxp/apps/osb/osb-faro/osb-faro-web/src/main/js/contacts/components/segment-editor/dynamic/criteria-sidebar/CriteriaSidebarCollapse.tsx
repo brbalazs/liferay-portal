@@ -2,9 +2,9 @@ import CriteriaSidebarItem from './CriteriaSidebarItem';
 import React from 'react';
 import {
 	ACTIVITY_KEY,
-	LAST_24_HOURS,
 	PROPERTY_TYPES,
-	RELATIONAL_OPERATORS
+	RELATIONAL_OPERATORS,
+	TimeSpans
 } from '../utils/constants';
 import {createCustomValueMap} from '../utils/custom-inputs';
 import {jsDatetoYYYYMMDD} from '../utils/utils';
@@ -87,7 +87,7 @@ const getDefaultValue = (property: Property): any => {
 						{
 							operatorName: RELATIONAL_OPERATORS.GT,
 							propertyName: 'day',
-							value: LAST_24_HOURS
+							value: TimeSpans.Last24Hours
 						}
 					]
 				},
@@ -122,7 +122,7 @@ const getDefaultValue = (property: Property): any => {
 						{
 							operatorName: RELATIONAL_OPERATORS.GT,
 							propertyName: 'completeDate',
-							value: LAST_24_HOURS
+							value: TimeSpans.Last24Hours
 						}
 					]
 				}

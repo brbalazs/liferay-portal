@@ -2,13 +2,8 @@ import Metrics, {tooltipLabelTitle} from '../Metrics';
 import React from 'react';
 import {format} from 'd3';
 import {getDate} from 'shared/util/date';
-import {
-	LAST_24_HOURS,
-	LAST_30_DAYS,
-	LAST_90_DAYS,
-	YESTERDAY
-} from 'shared/util/constants';
 import {Map} from 'immutable';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
@@ -211,7 +206,10 @@ const items = [
 describe('Metrics', () => {
 	it('should render', () => {
 		const {container} = render(
-			<Metrics items={items} rangeSelectors={{rangeKey: LAST_24_HOURS}} />
+			<Metrics
+				items={items}
+				rangeSelectors={{rangeKey: RangeKeyTimeRanges.Last24Hours}}
+			/>
 		);
 		expect(container).toMatchSnapshot();
 	});
@@ -219,18 +217,24 @@ describe('Metrics', () => {
 
 describe('tooltipLabelTitle', () => {
 	it('should return tooltip label for last 24 days', () => {
-		expect(tooltipLabelTitle(LAST_24_HOURS)).toEqual('Time');
+		expect(tooltipLabelTitle(RangeKeyTimeRanges.Last24Hours)).toEqual(
+			'Time'
+		);
 	});
 
 	it('should return tooltip label for yesterday', () => {
-		expect(tooltipLabelTitle(YESTERDAY)).toEqual('Time');
+		expect(tooltipLabelTitle(RangeKeyTimeRanges.Yesterday)).toEqual('Time');
 	});
 
 	it('should return tooltip label for last 30 days', () => {
-		expect(tooltipLabelTitle(LAST_30_DAYS)).toEqual('Date');
+		expect(tooltipLabelTitle(RangeKeyTimeRanges.Last30Days)).toEqual(
+			'Date'
+		);
 	});
 
 	it('should return tooltip label for last 90 days', () => {
-		expect(tooltipLabelTitle(LAST_90_DAYS)).toEqual('Date');
+		expect(tooltipLabelTitle(RangeKeyTimeRanges.Last90Days)).toEqual(
+			'Date'
+		);
 	});
 });

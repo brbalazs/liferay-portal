@@ -18,9 +18,7 @@ import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GDPR_REQUEST_STATUSES,
 	GDPR_REQUEST_TYPES,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS
+	RangeKeyTimeRanges
 } from 'shared/util/constants';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
@@ -109,15 +107,15 @@ export const FILTER_BY_OPTIONS = [
 		values: [
 			{
 				label: Liferay.Language.get('last-seven-days'),
-				value: LAST_7_DAYS
+				value: RangeKeyTimeRanges.Last7Days
 			},
 			{
 				label: Liferay.Language.get('last-30-days'),
-				value: LAST_30_DAYS
+				value: RangeKeyTimeRanges.Last30Days
 			},
 			{
 				label: Liferay.Language.get('last-90-days'),
-				value: LAST_90_DAYS
+				value: RangeKeyTimeRanges.Last90Days
 			}
 		]
 	}

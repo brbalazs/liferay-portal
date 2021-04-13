@@ -3,7 +3,7 @@ import ActiveIndividualsChart from '../ActiveIndividualsChart';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {createDateKeysIMap} from 'shared/util/intervals';
-import {LAST_30_DAYS} from 'shared/util/constants';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
@@ -30,7 +30,7 @@ describe('ActiveIndividualsChart', () => {
 			<ActiveIndividualsChart
 				data={chartData}
 				dateKeysIMap={createDateKeysIMap(
-					LAST_30_DAYS,
+					RangeKeyTimeRanges.Last30Days,
 					chartData,
 					'intervalInitDate'
 				)}

@@ -1,9 +1,5 @@
 import {getDate} from 'shared/util/date';
-import {
-	LAST_24_HOURS,
-	TIME_RANGE_LABELS,
-	YESTERDAY
-} from 'shared/util/constants';
+import {RangeKeyTimeRanges, TIME_RANGE_LABELS} from 'shared/util/constants';
 import {safeResultToProps} from 'shared/util/mappers';
 import {utcFormat} from 'd3';
 
@@ -15,7 +11,10 @@ import {utcFormat} from 'd3';
 const formatterDate = (date, rangeKey) => {
 	let formatter;
 
-	if (`${rangeKey}` === LAST_24_HOURS || `${rangeKey}` === YESTERDAY) {
+	if (
+		`${rangeKey}` === RangeKeyTimeRanges.Last24Hours ||
+		`${rangeKey}` === RangeKeyTimeRanges.Yesterday
+	) {
 		formatter = utcFormat('%d %b, %I %p');
 	} else {
 		formatter = utcFormat('%d %b');

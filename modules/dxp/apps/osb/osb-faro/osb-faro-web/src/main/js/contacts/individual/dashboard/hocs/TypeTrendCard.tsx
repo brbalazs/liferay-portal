@@ -5,11 +5,11 @@ import TypeTrend from '../components/TypeTrend';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
-import {LAST_30_DAYS} from 'shared/util/constants';
 import {
 	mapPropsToOptions,
 	mapResultToProps
 } from '../hocs/mappers/individual-metrics-query';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {withError, withLoading} from 'shared/hoc';
 
 const TypeTrendWithData = compose<any>(
@@ -27,7 +27,7 @@ const TypeTrendCard: React.FC<{channelId: string}> = ({channelId}) => (
 			<TypeTrendWithData
 				channelId={channelId}
 				interval={INTERVAL_KEY_MAP.week}
-				rangeSelectors={{rangeKey: LAST_30_DAYS}}
+				rangeSelectors={{rangeKey: RangeKeyTimeRanges.Last30Days}}
 			/>
 		</Card.Body>
 	</Card>

@@ -3,8 +3,8 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
 	FUNCTIONAL_OPERATORS,
-	LAST_90_DAYS,
-	RELATIONAL_OPERATORS
+	RELATIONAL_OPERATORS,
+	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 jest.unmock('react-dom');
@@ -64,7 +64,7 @@ describe('DateFilterConjunctionDisplay', () => {
 					propertyName: 'date',
 					touched: false,
 					valid: false,
-					value: LAST_90_DAYS
+					value: TimeSpans.Last90Days
 				}}
 			/>
 		);

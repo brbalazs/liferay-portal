@@ -6,21 +6,23 @@ import getCN from 'classnames';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {FORMAT} from 'shared/util/date';
-import {
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS,
-	YESTERDAY
-} from 'shared/util/constants';
 import {MomentDateRange} from 'shared/components/DateRangeInput';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
+
+const {
+	Last7Days,
+	Last24Hours,
+	Last28Days,
+	Last30Days,
+	Last90Days,
+	Yesterday
+} = RangeKeyTimeRanges;
 
 type Item = {
 	description?: string;
 	label: string;
-	value: string;
+	value: RangeKeyTimeRanges;
 };
 
 interface DropdownRangeKeyIProps {
@@ -40,7 +42,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	onChange,
 	rangeSelectors: {rangeEnd, rangeKey, rangeStart} = {
 		rangeEnd: '',
-		rangeKey: LAST_30_DAYS,
+		rangeKey: Last30Days,
 		rangeStart: ''
 	}
 }) => {
@@ -58,7 +60,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 			const dateRangeItem = {
 				label: `${start.format('ll')} - ${end.format('ll')}`,
-				value: 'CUSTOM'
+				value: RangeKeyTimeRanges.CustomRange
 			};
 
 			onChange({
@@ -76,13 +78,13 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		if (legacy) {
 			return items.filter(({value}) =>
 				[
-					LAST_24_HOURS,
-					YESTERDAY,
-					LAST_7_DAYS,
-					LAST_28_DAYS,
-					LAST_30_DAYS,
-					LAST_90_DAYS
-				].includes(value as string)
+					Last24Hours,
+					Yesterday,
+					Last7Days,
+					Last28Days,
+					Last30Days,
+					Last90Days
+				].includes(value as RangeKeyTimeRanges)
 			);
 		} else if (seeMore) {
 			return items;
@@ -91,12 +93,9 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		return items.filter(
 			({value}) =>
 				value === rangeKey ||
-				[
-					LAST_24_HOURS,
-					LAST_7_DAYS,
-					LAST_30_DAYS,
-					LAST_90_DAYS
-				].includes(value as string)
+				[Last24Hours, Last7Days, Last30Days, Last90Days].includes(
+					value as RangeKeyTimeRanges
+				)
 		);
 	};
 

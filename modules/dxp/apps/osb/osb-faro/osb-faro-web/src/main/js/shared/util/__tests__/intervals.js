@@ -18,20 +18,10 @@ import {
 	getWeekIntervalsMap,
 	handleDayInterval
 } from '../intervals';
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	YESTERDAY
-} from 'shared/util/constants';
 import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 const currentDate = moment.utc(getDate()).valueOf();
 const mockDate = moment.utc('2020-06-12').valueOf(); // Friday
@@ -220,14 +210,18 @@ describe('get functions to handle custom range key', () => {
 describe('getIntervalHandle functions', () => {
 	it('should return undefined if a interval or rangeKey is not mapped', () => {
 		let handleFn = getIntervalHandle(
-			LAST_30_DAYS,
+			RangeKeyTimeRanges.Last30Days,
 			[],
 			INTERVAL_KEY_MAP.month
 		);
 
 		expect(handleFn).toEqual(undefined);
 
-		handleFn = getIntervalHandle(LAST_7_DAYS, [], INTERVAL_KEY_MAP.day);
+		handleFn = getIntervalHandle(
+			RangeKeyTimeRanges.Last7Days,
+			[],
+			INTERVAL_KEY_MAP.day
+		);
 
 		expect(handleFn).toEqual(undefined);
 	});
@@ -238,32 +232,34 @@ describe('getIntervalHandle functions', () => {
 		expect(intervalMaps).toHaveProperty(INTERVAL_KEY_MAP.day);
 		expect(intervalMaps).toHaveProperty(INTERVAL_KEY_MAP.week);
 
-		expect(intervalMaps[INTERVAL_KEY_MAP.day]).toHaveProperty(CUSTOM_RANGE);
+		expect(intervalMaps[INTERVAL_KEY_MAP.day]).toHaveProperty(
+			RangeKeyTimeRanges.CustomRange
+		);
 		expect(intervalMaps[INTERVAL_KEY_MAP.week]).toHaveProperty(
-			CUSTOM_RANGE
+			RangeKeyTimeRanges.CustomRange
 		);
 	});
 
 	it('should return a map object with rangeKeys which have handle functions in day interval', () => {
 		const dayIntervalMap = getDayIntervalsMap(30);
 
-		expect(dayIntervalMap).toHaveProperty(CUSTOM_RANGE);
-		expect(dayIntervalMap).toHaveProperty(LAST_180_DAYS);
-		expect(dayIntervalMap).toHaveProperty(LAST_24_HOURS);
-		expect(dayIntervalMap).toHaveProperty(LAST_28_DAYS);
-		expect(dayIntervalMap).toHaveProperty(LAST_30_DAYS);
-		expect(dayIntervalMap).toHaveProperty(LAST_90_DAYS);
-		expect(dayIntervalMap).toHaveProperty(LAST_YEAR);
-		expect(dayIntervalMap).toHaveProperty(YESTERDAY);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.CustomRange);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last180Days);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last24Hours);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last28Days);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last30Days);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last90Days);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.LastYear);
+		expect(dayIntervalMap).toHaveProperty(RangeKeyTimeRanges.Yesterday);
 	});
 
 	it('should return a map object with rangeKeys which have handle functions in week interval', () => {
 		const weekIntervalMap = getWeekIntervalsMap(30);
 
-		expect(weekIntervalMap).toHaveProperty(CUSTOM_RANGE);
-		expect(weekIntervalMap).toHaveProperty(LAST_180_DAYS);
-		expect(weekIntervalMap).toHaveProperty(LAST_90_DAYS);
-		expect(weekIntervalMap).toHaveProperty(LAST_YEAR);
+		expect(weekIntervalMap).toHaveProperty(RangeKeyTimeRanges.CustomRange);
+		expect(weekIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last180Days);
+		expect(weekIntervalMap).toHaveProperty(RangeKeyTimeRanges.Last90Days);
+		expect(weekIntervalMap).toHaveProperty(RangeKeyTimeRanges.LastYear);
 	});
 });
 

@@ -1,3 +1,5 @@
+import {TimeSpans} from 'shared/util/constants';
+
 /**
  * Constants for static property groups.
  */
@@ -511,36 +513,32 @@ export const TIME_CONJUNCTION_OPTIONS = [
 ];
 
 export const ACTIVITY_KEY = 'activityKey';
-export const LAST_24_HOURS = 'last24Hours';
-export const LAST_7_DAYS = 'last7Days';
-export const LAST_28_DAYS = 'last28Days';
-export const LAST_30_DAYS = 'last30Days';
-export const LAST_90_DAYS = 'last90Days';
-export const YESTERDAY = 'yesterday';
 
 export const TIME_PERIOD_OPTIONS = [
 	{
 		label: Liferay.Language.get('last-24-hours'),
-		value: LAST_24_HOURS
+		value: TimeSpans.Last24Hours
 	},
 	{
 		label: Liferay.Language.get('yesterday'),
-		value: YESTERDAY
+		value: TimeSpans.Yesterday
 	},
 	{
 		label: Liferay.Language.get('last-seven-days'),
-		value: LAST_7_DAYS
+		value: TimeSpans.Last7Days
 	},
 	{
 		label: Liferay.Language.get('last-28-days'),
-		value: LAST_28_DAYS
+		value: TimeSpans.Last28Days
 	},
 	{
 		label: Liferay.Language.get('last-30-days'),
-		value: LAST_30_DAYS
+		value: TimeSpans.Last30Days
 	},
 	{
 		label: Liferay.Language.get('last-90-days'),
-		value: LAST_90_DAYS
+		value: TimeSpans.Last90Days
 	}
 ];
+
+export {TimeSpans};

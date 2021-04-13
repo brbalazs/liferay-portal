@@ -1,12 +1,5 @@
 import * as time from '../time';
-import {
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS,
-	YESTERDAY
-} from 'shared/util/constants';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 describe('time', () => {
 	describe('formatDuration', () => {
@@ -39,25 +32,41 @@ describe('time', () => {
 
 	describe('isHourlyRangeKey', () => {
 		it('should return true if the rangeKey is hourly', () => {
-			expect(time.isHourlyRangeKey(YESTERDAY)).toBe(true);
-			expect(time.isHourlyRangeKey(LAST_24_HOURS)).toBe(true);
+			expect(time.isHourlyRangeKey(RangeKeyTimeRanges.Yesterday)).toBe(
+				true
+			);
+			expect(time.isHourlyRangeKey(RangeKeyTimeRanges.Last24Hours)).toBe(
+				true
+			);
 		});
 
 		it('should return false if the rangeKey is not hourly', () => {
-			expect(time.isHourlyRangeKey(LAST_30_DAYS)).toBe(false);
+			expect(time.isHourlyRangeKey(RangeKeyTimeRanges.Last30Days)).toBe(
+				false
+			);
 		});
 	});
 
 	describe('isMonthlyRangeKey', () => {
 		it('should return true if the rangeKey is monthly', () => {
-			expect(time.isMonthlyRangeKey(LAST_28_DAYS)).toBe(true);
-			expect(time.isMonthlyRangeKey(LAST_30_DAYS)).toBe(true);
-			expect(time.isMonthlyRangeKey(LAST_90_DAYS)).toBe(true);
+			expect(time.isMonthlyRangeKey(RangeKeyTimeRanges.Last28Days)).toBe(
+				true
+			);
+			expect(time.isMonthlyRangeKey(RangeKeyTimeRanges.Last30Days)).toBe(
+				true
+			);
+			expect(time.isMonthlyRangeKey(RangeKeyTimeRanges.Last90Days)).toBe(
+				true
+			);
 		});
 
 		it('should return false if the rangeKey is not monthly', () => {
-			expect(time.isMonthlyRangeKey(LAST_24_HOURS)).toBe(false);
-			expect(time.isMonthlyRangeKey(LAST_7_DAYS)).toBe(false);
+			expect(time.isMonthlyRangeKey(RangeKeyTimeRanges.Last24Hours)).toBe(
+				false
+			);
+			expect(time.isMonthlyRangeKey(RangeKeyTimeRanges.Last7Days)).toBe(
+				false
+			);
 		});
 	});
 

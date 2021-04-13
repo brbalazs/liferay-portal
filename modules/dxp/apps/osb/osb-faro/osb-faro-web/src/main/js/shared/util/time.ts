@@ -1,15 +1,5 @@
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	TimeIntervals,
-	YESTERDAY
-} from 'shared/util/constants';
 import {Interval} from 'shared/types';
+import {RangeKeyTimeRanges, TimeIntervals} from 'shared/util/constants';
 
 export const INTERVAL_KEY_MAP: {[s: string]: Interval} = {
 	[TimeIntervals.Day]: 'D',
@@ -110,18 +100,21 @@ export function getUnitLabel(unit: number): string {
 	return UNIT_LABELS[unit];
 }
 
-export function isHourlyRangeKey(rangeKey: string): boolean {
-	return [LAST_24_HOURS, YESTERDAY].includes(rangeKey);
+export function isHourlyRangeKey(rangeKey: RangeKeyTimeRanges): boolean {
+	return [
+		RangeKeyTimeRanges.Last24Hours,
+		RangeKeyTimeRanges.Yesterday
+	].includes(rangeKey);
 }
 
-export function isMonthlyRangeKey(rangeKey: string): boolean {
+export function isMonthlyRangeKey(rangeKey: RangeKeyTimeRanges): boolean {
 	return [
-		CUSTOM_RANGE,
-		LAST_28_DAYS,
-		LAST_30_DAYS,
-		LAST_90_DAYS,
-		LAST_180_DAYS,
-		LAST_YEAR
+		RangeKeyTimeRanges.CustomRange,
+		RangeKeyTimeRanges.Last28Days,
+		RangeKeyTimeRanges.Last30Days,
+		RangeKeyTimeRanges.Last90Days,
+		RangeKeyTimeRanges.Last180Days,
+		RangeKeyTimeRanges.LastYear
 	].includes(rangeKey);
 }
 

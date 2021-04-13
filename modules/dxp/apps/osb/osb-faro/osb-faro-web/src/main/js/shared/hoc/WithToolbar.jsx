@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
-import FaroConstants, {LAST_30_DAYS} from 'shared/util/constants';
+import FaroConstants, {RangeKeyTimeRanges} from 'shared/util/constants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Toolbar from 'shared/components/toolbar';
@@ -24,7 +24,7 @@ export default configs => WrappedComponent => {
 			query: paginationDefaults.query,
 			rangeSelectors: {
 				rangeEnd: '',
-				rangeKey: LAST_30_DAYS,
+				rangeKey: RangeKeyTimeRanges.Last30Days,
 				rangeStart: ''
 			},
 			toolbarProps: {}

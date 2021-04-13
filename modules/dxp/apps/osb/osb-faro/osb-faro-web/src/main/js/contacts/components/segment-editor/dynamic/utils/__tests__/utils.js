@@ -6,10 +6,10 @@ import {
 	CUSTOM_FUNCTION_OPERATORS,
 	isKnown,
 	isUnknown,
-	LAST_24_HOURS,
 	PROPERTY_TYPES,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS,
+	TimeSpans
 } from '../constants';
 import {fromJS, Map} from 'immutable';
 import {Property} from 'shared/util/records';
@@ -205,7 +205,7 @@ describe('utils', () => {
 							{
 								operatorName: GT,
 								propertyName: 'day',
-								value: LAST_24_HOURS
+								value: TimeSpans.Last24Hours
 							}
 						]
 					},
@@ -277,7 +277,7 @@ describe('utils', () => {
 							{
 								operatorName: GT,
 								propertyName: 'completeDate',
-								value: LAST_24_HOURS
+								value: TimeSpans.Last24Hours
 							}
 						]
 					}

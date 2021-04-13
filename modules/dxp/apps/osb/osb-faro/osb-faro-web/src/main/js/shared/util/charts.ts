@@ -1,22 +1,12 @@
 import * as d3 from 'd3';
 import moment from 'moment';
 import {BAR_COLORS} from 'shared/util/recharts';
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	YESTERDAY
-} from 'shared/util/constants';
 import {getIntervalHandle} from './intervals';
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
 import {isNumber} from 'lodash';
 import {Map} from 'immutable';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {toDuration, toRounded, toThousands} from 'shared/util/numbers';
 
 export type DataTooltip = {
@@ -96,10 +86,13 @@ export const dateRangeFormatter = (
 export const formatTooltipDate = (date, rangeKey) => {
 	let formatter;
 
-	if (rangeKey === LAST_24_HOURS || rangeKey === YESTERDAY) {
+	if (
+		rangeKey === RangeKeyTimeRanges.Last24Hours ||
+		rangeKey === RangeKeyTimeRanges.Yesterday
+	) {
 		// display hours for Last 24 hours and yesterday
 		formatter = d3.utcFormat('%b %-d, %-I %p');
-	} else if (rangeKey === LAST_90_DAYS) {
+	} else if (rangeKey === RangeKeyTimeRanges.Last90Days) {
 		// display date, month and year for Last 90 days
 		formatter = d3.utcFormat('%Y %b\u00A0%-d');
 	} else {
@@ -123,13 +116,13 @@ export const formatXAxisDate = (
 	const [dateStart, dateEnd] = dateKeysIMap.get(dateKey);
 
 	switch (rangeKey) {
-		case CUSTOM_RANGE:
-		case LAST_7_DAYS:
-		case LAST_28_DAYS:
-		case LAST_30_DAYS:
-		case LAST_90_DAYS:
-		case LAST_180_DAYS:
-		case LAST_YEAR:
+		case RangeKeyTimeRanges.CustomRange:
+		case RangeKeyTimeRanges.Last7Days:
+		case RangeKeyTimeRanges.Last28Days:
+		case RangeKeyTimeRanges.Last30Days:
+		case RangeKeyTimeRanges.Last90Days:
+		case RangeKeyTimeRanges.Last180Days:
+		case RangeKeyTimeRanges.LastYear:
 			if (interval === INTERVAL_KEY_MAP.week) {
 				// display date range
 
@@ -141,8 +134,8 @@ export const formatXAxisDate = (
 				return monthFormat(dateStart);
 			}
 			break;
-		case LAST_24_HOURS:
-		case YESTERDAY:
+		case RangeKeyTimeRanges.Last24Hours:
+		case RangeKeyTimeRanges.Yesterday:
 			// display hours
 			formatter = d3.utcFormat('%-I %p');
 			break;
@@ -299,7 +292,7 @@ export const getDataFormatter = type => {
  */
 export const getDateTitle = (
 	dates: [number, number?],
-	rangeKey: string,
+	rangeKey: RangeKeyTimeRanges,
 	interval: Interval
 ) => {
 	if (!dates) {
@@ -336,7 +329,10 @@ export const getIntervals = (
 			: moment(lastPeriodStart);
 		const duration = lastDate.diff(firstDate, 'days') + 1;
 
-		const validTimeInterval = [LAST_24_HOURS, YESTERDAY].includes(rangeKey)
+		const validTimeInterval = [
+			RangeKeyTimeRanges.Last24Hours,
+			RangeKeyTimeRanges.Yesterday
+		].includes(rangeKey)
 			? INTERVAL_KEY_MAP.day
 			: timeInterval;
 

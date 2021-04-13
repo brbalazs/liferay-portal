@@ -10,7 +10,7 @@ import {
 	setOperator,
 	setPropertyValue
 } from '../custom-inputs';
-import {LAST_7_DAYS, RELATIONAL_OPERATORS} from '../../utils/constants';
+import {RELATIONAL_OPERATORS, TimeSpans} from '../../utils/constants';
 
 const mockValue = createCustomValueMap([
 	{
@@ -24,7 +24,7 @@ const mockValue = createCustomValueMap([
 			{
 				operatorName: RELATIONAL_OPERATORS.GT,
 				propertyName: 'completeDate',
-				value: LAST_7_DAYS
+				value: TimeSpans.Last7Days
 			}
 		]
 	}
@@ -46,7 +46,7 @@ describe('Custom Inputs Util', () => {
 							{
 								operatorName: RELATIONAL_OPERATORS.GT,
 								propertyName: 'completeDate',
-								value: LAST_7_DAYS
+								value: TimeSpans.Last7Days
 							}
 						]
 					}

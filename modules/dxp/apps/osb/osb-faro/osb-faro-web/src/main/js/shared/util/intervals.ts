@@ -1,19 +1,8 @@
 import moment from 'moment';
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	YESTERDAY
-} from 'shared/util/constants';
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
-
-// TODO: Add timezones to all chart functions
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 export const createDateKeysIMap = (
 	interval: Interval,
@@ -49,21 +38,27 @@ export const getIntervalsFromMap = (duration: number) => ({
 });
 
 export const getDayIntervalsMap = (duration: number) => ({
-	[CUSTOM_RANGE]: getByCustomRangeKey(duration, INTERVAL_KEY_MAP.day),
-	[LAST_180_DAYS]: getFirstAndFifteenthsDays,
-	[LAST_24_HOURS]: getByIndexesMultipleOfSix,
-	[LAST_28_DAYS]: getSundays,
-	[LAST_30_DAYS]: getSundays,
-	[LAST_90_DAYS]: getFirstAndFifteenthsDays,
-	[LAST_YEAR]: getFirstDays,
-	[YESTERDAY]: getByIndexesMultipleOfSix
+	[RangeKeyTimeRanges.CustomRange]: getByCustomRangeKey(
+		duration,
+		INTERVAL_KEY_MAP.day
+	),
+	[RangeKeyTimeRanges.Last180Days]: getFirstAndFifteenthsDays,
+	[RangeKeyTimeRanges.Last24Hours]: getByIndexesMultipleOfSix,
+	[RangeKeyTimeRanges.Last28Days]: getSundays,
+	[RangeKeyTimeRanges.Last30Days]: getSundays,
+	[RangeKeyTimeRanges.Last90Days]: getFirstAndFifteenthsDays,
+	[RangeKeyTimeRanges.LastYear]: getFirstDays,
+	[RangeKeyTimeRanges.Yesterday]: getByIndexesMultipleOfSix
 });
 
 export const getWeekIntervalsMap = (duration: number) => ({
-	[CUSTOM_RANGE]: getByCustomRangeKey(duration, INTERVAL_KEY_MAP.week),
-	[LAST_180_DAYS]: getByEvenOrOddIndexes,
-	[LAST_90_DAYS]: getByEvenOrOddIndexes,
-	[LAST_YEAR]: getByIndexesMultipleOfFour
+	[RangeKeyTimeRanges.CustomRange]: getByCustomRangeKey(
+		duration,
+		INTERVAL_KEY_MAP.week
+	),
+	[RangeKeyTimeRanges.Last180Days]: getByEvenOrOddIndexes,
+	[RangeKeyTimeRanges.Last90Days]: getByEvenOrOddIndexes,
+	[RangeKeyTimeRanges.LastYear]: getByIndexesMultipleOfFour
 });
 
 export const handleDayInterval = (

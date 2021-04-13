@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {LAST_30_DAYS} from 'shared/util/constants';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
 
 export interface WithRangeKeyProps {
@@ -12,7 +12,7 @@ const withRangeKey = <P extends WithRangeKeyProps>(
 ): React.FC<Omit<P, keyof WithRangeKeyProps>> => {
 	const defaultRangeSelectors = {
 		rangeEnd: null,
-		rangeKey: LAST_30_DAYS,
+		rangeKey: RangeKeyTimeRanges.Last30Days,
 		rangeStart: null
 	};
 

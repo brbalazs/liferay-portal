@@ -4,9 +4,9 @@ import SessionDisplay from '../SessionDisplay';
 import {cleanup, render} from '@testing-library/react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	LAST_7_DAYS,
 	PROPERTY_TYPES,
-	RELATIONAL_OPERATORS
+	RELATIONAL_OPERATORS,
+	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
@@ -28,7 +28,7 @@ describe('SessionDisplay', () => {
 					Map({
 						operatorName: RELATIONAL_OPERATORS.GT,
 						propertyName: 'completeDate',
-						value: LAST_7_DAYS
+						value: TimeSpans.Last7Days
 					})
 				])
 			})

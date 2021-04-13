@@ -18,19 +18,10 @@ import {
 	isEmptyData,
 	nextColor
 } from '../charts';
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	YESTERDAY
-} from 'shared/util/constants';
 import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 const mockDate = moment.utc('2019-01-02').valueOf();
 const mockDateKeysIMap = new Map([[mockDate, [mockDate]]]);
@@ -59,13 +50,13 @@ describe('formatTooltipDate', () => {
 
 		const formatedDate = formatTooltipDate(
 			moment.utc(date).valueOf(),
-			LAST_24_HOURS
+			RangeKeyTimeRanges.Last24Hours
 		);
 
 		expect(formatedDate).toEqual('Aug 7, 8 PM');
 	});
 
-	it('should return the hours with UTC for Yesterday', () => {
+	it('should return the hours with UTC for yesterday', () => {
 		const date = getDate('2018-08-07');
 
 		date.setDate(date.getDate() - 8.64e7);
@@ -73,7 +64,10 @@ describe('formatTooltipDate', () => {
 		date.setMinutes(30);
 		date.setSeconds(0);
 
-		const formatedDate = formatTooltipDate(date, YESTERDAY);
+		const formatedDate = formatTooltipDate(
+			date,
+			RangeKeyTimeRanges.Yesterday
+		);
 
 		expect(formatedDate).toEqual('Jun 8, 8 PM');
 	});
@@ -83,7 +77,10 @@ describe('formatTooltipDate', () => {
 
 		date.subtract(90, 'days');
 
-		const formatedDate = formatTooltipDate(date, LAST_90_DAYS);
+		const formatedDate = formatTooltipDate(
+			date,
+			RangeKeyTimeRanges.Last90Days
+		);
 
 		expect(formatedDate).toEqual('2018 May\u00A09');
 	});
@@ -98,7 +95,7 @@ describe('formatXAxisDate', () => {
 		expect(
 			formatXAxisDate(
 				mockDate,
-				LAST_30_DAYS,
+				RangeKeyTimeRanges.Last30Days,
 				INTERVAL_KEY_MAP.day,
 				mockDateKeysIMap
 			)
@@ -109,7 +106,7 @@ describe('formatXAxisDate', () => {
 		expect(
 			formatXAxisDate(
 				mockDate,
-				LAST_24_HOURS,
+				RangeKeyTimeRanges.Last24Hours,
 				INTERVAL_KEY_MAP.day,
 				mockDateKeysIMap
 			)
@@ -120,7 +117,7 @@ describe('formatXAxisDate', () => {
 		expect(
 			formatXAxisDate(
 				mockDate,
-				LAST_30_DAYS,
+				RangeKeyTimeRanges.Last30Days,
 				INTERVAL_KEY_MAP.week,
 				new Map([[mockDate, [mockDate, getDate('2019-01-08')]]])
 			)
@@ -137,7 +134,7 @@ describe('getDateTitle', () => {
 		expect(
 			getDateTitle(
 				[getDate('2019-01-01'), getDate('2019-01-14')],
-				LAST_30_DAYS,
+				RangeKeyTimeRanges.Last30Days,
 				INTERVAL_KEY_MAP.week
 			)
 		).toEqual('2019 Jan 1 - 14');
@@ -160,7 +157,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_24_HOURS,
+				RangeKeyTimeRanges.Last24Hours,
 				mockDates,
 				INTERVAL_KEY_MAP.day,
 				dateKeysIMap
@@ -180,7 +177,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				YESTERDAY,
+				RangeKeyTimeRanges.Yesterday,
 				mockDates,
 				INTERVAL_KEY_MAP.day,
 				dateKeysIMap
@@ -199,7 +196,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const intervals = getIntervals(
-			LAST_28_DAYS,
+			RangeKeyTimeRanges.Last28Days,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -224,7 +221,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_28_DAYS,
+				RangeKeyTimeRanges.Last28Days,
 				mockDates,
 				INTERVAL_KEY_MAP.week,
 				dateKeysIMap
@@ -237,7 +234,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const intervals = getIntervals(
-			LAST_30_DAYS,
+			RangeKeyTimeRanges.Last30Days,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -262,7 +259,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_30_DAYS,
+				RangeKeyTimeRanges.Last30Days,
 				mockDates,
 				INTERVAL_KEY_MAP.week,
 				dateKeysIMap
@@ -275,7 +272,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const result = getIntervals(
-			LAST_90_DAYS,
+			RangeKeyTimeRanges.Last90Days,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -292,7 +289,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_90_DAYS,
+				RangeKeyTimeRanges.Last90Days,
 				mockDates,
 				INTERVAL_KEY_MAP.week,
 				dateKeysIMap
@@ -305,7 +302,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const result = getIntervals(
-			LAST_180_DAYS,
+			RangeKeyTimeRanges.Last180Days,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -322,7 +319,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_180_DAYS,
+				RangeKeyTimeRanges.Last180Days,
 				mockDates,
 				INTERVAL_KEY_MAP.week,
 				dateKeysIMap
@@ -335,7 +332,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const result = getIntervals(
-			LAST_YEAR,
+			RangeKeyTimeRanges.LastYear,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -354,7 +351,7 @@ describe('getIntervals', () => {
 
 		expect(
 			getIntervals(
-				LAST_YEAR,
+				RangeKeyTimeRanges.LastYear,
 				mockDates,
 				INTERVAL_KEY_MAP.week,
 				dateKeysIMap
@@ -367,7 +364,7 @@ describe('getIntervals', () => {
 		let dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		let intervals = getIntervals(
-			CUSTOM_RANGE,
+			RangeKeyTimeRanges.CustomRange,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -380,7 +377,7 @@ describe('getIntervals', () => {
 
 		dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 		intervals = getIntervals(
-			CUSTOM_RANGE,
+			RangeKeyTimeRanges.CustomRange,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -395,7 +392,7 @@ describe('getIntervals', () => {
 		let dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		let intervals = getIntervals(
-			CUSTOM_RANGE,
+			RangeKeyTimeRanges.CustomRange,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -408,7 +405,7 @@ describe('getIntervals', () => {
 		dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		intervals = getIntervals(
-			CUSTOM_RANGE,
+			RangeKeyTimeRanges.CustomRange,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -423,7 +420,7 @@ describe('getIntervals', () => {
 		const dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
 
 		const result = getIntervals(
-			CUSTOM_RANGE,
+			RangeKeyTimeRanges.CustomRange,
 			mockDates,
 			INTERVAL_KEY_MAP.day,
 			dateKeysIMap
@@ -435,7 +432,7 @@ describe('getIntervals', () => {
 	});
 
 	it('returns an empty intervals array if the original data array was empty', () => {
-		expect(getIntervals(LAST_24_HOURS, [])).toEqual(
+		expect(getIntervals(RangeKeyTimeRanges.Last24Hours, [])).toEqual(
 			expect.arrayContaining([])
 		);
 	});

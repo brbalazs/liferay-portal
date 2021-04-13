@@ -1,5 +1,9 @@
 import {Align} from 'metal-position';
-import {ALIGNMENTS_MAP, LAST_30_DAYS, POSITIONS} from 'shared/util/constants';
+import {
+	ALIGNMENTS_MAP,
+	POSITIONS,
+	RangeKeyTimeRanges
+} from 'shared/util/constants';
 import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
 import {RangeSelectors, SafeRangeSelectors} from 'shared/types';
 
@@ -13,7 +17,7 @@ export const isBlank = (value: string | number): boolean =>
 
 export const getRangeSelectorsFromQuery = query => {
 	const rangeEnd = get(query, 'rangeEnd', '');
-	const rangeKey = get(query, 'rangeKey', LAST_30_DAYS);
+	const rangeKey = get(query, 'rangeKey', RangeKeyTimeRanges.Last30Days);
 	const rangeStart = get(query, 'rangeStart', '');
 
 	return {
@@ -27,7 +31,11 @@ export const getSafeRangeSelectors = (
 	rangeSelectors: RangeSelectors
 ): SafeRangeSelectors => {
 	const rangeEnd = get(rangeSelectors, 'rangeEnd', null);
-	const rangeKey = get(rangeSelectors, 'rangeKey', LAST_30_DAYS);
+	const rangeKey = get(
+		rangeSelectors,
+		'rangeKey',
+		RangeKeyTimeRanges.Last30Days
+	);
 	const rangeStart = get(rangeSelectors, 'rangeStart', null);
 
 	return {

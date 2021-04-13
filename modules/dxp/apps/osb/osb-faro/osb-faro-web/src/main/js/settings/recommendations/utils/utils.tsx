@@ -4,10 +4,7 @@ import {
 	jobRunStatuses,
 	jobStatuses,
 	jobTypes,
-	LAST_180_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_YEAR
+	RangeKeyTimeRanges
 } from 'shared/util/constants';
 
 export const CANONICAL_URL = 'canonicalUrl';
@@ -112,10 +109,10 @@ export const JOB_RUN_DATA_PERIODS_LABEL_MAP = {
 };
 
 export const JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP = {
-	[jobRunDataPeriods.last7Days]: LAST_7_DAYS,
-	[jobRunDataPeriods.last30Days]: LAST_30_DAYS,
-	[jobRunDataPeriods.last180Days]: LAST_180_DAYS,
-	[jobRunDataPeriods.last365Days]: LAST_YEAR
+	[jobRunDataPeriods.last7Days]: RangeKeyTimeRanges.Last7Days,
+	[jobRunDataPeriods.last30Days]: RangeKeyTimeRanges.Last30Days,
+	[jobRunDataPeriods.last180Days]: RangeKeyTimeRanges.Last180Days,
+	[jobRunDataPeriods.last365Days]: RangeKeyTimeRanges.LastYear
 };
 
 export const JOB_RUN_DATA_PERIODS_LIST = [

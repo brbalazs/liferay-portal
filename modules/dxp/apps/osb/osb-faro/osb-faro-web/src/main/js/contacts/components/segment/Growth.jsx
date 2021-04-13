@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/ChartTooltip';
-import FaroConstants, {LAST_30_DAYS} from 'shared/util/constants';
+import Constants, {RangeKeyTimeRanges} from 'shared/util/constants';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -51,7 +51,7 @@ const SearchableEntityTableHOC = withStatefulPagination(
 	props => omit(props, 'onSearchValueChange')
 );
 
-const {orderAscending, orderDescending} = FaroConstants.pagination;
+const {orderAscending, orderDescending} = Constants.pagination;
 
 const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
 	PropTypes.shape({
@@ -244,7 +244,7 @@ export class SegmentGrowthChart extends React.Component {
 		const dateKeysIMap = createDateKeysIMap(INTERVAL, data, 'modifiedDate');
 
 		const intervals = getIntervals(
-			LAST_30_DAYS,
+			RangeKeyTimeRanges.Last30Days,
 			data.map(({modifiedDate}) => modifiedDate),
 			INTERVAL,
 			dateKeysIMap
@@ -296,7 +296,7 @@ export class SegmentGrowthChart extends React.Component {
 						tick={getAxisTickText('x', value =>
 							formatXAxisDate(
 								value,
-								LAST_30_DAYS,
+								RangeKeyTimeRanges.Last30Days,
 								INTERVAL,
 								dateKeysIMap
 							)
