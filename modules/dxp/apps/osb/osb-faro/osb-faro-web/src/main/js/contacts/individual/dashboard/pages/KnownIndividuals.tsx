@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
 	getFormattedTitle
@@ -30,14 +29,13 @@ import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {EntityTypes, SegmentTypes} from 'shared/util/constants';
 import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {isNil, noop} from 'lodash';
 import {OrderParams, User} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-
-const {entityTypes, segmentTypes} = FaroConstants;
 
 const getIndividualsDataSource = ({
 	channelId,
@@ -195,7 +193,7 @@ export class KnownIndividuals extends React.Component<
 			],
 			page: cur,
 			query,
-			segmentType: segmentTypes.static
+			segmentType: SegmentTypes.Static
 		});
 	}
 
@@ -207,7 +205,7 @@ export class KnownIndividuals extends React.Component<
 			open(modalTypes.SELECT_ITEMS_MODAL, {
 				countLabel: Liferay.Language.get('x-segments'),
 				dataSourceFn: this.getStaticIndividualSegments,
-				entityType: entityTypes.individualsSegment,
+				entityType: EntityTypes.IndividualsSegment,
 				groupId,
 				noResultsIcon: 'ac-segment',
 				noResultsName: Liferay.Language.get('static-segments'),

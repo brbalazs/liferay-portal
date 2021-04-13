@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
 import Form, {validateRequired} from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import Promise from 'metal-promise';
@@ -16,9 +15,8 @@ import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
+import {SegmentTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
-
-const {segmentTypes} = FaroConstants;
 
 export class StaticSegmentEdit extends React.Component {
 	static defaultProps = {
@@ -50,7 +48,7 @@ export class StaticSegmentEdit extends React.Component {
 		return this.updateSegment({
 			changeset: this.state.changeset,
 			name: form.name,
-			segmentType: segmentTypes.static
+			segmentType: SegmentTypes.Static
 		});
 	}
 
@@ -213,7 +211,7 @@ export class StaticSegmentEdit extends React.Component {
 			<Form
 				initialValues={{
 					name: segment ? segment.name : '',
-					segmentType: segmentTypes.static
+					segmentType: SegmentTypes.Static
 				}}
 				onSubmit={this.handleSubmit}
 				ref={this._formRef}
@@ -232,7 +230,7 @@ export class StaticSegmentEdit extends React.Component {
 													'edit-x-segment'
 												),
 												[
-													segmentTypes.static.toLowerCase()
+													SegmentTypes.Static.toLowerCase()
 												]
 										  )
 										: Liferay.Language.get(

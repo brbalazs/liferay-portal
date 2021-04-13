@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import Avatar from './Avatar';
-import FaroConstants from '../util/constants';
 import getCN from 'classnames';
 import ListGroup from './list-group';
 import ListView from './ListView';
@@ -9,6 +8,7 @@ import React from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
 import TextTruncate from './TextTruncate';
+import {EntityTypes, SegmentTypes} from '../util/constants';
 import {getDataSourceLangKey} from 'shared/util/lang';
 import {getPluralMessage, sub} from '../util/lang';
 import {getRouteName, Routes, toRoute} from 'shared/util/router';
@@ -16,11 +16,6 @@ import {LIFERAY_SITE_TYPE} from 'shared/util/data-sources';
 import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Set} from 'immutable';
-
-const {
-	entityTypes: {dataSource, individual, individualsSegment},
-	segmentTypes
-} = FaroConstants;
 
 class EntityListItem extends React.Component {
 	static propTypes = {
@@ -41,7 +36,7 @@ class EntityListItem extends React.Component {
 		switch (type) {
 			case LIFERAY_SITE_TYPE:
 				return url ? url : '#';
-			case dataSource:
+			case EntityTypes.DataSource:
 				return toRoute(Routes.SETTINGS_DATA_SOURCE, {
 					groupId,
 					id
@@ -66,13 +61,13 @@ class EntityListItem extends React.Component {
 		} = this.props.item;
 
 		switch (type) {
-			case individual:
+			case EntityTypes.Individual:
 				return sub(Liferay.Language.get('x-at-x'), [
 					properties.jobTitle ||
 						Liferay.Language.get('not-available'),
 					properties.worksFor || Liferay.Language.get('not-available')
 				]);
-			case dataSource:
+			case EntityTypes.DataSource:
 				return getDataSourceLangKey(providerType);
 			case LIFERAY_SITE_TYPE:
 				return friendlyURL;
@@ -97,17 +92,20 @@ class EntityListItem extends React.Component {
 		return (
 			<>
 				<ListGroup.ItemField>
-					{type === individualsSegment ? (
+					{type === EntityTypes.IndividualsSegment ? (
 						<Sticker
 							display='light'
 							symbol={
-								segmentType === segmentTypes.static
+								segmentType === SegmentTypes.Static
 									? 'individual-static-segment'
 									: 'individual-dynamic-segment'
 							}
 						/>
 					) : (
-						<Avatar circle={type === individual} entity={item} />
+						<Avatar
+							circle={type === EntityTypes.Individual}
+							entity={item}
+						/>
 					)}
 				</ListGroup.ItemField>
 

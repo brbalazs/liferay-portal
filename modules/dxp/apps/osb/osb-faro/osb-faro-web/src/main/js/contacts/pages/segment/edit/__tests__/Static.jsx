@@ -1,14 +1,12 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import Form from 'shared/components/form';
 import React from 'react';
 import {Changeset, Segment} from 'shared/util/records';
 import {INDIVIDUALS} from 'shared/util/router';
 import {Map} from 'immutable';
+import {SegmentTypes} from 'shared/util/constants';
 import {shallow} from 'enzyme';
 import {StaticSegmentEdit} from '../Static';
-
-const {segmentTypes} = FaroConstants;
 
 describe('StaticSegmentEdit', () => {
 	it('should render', () => {
@@ -24,7 +22,7 @@ describe('StaticSegmentEdit', () => {
 			<StaticSegmentEdit
 				groupId='23'
 				segment={data.getImmutableMock(Segment, data.mockSegment, 1, {
-					segmentType: segmentTypes.static
+					segmentType: SegmentTypes.Static
 				})}
 				type={INDIVIDUALS}
 			/>

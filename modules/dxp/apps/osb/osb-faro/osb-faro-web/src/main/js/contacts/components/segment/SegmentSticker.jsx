@@ -1,8 +1,6 @@
-import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import React from 'react';
 import Sticker from 'shared/components/Sticker';
-
-const {segmentTypes} = FaroConstants;
+import {SegmentStates, SegmentTypes} from 'shared/util/constants';
 
 export default ({segmentType, state}) => {
 	const disabled = state === SegmentStates.Disabled;
@@ -10,7 +8,7 @@ export default ({segmentType, state}) => {
 	const getSymbol = () => {
 		if (disabled) {
 			return 'warning';
-		} else if (segmentType === segmentTypes.static) {
+		} else if (segmentType === SegmentTypes.Static) {
 			return 'individual-static-segment';
 		} else {
 			return 'individual-dynamic-segment';

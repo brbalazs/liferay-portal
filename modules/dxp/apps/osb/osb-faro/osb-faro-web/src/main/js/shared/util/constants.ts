@@ -328,6 +328,11 @@ export enum SegmentStates {
 	Ready = 'READY'
 }
 
+export enum SegmentTypes {
+	Dynamic = 'DYNAMIC',
+	Static = 'STATIC'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import BaseListPage from 'contacts/components/BaseListPage';
 import BasePage from 'shared/components/base-page';
 import ClayButton from '@clayui/button';
-import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import RowActions from 'shared/components/table/RowActions';
@@ -32,12 +31,11 @@ import {
 	toRoute
 } from 'shared/util/router';
 import {segmentsListColumns} from 'shared/util/table-columns';
+import {SegmentStates, SegmentTypes} from 'shared/util/constants';
 import {Set} from 'immutable';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {User} from 'shared/util/records';
-
-const {segmentTypes} = FaroConstants;
 
 interface FetchSegmentsParams {
 	channelId: string;
@@ -304,7 +302,7 @@ export const List: React.FC<IListProps> = ({
 	const pageActions = [
 		{
 			href: setUriQueryValues(
-				{type: segmentTypes.dynamic},
+				{type: SegmentTypes.Dynamic},
 				toRoute(Routes.CONTACTS_SEGMENT_CREATE, {
 					channelId,
 					groupId
@@ -316,7 +314,7 @@ export const List: React.FC<IListProps> = ({
 		},
 		{
 			href: setUriQueryValues(
-				{type: segmentTypes.static},
+				{type: SegmentTypes.Static},
 				toRoute(Routes.CONTACTS_SEGMENT_CREATE, {
 					channelId,
 					groupId

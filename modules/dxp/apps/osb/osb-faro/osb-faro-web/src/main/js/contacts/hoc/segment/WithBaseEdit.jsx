@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import Label from 'shared/components/Label';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
@@ -14,9 +13,8 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import {Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
+import {SegmentTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
-
-const {segmentTypes} = FaroConstants;
 
 export default WrappedComponent => {
 	class BaseEdit extends React.Component {
@@ -31,7 +29,7 @@ export default WrappedComponent => {
 			id: PropTypes.string,
 			open: PropTypes.func.isRequired,
 			segment: PropTypes.instanceOf(Segment),
-			type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static])
+			type: PropTypes.oneOf([SegmentTypes.Dynamic, SegmentTypes.Static])
 		};
 
 		componentDidMount() {
@@ -116,9 +114,9 @@ export default WrappedComponent => {
 			const {type} = this.props;
 
 			return sub(Liferay.Language.get('x-segment'), [
-				type === segmentTypes.static
-					? segmentTypes.static
-					: segmentTypes.dynamic
+				type === SegmentTypes.Static
+					? SegmentTypes.Static
+					: SegmentTypes.Dynamic
 			]);
 		}
 
@@ -298,7 +296,7 @@ export default WrappedComponent => {
 						</BasePage.Row>
 					</BasePage.Header>
 
-					<BasePage.Body pageContainer={type === segmentTypes.static}>
+					<BasePage.Body pageContainer={type === SegmentTypes.Static}>
 						<WrappedComponent
 							{...omitDefinedProps(
 								otherProps,

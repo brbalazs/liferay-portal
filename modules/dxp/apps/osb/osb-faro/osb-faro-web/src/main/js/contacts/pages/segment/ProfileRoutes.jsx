@@ -2,7 +2,6 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import BundleRouter from 'route-middleware/BundleRouter';
 import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
-import FaroConstants, {SegmentStates} from 'shared/util/constants';
 import getCN from 'classnames';
 import Label from 'shared/components/Label';
 import Loading from 'shared/pages/Loading';
@@ -14,10 +13,9 @@ import {compose} from 'shared/hoc';
 import {getMatchedRoute, Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {PropTypes} from 'prop-types';
 import {Segment} from 'shared/util/records';
+import {SegmentStates, SegmentTypes} from 'shared/util/constants';
 import {Switch, withRouter} from 'react-router-dom';
 import {withSegment} from 'shared/hoc/WithSegment';
-
-const {segmentTypes} = FaroConstants;
 
 const Overview = lazy(() =>
 	import(/* webpackChunkName: "SegmentOverview" */ './Overview')
@@ -122,7 +120,7 @@ export class SegmentProfileRoutes extends React.Component {
 			segment: {segmentType}
 		} = this.props;
 
-		return segmentType === segmentTypes.dynamic
+		return segmentType === SegmentTypes.Dynamic
 			? Liferay.Language.get('dynamic-segment')
 			: Liferay.Language.get('static-segment');
 	}

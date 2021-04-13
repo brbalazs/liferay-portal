@@ -1,5 +1,4 @@
 import DynamicSegment from './edit/Dynamic';
-import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import StaticSegment from './edit/Static';
@@ -7,23 +6,22 @@ import {get} from 'lodash';
 import {optional} from 'shared/hoc';
 import {PropTypes} from 'prop-types';
 import {Segment} from 'shared/util/records';
+import {SegmentTypes} from 'shared/util/constants';
 import {withSegment} from 'shared/hoc/WithSegment';
 
-const {segmentTypes} = FaroConstants;
-
 const PAGE_MAP = {
-	[segmentTypes.dynamic]: DynamicSegment,
-	[segmentTypes.static]: StaticSegment
+	[SegmentTypes.Dynamic]: DynamicSegment,
+	[SegmentTypes.Static]: StaticSegment
 };
 
 export class Edit extends React.Component {
 	static defaultProps = {
-		type: segmentTypes.dynamic
+		type: SegmentTypes.Dynamic
 	};
 
 	static propTypes = {
 		segment: PropTypes.instanceOf(Segment),
-		type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static])
+		type: PropTypes.oneOf([SegmentTypes.Dynamic, SegmentTypes.Static])
 	};
 
 	render() {

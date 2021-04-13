@@ -1,14 +1,12 @@
-import Constants from 'shared/util/constants';
 import Edit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
+import {SegmentTypes} from 'shared/util/constants';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
-
-const {segmentTypes} = Constants;
 
 const DefaultComponent = props => (
 	<Provider store={mockStore()}>
@@ -29,7 +27,7 @@ describe('Edit', () => {
 
 	it('should render a dynamic segment', async () => {
 		const {getByText} = render(
-			<DefaultComponent type={segmentTypes.dynamic} />
+			<DefaultComponent type={SegmentTypes.Dynamic} />
 		);
 
 		jest.runAllTimers();
@@ -39,7 +37,7 @@ describe('Edit', () => {
 
 	it('should render a static segment', () => {
 		const {getByText} = render(
-			<DefaultComponent type={segmentTypes.static} />
+			<DefaultComponent type={SegmentTypes.Static} />
 		);
 
 		jest.runAllTimers();

@@ -1,12 +1,11 @@
-import FaroConstants from 'shared/util/constants';
+import Constants, {SegmentTypes} from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
 import {NAME} from 'shared/util/pagination';
 
 const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDefault},
-	segmentTypes,
 	timeIntervals
-} = FaroConstants;
+} = Constants;
 
 const DEFAULT_MAX = 30;
 
@@ -52,7 +51,7 @@ export function create({
 	segmentType
 }) {
 	const data =
-		segmentType === segmentTypes.dynamic
+		segmentType === SegmentTypes.Dynamic
 			? {
 					channelId,
 					filter: criteriaString,
@@ -84,7 +83,7 @@ export function update({
 	segmentType
 }) {
 	const data =
-		segmentType === segmentTypes.dynamic
+		segmentType === SegmentTypes.Dynamic
 			? {
 					channelId,
 					filter: criteriaString,

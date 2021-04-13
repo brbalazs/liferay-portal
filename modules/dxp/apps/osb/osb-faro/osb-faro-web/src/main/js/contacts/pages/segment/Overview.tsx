@@ -1,7 +1,6 @@
 import CompositionCard from 'contacts/components/segment/CompositionCard';
 import CriteriaCard from 'contacts/components/segment/criteria-card';
 import DistributionCard from 'contacts/hoc/segment/DistributionCard';
-import FaroConstants from 'shared/util/constants';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React, {useCallback, useEffect, useRef} from 'react';
 import SegmentProfileCard from 'contacts/components/segment/ProfileCard';
@@ -9,8 +8,7 @@ import {connect} from 'react-redux';
 import {debounce} from 'lodash';
 import {GROWTH} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
-
-const {segmentTypes} = FaroConstants;
+import {SegmentTypes} from 'shared/util/constants';
 
 const HEADER_MARGIN = 16;
 
@@ -96,7 +94,7 @@ const Overview: React.FC<IOverviewProps> = ({
 					knownIndividualCount={knownIndividualCount}
 				/>
 
-				{segmentType === segmentTypes.dynamic && (
+				{segmentType === SegmentTypes.Dynamic && (
 					<CriteriaCard
 						criteriaString={criteriaString}
 						includeAnonymousUsers={includeAnonymousUsers}
