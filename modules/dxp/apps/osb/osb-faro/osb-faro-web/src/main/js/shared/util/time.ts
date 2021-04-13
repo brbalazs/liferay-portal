@@ -17,23 +17,25 @@ export const INTERVAL_KEY_MAP: {[s: string]: Interval} = {
 	[TimeIntervals.Week]: 'W'
 };
 
-export const UNITS: string[] = [
+export const UNIT_LABELS: string[] = [
 	Liferay.Language.get('seconds'),
 	Liferay.Language.get('minutes'),
 	Liferay.Language.get('hours')
 ];
 
-export const SECONDS: number = 0;
-export const MINUTES: number = 1;
-export const HOURS: number = 2;
+export enum TimeUnits {
+	Hours = 2,
+	Minutes = 1,
+	Seconds = 0
+}
 
 export function formatDuration(milliseconds: number, unit: number): number {
 	switch (unit) {
-		case HOURS:
+		case TimeUnits.Hours:
 			return milliseconds / (Math.pow(60, 2) * 1000);
-		case MINUTES:
+		case TimeUnits.Minutes:
 			return milliseconds / (60 * 1000);
-		case SECONDS:
+		case TimeUnits.Seconds:
 		default:
 			return milliseconds / 1000;
 	}
@@ -41,11 +43,11 @@ export function formatDuration(milliseconds: number, unit: number): number {
 
 export function getRemainder(milliseconds: number, unit: number): number {
 	switch (unit) {
-		case HOURS:
+		case TimeUnits.Hours:
 			return milliseconds % (Math.pow(60, 2) * 1000);
-		case MINUTES:
+		case TimeUnits.Minutes:
 			return milliseconds % (60 * 1000);
-		case SECONDS:
+		case TimeUnits.Seconds:
 		default:
 			return milliseconds % 1000;
 	}
@@ -57,11 +59,11 @@ export function hasRemainder(milliseconds: number, unit: number): boolean {
 
 export function getMilliseconds(value: number, unit: number): number {
 	switch (unit) {
-		case HOURS:
+		case TimeUnits.Hours:
 			return value * Math.pow(60, 2) * 1000;
-		case MINUTES:
+		case TimeUnits.Minutes:
 			return value * 60 * 1000;
-		case SECONDS:
+		case TimeUnits.Seconds:
 		default:
 			return value * 1000;
 	}
@@ -71,15 +73,15 @@ export function getMillisecondsFromTime(time: string): number {
 	const [hours, minutes, seconds] = time.split(':');
 
 	return (
-		getMilliseconds(Number(hours), HOURS) +
-		getMilliseconds(Number(minutes), MINUTES) +
-		getMilliseconds(Number(seconds), SECONDS)
+		getMilliseconds(Number(hours), TimeUnits.Hours) +
+		getMilliseconds(Number(minutes), TimeUnits.Minutes) +
+		getMilliseconds(Number(seconds), TimeUnits.Seconds)
 	);
 }
 
 export function getLargestNaturalUnit(
 	milliseconds: number,
-	unit: number = HOURS
+	unit: number = TimeUnits.Hours
 ) {
 	if (hasRemainder(milliseconds, unit) && unit !== 0) {
 		return getLargestNaturalUnit(milliseconds, unit - 1);
@@ -105,7 +107,7 @@ export function formatTimezoneOffset(offset: number): string {
 }
 
 export function getUnitLabel(unit: number): string {
-	return UNITS[unit];
+	return UNIT_LABELS[unit];
 }
 
 export function isHourlyRangeKey(rangeKey: string): boolean {
@@ -128,15 +130,19 @@ export function isMonthlyRangeKey(rangeKey: string): boolean {
  * @returns {string} Time in HH:MM:SS format.
  */
 export function formatTime(milliseconds: number): string {
-	const timeArray = [HOURS, MINUTES, SECONDS].map(unit => {
+	const timeArray = [
+		TimeUnits.Hours,
+		TimeUnits.Minutes,
+		TimeUnits.Seconds
+	].map(unit => {
 		const remainingTime =
-			unit === HOURS
+			unit === TimeUnits.Hours
 				? milliseconds
 				: getRemainder(milliseconds, unit + 1);
 
 		let formattedTime = formatDuration(remainingTime, unit);
 
-		if (unit === SECONDS) {
+		if (unit === TimeUnits.Seconds) {
 			formattedTime = Math.round(formattedTime);
 		} else {
 			formattedTime = Math.trunc(formattedTime);

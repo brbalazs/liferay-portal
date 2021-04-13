@@ -11,10 +11,10 @@ import {
 describe('time', () => {
 	describe('formatDuration', () => {
 		it.each`
-			milliseconds | unit            | retVal
-			${3600000}   | ${time.SECONDS} | ${3600}
-			${3600000}   | ${time.MINUTES} | ${60}
-			${3600000}   | ${time.HOURS}   | ${1}
+			milliseconds | unit                      | retVal
+			${3600000}   | ${time.TimeUnits.Seconds} | ${3600}
+			${3600000}   | ${time.TimeUnits.Minutes} | ${60}
+			${3600000}   | ${time.TimeUnits.Hours}   | ${1}
 		`('format $milliseconds to $unit', ({milliseconds, retVal, unit}) => {
 			expect(time.formatDuration(milliseconds, unit)).toBe(retVal);
 		});
@@ -22,13 +22,13 @@ describe('time', () => {
 
 	describe('hasRemainder', () => {
 		it.each`
-			milliseconds | unit            | retVal
-			${3600000}   | ${time.SECONDS} | ${false}
-			${3600001}   | ${time.SECONDS} | ${true}
-			${3600000}   | ${time.MINUTES} | ${false}
-			${3600001}   | ${time.MINUTES} | ${true}
-			${3600000}   | ${time.HOURS}   | ${false}
-			${3600001}   | ${time.HOURS}   | ${true}
+			milliseconds | unit                      | retVal
+			${3600000}   | ${time.TimeUnits.Seconds} | ${false}
+			${3600001}   | ${time.TimeUnits.Seconds} | ${true}
+			${3600000}   | ${time.TimeUnits.Minutes} | ${false}
+			${3600001}   | ${time.TimeUnits.Minutes} | ${true}
+			${3600000}   | ${time.TimeUnits.Hours}   | ${false}
+			${3600001}   | ${time.TimeUnits.Hours}   | ${true}
 		`(
 			'return $retVal when checking for remainders in $unit unit',
 			({milliseconds, retVal, unit}) => {
@@ -63,10 +63,10 @@ describe('time', () => {
 
 	describe('getMilliseconds', () => {
 		it.each`
-			duration | unit            | retVal
-			${3600}  | ${time.SECONDS} | ${3600000}
-			${60}    | ${time.MINUTES} | ${3600000}
-			${1}     | ${time.HOURS}   | ${3600000}
+			duration | unit                      | retVal
+			${3600}  | ${time.TimeUnits.Seconds} | ${3600000}
+			${60}    | ${time.TimeUnits.Minutes} | ${3600000}
+			${1}     | ${time.TimeUnits.Hours}   | ${3600000}
 		`('format $unit to milliseconds', ({duration, retVal, unit}) => {
 			expect(time.getMilliseconds(duration, unit)).toBe(retVal);
 		});
@@ -85,16 +85,16 @@ describe('time', () => {
 
 	describe('getLargestNaturalUnit', () => {
 		it.each`
-			milliseconds | unit            | retVal
-			${16000}     | ${time.HOURS}   | ${time.SECONDS}
-			${16000}     | ${time.MINUTES} | ${time.SECONDS}
-			${16000}     | ${time.SECONDS} | ${time.SECONDS}
-			${1800000}   | ${time.HOURS}   | ${time.MINUTES}
-			${1800000}   | ${time.MINUTES} | ${time.MINUTES}
-			${1800000}   | ${time.SECONDS} | ${time.SECONDS}
-			${3600000}   | ${time.HOURS}   | ${time.HOURS}
-			${1800000}   | ${time.MINUTES} | ${time.MINUTES}
-			${1800000}   | ${time.SECONDS} | ${time.SECONDS}
+			milliseconds | unit                      | retVal
+			${16000}     | ${time.TimeUnits.Hours}   | ${time.TimeUnits.Seconds}
+			${16000}     | ${time.TimeUnits.Minutes} | ${time.TimeUnits.Seconds}
+			${16000}     | ${time.TimeUnits.Seconds} | ${time.TimeUnits.Seconds}
+			${1800000}   | ${time.TimeUnits.Hours}   | ${time.TimeUnits.Minutes}
+			${1800000}   | ${time.TimeUnits.Minutes} | ${time.TimeUnits.Minutes}
+			${1800000}   | ${time.TimeUnits.Seconds} | ${time.TimeUnits.Seconds}
+			${3600000}   | ${time.TimeUnits.Hours}   | ${time.TimeUnits.Hours}
+			${1800000}   | ${time.TimeUnits.Minutes} | ${time.TimeUnits.Minutes}
+			${1800000}   | ${time.TimeUnits.Seconds} | ${time.TimeUnits.Seconds}
 		`(
 			'return the largest natural unit start at $unit for $milliseconds milliseconds',
 			({milliseconds, retVal, unit}) => {
@@ -107,10 +107,10 @@ describe('time', () => {
 
 	describe('getUnitLabel', () => {
 		it.each`
-			unit            | label
-			${time.SECONDS} | ${time.UNITS[0]}
-			${time.MINUTES} | ${time.UNITS[1]}
-			${time.HOURS}   | ${time.UNITS[2]}
+			unit                      | label
+			${time.TimeUnits.Seconds} | ${time.UNITS[0]}
+			${time.TimeUnits.Minutes} | ${time.UNITS[1]}
+			${time.TimeUnits.Hours}   | ${time.UNITS[2]}
 		`('return $label for $unit', ({label, unit}) => {
 			expect(time.getUnitLabel(unit)).toBe(label);
 		});
@@ -118,13 +118,13 @@ describe('time', () => {
 
 	describe('getRemainder', () => {
 		it.each`
-			milliseconds | unit            | retVal
-			${3600000}   | ${time.SECONDS} | ${0}
-			${3600001}   | ${time.SECONDS} | ${1}
-			${3600000}   | ${time.MINUTES} | ${0}
-			${3600001}   | ${time.MINUTES} | ${1}
-			${3600000}   | ${time.HOURS}   | ${0}
-			${3600001}   | ${time.HOURS}   | ${1}
+			milliseconds | unit                      | retVal
+			${3600000}   | ${time.TimeUnits.Seconds} | ${0}
+			${3600001}   | ${time.TimeUnits.Seconds} | ${1}
+			${3600000}   | ${time.TimeUnits.Minutes} | ${0}
+			${3600001}   | ${time.TimeUnits.Minutes} | ${1}
+			${3600000}   | ${time.TimeUnits.Hours}   | ${0}
+			${3600001}   | ${time.TimeUnits.Hours}   | ${1}
 		`(
 			'return $retVal when checking for remainders in $unit unit',
 			({milliseconds, retVal, unit}) => {

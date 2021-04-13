@@ -6,7 +6,7 @@ import {
 	formatDuration,
 	getLargestNaturalUnit,
 	getMilliseconds,
-	UNITS
+	UNIT_LABELS
 } from 'shared/util/time';
 import {isFinite} from 'lodash';
 import {isValid} from 'contacts/components/segment-editor/dynamic/utils/utils';
@@ -83,8 +83,8 @@ export default class DurationInput extends React.Component {
 				/>
 
 				<Input.GroupItem position='append'>
-					<Dropdown label={UNITS[unit]}>
-						{UNITS.map((unitLabel, i) => (
+					<Dropdown label={UNIT_LABELS[unit]}>
+						{UNIT_LABELS.map((unitLabel, i) => (
 							<Dropdown.Item
 								active={i === unit}
 								hideOnClick
