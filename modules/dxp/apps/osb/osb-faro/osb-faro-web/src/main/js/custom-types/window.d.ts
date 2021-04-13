@@ -1,6 +1,7 @@
 import {
 	ActivityActions,
 	Applications,
+	ChannelPermissionTypes,
 	EntityTypes
 } from 'shared/util/constants';
 export {};
@@ -10,6 +11,7 @@ declare global {
 		faroConstants: {
 			activityActions: {[key: string]: ActivityActions};
 			applications: {[key: string]: Applications};
+			channelPermissionTypes: {[key: string]: ChannelPermissionTypes};
 			dataSourceStatuses: {[key: string]: string};
 			dataSourceTypes: {[key: string]: string};
 			entityTypes: {[key: string]: EntityTypes};

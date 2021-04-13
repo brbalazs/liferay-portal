@@ -31,25 +31,19 @@ export const POSITIONS = [
  * Assets
  */
 export enum AcquisitionTypes {
-	Channel= 'CHANNEL',
-	Referrer= 'REFERRER',
-	SourceMedium= 'SOURCE_MEDIUM'
-};
+	Channel = 'CHANNEL',
+	Referrer = 'REFERRER',
+	SourceMedium = 'SOURCE_MEDIUM'
+}
 
-const acquisitionTypes = {
-	channel: 'CHANNEL',
-	referrer: 'REFERRER',
-	sourceMedium: 'SOURCE_MEDIUM'
-};
-
-export const assetTypes = {
-	asset: 'Asset',
-	blog: 'Blog',
-	document: 'Document',
-	form: 'Form',
-	webContent: 'WebContent',
-	webPage: 'Page'
-};
+export enum AssetTypes {
+	Asset = 'Asset',
+	Blog = 'Blog',
+	Document = 'Document',
+	Form = 'Form',
+	WebContent = 'WebContent',
+	WebPage = 'Page'
+}
 
 const average = Liferay.Language.get('average').toLowerCase();
 const ratio = Liferay.Language.get('ratio').toLowerCase();
@@ -263,9 +257,7 @@ export enum EntityTypes {
 
 const Constants: Window['faroConstants'] = {
 	...window.faroConstants,
-	acquisitionTypes,
 	assetNames,
-	assetTypes,
 	compositionTypes,
 	credentialTypes,
 	dataSourceStates

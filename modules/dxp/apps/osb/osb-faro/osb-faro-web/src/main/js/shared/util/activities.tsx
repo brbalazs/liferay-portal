@@ -1,4 +1,4 @@
-import Constants from 'shared/util/constants';
+import Constants, {AssetTypes} from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
 import {
@@ -21,7 +21,6 @@ import {sub} from 'shared/util/lang';
 
 const {
 	activityActions: {comments, downloads, previews, submissions, visits},
-	assetTypes,
 	timeIntervals
 } = Constants;
 
@@ -124,14 +123,14 @@ function formatActivities(
 				const assetURL = assetRoute
 					? `${toRoute(assetRoute, {
 							assetId:
-								assetType === assetTypes.webPage && canonicalUrl
+								assetType === AssetTypes.WebPage && canonicalUrl
 									? canonicalUrl
 									: dataSourceAssetPK,
 							channelId,
 							groupId,
 							title: encodeURIComponent(name),
 							touchpoint:
-								assetType !== assetTypes.webPage
+								assetType !== AssetTypes.WebPage
 									? 'Any'
 									: canonicalUrl
 									? encodeURIComponent(canonicalUrl)
@@ -250,13 +249,13 @@ export function getActivityLabel(totalElements: number): React.ReactNode[] {
  */
 function getAssetRoute(assetType: string): string {
 	switch (assetType) {
-		case assetTypes.blog:
+		case AssetTypes.Blog:
 			return Routes.ASSETS_BLOGS_DASHBOARD;
-		case assetTypes.document:
+		case AssetTypes.Document:
 			return Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD;
-		case assetTypes.form:
+		case AssetTypes.Form:
 			return Routes.ASSETS_FORMS_DASHBOARD;
-		case assetTypes.webPage:
+		case AssetTypes.WebPage:
 			return Routes.SITES_TOUCHPOINTS_OVERVIEW;
 		default:
 			return null;
@@ -289,13 +288,13 @@ export function getMaxActivitiesValue(
  */
 function getObjectTypeIcon(assetType: string): string {
 	switch (assetType) {
-		case assetTypes.blog:
+		case AssetTypes.Blog:
 			return 'ac-blogs';
-		case assetTypes.document:
+		case AssetTypes.Document:
 			return 'ac-documents-and-media';
-		case assetTypes.form:
+		case AssetTypes.Form:
 			return 'forms';
-		case assetTypes.webPage:
+		case AssetTypes.WebPage:
 			return 'page';
 		default:
 			return 'folder';

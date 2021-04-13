@@ -12,7 +12,6 @@ import {withTableTabs} from './TableTabs';
 const {Channel, Referrer, SourceMedium} = AcquisitionTypes;
 
 const {
-	// acquisitionTypes: {channel, referrer, sourceMedium},
 	compositionTypes: {acquisitions}
 } = FaroConstants;
 

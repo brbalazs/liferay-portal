@@ -1,7 +1,6 @@
-import Constants, {AcquisitionTypes} from 'shared/util/constants';
+import Constants, {AcquisitionTypes, AssetTypes} from 'shared/util/constants';
 
 const {
-	assetTypes,
 	compositionTypes,
 	dataSourceTypes: {csv, liferay},
 	entityTypes: {
@@ -75,11 +74,11 @@ export const ACQUISITION_LABEL_MAP = {
 };
 
 export const ASSET_TYPE_LANG_MAP = {
-	[assetTypes.blog]: Liferay.Language.get('blog'),
-	[assetTypes.document]: Liferay.Language.get('document'),
-	[assetTypes.form]: Liferay.Language.get('form'),
-	[assetTypes.webContent]: Liferay.Language.get('web-content'),
-	[assetTypes.webPage]: Liferay.Language.get('page')
+	[AssetTypes.Blog]: Liferay.Language.get('blog'),
+	[AssetTypes.Document]: Liferay.Language.get('document'),
+	[AssetTypes.Form]: Liferay.Language.get('form'),
+	[AssetTypes.WebContent]: Liferay.Language.get('web-content'),
+	[AssetTypes.WebPage]: Liferay.Language.get('page')
 };
 
 export const COMPOSITION_LABEL_MAP = {

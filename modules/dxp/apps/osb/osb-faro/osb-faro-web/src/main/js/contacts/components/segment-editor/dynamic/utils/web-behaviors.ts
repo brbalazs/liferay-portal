@@ -1,4 +1,4 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {AssetTypes} from 'shared/util/constants';
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
 
@@ -12,8 +12,7 @@ const {
 		formViewed,
 		pageViewed,
 		webContentViewed
-	},
-	assetTypes
+	}
 } = FaroConstants;
 
 const createWebProperty = ({
@@ -39,42 +38,42 @@ const createWebProperty = ({
 const WEB_BEHAVIORS = List(
 	[
 		{
-			entityType: assetTypes.document,
+			entityType: AssetTypes.Document,
 			label: Liferay.Language.get('downloaded-document-&-media'),
 			name: documentDownloaded
 		},
 		{
-			entityType: assetTypes.form,
+			entityType: AssetTypes.Form,
 			label: Liferay.Language.get('submitted-form'),
 			name: formSubmitted
 		},
 		{
-			entityType: assetTypes.form,
+			entityType: AssetTypes.Form,
 			label: Liferay.Language.get('viewed-form'),
 			name: formViewed
 		},
 		{
-			entityType: assetTypes.webPage,
+			entityType: AssetTypes.WebPage,
 			label: Liferay.Language.get('viewed-page'),
 			name: pageViewed
 		},
 		{
-			entityType: assetTypes.blog,
+			entityType: AssetTypes.Blog,
 			label: Liferay.Language.get('commented-on-blog'),
 			name: commentPosted
 		},
 		{
-			entityType: assetTypes.blog,
+			entityType: AssetTypes.Blog,
 			label: Liferay.Language.get('viewed-blog'),
 			name: blogViewed
 		},
 		{
-			entityType: assetTypes.document,
+			entityType: AssetTypes.Document,
 			label: Liferay.Language.get('viewed-document-&-media'),
 			name: documentPreviewed
 		},
 		{
-			entityType: assetTypes.webContent,
+			entityType: AssetTypes.WebContent,
 			label: Liferay.Language.get('viewed-web-content'),
 			name: webContentViewed
 		}

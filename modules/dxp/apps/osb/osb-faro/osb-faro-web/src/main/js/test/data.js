@@ -22,7 +22,6 @@ import {
 
 const {
 	activityActions,
-	assetTypes,
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
 	credentialTypes: {oAuth2},
@@ -819,7 +818,7 @@ export function mockAction(seed = 0, data = {}) {
 	return {
 		action: activityActions.visits,
 		activityKey: `key_${seed}`,
-		assetType: assetTypes.form,
+		assetType: AssetTypes.Form,
 		canonicalUrl: `https://www.liferay${seed}.com`,
 		dataSourceAssetPK: String(seed),
 		day: seed,

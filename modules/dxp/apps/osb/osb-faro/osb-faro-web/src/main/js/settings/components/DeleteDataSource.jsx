@@ -1,7 +1,7 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {AssetTypes} from 'shared/util/constants';
 import Form, {validateInputMessage} from 'shared/components/form';
 import getCN from 'classnames';
 import React from 'react';
@@ -24,7 +24,6 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
 const {
-	assetTypes,
 	entityTypes: {account, asset, individual, individualsSegment, page}
 } = FaroConstants;
 
@@ -39,12 +38,12 @@ function getEntityApi(entityType) {
 			return API.accounts.search;
 		case asset:
 			return params =>
-				API.assets.search({assetType: assetTypes.asset, ...params});
+				API.assets.search({assetType: AssetTypes.Asset, ...params});
 		case individual:
 			return API.individuals.search;
 		case page:
 			return params =>
-				API.assets.search({assetType: assetTypes.webPage, ...params});
+				API.assets.search({assetType: AssetTypes.WebPage, ...params});
 		case individualsSegment:
 		default:
 			return API.individualSegment.search;
