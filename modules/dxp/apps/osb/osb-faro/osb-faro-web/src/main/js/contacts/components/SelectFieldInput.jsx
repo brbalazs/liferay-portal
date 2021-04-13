@@ -1,13 +1,13 @@
 import * as fieldMappingsAPI from 'shared/api/field-mappings';
 import autobind from 'autobind-decorator';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import React from 'react';
 import SelectInput from 'shared/components/SelectInput';
 import Sticker from 'shared/components/Sticker';
 import TextTruncate from 'shared/components/TextTruncate';
 import {PropTypes} from 'prop-types';
 
-const {fieldContexts, fieldTypes} = FaroConstants;
+const {fieldTypes} = FaroConstants;
 
 const ITEM_DISPLAY_LANG_MAP = {
 	[fieldTypes.date]: Liferay.Language.get('field-avatar-date'),
@@ -37,7 +37,7 @@ const Item = ({name, rawType}) => (
 
 class SelectFieldInput extends React.Component {
 	static defaultProps = {
-		context: fieldContexts.demographics
+		context: FieldContexts.Demographics
 	};
 
 	static propTypes = {

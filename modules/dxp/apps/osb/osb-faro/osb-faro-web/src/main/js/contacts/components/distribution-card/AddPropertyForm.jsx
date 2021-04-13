@@ -1,6 +1,6 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import Form, {
 	toPromise,
 	validateMaxLength,
@@ -22,7 +22,6 @@ import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
 
 const {
-	fieldContexts: {demographics},
 	fieldTypes: {number}
 } = FaroConstants;
 
@@ -39,7 +38,7 @@ const validateNumberOfBins = numberOfBins => {
 };
 
 const AddPropertyForm = ({
-	defaultContext = demographics,
+	defaultContext = FieldContexts.Demographics,
 	distributionKey,
 	groupId,
 	onCancel,
@@ -91,7 +90,9 @@ const AddPropertyForm = ({
 				analytics.track('Created Distribution Query', {
 					dataType: rawType,
 					distributionType:
-						context === demographics ? 'individual' : 'account',
+						context === FieldContexts.Demographics
+							? 'individual'
+							: 'account',
 					numberOfBins: Number(numberOfBins),
 					pageType:
 						distributionKey ===

@@ -5,7 +5,7 @@ import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/ChartTooltip';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {FieldContexts} from 'shared/util/constants';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
 import Label from 'shared/components/form/Label';
@@ -55,7 +55,6 @@ import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
-	fieldContexts: {demographics, organization},
 	fieldTypes: {number},
 	pagination: {orderDefault}
 } = FaroConstants;
@@ -80,11 +79,11 @@ const SearchableEntityTableHOC = withStatefulPagination(
 export const CONTEXT_OPTIONS = [
 	{
 		label: Liferay.Language.get('individuals'),
-		value: demographics
+		value: FieldContexts.Demographics
 	},
 	{
 		label: Liferay.Language.get('accounts'),
-		value: organization
+		value: FieldContexts.Organization
 	}
 ];
 
@@ -172,7 +171,7 @@ export class Distribution extends React.Component {
 		fieldMappingSelected: null,
 		histogram: false,
 		hoverIndex: -1,
-		selectedContext: demographics,
+		selectedContext: FieldContexts.Demographics,
 		showIndividualsPreview: false
 	};
 
@@ -297,7 +296,7 @@ export class Distribution extends React.Component {
 				analytics.track('Created Distribution Query', {
 					dataType: rawType,
 					distributionType:
-						selectedContext === demographics
+						selectedContext === FieldContexts.Demographics
 							? 'individual'
 							: 'account',
 					numberOfBins: this.getNumberOfBins(),
@@ -795,7 +794,7 @@ export class Distribution extends React.Component {
 															),
 															!histogram &&
 																selectedContext ===
-																	demographics
+																	FieldContexts.Demographics
 														)
 													}
 													ticks={yAxisTicks}
@@ -897,7 +896,8 @@ export class Distribution extends React.Component {
 					<CollapsibleOverlay
 						onClose={this.handleOverlayClose}
 						title={sub(
-							fieldMappingSelected.context === demographics
+							fieldMappingSelected.context ===
+								FieldContexts.Demographics
 								? Liferay.Language.get('individuals-matching-x')
 								: Liferay.Language.get('accounts-matching-x'),
 							[
@@ -911,7 +911,8 @@ export class Distribution extends React.Component {
 					>
 						<SearchableEntityTableHOC
 							columns={[
-								fieldMappingSelected.context === demographics
+								fieldMappingSelected.context ===
+								FieldContexts.Demographics
 									? individualsListColumns.getName({
 											channelId,
 											groupId
@@ -927,7 +928,8 @@ export class Distribution extends React.Component {
 								}
 							]}
 							dataSourceFn={
-								fieldMappingSelected.context === demographics
+								fieldMappingSelected.context ===
+								FieldContexts.Demographics
 									? this.fetchIndividuals
 									: this.fetchAccounts
 							}

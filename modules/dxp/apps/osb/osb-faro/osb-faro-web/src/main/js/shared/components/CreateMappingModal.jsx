@@ -1,15 +1,13 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from './Button';
-import FaroConstants from 'shared/util/constants';
 import Form, {toPromise, validatePattern, validateRequired} from './form';
 import Modal from './modal';
 import React from 'react';
+import {FieldContexts} from 'shared/util/constants';
 import {noop, trim} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {sequence} from 'shared/util/promise';
-
-const {fieldContexts} = FaroConstants;
 
 const TYPES = [
 	{
@@ -73,7 +71,7 @@ class CreateMappingModal extends React.Component {
 		} else {
 			error = API.fieldMappings
 				.search({
-					context: fieldContexts.demographics,
+					context: FieldContexts.Demographics,
 					cur: 1,
 					delta: 1,
 					fieldName: value,

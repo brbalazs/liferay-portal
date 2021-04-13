@@ -285,6 +285,13 @@ export enum EntityTypes {
 	Page = 6
 }
 
+export enum FieldContexts {
+	Custom = 'custom',
+	Demographics = 'demograhics',
+	Interests = 'interests',
+	Organization = 'organization'
+}
+
 const Constants: Window['faroConstants'] = window.faroConstants;
 
 export default Constants;

@@ -1,13 +1,11 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BaseFieldMappingView from 'settings/components/data-source/BaseFieldMappingView';
-import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {compose, withCurrentUser, withDataSource} from 'shared/hoc';
 import {DataSource, User} from 'shared/util/records';
+import {FieldContexts} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
-
-const {fieldContexts} = FaroConstants;
 
 export class IndividualFieldMapping extends React.Component {
 	static propTypes = {
@@ -44,7 +42,7 @@ export class IndividualFieldMapping extends React.Component {
 						label: Liferay.Language.get('individual-field-mapping')
 					}
 				]}
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={currentUser}
 				dataSource={dataSource}
 				details={[

@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import Constants from 'shared/util/constants';
+import Constants, {FieldContexts} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import {compose} from 'redux';
@@ -20,7 +20,7 @@ import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {withRequest} from 'shared/hoc';
 
-const {fieldContexts, fieldOwnerTypes} = Constants;
+const {fieldOwnerTypes} = Constants;
 
 const MAX_DELTA = 500;
 
@@ -34,26 +34,26 @@ const fetchPropertyGroups = ({
 	Promise.all([
 		API.channels.fetch({channelId, groupId}),
 		API.fieldMappings.search({
-			context: fieldContexts.demographics,
+			context: FieldContexts.Demographics,
 			delta: MAX_DELTA,
 			groupId,
 			ownerType: fieldOwnerTypes.individual
 		}),
 		API.fieldMappings.search({
-			context: fieldContexts.custom,
+			context: FieldContexts.Custom,
 			delta: MAX_DELTA,
 			groupId,
 			ownerType: fieldOwnerTypes.individual
 		}),
 		API.fieldMappings.search({
-			context: fieldContexts.organization,
+			context: FieldContexts.Organization,
 			delta: MAX_DELTA,
 			groupId,
 			ownerType: fieldOwnerTypes.account
 		}),
 		Promise.resolve(ORGANIZATION_PROPERTIES),
 		API.fieldMappings.search({
-			context: fieldContexts.custom,
+			context: FieldContexts.Custom,
 			delta: MAX_DELTA,
 			groupId,
 			ownerType: fieldOwnerTypes.organization

@@ -1,14 +1,15 @@
-import FaroConstants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
-
-const {
-	fieldContexts: {demographics}
-} = FaroConstants;
+import {FieldContexts} from 'shared/util/constants';
 
 export function fetch(params) {
-	const {context = demographics, groupId, ...otherParams} = params;
+	const {
+		context = FieldContexts.Demographics,
+		groupId,
+		...otherParams
+	} = params;
 
-	const entityType = context === demographics ? 'individual' : 'account';
+	const entityType =
+		context === FieldContexts.Demographics ? 'individual' : 'account';
 
 	return sendRequest({
 		data: {

@@ -5,7 +5,6 @@ import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import DataTransformationList from 'settings/components/data-transformation-list';
 import DefinitionItem from 'shared/components/DefinitionItem';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
@@ -15,6 +14,7 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
+import {FieldContexts} from 'shared/util/constants';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
 import {noop} from 'lodash';
@@ -28,8 +28,6 @@ import {
 } from 'shared/components/form';
 import {validateUniqueName} from 'shared/util/data-sources';
 import {withCurrentUser} from 'shared/hoc';
-
-const {fieldContexts} = FaroConstants;
 
 @hasRequest
 export class CSV extends React.Component {
@@ -90,7 +88,7 @@ export class CSV extends React.Component {
 
 		return API.dataSource
 			.fetchMappingsLite({
-				context: fieldContexts.demographics,
+				context: FieldContexts.Demographics,
 				groupId,
 				id
 			})

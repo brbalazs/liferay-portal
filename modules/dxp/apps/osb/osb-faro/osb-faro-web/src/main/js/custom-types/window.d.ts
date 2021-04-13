@@ -6,7 +6,8 @@ import {
 	DataSourceProgressStatuses,
 	DataSourceStatuses,
 	DataSourceTypes,
-	EntityTypes
+	EntityTypes,
+	FieldContexts
 } from 'shared/util/constants';
 export {};
 
@@ -25,7 +26,7 @@ declare global {
 			dataSourceStatuses: {[key: string]: DataSourceStatuses};
 			dataSourceTypes: {[key: string]: DataSourceTypes};
 			entityTypes: {[key: string]: EntityTypes};
-			fieldContexts: {[key: string]: string};
+			fieldContexts: {[key: string]: FieldContexts};
 			fieldTypes: {[key: string]: string};
 			pathThemeImages: string;
 			pagination: {

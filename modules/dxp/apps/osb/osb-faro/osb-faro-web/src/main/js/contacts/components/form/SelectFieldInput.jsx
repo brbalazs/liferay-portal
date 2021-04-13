@@ -1,16 +1,16 @@
 import autobind from 'autobind-decorator';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import HelpBlock from 'shared/components/form/HelpBlock';
 import Label from 'shared/components/form/Label';
+import PropTypes from 'prop-types';
 import React from 'react';
 import SelectFieldInput from '../SelectFieldInput';
-import {PropTypes} from 'prop-types';
+import {FieldContexts} from 'shared/util/constants';
 import {withField} from 'shared/components/form';
 
 export class FormSelectFieldInput extends React.Component {
 	static defaultProps = {
-		context: FaroConstants.fieldContexts.demographics,
+		context: FieldContexts.Demographics,
 		required: false,
 		showHelpBlock: true
 	};

@@ -1,19 +1,17 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
 import BaseFieldMappingView from '../BaseFieldMappingView';
-import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
+import {FieldContexts} from 'shared/util/constants';
 import {shallow} from 'enzyme';
-
-const {fieldContexts} = FaroConstants;
 
 describe('BaseFieldMappingView', () => {
 	it('should render', () => {
 		const component = shallow(
 			<BaseFieldMappingView
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={data.getImmutableMock(User, data.mockUser)}
 				dataSource={data.getImmutableMock(
 					DataSource,
@@ -30,7 +28,7 @@ describe('BaseFieldMappingView', () => {
 	it('should render w/o loading', () => {
 		const component = shallow(
 			<BaseFieldMappingView
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={data.getImmutableMock(User, data.mockUser)}
 				dataSource={data.getImmutableMock(
 					DataSource,
@@ -53,7 +51,7 @@ describe('BaseFieldMappingView', () => {
 
 		const component = shallow(
 			<BaseFieldMappingView
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={data.getImmutableMock(User, data.mockUser)}
 				dataSource={data.getImmutableMock(
 					DataSource,
@@ -74,7 +72,7 @@ describe('BaseFieldMappingView', () => {
 		const details = 'This is the details';
 		const component = shallow(
 			<BaseFieldMappingView
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={data.getImmutableMock(User, data.mockUser)}
 				dataSource={data.getImmutableMock(
 					DataSource,
@@ -97,7 +95,7 @@ describe('BaseFieldMappingView', () => {
 		const title = 'This is a title';
 		const component = shallow(
 			<BaseFieldMappingView
-				context={fieldContexts.demographics}
+				context={FieldContexts.Demographics}
 				currentUser={data.getImmutableMock(User, data.mockUser)}
 				dataSource={data.getImmutableMock(
 					DataSource,

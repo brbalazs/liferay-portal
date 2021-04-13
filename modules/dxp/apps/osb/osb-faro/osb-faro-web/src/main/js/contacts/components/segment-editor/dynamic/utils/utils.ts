@@ -1,4 +1,4 @@
-import Constants from 'shared/util/constants';
+import Constants, {FieldContexts} from 'shared/util/constants';
 import dateFns from 'date-fns';
 import {
 	CONJUNCTIONS,
@@ -36,7 +36,7 @@ const {
 	NOT_SESSIONS_FILTER
 } = NOT_OPERATORS;
 
-const {fieldContexts, fieldOwnerTypes} = Constants;
+const {fieldOwnerTypes} = Constants;
 
 const GROUP_ID_NAMESPACE = 'group_';
 const ROW_ID_NAMESPACE = 'row_';
@@ -209,7 +209,7 @@ export const findPropertyByCriterion = (
 	} else if (
 		[NOT_ORGANIZATIONS_FILTER, ORGANIZATIONS_FILTER].includes(operatorName)
 	) {
-		if (getPropertyContextFromRaw(propertyName) !== fieldContexts.custom) {
+		if (getPropertyContextFromRaw(propertyName) !== FieldContexts.Custom) {
 			return ORGANIZATION_PROPERTIES.find(
 				({name}) => name === propertyName
 			);
