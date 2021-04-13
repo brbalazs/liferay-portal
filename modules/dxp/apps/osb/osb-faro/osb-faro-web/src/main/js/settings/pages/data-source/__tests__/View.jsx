@@ -1,17 +1,13 @@
 import * as data from 'test/data';
-import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import {CredentialTypes} from 'shared/util/constants';
 import {DataSource, User} from 'shared/util/records';
 import {MemoryRouter} from 'react-router';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {View} from '../View';
 import {waitForLoading} from 'test/helpers';
-
-const {
-	credentialTypes: {token}
-} = Constants;
 
 jest.unmock('react-dom');
 
@@ -57,7 +53,7 @@ describe('View', () => {
 					'123',
 					{
 						credentials: {
-							type: token
+							type: CredentialTypes.Token
 						}
 					}
 				)}

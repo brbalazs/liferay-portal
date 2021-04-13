@@ -1,7 +1,7 @@
 import * as API from 'shared/api';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
+import Constants, {CredentialTypes} from 'shared/util/constants';
 import CopyButton from 'shared/components/CopyButton';
 import DataSourceQuery from 'shared/queries/DataSourceQuery';
 import getCN from 'classnames';
@@ -21,7 +21,7 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
-const {credentialTypes, dataSourceTypes} = Constants;
+const {dataSourceTypes} = Constants;
 const {HELP_CONNECT_DXP} = urlConstants;
 const TIMEOUT_INTERVAL = 5000;
 
@@ -68,7 +68,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 			onDxpConnected(true);
 		},
 		variables: {
-			credentialsType: credentialTypes.token,
+			credentialsType: CredentialTypes.Token,
 			size: 1,
 			sort: {
 				column: 'dateCreated',

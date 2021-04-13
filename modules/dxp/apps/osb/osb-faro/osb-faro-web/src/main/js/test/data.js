@@ -1,5 +1,6 @@
-import FaroConstants, {
+import Constants, {
 	AssetTypes,
+	CredentialTypes,
 	EntityTypes,
 	jobRunDataPeriods,
 	jobRunFrequencies,
@@ -25,7 +26,6 @@ const {
 	activityActions,
 	clauseOperators,
 	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
-	credentialTypes: {oAuth2},
 	criterionTypes,
 	dataSourceProgressStatuses,
 	dataSourceStates,
@@ -35,7 +35,7 @@ const {
 	segmentStates,
 	subscriptionStatuses,
 	userRoleNames
-} = FaroConstants;
+} = Constants;
 
 const BASE_TIMESTAMP = 1531263666366;
 
@@ -473,7 +473,7 @@ export function mockSalesforceDataSource(seed = 1, data = {}) {
 		credentials: {
 			oAuthClientId: `oAuthMockClientId-${seed}`,
 			oAuthClientSecret: `oAuthMockClientSecret-${seed}`,
-			type: oAuth2
+			type: CredentialTypes.OAuth2
 		},
 		dateCreated: getTimestamp(-2),
 		disabled: false,

@@ -1,10 +1,10 @@
 import * as API from 'shared/api';
-import Constants from 'shared/util/constants';
 import EnrichedProfilesCard from '../EnrichedProfilesCard';
 import Promise from 'metal-promise';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {cleanup, queryByText, render} from '@testing-library/react';
+import {CredentialTypes} from 'shared/util/constants';
 import {DataSource} from 'shared/util/records';
 import {
 	getImmutableMock,
@@ -13,8 +13,6 @@ import {
 	mockSalesforceDataSource
 } from 'test/data';
 import {StaticRouter} from 'react-router';
-
-const {credentialTypes} = Constants;
 
 jest.unmock('react-dom');
 
@@ -70,7 +68,7 @@ describe('EnrichedProfilesCard Enrich Profiles Prompt', () => {
 			mockLiferayDataSource,
 			0,
 			{
-				credentials: {type: credentialTypes.token},
+				credentials: {type: CredentialTypes.Token},
 				details: {contactsSelected: false}
 			}
 		);
@@ -87,7 +85,7 @@ describe('EnrichedProfilesCard Enrich Profiles Prompt', () => {
 			DataSource,
 			mockLiferayDataSource,
 			0,
-			{credentials: {type: credentialTypes.oAuth2}}
+			{credentials: {type: CredentialTypes.OAuth2}}
 		);
 
 		const {container} = render(

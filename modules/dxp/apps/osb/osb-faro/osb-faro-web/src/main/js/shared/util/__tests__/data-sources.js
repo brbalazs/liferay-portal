@@ -1,6 +1,6 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
+import Constants, {CredentialTypes} from 'shared/util/constants';
 import Promise from 'metal-promise';
 import {DataSource} from 'shared/util/records';
 import {
@@ -20,7 +20,6 @@ import {noop, range} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 
 const {
-	credentialTypes,
 	dataSourceStates: {
 		actionNeeded,
 		analyticsClientConfigurationFailure,
@@ -34,7 +33,7 @@ const {
 		urlInvalid
 	},
 	dataSourceStatuses
-} = FaroConstants;
+} = Constants;
 
 function getMockLiferayDataSource(id, config) {
 	return data.getImmutableMock(
@@ -203,7 +202,7 @@ describe('data-sources', () => {
 		xit('should return the "action needed" state display object if the data source state is in oAuth1 Authentication', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					credentials: {type: credentialTypes.oAuth1}
+					credentials: {type: CredentialTypes.OAuth1}
 				}),
 				true
 			);
@@ -214,7 +213,7 @@ describe('data-sources', () => {
 		xit('should return the "action needed" state display object if the data source state is in oAuth2 Authentication', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
-					credentials: {type: credentialTypes.oAuth2}
+					credentials: {type: CredentialTypes.OAuth2}
 				}),
 				true
 			);
@@ -254,14 +253,14 @@ describe('data-sources', () => {
 			expect(
 				hasLegacyDXPConnection(
 					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.oAuth1}
+						credentials: {type: CredentialTypes.OAuth1}
 					})
 				)
 			).toBeTrue();
 			expect(
 				hasLegacyDXPConnection(
 					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.oAuth2}
+						credentials: {type: CredentialTypes.OAuth2}
 					})
 				)
 			).toBeTrue();
@@ -288,7 +287,7 @@ describe('data-sources', () => {
 			expect(
 				hasLegacyDXPConnection(
 					getMockLiferayDataSource(0, {
-						credentials: {type: credentialTypes.token}
+						credentials: {type: CredentialTypes.Token}
 					})
 				)
 			).toBeFalse();

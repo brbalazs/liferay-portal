@@ -118,10 +118,10 @@ export enum CompositionTypes {
 	SiteInterests = 'siteInterests'
 }
 
-export enum credentialTypes {
-	oAuth1 = 'OAuth 1 Authentication',
-	oAuth2 = 'OAuth 2 Authentication',
-	token = 'Token Authentication'
+export enum CredentialTypes {
+	OAuth1 = 'OAuth 1 Authentication',
+	OAuth2 = 'OAuth 2 Authentication',
+	Token = 'Token Authentication'
 }
 
 export enum dataSourceStates {
@@ -257,7 +257,6 @@ export enum EntityTypes {
 
 const Constants: Window['faroConstants'] = {
 	...window.faroConstants,
-	credentialTypes,
 	dataSourceStates
 };
 

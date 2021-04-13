@@ -1,12 +1,11 @@
 import * as API from 'shared/api';
-import FaroConstants from 'shared/util/constants';
+import Constants, {CredentialTypes} from 'shared/util/constants';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {toPromise} from 'shared/components/form';
 
 const {
-	credentialTypes: {token},
 	dataSourceStates: {
 		actionNeeded,
 		analyticsClientConfigurationFailure,
@@ -22,7 +21,7 @@ const {
 	dataSourceStatuses,
 	dataSourceTypes: {csv, liferay, salesforce},
 	entityTypes: {dataSource}
-} = FaroConstants;
+} = Constants;
 
 export const LIFERAY_SITE_TYPE = `${dataSource}-site`;
 
@@ -225,7 +224,7 @@ export function getDataSourceDisplayObject(
 				return STATUS_DISPLAY.active;
 			}
 
-			return credentialsType === token
+			return credentialsType === CredentialTypes.Token
 				? STATUS_DISPLAY.tokenCredentialsValid
 				: STATUS_DISPLAY[credentialsValid];
 		case inProgressDeleting:
@@ -262,7 +261,7 @@ export function getIdsFromConfiguration(configIMap, key) {
  */
 export const hasLegacyDXPConnection = (dataSource: DataSource) =>
 	dataSource.providerType === liferay &&
-	dataSource.getIn(['credentials', 'type']) !== token;
+	dataSource.getIn(['credentials', 'type']) !== CredentialTypes.Token;
 
 /**
  * Helper function for checking validity of a DataSource's analyticsConfiguration.
