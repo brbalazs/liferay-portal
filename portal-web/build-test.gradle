@@ -143,15 +143,3 @@ updateGradleCache {
 		configurations.sikuliComplete.resolve()
 	}
 }
-
-if (GradleUtil.getProperty(project, "local", false)) {
-	File localPoshiDir = file("../tools/sdk/dependencies/com.liferay.poshi.runner/lib")
-
-	dependencies {
-		poshiRunner fileTree(dir: localPoshiDir, include: "*.jar")
-	}
-
-	expandPoshiRunner {
-		from zipTree(new File(localPoshiDir, "com.liferay.poshi.runner.jar"))
-	}
-}
