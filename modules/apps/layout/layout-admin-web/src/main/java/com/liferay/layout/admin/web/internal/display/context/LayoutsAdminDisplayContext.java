@@ -1013,11 +1013,11 @@ public class LayoutsAdminDisplayContext {
 			return _privateLayout;
 		}
 
-		String privateLayout = _liferayPortletRequest.getParameter(
+		String privateLayoutString = _liferayPortletRequest.getParameter(
 			"privateLayout");
 
-		if (Validator.isNotNull(privateLayout)) {
-			_privateLayout = GetterUtil.getBoolean(privateLayout);
+		if (Validator.isNotNull(privateLayoutString)) {
+			_privateLayout = GetterUtil.getBoolean(privateLayoutString);
 
 			return _privateLayout;
 		}
