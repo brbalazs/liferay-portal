@@ -1,5 +1,5 @@
-String elasticsearchVersion = "6.8.6"
-String luceneVersion = "7.7.2"
+String elasticsearchVersion = "6.8.15"
+String luceneVersion = "7.7.3"
 
 configurations {
 	elasticsearchPlugins {
@@ -15,13 +15,12 @@ dependencies {
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-cbor", version: "2.9.8"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-smile", version: "2.9.8"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.9.8"
-	compileInclude group: "com.liferay", name: "org.elasticsearch.client.xpack.transport", version: elasticsearchVersion
-	compileInclude group: "com.liferay", name: "org.elasticsearch.painless", version: "6.8.6.LIFERAY-PATCHED-1"
+	compileInclude group: "com.liferay", name: "org.elasticsearch.analysis.common", version: elasticsearchVersion
+	compileInclude group: "com.liferay", name: "org.elasticsearch.painless", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.classloader", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.cli", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.mapper-extras-client", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.secure.sm", version: elasticsearchVersion
-	compileInclude group: "com.liferay", name: "org.elasticsearch.xpack.core", version: elasticsearchVersion
 	compileInclude group: "com.tdunning", name: "t-digest", version: "3.2"
 	compileInclude group: "com.twitter", name: "jsr166e", version: "1.1.0"
 	compileInclude group: "com.unboundid", name: "unboundid-ldapsdk", version: "4.0.14"
@@ -29,7 +28,7 @@ dependencies {
 	compileInclude group: "commons-lang", name: "commons-lang", version: "2.6"
 	compileInclude group: "commons-logging", name: "commons-logging", version: "1.2"
 	compileInclude group: "io.netty", name: "netty-all", version: "4.1.48.Final"
-	compileInclude group: "joda-time", name: "joda-time", version: "2.9.5"
+	compileInclude group: "joda-time", name: "joda-time", version: "2.10.1"
 	compileInclude group: "log4j", name: "log4j", version: "1.2.17"
 	compileInclude group: "net.sf.jopt-simple", name: "jopt-simple", version: "5.0.2"
 	compileInclude group: "net.sf.supercsv", name: "super-csv", version: "2.1.0"
@@ -55,7 +54,6 @@ dependencies {
 	compileInclude group: "org.bouncycastle", name: "bcpg-jdk15on", version: "1.61"
 	compileInclude group: "org.bouncycastle", name: "bcpkix-jdk15on", version: "1.61"
 	compileInclude group: "org.bouncycastle", name: "bcprov-jdk15on", version: "1.61"
-	compileInclude group: "org.codelibs.elasticsearch.module", name: "analysis-common", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch", name: "elasticsearch", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch", name: "elasticsearch-cli", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch", name: "elasticsearch-core", version: elasticsearchVersion
@@ -65,6 +63,7 @@ dependencies {
 	compileInclude group: "org.elasticsearch.client", name: "elasticsearch-rest-high-level-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.client", name: "sniffer", version: "5.5.3"
 	compileInclude group: "org.elasticsearch.client", name: "transport", version: elasticsearchVersion
+	compileInclude group: "org.elasticsearch.client", name: "x-pack-transport", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "elasticsearch-scripting-painless-spi", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "lang-mustache-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "parent-join-client", version: elasticsearchVersion
@@ -72,6 +71,7 @@ dependencies {
 	compileInclude group: "org.elasticsearch.plugin", name: "rank-eval-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "reindex-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "transport-netty4-client", version: elasticsearchVersion
+	compileInclude group: "org.elasticsearch.plugin", name: "x-pack-core", version: elasticsearchVersion
 	compileInclude group: "org.hdrhistogram", name: "HdrHistogram", version: "2.1.9"
 	compileInclude group: "org.locationtech.jts", name: "jts-core", version: "1.15.0"
 	compileInclude group: "org.locationtech.spatial4j", name: "spatial4j", version: "0.7"
