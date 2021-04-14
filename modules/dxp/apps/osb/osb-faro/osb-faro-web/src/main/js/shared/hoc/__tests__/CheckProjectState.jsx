@@ -102,7 +102,7 @@ describe('SuccessDisplayIf', () => {
 		const {container} = render(
 			<StaticRouter>
 				<Provider store={mockStore()}>
-					<WrappedComponent groupId='28' />
+					<WrappedComponent groupId='29' />
 				</Provider>
 			</StaticRouter>
 		);

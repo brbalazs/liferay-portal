@@ -290,7 +290,7 @@ export enum EntityTypes {
 
 export enum FieldContexts {
 	Custom = 'custom',
-	Demographics = 'demograhics',
+	Demographics = 'demographics',
 	Interests = 'interests',
 	Organization = 'organization'
 }
@@ -306,6 +306,11 @@ export enum FieldTypes {
 	Date = 'Date',
 	Number = 'Number',
 	String = 'Text'
+}
+
+export enum OrderByDirections {
+	Ascending = 'ASC',
+	Descending = 'DESC'
 }
 
 export enum PreferencesScopes {

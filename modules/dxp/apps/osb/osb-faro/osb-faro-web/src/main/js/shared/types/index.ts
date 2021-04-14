@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map, Set} from 'immutable';
 import {Modal} from './Modal';
-import {RangeKeyTimeRanges} from 'shared/util/constants';
+import {OrderByDirections, RangeKeyTimeRanges} from 'shared/util/constants';
 
 export {Alert} from './Alert';
 export {Modal} from './Modal';
@@ -93,6 +93,11 @@ export interface RESTParams {
 export type RouterType = {
 	params: {[key: string]: string};
 	query: {[key: string]: string};
+};
+
+export type Sort = {
+	column: string;
+	type: OrderByDirections;
 };
 
 export interface HasModal {

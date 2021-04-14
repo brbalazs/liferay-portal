@@ -1,5 +1,6 @@
 import {Attribute} from '../utils/types';
 import {gql} from 'apollo-boost';
+import {Sort} from 'shared/types';
 
 export interface EventAttributeDefinitionsData {
 	eventAttributeDefinition: Attribute[];
@@ -10,10 +11,7 @@ export interface EventAttributeDefinitionsVariables {
 	keyword?: string;
 	page?: number;
 	size: number;
-	sort: {
-		column: string;
-		type: 'ASC' | 'DESC';
-	};
+	sort: Sort;
 }
 
 export default gql`

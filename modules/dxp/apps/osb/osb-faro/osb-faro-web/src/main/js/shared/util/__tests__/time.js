@@ -117,9 +117,9 @@ describe('time', () => {
 	describe('getUnitLabel', () => {
 		it.each`
 			unit                      | label
-			${time.TimeUnits.Seconds} | ${time.UNITS[0]}
-			${time.TimeUnits.Minutes} | ${time.UNITS[1]}
-			${time.TimeUnits.Hours}   | ${time.UNITS[2]}
+			${time.TimeUnits.Seconds} | ${time.UNIT_LABELS[0]}
+			${time.TimeUnits.Minutes} | ${time.UNIT_LABELS[1]}
+			${time.TimeUnits.Hours}   | ${time.UNIT_LABELS[2]}
 		`('return $label for $unit', ({label, unit}) => {
 			expect(time.getUnitLabel(unit)).toBe(label);
 		});

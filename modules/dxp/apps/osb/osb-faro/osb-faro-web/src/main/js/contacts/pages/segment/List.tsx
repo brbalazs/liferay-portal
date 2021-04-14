@@ -64,7 +64,7 @@ function fetchSegments(params: FetchSegmentsParams): any {
 
 	return API.individualSegment.search({
 		channelId,
-		delta,
+		delta: delta as number,
 		groupId,
 		orderByFields: [
 			{
@@ -73,7 +73,7 @@ function fetchSegments(params: FetchSegmentsParams): any {
 				system: true
 			}
 		],
-		page,
+		page: page as number,
 		query,
 		state: stateFilterISet.first()
 	});

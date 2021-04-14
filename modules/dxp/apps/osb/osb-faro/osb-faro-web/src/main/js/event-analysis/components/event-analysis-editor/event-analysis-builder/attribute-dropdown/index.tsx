@@ -1,6 +1,5 @@
 import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
-import Constants from 'shared/util/constants';
 import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
 	UPDATE_EVENT_ATTRIBUTE_DEFINITION
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
@@ -17,12 +16,9 @@ import {connect} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {Modal} from 'shared/types';
 import {NAME} from 'shared/util/pagination';
+import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
-
-const {
-	pagination: {orderDefault}
-} = Constants;
 
 interface IAttributeDropdownProps {
 	attribute?: Attribute;
@@ -61,7 +57,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 			size: 200,
 			sort: {
 				column: NAME,
-				type: orderDefault.toUpperCase()
+				type: OrderByDirections.Ascending
 			}
 		}
 	});
