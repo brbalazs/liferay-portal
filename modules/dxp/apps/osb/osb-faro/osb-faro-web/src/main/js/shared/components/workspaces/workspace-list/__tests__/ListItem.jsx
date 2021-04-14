@@ -54,7 +54,7 @@ describe('WorkspaceListItem', () => {
 			<StaticRouter>
 				<WorkspaceListItem
 					isJoinableProjects
-					projectState={ProjectStates.rEADY}
+					projectState={ProjectStates.Ready}
 				/>
 			</StaticRouter>
 		);

@@ -61,7 +61,7 @@ const mockAccountWithUnconfiguredList = range(2).map(
 					corpProjectUuid: '12345',
 					groupId: 123,
 					name: `mockProject_AccountA ${i}`,
-					state: DataSourceStates.unconfigured
+					state: DataSourceStates.Unconfigured
 				})
 			)
 		)

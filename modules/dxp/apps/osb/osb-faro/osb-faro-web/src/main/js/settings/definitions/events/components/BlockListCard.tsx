@@ -145,7 +145,7 @@ const BlockListCard = withCrossPageSelect(withData, {
 					}
 
 					addAlert({
-						alertType: Alert.Types.SUCCESS,
+						alertType: Alert.Types.Success,
 						message:
 							eventsCount > 1
 								? sub(
@@ -165,7 +165,7 @@ const BlockListCard = withCrossPageSelect(withData, {
 				.catch(() =>
 					// TODO: LRAC-7606 Add custom mesage for when returning an event to custom event list will go over 100 events
 					addAlert({
-						alertType: Alert.Types.ERROR,
+						alertType: Alert.Types.Error,
 						message: Liferay.Language.get(
 							'there-was-an-error-processing-your-request.-please-try-again'
 						),

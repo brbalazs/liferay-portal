@@ -129,7 +129,7 @@ describe('DataSourceList', () => {
 						credentials: {
 							oAuthOwner: {emailAddress: 'test@liferay.com'}
 						},
-						state: DataSourceStates.credentialsInvalid
+						state: DataSourceStates.CredentialsInvalid
 					})
 				],
 				total: 1

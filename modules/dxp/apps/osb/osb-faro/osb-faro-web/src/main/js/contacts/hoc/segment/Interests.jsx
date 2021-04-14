@@ -15,7 +15,7 @@ import {withBaseResults} from 'shared/hoc';
 const withData = () =>
 	graphql(getInterestsQuery(CompositionTypes.SegmentInterests), {
 		options: mapPropsToOptions,
-		props: getMapResultToProps(CompositionTypes.segmentInterests)
+		props: getMapResultToProps(CompositionTypes.SegmentInterests)
 	});
 
 const TableWithData = withBaseResults(withData, {

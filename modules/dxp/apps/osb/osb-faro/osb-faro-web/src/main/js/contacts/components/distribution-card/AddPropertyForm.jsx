@@ -197,7 +197,7 @@ const AddPropertyForm = ({
 												onSelect={({rawType}) =>
 													setShowBin(
 														rawType ===
-															FieldTypes.number
+															FieldTypes.Number
 													)
 												}
 												ref={_formSelectFieldInputRef}
