@@ -1,3 +1,7 @@
+import BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
+	BlockedCustomEventDefinitionsData,
+	BlockedCustomEventDefinitionsVariables
+} from '../queries/BlockedCustomEventDefinitionsQuery';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants from 'shared/util/constants';
@@ -11,11 +15,10 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
-import {mockBlockedCustomEventDefinition} from 'test/data';
 import {NAME} from 'shared/util/pagination';
-import {range} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {useQuery} from '@apollo/react-hooks';
 import {
 	useSelectionContext,
 	withSelectionProvider
@@ -34,20 +37,21 @@ const withData = () => WrapperComponent => ({
 	query,
 	...otherProps
 }) => {
-	// LRAC-7628 Connect BlockListCard to backend request
-	const {data, error, loading, refetch} = {
-		data: {
-			blockedCustomEventDefinitions: {
-				blockedCustomEventDefinitions: range(5).map(i =>
-					mockBlockedCustomEventDefinition(i)
-				),
-				total: 5
+	const {data, error, loading, refetch} = useQuery<
+		BlockedCustomEventDefinitionsData,
+		BlockedCustomEventDefinitionsVariables
+	>(BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
+		fetchPolicy: 'no-cache',
+		variables: {
+			keyword: query,
+			page: Number(page) - 1,
+			size: delta,
+			sort: {
+				column: orderByField,
+				type: orderBy.toUpperCase()
 			}
-		},
-		error: false,
-		loading: false,
-		refetch: () => {}
-	};
+		}
+	});
 
 	return (
 		<WrapperComponent

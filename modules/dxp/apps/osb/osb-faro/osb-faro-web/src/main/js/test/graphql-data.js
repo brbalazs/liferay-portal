@@ -1,3 +1,4 @@
+import BlockedCustomEventDefinitionsQuery from 'settings/definitions/events/queries/BlockedCustomEventDefinitionsQuery';
 import EventAttributeDefinitionQuery, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
@@ -254,6 +255,34 @@ export function mockBag({items, itemTypeName, name, typeName}) {
 				...item
 			})),
 			total: items.length
+		}
+	};
+}
+
+export function mockBlockedCustomEventDefinitionsReq(
+	items,
+	mockVariables = {}
+) {
+	return {
+		request: {
+			query: BlockedCustomEventDefinitionsQuery,
+			variables: {
+				page: 0,
+				size: items.length,
+				sort: {
+					column: 'name',
+					type: 'ASC'
+				},
+				...mockVariables
+			}
+		},
+		result: {
+			data: mockBag({
+				items,
+				itemTypeName: 'BlockedCustomEventDefinition',
+				name: 'blockedCustomEventDefinitions',
+				typeName: 'BlockedCustomEventDefinitionBag'
+			})
 		}
 	};
 }
