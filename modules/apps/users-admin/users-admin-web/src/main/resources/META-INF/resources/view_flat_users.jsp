@@ -106,7 +106,7 @@ boolean showRestoreButton = viewUsersManagementToolbarDisplayContext.isShowResto
 			escapedModel="<%= true %>"
 			keyProperty="userId"
 			modelVar="user2"
-			rowIdProperty="screenName"
+			rowIdProperty="userId"
 		>
 			<liferay-portlet:renderURL varImpl="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/users_admin/edit_user" />
