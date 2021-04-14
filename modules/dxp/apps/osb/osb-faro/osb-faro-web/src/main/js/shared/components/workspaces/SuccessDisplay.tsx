@@ -1,7 +1,7 @@
 import Button from 'shared/components/Button';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
 import {sub} from 'shared/util/lang';
 
@@ -55,7 +55,7 @@ const SuccessDisplay = ({friendlyURL}) => {
 					<Button
 						display='primary'
 						externalLink
-						href={urlConstants.DOCUMENTATION_ADMIN_LINK}
+						href={URLConstants.DocumentationAdminLink}
 					>
 						{Liferay.Language.get('check-out-docs')}
 					</Button>

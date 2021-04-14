@@ -1,7 +1,7 @@
 import Button from 'shared/components/Button';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
 import {fetchProject} from 'shared/actions/projects';
 import {ProjectStates} from 'shared/util/constants';
@@ -34,7 +34,7 @@ const ActivatingDisplay = () => (
 				<Button
 					display='primary'
 					externalLink
-					href={urlConstants.DOCUMENTATION_ADMIN_LINK}
+					href={URLConstants.DocumentationAdminLink}
 				>
 					{Liferay.Language.get('check-out-docs')}
 				</Button>

@@ -8,7 +8,7 @@ import Promise from 'metal-promise';
 import React, {useState} from 'react';
 import Table from 'shared/components/table';
 import TokenCell from '../components/TokenCell';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {AccessToken} from '../types';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
@@ -271,7 +271,7 @@ export const AccessTokenList: React.FC<IAccessTokenListProps> = ({groupId}) => (
 			),
 			[
 				<a
-					href={urlConstants.API_OVERVIEW_DOCUMENTATION_LINK}
+					href={URLConstants.APIOverviewDocumentationLink}
 					key='API_OVERVIEW_DOCUMENTATION'
 					target='_blank'
 				>

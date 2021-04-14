@@ -5,7 +5,7 @@ import BaseTabsPage, {
 } from 'settings/components/data-source/BaseTabsPage';
 import OAuthForm from 'settings/components/data-source/OAuthForm';
 import React from 'react';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {connect} from 'react-redux';
 import {
 	createSalesforceDataSource,
@@ -111,7 +111,7 @@ export class SalesforceAuthorization extends React.Component {
 				<OAuthForm
 					authorized={currentUser.isAdmin()}
 					dataSource={dataSource}
-					defaultUrl={urlConstants.SALESFORCE_LOGIN}
+					defaultUrl={URLConstants.SalesforceLogin}
 					groupId={groupId}
 					id={id}
 					instruction={sub(
@@ -121,7 +121,7 @@ export class SalesforceAuthorization extends React.Component {
 						[
 							Liferay.Language.get('salesforce'),
 							<a
-								href={urlConstants.SALESFORCE_ADD_DOCUMENTATION}
+								href={URLConstants.SalesforceAddDocumentation}
 								key='documentationLink'
 							>
 								{Liferay.Language.get('documentation-fragment')}

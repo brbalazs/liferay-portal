@@ -2,7 +2,7 @@ import Card from 'shared/components/Card';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import knownIndividualsListAssetQuery from 'shared/queries/knownIndividualsListAssetQuery';
 import React from 'react';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
@@ -27,7 +27,7 @@ const TableWithData = withRangeKey(
 			Liferay.Language.get('empty-message-lists'),
 			[
 				<a
-					href={urlConstants.DOCUMENTATION_LINK}
+					href={URLConstants.DocumentationLink}
 					key='DOCUMENTATION'
 					target='_blank'
 				>

@@ -4,7 +4,7 @@ import React from 'react';
 import TouchpointsQuery, {
 	TOUCHPOINTS_QUERY_TEST
 } from 'sites/queries/TouchpointsQuery';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
@@ -34,7 +34,7 @@ const getTableWithData = useDB => {
 			Liferay.Language.get('empty-message-lists'),
 			[
 				<a
-					href={urlConstants.DOCUMENTATION_LINK}
+					href={URLConstants.DocumentationLink}
 					key='DOCUMENTATION'
 					target='_blank'
 				>

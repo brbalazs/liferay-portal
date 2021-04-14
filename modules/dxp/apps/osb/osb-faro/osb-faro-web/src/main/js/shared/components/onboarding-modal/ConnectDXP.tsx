@@ -8,7 +8,7 @@ import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
 import Modal from '../modal';
 import React, {useEffect, useRef, useState} from 'react';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {ActionType, useChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -21,7 +21,6 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
-const {HELP_CONNECT_DXP} = urlConstants;
 const TIMEOUT_INTERVAL = 5000;
 
 interface IConnectDXPProps {
@@ -268,7 +267,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 							borderless
 							className='more-information-link mt-4'
 							externalLink
-							href={HELP_CONNECT_DXP}
+							href={URLConstants.HelpConnectDxp}
 							target='_blank'
 						>
 							{Liferay.Language.get('more-information')}

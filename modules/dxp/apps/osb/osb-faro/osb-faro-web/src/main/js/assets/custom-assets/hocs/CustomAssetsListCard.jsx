@@ -2,7 +2,7 @@ import Card from 'shared/components/Card';
 import CustomAssetsListQuery from '../queries/CustomAssetsListQuery';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {MODIFIED_DATE} from 'shared/util/pagination';
@@ -25,7 +25,7 @@ const TableWithData = withBaseResults(withData, {
 		Liferay.Language.get('empty-message-lists'),
 		[
 			<a
-				href={urlConstants.DOCUMENTATION_LINK}
+				href={URLConstants.DocumentationLink}
 				key='DOCUMENTATION'
 				target='_blank'
 			>

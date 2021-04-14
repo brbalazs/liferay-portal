@@ -7,7 +7,7 @@ import Input from 'shared/components/Input';
 import Modal from './modal';
 import React, {useRef, useState} from 'react';
 import SearchInputList from './SearchInputList';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {Formik, FormikValues} from 'formik';
 import {paginationDefaults} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -190,7 +190,7 @@ const NewRequestModal: React.FC<INewRequestModalProps> = ({
 									[
 										<a
 											href={
-												urlConstants.API_OVERVIEW_DOCUMENTATION_LINK
+												URLConstants.APIOverviewDocumentationLink
 											}
 											key='API_OVERVIEW_DOCUMENTATION'
 											target='_blank'

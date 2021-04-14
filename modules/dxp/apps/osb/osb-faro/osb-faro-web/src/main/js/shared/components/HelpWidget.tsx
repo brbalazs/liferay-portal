@@ -1,6 +1,6 @@
 import Button from 'shared/components/Button';
 import React from 'react';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
@@ -30,12 +30,12 @@ const getDropdownItems = ({
 				}
 		  }
 		: {
-				href: urlConstants.TICKET_PAGE_LINK,
+				href: URLConstants.TicketPageLink,
 				label: Liferay.Language.get('report-an-issue'),
 				target: '_blank'
 		  },
 	{
-		href: urlConstants.HELP_CENTER,
+		href: URLConstants.HelpCenter,
 		label: Liferay.Language.get('help-center'),
 		target: '_blank'
 	}

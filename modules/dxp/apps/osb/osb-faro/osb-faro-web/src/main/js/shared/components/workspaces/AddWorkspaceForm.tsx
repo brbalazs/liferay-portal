@@ -11,7 +11,7 @@ import NavigationWarning from 'shared/components/NavigationWarning';
 import React, {useContext, useRef, useState} from 'react';
 import Sheet from 'shared/components/Sheet';
 import TimeZonePicker from '../form/TimeZonePicker';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
@@ -460,7 +460,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 													[
 														<a
 															href={
-																urlConstants.TERMS_AND_CONDITIONS
+																URLConstants.TermsAndConditions
 															}
 															key="'terms-and-conditions'"
 														>
@@ -470,7 +470,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 														</a>,
 														<a
 															href={
-																urlConstants.PRIVACY_POLICY
+																URLConstants.PrivacyPolicy
 															}
 															key='privacy-policy'
 														>

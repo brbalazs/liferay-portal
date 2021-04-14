@@ -3,7 +3,7 @@ import getCN from 'classnames';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
-import urlConstants from 'shared/util/url-constants';
+import URLConstants from 'shared/util/url-constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
@@ -37,7 +37,7 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 			Liferay.Language.get('empty-message-lists'),
 			[
 				<a
-					href={urlConstants.DOCUMENTATION_LINK}
+					href={URLConstants.DocumentationLink}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
