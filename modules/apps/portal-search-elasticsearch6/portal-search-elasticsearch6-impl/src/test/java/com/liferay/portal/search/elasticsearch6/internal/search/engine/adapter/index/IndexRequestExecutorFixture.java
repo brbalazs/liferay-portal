@@ -14,8 +14,6 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.json.JSONFactoryImpl;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.IndexRequestExecutor;
 
@@ -35,8 +33,6 @@ public class IndexRequestExecutorFixture {
 		IndicesOptionsTranslator indicesOptionsTranslator =
 			new IndicesOptionsTranslatorImpl();
 
-		JSONFactory jsonFactory = new JSONFactoryImpl();
-
 		_indexRequestExecutor = new ElasticsearchIndexRequestExecutor() {
 			{
 				setAnalyzeIndexRequestExecutor(
@@ -48,7 +44,7 @@ public class IndexRequestExecutorFixture {
 						_elasticsearchClientResolver));
 				setCreateIndexRequestExecutor(
 					createCreateIndexRequestExecutor(
-						_elasticsearchClientResolver, jsonFactory));
+						_elasticsearchClientResolver));
 				setDeleteIndexRequestExecutor(
 					createDeleteIndexRequestExecutor(
 						indicesOptionsTranslator,
@@ -113,13 +109,11 @@ public class IndexRequestExecutorFixture {
 
 	protected static CreateIndexRequestExecutor
 		createCreateIndexRequestExecutor(
-			ElasticsearchClientResolver elasticsearchClientResolver,
-			JSONFactory jsonFactory) {
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new CreateIndexRequestExecutorImpl() {
 			{
 				setElasticsearchClientResolver(elasticsearchClientResolver);
-				setJsonFactory(jsonFactory);
 			}
 		};
 	}

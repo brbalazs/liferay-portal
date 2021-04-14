@@ -14,8 +14,6 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.kernel.json.JSONFactory;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexResponse;
@@ -54,28 +52,6 @@ public class CreateIndexRequestExecutorImpl
 				_elasticsearchClientResolver.getClient(false));
 
 		createIndexRequestBuilder.setIndex(createIndexRequest.getIndexName());
-
-		try {
-			JSONObject jsonObject = _jsonFactory.createJSONObject(
-				createIndexRequest.getSource());
-
-			JSONObject settingsJsonObject = _jsonFactory.createJSONObject(
-				jsonObject.getString("settings"));
-
-			if (settingsJsonObject == null) {
-				settingsJsonObject = _jsonFactory.createJSONObject();
-			}
-
-			settingsJsonObject.put("index.soft_deletes.enabled", "true");
-
-			jsonObject.put("settings", settingsJsonObject);
-
-			createIndexRequest.setSource(jsonObject.toString());
-		}
-		catch (Exception exception) {
-			throw new RuntimeException(exception);
-		}
-
 		createIndexRequestBuilder.setSource(
 			createIndexRequest.getSource(), XContentType.JSON);
 
@@ -89,12 +65,6 @@ public class CreateIndexRequestExecutorImpl
 		_elasticsearchClientResolver = elasticsearchClientResolver;
 	}
 
-	@Reference(unbind = "-")
-	protected void setJsonFactory(JSONFactory jsonFactory) {
-		_jsonFactory = jsonFactory;
-	}
-
 	private ElasticsearchClientResolver _elasticsearchClientResolver;
-	private JSONFactory _jsonFactory;
 
 }
