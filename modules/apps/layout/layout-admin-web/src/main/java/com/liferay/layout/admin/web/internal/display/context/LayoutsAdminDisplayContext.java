@@ -1022,7 +1022,7 @@ public class LayoutsAdminDisplayContext {
 			return _privateLayout;
 		}
 
-		_privateLayout = false;
+		Boolean privateLayout = false;
 
 		int publicLayoutsCount = LayoutServiceUtil.getLayoutsCount(
 			getSelGroupId(), false, 0);
@@ -1030,8 +1030,10 @@ public class LayoutsAdminDisplayContext {
 			getSelGroupId(), true, 0);
 
 		if ((privateLayoutsCount > 0) && (publicLayoutsCount <= 0)) {
-			_privateLayout = true;
+			privateLayout = true;
 		}
+
+		_privateLayout = privateLayout;
 
 		return _privateLayout;
 	}
