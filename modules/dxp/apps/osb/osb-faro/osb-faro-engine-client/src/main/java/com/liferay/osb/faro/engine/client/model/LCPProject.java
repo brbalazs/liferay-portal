@@ -147,7 +147,7 @@ public class LCPProject {
 			_value = value;
 
 			_baseURL = String.format(
-				"https://%s-{service}.lfr.cloud/", projectId);
+				"https://{service}-%s.lfr.cloud/", projectId);
 		}
 
 		private final String _baseURL;
