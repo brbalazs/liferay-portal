@@ -18,13 +18,13 @@ import Constants, {
 } from 'shared/util/constants';
 import moment from 'moment';
 import TimeZone from 'shared/util/records/TimeZone';
-import {clamp, find, isArray, range, times} from 'lodash';
 import {
 	CONJUNCTIONS,
 	RELATIONAL_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {fromJS, List, Map} from 'immutable';
 import {getISODate} from 'shared/util/date';
+import {isArray, range, times} from 'lodash';
 import {Metric} from 'shared/util/records';
 import {
 	NotificationSubtypes,
@@ -32,9 +32,7 @@ import {
 } from 'shared/util/records/Notification';
 
 const {
-	clauseOperators,
-	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes},
-	criterionTypes
+	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes}
 } = Constants;
 
 const BASE_TIMESTAMP = 1531263666366;
@@ -260,29 +258,6 @@ export function mockCardTemplate(seed = 0, data = {}) {
 		name: '',
 		size: 2,
 		type: null,
-		...data
-	};
-}
-
-const MAPPING_TYPES = ['Boolean', 'Date', 'Number', 'Text'];
-
-export function mockClause(seed = 0, data = {}) {
-	const type = MAPPING_TYPES[clamp(seed, 0, MAPPING_TYPES.length - 1)];
-	const operator = find(clauseOperators, ({supportedTypes}) =>
-		supportedTypes.includes(type)
-	);
-
-	return {
-		entity: {
-			id: String(seed),
-			name: `mapping${seed}`,
-			type
-		},
-		entityRemoved: false,
-		id: String(seed),
-		operatorId: operator.id,
-		type: criterionTypes.demographic,
-		values: times(operator.labels.length, i => `value${i}`),
 		...data
 	};
 }
