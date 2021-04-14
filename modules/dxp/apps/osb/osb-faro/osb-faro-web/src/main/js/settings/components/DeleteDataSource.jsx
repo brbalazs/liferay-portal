@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
-import FaroConstants, {AssetTypes} from 'shared/util/constants';
 import Form, {validateInputMessage} from 'shared/components/form';
 import getCN from 'classnames';
 import React from 'react';
@@ -14,6 +13,7 @@ import {
 	pagesListColumns,
 	segmentsListColumns
 } from 'shared/util/table-columns';
+import {AssetTypes, EntityTypes} from 'shared/util/constants';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
@@ -23,10 +23,6 @@ import {noop} from 'lodash/fp';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
-const {
-	entityTypes: {account, asset, individual, individualsSegment, page}
-} = FaroConstants;
-
 /**
  * Get the API for the specific entityType.
  * @param {number} entityType
@@ -34,17 +30,17 @@ const {
  */
 function getEntityApi(entityType) {
 	switch (entityType) {
-		case account:
+		case EntityTypes.Account:
 			return API.accounts.search;
-		case asset:
+		case EntityTypes.Asset:
 			return params =>
 				API.assets.search({assetType: AssetTypes.Asset, ...params});
-		case individual:
+		case EntityTypes.Individual:
 			return API.individuals.search;
-		case page:
+		case EntityTypes.Page:
 			return params =>
 				API.assets.search({assetType: AssetTypes.WebPage, ...params});
-		case individualsSegment:
+		case EntityTypes.IndividualsSegment:
 		default:
 			return API.individualSegment.search;
 	}
@@ -77,20 +73,20 @@ function getDataSourceFn(entityType) {
  */
 function getEntityColumns(entityType, timeZoneId) {
 	switch (entityType) {
-		case account:
+		case EntityTypes.Account:
 			return [
 				accountsListColumns.name,
 				accountsListColumns.type,
 				accountsListColumns.individualCount,
 				accountsListColumns.activitiesCount
 			];
-		case asset:
+		case EntityTypes.Asset:
 			return [
 				assetsListColumns.name,
 				assetsListColumns.canonicalUrl,
 				assetsListColumns.type
 			];
-		case individual:
+		case EntityTypes.Individual:
 			return [
 				individualsListColumns.name,
 				individualsListColumns.jobTitle,
@@ -98,9 +94,9 @@ function getEntityColumns(entityType, timeZoneId) {
 				individualsListColumns.getLastActivityDate(timeZoneId),
 				individualsListColumns.willBeRemoved
 			];
-		case page:
+		case EntityTypes.Page:
 			return [pagesListColumns.name, pagesListColumns.canonicalUrl];
-		case individualsSegment:
+		case EntityTypes.IndividualsSegment:
 		default:
 			return [
 				segmentsListColumns.name,
@@ -123,31 +119,31 @@ function getEntityTitle(entityType, dataSourceName) {
 	);
 
 	switch (entityType) {
-		case account:
+		case EntityTypes.Account:
 			return sub(
 				Liferay.Language.get('x-s-accounts'),
 				[<TruncatedName key='NAME' />],
 				false
 			);
-		case asset:
+		case EntityTypes.Asset:
 			return sub(
 				Liferay.Language.get('x-s-assets'),
 				[<TruncatedName key='NAME' />],
 				false
 			);
-		case individual:
+		case EntityTypes.Individual:
 			return sub(
 				Liferay.Language.get('x-s-individuals'),
 				[<TruncatedName key='NAME' />],
 				false
 			);
-		case page:
+		case EntityTypes.Page:
 			return sub(
 				Liferay.Language.get('x-s-pages'),
 				[<TruncatedName key='NAME' />],
 				false
 			);
-		case individualsSegment:
+		case EntityTypes.IndividualsSegment:
 		default:
 			return Liferay.Language.get('related-segments');
 	}
@@ -275,16 +271,18 @@ export class DeleteDataSource extends React.Component {
 
 		const items = [
 			{
-				entityType: individualsSegment,
+				entityType: EntityTypes.IndividualsSegment,
 				secondaryInfo: Liferay.Language.get(
 					'segments-with-criteria-related-to-this-data-source-will-be-disabled-until-the-criteria-is-updated'
 				),
 				title: sub(Liferay.Language.get('x-segments'), [
-					entitiesCount[individualsSegment].toLocaleString()
+					entitiesCount[
+						EntityTypes.IndividualsSegment
+					].toLocaleString()
 				])
 			},
 			{
-				entityType: account,
+				entityType: EntityTypes.Account,
 				secondaryInfo: sub(
 					Liferay.Language.get(
 						'all-attributes-related-to-an-x-from-this-data-source-will-be-removed,-which-may-result-in-the-removal-of-the-x'
@@ -292,11 +290,11 @@ export class DeleteDataSource extends React.Component {
 					[Liferay.Language.get('account')]
 				),
 				title: sub(Liferay.Language.get('x-accounts'), [
-					entitiesCount[account].toLocaleString()
+					entitiesCount[EntityTypes.Account].toLocaleString()
 				])
 			},
 			{
-				entityType: individual,
+				entityType: EntityTypes.Individual,
 				secondaryInfo: sub(
 					Liferay.Language.get(
 						'all-attributes-related-to-an-x-from-this-data-source-will-be-removed,-which-may-result-in-the-removal-of-the-x'
@@ -304,11 +302,11 @@ export class DeleteDataSource extends React.Component {
 					[Liferay.Language.get('individual')]
 				),
 				title: sub(Liferay.Language.get('x-individuals'), [
-					entitiesCount[individual].toLocaleString()
+					entitiesCount[EntityTypes.Individual].toLocaleString()
 				])
 			},
 			{
-				entityType: page,
+				entityType: EntityTypes.Page,
 				secondaryInfo: sub(
 					Liferay.Language.get(
 						'all-x-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
@@ -316,11 +314,11 @@ export class DeleteDataSource extends React.Component {
 					[Liferay.Language.get('pages')]
 				),
 				title: sub(Liferay.Language.get('x-pages'), [
-					entitiesCount[page].toLocaleString()
+					entitiesCount[EntityTypes.Page].toLocaleString()
 				])
 			},
 			{
-				entityType: asset,
+				entityType: EntityTypes.Asset,
 				secondaryInfo: sub(
 					Liferay.Language.get(
 						'all-x-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
@@ -328,7 +326,7 @@ export class DeleteDataSource extends React.Component {
 					[Liferay.Language.get('assets')]
 				),
 				title: sub(Liferay.Language.get('x-assets'), [
-					entitiesCount[asset].toLocaleString()
+					entitiesCount[EntityTypes.Asset].toLocaleString()
 				])
 			}
 		];

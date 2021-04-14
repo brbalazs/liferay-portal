@@ -3,7 +3,7 @@ import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants from 'shared/util/constants';
+import Constants, {EntityTypes} from 'shared/util/constants';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import {ACTIVITIES} from 'shared/util/router';
@@ -32,7 +32,6 @@ import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {WrapSafeResults} from 'shared/hoc/util';
 
 const {
-	entityTypes: {individual},
 	pagination: {orderDescending}
 } = Constants;
 
@@ -58,7 +57,7 @@ function getActivities(params) {
 		.fetchGroup({
 			channelId,
 			contactsEntityId,
-			contactsEntityType: individual,
+			contactsEntityType: EntityTypes.Individual,
 			cur: page,
 			delta,
 			endDate,
@@ -191,7 +190,7 @@ export class IndividualProfileCard extends React.Component {
 			.fetchHistory({
 				channelId,
 				contactsEntityId: id,
-				contactsEntityType: individual,
+				contactsEntityType: EntityTypes.Individual,
 				groupId,
 				interval: INTERVAL_MAP[interval],
 				max: getSafeRangeKey(rangeSelectors.rangeKey),

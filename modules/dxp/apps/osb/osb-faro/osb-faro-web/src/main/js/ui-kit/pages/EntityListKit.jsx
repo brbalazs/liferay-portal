@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import EntityList from 'shared/components/EntityList';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import Row from '../components/Row';
+import {EntityTypes} from 'shared/util/constants';
 import {Set} from 'immutable';
 
 class EntityListKit extends React.Component {
@@ -27,9 +27,7 @@ class EntityListKit extends React.Component {
 				<Row>
 					<EntityList
 						{...this.props}
-						entityType={
-							FaroConstants.entityTypes.individualsSegment
-						}
+						entityType={EntityTypes.IndividualsSegment}
 						items={[
 							{
 								id: 1,
@@ -37,8 +35,7 @@ class EntityListKit extends React.Component {
 								properties: {
 									global: {total: 321}
 								},
-								type:
-									FaroConstants.entityTypes.individualsSegment
+								type: EntityTypes.IndividualsSegment
 							},
 							{
 								id: 2,
@@ -46,8 +43,7 @@ class EntityListKit extends React.Component {
 								properties: {
 									global: {total: 231}
 								},
-								type:
-									FaroConstants.entityTypes.individualsSegment
+								type: EntityTypes.IndividualsSegment
 							},
 							{
 								id: 3,
@@ -55,8 +51,7 @@ class EntityListKit extends React.Component {
 								properties: {
 									global: {total: 123}
 								},
-								type:
-									FaroConstants.entityTypes.individualsSegment
+								type: EntityTypes.IndividualsSegment
 							}
 						]}
 						onSelectItemsChange={this.handleSelectItemsChange}

@@ -1,7 +1,5 @@
-import FaroConstants from 'shared/util/constants';
+import {EntityTypes} from 'shared/util/constants';
 import {schema} from 'normalizr';
-
-const {entityTypes} = FaroConstants;
 
 function processStrategy(entity) {
 	return {data: entity};
@@ -52,9 +50,9 @@ export const layoutTemplate = new schema.Entity(
 );
 
 const ENTITIES_SCHEMA_MAP = {
-	[entityTypes.account]: account,
-	[entityTypes.individual]: individual,
-	[entityTypes.individualsSegment]: segment
+	[EntityTypes.Account]: account,
+	[EntityTypes.Individual]: individual,
+	[EntityTypes.IndividualsSegment]: segment
 };
 
 export function getLayoutSchema(type) {

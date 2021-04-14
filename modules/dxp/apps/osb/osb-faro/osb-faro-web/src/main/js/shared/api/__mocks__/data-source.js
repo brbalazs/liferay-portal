@@ -1,8 +1,6 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
-
-const {entityTypes} = FaroConstants;
+import {EntityTypes} from 'shared/util/constants';
 
 export const fetch = jest.fn(() => Promise.resolve(data.mockCSVDataSource()));
 
@@ -20,11 +18,11 @@ export const fetchChannels = jest.fn(() =>
 
 export const fetchDeletePreview = jest.fn(() =>
 	Promise.resolve({
-		[entityTypes.account]: 123,
-		[entityTypes.asset]: 23,
-		[entityTypes.individual]: 1,
-		[entityTypes.individualsSegment]: 12,
-		[entityTypes.page]: 1234
+		[EntityTypes.Account]: 123,
+		[EntityTypes.Asset]: 23,
+		[EntityTypes.Individual]: 1,
+		[EntityTypes.IndividualsSegment]: 12,
+		[EntityTypes.Page]: 1234
 	})
 );
 

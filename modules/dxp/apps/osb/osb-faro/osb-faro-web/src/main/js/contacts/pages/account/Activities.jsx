@@ -2,19 +2,15 @@ import * as API from 'shared/api';
 import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline';
 import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {Account} from 'shared/util/records';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {connect} from 'react-redux';
+import {EntityTypes} from 'shared/util/constants';
 import {getSafeChange} from 'shared/util/change';
 import {getSafeRangeKey, INTERVAL_MAP} from 'shared/util/activities';
 import {PropTypes} from 'prop-types';
 import {WrapSafeResults} from 'shared/hoc/util';
-
-const {
-	entityTypes: {account}
-} = FaroConstants;
 
 @hasRequest
 export class Activities extends React.Component {
@@ -65,7 +61,7 @@ export class Activities extends React.Component {
 			.fetchHistory({
 				channelId,
 				contactsEntityId: id,
-				contactsEntityType: account,
+				contactsEntityType: EntityTypes.Account,
 				groupId,
 				interval: INTERVAL_MAP[interval],
 				max: getSafeRangeKey(rangeSelectors.rangeKey),

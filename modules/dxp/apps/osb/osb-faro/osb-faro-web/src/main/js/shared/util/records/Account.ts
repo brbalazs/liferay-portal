@@ -1,7 +1,5 @@
-import Constants from '../constants';
+import {EntityTypes} from '../constants';
 import {Map, Record} from 'immutable';
-
-const {entityTypes} = Constants;
 
 interface IAccount {
 	activitiesCount: number;
@@ -12,7 +10,7 @@ interface IAccount {
 	photoURL: string;
 	properties: Map<string, any>;
 	status?: string;
-	type: string;
+	type: EntityTypes.Account;
 }
 
 export default class Account
@@ -25,7 +23,7 @@ export default class Account
 		photoURL: '',
 		properties: Map(),
 		status: null,
-		type: entityTypes.account
+		type: EntityTypes.Account
 	})
 	implements IAccount {
 	activitiesCount: number;
@@ -36,7 +34,7 @@ export default class Account
 	photoURL: string;
 	properties: Map<string, any>;
 	status?: string;
-	type: string;
+	type: EntityTypes.Account;
 
 	constructor(props = {}) {
 		super(props);

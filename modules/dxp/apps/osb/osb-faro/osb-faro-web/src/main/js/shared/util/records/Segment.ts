@@ -1,7 +1,5 @@
-import Constants from '../constants';
+import {EntityTypes} from '../constants';
 import {Map, Record} from 'immutable';
-
-const {entityTypes} = Constants;
 
 interface ISegment {
 	activeIndividualCount: number;
@@ -22,7 +20,7 @@ interface ISegment {
 	segmentType: null;
 	state: string;
 	status: string;
-	type: number;
+	type: EntityTypes.IndividualsSegment;
 	userName: string;
 }
 
@@ -46,7 +44,7 @@ export default class Segment
 		segmentType: null,
 		state: '',
 		status: null,
-		type: entityTypes.individualsSegment,
+		type: EntityTypes.IndividualsSegment,
 		userName: null
 	})
 	implements ISegment {
@@ -68,7 +66,7 @@ export default class Segment
 	segmentType: null;
 	state: string;
 	status: string;
-	type: number;
+	type: EntityTypes.IndividualsSegment;
 	userName: string;
 
 	constructor(props = {}) {

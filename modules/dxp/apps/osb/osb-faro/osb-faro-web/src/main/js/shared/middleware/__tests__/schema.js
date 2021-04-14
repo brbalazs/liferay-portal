@@ -1,4 +1,3 @@
-import FaroConstants from 'shared/util/constants';
 import {
 	dataSource,
 	getDistributionSchema,
@@ -8,6 +7,7 @@ import {
 	segment,
 	segments
 } from 'shared/middleware/schema';
+import {EntityTypes} from 'shared/util/constants';
 import {
 	mockIndividual,
 	mockLayout,
@@ -15,8 +15,6 @@ import {
 	mockSegment
 } from 'test/data';
 import {normalize} from 'normalizr';
-
-const {entityTypes} = FaroConstants;
 
 describe('Schema', () => {
 	it('should normalize an individual', () => {
@@ -62,7 +60,7 @@ describe('Schema', () => {
 			const action = mockLayout(1, mockIndividual());
 
 			expect(
-				normalize(action, getLayoutSchema(entityTypes.individual))
+				normalize(action, getLayoutSchema(EntityTypes.Individual))
 			).toMatchSnapshot();
 		});
 
@@ -72,7 +70,7 @@ describe('Schema', () => {
 			expect(
 				normalize(
 					action,
-					getLayoutSchema(entityTypes.individualsSegment)
+					getLayoutSchema(EntityTypes.IndividualsSegment)
 				)
 			).toMatchSnapshot();
 		});

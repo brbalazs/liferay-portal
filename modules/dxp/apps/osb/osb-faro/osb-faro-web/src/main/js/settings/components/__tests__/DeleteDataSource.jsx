@@ -2,7 +2,6 @@ import 'test/mock-modal';
 
 import * as data from 'test/data';
 import * as Router from 'shared/util/router';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {
 	cleanup,
@@ -12,10 +11,9 @@ import {
 } from '@testing-library/react';
 import {DataSource} from 'shared/util/records';
 import {DeleteDataSource} from '../DeleteDataSource';
+import {EntityTypes} from 'shared/util/constants';
 import {open} from 'shared/actions/modals';
 import {StaticRouter} from 'react-router';
-
-const {entityTypes} = FaroConstants;
 
 Router.navigate = jest.fn();
 
@@ -28,11 +26,11 @@ describe('DeleteDataSource', () => {
 	);
 
 	const entitiesCount = {
-		[entityTypes.account]: 123,
-		[entityTypes.asset]: 23,
-		[entityTypes.individual]: 1,
-		[entityTypes.individualsSegment]: 12,
-		[entityTypes.page]: 1234
+		[EntityTypes.Account]: 123,
+		[EntityTypes.Asset]: 23,
+		[EntityTypes.Individual]: 1,
+		[EntityTypes.IndividualsSegment]: 12,
+		[EntityTypes.Page]: 1234
 	};
 
 	const groupId = '23';

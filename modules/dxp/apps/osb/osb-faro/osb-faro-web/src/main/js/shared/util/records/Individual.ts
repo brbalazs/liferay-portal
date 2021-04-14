@@ -1,7 +1,5 @@
-import Constants from '../constants';
+import {EntityTypes} from '../constants';
 import {Map, Record} from 'immutable';
-
-const {entityTypes} = Constants;
 
 interface IIndividual {
 	accountNames: string[] | null;
@@ -12,7 +10,7 @@ interface IIndividual {
 	lastActivityDate: string;
 	name: string;
 	properties: Map<string, any>;
-	type: number;
+	type: EntityTypes.Individual;
 }
 
 export default class Individual
@@ -25,7 +23,7 @@ export default class Individual
 		lastActivityDate: null,
 		name: '',
 		properties: Map(),
-		type: entityTypes.individual
+		type: EntityTypes.Individual
 	})
 	implements IIndividual {
 	accountNames: string[] | null;
@@ -36,7 +34,7 @@ export default class Individual
 	lastActivityDate: string;
 	name: string;
 	properties: Map<string, any>;
-	type: number;
+	type: EntityTypes.Individual;
 
 	constructor(props = {}) {
 		super(props);

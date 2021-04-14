@@ -1,9 +1,9 @@
 import BackButton from 'contacts/components/BackButton.tsx';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import InterestPagesList from 'contacts/components/InterestPagesList';
 import Nav from 'shared/components/Nav';
 import React from 'react';
+import {EntityTypes} from 'shared/util/constants';
 import {Individual} from 'shared/util/records';
 import {omit} from 'lodash';
 import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
@@ -11,8 +11,6 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {setUriQueryValue} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-
-const {entityTypes} = FaroConstants;
 
 export default class InterestDetails extends React.Component {
 	static defaultProps = {
@@ -141,7 +139,7 @@ export default class InterestDetails extends React.Component {
 						dataSourceParams={{
 							active: this.props.active === 'true',
 							contactsEntityId: id,
-							contactsEntityType: entityTypes.individual,
+							contactsEntityType: EntityTypes.Individual,
 							groupId,
 							interestName
 						}}

@@ -1,12 +1,9 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
 import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline';
-import faroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
-import {RangeKeyTimeRanges} from 'shared/util/constants';
-
-const {entityTypes} = faroConstants;
+import {EntityTypes, RangeKeyTimeRanges} from 'shared/util/constants';
 
 const activityHistory = Array.from({length: 30}, (_, i) => ({
 	intervalInitDate: new Date(2019, 0, i + 1).getTime(),
@@ -25,7 +22,7 @@ const ActivitiesChartTimelineKit: React.FC = () => (
 	<div>
 		<ActivitiesChartTimeline
 			activitiesLabel='Test label'
-			entityType={entityTypes.account}
+			entityType={EntityTypes.Account}
 			groupId='23'
 			history={activityHistory}
 			id='1'

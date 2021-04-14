@@ -1,8 +1,8 @@
-import FaroConstants from '../util/constants';
 import getCN from 'classnames';
 import Icon from './Icon';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
+import {EntityTypes} from '../util/constants';
 import {isString} from 'lodash';
 import {PropTypes} from 'prop-types';
 
@@ -31,13 +31,6 @@ const ID_DISPLAYS = [
 ];
 
 const SIZES = ['xs', 'sm', 'lg', 'xl', 'xxl'];
-
-const {
-	account,
-	dataSource,
-	individual,
-	individualsSegment
-} = FaroConstants.entityTypes;
 
 class Sticker extends React.Component {
 	static defaultProps = {
@@ -91,12 +84,12 @@ class Sticker extends React.Component {
 
 export function getSymbol(type) {
 	switch (type) {
-		case account:
-		case dataSource:
+		case EntityTypes.Account:
+		case EntityTypes.DataSource:
 			return 'document';
-		case individualsSegment:
+		case EntityTypes.IndividualsSegment:
 			return 'faro-contacts-segments';
-		case individual:
+		case EntityTypes.Individual:
 		default:
 			return 'faro-contacts-individuals';
 	}

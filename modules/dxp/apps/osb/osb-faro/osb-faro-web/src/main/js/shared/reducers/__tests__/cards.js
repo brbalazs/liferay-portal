@@ -1,18 +1,16 @@
-import FaroConstants from 'shared/util/constants';
 import reducer from '../cards';
 import {actionTypes} from 'shared/actions/cards';
+import {EntityTypes} from 'shared/util/constants';
 import {getLayoutSchema} from 'shared/middleware/schema';
 import {actionTypes as layoutActionTypes} from 'shared/actions/layouts';
 import {Map} from 'immutable';
-
-const {entityTypes} = FaroConstants;
 
 describe('Card Reducer', () => {
 	it('should add card on fetch card success', () => {
 		const cardId = 'cardId';
 		const foo = 'foo';
 		const id = 'testId';
-		const type = entityTypes.individual;
+		const type = EntityTypes.Individual;
 
 		const action = {
 			meta: {
@@ -37,7 +35,7 @@ describe('Card Reducer', () => {
 		const cardId1 = 'cardId1';
 		const foo = 'foo';
 		const id = 'testId';
-		const type = entityTypes.individual;
+		const type = EntityTypes.Individual;
 
 		const action = {
 			meta: {

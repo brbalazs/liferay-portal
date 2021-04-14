@@ -1,7 +1,7 @@
 import * as API from 'shared/api';
 import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
+import Constants, {EntityTypes} from 'shared/util/constants';
 import DetailsCard from 'contacts/individual/profile/components/DetailsCard';
-import FaroConstants from 'shared/util/constants';
 import IndividualProfileCard from 'contacts/individual/profile/hoc/ProfileCard';
 import InterestsCard from 'contacts/individual/profile/components/InterestsCard';
 import React from 'react';
@@ -12,7 +12,7 @@ import {INDIVIDUALS} from 'shared/util/router';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 
-const {entityTypes, pagination} = FaroConstants;
+const {pagination} = Constants;
 
 const ITEMS_PER_CARD = 5;
 
@@ -20,7 +20,7 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 	return API.individualSegment.search({
 		channelId,
 		contactsEntityId: id,
-		contactsEntityType: entityTypes.individual,
+		contactsEntityType: EntityTypes.Individual,
 		delta: ITEMS_PER_CARD,
 		groupId,
 		orderByFields: [
