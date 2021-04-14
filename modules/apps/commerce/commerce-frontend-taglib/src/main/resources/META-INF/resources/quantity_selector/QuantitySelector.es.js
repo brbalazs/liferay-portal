@@ -78,8 +78,7 @@ class QuantitySelector extends Component {
 
 		if (this.multipleQuantity) {
 			quantity -= this.multipleQuantity;
-		}
-		else {
+		} else {
 			quantity -= 1;
 		}
 
@@ -104,8 +103,7 @@ class QuantitySelector extends Component {
 
 		if (this.multipleQuantity) {
 			quantity += this.multipleQuantity;
-		}
-		else {
+		} else {
 			quantity += 1;
 		}
 
@@ -185,7 +183,7 @@ QuantitySelector.STATE = {
 	minQuantity: Config.number().value(1),
 	multipleQuantity: Config.number(),
 	quantity: Config.number(),
-	showError: Config.bool().value(false),
+	showError: Config.bool().value(false)
 };
 
 Soy.register(QuantitySelector, template);
