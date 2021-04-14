@@ -1,4 +1,6 @@
-import Constants, {
+import moment from 'moment';
+import TimeZone from 'shared/util/records/TimeZone';
+import {
 	ActivityActions,
 	AssetTypes,
 	CredentialTypes,
@@ -16,8 +18,6 @@ import Constants, {
 	SubscriptionStatuses,
 	UserRoleNames
 } from 'shared/util/constants';
-import moment from 'moment';
-import TimeZone from 'shared/util/records/TimeZone';
 import {
 	CONJUNCTIONS,
 	RELATIONAL_OPERATORS
@@ -30,10 +30,6 @@ import {
 	NotificationSubtypes,
 	NotificationTypes
 } from 'shared/util/records/Notification';
-
-const {
-	contactsCardTemplateTypes: {cardTypes, profileCardLayoutTypes}
-} = Constants;
 
 const BASE_TIMESTAMP = 1531263666366;
 
@@ -702,59 +698,12 @@ export function mockSubscription(data = {}) {
 	};
 }
 
-export function mockInfoCardTemplate(seed = 0, data = {}) {
-	return {
-		...mockCardTemplate(seed),
-		fieldMappingTemplates: [
-			mockMappingtemplate(seed, 'First Name:', 'givenName'),
-			mockMappingtemplate(seed + 1, 'Last Name:', 'familyName'),
-			mockMappingtemplate(seed + 2, 'Job Title:', 'jobTitle')
-		],
-		name: `Info Card ${seed}`,
-		type: cardTypes.info,
-		...data
-	};
-}
-
 export function mockMapping(seed = 0, data = {}) {
 	return {
 		mapping: null,
 		name: `Test${seed}`,
 		suggestions: [],
 		values: [],
-		...data
-	};
-}
-
-export function mockMappingtemplate(seed = 0, prefix, name, suffix) {
-	return {
-		fieldMappingId: `fieldMappingId${seed}`,
-		fieldMappingName: name,
-		prefix,
-		suffix
-	};
-}
-
-export function mockProfileCardTemplate(seed = 0, data = {}) {
-	return {
-		...mockCardTemplate(seed),
-		fieldMappingNames: ['jobTitle', 'givenName', 'familyName'],
-		fieldMappingTemplates: [
-			mockMappingtemplate(seed, 'Salary', 'salary'),
-			mockMappingtemplate(seed + 1, 'Title:', 'title')
-		],
-		layoutType: profileCardLayoutTypes.vertical,
-		name: `Profile Card ${seed}`,
-		type: cardTypes.profile,
-		...data
-	};
-}
-
-export function mockSegmentMembershipCardTemplate(seed = 0, data = {}) {
-	return {
-		...mockCardTemplate(seed),
-		name: `Segment Membership Card ${seed}`,
-		type: cardTypes.similar,
 		...data
 	};
 }
