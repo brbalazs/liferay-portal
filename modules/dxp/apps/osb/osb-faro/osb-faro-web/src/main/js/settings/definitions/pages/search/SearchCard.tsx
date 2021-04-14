@@ -101,7 +101,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 				});
 
 				addAlert({
-					alertType: Alert.Types.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: Liferay.Language.get(
 						'search-query-definition-has-been-saved'
 					)
@@ -113,7 +113,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 				currentForm.setSubmitting(false);
 
 				addAlert({
-					alertType: Alert.Types.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error')
 				});
 			});

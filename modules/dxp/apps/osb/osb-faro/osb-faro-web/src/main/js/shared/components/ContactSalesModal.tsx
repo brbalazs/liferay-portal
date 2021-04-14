@@ -1,7 +1,8 @@
 import HubspotForm from 'shared/components/HubspotForm';
 import Modal from './modal';
 import React from 'react';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 
 const FORM_ID = '32cf039a-7a47-4461-82c5-e694d9f29057';
@@ -30,7 +31,7 @@ const ContactSalesModal: React.FC<IContactSalesModalProps> = ({
 				formId={FORM_ID}
 				onFormSubmitted={() => {
 					addAlert({
-						alertType: alertTypes.SUCCESS,
+						alertType: Alert.Types.Success,
 						message: Liferay.Language.get('success')
 					});
 

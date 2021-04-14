@@ -94,7 +94,7 @@ export const ClearData: React.FC<IClearDataProps> = ({
 						})
 						.then(() => {
 							addAlert({
-								alertType: Alert.Types.DEFAULT,
+								alertType: Alert.Types.Default,
 								message: sub(
 									Liferay.Language.get(
 										'data-from-x-is-currently-being-removed-from-analytics-cloud'
@@ -112,7 +112,7 @@ export const ClearData: React.FC<IClearDataProps> = ({
 						})
 						.catch(() => {
 							addAlert({
-								alertType: Alert.Types.ERROR,
+								alertType: Alert.Types.Error,
 								message: Liferay.Language.get('error'),
 								timeout: false
 							});

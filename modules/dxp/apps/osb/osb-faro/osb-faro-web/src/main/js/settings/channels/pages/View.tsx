@@ -140,7 +140,7 @@ const View: React.FC<IViewProps> = ({
 			.then(response => setPermissionType(response.permissionType))
 			.catch(() =>
 				addAlert({
-					alertType: Alert.Types.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error'),
 					timeout: false
 				})
@@ -172,7 +172,7 @@ const View: React.FC<IViewProps> = ({
 								.then(({name}) => setName(name))
 								.catch(() =>
 									addAlert({
-										alertType: Alert.Types.ERROR,
+										alertType: Alert.Types.Error,
 										message: Liferay.Language.get('error'),
 										timeout: false
 									})
@@ -259,7 +259,7 @@ const View: React.FC<IViewProps> = ({
 
 												addAlert({
 													alertType:
-														Alert.Types.SUCCESS,
+														Alert.Types.Success,
 													message: sub(
 														clearedMessage,
 														[name]
@@ -271,7 +271,7 @@ const View: React.FC<IViewProps> = ({
 											.catch(err =>
 												addAlert({
 													alertType:
-														Alert.Types.ERROR,
+														Alert.Types.Error,
 													message:
 														err.message ===
 														UNAUTHORIZED_ACCESS
@@ -327,7 +327,7 @@ const View: React.FC<IViewProps> = ({
 
 												addAlert({
 													alertType:
-														Alert.Types.SUCCESS,
+														Alert.Types.Success,
 													message: sub(
 														deletedMessage,
 														[name]
@@ -353,7 +353,7 @@ const View: React.FC<IViewProps> = ({
 											.catch(err =>
 												addAlert({
 													alertType:
-														Alert.Types.ERROR,
+														Alert.Types.Error,
 													message:
 														err.message ===
 														UNAUTHORIZED_ACCESS

@@ -1,13 +1,5 @@
+import {Alert} from 'shared/types';
 import {isNumber, uniqueId} from 'lodash';
-
-export const alertTypes = {
-	ALERT: 'ALERT',
-	DEFAULT: 'DEFAULT',
-	ERROR: 'ERROR',
-	PENDING: 'PENDING',
-	SUCCESS: 'SUCCESS',
-	WARNING: 'WARNING'
-};
 
 export const actionTypes = {
 	ADD_ALERT: 'ADD_ALERT',
@@ -46,7 +38,7 @@ export function addAlert({alertType, message, timeout = true}) {
 
 	let retVal = action;
 
-	if (timeout && alertType !== alertTypes.PENDING) {
+	if (timeout && alertType !== Alert.Types.Pending) {
 		retVal = removeAfterDelay(action, timeout);
 	}
 

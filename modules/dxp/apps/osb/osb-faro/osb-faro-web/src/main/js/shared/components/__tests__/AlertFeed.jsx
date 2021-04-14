@@ -1,6 +1,6 @@
 import React from 'react';
+import {Alert} from 'shared/types';
 import {AlertFeed} from '../AlertFeed';
-import {alertTypes} from '../../actions/alerts';
 import {cleanup, render} from '@testing-library/react';
 import {fromJS} from 'immutable';
 import {sub} from 'shared/util/lang';
@@ -10,7 +10,7 @@ jest.unmock('react-dom');
 const defaultProps = {
 	alertsIMap: fromJS({
 		1: {
-			alertType: alertTypes.DEFAULT,
+			alertType: Alert.Types.Default,
 			id: 1,
 			message: 'foo bar'
 		}
@@ -37,7 +37,7 @@ describe('AlertFeed', () => {
 		const props = {
 			alertsIMap: fromJS({
 				1: {
-					alertType: alertTypes.DEFAULT,
+					alertType: Alert.Types.Default,
 					id: 1,
 					message: sub(
 						Liferay.Language.get('x-usd'),

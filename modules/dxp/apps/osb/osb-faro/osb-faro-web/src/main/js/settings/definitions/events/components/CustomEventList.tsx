@@ -171,7 +171,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 							}
 
 							addAlert({
-								alertType: Alert.Types.SUCCESS,
+								alertType: Alert.Types.Success,
 								message:
 									eventsCount > 1
 										? sub(
@@ -190,7 +190,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 						})
 						.catch(() =>
 							addAlert({
-								alertType: Alert.Types.ERROR,
+								alertType: Alert.Types.Error,
 								message: Liferay.Language.get(
 									'there-was-an-error-processing-your-request.-please-try-again'
 								),

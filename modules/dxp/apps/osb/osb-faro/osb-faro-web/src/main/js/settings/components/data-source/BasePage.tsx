@@ -93,7 +93,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				deleteDataSource({groupId, id})
 					.then(() => {
 						addAlert({
-							alertType: Alert.Types.DEFAULT,
+							alertType: Alert.Types.Default,
 							message: sub(
 								Liferay.Language.get(
 									'x-is-currently-being-removed-from-analytics-cloud'
@@ -112,7 +112,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message: Liferay.Language.get('error'),
 							timeout: false
 						});

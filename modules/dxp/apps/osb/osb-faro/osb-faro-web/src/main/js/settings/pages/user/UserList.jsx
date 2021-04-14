@@ -13,7 +13,8 @@ import {
 	SelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -179,7 +180,7 @@ export class UserList extends React.Component {
 					})
 					.then(data => {
 						addAlert({
-							alertType: alertTypes.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: getPluralMessage(
 								Liferay.Language.get('x-user-has-been-deleted'),
 								Liferay.Language.get(
@@ -197,7 +198,7 @@ export class UserList extends React.Component {
 					})
 					.catch(err =>
 						addAlert({
-							alertType: alertTypes.ERROR,
+							alertType: Alert.Types.Error,
 							message:
 								err.message === UNAUTHORIZED_ACCESS
 									? Liferay.Language.get(
@@ -220,7 +221,7 @@ export class UserList extends React.Component {
 			.inviteMany({emailAddresses, groupId, roleName: 'Site Member'})
 			.then(response => {
 				addAlert({
-					alertType: alertTypes.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: Liferay.Language.get('invitations-have-been-sent')
 				});
 
@@ -232,7 +233,7 @@ export class UserList extends React.Component {
 			})
 			.catch(() => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error')
 				});
 			});
@@ -251,7 +252,7 @@ export class UserList extends React.Component {
 			.updateMany({...edits, groupId, ids})
 			.then(data => {
 				addAlert({
-					alertType: alertTypes.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: sub(
 						Liferay.Language.get(
 							'permissions-have-been-changed-for-x-users'
@@ -267,7 +268,7 @@ export class UserList extends React.Component {
 			})
 			.catch(err =>
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message:
 						err.message === UNAUTHORIZED_ACCESS
 							? Liferay.Language.get('unauthorized-access')

@@ -63,7 +63,7 @@ const withQueryOptions = Component => ({
 							})
 								.then(() => {
 									addAlert({
-										alertType: Alert.Types.SUCCESS,
+										alertType: Alert.Types.Success,
 										message: sub(
 											Liferay.Language.get(
 												'x-has-been-successfully-unsuppressed'
@@ -76,7 +76,7 @@ const withQueryOptions = Component => ({
 								})
 								.catch(() => {
 									addAlert({
-										alertType: Alert.Types.ERROR,
+										alertType: Alert.Types.Error,
 										message: sub(
 											Liferay.Language.get(
 												'there-was-an-error-unsuppressing-x.-please-try-again'

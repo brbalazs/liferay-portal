@@ -134,7 +134,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			})
 			.catch(() =>
 				addAlert({
-					alertType: Alert.Types.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error')
 				})
 			);
@@ -207,7 +207,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						) as string;
 
 						addAlert({
-							alertType: Alert.Types.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: sub(
 								clearedMessage,
 								[<b key='clearedCount'>{ids.length}</b>],
@@ -223,7 +223,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					})
 					.catch(err =>
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message:
 								err.message === UNAUTHORIZED_ACCESS
 									? Liferay.Language.get(
@@ -281,7 +281,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						) as string;
 
 						addAlert({
-							alertType: Alert.Types.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: sub(
 								deletedMessage,
 								[<b key='deleteCount'>{ids.length}</b>],
@@ -310,7 +310,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					})
 					.catch(err =>
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message:
 								err.message === UNAUTHORIZED_ACCESS
 									? Liferay.Language.get(
@@ -334,7 +334,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			.create({groupId, name: name.trim()})
 			.then(({id, name}) => {
 				addAlert({
-					alertType: Alert.Types.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: sub(Liferay.Language.get('x-has-been-created'), [
 						name
 					]) as string

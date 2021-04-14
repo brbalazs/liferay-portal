@@ -2,7 +2,8 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import React from 'react';
 import Row from '../components/Row';
-import {addAlert, alertTypes, updateAlert} from 'shared/actions/alerts';
+import {addAlert, updateAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
@@ -18,7 +19,7 @@ export default class AlertFeedKit extends React.Component {
 	@autobind
 	handleInfo() {
 		this.props.addAlert({
-			alertType: alertTypes.DEFAULT,
+			alertType: Alert.Types.Default,
 			message: 'You are using the offline Mode.'
 		});
 	}
@@ -26,7 +27,7 @@ export default class AlertFeedKit extends React.Component {
 	@autobind
 	handleError() {
 		this.props.addAlert({
-			alertType: alertTypes.ERROR,
+			alertType: Alert.Types.Error,
 			message: 'Upload Failed! Check your internet connection.'
 		});
 	}
@@ -34,13 +35,13 @@ export default class AlertFeedKit extends React.Component {
 	@autobind
 	handlePending() {
 		const pendingAlert = this.props.addAlert({
-			alertType: alertTypes.PENDING,
+			alertType: Alert.Types.Pending,
 			message: 'Updating your profile picture...'
 		});
 
 		const completedAlert = () => {
 			this.props.updateAlert({
-				alertType: alertTypes.SUCCESS,
+				alertType: Alert.Types.Success,
 				id: pendingAlert.payload.id,
 				message: 'Your profile picture has been updated',
 				timeout: TIMEOUT
@@ -53,7 +54,7 @@ export default class AlertFeedKit extends React.Component {
 	@autobind
 	handleSuccess() {
 		this.props.addAlert({
-			alertType: alertTypes.SUCCESS,
+			alertType: Alert.Types.Success,
 			message: 'Congratulations! You are now logged in.'
 		});
 	}
@@ -61,7 +62,7 @@ export default class AlertFeedKit extends React.Component {
 	@autobind
 	handleWarning() {
 		this.props.addAlert({
-			alertType: alertTypes.WARNING,
+			alertType: Alert.Types.Warning,
 			message: `This is a warning. This alert will not go away unless you
 			 dismiss it manually.`,
 			timeout: false

@@ -15,7 +15,8 @@ import {
 	SelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -108,7 +109,7 @@ export class InterestTopics extends React.Component {
 
 				if (duplicate.length) {
 					addAlert({
-						alertType: alertTypes.DEFAULT,
+						alertType: Alert.Types.Default,
 						message: `${duplicate
 							.map(({keyword}) => keyword)
 							.join(', ')} ${Liferay.Language.get(
@@ -128,7 +129,7 @@ export class InterestTopics extends React.Component {
 							  );
 
 					addAlert({
-						alertType: alertTypes.SUCCESS,
+						alertType: Alert.Types.Success,
 						message: sub(
 							nonDuplicatedMessage,
 							[
@@ -147,7 +148,7 @@ export class InterestTopics extends React.Component {
 			})
 			.catch(() => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error')
 				});
 			});
@@ -188,7 +189,7 @@ export class InterestTopics extends React.Component {
 									  );
 
 							addAlert({
-								alertType: alertTypes.SUCCESS,
+								alertType: Alert.Types.Success,
 								message: sub(
 									deletedMessage,
 									[<b key='deleteCount'>{ids.length}</b>],
@@ -202,7 +203,7 @@ export class InterestTopics extends React.Component {
 						})
 						.catch(err =>
 							addAlert({
-								alertType: alertTypes.ERROR,
+								alertType: Alert.Types.Error,
 								message:
 									err.message === UNAUTHORIZED_ACCESS
 										? Liferay.Language.get(

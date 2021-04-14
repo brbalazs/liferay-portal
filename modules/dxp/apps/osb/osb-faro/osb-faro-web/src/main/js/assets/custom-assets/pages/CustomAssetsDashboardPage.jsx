@@ -10,7 +10,8 @@ import Icon from 'shared/components/Icon';
 import React from 'react';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {ChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -156,7 +157,7 @@ class CustomAssetsDashboardPage extends React.Component {
 					});
 
 					addAlert({
-						alertType: alertTypes.SUCCESS,
+						alertType: Alert.Types.Success,
 						message: sub(
 							Liferay.Language.get(
 								'x-has-been-deleted-from-this-dashboard'
@@ -170,7 +171,7 @@ class CustomAssetsDashboardPage extends React.Component {
 				this.setState({definition: previousDefinition});
 
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get(
 						'an-unexpected-error-occurred'
 					)

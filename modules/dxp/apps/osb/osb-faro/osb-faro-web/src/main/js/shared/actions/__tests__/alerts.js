@@ -1,15 +1,10 @@
-import {
-	actionTypes,
-	addAlert,
-	alertTypes,
-	removeAlert,
-	updateAlert
-} from '../alerts';
+import {actionTypes, addAlert, removeAlert, updateAlert} from '../alerts';
+import {Alert} from 'shared/types';
 
 import {isFSA} from 'flux-standard-action';
 
 describe('alerts', () => {
-	const alertType = alertTypes.ALERT;
+	const alertType = Alert.Types.Alert;
 	const id = 123;
 	const timeout = false;
 

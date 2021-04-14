@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import {alertTypes} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {
 	CredentialTypes,
 	DataSourceStates,
@@ -45,7 +45,7 @@ export function getServiceAlertConfig(code) {
 	})(code);
 
 	return {
-		alertType: alertTypes.WARNING,
+		alertType: Alert.Types.Warning,
 		message,
 		timeout: WARNING_TIMEOUT
 	};

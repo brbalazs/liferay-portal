@@ -6,7 +6,8 @@ import getCN from 'classnames';
 import Label from 'shared/components/Label';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {ChannelContext} from 'shared/context/channel';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
@@ -74,7 +75,7 @@ export default WrappedComponent => {
 						})
 						.then(() => {
 							addAlert({
-								alertType: alertTypes.SUCCESS,
+								alertType: Alert.Types.Success,
 								message: Liferay.Language.get(
 									'the-segment-has-been-deleted'
 								)
@@ -90,7 +91,7 @@ export default WrappedComponent => {
 						})
 						.catch(() => {
 							addAlert({
-								alertType: alertTypes.ERROR,
+								alertType: Alert.Types.Error,
 								message: Liferay.Language.get('error'),
 								timeout: false
 							});
@@ -183,7 +184,7 @@ export default WrappedComponent => {
 						);
 
 						addAlert({
-							alertType: alertTypes.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: Liferay.Language.get(
 								'changes-to-segment-saved'
 							)
@@ -198,7 +199,7 @@ export default WrappedComponent => {
 				})
 				.catch(() => {
 					addAlert({
-						alertType: alertTypes.ERROR,
+						alertType: Alert.Types.Error,
 						message: Liferay.Language.get('error')
 					});
 

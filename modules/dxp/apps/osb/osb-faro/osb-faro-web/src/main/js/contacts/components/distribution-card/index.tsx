@@ -7,12 +7,13 @@ import ErrorDisplay from 'shared/components/ErrorDisplay';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import Tabs from './Tabs';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
 import {
 	addDistributionTab,
 	fetchDistributionTabs,
 	removeDistributionTab
 } from 'shared/actions/preferences';
+import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
 import {List, Map} from 'immutable';
@@ -83,7 +84,7 @@ class DistributionCard extends React.Component<
 			)
 			.catch(({message}) =>
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message,
 					timeout: false
 				})

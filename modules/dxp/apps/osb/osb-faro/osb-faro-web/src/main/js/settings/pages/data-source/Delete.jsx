@@ -5,7 +5,8 @@ import BasePage from 'settings/components/BasePage';
 import DeleteDataSource from 'settings/components/DeleteDataSource';
 import getCN from 'classnames';
 import React from 'react';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {
 	compose,
 	withAdminPermission,
@@ -61,7 +62,7 @@ export class Delete extends React.Component {
 		})
 			.then(() => {
 				addAlert({
-					alertType: alertTypes.DEFAULT,
+					alertType: Alert.Types.Default,
 					message: sub(
 						Liferay.Language.get(
 							'x-is-currently-being-removed-from-analytics-cloud'
@@ -78,7 +79,7 @@ export class Delete extends React.Component {
 			})
 			.catch(() => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get('error'),
 					timeout: false
 				});

@@ -154,7 +154,7 @@ const UserList: React.FC<IUserListProps> = ({
 						refetch();
 
 						addAlert({
-							alertType: Alert.Types.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: getPluralMessage(
 								Liferay.Language.get(
 									'x-has-been-removed-from-x'
@@ -172,7 +172,7 @@ const UserList: React.FC<IUserListProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message: getPluralMessage(
 								Liferay.Language.get(
 									'there-was-an-error-removing-x-from-x'
@@ -248,7 +248,7 @@ const UserList: React.FC<IUserListProps> = ({
 						refetch();
 
 						addAlert({
-							alertType: Alert.Types.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: getPluralMessage(
 								Liferay.Language.get(
 									'x-has-been-added-as-a-user-to-x'
@@ -266,7 +266,7 @@ const UserList: React.FC<IUserListProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message: getPluralMessage(
 								Liferay.Language.get(
 									'there-was-an-error-adding-x-as-a-user-to-x'

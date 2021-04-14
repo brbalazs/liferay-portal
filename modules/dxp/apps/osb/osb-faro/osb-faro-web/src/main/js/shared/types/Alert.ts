@@ -1,11 +1,11 @@
 export namespace Alert {
 	export enum Types {
-		ALERT = 'ALERT',
-		DEFAULT = 'DEFAULT',
-		ERROR = 'ERROR',
-		PENDING = 'PENDING',
-		SUCCESS = 'SUCCESS',
-		WARNING = 'WARNING'
+		Alert = 'ALERT',
+		Default = 'DEFAULT',
+		Error = 'ERROR',
+		Pending = 'PENDING',
+		Success = 'SUCCESS',
+		Warning = 'WARNING'
 	}
 
 	export type AddAlert = ({

@@ -46,7 +46,7 @@ const TokenList: React.FC<{
 		setLoading(false);
 
 		addAlert({
-			alertType: Alert.Types.ERROR,
+			alertType: Alert.Types.Error,
 			message: Liferay.Language.get('error'),
 			timeout: false
 		});
@@ -54,7 +54,7 @@ const TokenList: React.FC<{
 
 	const handleSuccess = message => {
 		addAlert({
-			alertType: Alert.Types.SUCCESS,
+			alertType: Alert.Types.Success,
 			message
 		});
 

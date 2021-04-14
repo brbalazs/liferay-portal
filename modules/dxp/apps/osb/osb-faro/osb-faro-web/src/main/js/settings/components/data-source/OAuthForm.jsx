@@ -9,7 +9,8 @@ import getCN from 'classnames';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {compose, withHistory} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
@@ -140,7 +141,7 @@ export class OAuthForm extends React.Component {
 			})
 			.catch(err => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: getOAuthWindowErrorMessage(err),
 					timeout: false
 				});
@@ -235,14 +236,14 @@ export class OAuthForm extends React.Component {
 
 				if (isDataSourceValid(state)) {
 					addAlert({
-						alertType: alertTypes.SUCCESS,
+						alertType: Alert.Types.Success,
 						message: Liferay.Language.get(
 							'data-source-credentials-saved'
 						)
 					});
 				} else {
 					addAlert({
-						alertType: alertTypes.ERROR,
+						alertType: Alert.Types.Error,
 						message: Liferay.Language.get('authentication-error'),
 						timeout: false
 					});
@@ -265,7 +266,7 @@ export class OAuthForm extends React.Component {
 				);
 
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: oAuthError
 						? Liferay.Language.get(
 								'there-was-a-problem-authenticating,-please-check-your-credentials-and-try-again'

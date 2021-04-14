@@ -1,7 +1,6 @@
 jest.mock('shared/actions/alerts', () => ({
 	actionTypes: {},
-	addAlert: jest.fn(() => ({meta: {}, payload: {}, type: 'addAlert'})),
-	alertTypes: {}
+	addAlert: jest.fn(() => ({meta: {}, payload: {}, type: 'addAlert'}))
 }));
 
 import * as data from 'test/data';

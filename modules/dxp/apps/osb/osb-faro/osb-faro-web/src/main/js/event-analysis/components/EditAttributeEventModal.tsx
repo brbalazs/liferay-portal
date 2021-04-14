@@ -169,7 +169,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 													: 'updateEventDefinition'
 											)(data);
 											addAlert({
-												alertType: Alert.Types.SUCCESS,
+												alertType: Alert.Types.Success,
 												message: sub(
 													Liferay.Language.get(
 														'x-has-been-updated'
@@ -184,7 +184,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 										})
 										.catch(() => {
 											addAlert({
-												alertType: Alert.Types.ERROR,
+												alertType: Alert.Types.Error,
 												message: Liferay.Language.get(
 													'there-was-an-error-processing-your-request.-please-try-again'
 												)

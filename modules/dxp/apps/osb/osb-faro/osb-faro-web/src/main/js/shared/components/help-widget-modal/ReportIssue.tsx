@@ -30,7 +30,7 @@ const ReportIssue: React.FC<
 			})
 			.catch(() => {
 				addAlert({
-					alertType: Alert.Types.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get(
 						'there-was-an-error-processing-your-request.-please-try-again'
 					)

@@ -7,7 +7,8 @@ import Icon from 'shared/components/Icon';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import TextTruncate from 'shared/components/TextTruncate';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 import {round} from 'lodash';
 import {sub} from 'shared/util/lang';
@@ -194,7 +195,7 @@ export class FileDropTarget extends React.Component<IFileDropTargetProps> {
 		const {addAlert} = this.props;
 
 		addAlert({
-			alertType: alertTypes.WARNING,
+			alertType: Alert.Types.Warning,
 			message: ERROR_LANG_MAP[error]
 		});
 	}

@@ -239,7 +239,7 @@ export const List: React.FC<IListProps> = ({
 					})
 					.then(() => {
 						addAlert({
-							alertType: Alert.Types.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: Liferay.Language.get(
 								'the-segment-has-been-deleted'
 							)
@@ -259,7 +259,7 @@ export const List: React.FC<IListProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: Alert.Types.ERROR,
+							alertType: Alert.Types.Error,
 							message: Liferay.Language.get('error'),
 							timeout: false
 						});

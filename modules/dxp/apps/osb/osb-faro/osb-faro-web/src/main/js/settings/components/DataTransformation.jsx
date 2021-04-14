@@ -11,7 +11,8 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {Fragment} from 'react';
 import Sheet from 'shared/components/Sheet';
 import Spinner from 'shared/components/Spinner';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -196,7 +197,7 @@ export class DataTransformation extends React.Component {
 			.catch(err => {
 				if (!err.IS_CANCELLATION_ERROR) {
 					addAlert({
-						alertType: alertTypes.ERROR,
+						alertType: Alert.Types.Error,
 						message: Liferay.Language.get(
 							'an-unexpected-error-occurred'
 						)

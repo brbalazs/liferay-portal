@@ -147,7 +147,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 					}
 				}) => {
 					addAlert({
-						alertType: Alert.Types.SUCCESS,
+						alertType: Alert.Types.Success,
 						message: sub(
 							Liferay.Language.get(
 								'x-recommendation-model-has-been-saved'
@@ -165,7 +165,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			)
 			.catch(() => {
 				addAlert({
-					alertType: Alert.Types.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get(
 						'there-was-an-error-processing-your-request.-please-try-again'
 					)

@@ -24,7 +24,8 @@ import {
 	paginationConfig,
 	paginationDefaults
 } from 'shared/util/pagination';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
@@ -131,7 +132,7 @@ export class KnownIndividuals extends React.Component<
 			})
 			.then(() => {
 				addAlert({
-					alertType: alertTypes.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: sub(
 						Liferay.Language.get(
 							'x-individuals-have-been-added-to-this-static-segment'
@@ -144,7 +145,7 @@ export class KnownIndividuals extends React.Component<
 			})
 			.catch(error => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message: Liferay.Language.get(
 						'an-unexpected-error-occurred'
 					)

@@ -3,7 +3,8 @@ import AddWorkspaceForm from 'shared/components/workspaces/AddWorkspaceForm';
 import BasePage from 'settings/components/BasePage';
 import Promise from 'metal-promise';
 import React from 'react';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {compose, withCurrentUser, withHistory, withQuery} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {Project, User} from 'shared/util/records';
@@ -59,14 +60,14 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 				}
 
 				addAlert({
-					alertType: alertTypes.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: Liferay.Language.get('workspace-settings-saved')
 				});
 			})
 			.catch(error => {
 				if (!error.field) {
 					addAlert({
-						alertType: alertTypes.ERROR,
+						alertType: Alert.Types.Error,
 						message: Liferay.Language.get('unknown-error'),
 						timeout: false
 					});

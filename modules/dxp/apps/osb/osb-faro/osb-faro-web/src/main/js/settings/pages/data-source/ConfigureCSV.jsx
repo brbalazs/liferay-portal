@@ -9,7 +9,8 @@ import getCN from 'classnames';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import TextTruncate from 'shared/components/TextTruncate';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {close, open} from 'shared/actions/modals';
 import {compose, withAdminPermission} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -99,7 +100,7 @@ class ConfigureCSV extends React.Component {
 			})
 			.catch(err => {
 				addAlert({
-					alertType: alertTypes.ERROR,
+					alertType: Alert.Types.Error,
 					message:
 						err.message === UNAUTHORIZED_ACCESS
 							? Liferay.Language.get('unauthorized-access')

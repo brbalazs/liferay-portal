@@ -129,7 +129,7 @@ const View: React.FC<IViewProps> = ({
 																	alertType:
 																		Alert
 																			.Types
-																			.SUCCESS,
+																			.Success,
 																	message: Liferay.Language.get(
 																		'retraining-has-been-started'
 																	)
@@ -142,7 +142,7 @@ const View: React.FC<IViewProps> = ({
 																	alertType:
 																		Alert
 																			.Types
-																			.ERROR,
+																			.Error,
 																	message: Liferay.Language.get(
 																		'there-was-an-error-processing-your-request.-please-try-again'
 																	),
@@ -210,7 +210,7 @@ const View: React.FC<IViewProps> = ({
 																	alertType:
 																		Alert
 																			.Types
-																			.SUCCESS,
+																			.Success,
 																	message: sub(
 																		Liferay.Language.get(
 																			'x-has-been-deleted'
@@ -233,7 +233,7 @@ const View: React.FC<IViewProps> = ({
 																	alertType:
 																		Alert
 																			.Types
-																			.ERROR,
+																			.Error,
 																	message: Liferay.Language.get(
 																		'there-was-an-error-processing-your-request.-please-try-again'
 																	),

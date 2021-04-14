@@ -11,7 +11,8 @@ import Label from 'shared/components/Label';
 import Promise from 'metal-promise';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
-import {addAlert, alertTypes} from '../../../shared/actions/alerts';
+import {addAlert} from '../../../shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
@@ -129,7 +130,7 @@ class LiferayOverview extends React.Component<ILiferayOverviewProps> {
 					})
 					.catch(error => {
 						addAlert({
-							alertType: alertTypes.ERROR,
+							alertType: Alert.Types.Error,
 							message: error.message,
 							timeout: false
 						});

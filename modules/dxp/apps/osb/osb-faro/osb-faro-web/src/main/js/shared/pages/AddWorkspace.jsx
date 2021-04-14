@@ -3,7 +3,8 @@ import autobind from 'autobind-decorator';
 import getCN from 'classnames';
 import React from 'react';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {compose, optional, redirectIf, withProject} from 'shared/hoc';
 import {
 	configureProject,
@@ -99,14 +100,14 @@ export class AddWorkspace extends React.Component {
 				});
 
 				addAlert({
-					alertType: alertTypes.SUCCESS,
+					alertType: Alert.Types.Success,
 					message: Liferay.Language.get('success')
 				});
 			})
 			.catch(error => {
 				if (!error.field) {
 					addAlert({
-						alertType: alertTypes.ERROR,
+						alertType: Alert.Types.Error,
 						message: error.message,
 						timeout: false
 					});

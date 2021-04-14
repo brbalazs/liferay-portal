@@ -2,10 +2,10 @@ import Alert, {ALERT_CONFIG_MAP, AlertTypes} from './Alert';
 import getCN from 'classnames';
 import React from 'react';
 import {Alert as AlertType} from 'shared/types';
-import {alertTypes, removeAlert} from '../actions/alerts';
 import {connect} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {List, Map} from 'immutable';
+import {removeAlert} from '../actions/alerts';
 
 const {danger, info, secondary, success, warning} = ALERT_CONFIG_MAP;
 
@@ -18,11 +18,11 @@ type AlertDisplaysType = {
 };
 
 const ALERT_DISPLAYS: AlertDisplaysType = {
-	[alertTypes.DEFAULT]: info,
-	[alertTypes.ERROR]: danger,
-	[alertTypes.PENDING]: secondary,
-	[alertTypes.SUCCESS]: success,
-	[alertTypes.WARNING]: warning
+	[AlertType.Types.Default]: info,
+	[AlertType.Types.Error]: danger,
+	[AlertType.Types.Pending]: secondary,
+	[AlertType.Types.Success]: success,
+	[AlertType.Types.Warning]: warning
 };
 
 interface IAlertFeedProps extends React.HTMLAttributes<HTMLElement> {

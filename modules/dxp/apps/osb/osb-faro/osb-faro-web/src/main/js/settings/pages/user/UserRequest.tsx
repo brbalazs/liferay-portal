@@ -2,7 +2,8 @@ import * as API from 'shared/api';
 import React, {useRef} from 'react';
 import RequestActionsRenderer from 'settings/components/user-list/RequestActionsRenderer';
 import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
-import {addAlert, alertTypes} from 'shared/actions/alerts';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withAdminPermission} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -101,7 +102,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					.accept({groupId, id})
 					.then(() => {
 						addAlert({
-							alertType: alertTypes.SUCCESS,
+							alertType: Alert.Types.Success,
 							message: Liferay.Language.get('user-added')
 						});
 
@@ -109,7 +110,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: alertTypes.ERROR,
+							alertType: Alert.Types.Error,
 							message: Liferay.Language.get('error')
 						});
 					}),
@@ -131,7 +132,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					.delete({groupId, ids: [id]})
 					.then(() => {
 						addAlert({
-							alertType: alertTypes.DEFAULT,
+							alertType: Alert.Types.Default,
 							message: Liferay.Language.get(
 								'user-request-to-join-denied'
 							)
@@ -141,7 +142,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					})
 					.catch(() => {
 						addAlert({
-							alertType: alertTypes.ERROR,
+							alertType: Alert.Types.Error,
 							message: Liferay.Language.get('error')
 						});
 					}),
