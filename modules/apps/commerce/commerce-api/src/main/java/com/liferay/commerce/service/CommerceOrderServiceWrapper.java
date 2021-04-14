@@ -611,6 +611,11 @@ public class CommerceOrderServiceWrapper
 			orderDateHour, orderDateMinute, serviceContext);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement.
+	 See CommercePaymentEngine.updateOrderPaymentStatus.
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrder updatePaymentStatus(
 			long commerceOrderId, int paymentStatus)
@@ -620,6 +625,11 @@ public class CommerceOrderServiceWrapper
 			commerceOrderId, paymentStatus);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement.
+	 See CommercePaymentEngine.updateOrderPaymentStatus.
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrder
 			updatePaymentStatusAndTransactionId(

@@ -547,6 +547,11 @@ public class CommerceOrderServiceUtil {
 			orderDateHour, orderDateMinute, serviceContext);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement.
+	 See CommercePaymentEngine.updateOrderPaymentStatus.
+	 */
+	@Deprecated
 	public static CommerceOrder updatePaymentStatus(
 			long commerceOrderId, int paymentStatus)
 		throws PortalException {
@@ -554,6 +559,11 @@ public class CommerceOrderServiceUtil {
 		return getService().updatePaymentStatus(commerceOrderId, paymentStatus);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement.
+	 See CommercePaymentEngine.updateOrderPaymentStatus.
+	 */
+	@Deprecated
 	public static CommerceOrder updatePaymentStatusAndTransactionId(
 			long commerceOrderId, int paymentStatus, String transactionId)
 		throws PortalException {
