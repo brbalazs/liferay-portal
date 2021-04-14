@@ -9,7 +9,7 @@ import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 import {CREATE_DATE} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
-import {GDPR_REQUEST_STATUSES, GDPR_REQUEST_TYPES} from 'shared/util/constants';
+import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {sub} from 'shared/util/lang';
@@ -49,7 +49,7 @@ const withQueryOptions = Component => ({
 			renderInlineRowActions={({
 				data: {dataControlTaskStatus, emailAddress}
 			}) =>
-				dataControlTaskStatus !== GDPR_REQUEST_STATUSES.PENDING && (
+				dataControlTaskStatus !== GDPRRequestStatuses.Pending && (
 					<ClayButton
 						className='unsuppress'
 						displayType='secondary'
@@ -58,7 +58,7 @@ const withQueryOptions = Component => ({
 								variables: {
 									emailAddresses: [emailAddress],
 									ownerId: currentUser.id,
-									types: [GDPR_REQUEST_TYPES.UNSUPPRESS]
+									types: [GDPRRequestTypes.Unsuppress]
 								}
 							})
 								.then(() => {
@@ -140,7 +140,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 	<Card className='suppressed-user-list-root' pageDisplay>
 		<SuppressedListWithData
 			checkDisabled={({dataControlTaskStatus}) =>
-				dataControlTaskStatus === GDPR_REQUEST_STATUSES.PENDING
+				dataControlTaskStatus === GDPRRequestStatuses.Pending
 			}
 			entityLabel={Liferay.Language.get('suppressed-users')}
 			{...props}

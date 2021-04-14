@@ -14,7 +14,7 @@ import {
 	paginationDefaults
 } from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
-import {userStatuses} from 'shared/util/constants';
+import {UserStatuses} from 'shared/util/constants';
 
 type UserRequestProps = {
 	close: () => void;
@@ -61,7 +61,7 @@ const getUsers = ({
 		groupId,
 		orderByFields: getOrderByFields(),
 		query,
-		statuses: [userStatuses.requested]
+		statuses: [UserStatuses.Requested]
 	});
 };
 

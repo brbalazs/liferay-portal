@@ -3,9 +3,9 @@ import Form from 'shared/components/form';
 import React from 'react';
 import Summary from '../Summary';
 import {
-	jobRunDataPeriods,
-	jobRunFrequencies,
-	jobTypes
+	JobRunDataPeriods,
+	JobRunFrequencies,
+	JobTypes
 } from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
 import {
@@ -38,9 +38,9 @@ describe('Summary', () => {
 								}
 							],
 							name: 'Test Name',
-							runDataPeriod: jobRunDataPeriods.last30Days,
-							runFrequency: jobRunFrequencies.manual,
-							type: jobTypes.itemSimilarity
+							runDataPeriod: JobRunDataPeriods.Last30Days,
+							runFrequency: JobRunFrequencies.Manual,
+							type: JobTypes.ItemSimilarity
 						}}
 					>
 						{({initialValues, values}) => (
@@ -82,9 +82,9 @@ describe('Summary', () => {
 								}
 							],
 							name: 'Test Name',
-							runDataPeriod: jobRunDataPeriods.last30Days,
-							runFrequency: jobRunFrequencies.manual,
-							type: jobTypes.itemSimilarity
+							runDataPeriod: JobRunDataPeriods.Last30Days,
+							runFrequency: JobRunFrequencies.Manual,
+							type: JobTypes.ItemSimilarity
 						}}
 					>
 						{({initialValues, values}) => (

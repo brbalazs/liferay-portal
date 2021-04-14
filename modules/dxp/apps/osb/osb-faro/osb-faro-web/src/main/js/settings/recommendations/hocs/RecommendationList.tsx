@@ -1,10 +1,10 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants, {
-	jobRunDataPeriods,
-	jobRunFrequencies,
-	jobStatuses,
-	jobTypes
+	JobRunDataPeriods,
+	JobRunFrequencies,
+	JobStatuses,
+	JobTypes
 } from 'shared/util/constants';
 import Label from 'shared/components/Label';
 import Nav from 'shared/components/Nav';
@@ -294,18 +294,18 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: 'type',
-			dataFormatter: (type: jobTypes) => JOB_TYPES_LABEL_MAP[type],
+			dataFormatter: (type: JobTypes) => JOB_TYPES_LABEL_MAP[type],
 			label: Liferay.Language.get('training-model')
 		},
 		{
 			accessor: 'runDataPeriod',
-			dataFormatter: (type: jobRunDataPeriods) =>
+			dataFormatter: (type: JobRunDataPeriods) =>
 				JOB_RUN_DATA_PERIODS_LABEL_MAP[type],
 			label: Liferay.Language.get('training-period')
 		},
 		{
 			accessor: 'runFrequency',
-			dataFormatter: (type: jobRunFrequencies) =>
+			dataFormatter: (type: JobRunFrequencies) =>
 				JOB_RUN_FREQUENCIES_LABEL_MAP[type],
 			label: Liferay.Language.get('training-frequency')
 		},
@@ -322,7 +322,7 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 				data: {status}
 			}: {
 				className: string;
-				data: {status: jobStatuses};
+				data: {status: JobStatuses};
 			}) => (
 				<td className={className}>
 					<Label

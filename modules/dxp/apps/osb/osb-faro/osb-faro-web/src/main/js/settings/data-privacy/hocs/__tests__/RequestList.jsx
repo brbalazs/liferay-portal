@@ -8,7 +8,7 @@ import {
 	render,
 	waitForElementToBeRemoved
 } from '@testing-library/react';
-import {GDPR_REQUEST_STATUSES, GDPR_REQUEST_TYPES} from 'shared/util/constants';
+import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
 import {Map, Set} from 'immutable';
 import {mockDataControlTaskBag} from 'test/graphql-data';
 import {MockedProvider} from '@apollo/react-testing';
@@ -27,8 +27,8 @@ const mockItems = [
 		createDate: '2019-10-09T00:00',
 		emailAddress: 't.smith@nosaints.com',
 		id: '10',
-		status: GDPR_REQUEST_STATUSES.RUNNING,
-		type: GDPR_REQUEST_TYPES.DELETE
+		status: GDPRRequestStatuses.Running,
+		type: GDPRRequestTypes.Delete
 	},
 	{
 		batchId: '2',
@@ -36,8 +36,8 @@ const mockItems = [
 		createDate: '2019-10-09T00:00',
 		emailAddress: 'alice.bryant@example.com',
 		id: '20',
-		status: GDPR_REQUEST_STATUSES.RUNNING,
-		type: GDPR_REQUEST_TYPES.UNSUPPRESS
+		status: GDPRRequestStatuses.Running,
+		type: GDPRRequestTypes.Unsuppress
 	},
 	{
 		batchId: '3',
@@ -45,8 +45,8 @@ const mockItems = [
 		createDate: '2019-09-09T00:00',
 		emailAddress: 'scott.gilbert@example.com',
 		id: '30',
-		status: GDPR_REQUEST_STATUSES.EXPIRED,
-		type: GDPR_REQUEST_TYPES.SUPPRESS
+		status: GDPRRequestStatuses.Expired,
+		type: GDPRRequestTypes.Suppress
 	},
 	{
 		batchId: '4',
@@ -54,8 +54,8 @@ const mockItems = [
 		createDate: '2019-11-09T00:00',
 		emailAddress: 'foo@bar.com',
 		id: '4',
-		status: GDPR_REQUEST_STATUSES.COMPLETED,
-		type: GDPR_REQUEST_TYPES.SUPPRESS
+		status: GDPRRequestStatuses.Completed,
+		type: GDPRRequestTypes.Suppress
 	},
 	{
 		batchId: '5',
@@ -63,8 +63,8 @@ const mockItems = [
 		createDate: '2019-09-09T00:00',
 		emailAddress: 'lillie.foster@example.com',
 		id: '50',
-		status: GDPR_REQUEST_STATUSES.ERROR,
-		type: GDPR_REQUEST_TYPES.ACCESS
+		status: GDPRRequestStatuses.Error,
+		type: GDPRRequestTypes.Access
 	},
 	{
 		batchId: '6',
@@ -72,8 +72,8 @@ const mockItems = [
 		createDate: '2019-09-09T00:00',
 		emailAddress: 'bazbuz@example.com',
 		id: '60',
-		status: GDPR_REQUEST_STATUSES.PENDING,
-		type: GDPR_REQUEST_TYPES.DELETE
+		status: GDPRRequestStatuses.Pending,
+		type: GDPRRequestTypes.Delete
 	},
 	{
 		batchId: '7',
@@ -81,8 +81,8 @@ const mockItems = [
 		createDate: '2019-12-05T00:00',
 		emailAddress: 'scott.gilbert@example.com',
 		id: '70',
-		status: GDPR_REQUEST_STATUSES.COMPLETED,
-		type: GDPR_REQUEST_TYPES.ACCESS
+		status: GDPRRequestStatuses.Completed,
+		type: GDPRRequestTypes.Access
 	}
 ];
 

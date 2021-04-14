@@ -14,9 +14,9 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Filter, Job, JobParameter} from '../../utils/utils';
 import {
-	jobRunDataPeriods,
-	jobRunFrequencies,
-	jobTypes
+	JobRunDataPeriods,
+	JobRunFrequencies,
+	JobTypes
 } from 'shared/util/constants';
 import {
 	RECOMMENDATION_MUTATION,
@@ -54,7 +54,7 @@ interface IRecommendationStepCardProps {
 		push: (string) => void;
 	};
 	job?: Job;
-	jobType?: jobTypes;
+	jobType?: JobTypes;
 	router: RouterType;
 }
 
@@ -220,8 +220,8 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			includePreviousPeriod: false,
 			itemFilters: [],
 			name: '',
-			runDataPeriod: jobRunDataPeriods.last30Days,
-			runFrequency: jobRunFrequencies.every7Days,
+			runDataPeriod: JobRunDataPeriods.Last30Days,
+			runFrequency: JobRunFrequencies.Every7Days,
 			runNow: true,
 			type: jobType
 		};

@@ -1,5 +1,5 @@
 import sendRequest from 'shared/util/request';
-import {userStatuses} from 'shared/util/constants';
+import {UserStatuses} from 'shared/util/constants';
 
 function delete$({groupId, ids}) {
 	return sendRequest({
@@ -24,7 +24,7 @@ export function fetchMany({
 	groupId,
 	orderByFields,
 	query,
-	statuses = [userStatuses.approved, userStatuses.pending]
+	statuses = [UserStatuses.Approved, UserStatuses.Pending]
 }) {
 	return sendRequest({
 		data: {

@@ -2,7 +2,7 @@ import mockStore from 'test/mock-store';
 import React from 'react';
 import SuppressedUserList from '../SuppressedUserList';
 import {cleanup, render} from '@testing-library/react';
-import {GDPR_REQUEST_STATUSES} from 'shared/util/constants';
+import {GDPRRequestStatuses} from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockSuppressedUsersListReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
@@ -16,7 +16,7 @@ const mockItems = [
 		createDate: '2019-09-10T00:00',
 		dataControlTaskBatchId: '00001',
 		dataControlTaskCreateDate: '2019-09-09T00:00',
-		dataControlTaskStatus: GDPR_REQUEST_STATUSES.PENDING,
+		dataControlTaskStatus: GDPRRequestStatuses.Pending,
 		emailAddress: 'foo@email',
 		id: '12345'
 	},
@@ -24,7 +24,7 @@ const mockItems = [
 		createDate: '2019-09-11T00:00',
 		dataControlTaskBatchId: '00002',
 		dataControlTaskCreateDate: '2019-09-09T00:00',
-		dataControlTaskStatus: GDPR_REQUEST_STATUSES.COMPLETED,
+		dataControlTaskStatus: GDPRRequestStatuses.Completed,
 		emailAddress: 'bar@email',
 		id: '6789'
 	}

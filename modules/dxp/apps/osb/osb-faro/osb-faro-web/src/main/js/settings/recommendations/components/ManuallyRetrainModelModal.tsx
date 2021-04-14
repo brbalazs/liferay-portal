@@ -15,7 +15,7 @@ import {
 	JobProperty
 } from '../utils/utils';
 import {get} from 'lodash';
-import {jobRunDataPeriods} from 'shared/util/constants';
+import {JobRunDataPeriods} from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
 
 const ACTIVITIES_THRESHOLD = 1000;
@@ -47,7 +47,7 @@ const ManuallyRetrainModelModal: React.FC<IManuallyRetrainModelModalProps> = ({
 	const propertyFilters: JobProperty[] = getPropertiesFromItems(itemFilters);
 
 	const validateActivitiesCount = (
-		JobRunDataPeriod: jobRunDataPeriods
+		JobRunDataPeriod: JobRunDataPeriods
 	): Promise<string> => {
 		let error = '';
 

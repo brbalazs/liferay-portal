@@ -1,5 +1,5 @@
 import BasePage from 'settings/components/BasePage';
-import Constants, {jobRunStatuses} from 'shared/util/constants';
+import Constants, {JobRunStatuses} from 'shared/util/constants';
 import OutputVersionsCard from '../components/OutputVersionsCard';
 import React from 'react';
 import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
@@ -75,7 +75,7 @@ const View: React.FC<IViewProps> = ({
 		get(jobRuns, ['jobRuns', 'jobRuns', 0], null);
 
 	const jobRunRunning: boolean =
-		get(jobRun, 'status', null) === jobRunStatuses.running;
+		get(jobRun, 'status', null) === JobRunStatuses.Running;
 
 	const [runRecommendationJob] = useMutation(RECOMMENDATION_RUN_MUTATION);
 

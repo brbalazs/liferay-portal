@@ -1,7 +1,7 @@
 import Card from 'shared/components/Card';
 import Constants, {
-	jobRunFrequencies,
-	jobRunStatuses
+	JobRunFrequencies,
+	JobRunStatuses
 } from 'shared/util/constants';
 import Label from 'shared/components/Label';
 import moment from 'moment';
@@ -49,7 +49,7 @@ const getContextItemCount = (contextItemKey: string) => (
 interface IOutputVersionsCardProps {
 	nextRunDate: string;
 	router: RouterType;
-	runFrequency: jobRunFrequencies;
+	runFrequency: JobRunFrequencies;
 	timeZoneId: string;
 }
 
@@ -187,7 +187,7 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 								data: {status}
 							}: {
 								className: string;
-								data: {status: jobRunStatuses};
+								data: {status: JobRunStatuses};
 							}) => (
 								<td className={className}>
 									<Label

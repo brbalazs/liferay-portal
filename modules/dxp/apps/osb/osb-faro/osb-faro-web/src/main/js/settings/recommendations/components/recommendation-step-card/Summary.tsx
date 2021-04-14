@@ -18,10 +18,10 @@ import {
 } from '../../utils/utils';
 import {get} from 'lodash';
 import {
-	jobRunDataPeriods,
-	jobRunFrequencies,
-	jobRunStatuses,
-	jobTypes
+	JobRunDataPeriods,
+	JobRunFrequencies,
+	JobRunStatuses,
+	JobTypes
 } from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -33,17 +33,17 @@ interface ISummaryProps {
 	currentStep: number;
 	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
-	jobRunStatus: jobRunStatuses;
+	jobRunStatus: JobRunStatuses;
 	name: string;
-	runDataPeriod: jobRunDataPeriods;
-	runFrequency: jobRunFrequencies;
+	runDataPeriod: JobRunDataPeriods;
+	runFrequency: JobRunFrequencies;
 	setFieldValue: (
 		field: string,
 		value: any,
 		shouldValidate?: boolean
 	) => void;
 	setStep: (step: number) => void;
-	type: jobTypes;
+	type: JobTypes;
 }
 
 const EVENTS_THRESHOLD: number = 1000;
@@ -121,7 +121,7 @@ const Summary: React.FC<ISummaryProps> = ({
 
 	useEffect(() => {
 		if (
-			jobRunStatus === jobRunStatuses.running ||
+			jobRunStatus === JobRunStatuses.Running ||
 			(activitiesData && !includePreviousPeriod && notEnoughActivities) ||
 			(activitiesDataWithPrevious &&
 				includePreviousPeriod &&

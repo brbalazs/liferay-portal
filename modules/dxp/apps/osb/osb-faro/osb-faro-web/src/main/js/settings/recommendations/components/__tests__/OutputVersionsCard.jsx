@@ -1,7 +1,7 @@
 import * as data from 'test/data';
 import OutputVersionsCard from '../OutputVersionsCard';
 import React from 'react';
-import {jobRunFrequencies, jobRunStatuses} from 'shared/util/constants';
+import {JobRunFrequencies, JobRunStatuses} from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockRecommendationJobRunsReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
@@ -17,13 +17,13 @@ describe('OutputVersionsCard', () => {
 					mockRecommendationJobRunsReq([
 						data.mockRecommendationJobRun(0),
 						data.mockRecommendationJobRun(1, {
-							status: jobRunStatuses.failed
+							status: JobRunStatuses.Failed
 						}),
 						data.mockRecommendationJobRun(2, {
-							status: jobRunStatuses.published
+							status: JobRunStatuses.Published
 						}),
 						data.mockRecommendationJobRun(3, {
-							status: jobRunStatuses.running
+							status: JobRunStatuses.Running
 						})
 					])
 				]}
@@ -31,7 +31,7 @@ describe('OutputVersionsCard', () => {
 				<OutputVersionsCard
 					nextRunDate={new Date()}
 					router={{params: {jobId: '321'}}}
-					runFrequency={jobRunFrequencies.every14Days}
+					runFrequency={JobRunFrequencies.Every14Days}
 				/>
 			</MockedProvider>
 		);
@@ -50,20 +50,20 @@ describe('OutputVersionsCard', () => {
 					mockRecommendationJobRunsReq([
 						data.mockRecommendationJobRun(0),
 						data.mockRecommendationJobRun(1, {
-							status: jobRunStatuses.failed
+							status: JobRunStatuses.Failed
 						}),
 						data.mockRecommendationJobRun(2, {
-							status: jobRunStatuses.published
+							status: JobRunStatuses.Published
 						}),
 						data.mockRecommendationJobRun(3, {
-							status: jobRunStatuses.running
+							status: JobRunStatuses.Running
 						})
 					])
 				]}
 			>
 				<OutputVersionsCard
 					router={{params: {jobId: '321'}}}
-					runFrequency={jobRunFrequencies.every14Days}
+					runFrequency={JobRunFrequencies.Every14Days}
 				/>
 			</MockedProvider>
 		);

@@ -138,28 +138,28 @@ export enum DataSourceStates {
 	Unconfigured = 'UNCONFIGURED'
 }
 
-export enum userStatuses {
-	approved = 0,
-	pending = 1,
-	requested = 2
+export enum UserStatuses {
+	Approved = 0,
+	Pending = 1,
+	Requested = 2
 }
 
 /**
  * GDPR
  */
-export enum GDPR_REQUEST_STATUSES {
-	COMPLETED = 'COMPLETED',
-	ERROR = 'ERROR',
-	EXPIRED = 'EXPIRED',
-	PENDING = 'PENDING',
-	RUNNING = 'RUNNING'
+export enum GDPRRequestStatuses {
+	Completed = 'COMPLETED',
+	Error = 'ERROR',
+	Expired = 'EXPIRED',
+	Pending = 'PENDING',
+	Running = 'RUNNING'
 }
 
-export enum GDPR_REQUEST_TYPES {
-	ACCESS = 'ACCESS',
-	DELETE = 'DELETE',
-	SUPPRESS = 'SUPPRESS',
-	UNSUPPRESS = 'UNSUPPRESS'
+export enum GDPRRequestTypes {
+	Access = 'ACCESS',
+	Delete = 'DELETE',
+	Suppress = 'SUPPRESS',
+	Unsuppress = 'UNSUPPRESS'
 }
 
 /**
@@ -197,37 +197,37 @@ export const spritemap = '/o/osb-faro-web/dist/sprite.svg';
 /**
  * Jobs
  */
-export enum jobRunStatuses {
-	completed = 'COMPLETED',
-	failed = 'FAILED',
-	published = 'PUBLISHED',
-	running = 'RUNNING'
+export enum JobRunStatuses {
+	Completed = 'COMPLETED',
+	Failed = 'FAILED',
+	Published = 'PUBLISHED',
+	Running = 'RUNNING'
 }
 
-export enum jobStatuses {
-	failed = 'FAILED',
-	pending = 'PENDING',
-	ready = 'READY',
-	running = 'RUNNING',
-	scheduled = 'SCHEDULED'
+export enum JobStatuses {
+	Failed = 'FAILED',
+	Pending = 'PENDING',
+	Ready = 'READY',
+	Running = 'RUNNING',
+	Scheduled = 'SCHEDULED'
 }
 
-export enum jobRunFrequencies {
-	every7Days = 'EVERY_7_DAYS',
-	every14Days = 'EVERY_14_DAYS',
-	every30Days = 'EVERY_30_DAYS',
-	manual = 'MANUAL'
+export enum JobRunFrequencies {
+	Every7Days = 'EVERY_7_DAYS',
+	Every14Days = 'EVERY_14_DAYS',
+	Every30Days = 'EVERY_30_DAYS',
+	Manual = 'MANUAL'
 }
 
-export enum jobRunDataPeriods {
-	last7Days = 'LAST_7_DAYS',
-	last30Days = 'LAST_30_DAYS',
-	last180Days = 'LAST_180_DAYS',
-	last365Days = 'LAST_365_DAYS'
+export enum JobRunDataPeriods {
+	Last7Days = 'LAST_7_DAYS',
+	Last30Days = 'LAST_30_DAYS',
+	Last180Days = 'LAST_180_DAYS',
+	Last365Days = 'LAST_365_DAYS'
 }
 
-export enum jobTypes {
-	itemSimilarity = 'CONTENT_RECOMMENDATION_ITEM_SIMILARITY'
+export enum JobTypes {
+	ItemSimilarity = 'CONTENT_RECOMMENDATION_ITEM_SIMILARITY'
 }
 
 /**
@@ -366,11 +366,6 @@ export enum UserRoleNames {
 	Administrator = 'Site Administrator',
 	Member = 'Site Member',
 	Owner = 'Site Owner'
-}
-
-export enum UserStatuses {
-	Approved = 0,
-	Pending = 1
 }
 
 const Constants: Window['faroConstants'] = window.faroConstants;

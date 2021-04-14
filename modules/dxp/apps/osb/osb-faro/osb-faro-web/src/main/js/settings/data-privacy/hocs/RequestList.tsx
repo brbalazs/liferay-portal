@@ -16,8 +16,8 @@ import {CREATE_DATE} from 'shared/util/pagination';
 import {FilterByType, RouterType} from 'shared/types';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {
-	GDPR_REQUEST_STATUSES,
-	GDPR_REQUEST_TYPES,
+	GDPRRequestStatuses,
+	GDPRRequestTypes,
 	RangeKeyTimeRanges
 } from 'shared/util/constants';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
@@ -49,26 +49,26 @@ const {
 const DATE_FORMAT = 'MMM DD, YYYY';
 
 export const REQUEST_TYPE_LABEL_MAP = {
-	[GDPR_REQUEST_TYPES.ACCESS]: Liferay.Language.get('access'),
-	[GDPR_REQUEST_TYPES.DELETE]: Liferay.Language.get('delete'),
-	[GDPR_REQUEST_TYPES.SUPPRESS]: Liferay.Language.get('suppress'),
-	[GDPR_REQUEST_TYPES.UNSUPPRESS]: Liferay.Language.get('unsuppress')
+	[GDPRRequestTypes.Access]: Liferay.Language.get('access'),
+	[GDPRRequestTypes.Delete]: Liferay.Language.get('delete'),
+	[GDPRRequestTypes.Suppress]: Liferay.Language.get('suppress'),
+	[GDPRRequestTypes.Unsuppress]: Liferay.Language.get('unsuppress')
 };
 
 export const REQUEST_STATUS_LABEL_MAP = {
-	[GDPR_REQUEST_STATUSES.COMPLETED]: Liferay.Language.get('done'),
-	[GDPR_REQUEST_STATUSES.ERROR]: Liferay.Language.get('error'),
-	[GDPR_REQUEST_STATUSES.EXPIRED]: Liferay.Language.get('done'),
-	[GDPR_REQUEST_STATUSES.PENDING]: Liferay.Language.get('pending'),
-	[GDPR_REQUEST_STATUSES.RUNNING]: Liferay.Language.get('running')
+	[GDPRRequestStatuses.Completed]: Liferay.Language.get('done'),
+	[GDPRRequestStatuses.Error]: Liferay.Language.get('error'),
+	[GDPRRequestStatuses.Expired]: Liferay.Language.get('done'),
+	[GDPRRequestStatuses.Pending]: Liferay.Language.get('pending'),
+	[GDPRRequestStatuses.Running]: Liferay.Language.get('running')
 };
 
 export const REQUEST_STATUS_DISPLAY_MAP = {
-	[GDPR_REQUEST_STATUSES.COMPLETED]: 'success',
-	[GDPR_REQUEST_STATUSES.ERROR]: 'danger',
-	[GDPR_REQUEST_STATUSES.EXPIRED]: 'success',
-	[GDPR_REQUEST_STATUSES.PENDING]: 'secondary',
-	[GDPR_REQUEST_STATUSES.RUNNING]: 'info'
+	[GDPRRequestStatuses.Completed]: 'success',
+	[GDPRRequestStatuses.Error]: 'danger',
+	[GDPRRequestStatuses.Expired]: 'success',
+	[GDPRRequestStatuses.Pending]: 'secondary',
+	[GDPRRequestStatuses.Running]: 'info'
 };
 
 export const FILTER_BY_OPTIONS = [
@@ -77,8 +77,8 @@ export const FILTER_BY_OPTIONS = [
 		label: Liferay.Language.get('status'),
 		values: [
 			{
-				label: REQUEST_STATUS_LABEL_MAP.COMPLETED,
-				value: GDPR_REQUEST_STATUSES.COMPLETED
+				label: REQUEST_STATUS_LABEL_MAP[GDPRRequestStatuses.Completed],
+				value: GDPRRequestStatuses.Completed
 			}
 		]
 	},
@@ -87,16 +87,16 @@ export const FILTER_BY_OPTIONS = [
 		label: Liferay.Language.get('type'),
 		values: [
 			{
-				label: REQUEST_TYPE_LABEL_MAP.ACCESS,
-				value: GDPR_REQUEST_TYPES.ACCESS
+				label: REQUEST_TYPE_LABEL_MAP[GDPRRequestTypes.Access],
+				value: GDPRRequestTypes.Access
 			},
 			{
-				label: REQUEST_TYPE_LABEL_MAP.DELETE,
-				value: GDPR_REQUEST_TYPES.DELETE
+				label: REQUEST_TYPE_LABEL_MAP[GDPRRequestTypes.Delete],
+				value: GDPRRequestTypes.Delete
 			},
 			{
-				label: REQUEST_TYPE_LABEL_MAP.SUPPRESS,
-				value: GDPR_REQUEST_TYPES.SUPPRESS
+				label: REQUEST_TYPE_LABEL_MAP[GDPRRequestTypes.Suppress],
+				value: GDPRRequestTypes.Suppress
 			}
 		]
 	},
@@ -128,8 +128,8 @@ const isDisabled = ({
 	status
 }: {
 	completeDate: string;
-	status: GDPR_REQUEST_STATUSES;
-}): boolean => !completeDate || status !== GDPR_REQUEST_STATUSES.COMPLETED;
+	status: GDPRRequestStatuses;
+}): boolean => !completeDate || status !== GDPRRequestStatuses.Completed;
 
 /**
  * Function for searching and filtering requests.
@@ -345,7 +345,7 @@ const RequestListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: 'type',
-			dataFormatter: (type: GDPR_REQUEST_TYPES) =>
+			dataFormatter: (type: GDPRRequestTypes) =>
 				REQUEST_TYPE_LABEL_MAP[type],
 			label: Liferay.Language.get('request-type')
 		},
@@ -360,7 +360,7 @@ const RequestListWithData = withCrossPageSelect(withData, {
 			cellRenderer: ({
 				data: {status}
 			}: {
-				data: {status: GDPR_REQUEST_STATUSES};
+				data: {status: GDPRRequestStatuses};
 			}) => (
 				<td>
 					<Label
@@ -421,18 +421,18 @@ const RequestList: React.FC<IRequestListProps> = ({
 					data: {
 						completeDate: string;
 						id: string;
-						status: GDPR_REQUEST_STATUSES;
+						status: GDPRRequestStatuses;
 					};
 					itemsSelected: boolean;
 				}) => {
-					if (status === GDPR_REQUEST_STATUSES.EXPIRED) {
+					if (status === GDPRRequestStatuses.Expired) {
 						return (
 							<b>{Liferay.Language.get('download-expired')}</b>
 						);
 					}
 
 					return (
-						status === GDPR_REQUEST_STATUSES.COMPLETED && (
+						status === GDPRRequestStatuses.Completed && (
 							<Button
 								disabled={itemsSelected}
 								display='secondary'

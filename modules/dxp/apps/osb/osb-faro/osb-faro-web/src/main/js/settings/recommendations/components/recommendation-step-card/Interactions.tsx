@@ -2,7 +2,7 @@ import Form from 'shared/components/form';
 import InfoPopover from 'shared/components/InfoPopover';
 import React, {useEffect} from 'react';
 import {JOB_RUN_DATA_PERIODS_LIST} from '../../utils/utils';
-import {jobRunFrequencies} from 'shared/util/constants';
+import {JobRunFrequencies} from 'shared/util/constants';
 
 interface IInteractionsProps {
 	includePreviousPeriod: boolean;
@@ -11,7 +11,7 @@ interface IInteractionsProps {
 		value: any,
 		shouldValidate?: boolean
 	) => void;
-	runFrequency: jobRunFrequencies;
+	runFrequency: JobRunFrequencies;
 }
 
 const Interactions: React.FC<IInteractionsProps> = ({
@@ -19,7 +19,7 @@ const Interactions: React.FC<IInteractionsProps> = ({
 	runFrequency,
 	setFieldValue
 }) => {
-	const manualRunFequency = runFrequency === jobRunFrequencies.manual;
+	const manualRunFequency = runFrequency === JobRunFrequencies.Manual;
 
 	useEffect(() => {
 		if (manualRunFequency && includePreviousPeriod) {
