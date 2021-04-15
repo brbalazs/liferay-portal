@@ -609,6 +609,18 @@ public class CommerceOrderServiceUtil {
 			serviceContext);
 	}
 
+	public static CommerceOrder updateShippingMethod(
+			long commerceOrderId, long commerceShippingMethodId,
+			String shippingOptionName,
+			com.liferay.commerce.context.CommerceContext commerceContext,
+			java.util.Locale locale)
+		throws PortalException {
+
+		return getService().updateShippingMethod(
+			commerceOrderId, commerceShippingMethodId, shippingOptionName,
+			commerceContext, locale);
+	}
+
 	public static CommerceOrder updateTransactionId(
 			long commerceOrderId, String transactionId)
 		throws PortalException {

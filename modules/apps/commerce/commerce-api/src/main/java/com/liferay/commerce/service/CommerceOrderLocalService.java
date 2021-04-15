@@ -45,6 +45,7 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -718,6 +719,13 @@ public interface CommerceOrderLocalService
 			long commerceOrderId, long commerceShippingMethodId,
 			String shippingOptionName, BigDecimal shippingAmount,
 			CommerceContext commerceContext)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updateShippingMethod(
+			long commerceOrderId, long commerceShippingMethodId,
+			String shippingOptionName, CommerceContext commerceContext,
+			Locale locale)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
