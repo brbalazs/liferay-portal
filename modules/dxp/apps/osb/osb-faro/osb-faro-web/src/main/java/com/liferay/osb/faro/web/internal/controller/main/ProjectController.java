@@ -601,7 +601,7 @@ public class ProjectController extends BaseFaroController {
 
 		Stream<Group> groupsStream = groups.stream();
 
-		List<ProjectDisplay> projectDisplays = groupsStream.filter(
+		return groupsStream.filter(
 			group -> StringUtil.equals(
 				group.getClassName(), FaroProject.class.getName())
 		).map(
@@ -632,44 +632,6 @@ public class ProjectController extends BaseFaroController {
 		).collect(
 			Collectors.toList()
 		);
-
-		List<OSBAccountEntry> osbAccountEntries =
-			_provisioningClient.getOSBAccountEntries(
-				user.getUserUuid(), ProductConstants.getProductEntryIds());
-
-		Stream<OSBAccountEntry> osbAccountEntryStream =
-			osbAccountEntries.stream();
-
-		osbAccountEntryStream.filter(
-			osbAccountEntry -> {
-				if (osbAccountEntry.getStatus() !=
-						FaroUserConstants.STATUS_APPROVED) {
-
-					return false;
-				}
-
-				if (_faroProjectLocalService.fetchFaroProjectByCorpProjectUuid(
-						osbAccountEntry.getCorpProjectUuid()) != null) {
-
-					return false;
-				}
-
-				return true;
-			}
-		).map(
-			ProjectDisplay::new
-		).filter(
-			projectDisplay -> {
-				FaroSubscriptionDisplay faroSubscriptionDisplay =
-					projectDisplay.getFaroSubscriptionDisplay();
-
-				return faroSubscriptionDisplay.isActive();
-			}
-		).forEach(
-			projectDisplays::add
-		);
-
-		return projectDisplays;
 	}
 
 	@GET
