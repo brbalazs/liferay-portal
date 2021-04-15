@@ -996,6 +996,13 @@ public class ProjectController extends BaseFaroController {
 				faroProject.getState(),
 				FaroProjectConstants.STATE_UNCONFIGURED)) {
 
+			Workspace workspace = workspaceEngineClient.getWorkspace(
+				faroProject.getWeDeployKey());
+
+			if (!workspace.isReady()) {
+				return null;
+			}
+
 			return new ProjectDisplay(faroProject);
 		}
 
