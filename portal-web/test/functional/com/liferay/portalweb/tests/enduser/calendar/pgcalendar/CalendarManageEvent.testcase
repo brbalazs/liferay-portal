@@ -752,6 +752,9 @@ definition {
 	@description = "This is a use case for LPS-75292."
 	@priority = "5"
 	test ViewCalendarEventDetailViaMailLink {
+		property test.name.skip.portal.instance = "CalendarManageEvent#ViewCalendarEventDetailViaMailLink";
+		property test.smtp.server.enabled = "true";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
