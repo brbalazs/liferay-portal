@@ -157,7 +157,7 @@ public class CommerceOrderEnginePricingV2Test {
 	@Test
 	public void testAutomaticallyTransitionOrderToCompleted() throws Exception {
 		frutillaRule.scenario(
-			"Use the Order Engine to checkout an Order, transition it to" +
+			"Use the Order Engine to checkout an Order, transition it to " +
 				"processing then create a shipment with all of the order " +
 					"items and mark that shipment as delivered"
 		).given(
@@ -241,7 +241,7 @@ public class CommerceOrderEnginePricingV2Test {
 		throws Exception {
 
 		frutillaRule.scenario(
-			"Use the Order Engine to checkout an Order, transition it to" +
+			"Use the Order Engine to checkout an Order, transition it to " +
 				"processing then create a shipment with one but not all of " +
 					"the order items"
 		).given(
@@ -389,8 +389,8 @@ public class CommerceOrderEnginePricingV2Test {
 		).when(
 			"We checkout the order and cancel it"
 		).then(
-			"The order status should be cancelled and the order should not be" +
-				"able to be transitioned to anything else."
+			"The order status should be cancelled and the order should not " +
+				"be able to be transitioned to anything else."
 		);
 
 		try {
@@ -807,7 +807,7 @@ public class CommerceOrderEnginePricingV2Test {
 	@Test
 	public void testGetNextOrderStatusesWhileOrderNotOpen() throws Exception {
 		frutillaRule.scenario(
-			"When an order is not open, next order statuses should contain" +
+			"When an order is not open, next order statuses should contain " +
 				"CommerceOrderStatuses that contain a -1 priority"
 		).given(
 			"An Open Order"
@@ -856,7 +856,7 @@ public class CommerceOrderEnginePricingV2Test {
 	@Test
 	public void testGetNextOrderStatusesWhileOrderOpen() throws Exception {
 		frutillaRule.scenario(
-			"When an order is open, next order statuses should never contain" +
+			"When an order is open, next order statuses should never contain " +
 				"CommerceOrderStatuses that contain a -1 priority"
 		).given(
 			"An Open Order"

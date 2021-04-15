@@ -300,8 +300,8 @@ public class CommerceTierPriceEntryLocalServiceTest {
 	@Test(expected = NoSuchPriceEntryException.class)
 	public void testUpsertCommerceTierPriceEntry4() throws Exception {
 		frutillaRule.scenario(
-			"Adding a new Tier Price Entry where the referred Price Entry is" +
-				"not exist"
+			"Adding a new Tier Price Entry where the referred Price Entry " +
+				"does not exist"
 		).given(
 			"A Price Entry"
 		).and(
@@ -338,7 +338,7 @@ public class CommerceTierPriceEntryLocalServiceTest {
 	@Test
 	public void testUpsertCommerceTierPriceEntry5() throws Exception {
 		frutillaRule.scenario(
-			"Adding a new Tier Price Entry where the referred Price Entry is" +
+			"Adding a new Tier Price Entry where the referred Price Entry is " +
 				"given by its external reference code"
 		).given(
 			"A Price Entry's external reference code"

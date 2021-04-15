@@ -304,7 +304,7 @@ public class CPAttachmentFileEntryIndexer
 				catch (PortalException pe) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
-							"Unable to index commerce product attachment" +
+							"Unable to index commerce product attachment " +
 								"file entry " +
 									cpAttachmentFileEntry.
 										getCPAttachmentFileEntryId(),
