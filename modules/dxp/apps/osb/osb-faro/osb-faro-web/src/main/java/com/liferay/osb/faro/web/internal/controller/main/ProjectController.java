@@ -293,6 +293,7 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("name") String name,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation,
 			@DefaultValue("false") @FormParam("sharedCluster")
@@ -302,7 +303,7 @@ public class ProjectController extends BaseFaroController {
 		User user = getUser();
 
 		FaroProject faroProject = _create(
-			corpProjectUuid, null, Collections.emptyList(), null,
+			corpProjectUuid, name, Collections.emptyList(), null,
 			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
 			sharedCluster.getValue(), FaroProjectConstants.STATE_UNCONFIGURED,
 			TimeZoneUtil.UTC_TIME_ZONE_ID);
