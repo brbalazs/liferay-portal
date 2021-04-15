@@ -262,7 +262,7 @@ public class CommerceOrderItemLocalServiceImpl
 			}
 
 			commerceOrderItemLocalService.deleteCommerceOrderItem(
-					commerceOrderItem);
+				commerceOrderItem);
 		}
 	}
 
