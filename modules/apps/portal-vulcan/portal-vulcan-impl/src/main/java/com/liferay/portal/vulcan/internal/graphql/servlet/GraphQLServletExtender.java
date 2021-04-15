@@ -310,9 +310,12 @@ public class GraphQLServletExtender {
 
 				GraphQLType graphQLType = graphQLTypes.get(typeName);
 
-				if ((graphQLType != null) &&
-					!_registeredClassNames.contains(clazz.getName())) {
+				String classNameKey = clazz.getName() + "_" + input;
 
+				if (_registeredClassNames.containsKey(classNameKey)) {
+					typeName = _registeredClassNames.get(classNameKey);
+				}
+				else if (graphQLType != null) {
 					String name = clazz.getName();
 
 					name = name.replaceAll("\\.", "_");
@@ -337,7 +340,7 @@ public class GraphQLServletExtender {
 
 				processingStack.push(typeName);
 
-				_registeredClassNames.add(clazz.getName());
+				_registeredClassNames.put(classNameKey, typeName);
 
 				if (clazz.getAnnotation(GraphQLUnion.class) != null) {
 					graphQLType = new UnionBuilder(
@@ -1786,7 +1789,7 @@ public class GraphQLServletExtender {
 	@Reference
 	private Portal _portal;
 
-	private final Set<String> _registeredClassNames = new HashSet<>();
+	private final Map<String, String> _registeredClassNames = new HashMap<>();
 
 	@Reference
 	private ResourceActionLocalService _resourceActionLocalService;
