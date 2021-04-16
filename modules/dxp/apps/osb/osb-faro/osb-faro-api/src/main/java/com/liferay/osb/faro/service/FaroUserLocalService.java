@@ -198,6 +198,9 @@ public interface FaroUserLocalService
 	public FaroUser fetchFaroUser(long groupId, long liveUserId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FaroUser fetchOwnerFaroUser(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	/**

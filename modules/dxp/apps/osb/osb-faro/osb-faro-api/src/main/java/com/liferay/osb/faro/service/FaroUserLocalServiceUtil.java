@@ -211,6 +211,10 @@ public class FaroUserLocalServiceUtil {
 		return getService().fetchFaroUser(groupId, liveUserId);
 	}
 
+	public static FaroUser fetchOwnerFaroUser(long groupId) {
+		return getService().fetchOwnerFaroUser(groupId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

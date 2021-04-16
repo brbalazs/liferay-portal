@@ -232,6 +232,13 @@ public class FaroUserLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.faro.model.FaroUser fetchOwnerFaroUser(
+		long groupId) {
+
+		return _faroUserLocalService.fetchOwnerFaroUser(groupId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
