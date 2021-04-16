@@ -17,20 +17,15 @@ package com.liferay.osb.faro.admin.web.internal.model;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.service.FaroUserLocalServiceUtil;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.text.DecimalFormat;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Matthew Kong
@@ -257,22 +252,8 @@ public class FaroProjectAdminDisplay {
 	}
 
 	private String _getOwner() {
-		Role role = RoleLocalServiceUtil.fetchRole(
-			PortalUtil.getDefaultCompanyId(), RoleConstants.SITE_OWNER);
-
-		if (role == null) {
-			return null;
-		}
-
-		List<FaroUser> faroUsers =
-			FaroUserLocalServiceUtil.getFaroUsersByRoleId(
-				_groupId, role.getRoleId());
-
-		if (faroUsers.isEmpty()) {
-			return null;
-		}
-
-		FaroUser faroUser = faroUsers.get(0);
+		FaroUser faroUser = FaroUserLocalServiceUtil.fetchOwnerFaroUser(
+			_groupId);
 
 		if (faroUser.getLiveUserId() <= 0) {
 			return faroUser.getEmailAddress();
