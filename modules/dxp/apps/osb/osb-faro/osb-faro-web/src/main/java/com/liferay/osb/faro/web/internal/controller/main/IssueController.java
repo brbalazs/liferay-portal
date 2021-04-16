@@ -72,7 +72,8 @@ public class IssueController extends BaseFaroController {
 
 		_mailService.sendEmail(
 			new MailMessage(
-				new InternetAddress("actrial@liferay.com", null),
+				new InternetAddress(
+					"actrial@liferay.com", "AC Trial Support Request"),
 				new InternetAddress(_ISSUES_EMAIL_ADDRESS, null),
 				faroProject.getName() + " - " + title,
 				StringBundler.concat(
