@@ -20,9 +20,11 @@ import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.service.FaroProjectLocalServiceUtil;
+import com.liferay.osb.faro.service.FaroUserLocalServiceUtil;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
@@ -88,6 +90,14 @@ public class ProjectDisplay {
 		}
 
 		_name = faroProject.getName();
+
+		FaroUser faroUser = FaroUserLocalServiceUtil.fetchOwnerFaroUser(
+			faroProject.getGroupId());
+
+		if (faroUser != null) {
+			_ownerEmailAddress = faroUser.getEmailAddress();
+		}
+
 		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
 		_sharedCluster = faroProject.isSharedCluster();
@@ -194,6 +204,7 @@ public class ProjectDisplay {
 	private long _groupId;
 	private List<String> _incidentReportEmailAddresses;
 	private String _name;
+	private String _ownerEmailAddress;
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;
 	private boolean _sharedCluster;
