@@ -22,9 +22,12 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowInstance;
 import com.liferay.portal.kernel.workflow.WorkflowInstanceManagerUtil;
+import com.liferay.portal.workflow.constants.WorkflowWebKeys;
 import com.liferay.portal.workflow.web.internal.search.WorkflowInstanceSearch;
 
 import java.util.List;
+
+import javax.portlet.PortletURL;
 
 /**
  * @author Marcellus Tavares
@@ -43,6 +46,17 @@ public class MyWorkflowInstanceViewDisplayContext
 	@Override
 	public String getHeaderTitle() {
 		return "my-submissions";
+	}
+
+	@Override
+	public PortletURL getViewPortletURL() {
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"tab", WorkflowWebKeys.WORKFLOW_TAB_MY_SUBMISSIONS);
+		portletURL.setParameter("orderByType", getOrderByType());
+
+		return portletURL;
 	}
 
 	@Override
