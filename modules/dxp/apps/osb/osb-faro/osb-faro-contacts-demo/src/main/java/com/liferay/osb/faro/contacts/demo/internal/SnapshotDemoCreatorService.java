@@ -36,6 +36,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,8 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						new Date(zipEntry.getTime()),
 						new Date(System.currentTimeMillis()));
 
+			List<Path> priorityPaths = new ArrayList<>();
+
 			List<Path> paths = new ArrayList<>();
 
 			while (zipEntry != null) {
@@ -82,13 +85,20 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						zipInputStream, path,
 						StandardCopyOption.REPLACE_EXISTING);
 
-					paths.add(path);
+					if (_priorityFileNames.contains(zipEntry.getName())) {
+						priorityPaths.add(path);
+					}
+					else {
+						paths.add(path);
+					}
 				}
 
 				zipEntry = zipInputStream.getNextEntry();
 			}
 
 			zipInputStream.close();
+
+			paths.addAll(0, priorityPaths);
 
 			for (Path path : paths) {
 				_processFile(path, timeOffset);
@@ -243,6 +253,9 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
 		"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+	private static final List<String> _priorityFileNames = Arrays.asList(
+		"osbasahfaroinfo_channels_0.json",
+		"osbasahfaroinfo_data-sources_0.json");
 
 	private final ObjectMapper _objectMapper = new ObjectMapper();
 
