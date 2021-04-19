@@ -9,7 +9,7 @@ exports[`Checkbox should render 1`] = `
       <input
         class="custom-control-input"
         type="checkbox"
-        value=""
+        value="false"
       />
       <span
         class="custom-control-label"
