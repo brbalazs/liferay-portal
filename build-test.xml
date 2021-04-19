@@ -11468,6 +11468,8 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 						<execute>
 							<![CDATA[
+								chmod 755 ${create.sh.file.path} ${create.sql.file.path}
+
 								docker cp ${create.sh.file.path} ${database.host}:/tmp/create.sh
 								docker cp ${create.sql.file.path} ${database.host}:/tmp/create.sql
 
