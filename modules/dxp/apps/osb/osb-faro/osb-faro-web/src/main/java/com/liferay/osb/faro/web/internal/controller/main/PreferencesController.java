@@ -66,14 +66,12 @@ public class PreferencesController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public DistributionCardTabsPreferences addDistributionTabPreferences(
 			@PathParam("groupId") long groupId,
-			@FormParam("distributionCardTabPreferences")
-				FaroParam<Map<String, Object>>
-				distributionCardTabPreferencesFaroParam,
+			@FormParam("distributionCardTabPreferences") FaroParam
+				<Map<String, Object>> distributionCardTabPreferencesFaroParam,
 			@FormParam("individualSegmentId") String individualSegmentId,
 			@FormParam("distributionTabId") String distributionTabId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@FormParam("scope")
-				String scope)
+			@FormParam("scope") String scope)
 		throws Exception {
 
 		long ownerId = _getOwnerId(groupId, scope);
@@ -100,8 +98,7 @@ public class PreferencesController extends BaseFaroController {
 	public FaroPreferencesDisplay get(
 			@PathParam("groupId") long groupId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@QueryParam("scope")
-				String scope)
+			@QueryParam("scope") String scope)
 		throws Exception {
 
 		long ownerId = _getOwnerId(groupId, scope);
@@ -122,8 +119,7 @@ public class PreferencesController extends BaseFaroController {
 	public Map<String, String> getDefaultChannelId(
 			@PathParam("groupId") long groupId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@QueryParam("scope")
-				String scope)
+			@QueryParam("scope") String scope)
 		throws Exception {
 
 		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
@@ -140,8 +136,7 @@ public class PreferencesController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@QueryParam("individualSegmentId") String individualSegmentId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@QueryParam("scope")
-				String scope)
+			@QueryParam("scope") String scope)
 		throws Exception {
 
 		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
@@ -173,8 +168,7 @@ public class PreferencesController extends BaseFaroController {
 	public boolean isUpgradeModalSeen(
 			@PathParam("groupId") long groupId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@QueryParam("scope")
-				String scope)
+			@QueryParam("scope") String scope)
 		throws Exception {
 
 		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
@@ -191,8 +185,7 @@ public class PreferencesController extends BaseFaroController {
 			@FormParam("individualSegmentId") String individualSegmentId,
 			@FormParam("distributionTabId") String distributionTabId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@FormParam("scope")
-				String scope)
+			@FormParam("scope") String scope)
 		throws Exception {
 
 		long ownerId = _getOwnerId(groupId, scope);
@@ -232,11 +225,10 @@ public class PreferencesController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroPreferencesDisplay save(
 			@PathParam("groupId") long groupId,
-			@FormParam("preferences")
-				FaroParam<Map<String, Object>> preferencesFaroParam,
+			@FormParam("preferences") FaroParam<Map<String, Object>>
+				preferencesFaroParam,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@FormParam("scope")
-				String scope)
+			@FormParam("scope") String scope)
 		throws Exception {
 
 		return new FaroPreferencesDisplay(
@@ -252,8 +244,7 @@ public class PreferencesController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@FormParam("defaultChannelId") String defaultChannelId,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@FormParam("scope")
-				String scope)
+			@FormParam("scope") String scope)
 		throws Exception {
 
 		long ownerId = _getOwnerId(groupId, scope);
@@ -277,8 +268,7 @@ public class PreferencesController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@FormParam("upgradeModalSeen") Boolean upgradeModalSeen,
 			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
-			@QueryParam("scope")
-				String scope)
+			@QueryParam("scope") String scope)
 		throws Exception {
 
 		long ownerId = _getOwnerId(groupId, scope);

@@ -77,7 +77,7 @@ public class ContactsLayoutTemplateController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY) @FormParam("settings")
 				FaroParam<List<List<ContactsLayoutTemplateSettingDisplay>>>
-				contactsLayoutTemplateSettingDisplayFaroParam,
+					contactsLayoutTemplateSettingDisplayFaroParam,
 			@FormParam("name") String name, @FormParam("type") int type)
 		throws Exception {
 
@@ -149,7 +149,7 @@ public class ContactsLayoutTemplateController extends BaseFaroController {
 			@PathParam("groupId") long groupId, @PathParam("id") long id,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY) @FormParam("settings")
 				FaroParam<List<List<ContactsLayoutTemplateSettingDisplay>>>
-				contactsLayoutTemplateSettingDisplayFaroParam,
+					contactsLayoutTemplateSettingDisplayFaroParam,
 			@FormParam("name") String name, @FormParam("type") int type)
 		throws Exception {
 

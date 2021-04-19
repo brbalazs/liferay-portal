@@ -55,8 +55,8 @@ public class ContactsLayoutController extends BaseFaroController {
 	public ContactsLayoutDisplay get(
 			@PathParam("groupId") long groupId,
 			@QueryParam("contactsEntityId") String contactsEntityId,
-			@QueryParam("contactsLayoutTemplateId")
-				long contactsLayoutTemplateId,
+			@QueryParam("contactsLayoutTemplateId") long
+				contactsLayoutTemplateId,
 			@QueryParam("type") int type)
 		throws Exception {
 

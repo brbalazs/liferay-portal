@@ -63,10 +63,10 @@ public class ActivityGroupController extends BaseFaroController {
 			@QueryParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
 			@QueryParam("query") String query,
-			@DefaultValue(StringPool.BLANK) @QueryParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @QueryParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)

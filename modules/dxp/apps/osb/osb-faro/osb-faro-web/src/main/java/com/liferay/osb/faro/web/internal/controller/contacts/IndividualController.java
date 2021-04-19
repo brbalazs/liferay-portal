@@ -75,8 +75,8 @@ public class IndividualController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public IndividualDisplay addMemberships(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@FormParam("individualSegmentIds")
-				FaroParam<List<String>> individualSegmentIdsFaroParam)
+			@FormParam("individualSegmentIds") FaroParam<List<String>>
+				individualSegmentIdsFaroParam)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -205,8 +205,8 @@ public class IndividualController extends BaseFaroController {
 			@QueryParam("query") String query,
 			@QueryParam("includeAnonymousUsers") boolean includeAnonymousUsers,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@QueryParam("includePropertyNames")
-				FaroParam<List<String>> includePropertyNamesFaroParam,
+			@QueryParam("includePropertyNames") FaroParam
+				<List<String>> includePropertyNamesFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)
@@ -234,8 +234,8 @@ public class IndividualController extends BaseFaroController {
 			@FormParam("query") String query,
 			@FormParam("includeAnonymousUsers") boolean includeAnonymousUsers,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("includePropertyNames")
-				FaroParam<List<String>> includePropertyNamesFaroParam,
+			@FormParam("includePropertyNames") FaroParam
+				<List<String>> includePropertyNamesFaroParam,
 			@FormParam("cur") int cur, @FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)

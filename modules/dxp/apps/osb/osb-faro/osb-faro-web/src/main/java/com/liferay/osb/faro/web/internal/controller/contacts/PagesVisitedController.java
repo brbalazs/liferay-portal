@@ -71,10 +71,10 @@ public class PagesVisitedController extends BaseFaroController {
 			@QueryParam("contactsEntityType") int contactEntityType,
 			@QueryParam("query") String query,
 			@QueryParam("interestName") String interestName,
-			@DefaultValue(StringPool.BLANK) @QueryParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @QueryParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@DefaultValue(StringPool.TRUE) @QueryParam("active") boolean active,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
@@ -100,10 +100,10 @@ public class PagesVisitedController extends BaseFaroController {
 			@FormParam("contactsEntityType") int contactsEntityType,
 			@FormParam("query") String query,
 			@FormParam("interestName") String interestName,
-			@DefaultValue(StringPool.BLANK) @FormParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @FormParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @FormParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @FormParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@DefaultValue(StringPool.TRUE) @FormParam("active") boolean active,
 			@FormParam("cur") int cur, @FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")

@@ -65,9 +65,8 @@ public class ContactsCardController extends BaseFaroController {
 			@QueryParam("contactsEntityType") int contactsEntityType,
 			@QueryParam("contactsCardTemplateId") long contactsCardTemplateId,
 			@DefaultValue(StringPool.BLANK)
-			@QueryParam("contactsCardTemplateSettings")
-				FaroParam<Map<String, Object>>
-				contactsCardTemplateSettingsFaroParam,
+			@QueryParam("contactsCardTemplateSettings") FaroParam
+				<Map<String, Object>> contactsCardTemplateSettingsFaroParam,
 			@QueryParam("size") int size)
 		throws Exception {
 
@@ -106,14 +105,13 @@ public class ContactsCardController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@QueryParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
-			@QueryParam("contactsCardTemplateName")
-				String contactsCardTemplateName,
+			@QueryParam("contactsCardTemplateName") String
+				contactsCardTemplateName,
 			@DefaultValue(JSONConstants.NULL_JSON_OBJECT)
-			@QueryParam("contactsCardTemplateSettings")
-				FaroParam<Map<String, Object>>
-				contactsCardTemplateSettingsFaroParam,
-			@QueryParam("contactsCardTemplateType")
-				int contactsCardTemplateType,
+			@QueryParam("contactsCardTemplateSettings") FaroParam
+				<Map<String, Object>> contactsCardTemplateSettingsFaroParam,
+			@QueryParam("contactsCardTemplateType") int
+				contactsCardTemplateType,
 			@QueryParam("size") int size)
 		throws Exception {
 

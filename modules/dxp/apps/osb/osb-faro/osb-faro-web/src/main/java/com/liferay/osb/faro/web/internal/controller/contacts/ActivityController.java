@@ -103,10 +103,10 @@ public class ActivityController extends BaseFaroController {
 			@QueryParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
 			@QueryParam("query") String query,
-			@DefaultValue(StringPool.BLANK) @QueryParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @QueryParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@QueryParam("action") int action, @QueryParam("cur") int cur,
 			@QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
@@ -154,10 +154,10 @@ public class ActivityController extends BaseFaroController {
 			@FormParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
 			@FormParam("query") String query,
-			@DefaultValue(StringPool.BLANK) @FormParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @FormParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @FormParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @FormParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@FormParam("action") int action, @QueryParam("cur") int cur,
 			@FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")
@@ -178,10 +178,10 @@ public class ActivityController extends BaseFaroController {
 			@QueryParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
 			@QueryParam("query") String query,
-			@DefaultValue(StringPool.BLANK) @QueryParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @QueryParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@QueryParam("action") int action)
 		throws Exception {
 

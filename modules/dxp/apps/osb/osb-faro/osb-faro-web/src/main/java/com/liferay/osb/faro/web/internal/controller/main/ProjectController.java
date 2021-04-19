@@ -158,8 +158,8 @@ public class ProjectController extends BaseFaroController {
 	@RolesAllowed(StringPool.BLANK)
 	public void addIPAddresses(
 			@PathParam("groupId") long groupId,
-			@FormParam("ipAddresses")
-				FaroParam<List<String>> ipAddressesFaroParam)
+			@FormParam("ipAddresses") FaroParam<List<String>>
+				ipAddressesFaroParam)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -178,13 +178,13 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("friendlyURL") String friendlyURL,
 			@PathParam("groupId") long groupId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains")
-				FaroParam<List<String>> emailAddressDomainsFaroParam,
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("emailAddressDomains") FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("incidentReportEmailAddresses") FaroParam<List<String>>
+				incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
-			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
-				String timeZoneId)
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId") String
+				timeZoneId)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -227,14 +227,14 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("name") String name,
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains")
-				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("emailAddressDomains") FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("incidentReportEmailAddresses") FaroParam
+				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
-			@DefaultValue("false") @FormParam("sharedCluster")
-				FaroParam<Boolean> sharedCluster,
+			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
+				<Boolean> sharedCluster,
 			@FormParam("friendlyURL") String friendlyURL,
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
@@ -291,13 +291,13 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay createProvisioned(
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("incidentReportEmailAddresses") FaroParam
+				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation,
-			@DefaultValue("false") @FormParam("sharedCluster")
-				FaroParam<Boolean> sharedCluster)
+			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
+				<Boolean> sharedCluster)
 		throws Exception {
 
 		User user = getUser();
@@ -323,14 +323,14 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay createTrial(
 			@FormParam("name") String name,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains")
-				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("emailAddressDomains") FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
-			@DefaultValue("false") @FormParam("sharedCluster")
-				FaroParam<Boolean> sharedCluster,
+			@FormParam("incidentReportEmailAddresses") FaroParam
+				<List<String>> incidentReportEmailAddressesFaroParam,
+			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
+				<Boolean> sharedCluster,
 			@FormParam("serverLocation") String serverLocation,
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
@@ -370,15 +370,15 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("corpProjectName") String corpProjectName,
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains")
-				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("emailAddressDomains") FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("incidentReportEmailAddresses") FaroParam
+				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
-			@DefaultValue("false") @FormParam("sharedCluster")
-				FaroParam<Boolean> sharedCluster,
+			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
+				<Boolean> sharedCluster,
 			@FormParam("timeZoneId") String timeZoneId,
 			@FormParam("trial") boolean trial)
 		throws Exception {
@@ -453,8 +453,8 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay get(
 			@PathParam("groupId") long groupId,
 			@QueryParam("forceUpdate") boolean forceUpdate,
-			@DefaultValue("true") @QueryParam("updateLastAccess")
-				boolean updateLastAccess)
+			@DefaultValue("true") @QueryParam("updateLastAccess") boolean
+				updateLastAccess)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -646,8 +646,8 @@ public class ProjectController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
 	public void patchTimeZone(
 			@PathParam("groupId") long groupId,
-			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
-				String timeZoneId)
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId") String
+				timeZoneId)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -673,14 +673,14 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("friendlyURL") String friendlyURL,
 			@PathParam("groupId") long groupId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains")
-				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("emailAddressDomains") FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses")
-				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("incidentReportEmailAddresses") FaroParam
+				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
-			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
-				String timeZoneId)
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId") String
+				timeZoneId)
 		throws Exception {
 
 		if ((friendlyURL == null) || Validator.isBlank(friendlyURL.trim())) {

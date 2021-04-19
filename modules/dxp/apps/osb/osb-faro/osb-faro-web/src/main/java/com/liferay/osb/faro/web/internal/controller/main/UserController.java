@@ -88,8 +88,8 @@ public class UserController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
 	public List<FaroUserDisplay> create(
 			@PathParam("groupId") long groupId,
-			@FormParam("emailAddresses")
-				FaroParam<List<String>> emailAddressesFaroParam,
+			@FormParam("emailAddresses") FaroParam<List<String>>
+				emailAddressesFaroParam,
 			@FormParam("roleName") String roleName,
 			@DefaultValue("true") @FormParam("sendEmail") boolean sendEmail)
 		throws Exception {
@@ -184,11 +184,11 @@ public class UserController extends BaseFaroController {
 	@SuppressWarnings("unchecked")
 	public FaroResultsDisplay search(
 		@PathParam("groupId") long groupId, @QueryParam("query") String query,
-		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses")
-			FaroParam<List<Integer>> statusesFaroParam,
+		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses") FaroParam
+			<List<Integer>> statusesFaroParam,
 		@QueryParam("cur") int cur, @QueryParam("delta") int delta,
-		@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
-			FaroParam<List<OrderByField>> orderByFieldsFaroParam) {
+		@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields") FaroParam
+			<List<OrderByField>> orderByFieldsFaroParam) {
 
 		List<Integer> statuses = statusesFaroParam.getValue();
 
@@ -226,11 +226,11 @@ public class UserController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroResultsDisplay searchByForm(
 		@PathParam("groupId") long groupId, @FormParam("query") String query,
-		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses")
-			FaroParam<List<Integer>> statusesFaroParam,
+		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses") FaroParam
+			<List<Integer>> statusesFaroParam,
 		@FormParam("cur") int cur, @FormParam("delta") int delta,
-		@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")
-			FaroParam<List<OrderByField>> orderByFieldsFaroParam) {
+		@DefaultValue(StringPool.BLANK) @FormParam("orderByFields") FaroParam
+			<List<OrderByField>> orderByFieldsFaroParam) {
 
 		return search(
 			groupId, query, statusesFaroParam, cur, delta,
@@ -242,8 +242,8 @@ public class UserController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public int searchCount(
 		@PathParam("groupId") long groupId, @QueryParam("query") String query,
-		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses")
-			FaroParam<List<Integer>> statusesFaroParam) {
+		@DefaultValue(_STATUSES_DEFAULT_VALUE) @QueryParam("statuses") FaroParam
+			<List<Integer>> statusesFaroParam) {
 
 		List<Integer> statuses = statusesFaroParam.getValue();
 

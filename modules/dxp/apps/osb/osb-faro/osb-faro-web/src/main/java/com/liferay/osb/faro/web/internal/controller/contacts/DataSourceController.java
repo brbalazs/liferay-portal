@@ -213,8 +213,8 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("channelId") String channelId,
 			@FormParam("name") String name,
 			@FormParam("fileVersionId") long fileVersionId,
-			@FormParam("staticIndividualSegmentId")
-				String staticIndividualSegmentId,
+			@FormParam("staticIndividualSegmentId") String
+				staticIndividualSegmentId,
 			@FormParam("event") Event event,
 			@DefaultValue(StringPool.BLANK) @FormParam("fieldMappingMaps")
 				FaroParam<List<FieldMappingMap>> fieldMappingMapsFaroParam)
@@ -279,10 +279,10 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("name") String name, @FormParam("url") String url,
 			@DefaultValue(StringPool.BLANK) @FormParam("accountsConfiguration")
 				FaroParam<SalesforceProvider.AccountsConfiguration>
-				accountsConfigurationFaroParam,
+					accountsConfigurationFaroParam,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<SalesforceProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam,
+					contactsConfigurationFaroParam,
 			@DefaultValue("INACTIVE") @FormParam("status") String status)
 		throws Exception {
 
@@ -460,8 +460,7 @@ public class DataSourceController extends BaseFaroController {
 			@QueryParam("fileVersionId") long fileVersionId,
 			@QueryParam("fieldName") String fieldName,
 			@DefaultValue(FieldMappingConstants.CONTEXT_DEMOGRAPHICS)
-			@QueryParam("context")
-				String context,
+			@QueryParam("context") String context,
 			@QueryParam("count") int count)
 		throws Exception {
 
@@ -524,8 +523,8 @@ public class DataSourceController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<DXPGroupDisplay> getGroups(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@DefaultValue(StringPool.BLANK) @FormParam("groupIds")
-				FaroParam<List<Long>> groupIdsFaroParam)
+			@DefaultValue(StringPool.BLANK) @FormParam("groupIds") FaroParam
+				<List<Long>> groupIdsFaroParam)
 		throws Exception {
 
 		return StreamUtil.toList(
@@ -571,7 +570,7 @@ public class DataSourceController extends BaseFaroController {
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<LiferayProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam)
+					contactsConfigurationFaroParam)
 		throws Exception {
 
 		return new LiferaySyncCountsDisplay(
@@ -716,8 +715,7 @@ public class DataSourceController extends BaseFaroController {
 	public List<DataSourceMappingDisplay> getMappingsLite(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
 			@DefaultValue(FieldMappingConstants.CONTEXT_DEMOGRAPHICS)
-			@QueryParam("context")
-				String context)
+			@QueryParam("context") String context)
 		throws Exception {
 
 		Map<String, FieldValuesDisplay> fieldValuesDisplayMap =
@@ -776,8 +774,8 @@ public class DataSourceController extends BaseFaroController {
 		@QueryParam("baseURL") String baseURL,
 		@QueryParam("oAuthConsumerKey") String oAuthConsumerKey,
 		@QueryParam("oAuthConsumerSecret") String oAuthConsumerSecret,
-		@DefaultValue(StringPool.BLANK) @QueryParam("oAuthCallbackURL")
-			String oAuthCallbackURL) {
+		@DefaultValue(StringPool.BLANK) @QueryParam("oAuthCallbackURL") String
+			oAuthCallbackURL) {
 
 		baseURL = getURL(baseURL);
 
@@ -819,8 +817,8 @@ public class DataSourceController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroResultsDisplay getOrganizations(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@DefaultValue("-1") @QueryParam("parentOrganizationId")
-				long parentOrganizationId,
+			@DefaultValue("-1") @QueryParam("parentOrganizationId") long
+				parentOrganizationId,
 			@DefaultValue(StringPool.BLANK) @QueryParam("name") String name,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta)
 		throws Exception {
@@ -889,8 +887,8 @@ public class DataSourceController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<DXPUserGroupDisplay> getUserGroups(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@DefaultValue(StringPool.BLANK) @FormParam("userGroupIds")
-				FaroParam<List<Long>> userGroupIdsFaroParam)
+			@DefaultValue(StringPool.BLANK) @FormParam("userGroupIds") FaroParam
+				<List<Long>> userGroupIdsFaroParam)
 		throws Exception {
 
 		return StreamUtil.toList(
@@ -947,10 +945,10 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("name") String name, @FormParam("url") String url,
 			@DefaultValue(StringPool.BLANK) @FormParam("analyticsConfiguration")
 				FaroParam<LiferayProvider.AnalyticsConfiguration>
-				analyticsConfigurationFaroParam,
+					analyticsConfigurationFaroParam,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<LiferayProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam,
+					contactsConfigurationFaroParam,
 			@FormParam("status") String status,
 			@DefaultValue(StringPool.BLANK) @FormParam("fieldMappingMaps")
 				FaroParam<List<FieldMappingMap>> fieldMappingMapsFaroParam)
@@ -1004,10 +1002,10 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("name") String name, @FormParam("url") String url,
 			@DefaultValue(StringPool.BLANK) @FormParam("accountsConfiguration")
 				FaroParam<SalesforceProvider.AccountsConfiguration>
-				accountsConfigurationFaroParam,
+					accountsConfigurationFaroParam,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<SalesforceProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam,
+					contactsConfigurationFaroParam,
 			@FormParam("status") String status)
 		throws Exception {
 
@@ -1067,8 +1065,8 @@ public class DataSourceController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@QueryParam("faroEntityId") String faroEntityId,
 			@QueryParam("query") String query, @QueryParam("name") String name,
-			@DefaultValue(StringPool.BLANK) @QueryParam("states")
-				FaroParam<List<String>> statesFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("states") FaroParam
+				<List<String>> statesFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)
@@ -1084,8 +1082,8 @@ public class DataSourceController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroResultsDisplay searchByChannels(
 			@PathParam("groupId") long groupId,
-			@DefaultValue(StringPool.BLANK) @QueryParam("channelIds")
-				FaroParam<List<String>> channelIdsFaroParam)
+			@DefaultValue(StringPool.BLANK) @QueryParam("channelIds") FaroParam
+				<List<String>> channelIdsFaroParam)
 		throws PortalException {
 
 		List<String> channelIds = channelIdsFaroParam.getValue();
@@ -1112,8 +1110,8 @@ public class DataSourceController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@FormParam("faroEntityId") String faroEntityId,
 			@FormParam("query") String query, @FormParam("name") String name,
-			@DefaultValue(StringPool.BLANK) @FormParam("states")
-				FaroParam<List<String>> statesFaroParam,
+			@DefaultValue(StringPool.BLANK) @FormParam("states") FaroParam
+				<List<String>> statesFaroParam,
 			@FormParam("cur") int cur, @FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)
@@ -1151,10 +1149,10 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("name") String name, @FormParam("url") String url,
 			@DefaultValue(StringPool.BLANK) @FormParam("analyticsConfiguration")
 				FaroParam<LiferayProvider.AnalyticsConfiguration>
-				analyticsConfigurationFaroParam,
+					analyticsConfigurationFaroParam,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<LiferayProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam,
+					contactsConfigurationFaroParam,
 			@FormParam("status") String status,
 			@DefaultValue(StringPool.BLANK) @FormParam("fieldMappingMaps")
 				FaroParam<List<FieldMappingMap>> fieldMappingMapsFaroParam)
@@ -1182,10 +1180,10 @@ public class DataSourceController extends BaseFaroController {
 			@FormParam("name") String name, @FormParam("url") String url,
 			@DefaultValue(StringPool.BLANK) @FormParam("accountsConfiguration")
 				FaroParam<SalesforceProvider.AccountsConfiguration>
-				accountsConfigurationFaroParam,
+					accountsConfigurationFaroParam,
 			@DefaultValue(StringPool.BLANK) @FormParam("contactsConfiguration")
 				FaroParam<SalesforceProvider.ContactsConfiguration>
-				contactsConfigurationFaroParam,
+					contactsConfigurationFaroParam,
 			@FormParam("status") String status)
 		throws Exception {
 

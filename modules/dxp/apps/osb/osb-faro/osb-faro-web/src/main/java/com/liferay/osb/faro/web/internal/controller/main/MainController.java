@@ -52,8 +52,8 @@ public class MainController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<FaroResultsDisplay> search(
 			@PathParam("groupId") long groupId,
-			@QueryParam("faroSearchContexts")
-				FaroParam<List<FaroSearchContext>> faroSearchContextsFaroParam)
+			@QueryParam("faroSearchContexts") FaroParam<List<FaroSearchContext>>
+				faroSearchContextsFaroParam)
 		throws Exception {
 
 		return _faroControllerRegistry.search(
@@ -65,8 +65,8 @@ public class MainController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<FaroResultsDisplay> searchByForm(
 			@PathParam("groupId") long groupId,
-			@FormParam("faroSearchContexts")
-				FaroParam<List<FaroSearchContext>> faroSearchContextsFaroParam)
+			@FormParam("faroSearchContexts") FaroParam<List<FaroSearchContext>>
+				faroSearchContextsFaroParam)
 		throws Exception {
 
 		return search(groupId, faroSearchContextsFaroParam);
@@ -88,8 +88,8 @@ public class MainController extends BaseFaroController {
 	@RolesAllowed(StringPool.BLANK)
 	public void setWorkspaceBuildTime(
 		@FormParam("expectedBuildTime") double expectedBuildTime,
-		@FormParam("expectedBuildTimeMonolith")
-			double expectedBuildTimeMonolith) {
+		@FormParam("expectedBuildTimeMonolith") double
+			expectedBuildTimeMonolith) {
 
 		// TODO remove
 

@@ -78,8 +78,8 @@ public class IndividualSegmentController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public IndividualSegmentDisplay addMemberships(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@FormParam("individualIds")
-				FaroParam<List<String>> individualIdsFaroParam)
+			@FormParam("individualIds") FaroParam<List<String>>
+				individualIdsFaroParam)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -124,8 +124,8 @@ public class IndividualSegmentController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@FormParam("channelId") String channelId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("individualIds")
-				FaroParam<List<String>> individualIdsFaroParam,
+			@FormParam("individualIds") FaroParam
+				<List<String>> individualIdsFaroParam,
 			@FormParam("filter") String filter,
 			@FormParam("includeAnonymousUsers") boolean includeAnonymousUsers,
 			@FormParam("name") String name,
@@ -165,8 +165,8 @@ public class IndividualSegmentController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public IndividualSegmentDisplay deleteMemberships(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@FormParam("individualIds")
-				FaroParam<List<String>> individualIdsFaroParam)
+			@FormParam("individualIds") FaroParam<List<String>>
+				individualIdsFaroParam)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -190,8 +190,8 @@ public class IndividualSegmentController extends BaseFaroController {
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public IndividualSegmentDisplay get(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
-			@QueryParam("includeReferencedObjects")
-				boolean includeReferencedObjects)
+			@QueryParam("includeReferencedObjects") boolean
+				includeReferencedObjects)
 		throws Exception {
 
 		return new IndividualSegmentDisplay(
@@ -248,10 +248,10 @@ public class IndividualSegmentController extends BaseFaroController {
 	public FaroResultsDisplay getMembershipChanges(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
 			@QueryParam("query") String query,
-			@DefaultValue(StringPool.BLANK) @QueryParam("startDate")
-				FaroParam<Date> startDateFaroParam,
-			@DefaultValue(StringPool.BLANK) @QueryParam("endDate")
-				FaroParam<Date> endDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("startDate") FaroParam
+				<Date> startDateFaroParam,
+			@DefaultValue(StringPool.BLANK) @QueryParam("endDate") FaroParam
+				<Date> endDateFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
 				FaroParam<List<OrderByField>> orderByFieldsFaroParam)
