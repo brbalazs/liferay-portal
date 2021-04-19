@@ -24,11 +24,18 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +60,8 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 				"com/liferay/osb/faro/dependencies" +
 					"/elasticsearch-snapshot.zip")) {
 
+			Path tempDirectoryPath = Files.createTempDirectory("temp");
+
 			ZipInputStream zipInputStream = new ZipInputStream(inputStream);
 
 			ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -63,13 +72,31 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						new Date(zipEntry.getTime()),
 						new Date(System.currentTimeMillis()));
 
+			List<Path> paths = new ArrayList<>();
+
 			while (zipEntry != null) {
-				_processFile(timeOffset, zipEntry, zipInputStream);
+				if (StringUtil.endsWith(zipEntry.getName(), ".json")) {
+					Path path = tempDirectoryPath.resolve(zipEntry.getName());
+
+					Files.copy(
+						zipInputStream, path,
+						StandardCopyOption.REPLACE_EXISTING);
+
+					paths.add(path);
+				}
 
 				zipEntry = zipInputStream.getNextEntry();
 			}
 
 			zipInputStream.close();
+
+			for (Path path : paths) {
+				_processFile(path, timeOffset);
+
+				Files.delete(path);
+			}
+
+			Files.delete(tempDirectoryPath);
 		}
 
 		contactsEngineClient.deleteData(
@@ -183,32 +210,34 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		return false;
 	}
 
-	private void _processFile(
-		long timeOffset, ZipEntry zipEntry,
-		ZipInputStream zipInputStream) throws Exception {
+	private void _processFile(Path path, long timeOffset) throws Exception {
+		Path fileName = path.getFileName();
 
-		String zipEntryName = StringUtil.removeSubstring(
-			zipEntry.getName(), ".json");
+		String entryName = StringUtil.removeSubstring(
+			fileName.toString(), ".json");
 
-		String[] zipEntryNameParts = StringUtil.split(
-			zipEntryName, StringPool.UNDERLINE);
+		String[] entryNameParts = StringUtil.split(
+			entryName, StringPool.UNDERLINE);
 
-		List<Map<String, Object>> objects = _objectMapper.readValue(
-			StringUtil.read(zipInputStream),
-			new TypeReference<List<Map<String, Object>>>() {
-			});
+		File file = new File(path.toString());
 
-		_adjustTime(objects, timeOffset);
+		try (FileInputStream fileInputStream = new FileInputStream(file)) {
+			List<Map<String, Object>> objects = _objectMapper.readValue(
+				StringUtil.read(fileInputStream),
+				new TypeReference<List<Map<String, Object>>>() {
+				});
 
-		contactsEngineClient.addData(
-			faroProject, zipEntryNameParts[0],
-			_getCollectionName(zipEntryNameParts), objects);
+			_adjustTime(objects, timeOffset);
 
-		if (log.isInfoEnabled()) {
-			log.info(
-				StringBundler.concat(
-					"Created ", objects.size(), " objects in ",
-					zipEntryName));
+			contactsEngineClient.addData(
+				faroProject, entryNameParts[0],
+				_getCollectionName(entryNameParts), objects);
+
+			if (log.isInfoEnabled()) {
+				log.info(
+					StringBundler.concat(
+						"Created ", objects.size(), " objects in ", entryName));
+			}
 		}
 	}
 
