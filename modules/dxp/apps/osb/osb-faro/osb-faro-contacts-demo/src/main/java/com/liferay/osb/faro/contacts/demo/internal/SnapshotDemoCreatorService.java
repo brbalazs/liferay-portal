@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -37,6 +36,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +73,6 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						new Date(zipEntry.getTime()),
 						new Date(System.currentTimeMillis()));
 
-			List<Path> priorityPaths = new ArrayList<>();
-
 			List<Path> paths = new ArrayList<>();
 
 			while (zipEntry != null) {
@@ -85,12 +83,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						zipInputStream, path,
 						StandardCopyOption.REPLACE_EXISTING);
 
-					if (_priorityFileNames.contains(zipEntry.getName())) {
-						priorityPaths.add(path);
-					}
-					else {
-						paths.add(path);
-					}
+					paths.add(path);
 				}
 
 				zipEntry = zipInputStream.getNextEntry();
@@ -98,7 +91,18 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 
 			zipInputStream.close();
 
-			paths.addAll(0, priorityPaths);
+			paths.sort(
+				Comparator.comparingInt(
+					path -> {
+						int index = _priorityFileNames.indexOf(
+							String.valueOf(path.getFileName()));
+
+						if (index == -1) {
+							return Integer.MAX_VALUE;
+						}
+
+						return index;
+					}));
 
 			for (Path path : paths) {
 				_processFile(path, timeOffset);
@@ -229,9 +233,9 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		String[] entryNameParts = StringUtil.split(
 			entryName, StringPool.UNDERLINE);
 
-		File file = new File(path.toString());
+		try (FileInputStream fileInputStream = new FileInputStream(
+				path.toFile())) {
 
-		try (FileInputStream fileInputStream = new FileInputStream(file)) {
 			List<Map<String, Object>> objects = _objectMapper.readValue(
 				StringUtil.read(fileInputStream),
 				new TypeReference<List<Map<String, Object>>>() {
