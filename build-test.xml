@@ -8890,11 +8890,13 @@ osb.lcs.portlet.oauth.consumer.secret=${osb.lcs.portlet.oauth.consumer.secret}</
 </log4j:configuration>]]></echo>
 
 		<echo file="${liferay.home}/osgi/log4j/com.liferay.portal.cache.ehcache.impl-log4j-ext.xml"><![CDATA[<?xml version="1.0"?>
-<Configuration strict="true">
-	<Loggers>
-		<Logger level="DEBUG" name="com.liferay.portal.cache.ehcache.internal.event.PortalCacheCacheEventListener.test.cache" />
-	</Loggers>
-</Configuration>]]></echo>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<category name="com.liferay.portal.cache.ehcache.internal.event.PortalCacheCacheEventListener.test.cache">
+		<priority value="DEBUG" />
+	</category>
+</log4j:configuration>]]></echo>
 
 		<get-testcase-property property.name="deploy.lcs.token.file" />
 
