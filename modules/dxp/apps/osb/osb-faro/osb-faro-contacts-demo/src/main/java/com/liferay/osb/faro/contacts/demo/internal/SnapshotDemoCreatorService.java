@@ -64,29 +64,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 						new Date(System.currentTimeMillis()));
 
 			while (zipEntry != null) {
-				String zipEntryName = StringUtil.removeSubstring(
-					zipEntry.getName(), ".json");
-
-				String[] zipEntryNameParts = StringUtil.split(
-					zipEntryName, StringPool.UNDERLINE);
-
-				List<Map<String, Object>> objects = _objectMapper.readValue(
-					StringUtil.read(zipInputStream),
-					new TypeReference<List<Map<String, Object>>>() {
-					});
-
-				_adjustTime(objects, timeOffset);
-
-				contactsEngineClient.addData(
-					faroProject, zipEntryNameParts[0],
-					_getCollectionName(zipEntryNameParts), objects);
-
-				if (log.isInfoEnabled()) {
-					log.info(
-						StringBundler.concat(
-							"Created ", objects.size(), " objects in ",
-							zipEntryName));
-				}
+				_processFile(timeOffset, zipEntry, zipInputStream);
 
 				zipEntry = zipInputStream.getNextEntry();
 			}
@@ -203,6 +181,35 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		}
 
 		return false;
+	}
+
+	private void _processFile(
+		long timeOffset, ZipEntry zipEntry,
+		ZipInputStream zipInputStream) throws Exception {
+
+		String zipEntryName = StringUtil.removeSubstring(
+			zipEntry.getName(), ".json");
+
+		String[] zipEntryNameParts = StringUtil.split(
+			zipEntryName, StringPool.UNDERLINE);
+
+		List<Map<String, Object>> objects = _objectMapper.readValue(
+			StringUtil.read(zipInputStream),
+			new TypeReference<List<Map<String, Object>>>() {
+			});
+
+		_adjustTime(objects, timeOffset);
+
+		contactsEngineClient.addData(
+			faroProject, zipEntryNameParts[0],
+			_getCollectionName(zipEntryNameParts), objects);
+
+		if (log.isInfoEnabled()) {
+			log.info(
+				StringBundler.concat(
+					"Created ", objects.size(), " objects in ",
+					zipEntryName));
+		}
 	}
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
