@@ -95,8 +95,8 @@ public abstract class BaseSegmentUserResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "SegmentUser")})
 	public Page<SegmentUser> getSegmentUserAccountsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("segmentId")
-				Long segmentId,
+			@NotNull @Parameter(hidden = true) @PathParam("segmentId") Long
+				segmentId,
 			@Context Pagination pagination)
 		throws Exception {
 

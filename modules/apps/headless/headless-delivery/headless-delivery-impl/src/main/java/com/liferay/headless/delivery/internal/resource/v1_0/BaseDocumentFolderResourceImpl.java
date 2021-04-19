@@ -120,8 +120,8 @@ public abstract class BaseDocumentFolderResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response deleteDocumentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -282,8 +282,8 @@ public abstract class BaseDocumentFolderResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response putDocumentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -368,11 +368,11 @@ public abstract class BaseDocumentFolderResourceImpl
 	public Page<DocumentFolder> getDocumentFolderDocumentFoldersPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentDocumentFolderId")
-				Long parentDocumentFolderId,
+			Long parentDocumentFolderId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -402,7 +402,7 @@ public abstract class BaseDocumentFolderResourceImpl
 	public DocumentFolder postDocumentFolderDocumentFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentDocumentFolderId")
-				Long parentDocumentFolderId,
+			Long parentDocumentFolderId,
 			DocumentFolder documentFolder)
 		throws Exception {
 
@@ -437,8 +437,8 @@ public abstract class BaseDocumentFolderResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -486,8 +486,8 @@ public abstract class BaseDocumentFolderResourceImpl
 	@Tags(value = {@Tag(name = "DocumentFolder")})
 	public Response postSiteDocumentFolderBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

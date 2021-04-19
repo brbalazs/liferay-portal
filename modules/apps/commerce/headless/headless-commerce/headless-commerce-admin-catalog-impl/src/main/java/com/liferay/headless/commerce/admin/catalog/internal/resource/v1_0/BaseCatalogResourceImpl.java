@@ -99,7 +99,7 @@ public abstract class BaseCatalogResourceImpl
 	public Response deleteCatalogByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -125,7 +125,7 @@ public abstract class BaseCatalogResourceImpl
 	public Catalog getCatalogByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Catalog();
@@ -150,7 +150,7 @@ public abstract class BaseCatalogResourceImpl
 	public Response patchCatalogByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Catalog catalog)
 		throws Exception {
 
@@ -198,8 +198,8 @@ public abstract class BaseCatalogResourceImpl
 	@Tags(value = {@Tag(name = "Catalog")})
 	public Response deleteCatalogBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -317,8 +317,8 @@ public abstract class BaseCatalogResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Catalog")})
 	public Response postCatalogBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -358,7 +358,7 @@ public abstract class BaseCatalogResourceImpl
 	public Catalog getProductByExternalReferenceCodeCatalog(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 

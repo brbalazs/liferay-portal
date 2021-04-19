@@ -95,7 +95,7 @@ public abstract class BaseUserResourceImpl
 	public User postAccountByExternalReferenceCodeAccountMemberCreateUser(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			User user)
 		throws Exception {
 

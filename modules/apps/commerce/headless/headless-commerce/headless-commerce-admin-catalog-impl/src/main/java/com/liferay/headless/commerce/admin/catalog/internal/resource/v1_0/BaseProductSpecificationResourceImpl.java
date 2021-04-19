@@ -143,8 +143,8 @@ public abstract class BaseProductSpecificationResourceImpl
 	@Tags(value = {@Tag(name = "ProductSpecification")})
 	public Response postProductIdProductSpecificationBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

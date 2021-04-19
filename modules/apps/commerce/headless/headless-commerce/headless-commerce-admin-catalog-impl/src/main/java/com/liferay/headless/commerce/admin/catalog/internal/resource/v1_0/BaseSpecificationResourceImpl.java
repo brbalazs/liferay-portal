@@ -141,8 +141,8 @@ public abstract class BaseSpecificationResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Specification")})
 	public Response postSpecificationBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -201,8 +201,8 @@ public abstract class BaseSpecificationResourceImpl
 	@Tags(value = {@Tag(name = "Specification")})
 	public Response deleteSpecificationBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -98,7 +98,7 @@ public abstract class BaseProductSubscriptionConfigurationResourceImpl
 			getProductByExternalReferenceCodeSubscriptionConfiguration(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode)
+				String externalReferenceCode)
 		throws Exception {
 
 		return new ProductSubscriptionConfiguration();
@@ -126,7 +126,7 @@ public abstract class BaseProductSubscriptionConfigurationResourceImpl
 			patchProductByExternalReferenceCodeSubscriptionConfiguration(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				ProductSubscriptionConfiguration
 					productSubscriptionConfiguration)
 		throws Exception {

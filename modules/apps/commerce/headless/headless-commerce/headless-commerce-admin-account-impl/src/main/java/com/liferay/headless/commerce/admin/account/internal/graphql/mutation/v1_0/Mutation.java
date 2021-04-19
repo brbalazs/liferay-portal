@@ -119,8 +119,8 @@ public class Mutation {
 
 	@GraphQLField
 	public Response deleteAccountGroupByExternalReferenceCodeAccount(
-			@GraphQLName("accountExternalReferenceCode")
-				String accountExternalReferenceCode,
+			@GraphQLName("accountExternalReferenceCode") String
+				accountExternalReferenceCode,
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
 
@@ -583,10 +583,10 @@ public class Mutation {
 	@GraphQLField
 	public AccountOrganization
 			createAccountByExternalReferenceCodeAccountOrganization(
-				@GraphQLName("externalReferenceCode")
-					String externalReferenceCode,
-				@GraphQLName("accountOrganization")
-					AccountOrganization accountOrganization)
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("accountOrganization") AccountOrganization
+					accountOrganization)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -616,8 +616,8 @@ public class Mutation {
 	@GraphQLField
 	public AccountOrganization createAccountIdAccountOrganization(
 			@GraphQLName("id") Long id,
-			@GraphQLName("accountOrganization")
-				AccountOrganization accountOrganization)
+			@GraphQLName("accountOrganization") AccountOrganization
+				accountOrganization)
 		throws Exception {
 
 		return _applyComponentServiceObjects(

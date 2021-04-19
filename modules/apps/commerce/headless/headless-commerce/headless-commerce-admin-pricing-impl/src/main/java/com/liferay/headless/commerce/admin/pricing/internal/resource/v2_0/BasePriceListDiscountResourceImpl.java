@@ -115,8 +115,8 @@ public abstract class BasePriceListDiscountResourceImpl
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
 	public Response deletePriceListDiscountBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BasePriceListDiscountResourceImpl
 			getPriceListByExternalReferenceCodePriceListDiscountsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -188,7 +188,7 @@ public abstract class BasePriceListDiscountResourceImpl
 			postPriceListByExternalReferenceCodePriceListDiscount(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				PriceListDiscount priceListDiscount)
 		throws Exception {
 
@@ -259,8 +259,8 @@ public abstract class BasePriceListDiscountResourceImpl
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
 	public Response postPriceListIdPriceListDiscountBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

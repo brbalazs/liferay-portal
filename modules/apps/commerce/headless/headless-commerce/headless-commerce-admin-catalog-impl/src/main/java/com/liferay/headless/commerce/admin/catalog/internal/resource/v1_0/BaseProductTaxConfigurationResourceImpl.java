@@ -97,7 +97,7 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 			getProductByExternalReferenceCodeTaxConfiguration(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode)
+				String externalReferenceCode)
 		throws Exception {
 
 		return new ProductTaxConfiguration();
@@ -124,7 +124,7 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 	public Response patchProductByExternalReferenceCodeTaxConfiguration(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			ProductTaxConfiguration productTaxConfiguration)
 		throws Exception {
 

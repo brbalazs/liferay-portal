@@ -99,7 +99,7 @@ public abstract class BaseOrderItemResourceImpl
 	public Response deleteOrderItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -125,7 +125,7 @@ public abstract class BaseOrderItemResourceImpl
 	public OrderItem getOrderItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new OrderItem();
@@ -150,7 +150,7 @@ public abstract class BaseOrderItemResourceImpl
 	public Response patchOrderItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			OrderItem orderItem)
 		throws Exception {
 
@@ -198,8 +198,8 @@ public abstract class BaseOrderItemResourceImpl
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public Response deleteOrderItemBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -279,7 +279,7 @@ public abstract class BaseOrderItemResourceImpl
 	public Page<OrderItem> getOrderByExternalReferenceCodeOrderItemsPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -305,7 +305,7 @@ public abstract class BaseOrderItemResourceImpl
 	public OrderItem postOrderByExternalReferenceCodeOrderItem(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			OrderItem orderItem)
 		throws Exception {
 
@@ -376,8 +376,8 @@ public abstract class BaseOrderItemResourceImpl
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public Response postOrderIdOrderItemBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

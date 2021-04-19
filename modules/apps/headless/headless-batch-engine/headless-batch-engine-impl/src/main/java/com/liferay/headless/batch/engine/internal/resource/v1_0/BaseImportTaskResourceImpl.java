@@ -89,12 +89,12 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask deleteImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			Object object)
 		throws Exception {
 
@@ -121,12 +121,12 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask deleteImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -161,14 +161,14 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask postImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("fieldNameMapping")
-				String fieldNameMapping,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("fieldNameMapping") String
+				fieldNameMapping,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			Object object)
 		throws Exception {
 
@@ -198,14 +198,14 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask postImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("fieldNameMapping")
-				String fieldNameMapping,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("fieldNameMapping") String
+				fieldNameMapping,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -237,12 +237,12 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@PUT
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask putImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			Object object)
 		throws Exception {
 
@@ -269,12 +269,12 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@PUT
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask putImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName,
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -296,8 +296,8 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ImportTask")})
 	public ImportTask getImportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("importTaskId")
-				Long importTaskId)
+			@NotNull @Parameter(hidden = true) @PathParam("importTaskId") Long
+				importTaskId)
 		throws Exception {
 
 		return new ImportTask();

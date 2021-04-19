@@ -142,8 +142,8 @@ public abstract class BaseChannelResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Channel")})
 	public Response postChannelBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -175,8 +175,8 @@ public abstract class BaseChannelResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Channel")})
 	public void deleteChannel(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId)
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId)
 		throws Exception {
 	}
 
@@ -195,8 +195,8 @@ public abstract class BaseChannelResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Channel")})
 	public Response deleteChannelBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -229,8 +229,8 @@ public abstract class BaseChannelResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Channel")})
 	public Channel getChannel(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId)
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId)
 		throws Exception {
 
 		return new Channel();
@@ -249,8 +249,8 @@ public abstract class BaseChannelResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Channel")})
 	public Channel patchChannel(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			Channel channel)
 		throws Exception {
 
@@ -295,8 +295,8 @@ public abstract class BaseChannelResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "Channel")})
 	public Channel putChannel(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			Channel channel)
 		throws Exception {
 
@@ -318,8 +318,8 @@ public abstract class BaseChannelResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "Channel")})
 	public Response putChannelBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -99,8 +99,8 @@ public abstract class BaseProductResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public Page<Product> getChannelProductsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			@Parameter(hidden = true) @QueryParam("accountId") Long accountId,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
@@ -128,10 +128,10 @@ public abstract class BaseProductResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
 	public Product getChannelProduct(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId")
-				Long productId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
 			@Parameter(hidden = true) @QueryParam("accountId") Long accountId)
 		throws Exception {
 

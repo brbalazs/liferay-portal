@@ -125,8 +125,8 @@ public abstract class BaseOrganizationResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Organization")})
 	public Organization getOrganization(
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
-				Long organizationId)
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
+				organizationId)
 		throws Exception {
 
 		return new Organization();
@@ -159,7 +159,7 @@ public abstract class BaseOrganizationResourceImpl
 	public Page<Organization> getOrganizationOrganizationsPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentOrganizationId")
-				Long parentOrganizationId,
+			Long parentOrganizationId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,

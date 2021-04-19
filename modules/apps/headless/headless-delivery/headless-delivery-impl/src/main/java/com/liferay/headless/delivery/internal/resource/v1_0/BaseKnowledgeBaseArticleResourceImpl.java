@@ -105,7 +105,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public void deleteKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 	}
 
@@ -124,8 +124,8 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "KnowledgeBaseArticle")})
 	public Response deleteKnowledgeBaseArticleBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -164,7 +164,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public KnowledgeBaseArticle getKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 
 		return new KnowledgeBaseArticle();
@@ -192,7 +192,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public KnowledgeBaseArticle patchKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId,
+			Long knowledgeBaseArticleId,
 			KnowledgeBaseArticle knowledgeBaseArticle)
 		throws Exception {
 
@@ -307,7 +307,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public KnowledgeBaseArticle putKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId,
+			Long knowledgeBaseArticleId,
 			KnowledgeBaseArticle knowledgeBaseArticle)
 		throws Exception {
 
@@ -329,8 +329,8 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "KnowledgeBaseArticle")})
 	public Response putKnowledgeBaseArticleBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -371,7 +371,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public void deleteKnowledgeBaseArticleMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 	}
 
@@ -394,7 +394,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public Rating getKnowledgeBaseArticleMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 
 		return new Rating();
@@ -420,7 +420,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public Rating postKnowledgeBaseArticleMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId,
+			Long knowledgeBaseArticleId,
 			Rating rating)
 		throws Exception {
 
@@ -449,7 +449,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public Rating putKnowledgeBaseArticleMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId,
+			Long knowledgeBaseArticleId,
 			Rating rating)
 		throws Exception {
 
@@ -474,7 +474,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public void putKnowledgeBaseArticleSubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 	}
 
@@ -496,7 +496,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public void putKnowledgeBaseArticleUnsubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId)
+			Long knowledgeBaseArticleId)
 		throws Exception {
 	}
 
@@ -531,10 +531,9 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 			getKnowledgeBaseArticleKnowledgeBaseArticlesPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("parentKnowledgeBaseArticleId")
-					Long parentKnowledgeBaseArticleId,
+				Long parentKnowledgeBaseArticleId,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context
-					com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -569,7 +568,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public KnowledgeBaseArticle postKnowledgeBaseArticleKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentKnowledgeBaseArticleId")
-				Long parentKnowledgeBaseArticleId,
+			Long parentKnowledgeBaseArticleId,
 			KnowledgeBaseArticle knowledgeBaseArticle)
 		throws Exception {
 
@@ -606,12 +605,11 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 			getKnowledgeBaseFolderKnowledgeBaseArticlesPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("knowledgeBaseFolderId")
-					Long knowledgeBaseFolderId,
-				@Parameter(hidden = true) @QueryParam("flatten")
-					Boolean flatten,
+				Long knowledgeBaseFolderId,
+				@Parameter(hidden = true) @QueryParam("flatten") Boolean
+					flatten,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context
-					com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -644,7 +642,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public KnowledgeBaseArticle postKnowledgeBaseFolderKnowledgeBaseArticle(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId,
+			Long knowledgeBaseFolderId,
 			KnowledgeBaseArticle knowledgeBaseArticle)
 		throws Exception {
 
@@ -673,9 +671,9 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	public Response postKnowledgeBaseFolderKnowledgeBaseArticleBatch(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			Long knowledgeBaseFolderId,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -723,8 +721,8 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -772,8 +770,8 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 	@Tags(value = {@Tag(name = "KnowledgeBaseArticle")})
 	public Response postSiteKnowledgeBaseArticleBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

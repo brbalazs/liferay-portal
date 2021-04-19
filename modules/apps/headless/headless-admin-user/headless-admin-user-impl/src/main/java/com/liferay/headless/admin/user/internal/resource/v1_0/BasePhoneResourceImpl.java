@@ -90,8 +90,8 @@ public abstract class BasePhoneResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Phone")})
 	public Page<Phone> getOrganizationPhonesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
-				Long organizationId)
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
+				organizationId)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -110,8 +110,8 @@ public abstract class BasePhoneResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Phone")})
 	public Phone getPhone(
-			@NotNull @Parameter(hidden = true) @PathParam("phoneId")
-				Long phoneId)
+			@NotNull @Parameter(hidden = true) @PathParam("phoneId") Long
+				phoneId)
 		throws Exception {
 
 		return new Phone();
@@ -132,8 +132,8 @@ public abstract class BasePhoneResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Phone")})
 	public Page<Phone> getUserAccountPhonesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("userAccountId")
-				Long userAccountId)
+			@NotNull @Parameter(hidden = true) @PathParam("userAccountId") Long
+				userAccountId)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());

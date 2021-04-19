@@ -95,8 +95,8 @@ public abstract class BaseSubscriptionResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Subscription")})
 	public Page<Subscription> getMyUserAccountSubscriptionsPage(
-			@Parameter(hidden = true) @QueryParam("contentType")
-				String contentType,
+			@Parameter(hidden = true) @QueryParam("contentType") String
+				contentType,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -117,8 +117,8 @@ public abstract class BaseSubscriptionResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Subscription")})
 	public void deleteMyUserAccountSubscription(
-			@NotNull @Parameter(hidden = true) @PathParam("subscriptionId")
-				Long subscriptionId)
+			@NotNull @Parameter(hidden = true) @PathParam("subscriptionId") Long
+				subscriptionId)
 		throws Exception {
 	}
 
@@ -136,8 +136,8 @@ public abstract class BaseSubscriptionResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Subscription")})
 	public Subscription getMyUserAccountSubscription(
-			@NotNull @Parameter(hidden = true) @PathParam("subscriptionId")
-				Long subscriptionId)
+			@NotNull @Parameter(hidden = true) @PathParam("subscriptionId") Long
+				subscriptionId)
 		throws Exception {
 
 		return new Subscription();

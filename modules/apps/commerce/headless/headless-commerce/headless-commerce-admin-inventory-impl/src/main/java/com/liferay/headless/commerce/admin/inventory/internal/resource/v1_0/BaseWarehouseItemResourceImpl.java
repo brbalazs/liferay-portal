@@ -100,7 +100,7 @@ public abstract class BaseWarehouseItemResourceImpl
 	public Response deleteWarehouseItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -126,7 +126,7 @@ public abstract class BaseWarehouseItemResourceImpl
 	public WarehouseItem getWarehouseItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new WarehouseItem();
@@ -151,7 +151,7 @@ public abstract class BaseWarehouseItemResourceImpl
 	public Response patchWarehouseItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			WarehouseItem warehouseItem)
 		throws Exception {
 
@@ -179,7 +179,7 @@ public abstract class BaseWarehouseItemResourceImpl
 	public WarehouseItem postWarehouseItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			WarehouseItem warehouseItem)
 		throws Exception {
 
@@ -225,8 +225,8 @@ public abstract class BaseWarehouseItemResourceImpl
 	@Tags(value = {@Tag(name = "WarehouseItem")})
 	public Response deleteWarehouseItemBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -309,7 +309,7 @@ public abstract class BaseWarehouseItemResourceImpl
 			getWarehousByExternalReferenceCodeWarehouseItemsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -337,7 +337,7 @@ public abstract class BaseWarehouseItemResourceImpl
 	public WarehouseItem postWarehousByExternalReferenceCodeWarehouseItem(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			WarehouseItem warehouseItem)
 		throws Exception {
 

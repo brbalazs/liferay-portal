@@ -100,8 +100,8 @@ public abstract class BaseWarehouseResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Warehouse")})
 	public Page<Warehouse> getCommerceAdminSiteSettingGroupWarehousePage(
-			@NotNull @Parameter(hidden = true) @PathParam("groupId")
-				Long groupId,
+			@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+				groupId,
 			@Parameter(hidden = true) @QueryParam("active") Boolean active,
 			@Context Pagination pagination)
 		throws Exception {
@@ -122,8 +122,8 @@ public abstract class BaseWarehouseResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Warehouse")})
 	public Warehouse postCommerceAdminSiteSettingGroupWarehouse(
-			@NotNull @Parameter(hidden = true) @PathParam("groupId")
-				Long groupId,
+			@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+				groupId,
 			Warehouse warehouse)
 		throws Exception {
 
@@ -169,8 +169,8 @@ public abstract class BaseWarehouseResourceImpl
 	@Tags(value = {@Tag(name = "Warehouse")})
 	public Response deleteWarehouseBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -249,8 +249,8 @@ public abstract class BaseWarehouseResourceImpl
 	@Tags(value = {@Tag(name = "Warehouse")})
 	public Response putWarehouseBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

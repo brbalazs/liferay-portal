@@ -94,10 +94,10 @@ public abstract class BaseAttachmentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Attachment")})
 	public Page<Attachment> getChannelProductAttachmentsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId")
-				Long productId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -123,10 +123,10 @@ public abstract class BaseAttachmentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Attachment")})
 	public Page<Attachment> getChannelProductImagesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId")
-				Long productId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
 			@Context Pagination pagination)
 		throws Exception {
 

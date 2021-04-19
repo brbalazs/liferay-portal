@@ -96,14 +96,14 @@ public abstract class BaseAccountForecastResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountForecast")})
 	public Page<AccountForecast> getAccountForecastsByMonthlyRevenuePage(
-			@Parameter(hidden = true) @QueryParam("accountIds")
-				Long[] accountIds,
-			@Parameter(hidden = true) @QueryParam("forecastLength")
-				Integer forecastLength,
+			@Parameter(hidden = true) @QueryParam("accountIds") Long[]
+				accountIds,
+			@Parameter(hidden = true) @QueryParam("forecastLength") Integer
+				forecastLength,
 			@Parameter(hidden = true) @QueryParam("forecastStartDate")
 				java.util.Date forecastStartDate,
-			@Parameter(hidden = true) @QueryParam("historyLength")
-				Integer historyLength,
+			@Parameter(hidden = true) @QueryParam("historyLength") Integer
+				historyLength,
 			@Context Pagination pagination)
 		throws Exception {
 

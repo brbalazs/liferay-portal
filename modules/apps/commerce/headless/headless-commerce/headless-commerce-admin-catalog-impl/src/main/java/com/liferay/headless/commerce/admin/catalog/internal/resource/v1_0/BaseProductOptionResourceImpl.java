@@ -120,8 +120,8 @@ public abstract class BaseProductOptionResourceImpl
 	@Tags(value = {@Tag(name = "ProductOption")})
 	public Response deleteProductOptionBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -204,7 +204,7 @@ public abstract class BaseProductOptionResourceImpl
 			getProductByExternalReferenceCodeProductOptionsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -233,7 +233,7 @@ public abstract class BaseProductOptionResourceImpl
 			postProductByExternalReferenceCodeProductOptionsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				ProductOption[] productOptions)
 		throws Exception {
 

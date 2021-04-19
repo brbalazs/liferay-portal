@@ -141,8 +141,8 @@ public abstract class BaseProductGroupResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductGroup")})
 	public Response postProductGroupBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -180,7 +180,7 @@ public abstract class BaseProductGroupResourceImpl
 	public void deleteProductGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 	}
 
@@ -202,7 +202,7 @@ public abstract class BaseProductGroupResourceImpl
 	public ProductGroup getProductGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new ProductGroup();
@@ -227,7 +227,7 @@ public abstract class BaseProductGroupResourceImpl
 	public Response patchProductGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			ProductGroup productGroup)
 		throws Exception {
 
@@ -271,8 +271,8 @@ public abstract class BaseProductGroupResourceImpl
 	@Tags(value = {@Tag(name = "ProductGroup")})
 	public Response deleteProductGroupBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

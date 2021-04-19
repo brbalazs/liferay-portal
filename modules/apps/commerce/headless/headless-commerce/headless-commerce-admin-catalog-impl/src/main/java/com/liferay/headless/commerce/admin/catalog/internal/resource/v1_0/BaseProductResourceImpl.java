@@ -139,8 +139,8 @@ public abstract class BaseProductResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Product")})
 	public Response postProductBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -178,7 +178,7 @@ public abstract class BaseProductResourceImpl
 	public Response deleteProductByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -204,7 +204,7 @@ public abstract class BaseProductResourceImpl
 	public Product getProductByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Product();
@@ -229,7 +229,7 @@ public abstract class BaseProductResourceImpl
 	public Response patchProductByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Product product)
 		throws Exception {
 
@@ -259,10 +259,10 @@ public abstract class BaseProductResourceImpl
 	public Product postProductByExternalReferenceCodeClone(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@NotNull @Parameter(hidden = true)
 			@QueryParam("catalogExternalReferenceCode")
-				String catalogExternalReferenceCode)
+			String catalogExternalReferenceCode)
 		throws Exception {
 
 		return new Product();
@@ -307,8 +307,8 @@ public abstract class BaseProductResourceImpl
 	@Tags(value = {@Tag(name = "Product")})
 	public Response deleteProductBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

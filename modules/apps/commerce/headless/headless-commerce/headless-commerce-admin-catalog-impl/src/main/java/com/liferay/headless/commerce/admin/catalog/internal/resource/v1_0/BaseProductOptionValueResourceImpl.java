@@ -143,8 +143,8 @@ public abstract class BaseProductOptionValueResourceImpl
 	@Tags(value = {@Tag(name = "ProductOptionValue")})
 	public Response postProductOptionIdProductOptionValueBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

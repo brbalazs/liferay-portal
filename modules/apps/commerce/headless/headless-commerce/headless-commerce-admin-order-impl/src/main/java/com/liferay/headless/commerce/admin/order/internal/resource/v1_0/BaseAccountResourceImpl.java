@@ -91,7 +91,7 @@ public abstract class BaseAccountResourceImpl
 	public Account getOrderByExternalReferenceCodeAccount(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Account();

@@ -98,10 +98,10 @@ public abstract class BaseSkuResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Sku")})
 	public Page<Sku> getChannelProductSkusPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId")
-				Long productId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
 			@Parameter(hidden = true) @QueryParam("accountId") Long accountId,
 			@Context Pagination pagination)
 		throws Exception {

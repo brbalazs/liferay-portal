@@ -104,7 +104,7 @@ public abstract class BasePriceModifierResourceImpl
 			getPriceListByExternalReferenceCodePriceModifiersPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -132,7 +132,7 @@ public abstract class BasePriceModifierResourceImpl
 	public PriceModifier postPriceListByExternalReferenceCodePriceModifier(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			PriceModifier priceModifier)
 		throws Exception {
 
@@ -208,8 +208,8 @@ public abstract class BasePriceModifierResourceImpl
 	@Tags(value = {@Tag(name = "PriceModifier")})
 	public Response postPriceListIdPriceModifierBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -247,7 +247,7 @@ public abstract class BasePriceModifierResourceImpl
 	public void deletePriceModifierByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 	}
 
@@ -269,7 +269,7 @@ public abstract class BasePriceModifierResourceImpl
 	public PriceModifier getPriceModifierByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new PriceModifier();
@@ -294,7 +294,7 @@ public abstract class BasePriceModifierResourceImpl
 	public Response patchPriceModifierByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			PriceModifier priceModifier)
 		throws Exception {
 
@@ -338,8 +338,8 @@ public abstract class BasePriceModifierResourceImpl
 	@Tags(value = {@Tag(name = "PriceModifier")})
 	public Response deletePriceModifierBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

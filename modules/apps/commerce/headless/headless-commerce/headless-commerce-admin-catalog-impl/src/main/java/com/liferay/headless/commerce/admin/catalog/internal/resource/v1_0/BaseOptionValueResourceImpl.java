@@ -101,7 +101,7 @@ public abstract class BaseOptionValueResourceImpl
 	public Page<OptionValue> getOptionByExternalReferenceCodeOptionValuesPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -129,7 +129,7 @@ public abstract class BaseOptionValueResourceImpl
 	public OptionValue postOptionByExternalReferenceCodeOptionValue(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			OptionValue optionValue)
 		throws Exception {
 
@@ -200,8 +200,8 @@ public abstract class BaseOptionValueResourceImpl
 	@Tags(value = {@Tag(name = "OptionValue")})
 	public Response postOptionIdOptionValueBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

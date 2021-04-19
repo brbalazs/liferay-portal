@@ -139,8 +139,8 @@ public abstract class BaseOptionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Option")})
 	public Response postOptionBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -178,7 +178,7 @@ public abstract class BaseOptionResourceImpl
 	public Response deleteOptionByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -204,7 +204,7 @@ public abstract class BaseOptionResourceImpl
 	public Option getOptionByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Option();
@@ -229,7 +229,7 @@ public abstract class BaseOptionResourceImpl
 	public Response patchOptionByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Option option)
 		throws Exception {
 
@@ -277,8 +277,8 @@ public abstract class BaseOptionResourceImpl
 	@Tags(value = {@Tag(name = "Option")})
 	public Response deleteOptionBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -104,7 +104,7 @@ public abstract class BaseAccountResourceImpl
 	public Response postAccountGroupByExternalReferenceCodeAccount(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Account account)
 		throws Exception {
 
@@ -136,10 +136,10 @@ public abstract class BaseAccountResourceImpl
 	public Response deleteAccountGroupByExternalReferenceCodeAccount(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("accountExternalReferenceCode")
-				String accountExternalReferenceCode,
+			String accountExternalReferenceCode,
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -205,8 +205,8 @@ public abstract class BaseAccountResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Account")})
 	public Response postAccountBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -244,7 +244,7 @@ public abstract class BaseAccountResourceImpl
 	public Response deleteAccountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -270,7 +270,7 @@ public abstract class BaseAccountResourceImpl
 	public Account getAccountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Account();
@@ -295,7 +295,7 @@ public abstract class BaseAccountResourceImpl
 	public Response patchAccountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Account account)
 		throws Exception {
 
@@ -323,7 +323,7 @@ public abstract class BaseAccountResourceImpl
 	public Response postAccountByExternalReferenceCodeLogo(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -371,8 +371,8 @@ public abstract class BaseAccountResourceImpl
 	@Tags(value = {@Tag(name = "Account")})
 	public Response deleteAccountBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

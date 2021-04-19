@@ -96,7 +96,7 @@ public abstract class BaseBillingAddressResourceImpl
 	public BillingAddress getOrderByExternalReferenceCodeBillingAddress(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new BillingAddress();
@@ -123,7 +123,7 @@ public abstract class BaseBillingAddressResourceImpl
 	public Response patchOrderByExternalReferenceCodeBillingAddress(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			BillingAddress billingAddress)
 		throws Exception {
 

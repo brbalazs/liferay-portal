@@ -99,7 +99,7 @@ public abstract class BaseOrderNoteResourceImpl
 	public Response deleteOrderNoteByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -125,7 +125,7 @@ public abstract class BaseOrderNoteResourceImpl
 	public OrderNote getOrderNoteByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new OrderNote();
@@ -150,7 +150,7 @@ public abstract class BaseOrderNoteResourceImpl
 	public Response patchOrderNoteByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			OrderNote orderNote)
 		throws Exception {
 
@@ -198,8 +198,8 @@ public abstract class BaseOrderNoteResourceImpl
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public Response deleteOrderNoteBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -279,7 +279,7 @@ public abstract class BaseOrderNoteResourceImpl
 	public Page<OrderNote> getOrderByExternalReferenceCodeOrderNotesPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -305,7 +305,7 @@ public abstract class BaseOrderNoteResourceImpl
 	public OrderNote postOrderByExternalReferenceCodeOrderNote(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			OrderNote orderNote)
 		throws Exception {
 
@@ -376,8 +376,8 @@ public abstract class BaseOrderNoteResourceImpl
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public Response postOrderIdOrderNoteBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

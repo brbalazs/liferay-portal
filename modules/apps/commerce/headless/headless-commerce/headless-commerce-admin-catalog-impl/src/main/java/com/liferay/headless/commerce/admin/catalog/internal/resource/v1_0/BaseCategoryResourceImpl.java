@@ -100,7 +100,7 @@ public abstract class BaseCategoryResourceImpl
 	public Page<Category> getProductByExternalReferenceCodeCategoriesPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -128,7 +128,7 @@ public abstract class BaseCategoryResourceImpl
 	public Response patchProductByExternalReferenceCodeCategory(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Category[] categories)
 		throws Exception {
 

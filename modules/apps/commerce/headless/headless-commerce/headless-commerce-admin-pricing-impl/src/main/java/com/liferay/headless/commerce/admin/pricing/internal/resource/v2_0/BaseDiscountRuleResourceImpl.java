@@ -116,8 +116,8 @@ public abstract class BaseDiscountRuleResourceImpl
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Response deleteDiscountRuleBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -198,7 +198,7 @@ public abstract class BaseDiscountRuleResourceImpl
 			getDiscountByExternalReferenceCodeDiscountRulesPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -226,7 +226,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	public DiscountRule postDiscountByExternalReferenceCodeDiscountRule(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			DiscountRule discountRule)
 		throws Exception {
 
@@ -302,8 +302,8 @@ public abstract class BaseDiscountRuleResourceImpl
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Response postDiscountIdDiscountRuleBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

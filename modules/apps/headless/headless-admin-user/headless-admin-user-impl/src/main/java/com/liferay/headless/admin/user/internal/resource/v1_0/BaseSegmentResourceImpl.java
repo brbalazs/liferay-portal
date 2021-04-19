@@ -121,8 +121,8 @@ public abstract class BaseSegmentResourceImpl
 	@Tags(value = {@Tag(name = "Segment")})
 	public Page<Segment> getSiteUserAccountSegmentsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@NotNull @Parameter(hidden = true) @PathParam("userAccountId")
-				Long userAccountId)
+			@NotNull @Parameter(hidden = true) @PathParam("userAccountId") Long
+				userAccountId)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());

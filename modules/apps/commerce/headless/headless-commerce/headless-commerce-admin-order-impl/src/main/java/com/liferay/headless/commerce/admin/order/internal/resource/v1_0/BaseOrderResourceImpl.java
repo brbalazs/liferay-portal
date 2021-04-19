@@ -139,8 +139,8 @@ public abstract class BaseOrderResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Order")})
 	public Response postOrderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -178,7 +178,7 @@ public abstract class BaseOrderResourceImpl
 	public Response deleteOrderByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -204,7 +204,7 @@ public abstract class BaseOrderResourceImpl
 	public Order getOrderByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Order();
@@ -229,7 +229,7 @@ public abstract class BaseOrderResourceImpl
 	public Response patchOrderByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Order order)
 		throws Exception {
 
@@ -277,8 +277,8 @@ public abstract class BaseOrderResourceImpl
 	@Tags(value = {@Tag(name = "Order")})
 	public Response deleteOrderBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

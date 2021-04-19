@@ -115,8 +115,8 @@ public abstract class BasePriceListChannelResourceImpl
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public Response deletePriceListChannelBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BasePriceListChannelResourceImpl
 			getPriceListByExternalReferenceCodePriceListChannelsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -188,7 +188,7 @@ public abstract class BasePriceListChannelResourceImpl
 			postPriceListByExternalReferenceCodePriceListChannel(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				PriceListChannel priceListChannel)
 		throws Exception {
 
@@ -264,8 +264,8 @@ public abstract class BasePriceListChannelResourceImpl
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public Response postPriceListIdPriceListChannelBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

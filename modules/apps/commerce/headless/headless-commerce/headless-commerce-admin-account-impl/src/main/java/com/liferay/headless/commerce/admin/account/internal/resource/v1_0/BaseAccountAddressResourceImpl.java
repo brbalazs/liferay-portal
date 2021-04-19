@@ -101,7 +101,7 @@ public abstract class BaseAccountAddressResourceImpl
 	public Response deleteAccountAddressByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -127,7 +127,7 @@ public abstract class BaseAccountAddressResourceImpl
 	public AccountAddress getAccountAddressByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new AccountAddress();
@@ -152,7 +152,7 @@ public abstract class BaseAccountAddressResourceImpl
 	public Response patchAccountAddressByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AccountAddress accountAddress)
 		throws Exception {
 
@@ -200,8 +200,8 @@ public abstract class BaseAccountAddressResourceImpl
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public Response deleteAccountAddressBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -373,8 +373,8 @@ public abstract class BaseAccountAddressResourceImpl
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public Response putAccountAddressBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -417,7 +417,7 @@ public abstract class BaseAccountAddressResourceImpl
 			getAccountByExternalReferenceCodeAccountAddressesPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -445,7 +445,7 @@ public abstract class BaseAccountAddressResourceImpl
 	public AccountAddress postAccountByExternalReferenceCodeAccountAddress(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AccountAddress accountAddress)
 		throws Exception {
 
@@ -516,8 +516,8 @@ public abstract class BaseAccountAddressResourceImpl
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public Response postAccountIdAccountAddressBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -91,7 +91,7 @@ public abstract class BaseChannelResourceImpl
 	public Channel getOrderByExternalReferenceCodeChannel(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Channel();

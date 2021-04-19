@@ -105,7 +105,7 @@ public abstract class BaseAccountMemberResourceImpl
 			getAccountByExternalReferenceCodeAccountMembersPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -133,7 +133,7 @@ public abstract class BaseAccountMemberResourceImpl
 	public AccountMember postAccountByExternalReferenceCodeAccountMember(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AccountMember accountMember)
 		throws Exception {
 
@@ -161,7 +161,7 @@ public abstract class BaseAccountMemberResourceImpl
 	public Response deleteAccountByExternalReferenceCodeAccountMember(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@NotNull @Parameter(hidden = true) @PathParam("userId") Long userId)
 		throws Exception {
 
@@ -191,7 +191,7 @@ public abstract class BaseAccountMemberResourceImpl
 	public AccountMember getAccountByExternalReferenceCodeAccountMember(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@NotNull @Parameter(hidden = true) @PathParam("userId") Long userId)
 		throws Exception {
 
@@ -220,7 +220,7 @@ public abstract class BaseAccountMemberResourceImpl
 	public Response patchAccountByExternalReferenceCodeAccountMember(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@NotNull @Parameter(hidden = true) @PathParam("userId") Long userId,
 			AccountMember accountMember)
 		throws Exception {
@@ -294,8 +294,8 @@ public abstract class BaseAccountMemberResourceImpl
 	@Tags(value = {@Tag(name = "AccountMember")})
 	public Response postAccountIdAccountMemberBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

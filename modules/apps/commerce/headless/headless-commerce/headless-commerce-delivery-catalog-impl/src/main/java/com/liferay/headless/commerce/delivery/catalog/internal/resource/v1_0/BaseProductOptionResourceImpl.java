@@ -94,10 +94,10 @@ public abstract class BaseProductOptionResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductOption")})
 	public Page<ProductOption> getChannelProductOptionsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("productId")
-				Long productId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
 			@Context Pagination pagination)
 		throws Exception {
 

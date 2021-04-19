@@ -104,7 +104,7 @@ public abstract class BaseRelatedProductResourceImpl
 			getProductByExternalReferenceCodeRelatedProductsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Parameter(hidden = true) @QueryParam("type") String type,
 				@Context Pagination pagination)
 		throws Exception {
@@ -133,7 +133,7 @@ public abstract class BaseRelatedProductResourceImpl
 	public RelatedProduct postProductByExternalReferenceCodeRelatedProduct(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			RelatedProduct relatedProduct)
 		throws Exception {
 
@@ -206,8 +206,8 @@ public abstract class BaseRelatedProductResourceImpl
 	@Tags(value = {@Tag(name = "RelatedProduct")})
 	public Response postProductIdRelatedProductBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -266,8 +266,8 @@ public abstract class BaseRelatedProductResourceImpl
 	@Tags(value = {@Tag(name = "RelatedProduct")})
 	public Response deleteRelatedProductBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

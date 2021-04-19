@@ -101,8 +101,8 @@ public abstract class BaseMeasurementUnitResourceImpl
 	@Tags(value = {@Tag(name = "MeasurementUnit")})
 	public Page<MeasurementUnit>
 			getCommerceAdminSiteSettingGroupMeasurementUnitPage(
-				@NotNull @Parameter(hidden = true) @PathParam("groupId")
-					Long groupId,
+				@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+					groupId,
 				@Parameter(hidden = true) @QueryParam("type") Integer type,
 				@Context Pagination pagination)
 		throws Exception {
@@ -123,8 +123,8 @@ public abstract class BaseMeasurementUnitResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "MeasurementUnit")})
 	public MeasurementUnit postCommerceAdminSiteSettingGroupMeasurementUnit(
-			@NotNull @Parameter(hidden = true) @PathParam("groupId")
-				Long groupId,
+			@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+				groupId,
 			MeasurementUnit measurementUnit)
 		throws Exception {
 
@@ -170,8 +170,8 @@ public abstract class BaseMeasurementUnitResourceImpl
 	@Tags(value = {@Tag(name = "MeasurementUnit")})
 	public Response deleteMeasurementUnitBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -250,8 +250,8 @@ public abstract class BaseMeasurementUnitResourceImpl
 	@Tags(value = {@Tag(name = "MeasurementUnit")})
 	public Response putMeasurementUnitBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

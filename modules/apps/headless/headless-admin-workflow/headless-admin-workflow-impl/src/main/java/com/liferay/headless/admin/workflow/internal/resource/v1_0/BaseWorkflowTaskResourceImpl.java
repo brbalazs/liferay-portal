@@ -152,8 +152,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask getWorkflowTask(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
-				Long workflowTaskId)
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
+				workflowTaskId)
 		throws Exception {
 
 		return new WorkflowTask();
@@ -174,8 +174,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskAssignToMe(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
-				Long workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
+				workflowTaskId,
 			WorkflowTaskAssignToMe workflowTaskAssignToMe)
 		throws Exception {
 
@@ -197,8 +197,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskAssignToUser(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
-				Long workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
+				workflowTaskId,
 			WorkflowTaskAssignToUser workflowTaskAssignToUser)
 		throws Exception {
 
@@ -220,8 +220,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskChangeTransition(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
-				Long workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
+				workflowTaskId,
 			ChangeTransition changeTransition)
 		throws Exception {
 
@@ -243,8 +243,8 @@ public abstract class BaseWorkflowTaskResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WorkflowTask")})
 	public WorkflowTask postWorkflowTaskUpdateDueDate(
-			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId")
-				Long workflowTaskId,
+			@NotNull @Parameter(hidden = true) @PathParam("workflowTaskId") Long
+				workflowTaskId,
 			WorkflowTaskAssignToMe workflowTaskAssignToMe)
 		throws Exception {
 

@@ -133,8 +133,8 @@ public abstract class BaseDiscountResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Discount")})
 	public Response postDiscountBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -172,7 +172,7 @@ public abstract class BaseDiscountResourceImpl
 	public Response deleteDiscountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -198,7 +198,7 @@ public abstract class BaseDiscountResourceImpl
 	public Discount getDiscountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Discount();
@@ -223,7 +223,7 @@ public abstract class BaseDiscountResourceImpl
 	public Response patchDiscountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Discount discount)
 		throws Exception {
 
@@ -271,8 +271,8 @@ public abstract class BaseDiscountResourceImpl
 	@Tags(value = {@Tag(name = "Discount")})
 	public Response deleteDiscountBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

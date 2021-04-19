@@ -117,8 +117,8 @@ public abstract class BaseSpotResourceImpl
 	@Tags(value = {@Tag(name = "Spot")})
 	public Response postAreaIdSpotBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

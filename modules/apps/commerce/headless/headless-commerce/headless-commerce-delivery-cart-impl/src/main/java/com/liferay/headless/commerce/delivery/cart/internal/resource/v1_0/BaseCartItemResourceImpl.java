@@ -98,8 +98,8 @@ public abstract class BaseCartItemResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartItem")})
 	public Response deleteCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartItemId")
-				Long cartItemId)
+			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
+				cartItemId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -122,8 +122,8 @@ public abstract class BaseCartItemResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "CartItem")})
 	public Response deleteCartItemBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -158,8 +158,8 @@ public abstract class BaseCartItemResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartItem")})
 	public CartItem getCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartItemId")
-				Long cartItemId)
+			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
+				cartItemId)
 		throws Exception {
 
 		return new CartItem();
@@ -181,8 +181,8 @@ public abstract class BaseCartItemResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "CartItem")})
 	public CartItem patchCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartItemId")
-				Long cartItemId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
+				cartItemId,
 			CartItem cartItem)
 		throws Exception {
 
@@ -250,8 +250,8 @@ public abstract class BaseCartItemResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "CartItem")})
 	public CartItem putCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("cartItemId")
-				Long cartItemId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartItemId") Long
+				cartItemId,
 			CartItem cartItem)
 		throws Exception {
 
@@ -273,8 +273,8 @@ public abstract class BaseCartItemResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "CartItem")})
 	public Response putCartItemBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

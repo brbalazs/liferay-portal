@@ -140,8 +140,8 @@ public abstract class BaseAccountGroupResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "AccountGroup")})
 	public Response postAccountGroupBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -179,7 +179,7 @@ public abstract class BaseAccountGroupResourceImpl
 	public Response deleteAccountGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -205,7 +205,7 @@ public abstract class BaseAccountGroupResourceImpl
 	public AccountGroup getAccountGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new AccountGroup();
@@ -230,7 +230,7 @@ public abstract class BaseAccountGroupResourceImpl
 	public Response patchAccountGroupByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AccountGroup accountGroup)
 		throws Exception {
 
@@ -278,8 +278,8 @@ public abstract class BaseAccountGroupResourceImpl
 	@Tags(value = {@Tag(name = "AccountGroup")})
 	public Response deleteAccountGroupBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

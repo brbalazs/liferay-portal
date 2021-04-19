@@ -101,7 +101,7 @@ public abstract class BaseSkuResourceImpl
 	public Page<Sku> getProductByExternalReferenceCodeSkusPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -127,7 +127,7 @@ public abstract class BaseSkuResourceImpl
 	public Sku postProductByExternalReferenceCodeSku(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Sku sku)
 		throws Exception {
 
@@ -198,8 +198,8 @@ public abstract class BaseSkuResourceImpl
 	@Tags(value = {@Tag(name = "Sku")})
 	public Response postProductIdSkuBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -265,7 +265,7 @@ public abstract class BaseSkuResourceImpl
 	public Response deleteSkuByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -291,7 +291,7 @@ public abstract class BaseSkuResourceImpl
 	public Sku getSkuByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Sku();
@@ -316,7 +316,7 @@ public abstract class BaseSkuResourceImpl
 	public Response patchSkuByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Sku sku)
 		throws Exception {
 
@@ -364,8 +364,8 @@ public abstract class BaseSkuResourceImpl
 	@Tags(value = {@Tag(name = "Sku")})
 	public Response deleteSkuBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

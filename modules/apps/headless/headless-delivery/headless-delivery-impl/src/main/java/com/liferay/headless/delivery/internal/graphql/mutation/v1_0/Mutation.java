@@ -991,8 +991,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseArticle patchKnowledgeBaseArticle(
 			@GraphQLName("knowledgeBaseArticleId") Long knowledgeBaseArticleId,
-			@GraphQLName("knowledgeBaseArticle")
-				KnowledgeBaseArticle knowledgeBaseArticle)
+			@GraphQLName("knowledgeBaseArticle") KnowledgeBaseArticle
+				knowledgeBaseArticle)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1008,8 +1008,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseArticle updateKnowledgeBaseArticle(
 			@GraphQLName("knowledgeBaseArticleId") Long knowledgeBaseArticleId,
-			@GraphQLName("knowledgeBaseArticle")
-				KnowledgeBaseArticle knowledgeBaseArticle)
+			@GraphQLName("knowledgeBaseArticle") KnowledgeBaseArticle
+				knowledgeBaseArticle)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1117,10 +1117,10 @@ public class Mutation {
 		description = "Creates a child knowledge base article of the knowledge base article identified by `parentKnowledgeBaseArticleId`."
 	)
 	public KnowledgeBaseArticle createKnowledgeBaseArticleKnowledgeBaseArticle(
-			@GraphQLName("parentKnowledgeBaseArticleId")
-				Long parentKnowledgeBaseArticleId,
-			@GraphQLName("knowledgeBaseArticle")
-				KnowledgeBaseArticle knowledgeBaseArticle)
+			@GraphQLName("parentKnowledgeBaseArticleId") Long
+				parentKnowledgeBaseArticleId,
+			@GraphQLName("knowledgeBaseArticle") KnowledgeBaseArticle
+				knowledgeBaseArticle)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1137,8 +1137,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseArticle createKnowledgeBaseFolderKnowledgeBaseArticle(
 			@GraphQLName("knowledgeBaseFolderId") Long knowledgeBaseFolderId,
-			@GraphQLName("knowledgeBaseArticle")
-				KnowledgeBaseArticle knowledgeBaseArticle)
+			@GraphQLName("knowledgeBaseArticle") KnowledgeBaseArticle
+				knowledgeBaseArticle)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1169,8 +1169,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new knowledge base article.")
 	public KnowledgeBaseArticle createSiteKnowledgeBaseArticle(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("knowledgeBaseArticle")
-				KnowledgeBaseArticle knowledgeBaseArticle)
+			@GraphQLName("knowledgeBaseArticle") KnowledgeBaseArticle
+				knowledgeBaseArticle)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1237,8 +1237,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseAttachment
 			createKnowledgeBaseArticleKnowledgeBaseAttachment(
-				@GraphQLName("knowledgeBaseArticleId")
-					Long knowledgeBaseArticleId,
+				@GraphQLName("knowledgeBaseArticleId") Long
+					knowledgeBaseArticleId,
 				@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
 
@@ -1273,8 +1273,8 @@ public class Mutation {
 		description = "Deletes the knowledge base file attachment and returns a 204 if the operation succeeds."
 	)
 	public boolean deleteKnowledgeBaseAttachment(
-			@GraphQLName("knowledgeBaseAttachmentId")
-				Long knowledgeBaseAttachmentId)
+			@GraphQLName("knowledgeBaseAttachmentId") Long
+				knowledgeBaseAttachmentId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
@@ -1337,8 +1337,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseFolder patchKnowledgeBaseFolder(
 			@GraphQLName("knowledgeBaseFolderId") Long knowledgeBaseFolderId,
-			@GraphQLName("knowledgeBaseFolder")
-				KnowledgeBaseFolder knowledgeBaseFolder)
+			@GraphQLName("knowledgeBaseFolder") KnowledgeBaseFolder
+				knowledgeBaseFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1354,8 +1354,8 @@ public class Mutation {
 	)
 	public KnowledgeBaseFolder updateKnowledgeBaseFolder(
 			@GraphQLName("knowledgeBaseFolderId") Long knowledgeBaseFolderId,
-			@GraphQLName("knowledgeBaseFolder")
-				KnowledgeBaseFolder knowledgeBaseFolder)
+			@GraphQLName("knowledgeBaseFolder") KnowledgeBaseFolder
+				knowledgeBaseFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1384,10 +1384,10 @@ public class Mutation {
 		description = "Creates a knowledge base folder inside the parent folder."
 	)
 	public KnowledgeBaseFolder createKnowledgeBaseFolderKnowledgeBaseFolder(
-			@GraphQLName("parentKnowledgeBaseFolderId")
-				Long parentKnowledgeBaseFolderId,
-			@GraphQLName("knowledgeBaseFolder")
-				KnowledgeBaseFolder knowledgeBaseFolder)
+			@GraphQLName("parentKnowledgeBaseFolderId") Long
+				parentKnowledgeBaseFolderId,
+			@GraphQLName("knowledgeBaseFolder") KnowledgeBaseFolder
+				knowledgeBaseFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1402,8 +1402,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new knowledge base folder.")
 	public KnowledgeBaseFolder createSiteKnowledgeBaseFolder(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("knowledgeBaseFolder")
-				KnowledgeBaseFolder knowledgeBaseFolder)
+			@GraphQLName("knowledgeBaseFolder") KnowledgeBaseFolder
+				knowledgeBaseFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1433,8 +1433,8 @@ public class Mutation {
 		description = "Deletes the message board attachment and returns a 204 if the operation succeeds."
 	)
 	public boolean deleteMessageBoardAttachment(
-			@GraphQLName("messageBoardAttachmentId")
-				Long messageBoardAttachmentId)
+			@GraphQLName("messageBoardAttachmentId") Long
+				messageBoardAttachmentId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
@@ -1470,8 +1470,8 @@ public class Mutation {
 	)
 	public MessageBoardAttachment
 			createMessageBoardMessageMessageBoardAttachment(
-				@GraphQLName("messageBoardMessageId")
-					Long messageBoardMessageId,
+				@GraphQLName("messageBoardMessageId") Long
+					messageBoardMessageId,
 				@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
 
@@ -1578,8 +1578,8 @@ public class Mutation {
 	)
 	public MessageBoardMessage patchMessageBoardMessage(
 			@GraphQLName("messageBoardMessageId") Long messageBoardMessageId,
-			@GraphQLName("messageBoardMessage")
-				MessageBoardMessage messageBoardMessage)
+			@GraphQLName("messageBoardMessage") MessageBoardMessage
+				messageBoardMessage)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1595,8 +1595,8 @@ public class Mutation {
 	)
 	public MessageBoardMessage updateMessageBoardMessage(
 			@GraphQLName("messageBoardMessageId") Long messageBoardMessageId,
-			@GraphQLName("messageBoardMessage")
-				MessageBoardMessage messageBoardMessage)
+			@GraphQLName("messageBoardMessage") MessageBoardMessage
+				messageBoardMessage)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1704,10 +1704,10 @@ public class Mutation {
 		description = "Creates a child message board message of the parent message."
 	)
 	public MessageBoardMessage createMessageBoardMessageMessageBoardMessage(
-			@GraphQLName("parentMessageBoardMessageId")
-				Long parentMessageBoardMessageId,
-			@GraphQLName("messageBoardMessage")
-				MessageBoardMessage messageBoardMessage)
+			@GraphQLName("parentMessageBoardMessageId") Long
+				parentMessageBoardMessageId,
+			@GraphQLName("messageBoardMessage") MessageBoardMessage
+				messageBoardMessage)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1724,8 +1724,8 @@ public class Mutation {
 	)
 	public MessageBoardMessage createMessageBoardThreadMessageBoardMessage(
 			@GraphQLName("messageBoardThreadId") Long messageBoardThreadId,
-			@GraphQLName("messageBoardMessage")
-				MessageBoardMessage messageBoardMessage)
+			@GraphQLName("messageBoardMessage") MessageBoardMessage
+				messageBoardMessage)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1789,8 +1789,8 @@ public class Mutation {
 	)
 	public MessageBoardSection patchMessageBoardSection(
 			@GraphQLName("messageBoardSectionId") Long messageBoardSectionId,
-			@GraphQLName("messageBoardSection")
-				MessageBoardSection messageBoardSection)
+			@GraphQLName("messageBoardSection") MessageBoardSection
+				messageBoardSection)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1806,8 +1806,8 @@ public class Mutation {
 	)
 	public MessageBoardSection updateMessageBoardSection(
 			@GraphQLName("messageBoardSectionId") Long messageBoardSectionId,
-			@GraphQLName("messageBoardSection")
-				MessageBoardSection messageBoardSection)
+			@GraphQLName("messageBoardSection") MessageBoardSection
+				messageBoardSection)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1866,10 +1866,10 @@ public class Mutation {
 		description = "Creates a new message board section in the parent section."
 	)
 	public MessageBoardSection createMessageBoardSectionMessageBoardSection(
-			@GraphQLName("parentMessageBoardSectionId")
-				Long parentMessageBoardSectionId,
-			@GraphQLName("messageBoardSection")
-				MessageBoardSection messageBoardSection)
+			@GraphQLName("parentMessageBoardSectionId") Long
+				parentMessageBoardSectionId,
+			@GraphQLName("messageBoardSection") MessageBoardSection
+				messageBoardSection)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1884,8 +1884,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new message board section.")
 	public MessageBoardSection createSiteMessageBoardSection(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("messageBoardSection")
-				MessageBoardSection messageBoardSection)
+			@GraphQLName("messageBoardSection") MessageBoardSection
+				messageBoardSection)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1916,8 +1916,8 @@ public class Mutation {
 	)
 	public MessageBoardThread createMessageBoardSectionMessageBoardThread(
 			@GraphQLName("messageBoardSectionId") Long messageBoardSectionId,
-			@GraphQLName("messageBoardThread")
-				MessageBoardThread messageBoardThread)
+			@GraphQLName("messageBoardThread") MessageBoardThread
+				messageBoardThread)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1981,8 +1981,8 @@ public class Mutation {
 	)
 	public MessageBoardThread patchMessageBoardThread(
 			@GraphQLName("messageBoardThreadId") Long messageBoardThreadId,
-			@GraphQLName("messageBoardThread")
-				MessageBoardThread messageBoardThread)
+			@GraphQLName("messageBoardThread") MessageBoardThread
+				messageBoardThread)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -1998,8 +1998,8 @@ public class Mutation {
 	)
 	public MessageBoardThread updateMessageBoardThread(
 			@GraphQLName("messageBoardThreadId") Long messageBoardThreadId,
-			@GraphQLName("messageBoardThread")
-				MessageBoardThread messageBoardThread)
+			@GraphQLName("messageBoardThread") MessageBoardThread
+				messageBoardThread)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2104,8 +2104,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new message board thread.")
 	public MessageBoardThread createSiteMessageBoardThread(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("messageBoardThread")
-				MessageBoardThread messageBoardThread)
+			@GraphQLName("messageBoardThread") MessageBoardThread
+				messageBoardThread)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2134,8 +2134,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new structured content.")
 	public StructuredContent createSiteStructuredContent(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("structuredContent")
-				StructuredContent structuredContent)
+			@GraphQLName("structuredContent") StructuredContent
+				structuredContent)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2165,10 +2165,10 @@ public class Mutation {
 		description = "Creates a new structured content in the folder."
 	)
 	public StructuredContent createStructuredContentFolderStructuredContent(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId,
-			@GraphQLName("structuredContent")
-				StructuredContent structuredContent)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId,
+			@GraphQLName("structuredContent") StructuredContent
+				structuredContent)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2182,8 +2182,8 @@ public class Mutation {
 
 	@GraphQLField
 	public Response createStructuredContentFolderStructuredContentBatch(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId,
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId,
 			@GraphQLName("callbackURL") String callbackURL,
 			@GraphQLName("object") Object object)
 		throws Exception {
@@ -2263,8 +2263,8 @@ public class Mutation {
 	)
 	public StructuredContent patchStructuredContent(
 			@GraphQLName("structuredContentId") Long structuredContentId,
-			@GraphQLName("structuredContent")
-				StructuredContent structuredContent)
+			@GraphQLName("structuredContent") StructuredContent
+				structuredContent)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2280,8 +2280,8 @@ public class Mutation {
 	)
 	public StructuredContent updateStructuredContent(
 			@GraphQLName("structuredContentId") Long structuredContentId,
-			@GraphQLName("structuredContent")
-				StructuredContent structuredContent)
+			@GraphQLName("structuredContent") StructuredContent
+				structuredContent)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2356,8 +2356,8 @@ public class Mutation {
 	@GraphQLField(description = "Creates a new structured content folder.")
 	public StructuredContentFolder createSiteStructuredContentFolder(
 			@GraphQLName("siteKey") @NotEmpty String siteKey,
-			@GraphQLName("structuredContentFolder")
-				StructuredContentFolder structuredContentFolder)
+			@GraphQLName("structuredContentFolder") StructuredContentFolder
+				structuredContentFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2389,10 +2389,10 @@ public class Mutation {
 	)
 	public StructuredContentFolder
 			createStructuredContentFolderStructuredContentFolder(
-				@GraphQLName("parentStructuredContentFolderId")
-					Long parentStructuredContentFolderId,
-				@GraphQLName("structuredContentFolder")
-					StructuredContentFolder structuredContentFolder)
+				@GraphQLName("parentStructuredContentFolderId") Long
+					parentStructuredContentFolderId,
+				@GraphQLName("structuredContentFolder") StructuredContentFolder
+					structuredContentFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2409,8 +2409,8 @@ public class Mutation {
 		description = "Deletes the structured content folder and returns a 204 if the operation succeeds."
 	)
 	public boolean deleteStructuredContentFolder(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
@@ -2441,10 +2441,10 @@ public class Mutation {
 		description = "Updates only the fields received in the request body, leaving any other fields untouched."
 	)
 	public StructuredContentFolder patchStructuredContentFolder(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId,
-			@GraphQLName("structuredContentFolder")
-				StructuredContentFolder structuredContentFolder)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId,
+			@GraphQLName("structuredContentFolder") StructuredContentFolder
+				structuredContentFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2459,10 +2459,10 @@ public class Mutation {
 		description = "Replaces the structured content folder with the information sent in the request body. Any missing fields are deleted, unless they are required."
 	)
 	public StructuredContentFolder updateStructuredContentFolder(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId,
-			@GraphQLName("structuredContentFolder")
-				StructuredContentFolder structuredContentFolder)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId,
+			@GraphQLName("structuredContentFolder") StructuredContentFolder
+				structuredContentFolder)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -2489,8 +2489,8 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean updateStructuredContentFolderSubscribe(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
@@ -2506,8 +2506,8 @@ public class Mutation {
 
 	@GraphQLField
 	public boolean updateStructuredContentFolderUnsubscribe(
-			@GraphQLName("structuredContentFolderId")
-				Long structuredContentFolderId)
+			@GraphQLName("structuredContentFolderId") Long
+				structuredContentFolderId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(

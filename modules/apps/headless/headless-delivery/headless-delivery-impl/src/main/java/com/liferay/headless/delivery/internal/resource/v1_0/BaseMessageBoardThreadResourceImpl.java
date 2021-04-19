@@ -113,10 +113,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 			getMessageBoardSectionMessageBoardThreadsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("messageBoardSectionId")
-					Long messageBoardSectionId,
+				Long messageBoardSectionId,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context
-					com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -149,7 +148,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public MessageBoardThread postMessageBoardSectionMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId,
+			Long messageBoardSectionId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -178,9 +177,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public Response postMessageBoardSectionMessageBoardThreadBatch(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			Long messageBoardSectionId,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -221,7 +220,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public void deleteMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -240,8 +239,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response deleteMessageBoardThreadBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -280,7 +279,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public MessageBoardThread getMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 
 		return new MessageBoardThread();
@@ -308,7 +307,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public MessageBoardThread patchMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId,
+			Long messageBoardThreadId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -423,7 +422,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public MessageBoardThread putMessageBoardThread(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId,
+			Long messageBoardThreadId,
 			MessageBoardThread messageBoardThread)
 		throws Exception {
 
@@ -445,8 +444,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response putMessageBoardThreadBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -487,7 +486,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public void deleteMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -510,7 +509,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public Rating getMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 
 		return new Rating();
@@ -536,7 +535,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public Rating postMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId,
+			Long messageBoardThreadId,
 			Rating rating)
 		throws Exception {
 
@@ -565,7 +564,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public Rating putMessageBoardThreadMyRating(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId,
+			Long messageBoardThreadId,
 			Rating rating)
 		throws Exception {
 
@@ -590,7 +589,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public void putMessageBoardThreadSubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -612,7 +611,7 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	public void putMessageBoardThreadUnsubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardThreadId")
-				Long messageBoardThreadId)
+			Long messageBoardThreadId)
 		throws Exception {
 	}
 
@@ -644,8 +643,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -693,8 +692,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardThread")})
 	public Response postSiteMessageBoardThreadBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

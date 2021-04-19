@@ -111,8 +111,8 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -160,8 +160,8 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	@Tags(value = {@Tag(name = "StructuredContentFolder")})
 	public Response postSiteStructuredContentFolderBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -213,10 +213,9 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			getStructuredContentFolderStructuredContentFoldersPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("parentStructuredContentFolderId")
-					Long parentStructuredContentFolderId,
+				Long parentStructuredContentFolderId,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context
-					com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -252,7 +251,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			postStructuredContentFolderStructuredContentFolder(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("parentStructuredContentFolderId")
-					Long parentStructuredContentFolderId,
+				Long parentStructuredContentFolderId,
 				StructuredContentFolder structuredContentFolder)
 		throws Exception {
 
@@ -282,7 +281,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public void deleteStructuredContentFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId)
+			Long structuredContentFolderId)
 		throws Exception {
 	}
 
@@ -301,8 +300,8 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "StructuredContentFolder")})
 	public Response deleteStructuredContentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -343,7 +342,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public StructuredContentFolder getStructuredContentFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId)
+			Long structuredContentFolderId)
 		throws Exception {
 
 		return new StructuredContentFolder();
@@ -373,7 +372,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public StructuredContentFolder patchStructuredContentFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId,
+			Long structuredContentFolderId,
 			StructuredContentFolder structuredContentFolder)
 		throws Exception {
 
@@ -462,7 +461,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public StructuredContentFolder putStructuredContentFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId,
+			Long structuredContentFolderId,
 			StructuredContentFolder structuredContentFolder)
 		throws Exception {
 
@@ -484,8 +483,8 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "StructuredContentFolder")})
 	public Response putStructuredContentFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -525,7 +524,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public void putStructuredContentFolderSubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId)
+			Long structuredContentFolderId)
 		throws Exception {
 	}
 
@@ -549,7 +548,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	public void putStructuredContentFolderUnsubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("structuredContentFolderId")
-				Long structuredContentFolderId)
+			Long structuredContentFolderId)
 		throws Exception {
 	}
 

@@ -139,8 +139,8 @@ public abstract class BaseOptionCategoryResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "OptionCategory")})
 	public Response postOptionCategoryBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -199,8 +199,8 @@ public abstract class BaseOptionCategoryResourceImpl
 	@Tags(value = {@Tag(name = "OptionCategory")})
 	public Response deleteOptionCategoryBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

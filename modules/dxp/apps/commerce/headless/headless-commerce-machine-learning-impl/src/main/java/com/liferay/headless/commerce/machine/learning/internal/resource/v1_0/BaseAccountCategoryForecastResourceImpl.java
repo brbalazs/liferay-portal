@@ -98,16 +98,16 @@ public abstract class BaseAccountCategoryForecastResourceImpl
 	@Tags(value = {@Tag(name = "AccountCategoryForecast")})
 	public Page<AccountCategoryForecast>
 			getAccountCategoryForecastsByMonthlyRevenuePage(
-				@Parameter(hidden = true) @QueryParam("accountIds")
-					Long[] accountIds,
-				@Parameter(hidden = true) @QueryParam("categoryIds")
-					Long[] categoryIds,
-				@Parameter(hidden = true) @QueryParam("forecastLength")
-					Integer forecastLength,
+				@Parameter(hidden = true) @QueryParam("accountIds") Long[]
+					accountIds,
+				@Parameter(hidden = true) @QueryParam("categoryIds") Long[]
+					categoryIds,
+				@Parameter(hidden = true) @QueryParam("forecastLength") Integer
+					forecastLength,
 				@Parameter(hidden = true) @QueryParam("forecastStartDate")
 					java.util.Date forecastStartDate,
-				@Parameter(hidden = true) @QueryParam("historyLength")
-					Integer historyLength,
+				@Parameter(hidden = true) @QueryParam("historyLength") Integer
+					historyLength,
 				@Context Pagination pagination)
 		throws Exception {
 

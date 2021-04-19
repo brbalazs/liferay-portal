@@ -103,7 +103,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Page<Attachment> getProductByExternalReferenceCodeAttachmentsPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -131,7 +131,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeAttachment(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Attachment attachment)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeAttachmentByBase64(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AttachmentBase64 attachmentBase64)
 		throws Exception {
 
@@ -187,7 +187,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeAttachmentByUrl(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AttachmentUrl attachmentUrl)
 		throws Exception {
 
@@ -214,7 +214,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Page<Attachment> getProductByExternalReferenceCodeImagesPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -240,7 +240,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeImage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Attachment attachment)
 		throws Exception {
 
@@ -268,7 +268,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeImageByBase64(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AttachmentBase64 attachmentBase64)
 		throws Exception {
 
@@ -296,7 +296,7 @@ public abstract class BaseAttachmentResourceImpl
 	public Attachment postProductByExternalReferenceCodeImageByUrl(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			AttachmentUrl attachmentUrl)
 		throws Exception {
 
@@ -367,8 +367,8 @@ public abstract class BaseAttachmentResourceImpl
 	@Tags(value = {@Tag(name = "Attachment")})
 	public Response postProductIdAttachmentBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

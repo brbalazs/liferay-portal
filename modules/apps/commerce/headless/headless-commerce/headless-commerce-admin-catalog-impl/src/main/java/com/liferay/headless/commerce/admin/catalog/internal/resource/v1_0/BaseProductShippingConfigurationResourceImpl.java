@@ -97,7 +97,7 @@ public abstract class BaseProductShippingConfigurationResourceImpl
 			getProductByExternalReferenceCodeShippingConfiguration(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode)
+				String externalReferenceCode)
 		throws Exception {
 
 		return new ProductShippingConfiguration();
@@ -124,7 +124,7 @@ public abstract class BaseProductShippingConfigurationResourceImpl
 	public Response patchProductByExternalReferenceCodeShippingConfiguration(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			ProductShippingConfiguration productShippingConfiguration)
 		throws Exception {
 

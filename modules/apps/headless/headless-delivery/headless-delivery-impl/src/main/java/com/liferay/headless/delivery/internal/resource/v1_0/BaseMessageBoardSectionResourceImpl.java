@@ -104,7 +104,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public void deleteMessageBoardSection(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId)
+			Long messageBoardSectionId)
 		throws Exception {
 	}
 
@@ -123,8 +123,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "MessageBoardSection")})
 	public Response deleteMessageBoardSectionBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -163,7 +163,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public MessageBoardSection getMessageBoardSection(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId)
+			Long messageBoardSectionId)
 		throws Exception {
 
 		return new MessageBoardSection();
@@ -191,7 +191,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public MessageBoardSection patchMessageBoardSection(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId,
+			Long messageBoardSectionId,
 			MessageBoardSection messageBoardSection)
 		throws Exception {
 
@@ -276,7 +276,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public MessageBoardSection putMessageBoardSection(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId,
+			Long messageBoardSectionId,
 			MessageBoardSection messageBoardSection)
 		throws Exception {
 
@@ -298,8 +298,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "MessageBoardSection")})
 	public Response putMessageBoardSectionBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -337,7 +337,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public void putMessageBoardSectionSubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId)
+			Long messageBoardSectionId)
 		throws Exception {
 	}
 
@@ -359,7 +359,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public void putMessageBoardSectionUnsubscribe(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("messageBoardSectionId")
-				Long messageBoardSectionId)
+			Long messageBoardSectionId)
 		throws Exception {
 	}
 
@@ -394,10 +394,9 @@ public abstract class BaseMessageBoardSectionResourceImpl
 			getMessageBoardSectionMessageBoardSectionsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("parentMessageBoardSectionId")
-					Long parentMessageBoardSectionId,
+				Long parentMessageBoardSectionId,
 				@Parameter(hidden = true) @QueryParam("search") String search,
-				@Context
-					com.liferay.portal.vulcan.aggregation.Aggregation
+				@Context com.liferay.portal.vulcan.aggregation.Aggregation
 					aggregation,
 				@Context Filter filter, @Context Pagination pagination,
 				@Context Sort[] sorts)
@@ -432,7 +431,7 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	public MessageBoardSection postMessageBoardSectionMessageBoardSection(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentMessageBoardSectionId")
-				Long parentMessageBoardSectionId,
+			Long parentMessageBoardSectionId,
 			MessageBoardSection messageBoardSection)
 		throws Exception {
 
@@ -467,8 +466,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("flatten") Boolean flatten,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -516,8 +515,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 	@Tags(value = {@Tag(name = "MessageBoardSection")})
 	public Response postSiteMessageBoardSectionBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

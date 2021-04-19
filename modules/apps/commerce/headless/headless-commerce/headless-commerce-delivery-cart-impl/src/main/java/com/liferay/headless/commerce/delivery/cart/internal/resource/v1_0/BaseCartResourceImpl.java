@@ -119,8 +119,8 @@ public abstract class BaseCartResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Cart")})
 	public Response deleteCartBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -326,8 +326,8 @@ public abstract class BaseCartResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "Cart")})
 	public Response putCartBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -391,8 +391,8 @@ public abstract class BaseCartResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Page<Cart> getChannelCartsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -412,8 +412,8 @@ public abstract class BaseCartResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Cart postChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId")
-				Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			Cart cart)
 		throws Exception {
 

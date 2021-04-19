@@ -98,7 +98,7 @@ public abstract class BaseWarehouseResourceImpl
 	public Response deleteWarehousByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -124,7 +124,7 @@ public abstract class BaseWarehouseResourceImpl
 	public Warehouse getWarehousByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new Warehouse();
@@ -149,7 +149,7 @@ public abstract class BaseWarehouseResourceImpl
 	public Response patchWarehousByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			Warehouse warehouse)
 		throws Exception {
 

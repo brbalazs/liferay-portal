@@ -99,8 +99,8 @@ public abstract class BaseTaxCategoryResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TaxCategory")})
 	public Page<TaxCategory> getCommerceAdminSiteSettingGroupTaxCategoryPage(
-			@NotNull @Parameter(hidden = true) @PathParam("groupId")
-				Long groupId,
+			@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+				groupId,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -120,8 +120,8 @@ public abstract class BaseTaxCategoryResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TaxCategory")})
 	public TaxCategory postCommerceAdminSiteSettingGroupTaxCategory(
-			@NotNull @Parameter(hidden = true) @PathParam("groupId")
-				Long groupId,
+			@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+				groupId,
 			TaxCategory taxCategory)
 		throws Exception {
 
@@ -167,8 +167,8 @@ public abstract class BaseTaxCategoryResourceImpl
 	@Tags(value = {@Tag(name = "TaxCategory")})
 	public Response deleteTaxCategoryBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -247,8 +247,8 @@ public abstract class BaseTaxCategoryResourceImpl
 	@Tags(value = {@Tag(name = "TaxCategory")})
 	public Response putTaxCategoryBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

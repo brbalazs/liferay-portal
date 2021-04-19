@@ -105,7 +105,7 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 			getKnowledgeBaseArticleKnowledgeBaseAttachmentsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("knowledgeBaseArticleId")
-					Long knowledgeBaseArticleId)
+				Long knowledgeBaseArticleId)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -136,7 +136,7 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 			postKnowledgeBaseArticleKnowledgeBaseAttachment(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("knowledgeBaseArticleId")
-					Long knowledgeBaseArticleId,
+				Long knowledgeBaseArticleId,
 				MultipartBody multipartBody)
 		throws Exception {
 
@@ -165,10 +165,10 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 	public Response postKnowledgeBaseArticleKnowledgeBaseAttachmentBatch(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseArticleId")
-				Long knowledgeBaseArticleId,
+			Long knowledgeBaseArticleId,
 			MultipartBody multipartBody,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -212,7 +212,7 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 	public void deleteKnowledgeBaseAttachment(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseAttachmentId")
-				Long knowledgeBaseAttachmentId)
+			Long knowledgeBaseAttachmentId)
 		throws Exception {
 	}
 
@@ -231,8 +231,8 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "KnowledgeBaseAttachment")})
 	public Response deleteKnowledgeBaseAttachmentBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -273,7 +273,7 @@ public abstract class BaseKnowledgeBaseAttachmentResourceImpl
 	public KnowledgeBaseAttachment getKnowledgeBaseAttachment(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseAttachmentId")
-				Long knowledgeBaseAttachmentId)
+			Long knowledgeBaseAttachmentId)
 		throws Exception {
 
 		return new KnowledgeBaseAttachment();

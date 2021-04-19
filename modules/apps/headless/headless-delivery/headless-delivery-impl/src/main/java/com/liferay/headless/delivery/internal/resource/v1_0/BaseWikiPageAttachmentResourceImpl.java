@@ -103,7 +103,7 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	public void deleteWikiPageAttachment(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("wikiPageAttachmentId")
-				Long wikiPageAttachmentId)
+			Long wikiPageAttachmentId)
 		throws Exception {
 	}
 
@@ -122,8 +122,8 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPageAttachment")})
 	public Response deleteWikiPageAttachmentBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -162,7 +162,7 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	public WikiPageAttachment getWikiPageAttachment(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("wikiPageAttachmentId")
-				Long wikiPageAttachmentId)
+			Long wikiPageAttachmentId)
 		throws Exception {
 
 		return new WikiPageAttachment();
@@ -183,8 +183,8 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPageAttachment")})
 	public Page<WikiPageAttachment> getWikiPageWikiPageAttachmentsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -208,8 +208,8 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPageAttachment")})
 	public WikiPageAttachment postWikiPageWikiPageAttachment(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId,
 			MultipartBody multipartBody)
 		throws Exception {
 
@@ -234,11 +234,11 @@ public abstract class BaseWikiPageAttachmentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPageAttachment")})
 	public Response postWikiPageWikiPageAttachmentBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId,
 			MultipartBody multipartBody,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -104,7 +104,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 			getAccountByExternalReferenceCodeAccountOrganizationsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -133,7 +133,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 			postAccountByExternalReferenceCodeAccountOrganization(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				AccountOrganization accountOrganization)
 		throws Exception {
 
@@ -161,9 +161,9 @@ public abstract class BaseAccountOrganizationResourceImpl
 	public Response deleteAccountByExternalReferenceCodeAccountOrganization(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
-				Long organizationId)
+			String externalReferenceCode,
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
+				organizationId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -193,7 +193,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 			getAccountByExternalReferenceCodeAccountOrganization(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@NotNull @Parameter(hidden = true) @PathParam("organizationId")
 					Long organizationId)
 		throws Exception {
@@ -265,8 +265,8 @@ public abstract class BaseAccountOrganizationResourceImpl
 	@Tags(value = {@Tag(name = "AccountOrganization")})
 	public Response postAccountIdAccountOrganizationBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -304,8 +304,8 @@ public abstract class BaseAccountOrganizationResourceImpl
 	@Tags(value = {@Tag(name = "AccountOrganization")})
 	public Response deleteAccountIdAccountOrganization(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
-				Long organizationId)
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
+				organizationId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -331,8 +331,8 @@ public abstract class BaseAccountOrganizationResourceImpl
 	@Tags(value = {@Tag(name = "AccountOrganization")})
 	public AccountOrganization getAccountIdAccountOrganization(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@NotNull @Parameter(hidden = true) @PathParam("organizationId")
-				Long organizationId)
+			@NotNull @Parameter(hidden = true) @PathParam("organizationId") Long
+				organizationId)
 		throws Exception {
 
 		return new AccountOrganization();

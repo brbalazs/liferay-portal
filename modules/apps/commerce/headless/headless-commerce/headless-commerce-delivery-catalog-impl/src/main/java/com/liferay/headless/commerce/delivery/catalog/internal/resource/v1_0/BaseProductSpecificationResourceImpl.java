@@ -95,10 +95,10 @@ public abstract class BaseProductSpecificationResourceImpl
 	@Tags(value = {@Tag(name = "ProductSpecification")})
 	public Page<ProductSpecification>
 			getChannelProductProductSpecificationsPage(
-				@NotNull @Parameter(hidden = true) @PathParam("channelId")
-					Long channelId,
-				@NotNull @Parameter(hidden = true) @PathParam("productId")
-					Long productId,
+				@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+					channelId,
+				@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+					productId,
 				@Context Pagination pagination)
 		throws Exception {
 

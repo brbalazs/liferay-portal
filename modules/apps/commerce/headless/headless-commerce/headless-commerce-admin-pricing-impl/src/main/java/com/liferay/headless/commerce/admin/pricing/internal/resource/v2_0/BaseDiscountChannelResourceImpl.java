@@ -115,8 +115,8 @@ public abstract class BaseDiscountChannelResourceImpl
 	@Tags(value = {@Tag(name = "DiscountChannel")})
 	public Response deleteDiscountChannelBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BaseDiscountChannelResourceImpl
 			getDiscountByExternalReferenceCodeDiscountChannelsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -187,7 +187,7 @@ public abstract class BaseDiscountChannelResourceImpl
 	public DiscountChannel postDiscountByExternalReferenceCodeDiscountChannel(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			DiscountChannel discountChannel)
 		throws Exception {
 
@@ -263,8 +263,8 @@ public abstract class BaseDiscountChannelResourceImpl
 	@Tags(value = {@Tag(name = "DiscountChannel")})
 	public Response postDiscountIdDiscountChannelBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

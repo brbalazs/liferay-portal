@@ -106,11 +106,11 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Page<WikiPage> getWikiNodeWikiPagesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
-				Long wikiNodeId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
+				wikiNodeId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -134,8 +134,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage postWikiNodeWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
-				Long wikiNodeId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
+				wikiNodeId,
 			WikiPage wikiPage)
 		throws Exception {
 
@@ -160,10 +160,10 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response postWikiNodeWikiPageBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId")
-				Long wikiNodeId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiNodeId") Long
+				wikiNodeId,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -197,8 +197,8 @@ public abstract class BaseWikiPageResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void putWikiPageSubscribe(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId)
 		throws Exception {
 	}
 
@@ -216,8 +216,8 @@ public abstract class BaseWikiPageResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void putWikiPageUnsubscribe(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId)
 		throws Exception {
 	}
 
@@ -286,8 +286,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public void deleteWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId)
 		throws Exception {
 	}
 
@@ -306,8 +306,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response deleteWikiPageBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -342,8 +342,8 @@ public abstract class BaseWikiPageResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage getWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId)
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId)
 		throws Exception {
 
 		return new WikiPage();
@@ -367,8 +367,8 @@ public abstract class BaseWikiPageResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public WikiPage putWikiPage(
-			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId")
-				Long wikiPageId,
+			@NotNull @Parameter(hidden = true) @PathParam("wikiPageId") Long
+				wikiPageId,
 			WikiPage wikiPage)
 		throws Exception {
 
@@ -390,8 +390,8 @@ public abstract class BaseWikiPageResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "WikiPage")})
 	public Response putWikiPageBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

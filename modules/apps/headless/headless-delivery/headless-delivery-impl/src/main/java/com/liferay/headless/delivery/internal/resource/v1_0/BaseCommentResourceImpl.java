@@ -106,11 +106,11 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public Page<Comment> getBlogPostingCommentsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -134,8 +134,8 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public Comment postBlogPostingComment(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			Comment comment)
 		throws Exception {
 
@@ -160,10 +160,10 @@ public abstract class BaseCommentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Comment")})
 	public Response postBlogPostingCommentBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -198,8 +198,8 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public void deleteComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId")
-				Long commentId)
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId)
 		throws Exception {
 	}
 
@@ -218,8 +218,8 @@ public abstract class BaseCommentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Comment")})
 	public Response deleteCommentBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -252,8 +252,8 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public Comment getComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId")
-				Long commentId)
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId)
 		throws Exception {
 
 		return new Comment();
@@ -275,8 +275,8 @@ public abstract class BaseCommentResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "Comment")})
 	public Comment putComment(
-			@NotNull @Parameter(hidden = true) @PathParam("commentId")
-				Long commentId,
+			@NotNull @Parameter(hidden = true) @PathParam("commentId") Long
+				commentId,
 			Comment comment)
 		throws Exception {
 
@@ -298,8 +298,8 @@ public abstract class BaseCommentResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "Comment")})
 	public Response putCommentBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -346,8 +346,8 @@ public abstract class BaseCommentResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("parentCommentId")
 				Long parentCommentId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -405,11 +405,11 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public Page<Comment> getDocumentCommentsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("documentId")
-				Long documentId,
+			@NotNull @Parameter(hidden = true) @PathParam("documentId") Long
+				documentId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -433,8 +433,8 @@ public abstract class BaseCommentResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Comment")})
 	public Comment postDocumentComment(
-			@NotNull @Parameter(hidden = true) @PathParam("documentId")
-				Long documentId,
+			@NotNull @Parameter(hidden = true) @PathParam("documentId") Long
+				documentId,
 			Comment comment)
 		throws Exception {
 
@@ -459,10 +459,10 @@ public abstract class BaseCommentResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "Comment")})
 	public Response postDocumentCommentBatch(
-			@NotNull @Parameter(hidden = true) @PathParam("documentId")
-				Long documentId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@NotNull @Parameter(hidden = true) @PathParam("documentId") Long
+				documentId,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -509,8 +509,8 @@ public abstract class BaseCommentResourceImpl
 			@NotNull @Parameter(hidden = true) @PathParam("structuredContentId")
 				Long structuredContentId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -564,8 +564,8 @@ public abstract class BaseCommentResourceImpl
 	public Response postStructuredContentCommentBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("structuredContentId")
 				Long structuredContentId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

@@ -101,8 +101,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public void deleteBlogPosting(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId)
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId)
 		throws Exception {
 	}
 
@@ -121,8 +121,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Response deleteBlogPostingBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -157,8 +157,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public BlogPosting getBlogPosting(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId)
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId)
 		throws Exception {
 
 		return new BlogPosting();
@@ -182,8 +182,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public BlogPosting patchBlogPosting(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			BlogPosting blogPosting)
 		throws Exception {
 
@@ -278,8 +278,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public BlogPosting putBlogPosting(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			BlogPosting blogPosting)
 		throws Exception {
 
@@ -301,8 +301,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Response putBlogPostingBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -339,8 +339,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public void deleteBlogPostingMyRating(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId)
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId)
 		throws Exception {
 	}
 
@@ -361,8 +361,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Rating getBlogPostingMyRating(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId)
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId)
 		throws Exception {
 
 		return new Rating();
@@ -386,8 +386,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Rating postBlogPostingMyRating(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			Rating rating)
 		throws Exception {
 
@@ -412,8 +412,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Rating putBlogPostingMyRating(
-			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId")
-				Long blogPostingId,
+			@NotNull @Parameter(hidden = true) @PathParam("blogPostingId") Long
+				blogPostingId,
 			Rating rating)
 		throws Exception {
 
@@ -446,8 +446,8 @@ public abstract class BaseBlogPostingResourceImpl
 	public Page<BlogPosting> getSiteBlogPostingsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -495,8 +495,8 @@ public abstract class BaseBlogPostingResourceImpl
 	@Tags(value = {@Tag(name = "BlogPosting")})
 	public Response postSiteBlogPostingBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

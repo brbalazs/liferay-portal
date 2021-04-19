@@ -96,7 +96,7 @@ public abstract class BaseShippingAddressResourceImpl
 	public ShippingAddress getOrderByExternalReferenceCodeShippingAddress(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new ShippingAddress();
@@ -123,7 +123,7 @@ public abstract class BaseShippingAddressResourceImpl
 	public Response patchOrderByExternalReferenceCodeShippingAddress(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			ShippingAddress shippingAddress)
 		throws Exception {
 

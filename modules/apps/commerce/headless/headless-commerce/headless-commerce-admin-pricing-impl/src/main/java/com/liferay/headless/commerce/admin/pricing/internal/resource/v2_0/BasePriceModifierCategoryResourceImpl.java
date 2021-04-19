@@ -115,8 +115,8 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public Response deletePriceModifierCategoryBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 			getPriceModifierByExternalReferenceCodePriceModifierCategoriesPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -188,7 +188,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 			postPriceModifierByExternalReferenceCodePriceModifierCategory(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				PriceModifierCategory priceModifierCategory)
 		throws Exception {
 
@@ -265,8 +265,8 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public Response postPriceModifierIdPriceModifierCategoryBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

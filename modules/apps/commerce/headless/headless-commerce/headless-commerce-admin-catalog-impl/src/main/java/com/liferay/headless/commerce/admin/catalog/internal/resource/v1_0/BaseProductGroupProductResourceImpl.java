@@ -115,8 +115,8 @@ public abstract class BaseProductGroupProductResourceImpl
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public Response deleteProductGroupProductBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -159,7 +159,7 @@ public abstract class BaseProductGroupProductResourceImpl
 			getProductGroupByExternalReferenceCodeProductGroupProductsPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -188,7 +188,7 @@ public abstract class BaseProductGroupProductResourceImpl
 			postProductGroupByExternalReferenceCodeProductGroupProduct(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("externalReferenceCode")
-					String externalReferenceCode,
+				String externalReferenceCode,
 				ProductGroupProduct productGroupProduct)
 		throws Exception {
 
@@ -259,8 +259,8 @@ public abstract class BaseProductGroupProductResourceImpl
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public Response postProductGroupIdProductGroupProductBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

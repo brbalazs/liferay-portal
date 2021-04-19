@@ -82,16 +82,16 @@ public abstract class BaseExportTaskResourceImpl implements ExportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExportTask")})
 	public ExportTask postExportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("className")
-				String className,
-			@NotNull @Parameter(hidden = true) @PathParam("contentType")
-				String contentType,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
-			@Parameter(hidden = true) @QueryParam("fieldNames")
-				String fieldNames,
-			@Parameter(hidden = true) @QueryParam("taskItemDelegateName")
-				String taskItemDelegateName)
+			@NotNull @Parameter(hidden = true) @PathParam("className") String
+				className,
+			@NotNull @Parameter(hidden = true) @PathParam("contentType") String
+				contentType,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
+			@Parameter(hidden = true) @QueryParam("fieldNames") String
+				fieldNames,
+			@Parameter(hidden = true) @QueryParam("taskItemDelegateName") String
+				taskItemDelegateName)
 		throws Exception {
 
 		return new ExportTask();
@@ -112,8 +112,8 @@ public abstract class BaseExportTaskResourceImpl implements ExportTaskResource {
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ExportTask")})
 	public ExportTask getExportTask(
-			@NotNull @Parameter(hidden = true) @PathParam("exportTaskId")
-				Long exportTaskId)
+			@NotNull @Parameter(hidden = true) @PathParam("exportTaskId") Long
+				exportTaskId)
 		throws Exception {
 
 		return new ExportTask();
@@ -134,8 +134,8 @@ public abstract class BaseExportTaskResourceImpl implements ExportTaskResource {
 	@Produces("application/octet-stream")
 	@Tags(value = {@Tag(name = "ExportTask")})
 	public Response getExportTaskContent(
-			@NotNull @Parameter(hidden = true) @PathParam("exportTaskId")
-				Long exportTaskId)
+			@NotNull @Parameter(hidden = true) @PathParam("exportTaskId") Long
+				exportTaskId)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();

@@ -117,8 +117,8 @@ public abstract class BaseBlogPostingImageResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "BlogPostingImage")})
 	public Response deleteBlogPostingImageBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -188,8 +188,8 @@ public abstract class BaseBlogPostingImageResourceImpl
 	public Page<BlogPostingImage> getSiteBlogPostingImagesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			@Parameter(hidden = true) @QueryParam("search") String search,
-			@Context
-				com.liferay.portal.vulcan.aggregation.Aggregation aggregation,
+			@Context com.liferay.portal.vulcan.aggregation.Aggregation
+				aggregation,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -240,8 +240,8 @@ public abstract class BaseBlogPostingImageResourceImpl
 	public Response postSiteBlogPostingImageBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
 			MultipartBody multipartBody,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

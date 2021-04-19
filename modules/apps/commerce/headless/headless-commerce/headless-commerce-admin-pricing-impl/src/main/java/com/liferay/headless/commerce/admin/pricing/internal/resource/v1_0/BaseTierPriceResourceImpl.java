@@ -103,7 +103,7 @@ public abstract class BaseTierPriceResourceImpl
 	public Page<TierPrice> getPriceEntryByExternalReferenceCodeTierPricesPage(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -131,7 +131,7 @@ public abstract class BaseTierPriceResourceImpl
 	public TierPrice postPriceEntryByExternalReferenceCodeTierPrice(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			TierPrice tierPrice)
 		throws Exception {
 
@@ -202,8 +202,8 @@ public abstract class BaseTierPriceResourceImpl
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Response postPriceEntryIdTierPriceBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -241,7 +241,7 @@ public abstract class BaseTierPriceResourceImpl
 	public Response deleteTierPriceByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -267,7 +267,7 @@ public abstract class BaseTierPriceResourceImpl
 	public TierPrice getTierPriceByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		return new TierPrice();
@@ -292,7 +292,7 @@ public abstract class BaseTierPriceResourceImpl
 	public Response patchTierPriceByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode")
-				String externalReferenceCode,
+			String externalReferenceCode,
 			TierPrice tierPrice)
 		throws Exception {
 
@@ -340,8 +340,8 @@ public abstract class BaseTierPriceResourceImpl
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Response deleteTierPriceBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 

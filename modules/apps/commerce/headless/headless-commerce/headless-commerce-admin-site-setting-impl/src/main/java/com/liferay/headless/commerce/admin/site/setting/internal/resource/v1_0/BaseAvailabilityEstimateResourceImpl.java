@@ -120,8 +120,8 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 	@Tags(value = {@Tag(name = "AvailabilityEstimate")})
 	public Response deleteAvailabilityEstimateBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -200,8 +200,8 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 	@Tags(value = {@Tag(name = "AvailabilityEstimate")})
 	public Response putAvailabilityEstimateBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -240,8 +240,8 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 	@Tags(value = {@Tag(name = "AvailabilityEstimate")})
 	public Page<AvailabilityEstimate>
 			getCommerceAdminSiteSettingGroupAvailabilityEstimatePage(
-				@NotNull @Parameter(hidden = true) @PathParam("groupId")
-					Long groupId,
+				@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+					groupId,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -262,8 +262,8 @@ public abstract class BaseAvailabilityEstimateResourceImpl
 	@Tags(value = {@Tag(name = "AvailabilityEstimate")})
 	public AvailabilityEstimate
 			postCommerceAdminSiteSettingGroupAvailabilityEstimate(
-				@NotNull @Parameter(hidden = true) @PathParam("groupId")
-					Long groupId,
+				@NotNull @Parameter(hidden = true) @PathParam("groupId") Long
+					groupId,
 				AvailabilityEstimate availabilityEstimate)
 		throws Exception {
 

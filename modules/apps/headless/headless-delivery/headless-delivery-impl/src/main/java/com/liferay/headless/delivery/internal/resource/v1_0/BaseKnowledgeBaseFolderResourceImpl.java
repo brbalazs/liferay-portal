@@ -104,7 +104,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	public void deleteKnowledgeBaseFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId)
+			Long knowledgeBaseFolderId)
 		throws Exception {
 	}
 
@@ -123,8 +123,8 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "KnowledgeBaseFolder")})
 	public Response deleteKnowledgeBaseFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -163,7 +163,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	public KnowledgeBaseFolder getKnowledgeBaseFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId)
+			Long knowledgeBaseFolderId)
 		throws Exception {
 
 		return new KnowledgeBaseFolder();
@@ -191,7 +191,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	public KnowledgeBaseFolder patchKnowledgeBaseFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId,
+			Long knowledgeBaseFolderId,
 			KnowledgeBaseFolder knowledgeBaseFolder)
 		throws Exception {
 
@@ -275,7 +275,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	public KnowledgeBaseFolder putKnowledgeBaseFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("knowledgeBaseFolderId")
-				Long knowledgeBaseFolderId,
+			Long knowledgeBaseFolderId,
 			KnowledgeBaseFolder knowledgeBaseFolder)
 		throws Exception {
 
@@ -297,8 +297,8 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	@PUT
 	@Tags(value = {@Tag(name = "KnowledgeBaseFolder")})
 	public Response putKnowledgeBaseFolderBatch(
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
@@ -346,7 +346,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 			getKnowledgeBaseFolderKnowledgeBaseFoldersPage(
 				@NotNull @Parameter(hidden = true)
 				@PathParam("parentKnowledgeBaseFolderId")
-					Long parentKnowledgeBaseFolderId,
+				Long parentKnowledgeBaseFolderId,
 				@Context Pagination pagination)
 		throws Exception {
 
@@ -379,7 +379,7 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	public KnowledgeBaseFolder postKnowledgeBaseFolderKnowledgeBaseFolder(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("parentKnowledgeBaseFolderId")
-				Long parentKnowledgeBaseFolderId,
+			Long parentKnowledgeBaseFolderId,
 			KnowledgeBaseFolder knowledgeBaseFolder)
 		throws Exception {
 
@@ -454,8 +454,8 @@ public abstract class BaseKnowledgeBaseFolderResourceImpl
 	@Tags(value = {@Tag(name = "KnowledgeBaseFolder")})
 	public Response postSiteKnowledgeBaseFolderBatch(
 			@NotNull @Parameter(hidden = true) @PathParam("siteId") Long siteId,
-			@Parameter(hidden = true) @QueryParam("callbackURL")
-				String callbackURL,
+			@Parameter(hidden = true) @QueryParam("callbackURL") String
+				callbackURL,
 			Object object)
 		throws Exception {
 
