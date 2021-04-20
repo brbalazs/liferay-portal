@@ -25,7 +25,7 @@ const Checkbox: React.FC<ICheckboxProps> = ({
 
 	useEffect(() => {
 		_checkboxRef.current.indeterminate = indeterminate;
-	});
+	}, [indeterminate]);
 
 	const classes = getCN('custom-control', 'custom-checkbox', className, {
 		['custom-control-inline']: displayInline
