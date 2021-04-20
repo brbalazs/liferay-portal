@@ -83,7 +83,7 @@ exports[`AddWorkspace should render 1`] = `
             <h1
               class="title"
             >
-              New Workspace
+              Create Workspace
             </h1>
             <div
               class="details-container"
@@ -101,14 +101,6 @@ exports[`AddWorkspace should render 1`] = `
                 <div
                   class="sheet-header"
                 >
-                  <h3
-                    class="title"
-                  >
-                    Configure your new workspace
-                  </h3>
-                  <p>
-                    test@liferay.com will be the owner of this workspace
-                  </p>
                   <h3
                     class="sheet-subtitle"
                   >
@@ -136,6 +128,32 @@ exports[`AddWorkspace should render 1`] = `
                         name="name"
                         type="text"
                         value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="sheet-section input-workspace-owner-email"
+                  >
+                    <div
+                      class=""
+                    >
+                      <label
+                        class="form-control-label label-root required"
+                        for="ownerEmailAddress"
+                      >
+                        <span
+                          class="content-container"
+                        >
+                          Workspace Owner Email
+                        </span>
+                      </label>
+                      <input
+                        class="input-root form-control"
+                        disabled=""
+                        id="ownerEmailAddress"
+                        name="ownerEmailAddress"
+                        type="text"
+                        value="test0@liferay.com"
                       />
                     </div>
                   </div>
@@ -204,7 +222,7 @@ exports[`AddWorkspace should render 1`] = `
                     class="sheet-section"
                   >
                     <label
-                      class="form-control-label label-root required"
+                      class="form-control-label label-root"
                     >
                       <span
                         class="content-container"
@@ -494,7 +512,7 @@ exports[`AddWorkspace should render 1`] = `
                     disabled=""
                     type="submit"
                   >
-                    Create Workspace
+                    Finish Setup
                   </button>
                 </div>
               </form>

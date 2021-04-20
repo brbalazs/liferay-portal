@@ -67,6 +67,7 @@ Object {
     "groupId": "23",
     "incidentReportEmailAddresses": Immutable.List [],
     "name": "project23",
+    "ownerEmailAddress": "test23@liferay.com",
     "recommendationsEnabled": true,
     "serverLocation": null,
     "state": "SCHEDULED",

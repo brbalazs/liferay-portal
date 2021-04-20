@@ -24,9 +24,13 @@ exports[`WorkspaceListItem should render 1`] = `
               <div
                 class="info-wrapper configuration-required"
               >
-                Configuration Required
+                Finish Setting Up Workspace
               </div>
-              New Unnamed Workspace
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              />
             </div>
             <div
               class="workspace-info"

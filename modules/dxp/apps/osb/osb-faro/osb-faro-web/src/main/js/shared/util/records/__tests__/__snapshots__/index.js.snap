@@ -11,6 +11,7 @@ Immutable.Record {
   "groupId": null,
   "incidentReportEmailAddresses": Immutable.List [],
   "name": "",
+  "ownerEmailAddress": "",
   "recommendationsEnabled": false,
   "serverLocation": null,
   "state": null,

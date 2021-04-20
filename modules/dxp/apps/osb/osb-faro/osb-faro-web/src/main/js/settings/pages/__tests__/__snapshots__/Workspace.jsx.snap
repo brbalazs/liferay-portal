@@ -86,6 +86,32 @@ exports[`Workspace Settting should render 1`] = `
                 </div>
               </div>
               <div
+                class="sheet-section input-workspace-owner-email"
+              >
+                <div
+                  class=""
+                >
+                  <label
+                    class="form-control-label label-root required"
+                    for="ownerEmailAddress"
+                  >
+                    <span
+                      class="content-container"
+                    >
+                      Workspace Owner Email
+                    </span>
+                  </label>
+                  <input
+                    class="input-root form-control"
+                    disabled=""
+                    id="ownerEmailAddress"
+                    name="ownerEmailAddress"
+                    type="text"
+                    value="test1@liferay.com"
+                  />
+                </div>
+              </div>
+              <div
                 class="sheet-section input-server"
               >
                 <div
@@ -151,7 +177,7 @@ exports[`Workspace Settting should render 1`] = `
                 class="sheet-section"
               >
                 <label
-                  class="form-control-label label-root required"
+                  class="form-control-label label-root"
                 >
                   <span
                     class="content-container"
