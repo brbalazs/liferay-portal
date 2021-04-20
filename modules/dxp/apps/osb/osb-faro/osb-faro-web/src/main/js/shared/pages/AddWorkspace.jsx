@@ -136,7 +136,7 @@ export class AddWorkspace extends React.Component {
 					/>
 				) : (
 					<WorkspacesBasePage
-						title={Liferay.Language.get('new-workspace')}
+						title={Liferay.Language.get('create-workspace')}
 					>
 						<AddWorkspaceForm
 							onSubmit={this.handleSubmit}
