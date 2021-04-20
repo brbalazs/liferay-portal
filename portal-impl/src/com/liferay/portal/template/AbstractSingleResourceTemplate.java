@@ -38,12 +38,11 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 	public AbstractSingleResourceTemplate(
 		TemplateResource templateResource,
 		TemplateResource errorTemplateResource, Map<String, Object> context,
-		TemplateContextHelper templateContextHelper, String templateManagerName,
-		boolean restricted, TemplateResourceCache templateResourceCache) {
+		TemplateContextHelper templateContextHelper, boolean restricted,
+		TemplateResourceCache templateResourceCache) {
 
 		super(
-			errorTemplateResource, context, templateContextHelper,
-			templateManagerName, restricted);
+			errorTemplateResource, context, templateContextHelper, restricted);
 
 		if (templateResource == null) {
 			throw new IllegalArgumentException("Template resource is null");
@@ -77,8 +76,8 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
 	 *             #AbstractSingleResourceTemplate(TemplateResource,
-	 *             TemplateResource, Map, TemplateContextHelper, String,
-	 *             boolean, TemplateResourceCache)}}
+	 *             TemplateResource, Map, TemplateContextHelper, boolean,
+	 *             TemplateResourceCache)}}
 	 */
 	@Deprecated
 	public AbstractSingleResourceTemplate(
@@ -89,7 +88,7 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 
 		this(
 			templateResource, errorTemplateResource, context,
-			templateContextHelper, templateManagerName, false, null);
+			templateContextHelper, false, null);
 	}
 
 	@Override

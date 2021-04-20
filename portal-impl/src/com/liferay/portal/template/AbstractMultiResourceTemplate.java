@@ -31,6 +31,21 @@ import java.util.Map;
  */
 public abstract class AbstractMultiResourceTemplate extends AbstractTemplate {
 
+	public AbstractMultiResourceTemplate(
+		List<TemplateResource> templateResources,
+		TemplateResource errorTemplateResource, Map<String, Object> context,
+		TemplateContextHelper templateContextHelper, boolean restricted) {
+
+		super(
+			errorTemplateResource, context, templateContextHelper, restricted);
+
+		if (ListUtil.isEmpty(templateResources)) {
+			throw new IllegalArgumentException("Template resource is null");
+		}
+
+		this.templateResources = templateResources;
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 *             #AbstractMultiResourceTemplate(List, TemplateResource, Map,
@@ -48,21 +63,21 @@ public abstract class AbstractMultiResourceTemplate extends AbstractTemplate {
 			templateContextHelper, templateManagerName, interval, false);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #AbstractMultiResourceTemplate(List, TemplateResource, Map,
+	 *             TemplateContextHelper, boolean)}}
+	 */
+	@Deprecated
 	public AbstractMultiResourceTemplate(
 		List<TemplateResource> templateResources,
 		TemplateResource errorTemplateResource, Map<String, Object> context,
 		TemplateContextHelper templateContextHelper, String templateManagerName,
 		long interval, boolean restricted) {
 
-		super(
-			errorTemplateResource, context, templateContextHelper,
-			templateManagerName, restricted);
-
-		if (ListUtil.isEmpty(templateResources)) {
-			throw new IllegalArgumentException("Template resource is null");
-		}
-
-		this.templateResources = templateResources;
+		this(
+			templateResources, errorTemplateResource, context,
+			templateContextHelper, false);
 	}
 
 	@Override

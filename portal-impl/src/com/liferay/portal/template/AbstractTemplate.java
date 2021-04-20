@@ -35,6 +35,29 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class AbstractTemplate implements Template {
 
+	public AbstractTemplate(
+		TemplateResource errorTemplateResource, Map<String, Object> context,
+		TemplateContextHelper templateContextHelper, boolean restricted) {
+
+		if (templateContextHelper == null) {
+			throw new IllegalArgumentException(
+				"Template context helper is null");
+		}
+
+		this.errorTemplateResource = errorTemplateResource;
+
+		this.context = new HashMap<>();
+
+		if (context != null) {
+			for (Map.Entry<String, Object> entry : context.entrySet()) {
+				put(entry.getKey(), entry.getValue());
+			}
+		}
+
+		_templateContextHelper = templateContextHelper;
+		_restricted = restricted;
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 *             #AbstractTemplate(TemplateResource, Map,
@@ -51,32 +74,18 @@ public abstract class AbstractTemplate implements Template {
 			templateManagerName, false);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #AbstractTemplate(TemplateResource, Map,
+	 *             TemplateContextHelper, boolean)}}
+	 */
+	@Deprecated
 	public AbstractTemplate(
 		TemplateResource errorTemplateResource, Map<String, Object> context,
 		TemplateContextHelper templateContextHelper, String templateManagerName,
 		boolean restricted) {
 
-		if (templateContextHelper == null) {
-			throw new IllegalArgumentException(
-				"Template context helper is null");
-		}
-
-		if (templateManagerName == null) {
-			throw new IllegalArgumentException("Template manager name is null");
-		}
-
-		this.errorTemplateResource = errorTemplateResource;
-
-		this.context = new HashMap<>();
-
-		if (context != null) {
-			for (Map.Entry<String, Object> entry : context.entrySet()) {
-				put(entry.getKey(), entry.getValue());
-			}
-		}
-
-		_templateContextHelper = templateContextHelper;
-		_restricted = restricted;
+		this(errorTemplateResource, context, templateContextHelper, false);
 	}
 
 	@Override
