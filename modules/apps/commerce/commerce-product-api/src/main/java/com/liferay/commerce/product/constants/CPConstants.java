@@ -47,9 +47,8 @@ public class CPConstants {
 
 	public static final String RESOURCE_NAME = "com.liferay.commerce.product";
 
-	public static final String SEPARATOR_ASSET_CATEGORY_URL = "/g/";
-
-	public static final String SEPARATOR_PRODUCT_URL = "/p/";
+	public static final String SERVICE_NAME_CP_FRIENDLY_URL =
+		"com.liferay.commerce.product.friendly.url";
 
 	public static final String SERVICE_NAME = "com.liferay.commerce.product";
 
