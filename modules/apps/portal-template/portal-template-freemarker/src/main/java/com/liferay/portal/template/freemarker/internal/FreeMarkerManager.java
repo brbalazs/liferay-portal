@@ -271,9 +271,7 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 			PortalCache<TemplateResource, TemplateCache.MaybeMissingTemplate>
 				portalCache = null;
 
-			if (_freeMarkerEngineConfiguration.resourceModificationCheck() !=
-					0) {
-
+			if (_freeMarkerTemplateResourceCache.isEnabled()) {
 				portalCache =
 					(PortalCache
 						<TemplateResource, TemplateCache.MaybeMissingTemplate>)
@@ -282,6 +280,9 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 									TemplateResource.class.getName(),
 									StringPool.POUND,
 									TemplateConstants.LANG_TYPE_FTL));
+
+				_freeMarkerTemplateResourceCache.setSecondLevelPortalCache(
+					portalCache);
 			}
 
 			TemplateCache templateCache = new LiferayTemplateCache(
@@ -434,9 +435,8 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 
 		return new FreeMarkerTemplate(
 			templateResource, errorTemplateResource, helperUtilities,
-			_configuration, templateContextHelper,
-			_freeMarkerEngineConfiguration.resourceModificationCheck(),
-			restricted, beansWrapper, this);
+			_configuration, templateContextHelper, restricted, beansWrapper,
+			this, _freeMarkerTemplateResourceCache);
 	}
 
 	protected FreeMarkerBundleClassloader getFreeMarkerBundleClassloader() {
@@ -525,6 +525,10 @@ public class FreeMarkerManager extends BaseSingleTemplateManager {
 	private volatile FreeMarkerBundleClassloader _freeMarkerBundleClassloader;
 	private volatile FreeMarkerEngineConfiguration
 		_freeMarkerEngineConfiguration;
+
+	@Reference
+	private FreeMarkerTemplateResourceCache _freeMarkerTemplateResourceCache;
+
 	private BeansWrapper _restrictedBeanWrapper;
 	private SingleVMPool _singleVMPool;
 	private final Map<String, String> _taglibMappings =

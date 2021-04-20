@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateResource;
+import com.liferay.portal.kernel.template.TemplateResourceCache;
 import com.liferay.portal.template.AbstractSingleResourceTemplate;
 import com.liferay.portal.template.TemplateContextHelper;
 import com.liferay.portal.template.TemplateResourceThreadLocal;
@@ -64,14 +65,14 @@ public class FreeMarkerTemplate extends AbstractSingleResourceTemplate {
 		TemplateResource templateResource,
 		TemplateResource errorTemplateResource, Map<String, Object> context,
 		Configuration configuration,
-		TemplateContextHelper templateContextHelper, long interval,
-		boolean restricted, BeansWrapper beansWrapper,
-		FreeMarkerManager freeMarkerManager) {
+		TemplateContextHelper templateContextHelper, boolean restricted,
+		BeansWrapper beansWrapper, FreeMarkerManager freeMarkerManager,
+		TemplateResourceCache templateResourceCache) {
 
 		super(
 			templateResource, errorTemplateResource, context,
-			templateContextHelper, TemplateConstants.LANG_TYPE_FTL, interval,
-			restricted);
+			templateContextHelper, TemplateConstants.LANG_TYPE_FTL, restricted,
+			templateResourceCache);
 
 		_configuration = configuration;
 		_beansWrapper = beansWrapper;
