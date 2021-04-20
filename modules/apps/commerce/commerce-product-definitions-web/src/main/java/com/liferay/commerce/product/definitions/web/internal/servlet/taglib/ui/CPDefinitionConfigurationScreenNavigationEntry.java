@@ -27,6 +27,7 @@ import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
+import com.liferay.commerce.product.url.CPFriendlyURL;
 import com.liferay.commerce.service.CPDAvailabilityEstimateService;
 import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivityRegistry;
@@ -131,7 +132,7 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 					_cpdAvailabilityEstimateService,
 					_cpDefinitionInventoryEngineRegistry, _cpDefinitionService,
 					_cpMeasurementUnitLocalService, _cpTaxCategoryService,
-					_itemSelector);
+					_cpFriendlyURL, _itemSelector);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -182,6 +183,9 @@ public class CPDefinitionConfigurationScreenNavigationEntry
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private CPFriendlyURL _cpFriendlyURL;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;

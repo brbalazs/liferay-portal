@@ -31,6 +31,7 @@ import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
+import com.liferay.commerce.product.url.CPFriendlyURL;
 import com.liferay.commerce.service.CPDAvailabilityEstimateService;
 import com.liferay.commerce.service.CommerceAvailabilityEstimateService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
@@ -65,12 +66,13 @@ public class CPDefinitionConfigurationDisplayContext
 		CPDefinitionInventoryEngineRegistry cpDefinitionInventoryEngineRegistry,
 		CPDefinitionService cpDefinitionService,
 		CPMeasurementUnitLocalService cpMeasurementUnitLocalService,
-		CPTaxCategoryService cpTaxCategoryService, ItemSelector itemSelector) {
+		CPTaxCategoryService cpTaxCategoryService, CPFriendlyURL cpFriendlyURL,
+		ItemSelector itemSelector) {
 
 		super(
 			actionHelper, httpServletRequest, commerceAccountGroupRelService,
 			commerceCatalogService, commerceChannelRelService,
-			cpDefinitionService, itemSelector);
+			cpDefinitionService, cpFriendlyURL, itemSelector);
 
 		_commerceAvailabilityEstimateService =
 			commerceAvailabilityEstimateService;
