@@ -193,28 +193,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 							<NavigationWarning when={!!project && dirty} />
 
 							<Sheet.Header>
-								{!editing && (
-									<>
-										<h3 className='title'>
-											{isTrialPath
-												? Liferay.Language.get(
-														'create-a-new-free-trial-workspace'
-												  )
-												: Liferay.Language.get(
-														'configure-your-new-workspace'
-												  )}
-										</h3>
-										<p>
-											{sub(
-												Liferay.Language.get(
-													'x-will-be-the-owner-of-this-workspace'
-												),
-												[currentUser.emailAddress]
-											)}
-										</p>
-									</>
-								)}
-
 								<Sheet.Subtitle>
 									{Liferay.Language.get('general')}
 								</Sheet.Subtitle>
@@ -500,13 +478,9 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											loading={isSubmitting}
 											type='submit'
 										>
-											{isSubmitting
-												? Liferay.Language.get(
-														'creating-new-workspace'
-												  )
-												: Liferay.Language.get(
-														'create-workspace'
-												  )}
+											{Liferay.Language.get(
+												'finish-setup'
+											)}
 										</Button>
 									</>
 								) : (
