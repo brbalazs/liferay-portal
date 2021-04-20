@@ -35,7 +35,6 @@ page import="com.liferay.commerce.product.asset.categories.web.internal.display.
 page import="com.liferay.commerce.product.asset.categories.web.internal.display.context.CategoryCPDisplayLayoutDisplayContext" %><%@
 page import="com.liferay.commerce.product.asset.categories.web.internal.frontend.CommerceCategoryDisplayPageClayTable" %><%@
 page import="com.liferay.commerce.product.asset.categories.web.internal.servlet.taglib.ui.CategoryCPAttachmentFormNavigatorConstants" %><%@
-page import="com.liferay.commerce.product.constants.CPConstants" %><%@
 page import="com.liferay.commerce.product.exception.CPAttachmentFileEntryExpirationDateException" %><%@
 page import="com.liferay.commerce.product.exception.CPDisplayLayoutEntryException" %><%@
 page import="com.liferay.commerce.product.exception.CPDisplayLayoutLayoutUuidException" %><%@
