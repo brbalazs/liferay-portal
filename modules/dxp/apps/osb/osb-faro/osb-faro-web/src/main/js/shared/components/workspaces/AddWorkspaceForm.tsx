@@ -34,6 +34,8 @@ const {
 	projectLocations: {EU, EU2, SA, UAT, US}
 } = Constants;
 
+const DEFAULT_TIME_ZONE = 'UTC';
+
 let projectLocations = [
 	{label: Liferay.Language.get('location-eu'), value: EU},
 	{label: Liferay.Language.get('location-eu2'), value: EU2},
@@ -172,7 +174,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||
-							''
+							DEFAULT_TIME_ZONE
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -281,7 +283,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								</Sheet.Section>
 
 								<Sheet.Section>
-									<Form.Label required>
+									<Form.Label>
 										{Liferay.Language.get('timezone')}
 									</Form.Label>
 
@@ -294,10 +296,13 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 									<TimeZonePicker
 										fieldName='timeZoneId'
 										initialTimeZone={
-											project &&
-											new TimeZone(
-												project.getIn(['timeZone'])
-											)
+											project
+												? new TimeZone(
+														project.getIn([
+															'timeZone'
+														])
+												  )
+												: new TimeZone()
 										}
 										setFieldTouched={setFieldTouched}
 										setFieldValue={setFieldValue}
