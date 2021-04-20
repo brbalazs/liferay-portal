@@ -857,6 +857,7 @@ export function mockProject(seed = 1, data = {}) {
 		faroSubscription: new Map(),
 		groupId: seed,
 		name: `project${seed}`,
+		ownerEmailAddress: `test${seed}@liferay.com`,
 		percentageComplete: 0,
 		recommendationsEnabled: true,
 		state: ProjectStates.Ready,

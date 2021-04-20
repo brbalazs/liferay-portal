@@ -11,6 +11,7 @@ interface IProject {
 	groupId: number;
 	incidentReportEmailAddresses: List<string>;
 	name: string;
+	ownerEmailAddress: string;
 	recommendationsEnabled: boolean;
 	serverLocation: string;
 	state: string;
@@ -30,6 +31,7 @@ export default class Project
 		groupId: null,
 		incidentReportEmailAddresses: List(),
 		name: '',
+		ownerEmailAddress: '',
 		recommendationsEnabled: false,
 		serverLocation: null,
 		state: null,
@@ -47,6 +49,7 @@ export default class Project
 	groupId: number;
 	incidentReportEmailAddresses: List<string>;
 	name: string;
+	ownerEmailAddress: string;
 	recommendationsEnabled: boolean;
 	serverLocation: string;
 	state: string;

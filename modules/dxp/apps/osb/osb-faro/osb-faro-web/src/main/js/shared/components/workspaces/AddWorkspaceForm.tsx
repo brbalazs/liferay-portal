@@ -16,10 +16,8 @@ import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Formik} from 'formik';
-import {matchPath} from 'react-router-dom';
 import {Modal} from 'shared/types';
 import {Project, TimeZone} from 'shared/util/records';
-import {Routes} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
 import {
@@ -71,11 +69,8 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	project
 }) => {
 	const {currentUser} = useContext(BasePageContext);
+
 	const formRef = useRef<Formik>();
-	const isTrialPath = matchPath(location.pathname, {
-		exact: true,
-		path: Routes.WORKSPACE_ADD_TRIAL
-	});
 
 	const [inputListValue, setInputListValue] = useState();
 	const [
@@ -93,7 +88,11 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		const {friendlyURL: newFriendlyURL} = values;
 
 		const submitFn = () =>
-			onSubmit(values)
+			onSubmit({
+				...values,
+				ownerEmailAddress:
+					project?.ownerEmailAddress || currentUser.emailAddress
+			})
 				.then(() => {
 					setSubmitting(false);
 
@@ -160,20 +159,17 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 					initialValues={{
 						emailAddressDomains: emailAddressDomains || [],
 						friendlyURL:
-							project && project.friendlyURL
-								? project.friendlyURL.replace('/', '')
-								: '',
+							project?.friendlyURL?.replace('/', '') || '',
 						incidentReportEmailAddresses:
-							(project &&
-								project.incidentReportEmailAddresses &&
-								project.incidentReportEmailAddresses.toArray()) ||
+							project?.incidentReportEmailAddresses?.toArray() ||
 							[],
 						name: (project && project.name) || '',
-						serverLocation:
-							(project && project.serverLocation) || US,
+						ownerEmailAddress:
+							project?.ownerEmailAddress ||
+							currentUser.emailAddress,
+						serverLocation: project?.serverLocation || US,
 						timeZoneId:
-							(project &&
-								project.getIn(['timeZone', 'timeZoneId'])) ||
+							project?.getIn(['timeZone', 'timeZoneId']) ||
 							DEFAULT_TIME_ZONE
 					}}
 					onSubmit={handleSubmit}
@@ -209,6 +205,17 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											validateRequired,
 											validateMaxLength(255)
 										])}
+									/>
+								</Sheet.Section>
+
+								<Sheet.Section className='input-workspace-owner-email'>
+									<Form.Input
+										disabled
+										label={Liferay.Language.get(
+											'workspace-owner-email'
+										)}
+										name='ownerEmailAddress'
+										required
 									/>
 								</Sheet.Section>
 
