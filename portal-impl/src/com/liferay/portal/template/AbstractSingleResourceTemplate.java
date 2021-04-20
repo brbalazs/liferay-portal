@@ -14,16 +14,14 @@
 
 package com.liferay.portal.template;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.PortalCacheHelperUtil;
 import com.liferay.portal.kernel.cache.PortalCacheManagerNames;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
-import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateResource;
-import com.liferay.portal.kernel.template.TemplateResourceLoader;
+import com.liferay.portal.kernel.template.TemplateResourceCache;
 import com.liferay.portal.kernel.template.URLTemplateResource;
 import com.liferay.portal.kernel.util.StringBundler;
 
@@ -36,6 +34,27 @@ import java.util.Map;
  * @author Miroslav Ligas
  */
 public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
+
+	public AbstractSingleResourceTemplate(
+		TemplateResource templateResource,
+		TemplateResource errorTemplateResource, Map<String, Object> context,
+		TemplateContextHelper templateContextHelper, String templateManagerName,
+		boolean restricted, TemplateResourceCache templateResourceCache) {
+
+		super(
+			errorTemplateResource, context, templateContextHelper,
+			templateManagerName, restricted);
+
+		if (templateResource == null) {
+			throw new IllegalArgumentException("Template resource is null");
+		}
+
+		this.templateResource = templateResource;
+
+		if (templateResourceCache.isEnabled()) {
+			cacheTemplateResource(templateResourceCache);
+		}
+	}
 
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
@@ -55,25 +74,22 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 			templateContextHelper, templateManagerName, interval, false);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #AbstractSingleResourceTemplate(TemplateResource,
+	 *             TemplateResource, Map, TemplateContextHelper, String,
+	 *             boolean, TemplateResourceCache)}}
+	 */
+	@Deprecated
 	public AbstractSingleResourceTemplate(
 		TemplateResource templateResource,
 		TemplateResource errorTemplateResource, Map<String, Object> context,
 		TemplateContextHelper templateContextHelper, String templateManagerName,
 		long interval, boolean restricted) {
 
-		super(
-			errorTemplateResource, context, templateContextHelper,
-			templateManagerName, restricted);
-
-		if (templateResource == null) {
-			throw new IllegalArgumentException("Template resource is null");
-		}
-
-		this.templateResource = templateResource;
-
-		if (interval != 0) {
-			cacheTemplateResource(templateManagerName);
-		}
+		this(
+			templateResource, errorTemplateResource, context,
+			templateContextHelper, templateManagerName, false, null);
 	}
 
 	@Override
@@ -108,51 +124,48 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 		write(writer);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #cacheTemplateResource(TemplateResourceCache)}}
+	 */
+	@Deprecated
 	protected void cacheTemplateResource(String templateManagerName) {
-		if (!(templateResource instanceof CacheTemplateResource) &&
-			!(templateResource instanceof StringTemplateResource)) {
+	}
 
-			templateResource = new CacheTemplateResource(templateResource);
-		}
+	protected void cacheTemplateResource(
+		TemplateResourceCache templateResourceCache) {
 
-		String portalCacheName = TemplateResourceLoader.class.getName();
+		TemplateResource cachedTemplateResource =
+			templateResourceCache.getTemplateResource(
+				templateResource.getTemplateId());
 
-		portalCacheName = portalCacheName.concat(
-			StringPool.PERIOD
-		).concat(
-			templateManagerName
-		);
+		if ((cachedTemplateResource == null) ||
+			!templateResource.equals(cachedTemplateResource)) {
 
-		PortalCache<String, Serializable> portalCache = getPortalCache(
-			templateResource, portalCacheName);
-
-		Object object = portalCache.get(templateResource.getTemplateId());
-
-		if ((object == null) || !templateResource.equals(object)) {
-			portalCache.put(templateResource.getTemplateId(), templateResource);
+			templateResourceCache.put(
+				templateResource.getTemplateId(), templateResource);
 		}
 
 		if (errorTemplateResource == null) {
 			return;
 		}
 
-		if (!(errorTemplateResource instanceof CacheTemplateResource) &&
-			!(errorTemplateResource instanceof StringTemplateResource)) {
+		TemplateResource cachedErrorTemplateResource =
+			templateResourceCache.getTemplateResource(
+				errorTemplateResource.getTemplateId());
 
-			errorTemplateResource = new CacheTemplateResource(
-				errorTemplateResource);
-		}
+		if ((cachedErrorTemplateResource == null) ||
+			!errorTemplateResource.equals(cachedErrorTemplateResource)) {
 
-		portalCache = getPortalCache(errorTemplateResource, portalCacheName);
-
-		object = portalCache.get(errorTemplateResource.getTemplateId());
-
-		if ((object == null) || !errorTemplateResource.equals(object)) {
-			portalCache.put(
+			templateResourceCache.put(
 				errorTemplateResource.getTemplateId(), errorTemplateResource);
 		}
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	protected PortalCache<String, Serializable> getPortalCache(
 		TemplateResource templateResource, String portalCacheName) {
 
