@@ -218,9 +218,9 @@ export default class BaseSelect extends React.Component {
 
 	@autobind
 	handleSelect(item) {
-		this.props.onSelect(item);
-
 		this.handleOutsideClick();
+
+		this.props.onSelect(item);
 	}
 
 	@autobind
