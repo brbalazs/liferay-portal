@@ -35,6 +35,14 @@ class ManagementToolbar extends ClayComponent {
 				];
 
 				this._searchContainer = searchContainer;
+
+				const select = searchContainer.select;
+
+				if (select && select.getAllSelectedElements) {
+					this._setActiveStatus({
+						allSelectedElements: select.getAllSelectedElements()
+					});
+				}
 			}
 		);
 
@@ -175,15 +183,7 @@ class ManagementToolbar extends ClayComponent {
 	 */
 
 	_handleSearchContainerRowToggled(event) {
-		var elements = event.elements;
-
-		this.selectedItems = elements.allSelectedElements.filter(':enabled').size();
-
-		this.checkboxStatus = 'unchecked';
-
-		if (this.selectedItems !== 0) {
-			this.checkboxStatus = this.selectedItems < this.totalItems ? 'indeterminate' : 'checked';
-		}
+		this._setActiveStatus(event.elements);
 
 		if (this.actionItems) {
 			this.actionItems = this.actionItems.map(
@@ -196,6 +196,22 @@ class ManagementToolbar extends ClayComponent {
 					);
 				}
 			);
+		}
+	}
+
+	/**
+	 * Updates the management toolbar's active status checkbox.
+	 *
+	 * @param {object} elements The list of elements.
+	 * @private
+	 */
+	_setActiveStatus(elements) {
+		this.selectedItems = elements.allSelectedElements.filter(':enabled').size();
+
+		this.checkboxStatus = 'unchecked';
+
+		if (this.selectedItems !== 0) {
+			this.checkboxStatus = this.selectedItems < this.totalItems ? 'indeterminate' : 'checked';
 		}
 	}
 }
