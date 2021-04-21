@@ -19,6 +19,7 @@ import com.liferay.mail.kernel.service.MailService;
 import com.liferay.osb.faro.constants.DocumentationConstants;
 import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.service.base.FaroProjectLocalServiceBaseImpl;
 import com.liferay.osb.faro.util.EmailUtil;
 import com.liferay.petra.string.CharPool;
@@ -213,6 +214,13 @@ public class FaroProjectLocalServiceImpl
 	public void sendCreatedWorkspaceEmail(String weDeployKey) throws Exception {
 		FaroProject faroProject = fetchFaroProjectByWeDeployKey(weDeployKey);
 
+		FaroUser faroUser = faroUserLocalService.fetchOwnerFaroUser(
+			faroProject.getGroupId());
+
+		if (faroUser == null) {
+			return;
+		}
+
 		String body = StringUtil.read(
 			getClassLoader(),
 			"com/liferay/osb/faro/dependencies/created-workspace.html");
@@ -261,7 +269,7 @@ public class FaroProjectLocalServiceImpl
 		_mailService.sendEmail(
 			new MailMessage(
 				new InternetAddress("ac@liferay.com", "Analytics Cloud"),
-				new InternetAddress(user.getEmailAddress(), user.getFullName()),
+				new InternetAddress(faroUser.getEmailAddress(), null),
 				subject, body, true));
 	}
 
