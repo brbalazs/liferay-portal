@@ -59,6 +59,12 @@ CATALINA_OPTS=&quot;${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${solr.dir}/serv
 		</sequential>
 	</macrodef>
 
+	<macrodef name="configure-blacklist-osgi-config">
+		<sequential>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config">blacklistBundleSymbolicNames=&quot;com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.elasticsearch6.api,com.liferay.portal.search.elasticsearch6.impl,com.liferay.portal.search.elasticsearch6.xpack.security.impl,com.liferay.portal.search.elasticsearch6.xpack.monitoring.web&quot;</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="configure-liferay-solr-adapter-osgi-configs">
 		<sequential>
 			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrConfiguration.config">readURL="http://localhost:8983/solr/liferay"
@@ -152,6 +158,14 @@ SOLR_SSL_WANT_CLIENT_AUTH=true</echo>
 				<arg line="-storepass secret" />
 				<arg line="-validity 9999" />
 			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="deploy-solr-app">
+		<sequential>
+			<ant antfile="build-test.xml" target="deploy-osgi-apps">
+				<property name="osgi.app.includes" value="portal-search-${solr.major.version}" />
+			</ant>
 		</sequential>
 	</macrodef>
 
@@ -305,14 +319,6 @@ schema=schema.xml</echo>
 		</delete>
 	</target>
 
-	<target name="deploy-solr">
-		<ant antfile="build-test.xml" target="deploy-osgi-apps">
-			<property name="osgi.app.includes" value="portal-search-${solr.major.version}" />
-		</ant>
-
-		<echo file="${liferay.home}/osgi/configs/com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config">blacklistBundleSymbolicNames=&quot;com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.elasticsearch6.api,com.liferay.portal.search.elasticsearch6.impl,com.liferay.portal.search.elasticsearch6.xpack.security.impl,com.liferay.portal.search.elasticsearch6.xpack.monitoring.web,com.liferay.commerce.elasticsearch6,com.liferay.commerce.machine.learning.impl&quot;</echo>
-	</target>
-
 	<target name="print-solr-indices">
 		<exec executable="curl" outputproperty="curl.output.solr.indices">
 			<arg line="http://localhost:8983/solr/liferay/select?q=*:*&amp;wt=json" />
@@ -329,20 +335,18 @@ schema=schema.xml</echo>
 		<echo></echo>
 	</target>
 
-	<target name="set-up-solr">
-		<antcall target="deploy-solr" />
-
-		<antcall target="start-solr" />
-	</target>
-
 	<target name="start-solr">
 		<lstopwatch action="start" name="start.solr" />
 
 		<antcall target="delete-commerce-modules" />
 
+		<deploy-solr-app />
+
 		<unzip-solr />
 
 		<prepare-solr-configurations />
+
+		<configure-blacklist-osgi-config />
 
 		<configure-liferay-solr-adapter-osgi-configs />
 
