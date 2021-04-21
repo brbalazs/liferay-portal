@@ -16,7 +16,7 @@ definition {
 			value1 = "${LDAPServerName}");
 
 		Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVER_DEFAULT_VALUES_APACHE_DIRECTORY_SERVER_RADIO");
-
+I_AGREE
 		Button.clickSave();
 	}
 
@@ -128,14 +128,6 @@ definition {
 	macro configureCurrentLanguagesCP {
 		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
-		if (isSet(defaultPortalLanguage)) {
-			var defaultPortalLanguage = "${defaultPortalLanguage}";
-
-			Select(
-				locator1 = "Select#DEFAULT_LANGUAGE_2",
-				value1 = "${defaultPortalLanguage}");
-		}
-
 		if (isSet(currentPortalLanguages)) {
 			while (IsElementPresent(locator1 = "LanguageConfiguration#LANGUAGES_CURRENT_SELECT")) {
 				AddSelection(
@@ -158,6 +150,14 @@ definition {
 					locator1 = "LanguageConfiguration#LANGUAGES_CURRENT",
 					value1 = "${currentPortalLanguage}");
 			}
+		}
+
+		if (isSet(defaultPortalLanguage)) {
+			var defaultPortalLanguage = "${defaultPortalLanguage}";
+
+			Select(
+				locator1 = "Select#DEFAULT_LANGUAGE",
+				value1 = "${defaultPortalLanguage}");
 		}
 
 		if ("${failExpected}" == "true") {
