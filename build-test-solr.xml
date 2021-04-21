@@ -3,6 +3,11 @@
 <project basedir="." name="portal-test-solr" xmlns:antelope="antlib:ise.antelope.tasks">
 	<import file="build-test.xml" />
 
+	<property name="solr.version" value="7.5.0" />
+	<property name="solr.dir" value="${app.server.parent.dir}/solr-${solr.version}" />
+	<property name="solr.zip.name" value="solr-${solr.version}.zip" />
+	<property name="solr.zip.url" value="http://archive.apache.org/dist/lucene/solr/${solr.version}/${solr.zip.name}" />
+
 	<macrodef name="configure-app-server-ssl-jvm-arguments">
 		<sequential>
 			<if>
