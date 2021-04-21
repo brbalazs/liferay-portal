@@ -260,8 +260,8 @@ public class ContactPage {
 	public void assertSitesOverviewCards() throws Exception {
 		_faroSelenium.waitForElementPresent(
 			"//h5[text()='LIFERAY-DATASOURCE-FARO-EXAMPLE Activities']/pa" +
-				"rent::div/parent::div//li[contains(@class,'active')]/bu" +
-					"tton/span[text()='Visitors']");
+				"rent::div/parent::div//li[contains(@class,'active')]/button" +
+					"/span[text()='Visitors']");
 
 		_faroSelenium.assertElementPresent(
 			"//div[contains(@class,'table-tabs')]//h5[text()='Top Pages']");
