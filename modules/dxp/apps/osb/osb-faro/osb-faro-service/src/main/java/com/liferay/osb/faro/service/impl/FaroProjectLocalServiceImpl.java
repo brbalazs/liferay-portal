@@ -239,6 +239,9 @@ public class FaroProjectLocalServiceImpl
 				"[$BUTTON_TEXT$]", "[$BUTTON_URL$]", "[$HELP_MSG$]",
 				"[$LINK_WORKSPACE$]", "[$LOGO_ICON_URL$]",
 				"[$NOTIFICATION_MSG_1$]", "[$NOTIFICATION_MSG_2$]",
+				"[$NOTIFICATION_MSG_3$]", "[$NOTIFICATION_MSG_4$]",
+				"[$NOTIFICATION_MSG_5$]", "[$NOTIFICATION_MSG_6$]",
+				"[$NOTIFICATION_MSG_7$]", "[$NOTIFICATION_MSG_8$]",
 				"[$TITLE_ICON_URL$]"
 			},
 			new String[] {
@@ -254,12 +257,27 @@ public class FaroProjectLocalServiceImpl
 					"<a class=\"body-link\" href=\"", workspaceURL, "\">",
 					workspaceURL, "</a>"),
 				EmailUtil.getLogoIconURL(),
-				_language.get(
-					resourceBundle, "your-new-workspace-is-ready-to-use"),
+				_language.get(resourceBundle, "welcome-to-analytics-cloud"),
 				_language.format(
+					resourceBundle, "email-your-workspace-x-is-ready",
+					faroProject.getName()),
+				_language.format(
+					resourceBundle, "email-sign-in-or-create-an-account",
+					new String[] {
+						"<a class=\"body-link\" href=\"" + _FARO_URL + "\">",
+						"</a>",
+						"<b class=\"link-override\">" +
+							faroUser.getEmailAddress() + "</strong>"
+					}),
+				_language.get(resourceBundle, "getting-started"),
+				_language.get(
+					resourceBundle, "get-up-and-running-in-three-steps"),
+				_language.get(
 					resourceBundle,
-					"x-is-now-ready-you-can-access-it-with-the-link-below",
-					"<strong>" + faroProject.getName() + "</strong>"),
+					"connect-your-liferay-dxp-sites-to-a-property"),
+				_language.get(resourceBundle, "connect-and-map-user-data"),
+				_language.get(
+					resourceBundle, "invite-teammates-to-collaborate"),
 				EmailUtil.getTitleIconURL()
 			});
 
@@ -269,8 +287,8 @@ public class FaroProjectLocalServiceImpl
 		_mailService.sendEmail(
 			new MailMessage(
 				new InternetAddress("ac@liferay.com", "Analytics Cloud"),
-				new InternetAddress(faroUser.getEmailAddress(), null),
-				subject, body, true));
+				new InternetAddress(faroUser.getEmailAddress(), null), subject,
+				body, true));
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -305,6 +323,8 @@ public class FaroProjectLocalServiceImpl
 
 		return faroProjectPersistence.update(faroProject);
 	}
+
+	private static final String _FARO_URL = System.getenv("FARO_URL");
 
 	@ServiceReference(type = Language.class)
 	private Language _language;
