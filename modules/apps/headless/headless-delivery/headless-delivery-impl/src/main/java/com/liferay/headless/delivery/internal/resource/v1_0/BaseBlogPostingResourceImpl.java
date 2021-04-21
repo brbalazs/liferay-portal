@@ -556,8 +556,7 @@ public abstract class BaseBlogPostingResourceImpl
 		throws Exception {
 
 		for (BlogPosting blogPosting : blogPostings) {
-			postSiteBlogPosting(
-				Long.valueOf((String)parameters.get("siteId")), blogPosting);
+			postSiteBlogPosting((Long)parameters.get("siteId"), blogPosting);
 		}
 	}
 

@@ -565,8 +565,7 @@ public abstract class BaseDocumentResourceImpl
 		throws Exception {
 
 		for (Document document : documents) {
-			postSiteDocument(
-				Long.valueOf((String)parameters.get("siteId")), null);
+			postSiteDocument((Long)parameters.get("siteId"), null);
 		}
 	}
 

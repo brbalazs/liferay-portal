@@ -834,8 +834,7 @@ public abstract class BaseKnowledgeBaseArticleResourceImpl
 				knowledgeBaseArticles) {
 
 			postSiteKnowledgeBaseArticle(
-				Long.valueOf((String)parameters.get("siteId")),
-				knowledgeBaseArticle);
+				(Long)parameters.get("siteId"), knowledgeBaseArticle);
 		}
 	}
 
