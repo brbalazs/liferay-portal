@@ -47,6 +47,7 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductTaxConfigurat
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
 import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter.ProductDTOConverter;
+import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.commerce.admin.catalog.internal.helper.v1_0.ProductHelper;
 import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.ProductEntityModel;
 import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.AttachmentUtil;
@@ -312,6 +313,13 @@ public class ProductResourceImpl
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commerceCatalog.getGroupId());
 
+		Map<String, Serializable> expandoBridgeAttributes =
+			_getExpandoBridgeAttributes(product);
+
+		if (expandoBridgeAttributes != null) {
+			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
+		}
+
 		String[] assetTagNames = new String[0];
 
 		if (product.getTags() != null) {
@@ -475,6 +483,15 @@ public class ProductResourceImpl
 		).toArray(
 			String[]::new
 		);
+	}
+
+	private Map<String, Serializable> _getExpandoBridgeAttributes(
+		Product product) {
+
+		return CustomFieldsUtil.toMap(
+			CPDefinition.class.getName(), contextCompany.getCompanyId(),
+			product.getCustomFields(),
+			contextAcceptLanguage.getPreferredLocale());
 	}
 
 	private ProductShippingConfiguration _getProductShippingConfiguration(
@@ -707,6 +724,13 @@ public class ProductResourceImpl
 
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			cpDefinition.getGroupId());
+
+		Map<String, Serializable> expandoBridgeAttributes =
+			_getExpandoBridgeAttributes(product);
+
+		if (expandoBridgeAttributes != null) {
+			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
+		}
 
 		String[] assetTags = product.getTags();
 
