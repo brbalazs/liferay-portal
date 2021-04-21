@@ -881,7 +881,7 @@ mariadb.executable=${mariadb.executable}]]></echo>
 					</then>
 				</elseif>
 				<elseif>
-					<equals arg1="${suite.search.engine}" arg2="solr" />
+					<contains string="${suite.search.engine}" substring="solr" />
 					<then>
 						<property name="com.liferay.portal.search.solr7.test.unit.started" value="true" />
 
@@ -3278,7 +3278,7 @@ log.sanitizer.enabled=false</echo>
 			</if>
 
 			<if>
-				<equals arg1="${suite.search.engine}" arg2="solr" />
+				<contains string="${suite.search.engine}" substring="solr" />
 				<then>
 					<ant antfile="build-test-solr.xml" target="stop-solr-core" />
 				</then>

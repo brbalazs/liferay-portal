@@ -3071,8 +3071,8 @@ ${tomcat-gc-log}
 
 			<if>
 				<or>
+					<contains string="${suite.search.engine}" substring="solr" />
 					<equals arg1="${solr.enabled}" arg2="true" />
-					<equals arg1="${suite.search.engine}" arg2="solr" />
 				</or>
 				<then>
 					<ant antfile="build-test-solr.xml" target="print-solr-indices" />
@@ -4197,7 +4197,7 @@ go</echo>
 						<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
 
 						<if>
-							<equals arg1="${suite.search.engine}" arg2="solr" />
+							<contains string="${suite.search.engine}" substring="solr" />
 							<then>
 								<ant antfile="build-test-solr.xml" target="set-up-solr" />
 							</then>
@@ -5654,7 +5654,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 			<if>
 				<or>
-					<contains string="${env.CI_TEST_SUITE}" substring="solr" />
+					<contains string="${suite.search.engine}" substring="solr" />
 					<equals arg1="${solr.enabled}" arg2="true" />
 				</or>
 				<then>
