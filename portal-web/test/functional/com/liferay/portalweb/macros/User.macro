@@ -26,6 +26,9 @@ definition {
 		else if ("${localization}" == "ZH") {
 			var localizedSignIn = "登录";
 		}
+		else if ("${localization}" == "IT") {
+			var localizedSignIn = "Accedi";
+		}
 		else if ("${localization}" == "ES") {
 			var localizedSignIn = "Acceder";
 		}
@@ -1519,6 +1522,8 @@ definition {
 		Type(
 			locator1 = "TextInput#PASSWORD",
 			value1 = "${password}");
+
+		takeScreenshot();
 
 		if ((isSet(rememberMeChecked)) && ("${rememberMeChecked}" == "true")) {
 			Check(locator1 = "Checkbox#REMEMBER_ME");
