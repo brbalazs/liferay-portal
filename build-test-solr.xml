@@ -1,9 +1,36 @@
 <?xml version="1.0"?>
 
-<project basedir="." name="portal-test-solr" xmlns:antelope="antlib:ise.antelope.tasks">
+<project basedir="." name="portal-test-solr" xmlns:antelope="antlib:ise.antelope.tasks" xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<import file="build-test.xml" />
 
-	<property name="solr.version" value="7.5.0" />
+	<get-testcase-property if:set="env.JENKINS_HOME" property.name="solr.override.version" />
+	<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
+
+	<if>
+		<isset property="solr.override.version" />
+		<then>
+			<propertyregex
+				input="${solr.override.version}"
+				property="solr.major.version"
+				regexp="(\d+)\.\d+\.\d+"
+				replace="solr\1"
+			/>
+
+			<property name="solr.version" value="${solr.override.version}" />
+		</then>
+		<elseif>
+			<equals arg1="${suite.search.engine}" arg2="solr8" />
+			<then>
+				<property name="solr.major.version" value="solr8" />
+				<property name="solr.version" value="8.6.2" />
+			</then>
+		</elseif>
+		<else>
+			<property name="solr.major.version" value="solr7" />
+			<property name="solr.version" value="7.5.0" />
+		</else>
+	</if>
+
 	<property name="solr.dir" value="${app.server.parent.dir}/solr-${solr.version}" />
 	<property name="solr.zip.name" value="solr-${solr.version}.zip" />
 	<property name="solr.zip.url" value="http://archive.apache.org/dist/lucene/solr/${solr.version}/${solr.zip.name}" />
@@ -34,32 +61,32 @@ CATALINA_OPTS=&quot;${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${solr.dir}/serv
 
 	<macrodef name="configure-liferay-solr-adapter-osgi-configs">
 		<sequential>
-			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.solr7.configuration.SolrConfiguration.cfg">readURL=http://localhost:8983/solr/liferay
-writeURL=http://localhost:8983/solr/liferay</echo>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrConfiguration.config">readURL="http://localhost:8983/solr/liferay"
+writeURL="http://localhost:8983/solr/liferay"</echo>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="configure-liferay-solr-solrcloud-osgi-configs">
 		<sequential>
-			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.solr7.configuration.SolrConfiguration.cfg">
-clientType=CLOUD</echo>
+			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrConfiguration.config">
+clientType="CLOUD"</echo>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="configure-liferay-solr-ssl-adapter-properties">
 		<sequential>
 			<replace
-				file="${liferay.home}/osgi/configs/com.liferay.portal.search.solr7.configuration.SolrConfiguration.cfg"
+				file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrConfiguration.config"
 			>
 				<replacetoken><![CDATA[http://]]></replacetoken>
 				<replacevalue><![CDATA[https://]]></replacevalue>
 			</replace>
 
-			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.solr7.configuration.SolrConfiguration.cfg">
-authenticationMode=CERT</echo>
+			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrConfiguration.config">
+authenticationMode="CERT"</echo>
 
-			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.solr7.configuration.SolrSSLSocketFactoryConfiguration.cfg">keyStorePath=${solr.dir}/server/etc/solr-ssl.keystore.jks
-trustStorePath=${solr.dir}/server/etc/solr-ssl.keystore.jks</echo>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.${solr.major.version}.configuration.SolrSSLSocketFactoryConfiguration.config">keyStorePath="${solr.dir}/server/etc/solr-ssl.keystore.jks"
+trustStorePath="${solr.dir}/server/etc/solr-ssl.keystore.jks"</echo>
 		</sequential>
 	</macrodef>
 
@@ -141,7 +168,7 @@ SOLR_SSL_WANT_CLIENT_AUTH=true</echo>
 				</fileset>
 
 				<fileset
-					dir="modules/apps/portal-search-solr7/portal-search-solr7-impl/src/main/resources/META-INF/resources"
+					dir="modules/apps/portal-search-${solr.major.version}/portal-search-${solr.major.version}-impl/src/main/resources/META-INF/resources"
 				>
 					<include name="schema.xml" />
 					<include name="solrconfig.xml" />
@@ -279,7 +306,7 @@ schema=schema.xml</echo>
 	</target>
 
 	<target name="deploy-solr">
-		<gradle-execute dir="modules/apps/portal-search-solr7" task="deploy">
+		<gradle-execute dir="modules/apps/portal-search-${solr.major.version}" task="deploy">
 			<arg value="clean" />
 		</gradle-execute>
 
