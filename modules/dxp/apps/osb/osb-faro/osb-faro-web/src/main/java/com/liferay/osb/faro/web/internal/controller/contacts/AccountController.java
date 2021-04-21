@@ -134,7 +134,8 @@ public class AccountController extends BaseFaroController {
 			@QueryParam("filter") String filter,
 			@QueryParam("query") String query,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@QueryParam("includePropertyNames") FaroParam
+			@QueryParam("includePropertyNames")
+			FaroParam
 				<List<String>> includePropertyNamesFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
@@ -158,7 +159,8 @@ public class AccountController extends BaseFaroController {
 			@FormParam("filter") String filter,
 			@FormParam("query") String query,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("includePropertyNames") FaroParam
+			@FormParam("includePropertyNames")
+			FaroParam
 				<List<String>> includePropertyNamesFaroParam,
 			@FormParam("cur") int cur, @FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")

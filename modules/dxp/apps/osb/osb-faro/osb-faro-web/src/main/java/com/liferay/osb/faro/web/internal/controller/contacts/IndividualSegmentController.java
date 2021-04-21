@@ -124,7 +124,8 @@ public class IndividualSegmentController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@FormParam("channelId") String channelId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("individualIds") FaroParam
+			@FormParam("individualIds")
+			FaroParam
 				<List<String>> individualIdsFaroParam,
 			@FormParam("filter") String filter,
 			@FormParam("includeAnonymousUsers") boolean includeAnonymousUsers,

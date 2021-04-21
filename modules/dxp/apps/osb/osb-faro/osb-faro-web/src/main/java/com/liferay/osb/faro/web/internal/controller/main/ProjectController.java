@@ -178,7 +178,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("friendlyURL") String friendlyURL,
 			@PathParam("groupId") long groupId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains") FaroParam
+			@FormParam("emailAddressDomains")
+			FaroParam
 				<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("incidentReportEmailAddresses") FaroParam<List<String>>
 				incidentReportEmailAddressesFaroParam,
@@ -227,10 +228,12 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("name") String name,
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains") FaroParam
+			@FormParam("emailAddressDomains")
+			FaroParam
 				<List<String>> emailAddressDomainsFaroParam,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses") FaroParam
+			@FormParam("incidentReportEmailAddresses")
+			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
 			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
@@ -291,7 +294,8 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay createProvisioned(
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses") FaroParam
+			@FormParam("incidentReportEmailAddresses")
+			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
@@ -323,11 +327,13 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay createTrial(
 			@FormParam("name") String name,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains") FaroParam
+			@FormParam("emailAddressDomains")
+			FaroParam
 				<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses") FaroParam
+			@FormParam("incidentReportEmailAddresses")
+			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
 				<Boolean> sharedCluster,
@@ -370,11 +376,13 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("corpProjectName") String corpProjectName,
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains") FaroParam
+			@FormParam("emailAddressDomains")
+			FaroParam
 				<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses") FaroParam
+			@FormParam("incidentReportEmailAddresses")
+			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
 			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
@@ -673,10 +681,12 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("friendlyURL") String friendlyURL,
 			@PathParam("groupId") long groupId,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("emailAddressDomains") FaroParam
+			@FormParam("emailAddressDomains")
+			FaroParam
 				<List<String>> emailAddressDomainsFaroParam,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("incidentReportEmailAddresses") FaroParam
+			@FormParam("incidentReportEmailAddresses")
+			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId") String

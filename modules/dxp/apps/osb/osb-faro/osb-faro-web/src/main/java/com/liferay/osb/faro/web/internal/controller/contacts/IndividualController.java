@@ -205,7 +205,8 @@ public class IndividualController extends BaseFaroController {
 			@QueryParam("query") String query,
 			@QueryParam("includeAnonymousUsers") boolean includeAnonymousUsers,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@QueryParam("includePropertyNames") FaroParam
+			@QueryParam("includePropertyNames")
+			FaroParam
 				<List<String>> includePropertyNamesFaroParam,
 			@QueryParam("cur") int cur, @QueryParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @QueryParam("orderByFields")
@@ -234,7 +235,8 @@ public class IndividualController extends BaseFaroController {
 			@FormParam("query") String query,
 			@FormParam("includeAnonymousUsers") boolean includeAnonymousUsers,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
-			@FormParam("includePropertyNames") FaroParam
+			@FormParam("includePropertyNames")
+			FaroParam
 				<List<String>> includePropertyNamesFaroParam,
 			@FormParam("cur") int cur, @FormParam("delta") int delta,
 			@DefaultValue(StringPool.BLANK) @FormParam("orderByFields")

@@ -460,7 +460,8 @@ public class DataSourceController extends BaseFaroController {
 			@QueryParam("fileVersionId") long fileVersionId,
 			@QueryParam("fieldName") String fieldName,
 			@DefaultValue(FieldMappingConstants.CONTEXT_DEMOGRAPHICS)
-			@QueryParam("context") String context,
+			@QueryParam("context")
+			String context,
 			@QueryParam("count") int count)
 		throws Exception {
 
@@ -715,7 +716,8 @@ public class DataSourceController extends BaseFaroController {
 	public List<DataSourceMappingDisplay> getMappingsLite(
 			@PathParam("groupId") long groupId, @PathParam("id") String id,
 			@DefaultValue(FieldMappingConstants.CONTEXT_DEMOGRAPHICS)
-			@QueryParam("context") String context)
+			@QueryParam("context")
+			String context)
 		throws Exception {
 
 		Map<String, FieldValuesDisplay> fieldValuesDisplayMap =
