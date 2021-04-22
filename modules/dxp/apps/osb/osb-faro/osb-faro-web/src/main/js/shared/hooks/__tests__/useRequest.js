@@ -32,12 +32,16 @@ describe('withRequest', () => {
 		expect(result.current.error).toBeTrue();
 	});
 
-	it('it should return a refetch function to refire the request', () => {
+	fit('it should return a refetch function to refire the request', () => {
 		const spy = jest.fn(() => Promise.resolve('passed'));
 
 		const {result} = renderHook(() => useRequest(spy));
 
+		jest.runAllTimers();
+
 		result.current.refetch();
+
+		jest.runAllTimers();
 
 		expect(spy).toHaveBeenCalledTimes(2);
 	});
