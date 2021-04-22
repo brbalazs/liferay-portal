@@ -94,16 +94,16 @@ const UserList: React.FC<IUserListProps> = ({
 }) => {
 	const {delta = defaultDelta, page = defaultPage, query = ''} = otherProps;
 
-	const {data, error, loading, refetch} = useRequest(
-		API.channels.fetchUsers,
-		{
+	const {data, error, loading, refetch} = useRequest({
+		dataSourceFn: API.channels.fetchUsers,
+		variables: {
 			channelId: id,
 			cur: page,
 			delta,
 			groupId,
 			query
 		}
-	);
+	});
 
 	const getEmailOrCount = (users: User[]): number => {
 		const count = users.length;

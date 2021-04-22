@@ -7,7 +7,9 @@ const mockFailedRequest = jest.fn(() => Promise.reject('failed'));
 
 describe('withRequest', () => {
 	it('it should return a loading state until the the request completes', () => {
-		const {result} = renderHook(() => useRequest(mockRequest));
+		const {result} = renderHook(() =>
+			useRequest({dataSourceFn: mockRequest})
+		);
 
 		expect(result.current.loading).toBeTrue();
 
@@ -17,7 +19,9 @@ describe('withRequest', () => {
 	});
 
 	it('it should return the data when the request completes', () => {
-		const {result} = renderHook(() => useRequest(mockRequest));
+		const {result} = renderHook(() =>
+			useRequest({dataSourceFn: mockRequest})
+		);
 
 		jest.runAllTimers();
 
@@ -25,17 +29,19 @@ describe('withRequest', () => {
 	});
 
 	it('it should return an error if the request failed', () => {
-		const {result} = renderHook(() => useRequest(mockFailedRequest));
+		const {result} = renderHook(() =>
+			useRequest({dataSourceFn: mockFailedRequest})
+		);
 
 		jest.runAllTimers();
 
 		expect(result.current.error).toBeTrue();
 	});
 
-	fit('it should return a refetch function to refire the request', () => {
+	it('it should return a refetch function to refire the request', () => {
 		const spy = jest.fn(() => Promise.resolve('passed'));
 
-		const {result} = renderHook(() => useRequest(spy));
+		const {result} = renderHook(() => useRequest({dataSourceFn: spy}));
 
 		jest.runAllTimers();
 

@@ -96,12 +96,17 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 
 	const _inputRef = useRef<any>();
 
-	const {data: items = [], loading, refetch} = useRequest(
-		({value}) => dataSourceFn(value),
-		{value: inputValue},
-		val => val,
-		250
-	);
+	const {data: items = [], loading, refetch} = useRequest({
+		dataSourceFn: ({value}) => dataSourceFn(value),
+		debounceDelay: 250,
+		initialState: {
+			data: [],
+			error: false,
+			loading: false
+		},
+		skipRequest: !active,
+		variables: {value: inputValue}
+	});
 
 	useEffect(() => {
 		if (focusOnInit) {
@@ -208,7 +213,7 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 					/>
 
 					<Input.Inset position='after'>
-						{active && loading ? (
+						{loading ? (
 							<Spinner size='sm' />
 						) : (
 							<Icon symbol='caret-bottom' />

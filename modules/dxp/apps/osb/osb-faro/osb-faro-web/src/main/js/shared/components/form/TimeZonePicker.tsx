@@ -21,10 +21,10 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 	setFieldTouched,
 	setFieldValue
 }) => {
-	const {data: timezonesAvailable, loading} = useRequest(
-		API.projects.fetchAvailableTimeZones,
-		{}
-	);
+	const {data: timezonesAvailable, loading} = useRequest({
+		dataSourceFn: API.projects.fetchAvailableTimeZones,
+		variables: {}
+	});
 
 	const [selectedCountry, setSelectedCountry] = useState<string>(
 		initialTimeZone && initialTimeZone.country

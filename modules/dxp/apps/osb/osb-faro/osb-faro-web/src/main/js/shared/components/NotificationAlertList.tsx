@@ -95,13 +95,13 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	stripe = false,
 	subtypes = [NotificationSubtypes.TimeZoneChanged]
 }) => {
-	const {data, loading, refetch} = useRequest(
-		API.notifications.fetchNotifications,
-		{
+	const {data, loading, refetch} = useRequest({
+		dataSourceFn: API.notifications.fetchNotifications,
+		variables: {
 			groupId,
 			type: NotificationTypes.Alert
 		}
-	);
+	});
 
 	const removeNotification = notificationId => {
 		API.notifications

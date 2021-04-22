@@ -40,13 +40,13 @@ const withUnassignedSegments = (
 
 			const {channels} = useChannelContext();
 
-			const {data, error, loading} = useRequest(
-				API.individualSegment.searchUnassigned,
-				{
+			const {data, error, loading} = useRequest({
+				dataSourceFn: API.individualSegment.searchUnassigned,
+				variables: {
 					delta: 10000,
 					groupId
 				}
-			);
+			});
 
 			useEffect(() => {
 				fetchUpgradeModalSeen(groupId);

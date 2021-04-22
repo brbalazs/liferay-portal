@@ -41,13 +41,13 @@ const DeleteChannelModal: React.FC<IDeleteChannelModalProps> = ({
 	onClose,
 	onSubmit
 }) => {
-	const {data, error, loading, refetch} = useRequest(
-		API.dataSource.fetchChannels,
-		{
+	const {data, error, loading, refetch} = useRequest({
+		dataSourceFn: API.dataSource.fetchChannels,
+		variables: {
 			channelIds,
 			groupId
 		}
-	);
+	});
 
 	return (
 		<DeleteConfirmationModal

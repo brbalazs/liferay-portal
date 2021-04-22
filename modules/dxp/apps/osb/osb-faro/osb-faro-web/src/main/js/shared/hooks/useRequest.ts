@@ -3,14 +3,31 @@ import useDeepEqualEffect from './useDeepEqualEffect';
 import {debounce} from 'lodash/fp';
 import {useCallback, useRef, useState} from 'react';
 
-const useRequest = (
-	dataSourceFn: (params: {[key: string]: any}) => Promise<any>,
-	variables: {[key: string]: any},
+const useRequest = ({
+	dataSourceFn,
+	debounceDelay = 0,
+	initialState = {
+		data: null,
+		error: false,
+		loading: true
+	},
 	normalize = val => val,
-	debounceDelay: number = 0
-) => {
+	skipRequest = false,
+	variables
+}: {
+	dataSourceFn: (params: {[key: string]: any}) => Promise<any>;
+	debounceDelay?: number;
+	initialState?: {
+		data: any;
+		error: boolean;
+		loading: boolean;
+	};
+	normalize?: (params: any) => any;
+	skipRequest?: boolean;
+	variables: {[key: string]: any};
+}) => {
 	const requestRef = useRef<Promise>();
-	const debounceRef = useRef<any>();
+	const debounceRef = useRef<ReturnType<typeof debounce>>();
 
 	const debouncedDataSourceFn = useCallback<any>(
 		debounce(debounceDelay)(vars => {
@@ -38,20 +55,20 @@ const useRequest = (
 	};
 
 	const [state, setState] = useState({
-		data: null,
-		error: false,
-		loading: true,
+		...initialState,
 		refetch: getData
 	});
 
 	useDeepEqualEffect(() => {
-		getData();
+		if (!skipRequest) {
+			getData();
+		}
 
 		return () => {
 			debounceRef.current?.cancel();
 			requestRef.current?.cancel();
 		};
-	}, [variables]);
+	}, [skipRequest, variables]);
 
 	return state;
 };

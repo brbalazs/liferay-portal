@@ -46,9 +46,12 @@ export const ViewContainer: React.FC<Omit<IViewProps, 'channel'>> = ({
 	id,
 	...otherProps
 }) => {
-	const {data, error, loading, refetch} = useRequest(API.channels.fetch, {
-		channelId: id,
-		groupId
+	const {data, error, loading, refetch} = useRequest({
+		dataSourceFn: API.channels.fetch,
+		variables: {
+			channelId: id,
+			groupId
+		}
 	});
 
 	return (
