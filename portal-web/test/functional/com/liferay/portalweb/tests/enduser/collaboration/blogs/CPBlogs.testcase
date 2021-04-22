@@ -737,6 +737,42 @@ definition {
 		ItemSelector.searchDMImages(imageFileName = "Document_1.jpg");
 	}
 
+	@description = "This test covers LPS-111741. It ensures that a blog entry can be added with the same blog image."
+	@priority = "4"
+	test TheSameBlogImageCanBeUsedForDifferentEntries {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Upload Image",
+			uploadFileName = "Document_1.jpg");
+
+		Button.clickPublish();
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content new",
+			entrySubtitle = "Blogs Entry Subtitle new",
+			entryTitle = "Blogs Entry Title new",
+			navTab = "Blog Images",
+			uploadedFileName = "Document_1.jpg");
+
+		Button.clickPublish();
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title new");
+
+		BlogsEntry.viewEntry(
+			entryContent = "Blogs Entry Content new",
+			entrySubtitle = "Blogs Entry Subtitle new",
+			entryTitle = "Blogs Entry Title new",
+			uploadFileName = "Document_1");
+	}
+
 	@priority = "3"
 	test ViewBlogsEntryDraftWithCoverImage {
 		Navigator.openURL();
