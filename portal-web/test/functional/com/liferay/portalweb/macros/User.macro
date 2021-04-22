@@ -1428,6 +1428,12 @@ definition {
 		Alert.viewSuccessMessageText(successMessage = "Your request completed successfully.");
 	}
 
+	macro gotoAddPage {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Manage Pages",
+			rowEntry = "${userName}");
+	}
+
 	macro gotoEditCP {
 		var key_userScreenName = "${userScreenName}";
 
