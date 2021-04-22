@@ -12,6 +12,7 @@ const useRequest = ({
 		loading: true
 	},
 	normalize = val => val,
+	resetStateIfSkipingRequest = false,
 	skipRequest = false,
 	variables
 }: {
@@ -23,6 +24,7 @@ const useRequest = ({
 		loading: boolean;
 	};
 	normalize?: (params: any) => any;
+	resetStateIfSkipingRequest?: boolean;
 	skipRequest?: boolean;
 	variables: {[key: string]: any};
 }) => {
@@ -62,6 +64,8 @@ const useRequest = ({
 	useDeepEqualEffect(() => {
 		if (!skipRequest) {
 			getData();
+		} else if (resetStateIfSkipingRequest) {
+			setState({...state, ...initialState});
 		}
 
 		return () => {

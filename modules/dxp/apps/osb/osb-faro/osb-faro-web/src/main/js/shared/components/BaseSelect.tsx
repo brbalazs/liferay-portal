@@ -104,6 +104,7 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 			error: false,
 			loading: false
 		},
+		resetStateIfSkipingRequest: true,
 		skipRequest: !active,
 		variables: {value: inputValue}
 	});
