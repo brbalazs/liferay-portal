@@ -75,6 +75,17 @@ public class CPDefinitionSpecificationOptionValueServiceImpl
 	}
 
 	@Override
+	public void deleteCPDefinitionSpecificationOptionValues(long cpDefinitionId)
+		throws PortalException {
+
+		_checkCommerceCatalogPermissionByCPDefinitionId(
+			cpDefinitionId, ActionKeys.UPDATE);
+
+		cpDefinitionSpecificationOptionValueLocalService.
+			deleteCPDefinitionSpecificationOptionValues(cpDefinitionId);
+	}
+
+	@Override
 	public CPDefinitionSpecificationOptionValue
 			fetchCPDefinitionSpecificationOptionValue(
 				long cpDefinitionSpecificationOptionValueId)
