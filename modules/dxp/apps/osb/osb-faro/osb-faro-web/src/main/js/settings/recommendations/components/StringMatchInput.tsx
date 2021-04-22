@@ -84,7 +84,7 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 				<BaseSelect
 					className='form-control-inset'
 					dataSourceFn={query =>
-						Promise.resolve(getMetadataTag(query))
+						Promise.resolve(getMetadataTag(query as string))
 					}
 					focusOnInit={focusOnInit}
 					inputValue={stringMatch}

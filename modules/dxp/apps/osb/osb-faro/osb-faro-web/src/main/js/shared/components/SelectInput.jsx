@@ -21,7 +21,7 @@ class SelectInput extends React.Component {
 	_baseSelectRef = React.createRef();
 
 	focus() {
-		this._baseSelectRef.current.handleFocus();
+		this._baseSelectRef.current.focus();
 	}
 
 	@autobind

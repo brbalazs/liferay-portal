@@ -32,7 +32,7 @@ const SearchInputList: React.FC<ISearchInputListProps> = ({
 
 	useEffect(() => {
 		if (_baseSelectRef && !!items.length) {
-			_baseSelectRef.current.handleFocus();
+			_baseSelectRef.current.focus();
 		}
 	}, [items]);
 

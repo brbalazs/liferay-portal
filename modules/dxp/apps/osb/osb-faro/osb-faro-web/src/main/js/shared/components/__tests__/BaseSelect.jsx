@@ -1,14 +1,16 @@
 import BaseSelect, {Item} from '../BaseSelect';
 import Promise from 'metal-promise';
 import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
 import {noop} from 'lodash';
 
 jest.unmock('react-dom');
 
 describe('BaseSelect', () => {
-	afterEach(cleanup);
-
 	it('should render', () => {
 		const {container} = render(
 			<BaseSelect
@@ -44,109 +46,145 @@ describe('BaseSelect', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should fetch items with focus', () => {
+	it('should render w/ selectedItem', () => {
 		const {container} = render(
 			<BaseSelect
-				dataSourceFn={() => Promise.resolve([])}
-				focusOnInit
+				dataSourceFn={() =>
+					Promise.resolve([
+						{name: 'test'},
+						{name: 'foo'},
+						{name: 'bar'}
+					])
+				}
 				itemRenderer={({name}) => name}
 				onFocus={noop}
-				selectedItem={{name: 'test'}}
+				selectedItem={{name: 'foo'}}
 			/>
 		);
-
-		fireEvent.click(container.querySelector('.input-group'));
 
 		jest.runAllTimers();
 
-		expect(container).toMatchSnapshot();
+		expect(
+			container.querySelector('.selected-item-container').innerHTML
+		).toEqual('foo');
 	});
 
-	it('should focus on the selected item', () => {
+	it('should fetch items with focus', async () => {
 		const {container} = render(
 			<BaseSelect
-				dataSourceFn={() => Promise.resolve([])}
+				dataSourceFn={() => Promise.resolve([{name: 'test'}])}
 				focusOnInit
 				itemRenderer={({name}) => name}
 				onFocus={noop}
-				selectedItem={{name: 'test'}}
 			/>
 		);
 
-		fireEvent.keyDown(container.querySelector('.input-root'), {
-			key: 'Enter',
-			keyCode: 13
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		).then(() => {
+			const dropdownMenu = document.body.getElementsByClassName(
+				'dropdown-root'
+			)[0];
+
+			expect(dropdownMenu).toMatchSnapshot();
 		});
-
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
 	});
 
-	it('should defocus the selected item', () => {
+	it('should render w/ menu title', async () => {
 		const {container} = render(
 			<BaseSelect
-				dataSourceFn={() => Promise.resolve([])}
+				dataSourceFn={() => Promise.resolve([{name: 'test'}])}
 				focusOnInit
 				itemRenderer={({name}) => name}
+				menuTitle='Test Menu Title'
 				onFocus={noop}
-				selectedItem={{name: 'test'}}
 			/>
 		);
 
-		fireEvent.keyDown(container.querySelector('.input-root'));
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		).then(() => {
+			const dropdownMenu = document.body.getElementsByClassName(
+				'dropdown-root'
+			)[0];
 
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should focus on the previous item', () => {
-		const {container} = render(
-			<BaseSelect
-				dataSourceFn={() => Promise.resolve([])}
-				focusOnInit
-				itemRenderer={({name}) => name}
-				onFocus={noop}
-				selectedItem={{name: 'test'}}
-			/>
-		);
-
-		fireEvent.keyDown(container.querySelector('.input-root'), {
-			key: 'ArrowUp',
-			keyCode: 38
+			expect(
+				dropdownMenu.getElementsByClassName('dropdown-header')[0]
+					.innerHTML
+			).toEqual('Test Menu Title');
 		});
-
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
 	});
 
-	it('should focus on the next item', () => {
+	it('should focus on the previous item', async () => {
 		const {container} = render(
 			<BaseSelect
-				dataSourceFn={() => Promise.resolve([])}
+				dataSourceFn={() =>
+					Promise.resolve([
+						{name: 'test'},
+						{name: 'foo'},
+						{name: 'bar'}
+					])
+				}
 				focusOnInit
 				itemRenderer={({name}) => name}
 				onFocus={noop}
-				selectedItem={{name: 'test'}}
 			/>
 		);
 
-		fireEvent.keyDown(container.querySelector('.input-root'), {
-			key: 'ArrowDown',
-			keyCode: 40
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		).then(async () => {
+			const dropdownMenu = document.body.getElementsByClassName(
+				'dropdown-root'
+			)[0];
+
+			fireEvent.keyDown(container.querySelector('.input-root'), {
+				key: 'ArrowUp',
+				keyCode: 38
+			});
+
+			expect(
+				dropdownMenu.getElementsByClassName('active')[0].innerHTML
+			).toEqual('bar');
 		});
+	});
 
-		jest.runAllTimers();
+	it('should focus on the next item', async () => {
+		const {container} = render(
+			<BaseSelect
+				dataSourceFn={() =>
+					Promise.resolve([
+						{name: 'test'},
+						{name: 'foo'},
+						{name: 'bar'}
+					])
+				}
+				focusOnInit
+				itemRenderer={({name}) => name}
+				onFocus={noop}
+			/>
+		);
 
-		expect(container).toMatchSnapshot();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		).then(async () => {
+			const dropdownMenu = document.body.getElementsByClassName(
+				'dropdown-root'
+			)[0];
+
+			fireEvent.keyDown(container.querySelector('.input-root'), {
+				key: 'ArrowDown',
+				keyCode: 40
+			});
+
+			expect(
+				dropdownMenu.getElementsByClassName('active')[0].innerHTML
+			).toEqual('foo');
+		});
 	});
 });
 
 describe('Item', () => {
-	afterEach(cleanup);
-
 	it('should render', () => {
 		const {container} = render(
 			<Item item={{name: 'test'}} itemRenderer={({name}) => name} />

@@ -1,7 +1,9 @@
 import BaseSelect from './BaseSelect';
 import React from 'react';
 
-interface IAutocompleteProps extends React.ComponentProps<typeof BaseSelect> {
+interface IAutocompleteProps
+	extends Omit<React.ComponentProps<typeof BaseSelect>, 'onChange'> {
+	onChange: (value: string | number) => void;
 	value: string | number;
 }
 

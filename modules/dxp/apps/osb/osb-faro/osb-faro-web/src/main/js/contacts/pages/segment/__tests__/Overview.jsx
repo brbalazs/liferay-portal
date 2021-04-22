@@ -5,14 +5,14 @@ import Overview from '../Overview';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {Provider} from 'react-redux';
-import {render} from '@testing-library/react';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
 describe('SegmentOverview', () => {
-	it('should render', () => {
+	it('should render', async () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<ApolloProvider client={client}>
@@ -30,8 +30,10 @@ describe('SegmentOverview', () => {
 			</Provider>
 		);
 
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		).then(() => {
+			expect(container).toMatchSnapshot();
+		});
 	});
 });
