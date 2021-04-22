@@ -1,0 +1,106 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Item Selector";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.firstLoginPG();
+
+			Page.tearDownPG();
+
+			User.tearDownCP();
+
+			Site.tearDownCP();
+		}
+	}
+
+	@description = "This test covers LPS-96564. It ensures that a private site cannot be viewed by a non-site member in calendar widget."
+	@priority = "4"
+	test PrivateSiteShouldNotBeViewableWithoutPermissionsInCalendar {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
+		var portalURL = PropsUtil.get("portal.url");
+
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.addBlankCP(
+			membershipType = "Private",
+			siteName = "Site A");
+
+		JSONGroup.addGroup(groupName = "Site X");
+
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.gotoAddPage(userName = "userfn userln");
+
+		SitePages.addPrivatePage(pageName = "Private Test Page");
+
+		Navigator.gotoSpecificURLPage(
+			pageName = "Private Test Page",
+			url = "${portalURL}/user/usersn/private-test-page");
+
+		Portlet.addPG(portletName = "Calendar");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSpecificURLPage(
+			pageName = "Private Test Page",
+			url = "${portalURL}/user/usersn/private-test-page");
+
+		CalendarNavigator.gotoAddEvent();
+
+		Click(locator1 = "CKEditor#TOOLBAR_IMAGE_BUTTON");
+
+		SelectFrameTop();
+
+		SelectFrame(
+			key_title = "Select File",
+			locator1 = "IFrame#MODAL_ANY");
+
+		Click(
+			key_breadcrumbName = "sites",
+			locator1 = "Breadcrumb#BREADCRUMB_ENTRY_LINK");
+
+		AssertElementPresent(
+			key_siteName = "Site X",
+			locator1 = "ItemSelector#SITE_SELECTOR");
+
+		AssertElementNotPresent(
+			key_siteName = "Site A",
+			locator1 = "ItemSelector#SITE_SELECTOR");
+	}
+
+}
