@@ -22,7 +22,6 @@ import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
-import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
 import com.liferay.commerce.product.service.CPDefinitionLinkService;
@@ -619,34 +618,19 @@ public class ProductResourceImpl
 			product.getProductSpecifications();
 
 		if (productSpecifications != null) {
+			_cpDefinitionSpecificationOptionValueService.
+				deleteCPDefinitionSpecificationOptionValues(
+					cpDefinition.getCPDefinitionId());
+
 			for (ProductSpecification productSpecification :
 					productSpecifications) {
 
-				CPDefinitionSpecificationOptionValue
-					cpDefinitionSpecificationOptionValue = null;
-
-				if (productSpecification.getId() != null) {
-					cpDefinitionSpecificationOptionValue =
-						_cpDefinitionSpecificationOptionValueService.
-							fetchCPDefinitionSpecificationOptionValue(
-								productSpecification.getId());
-				}
-
-				if (cpDefinitionSpecificationOptionValue == null) {
-					ProductSpecificationUtil.
-						addCPDefinitionSpecificationOptionValue(
-							_cpDefinitionSpecificationOptionValueService,
-							_cpSpecificationOptionService,
-							cpDefinition.getCPDefinitionId(),
-							productSpecification, serviceContext);
-				}
-				else {
-					ProductSpecificationUtil.
-						updateCPDefinitionSpecificationOptionValue(
-							_cpDefinitionSpecificationOptionValueService,
-							cpDefinitionSpecificationOptionValue,
-							productSpecification, serviceContext);
-				}
+				ProductSpecificationUtil.
+					addCPDefinitionSpecificationOptionValue(
+						_cpDefinitionSpecificationOptionValueService,
+						_cpSpecificationOptionService,
+						cpDefinition.getCPDefinitionId(), productSpecification,
+						serviceContext);
 			}
 		}
 
