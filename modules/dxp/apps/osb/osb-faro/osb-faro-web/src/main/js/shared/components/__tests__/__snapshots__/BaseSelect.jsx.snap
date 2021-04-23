@@ -1,172 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BaseSelect should defocus the selected item 1`] = `
-<div>
-  <div
-    aria-haspopup="true"
-    class="input-group base-select-input-root select-input-root"
-  >
-    <div
-      class="input-group-item"
-    >
-      <input
-        autocomplete="nope"
-        class="input-root form-control input-group-inset input-group-inset-after"
-        placeholder=""
-        type="text"
-        value=""
-      />
-      <div
-        class="input-group-inset-item input-group-inset-item-after"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-          />
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`BaseSelect should fetch items with focus 1`] = `
-<div>
-  <div
-    aria-haspopup="true"
-    class="input-group base-select-input-root select-input-root"
+<div
+  class="dropdown-root"
+>
+  <ul
+    class="base-select-menu dropdown-menu show"
   >
-    <div
-      class="input-group-item"
-    >
-      <input
-        autocomplete="nope"
-        class="input-root form-control input-group-inset input-group-inset-after"
-        placeholder=""
-        type="text"
-        value=""
-      />
-      <div
-        class="input-group-inset-item input-group-inset-item-after"
+    <li>
+      <button
+        class="button-root btn btn-unstyled dropdown-item text-truncate active"
+        type="button"
       >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-          />
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`BaseSelect should focus on the next item 1`] = `
-<div>
-  <div
-    aria-haspopup="true"
-    class="input-group base-select-input-root select-input-root"
-  >
-    <div
-      class="input-group-item"
-    >
-      <input
-        autocomplete="nope"
-        class="input-root form-control input-group-inset input-group-inset-after"
-        placeholder=""
-        type="text"
-        value=""
-      />
-      <div
-        class="input-group-inset-item input-group-inset-item-after"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-          />
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`BaseSelect should focus on the previous item 1`] = `
-<div>
-  <div
-    aria-haspopup="true"
-    class="input-group base-select-input-root select-input-root"
-  >
-    <div
-      class="input-group-item"
-    >
-      <input
-        autocomplete="nope"
-        class="input-root form-control input-group-inset input-group-inset-after"
-        placeholder=""
-        type="text"
-        value=""
-      />
-      <div
-        class="input-group-inset-item input-group-inset-item-after"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-          />
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`BaseSelect should focus on the selected item 1`] = `
-<div>
-  <div
-    aria-haspopup="true"
-    class="input-group base-select-input-root select-input-root"
-  >
-    <div
-      class="input-group-item"
-    >
-      <input
-        autocomplete="nope"
-        class="input-root form-control input-group-inset input-group-inset-after"
-        placeholder=""
-        type="text"
-        value=""
-      />
-      <div
-        class="input-group-inset-item input-group-inset-item-after"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-          viewBox=""
-        >
-          <use
-            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-          />
-        </svg>
-      </div>
-    </div>
-    <div
-      class="selected-item-container"
-    >
-      test
-    </div>
-  </div>
+        test
+      </button>
+    </li>
+  </ul>
 </div>
 `;
 
