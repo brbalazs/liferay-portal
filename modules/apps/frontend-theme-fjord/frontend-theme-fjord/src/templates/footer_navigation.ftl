@@ -10,7 +10,7 @@
 
 		<#foreach nav_item in nav_items>
 			<li class="list-inline-item" role="presentation">
-				<a aria-labelledby="layout_${nav_item.getLayoutId()}" href="${nav_item.getURL()}" ${nav_item.getTarget()} role="menuitem">
+				<a href="${nav_item.getURL()}" ${nav_item.getTarget()} role="menuitem">
 					${nav_item.getName()}
 				</a>
 			</li>

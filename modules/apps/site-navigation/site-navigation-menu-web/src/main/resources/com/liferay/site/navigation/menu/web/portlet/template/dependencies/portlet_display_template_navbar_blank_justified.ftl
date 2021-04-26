@@ -47,7 +47,7 @@
 					</#if>
 
 					<li class="${nav_item_css_class}" id="layout_${navItem.getLayoutId()}" role="presentation">
-						<a aria-labelledby="layout_${navItem.getLayoutId()}" ${nav_item_attr_has_popup} class="${nav_item_link_css_class}" ${nav_item_href_link} ${navItem.getTarget()} role="menuitem">
+						<a ${nav_item_attr_has_popup} class="${nav_item_link_css_class}" ${nav_item_href_link} ${navItem.getTarget()} role="menuitem">
 							<span class="text-truncate"><@liferay_theme["layout-icon"] layout=navItem.getLayout() /> ${navItem.getName()} ${nav_item_caret}</span>
 						</a>
 
@@ -65,7 +65,7 @@
 									</#if>
 
 									<li class="${nav_child_css_class}" id="layout_${childNavigationItem.getLayoutId()}" role="presentation">
-										<a aria-labelledby="layout_${childNavigationItem.getLayoutId()}" class="dropdown-item" href="${childNavigationItem.getURL()}" ${childNavigationItem.getTarget()} role="menuitem">${childNavigationItem.getName()}</a>
+										<a class="dropdown-item" href="${childNavigationItem.getURL()}" ${childNavigationItem.getTarget()} role="menuitem">${childNavigationItem.getName()}</a>
 									</li>
 								</#list>
 							</ul>
