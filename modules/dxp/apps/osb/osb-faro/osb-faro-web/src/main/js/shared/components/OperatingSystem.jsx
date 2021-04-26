@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import PropTypes from 'prop-types';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {AXIS, getAxisTickText} from 'shared/util/recharts';
 import {
 	Bar,
@@ -76,15 +76,23 @@ class OperatingSystem extends React.Component {
 
 				header = [
 					{
-						label
-					},
-					{
-						align: 'right',
-						label: `${toThousands(totalViews)} ${metricLabel}`
-					},
-					{
-						align: 'right',
-						label: `${toRounded(toRounded(percentageOfTotal))}%`
+						columns: [
+							{
+								label
+							},
+							{
+								align: 'right',
+								label: `${toThousands(
+									totalViews
+								)} ${metricLabel}`
+							},
+							{
+								align: 'right',
+								label: `${toRounded(
+									toRounded(percentageOfTotal)
+								)}%`
+							}
+						]
 					}
 				];
 
@@ -119,7 +127,7 @@ class OperatingSystem extends React.Component {
 					className='bb-tooltip-container'
 					style={{position: 'static'}}
 				>
-					<TooltipChart header={header} rows={rows} />
+					<ChartTooltip header={header} rows={rows} />
 				</div>
 			);
 		}

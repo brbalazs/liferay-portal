@@ -1,7 +1,11 @@
 import * as d3 from 'd3';
+import ChartTooltip, {
+	Alignments,
+	Weights
+} from 'shared/components/chart-tooltip';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {CHART_COLORS} from 'shared/components/Chart';
+import {Column} from 'shared/components/chart-tooltip/types';
 import {
 	dateFormatter,
 	formatHistogramKeyValue,
@@ -52,26 +56,30 @@ export default metricUnit => ({experiment}) => {
 			const date = dateFormatter(getDateUtil(dataPoint[0].payload.key));
 			const variant = variantsKeyValue[dataPoint[0].payload.id][date];
 
-			let header: Array<Object>;
-			let rows: Array<Object>;
+			let header: {columns: Column[]}[];
+			let rows: {columns: Column[]}[];
 
 			if (dataPoint.length > 1) {
 				header = [
 					{
-						label: `${Liferay.Language.get(
-							'variants'
-						)} - ${d3.utcFormat('%m/%d/%Y')(
-							getDateUtil(dataPoint[0].payload.key)
-						)}`,
-						weight: 'semibold',
-						width: 100
-					},
-					...TOOLTIP_METRICS.map(({title}) => ({
-						align: 'right',
-						label: title,
-						weight: 'semibold',
-						width: 60
-					}))
+						columns: [
+							{
+								label: `${Liferay.Language.get(
+									'variants'
+								)} - ${d3.utcFormat('%m/%d/%Y')(
+									getDateUtil(dataPoint[0].payload.key)
+								)}`,
+								weight: Weights.Semibold,
+								width: 100
+							},
+							...TOOLTIP_METRICS.map(({title}) => ({
+								align: Alignments.Right,
+								label: title,
+								weight: Weights.Semibold,
+								width: 60
+							}))
+						]
+					}
 				];
 
 				rows = dataPoint.map(point => {
@@ -106,13 +114,17 @@ export default metricUnit => ({experiment}) => {
 			} else {
 				header = [
 					{
-						label: `${variant.name} - ${d3.utcFormat('%m/%d/%Y')(
-							dataPoint[0].x
-						)}`,
-						weight: 'semibold'
-					},
-					{
-						label: ''
+						columns: [
+							{
+								label: `${variant.name} - ${d3.utcFormat(
+									'%m/%d/%Y'
+								)(dataPoint[0].x)}`,
+								weight: Weights.Semibold
+							},
+							{
+								label: ''
+							}
+						]
 					}
 				];
 
@@ -123,7 +135,7 @@ export default metricUnit => ({experiment}) => {
 								label: title
 							},
 							{
-								align: 'right',
+								align: Alignments.Right,
 								label: dataRenderer
 									? dataRenderer(
 											variantsKeyValue[dataPoint[0].id][
@@ -133,7 +145,7 @@ export default metricUnit => ({experiment}) => {
 									: variantsKeyValue[dataPoint[0].id][date][
 											accessor
 									  ],
-								weight: 'semibold'
+								weight: Weights.Semibold
 							}
 						]
 					})
@@ -142,7 +154,7 @@ export default metricUnit => ({experiment}) => {
 
 			return (
 				<div className='bb-tooltip-container position-static'>
-					<TooltipChart header={header} rows={rows} />
+					<ChartTooltip header={header} rows={rows} />
 				</div>
 			);
 		}

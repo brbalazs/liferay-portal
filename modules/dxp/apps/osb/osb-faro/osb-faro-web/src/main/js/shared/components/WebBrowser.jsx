@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import ChartTooltip from '../../shared/components/chart-tooltip';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
@@ -16,7 +17,6 @@ import {get} from 'lodash';
 import {getPercentage} from 'shared/util/util';
 import {PropTypes} from 'prop-types';
 import {sub} from 'shared/util/lang';
-import {TooltipChart} from '../../cerebro-shared/components/TooltipChart';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-web-browser-chart';
@@ -99,13 +99,17 @@ class WebBrowser extends React.Component {
 					className='bb-tooltip-container'
 					style={{position: 'static'}}
 				>
-					<TooltipChart
+					<ChartTooltip
 						header={[
 							{
-								label: valueKey
-							},
-							{
-								label: ''
+								columns: [
+									{
+										label: valueKey
+									},
+									{
+										label: ''
+									}
+								]
 							}
 						]}
 						rows={[

@@ -1,11 +1,11 @@
 import autobind from 'autobind-decorator';
 import CardTabs from 'shared/components/CardTabs';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import Checkbox from 'shared/components/Checkbox';
 import getCN from 'classnames';
 import MetricValue from 'cerebro-shared/components/MetricValue';
 import PropTypes from 'prop-types';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import Trend from 'cerebro-shared/components/Trend';
 import {
 	ANIMATION_DURATION,
@@ -541,20 +541,24 @@ export default class MainMetrics extends React.Component {
 		);
 
 		const header = [
-			{label: title, weight: 'semibold', width: 100},
-			showPrevious && {
-				align: 'right',
-				label: previousPeriodTitle,
-				weight: 'normal',
-				width: 55
-			},
-			showCurrentPeriod && {
-				align: 'right',
-				label: currentPeriodTitle,
-				weight: 'semibold',
-				width: 55
+			{
+				columns: [
+					{label: title, weight: 'semibold', width: 100},
+					showPrevious && {
+						align: 'right',
+						label: previousPeriodTitle,
+						weight: 'normal',
+						width: 55
+					},
+					showCurrentPeriod && {
+						align: 'right',
+						label: currentPeriodTitle,
+						weight: 'semibold',
+						width: 55
+					}
+				].filter(Boolean)
 			}
-		].filter(Boolean);
+		];
 
 		const getDataRowName = itemData =>
 			get(itemData, 'tooltipTitle') ||
@@ -619,7 +623,7 @@ export default class MainMetrics extends React.Component {
 
 		return (
 			<div className='bb-tooltip-container' style={{position: 'static'}}>
-				<TooltipChart header={header} rows={rows} />
+				<ChartTooltip header={header} rows={rows} />
 			</div>
 		);
 	}

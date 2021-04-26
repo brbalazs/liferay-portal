@@ -1,19 +1,6 @@
 import React from 'react';
+import {Column} from 'shared/components/chart-tooltip/types';
 import {Modal, Step} from 'experiments/components/summary-base-card/types';
-
-export type Column = {
-	align?: string;
-	className?: string;
-	color?: string;
-	label?: string | Function;
-	truncated?: boolean;
-	weight?: string;
-	width?: string;
-};
-
-export type Columns = {
-	columns: Array<Column>;
-};
 
 export type Data = {
 	key: string;
@@ -51,8 +38,8 @@ export type GetDateFn = (date: Date) => string;
 export type GetFormattedDataTooltip = (
 	dataPoint: Array<DataPoint>
 ) => {
-	header: Array<Column>;
-	rows: Array<Columns>;
+	header: {columns: Column[]}[];
+	rows: {columns: Column[]}[];
 };
 
 export type GetFormattedHistogramFn = (

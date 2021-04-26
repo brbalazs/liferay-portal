@@ -1,12 +1,10 @@
 import autobind from 'autobind-decorator';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import Circle from 'shared/components/Circle';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TooltipChart, {
-	TOOLTIP_PROPTYPES
-} from 'cerebro-shared/components/TooltipChart';
 import {getAxisMeasuresFromData} from 'shared/util/charts';
 import {getPercentage} from 'shared/util/util';
 import {hasChanges} from 'shared/util/react';
@@ -55,7 +53,7 @@ const ITEMS_SHAPE = PropTypes.arrayOf(
 		items: PropTypes.array,
 		progress: PROGRESS_SHAPE,
 		showControls: PropTypes.bool,
-		tooltip: PropTypes.shape(TOOLTIP_PROPTYPES)
+		tooltip: PropTypes.Object
 	}).isRequired
 );
 
@@ -446,7 +444,7 @@ class BarChartHTML extends React.Component {
 				ref={this._tooltipRef}
 				style={{left, top}}
 			>
-				<TooltipChart header={header} rows={rows} />
+				<ChartTooltip header={[{columns: header}]} rows={rows} />
 			</div>,
 			document.querySelector('body.dxp')
 		);

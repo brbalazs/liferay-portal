@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import autobind from 'autobind-decorator';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {geomap as ClayGeoMap} from 'clay-charts-shared';
 import {Colors} from 'shared/util/charts';
 import {toThousands} from 'shared/util/numbers';
@@ -214,9 +214,13 @@ class GeoMap extends ClayGeoMap.Geomap {
 		const metriclabel = this.metriclabel;
 		const header = [
 			{
-				align: 'left',
-				colspan: 2,
-				label: d.properties.name
+				columns: [
+					{
+						align: 'left',
+						colspan: 2,
+						label: d.properties.name
+					}
+				]
 			}
 		];
 
@@ -240,7 +244,7 @@ class GeoMap extends ClayGeoMap.Geomap {
 		];
 
 		return ReactDOMServer.renderToString(
-			<TooltipChart header={header} rows={rows} />
+			<ChartTooltip header={header} rows={rows} />
 		);
 	}
 

@@ -1,11 +1,14 @@
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
+import ChartTooltip, {
+	Alignments,
+	Weights
+} from 'shared/components/chart-tooltip';
 import HeatmapChart from 'shared/components/HeatmapChart';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 import ReactDOMServer from 'react-dom/server';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import VisitorsByTimeQuery from '../queries/VisitorsByTimeQuery';
 import {compose} from 'shared/hoc';
 import {formatTimezoneOffset} from 'shared/util/time';
@@ -35,18 +38,25 @@ export const formatHour = (hour: string) => {
 
 export const renderTooltip = ({column, row, value}) =>
 	ReactDOMServer.renderToString(
-		<TooltipChart
+		<ChartTooltip
 			header={[
-				{label: `${column} - ${formatHour(row)}`, weight: 'semibold'}
+				{
+					columns: [
+						{
+							label: `${column} - ${formatHour(row)}`,
+							weight: Weights.Semibold
+						}
+					]
+				}
 			]}
 			rows={[
 				{
 					columns: [
 						{
-							align: 'center',
+							align: Alignments.Center,
 							label: sub(Liferay.Language.get('x-visitors'), [
 								value.toLocaleString()
-							])
+							]) as string
 						}
 					]
 				}

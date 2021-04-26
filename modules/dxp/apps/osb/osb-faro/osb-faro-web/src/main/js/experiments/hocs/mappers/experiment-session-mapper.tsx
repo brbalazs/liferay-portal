@@ -1,5 +1,5 @@
+import ChartTooltip from 'shared/components/chart-tooltip';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {getAxisFormatter} from 'shared/util/charts';
 import {getFormattedDataTooltip} from 'experiments/util/experiments';
@@ -28,7 +28,7 @@ export default ({experiment}) => {
 		intervals: experiment.sessionsHistogram.map(({key}) => key),
 		Tooltip: ({dataPoint}) => (
 			<div className='bb-tooltip-container position-static'>
-				<TooltipChart {...getFormattedDataTooltip(dataPoint)} />
+				<ChartTooltip {...getFormattedDataTooltip(dataPoint)} />
 			</div>
 		)
 	};

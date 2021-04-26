@@ -70,15 +70,19 @@ export const getChartTooltip = ({dateTitle, rows, title}) => (
 		<ChartTooltip
 			header={[
 				{
-					label: title,
-					weight: 'semibold',
-					width: 150
-				},
-				{
-					align: 'right',
-					label: dateTitle,
-					weight: 'semibold',
-					width: 55
+					columns: [
+						{
+							label: title,
+							weight: 'semibold',
+							width: 150
+						},
+						{
+							align: 'right',
+							label: dateTitle,
+							weight: 'semibold',
+							width: 55
+						}
+					]
 				}
 			]}
 			rows={rows.map(({label, value}) => ({

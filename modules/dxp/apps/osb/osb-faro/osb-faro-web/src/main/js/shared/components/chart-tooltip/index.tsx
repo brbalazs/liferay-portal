@@ -4,7 +4,10 @@ import TooltipTemplate from './TooltipTemplate';
 import {Alignments, Column, Weights} from './types';
 
 interface IChartTooltipProps extends React.HTMLAttributes<HTMLElement> {
-	header?: Column[];
+	header?: {
+		className?: string;
+		columns: Column[];
+	}[];
 	rows?: {
 		className?: string;
 		columns: Column[];
@@ -63,7 +66,9 @@ const ChartTooltip: React.FC<IChartTooltipProps> = ({
 		<TooltipTemplate className={className}>
 			{!!header && (
 				<TooltipTemplate.Header>
-					{renderColumn(header)}
+					{header.map(({className, columns}, index) =>
+						renderColumn(columns, className, index)
+					)}
 				</TooltipTemplate.Header>
 			)}
 

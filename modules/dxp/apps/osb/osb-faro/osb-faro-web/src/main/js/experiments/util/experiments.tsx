@@ -6,6 +6,7 @@ import PublishOtherVariantModal from 'experiments/components/modals/PublishOther
 import PublishVariantModal from 'experiments/components/modals/PublishVariantModal';
 import React, {useEffect} from 'react';
 import UpdateExperimentStatusModal from 'experiments/components/modals/UpdateExperimentStatusModal';
+import {Alignments, Weights} from 'shared/components/chart-tooltip';
 import {ButtonProps} from 'experiments/components/summary-base-card/types';
 import {
 	FormatHistogramKeyValue,
@@ -411,14 +412,18 @@ export const getFormattedDataHistogram = (histogram, index) =>
 export const getFormattedDataTooltip: GetFormattedDataTooltip = dataPoint => {
 	const header = [
 		{
-			label: d3.utcFormat('%b %-d')(
-				getDateUtil(dataPoint[0].payload.key)
-			),
-			weight: 'semibold'
-		},
-		{
-			label: Liferay.Language.get('sessions'),
-			weight: 'semibold'
+			columns: [
+				{
+					label: d3.utcFormat('%b %-d')(
+						getDateUtil(dataPoint[0].payload.key)
+					),
+					weight: Weights.Semibold
+				},
+				{
+					label: Liferay.Language.get('sessions'),
+					weight: Weights.Semibold
+				}
+			]
 		}
 	];
 
@@ -429,7 +434,7 @@ export const getFormattedDataTooltip: GetFormattedDataTooltip = dataPoint => {
 				label: name
 			},
 			{
-				align: 'right',
+				align: Alignments.Right,
 				label: toThousandsABTesting(payload.value)
 			}
 		]
