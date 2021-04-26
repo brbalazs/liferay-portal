@@ -71,7 +71,7 @@ BlogsEntry blogsEntry = (BlogsEntry)request.getAttribute("view_entry_related.jsp
 
 						String blogsEntryUserURL = StringPool.BLANK;
 
-						if ((blogsEntryUser != null) && !blogsEntryUser.isDefaultUser()) {
+						if ((blogsEntryUser != null) && !blogsEntryUser.isDefaultUser() && !user.isDefaultUser()) {
 							blogsEntryUserURL = blogsEntryUser.getDisplayURL(themeDisplay);
 						}
 						%>

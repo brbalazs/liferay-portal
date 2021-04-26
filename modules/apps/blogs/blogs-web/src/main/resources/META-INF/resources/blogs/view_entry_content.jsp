@@ -69,7 +69,7 @@ BlogsEntry entry = (BlogsEntry)request.getAttribute("view_entry_content.jsp-entr
 
 					String entryUserURL = StringPool.BLANK;
 
-					if ((entryUser != null) && !entryUser.isDefaultUser()) {
+					if ((entryUser != null) && !entryUser.isDefaultUser() && !user.isDefaultUser()) {
 						entryUserURL = entryUser.getDisplayURL(themeDisplay);
 					}
 					%>
