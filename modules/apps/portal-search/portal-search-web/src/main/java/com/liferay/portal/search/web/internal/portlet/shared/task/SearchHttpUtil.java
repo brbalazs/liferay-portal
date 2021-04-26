@@ -105,12 +105,18 @@ public class SearchHttpUtil {
 	}
 
 	@Reference(unbind = "-")
+	protected void setHttp(Http http) {
+		_http = http;
+	}
+
+	@Reference(unbind = "-")
 	protected void setPortal(Portal portal) {
 		_portal = portal;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(SearchHttpUtil.class);
 
+	private static Http _http;
 	private static Portal _portal;
 
 }
