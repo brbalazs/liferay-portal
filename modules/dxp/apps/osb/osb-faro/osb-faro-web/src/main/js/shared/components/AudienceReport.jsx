@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
 import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import InfoPopover from 'shared/components/InfoPopover';
 import PropTypes from 'prop-types';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {AXIS} from 'shared/util/recharts';
 import {
 	Cell,
@@ -123,7 +123,7 @@ class Donut extends React.Component {
 					className='bb-tooltip-container'
 					style={{position: 'static'}}
 				>
-					<TooltipChart
+					<ChartTooltip
 						rows={[
 							{
 								columns: [

@@ -1,5 +1,5 @@
+import ChartTooltip from 'shared/components/chart-tooltip';
 import React from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {Text} from 'recharts';
 
 const AXIS_LABEL_OFFSET = 20;
@@ -67,7 +67,7 @@ export const getAxisTickText = (axis = 'x', formatter = val => val) => ({
 
 export const getChartTooltip = ({dateTitle, rows, title}) => (
 	<div className='bb-tooltip-container' style={{position: 'static'}}>
-		<TooltipChart
+		<ChartTooltip
 			header={[
 				{
 					label: title,
