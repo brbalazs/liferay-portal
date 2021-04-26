@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
-import ChartTooltip from 'shared/components/ChartTooltip';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
 import Constants, {FieldContexts, FieldTypes} from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
@@ -24,7 +23,12 @@ import {
 	accountsListColumns,
 	individualsListColumns
 } from 'shared/util/table-columns';
-import {ANIMATION_DURATION, AXIS, getTextWidth} from 'shared/util/recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getChartTooltip,
+	getTextWidth
+} from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
 	Bar,
@@ -734,33 +738,21 @@ export class Distribution extends React.Component {
 																payload[0]
 																	.payload;
 
-															const items = [
+															return getChartTooltip(
 																{
-																	label:
-																		payload[0]
-																			.name,
-																	value:
-																		data.count
-																}
-															];
-
-															return (
-																<div
-																	className='bb-tooltip-container'
-																	style={{
-																		position:
-																			'static'
-																	}}
-																>
-																	<ChartTooltip
-																		items={
-																			items
+																	rows: [
+																		{
+																			label:
+																				payload[0]
+																					.name,
+																			value:
+																				data.count
 																		}
-																		title={data.values.join(
-																			' - '
-																		)}
-																	/>
-																</div>
+																	],
+																	title: data.values.join(
+																		' - '
+																	)
+																}
 															);
 														}
 
