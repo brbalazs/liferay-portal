@@ -5,7 +5,7 @@ import React, {useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 
 interface IInfoPopoverProps extends React.HTMLAttributes<HTMLElement> {
-	content?: string;
+	content?: React.ReactText;
 	title?: string;
 }
 
