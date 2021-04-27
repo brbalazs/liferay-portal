@@ -56,9 +56,8 @@ public class S3StoreTest extends BaseStoreTestCase {
 			new AssumeTestRule("assume"), new LiferayIntegrationTestRule());
 
 	public static void assume() {
-		String dlStoreImpl = PropsUtil.get(PropsKeys.DL_STORE_IMPL);
-
 		String s3StoreClassName = "com.liferay.portal.store.s3.S3Store";
+		String dlStoreImpl = PropsUtil.get(PropsKeys.DL_STORE_IMPL);
 
 		Assume.assumeTrue(
 			"Property \"" + PropsKeys.DL_STORE_IMPL + "\" is not set to \"" +
