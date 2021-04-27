@@ -23,15 +23,12 @@ LayoutItemSelectorViewDisplayContext layoutItemSelectorViewDisplayContext = (Lay
 <c:if test="<%= layoutItemSelectorViewDisplayContext.isShowBreadcrumb() %>">
 
 	<%
-	PortletURL viewGroupSelectorURL = PortletURLUtil.clone(
-		layoutItemSelectorViewDisplayContext.getPortletURL(), liferayPortletResponse);
+	PortletURL viewGroupSelectorURL = PortletURLUtil.clone(layoutItemSelectorViewDisplayContext.getPortletURL(), liferayPortletResponse);
 
 	viewGroupSelectorURL.setParameter("groupType", "site");
-	viewGroupSelectorURL.setParameter(
-		"showGroupSelector", Boolean.TRUE.toString());
+	viewGroupSelectorURL.setParameter("showGroupSelector", Boolean.TRUE.toString());
 
-	PortalUtil.addPortletBreadcrumbEntry(
-		request, LanguageUtil.get(resourceBundle, "sites"), viewGroupSelectorURL.toString());
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "sites"), viewGroupSelectorURL.toString());
 
 	PortalUtil.addPortletBreadcrumbEntry(request, themeDisplay.getSiteGroupName(), currentURL);
 	%>
