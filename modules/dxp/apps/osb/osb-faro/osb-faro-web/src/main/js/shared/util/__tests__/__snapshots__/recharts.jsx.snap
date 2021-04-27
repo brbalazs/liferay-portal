@@ -29,10 +29,10 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
       class="analytics-tooltip-chart"
     >
       <thead
-        class="analytics-tooltip-chart-header "
+        class="analytics-tooltip-chart-header"
       >
         <tr
-          class="analytics-tooltip-chart-row "
+          class="analytics-tooltip-chart-row"
         >
           <td
             style="min-width: 150px;"
@@ -40,7 +40,6 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
             >
-               
               Test Title
             </div>
           </td>
@@ -50,23 +49,21 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-semibold"
             >
-               
               12-12-12
             </div>
           </td>
         </tr>
       </thead>
       <tbody
-        class="analytics-tooltip-chart-body "
+        class="analytics-tooltip-chart-body"
       >
         <tr
-          class="analytics-tooltip-chart-row "
+          class="analytics-tooltip-chart-row"
         >
           <td>
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal"
             >
-               
               test
             </div>
           </td>
@@ -74,7 +71,6 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-semibold"
             >
-               
               123
             </div>
           </td>

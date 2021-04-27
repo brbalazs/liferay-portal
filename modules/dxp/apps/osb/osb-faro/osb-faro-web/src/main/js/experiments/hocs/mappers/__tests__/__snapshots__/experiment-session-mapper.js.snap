@@ -8,32 +8,32 @@ exports[`Experiment Session Mapper should render Tooltip 1`] = `
     class="analytics-tooltip-chart"
   >
     <thead
-      class="analytics-tooltip-chart-header "
+      class="analytics-tooltip-chart-header"
     >
       <tr
-        class="analytics-tooltip-chart-row "
+        class="analytics-tooltip-chart-row"
       >
         <td>
           <div
             class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
           >
-             May 17
+            May 17
           </div>
         </td>
         <td>
           <div
             class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
           >
-             Sessions
+            Sessions
           </div>
         </td>
       </tr>
     </thead>
     <tbody
-      class="analytics-tooltip-chart-body "
+      class="analytics-tooltip-chart-body"
     >
       <tr
-        class="analytics-tooltip-chart-row "
+        class="analytics-tooltip-chart-row"
       >
         <td>
           <div
@@ -43,14 +43,14 @@ exports[`Experiment Session Mapper should render Tooltip 1`] = `
               class="circle"
               style="background-color:#6B6C7E;height:8px;width:8px"
             />
-             data1
+            data1
           </div>
         </td>
         <td>
           <div
             class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
           >
-             1.5K
+            1.5K
           </div>
         </td>
       </tr>

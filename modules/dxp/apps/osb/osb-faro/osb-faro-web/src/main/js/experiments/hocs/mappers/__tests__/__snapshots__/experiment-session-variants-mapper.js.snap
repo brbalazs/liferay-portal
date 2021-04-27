@@ -9,16 +9,15 @@ exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
       class="analytics-tooltip-chart"
     >
       <thead
-        class="analytics-tooltip-chart-header "
+        class="analytics-tooltip-chart-header"
       >
         <tr
-          class="analytics-tooltip-chart-row "
+          class="analytics-tooltip-chart-row"
         >
           <td>
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
             >
-               
               May 17
             </div>
           </td>
@@ -26,17 +25,16 @@ exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
             >
-               
               Sessions
             </div>
           </td>
         </tr>
       </thead>
       <tbody
-        class="analytics-tooltip-chart-body "
+        class="analytics-tooltip-chart-body"
       >
         <tr
-          class="analytics-tooltip-chart-row "
+          class="analytics-tooltip-chart-row"
         >
           <td>
             <div
@@ -46,7 +44,6 @@ exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
                 class="circle"
                 style="background-color: rgb(107, 108, 126); height: 8px; width: 8px;"
               />
-               
               data1
             </div>
           </td>
@@ -54,7 +51,6 @@ exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
             <div
               class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
             >
-               
               1.5K
             </div>
           </td>
