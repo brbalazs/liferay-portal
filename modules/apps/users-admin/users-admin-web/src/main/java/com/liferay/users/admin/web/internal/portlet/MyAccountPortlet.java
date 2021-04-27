@@ -9,10 +9,11 @@ import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.users.admin.constants.UsersAdminPortletKeys;
 
 import java.io.IOException;
+
+import java.util.Objects;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
@@ -55,9 +56,9 @@ public class MyAccountPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		String mvcPath = getPath(renderRequest, renderResponse);
+		if (Objects.equals(
+				getPath(renderRequest, renderResponse), "/view.jsp")) {
 
-		if (Validator.isNotNull(mvcPath) && mvcPath.equals("/view.jsp")) {
 			SessionErrors.add(renderRequest, PrincipalException.class);
 
 			include("/error.jsp", renderRequest, renderResponse);
