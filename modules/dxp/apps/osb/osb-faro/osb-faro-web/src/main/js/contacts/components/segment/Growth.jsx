@@ -2,7 +2,7 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import ChartTooltip from 'shared/components/ChartTooltip';
+import ChartTooltip from 'shared/components/chart-tooltip';
 import Constants, {RangeKeyTimeRanges} from 'shared/util/constants';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
@@ -168,51 +168,102 @@ export class SegmentGrowthChart extends React.Component {
 					style={{position: 'static'}}
 				>
 					<ChartTooltip
-						items={
-							isNil(netChange)
-								? change
-								: [
-										...change,
-										{
-											label: Liferay.Language.get(
-												'net-change'
+						header={[
+							{
+								label: sub(
+									Liferay.Language.get('as-of-x'),
+									[formatUTCDateFromUnix(modifiedDate, 'll')],
+									false
+								),
+								weight: 'semibold'
+							},
+							{
+								className: 'pb-0',
+								label: (
+									<span className='text-secondary'>
+										{sub(
+											Liferay.Language.get(
+												'x-total-members'
 											),
-											value: `${netChange[0]}(${netChange[1]}%)`
-										}
-								  ]
-						}
-						subtitle={[
-							sub(
-								Liferay.Language.get('x-total-members'),
-								[<b key='VALUE'>{value.toLocaleString()}</b>],
-								false
-							),
-							sub(
-								Liferay.Language.get('x-anonymous-members'),
-								[
-									<b key='VALUE'>
-										{anonymousCount.toLocaleString()}
-									</b>
-								],
-								false
-							),
-							sub(
-								Liferay.Language.get('x-known-members'),
-								[
-									<b key='VALUE'>
-										{knownCount.toLocaleString()}
-									</b>
-								],
-								false
-							)
-						].map((subtitle, i) => (
-							<div key={i}>{subtitle}</div>
-						))}
-						title={sub(
-							Liferay.Language.get('as-of-x'),
-							[formatUTCDateFromUnix(modifiedDate, 'll')],
-							false
-						)}
+											[
+												<b className='mr-1' key='VALUE'>
+													{value.toLocaleString()}
+												</b>
+											],
+											false
+										)}
+									</span>
+								)
+							},
+							{
+								className: 'pb-0',
+								label: (
+									<span className='text-secondary'>
+										{sub(
+											Liferay.Language.get(
+												'x-anonymous-members'
+											),
+											[
+												<b className='mr-1' key='VALUE'>
+													{anonymousCount.toLocaleString()}
+												</b>
+											],
+											false
+										)}
+									</span>
+								)
+							},
+							{
+								label: (
+									<span className='text-secondary'>
+										{sub(
+											Liferay.Language.get(
+												'x-known-members'
+											),
+											[
+												<b className='mr-1' key='VALUE'>
+													{knownCount.toLocaleString()}
+												</b>
+											],
+											false
+										)}
+									</span>
+								)
+							}
+						].map(column => ({
+							columns: [column]
+						}))}
+						rows={(isNil(netChange)
+							? change
+							: [
+									...change,
+									{
+										label: Liferay.Language.get(
+											'net-change'
+										),
+										value: `${netChange[0]}(${netChange[1]}%)`
+									}
+							  ]
+						).map(({label, value}, i, array) => {
+							const className =
+								i < array.length - 1 ? 'pb-0' : null;
+
+							return {
+								columns: [
+									{
+										className,
+										label,
+										weight: 'normal'
+									},
+									{
+										align: 'right',
+										className,
+										label: value,
+										weight: 'semibold'
+									}
+								]
+							};
+						})}
 					/>
 				</div>
 			);
