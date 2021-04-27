@@ -51,6 +51,10 @@ long commerceRegionId = BeanParamUtil.getLong(shippingAddress, request, "commerc
 
 		<aui:input name="street1" wrapperCssClass="form-group-item" />
 
+		<aui:input name="street2" wrapperCssClass="form-group-item" />
+
+		<aui:input name="street3" wrapperCssClass="form-group-item" />
+
 		<aui:select label="country" name="commerceCountryId" wrapperCssClass="form-group-item" />
 
 		<aui:input name="zip" wrapperCssClass="form-group-item" />
