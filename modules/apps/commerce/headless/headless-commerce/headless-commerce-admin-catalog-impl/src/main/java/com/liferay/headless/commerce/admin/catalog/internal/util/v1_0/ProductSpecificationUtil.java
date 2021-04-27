@@ -23,6 +23,7 @@ import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * @author Alessio Antonio Rendina
@@ -43,7 +44,7 @@ public class ProductSpecificationUtil {
 				cpDefinitionId,
 				getCPSpecificationOptionId(
 					cpSpecificationOptionService, productSpecification,
-					serviceContext.getCompanyId()),
+					serviceContext.getCompanyId(), serviceContext),
 				getCPOptionCategoryId(productSpecification),
 				LanguageUtils.getLocalizedMap(productSpecification.getValue()),
 				GetterUtil.get(productSpecification.getPriority(), 0D),
@@ -62,15 +63,28 @@ public class ProductSpecificationUtil {
 
 	public static long getCPSpecificationOptionId(
 			CPSpecificationOptionService cpSpecificationOptionService,
-			ProductSpecification productSpecification, long companyId)
+			ProductSpecification productSpecification, long companyId,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		CPSpecificationOption cpSpecificationOption =
 			cpSpecificationOptionService.fetchCPSpecificationOption(
-				companyId, productSpecification.getSpecificationKey());
+				companyId,
+				StringUtil.toLowerCase(
+					productSpecification.getSpecificationKey()));
 
 		if (cpSpecificationOption == null) {
-			return 0;
+			cpSpecificationOption =
+				cpSpecificationOptionService.addCPSpecificationOption(
+					getCPOptionCategoryId(productSpecification),
+					LanguageUtils.getLocalizedMap(
+						productSpecification.getValue()),
+					LanguageUtils.getLocalizedMap(
+						productSpecification.getValue()),
+					false,
+					StringUtil.toLowerCase(
+						productSpecification.getSpecificationKey()),
+					serviceContext);
 		}
 
 		return cpSpecificationOption.getCPSpecificationOptionId();
