@@ -71,12 +71,26 @@ definition {
 			locator1 = "TextInput#SUBJECT",
 			value1 = "${threadSubject}");
 
-		Type.sendKeys(
-			key_editor = "body",
-			locator1 = "AlloyEditor#EDITOR",
-			value1 = "@${mentionsUserScreenName}");
+		if (isSet(multipleMentions)) {
+			for (var mentionsUserScreenName : list "${mentionsUserScreenNameList}") {
+				Type.sendKeys(
+					key_editor = "body",
+					locator1 = "AlloyEditor#EDITOR",
+					value1 = " @${mentionsUserScreenName}");
 
-		Click.clickNoMouseOver(locator1 = "Mentions#MENTIONS_USER_DISPLAY_OPTION");
+				Click.clickNoMouseOver(
+					key_mentionsUserScreenName = "${mentionsUserScreenName}",
+					locator1 = "Mentions#MENTIONS_USER_DISPLAY_OPTION");
+			}
+		}
+		else {
+			Type.sendKeys(
+				key_editor = "body",
+				locator1 = "AlloyEditor#EDITOR",
+				value1 = "@${mentionsUserScreenName}");
+
+			Click.clickNoMouseOver(locator1 = "Mentions#MENTIONS_USER_DISPLAY_OPTION");
+		}
 
 		PortletEntry.publish();
 	}
