@@ -1316,14 +1316,25 @@ public class CompanyPersistenceImpl
 	@Override
 	public void cacheResult(List<Company> companies) {
 		for (Company company : companies) {
-			if (EntityCacheUtil.getResult(
-					CompanyModelImpl.ENTITY_CACHE_ENABLED, CompanyImpl.class,
-					company.getPrimaryKey()) == null) {
+			Company cachedCompany = (Company)EntityCacheUtil.getResult(
+				CompanyModelImpl.ENTITY_CACHE_ENABLED, CompanyImpl.class,
+				company.getPrimaryKey());
 
+			if (cachedCompany == null) {
 				cacheResult(company);
 			}
 			else {
-				company.resetOriginalValues();
+				CompanyModelImpl companyModelImpl = (CompanyModelImpl)company;
+				CompanyModelImpl cachedCompanyModelImpl =
+					(CompanyModelImpl)cachedCompany;
+
+				companyModelImpl.setCompanySecurityBag(
+					cachedCompanyModelImpl.getCompanySecurityBag());
+
+				companyModelImpl.setKeyObj(cachedCompanyModelImpl.getKeyObj());
+
+				companyModelImpl.setVirtualHostname(
+					cachedCompanyModelImpl.getVirtualHostname());
 			}
 		}
 	}

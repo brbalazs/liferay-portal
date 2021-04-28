@@ -2877,15 +2877,22 @@ public class DDMFormInstancePersistenceImpl
 	@Override
 	public void cacheResult(List<DDMFormInstance> ddmFormInstances) {
 		for (DDMFormInstance ddmFormInstance : ddmFormInstances) {
-			if (entityCache.getResult(
+			DDMFormInstance cachedDDMFormInstance =
+				(DDMFormInstance)entityCache.getResult(
 					DDMFormInstanceModelImpl.ENTITY_CACHE_ENABLED,
-					DDMFormInstanceImpl.class,
-					ddmFormInstance.getPrimaryKey()) == null) {
+					DDMFormInstanceImpl.class, ddmFormInstance.getPrimaryKey());
 
+			if (cachedDDMFormInstance == null) {
 				cacheResult(ddmFormInstance);
 			}
 			else {
-				ddmFormInstance.resetOriginalValues();
+				DDMFormInstanceModelImpl ddmFormInstanceModelImpl =
+					(DDMFormInstanceModelImpl)ddmFormInstance;
+				DDMFormInstanceModelImpl cachedDDMFormInstanceModelImpl =
+					(DDMFormInstanceModelImpl)cachedDDMFormInstance;
+
+				ddmFormInstanceModelImpl.setDDMFormValues(
+					cachedDDMFormInstanceModelImpl.getDDMFormValues());
 			}
 		}
 	}

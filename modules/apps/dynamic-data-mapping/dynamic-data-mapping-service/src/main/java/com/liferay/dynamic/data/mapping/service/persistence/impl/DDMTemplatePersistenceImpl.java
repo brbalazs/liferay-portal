@@ -12044,15 +12044,21 @@ public class DDMTemplatePersistenceImpl
 	@Override
 	public void cacheResult(List<DDMTemplate> ddmTemplates) {
 		for (DDMTemplate ddmTemplate : ddmTemplates) {
-			if (entityCache.getResult(
-					DDMTemplateModelImpl.ENTITY_CACHE_ENABLED,
-					DDMTemplateImpl.class, ddmTemplate.getPrimaryKey()) ==
-						null) {
+			DDMTemplate cachedDDMTemplate = (DDMTemplate)entityCache.getResult(
+				DDMTemplateModelImpl.ENTITY_CACHE_ENABLED,
+				DDMTemplateImpl.class, ddmTemplate.getPrimaryKey());
 
+			if (cachedDDMTemplate == null) {
 				cacheResult(ddmTemplate);
 			}
 			else {
-				ddmTemplate.resetOriginalValues();
+				DDMTemplateModelImpl ddmTemplateModelImpl =
+					(DDMTemplateModelImpl)ddmTemplate;
+				DDMTemplateModelImpl cachedDDMTemplateModelImpl =
+					(DDMTemplateModelImpl)cachedDDMTemplate;
+
+				ddmTemplateModelImpl.setResourceClassName(
+					cachedDDMTemplateModelImpl.getResourceClassName());
 			}
 		}
 	}

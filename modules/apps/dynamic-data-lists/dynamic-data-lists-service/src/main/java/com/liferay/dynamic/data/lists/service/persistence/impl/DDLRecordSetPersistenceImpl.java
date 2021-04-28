@@ -3123,15 +3123,22 @@ public class DDLRecordSetPersistenceImpl
 	@Override
 	public void cacheResult(List<DDLRecordSet> ddlRecordSets) {
 		for (DDLRecordSet ddlRecordSet : ddlRecordSets) {
-			if (entityCache.getResult(
+			DDLRecordSet cachedDDLRecordSet =
+				(DDLRecordSet)entityCache.getResult(
 					DDLRecordSetModelImpl.ENTITY_CACHE_ENABLED,
-					DDLRecordSetImpl.class, ddlRecordSet.getPrimaryKey()) ==
-						null) {
+					DDLRecordSetImpl.class, ddlRecordSet.getPrimaryKey());
 
+			if (cachedDDLRecordSet == null) {
 				cacheResult(ddlRecordSet);
 			}
 			else {
-				ddlRecordSet.resetOriginalValues();
+				DDLRecordSetModelImpl ddlRecordSetModelImpl =
+					(DDLRecordSetModelImpl)ddlRecordSet;
+				DDLRecordSetModelImpl cachedDDLRecordSetModelImpl =
+					(DDLRecordSetModelImpl)cachedDDLRecordSet;
+
+				ddlRecordSetModelImpl.setDDMFormValues(
+					cachedDDLRecordSetModelImpl.getDDMFormValues());
 			}
 		}
 	}

@@ -1671,14 +1671,25 @@ public class LayoutSetPersistenceImpl
 	@Override
 	public void cacheResult(List<LayoutSet> layoutSets) {
 		for (LayoutSet layoutSet : layoutSets) {
-			if (EntityCacheUtil.getResult(
-					LayoutSetModelImpl.ENTITY_CACHE_ENABLED,
-					LayoutSetImpl.class, layoutSet.getPrimaryKey()) == null) {
+			LayoutSet cachedLayoutSet = (LayoutSet)EntityCacheUtil.getResult(
+				LayoutSetModelImpl.ENTITY_CACHE_ENABLED, LayoutSetImpl.class,
+				layoutSet.getPrimaryKey());
 
+			if (cachedLayoutSet == null) {
 				cacheResult(layoutSet);
 			}
 			else {
-				layoutSet.resetOriginalValues();
+				LayoutSetModelImpl layoutSetModelImpl =
+					(LayoutSetModelImpl)layoutSet;
+				LayoutSetModelImpl cachedLayoutSetModelImpl =
+					(LayoutSetModelImpl)cachedLayoutSet;
+
+				layoutSetModelImpl.setCompanyFallbackVirtualHostname(
+					cachedLayoutSetModelImpl.
+						getCompanyFallbackVirtualHostname());
+
+				layoutSetModelImpl.setVirtualHostname(
+					cachedLayoutSetModelImpl.getVirtualHostname());
 			}
 		}
 	}
