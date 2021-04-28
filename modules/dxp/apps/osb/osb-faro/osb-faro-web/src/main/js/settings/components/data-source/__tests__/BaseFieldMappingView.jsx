@@ -1,47 +1,62 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
 import BaseFieldMappingView from '../BaseFieldMappingView';
+import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
 import {FieldContexts} from 'shared/util/constants';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('BaseFieldMappingView', () => {
 	it('should render', () => {
-		const component = shallow(
-			<BaseFieldMappingView
-				context={FieldContexts.Demographics}
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				groupId='23'
-				id='123'
-			/>
-		);
-
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render w/o loading', () => {
-		const component = shallow(
-			<BaseFieldMappingView
-				context={FieldContexts.Demographics}
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				groupId='23'
-				id='123'
-			/>
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BaseFieldMappingView
+						context={FieldContexts.Demographics}
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockSalesforceDataSource
+						)}
+						groupId='23'
+						id='123'
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		jest.runAllTimers();
 
-		expect(component.find('Spinner').length).toEqual(0);
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render w/o loading', () => {
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BaseFieldMappingView
+						context={FieldContexts.Demographics}
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockSalesforceDataSource
+						)}
+						groupId='23'
+						id='123'
+					/>
+				</StaticRouter>
+			</Provider>
+		);
+
+		jest.runAllTimers();
+
+		expect(container.querySelector('.spinner-root')).toBeFalsy();
 	});
 
 	it('should render w/ error display', () => {
@@ -49,69 +64,79 @@ describe('BaseFieldMappingView', () => {
 			Promise.reject({})
 		);
 
-		const component = shallow(
-			<BaseFieldMappingView
-				context={FieldContexts.Demographics}
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				groupId='23'
-				id='123'
-				title='This is a title'
-			/>
+		const {getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BaseFieldMappingView
+						context={FieldContexts.Demographics}
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockSalesforceDataSource
+						)}
+						groupId='23'
+						id='123'
+						title='This is a title'
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		jest.runAllTimers();
 
-		expect(component.find('ErrorDisplay').length).toEqual(1);
+		expect(getByText('An unexpected error occurred.')).toBeTruthy();
 	});
 
 	it('should render w/ details', () => {
 		const details = 'This is the details';
-		const component = shallow(
-			<BaseFieldMappingView
-				context={FieldContexts.Demographics}
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				details={details}
-				groupId='23'
-				id='123'
-			/>
+
+		const {getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BaseFieldMappingView
+						context={FieldContexts.Demographics}
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockSalesforceDataSource
+						)}
+						details={details}
+						groupId='23'
+						id='123'
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		jest.runAllTimers();
 
-		expect(component.findWhere(n => n.text() === details).length).toEqual(
-			1
-		);
+		expect(getByText(details)).toBeTruthy();
 	});
 
 	it('should render w/ title', () => {
 		const title = 'This is a title';
-		const component = shallow(
-			<BaseFieldMappingView
-				context={FieldContexts.Demographics}
-				currentUser={data.getImmutableMock(User, data.mockUser)}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				groupId='23'
-				id='123'
-				title={title}
-			/>
+
+		const {container, getByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BaseFieldMappingView
+						context={FieldContexts.Demographics}
+						currentUser={data.getImmutableMock(User, data.mockUser)}
+						dataSource={data.getImmutableMock(
+							DataSource,
+							data.mockSalesforceDataSource
+						)}
+						groupId='23'
+						id='123'
+						title={title}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		jest.runAllTimers();
 
-		expect(
-			component.findWhere(n => n.type() === 'h4' && n.text() === title)
-				.length
-		).toEqual(1);
+		expect(container.querySelector('h4')).toBeTruthy();
+		expect(getByText(title)).toBeTruthy();
 	});
 });
