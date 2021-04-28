@@ -1,6 +1,6 @@
-import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
 import BasePage from 'shared/components/base-page';
 import getMedianMapper from 'experiments/hocs/mappers/experiment-variant-median-mapper';
+import HTMLBarChart from 'shared/components/HTMLBarChart';
 import Legend from 'shared/components/Legend';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext} from 'react';
@@ -40,7 +40,7 @@ const MediansChart = () => {
 					/>
 				) : (
 					<>
-						<BarChartHTML {...mediansData} />
+						<HTMLBarChart {...mediansData} />
 
 						<Legend data={legend} />
 					</>

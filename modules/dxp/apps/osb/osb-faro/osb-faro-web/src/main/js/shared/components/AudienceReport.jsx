@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
-import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
 import ChartTooltip from 'shared/components/chart-tooltip';
+import HTMLBarChart from 'shared/components/HTMLBarChart';
 import InfoPopover from 'shared/components/InfoPopover';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -236,12 +236,12 @@ class Donut extends React.Component {
 }
 
 /**
- * Render BarChartHTML Component
+ * Render HTMLBarChart Component
  * @param {array} data
  */
 const renderBarChart = props => (
 	<div className={CLASSNAME_BAR_CHART}>
-		<BarChartHTML {...props} />
+		<HTMLBarChart {...props} />
 	</div>
 );
 

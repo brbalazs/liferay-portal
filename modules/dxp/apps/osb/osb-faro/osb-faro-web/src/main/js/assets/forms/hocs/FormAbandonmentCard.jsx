@@ -1,7 +1,7 @@
-import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
 import BaseCard from 'cerebro-shared/components/base-card';
 import Card from 'shared/components/Card';
 import FormMetricsQuery from '../queries/FormMetricsQuery';
+import HTMLBarChart from 'shared/components/HTMLBarChart';
 import React from 'react';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
@@ -23,7 +23,7 @@ const FormAbandonmentWithData = compose(
 	withEmpty({
 		emptyTitle: Liferay.Language.get('empty-message-form-abandoment')
 	})
-)(BarChartHTML);
+)(HTMLBarChart);
 
 FormAbandonmentWithData.propTypes = HOC_CARD_PROPTYPES;
 
