@@ -686,7 +686,7 @@ export const metricsListColumns = {
 	ratingsMetric: {
 		accessor: 'ratingsMetric',
 		className: 'table-column-text-end',
-		/* dataFormatter: formatScore, FIXME*/
+		dataFormatter: data => `${(data * 10).toFixed(2)}/10`,
 		label: Liferay.Language.get('rating')
 	},
 	readingTimeMetric: {
