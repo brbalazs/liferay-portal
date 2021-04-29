@@ -38,6 +38,8 @@ import com.liferay.portal.kernel.sanitizer.SanitizerUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -151,6 +153,28 @@ public class JournalArticleAssetDisplayContributor
 			).collect(
 				Collectors.toList()
 			);
+		}
+
+		if (classTypeValues.containsKey(key)) {
+			Collection fieldValueCollection = new ArrayList<>();
+
+			Object classTypeValue = classTypeValues.get(key);
+
+			if (classTypeValue instanceof Collection) {
+				fieldValueCollection.addAll((Collection)classTypeValue);
+			}
+			else {
+				fieldValueCollection.add(classTypeValue);
+			}
+
+			if (fieldValue instanceof Collection) {
+				fieldValueCollection.addAll((Collection)fieldValue);
+			}
+			else {
+				fieldValueCollection.add(fieldValue);
+			}
+
+			fieldValue = fieldValueCollection;
 		}
 
 		classTypeValues.put(key, fieldValue);
