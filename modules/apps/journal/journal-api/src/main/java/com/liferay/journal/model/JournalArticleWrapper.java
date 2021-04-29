@@ -488,6 +488,11 @@ public class JournalArticleWrapper
 	}
 
 	@Override
+	public String getDescriptionCurrentValue() {
+		return _journalArticle.getDescriptionCurrentValue();
+	}
+
+	@Override
 	public Map<java.util.Locale, String> getDescriptionMap() {
 		return _journalArticle.getDescriptionMap();
 	}
