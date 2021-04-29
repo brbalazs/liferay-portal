@@ -16,7 +16,7 @@ definition {
 			value1 = "${LDAPServerName}");
 
 		Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVER_DEFAULT_VALUES_APACHE_DIRECTORY_SERVER_RADIO");
-I_AGREE
+
 		Button.clickSave();
 	}
 
