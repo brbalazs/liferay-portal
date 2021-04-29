@@ -87,48 +87,9 @@ public class JournalArticleAssetDisplayContributor
 
 				List<DDMFormFieldValue> ddmFormFieldValues = entry.getValue();
 
-				Object fieldValue = null;
-
-				if (ddmFormFieldValues.size() == 1) {
-					DDMFormFieldValue ddmFormFieldValue0 =
-						ddmFormFieldValues.get(0);
-
-					Value value = ddmFormFieldValue0.getValue();
-
-					fieldValue = _sanitizeFieldValue(
-						article, ddmFormFieldValue0.getType(),
-						value.getString(locale));
-				}
-				else {
-					Stream<DDMFormFieldValue> stream =
-						ddmFormFieldValues.stream();
-
-					fieldValue = stream.map(
-						ddmFormFieldValue -> {
-							Value value = ddmFormFieldValue.getValue();
-
-							try {
-								return _sanitizeFieldValue(
-									article, ddmFormFieldValue.getType(),
-									value.getString(locale));
-							}
-							catch (SanitizerException se) {
-								_log.error(
-									"Unable to sanitize field " +
-										ddmFormFieldValue.getName(),
-									se);
-
-								return null;
-							}
-						}
-					).filter(
-						value -> value != null
-					).collect(
-						Collectors.toList()
-					);
-				}
-
-				classTypeValues.put(entry.getKey(), fieldValue);
+				_addDDMFormFieldValues(
+					article, entry.getKey(), ddmFormFieldValues,
+					classTypeValues, locale);
 			}
 		}
 		catch (PortalException pe) {
@@ -138,6 +99,80 @@ public class JournalArticleAssetDisplayContributor
 		}
 
 		return classTypeValues;
+	}
+
+	private void _addDDMFormFieldValues(
+			JournalArticle article, String key,
+			List<DDMFormFieldValue> ddmFormFieldValues,
+			Map<String, Object> classTypeValues, Locale locale)
+		throws PortalException {
+
+		Object fieldValue = null;
+
+		if (ddmFormFieldValues.size() == 1) {
+			DDMFormFieldValue ddmFormFieldValue = ddmFormFieldValues.get(0);
+
+			_addNestedFields(
+				article, ddmFormFieldValue, classTypeValues, locale);
+
+			Value value = ddmFormFieldValue.getValue();
+
+			fieldValue = _sanitizeFieldValue(
+				article, ddmFormFieldValue.getType(), value.getString(locale));
+		}
+		else {
+			Stream<DDMFormFieldValue> stream = ddmFormFieldValues.stream();
+
+			fieldValue = stream.map(
+				ddmFormFieldValue -> {
+					try {
+						_addNestedFields(
+							article, ddmFormFieldValue, classTypeValues,
+							locale);
+
+						return _sanitizeFieldValue(
+							article, ddmFormFieldValue.getType(),
+							ddmFormFieldValue.getValue(
+							).getString(
+								locale
+							));
+					}
+					catch (PortalException pe) {
+						_log.error(
+							"Unable to sanitize field " +
+								ddmFormFieldValue.getName(),
+							pe);
+
+						return null;
+					}
+				}
+			).filter(
+				value -> value != null
+			).collect(
+				Collectors.toList()
+			);
+		}
+
+		classTypeValues.put(key, fieldValue);
+	}
+
+	private void _addNestedFields(
+			JournalArticle article, DDMFormFieldValue ddmFormFieldValue,
+			Map<String, Object> classTypeValues, Locale locale)
+		throws PortalException {
+
+		Map<String, List<DDMFormFieldValue>> nestedDDMFormFieldsValuesMap =
+			ddmFormFieldValue.getNestedDDMFormFieldValuesMap();
+
+		for (Map.Entry<String, List<DDMFormFieldValue>> entry :
+				nestedDDMFormFieldsValuesMap.entrySet()) {
+
+			List<DDMFormFieldValue> ddmFormFieldValues = entry.getValue();
+
+			_addDDMFormFieldValues(
+				article, entry.getKey(), ddmFormFieldValues, classTypeValues,
+				locale);
+		}
 	}
 
 	private Object _sanitizeFieldValue(
