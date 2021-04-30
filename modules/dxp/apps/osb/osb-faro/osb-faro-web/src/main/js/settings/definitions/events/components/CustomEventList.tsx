@@ -9,6 +9,11 @@ import React from 'react';
 import RowActions from 'shared/components/table/RowActions';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
+import {
+	BlockCustomEventDefinitions,
+	BlockCustomEventDefinitionsData,
+	BlockCustomEventDefinitionsVariables
+} from 'event-analysis/queries/CustomEventDefinitions';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -18,7 +23,7 @@ import {get} from 'lodash';
 import {NAME} from 'shared/util/pagination';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {useQuery} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
 import {
 	useSelectionContext,
 	withSelectionProvider
@@ -108,6 +113,11 @@ const CustomEventList = withCrossPageSelect(withData, {
 
 		const {selectedItems, selectionDispatch} = useSelectionContext();
 
+		const [blockCustomEventDefinitions] = useMutation<
+			BlockCustomEventDefinitionsData,
+			BlockCustomEventDefinitionsVariables
+		>(BlockCustomEventDefinitions);
+
 		const handleBlockEvents = (events: Event[] = []) => {
 			const eventsCount = events.length;
 
@@ -129,8 +139,11 @@ const CustomEventList = withCrossPageSelect(withData, {
 				modalVariant: 'modal-warning',
 				onClose: close,
 				onSubmit: () => {
-					// TODO: LRAC-7606 Add BlockCustomEventDefinitions mutation
-					Promise.resolve()
+					blockCustomEventDefinitions({
+						variables: {
+							eventDefinitionIds: events.map(({id}) => id)
+						}
+					})
 						.then(() => {
 							selectionDispatch({
 								type: 'clear-all'

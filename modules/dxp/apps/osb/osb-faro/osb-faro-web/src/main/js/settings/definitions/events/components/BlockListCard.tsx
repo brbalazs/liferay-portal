@@ -10,6 +10,11 @@ import React from 'react';
 import RowActions from 'shared/components/table/RowActions';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
+import {
+	BlockCustomEventDefinitionsData,
+	BlockCustomEventDefinitionsVariables,
+	UnblockCustomEventDefinitions
+} from 'event-analysis/queries/CustomEventDefinitions';
 import {BlockedCustomEvent} from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -18,7 +23,7 @@ import {get} from 'lodash';
 import {NAME} from 'shared/util/pagination';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {useQuery} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
 import {
 	useSelectionContext,
 	withSelectionProvider
@@ -105,11 +110,19 @@ const BlockListCard = withCrossPageSelect(withData, {
 
 		const {selectedItems, selectionDispatch} = useSelectionContext();
 
+		const [unblockCustomEventDefinitions] = useMutation<
+			BlockCustomEventDefinitionsData,
+			BlockCustomEventDefinitionsVariables
+		>(UnblockCustomEventDefinitions);
+
 		const handleUnblockEvents = (events: BlockedCustomEvent[] = []) => {
 			const eventsCount = events.length;
 
-			// TODO: LRAC-7606 Add UnblockCustomEventDefinitions mutation
-			Promise.resolve()
+			unblockCustomEventDefinitions({
+				variables: {
+					eventDefinitionIds: events.map(({id}) => id)
+				}
+			})
 				.then(() => {
 					selectionDispatch({
 						type: 'clear-all'
