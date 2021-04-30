@@ -19,7 +19,6 @@ import com.liferay.asset.publisher.util.AssetPublisherHelper;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -264,8 +263,6 @@ public class AssetPublisherUtilTest {
 	public void testGetAssetTagNamesContainsAllTagName() throws Exception {
 		String assetTagName = RandomTestUtil.randomString();
 
-		assetTagName = StringUtil.toLowerCase(StringUtil.trim(assetTagName));
-
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			true, true, "assetTags", new String[] {assetTagName});
 
@@ -289,9 +286,6 @@ public class AssetPublisherUtilTest {
 	public void testGetAssetTagNamesContainsAllTagNames() throws Exception {
 		String assetTagName1 = RandomTestUtil.randomString();
 		String assetTagName2 = RandomTestUtil.randomString();
-
-		assetTagName1 = StringUtil.toLowerCase(StringUtil.trim(assetTagName1));
-		assetTagName2 = StringUtil.toLowerCase(StringUtil.trim(assetTagName2));
 
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			true, true, "assetTags",
@@ -318,8 +312,6 @@ public class AssetPublisherUtilTest {
 	public void testGetAssetTagNamesContainsAnyTagName() throws Exception {
 		String assetTagName = RandomTestUtil.randomString();
 
-		assetTagName = StringUtil.toLowerCase(StringUtil.trim(assetTagName));
-
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			true, false, "assetTags", new String[] {assetTagName});
 
@@ -344,9 +336,6 @@ public class AssetPublisherUtilTest {
 		String assetTagName1 = RandomTestUtil.randomString();
 		String assetTagName2 = RandomTestUtil.randomString();
 
-		assetTagName1 = StringUtil.toLowerCase(StringUtil.trim(assetTagName1));
-		assetTagName2 = StringUtil.toLowerCase(StringUtil.trim(assetTagName2));
-
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			true, false, "assetTags",
 			new String[] {assetTagName1, assetTagName2});
@@ -368,8 +357,6 @@ public class AssetPublisherUtilTest {
 	@Test
 	public void testGetAssetTagNamesNotContainsAllTagName() throws Exception {
 		String assetTagName = RandomTestUtil.randomString();
-
-		assetTagName = StringUtil.toLowerCase(StringUtil.trim(assetTagName));
 
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			false, true, "assetTags", new String[] {assetTagName});
@@ -393,9 +380,6 @@ public class AssetPublisherUtilTest {
 		String assetTagName1 = RandomTestUtil.randomString();
 		String assetTagName2 = RandomTestUtil.randomString();
 
-		assetTagName1 = StringUtil.toLowerCase(StringUtil.trim(assetTagName1));
-		assetTagName2 = StringUtil.toLowerCase(StringUtil.trim(assetTagName2));
-
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			false, true, "assetTags",
 			new String[] {assetTagName1, assetTagName2});
@@ -418,8 +402,6 @@ public class AssetPublisherUtilTest {
 	public void testGetAssetTagNamesNotContainsAnyTagName() throws Exception {
 		String assetTagName = RandomTestUtil.randomString();
 
-		assetTagName = StringUtil.toLowerCase(StringUtil.trim(assetTagName));
-
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			false, false, "assetTags", new String[] {assetTagName});
 
@@ -441,9 +423,6 @@ public class AssetPublisherUtilTest {
 	public void testGetAssetTagNamesNotContainsAnyTagNames() throws Exception {
 		String assetTagName1 = RandomTestUtil.randomString();
 		String assetTagName2 = RandomTestUtil.randomString();
-
-		assetTagName1 = StringUtil.toLowerCase(StringUtil.trim(assetTagName1));
-		assetTagName2 = StringUtil.toLowerCase(StringUtil.trim(assetTagName2));
 
 		AssetQueryRule assetQueryRule = new AssetQueryRule(
 			false, false, "assetTags",
