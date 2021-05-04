@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicenseEnterpriseAppDestinationNames;
 import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
+import java.io.FileInputStream;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -322,10 +323,22 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
 
 			try {
+				Bundle bundle = null;
+
+				if (location.startsWith(_LPKG_OVERRIDE_PREFIX)) {
+					String overridePath = location.substring(
+						_LPKG_OVERRIDE_PREFIX.length());
+
+					bundle = _bundleContext.installBundle(
+						location, new FileInputStream(overridePath));
+				}
+				else {
+					bundle = _bundleContext.installBundle(location);
+				}
+
 				bundleEntries.add(
 					new AbstractMap.SimpleImmutableEntry<>(
-						_bundleContext.installBundle(location),
-						portalLicenseEnterpriseAppBlockedBundleData));
+						bundle, portalLicenseEnterpriseAppBlockedBundleData));
 
 				String fragmentHost =
 					portalLicenseEnterpriseAppBlockedBundleData.
@@ -569,6 +582,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	}
 
 	private static final String _KEY_PRODUCT_ID = "product.id=";
+
+	private static final String _LPKG_OVERRIDE_PREFIX = "LPKG-Override::";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalLicenseEnterpriseAppGateKeeper.class);
