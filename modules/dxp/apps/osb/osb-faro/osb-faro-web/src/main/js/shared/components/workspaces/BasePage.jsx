@@ -3,7 +3,7 @@ import DocumentTitle from 'shared/components/DocumentTitle';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {createContext} from 'react';
-import UserDropDown from 'shared/components/user-dropdown';
+import UserDropdown from 'shared/components/user-dropdown';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {Align} from '@clayui/drop-down';
 import {LocalStorageMechanism, Storage} from 'metal-storage';
@@ -42,25 +42,47 @@ export class WorkspacesBasePage extends React.Component {
 	}
 
 	getUserMenuItems() {
-		const {currentUser} = this.props;
+		const {
+			currentUser: {emailAddress, screenName}
+		} = this.props;
 
-		return [
-			{
-				items: [
-					{
-						externalLink: true,
-						label: Liferay.Language.get('account'),
-						url: `https://web.liferay.com/web/${currentUser.screenName}/account-settings`
-					},
-					{
-						externalLink: true,
-						label: Liferay.Language.get('sign-out'),
-						url: Routes.LOGOUT
-					}
-				],
-				subheaderLabel: currentUser.emailAddress
-			}
-		];
+		// TODO: LRAC-7816 Add logic for fetching and displaying the current language.  Add logic to update language.
+		return {
+			base: [
+				{
+					items: [
+						{
+							childMenuId: 'language',
+							label: Liferay.Language.get('language')
+						},
+						{
+							externalLink: true,
+							label: Liferay.Language.get('account'),
+							url: `https://web.liferay.com/web/${screenName}/account-settings`
+						},
+						{
+							externalLink: true,
+							label: Liferay.Language.get('sign-out'),
+							url: Routes.LOGOUT
+						}
+					],
+					subheaderLabel: emailAddress
+				}
+			],
+			language: [
+				{
+					items: [
+						{
+							active: true,
+							label: Liferay.Language.get('english')
+						},
+						{
+							label: Liferay.Language.get('japanese')
+						}
+					]
+				}
+			]
+		};
 	}
 
 	render() {
@@ -87,9 +109,10 @@ export class WorkspacesBasePage extends React.Component {
 							/>
 						</a>
 
-						<UserDropDown
+						<UserDropdown
 							alignmentPosition={Align.BottomRight}
-							menuItems={this.getUserMenuItems()}
+							initialActiveMenu='base'
+							menus={this.getUserMenuItems()}
 							showCaret
 							userName={currentUser.name}
 						/>

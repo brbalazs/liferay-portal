@@ -2,8 +2,10 @@ import ClayDropDown, {Align} from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import getCN from 'classnames';
 import Item from './Item';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Sticker from '../Sticker';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import {Menus} from './types';
 
 function getInitials(name = '') {
 	const nameArray = name.split(' ', 3);
@@ -20,7 +22,8 @@ interface IUserDropdownProps extends React.HTMLAttributes<HTMLElement> {
 	containerElement?: React.ComponentProps<
 		typeof ClayDropDown
 	>['containerElement'];
-	menuItems: any;
+	initialActiveMenu: string;
+	menus: Menus;
 	showCaret?: boolean;
 	userName: string;
 }
@@ -30,10 +33,22 @@ interface ILabelProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	userName: string;
 }
 
-const userDropDown: React.FC<IUserDropdownProps> = (
-	props: IUserDropdownProps
-) => {
+const userDropDown: React.FC<IUserDropdownProps> = ({
+	alignmentPosition = Align.RightCenter,
+	className,
+	containerElement: ContainerElement = 'div',
+	initialActiveMenu,
+	menus,
+	showCaret = false,
+	userName
+}: IUserDropdownProps) => {
 	const [active, setActive] = useState(false);
+	const [activeMenu, setActiveMenu] = useState(initialActiveMenu);
+
+	useEffect(() => {
+		setActiveMenu(last(history));
+	}, [history]);
+
 	const triggerElementRef = useRef(null);
 	const menuElementRef = useRef(null);
 
@@ -41,14 +56,7 @@ const userDropDown: React.FC<IUserDropdownProps> = (
 		setActive(!active);
 	};
 
-	const {
-		className,
-		containerElement: ContainerElement = 'div',
-		menuItems,
-		alignmentPosition = Align.RightCenter,
-		showCaret = false,
-		userName
-	} = props;
+	const menuIds = Object.keys(menus);
 
 	return (
 		<>
@@ -69,15 +77,36 @@ const userDropDown: React.FC<IUserDropdownProps> = (
 				onSetActive={setActive}
 				ref={menuElementRef}
 			>
-				<ClayDropDown.ItemList>
-					{menuItems.map(({items, subheaderLabel}, i) => (
-						<ClayDropDown.Group header={subheaderLabel} key={i}>
-							{items.map((props, i) => (
-								<Item {...props} key={i} />
-							))}
-						</ClayDropDown.Group>
-					))}
-				</ClayDropDown.ItemList>
+				{menuIds.map(menuId => (
+					<ClayDropDown.ItemList
+						className={getCN('menu-list', {
+							active: activeMenu === menuId
+						})}
+						key={menuId}
+					>
+						{menus[menuId].map(({items, subheaderLabel}, i) => (
+							<ClayDropDown.Group header={subheaderLabel} key={i}>
+								{items.map(
+									(
+										{childMenuId, onClick, ...otherProps},
+										i
+									) => (
+										<Item
+											{...otherProps}
+											key={i}
+											onClick={() => {
+												childMenuId &&
+													setActiveMenu(childMenuId);
+
+												onClick && onClick();
+											}}
+										/>
+									)
+								)}
+							</ClayDropDown.Group>
+						))}
+					</ClayDropDown.ItemList>
+				))}
 			</ClayDropDown.Menu>
 		</>
 	);
@@ -109,4 +138,5 @@ const Label = React.forwardRef<HTMLButtonElement, ILabelProps>(
 	)
 );
 
+export {Menus};
 export default userDropDown;

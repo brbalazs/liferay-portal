@@ -1,39 +1,33 @@
+import Button from 'shared/components/Button';
 import ClayDropDown from '@clayui/drop-down';
+import getCN from 'classnames';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {toRoute} from 'shared/util/router';
+import {MenuItem} from './types';
 
-interface IUserMenuDropdownItem
-	extends React.ComponentProps<typeof ClayDropDown.Item> {
-	externalLink: boolean;
-	label: string;
-	url: string;
-}
-
-const renderLinkElement = ({externalLink, label, url}) => {
-	if (externalLink) {
-		return (
-			<a className='dropdown-item' href={url}>
-				{label}
-			</a>
-		);
-	} else {
-		return (
-			<Link className='dropdown-item' to={toRoute(url)}>
-				{label}
-			</Link>
-		);
-	}
-};
-
-const UserMenuDropdownItem: React.FC<IUserMenuDropdownItem> = ({
+const UserMenuDropdownItem: React.FC<
+	React.ComponentProps<typeof ClayDropDown.Item> & MenuItem
+> = ({
+	active,
 	className,
 	externalLink,
+	icon,
+	iconAlignment,
 	label,
+	onClick,
 	url
 }) => (
-	<ClayDropDown.Item className={className}>
-		{renderLinkElement({externalLink, label, url})}
+	<ClayDropDown.Item className={getCN(className, {active})}>
+		<Button
+			block
+			display='unstyled'
+			externalLink={externalLink}
+			href={url}
+			icon={icon}
+			iconAlignment={iconAlignment}
+			onClick={onClick}
+		>
+			{label}
+		</Button>
 	</ClayDropDown.Item>
 );
 export default UserMenuDropdownItem;
