@@ -52,7 +52,7 @@ definition {
 			localeBasic = "Básico",
 			localeElements = "Elementos");
 
-		Form.editFieldLabelMetal(
+		Form.editFieldLabel(
 			fieldValue = "label",
 			localeAdvanced = "Avanzado",
 			localeBasic = "Básico");
@@ -73,11 +73,6 @@ definition {
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Instance Settings");
-
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Time Zone",
-			configurationScope = "Virtual Instance Scope");
 
 		task ("Assert current time displays in user's selected time zone by asserting time zone specific label") {
 			Calendar.viewSelectedTimeZone(timeZone = "(UTC -08:00) Pacific Standard Time");
@@ -102,10 +97,10 @@ definition {
 			Calendar.viewSelectedTimeZone(timeZone = "(UTC -08:00) Pacific Standard Time");
 		}
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Time Zone",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
 
 		PortalSettings.configureTimeZone(timeZone = "(UTC) Coordinated Universal Time");
 
@@ -207,10 +202,10 @@ definition {
 			siteName = "Test Site Name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "es-ES",
+			locale = "es-es",
 			textIcon = "español-España");
 
-		AssertLocation(value1 = "${portalURL}/es/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/es/web/test-site-name");
 
 		Portlet.shutdownServer();
 
@@ -225,10 +220,10 @@ definition {
 			siteName = "Test Site Name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "es-ES",
+			locale = "es-es",
 			textIcon = "español-España");
 
-		AssertLocation(value1 = "${portalURL}/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/web/test-site-name");
 
 		Portlet.shutdownServer();
 
@@ -243,16 +238,16 @@ definition {
 			siteName = "Test Site Name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "es-ES",
+			locale = "es-es",
 			textIcon = "español-España");
 
-		AssertLocation(value1 = "${portalURL}/es/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/es/web/test-site-name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "en-US",
-			textIcon = "english-United States");
+			locale = "en-us",
+			textIcon = "English-United States");
 
-		AssertLocation(value1 = "${portalURL}/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/web/test-site-name");
 
 		Portlet.shutdownServer();
 
@@ -267,16 +262,16 @@ definition {
 			siteName = "Test Site Name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "es-ES",
+			locale = "es-es",
 			textIcon = "español-España");
 
-		AssertLocation(value1 = "${portalURL}/es/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/es/web/test-site-name");
 
 		LanguagePortlet.selectLanguagePG(
-			locale = "en-US",
-			textIcon = "english-United States");
+			locale = "en-us",
+			textIcon = "English-United States");
 
-		AssertLocation(value1 = "${portalURL}/en/web/test-site-name/test-page");
+		AssertLocation.assertPartialLocation(value1 = "${portalURL}/en/web/test-site-name");
 	}
 
 	@priority = "4"
@@ -286,10 +281,10 @@ definition {
 
 		User.firstLoginPG();
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Language",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
 
 		task ("Assert there is at least one language available in current languages") {
 			AssertElementPresent(locator1 = "LanguageConfiguration#LANGUAGES_CURRENT_SELECT");
@@ -339,10 +334,10 @@ definition {
 
 		User.firstLoginPG();
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Language",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
 
 		task ("Assert that some of the configured languages are available in available languages") {
 			for (var language : list "Hungarian (Hungary),Portuguese (Brazil)") {
@@ -374,15 +369,17 @@ definition {
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Time Zone",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
+
+		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
 		PortalSettings.configureTimeZone(timeZone = "(UTC +02:00) Central European Summer Time");
 
 		ProductMenu.gotoPortlet(
-			category = "Security",
+			category = "Users",
 			panel = "Control Panel",
 			portlet = "Password Policies");
 
@@ -446,10 +443,10 @@ definition {
 
 		User.firstLoginPG();
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Time Zone",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
 
 		task ("Assert some default available time zones for instances and users") {
 			for (var timeZone : list "(UTC) Coordinated Universal Time,(UTC +08:00) China Standard Time") {
@@ -486,7 +483,7 @@ definition {
 		Navigator.gotoNavTab(navTab = "Languages");
 
 		task ("Assert the default language options radio box is checked") {
-			AssertChecked(locator1 = "SiteSettingsDisplaySettings#DEFAULT_LANGUAGES_RADIO");
+			AssertChecked(locator1 = "SiteSettingsDisplaySettings#LANGUAGES_RADIO");
 		}
 
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "guest");
@@ -508,20 +505,12 @@ definition {
 	test ViewLocaleInNewVirtualInstance {
 		User.firstLoginPG();
 
-		PortalSettings.gotoConfiguration(
-			configurationCategory = "Localization",
-			configurationName = "Language",
-			configurationScope = "Virtual Instance Scope");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Instance Settings");
 
-		PortalSettings.configureCurrentLanguagesCP(
-			currentPortalLanguages = "English (United States),Italian (Italy)",
-			defaultPortalLanguage = "English (United States)",
-			displaySettings = "Display Settings");
-
-		PortalSettings.configureCurrentLanguagesCP(
-			currentPortalLanguages = "English (United States),Italian (Italy)",
-			defaultPortalLanguage = "Italian (Italy)",
-			displaySettings = "Display Settings");
+		PortalSettings.configureCurrentLanguagesCP(defaultPortalLanguage = "Italian (Italy)");
 
 		PortalInstances.openVirtualInstancesAdmin();
 
@@ -630,7 +619,7 @@ definition {
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		task ("Assert site displays in user's locale by asserting user dropdown menu item") {
-			UserBar.gotoDropdown();
+			Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
 			var dropdownItem = "我的个人资料";
 			var key_dropdownItem = "${dropdownItem}";

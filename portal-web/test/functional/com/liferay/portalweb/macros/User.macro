@@ -1523,8 +1523,6 @@ definition {
 			locator1 = "TextInput#PASSWORD",
 			value1 = "${password}");
 
-		takeScreenshot();
-
 		if ((isSet(rememberMeChecked)) && ("${rememberMeChecked}" == "true")) {
 			Check(locator1 = "Checkbox#REMEMBER_ME");
 		}

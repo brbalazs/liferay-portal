@@ -329,6 +329,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>LOCALIZATION_GENERIC</td>
+	<td>//div[contains(@class,'form-group')]//div[contains(@class,'localized')]//button[contains(@class,'localized')] | //button[contains(@class,'localized')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>MERGE</td>
 	<td>//button[contains(.,'Merge')]</td>
 	<td></td>
