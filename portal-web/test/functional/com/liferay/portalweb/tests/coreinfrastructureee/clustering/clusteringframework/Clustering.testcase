@@ -186,7 +186,7 @@ definition {
 
 		for (var serverPort : list "8080,9080") {
 			Clustering.deployJarOnSpecificServer(
-				liferayDependencyJars = "com.liferay.cluster.test.module.jar",
+				liferayDependencyJars = "com.liferay.cluster.test.module.7.1.jar",
 				nodePort = "${serverPort}");
 		}
 
