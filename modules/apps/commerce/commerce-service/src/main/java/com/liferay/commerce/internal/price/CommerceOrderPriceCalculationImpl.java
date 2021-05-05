@@ -197,7 +197,7 @@ public class CommerceOrderPriceCalculationImpl
 						discountAmount.getPrice());
 			}
 
-			totalWithTaxAmount = totalWithTaxAmount.add(shippingWithTaxAmount);
+			totalWithTaxAmount = totalWithTaxAmount.add(shippingAmount);
 
 			if (orderShippingCommerceDiscountValue != null) {
 				CommerceMoney discountAmount =
