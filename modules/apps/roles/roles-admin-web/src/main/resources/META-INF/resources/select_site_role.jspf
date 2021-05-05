@@ -17,8 +17,11 @@
 <%
 String p_u_i_d = ParamUtil.getString(request, "p_u_i_d");
 int step = ParamUtil.getInteger(request, "step", 1);
+
 String eventName = ParamUtil.getString(request, "eventName", liferayPortletResponse.getNamespace() + "selectSiteRole");
 String syncEntitiesEventName = ParamUtil.getString(request, "syncEntitiesEventName", liferayPortletResponse.getNamespace() + "syncSiteRoles");
+
+SelectRoleManagementToolbarDisplayContext selectRoleManagementToolbarDisplayContext = new SelectRoleManagementToolbarDisplayContext(request, renderRequest, renderResponse, eventName);
 
 User selUser = PortalUtil.getSelectedUser(request);
 
@@ -50,6 +53,8 @@ if (step == 1) {
 	if (Validator.isNull(keywords) && (groups.size() == 1)) {
 		step = 2;
 
+		selectRoleManagementToolbarDisplayContext.setStep(step);
+
 		Group group = groups.get(0);
 
 		uniqueGroupId = group.getGroupId();
@@ -58,9 +63,9 @@ if (step == 1) {
 
 if (step == 2) {
 	groupId = ParamUtil.getLong(request, "groupId", uniqueGroupId);
-}
 
-SelectRoleManagementToolbarDisplayContext selectRoleManagementToolbarDisplayContext = new SelectRoleManagementToolbarDisplayContext(request, renderRequest, renderResponse, eventName);
+	selectRoleManagementToolbarDisplayContext.setGroupId(groupId);
+}
 
 PortletURL portletURL = selectRoleManagementToolbarDisplayContext.getPortletURL();
 

@@ -59,8 +59,10 @@ public class SelectRoleManagementToolbarDisplayContext {
 		_renderResponse = renderResponse;
 		_eventName = eventName;
 
+		_groupId = ParamUtil.getLong(_request, "groupId");
 		_roleType = ParamUtil.getInteger(
 			_request, "roleType", RoleConstants.TYPE_REGULAR);
+		_step = ParamUtil.getInteger(_request, "step", 1);
 	}
 
 	public String getClearResultsURL() {
@@ -93,10 +95,8 @@ public class SelectRoleManagementToolbarDisplayContext {
 			portletURL.setParameter("keywords", keywords[keywords.length - 1]);
 		}
 
-		long groupId = ParamUtil.getLong(_request, "groupId");
-
-		if (groupId != 0) {
-			portletURL.setParameter("groupId", String.valueOf(groupId));
+		if (_groupId != 0) {
+			portletURL.setParameter("groupId", String.valueOf(_groupId));
 		}
 
 		String organizationId = ParamUtil.getString(_request, "organizationId");
@@ -112,9 +112,7 @@ public class SelectRoleManagementToolbarDisplayContext {
 			portletURL.setParameter("organizationIds", organizationIds);
 		}
 
-		int step = ParamUtil.getInteger(_request, "step", 1);
-
-		portletURL.setParameter("step", String.valueOf(step));
+		portletURL.setParameter("step", String.valueOf(_step));
 
 		return portletURL;
 	}
@@ -197,6 +195,14 @@ public class SelectRoleManagementToolbarDisplayContext {
 		};
 	}
 
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	public void setStep(int step) {
+		_step = step;
+	}
+
 	private User _getSelectedUser() {
 		try {
 			return PortalUtil.getSelectedUser(_request);
@@ -212,10 +218,12 @@ public class SelectRoleManagementToolbarDisplayContext {
 		SelectRoleManagementToolbarDisplayContext.class);
 
 	private final String _eventName;
+	private long _groupId;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private final HttpServletRequest _request;
 	private RoleSearch _roleSearch;
 	private final int _roleType;
+	private int _step;
 
 }
