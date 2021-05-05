@@ -178,6 +178,72 @@ public class Account implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> customFields;
 
+	@DecimalMin("0")
+	@Schema
+	public Long getDefaultBillingAccountAddressId() {
+		return defaultBillingAccountAddressId;
+	}
+
+	public void setDefaultBillingAccountAddressId(
+		Long defaultBillingAccountAddressId) {
+
+		this.defaultBillingAccountAddressId = defaultBillingAccountAddressId;
+	}
+
+	@JsonIgnore
+	public void setDefaultBillingAccountAddressId(
+		UnsafeSupplier<Long, Exception>
+			defaultBillingAccountAddressIdUnsafeSupplier) {
+
+		try {
+			defaultBillingAccountAddressId =
+				defaultBillingAccountAddressIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long defaultBillingAccountAddressId;
+
+	@DecimalMin("0")
+	@Schema
+	public Long getDefaultShippingAccountAddressId() {
+		return defaultShippingAccountAddressId;
+	}
+
+	public void setDefaultShippingAccountAddressId(
+		Long defaultShippingAccountAddressId) {
+
+		this.defaultShippingAccountAddressId = defaultShippingAccountAddressId;
+	}
+
+	@JsonIgnore
+	public void setDefaultShippingAccountAddressId(
+		UnsafeSupplier<Long, Exception>
+			defaultShippingAccountAddressIdUnsafeSupplier) {
+
+		try {
+			defaultShippingAccountAddressId =
+				defaultShippingAccountAddressIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long defaultShippingAccountAddressId;
+
 	@Schema
 	public String[] getEmailAddresses() {
 		return emailAddresses;
@@ -495,6 +561,26 @@ public class Account implements Serializable {
 			sb.append("\"customFields\": ");
 
 			sb.append(_toJSON(customFields));
+		}
+
+		if (defaultBillingAccountAddressId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"defaultBillingAccountAddressId\": ");
+
+			sb.append(defaultBillingAccountAddressId);
+		}
+
+		if (defaultShippingAccountAddressId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"defaultShippingAccountAddressId\": ");
+
+			sb.append(defaultShippingAccountAddressId);
 		}
 
 		if (emailAddresses != null) {
