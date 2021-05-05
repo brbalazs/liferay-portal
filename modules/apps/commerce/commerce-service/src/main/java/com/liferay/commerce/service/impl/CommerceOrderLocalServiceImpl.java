@@ -230,6 +230,13 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setStatusDate(serviceContext.getModifiedDate(null));
 		commerceOrder.setExpandoBridgeAttributes(serviceContext);
 
+		_setCommerceOrderShippingDiscountValue(commerceOrder, null, true);
+		_setCommerceOrderShippingDiscountValue(commerceOrder, null, false);
+		_setCommerceOrderSubtotalDiscountValue(commerceOrder, null, true);
+		_setCommerceOrderSubtotalDiscountValue(commerceOrder, null, false);
+		_setCommerceOrderTotalDiscountValue(commerceOrder, null, true);
+		_setCommerceOrderTotalDiscountValue(commerceOrder, null, false);
+
 		commerceOrder = commerceOrderPersistence.update(commerceOrder);
 
 		// Workflow
