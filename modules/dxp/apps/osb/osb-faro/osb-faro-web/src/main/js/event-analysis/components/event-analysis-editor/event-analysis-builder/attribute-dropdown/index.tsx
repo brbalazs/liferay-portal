@@ -80,7 +80,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 				<TransitionGroup className='transition-carousel-group'>
 					{!selectedAttribute && (
 						<CSSTransition
-							classNames='transition-carousel-right'
+							classNames='transition-attribute-carousel-right'
 							timeout={250}
 						>
 							<div className='d-flex flex-column'>
@@ -170,7 +170,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 
 					{selectedAttribute && (
 						<CSSTransition
-							classNames='transition-carousel-left'
+							classNames='transition-attribute-carousel-left'
 							timeout={250}
 						>
 							<div className='w-100'>
