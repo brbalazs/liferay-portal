@@ -45,9 +45,17 @@ const userDropDown: React.FC<IUserDropdownProps> = ({
 	userName
 }: IUserDropdownProps) => {
 	const [active, setActive] = useState(false);
+	const [activeMenu, setActiveMenu] = useState(initialActiveMenu);
 	const [direction, setDirection] = useState<'left' | 'right'>('left');
 	const [history, setHistory] = useState<string[]>([initialActiveMenu]);
-	const [activeMenu, setActiveMenu] = useState(initialActiveMenu);
+
+	useEffect(() => {
+		if (!active) {
+			setDirection('left');
+
+			setHistory([initialActiveMenu]);
+		}
+	}, [active]);
 
 	useEffect(() => {
 		setActiveMenu(last(history));

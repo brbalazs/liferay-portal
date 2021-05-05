@@ -1,7 +1,7 @@
 import React from 'react';
 import UserDropdown, {Menus} from '../index';
 import {BrowserRouter} from 'react-router-dom';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
@@ -41,7 +41,6 @@ const mockMenus = (): Menus => ({
 });
 
 describe('UserDropdown', () => {
-	afterEach(cleanup);
 	it('should render', () => {
 		const {container} = render(
 			<BrowserRouter>
@@ -141,6 +140,48 @@ describe('UserDropdown', () => {
 		).toBe('Japanese');
 
 		fireEvent.click(dropdownMenu.getElementsByClassName('button-root')[0]);
+
+		jest.runAllTimers();
+
+		expect(
+			dropdownMenu.getElementsByClassName('button-root')[0].textContent
+		).toBe('Language');
+	});
+
+	it('should go back to the initialActiveMenu on close', () => {
+		const {container} = render(
+			<BrowserRouter>
+				<UserDropdown
+					initialActiveMenu='base'
+					menus={mockMenus()}
+					userName='Test Test'
+				/>
+			</BrowserRouter>
+		);
+
+		const toggleButton = container.querySelector('.user-menu');
+
+		fireEvent.click(toggleButton);
+
+		const dropdownMenu = document.body.querySelector('.dropdown-menu');
+
+		expect(
+			dropdownMenu.getElementsByClassName('button-root')[0].textContent
+		).toBe('Language');
+
+		fireEvent.click(dropdownMenu.getElementsByClassName('button-root')[0]);
+
+		jest.runAllTimers();
+
+		expect(
+			dropdownMenu.getElementsByClassName('button-root')[1].textContent
+		).toBe('English');
+		expect(
+			dropdownMenu.getElementsByClassName('button-root')[2].textContent
+		).toBe('Japanese');
+
+		fireEvent.click(toggleButton);
+		fireEvent.click(toggleButton);
 
 		jest.runAllTimers();
 
