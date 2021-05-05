@@ -3,7 +3,7 @@ import ClayDropDown, {Align} from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import getCN from 'classnames';
 import Item from './Item';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import Sticker from '../Sticker';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {last} from 'lodash';
@@ -128,30 +128,38 @@ const userDropDown: React.FC<IUserDropdownProps> = ({
 												(
 													{
 														childMenuId,
+														divider,
 														onClick,
 														...otherProps
 													},
 													i
 												) => (
-													<Item
-														{...otherProps}
-														key={i}
-														onClick={() => {
-															if (childMenuId) {
-																setHistory([
-																	...history,
+													<Fragment key={i}>
+														<Item
+															{...otherProps}
+															onClick={() => {
+																if (
 																	childMenuId
-																]);
+																) {
+																	setHistory([
+																		...history,
+																		childMenuId
+																	]);
 
-																setDirection(
-																	'left'
-																);
-															}
+																	setDirection(
+																		'left'
+																	);
+																}
 
-															onClick &&
-																onClick();
-														}}
-													/>
+																onClick &&
+																	onClick();
+															}}
+														/>
+
+														{divider && (
+															<ClayDropDown.Divider />
+														)}
+													</Fragment>
 												)
 											)}
 										</ClayDropDown.Group>

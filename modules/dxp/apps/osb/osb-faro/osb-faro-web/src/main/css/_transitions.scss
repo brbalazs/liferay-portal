@@ -10,7 +10,7 @@ $slideUpLength: 8px;
 	overflow-y: hidden;
 }
 
-/* ---------- Attribute Carousel left ---------- */
+/* ---------- Attribute carousel left ---------- */
 
 .transition-attribute-carousel-left-enter {
 	flex-shrink: 0;
@@ -62,7 +62,7 @@ $slideUpLength: 8px;
 	transition: transform 250ms ease-in-out, max-height 250ms ease-in-out;
 }
 
-/* ---------- Carousel Slide In Out Right ---------- */
+/* ---------- Carousel slide in out right ---------- */
 
 .transition-carousel-slide-in-out-right-enter {
 	flex-shrink: 0;
@@ -84,7 +84,7 @@ $slideUpLength: 8px;
 	transition: transform 250ms ease-in-out;
 }
 
-/* ---------- Carousel Slide In Out left ---------- */
+/* ---------- Carousel slide in out left ---------- */
 
 .transition-carousel-slide-in-out-left-enter {
 	flex-shrink: 0;

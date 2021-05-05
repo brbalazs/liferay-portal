@@ -126,6 +126,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
 				items: [
 					{
 						childMenuId: 'language',
+						divider: true,
 						label: Liferay.Language.get('language')
 					},
 					{

@@ -3,6 +3,7 @@ import {Alignments} from 'shared/components/Button';
 export type MenuItem = {
 	active?: boolean;
 	childMenuId?: string;
+	divider?: boolean;
 	externalLink?: boolean;
 	icon?: string;
 	iconAlignment?: Alignments;

@@ -23,10 +23,8 @@
 	position: fixed;
 	transform: translateX(8px);
 
-	.dropdown-subheader {
-		color: $main;
-		font-weight: $fontWeightSemiBold;
-		text-transform: lowercase;
+	.dropdown-divider {
+		margin: 0;
 	}
 
 	.dropdown-item {
@@ -39,5 +37,11 @@
 		&.active > button {
 			color: $main;
 		}
+	}
+
+	.dropdown-subheader {
+		color: $main;
+		font-weight: $fontWeightSemiBold;
+		text-transform: lowercase;
 	}
 }
