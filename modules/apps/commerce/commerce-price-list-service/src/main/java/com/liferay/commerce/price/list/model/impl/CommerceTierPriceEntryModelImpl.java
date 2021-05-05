@@ -160,11 +160,17 @@ public class CommerceTierPriceEntryModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
-	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 4L;
+	public static final long DISPLAYDATE_COLUMN_BITMASK = 4L;
 
-	public static final long MINQUANTITY_COLUMN_BITMASK = 8L;
+	public static final long EXPIRATIONDATE_COLUMN_BITMASK = 8L;
 
-	public static final long UUID_COLUMN_BITMASK = 16L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 16L;
+
+	public static final long MINQUANTITY_COLUMN_BITMASK = 32L;
+
+	public static final long STATUS_COLUMN_BITMASK = 64L;
+
+	public static final long UUID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -1288,7 +1294,17 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
+
+		if (_originalDisplayDate == null) {
+			_originalDisplayDate = _displayDate;
+		}
+
 		_displayDate = displayDate;
+	}
+
+	public Date getOriginalDisplayDate() {
+		return _originalDisplayDate;
 	}
 
 	@JSON
@@ -1299,7 +1315,17 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void setExpirationDate(Date expirationDate) {
+		_columnBitmask |= EXPIRATIONDATE_COLUMN_BITMASK;
+
+		if (_originalExpirationDate == null) {
+			_originalExpirationDate = _expirationDate;
+		}
+
 		_expirationDate = expirationDate;
+	}
+
+	public Date getOriginalExpirationDate() {
+		return _originalExpirationDate;
 	}
 
 	@JSON
@@ -1321,7 +1347,19 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void setStatus(int status) {
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
+
+		if (!_setOriginalStatus) {
+			_setOriginalStatus = true;
+
+			_originalStatus = _status;
+		}
+
 		_status = status;
+	}
+
+	public int getOriginalStatus() {
+		return _originalStatus;
 	}
 
 	@JSON
@@ -1613,6 +1651,14 @@ public class CommerceTierPriceEntryModelImpl
 
 		_setOriginalMinQuantity = false;
 
+		_originalDisplayDate = _displayDate;
+
+		_originalExpirationDate = _expirationDate;
+
+		_originalStatus = _status;
+
+		_setOriginalStatus = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -1850,9 +1896,13 @@ public class CommerceTierPriceEntryModelImpl
 	private int _originalMinQuantity;
 	private boolean _setOriginalMinQuantity;
 	private Date _displayDate;
+	private Date _originalDisplayDate;
 	private Date _expirationDate;
+	private Date _originalExpirationDate;
 	private Date _lastPublishDate;
 	private int _status;
+	private int _originalStatus;
+	private boolean _setOriginalStatus;
 	private long _statusByUserId;
 	private String _statusByUserName;
 	private Date _statusDate;

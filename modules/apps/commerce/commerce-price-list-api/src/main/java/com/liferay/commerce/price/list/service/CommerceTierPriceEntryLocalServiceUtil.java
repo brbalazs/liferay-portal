@@ -159,6 +159,10 @@ public class CommerceTierPriceEntryLocalServiceUtil {
 			serviceContext);
 	}
 
+	public static void checkCommerceTierPriceEntries() throws PortalException {
+		getService().checkCommerceTierPriceEntries();
+	}
+
 	/**
 	 * Creates a new commerce tier price entry with the primary key. Does not add the commerce tier price entry to the database.
 	 *

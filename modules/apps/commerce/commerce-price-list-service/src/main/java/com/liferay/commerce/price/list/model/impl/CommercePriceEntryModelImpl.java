@@ -167,13 +167,17 @@ public class CommercePriceEntryModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 4L;
 
-	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 8L;
+	public static final long DISPLAYDATE_COLUMN_BITMASK = 8L;
 
-	public static final long STATUS_COLUMN_BITMASK = 16L;
+	public static final long EXPIRATIONDATE_COLUMN_BITMASK = 16L;
 
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 32L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 64L;
+	public static final long STATUS_COLUMN_BITMASK = 64L;
+
+	public static final long UUID_COLUMN_BITMASK = 128L;
+
+	public static final long CREATEDATE_COLUMN_BITMASK = 256L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -1363,7 +1367,17 @@ public class CommercePriceEntryModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
+
+		if (_originalDisplayDate == null) {
+			_originalDisplayDate = _displayDate;
+		}
+
 		_displayDate = displayDate;
+	}
+
+	public Date getOriginalDisplayDate() {
+		return _originalDisplayDate;
 	}
 
 	@JSON
@@ -1374,7 +1388,17 @@ public class CommercePriceEntryModelImpl
 
 	@Override
 	public void setExpirationDate(Date expirationDate) {
+		_columnBitmask |= EXPIRATIONDATE_COLUMN_BITMASK;
+
+		if (_originalExpirationDate == null) {
+			_originalExpirationDate = _expirationDate;
+		}
+
 		_expirationDate = expirationDate;
+	}
+
+	public Date getOriginalExpirationDate() {
+		return _originalExpirationDate;
 	}
 
 	@JSON
@@ -1694,6 +1718,10 @@ public class CommercePriceEntryModelImpl
 
 		_originalCPInstanceUuid = _CPInstanceUuid;
 
+		_originalDisplayDate = _displayDate;
+
+		_originalExpirationDate = _expirationDate;
+
 		_originalStatus = _status;
 
 		_setOriginalStatus = false;
@@ -1942,7 +1970,9 @@ public class CommercePriceEntryModelImpl
 	private boolean _hasTierPrice;
 	private boolean _bulkPricing;
 	private Date _displayDate;
+	private Date _originalDisplayDate;
 	private Date _expirationDate;
+	private Date _originalExpirationDate;
 	private Date _lastPublishDate;
 	private int _status;
 	private int _originalStatus;
