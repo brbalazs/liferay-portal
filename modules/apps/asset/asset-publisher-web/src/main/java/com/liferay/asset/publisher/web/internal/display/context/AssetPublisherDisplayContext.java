@@ -366,6 +366,8 @@ public class AssetPublisherDisplayContext {
 				String[] tagNames = StringUtil.split(
 					queryValues, StringPool.COMMA);
 
+				tagNames = _normalizeAssetTagNames(tagNames);
+
 				queryValues = StringUtil.merge(tagNames);
 
 				queryValues = _assetPublisherWebUtil.filterAssetTagNames(
@@ -1585,6 +1587,19 @@ public class AssetPublisherDisplayContext {
 		redirectURL.setWindowState(LiferayWindowState.POP_UP);
 
 		return redirectURL.toString();
+	}
+
+	private String[] _normalizeAssetTagNames(String[] assetTagNames) {
+		if (ArrayUtil.isEmpty(assetTagNames)) {
+			return assetTagNames;
+		}
+
+		for (int i = 0; i < assetTagNames.length; i++) {
+			assetTagNames[i] = StringUtil.toLowerCase(
+				StringUtil.trim(assetTagNames[i]));
+		}
+
+		return assetTagNames;
 	}
 
 	private Integer _abstractLength;
