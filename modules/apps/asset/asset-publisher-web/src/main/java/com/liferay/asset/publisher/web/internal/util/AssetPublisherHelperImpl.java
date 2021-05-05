@@ -1306,7 +1306,8 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 		assetEntryQuery.setAllCategoryIds(allAssetCategoryIds);
 
 		if (overrideAllAssetTagNames != null) {
-			allAssetTagNames = overrideAllAssetTagNames;
+			allAssetTagNames = _normalizeAssetTagNames(
+				overrideAllAssetTagNames);
 		}
 
 		long[] siteGroupIds = _getSiteGroupIds(scopeGroupIds);
