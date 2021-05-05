@@ -275,7 +275,7 @@ public class CustomFieldsUtil {
 							acceptAllLanguages, attributeType, value);
 					}
 				};
-				dataType = ExpandoColumnConstants.getDataType(attributeType);
+				dataType = ExpandoColumnConstants.getTypeLabel(attributeType);
 				name = entry.getKey();
 			}
 		};
