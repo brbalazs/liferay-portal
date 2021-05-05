@@ -358,9 +358,8 @@ public class CommercePriceListHierarchyDiscoveryTest {
 
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
-				null, RandomTestUtil.randomString(),
-				_commerceCurrency.getCode(), LocaleUtil.US.getDisplayLanguage(),
-				_serviceContext);
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
+				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
 		CommercePriceListTestUtil.addAccountAndChannelPriceList(
 			catalog.getGroupId(), _commerceAccount1.getCommerceAccountId(),
@@ -395,9 +394,8 @@ public class CommercePriceListHierarchyDiscoveryTest {
 
 		CommerceCatalog catalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
-				null, RandomTestUtil.randomString(),
-				_commerceCurrency.getCode(), LocaleUtil.US.getDisplayLanguage(),
-				_serviceContext);
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
+				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
 		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
@@ -460,7 +458,7 @@ public class CommercePriceListHierarchyDiscoveryTest {
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(
 				_catalog.getGroupId(), _commerceAccount4.getCommerceAccountId(),
-				_commerceChannel2.getCommerceChannelId(), null, _TYPE);
+				_commerceChannel1.getCommerceChannelId(), null, _TYPE);
 
 		Assert.assertEquals(
 			_commercePriceList3.getCommercePriceListId(),
