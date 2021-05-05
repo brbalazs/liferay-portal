@@ -19,6 +19,7 @@ import com.liferay.asset.publisher.util.AssetPublisherHelper;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -279,7 +280,8 @@ public class AssetPublisherUtilTest {
 		Assert.assertEquals(
 			Arrays.toString(assetTagNames), 1, assetTagNames.length);
 
-		Assert.assertEquals(assetTagName, assetTagNames[0]);
+		Assert.assertEquals(
+			StringUtil.toLowerCase(assetTagName), assetTagNames[0]);
 	}
 
 	@Test
@@ -304,8 +306,10 @@ public class AssetPublisherUtilTest {
 		Assert.assertEquals(
 			Arrays.toString(assetTagNames), 2, assetTagNames.length);
 
-		Assert.assertEquals(assetTagName1, assetTagNames[0]);
-		Assert.assertEquals(assetTagName2, assetTagNames[1]);
+		Assert.assertEquals(
+			StringUtil.toLowerCase(assetTagName1), assetTagNames[0]);
+		Assert.assertEquals(
+			StringUtil.toLowerCase(assetTagName2), assetTagNames[1]);
 	}
 
 	@Test
@@ -328,7 +332,8 @@ public class AssetPublisherUtilTest {
 		Assert.assertEquals(
 			Arrays.toString(assetTagNames), 1, assetTagNames.length);
 
-		Assert.assertEquals(assetTagName, assetTagNames[0]);
+		Assert.assertEquals(
+			StringUtil.toLowerCase(assetTagName), assetTagNames[0]);
 	}
 
 	@Test
