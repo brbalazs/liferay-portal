@@ -1,3 +1,4 @@
+import Button from 'shared/components/Button';
 import ClayDropDown, {Align} from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import getCN from 'classnames';
@@ -5,6 +6,7 @@ import Item from './Item';
 import React, {useEffect, useRef, useState} from 'react';
 import Sticker from '../Sticker';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import {last} from 'lodash';
 import {Menus} from './types';
 
 function getInitials(name = '') {
@@ -43,6 +45,8 @@ const userDropDown: React.FC<IUserDropdownProps> = ({
 	userName
 }: IUserDropdownProps) => {
 	const [active, setActive] = useState(false);
+	const [direction, setDirection] = useState<'left' | 'right'>('left');
+	const [history, setHistory] = useState<string[]>([initialActiveMenu]);
 	const [activeMenu, setActiveMenu] = useState(initialActiveMenu);
 
 	useEffect(() => {
@@ -55,8 +59,6 @@ const userDropDown: React.FC<IUserDropdownProps> = ({
 	const handleActive = () => {
 		setActive(!active);
 	};
-
-	const menuIds = Object.keys(menus);
 
 	return (
 		<>
@@ -77,36 +79,80 @@ const userDropDown: React.FC<IUserDropdownProps> = ({
 				onSetActive={setActive}
 				ref={menuElementRef}
 			>
-				{menuIds.map(menuId => (
-					<ClayDropDown.ItemList
-						className={getCN('menu-list', {
-							active: activeMenu === menuId
-						})}
-						key={menuId}
+				<TransitionGroup className='transition-carousel-group'>
+					<CSSTransition
+						classNames={`transition-carousel-slide-in-out-${direction}`}
+						key={activeMenu}
+						timeout={250}
 					>
-						{menus[menuId].map(({items, subheaderLabel}, i) => (
-							<ClayDropDown.Group header={subheaderLabel} key={i}>
-								{items.map(
-									(
-										{childMenuId, onClick, ...otherProps},
-										i
-									) => (
-										<Item
-											{...otherProps}
-											key={i}
-											onClick={() => {
-												childMenuId &&
-													setActiveMenu(childMenuId);
+						<div className='w-100'>
+							<ClayDropDown.ItemList>
+								{initialActiveMenu !== activeMenu && (
+									<ClayDropDown.Group>
+										<ClayDropDown.Item>
+											<Button
+												aria-label={Liferay.Language.get(
+													'back'
+												)}
+												block
+												display='unstyled'
+												icon='order-arrow-left'
+												iconAlignment='left'
+												onClick={() => {
+													setHistory(
+														history.slice(0, -1)
+													);
 
-												onClick && onClick();
-											}}
-										/>
+													setDirection('right');
+												}}
+											/>
+										</ClayDropDown.Item>
+									</ClayDropDown.Group>
+								)}
+
+								{menus[activeMenu].map(
+									({items, subheaderLabel}, i) => (
+										<ClayDropDown.Group
+											header={subheaderLabel}
+											key={i}
+										>
+											{items.map(
+												(
+													{
+														childMenuId,
+														onClick,
+														...otherProps
+													},
+													i
+												) => (
+													<Item
+														{...otherProps}
+														key={i}
+														onClick={() => {
+															if (childMenuId) {
+																setHistory([
+																	...history,
+																	childMenuId
+																]);
+
+																setDirection(
+																	'left'
+																);
+															}
+
+															onClick &&
+																onClick();
+														}}
+													/>
+												)
+											)}
+										</ClayDropDown.Group>
 									)
 								)}
-							</ClayDropDown.Group>
-						))}
-					</ClayDropDown.ItemList>
-				))}
+							</ClayDropDown.ItemList>
+						</div>
+					</CSSTransition>
+				</TransitionGroup>
 			</ClayDropDown.Menu>
 		</>
 	);

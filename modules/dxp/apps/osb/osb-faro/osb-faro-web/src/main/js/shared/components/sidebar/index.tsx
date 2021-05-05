@@ -150,9 +150,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
 					},
 					{
 						label: Liferay.Language.get('japanese')
-					},
-					{
-						label: Liferay.Language.get('portugese')
 					}
 				]
 			}

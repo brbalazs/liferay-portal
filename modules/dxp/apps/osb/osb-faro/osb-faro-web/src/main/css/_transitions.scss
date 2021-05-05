@@ -10,27 +10,27 @@ $slideUpLength: 8px;
 	overflow-y: hidden;
 }
 
-/* ---------- Carousel left ---------- */
+/* ---------- Attribute Carousel left ---------- */
 
-.transition-carousel-left-enter {
+.transition-attribute-carousel-left-enter {
 	flex-shrink: 0;
 	max-height: 0px;
 	transform: translateX(100%);
 }
 
-.transition-carousel-left-enter-active {
+.transition-attribute-carousel-left-enter-active {
 	max-height: 400px;
 	transform: translateX(0);
 	transition: transform 250ms ease-in-out, max-height 250ms ease-in-out;
 }
 
-.transition-carousel-left-exit {
+.transition-attribute-carousel-left-exit {
 	flex-shrink: 0;
 	max-height: 400px;
 	transform: translateX(-100%);
 }
 
-.transition-carousel-left-exit-active {
+.transition-attribute-carousel-left-exit-active {
 	max-height: 0px;
 	transform: translateX(0);
 	transition: transform 250ms ease-in-out, max-height 250ms ease-in-out;
@@ -38,28 +38,72 @@ $slideUpLength: 8px;
 
 /* ---------- Carousel right ---------- */
 
-.transition-carousel-right-enter {
+.transition-attribute-carousel-right-enter {
 	flex-shrink: 0;
 	max-height: 0px;
 	transform: translateX(-100%);
 }
 
-.transition-carousel-right-enter-active {
+.transition-attribute-carousel-right-enter-active {
 	max-height: 700px;
 	transform: translateX(0);
 	transition: transform 250ms ease-in-out, max-height 250ms ease-in-out;
 }
 
-.transition-carousel-right-exit {
+.transition-attribute-carousel-right-exit {
 	flex-shrink: 0;
 	max-height: 700px;
 	transform: translateX(-100%);
 }
 
-.transition-carousel-right-exit-active {
+.transition-attribute-carousel-right-exit-active {
 	max-height: 0px;
 	transform: translateX(-200%);
 	transition: transform 250ms ease-in-out, max-height 250ms ease-in-out;
+}
+
+/* ---------- Carousel Slide In Out Right ---------- */
+
+.transition-carousel-slide-in-out-right-enter {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-slide-in-out-right-enter-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+.transition-carousel-slide-in-out-right-exit {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-slide-in-out-right-exit-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+/* ---------- Carousel Slide In Out left ---------- */
+
+.transition-carousel-slide-in-out-left-enter {
+	flex-shrink: 0;
+	transform: translateX(100%);
+}
+
+.transition-carousel-slide-in-out-left-enter-active {
+	transform: translateX(0);
+	transition: transform 250ms ease-in-out;
+}
+
+.transition-carousel-slide-in-out-left-exit {
+	flex-shrink: 0;
+	transform: translateX(-100%);
+}
+
+.transition-carousel-slide-in-out-left-exit-active {
+	transform: translateX(-200%);
+	transition: transform 250ms ease-in-out;
 }
 
 /* ---------- Fade in & out ---------- */
