@@ -252,6 +252,10 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 		return null;
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x)
+	 */
+	@Deprecated
 	@Override
 	public String getLuceneProperties() {
 		UnicodeProperties extraSettingsProps = getExtraSettingsProperties();
