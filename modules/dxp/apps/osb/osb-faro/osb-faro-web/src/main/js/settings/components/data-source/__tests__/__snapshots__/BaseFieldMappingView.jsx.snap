@@ -8,6 +8,7 @@ exports[`BaseFieldMappingView should render 1`] = `
       "emailAddress": "test@liferay.com",
       "groupId": null,
       "id": 0,
+      "languageId": null,
       "name": "Test Test",
       "roleName": "Site Owner",
       "screenName": "",

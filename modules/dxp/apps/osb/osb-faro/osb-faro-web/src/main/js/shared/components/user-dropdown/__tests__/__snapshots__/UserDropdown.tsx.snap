@@ -60,40 +60,60 @@ exports[`UserDropdown should render dropdown menu when clicked 1`] = `
         class="dropdown-menu user-menu-dropdown show"
         style="left: -995px; top: -999px;"
       >
-        <ul
-          class="list-unstyled"
+        <div
+          class="transition-carousel-group"
         >
-          <li
-            class="dropdown-subheader"
-            role="presentation"
+          <div
+            class="w-100"
           >
-            test@test.com
-          </li>
-          <li>
-            <span
-              class="dropdown-item"
+            <ul
+              class="list-unstyled"
             >
-              <a
-                class="dropdown-item"
-                href="/link-1"
+              <li
+                class="dropdown-subheader"
+                role="presentation"
               >
-                Link 1
-              </a>
-            </span>
-          </li>
-          <li>
-            <span
-              class="dropdown-item"
-            >
-              <a
-                class="dropdown-item"
-                href="/link-externo-2"
-              >
-                Link 2
-              </a>
-            </span>
-          </li>
-        </ul>
+                test@test.com
+              </li>
+              <li>
+                <span
+                  class="dropdown-item"
+                >
+                  <button
+                    class="button-root btn btn-unstyled btn-block"
+                    type="button"
+                  >
+                    Language
+                  </button>
+                </span>
+              </li>
+              <li>
+                <span
+                  class="dropdown-item"
+                >
+                  <a
+                    class="button-root btn btn-unstyled btn-block"
+                    href="/link-1"
+                  >
+                    Link 1
+                  </a>
+                </span>
+              </li>
+              <li>
+                <span
+                  class="dropdown-item"
+                >
+                  <a
+                    class="button-root btn btn-unstyled btn-block"
+                    href="/link-externo-2"
+                  >
+                    Link 2
+                  </a>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
