@@ -1,17 +1,8 @@
 import HTMLBarChart from '../HTMLBarChart';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
 
-React.createRef = jest.fn();
-
-const groupItemsRef = {
-	current: {
-		clientHeight: 0,
-		offsetHeight: 0,
-		scrollHeight: 0,
-		scrollTop: 0
-	}
-};
+jest.unmock('react-dom');
 
 const CLASSNAME = '.analytics-bar-chart-html';
 
@@ -90,57 +81,69 @@ const TOOLTIP = {
 	]
 };
 
+const ITEMS_WITH_TOOLTIP = [
+	{
+		columns: COLUMNS,
+		progress: PROGRESS_WITH_STRING,
+		tooltip: TOOLTIP
+	}
+];
+
 describe('HTMLBarChart', () => {
-	let component;
-
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
-
 	it('should render component without crashing', () => {
-		component = shallow(<HTMLBarChart data={{}} />);
+		const {container} = render(<HTMLBarChart items={ITEMS} />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with header', () => {
-		component = shallow(<HTMLBarChart header={HEADER} />);
+		const {container} = render(
+			<HTMLBarChart header={HEADER} items={ITEMS} />
+		);
 
-		expect(
-			component.find(`${CLASSNAME}-header`).render()
-		).toMatchSnapshot();
+		expect(container.querySelector(`${CLASSNAME}-header`)).toBeTruthy();
 	});
 
 	it('should render component with items', () => {
-		component = shallow(<HTMLBarChart items={ITEMS} />);
+		const {container} = render(<HTMLBarChart items={ITEMS} />);
 
-		expect(component.find(`${CLASSNAME}-items`).render()).toMatchSnapshot();
+		expect(container.querySelector(`${CLASSNAME}-items`)).toBeTruthy();
 	});
 
 	it('should update component when receive new data', () => {
-		let props = {items: ITEMS};
+		const props = {items: ITEMS};
 
-		React.createRef.mockReturnValueOnce(groupItemsRef);
+		const {queryByText, rerender} = render(<HTMLBarChart {...props} />);
 
-		component = shallow(<HTMLBarChart {...props} />);
-
-		props = {
+		const newProps = {
 			items: [
-				...ITEMS,
 				{
-					items: ITEMS
+					columns: [
+						{
+							color: 'red',
+							icon: 'home',
+							label: 'item column 3'
+						},
+						{
+							color: 'green',
+							icon: 'home',
+							label: 'item column 4'
+						}
+					],
+					progress: PROGRESS_WITH_STRING
 				}
 			]
 		};
 
-		component.instance().componentDidUpdate(props);
-		expect(component.find(`${CLASSNAME}-items`).render()).toMatchSnapshot();
+		expect(queryByText('item column 4')).toBeNull();
+
+		rerender(<HTMLBarChart {...newProps} />);
+
+		expect(queryByText('item column 4')).toBeTruthy();
 	});
 
 	it('should render component with items nested', () => {
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				items={[
 					...ITEMS,
@@ -153,12 +156,12 @@ describe('HTMLBarChart', () => {
 		);
 
 		expect(
-			component.find(`${CLASSNAME}-group-items`).render()
-		).toMatchSnapshot();
+			container.querySelector(`${CLASSNAME}-group-items`)
+		).toBeTruthy();
 	});
 
 	it('should render component item with control button to toggle content', () => {
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				items={[
 					...ITEMS,
@@ -171,111 +174,36 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		expect(component.find(`${CLASSNAME}-button`).first()).toMatchSnapshot();
-	});
-
-	it('should toggle content when click in button', () => {
-		component = shallow(
-			<HTMLBarChart
-				items={[
-					...ITEMS,
-					{
-						expanded: true,
-						items: ITEMS,
-						showControls: true
-					}
-				]}
-			/>
-		);
-
-		const mockedEvent = {
-			currentTarget: {
-				dataset: {
-					index: 0
-				}
-			}
-		};
-
-		const button = component.find(`${CLASSNAME}-button`).first();
-
-		button.simulate('click', mockedEvent);
-
-		expect(component.state().items[0].expanded).toBeTruthy();
-
-		button.simulate('click', mockedEvent);
-
-		expect(component.state().items[0].expanded).toBeFalsy();
+		expect(container.querySelector(`${CLASSNAME}-button`)).toBeTruthy();
 	});
 
 	it('should set tooltip when MouseEnter on Item', () => {
-		component = shallow(
-			<HTMLBarChart
-				items={[
-					...ITEMS,
-					{
-						tooltip: TOOLTIP
-					}
-				]}
-			/>
+		const {container, getByText} = render(
+			<HTMLBarChart items={ITEMS_WITH_TOOLTIP} />
 		);
 
-		component.instance().handleMouseEnterItem(TOOLTIP);
+		fireEvent.mouseEnter(container.querySelector(`${CLASSNAME}-item`));
 
-		expect(component.state().tooltip.show).toBeTruthy();
-		expect(component.state().tooltip).toEqual({
-			header: [
-				{
-					label: 'tooltip header'
-				}
-			],
-			position: {
-				left: 0,
-				top: 0
-			},
-			rows: [
-				{
-					columns: [
-						{
-							label: 'tooltip column 1'
-						},
-						{
-							label: 'tooltip column 2'
-						}
-					]
-				}
-			],
-			show: true
-		});
+		expect(getByText('tooltip header')).toBeTruthy();
+		expect(getByText('tooltip column 1')).toBeTruthy();
 	});
 
 	it('should set tooltip when MouseLeave on Item', () => {
-		component = shallow(
-			<HTMLBarChart
-				items={[
-					...ITEMS,
-					{
-						tooltip: TOOLTIP
-					}
-				]}
-			/>
+		const {container, queryByText} = render(
+			<HTMLBarChart items={ITEMS_WITH_TOOLTIP} />
 		);
 
-		component.instance().handleMouseLeaveItem();
+		fireEvent.mouseEnter(container.querySelector(`${CLASSNAME}-item`));
 
-		expect(component.state().tooltip.show).toBeFalsy();
-		expect(component.state().tooltip).toEqual({
-			header: [],
-			position: {
-				left: 0,
-				top: 0
-			},
-			rows: [],
-			show: false
-		});
+		expect(queryByText('tooltip header')).toBeTruthy();
+
+		fireEvent.mouseLeave(container.querySelector(`${CLASSNAME}-item`));
+
+		expect(queryByText('tooltip header')).toBeFalsy();
 	});
 
 	it('should render Progress item based on grid', () => {
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				grid={{
 					formatter: value => value,
@@ -292,11 +220,11 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render Progress item based on grid and type of grid is percentage', () => {
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				grid={{
 					maxValue: 1000,
@@ -313,11 +241,11 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render Progress with Interval item based on grid and type of grid is percentage', () => {
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				grid={{
 					formatter: value => value,
@@ -345,11 +273,11 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should return an array with intervals', () => {
-		component = shallow(
+		const {getByText} = render(
 			<HTMLBarChart
 				data={{
 					items: [
@@ -365,69 +293,80 @@ describe('HTMLBarChart', () => {
 					minValue: 0,
 					show: true
 				}}
+				items={ITEMS}
 			/>
 		);
 
-		expect(component.instance().getIntervals()).toEqual([
-			0,
-			500,
-			1000,
-			1500
-		]);
+		expect(getByText('0')).toBeTruthy();
+		expect(getByText('500')).toBeTruthy();
+		expect(getByText('1K')).toBeTruthy();
+		expect(getByText('1.5K')).toBeTruthy();
 	});
 
 	it('should render an arrow down icon when there is a scroll down', () => {
-		const mockEvent = {
-			target: {
-				clientHeight: 500,
-				offsetHeight: 500,
-				scrollHeight: 600,
-				scrollTop: 150
-			}
-		};
+		Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
+			configurable: true,
+			value: 500
+		});
+		Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+			configurable: true,
+			value: 500
+		});
+		Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
+			configurable: true,
+			value: 600
+		});
 
-		component = shallow(<HTMLBarChart items={ITEMS} />);
+		const {container} = render(<HTMLBarChart items={ITEMS} />);
 
-		component
-			.find(`${CLASSNAME}-group-items`)
-			.simulate('scroll', mockEvent);
+		fireEvent.scroll(container.querySelector(`${CLASSNAME}-group-items`), {
+			target: {scrollY: 150}
+		});
+
+		expect(container.querySelector('.icon.text-l-secondary')).toBeTruthy();
 
 		expect(
-			component.instance().showArrowDownIcon(mockEvent.target)
-		).toBeTruthy();
-		expect(
-			component.find('.icon.text-l-secondary').render()
-		).toMatchSnapshot();
+			container.querySelector('.icon.text-l-secondary').firstChild
+		).toHaveAttribute(
+			'xlink:href',
+			'/o/osb-faro-web/dist/sprite.svg#angle-down'
+		);
 	});
 
 	it('should render an arrow down icon when the scroll is at the end of content', () => {
-		const mockEvent = {
-			target: {
-				clientHeight: 500,
-				offsetHeight: 500,
-				scrollHeight: 600,
-				scrollTop: 100
-			}
-		};
+		Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
+			configurable: true,
+			value: 600
+		});
+		Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+			configurable: true,
+			value: 500
+		});
+		Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
+			configurable: true,
+			value: 500
+		});
 
-		component = shallow(<HTMLBarChart items={ITEMS} />);
+		const {container} = render(<HTMLBarChart items={ITEMS} />);
 
-		component
-			.find(`${CLASSNAME}-group-items`)
-			.simulate('scroll', mockEvent);
+		fireEvent.scroll(container.querySelector(`${CLASSNAME}-group-items`), {
+			target: {scrollY: 0}
+		});
 
-		expect(
-			component.instance().showArrowDownIcon(mockEvent.target)
-		).toBeFalsy();
+		expect(container.querySelector('.icon.text-l-secondary')).toBeFalsy();
 	});
 
 	it('should return true if there is items', () => {
-		component = shallow(<HTMLBarChart items={ITEMS} />);
+		const {container, getAllByText, getByText} = render(
+			<HTMLBarChart header={HEADER} items={ITEMS_WITH_TOOLTIP} />
+		);
 
-		expect(component.instance().hasItems(ITEMS)).toBeTruthy();
-		expect(component.instance().hasItems(HEADER)).toBeTruthy();
-		expect(component.instance().hasItems(TOOLTIP.header)).toBeTruthy();
-		expect(component.instance().hasItems(TOOLTIP.rows)).toBeTruthy();
+		fireEvent.mouseEnter(container.querySelector(`${CLASSNAME}-item`));
+
+		expect(getByText('item column 1')).toBeTruthy();
+		expect(getAllByText('header column 1')[0]).toBeTruthy();
+		expect(getByText('tooltip header')).toBeTruthy();
+		expect(getByText('tooltip column 1')).toBeTruthy();
 	});
 
 	it('should render label as component when passing to props', () => {
@@ -435,7 +374,7 @@ describe('HTMLBarChart', () => {
 			<div className='label'>{'this is a label as component'}</div>
 		);
 
-		component = shallow(
+		const {container, getByText} = render(
 			<HTMLBarChart
 				items={[
 					{
@@ -449,10 +388,9 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		expect(component.instance().renderLabel(label).type).toEqual('div');
-		expect(
-			component.find(`${CLASSNAME}-column`).render()
-		).toMatchSnapshot();
+		expect(getByText('this is a label as component')).toBeTruthy();
+
+		expect(container.querySelector(`${CLASSNAME}-column`)).toBeTruthy();
 	});
 
 	it('should render icon without Circle component when there is a not color', () => {
@@ -463,7 +401,7 @@ describe('HTMLBarChart', () => {
 			}
 		];
 
-		component = shallow(
+		const {container} = render(
 			<HTMLBarChart
 				items={[
 					{
@@ -473,28 +411,11 @@ describe('HTMLBarChart', () => {
 			/>
 		);
 
-		const icon = shallow(component.instance().renderIcon(columns[0]));
+		expect(container.querySelector('use')).toHaveAttribute(
+			'xlink:href',
+			'/o/osb-faro-web/dist/sprite.svg#home'
+		);
 
-		expect(icon.instance().render().type).toEqual('svg');
-		expect(
-			component.find(`${CLASSNAME}-column`).render()
-		).toMatchSnapshot();
-	});
-
-	it('should return left and top positions based on event', () => {
-		component = shallow(<HTMLBarChart items={ITEMS} />);
-
-		const mockEvent = {pageX: 100, pageY: 100};
-
-		const instance = component.instance();
-
-		expect(instance.alignTooltip(mockEvent, 100, 100)).toEqual({
-			left: 50,
-			top: -21
-		});
-		expect(instance.alignTooltip(mockEvent, 200, 200)).toEqual({
-			left: 0,
-			top: -121
-		});
+		expect(container.querySelector(`${CLASSNAME}-column`)).toBeTruthy();
 	});
 });
