@@ -65,7 +65,7 @@ exports[`Data Privacy Overview should render 1`] = `
                     <p
                       class="text-secondary"
                     >
-                      Analytics Cloud stores event data and inactive anonymous individuals for the period specified.  Known Profile data will be stored indefinitely unless it is removed from the source or requested to be deleted. Contact sales to customize retention period.
+                      Analytics Cloud stores event data and inactive anonymous individuals for the period specified. Known Profile data will be stored indefinitely unless it is removed from the source or requested to be deleted. Contact sales to customize retention period.
                     </p>
                   </div>
                   <div

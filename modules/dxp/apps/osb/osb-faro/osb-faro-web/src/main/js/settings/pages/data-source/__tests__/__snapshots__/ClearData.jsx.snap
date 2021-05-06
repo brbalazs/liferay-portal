@@ -61,7 +61,7 @@ exports[`DataSourceClearData should render 1`] = `
               data-tooltip="false"
               title=""
             >
-              Confirm Clearing of All Data From "Liferay1"
+              Confirm Clearing of All Data from "Liferay1"
             </span>
           </h3>
         </div>
