@@ -107,12 +107,20 @@ public class LCPProject {
 
 	public enum Cluster {
 
+		/** @deprecated After multitenancy is fully deployed eliminate EU_AC but use its value */
+		@Deprecated
 		EU("ac-europe", "europe-west2-c1"),
 		EU_AC("ac-europewest2", "europe-west2-ac2-c1"),
+		/** @deprecated After multitenancy is fully deployed eliminate EU2_AC but use its value */
+		@Deprecated
 		EU2("ac-europe2", "europe-west3-c1"),
 		EU2_AC("ac-europewest3", "europe-west3-ac3-c1"),
+		/** @deprecated After multitenancy is fully deployed eliminate SA_AC but use its value */
+		@Deprecated
 		SA("ac-southamerica", "southamerica-east1-c1"),
 		SA_AC("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
+		/** @deprecated After multitenancy is fully deployed eliminate US_AC but use its value */
+		@Deprecated
 		US("ac-us", "us-west1-c1"), US_AC("ac-uswest1", "us-west1-ac4-c1");
 
 		public static Cluster fromString(String value) {
