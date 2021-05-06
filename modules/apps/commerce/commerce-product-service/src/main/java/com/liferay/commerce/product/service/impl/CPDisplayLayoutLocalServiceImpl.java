@@ -129,12 +129,9 @@ public class CPDisplayLayoutLocalServiceImpl
 			if ((clazz == CPDefinition.class) &&
 				cpDefinitionLocalService.isVersionable(classPK)) {
 
-
-						cpDefinitionLocalService.copyCPDefinition(classPK);
-
-
-				}
+				cpDefinitionLocalService.copyCPDefinition(classPK);
 			}
+		}
 		catch (PortalException pe) {
 			throw new SystemException(pe);
 		}
@@ -160,15 +157,15 @@ public class CPDisplayLayoutLocalServiceImpl
 		List<CPDisplayLayout> cpDisplayLayouts =
 			cpDisplayLayoutPersistence.findByC_C(
 				classNameLocalService.getClassNameId(clazz), classPK);
+
 		for (CPDisplayLayout cpDisplayLayout : cpDisplayLayouts) {
 			cpDisplayLayoutLocalService.deleteCPDisplayLayout(cpDisplayLayout);
 		}
 	}
 
-
-		/**
-		 * @deprecated As of Athanasius (7.3.x)
-		 */
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
 	@Deprecated
 	@Override
 	public CPDisplayLayout fetchCPDisplayLayout(Class<?> clazz, long classPK) {

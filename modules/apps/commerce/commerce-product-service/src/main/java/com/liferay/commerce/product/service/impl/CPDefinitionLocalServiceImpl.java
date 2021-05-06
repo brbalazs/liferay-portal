@@ -574,8 +574,9 @@ public class CPDefinitionLocalServiceImpl
 
 		// CPDisplayLayout
 
-		List<CPDisplayLayout> cpDisplayLayouts = cpDisplayLayoutPersistence.findByC_C(
-			cpDefinitionClassNameId, cpDefinitionId);
+		List<CPDisplayLayout> cpDisplayLayouts =
+			cpDisplayLayoutPersistence.findByC_C(
+				cpDefinitionClassNameId, cpDefinitionId);
 
 		for (CPDisplayLayout cpDisplayLayout : cpDisplayLayouts) {
 			CPDisplayLayout newCPDisplayLayout =

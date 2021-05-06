@@ -250,7 +250,7 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 			cpDefinitionId, ActionKeys.VIEW);
 
 		return cpDefinitionLocalService.getLayoutUuid(
-				GroupConstants.DEFAULT_LIVE_GROUP_ID, cpDefinitionId);
+			GroupConstants.DEFAULT_LIVE_GROUP_ID, cpDefinitionId);
 	}
 
 	@Override
