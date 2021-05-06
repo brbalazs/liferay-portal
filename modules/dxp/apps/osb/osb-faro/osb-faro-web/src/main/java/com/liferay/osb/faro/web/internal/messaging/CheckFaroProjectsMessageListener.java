@@ -41,7 +41,10 @@ import com.liferay.portal.kernel.util.Time;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.mail.internet.InternetAddress;
 
@@ -158,17 +161,34 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 		Role role = _roleLocalService.getRole(
 			_portal.getDefaultCompanyId(), RoleConstants.ADMINISTRATOR);
 
-		for (User user : _userLocalService.getRoleUsers(role.getRoleId())) {
-			if (StringUtil.equals(user.getEmailAddress(), "test@liferay.com")) {
-				continue;
+		List<User> users = _userLocalService.getRoleUsers(role.getRoleId());
+
+		Stream<User> stream = users.stream();
+
+		InternetAddress[] bcc = stream.filter(
+			user -> !StringUtil.equals(
+				user.getEmailAddress(), "test@liferay.com")
+		).map(
+			user -> {
+				try {
+					return new InternetAddress(
+						user.getEmailAddress(), user.getFullName());
+				}
+				catch (Exception e) {
+					return null;
+				}
 			}
+		).filter(
+			Objects::nonNull
+		).toArray(
+			InternetAddress[]::new
+		);
 
-			InternetAddress to = new InternetAddress(
-				user.getEmailAddress(), user.getFullName());
+		MailMessage mailMessage = new MailMessage(from, subject, body, false);
 
-			_mailService.sendEmail(
-				new MailMessage(from, to, subject, body, false));
-		}
+		mailMessage.setBCC(bcc);
+
+		_mailService.sendEmail(mailMessage);
 	}
 
 	private static long _systemsDownStartTime;
