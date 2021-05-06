@@ -152,6 +152,11 @@ public class CPDisplayLayoutLocalServiceWrapper
 			deleteCPDisplayLayoutByGroupIdAndLayoutUuid(groupId, layoutUuid);
 	}
 
+	@Override
+	public void deleteCPDisplayLayouts(Class<?> clazz, long classPK) {
+		_cpDisplayLayoutLocalService.deleteCPDisplayLayouts(clazz, classPK);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -255,6 +260,10 @@ public class CPDisplayLayoutLocalServiceWrapper
 			dynamicQuery, projection);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.product.model.CPDisplayLayout
 		fetchCPDisplayLayout(Class<?> clazz, long classPK) {
@@ -269,6 +278,14 @@ public class CPDisplayLayoutLocalServiceWrapper
 
 		return _cpDisplayLayoutLocalService.fetchCPDisplayLayout(
 			CPDisplayLayoutId);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPDisplayLayout
+		fetchCPDisplayLayout(long groupId, Class<?> clazz, long classPK) {
+
+		return _cpDisplayLayoutLocalService.fetchCPDisplayLayout(
+			groupId, clazz, classPK);
 	}
 
 	@Override

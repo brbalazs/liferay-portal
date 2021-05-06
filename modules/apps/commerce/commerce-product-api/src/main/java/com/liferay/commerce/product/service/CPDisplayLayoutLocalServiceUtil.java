@@ -144,6 +144,10 @@ public class CPDisplayLayoutLocalServiceUtil {
 			groupId, layoutUuid);
 	}
 
+	public static void deleteCPDisplayLayouts(Class<?> clazz, long classPK) {
+		getService().deleteCPDisplayLayouts(clazz, classPK);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -231,6 +235,10 @@ public class CPDisplayLayoutLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static CPDisplayLayout fetchCPDisplayLayout(
 		Class<?> clazz, long classPK) {
 
@@ -239,6 +247,12 @@ public class CPDisplayLayoutLocalServiceUtil {
 
 	public static CPDisplayLayout fetchCPDisplayLayout(long CPDisplayLayoutId) {
 		return getService().fetchCPDisplayLayout(CPDisplayLayoutId);
+	}
+
+	public static CPDisplayLayout fetchCPDisplayLayout(
+		long groupId, Class<?> clazz, long classPK) {
+
+		return getService().fetchCPDisplayLayout(groupId, clazz, classPK);
 	}
 
 	public static List<CPDisplayLayout>

@@ -142,6 +142,8 @@ public interface CPDisplayLayoutLocalService
 	public void deleteCPDisplayLayoutByGroupIdAndLayoutUuid(
 		long groupId, String layoutUuid);
 
+	public void deleteCPDisplayLayouts(Class<?> clazz, long classPK);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -215,11 +217,19 @@ public interface CPDisplayLayoutLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPDisplayLayout fetchCPDisplayLayout(Class<?> clazz, long classPK);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPDisplayLayout fetchCPDisplayLayout(long CPDisplayLayoutId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CPDisplayLayout fetchCPDisplayLayout(
+		long groupId, Class<?> clazz, long classPK);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPDisplayLayout> fetchCPDisplayLayoutByGroupIdAndLayoutUuid(
