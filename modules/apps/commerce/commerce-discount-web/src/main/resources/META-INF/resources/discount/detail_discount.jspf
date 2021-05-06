@@ -210,9 +210,7 @@ if (!usePercentage) {
 			).removeClass('hide');
 
 			discountAbsoluteValue = level1Input.val();
-			level1Input.val(
-				discountPercentageValue
-			);
+			level1Input.val(discountPercentageValue);
 		} else {
 			A.one('#<portlet:namespace />maximumDiscountAmount').attr(
 				'disabled',
@@ -247,9 +245,7 @@ if (!usePercentage) {
 			);
 
 			discountPercentageValue = level1Input.val();
-			level1Input.val(
-				discountAbsoluteValue
-			);
+			level1Input.val(discountAbsoluteValue);
 		}
 	});
 

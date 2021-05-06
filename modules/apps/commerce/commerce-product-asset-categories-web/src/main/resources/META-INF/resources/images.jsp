@@ -32,7 +32,6 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpAttachmentFileEntryServi
 cpAttachmentFileEntrySearchContainer.setTotal(cpAttachmentFileEntryService.getCPAttachmentFileEntriesCount(PortalUtil.getClassNameId(AssetCategory.class), assetCategory.getCategoryId(), CPAttachmentFileEntryConstants.TYPE_IMAGE, WorkflowConstants.STATUS_ANY));
 cpAttachmentFileEntrySearchContainer.setResults(cpAttachmentFileEntries);
 
-
 PortletURL categoryRedirectURL = renderResponse.createRenderURL();
 
 long parentCategoryId = BeanParamUtil.getLong(assetCategory, request, "parentCategoryId");
@@ -53,7 +52,6 @@ portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(categoryRedirectURL.toString());
 
 renderResponse.setTitle(assetCategory.getTitle(locale));
-
 %>
 
 <liferay-frontend:management-bar
