@@ -108,22 +108,37 @@ public class LCPProject {
 	public enum Cluster {
 
 		EU("ac-europe", "europe-west2-c1"),
+		EU_AC("ac-europewest2", "europe-west2-ac2-c1"),
 		EU2("ac-europe2", "europe-west3-c1"),
+		EU2_AC("ac-europewest3", "europe-west3-ac3-c1"),
 		SA("ac-southamerica", "southamerica-east1-c1"),
-		US("ac-us", "us-west1-c1");
+		SA_AC("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
+		US("ac-us", "us-west1-c1"), US_AC("ac-uswest1", "us-west1-ac4-c1");
 
 		public static Cluster fromString(String value) {
 			if (StringUtil.equals(value, Cluster.EU._value)) {
 				return Cluster.EU;
 			}
+			else if (StringUtil.equals(value, Cluster.EU_AC._value)) {
+				return Cluster.EU_AC;
+			}
 			else if (StringUtil.equals(value, Cluster.EU2._value)) {
 				return Cluster.EU2;
+			}
+			else if (StringUtil.equals(value, Cluster.EU2_AC._value)) {
+				return Cluster.EU2_AC;
 			}
 			else if (StringUtil.equals(value, Cluster.SA._value)) {
 				return Cluster.SA;
 			}
+			else if (StringUtil.equals(value, Cluster.SA_AC._value)) {
+				return Cluster.SA_AC;
+			}
 			else if (StringUtil.equals(value, Cluster.US._value)) {
 				return Cluster.US;
+			}
+			else if (StringUtil.equals(value, Cluster.US_AC._value)) {
+				return Cluster.US_AC;
 			}
 
 			return null;
