@@ -190,7 +190,7 @@ public class RubyExecutor extends BaseScriptingExecutor {
 			RubyException rubyException = re.getException();
 
 			throw new ScriptingException(
-				rubyException.message.asJavaString() + "\n\n", re);
+				rubyException.getMessageAsJavaString() + "\n\n", re);
 		}
 		catch (FileNotFoundException fnfe) {
 			throw new ScriptingException(fnfe);

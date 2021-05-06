@@ -4,6 +4,10 @@ Bundle-Version: 3.0.14
 Import-Package:\
 	!javax.swing.*,\
 	\
+	!jnr.a64asm.*,\
+	\
+	!jnr.x86asm.*,\
+	\
 	!org.apache.bsf.*,\
 	!org.apache.tools.ant.*,\
 	\

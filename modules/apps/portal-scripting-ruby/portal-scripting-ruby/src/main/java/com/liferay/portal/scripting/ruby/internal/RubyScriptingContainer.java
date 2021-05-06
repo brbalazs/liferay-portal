@@ -55,8 +55,7 @@ public class RubyScriptingContainer
 
 			StringBuilder sb = new StringBuilder((2 * rubyArray.size()) + 2);
 
-			sb.append(
-				String.valueOf(rubyException.message.toJava(String.class)));
+			sb.append(String.valueOf(rubyException.toJava(String.class)));
 			sb.append(StringPool.NEW_LINE);
 
 			for (Object object : rubyArray) {
