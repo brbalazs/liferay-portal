@@ -120,14 +120,8 @@ definition {
 
 	@priority = "5"
 	test ViewMentionViaMessageBoardsThreadReply {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "Thread Body",
 			threadSubject = "Thread Subject");
 
@@ -168,14 +162,8 @@ definition {
 
 	@priority = "5"
 	test ViewMentionViaUpdatedMessageBoardsThread {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "Thread Body",
 			threadSubject = "Thread Subject");
 

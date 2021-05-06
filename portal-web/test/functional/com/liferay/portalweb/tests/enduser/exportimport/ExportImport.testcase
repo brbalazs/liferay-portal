@@ -76,14 +76,7 @@ definition {
 	test EditExportTemplate {
 		property test.name.skip.portal.instance = "ExportImport#EditExportTemplate";
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -357,16 +350,9 @@ definition {
 			dmDocumentTypeName = "DM Document Type Name",
 			documentsAndMediaField = "DM Document Title");
 
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
-
-		ProductMenu.gotoPortlet(
-			category = "Recycle Bin",
-			panel = "Site Administration",
-			portlet = "Recycle Bin");
-
-		RecycleBin.emptyCP();
+		JSONDocument.deleteFile(
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Site Name");
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
 
@@ -786,11 +772,10 @@ definition {
 			layoutName = "Test Page Name",
 			widgetName = "Blogs");
 
-		Navigator.gotoPage(pageName = "Test Page Name");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			groupName = "Guest");
 
 		Navigator.gotoPage(pageName = "Test Page Name");
 
@@ -1023,9 +1008,7 @@ definition {
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -1407,14 +1390,7 @@ definition {
 			dmDocumentFile = "Document_1.jpg",
 			dmDocumentTitle = "DM Document Title");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -1453,14 +1429,9 @@ definition {
 
 		LAR.downloadLar();
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Documents and Media");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
-
-		Refresh();
+		JSONDocument.deleteFile(
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Guest");
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -1911,17 +1882,17 @@ definition {
 
 		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
 
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
+		JSONDocument.deleteFile(
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Site Name");
 
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+		JSONDocument.deleteFile(
+			dmDocumentTitle = "Document_1.jpg",
+			groupName = "Site Name");
 
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
-
-		DMDocument.deleteCP(dmDocumentTitle = "Document_1.jpg");
-
-		SitePages.openPagesAdmin(siteURLKey = "site-name");
-
-		SitePages.deletePage(pageName = "Test Page");
+		JSONLayout.deletePublicLayout(
+			groupName = "Site Name",
+			layoutName = "Test Page");
 
 		WebContent.openWebContentAdmin(siteURLKey = "site-name");
 
@@ -2315,12 +2286,9 @@ definition {
 
 		var dmDocumentURL = selenium.getAttribute("//input[contains(@class,'lfr-input-resource')]@value");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Documents and Media");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+		JSONDocument.deleteFile(
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Guest");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

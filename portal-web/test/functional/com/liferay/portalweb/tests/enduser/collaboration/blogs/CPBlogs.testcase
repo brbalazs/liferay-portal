@@ -28,46 +28,21 @@ definition {
 		property testray.component.names = "Blogs";
 		property testray.main.component.name = "Blogs";
 
-		task ("Add a blogs entry called 'Blogs Entry1 Title' with content 'Blogs Entry1 Content'") {
-			Navigator.openURL();
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Blogs");
-
-			Blogs.addEntry(
+		task ("Add three blogs entries") {
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry1 Content",
 				entryTitle = "Blogs Entry1 Title");
-		}
 
-		task ("Add a blogs entry called 'Blogs Entry2 Title' with content 'Blogs Entry2 Content'") {
-			Navigator.openURL();
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Blogs");
-
-			Blogs.addEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry2 Content",
 				entryTitle = "Blogs Entry2 Title");
-		}
 
-		task ("Add a blogs entry called 'Blogs Entry3 Title' with content 'Blogs Entry3 Content'") {
-			Navigator.openURL();
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Blogs");
-
-			Blogs.addEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry3 Content",
 				entryTitle = "Blogs Entry3 Title");
 		}
 
-		task ("Ensure blogs entry 'Blogs Entry1 Title' with content 'Blogs Entry1 Content' can be found") {
+		task ("Ensure blogs entries can be found") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
@@ -80,10 +55,6 @@ definition {
 			BlogsEntry.viewEntry(
 				entryContent = "Blogs Entry1 Content",
 				entryTitle = "Blogs Entry1 Title");
-		}
-
-		task ("Ensure blogs entry 'Blogs Entry2 Title' with content 'Blogs Entry2 Content' can be found") {
-			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
 				category = "Content",
@@ -95,10 +66,6 @@ definition {
 			BlogsEntry.viewEntry(
 				entryContent = "Blogs Entry2 Content",
 				entryTitle = "Blogs Entry2 Title");
-		}
-
-		task ("Ensure blogs entry 'Blogs Entry3 Title' with content 'Blogs Entry3 Content' can be found") {
-			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
 				category = "Content",
@@ -416,31 +383,7 @@ definition {
 	@priority = "5"
 	test DeleteBlogsEntries {
 		for (var entryCount : list "1,2,3") {
-			Navigator.openURL();
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Blogs");
-
-			Blogs.addEntry(
-				entryContent = "Blogs Entry${entryCount} Content",
-				entryTitle = "Blogs Entry${entryCount} Title");
-		}
-
-		for (var entryCount : list "1,2,3") {
-			Navigator.openURL();
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Blogs");
-
-			BlogsNavigator.gotoEntryCP(
-				entryContent = "Blogs Entry${entryCount} Content",
-				entryTitle = "Blogs Entry${entryCount} Title");
-
-			BlogsEntry.viewEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry${entryCount} Content",
 				entryTitle = "Blogs Entry${entryCount} Title");
 		}
@@ -575,14 +518,7 @@ definition {
 
 	@priority = "4"
 	test SearchBlogsEntryContent {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -623,14 +559,7 @@ definition {
 
 	@priority = "4"
 	test SearchBlogsEntryTitle {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 

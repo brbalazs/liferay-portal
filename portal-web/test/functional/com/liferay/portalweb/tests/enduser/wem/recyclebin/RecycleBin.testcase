@@ -54,15 +54,10 @@ definition {
 
 	@priority = "3"
 	test RecycleBinBlogs {
-		Navigator.gotoSitePage(
-			pageName = "Test Page",
-			siteName = "Site Name");
-
-		Portlet.addPG(portletName = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			groupName = "Site Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Page",
@@ -269,15 +264,10 @@ definition {
 	test RecycleBinScheduledCleanup {
 		property custom.properties = "trash.entry.check.interval=1${line.separator}trash.entries.max.age=1";
 
-		Navigator.gotoSitePage(
-			pageName = "Test Page",
-			siteName = "Site Name");
-
-		Portlet.addPG(portletName = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			groupName = "Site Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Page",
@@ -316,25 +306,20 @@ definition {
 
 		Portlet.addPG(portletName = "Blogs");
 
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content 1",
-			entryTitle = "Blogs Entry Title 1");
+			entryTitle = "Blogs Entry Title 1",
+			groupName = "Site Name");
 
-		Navigator.gotoSitePage(
-			pageName = "Test Page",
-			siteName = "Site Name");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content 2",
-			entryTitle = "Blogs Entry Title 2");
+			entryTitle = "Blogs Entry Title 2",
+			groupName = "Site Name");
 
-		Navigator.gotoSitePage(
-			pageName = "Test Page",
-			siteName = "Site Name");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content 3",
-			entryTitle = "Blogs Entry Title 3");
+			entryTitle = "Blogs Entry Title 3",
+			groupName = "Site Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Page",

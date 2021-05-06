@@ -45,14 +45,10 @@ definition {
 
 	@priority = "4"
 	test AddMBCategorySubcategory {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsCategory.addCP(categoryName = "MB Category Name");
+		JSONMBMessage.addCategory(
+			categoryDescription = "MB Category Description",
+			categoryName = "MB Category Name",
+			userEmailAddress = "test@liferay.com");
 
 		Navigator.openURL();
 
@@ -140,13 +136,16 @@ definition {
 		Navigator.openURL();
 
 		for (var categoryName : list "MB Category1 Name,MB Category2 Name,MB Category3 Name") {
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Message Boards");
-
-			MessageboardsCategory.addCP(categoryName = "${categoryName}");
+			JSONMBMessage.addCategory(
+				categoryDescription = "${categoryName} Description",
+				categoryName = "${categoryName}",
+				userEmailAddress = "test@liferay.com");
 		}
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Message Boards");
 
 		MessageboardsCategory.tearDownCP(assetType = "3 items");
 
@@ -205,14 +204,8 @@ definition {
 
 	@priority = "5"
 	test EditMBThreadSubjectAndBody {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 
@@ -244,14 +237,8 @@ definition {
 
 	@priority = "5"
 	test MoveToRecycleBinMBThread {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 

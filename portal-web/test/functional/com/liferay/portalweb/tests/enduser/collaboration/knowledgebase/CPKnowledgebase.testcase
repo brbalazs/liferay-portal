@@ -215,14 +215,7 @@ definition {
 
 	@priority = "3"
 	test AddKBArticleWithBlogsEntryRelatedAssetViaKBAdmin {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 

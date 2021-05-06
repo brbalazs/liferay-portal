@@ -48,16 +48,9 @@ definition {
 			title = "apple"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blog Entry Content",
-			entryTitle = "apple"
-		);
+			entryTitle = "apple");
 
 		Navigator.openURL();
 
@@ -386,16 +379,9 @@ definition {
 	test NavigateToSearchResultsViaURL {
 		property portal.acceptance = "quarantine";
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "This is a blog about Potatoes",
-			entryTitle = "Potato Blog"
-		);
+			entryTitle = "Potato Blog");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -474,18 +460,9 @@ definition {
 
 	@priority = "4"
 	test SearchBlogsEntry {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title"
-		);
+			entryTitle = "Blogs Entry Title");
 
 		Navigator.openURL();
 
@@ -722,18 +699,9 @@ definition {
 
 	@priority = "4"
 	test SearchBlogsEntryQuotes {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title"
-		);
+			entryTitle = "Blogs Entry Title");
 
 		Navigator.openURL();
 
@@ -1083,15 +1051,12 @@ definition {
 			groupName = "Site Name 3",
 			layoutName = "Site 3 Home Page");
 
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title",
+			groupName = "Site Name 3");
+
 		Navigator.openSiteURL(siteName = "Site Name 3");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(entryContent = "Blogs Entry Content", entryTitle = "Apple");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -1176,20 +1141,12 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Test Site");
 
-		Navigator.openSiteURL(siteName = "Test Site");
-
-		SitePages.openPagesAdmin(siteURLKey = "Test Site");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "This is a blog about Potatoes",
-			entryTitle = "Potato Blog"
-		);
+			entryTitle = "Potato Blog",
+			groupName = "Test Site");
+
+		Navigator.openSiteURL(siteName = "Test Site");
 
 		var currentDate = DateUtil.getFormattedCurrentDate("MMM d, yyyy");
 
@@ -1346,18 +1303,12 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Site Page Name");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs"
-		);
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry 1 Content",
-			entryTitle = "Blogs Entry 1 Title"
-		);
+			entryTitle = "Blogs Entry 1 Title",
+			groupName = "Site Name");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

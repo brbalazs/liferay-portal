@@ -281,7 +281,7 @@ definition {
 
 	@priority = "4"
 	test ChangeBlogsRatingType {
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -308,9 +308,9 @@ definition {
 	@description = "This test covers LPS-102033. It ensures that the comment only appears under the respective Blog Entry."
 	@priority = "3"
 	test CommentsAreViewableInAP {
-		SitePages.openPagesAdmin(siteURLKey = "guest");
-
-		SitePages.deletePage(pageName = "Blogs Page");
+		JSONLayout.deletePublicLayout(
+			groupName = "Guest",
+			layoutName = "Blogs Page");
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
@@ -364,14 +364,7 @@ definition {
 
 	@priority = "4"
 	test DeleteBlogsEntry {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -479,9 +472,7 @@ definition {
 		property dummy.socket.proxy.disabled = "true";
 		property test.name.skip.portal.instance = "BlogsUsecase#DemoTrackbackURL";
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry1 Content",
 			entryTitle = "Blogs Entry1 Title");
 
@@ -676,9 +667,7 @@ definition {
 
 	@priority = "4"
 	test ImportBlogsCommentLAR {
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -747,14 +736,7 @@ definition {
 
 	@priority = "5"
 	test RestoreBlogsEntry {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -822,17 +804,17 @@ definition {
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			groupName = "Guest");
 
-		Refresh();
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content 2",
-			entryTitle = "Blogs Entry Title 2");
+			entryTitle = "Blogs Entry Title 2",
+			groupName = "Guest");
+
+		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsEntry.removeViewPermissionsPG(
 			entryTitle = "Blogs Entry Title 2",
@@ -983,9 +965,7 @@ definition {
 		var pageNameURL = StringUtil.lowerCase("${pageNameURL}");
 		var friendlyURL = "${portalURL}/web/guest/${pageNameURL}/-/blogs/${entryTitleURL}";
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
@@ -1589,9 +1569,7 @@ definition {
 			layoutName = "Asset Publisher Page",
 			widgetName = "Asset Publisher");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 

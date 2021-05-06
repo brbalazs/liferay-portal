@@ -683,14 +683,7 @@ definition {
 
 	@priority = "3"
 	test ViewKBArticleWithBlogsEntryRelatedAsset {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 

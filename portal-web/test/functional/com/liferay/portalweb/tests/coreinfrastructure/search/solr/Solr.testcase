@@ -34,14 +34,8 @@ definition {
 		property environment.acceptance = "false";
 		property test.name.skip.portal.instance = "Solr#SolrSmokeTest";
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "Orange",
 			threadSubject = "Apple");
 
@@ -110,14 +104,8 @@ definition {
 			key_cloudCollectionName = "liferay",
 			locator1 = "SolrAdminDashboard#CLOUD_COLLECTION");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "Orange",
 			threadSubject = "Apple");
 
@@ -171,14 +159,8 @@ definition {
 		property solr.ssl.authentication.enabled = "true";
 		property test.name.skip.portal.instance = "Solr#SolrWithSSLAuthenticationSmokeTest";
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "Orange",
 			threadSubject = "Apple");
 
