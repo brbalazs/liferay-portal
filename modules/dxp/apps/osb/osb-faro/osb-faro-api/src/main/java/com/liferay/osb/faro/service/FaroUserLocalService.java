@@ -198,6 +198,9 @@ public interface FaroUserLocalService
 	public FaroUser fetchFaroUser(long groupId, long liveUserId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FaroUser fetchFaroUser(long groupId, String emailAddress);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FaroUser fetchOwnerFaroUser(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -254,6 +257,9 @@ public interface FaroUserLocalService
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FaroUser getOwnerFaroUser(long groupId) throws PortalException;
 
 	/**
 	 * @throws PortalException

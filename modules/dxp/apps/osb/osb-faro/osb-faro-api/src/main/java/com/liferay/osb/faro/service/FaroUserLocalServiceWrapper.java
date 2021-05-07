@@ -232,6 +232,13 @@ public class FaroUserLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.osb.faro.model.FaroUser fetchFaroUser(
+		long groupId, String emailAddress) {
+
+		return _faroUserLocalService.fetchFaroUser(groupId, emailAddress);
+	}
+
+	@Override
 	public com.liferay.osb.faro.model.FaroUser fetchOwnerFaroUser(
 		long groupId) {
 
@@ -324,6 +331,13 @@ public class FaroUserLocalServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _faroUserLocalService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public com.liferay.osb.faro.model.FaroUser getOwnerFaroUser(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _faroUserLocalService.getOwnerFaroUser(groupId);
 	}
 
 	/**

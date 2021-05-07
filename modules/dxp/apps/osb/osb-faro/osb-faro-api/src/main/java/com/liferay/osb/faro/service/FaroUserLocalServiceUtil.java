@@ -211,6 +211,10 @@ public class FaroUserLocalServiceUtil {
 		return getService().fetchFaroUser(groupId, liveUserId);
 	}
 
+	public static FaroUser fetchFaroUser(long groupId, String emailAddress) {
+		return getService().fetchFaroUser(groupId, emailAddress);
+	}
+
 	public static FaroUser fetchOwnerFaroUser(long groupId) {
 		return getService().fetchOwnerFaroUser(groupId);
 	}
@@ -288,6 +292,12 @@ public class FaroUserLocalServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static FaroUser getOwnerFaroUser(long groupId)
+		throws PortalException {
+
+		return getService().getOwnerFaroUser(groupId);
 	}
 
 	/**
