@@ -40,6 +40,7 @@ public class FaroUserDisplay {
 
 			if (user != null) {
 				_emailAddress = user.getEmailAddress();
+				_languageId = user.getLanguageId();
 				_lastLoginDate = user.getLastLoginDate();
 				_name = user.getFullName();
 				_screenName = user.getScreenName();
@@ -65,6 +66,7 @@ public class FaroUserDisplay {
 
 	public FaroUserDisplay(User user) {
 		_emailAddress = user.getEmailAddress();
+		_languageId = user.getLanguageId();
 		_name = user.getFullName();
 		_screenName = user.getScreenName();
 		_userId = user.getUserId();
@@ -73,6 +75,7 @@ public class FaroUserDisplay {
 	private String _emailAddress;
 	private long _groupId;
 	private long _id;
+	private String _languageId;
 	private Date _lastLoginDate;
 	private String _name;
 	private String _roleName;
