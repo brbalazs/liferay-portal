@@ -304,6 +304,41 @@ public class UserController extends BaseFaroController {
 			_faroUserLocalService.updateFaroUser(faroUser));
 	}
 
+	@Path("/owner")
+	@PUT
+	@RolesAllowed(StringPool.BLANK)
+	public FaroUserDisplay updateOwner(
+			@PathParam("groupId") long groupId,
+			@FormParam("emailAddress") String emailAddress)
+		throws Exception {
+
+		FaroUser faroUser = _faroUserLocalService.getOwnerFaroUser(groupId);
+
+		Role role = _roleLocalService.getRole(
+			getCompanyId(), RoleConstants.SITE_ADMINISTRATOR);
+
+		faroUser.setRoleId(role.getRoleId());
+
+		_faroUserLocalService.updateFaroUser(faroUser);
+
+		faroUser = _faroUserLocalService.fetchFaroUser(groupId, emailAddress);
+
+		role = _roleLocalService.getRole(
+			getCompanyId(), RoleConstants.SITE_OWNER);
+
+		if (faroUser != null) {
+			faroUser.setRoleId(role.getRoleId());
+
+			return new FaroUserDisplay(
+				_faroUserLocalService.updateFaroUser(faroUser));
+		}
+
+		return new FaroUserDisplay(
+			_faroUserLocalService.addFaroUser(
+				getUserId(), groupId, 0, role.getRoleId(), emailAddress,
+				FaroUserConstants.STATUS_PENDING, false));
+	}
+
 	protected void validateFaroUsers(List<Long> ids) throws Exception {
 		for (long id : ids) {
 			FaroUser faroUser = _faroUserLocalService.fetchFaroUser(id);
