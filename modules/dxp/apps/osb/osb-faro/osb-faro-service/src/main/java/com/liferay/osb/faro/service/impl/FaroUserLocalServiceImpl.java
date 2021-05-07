@@ -171,6 +171,11 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	}
 
 	@Override
+	public FaroUser fetchFaroUser(long groupId, String emailAddress) {
+		return faroUserPersistence.fetchByG_E(groupId, emailAddress);
+	}
+
+	@Override
 	public FaroUser fetchOwnerFaroUser(long groupId) {
 		Role role = roleLocalService.fetchRole(
 			_portal.getDefaultCompanyId(), RoleConstants.SITE_OWNER);
@@ -198,6 +203,15 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	@Override
 	public List<FaroUser> getFaroUsersByStatus(long groupId, int status) {
 		return faroUserPersistence.findByG_S(groupId, status);
+	}
+
+	@Override
+	public FaroUser getOwnerFaroUser(long groupId) throws PortalException {
+		Role role = roleLocalService.getRole(
+			_portal.getDefaultCompanyId(), RoleConstants.SITE_OWNER);
+
+		return faroUserPersistence.findByG_R_First(
+			groupId, role.getRoleId(), null);
 	}
 
 	@Override
