@@ -183,7 +183,7 @@
 
 <aui:script>
 	function <portlet:namespace />deleteEntries() {
-		if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-the-selected-entries") %>')) {
+		if (confirm('<%= UnicodeLanguageUtil.get(request, "staging-are-you-sure-you-want-to-delete-the-selected-entries") %>')) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.attr('method', 'post');
