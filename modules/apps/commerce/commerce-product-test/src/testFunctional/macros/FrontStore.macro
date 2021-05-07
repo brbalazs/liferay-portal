@@ -6,6 +6,11 @@ definition {
 			locator1 = "CommerceAccelerators#COMMERCE_QUANTITY_SELECTOR_INPUT",
 			value1 = "${productQuantity}");
 
+		WaitForElementPresent(
+			key_productName = "${productName}",
+			key_value = "${productQuantity}",
+			locator1 = "CommerceAccelerators#COMMERCE_QUANTITY_SELECTOR_INPUT_VALUE");
+
 		Click(
 			key_productName = "${productName}",
 			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON");
