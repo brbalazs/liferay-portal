@@ -29,6 +29,7 @@ import com.liferay.osb.faro.web.internal.util.comparator.FaroUserComparator;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
@@ -312,6 +313,8 @@ public class UserController extends BaseFaroController {
 		@PathParam("groupId") long groupId,
 		@FormParam("languageId") String languageId) {
 
+		validateLanguageId(languageId);
+
 		User user = getUser();
 
 		user.setLanguageId(languageId);
@@ -371,6 +374,12 @@ public class UserController extends BaseFaroController {
 		}
 	}
 
+	protected void validateLanguageId(String languageId) {
+		if (!_language.isAvailableLocale(languageId)) {
+			throw new FaroException("Invalid languageId: " + languageId);
+		}
+	}
+
 	protected void validateRoleName(String roleName) {
 		if (!roleName.equals(RoleConstants.SITE_ADMINISTRATOR) &&
 			!roleName.equals(RoleConstants.SITE_MEMBER)) {
@@ -393,6 +402,9 @@ public class UserController extends BaseFaroController {
 
 	@Reference
 	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private Language _language;
 
 	@Reference
 	private RoleLocalService _roleLocalService;
