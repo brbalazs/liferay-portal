@@ -264,7 +264,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		String friendlyName = StringPool.BLANK;
 
 		if (nameMap != null) {
-			_normalizeGroupNames(nameMap);
+			nameMap = _normalizeGroupNames(nameMap);
 
 			groupKey = nameMap.get(LocaleUtil.getDefault());
 			friendlyName = nameMap.get(LocaleUtil.getDefault());
@@ -3795,7 +3795,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 
 		if (nameMap != null) {
-			_normalizeGroupNames(nameMap);
+			nameMap = _normalizeGroupNames(nameMap);
 
 			if (Validator.isNotNull(
 					nameMap.get(
@@ -5365,14 +5365,20 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 	protected File publicLARFile;
 
-	private void _normalizeGroupNames(Map<Locale, String> nameMap) {
+	private Map<Locale, String> _normalizeGroupNames(
+		Map<Locale, String> nameMap) {
+
+		Map<Locale, String> normalizedNameMap = new HashMap<>();
+
 		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
 			String value = entry.getValue();
 
 			if (Validator.isNotNull(value)) {
-				nameMap.replace(entry.getKey(), StringUtil.trim(value));
+				normalizedNameMap.put(entry.getKey(), StringUtil.trim(value));
 			}
 		}
+
+		return normalizedNameMap;
 	}
 
 	private static final Class<?>[]
