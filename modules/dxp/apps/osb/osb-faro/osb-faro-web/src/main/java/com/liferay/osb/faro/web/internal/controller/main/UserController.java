@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -304,6 +305,23 @@ public class UserController extends BaseFaroController {
 			_faroUserLocalService.updateFaroUser(faroUser));
 	}
 
+	@Path("/language")
+	@PUT
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public FaroUserDisplay updateLanguage(
+		@PathParam("groupId") long groupId,
+		@FormParam("languageId") String languageId) {
+
+		User user = getUser();
+
+		user.setLanguageId(languageId);
+
+		_userLocalService.updateUser(user);
+
+		return new FaroUserDisplay(
+			_faroUserLocalService.fetchFaroUser(groupId, user.getUserId()));
+	}
+
 	@Path("/owner")
 	@PUT
 	@RolesAllowed(StringPool.BLANK)
@@ -378,5 +396,8 @@ public class UserController extends BaseFaroController {
 
 	@Reference
 	private RoleLocalService _roleLocalService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
