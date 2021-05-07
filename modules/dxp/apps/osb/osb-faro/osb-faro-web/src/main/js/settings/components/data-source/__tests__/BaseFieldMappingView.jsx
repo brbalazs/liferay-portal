@@ -12,24 +12,27 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
+const WrappedComponent = props => (
+	<Provider store={mockStore()}>
+		<StaticRouter>
+			<BaseFieldMappingView
+				context={FieldContexts.Demographics}
+				currentUser={data.getImmutableMock(User, data.mockUser)}
+				dataSource={data.getImmutableMock(
+					DataSource,
+					data.mockSalesforceDataSource
+				)}
+				groupId='23'
+				id='123'
+				{...props}
+			/>
+		</StaticRouter>
+	</Provider>
+);
+
 describe('BaseFieldMappingView', () => {
 	it('should render', () => {
-		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<BaseFieldMappingView
-						context={FieldContexts.Demographics}
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						dataSource={data.getImmutableMock(
-							DataSource,
-							data.mockSalesforceDataSource
-						)}
-						groupId='23'
-						id='123'
-					/>
-				</StaticRouter>
-			</Provider>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		jest.runAllTimers();
 
@@ -37,26 +40,11 @@ describe('BaseFieldMappingView', () => {
 	});
 
 	it('should render w/o loading', () => {
-		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<BaseFieldMappingView
-						context={FieldContexts.Demographics}
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						dataSource={data.getImmutableMock(
-							DataSource,
-							data.mockSalesforceDataSource
-						)}
-						groupId='23'
-						id='123'
-					/>
-				</StaticRouter>
-			</Provider>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		jest.runAllTimers();
 
-		expect(container.querySelector('.spinner-root')).toBeFalsy();
+		expect(container.querySelector('.spinner-root')).toBeNull();
 	});
 
 	it('should render w/ error display', () => {
@@ -65,21 +53,7 @@ describe('BaseFieldMappingView', () => {
 		);
 
 		const {getByText} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<BaseFieldMappingView
-						context={FieldContexts.Demographics}
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						dataSource={data.getImmutableMock(
-							DataSource,
-							data.mockSalesforceDataSource
-						)}
-						groupId='23'
-						id='123'
-						title='This is a title'
-					/>
-				</StaticRouter>
-			</Provider>
+			<WrappedComponent title='This is a title' />
 		);
 
 		jest.runAllTimers();
@@ -90,23 +64,7 @@ describe('BaseFieldMappingView', () => {
 	it('should render w/ details', () => {
 		const details = 'This is the details';
 
-		const {getByText} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<BaseFieldMappingView
-						context={FieldContexts.Demographics}
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						dataSource={data.getImmutableMock(
-							DataSource,
-							data.mockSalesforceDataSource
-						)}
-						details={details}
-						groupId='23'
-						id='123'
-					/>
-				</StaticRouter>
-			</Provider>
-		);
+		const {getByText} = render(<WrappedComponent details={details} />);
 
 		jest.runAllTimers();
 
@@ -117,21 +75,7 @@ describe('BaseFieldMappingView', () => {
 		const title = 'This is a title';
 
 		const {container, getByText} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<BaseFieldMappingView
-						context={FieldContexts.Demographics}
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						dataSource={data.getImmutableMock(
-							DataSource,
-							data.mockSalesforceDataSource
-						)}
-						groupId='23'
-						id='123'
-						title={title}
-					/>
-				</StaticRouter>
-			</Provider>
+			<WrappedComponent title={title} />
 		);
 
 		jest.runAllTimers();
