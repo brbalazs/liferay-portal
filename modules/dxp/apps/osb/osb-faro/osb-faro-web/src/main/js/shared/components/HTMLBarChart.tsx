@@ -79,8 +79,8 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 	const [tooltip, setTooltip] = useState({
 		header: [],
 		position: {
-			left: 0,
-			top: 0
+			left: '0px',
+			top: '0px'
 		},
 		rows: [],
 		show: false
@@ -186,8 +186,13 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 		const {clientHeight, clientWidth} = _tooltipRef.current;
 		const {left, top} = alignTooltip(event, clientWidth, clientHeight);
 
-		_tooltipRef.current.style.left = `${left}px`;
-		_tooltipRef.current.style.top = `${top}px`;
+		setTooltip({
+			...tooltip,
+			position: {
+				left: `${left}px`,
+				top: `${top}px`
+			}
+		});
 	};
 
 	const handleScrollItems = ({target}) => {
