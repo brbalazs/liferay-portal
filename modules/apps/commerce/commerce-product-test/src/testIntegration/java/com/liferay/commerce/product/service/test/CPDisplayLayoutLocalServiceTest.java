@@ -19,10 +19,10 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryLocalServiceUtil;
 import com.liferay.asset.kernel.service.AssetVocabularyLocalServiceUtil;
-import com.liferay.commerce.product.constants.CommerceChannelConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CPDefinitionLocalServiceUtil;
 import com.liferay.commerce.product.service.CPDisplayLayoutLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalServiceUtil;
@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.kernel.test.rule.DataGuard;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -45,9 +44,7 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-
-import java.util.List;
+import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import org.frutilla.FrutillaRule;
 
@@ -61,7 +58,6 @@ import org.junit.runner.RunWith;
 /**
  * @author Alessio Antonio Rendina
  */
-@DataGuard(scope = DataGuard.Scope.METHOD)
 @RunWith(Arquillian.class)
 public class CPDisplayLayoutLocalServiceTest {
 
@@ -70,7 +66,7 @@ public class CPDisplayLayoutLocalServiceTest {
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
-			PermissionCheckerMethodTestRule.INSTANCE);
+			PermissionCheckerTestRule.INSTANCE);
 
 	@Before
 	public void setUp() throws Exception {
@@ -88,25 +84,22 @@ public class CPDisplayLayoutLocalServiceTest {
 			_company.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceChannel1 = CommerceChannelLocalServiceUtil.addCommerceChannel(
-			StringPool.BLANK, _group2.getGroupId(),
+			_group2.getGroupId(),
 			_group2.getName(_serviceContext.getLanguageId()) + " Portal1",
 			CommerceChannelConstants.CHANNEL_TYPE_SITE, null, StringPool.BLANK,
-			_serviceContext);
+			null, _serviceContext);
 
 		_group3 = GroupTestUtil.addGroup(
 			_company.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceChannel2 = CommerceChannelLocalServiceUtil.addCommerceChannel(
-			StringPool.BLANK, _group3.getGroupId(),
+			_group3.getGroupId(),
 			_group3.getName(_serviceContext.getLanguageId()) + " Portal2",
 			CommerceChannelConstants.CHANNEL_TYPE_SITE, null, StringPool.BLANK,
-			_serviceContext);
+			null, _serviceContext);
 
-		List<AssetVocabulary> companyVocabularies =
-			AssetVocabularyLocalServiceUtil.getCompanyVocabularies(
-				_company.getCompanyId());
-
-		_assetVocabulary = companyVocabularies.get(0);
+		_assetVocabulary = AssetVocabularyLocalServiceUtil.addDefaultVocabulary(
+			_group1.getGroupId());
 
 		_commerceCatalog = CommerceCatalogLocalServiceUtil.addCommerceCatalog(
 			null, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
@@ -184,7 +177,6 @@ public class CPDisplayLayoutLocalServiceTest {
 	@DeleteAfterTestRun
 	private AssetVocabulary _assetVocabulary;
 
-	@DeleteAfterTestRun
 	private CommerceCatalog _commerceCatalog;
 
 	@DeleteAfterTestRun
