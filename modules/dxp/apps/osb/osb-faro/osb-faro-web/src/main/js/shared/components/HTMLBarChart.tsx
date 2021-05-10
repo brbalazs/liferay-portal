@@ -62,7 +62,6 @@ interface IHTMLBarChartProps {
 	items: Item[];
 }
 
-// TODO: Convert usage of component to use header in the same way as rows.
 const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 	disableScroll = false,
 	formatSpacement = true,
@@ -158,7 +157,7 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 			dataset: {index}
 		}
 	}: React.MouseEvent<HTMLButtonElement>): void => {
-		const itemExpanded = itemsExpanded[index];
+		const itemExpanded = !itemsExpanded[index];
 
 		setItemsExpanded(
 			replaceAtIndex(itemsExpanded, Number(index), itemExpanded)
