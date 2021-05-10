@@ -111,6 +111,12 @@ public class IGPortletToolbarContributor extends BasePortletToolbarContributor {
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		if (!_dlPortletToolbarContributorHelper.isShowActionsEnabled(
+				themeDisplay, portletRequest)) {
+
+			return null;
+		}
+
 		List<MenuItem> menuItems = new ArrayList<>();
 
 		Folder folder = _dlPortletToolbarContributorHelper.getFolder(
