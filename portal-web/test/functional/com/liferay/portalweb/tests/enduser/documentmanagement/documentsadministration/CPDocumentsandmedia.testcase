@@ -118,6 +118,25 @@ definition {
 			dmDocumentTitle = "DM Document Title");
 	}
 
+	@description = "This test covers LPS-130154. It ensures that the user can search for a document based on the content."
+	@priority = "4"
+	test CanSearchForDocumentBasedOnContent {
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "Document_5.txt",
+			dmDocumentTitle = "Document_5.txt");
+
+		AssertConsoleTextNotPresent(value1 = "WriteLimitReachedException");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		Search.searchCP(searchTerm = "gJybWNXR76fTX0TlIu8mFP2dNVtTGdq");
+
+		DMDocument.viewSearchResultsCP(dmDocumentTitle = "Document_5.txt");
+	}
+
 	@description = "This test ensures that a user can check in a document as a major version."
 	@priority = "5"
 	test CheckInDocumentAsMajorVersion {
