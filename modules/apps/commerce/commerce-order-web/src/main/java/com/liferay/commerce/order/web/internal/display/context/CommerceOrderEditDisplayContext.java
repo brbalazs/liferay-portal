@@ -420,13 +420,13 @@ public class CommerceOrderEditDisplayContext {
 		sb.append(StringPool.COMMA);
 		sb.append(StringPool.SPACE);
 
-		if (commerceAddress.getStreet2() != null) {
+		if (!Validator.isBlank(commerceAddress.getStreet2())) {
 			sb.append(commerceAddress.getStreet2());
 			sb.append(StringPool.COMMA);
 			sb.append(StringPool.SPACE);
 		}
 
-		if (commerceAddress.getStreet3() != null) {
+		if (!Validator.isBlank(commerceAddress.getStreet3())) {
 			sb.append(commerceAddress.getStreet3());
 			sb.append(StringPool.COMMA);
 			sb.append(StringPool.SPACE);
