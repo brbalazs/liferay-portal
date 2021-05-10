@@ -264,13 +264,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		String friendlyName = StringPool.BLANK;
 
 		if (nameMap != null) {
-			for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
-				String value = entry.getValue();
-
-				if (Validator.isNotNull(value)) {
-					nameMap.replace(entry.getKey(), StringUtil.trim(value));
-				}
-			}
+			_normalizeGroupNames(nameMap);
 
 			groupKey = nameMap.get(LocaleUtil.getDefault());
 			friendlyName = nameMap.get(LocaleUtil.getDefault());
@@ -3800,13 +3794,17 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			throw new GroupKeyException();
 		}
 
-		if ((nameMap != null) &&
-			Validator.isNotNull(
-				nameMap.get(
-					LocaleUtil.fromLanguageId(group.getDefaultLanguageId())))) {
+		if (nameMap != null) {
+			_normalizeGroupNames(nameMap);
 
-			groupKey = nameMap.get(
-				LocaleUtil.fromLanguageId(group.getDefaultLanguageId()));
+			if (Validator.isNotNull(
+					nameMap.get(
+						LocaleUtil.fromLanguageId(
+							group.getDefaultLanguageId())))) {
+
+				groupKey = nameMap.get(
+					LocaleUtil.fromLanguageId(group.getDefaultLanguageId()));
+			}
 		}
 
 		friendlyURL = getFriendlyURL(
@@ -5366,6 +5364,16 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	}
 
 	protected File publicLARFile;
+
+	private void _normalizeGroupNames(Map<Locale, String> nameMap) {
+		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
+			String value = entry.getValue();
+
+			if (Validator.isNotNull(value)) {
+				nameMap.replace(entry.getKey(), StringUtil.trim(value));
+			}
+		}
+	}
 
 	private static final Class<?>[]
 		_CHECK_REMOTE_STAGING_GROUP_PARAMETER_TYPES = new Class<?>[] {
