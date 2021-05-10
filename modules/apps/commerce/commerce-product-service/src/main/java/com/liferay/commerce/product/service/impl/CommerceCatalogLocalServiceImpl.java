@@ -228,8 +228,7 @@ public class CommerceCatalogLocalServiceImpl
 
 		// Group
 
-		Group group = groupLocalService.fetchGroup(
-			groupId);
+		Group group = groupLocalService.fetchGroup(groupId);
 
 		if (group != null) {
 			groupLocalService.deleteGroup(groupId);
