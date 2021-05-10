@@ -376,7 +376,7 @@ public class UserController extends BaseFaroController {
 
 	protected void validateLanguageId(String languageId) {
 		if (!_language.isAvailableLocale(languageId)) {
-			throw new FaroException("Invalid languageId: " + languageId);
+			throw new FaroException("Invalid language id: " + languageId);
 		}
 	}
 
