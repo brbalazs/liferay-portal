@@ -5365,9 +5365,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 	protected File publicLARFile;
 
-	private Map<Locale, String> _normalizeNameMap(
-		Map<Locale, String> nameMap) {
-
+	private Map<Locale, String> _normalizeNameMap(Map<Locale, String> nameMap) {
 		Map<Locale, String> normalizedNameMap = new HashMap<>();
 
 		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
