@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import DocumentTitle from 'shared/components/DocumentTitle';
 import getCN from 'classnames';
@@ -6,6 +7,7 @@ import React, {createContext} from 'react';
 import UserDropdown from 'shared/components/user-dropdown';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {Align} from '@clayui/drop-down';
+import {LANGUAGES} from 'shared/util/constants';
 import {LocalStorageMechanism, Storage} from 'metal-storage';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
@@ -43,10 +45,9 @@ export class WorkspacesBasePage extends React.Component {
 
 	getUserMenuItems() {
 		const {
-			currentUser: {emailAddress, screenName}
+			currentUser: {emailAddress, languageId, screenName}
 		} = this.props;
 
-		// TODO: LRAC-7816 Add logic for fetching and displaying the current language.  Add logic to update language.
 		return {
 			base: [
 				{
@@ -71,15 +72,25 @@ export class WorkspacesBasePage extends React.Component {
 			],
 			language: [
 				{
-					items: [
-						{
-							active: true,
-							label: Liferay.Language.get('english')
-						},
-						{
-							label: Liferay.Language.get('japanese')
-						}
-					]
+					items: LANGUAGES.map(({id, label}) => {
+						const active = languageId === id;
+
+						return {
+							active,
+							label,
+							onClick: active
+								? null
+								: () =>
+										API.user
+											.updateLanguage({
+												groupId: '0',
+												languageId: id
+											})
+											.then(() =>
+												window.location.reload()
+											)
+						};
+					})
 				}
 			]
 		};

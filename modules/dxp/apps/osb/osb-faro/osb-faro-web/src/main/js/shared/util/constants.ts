@@ -3,6 +3,20 @@ import {Align} from 'metal-position';
 export const DEVELOPER_MODE = FARO_ENV === 'asah-local' || FARO_ENV === 'local';
 
 /**
+ * Languages
+ */
+export const LANGUAGES = [
+	{
+		id: 'en_US',
+		label: Liferay.Language.get('english')
+	},
+	{
+		id: 'ja_JP',
+		label: Liferay.Language.get('japanese')
+	}
+];
+
+/**
  * Metal-Position Alignments
  */
 export const ALIGNMENTS_MAP = {

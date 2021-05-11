@@ -66,6 +66,14 @@ export function inviteMany({emailAddresses, groupId, roleName}) {
 	});
 }
 
+export function updateLanguage({groupId, languageId}) {
+	return sendRequest({
+		data: {languageId},
+		method: 'PUT',
+		path: `main/${groupId}/user/language`
+	});
+}
+
 export function updateMany({groupId, ids, roleName}) {
 	return sendRequest({
 		data: {ids, roleName},

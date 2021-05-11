@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import ChannelsMenu from '../channels-menu';
 import getCN from 'classnames';
 import Icon from '../Icon';
@@ -5,7 +6,7 @@ import React from 'react';
 import SidebarItem from './SidebarItem';
 import UserDropdown, {Menus} from 'shared/components/user-dropdown';
 import {ACCOUNTS, Routes, SEGMENTS, toRoute} from 'shared/util/router';
-import {DEVELOPER_MODE} from 'shared/util/constants';
+import {DEVELOPER_MODE, LANGUAGES} from 'shared/util/constants';
 import {Link, matchPath} from 'react-router-dom';
 import {User} from 'shared/util/records';
 
@@ -119,43 +120,56 @@ const Sidebar: React.FC<ISidebarProps> = ({
 		];
 	};
 
-	// TODO: LRAC-7816 Add logic for fetching and displaying the current language.  Add logic to update language.
-	const getUserMenus = (): Menus => ({
-		base: [
-			{
-				items: [
-					{
-						childMenuId: 'language',
-						divider: true,
-						label: Liferay.Language.get('language')
-					},
-					{
-						label: Liferay.Language.get('switch-workspaces'),
-						url: Routes.BASE
-					},
-					{
-						externalLink: true,
-						label: Liferay.Language.get('sign-out'),
-						url: Routes.LOGOUT
-					}
-				],
-				subheaderLabel: currentUser.emailAddress
-			}
-		],
-		language: [
-			{
-				items: [
-					{
-						active: true,
-						label: Liferay.Language.get('english')
-					},
-					{
-						label: Liferay.Language.get('japanese')
-					}
-				]
-			}
-		]
-	});
+	const getUserMenus = (): Menus => {
+		const {emailAddress, languageId} = currentUser;
+
+		return {
+			base: [
+				{
+					items: [
+						{
+							childMenuId: 'language',
+							divider: true,
+							label: Liferay.Language.get('language')
+						},
+						{
+							label: Liferay.Language.get('switch-workspaces'),
+							url: Routes.BASE
+						},
+						{
+							externalLink: true,
+							label: Liferay.Language.get('sign-out'),
+							url: Routes.LOGOUT
+						}
+					],
+					subheaderLabel: emailAddress
+				}
+			],
+			language: [
+				{
+					items: LANGUAGES.map(({id, label}) => {
+						const active = languageId === id;
+
+						return {
+							active,
+							label,
+							onClick: active
+								? null
+								: () =>
+										API.user
+											.updateLanguage({
+												groupId,
+												languageId: id
+											})
+											.then(() =>
+												window.location.reload()
+											)
+						};
+					})
+				}
+			]
+		};
+	};
 
 	return (
 		<div className={getCN('sidebar-root', className, {collapsed})}>

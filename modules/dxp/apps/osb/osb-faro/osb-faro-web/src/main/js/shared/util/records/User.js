@@ -6,6 +6,7 @@ export default class User extends (new Record({
 	emailAddress: null,
 	groupId: null,
 	id: null,
+	languageId: null,
 	name: '',
 	roleName: null,
 	screenName: '',
