@@ -657,18 +657,16 @@ public class ProjectController extends BaseFaroController {
 	@POST
 	@RolesAllowed(StringPool.BLANK)
 	public void migrate(
-			@DefaultValue("true") @FormParam("dryRun") FaroParam<Boolean>
-				dryRun,
-			@DefaultValue("false") @FormParam("includePaidTier") FaroParam
-				<Boolean> includePaidTier,
+			@DefaultValue("true") @FormParam("dryRun") boolean dryRun,
+			@DefaultValue("false") @FormParam("includePaidTier") boolean
+				includePaidTier,
 			@FormParam("serverLocation") String serverLocation)
 		throws Exception {
 
 		for (FaroProject faroProject :
 				_faroProjectLocalService.getFaroProjects(serverLocation)) {
 
-			_migrate(
-				dryRun.getValue(), faroProject, includePaidTier.getValue());
+			_migrate(dryRun, faroProject, includePaidTier);
 		}
 	}
 
@@ -1193,10 +1191,7 @@ public class ProjectController extends BaseFaroController {
 		FaroSubscriptionDisplay faroSubscriptionDisplay =
 			projectDisplay.getFaroSubscriptionDisplay();
 
-		if ((!includePaidTier &&
-			 !Objects.equals(
-				 faroSubscriptionDisplay.getName(),
-				 ProductConstants.BASIC_PRODUCT_NAME)) ||
+		if ((!includePaidTier && !faroProject.isTrial()) ||
 			(faroSubscriptionDisplay.getIndividualsCount() > 0) ||
 			(faroSubscriptionDisplay.getPageViewsCount() > 0)) {
 
