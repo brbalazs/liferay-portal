@@ -20,9 +20,13 @@ import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
+import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
+import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
+import com.liferay.osb.faro.engine.client.model.Results;
 import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
@@ -649,6 +653,25 @@ public class ProjectController extends BaseFaroController {
 		return TimeZoneUtil.getTimeZoneDisplays();
 	}
 
+	@Path("/migrate")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public void migrate(
+			@DefaultValue("true") @FormParam("dryRun") FaroParam<Boolean>
+				dryRun,
+			@DefaultValue("false") @FormParam("includePaidTier") FaroParam
+				<Boolean> includePaidTier,
+			@FormParam("serverLocation") String serverLocation)
+		throws Exception {
+
+		for (FaroProject faroProject :
+				_faroProjectLocalService.getFaroProjects(serverLocation)) {
+
+			_migrate(
+				dryRun.getValue(), faroProject, includePaidTier.getValue());
+		}
+	}
+
 	@PATCH
 	@Path("/{groupId}")
 	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
@@ -1157,6 +1180,90 @@ public class ProjectController extends BaseFaroController {
 		return true;
 	}
 
+	private void _migrate(
+			boolean dryRun, FaroProject faroProject, boolean includePaidTier)
+		throws Exception {
+
+		if (faroProject.isSharedCluster()) {
+			return;
+		}
+
+		ProjectDisplay projectDisplay = new ProjectDisplay(faroProject);
+
+		FaroSubscriptionDisplay faroSubscriptionDisplay =
+			projectDisplay.getFaroSubscriptionDisplay();
+
+		if ((!includePaidTier &&
+			 !Objects.equals(
+				 faroSubscriptionDisplay.getName(),
+				 ProductConstants.BASIC_PRODUCT_NAME)) ||
+			(faroSubscriptionDisplay.getIndividualsCount() > 0) ||
+			(faroSubscriptionDisplay.getPageViewsCount() > 0)) {
+
+			return;
+		}
+
+		Results<DataSource> dataSources = contactsEngineClient.getDataSources(
+			faroProject, null, null, null, null, null, 1, 1, null);
+
+		if (dataSources.getTotal() > 0) {
+			return;
+		}
+
+		if (dryRun) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Dry run migrate: " + faroProject.getProjectId());
+			}
+
+			return;
+		}
+
+		for (LCPService lcpService :
+				_workspaceEngineClient.getLCPServices(
+					faroProject.getWeDeployKey())) {
+
+			_workspaceEngineClient.deleteWorkspaceService(
+				faroProject.getWeDeployKey(), lcpService.getServiceId());
+		}
+
+		if (Objects.equals(
+				LCPProject.Cluster.EU.toString(),
+				faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.EU_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.EU2.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.EU2_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.SA.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.SA_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.US.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.US_AC.toString());
+		}
+		else {
+			return;
+		}
+
+		faroProject.setSharedCluster(true);
+
+		_faroProjectLocalService.updateFaroProject(faroProject);
+
+		_contactsEngineClient.addProject(faroProject);
+
+		_fieldMappingController.addDefaultFieldMappings(
+			faroProject.getGroupId());
+	}
+
 	private void _refreshProjectState(FaroProject faroProject)
 		throws Exception {
 
@@ -1261,6 +1368,9 @@ public class ProjectController extends BaseFaroController {
 	private ContactsCardTemplateLocalService _contactsCardTemplateLocalService;
 
 	@Reference
+	private ContactsEngineClient _contactsEngineClient;
+
+	@Reference
 	private ContactsLayoutTemplateLocalService
 		_contactsLayoutTemplateLocalService;
 
@@ -1297,5 +1407,8 @@ public class ProjectController extends BaseFaroController {
 
 	@Reference
 	private RoleLocalService _roleLocalService;
+
+	@Reference
+	private WorkspaceEngineClient _workspaceEngineClient;
 
 }
