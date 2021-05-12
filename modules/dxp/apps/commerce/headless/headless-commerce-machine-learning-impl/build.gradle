@@ -19,7 +19,7 @@ dependencies {
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
 	compileOnly project(":apps:portal-odata:portal-odata-api")
 	compileOnly project(":apps:portal-vulcan:portal-vulcan-api")
+	compileOnly project(":core:petra:petra-function")
 	compileOnly project(":dxp:apps:commerce:commerce-machine-learning-api")
 	compileOnly project(":dxp:apps:commerce:headless:headless-commerce-machine-learning-api")
-	compileOnly project(":core:petra:petra-function")
 }
