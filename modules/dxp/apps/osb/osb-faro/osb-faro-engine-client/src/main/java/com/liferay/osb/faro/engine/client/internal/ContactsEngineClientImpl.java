@@ -414,7 +414,7 @@ public class ContactsEngineClientImpl
 	public String addProject(FaroProject faroProject) throws Exception {
 		String projectId = faroProject.getProjectId();
 
-		if (projectId == null) {
+		if (Validator.isNull(projectId)) {
 			projectId =
 				"asah" +
 					StringUtil.replace(
