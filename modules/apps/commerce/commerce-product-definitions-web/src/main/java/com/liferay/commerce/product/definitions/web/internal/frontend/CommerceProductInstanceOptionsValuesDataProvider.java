@@ -51,7 +51,6 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.ReleaseInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -646,9 +645,6 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 		return false;
 	}
-
-	private static final int _RELEASE_7_2_0_BUILD_NUMBER =
-		ReleaseInfo.RELEASE_7_1_0_BUILD_NUMBER + 100;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductInstanceOptionsValuesDataProvider.class);
