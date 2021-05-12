@@ -55,7 +55,6 @@ import com.liferay.portal.kernel.util.ReleaseInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +75,14 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class CommerceProductInstanceOptionsValuesDataProvider
 	implements DDMDataProvider {
+
+	@Override
+	public List<KeyValuePair> getData(
+			DDMDataProviderContext ddmDataProviderContext)
+		throws DDMDataProviderException {
+
+		return null;
+	}
 
 	@Override
 	public DDMDataProviderResponse getData(
@@ -142,11 +149,11 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			for (CPDefinitionOptionRel cpDefinitionOptionRel :
 					cpDefinitionOptionRels) {
 
-				Map<String, Object> parameters =
+				Map<String, String> parameters =
 					ddmDataProviderRequest.getParameters();
 
-				String parameterValue = String.valueOf(parameters.get(
-					cpDefinitionOptionRel.getKey()));
+				String parameterValue = String.valueOf(
+					parameters.get(cpDefinitionOptionRel.getKey()));
 
 				// Collect filters and outputs
 
@@ -307,7 +314,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 			selectedCPDefinitionOptionCPDefinitionOptionValues =
 				new HashMap<>();
 
-		Map<String, Object> parameters = ddmDataProviderRequest.getParameters();
+		Map<String, String> parameters = ddmDataProviderRequest.getParameters();
 
 		List<CPDefinitionOptionRel> nonSKUContributingCPDefinitionOptionRels =
 			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
@@ -316,8 +323,8 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 		for (CPDefinitionOptionRel nonSKUContributingDefinitionOptionRel :
 				nonSKUContributingCPDefinitionOptionRels) {
 
-			String parameterValue = String.valueOf(parameters.get(
-				nonSKUContributingDefinitionOptionRel.getKey()));
+			String parameterValue = String.valueOf(
+				parameters.get(nonSKUContributingDefinitionOptionRel.getKey()));
 
 			String optionValueKey = parameterValue;
 
@@ -460,7 +467,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	private long _getParameter(
 		DDMDataProviderRequest ddmDataProviderRequest, String param) {
 
-		Map<String, Object> parameters = ddmDataProviderRequest.getParameters();
+		Map<String, String> parameters = ddmDataProviderRequest.getParameters();
 
 		return GetterUtil.getLong(parameters.get(param));
 	}
