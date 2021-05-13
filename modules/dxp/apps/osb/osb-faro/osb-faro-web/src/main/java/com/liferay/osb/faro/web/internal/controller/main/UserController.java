@@ -308,10 +308,10 @@ public class UserController extends BaseFaroController {
 
 	@Path("/language")
 	@PUT
-	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroUserDisplay updateLanguage(
-		@PathParam("groupId") long groupId,
-		@FormParam("languageId") String languageId) {
+			@PathParam("groupId") long groupId,
+			@FormParam("languageId") String languageId)
+		throws Exception {
 
 		validateLanguageId(languageId);
 
@@ -321,8 +321,7 @@ public class UserController extends BaseFaroController {
 
 		_userLocalService.updateUser(user);
 
-		return new FaroUserDisplay(
-			_faroUserLocalService.fetchFaroUser(groupId, user.getUserId()));
+		return getCurrent(groupId);
 	}
 
 	@Path("/owner")
