@@ -13,6 +13,14 @@ export const LANGUAGES = [
 	{
 		id: 'ja_JP',
 		label: Liferay.Language.get('japanese')
+	},
+	{
+		id: 'pt_BR',
+		label: Liferay.Language.get('portuguese')
+	},
+	{
+		id: 'es_ES',
+		label: Liferay.Language.get('spanish')
 	}
 ];
 
