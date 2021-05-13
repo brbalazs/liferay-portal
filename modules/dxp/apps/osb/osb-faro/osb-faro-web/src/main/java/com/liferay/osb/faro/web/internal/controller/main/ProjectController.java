@@ -447,6 +447,16 @@ public class ProjectController extends BaseFaroController {
 		_faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
+	@Path("/{groupId}/multitenant")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public void enableMultintenacy(@PathParam("groupId") long groupId) {
+		FaroProject faroProject =
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
+
+		_enableMultitenancy(faroProject);
+	}
+
 	@Path("/{groupId}/recommendations/enable")
 	@POST
 	@RolesAllowed(StringPool.BLANK)
@@ -933,6 +943,48 @@ public class ProjectController extends BaseFaroController {
 			friendlyURL);
 	}
 
+	private void _enableMultitenancy(FaroProject faroProject) {
+		for (LCPService lcpService :
+				_workspaceEngineClient.getLCPServices(
+					faroProject.getWeDeployKey())) {
+
+			_workspaceEngineClient.deleteWorkspaceService(
+				faroProject.getWeDeployKey(), lcpService.getServiceId());
+		}
+
+		if (Objects.equals(
+				LCPProject.Cluster.EU.toString(),
+				faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.EU_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.EU2.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.EU2_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.SA.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.SA_AC.toString());
+		}
+		else if (Objects.equals(
+					LCPProject.Cluster.US.toString(),
+					faroProject.getServerLocation())) {
+
+			faroProject.setServerLocation(LCPProject.Cluster.US_AC.toString());
+		}
+		else {
+			return;
+		}
+
+		faroProject.setSharedCluster(true);
+
+		_faroProjectLocalService.updateFaroProject(faroProject);
+	}
+
 	private String _getEmailAddressDomainsErrorMessage(
 		Collection<String> invalidEmailAddressDomains) {
 
@@ -1213,45 +1265,7 @@ public class ProjectController extends BaseFaroController {
 			return;
 		}
 
-		for (LCPService lcpService :
-				_workspaceEngineClient.getLCPServices(
-					faroProject.getWeDeployKey())) {
-
-			_workspaceEngineClient.deleteWorkspaceService(
-				faroProject.getWeDeployKey(), lcpService.getServiceId());
-		}
-
-		if (Objects.equals(
-				LCPProject.Cluster.EU.toString(),
-				faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.EU_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.EU2.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.EU2_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.SA.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.SA_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.US.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.US_AC.toString());
-		}
-		else {
-			return;
-		}
-
-		faroProject.setSharedCluster(true);
-
-		_faroProjectLocalService.updateFaroProject(faroProject);
+		_enableMultitenancy(faroProject);
 
 		_contactsEngineClient.addProject(faroProject);
 
