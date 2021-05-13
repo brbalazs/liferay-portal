@@ -28,11 +28,20 @@ definition {
 	macro _generateWidget {
 		Variables.assertDefined(parameterList = "${widgetName}");
 
-		if ("${widgetName}" == "Asset Publisher") {
+		if ("${widgetName}" == "Activities") {
+			var portletId = "com_liferay_social_activities_web_portlet_SocialActivitiesPortlet";
+		}
+		else if ("${widgetName}" == "Announcements") {
+			var portletId = "com_liferay_announcements_web_portlet_AnnouncementsPortlet";
+		}
+		else if ("${widgetName}" == "Asset Publisher") {
 			var portletId = "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet";
 		}
 		else if ("${widgetName}" == "Blogs") {
 			var portletId = "com_liferay_blogs_web_portlet_BlogsPortlet";
+		}
+		else if ("${widgetName}" == "Blogs Aggregator") {
+			var portletId = "com_liferay_blogs_web_portlet_BlogsAgreggatorPortlet";
 		}
 		else if ("${widgetName}" == "Bookmarks") {
 			var portletId = "com_liferay_bookmarks_web_portlet_BookmarksPortlet";
@@ -40,14 +49,32 @@ definition {
 		else if ("${widgetName}" == "Breadcrumb") {
 			var portletId = "com_liferay_site_navigation_breadcrumb_web_portlet_SiteNavigationBreadcrumbPortlet";
 		}
+		else if ("${widgetName}" == "Calendar") {
+			var portletId = "com_liferay_calendar_web_portlet_CalendarPortlet";
+		}
 		else if ("${widgetName}" == "Categories Navigation") {
 			var portletId = "com_liferay_asset_categories_navigation_web_portlet_AssetCategoriesNavigationPortlet";
 		}
 		else if ("${widgetName}" == "Contacts Center") {
 			var portletId = "com_liferay_contacts_web_portlet_ContactsCenterPortlet";
 		}
+		else if ("${widgetName}" == "Custom Filter") {
+			var portletId = "com_liferay_portal_search_web_internal_custom_filter_portlet_CustomFilterPortlet";
+		}
 		else if ("${widgetName}" == "Documents and Media") {
 			var portletId = "com_liferay_document_library_web_portlet_DLPortlet";
+		}
+		else if ("${widgetName}" == "Dynamic Data Lists Display") {
+			var portletId = "com_liferay_document_library_web_portlet_DLPortlet";
+		}
+		else if ("${widgetName}" == "Form") {
+			var portletId = "com_liferay_dynamic_data_mapping_form_web_portlet_DDMFormPortlet";
+		}
+		else if ("${widgetName}" == "Highest Rated Assets") {
+			var portletId = "com_liferay_asset_publisher_web_portlet_HighestRatedAssetsPortlet";
+		}
+		else if ("${widgetName}" == "IFrame") {
+			var portletId = "com_liferay_iframe_web_portlet_IFramePortlet";
 		}
 		else if ("${widgetName}" == "Knowledge Base Article") {
 			var portletId = "com_liferay_knowledge_base_web_portlet_ArticlePortlet";
@@ -58,20 +85,41 @@ definition {
 		else if ("${widgetName}" == "Language Selector") {
 			var portletId = "com_liferay_site_navigation_language_web_portlet_SiteNavigationLanguagePortlet";
 		}
+		else if ("${widgetName}" == "Low Level Search Options") {
+			var portletId = "com_liferay_portal_search_web_low_level_search_options_portlet_LowLevelSearchOptionsPortlet";
+		}
 		else if ("${widgetName}" == "Media Gallery") {
 			var portletId = "com_liferay_document_library_web_portlet_IGDisplayPortlet";
 		}
 		else if ("${widgetName}" == "Message Boards") {
 			var portletId = "com_liferay_message_boards_web_portlet_MBPortlet";
 		}
+		else if ("${widgetName}" == "Microblogs") {
+			var portletId = "com_liferay_microblogs_web_portlet_MicroblogsPortlet";
+		}
+		else if ("${widgetName}" == "Most Viewed Assets") {
+			var portletId = "com_liferay_asset_publisher_web_portlet_MostViewedAssetsPortlet";
+		}
 		else if ("${widgetName}" == "My Sites") {
 			var portletId = "com_liferay_site_my_sites_web_portlet_MySitesPortlet";
+		}
+		else if ("${widgetName}" == "My Sites Directory") {
+			var portletId = "com_liferay_directory_web_portlet_MySitesDirectoryPortlet";
+		}
+		else if ("${widgetName}" == "My Subscriptions") {
+			var portletId = "com_liferay_mysubscriptions_web_portlet_MySubscriptionsPortlet";
 		}
 		else if ("${widgetName}" == "Navigation Menu") {
 			var portletId = "com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet";
 		}
 		else if ("${widgetName}" == "Nested Applications") {
 			var portletId = "com_liferay_nested_portlets_web_portlet_NestedPortletsPortlet";
+		}
+		else if ("${widgetName}" == "Polls Display") {
+			var portletId = "com_liferay_polls_web_portlet_PollsDisplayPortlet";
+		}
+		else if ("${widgetName}" == "Portal Directory") {
+			var portletId = "com_liferay_directory_web_portlet_DirectoryPortlet";
 		}
 		else if ("${widgetName}" == "Profile") {
 			var portletId = "com_liferay_contacts_web_portlet_ProfilePortlet";
@@ -85,8 +133,17 @@ definition {
 		else if ("${widgetName}" == "Search Bar") {
 			var portletId = "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet";
 		}
+		else if ("${widgetName}" == "Search Options") {
+			var portletId = "com_liferay_portal_search_web_search_options_portlet_SearchOptionsPortlet";
+		}
 		else if ("${widgetName}" == "Search Results") {
 			var portletId = "com_liferay_portal_search_web_search_results_portlet_SearchResultsPortlet";
+		}
+		else if ("${widgetName}" == "Sign In") {
+			var portletId = "com_liferay_login_web_portlet_LoginPortlet";
+		}
+		else if ("${widgetName}" == "Similar Results") {
+			var portletId = "com_liferay_portal_search_similar_results_web_portlet_SimilarResultsPortlet";
 		}
 		else if ("${widgetName}" == "Site Map") {
 			var portletId = "com_liferay_site_navigation_site_map_web_portlet_SiteNavigationSiteMapPortlet";
@@ -100,11 +157,20 @@ definition {
 		else if ("${widgetName}" == "Type Facet") {
 			var portletId = "com_liferay_portal_search_web_type_facet_portlet_TypeFacetPortlet";
 		}
+		else if ("${widgetName}" == "User Statistics") {
+			var portletId = "com_liferay_social_user_statistics_web_portlet_SocialUserStatisticsPortlet";
+		}
 		else if ("${widgetName}" == "Web Content Display") {
 			var portletId = "com_liferay_journal_content_web_portlet_JournalContentPortlet";
 		}
+		else if ("${widgetName}" == "Web Content Search") {
+			var portletId = "com_liferay_journal_content_search_web_portlet_JournalContentSearchPortlet";
+		}
 		else if ("${widgetName}" == "Wiki") {
 			var portletId = "com_liferay_wiki_web_portlet_WikiPortlet";
+		}
+		else if ("${widgetName}" == "Wiki Display") {
+			var portletId = "com_liferay_wiki_web_portlet_WikiDisplayPortlet";
 		}
 		else {
 			fail("'widgetName' is either invalid or its 'portletId' is not yet set.");
