@@ -22,10 +22,11 @@ import java.util.Map;
  */
 public class DocumentationConstants {
 
-	public static final String BASE_URL = "https://help.liferay.com/";
+	public static final String BASE_URL =
+		"https://learn.liferay.com/analytics-cloud/latest/en/";
 
 	public static final String DATA_SOURCE_ADD_LIFERAY = BASE_URL.concat(
-		"hc/en-us/articles/360006653472-Adding-a-Liferay-DXP-Data-Source");
+		"connecting_data_sources.html");
 
 	public static Map<String, String> getURLs() {
 		return _urls;
