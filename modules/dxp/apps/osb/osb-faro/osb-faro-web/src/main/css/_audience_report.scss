@@ -14,16 +14,6 @@ $donut: '#{$c}-donut';
 #{$donut} {
 	position: relative;
 
-	&-empty {
-		.total {
-			@include emptyDonut(234px);
-			align-items: center;
-			display: flex;
-			justify-content: center;
-			transform: translateY(10px);
-		}
-	}
-
 	.bb-tooltip-container {
 		border-width: 0;
 

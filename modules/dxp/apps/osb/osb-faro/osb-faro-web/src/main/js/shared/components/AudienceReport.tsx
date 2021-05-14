@@ -87,7 +87,7 @@ const Donut: React.FC<IDonutProps> = ({
 		const x = cx + radius * Math.cos(-midAngle * RADIAN);
 		const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-		if (percent) {
+		if (!isEmpty && percent) {
 			return (
 				<Text
 					style={{
@@ -107,7 +107,7 @@ const Donut: React.FC<IDonutProps> = ({
 	};
 
 	const renderTooltip = ({active, payload}) => {
-		if (active && !!payload.length) {
+		if (!isEmpty && active && !!payload.length) {
 			const {count, label} = get(payload, [0, 'payload'], {});
 
 			return (
@@ -142,19 +142,13 @@ const Donut: React.FC<IDonutProps> = ({
 		}
 	};
 
-	const handleSetHoverIndex = (e, index) => setHoverIndex(index);
+	const handleSetHoverIndex = (e, index) => {
+		!isEmpty && setHoverIndex(index);
+	};
 
-	const handleResetHoverIndex = () => setHoverIndex(-1);
-
-	if (isEmpty) {
-		return (
-			<div className={`${CLASSNAME_DONUT}-empty`}>
-				<div className='total'>{total}</div>
-
-				<div className='mt-5 text-center pl-4 pr-4'>{emptyMessage}</div>
-			</div>
-		);
-	}
+	const handleResetHoverIndex = () => {
+		!isEmpty && setHoverIndex(-1);
+	};
 
 	return (
 		<div className={CLASSNAME_DONUT}>
@@ -165,9 +159,18 @@ const Donut: React.FC<IDonutProps> = ({
 					{/* eslint-disable jsx-a11y/mouse-events-have-key-events
 					 */}
 					<Legend
-						formatter={(value, {payload: {label}}) => (
-							<span className='legend-item'>{label}</span>
-						)}
+						formatter={(value, {payload: {label}}) => {
+							if (isEmpty) {
+								return (
+									<div className='text-center pl-4 pr-4'>
+										{emptyMessage}
+									</div>
+								);
+							}
+
+							return <span className='legend-item'>{label}</span>;
+						}}
+						iconSize={isEmpty ? 0 : 14}
 						layout='vertical'
 						onMouseMove={handleSetHoverIndex}
 						onMouseOut={handleResetHoverIndex}
@@ -179,7 +182,11 @@ const Donut: React.FC<IDonutProps> = ({
 						activeShape={renderActiveShape}
 						blendStroke
 						cy={142}
-						data={data}
+						data={
+							isEmpty
+								? [{color: '#E7E7ED', count: 1, label: 'empty'}]
+								: data
+						}
 						dataKey='count'
 						endAngle={-270}
 						innerRadius='50%'
@@ -194,22 +201,31 @@ const Donut: React.FC<IDonutProps> = ({
 					>
 						<Label position='center' value={toFixedPoint(total)} />
 
-						{data.map(({color}, index) => (
+						{isEmpty ? (
 							<Cell
-								fill={color}
-								fillOpacity={
-									hoverIndex >= 0 && hoverIndex !== index
-										? 0.2
-										: 1
-								}
-								key={`cell-${index}`}
-								strokeOpacity={
-									hoverIndex >= 0 && hoverIndex !== index
-										? 0
-										: 1
-								}
+								fill='#E7E7ED'
+								fillOpacity={1}
+								key='cell-empty'
+								strokeOpacity={1}
 							/>
-						))}
+						) : (
+							data.map(({color}, index) => (
+								<Cell
+									fill={color}
+									fillOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0.2
+											: 1
+									}
+									key={`cell-${index}`}
+									strokeOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0
+											: 1
+									}
+								/>
+							))
+						)}
 					</Pie>
 					{/* eslint-enable jsx-a11y/mouse-events-have-key-events */}
 				</PieChart>
