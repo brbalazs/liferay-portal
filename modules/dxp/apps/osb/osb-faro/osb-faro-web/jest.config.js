@@ -181,7 +181,7 @@ module.exports = {
 			},
 			documentationURLs: {
 				addLiferayDataSource:
-					'https://help.liferay.com/hc/en-us/articles/360006653472-Adding-a-Liferay-DXP-Data-Source',
+					'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
 				base: 'https://help.liferay.com/hc/en-us'
 			},
 			entityTypes: {
