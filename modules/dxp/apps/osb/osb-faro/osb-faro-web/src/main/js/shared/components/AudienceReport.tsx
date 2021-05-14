@@ -1,5 +1,5 @@
 import ChartTooltip from 'shared/components/chart-tooltip';
-import HTMLBarChart from 'shared/components/HTMLBarChart';
+import HTMLBarChart, {Grid, Item} from 'shared/components/HTMLBarChart';
 import InfoPopover from 'shared/components/InfoPopover';
 import React, {useState} from 'react';
 import {AXIS} from 'shared/util/recharts';
@@ -235,38 +235,8 @@ interface IAudienceReportProps {
 	segments: {
 		disableScroll: boolean;
 		formatSpacement: boolean;
-		grid: {
-			maxValue: number;
-			minValue: number;
-			show: boolean;
-			type: string;
-		};
-		items: {
-			columns: {
-				icon: string;
-				label: string;
-			}[];
-			progress: {
-				color: string;
-				value: number;
-			}[];
-			tooltip: {
-				header: {
-					align?: string;
-					label: string;
-					weight?: string;
-				}[];
-				rows: {
-					columns: {
-						align?: string;
-						label: string;
-						truncated?: boolean;
-						weight?: string;
-						width?: number;
-					}[];
-				}[];
-			};
-		}[];
+		grid: Grid;
+		items: Item[];
 	};
 	segmentsTitle: string;
 	uniqueVisitors: Dataset;

@@ -18,7 +18,7 @@ type Column = {
 	label: string | (() => React.ReactNode);
 };
 
-type Grid = {
+export type Grid = {
 	formatter: (value: number | string) => React.ReactNode;
 	maxValue: number;
 	minValue: number;
@@ -32,7 +32,7 @@ type Interval = {
 	start: number;
 };
 
-type Item = {
+export type Item = {
 	columns: Column[];
 	expanded: boolean;
 	intervals: Interval[];
@@ -58,7 +58,7 @@ interface IHTMLBarChartProps {
 	disableScroll: boolean;
 	formatSpacement: boolean;
 	grid: Grid;
-	header: Column[];
+	header?: Column[];
 	items: Item[];
 }
 
