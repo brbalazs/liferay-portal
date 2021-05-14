@@ -23,12 +23,14 @@ import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
+import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ProxyFactory;
 
 import java.util.List;
 import java.util.Locale;
@@ -296,6 +298,14 @@ public class DDMFormValuesJSONDeserializerTest extends BaseDDMTestCase {
 	}
 
 	protected void setUpDDMFormValuesJSONDeserializer() throws Exception {
+		field(
+			DDMFormValuesJSONDeserializerImpl.class,
+			"_ddmFormFieldValueJSONDeserializersServiceTrackerMap"
+		).set(
+			_ddmFormValuesJSONDeserializer,
+			ProxyFactory.newDummyInstance(ServiceTrackerMap.class)
+		);
+
 		field(
 			DDMFormValuesJSONDeserializerImpl.class, "_jsonFactory"
 		).set(
