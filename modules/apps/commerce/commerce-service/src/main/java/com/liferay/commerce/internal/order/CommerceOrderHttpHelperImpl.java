@@ -447,7 +447,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			themeDisplay.getRequest());
 
-		_commerceOrderService.mergeGuestCommerceOrder(
+		_commerceOrderLocalService.mergeGuestCommerceOrder(
 			commerceOrder.getCommerceOrderId(),
 			userCommerceOrder.getCommerceOrderId(),
 			_getCommerceContext(themeDisplay.getRequest()), serviceContext);
