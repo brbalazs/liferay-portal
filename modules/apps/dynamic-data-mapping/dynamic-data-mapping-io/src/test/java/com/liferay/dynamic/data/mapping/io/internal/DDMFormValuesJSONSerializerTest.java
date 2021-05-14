@@ -285,16 +285,16 @@ public class DDMFormValuesJSONSerializerTest extends BaseDDMTestCase {
 
 	protected void setUpDDMFormValuesJSONSerializer() throws Exception {
 		field(
+			DDMFormValuesJSONSerializerImpl.class, "_jsonFactory"
+		).set(
+			_ddmFormValuesJSONSerializer, new JSONFactoryImpl()
+		);
+
+		field(
 			DDMFormValuesJSONSerializerImpl.class, "_serviceTrackerMap"
 		).set(
 			_ddmFormValuesJSONSerializer,
 			ProxyFactory.newDummyInstance(ServiceTrackerMap.class)
-		);
-
-		field(
-			DDMFormValuesJSONSerializerImpl.class, "_jsonFactory"
-		).set(
-			_ddmFormValuesJSONSerializer, new JSONFactoryImpl()
 		);
 	}
 
