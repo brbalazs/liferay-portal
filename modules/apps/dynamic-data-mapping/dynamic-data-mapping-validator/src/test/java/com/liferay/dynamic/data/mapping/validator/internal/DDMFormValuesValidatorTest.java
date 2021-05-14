@@ -766,10 +766,6 @@ public class DDMFormValuesValidatorTest {
 	}
 
 	protected void setUpDDMFormValuesValidator() throws Exception {
-		ReflectionTestUtil.setFieldValue(
-			_ddmFormValuesValidatorImpl, "_serviceTrackerMap",
-			ProxyFactory.newDummyInstance(ServiceTrackerMap.class));
-
 		_ddmFormValuesValidatorImpl.setDDMExpressionFactory(
 			new DDMExpressionFactoryImpl());
 
@@ -779,6 +775,10 @@ public class DDMFormValuesValidatorTest {
 			_ddmFormValuesValidatorImpl, "_ddmFormFieldTypeServicesTracker",
 			ProxyFactory.newDummyInstance(
 				DDMFormFieldTypeServicesTracker.class));
+
+		ReflectionTestUtil.setFieldValue(
+			_ddmFormValuesValidatorImpl, "_serviceTrackerMap",
+			ProxyFactory.newDummyInstance(ServiceTrackerMap.class));
 	}
 
 	private final DDMFormValuesValidatorImpl _ddmFormValuesValidatorImpl =
