@@ -840,8 +840,7 @@ public class UpgradeDynamicDataMappingTest extends PowerMockito {
 
 	protected void setUpDDMFormValuesJSONDeserializer() throws Exception {
 		field(
-			DDMFormValuesJSONDeserializerImpl.class,
-			"_ddmFormFieldValueJSONDeserializersServiceTrackerMap"
+			DDMFormValuesJSONDeserializerImpl.class, "_serviceTrackerMap"
 		).set(
 			_ddmFormValuesJSONDeserializer,
 			ProxyFactory.newDummyInstance(ServiceTrackerMap.class)
@@ -856,8 +855,7 @@ public class UpgradeDynamicDataMappingTest extends PowerMockito {
 
 	protected void setUpDDMFormValuesJSONSerializer() throws Exception {
 		field(
-			DDMFormValuesJSONSerializerImpl.class,
-			"_ddmFormFieldValueJSONSerializersServiceTrackerMap"
+			DDMFormValuesJSONSerializerImpl.class, "_serviceTrackerMap"
 		).set(
 			_ddmFormValuesJSONSerializer,
 			ProxyFactory.newDummyInstance(ServiceTrackerMap.class)

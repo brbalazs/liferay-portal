@@ -1060,8 +1060,7 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 	protected void setUpDDMFormValuesJSONSerializer() throws Exception {
 		field(
-			DDMFormValuesJSONSerializerImpl.class,
-			"_ddmFormFieldValueJSONSerializersServiceTrackerMap"
+			DDMFormValuesJSONSerializerImpl.class, "_serviceTrackerMap"
 		).set(
 			_ddmFormValuesJSONSerializer,
 			ProxyFactory.newDummyInstance(ServiceTrackerMap.class)

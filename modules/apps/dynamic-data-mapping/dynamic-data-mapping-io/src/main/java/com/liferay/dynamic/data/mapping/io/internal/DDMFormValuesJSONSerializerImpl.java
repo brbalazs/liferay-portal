@@ -65,10 +65,9 @@ public class DDMFormValuesJSONSerializerImpl
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
-		_ddmFormFieldValueJSONSerializersServiceTrackerMap =
-			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, DDMFormFieldValueJSONSerializer.class,
-				"ddm.form.field.type.name");
+		_serviceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
+			bundleContext, DDMFormFieldValueJSONSerializer.class,
+			"ddm.form.field.type.name");
 	}
 
 	protected void addAvailableLanguageIds(
@@ -139,7 +138,7 @@ public class DDMFormValuesJSONSerializerImpl
 
 	@Deactivate
 	protected void deactivate() {
-		_ddmFormFieldValueJSONSerializersServiceTrackerMap.close();
+		_serviceTrackerMap.close();
 	}
 
 	protected DDMFormFieldValueJSONSerializer
@@ -149,8 +148,7 @@ public class DDMFormValuesJSONSerializerImpl
 			return null;
 		}
 
-		return _ddmFormFieldValueJSONSerializersServiceTrackerMap.getService(
-			ddmFormField.getType());
+		return _serviceTrackerMap.getService(ddmFormField.getType());
 	}
 
 	@Reference(unbind = "-")
@@ -203,8 +201,8 @@ public class DDMFormValuesJSONSerializerImpl
 		return jsonObject;
 	}
 
-	private ServiceTrackerMap<String, DDMFormFieldValueJSONSerializer>
-		_ddmFormFieldValueJSONSerializersServiceTrackerMap;
 	private JSONFactory _jsonFactory;
+	private ServiceTrackerMap<String, DDMFormFieldValueJSONSerializer>
+		_serviceTrackerMap;
 
 }
