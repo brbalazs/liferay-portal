@@ -30,7 +30,7 @@ exports[`NewRequestModal renders 1`] = `
           >
             New requests will be added to the queue and you will be notified once the job has completed running. You can also 
             <a
-              href="https://help.liferay.com/hc/en-us/articles/360040006151-API-Overview"
+              href="https://learn.liferay.com/analytics-cloud/latest/en/apis.html"
               target="_blank"
             >
               create requests via API

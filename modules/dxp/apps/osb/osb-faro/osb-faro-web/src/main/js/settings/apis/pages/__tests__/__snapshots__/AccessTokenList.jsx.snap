@@ -37,7 +37,7 @@ exports[`AccessTokenList should render 1`] = `
         >
           Access this workspace's data via API using an access token. A full list of endpoints is available in the 
           <a
-            href="https://help.liferay.com/hc/en-us/articles/360040006151-API-Overview"
+            href="https://learn.liferay.com/analytics-cloud/latest/en/apis.html"
             target="_blank"
           >
             documentation

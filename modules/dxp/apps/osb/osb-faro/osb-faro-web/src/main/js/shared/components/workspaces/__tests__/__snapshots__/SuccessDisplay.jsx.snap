@@ -125,7 +125,7 @@ exports[`WorkspacesSuccessDisplay should render 1`] = `
           >
             <a
               class="button-root btn btn-primary"
-              href="https://help.liferay.com/hc/en-us/categories/360000608871-Liferay-Analytics-Cloud-Admin-Guide"
+              href="https://learn.liferay.com/analytics-cloud/latest/en/workspace_settings.html"
             >
               Check out docs
             </a>
