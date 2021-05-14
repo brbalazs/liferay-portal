@@ -1,5 +1,5 @@
-import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
 import ChartTooltip from 'shared/components/chart-tooltip';
+import HTMLBarChart from 'shared/components/HTMLBarChart';
 import InfoPopover from 'shared/components/InfoPopover';
 import React, {useState} from 'react';
 import {AXIS} from 'shared/util/recharts';
@@ -324,7 +324,7 @@ const AudienceReport: React.FC<IAudienceReportProps> = ({
 			/>
 
 			<div className={CLASSNAME_BAR_CHART}>
-				<BarChartHTML {...segments} />
+				<HTMLBarChart {...segments} />
 			</div>
 		</div>
 	</div>
