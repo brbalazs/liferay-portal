@@ -116,6 +116,18 @@ request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 					<p>
 						<%= faroProjectAdminDisplay.getSubscription() %>
 					</p>
+
+					<h5><liferay-ui:message key="serverLocation" /></h5>
+
+					<p>
+						<%= faroProjectAdminDisplay.getServerLocation() %>
+					</p>
+
+					<h5><liferay-ui:message key="sharedCluster" /></h5>
+
+					<p>
+						<%= faroProjectAdminDisplay.isSharedCluster() %>
+					</p>
 				</div>
 			</c:when>
 			<c:otherwise>

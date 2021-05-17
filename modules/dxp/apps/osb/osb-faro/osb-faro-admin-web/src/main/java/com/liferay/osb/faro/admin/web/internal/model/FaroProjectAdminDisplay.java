@@ -61,6 +61,8 @@ public class FaroProjectAdminDisplay {
 		_owner = _getOwner();
 		_pageViewsUsage = _decimalFormat.format(
 			GetterUtil.getDouble(document.get("pageViewsUsage")));
+		_serverLocation = document.get("serverLocation");
+		_sharedCluster = GetterUtil.getBoolean(document.get("sharedCluster"));
 		_subscriptionName = document.get("subscriptionName");
 		_version = document.get("version");
 	}
@@ -74,6 +76,8 @@ public class FaroProjectAdminDisplay {
 			document.get("individualsLimit"));
 		_pageViewsCount = GetterUtil.getLong(document.get("pageViewsCount"));
 		_pageViewsLimit = GetterUtil.getLong(document.get("pageViewsLimit"));
+		_serverLocation = faroProject.getServerLocation();
+		_sharedCluster = faroProject.getSharedCluster();
 		_subscription = faroProject.getSubscription();
 		_weDeployKey = faroProject.getWeDeployKey();
 		_services = faroProject.getServices();
@@ -143,6 +147,10 @@ public class FaroProjectAdminDisplay {
 		return _pageViewsUsage;
 	}
 
+	public String getServerLocation() {
+		return _serverLocation;
+	}
+
 	public String getServices() {
 		return _services;
 	}
@@ -165,6 +173,10 @@ public class FaroProjectAdminDisplay {
 
 	public boolean isOffline() {
 		return _offline;
+	}
+
+	public boolean isSharedCluster() {
+		return _sharedCluster;
 	}
 
 	public void setCorpProjectName(String corpProjectName) {
@@ -231,8 +243,16 @@ public class FaroProjectAdminDisplay {
 		_pageViewsUsage = pageViewsUsage;
 	}
 
+	public void setServerLocation(String serverLocation) {
+		_serverLocation = serverLocation;
+	}
+
 	public void setServices(String services) {
 		_services = services;
+	}
+
+	public void setSharedCluster(boolean sharedCluster) {
+		_sharedCluster = sharedCluster;
 	}
 
 	public void setSubscription(String subscription) {
@@ -286,7 +306,9 @@ public class FaroProjectAdminDisplay {
 	private long _pageViewsCount;
 	private long _pageViewsLimit;
 	private String _pageViewsUsage;
+	private String _serverLocation;
 	private String _services;
+	private boolean _sharedCluster;
 	private String _subscription;
 	private String _subscriptionName;
 	private String _version;
