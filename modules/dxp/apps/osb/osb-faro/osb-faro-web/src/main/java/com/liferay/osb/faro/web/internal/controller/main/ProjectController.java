@@ -450,7 +450,7 @@ public class ProjectController extends BaseFaroController {
 	@Path("/{groupId}/multitenant")
 	@POST
 	@RolesAllowed(StringPool.BLANK)
-	public void enableMultintenacy(@PathParam("groupId") long groupId) {
+	public void enableMultitenancy(@PathParam("groupId") long groupId) {
 		FaroProject faroProject =
 			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
 
