@@ -447,7 +447,7 @@ public class ProjectController extends BaseFaroController {
 		_faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
-	@Path("/{groupId}/multitenant")
+	@Path("/{groupId}/multitenant/enable")
 	@POST
 	@RolesAllowed(StringPool.BLANK)
 	public void enableMultitenancy(@PathParam("groupId") long groupId) {
