@@ -65,6 +65,8 @@ public class DLFileEntryKeywordQueryContributor
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "ddmContent", false);
 		queryHelper.addSearchTerm(
+			booleanQuery, searchContext, "extension", false);
+		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "fileEntryTypeId", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "path", false);
 		queryHelper.addSearchLocalizedTerm(
@@ -76,7 +78,8 @@ public class DLFileEntryKeywordQueryContributor
 			try {
 				booleanQuery.add(
 					_getMatchQuery(
-						"extension", keywords, MatchQuery.Type.PHRASE_PREFIX),
+						"fileExtension", keywords,
+						MatchQuery.Type.PHRASE_PREFIX),
 					BooleanClauseOccur.SHOULD);
 			}
 			catch (ParseException parseException) {
