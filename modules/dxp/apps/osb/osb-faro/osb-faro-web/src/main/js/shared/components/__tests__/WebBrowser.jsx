@@ -75,11 +75,4 @@ describe('WebBrowser', () => {
 		);
 		expect(container).toMatchSnapshot();
 	});
-
-	it('should render as empty', () => {
-		const {getByText} = render(
-			<WebBrowser empty metricLabel={DEFAULT_METRIC_LABEL} />
-		);
-		expect(getByText(/There are no views/)).toBeTruthy();
-	});
 });
