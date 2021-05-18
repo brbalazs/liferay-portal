@@ -37,7 +37,7 @@ export const createInterestProperty = (name: string): Property =>
  * Creates a new group object with items.
  */
 export const createNewGroup = (items: Criteria[]): CriterionGroup => ({
-	conjunctionName: Conjunctions.AND,
+	conjunctionName: Conjunctions.And,
 	criteriaGroupId: generateGroupId(),
 	items
 });

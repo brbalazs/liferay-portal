@@ -20,7 +20,7 @@ const {
 	InterestsFilter,
 	SessionsFilter
 } = CustomFunctionOperators;
-const {AND} = Conjunctions;
+const {And} = Conjunctions;
 const {EQ, GT} = RelationalOperators;
 
 describe('utils', () => {
@@ -44,7 +44,7 @@ describe('utils', () => {
 			const criterionGroup = utils.createNewGroup(items);
 
 			expect(criterionGroup.items).toBe(items);
-			expect(criterionGroup.conjunctionName).toBe(AND);
+			expect(criterionGroup.conjunctionName).toBe(And);
 			expect(criterionGroup.criteriaGroupId).toBeTruthy();
 		});
 	});
@@ -121,7 +121,7 @@ describe('utils', () => {
 		it('should return true when value is a CriterionGroup', () => {
 			expect(
 				utils.isCriterionGroup({
-					conjunctionName: AND,
+					conjunctionName: And,
 					criteriaGroupId: 'foo',
 					items: []
 				})
@@ -193,7 +193,7 @@ describe('utils', () => {
 				propertyName: ACTIVITY_KEY,
 				value: fromJS({
 					criterionGroup: {
-						conjunctionName: AND,
+						conjunctionName: And,
 						criteriaGroupId: 'group_0',
 						items: [
 							{
@@ -228,7 +228,7 @@ describe('utils', () => {
 				propertyName: 'organization/accountName/value',
 				value: fromJS({
 					criterionGroup: {
-						conjunctionName: AND,
+						conjunctionName: And,
 						criteriaGroupId: 'group_0',
 						items: [
 							{
@@ -265,7 +265,7 @@ describe('utils', () => {
 				propertyName: 'context/url',
 				value: fromJS({
 					criterionGroup: {
-						conjunctionName: AND,
+						conjunctionName: And,
 						criteriaGroupId: 'group_0',
 						items: [
 							{
@@ -297,7 +297,7 @@ describe('utils', () => {
 				propertyName: 'name',
 				value: fromJS({
 					criterionGroup: {
-						conjunctionName: AND,
+						conjunctionName: And,
 						criteriaGroupId: 'group_0',
 						items: [
 							{

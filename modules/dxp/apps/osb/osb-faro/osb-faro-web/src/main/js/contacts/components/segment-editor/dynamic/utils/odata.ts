@@ -65,7 +65,7 @@ const EDM_STRING = 'Edm.String';
  * constants.
  */
 const oDataV4ParserNameMap = {
-	[EXPRESSION_TYPES.AND]: Conjunctions.AND,
+	[EXPRESSION_TYPES.AND]: Conjunctions.And,
 	between: OPERATORS.Between,
 	[EXPRESSION_TYPES.BOOL_PAREN]: GROUP,
 	contains: OPERATORS.Contains,
@@ -75,7 +75,7 @@ const oDataV4ParserNameMap = {
 	[EXPRESSION_TYPES.LESSER_OR_EQUALS]: OPERATORS.LE,
 	[EXPRESSION_TYPES.LESSER_THAN]: OPERATORS.LT,
 	[EXPRESSION_TYPES.NOT_EQUALS]: OPERATORS.NE,
-	[EXPRESSION_TYPES.OR]: Conjunctions.OR
+	[EXPRESSION_TYPES.OR]: Conjunctions.Or
 };
 
 /**
@@ -353,7 +353,7 @@ const getConjunctionForGroup = (oDataASTNode: ODataASTNode): string => {
 
 	return isValueType(Conjunctions, childExpressionName)
 		? childExpressionName
-		: Conjunctions.AND;
+		: Conjunctions.And;
 };
 
 /**
@@ -896,7 +896,7 @@ const unescapeSingleQuotes = (text: string) => text.replace(/''/g, "'");
 export const wrapInCriteriaGroup = (
 	criteriaArray: Criteria[]
 ): CriterionGroup => ({
-	conjunctionName: Conjunctions.AND,
+	conjunctionName: Conjunctions.And,
 	criteriaGroupId: generateGroupId(),
 	items: criteriaArray
 });

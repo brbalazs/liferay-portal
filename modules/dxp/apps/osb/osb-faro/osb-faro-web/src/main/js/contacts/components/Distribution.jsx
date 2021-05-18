@@ -221,7 +221,7 @@ export class Distribution extends React.Component {
 			filter.push(getFilter(RelationalOperators.LT, max));
 		}
 
-		return filter.join(` ${Conjunctions.AND} `);
+		return filter.join(` ${Conjunctions.And} `);
 	}
 
 	@autobind

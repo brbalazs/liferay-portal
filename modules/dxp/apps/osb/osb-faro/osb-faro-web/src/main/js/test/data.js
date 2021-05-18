@@ -305,7 +305,7 @@ export function generateCriterion(customValues) {
 
 export function mockNewCriteria(numOfItems = 1, criterionParams) {
 	return {
-		conjunctionName: Conjunctions.AND,
+		conjunctionName: Conjunctions.And,
 		groupId: 'group_01',
 		items: range(numOfItems).map(() => generateCriterion(criterionParams))
 	};
@@ -313,19 +313,19 @@ export function mockNewCriteria(numOfItems = 1, criterionParams) {
 
 export function mockNewCriteriaNested() {
 	return {
-		conjunctionName: Conjunctions.AND,
+		conjunctionName: Conjunctions.And,
 		groupId: 'group_01',
 		items: [
 			{
-				conjunctionName: Conjunctions.OR,
+				conjunctionName: Conjunctions.Or,
 				groupId: 'group_02',
 				items: [
 					{
-						conjunctionName: Conjunctions.AND,
+						conjunctionName: Conjunctions.And,
 						groupId: 'group_03',
 						items: [
 							{
-								conjunctionName: Conjunctions.OR,
+								conjunctionName: Conjunctions.Or,
 								groupId: 'group_04',
 								items: range(2).map(generateCriterion)
 							},

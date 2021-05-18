@@ -19,8 +19,8 @@ export const INPUT_DISPLAY_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
  */
 
 export enum Conjunctions {
-	AND = 'and',
-	OR = 'or'
+	And = 'and',
+	Or = 'or'
 }
 
 export enum CustomFunctionOperators {
@@ -105,7 +105,6 @@ const {
 	OrganizationsFilter,
 	SessionsFilter
 } = CustomFunctionOperators;
-const {AND, OR} = Conjunctions;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
 
 export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
@@ -122,12 +121,12 @@ export const SUPPORTED_CONJUNCTIONS = [
 	{
 		key: 'and',
 		label: Liferay.Language.get('and'),
-		name: AND
+		name: Conjunctions.And
 	},
 	{
 		key: 'or',
 		label: Liferay.Language.get('or'),
-		name: OR
+		name: Conjunctions.Or
 	}
 ];
 

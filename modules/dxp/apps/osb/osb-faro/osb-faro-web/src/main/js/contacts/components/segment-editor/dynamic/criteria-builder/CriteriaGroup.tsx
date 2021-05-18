@@ -157,7 +157,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 
 		if (root && !criteria) {
 			onChange({
-				conjunctionName: Conjunctions.AND,
+				conjunctionName: Conjunctions.And,
 				criteriaGroupId: generateGroupId(),
 				items: [newCriterion]
 			} as CriterionGroup);
