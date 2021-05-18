@@ -1,14 +1,5 @@
 import {TimeSpans} from 'shared/util/constants';
 
-/**
- * Constants for static property groups.
- */
-
-export {default as INDIVIDUAL_PROPERTIES} from './individual-properties';
-export {default as ORGANIZATION_PROPERTIES} from './organization-properties';
-export {default as WEB_BEHAVIORS} from './web-behaviors';
-export {default as SESSION_PROPERTIES} from './session-properties';
-
 export const EVER = 'ever';
 export const SINCE = 'since';
 
@@ -147,7 +138,7 @@ export const SUPPORTED_CONJUNCTIONS = [
 	}
 ];
 
-export const SUPPORTED_OPERATORS = {
+export const SUPPORTED_OPERATORS_MAP = {
 	[PropertyTypes.AccountNumber]: [
 		{
 			key: ACCOUNTS_FILTER,
@@ -521,3 +512,12 @@ export const TIME_PERIOD_OPTIONS = [
 ];
 
 export {TimeSpans};
+
+/**
+ * Constants for static property groups.
+ */
+
+export {default as INDIVIDUAL_PROPERTIES} from './individual-properties';
+export {default as ORGANIZATION_PROPERTIES} from './organization-properties';
+export {default as WEB_BEHAVIORS} from './web-behaviors';
+export {default as SESSION_PROPERTIES} from './session-properties';

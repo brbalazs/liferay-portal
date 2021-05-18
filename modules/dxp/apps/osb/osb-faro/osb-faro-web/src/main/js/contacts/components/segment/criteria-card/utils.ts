@@ -6,19 +6,22 @@ import {
 	INPUT_DISPLAY_DATE_TIME_FORMAT,
 	isKnown,
 	isUnknown,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS_MAP
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
-export function getOperatorLabel(operatorKey: string, type: string): string {
+export function getOperatorLabel(
+	operatorKey: string,
+	type: PropertyTypes
+): string {
 	let supportedOperators;
 
 	switch (type) {
 		case PropertyTypes.AccountNumber:
 		case PropertyTypes.AccountText:
 			supportedOperators =
-				SUPPORTED_OPERATORS[type.replace('account-', '')];
+				SUPPORTED_OPERATORS_MAP[type.replace('account-', '')];
 			break;
 		case PropertyTypes.OrganizationBoolean:
 		case PropertyTypes.OrganizationDate:
@@ -26,13 +29,13 @@ export function getOperatorLabel(operatorKey: string, type: string): string {
 		case PropertyTypes.OrganizationNumber:
 		case PropertyTypes.OrganizationText:
 			supportedOperators =
-				SUPPORTED_OPERATORS[type.replace('organization-', '')];
+				SUPPORTED_OPERATORS_MAP[type.replace('organization-', '')];
 			break;
 		case PropertyTypes.SessionDateTime:
 		case PropertyTypes.SessionNumber:
 		case PropertyTypes.SessionText:
 			supportedOperators =
-				SUPPORTED_OPERATORS[type.replace('session-', '')];
+				SUPPORTED_OPERATORS_MAP[type.replace('session-', '')];
 			break;
 		case PropertyTypes.SessionGeolocation:
 			supportedOperators = GEOLOCATION_OPTIONS;
@@ -46,7 +49,7 @@ export function getOperatorLabel(operatorKey: string, type: string): string {
 		case PropertyTypes.OrganizationSelectText:
 		case PropertyTypes.Text:
 		default:
-			supportedOperators = SUPPORTED_OPERATORS[type];
+			supportedOperators = SUPPORTED_OPERATORS_MAP[type];
 	}
 
 	const operator = supportedOperators.find(

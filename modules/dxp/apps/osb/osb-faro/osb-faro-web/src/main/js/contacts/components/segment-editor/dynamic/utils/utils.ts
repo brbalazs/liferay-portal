@@ -6,7 +6,7 @@ import {
 	isUnknown,
 	NOT_OPERATORS,
 	PropertyTypes,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS_MAP
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
@@ -45,7 +45,7 @@ export const createInterestProperty = (name: string): Property =>
 		label: name,
 		name,
 		propertyKey: 'interest',
-		type: 'interest'
+		type: PropertyTypes.Interest
 	});
 
 /**
@@ -114,7 +114,7 @@ export const getPropertyContextFromRaw = (
  * Used for displaying the operators available for each criteria row.
  */
 export const getSupportedOperatorsFromType = (type: string = ''): Operator[] =>
-	SUPPORTED_OPERATORS[type.toLowerCase()] || [];
+	SUPPORTED_OPERATORS_MAP[type.toLowerCase()] || [];
 
 /**
  * Checks if value is a CriterionGroup.
@@ -351,7 +351,7 @@ export const convertFieldMappingToOrganizationProperty = (
 		label: displayName || name,
 		name: context ? `${context}/${name}/value` : name,
 		propertyKey: FieldOwnerTypes.Organization,
-		type: `organization-${type.toLowerCase()}`
+		type: `organization-${type.toLowerCase()}` as PropertyTypes
 	});
 };
 

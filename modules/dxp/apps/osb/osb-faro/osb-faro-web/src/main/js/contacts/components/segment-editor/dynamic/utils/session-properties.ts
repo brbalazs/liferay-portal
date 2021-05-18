@@ -1,5 +1,6 @@
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
+import {PropertyTypes} from './constants';
 
 export const DEVICE_OPTIONS = [
 	{label: Liferay.Language.get('desktop'), value: 'Desktop'},
@@ -17,14 +18,14 @@ const createSessionProperty = ({
 }: {
 	label: string;
 	name: string;
-	type: string;
+	type: PropertyTypes;
 }) =>
 	new Property({
 		entityName: Liferay.Language.get('session'),
 		label,
 		name,
 		propertyKey: 'session',
-		type: `session-${type}`
+		type
 	});
 
 const SESSION_PROPERTIES = List(
@@ -32,33 +33,33 @@ const SESSION_PROPERTIES = List(
 		{
 			label: Liferay.Language.get('browser'),
 			name: 'context/browserName',
-			type: 'text'
+			type: PropertyTypes.SessionText
 		},
 		{
 			label: Liferay.Language.get('device'),
 			name: 'context/deviceType',
 			options: DEVICE_OPTIONS,
-			type: 'text'
+			type: PropertyTypes.SessionText
 		},
 		{
 			label: Liferay.Language.get('geolocation'),
 			name: 'context/country',
-			type: 'geolocation'
+			type: PropertyTypes.SessionGeolocation
 		},
 		{
 			label: Liferay.Language.get('referrer'),
 			name: 'context/referrer',
-			type: 'text'
+			type: PropertyTypes.SessionText
 		},
 		{
 			label: Liferay.Language.get('date-&-time'),
 			name: 'completeDate',
-			type: 'date-time'
+			type: PropertyTypes.SessionDateTime
 		},
 		{
 			label: Liferay.Language.get('url'),
 			name: 'context/url',
-			type: 'text'
+			type: PropertyTypes.SessionText
 		}
 	].map(createSessionProperty)
 );

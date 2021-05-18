@@ -1,17 +1,18 @@
 import {AssetNames, AssetTypes} from 'shared/util/constants';
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
+import {PropertyTypes} from './constants';
 
 const createWebProperty = ({
 	entityType,
 	label,
 	name,
-	type = 'behavior'
+	type = PropertyTypes.Behavior
 }: {
 	entityType: AssetTypes;
 	label: string;
 	name: AssetNames;
-	type: string;
+	type: PropertyTypes;
 }): Property =>
 	new Property({
 		entityName: Liferay.Language.get('individual'),

@@ -12,11 +12,11 @@ import {
 import {
 	INPUT_DATE_FORMAT,
 	PropertyTypes,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS_MAP
 } from '../utils/constants';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
 
-const DATE_OPERATORS = SUPPORTED_OPERATORS[PropertyTypes.Date];
+const DATE_OPERATORS = SUPPORTED_OPERATORS_MAP[PropertyTypes.Date];
 
 export default class CustomDateInput extends React.Component<ISegmentEditorCustomInputBase> {
 	@autobind

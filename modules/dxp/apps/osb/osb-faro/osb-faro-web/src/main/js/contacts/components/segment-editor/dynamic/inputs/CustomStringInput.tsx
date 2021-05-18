@@ -10,13 +10,14 @@ import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {
 	isKnown,
 	isUnknown,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS_MAP
 } from '../utils/constants';
 import {isOfKnownType, isValid} from '../utils/utils';
 import {Map} from 'immutable';
 
-const TEXT_OPERATORS = SUPPORTED_OPERATORS.text;
+const TEXT_OPERATORS = SUPPORTED_OPERATORS_MAP[PropertyTypes.Text];
 
 export interface ICustomStringInputProps extends ISegmentEditorCustomInputBase {
 	autocomplete?: boolean;

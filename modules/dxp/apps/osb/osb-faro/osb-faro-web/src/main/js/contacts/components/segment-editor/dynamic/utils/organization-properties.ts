@@ -1,5 +1,6 @@
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
+import {PropertyTypes} from './constants';
 
 const createOrganizationProperty = ({
 	label,
@@ -8,14 +9,14 @@ const createOrganizationProperty = ({
 }: {
 	label: string;
 	name: string;
-	type: string;
+	type: PropertyTypes;
 }): Property =>
 	new Property({
 		entityName: Liferay.Language.get('organization'),
 		label,
 		name,
 		propertyKey: 'organization',
-		type: `organization-${type}`
+		type
 	});
 
 const ORGANIZATION_PROPERTIES = List(
@@ -23,32 +24,32 @@ const ORGANIZATION_PROPERTIES = List(
 		{
 			label: Liferay.Language.get('date-modified'),
 			name: 'modifiedDate',
-			type: 'date-time'
+			type: PropertyTypes.OrganizationDateTime
 		},
 		{
 			label: Liferay.Language.get('name'),
 			name: 'name',
-			type: 'text'
+			type: PropertyTypes.OrganizationText
 		},
 		{
 			label: Liferay.Language.get('hierarchy-path'),
 			name: 'hierarchyPath',
-			type: 'text'
+			type: PropertyTypes.OrganizationText
 		},
 		{
 			label: Liferay.Language.get('organization'),
 			name: 'id',
-			type: 'select-text'
+			type: PropertyTypes.OrganizationSelectText
 		},
 		{
 			label: Liferay.Language.get('parent-organization'),
 			name: 'parentId',
-			type: 'select-text'
+			type: PropertyTypes.OrganizationSelectText
 		},
 		{
 			label: Liferay.Language.get('type'),
 			name: 'type',
-			type: 'text'
+			type: PropertyTypes.OrganizationText
 		}
 	].map(createOrganizationProperty)
 );

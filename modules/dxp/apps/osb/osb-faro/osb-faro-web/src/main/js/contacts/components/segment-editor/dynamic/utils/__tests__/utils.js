@@ -8,7 +8,7 @@ import {
 	isUnknown,
 	PropertyTypes,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_OPERATORS,
+	SUPPORTED_OPERATORS_MAP,
 	TimeSpans
 } from '../constants';
 import {fromJS, Map} from 'immutable';
@@ -113,7 +113,7 @@ describe('utils', () => {
 		it('should get the supported operators from type', () => {
 			expect(
 				utils.getSupportedOperatorsFromType(PropertyTypes.AccountNumber)
-			).toBe(SUPPORTED_OPERATORS[PropertyTypes.AccountNumber]);
+			).toBe(SUPPORTED_OPERATORS_MAP[PropertyTypes.AccountNumber]);
 		});
 	});
 

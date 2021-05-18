@@ -9,13 +9,14 @@ import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {
 	isKnown,
 	isUnknown,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_OPERATORS
+	SUPPORTED_OPERATORS_MAP
 } from '../utils/constants';
 import {isOfKnownType, isValid} from '../utils/utils';
 import {Map} from 'immutable';
 
-const NUMBER_OPERATORS = SUPPORTED_OPERATORS.number;
+const NUMBER_OPERATORS = SUPPORTED_OPERATORS_MAP[PropertyTypes.Number];
 
 interface ICustomNumberInputProps extends ISegmentEditorCustomInputBase {
 	touched: boolean;

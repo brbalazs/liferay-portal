@@ -1,3 +1,4 @@
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {Record} from 'immutable';
 
 interface IProperty {
@@ -8,7 +9,7 @@ interface IProperty {
 	name: string;
 	options?: {label: string; value: string}[];
 	propertyKey: string;
-	type: string;
+	type: PropertyTypes;
 }
 
 export default class Property
@@ -20,7 +21,7 @@ export default class Property
 		name: '',
 		options: [],
 		propertyKey: '',
-		type: ''
+		type: null
 	})
 	implements IProperty {
 	entityName: string;
@@ -30,7 +31,7 @@ export default class Property
 	name: string;
 	options?: {label: string; value: string}[];
 	propertyKey: string;
-	type: string;
+	type: PropertyTypes;
 
 	constructor(props: IProperty) {
 		super(props);
