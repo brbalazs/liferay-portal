@@ -7,7 +7,7 @@ import {
 	isKnown,
 	isUnknown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	SUPPORTED_OPERATORS_MAP
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 
@@ -65,9 +65,9 @@ export function maybeFormatToKnownType(
 ): string {
 	const valueNull = value === null;
 
-	if (operatorName === RELATIONAL_OPERATORS.EQ && valueNull) {
+	if (operatorName === RelationalOperators.EQ && valueNull) {
 		return isUnknown;
-	} else if (operatorName === RELATIONAL_OPERATORS.NE && valueNull) {
+	} else if (operatorName === RelationalOperators.NE && valueNull) {
 		return isKnown;
 	}
 

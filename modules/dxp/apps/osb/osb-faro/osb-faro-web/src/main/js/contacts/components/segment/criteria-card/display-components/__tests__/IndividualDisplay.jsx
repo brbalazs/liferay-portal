@@ -5,7 +5,7 @@ import {cleanup, render} from '@testing-library/react';
 import {Property, Segment} from 'shared/util/records';
 import {
 	PropertyTypes,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
 
@@ -15,7 +15,7 @@ describe('IndividualDisplay', () => {
 	const propertyName = 'demographics/givenName/value';
 
 	const mockCriterion = {
-		operatorName: RELATIONAL_OPERATORS.EQ,
+		operatorName: RelationalOperators.EQ,
 		propertyName,
 		value: 'Test'
 	};
@@ -61,7 +61,7 @@ describe('IndividualDisplay', () => {
 		const {getByText} = render(
 			<IndividualDisplay
 				criterion={{
-					operatorName: RELATIONAL_OPERATORS.GT,
+					operatorName: RelationalOperators.GT,
 					propertyName: 'demographics/duration/value',
 					value: 3600
 				}}
@@ -105,7 +105,7 @@ describe('IndividualDisplay', () => {
 			<ReferencedObjectsProvider segment={mockSegment}>
 				<IndividualDisplay
 					criterion={{
-						operatorName: RELATIONAL_OPERATORS.EQ,
+						operatorName: RelationalOperators.EQ,
 						propertyName: 'roleIds',
 						value: '123123'
 					}}

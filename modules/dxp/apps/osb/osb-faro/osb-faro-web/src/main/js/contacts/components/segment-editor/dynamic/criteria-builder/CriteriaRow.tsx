@@ -52,7 +52,7 @@ import {
 	isKnown,
 	isUnknown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from '../utils/constants';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
@@ -232,9 +232,9 @@ class CriteriaRow extends React.Component<
 
 		const valueNull = value === null;
 
-		if (operatorName === RELATIONAL_OPERATORS.EQ && valueNull) {
+		if (operatorName === RelationalOperators.EQ && valueNull) {
 			operatorKey = isUnknown;
-		} else if (operatorName === RELATIONAL_OPERATORS.NE && valueNull) {
+		} else if (operatorName === RelationalOperators.NE && valueNull) {
 			operatorKey = isKnown;
 		}
 

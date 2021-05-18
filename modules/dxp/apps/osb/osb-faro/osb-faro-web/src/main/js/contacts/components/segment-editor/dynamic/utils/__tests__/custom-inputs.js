@@ -10,19 +10,19 @@ import {
 	setOperator,
 	setPropertyValue
 } from '../custom-inputs';
-import {RELATIONAL_OPERATORS, TimeSpans} from '../../utils/constants';
+import {RelationalOperators, TimeSpans} from '../../utils/constants';
 
 const mockValue = createCustomValueMap([
 	{
 		key: 'criterionGroup',
 		value: [
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'context/city',
 				value: 'foo'
 			},
 			{
-				operatorName: RELATIONAL_OPERATORS.GT,
+				operatorName: RelationalOperators.GT,
 				propertyName: 'completeDate',
 				value: TimeSpans.Last7Days
 			}
@@ -39,12 +39,12 @@ describe('Custom Inputs Util', () => {
 						key: 'criterionGroup',
 						value: [
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/city',
 								value: 'foo'
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.GT,
+								operatorName: RelationalOperators.GT,
 								propertyName: 'completeDate',
 								value: TimeSpans.Last7Days
 							}
@@ -71,7 +71,7 @@ describe('Custom Inputs Util', () => {
 
 	describe('getOperator', () => {
 		it('should return the operator', () => {
-			expect(getOperator(mockValue, 0)).toBe(RELATIONAL_OPERATORS.EQ);
+			expect(getOperator(mockValue, 0)).toBe(RelationalOperators.EQ);
 		});
 	});
 
@@ -109,10 +109,10 @@ describe('Custom Inputs Util', () => {
 			const updatedValue = setOperator(
 				mockValue,
 				0,
-				RELATIONAL_OPERATORS.NE
+				RelationalOperators.NE
 			);
 
-			expect(getOperator(updatedValue, 0)).toBe(RELATIONAL_OPERATORS.NE);
+			expect(getOperator(updatedValue, 0)).toBe(RelationalOperators.NE);
 		});
 	});
 

@@ -5,12 +5,12 @@ import {
 	isKnown,
 	isUnknown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const {ACTIVITIES_FILTER_BY_COUNT} = CUSTOM_FUNCTION_OPERATORS;
 
-const {EQ, LT, NE} = RELATIONAL_OPERATORS;
+const {EQ, LT, NE} = RelationalOperators;
 
 describe('utils', () => {
 	describe('getOperatorLabel', () => {

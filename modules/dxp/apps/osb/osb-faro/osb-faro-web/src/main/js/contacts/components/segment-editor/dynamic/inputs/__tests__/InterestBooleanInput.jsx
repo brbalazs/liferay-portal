@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from '../../utils/custom-inputs';
 import {Property} from 'shared/util/records';
-import {RELATIONAL_OPERATORS} from '../../utils/constants';
+import {RelationalOperators} from '../../utils/constants';
 
 jest.unmock('react-dom');
 
@@ -19,12 +19,12 @@ describe('InterestBooleanInput', () => {
 						key: 'criterionGroup',
 						value: [
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'name',
 								value: 'foo interest'
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'score',
 								value: 'true'
 							}

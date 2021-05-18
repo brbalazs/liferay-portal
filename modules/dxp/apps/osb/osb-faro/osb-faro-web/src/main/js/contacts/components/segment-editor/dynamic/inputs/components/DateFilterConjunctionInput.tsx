@@ -7,7 +7,7 @@ import {Criterion} from '../../utils/types';
 import {
 	EVER,
 	FUNCTIONAL_OPERATORS,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS,
 	TIME_PERIOD_OPTIONS,
@@ -16,7 +16,7 @@ import {
 import {Map} from 'immutable';
 
 const {BETWEEN} = FUNCTIONAL_OPERATORS;
-const {EQ, GT, LT} = RELATIONAL_OPERATORS;
+const {EQ, GT, LT} = RelationalOperators;
 
 const TIME_PERIOD_VALUES = TIME_PERIOD_OPTIONS.map(({value}) => value);
 

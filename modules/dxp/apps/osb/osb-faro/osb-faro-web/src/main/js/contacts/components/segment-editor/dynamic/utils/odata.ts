@@ -5,7 +5,7 @@ import {
 	FUNCTIONAL_OPERATORS,
 	GROUP,
 	NOT_OPERATORS,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	SUPPORTED_PROPERTY_TYPES_MAP
 } from './constants';
 import {
@@ -24,7 +24,7 @@ import {filter as oDataFilterFn} from 'odata-v4-parser';
 const OPERATORS = {
 	...CUSTOM_FUNCTION_OPERATORS,
 	...FUNCTIONAL_OPERATORS,
-	...RELATIONAL_OPERATORS
+	...RelationalOperators
 };
 
 const EXPRESSION_TYPES = {
@@ -165,7 +165,7 @@ const buildQueryString = (
 				? `'${decodeQuotesToOdataQuotes(encodeQuotes(value))}'`
 				: value;
 
-			if (isValueType(RELATIONAL_OPERATORS, operatorName)) {
+			if (isValueType(RelationalOperators, operatorName)) {
 				queryString = queryString.concat(
 					`${propertyName} ${operatorName} ${parsedValue}`
 				);
@@ -570,7 +570,7 @@ const toCriteria = (context: Context): Criteria[] => {
 		criterion = transformFunctionalNode(context);
 	} else if (oDataASTNode.type === EXPRESSION_TYPES.FUNCTION) {
 		criterion = transformCustomFunctionNode(context);
-	} else if (isValueType(RELATIONAL_OPERATORS, expressionName)) {
+	} else if (isValueType(RelationalOperators, expressionName)) {
 		criterion = transformOperatorNode(context);
 	} else if (isValueType(CONJUNCTIONS, expressionName)) {
 		criterion = transformConjunctionNode(context);

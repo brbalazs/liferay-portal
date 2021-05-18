@@ -44,7 +44,7 @@ import {ClaySelectWithOption} from '@clayui/select';
 import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
 	CONJUNCTIONS,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
@@ -213,12 +213,12 @@ export class Distribution extends React.Component {
 		const getFilter = (operator, value) =>
 			`${context}/${name}/value ${operator} ${value}`;
 
-		const filter = [getFilter(RELATIONAL_OPERATORS.GE, min)];
+		const filter = [getFilter(RelationalOperators.GE, min)];
 
 		if (fieldDistributionIList.size - 1 === selectedPoint) {
-			filter.push(getFilter(RELATIONAL_OPERATORS.LE, max));
+			filter.push(getFilter(RelationalOperators.LE, max));
 		} else {
-			filter.push(getFilter(RELATIONAL_OPERATORS.LT, max));
+			filter.push(getFilter(RelationalOperators.LT, max));
 		}
 
 		return filter.join(` ${CONJUNCTIONS.AND} `);
@@ -230,7 +230,7 @@ export class Distribution extends React.Component {
 			fieldMappingSelected: {context, name}
 		} = this.state;
 
-		const filter = `${context}/${name}/value ${RELATIONAL_OPERATORS.EQ} '${distributionValues[0]}'`;
+		const filter = `${context}/${name}/value ${RelationalOperators.EQ} '${distributionValues[0]}'`;
 
 		return filter;
 	}

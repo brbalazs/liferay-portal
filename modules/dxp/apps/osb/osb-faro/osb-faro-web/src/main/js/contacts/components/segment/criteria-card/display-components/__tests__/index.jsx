@@ -3,7 +3,7 @@ import DisplayComponent from '../index';
 import React from 'react';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
-import {RELATIONAL_OPERATORS} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {RelationalOperators} from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
@@ -24,18 +24,18 @@ describe('DisplayComponent', () => {
 				criterionGroup: Map({
 					items: List([
 						Map({
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: 'foo/bar',
 							value: 'this is a description'
 						}),
 						Map({
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: 'score',
 							value: 'true'
 						})
 					])
 				}),
-				operator: RELATIONAL_OPERATORS.GE,
+				operator: RelationalOperators.GE,
 				value: 32
 			})
 		};

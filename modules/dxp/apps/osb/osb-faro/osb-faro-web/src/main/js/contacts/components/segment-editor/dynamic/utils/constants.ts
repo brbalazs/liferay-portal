@@ -55,14 +55,14 @@ export const NOT_OPERATORS = {
 
 export const GROUP = 'GROUP';
 
-export const RELATIONAL_OPERATORS = {
-	EQ: 'eq',
-	GE: 'ge',
-	GT: 'gt',
-	LE: 'le',
-	LT: 'lt',
-	NE: 'ne'
-};
+export enum RelationalOperators {
+	EQ = 'eq',
+	GE = 'ge',
+	GT = 'gt',
+	LE = 'le',
+	LT = 'lt',
+	NE = 'ne'
+}
 
 /**
  * Constants to match property types in the passed in supportedProperties array.
@@ -107,7 +107,7 @@ const {
 } = CUSTOM_FUNCTION_OPERATORS;
 const {AND, OR} = CONJUNCTIONS;
 const {BETWEEN, CONTAINS} = FUNCTIONAL_OPERATORS;
-const {EQ, GE, GT, LE, LT, NE} = RELATIONAL_OPERATORS;
+const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
 const {IS_KNOWN, IS_UNKNOWN} = DISPLAY_ONLY_OPERATORS;
 const {
 	NOT_ACTIVITIES_FILTER_BY_COUNT,

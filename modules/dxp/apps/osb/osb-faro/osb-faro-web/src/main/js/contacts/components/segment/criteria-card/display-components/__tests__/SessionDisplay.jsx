@@ -5,7 +5,7 @@ import {cleanup, render} from '@testing-library/react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
 	PropertyTypes,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
@@ -21,12 +21,12 @@ describe('SessionDisplay', () => {
 			criterionGroup: Map({
 				items: List([
 					Map({
-						operatorName: RELATIONAL_OPERATORS.EQ,
+						operatorName: RelationalOperators.EQ,
 						propertyName: 'context/browserName',
 						value: 'Chrome'
 					}),
 					Map({
-						operatorName: RELATIONAL_OPERATORS.GT,
+						operatorName: RelationalOperators.GT,
 						propertyName: 'completeDate',
 						value: TimeSpans.Last7Days
 					})

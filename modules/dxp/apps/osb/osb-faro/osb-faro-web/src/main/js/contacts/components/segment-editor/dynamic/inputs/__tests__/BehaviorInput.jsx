@@ -1,7 +1,7 @@
 import BehaviorInput, {AssetItem} from '../BehaviorInput';
 import mockStore from 'test/mock-store';
 import React from 'react';
-import {ACTIVITY_KEY, RELATIONAL_OPERATORS} from '../../utils/constants';
+import {ACTIVITY_KEY, RelationalOperators} from '../../utils/constants';
 import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from '../../utils/custom-inputs';
 import {Map} from 'immutable';
@@ -15,13 +15,13 @@ const mockValue = createCustomValueMap([
 		key: 'criterionGroup',
 		value: [
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: ACTIVITY_KEY,
 				value: 'test#test#123123123'
 			}
 		]
 	},
-	{key: 'operator', value: RELATIONAL_OPERATORS.GE},
+	{key: 'operator', value: RelationalOperators.GE},
 	{key: 'value', value: ''}
 ]);
 

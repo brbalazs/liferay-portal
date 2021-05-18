@@ -7,7 +7,7 @@ import {
 	isKnown,
 	isUnknown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	SUPPORTED_OPERATORS_MAP,
 	TimeSpans
 } from '../constants';
@@ -21,7 +21,7 @@ const {
 	SESSIONS_FILTER
 } = CUSTOM_FUNCTION_OPERATORS;
 const {AND} = CONJUNCTIONS;
-const {EQ, GT} = RELATIONAL_OPERATORS;
+const {EQ, GT} = RelationalOperators;
 
 describe('utils', () => {
 	describe('createInterestProperty', () => {

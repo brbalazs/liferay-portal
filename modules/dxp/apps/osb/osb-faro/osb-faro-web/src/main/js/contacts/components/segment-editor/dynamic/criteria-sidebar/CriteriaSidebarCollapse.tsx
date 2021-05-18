@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	ACTIVITY_KEY,
 	PropertyTypes,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	TimeSpans
 } from '../utils/constants';
 import {createCustomValueMap} from '../utils/custom-inputs';
@@ -30,7 +30,7 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: name,
 							value: new Date().toISOString()
 						}
@@ -45,12 +45,12 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: 'name',
 							value: name
 						},
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: 'score',
 							value: 'true'
 						}
@@ -67,7 +67,7 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: name,
 							value: ''
 						}
@@ -80,18 +80,18 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: ACTIVITY_KEY,
 							value: ''
 						},
 						{
-							operatorName: RELATIONAL_OPERATORS.GT,
+							operatorName: RelationalOperators.GT,
 							propertyName: 'day',
 							value: TimeSpans.Last24Hours
 						}
 					]
 				},
-				{key: 'operator', value: RELATIONAL_OPERATORS.GE},
+				{key: 'operator', value: RelationalOperators.GE},
 				{key: 'value', value: 1}
 			]);
 		case PropertyTypes.OrganizationBoolean:
@@ -100,7 +100,7 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: name,
 							value: 'true'
 						}
@@ -115,12 +115,12 @@ const getDefaultValue = (property: Property): any => {
 					key: 'criterionGroup',
 					value: [
 						{
-							operatorName: RELATIONAL_OPERATORS.EQ,
+							operatorName: RelationalOperators.EQ,
 							propertyName: name,
 							value: options.length ? options[0].value : ''
 						},
 						{
-							operatorName: RELATIONAL_OPERATORS.GT,
+							operatorName: RelationalOperators.GT,
 							propertyName: 'completeDate',
 							value: TimeSpans.Last24Hours
 						}

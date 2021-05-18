@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
 	FUNCTIONAL_OPERATORS,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from '../../../utils/constants';
 
 jest.unmock('react-dom');
@@ -26,7 +26,7 @@ describe('DateFilterConjunctionInput', () => {
 		const {getByTestId} = render(
 			<DateFilterConjunctionInput
 				conjunctionCriterion={{
-					operatorName: RELATIONAL_OPERATORS.GT,
+					operatorName: RelationalOperators.GT,
 					propertyName: 'date',
 					touched: false,
 					valid: false,
@@ -43,7 +43,7 @@ describe('DateFilterConjunctionInput', () => {
 		const {getByTestId} = render(
 			<DateFilterConjunctionInput
 				conjunctionCriterion={{
-					operatorName: RELATIONAL_OPERATORS.EQ,
+					operatorName: RelationalOperators.EQ,
 					propertyName: 'date',
 					touched: false,
 					valid: false,

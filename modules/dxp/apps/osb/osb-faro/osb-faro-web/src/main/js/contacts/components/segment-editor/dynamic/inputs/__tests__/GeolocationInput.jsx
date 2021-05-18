@@ -4,7 +4,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from '../../utils/custom-inputs';
 import {Property} from 'shared/util/records';
-import {RELATIONAL_OPERATORS, TimeSpans} from '../../utils/constants';
+import {RelationalOperators, TimeSpans} from '../../utils/constants';
 
 jest.unmock('react-dom');
 
@@ -13,22 +13,22 @@ const mockValue = createCustomValueMap([
 		key: 'criterionGroup',
 		value: [
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'context/country',
 				value: 'foo country'
 			},
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'completeDate',
 				value: TimeSpans.Last7Days
 			},
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'context/region',
 				value: 'foo region'
 			},
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'context/city',
 				value: 'foo city'
 			}
@@ -41,12 +41,12 @@ const emptyMockValue = createCustomValueMap([
 		key: 'criterionGroup',
 		value: [
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'context/country',
 				value: ''
 			},
 			{
-				operatorName: RELATIONAL_OPERATORS.EQ,
+				operatorName: RelationalOperators.EQ,
 				propertyName: 'completeDate',
 				value: TimeSpans.Last7Days
 			}
@@ -112,17 +112,17 @@ describe('GeolocationInput', () => {
 						key: 'criterionGroup',
 						value: [
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/country',
 								value: 'foo country'
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'completeDate',
 								value: TimeSpans.Last7Days
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/region',
 								value: ''
 							}
@@ -149,22 +149,22 @@ describe('GeolocationInput', () => {
 						key: 'criterionGroup',
 						value: [
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/country',
 								value: 'foo country'
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'completeDate',
 								value: TimeSpans.Last7Days
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/region',
 								value: 'foo region'
 							},
 							{
-								operatorName: RELATIONAL_OPERATORS.EQ,
+								operatorName: RelationalOperators.EQ,
 								propertyName: 'context/city',
 								value: ''
 							}

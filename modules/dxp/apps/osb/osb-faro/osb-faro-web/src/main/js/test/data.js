@@ -20,7 +20,7 @@ import {
 } from 'shared/util/constants';
 import {
 	CONJUNCTIONS,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {fromJS, List, Map} from 'immutable';
 import {getISODate} from 'shared/util/date';
@@ -294,7 +294,7 @@ export function mockChannel(seed = 1, permissionType = 0, data = {}) {
 
 export function generateCriterion(customValues) {
 	return {
-		operatorName: RELATIONAL_OPERATORS.EQ,
+		operatorName: RelationalOperators.EQ,
 		propertyName: 'firstName',
 		touched: false,
 		valid: true,

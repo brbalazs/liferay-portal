@@ -8,7 +8,7 @@ import {
 	FUNCTIONAL_OPERATORS,
 	isKnown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {Property, Segment} from 'shared/util/records';
 import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
@@ -86,7 +86,7 @@ describe('OrganizationDisplay', () => {
 							key: 'criterionGroup',
 							value: [
 								{
-									operatorName: RELATIONAL_OPERATORS.EQ,
+									operatorName: RelationalOperators.EQ,
 									propertyName: 'dateModified',
 									value: '2020-02-11T22:16:41.799Z'
 								}
@@ -146,7 +146,7 @@ describe('OrganizationDisplay', () => {
 							key: 'criterionGroup',
 							value: [
 								{
-									operatorName: RELATIONAL_OPERATORS.EQ,
+									operatorName: RelationalOperators.EQ,
 									propertyName: 'organization',
 									value: '123'
 								}

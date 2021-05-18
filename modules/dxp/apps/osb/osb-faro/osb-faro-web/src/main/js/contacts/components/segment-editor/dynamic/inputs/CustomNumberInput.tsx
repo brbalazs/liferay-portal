@@ -10,7 +10,7 @@ import {
 	isKnown,
 	isUnknown,
 	PropertyTypes,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	SUPPORTED_OPERATORS_MAP
 } from '../utils/constants';
 import {isOfKnownType, isValid} from '../utils/utils';
@@ -56,9 +56,9 @@ export default class CustomNumberInput extends React.Component<ICustomNumberInpu
 
 		const valueNull = value === null;
 
-		if (operatorName === RELATIONAL_OPERATORS.EQ && valueNull) {
+		if (operatorName === RelationalOperators.EQ && valueNull) {
 			operatorKey = isUnknown;
-		} else if (operatorName === RELATIONAL_OPERATORS.NE && valueNull) {
+		} else if (operatorName === RelationalOperators.NE && valueNull) {
 			operatorKey = isKnown;
 		}
 

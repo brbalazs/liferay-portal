@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
 	FUNCTIONAL_OPERATORS,
-	RELATIONAL_OPERATORS,
+	RelationalOperators,
 	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 
@@ -16,7 +16,7 @@ describe('DateFilterConjunctionDisplay', () => {
 		const {container} = render(
 			<DateFilterConjunctionDisplay
 				conjunctionCriterion={{
-					operatorName: RELATIONAL_OPERATORS.EQ,
+					operatorName: RelationalOperators.EQ,
 					propertyName: 'date',
 					touched: false,
 					valid: false,
@@ -60,7 +60,7 @@ describe('DateFilterConjunctionDisplay', () => {
 		const {getByText} = render(
 			<DateFilterConjunctionDisplay
 				conjunctionCriterion={{
-					operatorName: RELATIONAL_OPERATORS.GT,
+					operatorName: RelationalOperators.GT,
 					propertyName: 'date',
 					touched: false,
 					valid: false,

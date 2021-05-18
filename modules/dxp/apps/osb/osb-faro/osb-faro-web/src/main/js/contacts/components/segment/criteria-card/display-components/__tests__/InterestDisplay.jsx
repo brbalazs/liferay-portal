@@ -4,7 +4,7 @@ import React from 'react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
 	PropertyTypes,
-	RELATIONAL_OPERATORS
+	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
@@ -20,12 +20,12 @@ describe('InterestDisplay', () => {
 			criterionGroup: Map({
 				items: List([
 					Map({
-						operatorName: RELATIONAL_OPERATORS.EQ,
+						operatorName: RelationalOperators.EQ,
 						propertyName: 'name',
 						value: 'Tests'
 					}),
 					Map({
-						operatorName: RELATIONAL_OPERATORS.EQ,
+						operatorName: RelationalOperators.EQ,
 						propertyName: 'score',
 						value: 'true'
 					})
