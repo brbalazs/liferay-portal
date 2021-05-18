@@ -39,6 +39,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>SAML_SELECTED_ROLE</td>
+	<td>//select[contains(@id,'saml-role')]//option[contains(@selected,'') and contains(@value,'${key_samlRoleType}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td></td>
 	<td></td>
 	<td></td>
