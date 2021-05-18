@@ -2,7 +2,7 @@ import DateFilterConjunctionDisplay from '../DateFilterConjunctionDisplay';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	RelationalOperators,
 	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
@@ -32,7 +32,7 @@ describe('DateFilterConjunctionDisplay', () => {
 		const {getByText} = render(
 			<DateFilterConjunctionDisplay
 				conjunctionCriterion={{
-					operatorName: FUNCTIONAL_OPERATORS.BETWEEN,
+					operatorName: FunctionalOperators.Between,
 					propertyName: 'date',
 					touched: false,
 					valid: false,

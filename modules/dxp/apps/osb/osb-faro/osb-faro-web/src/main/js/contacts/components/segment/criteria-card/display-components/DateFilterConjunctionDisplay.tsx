@@ -2,7 +2,7 @@ import React from 'react';
 import {Criterion} from 'contacts/components/segment-editor/dynamic/utils/types';
 import {
 	EVER,
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	INPUT_DATE_FORMAT,
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS
@@ -27,7 +27,7 @@ const DateFilterConjunctionDisplay: React.FC<{
 
 	const getDateFilter = (): React.ReactNode => {
 		switch (conjunction) {
-			case FUNCTIONAL_OPERATORS.BETWEEN:
+			case FunctionalOperators.Between:
 				return (
 					<b>
 						{sub(Liferay.Language.get('x-to-x'), [

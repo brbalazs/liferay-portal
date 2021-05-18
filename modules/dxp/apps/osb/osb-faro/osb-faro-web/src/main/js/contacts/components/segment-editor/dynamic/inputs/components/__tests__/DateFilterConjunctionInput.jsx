@@ -2,7 +2,7 @@ import DateFilterConjunctionInput from '../DateFilterConjunctionInput';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	RelationalOperators
 } from '../../../utils/constants';
 
@@ -60,7 +60,7 @@ describe('DateFilterConjunctionInput', () => {
 		const {getByTestId} = render(
 			<DateFilterConjunctionInput
 				conjunctionCriterion={{
-					operatorName: FUNCTIONAL_OPERATORS.BETWEEN,
+					operatorName: FunctionalOperators.Between,
 					propertyName: 'date',
 					touched: false,
 					valid: false,

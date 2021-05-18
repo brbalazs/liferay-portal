@@ -5,7 +5,7 @@ import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
 import {
 	CustomFunctionOperators,
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	isKnown,
 	PropertyTypes,
 	RelationalOperators
@@ -23,7 +23,7 @@ const mockCriterion = {
 			key: 'criterionGroup',
 			value: [
 				{
-					operatorName: FUNCTIONAL_OPERATORS.CONTAINS,
+					operatorName: FunctionalOperators.Contains,
 					propertyName: 'name',
 					value: 'foo organization name'
 				}

@@ -2,7 +2,7 @@ import {
 	Conjunctions,
 	CUSTOM_FUNCTION_OPERATOR_KEY_MAP,
 	CustomFunctionOperators,
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	GROUP,
 	NOT_OPERATORS,
 	RelationalOperators,
@@ -23,7 +23,7 @@ import {filter as oDataFilterFn} from 'odata-v4-parser';
 
 const OPERATORS = {
 	...CustomFunctionOperators,
-	...FUNCTIONAL_OPERATORS,
+	...FunctionalOperators,
 	...RelationalOperators
 };
 
@@ -65,9 +65,9 @@ const EDM_STRING = 'Edm.String';
  */
 const oDataV4ParserNameMap = {
 	[EXPRESSION_TYPES.AND]: Conjunctions.AND,
-	between: OPERATORS.BETWEEN,
+	between: OPERATORS.Between,
 	[EXPRESSION_TYPES.BOOL_PAREN]: GROUP,
-	contains: OPERATORS.CONTAINS,
+	contains: OPERATORS.Contains,
 	[EXPRESSION_TYPES.EQUALS]: OPERATORS.EQ,
 	[EXPRESSION_TYPES.GREATER_OR_EQUALS]: OPERATORS.GE,
 	[EXPRESSION_TYPES.GREATER_THAN]: OPERATORS.GT,
@@ -200,8 +200,8 @@ const buildQueryString = (
 				queryString = queryString.concat(
 					`${fnName}(${decodeQuotesToOdataQuotes(paramsString)})`
 				);
-			} else if (isValueType(FUNCTIONAL_OPERATORS, operatorName)) {
-				if (operatorName === FUNCTIONAL_OPERATORS.BETWEEN) {
+			} else if (isValueType(FunctionalOperators, operatorName)) {
+				if (operatorName === FunctionalOperators.Between) {
 					const {end, start} = parsedValue;
 
 					queryString = queryString.concat(
@@ -604,7 +604,7 @@ const transformCommonNode = ({oDataASTNode}: Context): Criteria[] => {
 
 			return [
 				{
-					operatorName: OPERATORS.BETWEEN,
+					operatorName: OPERATORS.Between,
 					propertyName,
 					rowId: generateRowId(),
 					touched: false,
@@ -631,7 +631,7 @@ const transformCommonNode = ({oDataASTNode}: Context): Criteria[] => {
 
 		const methodExpressionName = getExpressionName(methodExpression);
 
-		if (methodExpressionName == OPERATORS.CONTAINS) {
+		if (methodExpressionName == OPERATORS.Contains) {
 			value = removeQuotes(methodExpression.value.parameters[1].raw);
 		} else if (methodExpressionName == OPERATORS.EQ) {
 			value = removeQuotes(methodExpression.value.right.raw);
@@ -794,7 +794,7 @@ const transformNotNode = ({oDataASTNode}: Context): Criteria[] => {
 
 	let returnValue;
 
-	if (nextNodeExpressionName == OPERATORS.CONTAINS) {
+	if (nextNodeExpressionName == OPERATORS.Contains) {
 		returnValue = [
 			{
 				...transformFunctionalNode({
@@ -819,7 +819,7 @@ const transformNotNode = ({oDataASTNode}: Context): Criteria[] => {
 
 		const methodExpressionName = getExpressionName(methodExpression);
 
-		if (methodExpressionName == OPERATORS.CONTAINS) {
+		if (methodExpressionName == OPERATORS.Contains) {
 			returnValue = [
 				{
 					...transformFunctionalNode({

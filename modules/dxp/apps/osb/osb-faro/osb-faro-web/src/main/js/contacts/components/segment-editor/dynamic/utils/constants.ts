@@ -38,10 +38,10 @@ export enum DisplayOnlyOperators {
 	IsUnknown = 'eq'
 }
 
-export const FUNCTIONAL_OPERATORS = {
-	BETWEEN: 'between',
-	CONTAINS: 'contains'
-};
+export enum FunctionalOperators {
+	Between = 'between',
+	Contains = 'contains'
+}
 
 export const NOT_OPERATORS = {
 	NOT_ACCOUNTS_FILTER: 'not-accounts-filter',
@@ -106,7 +106,6 @@ const {
 	SessionsFilter
 } = CustomFunctionOperators;
 const {AND, OR} = Conjunctions;
-const {BETWEEN, CONTAINS} = FUNCTIONAL_OPERATORS;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
 const {
 	NOT_ACTIVITIES_FILTER_BY_COUNT,
@@ -355,9 +354,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 			name: NE
 		},
 		{
-			key: CONTAINS,
+			key: FunctionalOperators.Contains,
 			label: Liferay.Language.get('contains-fragment'),
-			name: CONTAINS
+			name: FunctionalOperators.Contains
 		},
 		{
 			key: NOT_CONTAINS,
@@ -396,7 +395,7 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
 	[PropertyTypes.Text]: [
 		EQ,
 		NE,
-		CONTAINS,
+		FunctionalOperators.Contains,
 		NOT_CONTAINS,
 		DisplayOnlyOperators.IsKnown,
 		DisplayOnlyOperators.IsUnknown
@@ -453,7 +452,7 @@ export const GEOLOCATION_OPTIONS = [
 	},
 	{
 		label: Liferay.Language.get('contained-fragment'),
-		value: CONTAINS
+		value: FunctionalOperators.Contains
 	},
 	{
 		label: Liferay.Language.get('did-not-contain-fragment'),
@@ -476,7 +475,7 @@ export const TIME_CONJUNCTION_OPTIONS = [
 	},
 	{
 		label: Liferay.Language.get('between-fragment'),
-		value: BETWEEN
+		value: FunctionalOperators.Between
 	},
 	{
 		label: Liferay.Language.get('ever-fragment'),

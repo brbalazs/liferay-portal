@@ -6,7 +6,7 @@ import {ClaySelectWithOption} from '@clayui/select';
 import {Criterion} from '../../utils/types';
 import {
 	EVER,
-	FUNCTIONAL_OPERATORS,
+	FunctionalOperators,
 	RelationalOperators,
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS,
@@ -15,14 +15,14 @@ import {
 } from '../../utils/constants';
 import {Map} from 'immutable';
 
-const {BETWEEN} = FUNCTIONAL_OPERATORS;
+const {Between} = FunctionalOperators;
 const {EQ, GT, LT} = RelationalOperators;
 
 const TIME_PERIOD_VALUES = TIME_PERIOD_OPTIONS.map(({value}) => value);
 
 export const getInitialConjunction = (
 	conjunctionCriterion: Criterion
-): string => {
+): FunctionalOperators | RelationalOperators | 'since' | 'ever' => {
 	const {operatorName, value} = conjunctionCriterion;
 
 	if (operatorName === GT && TIME_PERIOD_VALUES.includes(value)) {
@@ -31,7 +31,7 @@ export const getInitialConjunction = (
 		return EVER;
 	}
 
-	return operatorName;
+	return operatorName as FunctionalOperators | RelationalOperators;
 };
 
 interface IDateFilterConjunctionInputProps {
@@ -65,9 +65,9 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					value: TimeSpans.Last24Hours
 				});
 				break;
-			case BETWEEN:
+			case Between:
 				onChange({
-					operatorName: BETWEEN,
+					operatorName: Between,
 					propertyName,
 					touched: false,
 					valid: false,
@@ -82,8 +82,8 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					operatorName: value,
 					propertyName,
 					touched: false,
-					valid: ![SINCE, BETWEEN, EVER].includes(conjunction),
-					value: [SINCE, BETWEEN, EVER].includes(conjunction)
+					valid: ![SINCE, Between, EVER].includes(conjunction),
+					value: [SINCE, Between, EVER].includes(conjunction)
 						? ''
 						: dateFilter
 				});
@@ -108,7 +108,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 			propertyName,
 			touched: true,
 			valid:
-				operatorName === BETWEEN
+				operatorName === Between
 					? !!dateFilter.end && !!dateFilter.start
 					: !!dateFilter,
 			value: dateFilter
@@ -117,7 +117,10 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 
 	const {touched, valid, value} = conjunctionCriterion;
 
-	const showDatePicker = [BETWEEN, EQ, GT, LT].includes(conjunction);
+	const showDatePicker = [Between, EQ, GT, LT].includes(
+		conjunction as FunctionalOperators | RelationalOperators
+	);
+
 	const showTimePeriod = conjunction === SINCE;
 
 	return (
@@ -142,7 +145,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 
 				{showDatePicker && (
 					<DatePickerInput
-						isRange={conjunction === BETWEEN}
+						isRange={conjunction === Between}
 						onBlur={handleDateFilterBlur}
 						onChange={handleDateFilterChange}
 						touched={touched}
