@@ -387,8 +387,7 @@ export const SUPPORTED_OPERATORS = {
 	]
 };
 
-// TODO: Maybe should label this with MAP at the end.
-export const SUPPORTED_PROPERTY_TYPES = {
+export const SUPPORTED_PROPERTY_TYPES_MAP = {
 	[PropertyTypes.AccountNumber]: [ACCOUNTS_FILTER],
 	[PropertyTypes.AccountText]: [ACCOUNTS_FILTER],
 	[PropertyTypes.Behavior]: [

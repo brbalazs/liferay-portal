@@ -6,7 +6,7 @@ import {
 	GROUP,
 	NOT_OPERATORS,
 	RELATIONAL_OPERATORS,
-	SUPPORTED_PROPERTY_TYPES
+	SUPPORTED_PROPERTY_TYPES_MAP
 } from './constants';
 import {
 	Context,
@@ -717,7 +717,7 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 	let touched: boolean | {asset: boolean; occurenceCount: boolean} = false;
 	let valid: boolean | {asset: boolean; occurenceCount: boolean} = true;
 
-	if (SUPPORTED_PROPERTY_TYPES.behavior.includes(operatorName)) {
+	if (SUPPORTED_PROPERTY_TYPES_MAP.behavior.includes(operatorName)) {
 		touched = {asset: false, occurenceCount: false};
 		valid = {asset: true, occurenceCount: true};
 	}
