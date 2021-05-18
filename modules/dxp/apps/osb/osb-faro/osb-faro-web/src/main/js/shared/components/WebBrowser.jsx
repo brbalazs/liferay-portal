@@ -20,6 +20,7 @@ import {sub} from 'shared/util/lang';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-web-browser-chart';
+const EMPTY_CHART_COLOR = '#E7E7ED';
 
 const getChartPercentage = (value, total) =>
 	`${toRounded(getPercentage(value, total))}%`;
@@ -66,32 +67,11 @@ class WebBrowser extends React.Component {
 		);
 	}
 
-	/**
-	 * Render Empty State Message
-	 */
-	renderEmptyState() {
-		const {metricLabel} = this.props;
-
-		return (
-			<>
-				<div className='col-7'>
-					<div className={`${CLASSNAME}-donut-empty`} />
-				</div>
-
-				<NoResultsDisplay
-					title={sub(Liferay.Language.get('empty-message-metric'), [
-						metricLabel.toLowerCase()
-					])}
-				/>
-			</>
-		);
-	}
-
 	@autobind
 	renderTooltip({active, payload}) {
-		if (active && !!payload.length) {
-			const {metricLabel, total} = this.props;
+		const {empty, metricLabel, total} = this.props;
 
+		if (!empty && active && !!payload.length) {
 			const {value, valueKey} = get(payload, [0, 'payload'], {});
 
 			return (
@@ -138,27 +118,36 @@ class WebBrowser extends React.Component {
 
 	render() {
 		const {
-			props: {browsers, empty, height, total},
+			props: {browsers, empty, height, metricLabel, total},
 			state: {hoverIndex}
 		} = this;
 
 		return (
 			<div className={CLASSNAME}>
-				{empty ? (
-					this.renderEmptyState()
-				) : (
-					<ResponsiveContainer height={height}>
-						<PieChart>
-							<Tooltip content={this.renderTooltip} />
+				<ResponsiveContainer height={height}>
+					<PieChart>
+						<Tooltip content={this.renderTooltip} />
 
-							{/* eslint-disable jsx-a11y/mouse-events-have-key-events
-							 */}
-							<Legend
-								align='right'
-								formatter={(
-									val,
-									{payload: {value, valueKey}}
-								) => (
+						{/* eslint-disable jsx-a11y/mouse-events-have-key-events
+						 */}
+						<Legend
+							align='right'
+							formatter={(val, {payload: {value, valueKey}}) => {
+								if (empty) {
+									return (
+										<NoResultsDisplay
+											className='empty-chart-text'
+											title={sub(
+												Liferay.Language.get(
+													'empty-message-metric'
+												),
+												[metricLabel.toLowerCase()]
+											)}
+										/>
+									);
+								}
+
+								return (
 									<>
 										<TextTruncate
 											inline
@@ -170,37 +159,55 @@ class WebBrowser extends React.Component {
 											{getChartPercentage(value, total)}
 										</span>
 									</>
-								)}
-								layout='vertical'
-								onMouseMove={(e, index) =>
-									this.setState({hoverIndex: index})
-								}
-								onMouseOut={() =>
-									this.setState({hoverIndex: -1})
-								}
-								verticalAlign='middle'
-							/>
+								);
+							}}
+							iconSize={empty ? 0 : 14}
+							layout='vertical'
+							onMouseMove={(e, index) =>
+								!empty && this.setState({hoverIndex: index})
+							}
+							onMouseOut={() =>
+								!empty && this.setState({hoverIndex: -1})
+							}
+							verticalAlign='middle'
+						/>
 
-							<Pie
-								activeIndex={hoverIndex}
-								activeShape={this.renderActiveShape}
-								blendStroke
-								cy={185}
-								data={browsers}
-								dataKey='value'
-								endAngle={-270}
-								innerRadius='50%'
-								isAnimationActive={false}
-								legendType='circle'
-								onMouseMove={(e, index) =>
-									this.setState({hoverIndex: index})
-								}
-								onMouseOut={() =>
-									this.setState({hoverIndex: -1})
-								}
-								startAngle={90}
-							>
-								{browsers.map((browser, index) => (
+						<Pie
+							activeIndex={hoverIndex}
+							activeShape={this.renderActiveShape}
+							blendStroke
+							className='col-7'
+							cy={185}
+							data={
+								empty
+									? [
+											{
+												color: EMPTY_CHART_COLOR,
+												value: 1
+											}
+									  ]
+									: browsers
+							}
+							dataKey='value'
+							endAngle={-270}
+							innerRadius='50%'
+							isAnimationActive={false}
+							legendType='circle'
+							onMouseMove={(e, index) =>
+								this.setState({hoverIndex: index})
+							}
+							onMouseOut={() => this.setState({hoverIndex: -1})}
+							startAngle={90}
+						>
+							{empty ? (
+								<Cell
+									fill={EMPTY_CHART_COLOR}
+									fillOpacity={1}
+									key='cell-empty'
+									strokeOpacity={1}
+								/>
+							) : (
+								browsers.map((browser, index) => (
 									<Cell
 										fill={Colors.pallete[index]}
 										fillOpacity={
@@ -217,12 +224,12 @@ class WebBrowser extends React.Component {
 												: 1
 										}
 									/>
-								))}
-							</Pie>
-							{/* eslint-enable jsx-a11y/mouse-events-have-key-events */}
-						</PieChart>
-					</ResponsiveContainer>
-				)}
+								))
+							)}
+						</Pie>
+						{/* eslint-enable jsx-a11y/mouse-events-have-key-events */}
+					</PieChart>
+				</ResponsiveContainer>
 			</div>
 		);
 	}

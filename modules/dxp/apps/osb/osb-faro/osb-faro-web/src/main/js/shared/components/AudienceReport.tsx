@@ -21,6 +21,7 @@ import {toFixedPoint, toRounded} from 'shared/util/numbers';
 const CLASSNAME = 'audience-report-chart';
 const CLASSNAME_DONUT = `${CLASSNAME}-donut`;
 const CLASSNAME_BAR_CHART = `${CLASSNAME}-bar`;
+const EMPTY_CHART_COLOR = '#E7E7ED';
 
 type Datapoint = {
 	color: string;
@@ -184,7 +185,13 @@ const Donut: React.FC<IDonutProps> = ({
 						cy={142}
 						data={
 							isEmpty
-								? [{color: '#E7E7ED', count: 1, label: 'empty'}]
+								? [
+										{
+											color: EMPTY_CHART_COLOR,
+											count: 1,
+											label: 'empty'
+										}
+								  ]
 								: data
 						}
 						dataKey='count'
@@ -203,7 +210,7 @@ const Donut: React.FC<IDonutProps> = ({
 
 						{isEmpty ? (
 							<Cell
-								fill='#E7E7ED'
+								fill={EMPTY_CHART_COLOR}
 								fillOpacity={1}
 								key='cell-empty'
 								strokeOpacity={1}
