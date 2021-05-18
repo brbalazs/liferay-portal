@@ -96,25 +96,15 @@ export enum PropertyTypes {
  * Constants for CriteriaBuilder component.
  */
 
-const {
-	AccountsFilter,
-	AccountsFilterByCount,
-	ActivitiesFilter,
-	ActivitiesFilterByCount,
-	InterestsFilter,
-	OrganizationsFilter,
-	SessionsFilter
-} = CustomFunctionOperators;
-const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
-
 export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
-	['accounts.filter']: AccountsFilter,
-	['accounts.filterByCount']: AccountsFilterByCount,
-	['activities.filter']: ActivitiesFilter,
-	['activities.filterByCount']: ActivitiesFilterByCount,
-	['interests.filter']: InterestsFilter,
-	['organizations.filter']: OrganizationsFilter,
-	['sessions.filter']: SessionsFilter
+	['accounts.filter']: CustomFunctionOperators.AccountsFilter,
+	['accounts.filterByCount']: CustomFunctionOperators.AccountsFilterByCount,
+	['activities.filter']: CustomFunctionOperators.ActivitiesFilter,
+	['activities.filterByCount']:
+		CustomFunctionOperators.ActivitiesFilterByCount,
+	['interests.filter']: CustomFunctionOperators.InterestsFilter,
+	['organizations.filter']: CustomFunctionOperators.OrganizationsFilter,
+	['sessions.filter']: CustomFunctionOperators.SessionsFilter
 };
 
 export const SUPPORTED_CONJUNCTIONS = [
@@ -133,23 +123,23 @@ export const SUPPORTED_CONJUNCTIONS = [
 export const SUPPORTED_OPERATORS_MAP = {
 	[PropertyTypes.AccountNumber]: [
 		{
-			key: AccountsFilter,
+			key: CustomFunctionOperators.AccountsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: AccountsFilter
+			name: CustomFunctionOperators.AccountsFilter
 		}
 	],
 	[PropertyTypes.AccountText]: [
 		{
-			key: AccountsFilter,
+			key: CustomFunctionOperators.AccountsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: AccountsFilter
+			name: CustomFunctionOperators.AccountsFilter
 		}
 	],
 	[PropertyTypes.Behavior]: [
 		{
-			key: ActivitiesFilterByCount,
+			key: CustomFunctionOperators.ActivitiesFilterByCount,
 			label: Liferay.Language.get('has-fragment'),
-			name: ActivitiesFilterByCount
+			name: CustomFunctionOperators.ActivitiesFilterByCount
 		},
 		{
 			key: NotOperators.NotActivitiesFilterByCount,
@@ -159,84 +149,84 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.Boolean]: [
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		}
 	],
 	[PropertyTypes.Date]: [
 		{
-			key: LT,
+			key: RelationalOperators.LT,
 			label: Liferay.Language.get('is-before-fragment'),
-			name: LT
+			name: RelationalOperators.LT
 		},
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		},
 		{
-			key: GT,
+			key: RelationalOperators.GT,
 			label: Liferay.Language.get('is-after-fragment'),
-			name: GT
+			name: RelationalOperators.GT
 		}
 	],
 	[PropertyTypes.DateTime]: [
 		{
-			key: LT,
+			key: RelationalOperators.LT,
 			label: Liferay.Language.get('is-before-fragment'),
-			name: LT
+			name: RelationalOperators.LT
 		},
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		},
 		{
-			key: GT,
+			key: RelationalOperators.GT,
 			label: Liferay.Language.get('is-after-fragment'),
-			name: GT
+			name: RelationalOperators.GT
 		}
 	],
 	[PropertyTypes.Duration]: [
 		{
-			key: GT,
+			key: RelationalOperators.GT,
 			label: Liferay.Language.get('greater-than-fragment'),
-			name: GT
+			name: RelationalOperators.GT
 		},
 		{
-			key: LT,
+			key: RelationalOperators.LT,
 			label: Liferay.Language.get('less-than-fragment'),
-			name: LT
+			name: RelationalOperators.LT
 		}
 	],
 	[PropertyTypes.Interest]: [
 		{
-			key: InterestsFilter,
+			key: CustomFunctionOperators.InterestsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: InterestsFilter
+			name: CustomFunctionOperators.InterestsFilter
 		}
 	],
 	[PropertyTypes.Number]: [
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-equal-to-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		},
 		{
-			key: GT,
+			key: RelationalOperators.GT,
 			label: Liferay.Language.get('greater-than-fragment'),
-			name: GT
+			name: RelationalOperators.GT
 		},
 		{
-			key: LT,
+			key: RelationalOperators.LT,
 			label: Liferay.Language.get('less-than-fragment'),
-			name: LT
+			name: RelationalOperators.LT
 		},
 		{
-			key: NE,
+			key: RelationalOperators.NE,
 			label: Liferay.Language.get('is-not-equal-to-fragment'),
-			name: NE
+			name: RelationalOperators.NE
 		},
 		{
 			key: isKnown,
@@ -251,37 +241,37 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.OrganizationBoolean]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationDate]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationDateTime]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationNumber]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationSelectText]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		},
 		{
 			key: NotOperators.NotOrganizationsFilter,
@@ -291,61 +281,61 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.OrganizationText]: [
 		{
-			key: OrganizationsFilter,
+			key: CustomFunctionOperators.OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: OrganizationsFilter
+			name: CustomFunctionOperators.OrganizationsFilter
 		}
 	],
 	[PropertyTypes.SelectText]: [
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		},
 		{
-			key: NE,
+			key: RelationalOperators.NE,
 			label: Liferay.Language.get('is-not-fragment'),
-			name: NE
+			name: RelationalOperators.NE
 		}
 	],
 	[PropertyTypes.SessionDateTime]: [
 		{
-			key: SessionsFilter,
+			key: CustomFunctionOperators.SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SessionsFilter
+			name: CustomFunctionOperators.SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionGeolocation]: [
 		{
-			key: SessionsFilter,
+			key: CustomFunctionOperators.SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SessionsFilter
+			name: CustomFunctionOperators.SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionNumber]: [
 		{
-			key: SessionsFilter,
+			key: CustomFunctionOperators.SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SessionsFilter
+			name: CustomFunctionOperators.SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionText]: [
 		{
-			key: SessionsFilter,
+			key: CustomFunctionOperators.SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SessionsFilter
+			name: CustomFunctionOperators.SessionsFilter
 		}
 	],
 	[PropertyTypes.Text]: [
 		{
-			key: EQ,
+			key: RelationalOperators.EQ,
 			label: Liferay.Language.get('is-fragment'),
-			name: EQ
+			name: RelationalOperators.EQ
 		},
 		{
-			key: NE,
+			key: RelationalOperators.NE,
 			label: Liferay.Language.get('is-not-fragment'),
-			name: NE
+			name: RelationalOperators.NE
 		},
 		{
 			key: FunctionalOperators.Contains,
@@ -371,24 +361,45 @@ export const SUPPORTED_OPERATORS_MAP = {
 };
 
 export const SUPPORTED_PROPERTY_TYPES_MAP = {
-	[PropertyTypes.AccountNumber]: [AccountsFilter],
-	[PropertyTypes.AccountText]: [AccountsFilter],
+	[PropertyTypes.AccountNumber]: [CustomFunctionOperators.AccountsFilter],
+	[PropertyTypes.AccountText]: [CustomFunctionOperators.AccountsFilter],
 	[PropertyTypes.Behavior]: [
-		ActivitiesFilterByCount,
+		CustomFunctionOperators.ActivitiesFilterByCount,
 		NotOperators.NotActivitiesFilterByCount
 	],
-	[PropertyTypes.Boolean]: [EQ],
-	[PropertyTypes.Date]: [EQ, GE, GT, LE, LT, NE],
-	[PropertyTypes.DateTime]: [EQ, GE, GT, LE, LT, NE],
-	[PropertyTypes.Duration]: [GT, LT],
-	[PropertyTypes.Interest]: [InterestsFilter],
-	[PropertyTypes.Number]: [EQ, GE, GT, LE, LT, NE],
+	[PropertyTypes.Boolean]: [RelationalOperators.EQ],
+	[PropertyTypes.Date]: [
+		RelationalOperators.EQ,
+		RelationalOperators.GE,
+		RelationalOperators.GT,
+		RelationalOperators.LE,
+		RelationalOperators.LT,
+		RelationalOperators.NE
+	],
+	[PropertyTypes.DateTime]: [
+		RelationalOperators.EQ,
+		RelationalOperators.GE,
+		RelationalOperators.GT,
+		RelationalOperators.LE,
+		RelationalOperators.LT,
+		RelationalOperators.NE
+	],
+	[PropertyTypes.Duration]: [RelationalOperators.GT, RelationalOperators.LT],
+	[PropertyTypes.Interest]: [CustomFunctionOperators.InterestsFilter],
+	[PropertyTypes.Number]: [
+		RelationalOperators.EQ,
+		RelationalOperators.GE,
+		RelationalOperators.GT,
+		RelationalOperators.LE,
+		RelationalOperators.LT,
+		RelationalOperators.NE
+	],
 	[PropertyTypes.SessionDateTime]: [PropertyTypes.SessionDateTime],
-	[PropertyTypes.SessionNumber]: [SessionsFilter],
-	[PropertyTypes.SessionText]: [SessionsFilter],
+	[PropertyTypes.SessionNumber]: [CustomFunctionOperators.SessionsFilter],
+	[PropertyTypes.SessionText]: [CustomFunctionOperators.SessionsFilter],
 	[PropertyTypes.Text]: [
-		EQ,
-		NE,
+		RelationalOperators.EQ,
+		RelationalOperators.NE,
 		FunctionalOperators.Contains,
 		NotOperators.NotContains,
 		DisplayOnlyOperators.IsKnown,
@@ -424,25 +435,25 @@ export const INTEREST_BOOLEAN_OPTIONS = [
 
 export const OCCURENCE_OPTIONS = [
 	{
-		key: GE,
+		key: RelationalOperators.GE,
 		label: Liferay.Language.get('at-least-fragment'),
-		value: GE
+		value: RelationalOperators.GE
 	},
 	{
-		key: 'le',
+		key: RelationalOperators.LE,
 		label: Liferay.Language.get('at-most-fragment'),
-		value: LE
+		value: RelationalOperators.LE
 	}
 ];
 
 export const GEOLOCATION_OPTIONS = [
 	{
 		label: Liferay.Language.get('was-fragment'),
-		value: EQ
+		value: RelationalOperators.EQ
 	},
 	{
 		label: Liferay.Language.get('was-not-fragment'),
-		value: NE
+		value: RelationalOperators.NE
 	},
 	{
 		label: Liferay.Language.get('contained-fragment'),
@@ -461,11 +472,11 @@ export const TIME_CONJUNCTION_OPTIONS = [
 	},
 	{
 		label: Liferay.Language.get('after-fragment'),
-		value: GT
+		value: RelationalOperators.GT
 	},
 	{
 		label: Liferay.Language.get('before-fragment'),
-		value: LT
+		value: RelationalOperators.LT
 	},
 	{
 		label: Liferay.Language.get('between-fragment'),
@@ -477,7 +488,7 @@ export const TIME_CONJUNCTION_OPTIONS = [
 	},
 	{
 		label: Liferay.Language.get('on-fragment'),
-		value: EQ
+		value: RelationalOperators.EQ
 	}
 ];
 
