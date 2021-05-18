@@ -14,7 +14,7 @@ import {
 	ORGANIZATION_PROPERTIES,
 	SESSION_PROPERTIES,
 	WEB_BEHAVIORS
-} from '../utils/constants';
+} from '../utils/properties';
 import {List} from 'immutable';
 import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';

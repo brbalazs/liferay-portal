@@ -2,20 +2,22 @@ import dateFns from 'date-fns';
 import {
 	Conjunctions,
 	CustomFunctionOperators,
-	INDIVIDUAL_PROPERTIES,
 	isKnown,
 	isUnknown,
 	NotOperators,
-	ORGANIZATION_PROPERTIES,
 	PropertyTypes,
-	SESSION_PROPERTIES,
-	SUPPORTED_OPERATORS_MAP,
-	WEB_BEHAVIORS
+	SUPPORTED_OPERATORS_MAP
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {getUid} from 'metal';
+import {
+	INDIVIDUAL_PROPERTIES,
+	ORGANIZATION_PROPERTIES,
+	SESSION_PROPERTIES,
+	WEB_BEHAVIORS
+} from '../utils/properties';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
 
