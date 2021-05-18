@@ -1,6 +1,6 @@
 import dateFns from 'date-fns';
 import {
-	CONJUNCTIONS,
+	Conjunctions,
 	CUSTOM_FUNCTION_OPERATORS,
 	isKnown,
 	isUnknown,
@@ -52,7 +52,7 @@ export const createInterestProperty = (name: string): Property =>
  * Creates a new group object with items.
  */
 export const createNewGroup = (items: Criteria[]): CriterionGroup => ({
-	conjunctionName: CONJUNCTIONS.AND,
+	conjunctionName: Conjunctions.AND,
 	criteriaGroupId: generateGroupId(),
 	items
 });

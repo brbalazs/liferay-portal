@@ -43,7 +43,7 @@ import {
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
-	CONJUNCTIONS,
+	Conjunctions,
 	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {connect} from 'react-redux';
@@ -221,7 +221,7 @@ export class Distribution extends React.Component {
 			filter.push(getFilter(RelationalOperators.LT, max));
 		}
 
-		return filter.join(` ${CONJUNCTIONS.AND} `);
+		return filter.join(` ${Conjunctions.AND} `);
 	}
 
 	@autobind

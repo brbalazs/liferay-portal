@@ -2,7 +2,7 @@ import * as data from 'test/data';
 import * as utils from '../utils';
 import {
 	ACTIVITY_KEY,
-	CONJUNCTIONS,
+	Conjunctions,
 	CUSTOM_FUNCTION_OPERATORS,
 	isKnown,
 	isUnknown,
@@ -20,7 +20,7 @@ const {
 	INTERESTS_FILTER,
 	SESSIONS_FILTER
 } = CUSTOM_FUNCTION_OPERATORS;
-const {AND} = CONJUNCTIONS;
+const {AND} = Conjunctions;
 const {EQ, GT} = RelationalOperators;
 
 describe('utils', () => {

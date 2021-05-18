@@ -6,7 +6,7 @@ import EmptyDropZone from './EmptyDropZone';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {Fragment} from 'react';
-import {CONJUNCTIONS, SUPPORTED_CONJUNCTIONS} from '../utils/constants';
+import {Conjunctions, SUPPORTED_CONJUNCTIONS} from '../utils/constants';
 import {
 	ConnectDragPreview,
 	ConnectDragSource,
@@ -157,7 +157,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 
 		if (root && !criteria) {
 			onChange({
-				conjunctionName: CONJUNCTIONS.AND,
+				conjunctionName: Conjunctions.AND,
 				criteriaGroupId: generateGroupId(),
 				items: [newCriterion]
 			});

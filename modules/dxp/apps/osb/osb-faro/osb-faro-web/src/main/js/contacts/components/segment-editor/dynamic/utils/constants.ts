@@ -18,10 +18,10 @@ export const INPUT_DISPLAY_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
  * Constants for OData query.
  */
 
-export const CONJUNCTIONS = {
-	AND: 'and',
-	OR: 'or'
-};
+export enum Conjunctions {
+	AND = 'and',
+	OR = 'or'
+}
 
 export const CUSTOM_FUNCTION_OPERATORS = {
 	ACCOUNTS_FILTER: 'accounts-filter',
@@ -105,7 +105,7 @@ const {
 	ORGANIZATIONS_FILTER,
 	SESSIONS_FILTER
 } = CUSTOM_FUNCTION_OPERATORS;
-const {AND, OR} = CONJUNCTIONS;
+const {AND, OR} = Conjunctions;
 const {BETWEEN, CONTAINS} = FUNCTIONAL_OPERATORS;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
 const {IS_KNOWN, IS_UNKNOWN} = DISPLAY_ONLY_OPERATORS;

@@ -1,5 +1,5 @@
 import {
-	CONJUNCTIONS,
+	Conjunctions,
 	CUSTOM_FUNCTION_OPERATOR_KEY_MAP,
 	CUSTOM_FUNCTION_OPERATORS,
 	FUNCTIONAL_OPERATORS,
@@ -64,7 +64,7 @@ const EDM_STRING = 'Edm.String';
  * constants.
  */
 const oDataV4ParserNameMap = {
-	[EXPRESSION_TYPES.AND]: CONJUNCTIONS.AND,
+	[EXPRESSION_TYPES.AND]: Conjunctions.AND,
 	between: OPERATORS.BETWEEN,
 	[EXPRESSION_TYPES.BOOL_PAREN]: GROUP,
 	contains: OPERATORS.CONTAINS,
@@ -74,7 +74,7 @@ const oDataV4ParserNameMap = {
 	[EXPRESSION_TYPES.LESSER_OR_EQUALS]: OPERATORS.LE,
 	[EXPRESSION_TYPES.LESSER_THAN]: OPERATORS.LT,
 	[EXPRESSION_TYPES.NOT_EQUALS]: OPERATORS.NE,
-	[EXPRESSION_TYPES.OR]: CONJUNCTIONS.OR
+	[EXPRESSION_TYPES.OR]: Conjunctions.OR
 };
 
 /**
@@ -339,9 +339,9 @@ const getChildExpressionName = (oDataASTNode: ODataASTNode): string =>
 const getConjunctionForGroup = (oDataASTNode: ODataASTNode): string => {
 	const childExpressionName = getChildExpressionName(oDataASTNode);
 
-	return isValueType(CONJUNCTIONS, childExpressionName)
+	return isValueType(Conjunctions, childExpressionName)
 		? childExpressionName
-		: CONJUNCTIONS.AND;
+		: Conjunctions.AND;
 };
 
 /**
@@ -469,7 +469,7 @@ const isRedundantGroup = ({
 	return (
 		lastNodeWasGroup ||
 		oDataV4ParserNameMap[prevConjunction] === nextNodeExpressionName ||
-		!isValueType(CONJUNCTIONS, nextNodeExpressionName)
+		!isValueType(Conjunctions, nextNodeExpressionName)
 	);
 };
 
@@ -572,7 +572,7 @@ const toCriteria = (context: Context): Criteria[] => {
 		criterion = transformCustomFunctionNode(context);
 	} else if (isValueType(RelationalOperators, expressionName)) {
 		criterion = transformOperatorNode(context);
-	} else if (isValueType(CONJUNCTIONS, expressionName)) {
+	} else if (isValueType(Conjunctions, expressionName)) {
 		criterion = transformConjunctionNode(context);
 	} else if (expressionName === GROUP) {
 		criterion = transformGroupNode(context);
@@ -878,7 +878,7 @@ const unescapeSingleQuotes = (text: string) => text.replace(/''/g, "'");
 export const wrapInCriteriaGroup = (
 	criteriaArray: Criteria[]
 ): CriterionGroup => ({
-	conjunctionName: CONJUNCTIONS.AND,
+	conjunctionName: Conjunctions.AND,
 	criteriaGroupId: generateGroupId(),
 	items: criteriaArray
 });

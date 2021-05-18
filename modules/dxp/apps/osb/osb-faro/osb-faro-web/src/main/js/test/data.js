@@ -19,7 +19,7 @@ import {
 	UserRoleNames
 } from 'shared/util/constants';
 import {
-	CONJUNCTIONS,
+	Conjunctions,
 	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {fromJS, List, Map} from 'immutable';
@@ -305,7 +305,7 @@ export function generateCriterion(customValues) {
 
 export function mockNewCriteria(numOfItems = 1, criterionParams) {
 	return {
-		conjunctionName: CONJUNCTIONS.AND,
+		conjunctionName: Conjunctions.AND,
 		groupId: 'group_01',
 		items: range(numOfItems).map(() => generateCriterion(criterionParams))
 	};
@@ -313,19 +313,19 @@ export function mockNewCriteria(numOfItems = 1, criterionParams) {
 
 export function mockNewCriteriaNested() {
 	return {
-		conjunctionName: CONJUNCTIONS.AND,
+		conjunctionName: Conjunctions.AND,
 		groupId: 'group_01',
 		items: [
 			{
-				conjunctionName: CONJUNCTIONS.OR,
+				conjunctionName: Conjunctions.OR,
 				groupId: 'group_02',
 				items: [
 					{
-						conjunctionName: CONJUNCTIONS.AND,
+						conjunctionName: Conjunctions.AND,
 						groupId: 'group_03',
 						items: [
 							{
-								conjunctionName: CONJUNCTIONS.OR,
+								conjunctionName: Conjunctions.OR,
 								groupId: 'group_04',
 								items: range(2).map(generateCriterion)
 							},
