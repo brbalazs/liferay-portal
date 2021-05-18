@@ -9,65 +9,42 @@ import {
 	RELATIONAL_OPERATORS,
 	SUPPORTED_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
-import {PROPERTY_TYPES} from 'contacts/components/segment-editor/dynamic/utils/constants';
-
-const {
-	ACCOUNT_NUMBER,
-	ACCOUNT_TEXT,
-	BEHAVIOR,
-	BOOLEAN,
-	DATE,
-	DATE_TIME,
-	DURATION,
-	INTEREST,
-	NUMBER,
-	ORGANIZATION_BOOLEAN,
-	ORGANIZATION_DATE,
-	ORGANIZATION_DATE_TIME,
-	ORGANIZATION_NUMBER,
-	ORGANIZATION_SELECT_TEXT,
-	ORGANIZATION_TEXT,
-	SESSION_DATE_TIME,
-	SESSION_GEOLOCATION,
-	SESSION_NUMBER,
-	SESSION_TEXT,
-	TEXT
-} = PROPERTY_TYPES;
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 export function getOperatorLabel(operatorKey: string, type: string): string {
 	let supportedOperators;
 
 	switch (type) {
-		case ACCOUNT_NUMBER:
-		case ACCOUNT_TEXT:
+		case PropertyTypes.AccountNumber:
+		case PropertyTypes.AccountText:
 			supportedOperators =
 				SUPPORTED_OPERATORS[type.replace('account-', '')];
 			break;
-		case ORGANIZATION_BOOLEAN:
-		case ORGANIZATION_DATE:
-		case ORGANIZATION_DATE_TIME:
-		case ORGANIZATION_NUMBER:
-		case ORGANIZATION_TEXT:
+		case PropertyTypes.OrganizationBoolean:
+		case PropertyTypes.OrganizationDate:
+		case PropertyTypes.OrganizationDateTime:
+		case PropertyTypes.OrganizationNumber:
+		case PropertyTypes.OrganizationText:
 			supportedOperators =
 				SUPPORTED_OPERATORS[type.replace('organization-', '')];
 			break;
-		case SESSION_DATE_TIME:
-		case SESSION_NUMBER:
-		case SESSION_TEXT:
+		case PropertyTypes.SessionDateTime:
+		case PropertyTypes.SessionNumber:
+		case PropertyTypes.SessionText:
 			supportedOperators =
 				SUPPORTED_OPERATORS[type.replace('session-', '')];
 			break;
-		case SESSION_GEOLOCATION:
+		case PropertyTypes.SessionGeolocation:
 			supportedOperators = GEOLOCATION_OPTIONS;
 			break;
-		case BEHAVIOR:
-		case BOOLEAN:
-		case DATE:
-		case DATE_TIME:
-		case DURATION:
-		case NUMBER:
-		case ORGANIZATION_SELECT_TEXT:
-		case TEXT:
+		case PropertyTypes.Behavior:
+		case PropertyTypes.Boolean:
+		case PropertyTypes.Date:
+		case PropertyTypes.DateTime:
+		case PropertyTypes.Duration:
+		case PropertyTypes.Number:
+		case PropertyTypes.OrganizationSelectText:
+		case PropertyTypes.Text:
 		default:
 			supportedOperators = SUPPORTED_OPERATORS[type];
 	}
@@ -100,28 +77,28 @@ export function maybeFormatValue(
 	timeZoneId?: string
 ): string | number {
 	switch (type) {
-		case ACCOUNT_TEXT:
-		case BEHAVIOR:
-		case INTEREST:
-		case SESSION_GEOLOCATION:
-		case SESSION_TEXT:
-		case TEXT:
+		case PropertyTypes.AccountText:
+		case PropertyTypes.Behavior:
+		case PropertyTypes.Interest:
+		case PropertyTypes.SessionGeolocation:
+		case PropertyTypes.SessionText:
+		case PropertyTypes.Text:
 			return `"${value}"`;
-		case BOOLEAN:
+		case PropertyTypes.Boolean:
 			return value.toUpperCase();
-		case DATE:
+		case PropertyTypes.Date:
 			return moment(value).format(INPUT_DATE_FORMAT);
-		case DATE_TIME:
-		case SESSION_DATE_TIME:
+		case PropertyTypes.DateTime:
+		case PropertyTypes.SessionDateTime:
 			return formatDateToTimeZone(
 				value,
 				INPUT_DISPLAY_DATE_TIME_FORMAT,
 				timeZoneId
 			);
-		case ACCOUNT_NUMBER:
-		case DURATION:
-		case NUMBER:
-		case SESSION_NUMBER:
+		case PropertyTypes.AccountNumber:
+		case PropertyTypes.Duration:
+		case PropertyTypes.Number:
+		case PropertyTypes.SessionNumber:
 		default:
 			return value;
 	}

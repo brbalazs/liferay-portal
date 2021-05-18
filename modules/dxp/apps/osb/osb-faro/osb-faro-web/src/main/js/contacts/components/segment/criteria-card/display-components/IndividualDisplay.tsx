@@ -13,9 +13,7 @@ import {
 } from '../utils';
 import {IDisplayComponentProps} from '../types';
 import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
-import {PROPERTY_TYPES} from 'contacts/components/segment-editor/dynamic/utils/constants';
-
-const {DURATION, SELECT_TEXT} = PROPERTY_TYPES;
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
@@ -40,7 +38,7 @@ const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 
 	const renderContent = () => {
 		switch (type) {
-			case SELECT_TEXT:
+			case PropertyTypes.SelectText:
 				return (
 					<ReferencedEntityDisplay
 						id={value}
@@ -48,7 +46,7 @@ const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 						type={ENTITY_MAP[propertyName]}
 					/>
 				);
-			case DURATION:
+			case PropertyTypes.Duration:
 				return getDurationFormat(value);
 			default:
 				return <b>{maybeFormatValue(value, type, timeZoneId)}</b>;

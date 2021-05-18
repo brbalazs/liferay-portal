@@ -6,7 +6,7 @@ import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	INPUT_DATE_TIME_FORMAT,
 	INPUT_DISPLAY_DATE_TIME_FORMAT,
-	PROPERTY_TYPES
+	PropertyTypes
 } from '../utils/constants';
 import {ISegmentEditorInputBase} from '../utils/types';
 
@@ -33,7 +33,7 @@ export default class DateTimeInput extends React.Component<IDateTimeInputProps> 
 	@autobind
 	handleDateChange(value) {
 		this.props.onChange({
-			type: PROPERTY_TYPES.DATE,
+			type: PropertyTypes.Date,
 			value: formatDateToTimeZone(value, null, 'UTC')
 		});
 	}

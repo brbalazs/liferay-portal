@@ -3,11 +3,10 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {fromJS} from 'immutable';
 import {Property} from 'shared/util/records';
-import {PROPERTY_TYPES, RELATIONAL_OPERATORS} from '../../utils/constants';
+import {PropertyTypes, RELATIONAL_OPERATORS} from '../../utils/constants';
 
 jest.unmock('react-dom');
 
-const {ACCOUNT_NUMBER} = PROPERTY_TYPES;
 const {EQ} = RELATIONAL_OPERATORS;
 
 describe('AccountInput', () => {
@@ -27,7 +26,7 @@ describe('AccountInput', () => {
 	it('should render a CustomNumberInput', () => {
 		const {queryByText} = render(
 			<AccountInput
-				property={new Property({type: ACCOUNT_NUMBER})}
+				property={new Property({type: PropertyTypes.AccountNumber})}
 				value={fromJS({criterionGroup: {items: [{operatorName: EQ}]}})}
 			/>
 		);

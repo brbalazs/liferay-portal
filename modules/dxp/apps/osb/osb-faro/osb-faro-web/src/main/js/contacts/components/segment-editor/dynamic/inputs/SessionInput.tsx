@@ -13,9 +13,7 @@ import {
 } from '../utils/custom-inputs';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {isNull} from 'lodash';
-import {PROPERTY_TYPES} from '../utils/constants';
-
-const {SESSION_NUMBER} = PROPERTY_TYPES;
+import {PropertyTypes} from '../utils/constants';
 
 interface ISessionInputProps extends ISegmentEditorCustomInputBase {
 	touched: {
@@ -93,7 +91,7 @@ export default class SessionInput extends React.Component<ISessionInputProps> {
 	renderCustomInput() {
 		const {property, touched, valid} = this.props;
 
-		if (property.type === SESSION_NUMBER) {
+		if (property.type === PropertyTypes.SessionNumber) {
 			return (
 				<CustomNumberInput
 					{...this.props}

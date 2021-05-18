@@ -6,28 +6,28 @@ import {Criterion} from '../utils/types';
 import {DragTypes} from '../utils/drag-types';
 import {generateRowId} from '../utils/utils';
 import {Property} from 'shared/util/records';
-import {PROPERTY_TYPES} from '../utils/constants';
+import {PropertyTypes} from '../utils/constants';
 
 const TYPE_ICON_MAP = {
-	[PROPERTY_TYPES.BEHAVIOR]: 'web-content',
-	[PROPERTY_TYPES.BOOLEAN]: 'check',
-	[PROPERTY_TYPES.ACCOUNT_NUMBER]: 'integer',
-	[PROPERTY_TYPES.ACCOUNT_TEXT]: 'text',
-	[PROPERTY_TYPES.DATE]: 'date',
-	[PROPERTY_TYPES.DATE_TIME]: 'date',
-	[PROPERTY_TYPES.DURATION]: 'time',
-	[PROPERTY_TYPES.NUMBER]: 'integer',
-	[PROPERTY_TYPES.ORGANIZATION_BOOLEAN]: 'check',
-	[PROPERTY_TYPES.ORGANIZATION_DATE]: 'date',
-	[PROPERTY_TYPES.ORGANIZATION_DATE_TIME]: 'date',
-	[PROPERTY_TYPES.ORGANIZATION_NUMBER]: 'integer',
-	[PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT]: 'text',
-	[PROPERTY_TYPES.ORGANIZATION_TEXT]: 'text',
-	[PROPERTY_TYPES.SESSION_DATE_TIME]: 'date',
-	[PROPERTY_TYPES.SESSION_NUMBER]: 'integer',
-	[PROPERTY_TYPES.SESSION_TEXT]: 'text',
-	[PROPERTY_TYPES.INTEREST]: 'check',
-	[PROPERTY_TYPES.TEXT]: 'text'
+	[PropertyTypes.Behavior]: 'web-content',
+	[PropertyTypes.Boolean]: 'check',
+	[PropertyTypes.AccountNumber]: 'integer',
+	[PropertyTypes.AccountText]: 'text',
+	[PropertyTypes.Date]: 'date',
+	[PropertyTypes.DateTime]: 'date',
+	[PropertyTypes.Duration]: 'time',
+	[PropertyTypes.Number]: 'integer',
+	[PropertyTypes.OrganizationBoolean]: 'check',
+	[PropertyTypes.OrganizationDate]: 'date',
+	[PropertyTypes.OrganizationDateTime]: 'date',
+	[PropertyTypes.OrganizationNumber]: 'integer',
+	[PropertyTypes.OrganizationSelectText]: 'text',
+	[PropertyTypes.OrganizationText]: 'text',
+	[PropertyTypes.SessionDateTime]: 'date',
+	[PropertyTypes.SessionNumber]: 'integer',
+	[PropertyTypes.SessionText]: 'text',
+	[PropertyTypes.Interest]: 'check',
+	[PropertyTypes.Text]: 'text'
 };
 
 /**
@@ -45,7 +45,7 @@ const beginDrag = ({
 	defaultValue: any;
 	name: string;
 	property: Property;
-	type: string;
+	type: PropertyTypes;
 }): {
 	criterion: Criterion;
 	property: Property;
@@ -53,30 +53,28 @@ const beginDrag = ({
 	let touched: boolean | object = false;
 	let valid: boolean | object = true;
 
-	if (type === PROPERTY_TYPES.BEHAVIOR) {
+	if (type === PropertyTypes.Behavior) {
 		touched = {asset: false, dateFilter: false, occurenceCount: false};
 		valid = {asset: false, dateFilter: true, occurenceCount: true};
-	} else if (type === PROPERTY_TYPES.SESSION_GEOLOCATION) {
+	} else if (type === PropertyTypes.SessionGeolocation) {
 		touched = {country: false, dateFilter: false};
 		valid = {country: false, dateFilter: true};
 	} else if (
-		[PROPERTY_TYPES.SESSION_NUMBER, PROPERTY_TYPES.SESSION_TEXT].includes(
-			type
-		)
+		[PropertyTypes.SessionNumber, PropertyTypes.SessionText].includes(type)
 	) {
 		touched = {customInput: false, dateFilter: false};
 		valid = {customInput: false, dateFilter: true};
 	} else if (
 		[
-			PROPERTY_TYPES.ACCOUNT_NUMBER,
-			PROPERTY_TYPES.ACCOUNT_TEXT,
-			PROPERTY_TYPES.DURATION,
-			PROPERTY_TYPES.NUMBER,
-			PROPERTY_TYPES.ORGANIZATION_NUMBER,
-			PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT,
-			PROPERTY_TYPES.ORGANIZATION_TEXT,
-			PROPERTY_TYPES.SELECT_TEXT,
-			PROPERTY_TYPES.TEXT
+			PropertyTypes.AccountNumber,
+			PropertyTypes.AccountText,
+			PropertyTypes.Duration,
+			PropertyTypes.Number,
+			PropertyTypes.OrganizationNumber,
+			PropertyTypes.OrganizationSelectText,
+			PropertyTypes.OrganizationText,
+			PropertyTypes.SelectText,
+			PropertyTypes.Text
 		].includes(type)
 	) {
 		valid = false;

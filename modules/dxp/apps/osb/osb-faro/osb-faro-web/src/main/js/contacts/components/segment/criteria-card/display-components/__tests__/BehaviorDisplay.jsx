@@ -4,7 +4,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
 	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
@@ -61,7 +61,7 @@ describe('BehaviorDisplay', () => {
 		label: 'Viewed Page',
 		name: 'pageViewed',
 		propertykey: 'web',
-		type: PROPERTY_TYPES.BEHAVIOR
+		type: PropertyTypes.Behavior
 	});
 
 	afterEach(cleanup);

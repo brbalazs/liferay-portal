@@ -51,7 +51,7 @@ import {get} from 'lodash';
 import {
 	isKnown,
 	isUnknown,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS
 } from '../utils/constants';
 import {Map} from 'immutable';
@@ -377,32 +377,32 @@ class CriteriaRow extends React.Component<
 		const {label, options, type} = selectedProperty;
 
 		const inputComponentsMap = {
-			[PROPERTY_TYPES.BEHAVIOR]: BehaviorInput,
-			[PROPERTY_TYPES.BOOLEAN]: BooleanInput,
-			[PROPERTY_TYPES.ACCOUNT_NUMBER]: AccountInput,
-			[PROPERTY_TYPES.ACCOUNT_TEXT]: AccountInput,
-			[PROPERTY_TYPES.DATE]: DateInput,
-			[PROPERTY_TYPES.DATE_TIME]: DateTimeInput,
-			[PROPERTY_TYPES.DURATION]: DurationInput,
-			[PROPERTY_TYPES.INTEREST]: InterestBooleanInput,
-			[PROPERTY_TYPES.NUMBER]: NumberInput,
-			[PROPERTY_TYPES.ORGANIZATION_BOOLEAN]: CustomBooleanInput,
-			[PROPERTY_TYPES.ORGANIZATION_NUMBER]: CustomNumberInput,
-			[PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT]: OrganizationSelectInput,
-			[PROPERTY_TYPES.ORGANIZATION_TEXT]: OrganizationTextInput,
-			[PROPERTY_TYPES.ORGANIZATION_DATE]: CustomDateInput,
-			[PROPERTY_TYPES.ORGANIZATION_DATE_TIME]: CustomDateTimeInput,
-			[PROPERTY_TYPES.SELECT_TEXT]: IndividualSelectInput,
-			[PROPERTY_TYPES.SESSION_DATE_TIME]: CustomDateTimeInput,
-			[PROPERTY_TYPES.SESSION_GEOLOCATION]: GeolocationInput,
-			[PROPERTY_TYPES.SESSION_NUMBER]: SessionInput,
-			[PROPERTY_TYPES.SESSION_TEXT]: SessionInput,
-			[PROPERTY_TYPES.TEXT]: StringInput
+			[PropertyTypes.Behavior]: BehaviorInput,
+			[PropertyTypes.Boolean]: BooleanInput,
+			[PropertyTypes.AccountNumber]: AccountInput,
+			[PropertyTypes.AccountText]: AccountInput,
+			[PropertyTypes.Date]: DateInput,
+			[PropertyTypes.DateTime]: DateTimeInput,
+			[PropertyTypes.Duration]: DurationInput,
+			[PropertyTypes.Interest]: InterestBooleanInput,
+			[PropertyTypes.Number]: NumberInput,
+			[PropertyTypes.OrganizationBoolean]: CustomBooleanInput,
+			[PropertyTypes.OrganizationNumber]: CustomNumberInput,
+			[PropertyTypes.OrganizationSelectText]: OrganizationSelectInput,
+			[PropertyTypes.OrganizationText]: OrganizationTextInput,
+			[PropertyTypes.OrganizationDate]: CustomDateInput,
+			[PropertyTypes.OrganizationDateTime]: CustomDateTimeInput,
+			[PropertyTypes.SelectText]: IndividualSelectInput,
+			[PropertyTypes.SessionDateTime]: CustomDateTimeInput,
+			[PropertyTypes.SessionGeolocation]: GeolocationInput,
+			[PropertyTypes.SessionNumber]: SessionInput,
+			[PropertyTypes.SessionText]: SessionInput,
+			[PropertyTypes.Text]: StringInput
 		};
 
 		const InputComponent: React.ElementType =
 			inputComponentsMap[type || criterion.type] ||
-			inputComponentsMap[PROPERTY_TYPES.TEXT];
+			inputComponentsMap[PropertyTypes.Text];
 
 		return (
 			<InputComponent

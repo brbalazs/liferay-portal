@@ -2,7 +2,7 @@ import CriteriaSidebarItem from './CriteriaSidebarItem';
 import React from 'react';
 import {
 	ACTIVITY_KEY,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
 	TimeSpans
 } from '../utils/constants';
@@ -18,13 +18,13 @@ const getDefaultValue = (property: Property): any => {
 	const {name, options, type} = property;
 
 	switch (type) {
-		case PROPERTY_TYPES.DATE:
+		case PropertyTypes.Date:
 			return jsDatetoYYYYMMDD(new Date());
-		case PROPERTY_TYPES.DATE_TIME:
+		case PropertyTypes.DateTime:
 			return new Date().toISOString();
-		case PROPERTY_TYPES.SESSION_DATE_TIME:
-		case PROPERTY_TYPES.ORGANIZATION_DATE:
-		case PROPERTY_TYPES.ORGANIZATION_DATE_TIME:
+		case PropertyTypes.SessionDateTime:
+		case PropertyTypes.OrganizationDate:
+		case PropertyTypes.OrganizationDateTime:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -37,9 +37,9 @@ const getDefaultValue = (property: Property): any => {
 					]
 				}
 			]);
-		case PROPERTY_TYPES.BOOLEAN:
+		case PropertyTypes.Boolean:
 			return 'true';
-		case PROPERTY_TYPES.INTEREST:
+		case PropertyTypes.Interest:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -57,11 +57,11 @@ const getDefaultValue = (property: Property): any => {
 					]
 				}
 			]);
-		case PROPERTY_TYPES.ACCOUNT_NUMBER:
-		case PROPERTY_TYPES.ACCOUNT_TEXT:
-		case PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT:
-		case PROPERTY_TYPES.ORGANIZATION_TEXT:
-		case PROPERTY_TYPES.ORGANIZATION_NUMBER:
+		case PropertyTypes.AccountNumber:
+		case PropertyTypes.AccountText:
+		case PropertyTypes.OrganizationSelectText:
+		case PropertyTypes.OrganizationText:
+		case PropertyTypes.OrganizationNumber:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -74,7 +74,7 @@ const getDefaultValue = (property: Property): any => {
 					]
 				}
 			]);
-		case PROPERTY_TYPES.BEHAVIOR:
+		case PropertyTypes.Behavior:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -94,7 +94,7 @@ const getDefaultValue = (property: Property): any => {
 				{key: 'operator', value: RELATIONAL_OPERATORS.GE},
 				{key: 'value', value: 1}
 			]);
-		case PROPERTY_TYPES.ORGANIZATION_BOOLEAN:
+		case PropertyTypes.OrganizationBoolean:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -107,9 +107,9 @@ const getDefaultValue = (property: Property): any => {
 					]
 				}
 			]);
-		case PROPERTY_TYPES.SESSION_GEOLOCATION:
-		case PROPERTY_TYPES.SESSION_NUMBER:
-		case PROPERTY_TYPES.SESSION_TEXT:
+		case PropertyTypes.SessionGeolocation:
+		case PropertyTypes.SessionNumber:
+		case PropertyTypes.SessionText:
 			return createCustomValueMap([
 				{
 					key: 'criterionGroup',
@@ -127,7 +127,7 @@ const getDefaultValue = (property: Property): any => {
 					]
 				}
 			]);
-		case PROPERTY_TYPES.TEXT:
+		case PropertyTypes.Text:
 			if (options && !!options.length) {
 				return options[0].value;
 			}

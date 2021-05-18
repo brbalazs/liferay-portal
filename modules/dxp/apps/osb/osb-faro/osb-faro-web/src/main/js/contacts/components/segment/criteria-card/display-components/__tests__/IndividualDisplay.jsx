@@ -4,7 +4,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {Property, Segment} from 'shared/util/records';
 import {
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
@@ -25,7 +25,7 @@ describe('IndividualDisplay', () => {
 		label: 'name',
 		name: propertyName,
 		propertykey: 'individual',
-		type: PROPERTY_TYPES.TEXT
+		type: PropertyTypes.Text
 	});
 
 	afterEach(cleanup);
@@ -74,7 +74,7 @@ describe('IndividualDisplay', () => {
 						label: 'Duration',
 						name: 'demographics/duration/value',
 						propertykey: 'duration',
-						type: PROPERTY_TYPES.DURATION
+						type: PropertyTypes.Duration
 					}
 				)}
 			/>
@@ -117,7 +117,7 @@ describe('IndividualDisplay', () => {
 							entityName: 'Individual',
 							label: 'Role',
 							name: 'roleIds',
-							type: PROPERTY_TYPES.SELECT_TEXT
+							type: PropertyTypes.SelectText
 						}
 					)}
 				/>

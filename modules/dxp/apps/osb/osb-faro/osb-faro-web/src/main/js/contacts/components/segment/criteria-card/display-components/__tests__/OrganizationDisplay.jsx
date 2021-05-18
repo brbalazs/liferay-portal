@@ -7,7 +7,7 @@ import {
 	CUSTOM_FUNCTION_OPERATORS,
 	FUNCTIONAL_OPERATORS,
 	isKnown,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {Property, Segment} from 'shared/util/records';
@@ -37,7 +37,7 @@ const mockProperty = {
 	label: 'Name',
 	name: 'name',
 	propertykey: 'organization',
-	type: PROPERTY_TYPES.ORGANIZATION_TEXT
+	type: PropertyTypes.OrganizationText
 };
 
 const defaultProps = {
@@ -102,7 +102,7 @@ describe('OrganizationDisplay', () => {
 						...mockProperty,
 						label: 'Date Modified',
 						name: 'dateModified',
-						type: PROPERTY_TYPES.ORGANIZATION_DATE_TIME
+						type: PropertyTypes.OrganizationDateTime
 					}
 				)}
 			/>
@@ -162,7 +162,7 @@ describe('OrganizationDisplay', () => {
 						...mockProperty,
 						label: 'Organization',
 						name: 'organization',
-						type: PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT
+						type: PropertyTypes.OrganizationSelectText
 					}
 				)}
 			/>

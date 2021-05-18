@@ -15,9 +15,7 @@ import {
 import {IDisplayComponentProps} from '../types';
 import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
 import {Map} from 'immutable';
-import {PROPERTY_TYPES} from 'contacts/components/segment-editor/dynamic/utils/constants';
-
-const {SESSION_DATE_TIME, SESSION_GEOLOCATION} = PROPERTY_TYPES;
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
@@ -38,7 +36,7 @@ const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 
 	let values = [0];
 
-	if (type === SESSION_GEOLOCATION) {
+	if (type === PropertyTypes.SessionGeolocation) {
 		const cityIndex = getIndexFromPropertyName(valueIMap, 'context/city');
 		const countryIndex = getIndexFromPropertyName(
 			valueIMap,
@@ -80,7 +78,7 @@ const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 				</b>
 			)}
 
-			{type !== SESSION_DATE_TIME && (
+			{type !== PropertyTypes.SessionDateTime && (
 				<DateFilterConjunctionDisplay
 					conjunctionCriterion={conjunctionCriterion}
 				/>

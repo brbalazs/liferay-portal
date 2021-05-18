@@ -3,13 +3,11 @@ import SessionInput from '../SessionInput';
 import {cleanup, render} from '@testing-library/react';
 import {fromJS} from 'immutable';
 import {Property} from 'shared/util/records';
-import {PROPERTY_TYPES, RELATIONAL_OPERATORS} from '../../utils/constants';
+import {PropertyTypes, RELATIONAL_OPERATORS} from '../../utils/constants';
 
 jest.unmock('react-dom');
 
 const {EQ} = RELATIONAL_OPERATORS;
-const {SESSION_NUMBER} = PROPERTY_TYPES;
-
 describe('SessionInput', () => {
 	afterEach(cleanup);
 
@@ -60,7 +58,7 @@ describe('SessionInput', () => {
 		const {getByTestId} = render(
 			<SessionInput
 				operatorRenderer={() => <div>{'operator'}</div>}
-				property={new Property({type: SESSION_NUMBER})}
+				property={new Property({type: PropertyTypes.SessionNumber})}
 				touched={{customInput: true, dateFilter: true}}
 				valid={{customInput: true, dateFilter: true}}
 				value={fromJS({

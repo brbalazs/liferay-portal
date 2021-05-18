@@ -5,7 +5,7 @@ import {
 	isKnown,
 	isUnknown,
 	NOT_OPERATORS,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	SUPPORTED_OPERATORS
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
@@ -223,7 +223,7 @@ export const findPropertyByCriterion = (
 		);
 	} else if (
 		[SESSIONS_FILTER, NOT_SESSIONS_FILTER].includes(operatorName) ||
-		type === PROPERTY_TYPES.SESSION_DATE_TIME
+		type === PropertyTypes.SessionDateTime
 	) {
 		return SESSION_PROPERTIES.find(({name}) => name === propertyName);
 	} else if (operatorName === INTERESTS_FILTER) {

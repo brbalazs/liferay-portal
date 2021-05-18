@@ -6,9 +6,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import {getPropertyValue} from '../utils/custom-inputs';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
-import {PROPERTY_TYPES} from '../utils/constants';
-
-const {ACCOUNT_NUMBER} = PROPERTY_TYPES;
+import {PropertyTypes} from '../utils/constants';
 
 interface IAccountInputProps extends ISegmentEditorCustomInputBase {
 	touched: boolean;
@@ -38,7 +36,7 @@ export default class AccountInput extends React.Component<IAccountInputProps> {
 			property: {type}
 		} = this.props;
 
-		if (type === ACCOUNT_NUMBER) {
+		if (type === PropertyTypes.AccountNumber) {
 			return <CustomNumberInput {...this.props} />;
 		}
 

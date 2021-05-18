@@ -77,29 +77,29 @@ export const RELATIONAL_OPERATORS = {
  * Constants to match property types in the passed in supportedProperties array.
  */
 
-export const PROPERTY_TYPES = {
-	ACCOUNT_NUMBER: 'account-number',
-	ACCOUNT_TEXT: 'account-text',
-	BEHAVIOR: 'behavior',
-	BOOLEAN: 'boolean',
-	DATE: 'date',
-	DATE_TIME: 'date-time',
-	DURATION: 'duration',
-	INTEREST: 'interest',
-	NUMBER: 'number',
-	ORGANIZATION_BOOLEAN: 'organization-boolean',
-	ORGANIZATION_DATE: 'organization-date',
-	ORGANIZATION_DATE_TIME: 'organization-date-time',
-	ORGANIZATION_NUMBER: 'organization-number',
-	ORGANIZATION_SELECT_TEXT: 'organization-select-text',
-	ORGANIZATION_TEXT: 'organization-text',
-	SELECT_TEXT: 'select-text',
-	SESSION_DATE_TIME: 'session-date-time',
-	SESSION_GEOLOCATION: 'session-geolocation',
-	SESSION_NUMBER: 'session-number',
-	SESSION_TEXT: 'session-text',
-	TEXT: 'text'
-};
+export enum PropertyTypes {
+	AccountNumber = 'account-number',
+	AccountText = 'account-text',
+	Behavior = 'behavior',
+	Boolean = 'boolean',
+	Date = 'date',
+	DateTime = 'date-time',
+	Duration = 'duration',
+	Interest = 'interest',
+	Number = 'number',
+	OrganizationBoolean = 'organization-boolean',
+	OrganizationDate = 'organization-date',
+	OrganizationDateTime = 'organization-date-time',
+	OrganizationNumber = 'organization-number',
+	OrganizationSelectText = 'organization-select-text',
+	OrganizationText = 'organization-text',
+	SelectText = 'select-text',
+	SessionDateTime = 'session-date-time',
+	SessionGeolocation = 'session-geolocation',
+	SessionNumber = 'session-number',
+	SessionText = 'session-text',
+	Text = 'text'
+}
 
 /**
  * Constants for CriteriaBuilder component.
@@ -123,30 +123,6 @@ const {
 	NOT_CONTAINS,
 	NOT_ORGANIZATIONS_FILTER
 } = NOT_OPERATORS;
-
-const {
-	ACCOUNT_NUMBER,
-	ACCOUNT_TEXT,
-	BEHAVIOR,
-	BOOLEAN,
-	DATE,
-	DATE_TIME,
-	DURATION,
-	INTEREST,
-	NUMBER,
-	ORGANIZATION_BOOLEAN,
-	ORGANIZATION_DATE,
-	ORGANIZATION_DATE_TIME,
-	ORGANIZATION_NUMBER,
-	ORGANIZATION_SELECT_TEXT,
-	ORGANIZATION_TEXT,
-	SELECT_TEXT,
-	SESSION_DATE_TIME,
-	SESSION_GEOLOCATION,
-	SESSION_NUMBER,
-	SESSION_TEXT,
-	TEXT
-} = PROPERTY_TYPES;
 
 export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
 	['accounts.filter']: ACCOUNTS_FILTER,
@@ -172,21 +148,21 @@ export const SUPPORTED_CONJUNCTIONS = [
 ];
 
 export const SUPPORTED_OPERATORS = {
-	[ACCOUNT_NUMBER]: [
+	[PropertyTypes.AccountNumber]: [
 		{
 			key: ACCOUNTS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ACCOUNTS_FILTER
 		}
 	],
-	[ACCOUNT_TEXT]: [
+	[PropertyTypes.AccountText]: [
 		{
 			key: ACCOUNTS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ACCOUNTS_FILTER
 		}
 	],
-	[BEHAVIOR]: [
+	[PropertyTypes.Behavior]: [
 		{
 			key: ACTIVITIES_FILTER_BY_COUNT,
 			label: Liferay.Language.get('has-fragment'),
@@ -198,14 +174,14 @@ export const SUPPORTED_OPERATORS = {
 			name: NOT_ACTIVITIES_FILTER_BY_COUNT
 		}
 	],
-	[BOOLEAN]: [
+	[PropertyTypes.Boolean]: [
 		{
 			key: EQ,
 			label: Liferay.Language.get('is-fragment'),
 			name: EQ
 		}
 	],
-	[DATE]: [
+	[PropertyTypes.Date]: [
 		{
 			key: LT,
 			label: Liferay.Language.get('is-before-fragment'),
@@ -222,7 +198,7 @@ export const SUPPORTED_OPERATORS = {
 			name: GT
 		}
 	],
-	[DATE_TIME]: [
+	[PropertyTypes.DateTime]: [
 		{
 			key: LT,
 			label: Liferay.Language.get('is-before-fragment'),
@@ -239,7 +215,7 @@ export const SUPPORTED_OPERATORS = {
 			name: GT
 		}
 	],
-	[DURATION]: [
+	[PropertyTypes.Duration]: [
 		{
 			key: GT,
 			label: Liferay.Language.get('greater-than-fragment'),
@@ -251,14 +227,14 @@ export const SUPPORTED_OPERATORS = {
 			name: LT
 		}
 	],
-	[INTEREST]: [
+	[PropertyTypes.Interest]: [
 		{
 			key: INTERESTS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: INTERESTS_FILTER
 		}
 	],
-	[NUMBER]: [
+	[PropertyTypes.Number]: [
 		{
 			key: EQ,
 			label: Liferay.Language.get('is-equal-to-fragment'),
@@ -290,35 +266,35 @@ export const SUPPORTED_OPERATORS = {
 			name: IS_UNKNOWN
 		}
 	],
-	[ORGANIZATION_BOOLEAN]: [
+	[PropertyTypes.OrganizationBoolean]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ORGANIZATIONS_FILTER
 		}
 	],
-	[ORGANIZATION_DATE]: [
+	[PropertyTypes.OrganizationDate]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ORGANIZATIONS_FILTER
 		}
 	],
-	[ORGANIZATION_DATE_TIME]: [
+	[PropertyTypes.OrganizationDateTime]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ORGANIZATIONS_FILTER
 		}
 	],
-	[ORGANIZATION_NUMBER]: [
+	[PropertyTypes.OrganizationNumber]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ORGANIZATIONS_FILTER
 		}
 	],
-	[ORGANIZATION_SELECT_TEXT]: [
+	[PropertyTypes.OrganizationSelectText]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
@@ -330,14 +306,14 @@ export const SUPPORTED_OPERATORS = {
 			name: NOT_ORGANIZATIONS_FILTER
 		}
 	],
-	[ORGANIZATION_TEXT]: [
+	[PropertyTypes.OrganizationText]: [
 		{
 			key: ORGANIZATIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: ORGANIZATIONS_FILTER
 		}
 	],
-	[SELECT_TEXT]: [
+	[PropertyTypes.SelectText]: [
 		{
 			key: EQ,
 			label: Liferay.Language.get('is-fragment'),
@@ -349,35 +325,35 @@ export const SUPPORTED_OPERATORS = {
 			name: NE
 		}
 	],
-	[SESSION_DATE_TIME]: [
+	[PropertyTypes.SessionDateTime]: [
 		{
 			key: SESSIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: SESSIONS_FILTER
 		}
 	],
-	[SESSION_GEOLOCATION]: [
+	[PropertyTypes.SessionGeolocation]: [
 		{
 			key: SESSIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: SESSIONS_FILTER
 		}
 	],
-	[SESSION_NUMBER]: [
+	[PropertyTypes.SessionNumber]: [
 		{
 			key: SESSIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: SESSIONS_FILTER
 		}
 	],
-	[SESSION_TEXT]: [
+	[PropertyTypes.SessionText]: [
 		{
 			key: SESSIONS_FILTER,
 			label: Liferay.Language.get('is-fragment'),
 			name: SESSIONS_FILTER
 		}
 	],
-	[TEXT]: [
+	[PropertyTypes.Text]: [
 		{
 			key: EQ,
 			label: Liferay.Language.get('is-fragment'),
@@ -411,20 +387,24 @@ export const SUPPORTED_OPERATORS = {
 	]
 };
 
+// TODO: Maybe should label this with MAP at the end.
 export const SUPPORTED_PROPERTY_TYPES = {
-	[ACCOUNT_NUMBER]: [ACCOUNTS_FILTER],
-	[ACCOUNT_TEXT]: [ACCOUNTS_FILTER],
-	[BEHAVIOR]: [ACTIVITIES_FILTER_BY_COUNT, NOT_ACTIVITIES_FILTER_BY_COUNT],
-	[BOOLEAN]: [EQ],
-	[DATE]: [EQ, GE, GT, LE, LT, NE],
-	[DATE_TIME]: [EQ, GE, GT, LE, LT, NE],
-	[DURATION]: [GT, LT],
-	[INTEREST]: [INTERESTS_FILTER],
-	[NUMBER]: [EQ, GE, GT, LE, LT, NE],
-	[SESSION_DATE_TIME]: [SESSION_DATE_TIME],
-	[SESSION_NUMBER]: [SESSIONS_FILTER],
-	[SESSION_TEXT]: [SESSIONS_FILTER],
-	[TEXT]: [EQ, NE, CONTAINS, NOT_CONTAINS, IS_KNOWN, IS_UNKNOWN]
+	[PropertyTypes.AccountNumber]: [ACCOUNTS_FILTER],
+	[PropertyTypes.AccountText]: [ACCOUNTS_FILTER],
+	[PropertyTypes.Behavior]: [
+		ACTIVITIES_FILTER_BY_COUNT,
+		NOT_ACTIVITIES_FILTER_BY_COUNT
+	],
+	[PropertyTypes.Boolean]: [EQ],
+	[PropertyTypes.Date]: [EQ, GE, GT, LE, LT, NE],
+	[PropertyTypes.DateTime]: [EQ, GE, GT, LE, LT, NE],
+	[PropertyTypes.Duration]: [GT, LT],
+	[PropertyTypes.Interest]: [INTERESTS_FILTER],
+	[PropertyTypes.Number]: [EQ, GE, GT, LE, LT, NE],
+	[PropertyTypes.SessionDateTime]: [PropertyTypes.SessionDateTime],
+	[PropertyTypes.SessionNumber]: [SESSIONS_FILTER],
+	[PropertyTypes.SessionText]: [SESSIONS_FILTER],
+	[PropertyTypes.Text]: [EQ, NE, CONTAINS, NOT_CONTAINS, IS_KNOWN, IS_UNKNOWN]
 };
 
 /**

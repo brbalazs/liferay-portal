@@ -3,7 +3,7 @@ import AccountDisplay from '../AccountDisplay';
 import React from 'react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
@@ -36,7 +36,7 @@ describe('AccountDisplay', () => {
 		label: 'description',
 		name: propertyName,
 		propertykey: 'account',
-		type: PROPERTY_TYPES.ACCOUNT_TEXT
+		type: PropertyTypes.AccountText
 	});
 
 	it('renders', () => {

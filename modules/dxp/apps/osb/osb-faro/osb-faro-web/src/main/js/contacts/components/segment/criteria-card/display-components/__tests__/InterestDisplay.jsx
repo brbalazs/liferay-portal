@@ -3,7 +3,7 @@ import InterestDisplay from '../InterestDisplay';
 import React from 'react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
@@ -39,7 +39,7 @@ describe('InterestDisplay', () => {
 		label: 'name',
 		name: 'name',
 		propertykey: 'interest',
-		type: PROPERTY_TYPES.INTEREST
+		type: PropertyTypes.Interest
 	});
 
 	it('renders', () => {

@@ -4,7 +4,7 @@ import SessionDisplay from '../SessionDisplay';
 import {cleanup, render} from '@testing-library/react';
 import {
 	CUSTOM_FUNCTION_OPERATORS,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
 	TimeSpans
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
@@ -42,7 +42,7 @@ describe('SessionDisplay', () => {
 		label: 'name',
 		name: 'name',
 		propertykey: 'session',
-		type: PROPERTY_TYPES.SESSION_TEXT
+		type: PropertyTypes.SessionText
 	});
 
 	it('renders', () => {

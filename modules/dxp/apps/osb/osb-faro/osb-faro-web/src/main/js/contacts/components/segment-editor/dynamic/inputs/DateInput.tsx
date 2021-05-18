@@ -3,7 +3,7 @@ import DateInput from 'shared/components/DateInput';
 import Form from 'shared/components/form';
 import moment from 'moment';
 import React from 'react';
-import {INPUT_DATE_FORMAT, PROPERTY_TYPES} from '../utils/constants';
+import {INPUT_DATE_FORMAT, PropertyTypes} from '../utils/constants';
 import {ISegmentEditorInputBase} from '../utils/types';
 
 interface IEditorDateInputProps extends ISegmentEditorInputBase {
@@ -30,7 +30,7 @@ export default class EditorDateInput extends React.Component<IEditorDateInputPro
 	@autobind
 	handleDateChange(value) {
 		this.props.onChange({
-			type: PROPERTY_TYPES.DATE,
+			type: PropertyTypes.Date,
 			value
 		});
 	}

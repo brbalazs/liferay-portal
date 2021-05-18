@@ -6,7 +6,7 @@ import {
 	CUSTOM_FUNCTION_OPERATORS,
 	isKnown,
 	isUnknown,
-	PROPERTY_TYPES,
+	PropertyTypes,
 	RELATIONAL_OPERATORS,
 	SUPPORTED_OPERATORS,
 	TimeSpans
@@ -14,7 +14,6 @@ import {
 import {fromJS, Map} from 'immutable';
 import {Property} from 'shared/util/records';
 
-const {ACCOUNT_NUMBER} = PROPERTY_TYPES;
 const {
 	ACCOUNTS_FILTER,
 	ACTIVITIES_FILTER_BY_COUNT,
@@ -112,9 +111,9 @@ describe('utils', () => {
 
 	describe('getSupportedOperatorsFromType', () => {
 		it('should get the supported operators from type', () => {
-			expect(utils.getSupportedOperatorsFromType(ACCOUNT_NUMBER)).toBe(
-				SUPPORTED_OPERATORS[ACCOUNT_NUMBER]
-			);
+			expect(
+				utils.getSupportedOperatorsFromType(PropertyTypes.AccountNumber)
+			).toBe(SUPPORTED_OPERATORS[PropertyTypes.AccountNumber]);
 		});
 	});
 

@@ -10,9 +10,9 @@ import {
 	setOperator
 } from '../utils/custom-inputs';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
-import {PROPERTY_TYPES, SUPPORTED_OPERATORS} from '../utils/constants';
+import {PropertyTypes, SUPPORTED_OPERATORS} from '../utils/constants';
 
-const DATE_TIME_OPERATORS = SUPPORTED_OPERATORS[PROPERTY_TYPES.DATE_TIME];
+const DATE_TIME_OPERATORS = SUPPORTED_OPERATORS[PropertyTypes.DateTime];
 
 export default class CustomDateTimeInput extends React.Component<ISegmentEditorCustomInputBase> {
 	@autobind

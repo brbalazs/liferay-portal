@@ -12,7 +12,7 @@ import {
 } from '../utils';
 import {ICustomDisplayComponentProps} from '../types';
 import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
-import {PROPERTY_TYPES} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const OrganizationDisplay: React.FC<ICustomDisplayComponentProps> = ({
 	criterion,
@@ -23,7 +23,7 @@ const OrganizationDisplay: React.FC<ICustomDisplayComponentProps> = ({
 
 	const {entityName, label, type} = property;
 
-	const referencedEntity = type === PROPERTY_TYPES.ORGANIZATION_SELECT_TEXT;
+	const referencedEntity = type === PropertyTypes.OrganizationSelectText;
 
 	const operatorName = referencedEntity
 		? criterion.operatorName
