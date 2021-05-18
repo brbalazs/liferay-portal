@@ -107,7 +107,7 @@ export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
 	['sessions.filter']: CustomFunctionOperators.SessionsFilter
 };
 
-export const SUPPORTED_CONJUNCTIONS = [
+export const SUPPORTED_CONJUNCTION_OPTIONS = [
 	{
 		key: 'and',
 		label: Liferay.Language.get('and'),

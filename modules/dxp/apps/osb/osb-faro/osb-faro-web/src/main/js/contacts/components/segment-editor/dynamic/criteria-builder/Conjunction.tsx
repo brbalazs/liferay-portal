@@ -1,7 +1,7 @@
 import Button from 'shared/components/Button';
 import getCN from 'classnames';
 import React from 'react';
-import {SUPPORTED_CONJUNCTIONS} from '../utils/constants';
+import {SUPPORTED_CONJUNCTION_OPTIONS} from '../utils/constants';
 
 interface IConjunctionProps extends React.HTMLAttributes<HTMLButtonElement> {
 	conjunctionName: string;
@@ -9,7 +9,7 @@ interface IConjunctionProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 class Conjunction extends React.Component<IConjunctionProps> {
 	getConjunctionLabel(conjunctionName) {
-		const conjunction = SUPPORTED_CONJUNCTIONS.find(
+		const conjunction = SUPPORTED_CONJUNCTION_OPTIONS.find(
 			({name}) => name === conjunctionName
 		);
 

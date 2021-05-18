@@ -6,7 +6,7 @@ import EmptyDropZone from './EmptyDropZone';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {Fragment} from 'react';
-import {Conjunctions, SUPPORTED_CONJUNCTIONS} from '../utils/constants';
+import {Conjunctions, SUPPORTED_CONJUNCTION_OPTIONS} from '../utils/constants';
 import {
 	ConnectDragPreview,
 	ConnectDragSource,
@@ -105,14 +105,14 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 
 		const {criteria, onChange} = this.props;
 
-		const index = SUPPORTED_CONJUNCTIONS.findIndex(
+		const index = SUPPORTED_CONJUNCTION_OPTIONS.findIndex(
 			item => item.name === criteria.conjunctionName
 		);
 
 		const conjunctionSelected =
-			index === SUPPORTED_CONJUNCTIONS.length - 1
-				? SUPPORTED_CONJUNCTIONS[0].name
-				: SUPPORTED_CONJUNCTIONS[index + 1].name;
+			index === SUPPORTED_CONJUNCTION_OPTIONS.length - 1
+				? SUPPORTED_CONJUNCTION_OPTIONS[0].name
+				: SUPPORTED_CONJUNCTION_OPTIONS[index + 1].name;
 
 		onChange({
 			...criteria,
