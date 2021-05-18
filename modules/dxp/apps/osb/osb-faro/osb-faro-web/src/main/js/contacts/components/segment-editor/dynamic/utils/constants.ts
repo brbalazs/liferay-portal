@@ -33,10 +33,10 @@ export enum CustomFunctionOperators {
 	SessionsFilter = 'sessions-filter'
 }
 
-export const DISPLAY_ONLY_OPERATORS = {
-	IS_KNOWN: 'ne',
-	IS_UNKNOWN: 'eq'
-};
+export enum DisplayOnlyOperators {
+	IsKnown = 'ne',
+	IsUnknown = 'eq'
+}
 
 export const FUNCTIONAL_OPERATORS = {
 	BETWEEN: 'between',
@@ -108,7 +108,6 @@ const {
 const {AND, OR} = Conjunctions;
 const {BETWEEN, CONTAINS} = FUNCTIONAL_OPERATORS;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
-const {IS_KNOWN, IS_UNKNOWN} = DISPLAY_ONLY_OPERATORS;
 const {
 	NOT_ACTIVITIES_FILTER_BY_COUNT,
 	NOT_CONTAINS,
@@ -249,12 +248,12 @@ export const SUPPORTED_OPERATORS_MAP = {
 		{
 			key: isKnown,
 			label: Liferay.Language.get('is-known-fragment'),
-			name: IS_KNOWN
+			name: DisplayOnlyOperators.IsKnown
 		},
 		{
 			key: isUnknown,
 			label: Liferay.Language.get('is-unknown-fragment'),
-			name: IS_UNKNOWN
+			name: DisplayOnlyOperators.IsUnknown
 		}
 	],
 	[PropertyTypes.OrganizationBoolean]: [
@@ -368,12 +367,12 @@ export const SUPPORTED_OPERATORS_MAP = {
 		{
 			key: isKnown,
 			label: Liferay.Language.get('is-known-fragment'),
-			name: IS_KNOWN
+			name: DisplayOnlyOperators.IsKnown
 		},
 		{
 			key: isUnknown,
 			label: Liferay.Language.get('is-unknown-fragment'),
-			name: IS_UNKNOWN
+			name: DisplayOnlyOperators.IsUnknown
 		}
 	]
 };
@@ -394,7 +393,14 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
 	[PropertyTypes.SessionDateTime]: [PropertyTypes.SessionDateTime],
 	[PropertyTypes.SessionNumber]: [SessionsFilter],
 	[PropertyTypes.SessionText]: [SessionsFilter],
-	[PropertyTypes.Text]: [EQ, NE, CONTAINS, NOT_CONTAINS, IS_KNOWN, IS_UNKNOWN]
+	[PropertyTypes.Text]: [
+		EQ,
+		NE,
+		CONTAINS,
+		NOT_CONTAINS,
+		DisplayOnlyOperators.IsKnown,
+		DisplayOnlyOperators.IsUnknown
+	]
 };
 
 /**
