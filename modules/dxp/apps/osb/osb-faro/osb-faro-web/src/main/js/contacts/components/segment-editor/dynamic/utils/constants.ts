@@ -109,12 +109,12 @@ export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
 
 export const SUPPORTED_CONJUNCTION_OPTIONS = [
 	{
-		key: 'and',
+		key: Conjunctions.And,
 		label: Liferay.Language.get('and'),
 		name: Conjunctions.And
 	},
 	{
-		key: 'or',
+		key: Conjunctions.Or,
 		label: Liferay.Language.get('or'),
 		name: Conjunctions.Or
 	}

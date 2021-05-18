@@ -169,7 +169,7 @@ export const findPropertyByCriterion = (
 
 	if (
 		[
-			CustomFunctionOperators.AccountsFilterByCount,
+			CustomFunctionOperators.ActivitiesFilterByCount,
 			NotOperators.NotActivitiesFilterByCount
 		].includes(operatorName)
 	) {
