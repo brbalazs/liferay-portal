@@ -3,7 +3,7 @@ import * as utils from '../utils';
 import {
 	ACTIVITY_KEY,
 	Conjunctions,
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	isKnown,
 	isUnknown,
 	PropertyTypes,
@@ -15,11 +15,11 @@ import {fromJS, Map} from 'immutable';
 import {Property} from 'shared/util/records';
 
 const {
-	ACCOUNTS_FILTER,
-	ACTIVITIES_FILTER_BY_COUNT,
-	INTERESTS_FILTER,
-	SESSIONS_FILTER
-} = CUSTOM_FUNCTION_OPERATORS;
+	AccountsFilter,
+	ActivitiesFilterByCount,
+	InterestsFilter,
+	SessionsFilter
+} = CustomFunctionOperators;
 const {AND} = Conjunctions;
 const {EQ, GT} = RelationalOperators;
 
@@ -189,7 +189,7 @@ describe('utils', () => {
 	describe('findPropertyByCriterion', () => {
 		it('should return the blog viewed Property when provided with a blog viewed Criterion', () => {
 			const criterion = data.generateCriterion({
-				operatorName: ACTIVITIES_FILTER_BY_COUNT,
+				operatorName: ActivitiesFilterByCount,
 				propertyName: ACTIVITY_KEY,
 				value: fromJS({
 					criterionGroup: {
@@ -224,7 +224,7 @@ describe('utils', () => {
 
 		it('should return the account name Property when provided with an account name Criterion', () => {
 			const criterion = data.generateCriterion({
-				operatorName: ACCOUNTS_FILTER,
+				operatorName: AccountsFilter,
 				propertyName: 'organization/accountName/value',
 				value: fromJS({
 					criterionGroup: {
@@ -261,7 +261,7 @@ describe('utils', () => {
 
 		it('should return the session url Property when provided with a session url Criterion', () => {
 			const criterion = data.generateCriterion({
-				operatorName: SESSIONS_FILTER,
+				operatorName: SessionsFilter,
 				propertyName: 'context/url',
 				value: fromJS({
 					criterionGroup: {
@@ -293,7 +293,7 @@ describe('utils', () => {
 
 		it('should return the interest Property when provided with an interest Criterion', () => {
 			const criterion = data.generateCriterion({
-				operatorName: INTERESTS_FILTER,
+				operatorName: InterestsFilter,
 				propertyName: 'name',
 				value: fromJS({
 					criterionGroup: {

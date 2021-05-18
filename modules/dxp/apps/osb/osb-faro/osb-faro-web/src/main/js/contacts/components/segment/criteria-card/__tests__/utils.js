@@ -1,34 +1,34 @@
 import * as data from 'test/data';
 import * as utils from '../utils';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	isKnown,
 	isUnknown,
 	PropertyTypes,
 	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 
-const {ACTIVITIES_FILTER_BY_COUNT} = CUSTOM_FUNCTION_OPERATORS;
+const {ActivitiesFilterByCount} = CustomFunctionOperators;
 
 const {EQ, LT, NE} = RelationalOperators;
 
 describe('utils', () => {
 	describe('getOperatorLabel', () => {
 		it.each`
-			operatorKey                   | type                                | retVal
-			${EQ}                         | ${PropertyTypes.AccountText}        | ${Liferay.Language.get('is-fragment')}
-			${ACTIVITIES_FILTER_BY_COUNT} | ${PropertyTypes.Behavior}           | ${Liferay.Language.get('has-fragment')}
-			${EQ}                         | ${PropertyTypes.SessionGeolocation} | ${Liferay.Language.get('was-fragment')}
-			${EQ}                         | ${PropertyTypes.SessionText}        | ${Liferay.Language.get('is-fragment')}
-			${EQ}                         | ${PropertyTypes.Text}               | ${Liferay.Language.get('is-fragment')}
-			${EQ}                         | ${PropertyTypes.Boolean}            | ${Liferay.Language.get('is-fragment')}
-			${LT}                         | ${PropertyTypes.Date}               | ${Liferay.Language.get('is-before-fragment')}
-			${LT}                         | ${PropertyTypes.DateTime}           | ${Liferay.Language.get('is-before-fragment')}
-			${LT}                         | ${PropertyTypes.SessionDateTime}    | ${Liferay.Language.get('is-before-fragment')}
-			${LT}                         | ${PropertyTypes.AccountNumber}      | ${Liferay.Language.get('less-than-fragment')}
-			${LT}                         | ${PropertyTypes.Duration}           | ${Liferay.Language.get('less-than-fragment')}
-			${LT}                         | ${PropertyTypes.Number}             | ${Liferay.Language.get('less-than-fragment')}
-			${LT}                         | ${PropertyTypes.SessionNumber}      | ${Liferay.Language.get('less-than-fragment')}
+			operatorKey                | type                                | retVal
+			${EQ}                      | ${PropertyTypes.AccountText}        | ${Liferay.Language.get('is-fragment')}
+			${ActivitiesFilterByCount} | ${PropertyTypes.Behavior}           | ${Liferay.Language.get('has-fragment')}
+			${EQ}                      | ${PropertyTypes.SessionGeolocation} | ${Liferay.Language.get('was-fragment')}
+			${EQ}                      | ${PropertyTypes.SessionText}        | ${Liferay.Language.get('is-fragment')}
+			${EQ}                      | ${PropertyTypes.Text}               | ${Liferay.Language.get('is-fragment')}
+			${EQ}                      | ${PropertyTypes.Boolean}            | ${Liferay.Language.get('is-fragment')}
+			${LT}                      | ${PropertyTypes.Date}               | ${Liferay.Language.get('is-before-fragment')}
+			${LT}                      | ${PropertyTypes.DateTime}           | ${Liferay.Language.get('is-before-fragment')}
+			${LT}                      | ${PropertyTypes.SessionDateTime}    | ${Liferay.Language.get('is-before-fragment')}
+			${LT}                      | ${PropertyTypes.AccountNumber}      | ${Liferay.Language.get('less-than-fragment')}
+			${LT}                      | ${PropertyTypes.Duration}           | ${Liferay.Language.get('less-than-fragment')}
+			${LT}                      | ${PropertyTypes.Number}             | ${Liferay.Language.get('less-than-fragment')}
+			${LT}                      | ${PropertyTypes.SessionNumber}      | ${Liferay.Language.get('less-than-fragment')}
 		`(
 			'get $retVal for $type from $operatorKey',
 			({operatorKey, retVal, type}) => {

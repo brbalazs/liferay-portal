@@ -2,7 +2,7 @@ import * as data from 'test/data';
 import AccountDisplay from '../AccountDisplay';
 import React from 'react';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	PropertyTypes,
 	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
@@ -16,7 +16,7 @@ describe('AccountDisplay', () => {
 	const propertyName = 'organization/description/value';
 
 	const mockCriterion = {
-		operatorName: CUSTOM_FUNCTION_OPERATORS.ACCOUNTS_FILTER,
+		operatorName: CustomFunctionOperators.AccountsFilter,
 		propertyName,
 		value: Map({
 			criterionGroup: Map({

@@ -2,7 +2,7 @@ import * as data from 'test/data';
 import InterestDisplay from '../InterestDisplay';
 import React from 'react';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	PropertyTypes,
 	RelationalOperators
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
@@ -14,7 +14,7 @@ jest.unmock('react-dom');
 
 describe('InterestDisplay', () => {
 	const mockCriterion = {
-		operatorName: CUSTOM_FUNCTION_OPERATORS.INTERESTS_FILTER,
+		operatorName: CustomFunctionOperators.InterestsFilter,
 		propertyName: 'name',
 		value: Map({
 			criterionGroup: Map({

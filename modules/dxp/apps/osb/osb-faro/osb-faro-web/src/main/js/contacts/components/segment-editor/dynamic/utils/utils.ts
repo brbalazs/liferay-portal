@@ -1,33 +1,23 @@
 import dateFns from 'date-fns';
 import {
 	Conjunctions,
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
+	INDIVIDUAL_PROPERTIES,
 	isKnown,
 	isUnknown,
 	NOT_OPERATORS,
+	ORGANIZATION_PROPERTIES,
 	PropertyTypes,
-	SUPPORTED_OPERATORS_MAP
+	SESSION_PROPERTIES,
+	SUPPORTED_OPERATORS_MAP,
+	WEB_BEHAVIORS
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {getUid} from 'metal';
-import {
-	INDIVIDUAL_PROPERTIES,
-	ORGANIZATION_PROPERTIES,
-	SESSION_PROPERTIES,
-	WEB_BEHAVIORS
-} from './constants';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
-
-const {
-	ACCOUNTS_FILTER,
-	ACTIVITIES_FILTER_BY_COUNT,
-	INTERESTS_FILTER,
-	ORGANIZATIONS_FILTER,
-	SESSIONS_FILTER
-} = CUSTOM_FUNCTION_OPERATORS;
 
 const {
 	NOT_ACCOUNTS_FILTER,
@@ -183,9 +173,10 @@ export const findPropertyByCriterion = (
 	const {operatorName, propertyName, type, value} = criterion;
 
 	if (
-		[ACTIVITIES_FILTER_BY_COUNT, NOT_ACTIVITIES_FILTER_BY_COUNT].includes(
-			operatorName
-		)
+		[
+			CustomFunctionOperators.AccountsFilterByCount,
+			NOT_ACTIVITIES_FILTER_BY_COUNT
+		].includes(operatorName)
 	) {
 		const {eventId = propertyName} = parseActivityKey(
 			(value as Map<string, any>).getIn(
@@ -195,7 +186,11 @@ export const findPropertyByCriterion = (
 		);
 
 		return WEB_BEHAVIORS.find(({name}) => name === eventId);
-	} else if ([ACCOUNTS_FILTER, NOT_ACCOUNTS_FILTER].includes(operatorName)) {
+	} else if (
+		[CustomFunctionOperators.AccountsFilter, NOT_ACCOUNTS_FILTER].includes(
+			operatorName
+		)
+	) {
 		return referencedPropertiesIMap.getIn(
 			[
 				'account',
@@ -205,7 +200,10 @@ export const findPropertyByCriterion = (
 			''
 		);
 	} else if (
-		[NOT_ORGANIZATIONS_FILTER, ORGANIZATIONS_FILTER].includes(operatorName)
+		[
+			NOT_ORGANIZATIONS_FILTER,
+			CustomFunctionOperators.OrganizationsFilter
+		].includes(operatorName)
 	) {
 		if (getPropertyContextFromRaw(propertyName) !== FieldContexts.Custom) {
 			return ORGANIZATION_PROPERTIES.find(
@@ -222,11 +220,13 @@ export const findPropertyByCriterion = (
 			''
 		);
 	} else if (
-		[SESSIONS_FILTER, NOT_SESSIONS_FILTER].includes(operatorName) ||
+		[CustomFunctionOperators.SessionsFilter, NOT_SESSIONS_FILTER].includes(
+			operatorName
+		) ||
 		type === PropertyTypes.SessionDateTime
 	) {
 		return SESSION_PROPERTIES.find(({name}) => name === propertyName);
-	} else if (operatorName === INTERESTS_FILTER) {
+	} else if (operatorName === CustomFunctionOperators.InterestsFilter) {
 		return createInterestProperty(propertyName);
 	} else if (INDIVIDUAL_PROPERTIES.find(({name}) => name === propertyName)) {
 		return INDIVIDUAL_PROPERTIES.find(({name}) => name === propertyName);

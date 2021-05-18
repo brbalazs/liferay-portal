@@ -4,7 +4,7 @@ import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {createCustomValueMap} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	FUNCTIONAL_OPERATORS,
 	isKnown,
 	PropertyTypes,
@@ -16,7 +16,7 @@ import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dyna
 jest.unmock('react-dom');
 
 const mockCriterion = {
-	operatorName: CUSTOM_FUNCTION_OPERATORS.ORGANIZATIONS_FILTER,
+	operatorName: CustomFunctionOperators.OrganizationsFilter,
 	propertyName: 'name',
 	value: createCustomValueMap([
 		{

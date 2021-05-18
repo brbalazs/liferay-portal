@@ -3,7 +3,7 @@ import React from 'react';
 import SessionDisplay from '../SessionDisplay';
 import {cleanup, render} from '@testing-library/react';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	PropertyTypes,
 	RelationalOperators,
 	TimeSpans
@@ -15,7 +15,7 @@ jest.unmock('react-dom');
 
 describe('SessionDisplay', () => {
 	const mockCriterion = {
-		operatorName: CUSTOM_FUNCTION_OPERATORS.SESSIONS_FILTER,
+		operatorName: CustomFunctionOperators.SessionsFilter,
 		propertyName: 'context/browserName',
 		value: Map({
 			criterionGroup: Map({

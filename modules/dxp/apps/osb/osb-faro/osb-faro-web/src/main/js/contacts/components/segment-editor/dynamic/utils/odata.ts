@@ -1,7 +1,7 @@
 import {
 	Conjunctions,
 	CUSTOM_FUNCTION_OPERATOR_KEY_MAP,
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	FUNCTIONAL_OPERATORS,
 	GROUP,
 	NOT_OPERATORS,
@@ -22,7 +22,7 @@ import {get, invert, isFinite, isNull, isString, isUndefined} from 'lodash';
 import {filter as oDataFilterFn} from 'odata-v4-parser';
 
 const OPERATORS = {
-	...CUSTOM_FUNCTION_OPERATORS,
+	...CustomFunctionOperators,
 	...FUNCTIONAL_OPERATORS,
 	...RelationalOperators
 };
@@ -169,7 +169,7 @@ const buildQueryString = (
 				queryString = queryString.concat(
 					`${propertyName} ${operatorName} ${parsedValue}`
 				);
-			} else if (isValueType(CUSTOM_FUNCTION_OPERATORS, operatorName)) {
+			} else if (isValueType(CustomFunctionOperators, operatorName)) {
 				const fnName = getFunctionNameFromOperatorName(operatorName);
 
 				const paramKeys = value.keySeq().toJS();
@@ -803,7 +803,7 @@ const transformNotNode = ({oDataASTNode}: Context): Criteria[] => {
 				operatorName: NOT_OPERATORS.NOT_CONTAINS
 			}
 		];
-	} else if (isValueType(CUSTOM_FUNCTION_OPERATORS, nextNodeExpressionName)) {
+	} else if (isValueType(CustomFunctionOperators, nextNodeExpressionName)) {
 		returnValue = [
 			{
 				...transformCustomFunctionNode({

@@ -3,7 +3,7 @@ import BehaviorDisplay from '../BehaviorDisplay';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {
-	CUSTOM_FUNCTION_OPERATORS,
+	CustomFunctionOperators,
 	PropertyTypes,
 	RelationalOperators,
 	TimeSpans
@@ -34,7 +34,7 @@ describe('BehaviorDisplay', () => {
 	});
 
 	const mockCriterion = {
-		operatorName: CUSTOM_FUNCTION_OPERATORS.ACTIVITIES_FILTER_BY_COUNT,
+		operatorName: CustomFunctionOperators.ActivitiesFilterByCount,
 		propertyName: 'activityKey',
 		value: Map({
 			criterionGroup: Map({

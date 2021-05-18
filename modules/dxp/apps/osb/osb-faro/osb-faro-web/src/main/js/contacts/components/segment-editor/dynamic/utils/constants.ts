@@ -23,15 +23,15 @@ export enum Conjunctions {
 	OR = 'or'
 }
 
-export const CUSTOM_FUNCTION_OPERATORS = {
-	ACCOUNTS_FILTER: 'accounts-filter',
-	ACCOUNTS_FILTER_BY_COUNT: 'accounts-filter-by-count',
-	ACTIVITIES_FILTER: 'activities-filter',
-	ACTIVITIES_FILTER_BY_COUNT: 'activities-filter-by-count',
-	INTERESTS_FILTER: 'interests-filter',
-	ORGANIZATIONS_FILTER: 'organizations-filter',
-	SESSIONS_FILTER: 'sessions-filter'
-};
+export enum CustomFunctionOperators {
+	AccountsFilter = 'accounts-filter',
+	AccountsFilterByCount = 'accounts-filter-by-count',
+	ActivitiesFilter = 'activities-filter',
+	ActivitiesFilterByCount = 'activities-filter-by-count',
+	InterestsFilter = 'interests-filter',
+	OrganizationsFilter = 'organizations-filter',
+	SessionsFilter = 'sessions-filter'
+}
 
 export const DISPLAY_ONLY_OPERATORS = {
 	IS_KNOWN: 'ne',
@@ -97,14 +97,14 @@ export enum PropertyTypes {
  */
 
 const {
-	ACCOUNTS_FILTER,
-	ACCOUNTS_FILTER_BY_COUNT,
-	ACTIVITIES_FILTER,
-	ACTIVITIES_FILTER_BY_COUNT,
-	INTERESTS_FILTER,
-	ORGANIZATIONS_FILTER,
-	SESSIONS_FILTER
-} = CUSTOM_FUNCTION_OPERATORS;
+	AccountsFilter,
+	AccountsFilterByCount,
+	ActivitiesFilter,
+	ActivitiesFilterByCount,
+	InterestsFilter,
+	OrganizationsFilter,
+	SessionsFilter
+} = CustomFunctionOperators;
 const {AND, OR} = Conjunctions;
 const {BETWEEN, CONTAINS} = FUNCTIONAL_OPERATORS;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
@@ -116,13 +116,13 @@ const {
 } = NOT_OPERATORS;
 
 export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
-	['accounts.filter']: ACCOUNTS_FILTER,
-	['accounts.filterByCount']: ACCOUNTS_FILTER_BY_COUNT,
-	['activities.filter']: ACTIVITIES_FILTER,
-	['activities.filterByCount']: ACTIVITIES_FILTER_BY_COUNT,
-	['interests.filter']: INTERESTS_FILTER,
-	['organizations.filter']: ORGANIZATIONS_FILTER,
-	['sessions.filter']: SESSIONS_FILTER
+	['accounts.filter']: AccountsFilter,
+	['accounts.filterByCount']: AccountsFilterByCount,
+	['activities.filter']: ActivitiesFilter,
+	['activities.filterByCount']: ActivitiesFilterByCount,
+	['interests.filter']: InterestsFilter,
+	['organizations.filter']: OrganizationsFilter,
+	['sessions.filter']: SessionsFilter
 };
 
 export const SUPPORTED_CONJUNCTIONS = [
@@ -141,23 +141,23 @@ export const SUPPORTED_CONJUNCTIONS = [
 export const SUPPORTED_OPERATORS_MAP = {
 	[PropertyTypes.AccountNumber]: [
 		{
-			key: ACCOUNTS_FILTER,
+			key: AccountsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ACCOUNTS_FILTER
+			name: AccountsFilter
 		}
 	],
 	[PropertyTypes.AccountText]: [
 		{
-			key: ACCOUNTS_FILTER,
+			key: AccountsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ACCOUNTS_FILTER
+			name: AccountsFilter
 		}
 	],
 	[PropertyTypes.Behavior]: [
 		{
-			key: ACTIVITIES_FILTER_BY_COUNT,
+			key: ActivitiesFilterByCount,
 			label: Liferay.Language.get('has-fragment'),
-			name: ACTIVITIES_FILTER_BY_COUNT
+			name: ActivitiesFilterByCount
 		},
 		{
 			key: NOT_ACTIVITIES_FILTER_BY_COUNT,
@@ -220,9 +220,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.Interest]: [
 		{
-			key: INTERESTS_FILTER,
+			key: InterestsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: INTERESTS_FILTER
+			name: InterestsFilter
 		}
 	],
 	[PropertyTypes.Number]: [
@@ -259,37 +259,37 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.OrganizationBoolean]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationDate]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationDateTime]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationNumber]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationSelectText]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		},
 		{
 			key: NOT_ORGANIZATIONS_FILTER,
@@ -299,9 +299,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.OrganizationText]: [
 		{
-			key: ORGANIZATIONS_FILTER,
+			key: OrganizationsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: ORGANIZATIONS_FILTER
+			name: OrganizationsFilter
 		}
 	],
 	[PropertyTypes.SelectText]: [
@@ -318,30 +318,30 @@ export const SUPPORTED_OPERATORS_MAP = {
 	],
 	[PropertyTypes.SessionDateTime]: [
 		{
-			key: SESSIONS_FILTER,
+			key: SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SESSIONS_FILTER
+			name: SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionGeolocation]: [
 		{
-			key: SESSIONS_FILTER,
+			key: SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SESSIONS_FILTER
+			name: SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionNumber]: [
 		{
-			key: SESSIONS_FILTER,
+			key: SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SESSIONS_FILTER
+			name: SessionsFilter
 		}
 	],
 	[PropertyTypes.SessionText]: [
 		{
-			key: SESSIONS_FILTER,
+			key: SessionsFilter,
 			label: Liferay.Language.get('is-fragment'),
-			name: SESSIONS_FILTER
+			name: SessionsFilter
 		}
 	],
 	[PropertyTypes.Text]: [
@@ -379,21 +379,21 @@ export const SUPPORTED_OPERATORS_MAP = {
 };
 
 export const SUPPORTED_PROPERTY_TYPES_MAP = {
-	[PropertyTypes.AccountNumber]: [ACCOUNTS_FILTER],
-	[PropertyTypes.AccountText]: [ACCOUNTS_FILTER],
+	[PropertyTypes.AccountNumber]: [AccountsFilter],
+	[PropertyTypes.AccountText]: [AccountsFilter],
 	[PropertyTypes.Behavior]: [
-		ACTIVITIES_FILTER_BY_COUNT,
+		ActivitiesFilterByCount,
 		NOT_ACTIVITIES_FILTER_BY_COUNT
 	],
 	[PropertyTypes.Boolean]: [EQ],
 	[PropertyTypes.Date]: [EQ, GE, GT, LE, LT, NE],
 	[PropertyTypes.DateTime]: [EQ, GE, GT, LE, LT, NE],
 	[PropertyTypes.Duration]: [GT, LT],
-	[PropertyTypes.Interest]: [INTERESTS_FILTER],
+	[PropertyTypes.Interest]: [InterestsFilter],
 	[PropertyTypes.Number]: [EQ, GE, GT, LE, LT, NE],
 	[PropertyTypes.SessionDateTime]: [PropertyTypes.SessionDateTime],
-	[PropertyTypes.SessionNumber]: [SESSIONS_FILTER],
-	[PropertyTypes.SessionText]: [SESSIONS_FILTER],
+	[PropertyTypes.SessionNumber]: [SessionsFilter],
+	[PropertyTypes.SessionText]: [SessionsFilter],
 	[PropertyTypes.Text]: [EQ, NE, CONTAINS, NOT_CONTAINS, IS_KNOWN, IS_UNKNOWN]
 };
 
