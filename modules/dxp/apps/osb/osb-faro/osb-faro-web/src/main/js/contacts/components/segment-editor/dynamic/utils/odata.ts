@@ -4,7 +4,8 @@ import {
 	CustomFunctionOperators,
 	FunctionalOperators,
 	GROUP,
-	NOT_OPERATORS,
+	NotOperators,
+	PropertyTypes,
 	RelationalOperators,
 	SUPPORTED_PROPERTY_TYPES_MAP
 } from './constants';
@@ -140,98 +141,109 @@ const buildQueryString = (
 	criteria: Criteria[],
 	queryConjunction?: string
 ): string =>
-	criteria.filter(Boolean).reduce((queryString, criterion, index) => {
-		if (index > 0) {
-			queryString = queryString.concat(` ${queryConjunction} `);
-		}
-
-		if (isCriterionGroup(criterion)) {
-			const {conjunctionName, items} = criterion as CriterionGroup;
-
-			const val = buildQueryString(items, conjunctionName);
-
-			if (val) {
-				queryString = queryString.concat(`(${val})`);
+	criteria
+		.filter(Boolean)
+		.reduce((queryString: string, criterion: Criteria, index: number) => {
+			if (index > 0) {
+				queryString = queryString.concat(` ${queryConjunction} `);
 			}
-		} else {
-			const {
-				operatorName,
-				propertyName,
-				type,
-				value
-			} = criterion as Criterion;
 
-			const parsedValue = isString(value)
-				? `'${decodeQuotesToOdataQuotes(encodeQuotes(value))}'`
-				: value;
+			if (isCriterionGroup(criterion)) {
+				const {conjunctionName, items} = criterion as CriterionGroup;
 
-			if (isValueType(RelationalOperators, operatorName)) {
-				queryString = queryString.concat(
-					`${propertyName} ${operatorName} ${parsedValue}`
-				);
-			} else if (isValueType(CustomFunctionOperators, operatorName)) {
-				const fnName = getFunctionNameFromOperatorName(operatorName);
+				const val = buildQueryString(items, conjunctionName);
 
-				const paramKeys = value.keySeq().toJS();
+				if (val) {
+					queryString = queryString.concat(`(${val})`);
+				}
+			} else {
+				const {
+					operatorName,
+					propertyName,
+					type,
+					value
+				} = criterion as Criterion;
 
-				const paramsString = paramKeys
-					.map(key => {
-						if (
-							(key === 'value' || key === 'operator') &&
-							isNull(value.get(key))
-						) {
-							return;
-						} else if (key === 'criterionGroup') {
-							return `filter='${encodeQuotes(
-								buildQueryString([value.get(key).toJS()])
-							)}'`;
-						} else if (
-							key === 'value' &&
-							!isString(value.get(key))
-						) {
-							return `${key}=${value.get(key)}`;
-						}
+				const parsedValue = isString(value)
+					? `'${decodeQuotesToOdataQuotes(encodeQuotes(value))}'`
+					: value;
 
-						return `${key}='${value.get(key)}'`;
-					})
-					.filter(val => !isUndefined(val))
-					.join();
-
-				queryString = queryString.concat(
-					`${fnName}(${decodeQuotesToOdataQuotes(paramsString)})`
-				);
-			} else if (isValueType(FunctionalOperators, operatorName)) {
-				if (operatorName === FunctionalOperators.Between) {
-					const {end, start} = parsedValue;
-
+				if (isValueType(RelationalOperators, operatorName)) {
 					queryString = queryString.concat(
-						`between(${propertyName},'${start}','${end}')`
+						`${propertyName} ${operatorName} ${parsedValue}`
 					);
-				} else {
+				} else if (isValueType(CustomFunctionOperators, operatorName)) {
+					const fnName = getFunctionNameFromOperatorName(
+						operatorName
+					);
+
+					const paramKeys = value.keySeq().toJS();
+
+					const paramsString = paramKeys
+						.map(key => {
+							if (
+								(key === 'value' || key === 'operator') &&
+								isNull(value.get(key))
+							) {
+								return;
+							} else if (key === 'criterionGroup') {
+								return `filter='${encodeQuotes(
+									buildQueryString([value.get(key).toJS()])
+								)}'`;
+							} else if (
+								key === 'value' &&
+								!isString(value.get(key))
+							) {
+								return `${key}=${value.get(key)}`;
+							}
+
+							return `${key}='${value.get(key)}'`;
+						})
+						.filter(val => !isUndefined(val))
+						.join();
+
 					queryString = queryString.concat(
-						`${operatorName}(${propertyName}, ${parsedValue})`
+						`${fnName}(${decodeQuotesToOdataQuotes(paramsString)})`
+					);
+				} else if (isValueType(FunctionalOperators, operatorName)) {
+					if (operatorName === FunctionalOperators.Between) {
+						const {end, start} = parsedValue;
+
+						queryString = queryString.concat(
+							`between(${propertyName},'${start}','${end}')`
+						);
+					} else {
+						queryString = queryString.concat(
+							`${operatorName}(${propertyName}, ${parsedValue})`
+						);
+					}
+				} else if (isValueType(NotOperators, operatorName)) {
+					const baseOperator = (operatorName as string).replace(
+						/not-/g,
+						''
+					) as Conjunctions &
+						CustomFunctionOperators &
+						FunctionalOperators &
+						RelationalOperators &
+						'GROUP';
+
+					const baseExpression: Criterion[] = [
+						{
+							operatorName: baseOperator,
+							propertyName,
+							type,
+							value
+						}
+					];
+
+					queryString = queryString.concat(
+						`(not ${buildQueryString(baseExpression)})`
 					);
 				}
-			} else if (isValueType(NOT_OPERATORS, operatorName)) {
-				const baseOperator = operatorName.replace(/not-/g, '');
-
-				const baseExpression = [
-					{
-						operatorName: baseOperator,
-						propertyName,
-						type,
-						value
-					}
-				];
-
-				queryString = queryString.concat(
-					`(not ${buildQueryString(baseExpression)})`
-				);
 			}
-		}
 
-		return queryString;
-	}, '');
+			return queryString;
+		}, '');
 
 /**
  * Converts custom encodings back to original characters.
@@ -350,7 +362,8 @@ const getConjunctionForGroup = (oDataASTNode: ODataASTNode): string => {
 const getOperatorNameFromFunctionName = (
 	name: string,
 	namespace: string
-): string => CUSTOM_FUNCTION_OPERATOR_KEY_MAP[`${namespace}.${name}`];
+): CustomFunctionOperators =>
+	CUSTOM_FUNCTION_OPERATOR_KEY_MAP[`${namespace}.${name}`];
 
 /**
  * Gets the function name & namespace from the operatorName.
@@ -614,7 +627,7 @@ const transformCommonNode = ({oDataASTNode}: Context): Criteria[] => {
 						start: removeQuotes(start)
 					}
 				}
-			];
+			] as Criterion[];
 		}
 	} else {
 		const anyExpression = get(nextNodeExpression, [
@@ -646,7 +659,7 @@ const transformCommonNode = ({oDataASTNode}: Context): Criteria[] => {
 				valid: true,
 				value
 			}
-		];
+		] as Criteria[];
 	}
 };
 
@@ -717,7 +730,11 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 	let touched: boolean | {asset: boolean; occurenceCount: boolean} = false;
 	let valid: boolean | {asset: boolean; occurenceCount: boolean} = true;
 
-	if (SUPPORTED_PROPERTY_TYPES_MAP.behavior.includes(operatorName)) {
+	if (
+		SUPPORTED_PROPERTY_TYPES_MAP[PropertyTypes.Behavior].includes(
+			operatorName
+		)
+	) {
 		touched = {asset: false, occurenceCount: false};
 		valid = {asset: true, occurenceCount: true};
 	}
@@ -736,7 +753,7 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 			valid,
 			value: customValue
 		}
-	];
+	] as Criterion[];
 };
 
 /**
@@ -745,16 +762,17 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
  * @returns an array containing the object representation of an operator
  * criterion
  */
-const transformFunctionalNode = ({oDataASTNode}: Context): Criterion[] => [
-	{
-		operatorName: getFunctionName(oDataASTNode),
-		propertyName: oDataASTNode.value.parameters[0].raw,
-		rowId: generateRowId(),
-		touched: false,
-		valid: true,
-		value: removeQuotes(oDataASTNode.value.parameters[1].raw)
-	}
-];
+const transformFunctionalNode = ({oDataASTNode}: Context): Criterion[] =>
+	[
+		{
+			operatorName: getFunctionName(oDataASTNode),
+			propertyName: oDataASTNode.value.parameters[0].raw,
+			rowId: generateRowId(),
+			touched: false,
+			valid: true,
+			value: removeQuotes(oDataASTNode.value.parameters[1].raw)
+		}
+	] as Criterion[];
 
 /**
  * Transforms a group expression node into a criterion for the criteria
@@ -800,7 +818,7 @@ const transformNotNode = ({oDataASTNode}: Context): Criteria[] => {
 				...transformFunctionalNode({
 					oDataASTNode: nextNodeExpression
 				})[0],
-				operatorName: NOT_OPERATORS.NOT_CONTAINS
+				operatorName: NotOperators.NotContains
 			}
 		];
 	} else if (isValueType(CustomFunctionOperators, nextNodeExpressionName)) {
@@ -825,7 +843,7 @@ const transformNotNode = ({oDataASTNode}: Context): Criteria[] => {
 					...transformFunctionalNode({
 						oDataASTNode: nextNodeExpression
 					})[0],
-					operatorName: NOT_OPERATORS.NOT_CONTAINS
+					operatorName: NotOperators.NotContains
 				}
 			];
 		}
@@ -864,7 +882,7 @@ const transformOperatorNode = ({oDataASTNode}: Context): Criterion[] => {
 			valid: true,
 			value
 		}
-	];
+	] as Criterion[];
 };
 
 /**

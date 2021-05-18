@@ -1,7 +1,7 @@
 import {AssetNames, AssetTypes} from 'shared/util/constants';
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
-import {PropertyTypes} from './constants';
+import {PropertyTypes} from '../constants';
 
 const createWebProperty = ({
 	entityType,

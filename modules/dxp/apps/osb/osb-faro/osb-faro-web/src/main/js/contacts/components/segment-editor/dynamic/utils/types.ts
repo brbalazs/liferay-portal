@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+	Conjunctions,
+	CustomFunctionOperators,
+	FunctionalOperators,
+	NotOperators,
+	RelationalOperators
+} from './constants';
 import {CustomValue, Property} from 'shared/util/records';
 
 export type Context = {
@@ -15,7 +22,11 @@ export type CriterionGroup = {
 
 export type Criterion = {
 	defaultValue?: string;
-	operatorName?: string;
+	operatorName?: Conjunctions &
+		CustomFunctionOperators &
+		FunctionalOperators &
+		NotOperators &
+		RelationalOperators;
 	propertyName?: string;
 	rowId?: string;
 	touched?: boolean | object;

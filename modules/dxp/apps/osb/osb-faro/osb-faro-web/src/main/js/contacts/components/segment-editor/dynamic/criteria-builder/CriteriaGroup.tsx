@@ -160,7 +160,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 				conjunctionName: Conjunctions.AND,
 				criteriaGroupId: generateGroupId(),
 				items: [newCriterion]
-			});
+			} as CriterionGroup);
 		} else {
 			onChange({
 				...criteria,

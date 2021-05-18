@@ -1,5 +1,5 @@
 import {Property} from 'shared/util/records';
-import {PropertyTypes} from './constants';
+import {PropertyTypes} from '../constants';
 
 const createIndividualProperty = ({
 	label,

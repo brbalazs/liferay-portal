@@ -5,7 +5,7 @@ import {
 	INDIVIDUAL_PROPERTIES,
 	isKnown,
 	isUnknown,
-	NOT_OPERATORS,
+	NotOperators,
 	ORGANIZATION_PROPERTIES,
 	PropertyTypes,
 	SESSION_PROPERTIES,
@@ -18,13 +18,6 @@ import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {getUid} from 'metal';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
-
-const {
-	NOT_ACCOUNTS_FILTER,
-	NOT_ACTIVITIES_FILTER_BY_COUNT,
-	NOT_ORGANIZATIONS_FILTER,
-	NOT_SESSIONS_FILTER
-} = NOT_OPERATORS;
 
 const GROUP_ID_NAMESPACE = 'group_';
 const ROW_ID_NAMESPACE = 'row_';
@@ -175,7 +168,7 @@ export const findPropertyByCriterion = (
 	if (
 		[
 			CustomFunctionOperators.AccountsFilterByCount,
-			NOT_ACTIVITIES_FILTER_BY_COUNT
+			NotOperators.NotActivitiesFilterByCount
 		].includes(operatorName)
 	) {
 		const {eventId = propertyName} = parseActivityKey(
@@ -187,9 +180,10 @@ export const findPropertyByCriterion = (
 
 		return WEB_BEHAVIORS.find(({name}) => name === eventId);
 	} else if (
-		[CustomFunctionOperators.AccountsFilter, NOT_ACCOUNTS_FILTER].includes(
-			operatorName
-		)
+		[
+			CustomFunctionOperators.AccountsFilter,
+			NotOperators.NotAccountsFilter
+		].includes(operatorName)
 	) {
 		return referencedPropertiesIMap.getIn(
 			[
@@ -201,7 +195,7 @@ export const findPropertyByCriterion = (
 		);
 	} else if (
 		[
-			NOT_ORGANIZATIONS_FILTER,
+			NotOperators.NotOrganizationsFilter,
 			CustomFunctionOperators.OrganizationsFilter
 		].includes(operatorName)
 	) {
@@ -220,9 +214,10 @@ export const findPropertyByCriterion = (
 			''
 		);
 	} else if (
-		[CustomFunctionOperators.SessionsFilter, NOT_SESSIONS_FILTER].includes(
-			operatorName
-		) ||
+		[
+			CustomFunctionOperators.SessionsFilter,
+			NotOperators.NotSessionsFilter
+		].includes(operatorName) ||
 		type === PropertyTypes.SessionDateTime
 	) {
 		return SESSION_PROPERTIES.find(({name}) => name === propertyName);

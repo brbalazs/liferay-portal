@@ -63,7 +63,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					touched: false,
 					valid: true,
 					value: TimeSpans.Last24Hours
-				});
+				} as Criterion);
 				break;
 			case Between:
 				onChange({
@@ -72,7 +72,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					touched: false,
 					valid: false,
 					value: Map({end: '', start: ''})
-				});
+				} as Criterion);
 				break;
 			case EVER:
 				onChange(null);
@@ -86,7 +86,7 @@ const DateFilterConjunctionInput: React.FC<IDateFilterConjunctionInputProps> = (
 					value: [SINCE, Between, EVER].includes(conjunction)
 						? ''
 						: dateFilter
-				});
+				} as Criterion);
 				break;
 		}
 

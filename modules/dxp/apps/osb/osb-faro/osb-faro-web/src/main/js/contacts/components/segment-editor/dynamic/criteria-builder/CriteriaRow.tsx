@@ -114,7 +114,6 @@ const drop = (
 
 	const {
 		defaultValue,
-		displayValue,
 		operatorName,
 		propertyName,
 		rowId,
@@ -133,14 +132,13 @@ const drop = (
 	const operators = getSupportedOperatorsFromType(type);
 
 	const newCriterion = {
-		displayValue,
 		operatorName: operatorName ? operatorName : operators[0].name,
 		propertyName,
 		rowId: rowId || generateRowId(),
 		touched,
 		valid,
 		value: droppedCriterionValue
-	};
+	} as Criterion;
 
 	const itemType = monitor.getItemType();
 
@@ -228,7 +226,10 @@ class CriteriaRow extends React.Component<
 			state: {supportedOperators}
 		} = this;
 
-		let operatorKey = operatorName;
+		let operatorKey:
+			| Criterion['operatorName']
+			| 'is-known'
+			| 'is-unknown' = operatorName;
 
 		const valueNull = value === null;
 
@@ -310,7 +311,7 @@ class CriteriaRow extends React.Component<
 				.name,
 			value: newVal,
 			...params
-		});
+		} as Criterion);
 	}
 
 	/**

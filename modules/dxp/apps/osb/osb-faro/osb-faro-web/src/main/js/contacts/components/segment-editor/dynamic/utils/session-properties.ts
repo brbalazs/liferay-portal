@@ -1,6 +1,6 @@
 import {List} from 'immutable';
 import {Property} from 'shared/util/records';
-import {PropertyTypes} from './constants';
+import {PropertyTypes} from '../constants';
 
 export const DEVICE_OPTIONS = [
 	{label: Liferay.Language.get('desktop'), value: 'Desktop'},

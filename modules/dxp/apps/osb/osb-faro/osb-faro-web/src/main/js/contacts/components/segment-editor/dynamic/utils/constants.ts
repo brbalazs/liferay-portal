@@ -43,15 +43,15 @@ export enum FunctionalOperators {
 	Contains = 'contains'
 }
 
-export const NOT_OPERATORS = {
-	NOT_ACCOUNTS_FILTER: 'not-accounts-filter',
-	NOT_ACCOUNTS_FILTER_BY_COUNT: 'not-accounts-filter-by-count',
-	NOT_ACTIVITIES_FILTER: 'not-activities-filter',
-	NOT_ACTIVITIES_FILTER_BY_COUNT: 'not-activities-filter-by-count',
-	NOT_CONTAINS: 'not-contains',
-	NOT_ORGANIZATIONS_FILTER: 'not-organizations-filter',
-	NOT_SESSIONS_FILTER: 'not-sessions-filter'
-};
+export enum NotOperators {
+	NotAccountsFilter = 'not-accounts-filter',
+	NotAccountsFilterByCount = 'not-accounts-filter-by-count',
+	NotActivitiesFilter = 'not-activities-filter',
+	NotActivitiesFilterByCount = 'not-activities-filter-by-count',
+	NotContains = 'not-contains',
+	NotOrganizationsFilter = 'not-organizations-filter',
+	NotSessionsFilter = 'not-sessions-filter'
+}
 
 export const GROUP = 'GROUP';
 
@@ -107,11 +107,6 @@ const {
 } = CustomFunctionOperators;
 const {AND, OR} = Conjunctions;
 const {EQ, GE, GT, LE, LT, NE} = RelationalOperators;
-const {
-	NOT_ACTIVITIES_FILTER_BY_COUNT,
-	NOT_CONTAINS,
-	NOT_ORGANIZATIONS_FILTER
-} = NOT_OPERATORS;
 
 export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
 	['accounts.filter']: AccountsFilter,
@@ -158,9 +153,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 			name: ActivitiesFilterByCount
 		},
 		{
-			key: NOT_ACTIVITIES_FILTER_BY_COUNT,
+			key: NotOperators.NotActivitiesFilterByCount,
 			label: Liferay.Language.get('has-not-fragment'),
-			name: NOT_ACTIVITIES_FILTER_BY_COUNT
+			name: NotOperators.NotActivitiesFilterByCount
 		}
 	],
 	[PropertyTypes.Boolean]: [
@@ -290,9 +285,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 			name: OrganizationsFilter
 		},
 		{
-			key: NOT_ORGANIZATIONS_FILTER,
+			key: NotOperators.NotOrganizationsFilter,
 			label: Liferay.Language.get('is-not-fragment'),
-			name: NOT_ORGANIZATIONS_FILTER
+			name: NotOperators.NotOrganizationsFilter
 		}
 	],
 	[PropertyTypes.OrganizationText]: [
@@ -359,9 +354,9 @@ export const SUPPORTED_OPERATORS_MAP = {
 			name: FunctionalOperators.Contains
 		},
 		{
-			key: NOT_CONTAINS,
+			key: NotOperators.NotContains,
 			label: Liferay.Language.get('does-not-contain-fragment'),
-			name: NOT_CONTAINS
+			name: NotOperators.NotContains
 		},
 		{
 			key: isKnown,
@@ -381,7 +376,7 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
 	[PropertyTypes.AccountText]: [AccountsFilter],
 	[PropertyTypes.Behavior]: [
 		ActivitiesFilterByCount,
-		NOT_ACTIVITIES_FILTER_BY_COUNT
+		NotOperators.NotActivitiesFilterByCount
 	],
 	[PropertyTypes.Boolean]: [EQ],
 	[PropertyTypes.Date]: [EQ, GE, GT, LE, LT, NE],
@@ -396,7 +391,7 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
 		EQ,
 		NE,
 		FunctionalOperators.Contains,
-		NOT_CONTAINS,
+		NotOperators.NotContains,
 		DisplayOnlyOperators.IsKnown,
 		DisplayOnlyOperators.IsUnknown
 	]
@@ -456,7 +451,7 @@ export const GEOLOCATION_OPTIONS = [
 	},
 	{
 		label: Liferay.Language.get('did-not-contain-fragment'),
-		value: NOT_CONTAINS
+		value: NotOperators.NotContains
 	}
 ];
 
