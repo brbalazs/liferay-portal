@@ -206,8 +206,8 @@ public abstract class BaseOrganizationResourceImpl
 		throws Exception {
 
 		return getOrganizationsPage(
-			(Boolean)parameters.get("flatten"), search, filter, pagination,
-			sorts);
+			Boolean.parseBoolean((String)parameters.get("flatten")), search,
+			filter, pagination, sorts);
 	}
 
 	@Override

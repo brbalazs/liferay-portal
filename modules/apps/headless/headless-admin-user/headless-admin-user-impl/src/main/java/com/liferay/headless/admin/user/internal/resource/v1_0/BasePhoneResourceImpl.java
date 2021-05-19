@@ -176,7 +176,7 @@ public abstract class BasePhoneResourceImpl
 		throws Exception {
 
 		return getOrganizationPhonesPage(
-			(Long)parameters.get("organizationId"));
+			Long.parseLong((String)parameters.get("organizationId")));
 	}
 
 	@Override

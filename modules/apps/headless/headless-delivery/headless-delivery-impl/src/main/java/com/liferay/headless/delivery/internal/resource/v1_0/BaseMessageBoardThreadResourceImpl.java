@@ -722,7 +722,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 
 		for (MessageBoardThread messageBoardThread : messageBoardThreads) {
 			postSiteMessageBoardThread(
-				(Long)parameters.get("siteId"), messageBoardThread);
+				Long.parseLong((String)parameters.get("siteId")),
+				messageBoardThread);
 		}
 	}
 
@@ -759,8 +760,9 @@ public abstract class BaseMessageBoardThreadResourceImpl
 		throws Exception {
 
 		return getSiteMessageBoardThreadsPage(
-			(Long)parameters.get("siteId"), (Boolean)parameters.get("flatten"),
-			search, null, filter, pagination, sorts);
+			Long.parseLong((String)parameters.get("siteId")),
+			Boolean.parseBoolean((String)parameters.get("flatten")), search,
+			null, filter, pagination, sorts);
 	}
 
 	@Override
@@ -795,7 +797,8 @@ public abstract class BaseMessageBoardThreadResourceImpl
 			putMessageBoardThread(
 				messageBoardThread.getId() != null ?
 					messageBoardThread.getId() :
-						(Long)parameters.get("messageBoardThreadId"),
+						Long.parseLong(
+							(String)parameters.get("messageBoardThreadId")),
 				messageBoardThread);
 		}
 	}

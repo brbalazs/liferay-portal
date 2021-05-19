@@ -320,7 +320,8 @@ public abstract class BaseKeywordResourceImpl
 		throws Exception {
 
 		for (Keyword keyword : keywords) {
-			postSiteKeyword((Long)parameters.get("siteId"), keyword);
+			postSiteKeyword(
+				Long.parseLong((String)parameters.get("siteId")), keyword);
 		}
 	}
 
@@ -357,7 +358,8 @@ public abstract class BaseKeywordResourceImpl
 		throws Exception {
 
 		return getSiteKeywordsPage(
-			(Long)parameters.get("siteId"), search, filter, pagination, sorts);
+			Long.parseLong((String)parameters.get("siteId")), search, filter,
+			pagination, sorts);
 	}
 
 	@Override
@@ -391,7 +393,7 @@ public abstract class BaseKeywordResourceImpl
 		for (Keyword keyword : keywords) {
 			putKeyword(
 				keyword.getId() != null ? keyword.getId() :
-					(Long)parameters.get("keywordId"),
+					Long.parseLong((String)parameters.get("keywordId")),
 				keyword);
 		}
 	}

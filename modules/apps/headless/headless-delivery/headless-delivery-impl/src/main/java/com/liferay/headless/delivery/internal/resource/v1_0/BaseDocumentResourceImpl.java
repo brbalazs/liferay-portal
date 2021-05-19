@@ -565,7 +565,8 @@ public abstract class BaseDocumentResourceImpl
 		throws Exception {
 
 		for (Document document : documents) {
-			postSiteDocument((Long)parameters.get("siteId"), null);
+			postSiteDocument(
+				Long.parseLong((String)parameters.get("siteId")), null);
 		}
 	}
 
@@ -602,8 +603,9 @@ public abstract class BaseDocumentResourceImpl
 		throws Exception {
 
 		return getSiteDocumentsPage(
-			(Long)parameters.get("siteId"), (Boolean)parameters.get("flatten"),
-			search, null, filter, pagination, sorts);
+			Long.parseLong((String)parameters.get("siteId")),
+			Boolean.parseBoolean((String)parameters.get("flatten")), search,
+			null, filter, pagination, sorts);
 	}
 
 	@Override
@@ -637,7 +639,7 @@ public abstract class BaseDocumentResourceImpl
 		for (Document document : documents) {
 			putDocument(
 				document.getId() != null ? document.getId() :
-					(Long)parameters.get("documentId"),
+					Long.parseLong((String)parameters.get("documentId")),
 				null);
 		}
 	}

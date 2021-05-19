@@ -251,7 +251,8 @@ public abstract class BaseUserAccountResourceImpl
 		throws Exception {
 
 		return getSiteUserAccountsPage(
-			(Long)parameters.get("siteId"), search, filter, pagination, sorts);
+			Long.parseLong((String)parameters.get("siteId")), search, filter,
+			pagination, sorts);
 	}
 
 	@Override

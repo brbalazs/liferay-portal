@@ -545,7 +545,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 
 		for (MessageBoardSection messageBoardSection : messageBoardSections) {
 			postSiteMessageBoardSection(
-				(Long)parameters.get("siteId"), messageBoardSection);
+				Long.parseLong((String)parameters.get("siteId")),
+				messageBoardSection);
 		}
 	}
 
@@ -582,8 +583,9 @@ public abstract class BaseMessageBoardSectionResourceImpl
 		throws Exception {
 
 		return getSiteMessageBoardSectionsPage(
-			(Long)parameters.get("siteId"), (Boolean)parameters.get("flatten"),
-			search, null, filter, pagination, sorts);
+			Long.parseLong((String)parameters.get("siteId")),
+			Boolean.parseBoolean((String)parameters.get("flatten")), search,
+			null, filter, pagination, sorts);
 	}
 
 	@Override
@@ -618,7 +620,8 @@ public abstract class BaseMessageBoardSectionResourceImpl
 			putMessageBoardSection(
 				messageBoardSection.getId() != null ?
 					messageBoardSection.getId() :
-						(Long)parameters.get("messageBoardSectionId"),
+						Long.parseLong(
+							(String)parameters.get("messageBoardSectionId")),
 				messageBoardSection);
 		}
 	}

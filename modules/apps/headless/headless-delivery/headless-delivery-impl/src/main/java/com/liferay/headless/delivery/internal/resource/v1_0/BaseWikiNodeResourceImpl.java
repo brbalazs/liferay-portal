@@ -366,7 +366,8 @@ public abstract class BaseWikiNodeResourceImpl
 		throws Exception {
 
 		for (WikiNode wikiNode : wikiNodes) {
-			postSiteWikiNode((Long)parameters.get("siteId"), wikiNode);
+			postSiteWikiNode(
+				Long.parseLong((String)parameters.get("siteId")), wikiNode);
 		}
 	}
 
@@ -403,8 +404,8 @@ public abstract class BaseWikiNodeResourceImpl
 		throws Exception {
 
 		return getSiteWikiNodesPage(
-			(Long)parameters.get("siteId"), search, null, filter, pagination,
-			sorts);
+			Long.parseLong((String)parameters.get("siteId")), search, null,
+			filter, pagination, sorts);
 	}
 
 	@Override
@@ -438,7 +439,7 @@ public abstract class BaseWikiNodeResourceImpl
 		for (WikiNode wikiNode : wikiNodes) {
 			putWikiNode(
 				wikiNode.getId() != null ? wikiNode.getId() :
-					(Long)parameters.get("wikiNodeId"),
+					Long.parseLong((String)parameters.get("wikiNodeId")),
 				wikiNode);
 		}
 	}

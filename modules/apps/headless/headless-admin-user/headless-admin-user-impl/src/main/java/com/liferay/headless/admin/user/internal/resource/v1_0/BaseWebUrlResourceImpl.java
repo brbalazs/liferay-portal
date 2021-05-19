@@ -176,7 +176,7 @@ public abstract class BaseWebUrlResourceImpl
 		throws Exception {
 
 		return getOrganizationWebUrlsPage(
-			(Long)parameters.get("organizationId"));
+			Long.parseLong((String)parameters.get("organizationId")));
 	}
 
 	@Override
