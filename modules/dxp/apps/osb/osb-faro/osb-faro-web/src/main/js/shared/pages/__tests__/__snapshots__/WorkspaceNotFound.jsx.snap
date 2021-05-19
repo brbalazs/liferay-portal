@@ -107,7 +107,7 @@ exports[`WorkspaceNotFound should render 1`] = `
             <div
               class="sheet-section description"
             >
-              Either this workspace doesn't exist or you don't have access to it. Make sure you've typed the correct workspace URL or check with the workspace admin for access.
+              Either this workspace doesn't exist or you don't have access to it. Make sure you've typed the correct workspace URL or check with the workspace administrator for access.
             </div>
             <div
               class="sheet-section"

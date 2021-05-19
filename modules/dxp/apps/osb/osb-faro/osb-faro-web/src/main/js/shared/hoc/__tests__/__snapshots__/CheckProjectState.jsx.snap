@@ -432,7 +432,7 @@ exports[`SuccessDisplayIf should render an error page if there was an error fetc
             <div
               class="sheet-section description"
             >
-              Either this workspace doesn't exist or you don't have access to it. Make sure you've typed the correct workspace URL or check with the workspace admin for access.
+              Either this workspace doesn't exist or you don't have access to it. Make sure you've typed the correct workspace URL or check with the workspace administrator for access.
             </div>
             <div
               class="sheet-section"
