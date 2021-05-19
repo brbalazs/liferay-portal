@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
@@ -21,7 +22,6 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Company;
@@ -53,6 +53,7 @@ public class AttachmentDTOConverter
 		return Attachment.class.getSimpleName();
 	}
 
+	@Override
 	public Attachment toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
@@ -80,10 +81,13 @@ public class AttachmentDTOConverter
 				id = cpAttachmentFileEntry.getCPAttachmentFileEntryId();
 				options = _getAttachmentOptions(cpAttachmentFileEntry);
 				priority = cpAttachmentFileEntry.getPriority();
-				src =
-					portalURL +
-						_commerceMediaResolver.getDownloadUrl(
-							cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+
+				String downloadUrl = _commerceMediaResolver.getDownloadUrl(
+					CommerceAccountConstants.ACCOUNT_ID_GUEST,
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+
+				src = portalURL + downloadUrl;
+
 				title = LanguageUtils.getLanguageIdMap(
 					cpAttachmentFileEntry.getTitleMap());
 				type = cpAttachmentFileEntry.getType();
@@ -93,7 +97,7 @@ public class AttachmentDTOConverter
 
 	private Map<String, String> _getAttachmentOptions(
 			CPAttachmentFileEntry cpAttachmentFileEntry)
-		throws JSONException {
+		throws Exception {
 
 		String json = cpAttachmentFileEntry.getJson();
 

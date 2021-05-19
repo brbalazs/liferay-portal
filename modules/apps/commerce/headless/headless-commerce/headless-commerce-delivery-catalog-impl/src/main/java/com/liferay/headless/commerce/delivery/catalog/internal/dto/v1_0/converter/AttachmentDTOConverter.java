@@ -19,7 +19,6 @@ import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
 import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -51,15 +50,19 @@ public class AttachmentDTOConverter
 		return Attachment.class.getSimpleName();
 	}
 
+	@Override
 	public Attachment toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
+		AttachmentDTOConverterContext attachmentDTOConverterContext =
+			(AttachmentDTOConverterContext)dtoConverterContext;
+
 		CPAttachmentFileEntry cpAttachmentFileEntry =
 			_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntry(
-				(Long)dtoConverterContext.getId());
+				(Long)attachmentDTOConverterContext.getId());
 
 		String languageId = LanguageUtil.getLanguageId(
-			dtoConverterContext.getLocale());
+			attachmentDTOConverterContext.getLocale());
 
 		Company company = _companyLocalService.getCompany(
 			cpAttachmentFileEntry.getCompanyId());
@@ -73,10 +76,13 @@ public class AttachmentDTOConverter
 				id = cpAttachmentFileEntry.getCPAttachmentFileEntryId();
 				options = _getAttachmentOptions(cpAttachmentFileEntry);
 				priority = cpAttachmentFileEntry.getPriority();
-				src =
-					portalURL +
-						_commerceMediaResolver.getDownloadUrl(
-							cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+
+				String downloadUrl = _commerceMediaResolver.getDownloadUrl(
+					attachmentDTOConverterContext.getCommerceAccountId(),
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+
+				src = portalURL + downloadUrl;
+
 				title = cpAttachmentFileEntry.getTitle(languageId);
 				type = cpAttachmentFileEntry.getType();
 			}
@@ -85,7 +91,7 @@ public class AttachmentDTOConverter
 
 	private Map<String, String> _getAttachmentOptions(
 			CPAttachmentFileEntry cpAttachmentFileEntry)
-		throws JSONException {
+		throws Exception {
 
 		String json = cpAttachmentFileEntry.getJson();
 

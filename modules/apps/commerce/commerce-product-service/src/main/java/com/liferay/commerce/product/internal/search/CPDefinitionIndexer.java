@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.internal.search;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccountGroupRel;
 import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.media.CommerceMediaResolver;
@@ -715,6 +716,7 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 			document.addKeyword(
 				CPField.DEFAULT_IMAGE_FILE_URL,
 				_commerceMediaResolver.getUrl(
+					CommerceAccountConstants.ACCOUNT_ID_GUEST,
 					cpAttachmentFileEntryId, false, false, false));
 		}
 

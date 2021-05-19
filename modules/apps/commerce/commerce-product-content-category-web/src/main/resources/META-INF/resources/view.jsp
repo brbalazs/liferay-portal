@@ -41,7 +41,7 @@ contextObjects.put("cpCategoryContentDisplayContext", cpCategoryContentDisplayCo
 		<div class="category-detail">
 
 			<%
-			String imgURL = cpCategoryContentDisplayContext.getDefaultImageSrc(themeDisplay);
+			String imgURL = cpCategoryContentDisplayContext.getDefaultImageSrc();
 			%>
 
 			<c:if test="<%= Validator.isNotNull(imgURL) %>">
