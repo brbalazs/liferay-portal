@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -144,6 +145,47 @@ public class I18nServletTest {
 
 		testIsNotDefaultOrFirstLocale(_group, LocaleUtil.UK);
 		testIsNotDefaultOrFirstI18nData(_group, LocaleUtil.UK, LocaleUtil.US);
+	}
+
+	@Test
+	public void testGetI18nDataWithDecodedPath() throws Exception {
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.setServletPath(
+			String.format(
+				"/%s_%s", LocaleUtil.SPAIN.getLanguage(),
+				LocaleUtil.SPAIN.getCountry()));
+
+		String specialCharacters = "es/^_Ñ,í-ó";
+
+		mockHttpServletRequest.setPathInfo(specialCharacters);
+
+		I18nServlet.I18nData i18nData = _i18nServlet.getI18nData(
+			mockHttpServletRequest);
+
+		Assert.assertEquals(
+			HttpUtil.encodePath(specialCharacters), i18nData.getPath());
+	}
+
+	@Test
+	public void testGetI18nDataWithEncodedPath() throws Exception {
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.setServletPath(
+			String.format(
+				"/%s_%s", LocaleUtil.SPAIN.getLanguage(),
+				LocaleUtil.SPAIN.getCountry()));
+
+		String specialCharacters = HttpUtil.encodePath("es/^_Ñ,í-ó");
+
+		mockHttpServletRequest.setPathInfo(specialCharacters);
+
+		I18nServlet.I18nData i18nData = _i18nServlet.getI18nData(
+			mockHttpServletRequest);
+
+		Assert.assertEquals(specialCharacters, i18nData.getPath());
 	}
 
 	@Test
