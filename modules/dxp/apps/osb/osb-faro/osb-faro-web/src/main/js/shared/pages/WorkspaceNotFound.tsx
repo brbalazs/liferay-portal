@@ -25,7 +25,7 @@ const WorkspaceNotFound: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 					{`${Liferay.Language.get(
 						'either-this-workspace-doesnt-exist-or-you-dont-have-access-to-it'
 					)} ${Liferay.Language.get(
-						'make-sure-youve-typed-the-correct-workspace-url-or-check-with-the-workspace-admin-for-access'
+						'make-sure-youve-typed-the-correct-workspace-url-or-check-with-the-workspace-administrator-for-access'
 					)}`}
 				</Sheet.Section>
 				<Sheet.Section>

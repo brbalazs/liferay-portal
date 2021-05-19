@@ -121,7 +121,7 @@ export const getTypeLangKey = (type: string): string => ENTITY_LANG_MAP[type];
 export const getDisplayRole = (roleName: UserRoleNames): string => {
 	switch (roleName) {
 		case UserRoleNames.Administrator:
-			return Liferay.Language.get('admin');
+			return Liferay.Language.get('administrator');
 		case UserRoleNames.Owner:
 			return Liferay.Language.get('owner');
 		case UserRoleNames.Member:
