@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
@@ -144,6 +145,21 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		return value;
 	}
 
+	private void _adjustMarkers(
+		String collectionName, List<Map<String, Object>> objects) {
+
+		if (Objects.equals(collectionName, "OSBAsahMarkers")) {
+			Stream<Map<String, Object>> stream = objects.stream();
+
+			stream.filter(
+				object -> Objects.equals(object.get("id"), "Upgrade")
+			).findFirst(
+			).ifPresent(
+				objects::remove
+			);
+		}
+	}
+
 	private void _adjustTime(Object object, long timeOffset) {
 		if (timeOffset == 0) {
 			return;
@@ -243,9 +259,12 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 
 			_adjustTime(objects, timeOffset);
 
+			String collectionName = _getCollectionName(entryNameParts);
+
+			_adjustMarkers(collectionName, objects);
+
 			contactsEngineClient.addData(
-				faroProject, entryNameParts[0],
-				_getCollectionName(entryNameParts), objects);
+				faroProject, entryNameParts[0], collectionName, objects);
 
 			if (log.isInfoEnabled()) {
 				log.info(
