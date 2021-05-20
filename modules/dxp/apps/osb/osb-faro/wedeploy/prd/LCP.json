@@ -16,15 +16,29 @@
 		"OSB_ASAH_MONOLITH_URL": "https://osbasahmonolith-{weDeployKey}",
 		"OSB_ASAH_PUBLISHER_URL": "https://osbasahpublisher-{weDeployKey}"
 	},
+	"id": "liferay",
+	"kind": "Deployment",
+	"livenessProbe": {
+		"httpGet": {
+			"path": "/c/portal/layout",
+			"port": 8080
+		},
+		"initialDelaySeconds": 180
+	},
+	"memory": 8192,
 	"ports": [
 		{
 			"external": false,
 			"port": 8080
 		}
 	],
-	"kind": "Deployment",
-	"id": "liferay",
-	"memory": 8192,
+	"readinessProbe": {
+		"httpGet": {
+			"path": "/c/portal/layout",
+			"port": 8080
+		},
+		"initialDelaySeconds": 180
+	},
 	"volumes": {
 		"data": "/opt/liferay/data"
 	}
