@@ -2,6 +2,8 @@ import CriteriaSidebarItem from './CriteriaSidebarItem';
 import React from 'react';
 import {
 	ACTIVITY_KEY,
+	EVENT_KEY,
+	FunctionalOperators,
 	PropertyTypes,
 	RelationalOperators,
 	TimeSpans
@@ -73,6 +75,31 @@ const getDefaultValue = (property: Property): any => {
 						}
 					]
 				}
+			]);
+		case PropertyTypes.Event:
+			return createCustomValueMap([
+				{
+					key: 'criterionGroup',
+					value: [
+						{
+							operatorName: RelationalOperators.EQ,
+							propertyName: EVENT_KEY,
+							value: ''
+						},
+						{
+							operatorName: RelationalOperators.GT,
+							propertyName: 'day',
+							value: TimeSpans.Last24Hours
+						},
+						{
+							operatorName: FunctionalOperators.Contains,
+							propertyName: '',
+							value: ''
+						}
+					]
+				},
+				{key: 'operator', value: RelationalOperators.GE},
+				{key: 'value', value: 1}
 			]);
 		case PropertyTypes.Behavior:
 			return createCustomValueMap([
@@ -179,6 +206,7 @@ const CriteriaSidebarCollapse: React.FC<ICriteriaSidebarCollapseProps> = ({
 
 	const filteredProperties = filterProperties();
 
+	console.log(filteredProperties);
 	const noResults = filteredProperties
 		.filterNot(({properties}) => properties.isEmpty())
 		.isEmpty();

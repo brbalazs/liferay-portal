@@ -1,13 +1,17 @@
 import * as API from 'shared/api';
+import client from 'shared/apollo/client';
+import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import Promise from 'metal-promise';
 import React from 'react';
 import {compose} from 'redux';
 import {
+	convertEventToProperty,
 	convertFieldMappingToAccountProperty,
 	convertFieldMappingToIndividualProperty,
 	convertFieldMappingToOrganizationProperty
 } from '../utils/utils';
 import {createInterestProperty} from '../utils/utils';
+import {EventTypes} from 'event-analysis/utils/types';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {
 	INDIVIDUAL_PROPERTIES,
@@ -16,9 +20,11 @@ import {
 	WEB_BEHAVIORS
 } from '../utils/properties';
 import {List} from 'immutable';
-import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
+import {Property, PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {withRequest} from 'shared/hoc';
+
+import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const MAX_DELTA = 500;
 
@@ -58,6 +64,18 @@ const fetchPropertyGroups = ({
 		}),
 		API.interests.searchKeywords({delta: MAX_DELTA, groupId}),
 		Promise.resolve(SESSION_PROPERTIES),
+		client.query({
+			query: EventDefinitionsQuery,
+			variables: {
+				eventType: EventTypes.All, // TODO: Change EventTypes.ALL to EventTypes.Custom
+				page: 0,
+				size: MAX_DELTA,
+				sort: {
+					column: 'name',
+					type: 'ASC'
+				}
+			}
+		}),
 		Promise.resolve(WEB_BEHAVIORS)
 	]);
 
@@ -70,6 +88,7 @@ const mapResultToProps = ([
 	organizationCustomMappings,
 	interestKeywords,
 	sessionProperties,
+	eventProperties,
 	webBehaviors
 ]) => {
 	const {tokenAuth} = currentChannel;
@@ -123,10 +142,22 @@ const mapResultToProps = ([
 
 	const propertyGroupsIList = List([
 		new PropertyGroup({
-			label: Liferay.Language.get('web-behaviors'),
+			label: Liferay.Language.get('events'),
 			propertyKey: 'web',
 			propertySubgroups: List([
-				new PropertySubgroup({properties: webBehaviors})
+				new PropertySubgroup({
+					label: Liferay.Language.get('default-events'),
+					properties: webBehaviors
+				}),
+				new PropertySubgroup({
+					label: Liferay.Language.get('custom-events'),
+					properties: List(
+						// TODO: Move function to create new Event Property to utils/utils
+						eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
+							convertEventToProperty
+						)
+					)
+				})
 			])
 		}),
 		new PropertyGroup({

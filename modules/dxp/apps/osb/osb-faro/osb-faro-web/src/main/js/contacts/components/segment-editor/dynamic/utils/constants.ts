@@ -76,6 +76,7 @@ export enum PropertyTypes {
 	Date = 'date',
 	DateTime = 'date-time',
 	Duration = 'duration',
+	Event = 'event',
 	Interest = 'interest',
 	Number = 'number',
 	OrganizationBoolean = 'organization-boolean',

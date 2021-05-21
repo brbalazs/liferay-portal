@@ -16,6 +16,7 @@ const TYPE_ICON_MAP = {
 	[PropertyTypes.Date]: 'date',
 	[PropertyTypes.DateTime]: 'date',
 	[PropertyTypes.Duration]: 'time',
+	[PropertyTypes.Event]: 'ac-event-analysis',
 	[PropertyTypes.Number]: 'integer',
 	[PropertyTypes.OrganizationBoolean]: 'check',
 	[PropertyTypes.OrganizationDate]: 'date',
@@ -56,6 +57,19 @@ const beginDrag = ({
 	if (type === PropertyTypes.Behavior) {
 		touched = {asset: false, dateFilter: false, occurenceCount: false};
 		valid = {asset: false, dateFilter: true, occurenceCount: true};
+	} else if (type === PropertyTypes.Event) {
+		touched = {
+			attribute: false,
+			attributeValue: false,
+			dateFilter: false,
+			occurenceCount: false
+		};
+		valid = {
+			attribute: false,
+			attributeValue: false,
+			dateFilter: false,
+			occurenceCount: false
+		};
 	} else if (type === PropertyTypes.SessionGeolocation) {
 		touched = {country: false, dateFilter: false};
 		valid = {country: false, dateFilter: true};
