@@ -71,7 +71,7 @@ public class UpgradeExecutor {
 
 	@Deactivate
 	public void stop() {
-		for (FutureTask futureTask : _futureTasks.values()) {
+		for (FutureTask<?> futureTask : _futureTasks.values()) {
 			futureTask.cancel(true);
 		}
 
@@ -82,7 +82,8 @@ public class UpgradeExecutor {
 		FaroProject faroProject = _faroProjectLocalService.getFaroProject(
 			faroProjectId);
 
-		FutureTask futureTask = _futureTasks.get(faroProject.getWeDeployKey());
+		FutureTask<?> futureTask = _futureTasks.get(
+			faroProject.getWeDeployKey());
 
 		if (futureTask != null) {
 			futureTask.cancel(true);
@@ -95,7 +96,7 @@ public class UpgradeExecutor {
 			boolean refreshLiferay, int threadCount, boolean waitForHealthy)
 		throws Exception {
 
-		for (FutureTask futureTask : _futureTasks.values()) {
+		for (FutureTask<?> futureTask : _futureTasks.values()) {
 			if (!futureTask.isDone()) {
 				throw new Exception("Upgrade currently in progress");
 			}
@@ -118,10 +119,10 @@ public class UpgradeExecutor {
 
 			if (StringUtil.equals(
 					faroProject.getState(),
-					FaroProjectConstants.STATE_DEACTIVATED)) {
+					FaroProjectConstants.STATE_DEACTIVATED) ||
+				faroProject.isSharedCluster()) {
 
-				_upgradeProgress.put(
-					_getKey(faroProject), "Skipped - Deactivated");
+				_upgradeProgress.put(_getKey(faroProject), "Skipped");
 			}
 			else {
 				_addUpgradeTask(
@@ -138,7 +139,8 @@ public class UpgradeExecutor {
 		FaroProject faroProject = _faroProjectLocalService.getFaroProject(
 			faroProjectId);
 
-		FutureTask futureTask = _futureTasks.get(faroProject.getWeDeployKey());
+		FutureTask<?> futureTask = _futureTasks.get(
+			faroProject.getWeDeployKey());
 
 		if ((futureTask != null) && !futureTask.isDone()) {
 			throw new Exception("Upgrade currently in progress");
@@ -155,7 +157,7 @@ public class UpgradeExecutor {
 
 		_upgradeProgress.put(_getKey(faroProject), "Queued");
 
-		FutureTask futureTask = new FutureTask<>(
+		FutureTask<?> futureTask = new FutureTask<>(
 			() -> {
 				_upgrade(faroProject, version, refreshLiferay, waitForHealthy);
 
@@ -267,7 +269,7 @@ public class UpgradeExecutor {
 	private void _checkInterrupted(String weDeployKey)
 		throws InterruptedException {
 
-		FutureTask futureTask = _futureTasks.get(weDeployKey);
+		FutureTask<?> futureTask = _futureTasks.get(weDeployKey);
 
 		if ((futureTask == null) || futureTask.isCancelled()) {
 			throw new InterruptedException("Upgrade interrupted");
@@ -298,7 +300,7 @@ public class UpgradeExecutor {
 	}
 
 	private boolean _isUpgradeDone() {
-		for (FutureTask futureTask : _futureTasks.values()) {
+		for (FutureTask<?> futureTask : _futureTasks.values()) {
 			if (!futureTask.isDone()) {
 				return false;
 			}
@@ -381,8 +383,8 @@ public class UpgradeExecutor {
 				_upgradeProgress.put(_getKey(faroProject), "Complete");
 			}
 
-			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
-				FaroProject.class);
+			Indexer<FaroProject> indexer =
+				IndexerRegistryUtil.nullSafeGetIndexer(FaroProject.class);
 
 			indexer.reindex(faroProject);
 
@@ -403,7 +405,7 @@ public class UpgradeExecutor {
 	private static final Log _log = LogFactoryUtil.getLog(
 		UpgradeExecutor.class);
 
-	private static final Map<String, FutureTask> _futureTasks =
+	private static final Map<String, FutureTask<?>> _futureTasks =
 		new ConcurrentHashMap<>();
 	private static final Map<String, String> _upgradeProgress =
 		new ConcurrentSkipListMap<>(Comparator.naturalOrder());
