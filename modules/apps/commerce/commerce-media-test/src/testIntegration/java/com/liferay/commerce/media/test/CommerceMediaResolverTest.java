@@ -56,6 +56,8 @@ import com.liferay.portlet.documentlibrary.util.test.DLTestUtil;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.frutilla.FrutillaRule;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -187,6 +189,9 @@ public class CommerceMediaResolverTest {
 
 		Assert.assertEquals(sb.toString(), url);
 	}
+
+	@Rule
+	public FrutillaRule frutillaRule = new FrutillaRule();
 
 	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
