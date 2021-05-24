@@ -25,6 +25,8 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.storage.StorageEngine;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -237,9 +239,14 @@ public class DDMFormXLSExporter extends BaseDDMFormExporter {
 			return byteArrayOutputStream.toByteArray();
 		}
 		catch (Exception e) {
+			_log.error(e, e);
+
 			return new byte[0];
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		DDMFormXLSExporter.class);
 
 	@Reference
 	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
