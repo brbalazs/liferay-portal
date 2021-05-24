@@ -79,7 +79,7 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 	@Override
 	public String getDownloadUrl(
-		long commerceAccountId, long cpAttachmentFileEntryId)
+			long commerceAccountId, long cpAttachmentFileEntryId)
 		throws PortalException {
 
 		return getUrl(commerceAccountId, cpAttachmentFileEntryId, true, false);
@@ -110,7 +110,7 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 	@Override
 	public String getThumbnailUrl(
-		long commerceAccountId, long cpAttachmentFileEntryId)
+			long commerceAccountId, long cpAttachmentFileEntryId)
 		throws PortalException {
 
 		return getUrl(commerceAccountId, cpAttachmentFileEntryId, false, true);
@@ -133,7 +133,7 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 	@Deprecated
 	@Override
 	public String getUrl(
-		long cpAttachmentFileEntryId, boolean download, boolean thumbnail)
+			long cpAttachmentFileEntryId, boolean download, boolean thumbnail)
 		throws PortalException {
 
 		throw new UnsupportedOperationException();
@@ -146,8 +146,8 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 	@Deprecated
 	@Override
 	public String getUrl(
-		long cpAttachmentFileEntryId, boolean download, boolean thumbnail,
-		boolean secure)
+			long cpAttachmentFileEntryId, boolean download, boolean thumbnail,
+			boolean secure)
 		throws PortalException {
 
 		throw new UnsupportedOperationException();
@@ -162,8 +162,8 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 	@Override
 	public String getUrl(
-		long commerceAccountId, long cpAttachmentFileEntryId,
-		boolean download, boolean thumbnail)
+			long commerceAccountId, long cpAttachmentFileEntryId,
+			boolean download, boolean thumbnail)
 		throws PortalException {
 
 		return getUrl(
@@ -173,8 +173,8 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 	@Override
 	public String getUrl(
-		long commerceAccountId, long cpAttachmentFileEntryId,
-		boolean download, boolean thumbnail, boolean secure)
+			long commerceAccountId, long cpAttachmentFileEntryId,
+			boolean download, boolean thumbnail, boolean secure)
 		throws PortalException {
 
 		StringBundler sb = new StringBundler(9);
@@ -225,12 +225,12 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 		sb.append(commerceAccountId);
 
 		if (cpAttachmentFileEntry.getType() ==
-			CPAttachmentFileEntryConstants.TYPE_IMAGE) {
+				CPAttachmentFileEntryConstants.TYPE_IMAGE) {
 
 			sb.append("/images/");
 		}
 		else if (cpAttachmentFileEntry.getType() ==
-				 CPAttachmentFileEntryConstants.TYPE_OTHER) {
+					CPAttachmentFileEntryConstants.TYPE_OTHER) {
 
 			sb.append("/attachments/");
 		}
@@ -248,8 +248,8 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 	@Deprecated
 	@Override
 	public void sendMediaBytes(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws IOException {
 
 		throw new UnsupportedOperationException();
@@ -261,8 +261,8 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 	@Deprecated
 	@Override
 	public void sendMediaBytes(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse, String download)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String download)
 		throws IOException {
 
 		throw new UnsupportedOperationException();
