@@ -17,6 +17,7 @@ package com.liferay.portal.kernel.upgrade;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourcePermission;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LoggingTimer;
 import com.liferay.portal.kernel.util.StringBundler;
 
@@ -35,9 +36,19 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 		throws Exception {
 
 		try (PreparedStatement ps = connection.prepareStatement(
-				"insert into ResourcePermission (resourcePermissionId, " +
-					"companyId, name, scope, primKey, roleId, actionIds) " +
-						"values (?, ?, ?, ?, ?, ?, ?)")) {
+				StringBundler.concat(
+					"insert into ResourcePermission (resourcePermissionId, ",
+					"companyId, name, scope, primKey, roleId, actionIds, ",
+					"primKeyId, viewActionId) values (?, ?, ?, ?, ?, ?, ?, ?, ",
+					"?)"))) {
+
+			long primKeyId = GetterUtil.getLong(primKey);
+
+			boolean viewActionId = false;
+
+			if ((actionIds % 2) == 1) {
+				viewActionId = true;
+			}
 
 			ps.setLong(1, resourcePermissionId);
 			ps.setLong(2, companyId);
@@ -46,6 +57,8 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 			ps.setString(5, primKey);
 			ps.setLong(6, roleId);
 			ps.setLong(7, actionIds);
+			ps.setLong(8, primKeyId);
+			ps.setBoolean(9, viewActionId);
 
 			ps.executeUpdate();
 		}
