@@ -309,10 +309,14 @@ definition {
 
 		AssertConsoleTextPresent(value1 = "Finished indexing dictionary for spellchecker/dictionary_de_DE.txt");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Language Page");
+
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Guest",
-			layoutName = "Home",
+			layoutName = "Language Page",
 			widgetName = "Language Selector");
 
 		Navigator.openURL();
