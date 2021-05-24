@@ -167,7 +167,7 @@ public class CommerceMediaResolverTest {
 				CPAttachmentFileEntryConstants.TYPE_IMAGE, null,
 				_serviceContext);
 
-		String url = _commerceMediaResolver.getUrl(
+		String url = _commerceMediaResolver.getURL(
 			_commerceAccount.getCommerceAccountId(),
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 

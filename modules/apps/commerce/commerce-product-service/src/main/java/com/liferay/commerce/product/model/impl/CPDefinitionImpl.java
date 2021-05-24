@@ -227,7 +227,7 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 			return CommerceMediaResolverUtil.getDefaultUrl(getGroupId());
 		}
 
-		return CommerceMediaResolverUtil.getUrl(
+		return CommerceMediaResolverUtil.getURL(
 			CommerceAccountConstants.ACCOUNT_ID_GUEST,
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
@@ -241,7 +241,7 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 			return CommerceMediaResolverUtil.getDefaultUrl(getGroupId());
 		}
 
-		return CommerceMediaResolverUtil.getThumbnailUrl(
+		return CommerceMediaResolverUtil.getThumbnailURL(
 			CommerceAccountConstants.ACCOUNT_ID_GUEST,
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}

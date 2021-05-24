@@ -191,7 +191,7 @@ public class CPAssetCategoriesNavigationDisplayContext {
 			commerceAccountId = commerceAccount.getCommerceAccountId();
 		}
 
-		return _commerceMediaResolver.getUrl(
+		return _commerceMediaResolver.getURL(
 			commerceAccountId,
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 	}
