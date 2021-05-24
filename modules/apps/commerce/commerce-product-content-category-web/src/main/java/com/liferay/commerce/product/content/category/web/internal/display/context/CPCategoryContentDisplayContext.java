@@ -107,11 +107,11 @@ public class CPCategoryContentDisplayContext {
 			return null;
 		}
 
+		long commerceAccountId = 0;
+
 		CommerceContext commerceContext =
 			(CommerceContext)_httpServletRequest.getAttribute(
 				CommerceWebKeys.COMMERCE_CONTEXT);
-
-		long commerceAccountId = 0;
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
