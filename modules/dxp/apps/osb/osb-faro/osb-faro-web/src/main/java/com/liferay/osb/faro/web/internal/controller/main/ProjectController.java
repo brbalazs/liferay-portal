@@ -876,6 +876,14 @@ public class ProjectController extends BaseFaroController {
 		_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
 		_validateTimeZoneId(timeZoneId);
 
+		if (Objects.equals(
+				LCPProject.Cluster.fromString(serverLocation),
+				LCPProject.Cluster.US)) {
+
+			serverLocation = LCPProject.Cluster.US_AC.getProjectId();
+			sharedCluster = true;
+		}
+
 		FaroSubscriptionDisplay faroSubscriptionDisplay =
 			new FaroSubscriptionDisplay(
 				new OSBAccountEntry() {
