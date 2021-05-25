@@ -57,19 +57,23 @@ FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(re
 					/>
 
 					<liferay-ui:search-container-column-date
+						name="create-date"
 						orderable="<%= true %>"
 						property="createDate"
 					/>
 
 					<liferay-ui:search-container-column-text
+						name="subscription"
 						property="subscriptionName"
 					/>
 
 					<liferay-ui:search-container-column-text
+						name="individuals-usage"
 						property="individualsUsage"
 					/>
 
 					<liferay-ui:search-container-column-text
+						name="page-views-usage"
 						property="pageViewsUsage"
 					/>
 

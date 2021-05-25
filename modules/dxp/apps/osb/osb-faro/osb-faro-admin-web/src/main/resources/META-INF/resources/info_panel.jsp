@@ -57,43 +57,43 @@ request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 		<c:choose>
 			<c:when test='<%= tab.equals("details") %>'>
 				<div class="sidebar-body">
-					<h5><liferay-ui:message key="groupId" /></h5>
+					<h5><liferay-ui:message key="group-id" /></h5>
 
 					<p>
 						<%= faroProjectAdminDisplay.getGroupId() %>
 					</p>
 
-					<h5><liferay-ui:message key="corpProjectUuid" /></h5>
+					<h5><liferay-ui:message key="corp-project-uuid" /></h5>
 
 					<p>
 						<%= faroProjectAdminDisplay.getCorpProjectUuid() %>
 					</p>
 
-					<h5><liferay-ui:message key="corpProjectName" /></h5>
+					<h5><liferay-ui:message key="corp-project-name" /></h5>
 
 					<p>
 						<%= faroProjectAdminDisplay.getCorpProjectName() %>
 					</p>
 
-					<h5><liferay-ui:message key="weDeployKey" /></h5>
+					<h5><liferay-ui:message key="wedeploy-key" /></h5>
 
 					<p>
 						<%= faroProjectAdminDisplay.getWeDeployKey() %>
 					</p>
 
-					<h5><liferay-ui:message key="lastAccessDate" /></h5>
+					<h5><liferay-ui:message key="last-access-date" /></h5>
 
 					<p>
 						<%= faroProjectAdminDisplay.getLastAccessDate() %>
 					</p>
 
-					<h5><liferay-ui:message key="individualsUsage" /></h5>
+					<h5><liferay-ui:message key="individuals-usage" /></h5>
 
 					<p>
 						<%= StringBundler.concat(faroProjectAdminDisplay.getIndividualsCount(), " / ", faroProjectAdminDisplay.getIndividualsLimit(), " (", faroProjectAdminDisplay.getIndividualsUsage(), "%)") %>
 					</p>
 
-					<h5><liferay-ui:message key="pageViewsUsage" /></h5>
+					<h5><liferay-ui:message key="page-views-usage" /></h5>
 
 					<p>
 						<%= StringBundler.concat(faroProjectAdminDisplay.getPageViewsCount(), " / ", faroProjectAdminDisplay.getPageViewsLimit(), " (", faroProjectAdminDisplay.getPageViewsUsage(), "%)") %>
