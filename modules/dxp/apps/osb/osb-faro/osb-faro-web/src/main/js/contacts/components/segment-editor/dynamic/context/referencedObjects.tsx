@@ -1,5 +1,6 @@
 import React, {createContext, useEffect, useReducer} from 'react';
 import {
+	convertEventToProperty,
 	convertFieldMappingsToProperties,
 	getPropertyContextFromRaw,
 	getPropertyNameFromRaw
@@ -82,6 +83,8 @@ export const referencedPropertiesReducer = (
 					],
 					payload
 				);
+			} else if (payload.propertyKey === 'event') {
+				return state.setIn([payload.propertyKey, payload.id], payload);
 			}
 
 			return state;
@@ -165,10 +168,19 @@ export const ReferencedObjectsProvider = ({
 		referencedPropertiesDispatch({
 			payload: segment
 				? (convertFieldMappingsToProperties(
-						segment.getIn(
-							['referencedObjects', 'fieldMappings'],
-							Map()
-						)
+						segment
+							.getIn(
+								['referencedObjects', 'fieldMappings'],
+								Map()
+							)
+							.merge(
+								segment
+									.getIn(
+										['referencedObjects', 'events'],
+										Map()
+									)
+									.map(convertEventToProperty)
+							)
 				  ) as Map<string, Map<string, Property>>)
 				: Map(),
 			type: ActionType.ReplaceAll

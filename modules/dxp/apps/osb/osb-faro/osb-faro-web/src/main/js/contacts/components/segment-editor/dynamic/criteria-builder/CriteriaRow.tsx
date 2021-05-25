@@ -10,6 +10,7 @@ import CustomNumberInput from '../inputs/CustomNumberInput';
 import DateInput from '../inputs/DateInput';
 import DateTimeInput from '../inputs/DateTimeInput';
 import DurationInput from '../inputs/DurationInput';
+import EventInput from '../inputs/EventInput';
 import Form from 'shared/components/form';
 import GeolocationInput from '../inputs/GeolocationInput';
 import getCN from 'classnames';
@@ -385,6 +386,7 @@ class CriteriaRow extends React.Component<
 			[PropertyTypes.Date]: DateInput,
 			[PropertyTypes.DateTime]: DateTimeInput,
 			[PropertyTypes.Duration]: DurationInput,
+			[PropertyTypes.Event]: EventInput,
 			[PropertyTypes.Interest]: InterestBooleanInput,
 			[PropertyTypes.Number]: NumberInput,
 			[PropertyTypes.OrganizationBoolean]: CustomBooleanInput,

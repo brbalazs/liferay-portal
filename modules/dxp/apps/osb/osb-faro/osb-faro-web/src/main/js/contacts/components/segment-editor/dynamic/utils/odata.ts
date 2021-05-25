@@ -730,6 +730,7 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 	let touched: boolean | {asset: boolean; occurenceCount: boolean} = false;
 	let valid: boolean | {asset: boolean; occurenceCount: boolean} = true;
 
+	// TODO: Prob need one here for PropertyTypes.Event
 	if (
 		SUPPORTED_PROPERTY_TYPES_MAP[PropertyTypes.Behavior].includes(
 			operatorName

@@ -40,7 +40,11 @@ export default class Segment
 		lastActivityDate: null,
 		name: '',
 		properties: Map(),
-		referencedObjects: Map({assets: Map(), fieldMappings: Map()}),
+		referencedObjects: Map({
+			assets: Map(),
+			events: Map(),
+			fieldMappings: Map()
+		}),
 		segmentType: null,
 		state: '',
 		status: null,

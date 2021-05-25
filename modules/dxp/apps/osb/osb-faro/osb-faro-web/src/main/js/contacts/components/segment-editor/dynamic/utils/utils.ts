@@ -9,6 +9,7 @@ import {
 	SUPPORTED_OPERATORS_MAP
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
+import {Event} from 'event-analysis/utils/types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {getUid} from 'metal';
@@ -183,6 +184,13 @@ export const findPropertyByCriterion = (
 		return WEB_BEHAVIORS.find(({name}) => name === eventId);
 	} else if (
 		[
+			CustomFunctionOperators.EventsFilterByCount,
+			NotOperators.NotEventsFilterByCount
+		].includes(operatorName)
+	) {
+		return referencedPropertiesIMap.getIn(['event', propertyName]);
+	} else if (
+		[
 			CustomFunctionOperators.AccountsFilter,
 			NotOperators.NotAccountsFilter
 		].includes(operatorName)
@@ -349,6 +357,29 @@ export const convertFieldMappingToOrganizationProperty = (
 		name: context ? `${context}/${name}/value` : name,
 		propertyKey: FieldOwnerTypes.Organization,
 		type: `organization-${type.toLowerCase()}` as PropertyTypes
+	});
+};
+
+export const convertEventToProperty = (
+	eventDefinition: Map<string, any> | Event = Map()
+): Map<string, Map<string, Property>> => {
+	const displayName = isMap(eventDefinition)
+		? eventDefinition.get('displayName')
+		: eventDefinition.displayName;
+	const id = isMap(eventDefinition)
+		? eventDefinition.get('id')
+		: eventDefinition.id;
+	const name = isMap(eventDefinition)
+		? eventDefinition.get('name')
+		: eventDefinition.name;
+
+	return new Property({
+		entityName: Liferay.Language.get('event'),
+		id,
+		label: displayName || name,
+		name: id,
+		propertyKey: 'event',
+		type: PropertyTypes.Event
 	});
 };
 

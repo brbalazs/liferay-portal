@@ -28,6 +28,7 @@ export enum CustomFunctionOperators {
 	AccountsFilterByCount = 'accounts-filter-by-count',
 	ActivitiesFilter = 'activities-filter',
 	ActivitiesFilterByCount = 'activities-filter-by-count',
+	EventsFilterByCount = 'events-filter-by-count',
 	InterestsFilter = 'interests-filter',
 	OrganizationsFilter = 'organizations-filter',
 	SessionsFilter = 'sessions-filter'
@@ -49,6 +50,7 @@ export enum NotOperators {
 	NotActivitiesFilter = 'not-activities-filter',
 	NotActivitiesFilterByCount = 'not-activities-filter-by-count',
 	NotContains = 'not-contains',
+	NotEventsFilterByCount = 'not-events-filter-by-count',
 	NotOrganizationsFilter = 'not-organizations-filter',
 	NotSessionsFilter = 'not-sessions-filter'
 }
@@ -103,6 +105,7 @@ export const CUSTOM_FUNCTION_OPERATOR_KEY_MAP = {
 	['activities.filter']: CustomFunctionOperators.ActivitiesFilter,
 	['activities.filterByCount']:
 		CustomFunctionOperators.ActivitiesFilterByCount,
+	['events.filterByCount']: CustomFunctionOperators.EventsFilterByCount,
 	['interests.filter']: CustomFunctionOperators.InterestsFilter,
 	['organizations.filter']: CustomFunctionOperators.OrganizationsFilter,
 	['sessions.filter']: CustomFunctionOperators.SessionsFilter
@@ -199,6 +202,18 @@ export const SUPPORTED_OPERATORS_MAP = {
 			key: RelationalOperators.LT,
 			label: Liferay.Language.get('less-than-fragment'),
 			name: RelationalOperators.LT
+		}
+	],
+	[PropertyTypes.Event]: [
+		{
+			key: CustomFunctionOperators.EventsFilterByCount,
+			label: Liferay.Language.get('has-fragment'),
+			name: CustomFunctionOperators.EventsFilterByCount
+		},
+		{
+			key: NotOperators.NotActivitiesFilterByCount,
+			label: Liferay.Language.get('has-not-fragment'),
+			name: NotOperators.NotActivitiesFilterByCount
 		}
 	],
 	[PropertyTypes.Interest]: [
@@ -494,6 +509,7 @@ export const TIME_CONJUNCTION_OPTIONS = [
 ];
 
 export const ACTIVITY_KEY = 'activityKey';
+export const EVENT_KEY = 'eventDefinitionId';
 
 export const TIME_PERIOD_OPTIONS = [
 	{
