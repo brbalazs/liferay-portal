@@ -132,7 +132,7 @@ export class SegmentGrowthChart extends React.Component {
 	renderTooltip({active, payload}) {
 		const {data, hasSelectedPoint, selectedPoint} = this.props;
 
-		if ((active && !!payload.length) || hasSelectedPoint) {
+		if ((active && payload && !!payload.length) || hasSelectedPoint) {
 			const {
 				added,
 				anonymousCount,
@@ -694,11 +694,7 @@ export class SegmentGrowthWithList extends React.Component {
 			selectedPoint
 		} = this.props;
 
-		const {modifiedDate} = get(
-			data,
-			get(selectedPoint, ['activeTooltipIndex']),
-			{}
-		);
+		const {modifiedDate} = get(data, selectedPoint, {});
 
 		return (
 			<Card.Body
