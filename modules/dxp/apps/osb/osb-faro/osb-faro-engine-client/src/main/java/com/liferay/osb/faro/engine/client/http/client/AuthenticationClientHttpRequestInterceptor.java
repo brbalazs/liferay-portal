@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -35,6 +37,7 @@ import org.springframework.http.client.ClientHttpResponse;
 /**
  * @author Shinn Lok
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class AuthenticationClientHttpRequestInterceptor
 	implements ClientHttpRequestInterceptor {
 

@@ -122,7 +122,7 @@ public class CacheClientHttpRequestInterceptor
 		List<String> headers = httpHeaders.getOrEmpty(_ASAH_PROJECT_ID_HEADER);
 
 		if (headers.isEmpty()) {
-			return "";
+			return StringPool.BLANK;
 		}
 
 		return headers.get(0);
