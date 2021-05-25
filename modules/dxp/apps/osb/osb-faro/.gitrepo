@@ -7,5 +7,5 @@
 	commit = 45d5bfd3d5be0077fa14515401f3c311f94a9271
 	mergebuttonmergecommits = true
 	mode = pull
-	parent = e39becf6d32b1c4c594d4f039eee700aa0d1eef7
+	parent = 0000000000000000000000000000000000000000
 	remote = git@github.com:liferay/com-liferay-osb-faro-private.git
