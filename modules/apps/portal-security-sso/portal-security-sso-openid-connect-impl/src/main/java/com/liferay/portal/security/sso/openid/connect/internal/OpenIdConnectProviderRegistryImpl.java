@@ -176,7 +176,8 @@ public class OpenIdConnectProviderRegistryImpl
 			openIdConnectProviderConfiguration.openIdConnectClientId(),
 			openIdConnectProviderConfiguration.openIdConnectClientSecret(),
 			openIdConnectProviderConfiguration.scopes(),
-			openIdConnectMetadataFactory);
+			openIdConnectMetadataFactory,
+			openIdConnectProviderConfiguration.tokenConnectionTimeout());
 	}
 
 	protected void removeOpenConnectIdProvider(String factoryPid) {
