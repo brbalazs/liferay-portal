@@ -47,3 +47,8 @@ e01e0c135cf4fb08a4c59f600be04d21c8dcb52b^..40b1b016dabe6a01849b35eb426a9800553dc
 # Bundle Version 2.0.10
 #
 227e9fabeec576670e157b44d9a6203c3c6fa323^..ede4caf6e1b7cd70a547992dac606c75d5abb6f9=ISOPS-151 LPS-77699
+
+#
+# Bundle Version 2.0.11
+#
+ede4caf6e1b7cd70a547992dac606c75d5abb6f9^..a63486d3b85da99b066368cecf6c3fe2b40a7eef=LPS-105380
