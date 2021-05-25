@@ -15,13 +15,17 @@
 package com.liferay.osb.faro.engine.client.http.client;
 
 import com.liferay.osb.faro.engine.client.FaroClientHttpResponse;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 
 import java.io.IOException;
 
+import java.util.List;
+
 import org.apache.http.HttpStatus;
 
 import org.springframework.cache.Cache;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -98,10 +102,33 @@ public class CacheClientHttpRequestInterceptor
 	}
 
 	protected String getKey(HttpRequest httpRequest) {
+		StringBundler sb = new StringBundler(5);
+
 		HttpMethod httpMethod = httpRequest.getMethod();
 
-		return httpMethod.name() + StringPool.COLON + httpRequest.getURI();
+		sb.append(httpMethod.name());
+
+		sb.append(StringPool.COLON);
+		sb.append(httpRequest.getURI());
+		sb.append(StringPool.COLON);
+		sb.append(getProjectId(httpRequest));
+
+		return sb.toString();
 	}
+
+	protected String getProjectId(HttpRequest httpRequest) {
+		HttpHeaders httpHeaders = httpRequest.getHeaders();
+
+		List<String> headers = httpHeaders.getOrEmpty(_ASAH_PROJECT_ID_HEADER);
+
+		if (headers.isEmpty()) {
+			return "";
+		}
+
+		return headers.get(0);
+	}
+
+	private static final String _ASAH_PROJECT_ID_HEADER = "OSB-Asah-Project-ID";
 
 	private final Cache _cache;
 
