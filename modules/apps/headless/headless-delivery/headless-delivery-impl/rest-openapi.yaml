@@ -6168,7 +6168,7 @@ paths:
                                 type: array
                     description:
                         ""
-            tags: [ "Language" ]
+            tags: ["Language"]
     "/sites/{siteId}/message-board-messages":
         # @review
         get:
