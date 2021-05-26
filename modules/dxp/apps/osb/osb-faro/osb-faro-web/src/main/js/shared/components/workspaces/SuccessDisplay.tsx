@@ -30,7 +30,7 @@ const SuccessDisplay = ({friendlyURL}) => {
 						<p>
 							{sub(
 								Liferay.Language.get(
-									'well-send-you-an-email-once-its-ready-to-access-at-this-URL-x'
+									'well-send-you-an-email-once-its-ready-to-access-at-this-url-x'
 								),
 								[link],
 								false
