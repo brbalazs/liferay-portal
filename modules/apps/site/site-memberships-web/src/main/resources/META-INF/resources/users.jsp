@@ -111,7 +111,9 @@ Role role = usersDisplayContext.getRole();
 	<aui:input name="tabs1" type="hidden" value="users" />
 </aui:form>
 
-<portlet:actionURL name="editUserGroupRole" var="editUserGroupRoleURL" />
+<portlet:actionURL name="editUserGroupRole" var="editUserGroupRoleURL">
+	<portlet:param name="redirect" value="<%= currentURL %>" />
+</portlet:actionURL>
 
 <aui:form action="<%= editUserGroupRoleURL %>" cssClass="hide" method="post" name="editUserGroupRoleFm">
 	<aui:input name="tabs1" type="hidden" value="users" />
