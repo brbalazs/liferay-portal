@@ -1399,23 +1399,24 @@ public class OAuthTokenPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (oAuthToken.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				oAuthToken.setCreateDate(now);
+				oAuthToken.setCreateDate(date);
 			}
 			else {
-				oAuthToken.setCreateDate(serviceContext.getCreateDate(now));
+				oAuthToken.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!oAuthTokenModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				oAuthToken.setModifiedDate(now);
+				oAuthToken.setModifiedDate(date);
 			}
 			else {
-				oAuthToken.setModifiedDate(serviceContext.getModifiedDate(now));
+				oAuthToken.setModifiedDate(
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

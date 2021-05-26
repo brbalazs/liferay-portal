@@ -2494,18 +2494,18 @@ public class CommercePriceListCommerceAccountGroupRelPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew &&
 			(commercePriceListCommerceAccountGroupRel.getCreateDate() ==
 				null)) {
 
 			if (serviceContext == null) {
-				commercePriceListCommerceAccountGroupRel.setCreateDate(now);
+				commercePriceListCommerceAccountGroupRel.setCreateDate(date);
 			}
 			else {
 				commercePriceListCommerceAccountGroupRel.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
@@ -2513,11 +2513,11 @@ public class CommercePriceListCommerceAccountGroupRelPersistenceImpl
 				hasSetModifiedDate()) {
 
 			if (serviceContext == null) {
-				commercePriceListCommerceAccountGroupRel.setModifiedDate(now);
+				commercePriceListCommerceAccountGroupRel.setModifiedDate(date);
 			}
 			else {
 				commercePriceListCommerceAccountGroupRel.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

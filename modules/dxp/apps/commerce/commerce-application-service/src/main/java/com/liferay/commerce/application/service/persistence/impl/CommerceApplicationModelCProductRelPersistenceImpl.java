@@ -1489,17 +1489,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew &&
 			(commerceApplicationModelCProductRel.getCreateDate() == null)) {
 
 			if (serviceContext == null) {
-				commerceApplicationModelCProductRel.setCreateDate(now);
+				commerceApplicationModelCProductRel.setCreateDate(date);
 			}
 			else {
 				commerceApplicationModelCProductRel.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
@@ -1507,11 +1507,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 				hasSetModifiedDate()) {
 
 			if (serviceContext == null) {
-				commerceApplicationModelCProductRel.setModifiedDate(now);
+				commerceApplicationModelCProductRel.setModifiedDate(date);
 			}
 			else {
 				commerceApplicationModelCProductRel.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

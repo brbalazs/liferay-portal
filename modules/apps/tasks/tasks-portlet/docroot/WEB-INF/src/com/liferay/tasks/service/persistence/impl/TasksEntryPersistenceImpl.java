@@ -10224,23 +10224,24 @@ public class TasksEntryPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (tasksEntry.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				tasksEntry.setCreateDate(now);
+				tasksEntry.setCreateDate(date);
 			}
 			else {
-				tasksEntry.setCreateDate(serviceContext.getCreateDate(now));
+				tasksEntry.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!tasksEntryModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				tasksEntry.setModifiedDate(now);
+				tasksEntry.setModifiedDate(date);
 			}
 			else {
-				tasksEntry.setModifiedDate(serviceContext.getModifiedDate(now));
+				tasksEntry.setModifiedDate(
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

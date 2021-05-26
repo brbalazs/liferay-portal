@@ -3291,24 +3291,24 @@ public class PowwowMeetingPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (powwowMeeting.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				powwowMeeting.setCreateDate(now);
+				powwowMeeting.setCreateDate(date);
 			}
 			else {
-				powwowMeeting.setCreateDate(serviceContext.getCreateDate(now));
+				powwowMeeting.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!powwowMeetingModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				powwowMeeting.setModifiedDate(now);
+				powwowMeeting.setModifiedDate(date);
 			}
 			else {
 				powwowMeeting.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

@@ -5424,25 +5424,25 @@ public class CPFriendlyURLEntryPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (cpFriendlyURLEntry.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				cpFriendlyURLEntry.setCreateDate(now);
+				cpFriendlyURLEntry.setCreateDate(date);
 			}
 			else {
 				cpFriendlyURLEntry.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!cpFriendlyURLEntryModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				cpFriendlyURLEntry.setModifiedDate(now);
+				cpFriendlyURLEntry.setModifiedDate(date);
 			}
 			else {
 				cpFriendlyURLEntry.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

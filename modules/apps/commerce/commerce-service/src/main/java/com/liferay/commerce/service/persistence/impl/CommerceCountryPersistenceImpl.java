@@ -4290,25 +4290,25 @@ public class CommerceCountryPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (commerceCountry.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				commerceCountry.setCreateDate(now);
+				commerceCountry.setCreateDate(date);
 			}
 			else {
 				commerceCountry.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!commerceCountryModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				commerceCountry.setModifiedDate(now);
+				commerceCountry.setModifiedDate(date);
 			}
 			else {
 				commerceCountry.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

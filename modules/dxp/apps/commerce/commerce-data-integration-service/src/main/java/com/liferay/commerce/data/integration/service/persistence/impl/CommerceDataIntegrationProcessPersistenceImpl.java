@@ -2664,25 +2664,25 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (commerceDataIntegrationProcess.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				commerceDataIntegrationProcess.setCreateDate(now);
+				commerceDataIntegrationProcess.setCreateDate(date);
 			}
 			else {
 				commerceDataIntegrationProcess.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!commerceDataIntegrationProcessModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				commerceDataIntegrationProcess.setModifiedDate(now);
+				commerceDataIntegrationProcess.setModifiedDate(date);
 			}
 			else {
 				commerceDataIntegrationProcess.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

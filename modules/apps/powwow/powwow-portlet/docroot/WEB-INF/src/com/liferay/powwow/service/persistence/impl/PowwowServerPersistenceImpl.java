@@ -915,24 +915,24 @@ public class PowwowServerPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (powwowServer.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				powwowServer.setCreateDate(now);
+				powwowServer.setCreateDate(date);
 			}
 			else {
-				powwowServer.setCreateDate(serviceContext.getCreateDate(now));
+				powwowServer.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!powwowServerModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				powwowServer.setModifiedDate(now);
+				powwowServer.setModifiedDate(date);
 			}
 			else {
 				powwowServer.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

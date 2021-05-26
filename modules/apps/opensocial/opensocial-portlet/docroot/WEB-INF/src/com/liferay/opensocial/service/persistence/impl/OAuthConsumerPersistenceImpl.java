@@ -1209,24 +1209,24 @@ public class OAuthConsumerPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (oAuthConsumer.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				oAuthConsumer.setCreateDate(now);
+				oAuthConsumer.setCreateDate(date);
 			}
 			else {
-				oAuthConsumer.setCreateDate(serviceContext.getCreateDate(now));
+				oAuthConsumer.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!oAuthConsumerModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				oAuthConsumer.setModifiedDate(now);
+				oAuthConsumer.setModifiedDate(date);
 			}
 			else {
 				oAuthConsumer.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

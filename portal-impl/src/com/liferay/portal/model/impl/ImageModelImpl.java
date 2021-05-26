@@ -500,8 +500,14 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 		return _modifiedDate;
 	}
 
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
 		_modifiedDate = modifiedDate;
 	}
 
@@ -676,6 +682,8 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 
 	@Override
 	public void resetOriginalValues() {
+		_setModifiedDate = false;
+
 		_originalSize = _size;
 
 		_setOriginalSize = false;
@@ -791,6 +799,7 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 	private long _imageId;
 	private long _companyId;
 	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private String _type;
 	private int _height;
 	private int _width;

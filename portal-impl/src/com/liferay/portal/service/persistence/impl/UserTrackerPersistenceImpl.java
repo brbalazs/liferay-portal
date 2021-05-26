@@ -26,6 +26,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.UserTracker;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.UserTrackerPersistence;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -39,6 +41,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1842,6 +1845,21 @@ public class UserTrackerPersistenceImpl
 
 		UserTrackerModelImpl userTrackerModelImpl =
 			(UserTrackerModelImpl)userTracker;
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Date date = new Date();
+
+		if (!userTrackerModelImpl.hasSetModifiedDate()) {
+			if (serviceContext == null) {
+				userTracker.setModifiedDate(date);
+			}
+			else {
+				userTracker.setModifiedDate(
+					serviceContext.getModifiedDate(date));
+			}
+		}
 
 		Session session = null;
 

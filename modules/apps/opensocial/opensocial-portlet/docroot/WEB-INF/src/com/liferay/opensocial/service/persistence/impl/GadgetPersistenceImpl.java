@@ -3464,23 +3464,23 @@ public class GadgetPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (gadget.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				gadget.setCreateDate(now);
+				gadget.setCreateDate(date);
 			}
 			else {
-				gadget.setCreateDate(serviceContext.getCreateDate(now));
+				gadget.setCreateDate(serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!gadgetModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				gadget.setModifiedDate(now);
+				gadget.setModifiedDate(date);
 			}
 			else {
-				gadget.setModifiedDate(serviceContext.getModifiedDate(now));
+				gadget.setModifiedDate(serviceContext.getModifiedDate(date));
 			}
 		}
 

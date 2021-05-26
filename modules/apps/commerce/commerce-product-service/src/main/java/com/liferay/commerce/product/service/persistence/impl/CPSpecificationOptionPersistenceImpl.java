@@ -4499,25 +4499,25 @@ public class CPSpecificationOptionPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (cpSpecificationOption.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				cpSpecificationOption.setCreateDate(now);
+				cpSpecificationOption.setCreateDate(date);
 			}
 			else {
 				cpSpecificationOption.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!cpSpecificationOptionModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				cpSpecificationOption.setModifiedDate(now);
+				cpSpecificationOption.setModifiedDate(date);
 			}
 			else {
 				cpSpecificationOption.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

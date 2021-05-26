@@ -29,6 +29,8 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -44,6 +46,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -4712,6 +4715,20 @@ public class AMImageEntryPersistenceImpl
 			String uuid = PortalUUIDUtil.generate();
 
 			amImageEntry.setUuid(uuid);
+		}
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Date date = new Date();
+
+		if (isNew && (amImageEntry.getCreateDate() == null)) {
+			if (serviceContext == null) {
+				amImageEntry.setCreateDate(date);
+			}
+			else {
+				amImageEntry.setCreateDate(serviceContext.getCreateDate(date));
+			}
 		}
 
 		Session session = null;

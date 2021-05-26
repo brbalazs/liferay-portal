@@ -2843,24 +2843,25 @@ public class CommerceRegionPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew && (commerceRegion.getCreateDate() == null)) {
 			if (serviceContext == null) {
-				commerceRegion.setCreateDate(now);
+				commerceRegion.setCreateDate(date);
 			}
 			else {
-				commerceRegion.setCreateDate(serviceContext.getCreateDate(now));
+				commerceRegion.setCreateDate(
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!commerceRegionModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				commerceRegion.setModifiedDate(now);
+				commerceRegion.setModifiedDate(date);
 			}
 			else {
 				commerceRegion.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 

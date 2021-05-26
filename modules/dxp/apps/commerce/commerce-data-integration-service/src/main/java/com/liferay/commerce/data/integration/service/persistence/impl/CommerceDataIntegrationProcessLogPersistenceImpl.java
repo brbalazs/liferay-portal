@@ -1506,27 +1506,27 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		Date now = new Date();
+		Date date = new Date();
 
 		if (isNew &&
 			(commerceDataIntegrationProcessLog.getCreateDate() == null)) {
 
 			if (serviceContext == null) {
-				commerceDataIntegrationProcessLog.setCreateDate(now);
+				commerceDataIntegrationProcessLog.setCreateDate(date);
 			}
 			else {
 				commerceDataIntegrationProcessLog.setCreateDate(
-					serviceContext.getCreateDate(now));
+					serviceContext.getCreateDate(date));
 			}
 		}
 
 		if (!commerceDataIntegrationProcessLogModelImpl.hasSetModifiedDate()) {
 			if (serviceContext == null) {
-				commerceDataIntegrationProcessLog.setModifiedDate(now);
+				commerceDataIntegrationProcessLog.setModifiedDate(date);
 			}
 			else {
 				commerceDataIntegrationProcessLog.setModifiedDate(
-					serviceContext.getModifiedDate(now));
+					serviceContext.getModifiedDate(date));
 			}
 		}
 
