@@ -109,7 +109,17 @@ public class CommerceMediaResolverTest {
 	}
 
 	@Test
-	public void testGetUrl() throws Exception {
+	public void testGetURL() throws Exception {
+		frutillaRule.scenario(
+			"Test commerce media resolver URL"
+		).given(
+			"A commerce product attachment file entry"
+		).when(
+			"I invoke getURL method"
+		).then(
+			"I expect the URL to be formatted correctly"
+		);
+
 		CommerceCatalog commerceCatalog =
 			_commerceCatalogLocalService.addCommerceCatalog(
 				null, RandomTestUtil.randomString(),
@@ -177,7 +187,7 @@ public class CommerceMediaResolverTest {
 			_commerceAccount.getCommerceAccountId(),
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(8);
 
 		sb.append(PortalUtil.getPathModule());
 		sb.append(StringPool.SLASH);
@@ -186,6 +196,7 @@ public class CommerceMediaResolverTest {
 		sb.append(_commerceAccount.getCommerceAccountId());
 		sb.append("/images/");
 		sb.append(cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+		sb.append("?download=false");
 
 		Assert.assertEquals(sb.toString(), url);
 	}
