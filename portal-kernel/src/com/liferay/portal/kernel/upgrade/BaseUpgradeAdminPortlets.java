@@ -42,8 +42,6 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 					"primKeyId, viewActionId) values (?, ?, ?, ?, ?, ?, ?, ?, ",
 					"?)"))) {
 
-			long primKeyId = GetterUtil.getLong(primKey);
-
 			boolean viewActionId = false;
 
 			if ((actionIds % 2) == 1) {
@@ -57,7 +55,7 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 			ps.setString(5, primKey);
 			ps.setLong(6, roleId);
 			ps.setLong(7, actionIds);
-			ps.setLong(8, primKeyId);
+			ps.setLong(8, GetterUtil.getLong(primKey));
 			ps.setBoolean(9, viewActionId);
 
 			ps.executeUpdate();
