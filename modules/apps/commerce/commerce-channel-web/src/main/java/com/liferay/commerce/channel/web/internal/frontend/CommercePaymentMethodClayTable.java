@@ -16,6 +16,7 @@ package com.liferay.commerce.channel.web.internal.frontend;
 
 import com.liferay.commerce.channel.web.internal.frontend.util.CommerceChannelClayTableUtil;
 import com.liferay.commerce.channel.web.internal.model.PaymentMethod;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -39,17 +40,21 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -111,6 +116,33 @@ public class CommercePaymentMethodClayTable
 			clayDataSetAction.setTarget("sidePanel");
 
 			clayTableActions.add(clayDataSetAction);
+
+			CommerceChannel commerceChannel =
+				_commerceChannelService.getCommerceChannel(commerceChannelId);
+
+			CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+				_commercePaymentMethodGroupRelService.
+					fetchCommercePaymentMethodGroupRel(
+						commerceChannel.getGroupId(), paymentMethod.getKey());
+
+			if (commercePaymentMethodGroupRel != null) {
+				PortletURL permissionsURL = _getPaymentMethodPermissionURL(
+					commercePaymentMethodGroupRel, paymentMethod.getKey(),
+					httpServletRequest);
+
+				ClayDataSetAction permissionsClayDataSetAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, permissionsURL.toString(),
+						StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "permissions"),
+						StringPool.BLANK, false, false);
+
+				permissionsClayDataSetAction.setTarget(
+					ClayMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
+
+				clayTableActions.add(permissionsClayDataSetAction);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -212,6 +244,44 @@ public class CommercePaymentMethodClayTable
 		return paymentMethods;
 	}
 
+	private PortletURL _getPaymentMethodPermissionURL(
+			CommercePaymentMethodGroupRel commercePaymentMethodGroupRel,
+			String paymentMethodKey, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			redirect);
+		portletURL.setParameter(
+			"modelResource", CommercePaymentMethodGroupRel.class.getName());
+		portletURL.setParameter("modelResourceDescription", paymentMethodKey);
+		portletURL.setParameter(
+			"resourcePrimKey",
+			String.valueOf(
+				commercePaymentMethodGroupRel.
+					getCommercePaymentMethodGroupRelId()));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException windowStateException) {
+			throw new PortalException(windowStateException);
+		}
+
+		return portletURL;
+	}
+
 	private boolean _isActive(
 		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel) {
 
@@ -234,5 +304,8 @@ public class CommercePaymentMethodClayTable
 
 	@Reference
 	private CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
+
+	@Reference
+	private Portal _portal;
 
 }
