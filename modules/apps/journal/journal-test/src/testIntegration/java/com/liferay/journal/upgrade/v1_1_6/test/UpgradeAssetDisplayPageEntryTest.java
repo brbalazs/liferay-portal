@@ -400,6 +400,7 @@ public class UpgradeAssetDisplayPageEntryTest {
 		Group liveGroup = createGroup();
 
 		GroupTestUtil.enableLocalStaging(liveGroup);
+
 		Group stagingGroup = liveGroup.getStagingGroup();
 
 		String layoutUuid = PortalUUIDUtil.generate();

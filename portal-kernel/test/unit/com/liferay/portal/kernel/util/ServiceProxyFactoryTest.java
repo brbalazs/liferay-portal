@@ -473,6 +473,7 @@ public class ServiceProxyFactoryTest {
 					}
 
 				});
+
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
 
 			FutureTask<String> futureTask = new FutureTask<>(
