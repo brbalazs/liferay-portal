@@ -76,8 +76,8 @@ public class KaleoDefinitionVersionModelListener
 		if (serviceContext == null) {
 			serviceContext = new ServiceContext();
 
-			serviceContext.setAddGuestPermissions(true);
 			serviceContext.setAddGroupPermissions(true);
+			serviceContext.setAddGuestPermissions(true);
 		}
 
 		return serviceContext;

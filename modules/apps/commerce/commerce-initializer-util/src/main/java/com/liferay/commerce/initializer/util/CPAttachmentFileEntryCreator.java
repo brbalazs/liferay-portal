@@ -69,9 +69,9 @@ public class CPAttachmentFileEntryCreator {
 
 		ServiceContext serviceContext = new ServiceContext();
 
+		serviceContext.setCompanyId(user.getCompanyId());
 		serviceContext.setScopeGroupId(scopeGroupId);
 		serviceContext.setUserId(userId);
-		serviceContext.setCompanyId(user.getCompanyId());
 
 		Map<Locale, String> titleMap = new HashMap<>();
 
