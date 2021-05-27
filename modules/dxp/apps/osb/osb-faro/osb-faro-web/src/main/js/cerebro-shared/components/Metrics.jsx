@@ -27,7 +27,7 @@ import {
 	YAxis
 } from 'recharts';
 import {find, get, last} from 'lodash';
-import {formatXAxisDate, getMetricFormatter} from 'shared/util/charts';
+import {formatXAxisDate} from 'shared/util/charts';
 import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
 import {Map} from 'immutable';
@@ -376,19 +376,13 @@ export default class MainMetrics extends React.Component {
 									({id}) => id === dataKey
 								);
 
-								const {type, value} = compositeContent[
-									dataName
-								];
-
-								const formatMetric = getMetricFormatter(type);
-
-								const total = formatMetric(Number(value));
+								const {value} = compositeContent[dataName];
 
 								return (
 									<>
 										{`${label}:`}
 
-										<b className='ml-1'>{total}</b>
+										<b className='ml-1'>{value}</b>
 									</>
 								);
 							}
