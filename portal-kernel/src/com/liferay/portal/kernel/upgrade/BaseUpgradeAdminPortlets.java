@@ -38,8 +38,8 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 		try (PreparedStatement ps = connection.prepareStatement(
 				StringBundler.concat(
 					"insert into ResourcePermission (resourcePermissionId, ",
-					"companyId, name, scope, primKey, roleId, actionIds, ",
-					"primKeyId, viewActionId) values (?, ?, ?, ?, ?, ?, ?, ?, ",
+					"companyId, name, scope, primKey, primKeyId, roleId, ",
+					"actionIds, viewActionId) values (?, ?, ?, ?, ?, ?, ?, ?, ",
 					"?)"))) {
 
 			boolean viewActionId = false;
@@ -53,9 +53,9 @@ public abstract class BaseUpgradeAdminPortlets extends UpgradeProcess {
 			ps.setString(3, name);
 			ps.setInt(4, scope);
 			ps.setString(5, primKey);
-			ps.setLong(6, roleId);
-			ps.setLong(7, actionIds);
-			ps.setLong(8, GetterUtil.getLong(primKey));
+			ps.setLong(6, GetterUtil.getLong(primKey));
+			ps.setLong(7, roleId);
+			ps.setLong(8, actionIds);
 			ps.setBoolean(9, viewActionId);
 
 			ps.executeUpdate();
