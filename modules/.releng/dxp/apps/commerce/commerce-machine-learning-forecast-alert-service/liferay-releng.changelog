@@ -87,3 +87,8 @@ ff376afbe4205c68aca879e67b7125538db997d7^..337043b5d44dba70a2c95dfcc36ccb9aa50f5
 # Bundle Version 2.0.26
 #
 bd596dc8c88de0469fbeddb33bc0ac35ee3b6079^..206fefc8bd07cab0dc299e041eecfd9a2d672fa3=COMMERCE-4584 COMMERCE-6628
+
+#
+# Bundle Version 2.0.27
+#
+206fefc8bd07cab0dc299e041eecfd9a2d672fa3^..536868cc18d1b3df5c4207cdef2b24bbac50608f=LPS-132587
