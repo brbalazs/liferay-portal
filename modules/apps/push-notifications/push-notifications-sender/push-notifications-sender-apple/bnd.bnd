@@ -2,6 +2,50 @@ Bundle-Name: Liferay Push Notifications Sender Apple
 Bundle-SymbolicName: com.liferay.push.notifications.sender.apple
 Bundle-Version: 2.0.32
 Import-Package:\
+	!com.barchart.udt.*,\
+	\
+	!com.fasterxml.aalto.*,\
+	\
+	!com.google.protobuf.*,\
+	\
+	!com.jcraft.jzlib.*,\
+	\
+	!com.ning.*,\
+	\
+	!com.oracle.*,\
+	\
+	!com.sun.*,\
+	\
+	!gnu.io.*,\
+	\
+	!io.netty.internal.tcnative.*,\
+	\
+	!jdk.nashorn.*,\
+	\
+	!jdk.net.*,\
+	\
+	!jdk.vm.*,\
+	\
+	!lzma.sdk.*,\
+	\
+	!net.jpountz.*,\
+	\
+	!org.apache.commons.httpclient.*,\
+	\
+	!org.bouncycastle.*,\
+	\
+	!org.conscrypt.*,\
+	\
+	!org.eclipse.*,\
+	\
+	!org.graalvm.*,\
+	\
+	!org.jboss.*,\
+	\
+	!reactor.blockhound.*,\
+	\
+	!sun.security.*,\
+	\
 	com.liferay.portal.configuration.metatype.annotations.*;version="[1.0.0,99.0.0)",\
 	com.liferay.portal.kernel.json.*;version="[7.0.0,99.0.0)",\
 	com.liferay.portal.kernel.util.*;version="[8.0.0,99.0.0)",\
