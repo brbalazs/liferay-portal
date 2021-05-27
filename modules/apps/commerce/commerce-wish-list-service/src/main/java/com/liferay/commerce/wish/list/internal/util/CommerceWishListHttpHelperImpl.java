@@ -95,6 +95,10 @@ public class CommerceWishListHttpHelperImpl
 			_commerceWishListLocalService.getDefaultCommerceWishList(
 				groupId, user.getUserId(), guestUuid);
 
+		if (commerceWishList == null) {
+			return commerceWishList;
+		}
+
 		if (user.isDefaultUser()) {
 			if (Validator.isNull(guestUuid)) {
 				Cookie cookie = new Cookie(
@@ -126,6 +130,10 @@ public class CommerceWishListHttpHelperImpl
 
 		CommerceWishList commerceWishList = getCurrentCommerceWishList(
 			httpServletRequest, httpServletResponse);
+
+		if (commerceWishList == null) {
+			return 0;
+		}
 
 		return _commerceWishListItemService.getCommerceWishListItemsCount(
 			commerceWishList.getCommerceWishListId());
