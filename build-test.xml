@@ -10136,6 +10136,23 @@ session.cookie.use.full.hostname=true
 				</then>
 			</elseif>
 		</if>
+
+		<if>
+			<isset property="test.analytics.cloud.publisher.url" />
+			<then>
+				<echo append="true" file="${test.ext.properties.file}">
+					analytics.cloud.publisher.url=${test.analytics.cloud.publisher.url}
+				</echo>
+			</then>
+			<elseif>
+				<equals arg1="${analytics.cloud.enabled}" arg2="true" />
+				<then>
+					<echo append="true" file="${test.ext.properties.file}">
+						analytics.cloud.publisher.url=${analytics.cloud.asah.publisher.url}
+					</echo>
+				</then>
+			</elseif>
+		</if>
 	</target>
 
 	<target name="prepare-selenium-app-server-properties">
