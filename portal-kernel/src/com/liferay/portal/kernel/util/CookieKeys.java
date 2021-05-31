@@ -98,9 +98,11 @@ public class CookieKeys {
 
 		response.addCookie(cookie);
 
-		Map<String, Cookie> cookieMap = _getCookieMap(request);
+		if (request != null) {
+			Map<String, Cookie> cookieMap = _getCookieMap(request);
 
-		cookieMap.put(StringUtil.toUpperCase(name), cookie);
+			cookieMap.put(StringUtil.toUpperCase(name), cookie);
+		}
 	}
 
 	public static void addSupportCookie(
@@ -111,7 +113,7 @@ public class CookieKeys {
 		cookieSupportCookie.setPath(StringPool.SLASH);
 		cookieSupportCookie.setMaxAge(MAX_AGE);
 
-		addCookie(request, response, cookieSupportCookie);
+		addCookie(null, response, cookieSupportCookie, request.isSecure());
 	}
 
 	public static void deleteCookies(
