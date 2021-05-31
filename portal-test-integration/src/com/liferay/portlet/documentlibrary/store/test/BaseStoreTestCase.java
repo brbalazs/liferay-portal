@@ -465,10 +465,8 @@ public abstract class BaseStoreTestCase {
 		String[] fileVersions = store.getFileVersions(
 			companyId, repositoryId, fileName);
 
-		String versionLabel = "1.";
-
 		for (int i = 0; i < 5; i++) {
-			Assert.assertTrue((versionLabel + i).equals(fileVersions[i]));
+			Assert.assertEquals("1." + i, fileVersions[i]);
 		}
 	}
 
