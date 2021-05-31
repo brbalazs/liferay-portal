@@ -458,7 +458,8 @@ public abstract class BaseStoreTestCase {
 		Class<?> clazz = store.getClass();
 
 		if (ArrayUtil.contains(
-			_DEPRECATED_STORES_CLASS_NAMES, clazz.getName())) {
+				_DEPRECATED_STORES_CLASS_NAMES, clazz.getName())) {
+
 			return;
 		}
 

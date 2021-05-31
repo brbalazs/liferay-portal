@@ -49,8 +49,8 @@ public interface Store {
 		throws PortalException;
 
 	public void addFile(
-		long companyId, long repositoryId, String fileName,
-		String versionLabel, InputStream is)
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
 		throws PortalException;
 
 	public void checkRoot(long companyId);
