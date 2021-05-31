@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Workflow Kaleo Forms Service
 Bundle-SymbolicName: com.liferay.portal.workflow.kaleo.forms.service
-Bundle-Version: 2.0.41
+Bundle-Version: 2.0.42
 Export-Package: com.liferay.portal.workflow.kaleo.forms.service.permission
 Import-Package:\
 	com.liferay.portal.workflow.kaleo.forms.util.comparator,\
