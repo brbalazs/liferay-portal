@@ -1,4 +1,4 @@
-create unique index IX_5960B666 on OSBFaro_FaroChannel (channelId[$COLUMN_LENGTH:75$]);
+create unique index IX_5960B666 on OSBFaro_FaroChannel (channelId[$COLUMN_LENGTH:75$], workspaceGroupId);
 create index IX_28923D9C on OSBFaro_FaroChannel (groupId, userId);
 create index IX_286BA5A1 on OSBFaro_FaroChannel (workspaceGroupId);
 
