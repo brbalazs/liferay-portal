@@ -84,17 +84,17 @@ const getDefaultValue = (property: Property): any => {
 						{
 							operatorName: RelationalOperators.EQ,
 							propertyName: EVENT_KEY,
+							value: name
+						},
+						{
+							operatorName: FunctionalOperators.Contains,
+							propertyName: 'attribute/',
 							value: ''
 						},
 						{
 							operatorName: RelationalOperators.GT,
 							propertyName: 'day',
 							value: TimeSpans.Last24Hours
-						},
-						{
-							operatorName: FunctionalOperators.Contains,
-							propertyName: '',
-							value: ''
 						}
 					]
 				},
@@ -206,7 +206,6 @@ const CriteriaSidebarCollapse: React.FC<ICriteriaSidebarCollapseProps> = ({
 
 	const filteredProperties = filterProperties();
 
-	console.log(filteredProperties);
 	const noResults = filteredProperties
 		.filterNot(({properties}) => properties.isEmpty())
 		.isEmpty();

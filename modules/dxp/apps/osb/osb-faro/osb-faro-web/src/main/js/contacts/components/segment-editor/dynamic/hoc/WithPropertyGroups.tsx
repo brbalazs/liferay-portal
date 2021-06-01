@@ -20,11 +20,9 @@ import {
 	WEB_BEHAVIORS
 } from '../utils/properties';
 import {List} from 'immutable';
-import {Property, PropertyGroup, PropertySubgroup} from 'shared/util/records';
+import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {withRequest} from 'shared/hoc';
-
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
 
 const MAX_DELTA = 500;
 
@@ -152,7 +150,6 @@ const mapResultToProps = ([
 				new PropertySubgroup({
 					label: Liferay.Language.get('custom-events'),
 					properties: List(
-						// TODO: Move function to create new Event Property to utils/utils
 						eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
 							convertEventToProperty
 						)

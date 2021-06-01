@@ -24,6 +24,7 @@ export const ACTION_TYPES: {[key: string]: ActionType} = {
 
 export enum EntityType {
 	Assets = 'assets',
+	Attributes = 'attributes',
 	Groups = 'groups',
 	Organizations = 'organizations',
 	Roles = 'roles',
@@ -42,8 +43,8 @@ export type AddEntity = (params: {
 }) => void;
 export type AddProperty = (payload: Property) => void;
 
-type ReferencedEntities = Map<string, Map<string, Map<string, any>>>;
-type ReferencedProperties = Map<string, Map<string, Property>>;
+export type ReferencedEntities = Map<string, Map<string, Map<string, any>>>;
+export type ReferencedProperties = Map<string, Map<string, Property>>;
 
 export const ReferencedObjectsContext = createContext<{
 	addEntities?: AddEntities;
@@ -123,13 +124,19 @@ const createReferencedEntitiesIMapFromSegment = (
 	const {referencedObjects} = segment;
 
 	return Map({
-		[EntityType.Assets]: referencedObjects.get('assets'),
-		[EntityType.Groups]: referencedObjects.get('groups'),
-		[EntityType.Organizations]: referencedObjects.get('organizations'),
-		[EntityType.Roles]: referencedObjects.get('roles'),
-		[EntityType.Teams]: referencedObjects.get('teams'),
-		[EntityType.UserGroups]: referencedObjects.get('user-groups'),
-		[EntityType.Users]: referencedObjects.get('users')
+		[EntityType.Assets]: referencedObjects.get(EntityType.Assets),
+		[EntityType.Attributes]: referencedObjects.get(
+			EntityType.Attributes,
+			Map({})
+		),
+		[EntityType.Groups]: referencedObjects.get(EntityType.Groups),
+		[EntityType.Organizations]: referencedObjects.get(
+			EntityType.Organizations
+		),
+		[EntityType.Roles]: referencedObjects.get(EntityType.Roles),
+		[EntityType.Teams]: referencedObjects.get(EntityType.Teams),
+		[EntityType.UserGroups]: referencedObjects.get(EntityType.UserGroups),
+		[EntityType.Users]: referencedObjects.get(EntityType.Users)
 	});
 };
 

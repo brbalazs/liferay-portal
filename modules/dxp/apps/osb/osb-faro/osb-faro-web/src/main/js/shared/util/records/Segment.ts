@@ -42,6 +42,7 @@ export default class Segment
 		properties: Map(),
 		referencedObjects: Map({
 			assets: Map(),
+			attributes: Map(),
 			events: Map(),
 			fieldMappings: Map()
 		}),

@@ -79,16 +79,22 @@
 				font-weight: $fontWeightSemiBold;
 			}
 
+			.form-control {
+				&.boolean-input {
+					max-width: 100px;
+				}
+
+				&.number-input {
+					max-width: 120px;
+				}
+			}
+
 			.form-group {
 				margin-bottom: 8px;
 
 				&:last-child {
 					margin-bottom: 0;
 				}
-			}
-
-			.number-input {
-				max-width: 120px;
 			}
 
 			.select-entity-group {

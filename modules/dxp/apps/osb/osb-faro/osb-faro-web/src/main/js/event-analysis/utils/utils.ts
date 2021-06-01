@@ -25,7 +25,33 @@ const ATTRIBUTE_TYPE_LABEL_MAP = {
 	[AttributeTypes.Session]: Liferay.Language.get('session')
 };
 
-export const BOOLEAN_LABEL_MAP = {
+export const BOOLEAN_OPTIONS = ['true', 'false'];
+
+export const DATE_GROUPING_OPTIONS = [
+	DateGroupings.Dates,
+	DateGroupings.Months,
+	DateGroupings.Years
+];
+
+export const DATE_OPTIONS = [
+	Operators.EQ,
+	Operators.LT,
+	Operators.GT,
+	Operators.Between
+];
+
+export const DURATION_OPTIONS = [Operators.GT, Operators.LT];
+
+export const NUMBER_OPTIONS = [Operators.GT, Operators.LT, Operators.Between];
+
+export const STRING_OPTIONS = [
+	Operators.Contains,
+	Operators.NotContains,
+	Operators.EQ,
+	Operators.NE
+];
+
+export const BOOLEAN_LABELS_MAP = {
 	false: Liferay.Language.get('false'),
 	true: Liferay.Language.get('true')
 };
@@ -93,7 +119,7 @@ const getBooleanDisplay = (
 	filter: Filter
 ): [string, string] => [
 	getDefaultDisplay(attribute, breakdown).join(' | '),
-	BOOLEAN_LABEL_MAP[String(filter.value[0])]
+	BOOLEAN_LABELS_MAP[String(filter.value[0])]
 ];
 
 const getDateDisplay = (

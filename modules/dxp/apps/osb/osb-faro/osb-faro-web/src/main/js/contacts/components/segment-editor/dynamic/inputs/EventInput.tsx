@@ -1,30 +1,22 @@
+import AttributeConjunctionInput from './components/attribute-conjunction-input';
 import autobind from 'autobind-decorator';
+import client from 'shared/apollo/client';
 import DateFilterConjunctionInput from './components/DateFilterConjunctionInput';
-
+import EventAttributeDefinitionsQuery from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import Form from 'shared/components/form';
-import getCN from 'classnames';
-import Input from 'shared/components/Input';
-import React, {useEffect} from 'react';
-import {ACTIVITY_KEY, OCCURENCE_OPTIONS} from '../utils/constants';
-import {ClaySelectWithOption} from '@clayui/select';
-import {
-	EntityType,
-	ReferencedObjectsContext
-} from '../context/referencedObjects';
+import OccurenceConjunctionInput from './components/OccurenceConjunctionInput';
+import React from 'react';
+import Spinner from 'shared/components/Spinner';
+import {Attribute} from 'event-analysis/utils/types';
+import {Criterion, ISegmentEditorCustomInputBase} from '../utils/types';
+import {CustomValue} from 'shared/util/records';
 import {fromJS, Map} from 'immutable';
-import {get} from 'lodash';
+import {FunctionalOperators, RelationalOperators} from '../utils/constants';
 import {
 	getFilterCriterionIMap,
-	getIndexFromPropertyName,
-	getPropertyValue,
-	setPropertyValue
+	getIndexFromPropertyName
 } from '../utils/custom-inputs';
-import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {isNull} from 'lodash';
-import {isValid, parseActivityKey} from '../utils/utils';
-
-const isValidOccurenceCount = occurenceCount =>
-	isValid(occurenceCount) && occurenceCount >= 0;
 
 type Touched = {
 	attribute: boolean;
@@ -46,21 +38,56 @@ interface IEventInputProps extends ISegmentEditorCustomInputBase {
 	valid: Valid;
 }
 
-export class EventInput extends React.Component<IEventInputProps> {
-	static contextType = ReferencedObjectsContext;
+interface IEventInputState {
+	eventAttributeDefinitions: Attribute[];
+	loading: boolean;
+}
 
+export class EventInput extends React.Component<
+	IEventInputProps,
+	IEventInputState
+> {
 	_completedAnalytics = false;
+
+	state = {
+		eventAttributeDefinitions: [],
+		loading: true
+	};
+
+	componentDidMount() {
+		this.fetchAttributes().then(
+			({
+				data: {
+					eventAttributeDefinitions: {eventAttributeDefinitions}
+				}
+			}) => {
+				this.setState({
+					eventAttributeDefinitions: [
+						...eventAttributeDefinitions,
+						// TODO: Remove mocked Date input
+						{
+							dataType: 'DATE',
+							description: null,
+							displayName: 'Some Date',
+							id: '1111',
+							name: 'someDate',
+							sampleValue: null
+						}
+					],
+					loading: false
+				});
+			}
+		);
+	}
 
 	componentDidUpdate() {
 		const {
 			id,
 			property: {entityName, type},
-			valid: {attribute, attributeValue, dateFilter, occurenceCount}
+			valid: {attributeValue, dateFilter, occurenceCount}
 		} = this.props;
 
-		this.validateAsset();
-
-		const valid = attribute && dateFilter && occurenceCount;
+		const valid = attributeValue && dateFilter && occurenceCount;
 
 		if (!id && valid && !this._completedAnalytics) {
 			this._completedAnalytics = true;
@@ -78,29 +105,20 @@ export class EventInput extends React.Component<IEventInputProps> {
 		return `${property.entityType}#${property.name}#${attribute.id}`;
 	}
 
-	// TODO: Prob should grab attribute & Event from context
-	getAssetFromContext(): Asset | undefined {
-		const {
-			context: {referencedEntities}
-		} = this;
-
-		const id = this.getAssetId();
-
-		const reference = referencedEntities.getIn([EntityType.Assets, id]);
-
-		return reference && reference.toJS();
-	}
-
-	getAssetId() {
-		const {value} = this.props;
-
-		const activityKeyIndex = getIndexFromPropertyName(value, ACTIVITY_KEY);
-
-		const activityKey = getPropertyValue(value, 'value', activityKeyIndex);
-
-		const {id} = parseActivityKey(activityKey);
-
-		return id;
+	fetchAttributes() {
+		return client.query({
+			// TODO: Need to be able to pass eventDefinitionId to only get attributes belonging to a specific event
+			// need to pass in global type as well
+			query: EventAttributeDefinitionsQuery,
+			variables: {
+				page: 0,
+				size: 25,
+				sort: {
+					column: 'name',
+					type: 'ASC'
+				}
+			}
+		});
 	}
 
 	getConjunctionDateFilterIMap(value) {
@@ -115,222 +133,186 @@ export class EventInput extends React.Component<IEventInputProps> {
 	}
 
 	@autobind
-	handleAssetSelect(items) {
-		const {
-			context: {addEntities, addEntity},
-			props: {onChange, touched, valid, value}
-		} = this;
-
-		const asset = items.first();
-
-		const propertyIndex = getIndexFromPropertyName(value, ACTIVITY_KEY);
-
-		if (items.size === 1) {
-			addEntity({entityType: EntityType.Assets, payload: Map(asset)});
-
-			onChange({
-				valid: {...valid, asset: true},
-				value: setPropertyValue(
-					value,
-					'value',
-					propertyIndex,
-					this.createActivityKey(asset)
-				)
-			});
-		} else {
-			addEntities({
-				entityType: EntityType.Assets,
-				payload: items.map(Map).valueSeq().toArray()
-			});
-
-			onChange(
-				items
-					.valueSeq()
-					.map(assetItem => ({
-						touched,
-						valid: {...valid, asset: true},
-						value: setPropertyValue(
-							value,
-							'value',
-							propertyIndex,
-							this.createActivityKey(assetItem)
-						)
-					}))
-					.toArray()
-			);
-		}
-	}
-
-	@autobind
-	handleEventOperatorChange(event) {
-		const {value} = event.target;
-
-		const {onChange, value: valueIMap} = this.props;
+	handleAttributeConjunctionChange({
+		criterion,
+		touched: conjunctionTouched,
+		valid: conjunctionValid
+	}) {
+		const {onChange, touched, valid, value} = this.props;
 
 		onChange({
-			value: valueIMap.merge(
-				Map({operator: value, value: valueIMap.get('value', 1)})
+			touched: {...touched, ...conjunctionTouched},
+			valid: {...valid, ...conjunctionValid},
+			value: value.mergeIn(
+				['criterionGroup', 'items', 1],
+				fromJS(criterion)
 			)
 		});
 	}
 
 	@autobind
-	handleOccurenceCountBlur() {
+	handleAttributeValueBlur() {
 		const {onChange, touched} = this.props;
 
 		onChange({
-			touched: {...touched, occurenceCount: true}
+			touched: {...touched, attributeValue: true}
 		});
 	}
 
 	@autobind
-	handleOccurenceCountChange(event) {
-		const {value} = event.target;
-
-		const {onChange, valid, value: valueIMap} = this.props;
-
-		let numberVal: string | number = '';
-
-		if (isValid(value)) {
-			numberVal = parseInt(value);
-		}
-
-		onChange({
-			valid: {...valid, occurenceCount: isValidOccurenceCount(numberVal)},
-			value: valueIMap.set('value', numberVal)
-		});
-	}
-
-	@autobind
-	handleConjunctionChange(criterion) {
+	handleDateFilterConjunctionChange(criterion) {
 		const {onChange, touched, valid, value} = this.props;
 
 		onChange({
 			touched: {...touched, dateFilter: criterion && criterion.touched},
 			valid: {...valid, dateFilter: isNull(criterion) || criterion.valid},
 			value: isNull(criterion)
-				? value.deleteIn(['criterionGroup', 'items', 1])
+				? value.deleteIn(['criterionGroup', 'items', 2])
 				: value.mergeIn(
-						['criterionGroup', 'items', 1],
+						['criterionGroup', 'items', 2],
 						fromJS(criterion)
 				  )
 		});
 	}
 
-	invalidateAsset() {
-		const {onChange, touched, valid} = this.props;
+	@autobind
+	handleOccurenceConjunctionChange({
+		criterion,
+		touched: occurenceCountTouched,
+		valid: occurenceCountValid
+	}: {
+		criterion?: Criterion;
+		touched?: boolean;
+		valid?: boolean;
+	}) {
+		const {onChange, touched, valid, value: valueIMap} = this.props;
 
-		onChange({
-			touched: {...touched, asset: true},
-			valid: {...valid, asset: false}
-		});
-	}
+		let params: {touched?: Touched; valid?: Valid; value?: CustomValue} = {
+			touched,
+			valid
+		};
 
-	validateAsset() {
-		const {valid} = this.props;
+		if (criterion) {
+			const {operatorName, value} = criterion;
 
-		if (valid.asset && !this.getAssetFromContext()) {
-			this.invalidateAsset();
+			params = {
+				...params,
+				value: valueIMap.merge(
+					fromJS({operator: operatorName, value})
+				) as CustomValue
+			};
 		}
+
+		if (touched) {
+			params = {
+				...params,
+				touched: {...touched, occurenceCount: occurenceCountTouched}
+			};
+		}
+
+		if (valid) {
+			params = {
+				...params,
+				valid: {...valid, occurenceCount: occurenceCountValid}
+			};
+		}
+
+		onChange(params);
 	}
 
 	render() {
 		const {
-			displayValue,
-			groupId,
-			operatorRenderer: OperatorDropdown,
-			property,
-			touched,
-			valid,
-			value
-		} = this.props;
+			props: {
+				displayValue,
+				operatorRenderer: OperatorDropdown,
+				touched,
+				valid,
+				value
+			},
+			state: {eventAttributeDefinitions, loading}
+		} = this;
 
-		const conjunctionCriterion = (
+		const dateFilterConjunctionCriterion = (
 			this.getConjunctionDateFilterIMap(value) ||
 			Map({propertyName: 'day'})
 		).toJS();
 
 		return (
 			<div className='criteria-statement'>
-				<Form.Group autoFit>
-					<OperatorDropdown />
+				{loading ? (
+					<Spinner />
+				) : (
+					<>
+						<Form.Group autoFit>
+							<OperatorDropdown />
 
-					<Form.GroupItem className='entity-name' label shrink>
-						{Liferay.Language.get('performed')}
-					</Form.GroupItem>
+							<Form.GroupItem
+								className='entity-name'
+								label
+								shrink
+							>
+								{Liferay.Language.get('performed')}
+							</Form.GroupItem>
 
-					<Form.GroupItem className='display-value' label shrink>
-						<b>{displayValue}</b>
-					</Form.GroupItem>
+							<Form.GroupItem
+								className='display-value'
+								label
+								shrink
+							>
+								<b>{displayValue}</b>
+							</Form.GroupItem>
 
-					<Form.GroupItem shrink>
-						<ClaySelectWithOption
-							className='operator-input'
-							onChange={this.handleEventOperatorChange}
-							options={OCCURENCE_OPTIONS.map(({key, label}) => ({
-								label,
-								value: key
-							}))}
-							value={value.get('operator')}
-						/>
-					</Form.GroupItem>
+							<OccurenceConjunctionInput
+								onChange={this.handleOccurenceConjunctionChange}
+								operatorName={
+									value.get(
+										'operator'
+									) as FunctionalOperators &
+										RelationalOperators
+								}
+								touched={touched.occurenceCount}
+								valid={valid.occurenceCount}
+								value={value.get('value')}
+							/>
 
-					<Form.GroupItem
-						className={getCN({
-							'has-error':
-								!valid.occurenceCount && touched.occurenceCount
-						})}
-						shrink
-					>
-						<Input
-							data-testid='occurence-count-input'
-							min='0'
-							onBlur={this.handleOccurenceCountBlur}
-							onChange={this.handleOccurenceCountChange}
-							type='number'
-							value={value.get('value')}
-						/>
-					</Form.GroupItem>
+							<DateFilterConjunctionInput
+								conjunctionCriterion={
+									dateFilterConjunctionCriterion
+								}
+								onChange={
+									this.handleDateFilterConjunctionChange
+								}
+							/>
+						</Form.Group>
 
-					<Form.GroupItem className='unit' label shrink>
-						{Liferay.Language.get('times')}
-					</Form.GroupItem>
+						<Form.Group autoFit>
+							<Form.GroupItem
+								className='conjunction'
+								label
+								shrink
+							>
+								{Liferay.Language.get('where')}
+							</Form.GroupItem>
 
-					<DateFilterConjunctionInput
-						conjunctionCriterion={conjunctionCriterion}
-						onChange={this.handleConjunctionChange}
-					/>
-				</Form.Group>
-
-				<Form.Group autoFit>
-					<Form.GroupItem label shrink>
-						{Liferay.Language.get('where')}
-					</Form.GroupItem>
-
-					<Form.GroupItem shrink>
-						<ClaySelectWithOption
-							className='operator-input'
-							onChange={this.handleEventOperatorChange}
-							options={OCCURENCE_OPTIONS.map(({key, label}) => ({
-								label,
-								value: key
-							}))}
-							value={value.get('operator')}
-						/>
-					</Form.GroupItem>
-
-					<Form.GroupItem shrink>
-						<ClaySelectWithOption
-							className='operator-input'
-							onChange={this.handleEventOperatorChange}
-							options={OCCURENCE_OPTIONS.map(({key, label}) => ({
-								label,
-								value: key
-							}))}
-							value={value.get('operator')}
-						/>
-					</Form.GroupItem>
-				</Form.Group>
+							<AttributeConjunctionInput
+								attributes={eventAttributeDefinitions}
+								conjunctionCriterion={getFilterCriterionIMap(
+									value,
+									1
+								).toJS()}
+								onChange={this.handleAttributeConjunctionChange}
+								touched={{
+									attribute: touched.attribute,
+									attributeValue: touched.attributeValue
+								}}
+								valid={{
+									attribute: valid.attribute,
+									attributeValue: valid.attributeValue
+								}}
+							/>
+						</Form.Group>
+					</>
+				)}
 			</div>
 		);
 	}

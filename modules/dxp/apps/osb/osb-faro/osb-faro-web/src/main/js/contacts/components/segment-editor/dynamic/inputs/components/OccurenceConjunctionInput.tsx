@@ -57,6 +57,7 @@ const OccurenceConjunctionInput: React.FC<IOccurenceConjunctionInputProps> = ({
 			shrink
 		>
 			<Input
+				className='number-input'
 				data-testid='occurence-count-input'
 				min='0'
 				onBlur={() => {

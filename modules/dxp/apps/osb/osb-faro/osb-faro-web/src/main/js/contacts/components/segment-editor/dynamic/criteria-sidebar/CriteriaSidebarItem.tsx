@@ -59,16 +59,10 @@ const beginDrag = ({
 		valid = {asset: false, dateFilter: true, occurenceCount: true};
 	} else if (type === PropertyTypes.Event) {
 		touched = {
-			attribute: false,
-			attributeValue: false,
-			dateFilter: false,
-			occurenceCount: false
+			attributeValue: false
 		};
 		valid = {
-			attribute: false,
-			attributeValue: false,
-			dateFilter: false,
-			occurenceCount: false
+			attributeValue: false
 		};
 	} else if (type === PropertyTypes.SessionGeolocation) {
 		touched = {country: false, dateFilter: false};
