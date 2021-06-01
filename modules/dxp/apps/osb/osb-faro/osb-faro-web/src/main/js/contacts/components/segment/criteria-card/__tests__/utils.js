@@ -63,7 +63,7 @@ describe('utils', () => {
 			${data.getTimestamp()} | ${PropertyTypes.DateTime}           | ${'2018-07-10 23:01'}
 			${data.getTimestamp()} | ${PropertyTypes.SessionDateTime}    | ${'2018-07-10 23:01'}
 			${123}                 | ${PropertyTypes.AccountNumber}      | ${123}
-			${123}                 | ${PropertyTypes.Duration}           | ${123}
+			${1000}                | ${PropertyTypes.Duration}           | ${'00:00:01'}
 			${123}                 | ${PropertyTypes.Number}             | ${123}
 			${123}                 | ${PropertyTypes.SessionNumber}      | ${123}
 		`('formats $value to $retVal if $type', ({retVal, type, value}) => {
