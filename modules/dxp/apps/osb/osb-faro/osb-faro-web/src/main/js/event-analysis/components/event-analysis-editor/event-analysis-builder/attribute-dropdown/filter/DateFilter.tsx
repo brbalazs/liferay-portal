@@ -7,7 +7,9 @@ import React from 'react';
 import {
 	createDateBreakdown,
 	DATE_GROUPING_LABELS_MAP,
-	DATE_OPERATOR_LONGHAND_LABELS_MAP
+	DATE_GROUPING_OPTIONS,
+	DATE_OPERATOR_LONGHAND_LABELS_MAP,
+	DATE_OPTIONS
 } from 'event-analysis/utils/utils';
 import {
 	DateGroupings,
@@ -15,19 +17,6 @@ import {
 	Operators
 } from 'event-analysis/utils/types';
 import {sub} from 'shared/util/lang';
-
-const DATE_GROUPING_OPTIONS = [
-	DateGroupings.Dates,
-	DateGroupings.Months,
-	DateGroupings.Years
-];
-
-const DATE_OPTIONS = [
-	Operators.EQ,
-	Operators.LT,
-	Operators.GT,
-	Operators.Between
-];
 
 const DateFilter: React.FC<IFilterProps> = ({
 	attributeId,

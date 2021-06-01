@@ -3,14 +3,13 @@ import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {
 	createNumberBreakdown,
-	NUMBER_OPERATOR_LONGHAND_LABELS_MAP
+	NUMBER_OPERATOR_LONGHAND_LABELS_MAP,
+	NUMBER_OPTIONS
 } from 'event-analysis/utils/utils';
 import {IFilterProps, Operators} from 'event-analysis/utils/types';
 import {sub} from 'shared/util/lang';
 
 const DEFAULT_NUMBER_BIN = 10;
-
-const NUMBER_OPTIONS = [Operators.GT, Operators.LT, Operators.Between];
 
 const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,

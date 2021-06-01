@@ -3,7 +3,8 @@ import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {
 	createDurationBreakdown,
-	DURATION_OPERATOR_LONGHAND_LABELS_MAP
+	DURATION_OPERATOR_LONGHAND_LABELS_MAP,
+	DURATION_OPTIONS
 } from 'event-analysis/utils/utils';
 import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
 import {IFilterProps, Operators} from 'event-analysis/utils/types';
@@ -11,8 +12,6 @@ import {sub} from 'shared/util/lang';
 
 const DEFAULT_DURATION_BIN = 60000;
 const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
-
-const DURATION_OPTIONS = [Operators.GT, Operators.LT];
 
 const DurationFilter: React.FC<IFilterProps> = ({
 	attributeId,

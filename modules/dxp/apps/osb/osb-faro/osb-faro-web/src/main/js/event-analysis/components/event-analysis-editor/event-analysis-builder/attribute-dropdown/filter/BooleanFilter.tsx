@@ -2,12 +2,11 @@ import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import React from 'react';
 import {
-	BOOLEAN_LABEL_MAP,
+	BOOLEAN_LABELS_MAP,
+	BOOLEAN_OPTIONS,
 	createBooleanBreakdown
 } from 'event-analysis/utils/utils';
 import {IFilterProps, Operators} from 'event-analysis/utils/types';
-
-const BOOLEAN_OPTIONS = ['true', 'false'];
 
 const BooleanFilter: React.FC<IFilterProps> = ({
 	attributeId,
@@ -53,7 +52,7 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 											key={value}
 											value={value}
 										>
-											{BOOLEAN_LABEL_MAP[value]}
+											{BOOLEAN_LABELS_MAP[value]}
 										</Form.Select.Item>
 									))}
 								</Form.Select>

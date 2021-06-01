@@ -3,16 +3,10 @@ import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {
 	createStringBreakdown,
-	STRING_OPERATOR_LABELS_MAP
+	STRING_OPERATOR_LABELS_MAP,
+	STRING_OPTIONS
 } from 'event-analysis/utils/utils';
 import {IFilterProps, Operators} from 'event-analysis/utils/types';
-
-const STRING_OPTIONS = [
-	Operators.Contains,
-	Operators.NotContains,
-	Operators.EQ,
-	Operators.NE
-];
 
 const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
