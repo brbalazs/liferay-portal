@@ -96,11 +96,11 @@ public class FaroChannelLocalServiceImpl
 	@Override
 	public void addUsers(
 			long companyId, String channelId, List<Long> invitedUserIds,
-			long userId)
+			long userId, long workspaceGroupId)
 		throws PortalException {
 
 		FaroChannel faroChannel = faroChannelPersistence.findByChannelId(
-			channelId);
+			channelId, workspaceGroupId);
 
 		Role role = roleLocalService.getRole(
 			companyId, RoleConstants.SITE_MEMBER);
@@ -128,11 +128,11 @@ public class FaroChannelLocalServiceImpl
 	@Override
 	public int countFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses)
+			List<Integer> statuses, long workspaceGroupId)
 		throws PortalException {
 
 		FaroChannel faroChannel = faroChannelPersistence.findByChannelId(
-			channelId);
+			channelId, workspaceGroupId);
 
 		return _faroUserFinder.countByChannelKeywords(
 			faroChannel.getGroupId(), available, query, statuses,
@@ -149,11 +149,13 @@ public class FaroChannelLocalServiceImpl
 	}
 
 	@Override
-	public FaroChannel deleteFaroChannel(String channelId)
+	public FaroChannel deleteFaroChannel(
+			String channelId, long workspaceGroupId)
 		throws PortalException {
 
 		return deleteFaroChannel(
-			faroChannelPersistence.findByChannelId(channelId));
+			faroChannelPersistence.findByChannelId(
+				channelId, workspaceGroupId));
 	}
 
 	@Override
@@ -171,12 +173,12 @@ public class FaroChannelLocalServiceImpl
 	@Override
 	public List<FaroUser> findFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses, int start, int end,
+			List<Integer> statuses, long workspaceGroupId, int start, int end,
 			OrderByComparator<FaroUser> orderByComparator)
 		throws PortalException {
 
 		FaroChannel faroChannel = faroChannelPersistence.findByChannelId(
-			channelId);
+			channelId, workspaceGroupId);
 
 		return _faroUserFinder.findByChannelKeywords(
 			faroChannel.getGroupId(), available, query, statuses,
@@ -184,16 +186,20 @@ public class FaroChannelLocalServiceImpl
 	}
 
 	@Override
-	public FaroChannel getFaroChannel(String channelId) throws PortalException {
-		return faroChannelPersistence.findByChannelId(channelId);
+	public FaroChannel getFaroChannel(String channelId, long workspaceGroupId)
+		throws PortalException {
+
+		return faroChannelPersistence.findByChannelId(
+			channelId, workspaceGroupId);
 	}
 
 	@Override
-	public void removeUsers(String channelId, List<Long> userIds)
+	public void removeUsers(
+			String channelId, List<Long> userIds, long workspaceGroupId)
 		throws PortalException {
 
 		FaroChannel faroChannel = faroChannelPersistence.findByChannelId(
-			channelId);
+			channelId, workspaceGroupId);
 
 		for (long userId : userIds) {
 			userGroupRoleLocalService.deleteUserGroupRoles(

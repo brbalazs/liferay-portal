@@ -82,7 +82,8 @@ public class ChannelController extends BaseFaroController {
 		throws PortalException {
 
 		_faroChannelLocalService.addUsers(
-			getCompanyId(), id, userIdsFaroParam.getValue(), getUserId());
+			getCompanyId(), id, userIdsFaroParam.getValue(), getUserId(),
+			groupId);
 	}
 
 	@Path("/clear")
@@ -138,7 +139,7 @@ public class ChannelController extends BaseFaroController {
 			idsFaroParam.getValue());
 
 		for (String id : idsFaroParam.getValue()) {
-			_faroChannelLocalService.deleteFaroChannel(id);
+			_faroChannelLocalService.deleteFaroChannel(id, groupId);
 		}
 	}
 
@@ -149,7 +150,8 @@ public class ChannelController extends BaseFaroController {
 			@PathParam("groupId") long groupId, @PathParam("id") String id)
 		throws PortalException {
 
-		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(id);
+		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(
+			id, groupId);
 
 		return new FaroChannelDisplay(
 			contactsEngineClient.getChannel(
@@ -189,8 +191,8 @@ public class ChannelController extends BaseFaroController {
 		}
 
 		List<FaroUser> faroUsers = _faroChannelLocalService.findFaroUsers(
-			id, available, query, statuses, startAndEnd[0], startAndEnd[1],
-			orderByComparator);
+			id, available, query, statuses, groupId, startAndEnd[0],
+			startAndEnd[1], orderByComparator);
 
 		Stream<FaroUser> stream = faroUsers.stream();
 
@@ -201,7 +203,7 @@ public class ChannelController extends BaseFaroController {
 				Collectors.toList()
 			),
 			_faroChannelLocalService.countFaroUsers(
-				id, available, query, statuses));
+				id, available, query, statuses, groupId));
 	}
 
 	@PATCH
@@ -213,7 +215,8 @@ public class ChannelController extends BaseFaroController {
 			@FormParam("permissionType") Integer permissionType)
 		throws PortalException {
 
-		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(id);
+		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(
+			id, groupId);
 
 		if (permissionType != null) {
 			if (permissionType == FaroChannelConstants.PERMISSION_ALL_USERS) {
@@ -255,7 +258,8 @@ public class ChannelController extends BaseFaroController {
 			@FormParam("userIds") FaroParam<List<Long>> userIdsFaroParam)
 		throws PortalException {
 
-		_faroChannelLocalService.removeUsers(id, userIdsFaroParam.getValue());
+		_faroChannelLocalService.removeUsers(
+			id, userIdsFaroParam.getValue(), groupId);
 	}
 
 	@GET
