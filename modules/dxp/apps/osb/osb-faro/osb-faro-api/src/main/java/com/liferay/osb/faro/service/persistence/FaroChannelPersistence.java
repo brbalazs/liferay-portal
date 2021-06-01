@@ -192,51 +192,6 @@ public interface FaroChannelPersistence extends BasePersistence<FaroChannel> {
 	public int countByGroupId(long groupId);
 
 	/**
-	 * Returns the faro channel where channelId = &#63; or throws a <code>NoSuchFaroChannelException</code> if it could not be found.
-	 *
-	 * @param channelId the channel ID
-	 * @return the matching faro channel
-	 * @throws NoSuchFaroChannelException if a matching faro channel could not be found
-	 */
-	public FaroChannel findByChannelId(String channelId)
-		throws NoSuchFaroChannelException;
-
-	/**
-	 * Returns the faro channel where channelId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param channelId the channel ID
-	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
-	 */
-	public FaroChannel fetchByChannelId(String channelId);
-
-	/**
-	 * Returns the faro channel where channelId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param channelId the channel ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
-	 */
-	public FaroChannel fetchByChannelId(
-		String channelId, boolean useFinderCache);
-
-	/**
-	 * Removes the faro channel where channelId = &#63; from the database.
-	 *
-	 * @param channelId the channel ID
-	 * @return the faro channel that was removed
-	 */
-	public FaroChannel removeByChannelId(String channelId)
-		throws NoSuchFaroChannelException;
-
-	/**
-	 * Returns the number of faro channels where channelId = &#63;.
-	 *
-	 * @param channelId the channel ID
-	 * @return the number of matching faro channels
-	 */
-	public int countByChannelId(String channelId);
-
-	/**
 	 * Returns all the faro channels where workspaceGroupId = &#63;.
 	 *
 	 * @param workspaceGroupId the workspace group ID
@@ -533,6 +488,58 @@ public interface FaroChannelPersistence extends BasePersistence<FaroChannel> {
 	 * @return the number of matching faro channels
 	 */
 	public int countByG_U(long groupId, long userId);
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or throws a <code>NoSuchFaroChannelException</code> if it could not be found.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the matching faro channel
+	 * @throws NoSuchFaroChannelException if a matching faro channel could not be found
+	 */
+	public FaroChannel findByChannelId(String channelId, long workspaceGroupId)
+		throws NoSuchFaroChannelException;
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
+	 */
+	public FaroChannel fetchByChannelId(
+		String channelId, long workspaceGroupId);
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
+	 */
+	public FaroChannel fetchByChannelId(
+		String channelId, long workspaceGroupId, boolean useFinderCache);
+
+	/**
+	 * Removes the faro channel where channelId = &#63; and workspaceGroupId = &#63; from the database.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the faro channel that was removed
+	 */
+	public FaroChannel removeByChannelId(
+			String channelId, long workspaceGroupId)
+		throws NoSuchFaroChannelException;
+
+	/**
+	 * Returns the number of faro channels where channelId = &#63; and workspaceGroupId = &#63;.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the number of matching faro channels
+	 */
+	public int countByChannelId(String channelId, long workspaceGroupId);
 
 	/**
 	 * Caches the faro channel in the entity cache if it is enabled.

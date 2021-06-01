@@ -290,64 +290,6 @@ public class FaroChannelUtil {
 	}
 
 	/**
-	 * Returns the faro channel where channelId = &#63; or throws a <code>NoSuchFaroChannelException</code> if it could not be found.
-	 *
-	 * @param channelId the channel ID
-	 * @return the matching faro channel
-	 * @throws NoSuchFaroChannelException if a matching faro channel could not be found
-	 */
-	public static FaroChannel findByChannelId(String channelId)
-		throws com.liferay.osb.faro.exception.NoSuchFaroChannelException {
-
-		return getPersistence().findByChannelId(channelId);
-	}
-
-	/**
-	 * Returns the faro channel where channelId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param channelId the channel ID
-	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
-	 */
-	public static FaroChannel fetchByChannelId(String channelId) {
-		return getPersistence().fetchByChannelId(channelId);
-	}
-
-	/**
-	 * Returns the faro channel where channelId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param channelId the channel ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
-	 */
-	public static FaroChannel fetchByChannelId(
-		String channelId, boolean useFinderCache) {
-
-		return getPersistence().fetchByChannelId(channelId, useFinderCache);
-	}
-
-	/**
-	 * Removes the faro channel where channelId = &#63; from the database.
-	 *
-	 * @param channelId the channel ID
-	 * @return the faro channel that was removed
-	 */
-	public static FaroChannel removeByChannelId(String channelId)
-		throws com.liferay.osb.faro.exception.NoSuchFaroChannelException {
-
-		return getPersistence().removeByChannelId(channelId);
-	}
-
-	/**
-	 * Returns the number of faro channels where channelId = &#63;.
-	 *
-	 * @param channelId the channel ID
-	 * @return the number of matching faro channels
-	 */
-	public static int countByChannelId(String channelId) {
-		return getPersistence().countByChannelId(channelId);
-	}
-
-	/**
 	 * Returns all the faro channels where workspaceGroupId = &#63;.
 	 *
 	 * @param workspaceGroupId the workspace group ID
@@ -705,6 +647,76 @@ public class FaroChannelUtil {
 	 */
 	public static int countByG_U(long groupId, long userId) {
 		return getPersistence().countByG_U(groupId, userId);
+	}
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or throws a <code>NoSuchFaroChannelException</code> if it could not be found.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the matching faro channel
+	 * @throws NoSuchFaroChannelException if a matching faro channel could not be found
+	 */
+	public static FaroChannel findByChannelId(
+			String channelId, long workspaceGroupId)
+		throws com.liferay.osb.faro.exception.NoSuchFaroChannelException {
+
+		return getPersistence().findByChannelId(channelId, workspaceGroupId);
+	}
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
+	 */
+	public static FaroChannel fetchByChannelId(
+		String channelId, long workspaceGroupId) {
+
+		return getPersistence().fetchByChannelId(channelId, workspaceGroupId);
+	}
+
+	/**
+	 * Returns the faro channel where channelId = &#63; and workspaceGroupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching faro channel, or <code>null</code> if a matching faro channel could not be found
+	 */
+	public static FaroChannel fetchByChannelId(
+		String channelId, long workspaceGroupId, boolean useFinderCache) {
+
+		return getPersistence().fetchByChannelId(
+			channelId, workspaceGroupId, useFinderCache);
+	}
+
+	/**
+	 * Removes the faro channel where channelId = &#63; and workspaceGroupId = &#63; from the database.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the faro channel that was removed
+	 */
+	public static FaroChannel removeByChannelId(
+			String channelId, long workspaceGroupId)
+		throws com.liferay.osb.faro.exception.NoSuchFaroChannelException {
+
+		return getPersistence().removeByChannelId(channelId, workspaceGroupId);
+	}
+
+	/**
+	 * Returns the number of faro channels where channelId = &#63; and workspaceGroupId = &#63;.
+	 *
+	 * @param channelId the channel ID
+	 * @param workspaceGroupId the workspace group ID
+	 * @return the number of matching faro channels
+	 */
+	public static int countByChannelId(
+		String channelId, long workspaceGroupId) {
+
+		return getPersistence().countByChannelId(channelId, workspaceGroupId);
 	}
 
 	/**

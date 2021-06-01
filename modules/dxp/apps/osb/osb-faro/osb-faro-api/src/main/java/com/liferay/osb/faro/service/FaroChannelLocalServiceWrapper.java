@@ -62,21 +62,22 @@ public class FaroChannelLocalServiceWrapper
 	@Override
 	public void addUsers(
 			long companyId, String channelId,
-			java.util.List<Long> invitedUserIds, long userId)
+			java.util.List<Long> invitedUserIds, long userId,
+			long workspaceGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_faroChannelLocalService.addUsers(
-			companyId, channelId, invitedUserIds, userId);
+			companyId, channelId, invitedUserIds, userId, workspaceGroupId);
 	}
 
 	@Override
 	public int countFaroUsers(
 			String channelId, boolean available, String query,
-			java.util.List<Integer> statuses)
+			java.util.List<Integer> statuses, long workspaceGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _faroChannelLocalService.countFaroUsers(
-			channelId, available, query, statuses);
+			channelId, available, query, statuses, workspaceGroupId);
 	}
 
 	/**
@@ -132,10 +133,11 @@ public class FaroChannelLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.faro.model.FaroChannel deleteFaroChannel(
-			String channelId)
+			String channelId, long workspaceGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _faroChannelLocalService.deleteFaroChannel(channelId);
+		return _faroChannelLocalService.deleteFaroChannel(
+			channelId, workspaceGroupId);
 	}
 
 	@Override
@@ -256,13 +258,14 @@ public class FaroChannelLocalServiceWrapper
 	@Override
 	public java.util.List<com.liferay.osb.faro.model.FaroUser> findFaroUsers(
 			String channelId, boolean available, String query,
-			java.util.List<Integer> statuses, int start, int end,
+			java.util.List<Integer> statuses, long workspaceGroupId, int start,
+			int end,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<com.liferay.osb.faro.model.FaroUser> orderByComparator)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _faroChannelLocalService.findFaroUsers(
-			channelId, available, query, statuses, start, end,
+			channelId, available, query, statuses, workspaceGroupId, start, end,
 			orderByComparator);
 	}
 
@@ -290,10 +293,11 @@ public class FaroChannelLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.faro.model.FaroChannel getFaroChannel(
-			String channelId)
+			String channelId, long workspaceGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _faroChannelLocalService.getFaroChannel(channelId);
+		return _faroChannelLocalService.getFaroChannel(
+			channelId, workspaceGroupId);
 	}
 
 	/**
@@ -353,10 +357,13 @@ public class FaroChannelLocalServiceWrapper
 	}
 
 	@Override
-	public void removeUsers(String channelId, java.util.List<Long> userIds)
+	public void removeUsers(
+			String channelId, java.util.List<Long> userIds,
+			long workspaceGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		_faroChannelLocalService.removeUsers(channelId, userIds);
+		_faroChannelLocalService.removeUsers(
+			channelId, userIds, workspaceGroupId);
 	}
 
 	@Override

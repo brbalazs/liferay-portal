@@ -68,19 +68,20 @@ public class FaroChannelLocalServiceUtil {
 
 	public static void addUsers(
 			long companyId, String channelId, List<Long> invitedUserIds,
-			long userId)
+			long userId, long workspaceGroupId)
 		throws PortalException {
 
-		getService().addUsers(companyId, channelId, invitedUserIds, userId);
+		getService().addUsers(
+			companyId, channelId, invitedUserIds, userId, workspaceGroupId);
 	}
 
 	public static int countFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses)
+			List<Integer> statuses, long workspaceGroupId)
 		throws PortalException {
 
 		return getService().countFaroUsers(
-			channelId, available, query, statuses);
+			channelId, available, query, statuses, workspaceGroupId);
 	}
 
 	/**
@@ -127,10 +128,11 @@ public class FaroChannelLocalServiceUtil {
 		return getService().deleteFaroChannel(faroChannelId);
 	}
 
-	public static FaroChannel deleteFaroChannel(String channelId)
+	public static FaroChannel deleteFaroChannel(
+			String channelId, long workspaceGroupId)
 		throws PortalException {
 
-		return getService().deleteFaroChannel(channelId);
+		return getService().deleteFaroChannel(channelId, workspaceGroupId);
 	}
 
 	public static void deleteFaroChannels(long workspaceGroupId)
@@ -232,13 +234,13 @@ public class FaroChannelLocalServiceUtil {
 
 	public static List<com.liferay.osb.faro.model.FaroUser> findFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses, int start, int end,
+			List<Integer> statuses, long workspaceGroupId, int start, int end,
 			OrderByComparator<com.liferay.osb.faro.model.FaroUser>
 				orderByComparator)
 		throws PortalException {
 
 		return getService().findFaroUsers(
-			channelId, available, query, statuses, start, end,
+			channelId, available, query, statuses, workspaceGroupId, start, end,
 			orderByComparator);
 	}
 
@@ -261,10 +263,11 @@ public class FaroChannelLocalServiceUtil {
 		return getService().getFaroChannel(faroChannelId);
 	}
 
-	public static FaroChannel getFaroChannel(String channelId)
+	public static FaroChannel getFaroChannel(
+			String channelId, long workspaceGroupId)
 		throws PortalException {
 
-		return getService().getFaroChannel(channelId);
+		return getService().getFaroChannel(channelId, workspaceGroupId);
 	}
 
 	/**
@@ -316,10 +319,11 @@ public class FaroChannelLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void removeUsers(String channelId, List<Long> userIds)
+	public static void removeUsers(
+			String channelId, List<Long> userIds, long workspaceGroupId)
 		throws PortalException {
 
-		getService().removeUsers(channelId, userIds);
+		getService().removeUsers(channelId, userIds, workspaceGroupId);
 	}
 
 	public static List<FaroChannel> search(

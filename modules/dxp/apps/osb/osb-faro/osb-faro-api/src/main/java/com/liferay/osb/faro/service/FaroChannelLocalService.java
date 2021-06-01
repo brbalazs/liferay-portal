@@ -81,12 +81,12 @@ public interface FaroChannelLocalService
 
 	public void addUsers(
 			long companyId, String channelId, List<Long> invitedUserIds,
-			long userId)
+			long userId, long workspaceGroupId)
 		throws PortalException;
 
 	public int countFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses)
+			List<Integer> statuses, long workspaceGroupId)
 		throws PortalException;
 
 	/**
@@ -128,7 +128,8 @@ public interface FaroChannelLocalService
 	public FaroChannel deleteFaroChannel(long faroChannelId)
 		throws PortalException;
 
-	public FaroChannel deleteFaroChannel(String channelId)
+	public FaroChannel deleteFaroChannel(
+			String channelId, long workspaceGroupId)
 		throws PortalException;
 
 	public void deleteFaroChannels(long workspaceGroupId)
@@ -212,7 +213,7 @@ public interface FaroChannelLocalService
 
 	public List<FaroUser> findFaroUsers(
 			String channelId, boolean available, String query,
-			List<Integer> statuses, int start, int end,
+			List<Integer> statuses, long workspaceGroupId, int start, int end,
 			OrderByComparator<FaroUser> orderByComparator)
 		throws PortalException;
 
@@ -231,7 +232,8 @@ public interface FaroChannelLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public FaroChannel getFaroChannel(String channelId) throws PortalException;
+	public FaroChannel getFaroChannel(String channelId, long workspaceGroupId)
+		throws PortalException;
 
 	/**
 	 * Returns a range of all the faro channels.
@@ -273,7 +275,8 @@ public interface FaroChannelLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void removeUsers(String channelId, List<Long> userIds)
+	public void removeUsers(
+			String channelId, List<Long> userIds, long workspaceGroupId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
