@@ -33,15 +33,16 @@
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		<finder name="ChannelId" return-type="FaroChannel" unique="true">
-			<finder-column name="channelId" />
-		</finder>
 		<finder name="WorkspaceGroupId" return-type="Collection">
 			<finder-column name="workspaceGroupId" />
 		</finder>
 		<finder name="G_U" return-type="Collection">
 			<finder-column name="groupId" />
 			<finder-column name="userId" />
+		</finder>
+		<finder name="ChannelId" return-type="FaroChannel" unique="true">
+			<finder-column name="channelId" />
+			<finder-column name="workspaceGroupId" />
 		</finder>
 
 		<!-- References -->
