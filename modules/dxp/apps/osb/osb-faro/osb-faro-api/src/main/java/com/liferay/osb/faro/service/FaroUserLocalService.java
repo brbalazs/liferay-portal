@@ -272,7 +272,7 @@ public interface FaroUserLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FaroUser> search(
 		long groupId, String query, List<Integer> statuses, int start, int end,
-		OrderByComparator orderByComparator);
+		OrderByComparator<FaroUser> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int searchCount(long groupId, String query, List<Integer> statuses);

@@ -355,7 +355,8 @@ public class FaroUserLocalServiceWrapper
 	public java.util.List<com.liferay.osb.faro.model.FaroUser> search(
 		long groupId, String query, java.util.List<Integer> statuses, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator
+			<com.liferay.osb.faro.model.FaroUser> orderByComparator) {
 
 		return _faroUserLocalService.search(
 			groupId, query, statuses, start, end, orderByComparator);

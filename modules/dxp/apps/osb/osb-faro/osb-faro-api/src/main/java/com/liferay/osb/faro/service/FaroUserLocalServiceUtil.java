@@ -311,7 +311,7 @@ public class FaroUserLocalServiceUtil {
 
 	public static List<FaroUser> search(
 		long groupId, String query, List<Integer> statuses, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<FaroUser> orderByComparator) {
 
 		return getService().search(
 			groupId, query, statuses, start, end, orderByComparator);

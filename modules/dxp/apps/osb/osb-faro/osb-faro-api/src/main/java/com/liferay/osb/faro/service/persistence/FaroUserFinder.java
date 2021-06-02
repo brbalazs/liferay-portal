@@ -41,6 +41,7 @@ public interface FaroUserFinder {
 	public java.util.List<com.liferay.osb.faro.model.FaroUser> findByKeywords(
 		long groupId, String query, java.util.List<Integer> statuses, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator
+			<com.liferay.osb.faro.model.FaroUser> orderByComparator);
 
 }
