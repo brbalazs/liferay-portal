@@ -79,7 +79,6 @@ renderResponse.setTitle(oAuth2Application.getName());
 
 					<%
 					for (String applicationName : assignableScopes.getApplicationNames()) {
-						String applicationScopeDescription = StringUtil.merge(assignableScopes.getApplicationScopeDescription(applicationName), ", ");
 					%>
 
 						<li class="list-group-item list-group-item-flex">
@@ -92,7 +91,7 @@ renderResponse.setTitle(oAuth2Application.getName());
 							<div class="autofit-col autofit-col-expand">
 								<h4 class="list-group-title text-truncate"><%= HtmlUtil.escape(assignableScopes.getApplicationDescription(applicationName)) %></h4>
 
-								<p class="list-group-subtitle text-truncate"><%= applicationScopeDescription %></p>
+								<p class="list-group-subtitle text-truncate"><%= StringUtil.merge(assignableScopes.getApplicationScopeDescription(applicationName), ", ") %></p>
 							</div>
 						</li>
 

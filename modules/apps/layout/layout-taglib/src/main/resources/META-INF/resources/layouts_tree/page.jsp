@@ -19,12 +19,8 @@
 <%
 String namespace = AUIUtil.getNamespace(liferayPortletRequest, liferayPortletResponse);
 
-String checkedNodes = (String)request.getAttribute("liferay-layout:layouts-tree:checkedNodes");
-boolean defaultStateChecked = GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:defaultStateChecked"));
 boolean draggableTree = GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:draggableTree"));
-boolean expandFirstNode = GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:expandFirstNode"));
 long groupId = GetterUtil.getLong((String)request.getAttribute("liferay-layout:layouts-tree:groupId"));
-boolean incomplete = GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:incomplete"));
 LayoutSetBranch layoutSetBranch = (LayoutSetBranch)request.getAttribute("liferay-layout:layouts-tree:layoutSetBranch");
 String linkTemplate = (String)request.getAttribute("liferay-layout:layouts-tree:linkTemplate");
 JSONArray portletURLsJSONArray = (JSONArray)request.getAttribute("liferay-layout:layouts-tree:portletURLsJSONArray");
@@ -42,7 +38,7 @@ String treeId = (String)request.getAttribute("liferay-layout:layouts-tree:treeId
 		plugins.push(
 			{
 				cfg: {
-					default: <%= defaultStateChecked %>
+					default: <%= GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:defaultStateChecked")) %>
 				},
 				fn: A.Plugin.LayoutsTreeSelectable
 			}
@@ -57,7 +53,7 @@ String treeId = (String)request.getAttribute("liferay-layout:layouts-tree:treeId
 		plugins.push(
 			{
 				cfg: {
-					checkedNodes: <%= checkedNodes %>,
+					checkedNodes: <%= (String)request.getAttribute("liferay-layout:layouts-tree:checkedNodes") %>,
 					rootNodeExpanded: <%= GetterUtil.getBoolean(SessionClicks.get(request, "com.liferay.frontend.js.web_" + treeId + "RootNode", null), true) %>
 				},
 				fn: A.Plugin.LayoutsTreeState
@@ -74,7 +70,7 @@ String treeId = (String)request.getAttribute("liferay-layout:layouts-tree:treeId
 	var treeview = new TreeViewType(
 		{
 			boundingBox: '#<portlet:namespace /><%= HtmlUtil.escape(treeId) %>Output',
-			incomplete: <%= incomplete %>,
+			incomplete: <%= GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:incomplete")) %>,
 
 			<%
 			long[] openNodes = StringUtil.split(SessionTreeJSClicks.getOpenNodes(request, treeId), 0L);
@@ -104,7 +100,7 @@ String treeId = (String)request.getAttribute("liferay-layout:layouts-tree:treeId
 			plugins: plugins,
 			root: {
 				defaultParentLayoutId: <%= LayoutConstants.DEFAULT_PARENT_LAYOUT_ID %>,
-				expand: <%= expandFirstNode %>,
+				expand: <%= GetterUtil.getBoolean((String)request.getAttribute("liferay-layout:layouts-tree:expandFirstNode")) %>,
 				groupId: <%= groupId %>,
 				label: '<%= HtmlUtil.escapeJS(rootNodeName) %>',
 

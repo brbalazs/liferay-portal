@@ -41,9 +41,6 @@ if (commerceOrder.isGuestOrder()) {
 }
 
 CommerceAddress currentCommerceAddress = baseAddressCheckoutStepDisplayContext.getCommerceAddress(commerceAddressId);
-
-long commerceCountryId = BeanParamUtil.getLong(currentCommerceAddress, request, "commerceCountryId", 0);
-long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "commerceRegionId", 0);
 %>
 
 <div class="form-group-autofit">
@@ -351,7 +348,8 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 				selectId: 'commerceCountryId',
 				selectNullable: <%= false %>,
 				selectSort: '<%= true %>',
-				selectVal: '<%= commerceCountryId %>'
+				selectVal:
+					'<%= BeanParamUtil.getLong(currentCommerceAddress, request, "commerceCountryId", 0) %>'
 			},
 			{
 				select: '<portlet:namespace />commerceRegionId',
@@ -378,7 +376,8 @@ long commerceRegionId = BeanParamUtil.getLong(currentCommerceAddress, request, "
 				selectDesc: 'name',
 				selectId: 'commerceRegionId',
 				selectNullable: <%= false %>,
-				selectVal: '<%= commerceRegionId %>'
+				selectVal:
+					'<%= BeanParamUtil.getLong(currentCommerceAddress, request, "commerceRegionId", 0) %>'
 			}
 		])
 	);

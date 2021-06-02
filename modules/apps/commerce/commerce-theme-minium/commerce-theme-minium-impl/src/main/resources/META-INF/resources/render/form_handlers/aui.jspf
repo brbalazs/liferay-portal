@@ -14,10 +14,6 @@
  */
 --%>
 
-<%
-String token = AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB);
-%>
-
 <script>
 window.Liferay.on('ProductOptions<%= cpDefinitionId %>DDMForm:render', function() {
 const eventsDefinitions = {
@@ -36,7 +32,7 @@ const eventsDefinitions = {
 		portletURL.setParameter('cpDefinitionId', cpDefinitionId);
 		portletURL.setParameter('groupId', window.themeDisplay.getScopeGroupId());
 		portletURL.setParameter('p_auth', window.Liferay.authToken);
-		portletURL.setParameter('p_p_auth', '<%= token %>');
+		portletURL.setParameter('p_p_auth', '<%= AuthTokenUtil.getToken(request, plid, CPPortletKeys.CP_CONTENT_WEB) %>');
 
 		var optionFormData = new FormData();
 		var formValues = JSON.stringify(getFormValues(form))

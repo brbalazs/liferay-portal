@@ -273,11 +273,7 @@ name = HtmlUtil.escapeJS(name);
 				portletId: '<%= portletId %>',
 				textMode: <%= (editorOptions != null) ? editorOptions.isTextMode() : Boolean.FALSE.toString() %>,
 
-				<%
-				boolean useCustomDataProcessor = (editorOptionsDynamicAttributes != null) && GetterUtil.getBoolean(editorOptionsDynamicAttributes.get("useCustomDataProcessor"));
-				%>
-
-				useCustomDataProcessor: <%= useCustomDataProcessor %>
+				useCustomDataProcessor: <%= (editorOptionsDynamicAttributes != null) && GetterUtil.getBoolean(editorOptionsDynamicAttributes.get("useCustomDataProcessor")) %>
 			}
 		).render();
 

@@ -490,11 +490,7 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 											boundingBox: '#<portlet:namespace />propertyBuilder',
 											data: {
 
-												<%
-												long kaleoProcessId = ParamUtil.getLong(request, "kaleoProcessId");
-												%>
-
-												kaleoProcessId: '<%= kaleoProcessId %>'
+												kaleoProcessId: '<%= ParamUtil.getLong(request, "kaleoProcessId") %>'
 											},
 
 											<c:if test="<%= Validator.isNotNull(content) %>">

@@ -20,8 +20,6 @@ String csvExport = "enabled-with-warning";
 if (Validator.isNotNull(ddlDisplayContext.getCSVExport())) {
 	csvExport = ddlDisplayContext.getCSVExport();
 }
-
-boolean showCSVWarning = StringUtil.equals("enabled-with-warning", csvExport);
 %>
 
 <div class="hide" id="<portlet:namespace />exportList">
@@ -66,7 +64,7 @@ boolean showCSVWarning = StringUtil.equals("enabled-with-warning", csvExport);
 			var showCSVWarning = function() {
 				var csvWarning = A.one('#<portlet:namespace />csvWarning');
 
-				if ((fileExtensionSelect.val() === 'csv') && <%= showCSVWarning %>) {
+				if ((fileExtensionSelect.val() === 'csv') && <%= StringUtil.equals("enabled-with-warning", csvExport) %>) {
 					csvWarning.show();
 				}
 				else {
