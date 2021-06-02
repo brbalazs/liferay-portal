@@ -21,6 +21,7 @@ import com.liferay.document.library.kernel.store.Store;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.test.rule.ExpectedLog;
 import com.liferay.portal.test.rule.ExpectedLogs;
@@ -454,6 +455,13 @@ public abstract class BaseStoreTestCase {
 
 	@Test
 	public void testGetFileVersions() throws Exception {
+		Class<?> clazz = store.getClass();
+
+		if (ArrayUtil.contains(
+			_DEPRECATED_STORES_CLASS_NAMES, clazz.getName())) {
+			return;
+		}
+
 		String fileName = RandomTestUtil.randomString();
 
 		store.addFile(
@@ -761,6 +769,11 @@ public abstract class BaseStoreTestCase {
 	private static final byte[] _DATA_VERSION_1 = new byte[_DATA_SIZE];
 
 	private static final byte[] _DATA_VERSION_2 = new byte[_DATA_SIZE];
+
+	private static final String[] _DEPRECATED_STORES_CLASS_NAMES = {
+		"com.liferay.portal.store.cmis.CMISStore",
+		"com.liferay.portal.store.jcr.JCRStore"
+	};
 
 	static {
 		for (int i = 0; i < _DATA_SIZE; i++) {
