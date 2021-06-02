@@ -10,7 +10,7 @@ import {IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const BooleanFilter: React.FC<IFilterProps> = ({
 	attributeId,
-	attributeType,
+	attributeOwnerType,
 	breakdown,
 	filter,
 	onFilterSubmit
@@ -32,7 +32,7 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 				onFilterSubmit({
 					breakdown: createBooleanBreakdown({
 						attributeId,
-						type: attributeType
+						type: attributeOwnerType
 					}),
 					filter: {attributeId, operator, value: [value === 'true']}
 				});

@@ -1,4 +1,4 @@
-export enum AttributeTypes {
+export enum AttributeOwnerTypes {
 	Account = 'account',
 	Event = 'event',
 	Individual = 'individual',
@@ -68,7 +68,7 @@ export type Breakdown = {
 	bin?: number;
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
-	type: AttributeTypes;
+	type: AttributeOwnerTypes;
 };
 
 export type Breakdowns = {[key: string]: Breakdown};
@@ -92,7 +92,7 @@ export type Filters = {[key: string]: Filter};
 
 export interface IFilterProps {
 	attributeId: string;
-	attributeType: AttributeTypes;
+	attributeOwnerType: AttributeOwnerTypes;
 	breakdown?: Breakdown;
 	filter?: Filter;
 	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;

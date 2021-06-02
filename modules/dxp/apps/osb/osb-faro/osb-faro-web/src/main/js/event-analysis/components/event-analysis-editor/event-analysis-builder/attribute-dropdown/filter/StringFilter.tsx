@@ -10,7 +10,7 @@ import {IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
-	attributeType,
+	attributeOwnerType,
 	breakdown,
 	filter,
 	onFilterSubmit
@@ -32,7 +32,7 @@ const StringFilter: React.FC<IFilterProps> = ({
 				onFilterSubmit({
 					breakdown: createStringBreakdown({
 						attributeId,
-						type: attributeType
+						type: attributeOwnerType
 					}),
 					filter: {attributeId, operator, value: [value]}
 				});

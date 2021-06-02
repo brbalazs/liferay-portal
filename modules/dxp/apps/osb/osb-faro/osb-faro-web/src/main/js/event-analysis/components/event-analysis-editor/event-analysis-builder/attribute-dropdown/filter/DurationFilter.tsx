@@ -15,7 +15,7 @@ const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
 
 const DurationFilter: React.FC<IFilterProps> = ({
 	attributeId,
-	attributeType,
+	attributeOwnerType,
 	breakdown,
 	filter,
 	onFilterSubmit
@@ -52,7 +52,7 @@ const DurationFilter: React.FC<IFilterProps> = ({
 						bin: getMillisecondsFromTime(
 							bin.replace(/_/g, '0') as string
 						),
-						type: attributeType
+						type: attributeOwnerType
 					}),
 					filter: {
 						attributeId,

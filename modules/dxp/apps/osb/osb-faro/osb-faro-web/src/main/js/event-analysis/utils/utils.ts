@@ -1,6 +1,6 @@
 import {
 	Attribute,
-	AttributeTypes,
+	AttributeOwnerTypes,
 	Breakdown,
 	BreakdownData,
 	BreakdownDataItem,
@@ -19,10 +19,10 @@ const DEFAULT_DURATION_BIN = 60000;
 const DEFAULT_NUMBER_BIN = 10;
 
 const ATTRIBUTE_TYPE_LABEL_MAP = {
-	[AttributeTypes.Account]: Liferay.Language.get('account'),
-	[AttributeTypes.Event]: Liferay.Language.get('event'),
-	[AttributeTypes.Individual]: Liferay.Language.get('individual'),
-	[AttributeTypes.Session]: Liferay.Language.get('session')
+	[AttributeOwnerTypes.Account]: Liferay.Language.get('account'),
+	[AttributeOwnerTypes.Event]: Liferay.Language.get('event'),
+	[AttributeOwnerTypes.Individual]: Liferay.Language.get('individual'),
+	[AttributeOwnerTypes.Session]: Liferay.Language.get('session')
 };
 
 export const BOOLEAN_OPTIONS = ['true', 'false'];

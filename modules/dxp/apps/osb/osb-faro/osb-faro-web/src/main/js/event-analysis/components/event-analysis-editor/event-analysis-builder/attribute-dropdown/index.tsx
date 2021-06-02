@@ -9,7 +9,11 @@ import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
 import {AddAttribute, EditAttribute} from '../../context/attributes';
-import {Attribute, AttributeTypes, Filter} from 'event-analysis/utils/types';
+import {
+	Attribute,
+	AttributeOwnerTypes,
+	Filter
+} from 'event-analysis/utils/types';
 import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
@@ -39,9 +43,10 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	open,
 	trigger
 }) => {
-	const [attributeType, setAttributeType] = useState<AttributeTypes>(
-		AttributeTypes.Event
-	);
+	const [
+		attributeOwnerType,
+		setAttributeOwnerType
+	] = useState<AttributeOwnerTypes>(AttributeOwnerTypes.Event);
 	const [query, setQuery] = useState('');
 	const [selectedAttribute, setSelectedAttribute] = useState<Attribute>(
 		filter ? attribute : null
@@ -69,7 +74,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 			className='event-analysis-editor-attribute-dropdown-root'
 			onActiveChange={active => {
 				if (!active) {
-					setAttributeType(AttributeTypes.Event);
+					setAttributeOwnerType(AttributeOwnerTypes.Event);
 					setQuery('');
 					setSelectedAttribute(filter ? attribute : null);
 				}
@@ -85,14 +90,14 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 						>
 							<div className='d-flex flex-column'>
 								<BaseDropdown.Header
-									activeTabId={attributeType}
+									activeTabId={attributeOwnerType}
 									tabs={[
 										{
 											onClick: () =>
-												setAttributeType(
-													AttributeTypes.Event
+												setAttributeOwnerType(
+													AttributeOwnerTypes.Event
 												),
-											tabId: AttributeTypes.Event,
+											tabId: AttributeOwnerTypes.Event,
 											title: Liferay.Language.get('event')
 										}
 									]}
@@ -149,7 +154,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 													attributeId,
 													breakdown: breakdownFn({
 														attributeId,
-														type: attributeType
+														type: attributeOwnerType
 													}),
 													oldAttributeId
 												});
@@ -176,7 +181,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 							<div className='w-100'>
 								<AttributeFilter
 									attribute={selectedAttribute}
-									attributeType={attributeType}
+									attributeOwnerType={attributeOwnerType}
 									oldAttributeId={oldAttributeId}
 									onActiveChange={setActive}
 									onAttributeChange={params => {

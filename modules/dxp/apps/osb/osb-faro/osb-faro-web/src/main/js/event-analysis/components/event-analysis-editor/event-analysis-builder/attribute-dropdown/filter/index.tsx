@@ -13,7 +13,7 @@ import {
 } from '../../../context/attributes';
 import {
 	Attribute,
-	AttributeTypes,
+	AttributeOwnerTypes,
 	Breakdowns,
 	DataTypes,
 	Filters
@@ -30,7 +30,7 @@ const FILTERS_MAP = {
 interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
 	addAttribute: AddAttribute;
 	attribute: Attribute;
-	attributeType: AttributeTypes;
+	attributeOwnerType: AttributeOwnerTypes;
 	breakdowns: Breakdowns;
 	editAttribute: EditAttribute;
 	filters: Filters;
@@ -43,7 +43,7 @@ interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
 const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 	addAttribute,
 	attribute,
-	attributeType,
+	attributeOwnerType,
 	breakdowns,
 	editAttribute,
 	filters,
@@ -79,7 +79,7 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 
 			<FilterBody
 				attributeId={id}
-				attributeType={attributeType}
+				attributeOwnerType={attributeOwnerType}
 				breakdown={breakdowns[id]}
 				filter={filters[id]}
 				onFilterSubmit={({breakdown, filter}) => {

@@ -20,7 +20,7 @@ import {sub} from 'shared/util/lang';
 
 const DateFilter: React.FC<IFilterProps> = ({
 	attributeId,
-	attributeType,
+	attributeOwnerType,
 	breakdown,
 	filter,
 	onFilterSubmit
@@ -68,7 +68,7 @@ const DateFilter: React.FC<IFilterProps> = ({
 					breakdown: createDateBreakdown({
 						attributeId,
 						dateGrouping,
-						type: attributeType
+						type: attributeOwnerType
 					}),
 					filter: {
 						attributeId,

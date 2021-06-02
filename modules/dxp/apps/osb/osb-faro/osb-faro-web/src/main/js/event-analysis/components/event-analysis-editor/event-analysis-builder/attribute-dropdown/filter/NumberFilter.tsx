@@ -13,7 +13,7 @@ const DEFAULT_NUMBER_BIN = 10;
 
 const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,
-	attributeType,
+	attributeOwnerType,
 	breakdown,
 	filter,
 	onFilterSubmit
@@ -51,7 +51,7 @@ const NumberFilter: React.FC<IFilterProps> = ({
 					breakdown: createNumberBreakdown({
 						attributeId,
 						bin,
-						type: attributeType
+						type: attributeOwnerType
 					}),
 					filter: {
 						attributeId,
