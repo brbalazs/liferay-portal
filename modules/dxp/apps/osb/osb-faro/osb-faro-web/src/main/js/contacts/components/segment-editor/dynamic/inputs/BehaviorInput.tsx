@@ -2,15 +2,19 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import DateFilterConjunctionInput from './components/DateFilterConjunctionInput';
 import Form from 'shared/components/form';
-import getCN from 'classnames';
-import Input from 'shared/components/Input';
+import OccurenceConjunctionInput from './components/OccurenceConjunctionInput';
 import React from 'react';
 import SelectEntityFromModal from './components/SelectEntityFromModal';
-import {ACTIVITY_KEY, OCCURENCE_OPTIONS} from '../utils/constants';
+import {
+	ACTIVITY_KEY,
+	FunctionalOperators,
+	RelationalOperators
+} from '../utils/constants';
 import {activityAssetsListColumns} from 'shared/util/table-columns';
 import {AssetNames} from 'shared/util/constants';
 import {buildOrderByFields, COUNT} from 'shared/util/pagination';
-import {ClaySelectWithOption} from '@clayui/select';
+import {Criterion, ISegmentEditorCustomInputBase} from '../utils/types';
+import {CustomValue} from 'shared/util/records';
 import {
 	EntityType,
 	ReferencedObjectsContext
@@ -23,13 +27,9 @@ import {
 	getPropertyValue,
 	setPropertyValue
 } from '../utils/custom-inputs';
-import {ISegmentEditorCustomInputBase} from '../utils/types';
 import {isNull} from 'lodash';
-import {isValid, parseActivityKey} from '../utils/utils';
 import {Modal} from 'shared/types/Modal';
-
-const isValidOccurenceCount = occurenceCount =>
-	isValid(occurenceCount) && occurenceCount >= 0;
+import {parseActivityKey} from '../utils/utils';
 
 export const AssetItem: React.FC<{
 	dataSourceAssetPK?: string;
@@ -231,47 +231,7 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 	}
 
 	@autobind
-	handleEventOperatorChange(event) {
-		const {value} = event.target;
-
-		const {onChange, value: valueIMap} = this.props;
-
-		onChange({
-			value: valueIMap.merge(
-				Map({operator: value, value: valueIMap.get('value', 1)})
-			)
-		});
-	}
-
-	@autobind
-	handleOccurenceCountBlur() {
-		const {onChange, touched} = this.props;
-
-		onChange({
-			touched: {...touched, occurenceCount: true}
-		});
-	}
-
-	@autobind
-	handleOccurenceCountChange(event) {
-		const {value} = event.target;
-
-		const {onChange, valid, value: valueIMap} = this.props;
-
-		let numberVal: string | number = '';
-
-		if (isValid(value)) {
-			numberVal = parseInt(value);
-		}
-
-		onChange({
-			valid: {...valid, occurenceCount: isValidOccurenceCount(numberVal)},
-			value: valueIMap.set('value', numberVal)
-		});
-	}
-
-	@autobind
-	handleConjunctionChange(criterion) {
+	handleDateFilterConjunctionChange(criterion) {
 		const {onChange, touched, valid, value} = this.props;
 
 		onChange({
@@ -284,6 +244,51 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 						fromJS(criterion)
 				  )
 		});
+	}
+
+	@autobind
+	handleOccurenceConjunctionChange({
+		criterion,
+		touched: occurenceCountTouched,
+		valid: occurenceCountValid
+	}: {
+		criterion?: Criterion;
+		touched?: boolean;
+		valid?: boolean;
+	}) {
+		const {onChange, touched, valid, value: valueIMap} = this.props;
+
+		let params: {touched?: Touched; valid?: Valid; value?: CustomValue} = {
+			touched,
+			valid
+		};
+
+		if (criterion) {
+			const {operatorName, value} = criterion;
+
+			params = {
+				...params,
+				value: valueIMap.merge(
+					fromJS({operator: operatorName, value})
+				) as CustomValue
+			};
+		}
+
+		if (touched) {
+			params = {
+				...params,
+				touched: {...touched, occurenceCount: occurenceCountTouched}
+			};
+		}
+
+		if (valid) {
+			params = {
+				...params,
+				valid: {...valid, occurenceCount: occurenceCountValid}
+			};
+		}
+
+		onChange(params);
 	}
 
 	invalidateAsset() {
@@ -367,42 +372,20 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 				</Form.Group>
 
 				<Form.Group autoFit>
-					<Form.GroupItem shrink>
-						<ClaySelectWithOption
-							className='operator-input'
-							onChange={this.handleEventOperatorChange}
-							options={OCCURENCE_OPTIONS.map(({key, label}) => ({
-								label,
-								value: key
-							}))}
-							value={value.get('operator')}
-						/>
-					</Form.GroupItem>
-
-					<Form.GroupItem
-						className={getCN({
-							'has-error':
-								!valid.occurenceCount && touched.occurenceCount
-						})}
-						shrink
-					>
-						<Input
-							data-testid='occurence-count-input'
-							min='0'
-							onBlur={this.handleOccurenceCountBlur}
-							onChange={this.handleOccurenceCountChange}
-							type='number'
-							value={value.get('value')}
-						/>
-					</Form.GroupItem>
-
-					<Form.GroupItem className='unit' label shrink>
-						{Liferay.Language.get('times')}
-					</Form.GroupItem>
+					<OccurenceConjunctionInput
+						onChange={this.handleOccurenceConjunctionChange}
+						operatorName={
+							value.get('operator') as FunctionalOperators &
+								RelationalOperators
+						}
+						touched={touched.occurenceCount}
+						valid={valid.occurenceCount}
+						value={value.get('value')}
+					/>
 
 					<DateFilterConjunctionInput
 						conjunctionCriterion={conjunctionCriterion}
-						onChange={this.handleConjunctionChange}
+						onChange={this.handleDateFilterConjunctionChange}
 					/>
 				</Form.Group>
 			</div>
