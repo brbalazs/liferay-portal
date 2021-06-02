@@ -165,14 +165,19 @@ public class SessionAuthToken implements AuthToken {
 			}
 		}
 
+		String sessionToken = getSessionAuthenticationToken(
+			request, _CSRF, false);
+
+		if (Validator.isNull(sessionToken)) {
+			throw new PrincipalException.MustHaveSessionCSRFToken(
+				PortalUtil.getUserId(request), origin);
+		}
+
 		String csrfToken = ParamUtil.getString(request, "p_auth");
 
 		if (Validator.isNull(csrfToken)) {
 			csrfToken = GetterUtil.getString(request.getHeader("X-CSRF-Token"));
 		}
-
-		String sessionToken = getSessionAuthenticationToken(
-			request, _CSRF, false);
 
 		if (!csrfToken.equals(sessionToken)) {
 			throw new PrincipalException.MustBeAuthenticated(
