@@ -26,12 +26,12 @@ exports[`BooleanInput should render 1`] = `
           <option
             value="true"
           >
-            TRUE
+            True
           </option>
           <option
             value="false"
           >
-            FALSE
+            False
           </option>
         </select>
       </div>
@@ -68,12 +68,12 @@ exports[`BooleanInput should render with data 1`] = `
           <option
             value="true"
           >
-            TRUE
+            True
           </option>
           <option
             value="false"
           >
-            FALSE
+            False
           </option>
         </select>
       </div>

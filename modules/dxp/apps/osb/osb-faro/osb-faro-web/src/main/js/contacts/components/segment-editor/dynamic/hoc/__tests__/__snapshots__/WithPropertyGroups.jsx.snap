@@ -4,9 +4,12 @@ exports[`WithPropertyGroups should pass propertyGroups to the WrappedComponent 1
 <div>
   <div>
     <div>
-      Web Behaviors
+      Events
       <div>
-        Web Behaviors-0: 8
+        Default Events-0: 8
+      </div>
+      <div>
+        Custom Events-1: 1
       </div>
     </div>
     <div>
@@ -15,7 +18,7 @@ exports[`WithPropertyGroups should pass propertyGroups to the WrappedComponent 1
         Individual Attributes-0: 6
       </div>
       <div>
-        Individual Attributes-1: 1
+        DXP Custom Fields-1: 1
       </div>
     </div>
     <div>
@@ -42,7 +45,7 @@ exports[`WithPropertyGroups should pass propertyGroups to the WrappedComponent 1
         Organization Attributes-0: 6
       </div>
       <div>
-        Organization Attributes-1: 1
+        DXP Custom Fields-1: 1
       </div>
     </div>
   </div>

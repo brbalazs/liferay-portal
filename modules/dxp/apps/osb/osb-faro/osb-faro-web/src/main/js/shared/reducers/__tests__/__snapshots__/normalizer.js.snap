@@ -107,6 +107,8 @@ Immutable.Map {
         "properties": Immutable.Map {},
         "referencedObjects": Immutable.Map {
           "assets": Immutable.Map {},
+          "attributes": Immutable.Map {},
+          "events": Immutable.Map {},
           "fieldMappings": Immutable.Map {},
         },
         "segmentType": null,

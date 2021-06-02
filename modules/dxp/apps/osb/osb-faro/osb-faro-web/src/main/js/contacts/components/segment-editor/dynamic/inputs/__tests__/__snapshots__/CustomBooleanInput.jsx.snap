@@ -30,12 +30,12 @@ exports[`CustomBooleanInput should render 1`] = `
           <option
             value="true"
           >
-            TRUE
+            True
           </option>
           <option
             value="false"
           >
-            FALSE
+            False
           </option>
         </select>
       </div>

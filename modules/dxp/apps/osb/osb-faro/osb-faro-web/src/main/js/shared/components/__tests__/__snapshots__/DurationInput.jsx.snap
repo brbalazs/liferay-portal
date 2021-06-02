@@ -2,46 +2,15 @@
 
 exports[`DurationInput should render 1`] = `
 <div>
-  <div
-    class="input-group"
-  >
-    <input
-      class="input-root form-control"
-      type="number"
-      value=""
-    />
-    <div
-      class="input-group-item input-group-append"
-    >
-      <div
-        aria-haspopup="true"
-        class="dropdown dropdown-root"
-      >
-        <button
-          class="button-root btn btn-secondary dropdown-toggle show-caret"
-          type="button"
-        >
-          <span
-            class="text-truncate"
-          >
-            Hours
-          </span>
-          
-          <span
-            class="caret-root"
-          >
-            <svg
-              class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-              viewBox=""
-            >
-              <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
+  <input
+    autocomplete="off"
+    class="input-root form-control number-input"
+    data-testid="duration-input"
+    name="value"
+    placeholder="HH:MM:SS"
+    required=""
+    type="string"
+    value=""
+  />
 </div>
 `;

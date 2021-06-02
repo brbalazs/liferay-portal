@@ -105,7 +105,7 @@ exports[`BehaviorInput should render 1`] = `
         class="form-group-item form-group-item-shrink"
       >
         <input
-          class="input-root form-control"
+          class="input-root form-control number-input"
           data-testid="occurence-count-input"
           min="0"
           type="number"
@@ -256,7 +256,7 @@ exports[`BehaviorInput should render w/ data 1`] = `
         class="form-group-item form-group-item-shrink"
       >
         <input
-          class="input-root form-control"
+          class="input-root form-control number-input"
           data-testid="occurence-count-input"
           min="0"
           type="number"
