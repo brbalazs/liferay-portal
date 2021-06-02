@@ -12,6 +12,7 @@ import {AddAttribute, EditAttribute} from '../../context/attributes';
 import {
 	Attribute,
 	AttributeOwnerTypes,
+	AttributeTypes,
 	Filter
 } from 'event-analysis/utils/types';
 import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
@@ -28,6 +29,7 @@ interface IAttributeDropdownProps {
 	attribute?: Attribute;
 	close: Modal.close;
 	disabledIds: string[];
+	eventId: string;
 	filter?: Filter;
 	onAttributeSelect: AddAttribute | EditAttribute;
 	open: Modal.open;
@@ -38,6 +40,7 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	attribute,
 	close,
 	disabledIds,
+	eventId,
 	filter,
 	onAttributeSelect,
 	open,
@@ -57,13 +60,15 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 		EventAttributeDefinitionsVariables
 	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 		variables: {
+			eventDefinitionId: eventId,
 			keyword: '',
 			page: 0,
 			size: 200,
 			sort: {
 				column: NAME,
 				type: OrderByDirections.Ascending
-			}
+			},
+			type: AttributeTypes.All
 		}
 	});
 

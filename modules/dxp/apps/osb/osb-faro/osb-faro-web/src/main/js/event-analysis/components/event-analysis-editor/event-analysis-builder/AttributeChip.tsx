@@ -190,11 +190,16 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 );
 
 const AttributeChipWrapper: React.FC<
-	IAttributeChipProps & {onEditSubmit: EditAttribute; order: string[]}
-> = ({attribute, filter, onEditSubmit, order, ...otherProps}) => (
+	IAttributeChipProps & {
+		eventId: string;
+		onEditSubmit: EditAttribute;
+		order: string[];
+	}
+> = ({attribute, eventId, filter, onEditSubmit, order, ...otherProps}) => (
 	<AttributeDropdown
 		attribute={attribute}
 		disabledIds={order}
+		eventId={eventId}
 		filter={filter}
 		onAttributeSelect={onEditSubmit}
 		trigger={

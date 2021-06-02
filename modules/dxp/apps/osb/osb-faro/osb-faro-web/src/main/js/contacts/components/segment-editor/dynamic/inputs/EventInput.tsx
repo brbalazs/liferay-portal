@@ -7,7 +7,7 @@ import Form from 'shared/components/form';
 import OccurenceConjunctionInput from './components/OccurenceConjunctionInput';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
-import {Attribute} from 'event-analysis/utils/types';
+import {Attribute, AttributeTypes} from 'event-analysis/utils/types';
 import {Criterion, ISegmentEditorCustomInputBase} from '../utils/types';
 import {CustomValue} from 'shared/util/records';
 import {fromJS, Map} from 'immutable';
@@ -106,17 +106,22 @@ export class EventInput extends React.Component<
 	}
 
 	fetchAttributes() {
+		const {
+			property: {id}
+		} = this.props;
+
 		return client.query({
-			// TODO: Need to be able to pass eventDefinitionId to only get attributes belonging to a specific event
-			// need to pass in global type as well
+			// TODO: Update this to use AttributeTypes.Global only
 			query: EventAttributeDefinitionsQuery,
 			variables: {
+				eventDefinitionId: id,
 				page: 0,
 				size: 25,
 				sort: {
 					column: 'name',
 					type: 'ASC'
-				}
+				},
+				type: AttributeTypes.All
 			}
 		});
 	}

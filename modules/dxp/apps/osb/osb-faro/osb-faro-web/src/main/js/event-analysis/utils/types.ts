@@ -5,6 +5,12 @@ export enum AttributeOwnerTypes {
 	Session = 'session'
 }
 
+export enum AttributeTypes {
+	All = 'ALL',
+	Global = 'GLOBAL',
+	Local = 'LOCAL'
+}
+
 export enum CalculationTypes {
 	Average = 'average',
 	Total = 'total',

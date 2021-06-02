@@ -21,6 +21,7 @@ interface IAttributeSectionProps {
 	breakdowns: Breakdowns;
 	deleteAttribute: DeleteAttribute;
 	editAttribute: EditAttribute;
+	eventId: string;
 	filters: Filters;
 	moveAttribute: MoveAttribute;
 	order: string[];
@@ -32,6 +33,7 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 	breakdowns,
 	deleteAttribute,
 	editAttribute,
+	eventId,
 	filters,
 	moveAttribute,
 	order
@@ -48,6 +50,7 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 						<AttributeChip
 							attribute={attributes[id]}
 							breakdown={breakdowns[id]}
+							eventId={eventId}
 							filter={filters[id]}
 							index={i}
 							key={id}
@@ -77,6 +80,7 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 				{order.length < MAX_ATTRIBUTES && (
 					<AttributeDropdown
 						disabledIds={order}
+						eventId={eventId}
 						onAttributeSelect={addAttribute}
 						trigger={
 							<Button

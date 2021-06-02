@@ -15,7 +15,7 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 	<div className='event-analysis-builder-root d-flex'>
 		<EventSection event={event} onEventChange={onEventChange} />
 
-		{event && <AttributeSection />}
+		{event && <AttributeSection eventId={event.id} />}
 	</div>
 );
 

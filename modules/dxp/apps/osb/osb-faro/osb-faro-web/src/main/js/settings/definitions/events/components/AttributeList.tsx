@@ -1,10 +1,11 @@
 import Constants from 'shared/util/constants';
-import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+import EventAttributeDefinitionsQuery, {
 	EventAttributeDefinitionsData,
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React from 'react';
 import {attributeListColumns} from 'shared/util/table-columns';
+import {AttributeTypes} from 'event-analysis/utils/types';
 import {get} from 'lodash';
 import {NAME} from 'shared/util/pagination';
 import {useQuery} from '@apollo/react-hooks';
@@ -25,7 +26,7 @@ const withData = () => WrapperComponent => ({
 	const {data, error, loading, refetch} = useQuery<
 		EventAttributeDefinitionsData,
 		EventAttributeDefinitionsVariables
-	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+	>(EventAttributeDefinitionsQuery, {
 		variables: {
 			keyword: query,
 			page: Number(page) - 1,
@@ -33,7 +34,8 @@ const withData = () => WrapperComponent => ({
 			sort: {
 				column: orderByField,
 				type: orderBy.toUpperCase()
-			}
+			},
+			type: AttributeTypes.Local
 		}
 	});
 
