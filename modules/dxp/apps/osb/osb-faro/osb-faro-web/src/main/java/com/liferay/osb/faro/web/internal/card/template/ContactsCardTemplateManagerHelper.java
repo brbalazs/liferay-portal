@@ -26,7 +26,7 @@ import com.liferay.osb.faro.web.internal.card.template.type.ContactsCardTemplate
 import com.liferay.osb.faro.web.internal.constants.FaroConstants;
 import com.liferay.osb.faro.web.internal.model.display.contacts.card.template.ContactsCardTemplateDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
-import com.liferay.osb.faro.web.internal.util.ProjectUtil;
+import com.liferay.osb.faro.web.internal.util.ProjectHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -46,8 +46,8 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 /**
  * @author Matthew Kong
  */
-@Component(immediate = true, service = ContactsCardTemplateManagerUtil.class)
-public class ContactsCardTemplateManagerUtil {
+@Component(immediate = true, service = ContactsCardTemplateManagerHelper.class)
+public class ContactsCardTemplateManagerHelper {
 
 	public ContactsCardTemplateDisplay getContactsCardTemplateDisplay(
 		ContactsCardTemplate contactsCardTemplate) {
@@ -74,8 +74,8 @@ public class ContactsCardTemplateManagerUtil {
 			return getContactsCardTemplateDisplay(
 				contactsCardTemplate, contactsCardTemplateType, size);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return null;
@@ -136,7 +136,7 @@ public class ContactsCardTemplateManagerUtil {
 			return JSONUtil.writeValueAsString(
 				contactsCardTemplateType.getDefaultSettings());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return StringPool.BLANK;
 		}
 	}
@@ -191,7 +191,7 @@ public class ContactsCardTemplateManagerUtil {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ContactsCardTemplateManagerUtil.class);
+		ContactsCardTemplateManagerHelper.class);
 
 	private static final Map<Integer, ContactsCardTemplateType>
 		_contactsCardTemplateTypes = new HashMap<>();
@@ -302,6 +302,6 @@ public class ContactsCardTemplateManagerUtil {
 	private FaroProjectLocalService _faroProjectLocalService;
 
 	@Reference
-	private ProjectUtil _projectUtil;
+	private ProjectHelper _projectHelper;
 
 }

@@ -54,9 +54,9 @@ public class FaroProjectImpl extends FaroProjectBaseImpl {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 		}
 
@@ -78,7 +78,7 @@ public class FaroProjectImpl extends FaroProjectBaseImpl {
 
 			return false;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return true;
 		}
 	}

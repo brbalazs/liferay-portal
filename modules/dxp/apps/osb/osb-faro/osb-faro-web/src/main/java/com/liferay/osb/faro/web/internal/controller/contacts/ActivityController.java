@@ -84,7 +84,7 @@ public class ActivityController extends BaseFaroController {
 			contactsEngineClient.getActivityAggregations(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
 				channelId, contactsEntityId,
-				contactsUtil.getOwnerType(contactsEntityType), rangeEnd,
+				contactsHelper.getOwnerType(contactsEntityType), rangeEnd,
 				rangeStart, interval, max * 2);
 
 		List<ActivityAggregation> activityAggregations = results.getItems();
@@ -115,7 +115,7 @@ public class ActivityController extends BaseFaroController {
 
 		Results<Activity> results = contactsEngineClient.getActivities(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId),
-			contactsEntityId, contactsUtil.getOwnerType(contactsEntityType),
+			contactsEntityId, contactsHelper.getOwnerType(contactsEntityType),
 			null, query, startDateFaroParam.getValue(),
 			endDateFaroParam.getValue(), action, cur, delta,
 			orderByFieldsFaroParam.getValue());
@@ -187,7 +187,7 @@ public class ActivityController extends BaseFaroController {
 
 		Results<Activity> results = contactsEngineClient.getActivities(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId),
-			contactsEntityId, contactsUtil.getOwnerType(contactsEntityType),
+			contactsEntityId, contactsHelper.getOwnerType(contactsEntityType),
 			null, null, startDateFaroParam.getValue(),
 			endDateFaroParam.getValue(), action, 1, 1, null);
 

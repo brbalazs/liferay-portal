@@ -77,8 +77,8 @@ public class AnalyticEventsDataCreator extends DataCreator {
 
 				HttpUtil.URLtoString(options);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 	}
@@ -91,11 +91,10 @@ public class AnalyticEventsDataCreator extends DataCreator {
 			_pageContextsDataCreator.getRandom());
 
 		if (bool.bool()) {
-			context.put(
-				"url",
-				context.get("url") + "?q=" +
-					HttpUtil.encodePath(
-						_SEARCH_TERMS[random.nextInt(_SEARCH_TERMS.length)]));
+			String encodePath = HttpUtil.encodePath(
+				_SEARCH_TERMS[random.nextInt(_SEARCH_TERMS.length)]);
+
+			context.put("url", context.get("url") + "?q=" + encodePath);
 		}
 
 		analyticEvent.put("context", context);

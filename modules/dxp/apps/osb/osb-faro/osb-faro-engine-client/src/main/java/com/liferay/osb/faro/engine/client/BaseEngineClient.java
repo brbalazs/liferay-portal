@@ -171,8 +171,8 @@ public abstract class BaseEngineClient {
 						objectMapper.writeValueAsString(iterator.next()),
 						typeReference));
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 
 				responses.add(null);
 			}
@@ -321,8 +321,8 @@ public abstract class BaseEngineClient {
 			try {
 				return EngineServiceURLUtil.getBackendExternalURL(faroProject);
 			}
-			catch (URISyntaxException e) {
-				_log.error(e, e);
+			catch (URISyntaxException uriSyntaxException) {
+				_log.error(uriSyntaxException, uriSyntaxException);
 			}
 		}
 

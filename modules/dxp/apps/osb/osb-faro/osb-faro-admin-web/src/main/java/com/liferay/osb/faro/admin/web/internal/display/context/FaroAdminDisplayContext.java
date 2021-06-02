@@ -50,13 +50,12 @@ import javax.servlet.http.HttpServletRequest;
 public class FaroAdminDisplayContext {
 
 	public FaroAdminDisplayContext(
-		RenderRequest renderRequest, RenderResponse renderResponse,
-		HttpServletRequest httpServletRequest) {
-
-		_renderRequest = renderRequest;
-		_renderResponse = renderResponse;
+		HttpServletRequest httpServletRequest, RenderRequest renderRequest,
+		RenderResponse renderResponse) {
 
 		_httpServletRequest = httpServletRequest;
+		_renderRequest = renderRequest;
+		_renderResponse = renderResponse;
 
 		_themeDisplay = (ThemeDisplay)_httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -193,18 +192,21 @@ public class FaroAdminDisplayContext {
 		return portletURL;
 	}
 
-	public SearchContainer getSearchContainer() throws Exception {
+	public SearchContainer<FaroProjectAdminDisplay> getSearchContainer()
+		throws Exception {
+
 		if (_searchContainer != null) {
 			return _searchContainer;
 		}
 
-		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, getPortletURL(), null, "there-are-no-projects");
+		SearchContainer<FaroProjectAdminDisplay> searchContainer =
+			new SearchContainer<>(
+				_renderRequest, getPortletURL(), null, "there-are-no-projects");
 
 		searchContainer.setOrderByCol(_getOrderByCol());
 		searchContainer.setOrderByType(_getOrderByType());
 
-		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
+		Indexer<FaroProject> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			FaroProject.class);
 
 		SearchContext searchContext = new SearchContext();
@@ -381,7 +383,7 @@ public class FaroAdminDisplayContext {
 	private String _orderByType;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
-	private SearchContainer _searchContainer;
+	private SearchContainer<FaroProjectAdminDisplay> _searchContainer;
 	private final ThemeDisplay _themeDisplay;
 
 }

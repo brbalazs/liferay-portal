@@ -74,7 +74,7 @@ public class ActivityGroupController extends BaseFaroController {
 
 		Results<ActivityGroup> results = contactsEngineClient.getActivityGroups(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId), channelId,
-			contactsEntityId, contactsUtil.getOwnerType(contactsEntityType),
+			contactsEntityId, contactsHelper.getOwnerType(contactsEntityType),
 			query, startDateFaroParam.getValue(), endDateFaroParam.getValue(),
 			cur, delta, orderByFieldsFaroParam.getValue());
 

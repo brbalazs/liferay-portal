@@ -136,8 +136,8 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 			try {
 				sendEmail(faroUser, groupId, roleId, userId);
 			}
-			catch (Exception e) {
-				throw new SystemException(e);
+			catch (Exception exception) {
+				throw new SystemException(exception);
 			}
 		}
 
@@ -217,7 +217,7 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	@Override
 	public List<FaroUser> search(
 		long groupId, String query, List<Integer> statuses, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<FaroUser> orderByComparator) {
 
 		return faroUserFinder.findByKeywords(
 			groupId, query, statuses, start, end, orderByComparator);

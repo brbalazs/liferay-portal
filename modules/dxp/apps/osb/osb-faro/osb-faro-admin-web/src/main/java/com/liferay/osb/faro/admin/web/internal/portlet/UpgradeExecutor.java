@@ -69,7 +69,6 @@ public class UpgradeExecutor {
 		return _upgradeProgress;
 	}
 
-	@Deactivate
 	public void stop() {
 		for (FutureTask<?> futureTask : _futureTasks.values()) {
 			futureTask.cancel(true);
@@ -149,6 +148,11 @@ public class UpgradeExecutor {
 		_addUpgradeTask(
 			faroProject, UpgradeUtil.getLatestVersion(), refreshLiferay, 1,
 			waitForHealthy);
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		stop();
 	}
 
 	private void _addUpgradeTask(
@@ -259,16 +263,14 @@ public class UpgradeExecutor {
 				return false;
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private void _checkInterrupted(String weDeployKey)
-		throws InterruptedException {
-
+	private void _checkInterrupted(String weDeployKey) throws Exception {
 		FutureTask<?> futureTask = _futureTasks.get(weDeployKey);
 
 		if ((futureTask == null) || futureTask.isCancelled()) {
@@ -333,18 +335,20 @@ public class UpgradeExecutor {
 						}
 
 						if (!dataSourceIds.isEmpty()) {
+							String dataSourceIdsString = ListUtil.toString(
+								dataSourceIds, (String)null);
+
 							_upgradeProgress.put(
 								_getKey(faroProject),
 								"Complete - Failed Refresh: " +
-									ListUtil.toString(
-										dataSourceIds, (String)null));
+									dataSourceIdsString);
 						}
 						else {
 							_upgradeProgress.put(
 								_getKey(faroProject), "Complete");
 						}
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						_upgradeProgress.put(
 							_getKey(faroProject), "Complete - Failed Refresh");
 					}
@@ -392,11 +396,12 @@ public class UpgradeExecutor {
 				_log.info("Finished upgrading " + faroProject.getWeDeployKey());
 			}
 		}
-		catch (InterruptedException ie) {
+		catch (InterruptedException interruptedException) {
 			_upgradeProgress.put(_getKey(faroProject), "Stopped");
 		}
-		catch (Exception e) {
-			_log.error("Failed to upgrade " + faroProject.getWeDeployKey(), e);
+		catch (Exception exception) {
+			_log.error(
+				"Failed to upgrade " + faroProject.getWeDeployKey(), exception);
 
 			_upgradeProgress.put(_getKey(faroProject), "Failed");
 		}

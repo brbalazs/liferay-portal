@@ -120,9 +120,9 @@ public class EngineServiceURLUtil {
 
 			return (String)environment.getOrDefault("EXTERNAL_URL", url);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
+				_log.debug(exception, exception);
 			}
 
 			return url;

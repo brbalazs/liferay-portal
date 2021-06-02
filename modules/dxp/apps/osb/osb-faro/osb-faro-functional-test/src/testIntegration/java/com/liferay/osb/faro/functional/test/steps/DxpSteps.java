@@ -134,7 +134,7 @@ public class DxpSteps {
 		try {
 			_faroSelenium.click(DxpStringPool.OAUTH_SCOPES_TAB_XPATH);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_faroSelenium.click(DxpStringPool.MASTER_OAUTH_SCOPES_TAB_XPATH);
 		}
 
@@ -476,7 +476,7 @@ public class DxpSteps {
 		_handleDxpPasswordReminder();
 	}
 
-	private static void _handleDxpChangePassword() throws Exception {
+	private void _handleDxpChangePassword() throws Exception {
 		if (_faroSelenium.isElementPresent(
 				"//h2[contains(text(),'Change Password')]")) {
 
@@ -489,7 +489,7 @@ public class DxpSteps {
 		}
 	}
 
-	private static void _handleDxpConfiguration() throws Exception {
+	private void _handleDxpConfiguration() throws Exception {
 		if (_faroSelenium.isElementPresent(
 				"//h2[@title='Basic Configuration']")) {
 
@@ -506,7 +506,7 @@ public class DxpSteps {
 		}
 	}
 
-	private static void _handleDxpLogin() throws Exception {
+	private void _handleDxpLogin() throws Exception {
 		if (_faroSelenium.isElementPresent("//a[contains(@class,'sign-in')]")) {
 			_faroSelenium.click("//a[contains(@class,'sign-in')]");
 
@@ -523,7 +523,7 @@ public class DxpSteps {
 		}
 	}
 
-	private static void _handleDxpLogout() throws Exception {
+	private void _handleDxpLogout() throws Exception {
 		if (_faroSelenium.isElementNotPresent(
 				"//a[contains(@class,'sign-in')]")) {
 
@@ -554,7 +554,7 @@ public class DxpSteps {
 		}
 	}
 
-	private static void _handleDxpPasswordReminder() throws Exception {
+	private void _handleDxpPasswordReminder() throws Exception {
 		if (_faroSelenium.isElementPresentAfterWait(
 				"//h2[contains(text(), 'Password Reminder')]")) {
 
@@ -565,7 +565,7 @@ public class DxpSteps {
 		}
 	}
 
-	private static void _handleDxpTos() throws Exception {
+	private void _handleDxpTos() throws Exception {
 		if (_faroSelenium.isElementPresentAfterWait(
 				"//h2[contains(text(),'Terms of Use')]")) {
 

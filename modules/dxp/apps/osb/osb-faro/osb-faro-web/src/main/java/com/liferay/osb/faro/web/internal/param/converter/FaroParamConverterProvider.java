@@ -51,8 +51,8 @@ public class FaroParamConverterProvider implements ParamConverterProvider {
 			return null;
 		}
 
-		ParamConverter<T> paramConverter = _paramConverters.get(
-			genericType.getTypeName());
+		ParamConverter<T> paramConverter =
+			(ParamConverter<T>)_paramConverters.get(genericType.getTypeName());
 
 		if (paramConverter == null) {
 			paramConverter = new ParamConverter<T>() {
@@ -99,12 +99,12 @@ public class FaroParamConverterProvider implements ParamConverterProvider {
 
 						return JSONUtil.readValue(value, rawType);
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						throw new ProcessingException(
 							StringBundler.concat(
 								"Unable to deserialize value ", value, " to ",
 								rawType.getSimpleName()),
-							e);
+							exception);
 					}
 				}
 
@@ -113,8 +113,8 @@ public class FaroParamConverterProvider implements ParamConverterProvider {
 					try {
 						return JSONUtil.writeValueAsString(value);
 					}
-					catch (Exception e) {
-						throw new ProcessingException(e);
+					catch (Exception exception) {
+						throw new ProcessingException(exception);
 					}
 				}
 
@@ -140,7 +140,7 @@ public class FaroParamConverterProvider implements ParamConverterProvider {
 		return false;
 	}
 
-	private static final Map<String, ParamConverter> _paramConverters =
+	private static final Map<String, ParamConverter<?>> _paramConverters =
 		new HashMap<>();
 
 }

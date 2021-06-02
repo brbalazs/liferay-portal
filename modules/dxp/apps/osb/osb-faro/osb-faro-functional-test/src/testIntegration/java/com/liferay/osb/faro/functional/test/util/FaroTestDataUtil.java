@@ -67,7 +67,7 @@ public class FaroTestDataUtil {
 
 			return true;
 		}
-		catch (ParseException firstException) {
+		catch (ParseException parseException1) {
 			try {
 				simpleDateFormat = new SimpleDateFormat("MMM d - MMM d");
 
@@ -77,7 +77,7 @@ public class FaroTestDataUtil {
 
 				return true;
 			}
-			catch (ParseException secondException) {
+			catch (ParseException parseException2) {
 				return false;
 			}
 		}
@@ -301,16 +301,17 @@ public class FaroTestDataUtil {
 							endpointURL, entry.getValue(), 60, 1500);
 					}
 				}
-				catch (Exception e) {
-					if (e instanceof HttpResponseException) {
-						HttpResponseException hre = (HttpResponseException)e;
+				catch (Exception exception) {
+					if (exception instanceof HttpResponseException) {
+						HttpResponseException httpResponseException =
+							(HttpResponseException)exception;
 
-						if (hre.getStatusCode() != 404) {
-							e.printStackTrace();
+						if (httpResponseException.getStatusCode() != 404) {
+							exception.printStackTrace();
 						}
 					}
 					else {
-						e.printStackTrace();
+						exception.printStackTrace();
 					}
 				}
 

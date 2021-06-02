@@ -62,8 +62,8 @@ public class AuthenticationClientHttpRequestInterceptor
 					TokenConstants.OSB_ASAH_SECURITY_TOKEN.concat(
 						HttpRequestUtil.getOriginalURL(httpRequest))));
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 
 		return clientHttpRequestExecution.execute(httpRequest, bytes);

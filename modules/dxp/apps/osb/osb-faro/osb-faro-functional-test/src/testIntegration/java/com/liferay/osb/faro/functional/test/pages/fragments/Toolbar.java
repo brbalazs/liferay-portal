@@ -125,7 +125,7 @@ public class Toolbar {
 		try {
 			_faroSelenium.click(_CHECKBOX);
 		}
-		catch (WebDriverException wde) {
+		catch (WebDriverException webDriverException) {
 			WebElement checkboxWebElement = _faroSelenium.findElement(
 				_CHECKBOX);
 
@@ -138,7 +138,7 @@ public class Toolbar {
 		try {
 			_faroSelenium.click(_DELETE);
 		}
-		catch (WebDriverException wde) {
+		catch (WebDriverException webDriverException) {
 			WebElement deleteIcon = _faroSelenium.findElement(_DELETE);
 
 			deleteIcon.sendKeys(Keys.SPACE);

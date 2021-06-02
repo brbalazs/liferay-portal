@@ -51,7 +51,7 @@ public class AssertionSteps {
 				_faroSelenium.assertPartialText(
 					"//h1/span[@class='text-truncate']", "Properties");
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				_faroSelenium.assertPartialText(
 					"//h1/span[@class='text-truncate']", "Site");
 			}

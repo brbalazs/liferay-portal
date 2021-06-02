@@ -118,8 +118,8 @@ public class SegmentDistributionContactsCardTemplateDisplay
 						_fieldMappingDisplay.getId(), _binSize, _numberOfBins,
 						1, _max, contactsEngineClient);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 

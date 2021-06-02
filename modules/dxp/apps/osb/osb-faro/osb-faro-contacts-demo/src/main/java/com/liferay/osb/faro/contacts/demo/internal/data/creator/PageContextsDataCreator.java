@@ -37,7 +37,7 @@ public class PageContextsDataCreator extends DataCreator {
 
 		pageContext.put("browserName", "Chrome");
 
-		ObjectValuePair page = _pages.get(_count++);
+		ObjectValuePair<String, String> page = _pages.get(_count++);
 
 		pageContext.put("canonicalUrl", page.getKey());
 

@@ -65,8 +65,8 @@ public class GroupInfoContextProvider implements ContextProvider<GroupInfo> {
 			return new GroupInfo(
 				(long)expandoBridge.getAttribute("groupId", false));
 		}
-		catch (PortalException pe) {
-			throw new IllegalStateException(pe);
+		catch (PortalException portalException) {
+			throw new IllegalStateException(portalException);
 		}
 	}
 

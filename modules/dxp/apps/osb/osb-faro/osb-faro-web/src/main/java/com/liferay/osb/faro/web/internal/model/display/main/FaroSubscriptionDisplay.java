@@ -149,7 +149,7 @@ public class FaroSubscriptionDisplay {
 					faroProject, Optional.of(_startDate),
 					Optional.of(new Date())));
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		_pageViewsStatus = getStatus(_pageViewsCount, _pageViewsLimit);
@@ -223,15 +223,28 @@ public class FaroSubscriptionDisplay {
 					 ProductConstants.OSB_OFFERING_ENTRY_STATUS_ACTIVE)) ||
 				((baseOSBOfferingEntry.getStatus() ==
 					osbOfferingEntry.getStatus()) &&
-				 (DateUtil.compareTo(
-					 osbOfferingEntry.getStartDate(),
-					 baseOSBOfferingEntry.getStartDate()) > 0))) {
+				 _isAfter(baseOSBOfferingEntry, osbOfferingEntry))) {
 
 				baseOSBOfferingEntry = osbOfferingEntry;
 			}
 		}
 
 		return baseOSBOfferingEntry;
+	}
+
+	private boolean _isAfter(
+		OSBOfferingEntry baseOSBOfferingEntry,
+		OSBOfferingEntry osbOfferingEntry) {
+
+		int value = DateUtil.compareTo(
+			osbOfferingEntry.getStartDate(),
+			baseOSBOfferingEntry.getStartDate());
+
+		if (value > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean _active;

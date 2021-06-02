@@ -59,8 +59,8 @@ public abstract class DemoCreatorService {
 		try {
 			createUsers(faroProject);
 		}
-		catch (Exception e) {
-			log.error("Unable to add users", e);
+		catch (Exception exception) {
+			log.error("Unable to add users", exception);
 		}
 
 		if (hasExistingData()) {
@@ -77,9 +77,9 @@ public abstract class DemoCreatorService {
 	}
 
 	protected static String encodeAuthorizationFields(
-		String username, String password) {
+		String userName, String password) {
 
-		String authorizationString = username.concat(
+		String authorizationString = userName.concat(
 			StringPool.COLON
 		).concat(
 			password

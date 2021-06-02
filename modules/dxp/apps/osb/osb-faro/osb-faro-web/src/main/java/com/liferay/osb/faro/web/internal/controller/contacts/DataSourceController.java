@@ -66,7 +66,7 @@ import com.liferay.osb.faro.web.internal.model.display.contacts.FieldValuesDispl
 import com.liferay.osb.faro.web.internal.model.display.contacts.LiferaySyncCountsDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.search.FaroSearchContext;
-import com.liferay.osb.faro.web.internal.util.ContactsCSVUtil;
+import com.liferay.osb.faro.web.internal.util.ContactsCSVHelper;
 import com.liferay.osb.faro.web.internal.util.FieldMappingUtil;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.osb.faro.web.internal.util.OAuthUtil;
@@ -340,14 +340,14 @@ public class DataSourceController extends BaseFaroController {
 		}
 
 		try {
-			_contactsCSVUtil.deleteFileEntry(groupId, id);
+			_contactsCSVHelper.deleteFileEntry(groupId, id);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Could not find CSV file for the datasource: " +
 						dataSource.getName(),
-					e);
+					exception);
 			}
 		}
 	}
@@ -496,7 +496,7 @@ public class DataSourceController extends BaseFaroController {
 		}
 
 		if (fileVersionId > 0) {
-			dataSourceFields = _contactsCSVUtil.getDataSourceFields(
+			dataSourceFields = _contactsCSVHelper.getDataSourceFields(
 				fileVersionId, fieldName, count, true);
 		}
 		else {
@@ -1222,9 +1222,9 @@ public class DataSourceController extends BaseFaroController {
 			@PathParam("fileName") String fileName, File file)
 		throws Exception {
 
-		_contactsCSVUtil.validateCSV(file);
+		_contactsCSVHelper.validateCSV(file);
 
-		return _contactsCSVUtil.addContactsCSV(
+		return _contactsCSVHelper.addContactsCSV(
 			id, groupId, getUserId(), fileName, file);
 	}
 
@@ -1244,10 +1244,10 @@ public class DataSourceController extends BaseFaroController {
 
 		contactsEngineClient.addCSVIndividuals(
 			faroProject,
-			_contactsCSVUtil.getIndividualFieldsMaps(fileVersionId),
+			_contactsCSVHelper.getIndividualFieldsMaps(fileVersionId),
 			dataSourceId, individualSegmentIds);
 
-		_contactsCSVUtil.updateFileEntry(
+		_contactsCSVHelper.updateFileEntry(
 			getUserId(), fileVersionId, dataSourceId);
 	}
 
@@ -1310,10 +1310,10 @@ public class DataSourceController extends BaseFaroController {
 		properties.put(
 			"token", _tokenManager.getToken(dataSourceId, faroProjectId));
 
-		URI requestUri = uriInfo.getRequestUri();
+		URI requestURI = uriInfo.getRequestUri();
 
 		String url = StringUtil.replaceFirst(
-			requestUri.toString(), "/token", "/connect");
+			requestURI.toString(), "/token", "/connect");
 
 		if (dataSourceId != null) {
 			url = StringUtil.replaceLast(
@@ -1485,9 +1485,11 @@ public class DataSourceController extends BaseFaroController {
 						StringPool.BLANK, fieldMapping.getFieldName()));
 			}
 		}
-		catch (InvalidFilterException ife) {
+		catch (InvalidFilterException invalidFilterException) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Could not load any field mappings", ife);
+				_log.warn(
+					"Could not load any field mappings",
+					invalidFilterException);
 			}
 		}
 
@@ -1572,7 +1574,7 @@ public class DataSourceController extends BaseFaroController {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference
-	private ContactsCSVUtil _contactsCSVUtil;
+	private ContactsCSVHelper _contactsCSVHelper;
 
 	@Reference
 	private DLFileEntryLocalService _dlFileEntryLocalService;

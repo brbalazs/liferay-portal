@@ -78,9 +78,9 @@ public class FaroProjectEmailAddressDomainLocalServiceImpl
 
 			StringUtil.readLines(is, _emailAddressDomainsBlacklist);
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw new SystemException(
-				"Unable to read email domains blacklist", ioe);
+				"Unable to read email domains blacklist", ioException);
 		}
 	}
 

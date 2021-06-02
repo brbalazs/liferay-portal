@@ -26,7 +26,7 @@ import com.liferay.osb.faro.web.internal.model.display.FaroResultsDisplay;
 import com.liferay.osb.faro.web.internal.model.display.contacts.AccountDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.search.FaroSearchContext;
-import com.liferay.osb.faro.web.internal.util.PhotoURLUtil;
+import com.liferay.osb.faro.web.internal.util.PhotoURLHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.RoleConstants;
 
@@ -70,7 +70,7 @@ public class AccountController extends BaseFaroController {
 		return new AccountDisplay(
 			contactsEngineClient.getAccount(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId), id),
-			_photoURLUtil);
+			_photoURLHelper);
 	}
 
 	@GET
@@ -218,6 +218,6 @@ public class AccountController extends BaseFaroController {
 	private static final int[] _ENTITY_TYPES = {FaroConstants.TYPE_ACCOUNT};
 
 	@Reference
-	private PhotoURLUtil _photoURLUtil;
+	private PhotoURLHelper _photoURLHelper;
 
 }

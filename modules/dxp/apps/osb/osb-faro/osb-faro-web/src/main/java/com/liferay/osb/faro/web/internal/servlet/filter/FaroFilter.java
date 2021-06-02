@@ -88,9 +88,9 @@ public class FaroFilter extends BaseFilter {
 				return false;
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(e, e);
+				_log.warn(exception, exception);
 			}
 		}
 
@@ -116,11 +116,12 @@ public class FaroFilter extends BaseFilter {
 					"/c/portal/login?redirect=/");
 		}
 		else {
+			String encodeURL = URLCodec.encodeURL(
+				_portal.getCurrentURL(httpServletRequest));
+
 			httpServletResponse.sendRedirect(
 				_portal.getPortalURL(httpServletRequest) +
-					"/c/portal/login?redirect=" +
-						URLCodec.encodeURL(
-							_portal.getCurrentURL(httpServletRequest)));
+					"/c/portal/login?redirect=" + encodeURL);
 		}
 	}
 

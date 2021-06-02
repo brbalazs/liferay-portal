@@ -72,8 +72,8 @@ public class LiferayUsersDataCreator extends DataCreator {
 
 			HttpUtil.URLtoString(options);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 

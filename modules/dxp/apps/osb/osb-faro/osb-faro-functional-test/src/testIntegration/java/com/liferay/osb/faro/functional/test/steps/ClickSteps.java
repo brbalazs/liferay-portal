@@ -114,7 +114,9 @@ public class ClickSteps {
 				_faroSelenium.click(xpath);
 			}
 		}
-		catch (ElementClickInterceptedException ecie) {
+		catch (ElementClickInterceptedException
+					elementClickInterceptedException) {
+
 			WebElement webElement = _faroSelenium.findElement(xpath);
 
 			JavascriptExecutor jsExecutor =

@@ -415,11 +415,11 @@ public class ContactsEngineClientImpl
 		String projectId = faroProject.getProjectId();
 
 		if (Validator.isNull(projectId)) {
-			projectId =
-				"asah" +
-					StringUtil.replace(
-						String.valueOf(UUID.randomUUID()), CharPool.DASH,
-						StringPool.BLANK);
+			String uuid = StringUtil.replace(
+				String.valueOf(UUID.randomUUID()), CharPool.DASH,
+				StringPool.BLANK);
+
+			projectId = "asah" + uuid;
 		}
 
 		faroProject.setWeDeployKey(projectId);

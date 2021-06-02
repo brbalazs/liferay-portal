@@ -53,7 +53,7 @@ import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.LCPServiceDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
-import com.liferay.osb.faro.web.internal.util.ContactsLayoutUtil;
+import com.liferay.osb.faro.web.internal.util.ContactsLayoutHelper;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.osb.faro.web.internal.util.StreamUtil;
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
@@ -154,7 +154,7 @@ public class ProjectController extends BaseFaroController {
 		stateMap.put("startDate", startDate);
 		stateMap.put("state", state);
 
-		projectUtil.addGlobalState(keysFaroParam.getValue(), stateMap);
+		projectHelper.addGlobalState(keysFaroParam.getValue(), stateMap);
 	}
 
 	@Path("/{groupId}/ip_addresses")
@@ -432,7 +432,7 @@ public class ProjectController extends BaseFaroController {
 	public void deleteGlobalState(
 		@FormParam("keys") FaroParam<List<String>> keysFaroParam) {
 
-		projectUtil.deleteGlobalStates(keysFaroParam.getValue());
+		projectHelper.deleteGlobalStates(keysFaroParam.getValue());
 	}
 
 	@Path("/{groupId}/recommendations/disable")
@@ -636,7 +636,7 @@ public class ProjectController extends BaseFaroController {
 				try {
 					return _getProjectDisplay(faroProject);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isWarnEnabled()) {
 						String project = "";
 
@@ -644,7 +644,8 @@ public class ProjectController extends BaseFaroController {
 							project = faroProject.getName();
 						}
 
-						_log.warn("Could not load project " + project, e);
+						_log.warn(
+							"Could not load project " + project, exception);
 					}
 
 					return null;
@@ -737,12 +738,14 @@ public class ProjectController extends BaseFaroController {
 			try {
 				_groupLocalService.updateFriendlyURL(groupId, friendlyURL);
 			}
-			catch (GroupFriendlyURLException gfurle) {
-				_log.error(gfurle, gfurle);
+			catch (GroupFriendlyURLException groupFriendlyURLException) {
+				_log.error(
+					groupFriendlyURLException, groupFriendlyURLException);
 
 				throw new FaroValidationException(
 					"friendlyURL",
-					_getFriendlyURLErrorMessage(gfurle.getType()));
+					_getFriendlyURLErrorMessage(
+						groupFriendlyURLException.getType()));
 			}
 		}
 
@@ -779,11 +782,12 @@ public class ProjectController extends BaseFaroController {
 					groupId, faroProject.getFaroProjectId(),
 					emailAddressDomainsFaroParam.getValue());
 		}
-		catch (EmailAddressDomainException eade) {
+		catch (EmailAddressDomainException emailAddressDomainException) {
 			throw new FaroValidationException(
 				"emailAddressDomains",
 				_getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
+					emailAddressDomainException.
+						getInvalidEmailAddressDomains()));
 		}
 
 		return _getProjectDisplay(
@@ -819,17 +823,20 @@ public class ProjectController extends BaseFaroController {
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
 				timeZoneId, null);
 		}
-		catch (EmailAddressDomainException eade) {
+		catch (EmailAddressDomainException emailAddressDomainException) {
 			throw new FaroValidationException(
 				"emailAddressDomains",
 				_getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
+					emailAddressDomainException.
+						getInvalidEmailAddressDomains()));
 		}
-		catch (GroupFriendlyURLException gfurle) {
-			_log.error(gfurle, gfurle);
+		catch (GroupFriendlyURLException groupFriendlyURLException) {
+			_log.error(groupFriendlyURLException, groupFriendlyURLException);
 
 			throw new FaroValidationException(
-				"friendlyURL", _getFriendlyURLErrorMessage(gfurle.getType()));
+				"friendlyURL",
+				_getFriendlyURLErrorMessage(
+					groupFriendlyURLException.getType()));
 		}
 
 		String weDeployKey = null;
@@ -902,17 +909,20 @@ public class ProjectController extends BaseFaroController {
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
 				timeZoneId, null);
 		}
-		catch (EmailAddressDomainException eade) {
+		catch (EmailAddressDomainException emailAddressDomainException) {
 			throw new FaroValidationException(
 				"emailAddressDomains",
 				_getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
+					emailAddressDomainException.
+						getInvalidEmailAddressDomains()));
 		}
-		catch (GroupFriendlyURLException gfurle) {
-			_log.error(gfurle, gfurle);
+		catch (GroupFriendlyURLException groupFriendlyURLException) {
+			_log.error(groupFriendlyURLException, groupFriendlyURLException);
 
 			throw new FaroValidationException(
-				"friendlyURL", _getFriendlyURLErrorMessage(gfurle.getType()));
+				"friendlyURL",
+				_getFriendlyURLErrorMessage(
+					groupFriendlyURLException.getType()));
 		}
 
 		User user = getUser();
@@ -1096,11 +1106,11 @@ public class ProjectController extends BaseFaroController {
 			try {
 				_refreshProjectState(faroProject);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Could not refresh project " + faroProject.getName(),
-						e);
+						exception);
 				}
 			}
 		}
@@ -1123,7 +1133,7 @@ public class ProjectController extends BaseFaroController {
 
 		projectDisplay.setFriendlyURL(group.getFriendlyURL());
 
-		Map<String, Object> globalStateMap = projectUtil.getGlobalStateMap(
+		Map<String, Object> globalStateMap = projectHelper.getGlobalStateMap(
 			faroProject);
 
 		if (globalStateMap == null) {
@@ -1146,7 +1156,7 @@ public class ProjectController extends BaseFaroController {
 					 state, FaroProjectConstants.STATE_MAINTENANCE) &&
 				 contactsEngineClient.isLatestVersion(faroProject)) {
 
-			projectUtil.deleteGlobalState(faroProject.getGroupId());
+			projectHelper.deleteGlobalState(faroProject.getGroupId());
 
 			return projectDisplay;
 		}
@@ -1222,7 +1232,7 @@ public class ProjectController extends BaseFaroController {
 				contactsEngineClient.getIndividuals(
 					faroProject, (String)null, false, 1, 0, null);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				return false;
 			}
 		}
@@ -1380,11 +1390,11 @@ public class ProjectController extends BaseFaroController {
 	private ContactsEngineClient _contactsEngineClient;
 
 	@Reference
-	private ContactsLayoutTemplateLocalService
-		_contactsLayoutTemplateLocalService;
+	private ContactsLayoutHelper _contactsLayoutHelper;
 
 	@Reference
-	private ContactsLayoutUtil _contactsLayoutUtil;
+	private ContactsLayoutTemplateLocalService
+		_contactsLayoutTemplateLocalService;
 
 	@Reference
 	private FaroNotificationLocalService _faroNotificationLocalService;

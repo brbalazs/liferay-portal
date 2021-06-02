@@ -62,8 +62,8 @@ public class InfoPanelMVCResourceCommand extends BaseMVCResourceCommand {
 			resourceRequest, "rowIds");
 
 		if (faroProjectIds.length == 1) {
-			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
-				FaroProject.class);
+			Indexer<FaroProject> indexer =
+				IndexerRegistryUtil.nullSafeGetIndexer(FaroProject.class);
 
 			SearchContext searchContext = new SearchContext();
 

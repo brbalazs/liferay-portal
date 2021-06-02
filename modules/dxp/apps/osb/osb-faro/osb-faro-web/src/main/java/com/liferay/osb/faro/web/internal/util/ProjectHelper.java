@@ -32,8 +32,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Matthew Kong
  */
-@Component(service = ProjectUtil.class)
-public class ProjectUtil {
+@Component(service = ProjectHelper.class)
+public class ProjectHelper {
 
 	public void addGlobalState(
 		List<String> keys, Map<String, Object> stateMap) {

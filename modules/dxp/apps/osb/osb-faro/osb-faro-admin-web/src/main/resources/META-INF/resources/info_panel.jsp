@@ -25,16 +25,17 @@ if (faroProjectAdminDisplays == null) {
 
 String tab = GetterUtil.getString(request.getAttribute("tab"), "details");
 
-List<NavigationItem> navigationItems = new JSPNavigationItemList(pageContext) {
-	{
-		add(
-			navigationItem -> {
-				navigationItem.setActive(tab.equals("details"));
-				navigationItem.setHref(currentURL);
-				navigationItem.setLabel(LanguageUtil.get(request, "details"));
-			});
-	}
-};
+List<NavigationItem> navigationItems =
+	new JSPNavigationItemList(pageContext) {
+		{
+			add(
+				navigationItem -> {
+					navigationItem.setActive(tab.equals("details"));
+					navigationItem.setHref(currentURL);
+					navigationItem.setLabel(LanguageUtil.get(request, "details"));
+				});
+		}
+	};
 
 request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 %>

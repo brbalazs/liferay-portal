@@ -71,8 +71,8 @@ public class ProjectDisplay {
 			_faroSubscriptionDisplay = JSONUtil.readValue(
 				faroProject.getSubscription(), FaroSubscriptionDisplay.class);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		_friendlyURL = friendlyURL;
@@ -85,8 +85,8 @@ public class ProjectDisplay {
 				new TypeReference<List<String>>() {
 				});
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		_name = faroProject.getName();
@@ -164,8 +164,8 @@ public class ProjectDisplay {
 					faroProject.getFaroProjectId(),
 					JSONUtil.writeValueAsString(faroSubscriptionDisplay));
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 
@@ -175,8 +175,8 @@ public class ProjectDisplay {
 					faroProject.getSubscription(),
 					FaroSubscriptionDisplay.class);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 
 				return null;
 			}
@@ -186,7 +186,7 @@ public class ProjectDisplay {
 			faroSubscriptionDisplay.setCounts(
 				faroProject, cerebroEngineClient, contactsEngineClient);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_state = FaroProjectConstants.STATE_UNAVAILABLE;
 		}
 

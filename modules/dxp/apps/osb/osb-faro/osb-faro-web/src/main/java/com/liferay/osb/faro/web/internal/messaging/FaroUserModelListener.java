@@ -54,11 +54,11 @@ public class FaroUserModelListener extends BaseModelListener<FaroUser> {
 					faroUser.getGroupId()),
 				faroUser, false);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				"Unable to submit HubSpot form for " +
 					faroUser.getEmailAddress(),
-				e);
+				exception);
 		}
 	}
 

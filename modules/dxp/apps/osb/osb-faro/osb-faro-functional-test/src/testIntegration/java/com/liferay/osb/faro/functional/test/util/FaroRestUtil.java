@@ -32,7 +32,7 @@ public class FaroRestUtil {
 		try {
 			delete(FaroPagePool.getEndpoint("/main", "/cache"), false);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 	}
 
@@ -66,9 +66,9 @@ public class FaroRestUtil {
 	}
 
 	private static String _encodeAuthorizationFields(
-		String username, String password) {
+		String userName, String password) {
 
-		String authorizationString = username.concat(
+		String authorizationString = userName.concat(
 			StringPool.COLON
 		).concat(
 			password

@@ -17,7 +17,7 @@ package com.liferay.osb.faro.web.internal.controller.contacts;
 import com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerUtil;
+import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerHelper;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.FaroController;
 import com.liferay.osb.faro.web.internal.model.display.contacts.ContactsLayoutDisplay;
@@ -68,7 +68,7 @@ public class ContactsLayoutController extends BaseFaroController {
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
 
 		FaroEntityDisplay faroEntityDisplay =
-			contactsUtil.getContactsEntityDisplay(
+			contactsHelper.getContactsEntityDisplay(
 				faroProject, contactsEntityId, type);
 
 		faroEntityDisplay.addProperties(
@@ -104,7 +104,7 @@ public class ContactsLayoutController extends BaseFaroController {
 	}
 
 	@Reference
-	private ContactsCardTemplateManagerUtil _contactsCardTemplateManagerUtil;
+	private ContactsCardTemplateManagerHelper _contactsCardTemplateManagerUtil;
 
 	@Reference
 	private ContactsLayoutTemplateLocalService

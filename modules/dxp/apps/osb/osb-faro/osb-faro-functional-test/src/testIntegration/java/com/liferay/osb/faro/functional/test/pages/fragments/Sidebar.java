@@ -131,7 +131,7 @@ public class Sidebar {
 	 * @param  propertyName the name of the Property
 	 * @return the Xpath for a Property in the Property Dropdown Menu
 	 */
-	private static String _generatePropertyMenuItemXpath(String propertyName) {
+	private String _generatePropertyMenuItemXpath(String propertyName) {
 		StringBundler sb = new StringBundler(4);
 
 		sb.append("//div[contains(@class, 'channels-menu-dropdown-body')");

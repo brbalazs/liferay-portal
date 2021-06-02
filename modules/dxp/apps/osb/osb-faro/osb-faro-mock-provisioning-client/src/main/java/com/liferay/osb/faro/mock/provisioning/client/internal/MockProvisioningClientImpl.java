@@ -119,9 +119,9 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 	}
 
 	protected static String encodeAuthorizationFields(
-		String username, String password) {
+		String userName, String password) {
 
-		String authorizationString = username.concat(
+		String authorizationString = userName.concat(
 			StringPool.COLON
 		).concat(
 			password
@@ -158,7 +158,7 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 
 			return jsonObject.getString("uuid");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return userUuid;
 		}
 	}

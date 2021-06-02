@@ -39,11 +39,11 @@ public class UpgradeFaroProject extends UpgradeProcess {
 	}
 
 	private long _getSiteOwnerRoleId() throws Exception {
-		try (PreparedStatement ps = connection.prepareStatement(
-				"select roleId from Role_ where name = " +
-					StringUtil.quote(
-						RoleConstants.SITE_OWNER, StringPool.APOSTROPHE));
+		String roleName = StringUtil.quote(
+			RoleConstants.SITE_OWNER, StringPool.APOSTROPHE);
 
+		try (PreparedStatement ps = connection.prepareStatement(
+				"select roleId from Role_ where name = " + roleName);
 			ResultSet rs = ps.executeQuery()) {
 
 			if (rs.next()) {

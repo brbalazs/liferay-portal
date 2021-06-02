@@ -192,7 +192,7 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			document.addKeyword("offline", StringPool.TRUE);
 		}
 
@@ -280,12 +280,12 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 								document);
 						}
 					}
-					catch (PortalException pe) {
+					catch (PortalException portalException) {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"Unable to index faro project " +
 									faroProject.getFaroProjectId(),
-								pe);
+								portalException);
 						}
 					}
 				});

@@ -116,8 +116,8 @@ public class FaroUserFinderImpl
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -179,8 +179,8 @@ public class FaroUserFinderImpl
 
 			return 0;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -244,8 +244,8 @@ public class FaroUserFinderImpl
 
 			return (List<FaroUser>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -255,7 +255,7 @@ public class FaroUserFinderImpl
 	@Override
 	public List<FaroUser> findByKeywords(
 		long groupId, String query, List<Integer> statuses, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<FaroUser> orderByComparator) {
 
 		Session session = null;
 
@@ -301,15 +301,15 @@ public class FaroUserFinderImpl
 
 			return (List<FaroUser>)QueryUtil.list(q, getDialect(), start, end);
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 		finally {
 			closeSession(session);
 		}
 	}
 
-	protected String getOrderBy(OrderByComparator orderByComparator) {
+	protected String getOrderBy(OrderByComparator<FaroUser> orderByComparator) {
 		if (orderByComparator == null) {
 			return StringPool.BLANK;
 		}

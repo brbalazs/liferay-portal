@@ -158,7 +158,7 @@ public class DataSourcePage {
 		List<String> dataTableRowStrings = new ArrayList<>();
 
 		for (List<String> dataTableRow : dataTableRows) {
-			Stream dataTableRowStream = dataTableRow.stream();
+			Stream<String> dataTableRowStream = dataTableRow.stream();
 
 			String dataTableRowString = (String)dataTableRowStream.collect(
 				Collectors.joining(StringPool.SPACE));
@@ -166,7 +166,7 @@ public class DataSourcePage {
 			dataTableRowStrings.add(dataTableRowString);
 		}
 
-		Stream dataTableStringListStream = dataTableRowStrings.stream();
+		Stream<String> dataTableStringListStream = dataTableRowStrings.stream();
 
 		String dataTableString = (String)dataTableStringListStream.collect(
 			Collectors.joining(StringPool.NEW_LINE));
@@ -202,7 +202,7 @@ public class DataSourcePage {
 		try {
 			_faroSelenium.waitForPartialText(syncTextXPath, "Sync");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			Thread.sleep(10000);
 
 			_faroSelenium.refresh();
@@ -239,7 +239,7 @@ public class DataSourcePage {
 			_faroSelenium.waitForElementNotPresent(
 				"//button[text()='Authorize & Save' and @type='submit']");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_faroSelenium.click(
 				"//button[text()='Authorize & Save' and @type='submit']");
 
@@ -569,7 +569,7 @@ public class DataSourcePage {
 				try {
 					ClickSteps.clickButton("Authorize");
 				}
-				catch (NoSuchWindowException nswe) {
+				catch (NoSuchWindowException noSuchWindowException) {
 					_faroSelenium.switchToMainWindow();
 				}
 			}
@@ -580,9 +580,9 @@ public class DataSourcePage {
 			_faroSelenium.switchToMainWindow();
 			_faroSelenium.waitForLoadingComplete();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (tryTo == null) {
-				throw e;
+				throw exception;
 			}
 		}
 	}
@@ -596,10 +596,10 @@ public class DataSourcePage {
 	public void handleSalesforceOAuthPopup() throws Exception {
 		String consumerKey = System.getenv("SALESFORCE_CONSUMER_KEY");
 		String consumerSecret = System.getenv("SALESFORCE_CONSUMER_SECRET");
-		String username = System.getenv("SALESFORCE_USERNAME");
+		String userName = System.getenv("SALESFORCE_USERNAME");
 		String password = System.getenv("SALESFORCE_PASSWORD");
 
-		Assume.assumeNotNull(consumerKey, consumerSecret, username, password);
+		Assume.assumeNotNull(consumerKey, consumerSecret, userName, password);
 
 		InputSteps.inputText("https://test.salesforce.com", "URL", "input");
 		InputSteps.inputText(consumerKey, "Consumer Key/Client ID", "input");
@@ -613,7 +613,7 @@ public class DataSourcePage {
 		try {
 			if (_faroSelenium.isElementPresent("//input[@id='Login']")) {
 				InputSteps.inputText(
-					username, "Username", FaroTestConstants.INPUT_TYPE_INPUT);
+					userName, "Username", FaroTestConstants.INPUT_TYPE_INPUT);
 
 				_faroSelenium.type("//input[@id='password']", password);
 
@@ -626,7 +626,7 @@ public class DataSourcePage {
 				}
 			}
 		}
-		catch (NoSuchWindowException | TimeoutException e) {
+		catch (NoSuchWindowException | TimeoutException exception) {
 			_faroSelenium.switchToMainWindow();
 		}
 

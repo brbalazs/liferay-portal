@@ -22,7 +22,7 @@ import com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalServiceUtil;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerUtil;
+import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerHelper;
 import com.liferay.osb.faro.web.internal.model.display.FaroModelDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroEntityDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
@@ -44,7 +44,7 @@ public class ContactsLayoutTemplateDisplay extends FaroModelDisplay {
 
 	public ContactsLayoutTemplateDisplay(
 			ContactsLayoutTemplate contactsLayoutTemplate,
-			ContactsCardTemplateManagerUtil contactsCardTemplateManagerUtil)
+			ContactsCardTemplateManagerHelper contactsCardTemplateManagerHelper)
 		throws Exception {
 
 		super(contactsLayoutTemplate);
@@ -74,7 +74,7 @@ public class ContactsLayoutTemplateDisplay extends FaroModelDisplay {
 								getContactsCardTemplateId());
 
 				ContactsCardTemplateDisplay contactsCardTemplateDisplay =
-					contactsCardTemplateManagerUtil.
+					contactsCardTemplateManagerHelper.
 						getContactsCardTemplateDisplay(
 							contactsCardTemplate,
 							contactsLayoutTemplateSettingDisplay.getSize());
@@ -98,8 +98,8 @@ public class ContactsLayoutTemplateDisplay extends FaroModelDisplay {
 					Long.valueOf(headerContactsCardTemplateId));
 
 			_headerContactsCardTemplateDisplays.add(
-				contactsCardTemplateManagerUtil.getContactsCardTemplateDisplay(
-					contactsCardTemplate));
+				contactsCardTemplateManagerHelper.
+					getContactsCardTemplateDisplay(contactsCardTemplate));
 		}
 
 		_name = contactsLayoutTemplate.getName();

@@ -86,8 +86,8 @@ public class CacheClientHttpRequestInterceptor
 
 			return faroClientHttpResponse;
 		}
-		catch (Exception e) {
-			throw new IOException(e);
+		catch (Exception exception) {
+			throw new IOException(exception);
 		}
 	}
 

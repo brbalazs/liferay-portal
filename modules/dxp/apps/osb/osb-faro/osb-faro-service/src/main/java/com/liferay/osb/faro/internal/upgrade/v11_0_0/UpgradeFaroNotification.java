@@ -71,7 +71,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 		}
 	}
 
-	private void _notifyFaroProjects() throws SQLException {
+	private void _notifyFaroProjects() throws Exception {
 		try (PreparedStatement ps = connection.prepareStatement(
 				"select groupId from OSBFaro_FaroProject")) {
 

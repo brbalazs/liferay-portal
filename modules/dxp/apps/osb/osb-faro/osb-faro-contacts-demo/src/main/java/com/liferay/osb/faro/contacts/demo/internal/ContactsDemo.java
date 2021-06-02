@@ -69,7 +69,7 @@ public class ContactsDemo {
 
 						break;
 					}
-					catch (Exception e) {
+					catch (Exception exception) {
 						Thread.sleep(Time.SECOND * 30);
 					}
 				}

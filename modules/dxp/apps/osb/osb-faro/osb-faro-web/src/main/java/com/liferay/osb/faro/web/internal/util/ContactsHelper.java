@@ -30,8 +30,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Shinn Lok
  */
-@Component(service = ContactsUtil.class)
-public class ContactsUtil {
+@Component(service = ContactsHelper.class)
+public class ContactsHelper {
 
 	public FaroEntityDisplay getContactsEntityDisplay(
 		FaroProject faroProject, String contactsEntityId, int type) {

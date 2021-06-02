@@ -36,8 +36,8 @@ public class UriTemplateHandler extends DefaultUriTemplateHandler {
 			return new URI(
 				uriTemplate.expand((Map<String, Object>)uriVariables));
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 

@@ -92,7 +92,7 @@ public class IndividualController extends BaseFaroController {
 				contactsEngineClient.addMembership(
 					faroProject, individualSegmentId, id);
 			}
-			catch (DuplicateEntryException dee) {
+			catch (DuplicateEntryException duplicateEntryException) {
 				if (_log.isInfoEnabled()) {
 					_log.info(
 						"The individual already belongs to the segment: " +

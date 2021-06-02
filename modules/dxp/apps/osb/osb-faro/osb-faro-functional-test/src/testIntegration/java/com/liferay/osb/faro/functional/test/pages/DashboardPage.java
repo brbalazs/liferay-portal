@@ -38,13 +38,13 @@ public class DashboardPage {
 	 * Logs in as a specified user then asserts that redirection to the landing
 	 * page was successful.
 	 *
-	 * @param  username the username
+	 * @param  userName the userName
 	 * @param  password the password
 	 * @throws Exception if an exception occurred
 	 */
 	@When("^I login as \"(.*?):(.*?)\"( not selecting workspace)?$")
 	public static void login(
-			String username, String password, String workSpaceFlag)
+			String userName, String password, String workSpaceFlag)
 		throws Exception {
 
 		_faroSelenium.waitForLoadingComplete();
@@ -59,7 +59,7 @@ public class DashboardPage {
 			_faroSelenium.forceWindowFocus();
 
 			InputSteps.inputText(
-				username, "Email Address", FaroTestConstants.INPUT_TYPE_INPUT);
+				userName, "Email Address", FaroTestConstants.INPUT_TYPE_INPUT);
 			InputSteps.inputText(
 				password, "Password", FaroTestConstants.INPUT_TYPE_INPUT);
 
@@ -106,7 +106,7 @@ public class DashboardPage {
 	}
 
 	/**
-	 * Clicks an option from workspace username option
+	 * Clicks an option from workspace userName option
 	 *
 	 * @param targetName the target element's name or another identifier
 	 */

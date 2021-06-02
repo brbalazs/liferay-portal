@@ -21,7 +21,7 @@ import com.liferay.osb.faro.engine.client.model.Account;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.web.internal.constants.FaroConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroEntityDisplay;
-import com.liferay.osb.faro.web.internal.util.PhotoURLUtil;
+import com.liferay.osb.faro.web.internal.util.PhotoURLHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
@@ -48,7 +48,7 @@ public class AccountDisplay implements FaroEntityDisplay {
 	public AccountDisplay() {
 	}
 
-	public AccountDisplay(Account account, PhotoURLUtil photoURLUtil) {
+	public AccountDisplay(Account account, PhotoURLHelper photoURLHelper) {
 		_account = account;
 
 		_activitiesCount = account.getActivitiesCount();
@@ -57,8 +57,8 @@ public class AccountDisplay implements FaroEntityDisplay {
 		_id = account.getId();
 		_name = GetterUtil.get(getValue("accountName"), StringPool.BLANK);
 
-		if (photoURLUtil != null) {
-			_photoURL = getPhotoURL(photoURLUtil);
+		if (photoURLHelper != null) {
+			_photoURL = getPhotoURL(photoURLHelper);
 		}
 
 		_type = FaroConstants.TYPE_ACCOUNT;
@@ -165,12 +165,12 @@ public class AccountDisplay implements FaroEntityDisplay {
 		return sb.toString();
 	}
 
-	protected String getPhotoURL(PhotoURLUtil photoURLUtil) {
+	protected String getPhotoURL(PhotoURLHelper photoURLHelper) {
 		try {
-			return photoURLUtil.getPhotoURL(
+			return photoURLHelper.getPhotoURL(
 				GetterUtil.getString(getValue("website")));
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to get photo for: " +

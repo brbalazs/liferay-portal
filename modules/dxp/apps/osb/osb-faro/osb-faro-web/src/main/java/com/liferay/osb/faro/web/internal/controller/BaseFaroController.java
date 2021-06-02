@@ -20,8 +20,8 @@ import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.web.internal.model.display.FaroResultsDisplay;
 import com.liferay.osb.faro.web.internal.search.FaroSearchContext;
-import com.liferay.osb.faro.web.internal.util.ContactsUtil;
-import com.liferay.osb.faro.web.internal.util.ProjectUtil;
+import com.liferay.osb.faro.web.internal.util.ContactsHelper;
+import com.liferay.osb.faro.web.internal.util.ProjectHelper;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
@@ -102,7 +102,7 @@ public abstract class BaseFaroController implements FaroController {
 	protected volatile ContactsEngineClient contactsEngineClient;
 
 	@Reference
-	protected ContactsUtil contactsUtil;
+	protected ContactsHelper contactsHelper;
 
 	@Reference
 	protected FaroProjectLocalService faroProjectLocalService;
@@ -111,7 +111,7 @@ public abstract class BaseFaroController implements FaroController {
 	protected Language language;
 
 	@Reference
-	protected ProjectUtil projectUtil;
+	protected ProjectHelper projectHelper;
 
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,

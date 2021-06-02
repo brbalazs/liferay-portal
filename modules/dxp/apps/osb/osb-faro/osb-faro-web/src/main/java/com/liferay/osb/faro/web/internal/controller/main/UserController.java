@@ -201,7 +201,7 @@ public class UserController extends BaseFaroController {
 		int[] startAndEnd = SearchPaginationUtil.calculateStartAndEnd(
 			cur, delta);
 
-		OrderByComparator orderByComparator = null;
+		OrderByComparator<FaroUser> orderByComparator = null;
 
 		if (ListUtil.isNotNull(orderByFieldsFaroParam.getValue())) {
 			orderByComparator = new FaroUserComparator(

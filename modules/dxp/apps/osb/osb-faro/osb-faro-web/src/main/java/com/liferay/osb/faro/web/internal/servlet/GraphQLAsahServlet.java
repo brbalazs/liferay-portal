@@ -92,9 +92,9 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 
 			ServletResponseUtil.write(httpServletResponse, entity.getContent());
 		}
-		catch (URISyntaxException urise) {
+		catch (URISyntaxException uriSyntaxException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(urise, urise);
+				_log.debug(uriSyntaxException, uriSyntaxException);
 			}
 		}
 	}
@@ -142,9 +142,9 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 			ServletResponseUtil.write(
 				httpServletResponse, responseEntity.getContent());
 		}
-		catch (URISyntaxException urise) {
+		catch (URISyntaxException uriSyntaxException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(urise, urise);
+				_log.debug(uriSyntaxException, uriSyntaxException);
 			}
 		}
 	}
@@ -181,7 +181,7 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 
 			return true;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Invalid request: " + body);
 			}

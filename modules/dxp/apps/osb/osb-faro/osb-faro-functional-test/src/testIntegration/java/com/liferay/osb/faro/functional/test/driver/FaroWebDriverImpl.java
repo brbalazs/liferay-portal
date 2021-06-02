@@ -104,8 +104,8 @@ public class FaroWebDriverImpl
 		try {
 			waitForElementPresent(locator);
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (Exception exception) {
+			exception.printStackTrace();
 		}
 
 		super.click(locator);
@@ -116,7 +116,7 @@ public class FaroWebDriverImpl
 		try {
 			webElement.click();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			scrollWebElementIntoView(webElement);
 
 			webElement.click();
@@ -307,7 +307,7 @@ public class FaroWebDriverImpl
 
 				return isElementNotPresent(xpath);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				return false;
 			}
 		};
@@ -355,7 +355,7 @@ public class FaroWebDriverImpl
 
 				return isElementPresent(xpath);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				return false;
 			}
 		};
@@ -396,7 +396,7 @@ public class FaroWebDriverImpl
 			try {
 				waitForNotText(xpath, StringPool.DASH, 5);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			WebElement webElement = findElement(xpath);
@@ -555,7 +555,7 @@ public class FaroWebDriverImpl
 					break;
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 
 			Thread.sleep(1000);

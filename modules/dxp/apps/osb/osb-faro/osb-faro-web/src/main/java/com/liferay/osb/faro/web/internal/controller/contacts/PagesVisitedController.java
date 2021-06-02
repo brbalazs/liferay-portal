@@ -83,7 +83,7 @@ public class PagesVisitedController extends BaseFaroController {
 
 		Results<PageVisited> results = contactsEngineClient.getPagesVisited(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId),
-			contactsEntityId, contactsUtil.getOwnerType(contactEntityType),
+			contactsEntityId, contactsHelper.getOwnerType(contactEntityType),
 			query, interestName, startDateFaroParam.getValue(),
 			endDateFaroParam.getValue(), active, cur, delta,
 			orderByFieldsFaroParam.getValue());

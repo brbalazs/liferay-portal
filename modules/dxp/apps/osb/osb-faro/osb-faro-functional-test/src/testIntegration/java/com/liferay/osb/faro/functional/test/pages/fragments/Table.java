@@ -131,7 +131,7 @@ public class Table {
 
 			Assert.assertEquals(number, counter);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			sb.append("|//*[name()='svg' and @class='recharts-surface']");
 			sb.append("/*[name()='g' and contains(@class,'recharts-bar')]");
 			sb.append("/*[name()='g']//*[name()='g' and contains(@class,'");
@@ -332,12 +332,12 @@ public class Table {
 				_faroSelenium.assertElementNotPresent(sb.toString());
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (negation == null) {
 				_faroSelenium.refreshUntilElementPresent(60, 10, sb.toString());
 			}
 			else {
-				throw e;
+				throw exception;
 			}
 		}
 	}
@@ -573,25 +573,25 @@ public class Table {
 			@Transform(FaroTransformer.class) String rowNumber)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb1 = new StringBundler(6);
 
-		sb.append("//h5[text()='");
-		sb.append(cardHeader);
-		sb.append("']/parent::div/parent::div//*[name()='g' and @class='");
-		sb.append("bb-chart']//*[name()='g']//*[name()='rect'][");
-		sb.append(rowNumber);
-		sb.append("]");
+		sb1.append("//h5[text()='");
+		sb1.append(cardHeader);
+		sb1.append("']/parent::div/parent::div//*[name()='g' and @class='");
+		sb1.append("bb-chart']//*[name()='g']//*[name()='rect'][");
+		sb1.append(rowNumber);
+		sb1.append("]");
 
-		_faroSelenium.mouseOver(sb.toString());
+		_faroSelenium.mouseOver(sb1.toString());
 
-		StringBundler sb1 = new StringBundler(3);
+		StringBundler sb2 = new StringBundler(3);
 
-		sb1.append(
+		sb2.append(
 			"//div[@class='bb-tooltip-container']/table/thead//div[text()='");
-		sb1.append(headerName);
-		sb1.append("']");
+		sb2.append(headerName);
+		sb2.append("']");
 
-		_faroSelenium.assertElementPresent(sb1.toString());
+		_faroSelenium.assertElementPresent(sb2.toString());
 	}
 
 	/**
@@ -647,7 +647,7 @@ public class Table {
 		try {
 			_faroSelenium.click(sb.toString());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_faroSelenium.waitForElementPresent(
 				"//*[name()='g' and contains(@class,'recharts-yAxis " +
 					"yAxis')]/ancestor::svg/*[name()='path' and contains(@" +
@@ -772,7 +772,7 @@ public class Table {
 			_faroSelenium.assertElementPresent(
 				"//div[@class='bb-tooltip-container']/table");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_faroSelenium.mouseOver(sb.toString());
 
 			_faroSelenium.waitForElementPresent(
@@ -863,7 +863,7 @@ public class Table {
 	 *
 	 * @return the number of search results
 	 */
-	private static String _getSearchResultsCount() {
+	private String _getSearchResultsCount() {
 		WebElement webElement = _faroSelenium.findElement(
 			"//div[@class='autofit-col'][2]");
 

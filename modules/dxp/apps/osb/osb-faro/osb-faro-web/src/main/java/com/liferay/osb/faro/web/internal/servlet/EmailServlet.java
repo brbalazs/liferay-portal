@@ -68,8 +68,8 @@ public class EmailServlet extends BaseAsahServlet {
 				JSONFactoryUtil.createJSONObject(
 					StringUtil.read(httpServletRequest.getInputStream())));
 		}
-		catch (Exception e) {
-			throw new ServletException(e);
+		catch (Exception exception) {
+			throw new ServletException(exception);
 		}
 	}
 

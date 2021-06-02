@@ -15,8 +15,8 @@
 package com.liferay.osb.faro.web.internal.util.comparator;
 
 import com.liferay.osb.faro.engine.client.util.OrderByField;
+import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -29,14 +29,14 @@ import java.util.stream.Stream;
 /**
  * @author Matthew Kong
  */
-public class FaroUserComparator extends OrderByComparator<User> {
+public class FaroUserComparator extends OrderByComparator<FaroUser> {
 
 	public FaroUserComparator(List<OrderByField> orderByFields) {
 		_orderByFields = orderByFields;
 	}
 
 	@Override
-	public int compare(User user1, User user2) {
+	public int compare(FaroUser faroUser1, FaroUser faroUser2) {
 		return 0;
 	}
 

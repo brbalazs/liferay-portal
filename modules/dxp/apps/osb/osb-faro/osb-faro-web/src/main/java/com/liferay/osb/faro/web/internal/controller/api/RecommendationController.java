@@ -48,7 +48,7 @@ public class RecommendationController extends BaseFaroController {
 	@GET
 	@Path("{any:.*}")
 	@RequiresScope(ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING)
-	public Map get(@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
+	public Map<?, ?> get(@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -65,7 +65,7 @@ public class RecommendationController extends BaseFaroController {
 	@Path("{any:.*}")
 	@POST
 	@RequiresScope(ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING)
-	public Map post(
+	public Map<?, ?> post(
 			@Context GroupInfo groupInfo, String requestBody,
 			@Context UriInfo uriInfo)
 		throws Exception {
@@ -80,12 +80,12 @@ public class RecommendationController extends BaseFaroController {
 			JSONUtil.readValue(requestBody, Map.class), Map.class);
 	}
 
-	private Map<String, String> _createHeaders(URI baseUri) {
+	private Map<String, String> _createHeaders(URI baseURI) {
 		return new HashMap<String, String>() {
 			{
-				put("X-Forwarded-Host", baseUri.getHost());
-				put("X-Forwarded-Port", String.valueOf(baseUri.getPort()));
-				put("X-Forwarded-Proto", baseUri.getScheme());
+				put("X-Forwarded-Host", baseURI.getHost());
+				put("X-Forwarded-Port", String.valueOf(baseURI.getPort()));
+				put("X-Forwarded-Proto", baseURI.getScheme());
 			}
 		};
 	}

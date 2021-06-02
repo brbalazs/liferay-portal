@@ -40,11 +40,10 @@ public class FaroAdminManagementToolbarDisplayContext
 	extends SearchContainerManagementToolbarDisplayContext {
 
 	public FaroAdminManagementToolbarDisplayContext(
-		RenderResponse renderResponse,
+		HttpServletRequest httpServletRequest,
 		LiferayPortletRequest liferayPortletRequest,
 		LiferayPortletResponse liferayPortletResponse,
-		HttpServletRequest httpServletRequest,
-		SearchContainer searchContainer) {
+		RenderResponse renderResponse, SearchContainer<?> searchContainer) {
 
 		super(
 			liferayPortletRequest, liferayPortletResponse, httpServletRequest,

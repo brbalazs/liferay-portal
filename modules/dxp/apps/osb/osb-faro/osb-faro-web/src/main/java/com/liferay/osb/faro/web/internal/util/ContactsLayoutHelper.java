@@ -16,7 +16,7 @@ package com.liferay.osb.faro.web.internal.util;
 
 import com.liferay.osb.faro.contacts.model.ContactsCardTemplate;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
-import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerUtil;
+import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerHelper;
 import com.liferay.osb.faro.web.internal.model.display.contacts.card.template.ContactsLayoutTemplateSettingDisplay;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.UserConstants;
@@ -31,8 +31,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Matthew Kong
  */
-@Component(service = ContactsLayoutUtil.class)
-public class ContactsLayoutUtil {
+@Component(service = ContactsLayoutHelper.class)
+public class ContactsLayoutHelper {
 
 	public String addContactsCardTemplateIds(long groupId, int type)
 		throws Exception {
@@ -106,6 +106,6 @@ public class ContactsLayoutUtil {
 	private ContactsCardTemplateLocalService _contactsCardTemplateLocalService;
 
 	@Reference
-	private ContactsCardTemplateManagerUtil _contactsCardTemplateManagerUtil;
+	private ContactsCardTemplateManagerHelper _contactsCardTemplateManagerUtil;
 
 }

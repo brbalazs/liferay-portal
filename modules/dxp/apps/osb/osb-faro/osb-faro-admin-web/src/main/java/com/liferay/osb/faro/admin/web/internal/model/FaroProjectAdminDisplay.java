@@ -42,7 +42,7 @@ public class FaroProjectAdminDisplay {
 		try {
 			_createDate = document.getDate("createDate");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		_faroProjectId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
@@ -53,7 +53,7 @@ public class FaroProjectAdminDisplay {
 		try {
 			_lastAccessDate = document.getDate("lastAccessDate");
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		_name = document.get(Field.NAME);

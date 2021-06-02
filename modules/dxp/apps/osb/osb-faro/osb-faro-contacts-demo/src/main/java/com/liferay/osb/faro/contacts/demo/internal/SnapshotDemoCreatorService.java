@@ -68,11 +68,11 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 
 			ZipEntry zipEntry = zipInputStream.getNextEntry();
 
-			long timeOffset =
-				Time.DAY *
-					DateUtil.getDaysBetween(
-						new Date(zipEntry.getTime()),
-						new Date(System.currentTimeMillis()));
+			int daysBetween = DateUtil.getDaysBetween(
+				new Date(zipEntry.getTime()),
+				new Date(System.currentTimeMillis()));
+
+			long timeOffset = Time.DAY * daysBetween;
 
 			List<Path> paths = new ArrayList<>();
 
@@ -138,7 +138,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 				return _dateFormat.format(
 					new Date(date.getTime() + timeOffset));
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 		}
 
@@ -183,7 +183,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 					if (dateField && (entry.getValue() instanceof List)) {
 						List<String> values = (List<String>)entry.getValue();
 
-						Stream stream = values.stream();
+						Stream<String> stream = values.stream();
 
 						entry.setValue(
 							stream.map(

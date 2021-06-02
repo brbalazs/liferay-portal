@@ -58,7 +58,7 @@ public class FaroEngineClientExceptionMapper
 				responseBuilder.entity(errorResponse);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			responseBuilder = Response.serverError();
 		}
 

@@ -174,7 +174,7 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 					return new InternetAddress(
 						user.getEmailAddress(), user.getFullName());
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					return null;
 				}
 			}

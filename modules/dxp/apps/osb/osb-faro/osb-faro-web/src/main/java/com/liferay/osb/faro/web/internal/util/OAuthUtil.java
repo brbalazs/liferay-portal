@@ -68,7 +68,7 @@ public class OAuthUtil {
 
 			return oAuth1Credentials;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return getOAuth2Credentials(
 				serviceBuilder, new LiferayApi20(baseURL), oAuthConsumerKey,
 				oAuthConsumerSecret);

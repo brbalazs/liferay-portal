@@ -84,9 +84,9 @@ public class ProxyDownloadAsahServlet extends BaseAsahServlet {
 			ServletResponseUtil.write(
 				httpServletResponse, urlConnection.getInputStream());
 		}
-		catch (URISyntaxException urise) {
+		catch (URISyntaxException uriSyntaxException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(urise, urise);
+				_log.debug(uriSyntaxException, uriSyntaxException);
 			}
 		}
 	}
@@ -128,9 +128,9 @@ public class ProxyDownloadAsahServlet extends BaseAsahServlet {
 			ServletResponseUtil.write(
 				httpServletResponse, urlConnection.getInputStream());
 		}
-		catch (URISyntaxException urise) {
+		catch (URISyntaxException uriSyntaxException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(urise, urise);
+				_log.debug(uriSyntaxException, uriSyntaxException);
 			}
 		}
 	}

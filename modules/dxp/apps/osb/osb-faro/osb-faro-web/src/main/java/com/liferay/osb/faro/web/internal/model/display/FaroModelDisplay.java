@@ -24,7 +24,7 @@ public abstract class FaroModelDisplay {
 	public FaroModelDisplay() {
 	}
 
-	public FaroModelDisplay(BaseModel baseModel) {
+	public FaroModelDisplay(BaseModel<?> baseModel) {
 		_id = (Long)baseModel.getPrimaryKeyObj();
 	}
 

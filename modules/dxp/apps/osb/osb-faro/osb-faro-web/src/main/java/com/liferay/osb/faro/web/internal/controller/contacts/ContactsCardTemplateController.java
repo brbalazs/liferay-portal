@@ -18,7 +18,7 @@ import com.liferay.osb.faro.contacts.model.ContactsCardTemplate;
 import com.liferay.osb.faro.contacts.model.constants.ContactsCardTemplateConstants;
 import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
-import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerUtil;
+import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManagerHelper;
 import com.liferay.osb.faro.web.internal.card.template.type.ContactsCardTemplateType;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.FaroController;
@@ -147,6 +147,6 @@ public class ContactsCardTemplateController extends BaseFaroController {
 	private ContactsCardTemplateLocalService _contactsCardTemplateLocalService;
 
 	@Reference
-	private ContactsCardTemplateManagerUtil _contactsCardTemplateManagerUtil;
+	private ContactsCardTemplateManagerHelper _contactsCardTemplateManagerUtil;
 
 }

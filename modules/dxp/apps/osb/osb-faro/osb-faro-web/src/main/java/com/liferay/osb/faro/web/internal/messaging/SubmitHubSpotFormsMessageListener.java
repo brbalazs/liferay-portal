@@ -97,14 +97,15 @@ public class SubmitHubSpotFormsMessageListener extends BaseMessageListener {
 				FaroUser faroUser = _faroUserLocalService.getFaroUser(
 					faroProject.getGroupId(), faroProject.getUserId());
 
+				long pageViews = _cerebroEngineClient.getPageViews(
+					faroProject,
+					Optional.of(faroSubscriptionDisplay.getStartDate()),
+					Optional.of(new Date()));
+
 				_hubSpotEngineClient.submitUsageForm(
 					faroProject, faroUser,
-					GetterUtil.getDouble(
-						_cerebroEngineClient.getPageViews(
-							faroProject,
-							Optional.of(faroSubscriptionDisplay.getStartDate()),
-							Optional.of(new Date()))) /
-								faroSubscriptionDisplay.getPageViewsLimit());
+					GetterUtil.getDouble(pageViews) /
+						faroSubscriptionDisplay.getPageViewsLimit());
 
 				if (StringUtil.equals(
 						faroSubscriptionDisplay.getName(),
@@ -121,7 +122,7 @@ public class SubmitHubSpotFormsMessageListener extends BaseMessageListener {
 					}
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (_log.isInfoEnabled()) {
 					_log.info(
 						"Failed to submit HubSpot form: " +

@@ -39,12 +39,12 @@ public class SSLHandshakeExceptionHttpRequestInterceptor
 			try {
 				return clientHttpRequestExecution.execute(httpRequest, bytes);
 			}
-			catch (SSLHandshakeException sslhe) {
+			catch (SSLHandshakeException sslHandshakeException) {
 				try {
 					Thread.sleep(5000);
 				}
-				catch (Exception e) {
-					throw new IOException(e);
+				catch (Exception exception) {
+					throw new IOException(exception);
 				}
 			}
 		}

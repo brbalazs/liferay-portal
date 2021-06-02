@@ -137,7 +137,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return null;
@@ -244,10 +244,10 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 						faroProject.getWeDeployKey());
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				"Unable to update secrets to " + faroProject.getWeDeployKey(),
-				e);
+				exception);
 		}
 	}
 
@@ -477,7 +477,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 			return true;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return false;
 		}
 	}
@@ -489,12 +489,12 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 			return true;
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			_log.error(
 				String.format(
 					"Failed to check if workspace %s is ready",
 					faroProject.getWeDeployKey()),
-				e);
+				exception);
 
 			return false;
 		}
@@ -586,8 +586,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			try {
 				doRun();
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 

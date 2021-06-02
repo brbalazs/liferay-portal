@@ -58,8 +58,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Shinn Lok
  */
-@Component(immediate = true, service = ContactsCSVUtil.class)
-public class ContactsCSVUtil {
+@Component(immediate = true, service = ContactsCSVHelper.class)
+public class ContactsCSVHelper {
 
 	public long addContactsCSV(
 			String dataSourceId, long groupId, long userId, String fileName,
@@ -143,7 +143,7 @@ public class ContactsCSVUtil {
 
 			csvParser.beginParsing(dlFileVersion.getContentStream(false));
 
-			RecordMetaData recordMetaData = csvParser.getRecordMetadata();
+			RecordMetaData record = csvParser.getRecordMetadata();
 
 			String[] headers = null;
 
@@ -151,7 +151,7 @@ public class ContactsCSVUtil {
 				headers = new String[] {fieldName};
 			}
 			else {
-				headers = recordMetaData.headers();
+				headers = record.headers();
 			}
 
 			List<String> processedHeaders = new ArrayList<>();
@@ -193,8 +193,8 @@ public class ContactsCSVUtil {
 				}
 			}
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 		finally {
 			csvParser.stopParsing();
@@ -221,9 +221,9 @@ public class ContactsCSVUtil {
 		List<String[]> rows = csvParser.parseAll(
 			dlFileVersion.getContentStream(false));
 
-		RecordMetaData recordMetaData = csvParser.getRecordMetadata();
+		RecordMetaData record = csvParser.getRecordMetadata();
 
-		String[] headers = recordMetaData.headers();
+		String[] headers = record.headers();
 
 		for (String[] row : rows) {
 			Map<String, Object> individualMap = new HashMap<>();
@@ -263,9 +263,9 @@ public class ContactsCSVUtil {
 
 		List<String[]> rows = csvParser.parseAll(file);
 
-		RecordMetaData recordMetaData = csvParser.getRecordMetadata();
+		RecordMetaData record = csvParser.getRecordMetadata();
 
-		String[] headers = recordMetaData.headers();
+		String[] headers = record.headers();
 
 		if (rows.isEmpty() || (headers.length == 0)) {
 			throw new FaroException("The CSV file is empty");
@@ -338,7 +338,7 @@ public class ContactsCSVUtil {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ContactsCSVUtil.class);
+		ContactsCSVHelper.class);
 
 	@Reference
 	private DLFileEntryLocalService _dlFileEntryLocalService;

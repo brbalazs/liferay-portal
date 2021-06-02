@@ -89,8 +89,8 @@ public class ReportController extends BaseFaroController {
 					String.format("/api/reports/export/%s/file", type),
 					Collections.emptyMap(), outputStream);
 			}
-			catch (Exception e) {
-				_log.error(e, e);
+			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 
 			outputStream.flush();
@@ -104,7 +104,8 @@ public class ReportController extends BaseFaroController {
 	@GET
 	@Path("{any:(?!/export.*).*}")
 	@RequiresScope(ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING)
-	public Map get(@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
+	public Map<Object, Object> get(
+			@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -117,12 +118,12 @@ public class ReportController extends BaseFaroController {
 			Map.class);
 	}
 
-	private Map<String, String> _createHeaders(URI baseUri) {
+	private Map<String, String> _createHeaders(URI baseURI) {
 		return new HashMap<String, String>() {
 			{
-				put("X-Forwarded-Host", baseUri.getHost());
-				put("X-Forwarded-Port", String.valueOf(baseUri.getPort()));
-				put("X-Forwarded-Proto", baseUri.getScheme());
+				put("X-Forwarded-Host", baseURI.getHost());
+				put("X-Forwarded-Port", String.valueOf(baseURI.getPort()));
+				put("X-Forwarded-Proto", baseURI.getScheme());
 			}
 		};
 	}
