@@ -2,11 +2,6 @@ import React from 'react';
 import ReferencedEntityDisplay from './ReferencedEntityDisplay';
 import {ENTITY_MAP} from 'contacts/components/segment-editor/dynamic/inputs/IndividualSelectInput';
 import {
-	formatDuration,
-	getLargestNaturalUnit,
-	getUnitLabel
-} from 'shared/util/time';
-import {
 	getOperatorLabel,
 	maybeFormatToKnownType,
 	maybeFormatValue
@@ -24,18 +19,6 @@ const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 
 	const {entityName, label, type} = property;
 
-	const getDurationFormat = value => {
-		const largestNaturalUnit = getLargestNaturalUnit(value);
-
-		return (
-			<>
-				<b>{formatDuration(value, largestNaturalUnit)}</b>
-
-				<span>{getUnitLabel(largestNaturalUnit)}</span>
-			</>
-		);
-	};
-
 	const renderContent = () => {
 		switch (type) {
 			case PropertyTypes.SelectText:
@@ -46,8 +29,6 @@ const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 						type={ENTITY_MAP[propertyName]}
 					/>
 				);
-			case PropertyTypes.Duration:
-				return getDurationFormat(value);
 			default:
 				return <b>{maybeFormatValue(value, type, timeZoneId)}</b>;
 		}

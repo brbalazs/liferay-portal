@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {formatDateToTimeZone} from 'shared/util/date';
+import {formatTime} from 'shared/util/time';
 import {
 	GEOLOCATION_OPTIONS,
 	INPUT_DATE_FORMAT,
@@ -98,8 +99,9 @@ export function maybeFormatValue(
 				INPUT_DISPLAY_DATE_TIME_FORMAT,
 				timeZoneId
 			);
-		case PropertyTypes.AccountNumber:
 		case PropertyTypes.Duration:
+			return formatTime(value);
+		case PropertyTypes.AccountNumber:
 		case PropertyTypes.Number:
 		case PropertyTypes.SessionNumber:
 		default:

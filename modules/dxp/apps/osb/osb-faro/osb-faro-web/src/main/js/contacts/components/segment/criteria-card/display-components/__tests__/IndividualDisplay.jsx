@@ -63,7 +63,7 @@ describe('IndividualDisplay', () => {
 				criterion={{
 					operatorName: RelationalOperators.GT,
 					propertyName: 'demographics/duration/value',
-					value: 3600
+					value: 3661000
 				}}
 				property={data.getImmutableMock(
 					Property,
@@ -80,7 +80,7 @@ describe('IndividualDisplay', () => {
 			/>
 		);
 
-		expect(getByText('Seconds')).toBeTruthy();
+		expect(getByText('01:01:01')).toBeTruthy();
 	});
 
 	it('renders w/ a SelectInput type', () => {
