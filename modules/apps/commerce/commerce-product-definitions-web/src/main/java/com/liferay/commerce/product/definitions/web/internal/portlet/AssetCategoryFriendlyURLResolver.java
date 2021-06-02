@@ -42,9 +42,11 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -149,12 +151,6 @@ public class AssetCategoryFriendlyURLResolver implements FriendlyURLResolver {
 		Group companyGroup = _groupLocalService.getCompanyGroup(
 			_portal.getDefaultCompanyId());
 
-		HttpServletRequest httpServletRequest =
-			(HttpServletRequest)requestContext.get("request");
-
-		String languageId = LanguageUtil.getLanguageId(
-			_portal.getLocale(httpServletRequest));
-
 		long classNameId = _portal.getClassNameId(AssetCategory.class);
 
 		String urlTitle = friendlyURL.substring(
@@ -177,6 +173,19 @@ public class AssetCategoryFriendlyURLResolver implements FriendlyURLResolver {
 
 		Layout layout = getAssetCategoryLayout(
 			groupId, privateLayout, friendlyURLEntry.getClassPK());
+
+		HttpServletRequest httpServletRequest =
+			(HttpServletRequest)requestContext.get("request");
+
+		HttpSession httpSession = httpServletRequest.getSession();
+
+		Locale locale = (Locale)httpSession.getAttribute(WebKeys.LOCALE);
+
+		if (locale == null) {
+			locale = _portal.getLocale(httpServletRequest);
+		}
+
+		String languageId = LanguageUtil.getLanguageId(locale);
 
 		return new LayoutFriendlyURLComposite(
 			layout,
