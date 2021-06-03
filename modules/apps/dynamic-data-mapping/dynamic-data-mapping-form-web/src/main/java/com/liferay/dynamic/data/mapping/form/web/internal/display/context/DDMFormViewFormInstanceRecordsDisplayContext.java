@@ -381,7 +381,9 @@ public class DDMFormViewFormInstanceRecordsDisplayContext {
 		portletURL.setParameter(
 			"mvcPath", "/admin/view_form_instance_records.jsp");
 		portletURL.setParameter(
-			"redirect", ParamUtil.getString(_renderRequest, "redirect"));
+			"redirect",
+			HtmlUtil.escapeURL(
+				ParamUtil.getString(_renderRequest, "redirect")));
 		portletURL.setParameter(
 			"formInstanceId",
 			String.valueOf(ddmFormInstance.getFormInstanceId()));
