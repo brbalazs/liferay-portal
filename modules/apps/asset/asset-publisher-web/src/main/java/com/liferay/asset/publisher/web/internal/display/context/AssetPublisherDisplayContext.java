@@ -363,6 +363,11 @@ public class AssetPublisherDisplayContext {
 				queryValues = ParamUtil.getString(
 					_request, "queryTagNames" + queryLogicIndex, queryValues);
 
+				String[] tagNames = StringUtil.split(
+					queryValues, StringPool.COMMA);
+
+				queryValues = StringUtil.merge(tagNames);
+
 				queryValues = _assetPublisherWebUtil.filterAssetTagNames(
 					themeDisplay.getScopeGroupId(), queryValues);
 			}
