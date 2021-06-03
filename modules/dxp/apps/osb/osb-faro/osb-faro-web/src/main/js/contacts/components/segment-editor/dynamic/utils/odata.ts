@@ -727,8 +727,22 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 
 	const operatorName = getOperatorNameFromFunctionName(name, namespace);
 
-	let touched: boolean | {asset: boolean; occurenceCount: boolean} = false;
-	let valid: boolean | {asset: boolean; occurenceCount: boolean} = true;
+	let touched:
+		| boolean
+		| {asset: boolean; occurenceCount: boolean}
+		| {
+				attribute: boolean;
+				attributeValue: boolean;
+				occurenceCount: boolean;
+		  } = false;
+	let valid:
+		| boolean
+		| {asset: boolean; occurenceCount: boolean}
+		| {
+				attribute: boolean;
+				attributeValue: boolean;
+				occurenceCount: boolean;
+		  } = true;
 
 	// TODO: Prob need one here for PropertyTypes.Event
 	if (
@@ -738,6 +752,15 @@ const transformCustomFunctionNode = ({oDataASTNode}: Context): Criterion[] => {
 	) {
 		touched = {asset: false, occurenceCount: false};
 		valid = {asset: true, occurenceCount: true};
+	} else if (
+		SUPPORTED_PROPERTY_TYPES_MAP[PropertyTypes.Event].includes(operatorName)
+	) {
+		touched = {
+			attribute: false,
+			attributeValue: false,
+			occurenceCount: false
+		};
+		valid = {attribute: true, attributeValue: true, occurenceCount: true};
 	}
 
 	return [

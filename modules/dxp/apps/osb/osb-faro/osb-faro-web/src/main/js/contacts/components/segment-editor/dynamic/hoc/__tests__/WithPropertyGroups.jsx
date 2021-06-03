@@ -1,9 +1,15 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
+import client from 'shared/apollo/client';
 import Promise from 'metal-promise';
 import React from 'react';
 import withPropertyGroups from '../WithPropertyGroups';
-import {cleanup, render} from '@testing-library/react';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.mock('shared/apollo/client', () => ({
+	query: jest.fn()
+}));
 
 jest.unmock('react-dom');
 
@@ -15,11 +21,13 @@ const TestComponent = ({propertyGroupsIList}) => (
 					<div key={i}>
 						{attribute.label}
 
-						{attribute.propertySubgroups.map(({properties}, i) => (
-							<div
-								key={i}
-							>{`${attribute.label}-${i}: ${properties.size}`}</div>
-						))}
+						{attribute.propertySubgroups.map(
+							({label, properties}, i) => (
+								<div key={i}>{`${
+									label || attribute.label
+								}-${i}: ${properties.size}`}</div>
+							)
+						)}
 					</div>
 				);
 			}
@@ -28,8 +36,6 @@ const TestComponent = ({propertyGroupsIList}) => (
 );
 
 describe('WithPropertyGroups', () => {
-	afterEach(cleanup);
-
 	it('should pass propertyGroups to the WrappedComponent', () => {
 		API.fieldMappings.search.mockReturnValueOnce(
 			Promise.resolve({
@@ -99,10 +105,33 @@ describe('WithPropertyGroups', () => {
 			})
 		);
 
+		client.query.mockReturnValueOnce(
+			Promise.resolve({
+				data: {
+					eventDefinitions: {
+						__typename: 'EventDefinitionBag',
+						eventDefinitions: [
+							{
+								__typename: 'EventDefinition',
+								description: null,
+								displayName: 'displayName-1',
+								id: '1',
+								name: 'name-1',
+								type: 'DEFAULT'
+							}
+						],
+						total: 1
+					}
+				}
+			})
+		);
+
 		const WrappedComponent = withPropertyGroups(TestComponent);
 
 		const {container} = render(
-			<WrappedComponent channelId='123' groupId='123' />
+			<StaticRouter>
+				<WrappedComponent channelId='123' groupId='123' />
+			</StaticRouter>
 		);
 
 		jest.runAllTimers();
@@ -180,6 +209,27 @@ describe('WithPropertyGroups', () => {
 					}
 				],
 				total: 1
+			})
+		);
+
+		client.query.mockReturnValueOnce(
+			Promise.resolve({
+				data: {
+					eventDefinitions: {
+						__typename: 'EventDefinitionBag',
+						eventDefinitions: [
+							{
+								__typename: 'EventDefinition',
+								description: null,
+								displayName: 'displayName-1',
+								id: '1',
+								name: 'name-1',
+								type: 'DEFAULT'
+							}
+						],
+						total: 1
+					}
+				}
 			})
 		);
 

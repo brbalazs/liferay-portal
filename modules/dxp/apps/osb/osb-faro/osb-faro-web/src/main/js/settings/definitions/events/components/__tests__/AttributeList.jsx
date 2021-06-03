@@ -3,6 +3,7 @@ import AttributeList from '../AttributeList';
 import client from 'shared/apollo/client';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {AttributeTypes} from 'event-analysis/utils/types';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventAttributeDefinitionsReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
@@ -17,11 +18,16 @@ describe('AttributeList', () => {
 			<StaticRouter>
 				<MockedProvider
 					mocks={[
-						mockEventAttributeDefinitionsReq([
-							data.mockEventAttributeDefinition(0, {
-								__typename: 'EventAttributeDefinition'
-							})
-						])
+						mockEventAttributeDefinitionsReq(
+							[
+								data.mockEventAttributeDefinition(0, {
+									__typename: 'EventAttributeDefinition'
+								})
+							],
+							{
+								type: AttributeTypes.Local
+							}
+						)
 					]}
 				>
 					<AttributeList delta={1} groupId='23' {...props} />

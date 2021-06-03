@@ -18,6 +18,8 @@ import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUs
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import {AttributeTypes} from 'event-analysis/utils/types';
+import {EventTypes} from 'event-analysis/utils/types';
 import {
 	EXPERIMENT_QUERY,
 	EXPERIMENT_SESSION_HISTOGRAM_QUERY,
@@ -27,6 +29,8 @@ import {
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
+import {NAME} from 'shared/util/pagination';
+import {OrderByDirections} from 'shared/util/constants';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 
 const METRIC_TYPENAME_MAP = {
@@ -516,9 +520,10 @@ export function mockEventAttributeDefinitionsReq(items, mockVariables = {}) {
 				page: 0,
 				size: items.length,
 				sort: {
-					column: 'name',
-					type: 'ASC'
+					column: NAME,
+					type: OrderByDirections.Ascending
 				},
+				type: AttributeTypes.All,
 				...mockVariables
 			}
 		},
@@ -558,12 +563,12 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 		request: {
 			query: EventDefinitionsQuery,
 			variables: {
-				eventType: 'DEFAULT',
+				eventType: EventTypes.Default,
 				page: 0,
 				size: items.length,
 				sort: {
-					column: 'name',
-					type: 'ASC'
+					column: NAME,
+					type: OrderByDirections.Ascending
 				},
 				...mockVariables
 			}

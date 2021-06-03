@@ -1,10 +1,15 @@
+import client from 'shared/apollo/client';
 import Edit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {render} from '@testing-library/react';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {SegmentTypes} from 'shared/util/constants';
 import {StaticRouter} from 'react-router';
+
+jest.mock('shared/apollo/client', () => ({
+	query: jest.fn()
+}));
 
 jest.unmock('react-dom');
 
@@ -18,21 +23,69 @@ const DefaultComponent = props => (
 
 describe('Edit', () => {
 	it('should render', async () => {
+		client.query.mockReturnValueOnce(
+			Promise.resolve({
+				data: {
+					eventDefinitions: {
+						__typename: 'EventDefinitionBag',
+						eventDefinitions: [
+							{
+								__typename: 'EventDefinition',
+								description: null,
+								displayName: 'displayName-1',
+								id: '1',
+								name: 'name-1',
+								type: 'DEFAULT'
+							}
+						],
+						total: 1
+					}
+				}
+			})
+		);
+
 		const {container} = render(<DefaultComponent />);
 
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.loading-root')
+		).then(() => {
+			expect(container).toMatchSnapshot();
+		});
 	});
 
 	it('should render a dynamic segment', async () => {
-		const {getByText} = render(
+		client.query.mockReturnValueOnce(
+			Promise.resolve({
+				data: {
+					eventDefinitions: {
+						__typename: 'EventDefinitionBag',
+						eventDefinitions: [
+							{
+								__typename: 'EventDefinition',
+								description: null,
+								displayName: 'displayName-1',
+								id: '1',
+								name: 'name-1',
+								type: 'DEFAULT'
+							}
+						],
+						total: 1
+					}
+				}
+			})
+		);
+
+		const {container, getByText} = render(
 			<DefaultComponent type={SegmentTypes.Dynamic} />
 		);
 
 		jest.runAllTimers();
 
-		expect(getByText('DYNAMIC Segment')).toBeTruthy();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.loading-root')
+		).then(() => {
+			expect(getByText('DYNAMIC Segment')).toBeTruthy();
+		});
 	});
 
 	it('should render a static segment', () => {

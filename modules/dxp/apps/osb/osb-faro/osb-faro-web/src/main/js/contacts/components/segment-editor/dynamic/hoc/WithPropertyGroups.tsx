@@ -20,6 +20,8 @@ import {
 	WEB_BEHAVIORS
 } from '../utils/properties';
 import {List} from 'immutable';
+import {NAME} from 'shared/util/pagination';
+import {OrderByDirections} from 'shared/util/constants';
 import {PropertyGroup, PropertySubgroup} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {withRequest} from 'shared/hoc';
@@ -65,12 +67,12 @@ const fetchPropertyGroups = ({
 		client.query({
 			query: EventDefinitionsQuery,
 			variables: {
-				eventType: EventTypes.All, // TODO: Change EventTypes.ALL to EventTypes.Custom
+				eventType: EventTypes.Custom,
 				page: 0,
 				size: MAX_DELTA,
 				sort: {
-					column: 'name',
-					type: 'ASC'
+					column: NAME,
+					type: OrderByDirections.Ascending
 				}
 			}
 		}),

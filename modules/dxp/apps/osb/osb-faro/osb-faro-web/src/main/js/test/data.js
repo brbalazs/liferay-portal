@@ -18,6 +18,7 @@ import {
 	SubscriptionStatuses,
 	UserRoleNames
 } from 'shared/util/constants';
+import {AttributeTypes} from 'event-analysis/utils/types';
 import {
 	Conjunctions,
 	RelationalOperators
@@ -798,6 +799,7 @@ export function mockEventAttributeDefinition(seed = 0, data = {}) {
 		id: String(seed),
 		name: `name-${seed}`,
 		sampleValue: `samplevalue-${seed}`,
+		type: AttributeTypes.Global,
 		...data
 	};
 }

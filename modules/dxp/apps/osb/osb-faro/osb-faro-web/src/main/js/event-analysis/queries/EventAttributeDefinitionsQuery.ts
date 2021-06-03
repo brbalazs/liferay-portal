@@ -3,7 +3,7 @@ import {gql} from 'apollo-boost';
 import {Sort} from 'shared/types';
 
 export interface EventAttributeDefinitionsData {
-	eventAttributeDefinition: Attribute[];
+	eventAttributeDefinitions: Attribute[];
 	total: number;
 }
 

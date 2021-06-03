@@ -401,6 +401,10 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
 		RelationalOperators.NE
 	],
 	[PropertyTypes.Duration]: [RelationalOperators.GT, RelationalOperators.LT],
+	[PropertyTypes.Event]: [
+		CustomFunctionOperators.EventsFilterByCount,
+		NotOperators.NotActivitiesFilterByCount
+	],
 	[PropertyTypes.Interest]: [CustomFunctionOperators.InterestsFilter],
 	[PropertyTypes.Number]: [
 		RelationalOperators.EQ,
