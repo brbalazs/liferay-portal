@@ -105,7 +105,6 @@ definition {
 	test RevertHotfix {
 		property portal.hotfix.release = "true";
 		property portal.release = "true";
-		property skip.install-patch = "true";
 		property test.assert.warning.exceptions = "true";
 		property test.name.skip.portal.instance = "PatchingTool#RevertHotfix";
 
@@ -130,18 +129,6 @@ definition {
 		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
-
-		SignOut.signOut();
-
-		Portlet.shutdownServer();
-
-		PatchingTool.installPatch(patchFileZipURL = "${testBuildFixPackZipURL}");
-
-		Portlet.startServer(
-			deleteLiferayHome = "true",
-			keepCachedAppServerData = "true");
-
-		SignIn.signIn();
 
 		SignOut.signOut();
 
