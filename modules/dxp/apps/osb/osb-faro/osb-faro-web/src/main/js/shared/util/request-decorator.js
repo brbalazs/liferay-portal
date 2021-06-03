@@ -29,7 +29,7 @@ export function hasRequest(WrappedComponent) {
 			requests.map(requestKey => {
 				const request = get(this, requestKey);
 
-				if (request) {
+				if (request && request.cancel) {
 					request.cancel();
 				}
 			});
