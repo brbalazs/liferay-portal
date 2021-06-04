@@ -142,6 +142,12 @@ export class Delete extends React.Component {
 						entitiesCount={entitiesCount}
 						groupId={groupId}
 						id={id}
+						pageActionConfirmationText={sub(
+							Liferay.Language.get(
+								'are-you-sure-you-want-to-delete-x'
+							),
+							[dataSource.name]
+						)}
 						pageActionText={Liferay.Language.get(
 							'delete-data-source'
 						)}

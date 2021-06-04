@@ -132,6 +132,12 @@ export const ClearData: React.FC<IClearDataProps> = ({
 				entitiesCount={entitiesCount}
 				groupId={groupId}
 				id={id}
+				pageActionConfirmationText={sub(
+					Liferay.Language.get(
+						'are-you-sure-you-want-to-clear-data-from-x'
+					),
+					[dataSource.name]
+				)}
 				pageActionText={Liferay.Language.get('clear-data')}
 			/>
 		</div>

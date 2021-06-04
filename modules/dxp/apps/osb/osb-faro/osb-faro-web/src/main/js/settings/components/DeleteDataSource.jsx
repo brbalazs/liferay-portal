@@ -202,6 +202,7 @@ export class DeleteDataSource extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		open: PropTypes.func.isRequired,
+		pageActionConfirmationText: PropTypes.string.isRequired,
 		pageActionText: PropTypes.string.isRequired,
 		timeZoneId: PropTypes.string
 	};
@@ -212,16 +213,19 @@ export class DeleteDataSource extends React.Component {
 
 	@autobind
 	handleDeleteDataSource(_, {setSubmitting}) {
-		const {actionRequestFn, close, open, pageActionText} = this.props;
+		const {
+			actionRequestFn,
+			close,
+			open,
+			pageActionConfirmationText,
+			pageActionText
+		} = this.props;
 
 		open(modalTypes.CONFIRMATION_MODAL, {
 			message: (
 				<div>
 					<h4 className='text-secondary'>
-						{sub(
-							Liferay.Language.get('are-you-sure-you-want-to-x'),
-							[pageActionText.toLowerCase()]
-						)}
+						{pageActionConfirmationText}
 					</h4>
 
 					<b>
