@@ -9,6 +9,7 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	entity: Individual;
 	groupId: string;
 	tabId: string;
+	timeZoneId: string;
 }
 
 const ProfileCard: React.FC<IProfileCardProps> = ({tabId, ...props}) => (
@@ -22,10 +23,17 @@ const ProfileCard: React.FC<IProfileCardProps> = ({tabId, ...props}) => (
 		legacyDropdownRangeKey={false}
 		showInterval
 	>
-		{({interval, rangeSelectors}) => (
+		{({
+			interval,
+			onChangeInterval,
+			onRangeSelectorsChange,
+			rangeSelectors
+		}) => (
 			<ProfileCardWithData
 				{...props}
 				interval={interval}
+				onChangeInterval={onChangeInterval}
+				onRangeSelectorsChange={onRangeSelectorsChange}
 				rangeSelectors={rangeSelectors}
 				tabId={tabId}
 			/>
