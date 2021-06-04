@@ -7,7 +7,7 @@ import React, {createContext} from 'react';
 import UserDropdown from 'shared/components/user-dropdown';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {Align} from '@clayui/drop-down';
-import {LANGUAGES} from 'shared/util/constants';
+import {DEVELOPER_MODE, LANGUAGES} from 'shared/util/constants';
 import {LocalStorageMechanism, Storage} from 'metal-storage';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
@@ -48,25 +48,35 @@ export class WorkspacesBasePage extends React.Component {
 			currentUser: {emailAddress, languageId, screenName}
 		} = this.props;
 
+		let baseItems = [
+			{
+				externalLink: true,
+				label: Liferay.Language.get('account'),
+				url: `https://web.liferay.com/web/${screenName}/account-settings`
+			},
+			{
+				externalLink: true,
+				label: Liferay.Language.get('sign-out'),
+				url: Routes.LOGOUT
+			}
+		];
+
+		// TODO: LRAC-7929 Unhide languages for release
+		if (DEVELOPER_MODE) {
+			baseItems = [
+				{
+					childMenuId: 'language',
+					divider: true,
+					label: Liferay.Language.get('language')
+				},
+				...baseItems
+			];
+		}
+
 		return {
 			base: [
 				{
-					items: [
-						{
-							childMenuId: 'language',
-							label: Liferay.Language.get('language')
-						},
-						{
-							externalLink: true,
-							label: Liferay.Language.get('account'),
-							url: `https://web.liferay.com/web/${screenName}/account-settings`
-						},
-						{
-							externalLink: true,
-							label: Liferay.Language.get('sign-out'),
-							url: Routes.LOGOUT
-						}
-					],
+					items: baseItems,
 					subheaderLabel: emailAddress
 				}
 			],

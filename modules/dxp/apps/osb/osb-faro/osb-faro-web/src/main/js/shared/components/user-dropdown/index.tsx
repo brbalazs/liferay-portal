@@ -7,7 +7,7 @@ import React, {Fragment, useEffect, useRef, useState} from 'react';
 import Sticker from '../Sticker';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {last} from 'lodash';
-import {Menus} from './types';
+import {MenuItem, Menus} from './types';
 
 function getInitials(name = '') {
 	const nameArray = name.split(' ', 3);
@@ -200,5 +200,5 @@ const Label = React.forwardRef<HTMLButtonElement, ILabelProps>(
 	)
 );
 
-export {Menus};
+export {MenuItem, Menus};
 export default userDropDown;
