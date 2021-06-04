@@ -1,63 +1,14 @@
 import Card from 'shared/components/Card';
-
-import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
-import IntervalSelector from 'shared/components/IntervalSelector';
-import React, {useCallback} from 'react';
-import {Interval, RangeSelectors} from 'shared/types';
-import {INTERVAL_KEY_MAP, isHourlyRangeKey} from 'shared/util/time';
+import React from 'react';
 
 interface BaseCardHeaderIProps extends React.HTMLAttributes<HTMLElement> {
-	interval: Interval;
 	label: string;
-	legacy: boolean;
-	onChangeInterval: (val: Interval) => void;
-	onRangeSelectorsChange: (val: any) => void;
-	rangeSelectors: RangeSelectors;
-	showInterval: boolean;
-	tabId: string;
 }
 
-const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
-	interval,
-	label,
-	legacy,
-	onChangeInterval,
-	onRangeSelectorsChange,
-	rangeSelectors
-}) => {
-	const handleRangeSelectorsChange = useCallback(newVal => {
-		onRangeSelectorsChange && onRangeSelectorsChange(newVal);
-
-		if (isHourlyRangeKey(newVal.rangeKey)) {
-			onChangeInterval(INTERVAL_KEY_MAP.day);
-		}
-	}, []);
-
-	const handleChangeInterval = useCallback(
-		newVal => onChangeInterval && onChangeInterval(newVal),
-		[]
-	);
-
-	return (
-		<Card.Header className='align-items-center d-flex justify-content-between'>
-			<Card.Title>{label}</Card.Title>
-
-			<div className='d-flex'>
-				<IntervalSelector
-					activeInterval={interval}
-					className='mr-3'
-					disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
-					onChange={handleChangeInterval}
-				/>
-
-				<DropdownRangeKey
-					legacy={legacy}
-					onChange={handleRangeSelectorsChange}
-					rangeSelectors={rangeSelectors}
-				/>
-			</div>
-		</Card.Header>
-	);
-};
+const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({label}) => (
+	<Card.Header className=''>
+		<Card.Title>{label}</Card.Title>
+	</Card.Header>
+);
 
 export default BaseCardHeader;
