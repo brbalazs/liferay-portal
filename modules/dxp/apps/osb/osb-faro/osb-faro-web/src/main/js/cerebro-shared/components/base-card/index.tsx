@@ -42,7 +42,14 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 		[]
 	);
 
-	const otherProps = {filters, interval, rangeSelectors, router};
+	const otherProps = {
+		filters,
+		interval,
+		onChangeInterval: handleChangeInterval,
+		onRangeSelectorsChange: handleRangeSelectorsChange,
+		rangeSelectors,
+		router
+	};
 
 	return (
 		<Card className={className} minHeight={minHeight}>
@@ -50,8 +57,6 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 				{...otherProps}
 				label={label}
 				legacy={legacyDropdownRangeKey}
-				onChangeInterval={handleChangeInterval}
-				onRangeSelectorsChange={handleRangeSelectorsChange}
 				showInterval={showInterval}
 				{...headerProps}
 			/>
