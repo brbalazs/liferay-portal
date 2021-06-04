@@ -136,7 +136,8 @@ public class CPPriceRangeFacetsPortlet
 			CPPriceRangeFacetsDisplayContext cpPriceRangeFacetsDisplayContext =
 				new CPPriceRangeFacetsDisplayContext(
 					_commercePriceFormatter, renderRequest,
-					getFacet(renderRequest), portletSharedSearchResponse);
+					portletSharedSearchResponse.getFacet(CPField.BASE_PRICE),
+					portletSharedSearchResponse);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
