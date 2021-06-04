@@ -4,7 +4,6 @@ import {
 	AXIS,
 	getAxisTickText,
 	getChartTooltip,
-	getYAxisLabel,
 	getYAxisWidth
 } from 'shared/util/recharts';
 import {
@@ -34,7 +33,7 @@ const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 	alwaysShowSelectedTooltip: boolean;
 	hasSelectedPoint?: boolean;
-	height: number;
+	height?: number;
 	history: Array<T>;
 	interval?: Interval;
 	onAfterInit?: () => void;
@@ -177,11 +176,6 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				<YAxis
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
-					label={getYAxisLabel(
-						Liferay.Language.get('activities'),
-						'left',
-						yAxisWidth
-					)}
 					name={Liferay.Language.get('activities')}
 					stroke={AXIS.gridStroke}
 					tick={getAxisTickText('y')}
