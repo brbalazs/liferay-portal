@@ -10165,6 +10165,13 @@ session.cookie.use.full.hostname=true
 				</then>
 			</elseif>
 		</if>
+
+		<echo append="true" file="${test.ext.properties.file}">
+			analytics.cloud.asah.backend.url=${analytics.cloud.asah.backend.url}
+			analytics.cloud.asah.curator.url=${analytics.cloud.asah.curator.url}
+			analytics.cloud.asah.publisher.url=${analytics.cloud.asah.publisher.url}
+			analytics.cloud.faro.frontend.url=${analytics.cloud.faro.frontend.url}
+		</echo>
 	</target>
 
 	<target name="prepare-selenium-app-server-properties">
