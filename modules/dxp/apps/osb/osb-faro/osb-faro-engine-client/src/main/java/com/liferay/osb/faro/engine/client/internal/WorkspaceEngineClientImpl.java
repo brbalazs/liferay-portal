@@ -188,14 +188,14 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	@Override
 	public Workspace getWorkspace(String weDeployKey) throws Exception {
-		Workspace workspace = new Workspace();
-
 		FaroProject faroProject =
 			_faroProjectLocalService.fetchFaroProjectByWeDeployKey(weDeployKey);
 
 		if (faroProject == null) {
 			throw new Exception("Could not find project " + weDeployKey);
 		}
+
+		Workspace workspace = new Workspace();
 
 		workspace.setReady(isReady(faroProject));
 		workspace.setWeDeployKey(weDeployKey);
@@ -354,6 +354,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 					new HashMap<String, String>() {
 						{
 							put("provider", "github");
+
 							StringBundler sb = new StringBundler(10);
 
 							sb.append("https://");

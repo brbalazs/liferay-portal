@@ -209,8 +209,6 @@ public class IndividualSegmentUtil {
 			double binSize, int numberOfBins, double minValue, double maxValue)
 		throws Exception {
 
-		List<Double[]> binRanges = new ArrayList<>();
-
 		if (binSize <= 0) {
 			binSize = getDefaultBinSize(numberOfBins, minValue, maxValue);
 		}
@@ -218,6 +216,8 @@ public class IndividualSegmentUtil {
 			throw new FaroException(
 				"Exceeded the maximum number of bins: " + _MAX_BINS);
 		}
+
+		List<Double[]> binRanges = new ArrayList<>();
 
 		double curMin = minValue;
 
