@@ -14,7 +14,8 @@
 		"FARO_ENV": true,
 		"IncrementalDOM": true,
 		"Liferay": true,
-		"analytics": true
+		"analytics": true,
+		"pendo": true
 	},
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {

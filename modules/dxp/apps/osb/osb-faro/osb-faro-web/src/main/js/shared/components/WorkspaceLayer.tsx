@@ -48,7 +48,21 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 		if (currentUserId && currentUserId !== '0' && workspaceName) {
 			analytics.identify(currentUserId, null, {ip: '0'});
 
-			analytics.group(
+			pendo?.initialize({
+				account: {
+					groupId,
+					id: groupId,
+					name,
+					serverLocation,
+					subscriptionName: faroSubscriptionIMap.get('name'),
+					workspaceName: name
+				},
+				visitor: {
+					id: currentUserId
+				}
+			});
+
+			analytics?.group(
 				groupId,
 				{
 					groupId,
@@ -59,7 +73,7 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 				{ip: '0'}
 			);
 
-			analytics.track(
+			analytics?.track(
 				'User accessed workspace',
 				{
 					groupId,
