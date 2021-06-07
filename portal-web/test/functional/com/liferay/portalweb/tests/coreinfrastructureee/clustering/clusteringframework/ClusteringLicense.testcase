@@ -403,7 +403,9 @@ definition {
 		Alert.viewErrorMessage(errorMessage = "licensed for this cluster has been exceeded");
 		Alert.viewErrorMessage(errorMessage = "grace period");
 
-		Navigator.openSpecificURL(url = "http://localhost:8080/c/portal/logout");
+		Alert.closeMessage(messageType = "ERROR");
+
+		UserBar.signOut();
 
 		User.loginPG(
 			password = "test",
@@ -425,7 +427,9 @@ definition {
 
 		Alert.viewErrorMessage(errorMessage = "will be automatically deactivated and shut down");
 
-		Navigator.openSpecificURL(url = "http://localhost:10080/c/portal/logout");
+		Alert.closeMessage(messageType = "ERROR");
+
+		UserBar.signOut();
 
 		User.loginPG(
 			nodePort = "10080",
