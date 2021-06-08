@@ -168,6 +168,17 @@ definition {
 				locator1 = "build-test.xml",
 				value1 = "start-app-server -Dapp.server.bundle.index=${bundleIndex}");
 		}
+
+		var licenseFile = PropsUtil.get("dxp.license.file");
+
+		if ("${licenseFile}" != "") {
+			var appServerDir = PropsUtil.get("liferay.home.dir.name");
+			var bundleHome = "${appServerDir}-${bundleIndex}";
+
+			AntCommand(
+				locator1 = "build-test.xml",
+				value1 = "wait-for-license-activation -Dliferay.home=${bundleHome}");
+		}
 	}
 
 	macro updatePortalPropertiesOnSpecificServer {

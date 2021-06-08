@@ -6417,6 +6417,12 @@ war.path=${app.server.portal.dir}/</echo>
 		</sequential>
 	</macrodef>
 
+	<macrodef name="wait-for-license-activation">
+		<sequential>
+			<wait-for-app-server-log-message log.message="License registered for" />
+		</sequential>
+	</macrodef>
+
 	<target name="build-sql-file">
 		<get-testcase-property property.name="portal.version" />
 
@@ -10943,6 +10949,17 @@ session.cookie.use.full.hostname=true
 			</then>
 		</if>
 
+		<get-testcase-property property.name="dxp.license.file" />
+
+		<if>
+			<isset property="dxp.license.file" />
+			<then>
+				<echo append="true" file="${test.ext.properties.file}">
+					dxp.license.file=${dxp.license.file}
+				</echo>
+			</then>
+		</if>
+
 		<get-testcase-property property.name="ignore.errors" />
 
 		<if>
@@ -14122,6 +14139,10 @@ url=${short.hostname}:8080</echo>
 		</trycatch>
 
 		<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.configuration.IndexStatusManagerConfiguration.cfg">indexReadOnly=false</echo>
+	</target>
+
+	<target name="wait-for-license-activation">
+		<wait-for-license-activation />
 	</target>
 
 	<target name="wait-for-plugins-deployment">
