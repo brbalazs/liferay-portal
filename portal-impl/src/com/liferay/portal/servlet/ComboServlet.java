@@ -378,6 +378,14 @@ public class ComboServlet extends HttpServlet {
 
 					baseURL = PortalUtil.getPathProxy() + baseURL;
 
+					if (StringUtil.contains(
+							stringFileContent, _CSS_CHARSET_UTF_8,
+							StringPool.BLANK)) {
+
+						stringFileContent = StringUtil.removeSubstring(
+							stringFileContent, _CSS_CHARSET_UTF_8);
+					}
+
 					stringFileContent = AggregateUtil.updateRelativeURLs(
 						stringFileContent, baseURL);
 
@@ -493,6 +501,8 @@ public class ComboServlet extends HttpServlet {
 
 		return FileUtil.getExtension(resourcePath);
 	}
+
+	private static final String _CSS_CHARSET_UTF_8 = "@charset \"UTF-8\";";
 
 	private static final String _CSS_EXTENSION = "css";
 
