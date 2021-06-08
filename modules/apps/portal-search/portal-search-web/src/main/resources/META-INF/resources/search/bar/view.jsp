@@ -50,7 +50,7 @@ SearchBarPortletDisplayContext searchBarPortletDisplayContext = (SearchBarPortle
 				<input class="search-bar-reset-start-page" name="<%= searchBarPortletDisplayContext.getPaginationStartParameterName() %>" type="hidden" value="0" />
 			</c:if>
 
-			<aui:fieldset cssClass="search-bar">
+			<div class="search-bar">
 				<aui:input cssClass="search-bar-empty-search-input" name="emptySearchEnabled" type="hidden" value="<%= searchBarPortletDisplayContext.isEmptySearchEnabled() %>" />
 
 				<div class="input-group <%= searchBarPortletDisplayContext.isLetTheUserChooseTheSearchScope() ? "search-bar-scope" : "search-bar-simple" %>">
@@ -93,7 +93,7 @@ SearchBarPortletDisplayContext searchBarPortletDisplayContext = (SearchBarPortle
 						</c:otherwise>
 					</c:choose>
 				</div>
-			</aui:fieldset>
+			</div>
 		</aui:form>
 
 		<aui:script use="liferay-search-bar">
