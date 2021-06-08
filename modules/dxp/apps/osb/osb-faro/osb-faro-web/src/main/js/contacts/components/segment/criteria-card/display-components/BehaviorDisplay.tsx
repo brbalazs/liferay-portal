@@ -1,4 +1,5 @@
 import DateFilterConjunctionDisplay from './DateFilterConjunctionDisplay';
+import OccurenceConjunctionDisplay from './OccurenceConjunctionDisplay';
 import React from 'react';
 import ReferencedEntityDisplay from './ReferencedEntityDisplay';
 import {ASSET_TYPE_LANG_MAP} from 'shared/util/lang';
@@ -11,7 +12,6 @@ import {
 import {getOperatorLabel, maybeFormatToKnownType} from '../utils';
 import {IDisplayComponentProps} from '../types';
 import {Map} from 'immutable';
-import {OCCURENCE_OPTIONS} from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {parseActivityKey} from 'contacts/components/segment-editor/dynamic/utils/utils';
 
 const BehaviorDisplay: React.FC<IDisplayComponentProps> = ({
@@ -36,12 +36,8 @@ const BehaviorDisplay: React.FC<IDisplayComponentProps> = ({
 
 	const occurenceCount = valueIMap.get('value');
 
-	const {label: eventOperatorLabel} = OCCURENCE_OPTIONS.find(
-		({key}) => key === eventOperator
-	);
-
 	const conjunctionCriterion = (
-		getFilterCriterionIMap(valueIMap, 1) ||
+		getFilterCriterionIMap(valueIMap, 2) ||
 		Map({propertyName: 'completeDate'})
 	).toJS();
 
@@ -59,11 +55,10 @@ const BehaviorDisplay: React.FC<IDisplayComponentProps> = ({
 				type={EntityType.Assets}
 			/>
 
-			<span>{eventOperatorLabel}</span>
-
-			<b>{occurenceCount}</b>
-
-			<span>{Liferay.Language.get('times')}</span>
+			<OccurenceConjunctionDisplay
+				operatorName={eventOperator}
+				value={occurenceCount}
+			/>
 
 			<DateFilterConjunctionDisplay
 				conjunctionCriterion={conjunctionCriterion}
