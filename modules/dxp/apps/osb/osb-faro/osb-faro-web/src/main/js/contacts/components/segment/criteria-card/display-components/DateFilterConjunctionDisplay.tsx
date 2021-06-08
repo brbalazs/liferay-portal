@@ -29,19 +29,19 @@ const DateFilterConjunctionDisplay: React.FC<{
 		switch (conjunction) {
 			case FunctionalOperators.Between:
 				return (
-					<b>
+					<span>
 						{sub(Liferay.Language.get('x-to-x'), [
 							formatDate(dateFilter.start),
 							formatDate(dateFilter.end)
 						])}
-					</b>
+					</span>
 				);
 			case SINCE:
-				return <b>{getTimePeriodLabel(dateFilter)}</b>;
+				return <span>{getTimePeriodLabel(dateFilter)}</span>;
 			case EVER:
 				return;
 			default:
-				return <b>{formatDate(dateFilter)}</b>;
+				return <span>{formatDate(dateFilter)}</span>;
 		}
 	};
 

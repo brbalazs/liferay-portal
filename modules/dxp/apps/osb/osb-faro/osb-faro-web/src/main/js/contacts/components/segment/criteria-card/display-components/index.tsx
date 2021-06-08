@@ -1,5 +1,6 @@
 import AccountDisplay from './AccountDisplay';
 import BehaviorDisplay from './BehaviorDisplay';
+import EventDisplay from './EventDisplay';
 import IndividualDisplay from './IndividualDisplay';
 import InterestDisplay from './InterestDisplay';
 import OrganizationDisplay from './OrganizationDisplay';
@@ -15,6 +16,8 @@ const DisplayComponent: React.FC<IDisplayComponentProps> = ({
 		switch (propertyKey) {
 			case 'account':
 				return AccountDisplay;
+			case 'event':
+				return EventDisplay;
 			case 'session':
 				return SessionDisplay;
 			case 'interest':

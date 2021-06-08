@@ -37,7 +37,7 @@ const BehaviorDisplay: React.FC<IDisplayComponentProps> = ({
 	const occurenceCount = valueIMap.get('value');
 
 	const conjunctionCriterion = (
-		getFilterCriterionIMap(valueIMap, 2) ||
+		getFilterCriterionIMap(valueIMap, 1) ||
 		Map({propertyName: 'completeDate'})
 	).toJS();
 

@@ -72,6 +72,11 @@
 				text-transform: lowercase;
 			}
 
+			.sentence-start {
+				margin: 0;
+				text-transform: capitalize;
+			}
+
 			.undefined-entity,
 			.undefined-property {
 				color: $error;
