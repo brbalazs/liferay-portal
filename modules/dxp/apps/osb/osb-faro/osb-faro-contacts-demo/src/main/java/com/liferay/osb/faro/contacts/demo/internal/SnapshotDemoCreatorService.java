@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -231,6 +232,10 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 	}
 
 	private boolean _isDateField(String key) {
+		if (ArrayUtil.contains(_EXCLUDE_DATE_FIELD_NAMES, key)) {
+			return false;
+		}
+
 		if (key.contains("date") || key.contains("day") ||
 			key.contains("time")) {
 
@@ -273,6 +278,10 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 			}
 		}
 	}
+
+	private static final String[] _EXCLUDE_DATE_FIELD_NAMES = {
+		"birthdate", "lastactivitydates"
+	};
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
 		"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
