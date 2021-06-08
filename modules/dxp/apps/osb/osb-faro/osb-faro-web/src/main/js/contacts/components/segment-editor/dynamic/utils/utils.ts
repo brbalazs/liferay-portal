@@ -12,6 +12,7 @@ import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {Event} from 'event-analysis/utils/types';
 import {every, isBoolean, isString, isUndefined, map} from 'lodash';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
+import {fromJS, Map} from 'immutable';
 import {getUid} from 'metal';
 import {
 	INDIVIDUAL_PROPERTIES,
@@ -19,7 +20,6 @@ import {
 	SESSION_PROPERTIES,
 	WEB_BEHAVIORS
 } from '../utils/properties';
-import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
 
 const GROUP_ID_NAMESPACE = 'group_';
@@ -188,7 +188,12 @@ export const findPropertyByCriterion = (
 			NotOperators.NotEventsFilterByCount
 		].includes(operatorName)
 	) {
-		return referencedPropertiesIMap.getIn(['event', propertyName]);
+		const eventId = value.getIn(
+			['criterionGroup', 'items', 0, 'value'],
+			''
+		);
+
+		return referencedPropertiesIMap.getIn(['events', eventId]);
 	} else if (
 		[
 			CustomFunctionOperators.AccountsFilter,
@@ -410,6 +415,23 @@ export const convertFieldMappingsToProperties = (
 			);
 		}
 	}) as Map<string, Map<string, Map<string, Property>>>;
+
+export const convertReferencedObjectsToProperties = (
+	referencedObjectsIMap: Map<
+		string,
+		Map<string, Map<string, Map<string, any>>>
+	> = Map()
+): Map<string, Map<string, Map<string, Property> | Property>> => {
+	const fieldMappingProperties = convertFieldMappingsToProperties(
+		referencedObjectsIMap.get('fieldMappings')
+	);
+
+	const eventProperties = referencedObjectsIMap
+		.get('events', Map())
+		.map(convertEventToProperty);
+
+	return fieldMappingProperties.merge(fromJS({events: eventProperties}));
+};
 
 /**
  * Check to see if the value is a valid input value.
