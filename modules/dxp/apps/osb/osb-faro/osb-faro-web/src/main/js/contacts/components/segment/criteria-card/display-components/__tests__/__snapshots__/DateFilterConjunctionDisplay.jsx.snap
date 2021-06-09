@@ -5,8 +5,8 @@ exports[`DateFilterConjunctionDisplay should render 1`] = `
   <span>
     on
   </span>
-  <b>
+  <span>
     2020-12-12
-  </b>
+  </span>
 </div>
 `;

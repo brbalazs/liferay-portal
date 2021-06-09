@@ -15,8 +15,8 @@ exports[`SessionDisplay renders 1`] = `
   <span>
     since
   </span>
-  <b>
+  <span>
     Last 7 days
-  </b>
+  </span>
 </div>
 `;

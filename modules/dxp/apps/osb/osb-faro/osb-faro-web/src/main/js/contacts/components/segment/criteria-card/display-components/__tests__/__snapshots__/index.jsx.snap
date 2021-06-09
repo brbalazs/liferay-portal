@@ -58,9 +58,9 @@ exports[`DisplayComponent renders $displayName for session 1`] = `
   <span>
     on
   </span>
-  <b>
+  <span>
     Invalid date
-  </b>
+  </span>
 </div>
 `;
 
@@ -88,8 +88,8 @@ exports[`DisplayComponent renders $displayName for web 1`] = `
   <span>
     on
   </span>
-  <b>
+  <span>
     Invalid date
-  </b>
+  </span>
 </div>
 `;

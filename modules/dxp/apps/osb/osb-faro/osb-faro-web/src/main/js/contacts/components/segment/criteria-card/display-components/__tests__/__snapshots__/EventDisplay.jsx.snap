@@ -1,16 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BehaviorDisplay renders 1`] = `
+exports[`EventDisplay renders 1`] = `
 <div>
-  Individual
-  <span>
+  <span
+    class="sentence-start"
+  >
     has
   </span>
   <span>
-    Viewed Page
+    performed
   </span>
   <b>
-    'Cool beans Page'
+    Downloaded Document
   </b>
   <span>
     at least
@@ -27,5 +28,17 @@ exports[`BehaviorDisplay renders 1`] = `
   <span>
     Last 24 hours
   </span>
+  <span>
+    where
+  </span>
+  <b>
+    Foo Attribute String
+  </b>
+  <b>
+    contains
+  </b>
+  <b>
+    "Test String"
+  </b>
 </div>
 `;
