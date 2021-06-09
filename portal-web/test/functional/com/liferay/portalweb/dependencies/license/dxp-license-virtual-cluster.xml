@@ -5,7 +5,7 @@
 	<owner>Liferay.com</owner>
 	<description>Liferay.com</description>
 	<product-name>Portal Cluster</product-name>
-	<product-version>7.3</product-version>
+	<product-version>7.1</product-version>
 	<license-name>Portal Cluster</license-name>
 	<license-type>virtual-cluster</license-type>
 	<license-version>4</license-version>
