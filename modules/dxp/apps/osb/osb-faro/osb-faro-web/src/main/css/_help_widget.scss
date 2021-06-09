@@ -14,7 +14,7 @@
     position: fixed;
     right: 16px;
     width: 40px;
-    z-index: 99;
+    z-index: $helpWidgetZIndex;
     
     .help-button {
         border-radius: 50%;
