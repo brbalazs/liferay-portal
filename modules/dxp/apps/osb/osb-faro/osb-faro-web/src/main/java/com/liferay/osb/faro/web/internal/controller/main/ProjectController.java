@@ -487,20 +487,22 @@ public class ProjectController extends BaseFaroController {
 		if (forceUpdate) {
 			faroProject.setModifiedTime(now);
 
-			LCPProject lcpProject = workspaceEngineClient.getLCPProject(
-				faroProject.getWeDeployKey());
+			if (!faroProject.isSharedCluster()) {
+				LCPProject lcpProject = workspaceEngineClient.getLCPProject(
+					faroProject.getWeDeployKey());
 
-			faroProject.setServerLocation(lcpProject.getCluster());
+				faroProject.setServerLocation(lcpProject.getCluster());
 
-			if (!StringUtil.equals(
-					faroProject.getCorpProjectUuid(), _PROJECT_ID)) {
+				if (!StringUtil.equals(
+						faroProject.getCorpProjectUuid(), _PROJECT_ID)) {
 
-				faroProject.setServices(
-					JSONUtil.writeValueAsString(
-						StreamUtil.toList(
-							workspaceEngineClient.getLCPServices(
-								faroProject.getWeDeployKey()),
-							LCPServiceDisplay::new)));
+					faroProject.setServices(
+						JSONUtil.writeValueAsString(
+							StreamUtil.toList(
+								workspaceEngineClient.getLCPServices(
+									faroProject.getWeDeployKey()),
+								LCPServiceDisplay::new)));
+				}
 			}
 
 			if (Validator.isNotNull(faroProject.getCorpProjectUuid())) {
