@@ -880,7 +880,7 @@ public class ProjectController extends BaseFaroController {
 				LCPProject.Cluster.fromString(serverLocation),
 				LCPProject.Cluster.US)) {
 
-			serverLocation = LCPProject.Cluster.US_AC.getProjectId();
+			serverLocation = LCPProject.Cluster.US_AC.toString();
 			sharedCluster = true;
 		}
 
