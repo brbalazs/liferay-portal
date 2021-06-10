@@ -204,34 +204,26 @@ exports[`CriteriaRow should render 1`] = `
       <div
         class="actions"
       >
-        <button
-          aria-label="Duplicate"
-          class="button-root btn btn-default btn-sm"
-          type="button"
+        <div
+          aria-haspopup="true"
+          class="dropdown dropdown-root dropdown-action"
         >
-          <svg
-            class="icon-root lexicon-icon lexicon-icon-paste"
-            viewBox=""
+          <button
+            class="button-root btn btn-unstyled dropdown-toggle component-action"
+            type="button"
           >
-            <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#paste"
-            />
-          </svg>
-        </button>
-        <button
-          aria-label="Delete"
-          class="button-root btn btn-default btn-sm"
-          type="button"
-        >
-          <svg
-            class="icon-root lexicon-icon lexicon-icon-trash"
-            viewBox=""
-          >
-            <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#trash"
-            />
-          </svg>
-        </button>
+            <span>
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-ellipsis-v"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ellipsis-v"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
