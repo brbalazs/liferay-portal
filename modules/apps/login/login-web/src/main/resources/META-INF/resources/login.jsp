@@ -51,8 +51,6 @@
 		String password = StringPool.BLANK;
 		boolean rememberMe = ParamUtil.getBoolean(request, "rememberMe");
 
-		boolean validateCookies = PropsValues.SESSION_ENABLE_PERSISTENT_COOKIES && PropsValues.SESSION_TEST_COOKIE_SUPPORT;
-
 		if (Validator.isNull(authType)) {
 			authType = company.getAuthType();
 		}
@@ -118,7 +116,7 @@
 					</c:when>
 				</c:choose>
 
-				<c:if test="<%= validateCookies %>">
+				<c:if test="<%= PropsValues.SESSION_ENABLE_PERSISTENT_COOKIES && PropsValues.SESSION_TEST_COOKIE_SUPPORT %>">
 					<div class="alert alert-danger" id="<portlet:namespace />cookieDisabled" style="display: none;">
 						<liferay-ui:message key="authentication-failed-please-enable-browser-cookies" />
 					</div>
@@ -204,8 +202,7 @@
 				form.addEventListener(
 					'submit',
 					function(event) {
-						<c:if test="<%= validateCookies %>">
-
+						<c:if test="<%= PropsValues.SESSION_ENABLE_PERSISTENT_COOKIES && PropsValues.SESSION_TEST_COOKIE_SUPPORT %>">
 							if (!navigator.cookieEnabled) {
 								document.getElementById(
 									'<portlet:namespace />cookieDisabled'
