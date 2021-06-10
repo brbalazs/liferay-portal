@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import React from 'react';
-import RowActions from 'shared/components/table/RowActions';
+import RowActions from 'shared/components/RowActions';
 import Sticker from 'shared/components/Sticker';
 import Table from 'shared/components/table';
 import {DateCell, NameCell} from 'shared/components/table/cell-components';

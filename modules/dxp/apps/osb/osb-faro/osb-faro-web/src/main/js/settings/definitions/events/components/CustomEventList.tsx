@@ -6,7 +6,7 @@ import EVENT_DEFINITIONS_QUERY, {
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import Nav from 'shared/components/Nav';
 import React from 'react';
-import RowActions from 'shared/components/table/RowActions';
+import RowActions from 'shared/components/RowActions';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {

@@ -6,7 +6,7 @@ import ErrorDisplay from 'shared/components/ErrorDisplay';
 import Icon from 'shared/components/Icon';
 import Nav from 'shared/components/Nav';
 import React from 'react';
-import RowActions from 'shared/components/table/RowActions';
+import RowActions from 'shared/components/RowActions';
 import Table from 'shared/components/table';
 import {ACTION_TYPES} from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
