@@ -2,7 +2,6 @@ import AccountInput from '../inputs/AccountInput';
 import autobind from 'autobind-decorator';
 import BehaviorInput from '../inputs/BehaviorInput';
 import BooleanInput from '../inputs/BooleanInput';
-import Button from 'shared/components/Button';
 import CustomBooleanInput from '../inputs/CustomBooleanInput';
 import CustomDateInput from '../inputs/CustomDateInput';
 import CustomDateTimeInput from '../inputs/CustomDateTimeInput';
@@ -21,6 +20,7 @@ import NumberInput from '../inputs/NumberInput';
 import OrganizationSelectInput from '../inputs/OrganizationSelectInput';
 import OrganizationTextInput from '../inputs/OrganizationTextInput';
 import React from 'react';
+import RowActions from 'shared/components/RowActions';
 import SessionInput from '../inputs/SessionInput';
 import StringInput from '../inputs/StringInput';
 import {
@@ -472,23 +472,20 @@ class CriteriaRow extends React.Component<
 						)}
 
 						<div className='actions'>
-							<Button
-								aria-label={Liferay.Language.get('duplicate')}
-								display='default'
-								onClick={this.handleDuplicate}
-								size='sm'
-							>
-								<Icon symbol='paste' />
-							</Button>
-
-							<Button
-								aria-label={Liferay.Language.get('delete')}
-								display='default'
-								onClick={this.handleDelete}
-								size='sm'
-							>
-								<Icon symbol='trash' />
-							</Button>
+							<RowActions
+								actions={[
+									{
+										label: Liferay.Language.get(
+											'duplicate'
+										),
+										onClick: this.handleDuplicate
+									},
+									{
+										label: Liferay.Language.get('delete'),
+										onClick: this.handleDelete
+									}
+								]}
+							/>
 						</div>
 					</div>
 				</div>
