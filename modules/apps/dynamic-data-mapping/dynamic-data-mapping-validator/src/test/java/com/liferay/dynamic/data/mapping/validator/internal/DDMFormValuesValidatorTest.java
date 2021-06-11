@@ -775,7 +775,6 @@ public class DDMFormValuesValidatorTest {
 			_ddmFormValuesValidatorImpl, "_ddmFormFieldTypeServicesTracker",
 			ProxyFactory.newDummyInstance(
 				DDMFormFieldTypeServicesTracker.class));
-
 		ReflectionTestUtil.setFieldValue(
 			_ddmFormValuesValidatorImpl, "_serviceTrackerMap",
 			ProxyFactory.newDummyInstance(ServiceTrackerMap.class));
