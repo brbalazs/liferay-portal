@@ -154,72 +154,6 @@ public abstract class CPDefinitionVirtualSettingServiceBaseImpl
 	}
 
 	/**
-	 * Returns the journal article local service.
-	 *
-	 * @return the journal article local service
-	 */
-	public com.liferay.journal.service.JournalArticleLocalService
-		getJournalArticleLocalService() {
-
-		return journalArticleLocalService;
-	}
-
-	/**
-	 * Sets the journal article local service.
-	 *
-	 * @param journalArticleLocalService the journal article local service
-	 */
-	public void setJournalArticleLocalService(
-		com.liferay.journal.service.JournalArticleLocalService
-			journalArticleLocalService) {
-
-		this.journalArticleLocalService = journalArticleLocalService;
-	}
-
-	/**
-	 * Returns the journal article remote service.
-	 *
-	 * @return the journal article remote service
-	 */
-	public com.liferay.journal.service.JournalArticleService
-		getJournalArticleService() {
-
-		return journalArticleService;
-	}
-
-	/**
-	 * Sets the journal article remote service.
-	 *
-	 * @param journalArticleService the journal article remote service
-	 */
-	public void setJournalArticleService(
-		com.liferay.journal.service.JournalArticleService
-			journalArticleService) {
-
-		this.journalArticleService = journalArticleService;
-	}
-
-	/**
-	 * Returns the journal article persistence.
-	 *
-	 * @return the journal article persistence
-	 */
-	public JournalArticlePersistence getJournalArticlePersistence() {
-		return journalArticlePersistence;
-	}
-
-	/**
-	 * Sets the journal article persistence.
-	 *
-	 * @param journalArticlePersistence the journal article persistence
-	 */
-	public void setJournalArticlePersistence(
-		JournalArticlePersistence journalArticlePersistence) {
-
-		this.journalArticlePersistence = journalArticlePersistence;
-	}
-
-	/**
 	 * Returns the class name local service.
 	 *
 	 * @return the class name local service
@@ -412,6 +346,72 @@ public abstract class CPDefinitionVirtualSettingServiceBaseImpl
 		this.dlAppService = dlAppService;
 	}
 
+	/**
+	 * Returns the journal article local service.
+	 *
+	 * @return the journal article local service
+	 */
+	public com.liferay.journal.service.JournalArticleLocalService
+		getJournalArticleLocalService() {
+
+		return journalArticleLocalService;
+	}
+
+	/**
+	 * Sets the journal article local service.
+	 *
+	 * @param journalArticleLocalService the journal article local service
+	 */
+	public void setJournalArticleLocalService(
+		com.liferay.journal.service.JournalArticleLocalService
+			journalArticleLocalService) {
+
+		this.journalArticleLocalService = journalArticleLocalService;
+	}
+
+	/**
+	 * Returns the journal article remote service.
+	 *
+	 * @return the journal article remote service
+	 */
+	public com.liferay.journal.service.JournalArticleService
+		getJournalArticleService() {
+
+		return journalArticleService;
+	}
+
+	/**
+	 * Sets the journal article remote service.
+	 *
+	 * @param journalArticleService the journal article remote service
+	 */
+	public void setJournalArticleService(
+		com.liferay.journal.service.JournalArticleService
+			journalArticleService) {
+
+		this.journalArticleService = journalArticleService;
+	}
+
+	/**
+	 * Returns the journal article persistence.
+	 *
+	 * @return the journal article persistence
+	 */
+	public JournalArticlePersistence getJournalArticlePersistence() {
+		return journalArticlePersistence;
+	}
+
+	/**
+	 * Sets the journal article persistence.
+	 *
+	 * @param journalArticlePersistence the journal article persistence
+	 */
+	public void setJournalArticlePersistence(
+		JournalArticlePersistence journalArticlePersistence) {
+
+		this.journalArticlePersistence = journalArticlePersistence;
+	}
+
 	public void afterPropertiesSet() {
 		_setServiceUtilService(cpDefinitionVirtualSettingService);
 	}
@@ -502,21 +502,6 @@ public abstract class CPDefinitionVirtualSettingServiceBaseImpl
 		counterLocalService;
 
 	@ServiceReference(
-		type = com.liferay.journal.service.JournalArticleLocalService.class
-	)
-	protected com.liferay.journal.service.JournalArticleLocalService
-		journalArticleLocalService;
-
-	@ServiceReference(
-		type = com.liferay.journal.service.JournalArticleService.class
-	)
-	protected com.liferay.journal.service.JournalArticleService
-		journalArticleService;
-
-	@ServiceReference(type = JournalArticlePersistence.class)
-	protected JournalArticlePersistence journalArticlePersistence;
-
-	@ServiceReference(
 		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.ClassNameLocalService
@@ -562,5 +547,20 @@ public abstract class CPDefinitionVirtualSettingServiceBaseImpl
 	)
 	protected com.liferay.document.library.kernel.service.DLAppService
 		dlAppService;
+
+	@ServiceReference(
+		type = com.liferay.journal.service.JournalArticleLocalService.class
+	)
+	protected com.liferay.journal.service.JournalArticleLocalService
+		journalArticleLocalService;
+
+	@ServiceReference(
+		type = com.liferay.journal.service.JournalArticleService.class
+	)
+	protected com.liferay.journal.service.JournalArticleService
+		journalArticleService;
+
+	@ServiceReference(type = JournalArticlePersistence.class)
+	protected JournalArticlePersistence journalArticlePersistence;
 
 }

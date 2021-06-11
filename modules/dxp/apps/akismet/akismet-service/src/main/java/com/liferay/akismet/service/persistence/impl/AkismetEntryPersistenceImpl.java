@@ -1149,12 +1149,12 @@ public class AkismetEntryPersistenceImpl
 		AkismetEntryModelImpl akismetEntryModelImpl =
 			(AkismetEntryModelImpl)akismetEntry;
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		Date date = new Date();
-
 		if (!akismetEntryModelImpl.hasSetModifiedDate()) {
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
+
+			Date date = new Date();
+
 			if (serviceContext == null) {
 				akismetEntry.setModifiedDate(date);
 			}

@@ -796,12 +796,12 @@ public class ImagePersistenceImpl
 
 		ImageModelImpl imageModelImpl = (ImageModelImpl)image;
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		Date date = new Date();
-
 		if (!imageModelImpl.hasSetModifiedDate()) {
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
+
+			Date date = new Date();
+
 			if (serviceContext == null) {
 				image.setModifiedDate(date);
 			}

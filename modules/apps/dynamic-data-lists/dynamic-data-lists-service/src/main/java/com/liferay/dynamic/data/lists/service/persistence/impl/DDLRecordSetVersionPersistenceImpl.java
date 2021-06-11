@@ -1707,12 +1707,12 @@ public class DDLRecordSetVersionPersistenceImpl
 		DDLRecordSetVersionModelImpl ddlRecordSetVersionModelImpl =
 			(DDLRecordSetVersionModelImpl)ddlRecordSetVersion;
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		Date date = new Date();
-
 		if (isNew && (ddlRecordSetVersion.getCreateDate() == null)) {
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
+
+			Date date = new Date();
+
 			if (serviceContext == null) {
 				ddlRecordSetVersion.setCreateDate(date);
 			}

@@ -2687,12 +2687,12 @@ public class TrashEntryPersistenceImpl
 		TrashEntryModelImpl trashEntryModelImpl =
 			(TrashEntryModelImpl)trashEntry;
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		Date date = new Date();
-
 		if (isNew && (trashEntry.getCreateDate() == null)) {
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
+
+			Date date = new Date();
+
 			if (serviceContext == null) {
 				trashEntry.setCreateDate(date);
 			}
