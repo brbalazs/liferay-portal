@@ -58,17 +58,17 @@ const EventInput: React.FC<IEventInputProps> = ({
 
 		const inputsValid =
 			(isNil(attributeValue) || attributeValue) &&
-			isNil(dateFilter) &&
-			dateFilter &&
+			(isNil(dateFilter) || dateFilter) &&
 			(isNil(occurenceCount) || occurenceCount);
 
-		if (!id && inputsValid && !_completedAnalytics)
+		if (!id && inputsValid && !_completedAnalytics) {
 			_completedAnalytics = true;
 
-		analytics.track('Dynamic Segment Creation - Completed Attribute', {
-			entityName,
-			type
-		});
+			analytics.track('Dynamic Segment Creation - Completed Attribute', {
+				entityName,
+				type
+			});
+		}
 	}, [valid]);
 
 	const result = useQuery<
