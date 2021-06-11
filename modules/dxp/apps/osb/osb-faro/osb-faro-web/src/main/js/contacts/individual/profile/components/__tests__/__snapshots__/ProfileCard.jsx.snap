@@ -3,8 +3,84 @@
 exports[`IndividualProfileCard should render 1`] = `
 <div>
   <div
-    class="card-body no-padding"
+    class="card-body"
   >
+    <div
+      class="align-items-center d-flex justify-content-end mt-3"
+    >
+      <div
+        class="input-group search-input mr-3"
+      >
+        <div
+          class="input-group-item"
+        >
+          <input
+            class="input-root form-control input-group-inset input-group-inset-after"
+            placeholder="Search"
+            type="text"
+            value=""
+          />
+          <div
+            class="input-group-inset-item input-group-inset-item-after"
+          >
+            <button
+              class="button-root btn btn-unstyled"
+              type="button"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-search"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="interval-selector-root mr-3 btn-group"
+        role="group"
+      >
+        <button
+          class="interval-option text-uppercase active btn btn-sm btn-secondary"
+          type="button"
+        >
+          D
+        </button>
+        <button
+          class="interval-option text-uppercase btn btn-sm btn-secondary"
+          type="button"
+        >
+          W
+        </button>
+        <button
+          class="interval-option text-uppercase btn btn-sm btn-secondary"
+          type="button"
+        >
+          M
+        </button>
+      </div>
+      <div
+        class="dropdown dropdown-range-key-root"
+      >
+        <button
+          class="dropdown-toggle btn btn-outline-borderless btn-sm btn-outline-secondary"
+          type="button"
+        >
+          Last 24 hours
+          <svg
+            class="lexicon-icon lexicon-icon-caret-bottom ml-2"
+            role="presentation"
+          >
+            <use
+              xlink:href="#caret-bottom"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
     <div
       class="individuals-activities-chart"
     >
@@ -52,41 +128,6 @@ exports[`IndividualProfileCard should render 1`] = `
               class="nav-root front-nav navbar-nav"
               role="tablist"
             />
-            <div
-              class="navbar-form navbar-form-autofit"
-            >
-              <div
-                class="input-group search"
-              >
-                <div
-                  class="input-group-item"
-                >
-                  <input
-                    class="input-root form-control input-group-inset input-group-inset-after"
-                    placeholder="Search"
-                    type="text"
-                    value=""
-                  />
-                  <div
-                    class="input-group-inset-item input-group-inset-item-after"
-                  >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-search"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </nav>
       </div>

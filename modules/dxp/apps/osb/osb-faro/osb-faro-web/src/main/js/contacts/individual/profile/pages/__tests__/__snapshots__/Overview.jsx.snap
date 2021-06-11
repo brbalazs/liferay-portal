@@ -12,16 +12,51 @@ exports[`IndividualOverview should render 1`] = `
         class="card card-root individual-profile-card-root page-display"
       >
         <div
-          class="card-header align-items-center d-flex justify-content-between"
+          class="card-header"
         >
           <h5
             class="card-title"
           >
             Individual Activities
           </h5>
+        </div>
+        <div
+          class="card-body"
+        >
           <div
-            class="d-flex"
+            class="align-items-center d-flex justify-content-end mt-3"
           >
+            <div
+              class="input-group search-input mr-3"
+            >
+              <div
+                class="input-group-item"
+              >
+                <input
+                  class="input-root form-control input-group-inset input-group-inset-after"
+                  placeholder="Search"
+                  type="text"
+                  value=""
+                />
+                <div
+                  class="input-group-inset-item input-group-inset-item-after"
+                >
+                  <button
+                    class="button-root btn btn-unstyled"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-search"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div
               class="interval-selector-root mr-3 btn-group"
               role="group"
@@ -64,10 +99,6 @@ exports[`IndividualOverview should render 1`] = `
               </button>
             </div>
           </div>
-        </div>
-        <div
-          class="card-body no-padding"
-        >
           <div
             class="individuals-activities-chart"
           >
@@ -115,41 +146,6 @@ exports[`IndividualOverview should render 1`] = `
                     class="nav-root front-nav navbar-nav"
                     role="tablist"
                   />
-                  <div
-                    class="navbar-form navbar-form-autofit"
-                  >
-                    <div
-                      class="input-group search"
-                    >
-                      <div
-                        class="input-group-item"
-                      >
-                        <input
-                          class="input-root form-control input-group-inset input-group-inset-after"
-                          placeholder="Search"
-                          type="text"
-                          value=""
-                        />
-                        <div
-                          class="input-group-inset-item input-group-inset-item-after"
-                        >
-                          <button
-                            class="button-root btn btn-unstyled"
-                            type="button"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-search"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </nav>
             </div>
