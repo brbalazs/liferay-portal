@@ -388,8 +388,7 @@ public class SecurityPortletContainerWrapper implements PortletContainer {
 		}
 
 		if (_log.isWarnEnabled() &&
-			!(principalException instanceof
-				PrincipalException.MustHaveSessionCSRFToken)) {
+			!(pe instanceof PrincipalException.MustHaveSessionCSRFToken)) {
 
 			String url = getOriginalURL(request);
 
@@ -447,9 +446,7 @@ public class SecurityPortletContainerWrapper implements PortletContainer {
 
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-		if (principalException instanceof
-				PrincipalException.MustHaveSessionCSRFToken) {
-
+		if (pe instanceof PrincipalException.MustHaveSessionCSRFToken) {
 			return;
 		}
 
