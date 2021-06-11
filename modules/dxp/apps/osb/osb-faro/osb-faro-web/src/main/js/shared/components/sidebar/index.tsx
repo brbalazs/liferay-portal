@@ -4,7 +4,7 @@ import getCN from 'classnames';
 import Icon from '../Icon';
 import React from 'react';
 import SidebarItem from './SidebarItem';
-import UserDropdown, {MenuItem, Menus} from 'shared/components/user-dropdown';
+import UserDropdown, {Menus} from 'shared/components/user-dropdown';
 import {ACCOUNTS, Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {DEVELOPER_MODE, LANGUAGES} from 'shared/util/constants';
 import {Link, matchPath} from 'react-router-dom';
@@ -123,34 +123,25 @@ const Sidebar: React.FC<ISidebarProps> = ({
 	const getUserMenus = (): Menus => {
 		const {emailAddress, languageId} = currentUser;
 
-		let baseItems: MenuItem[] = [
-			{
-				label: Liferay.Language.get('switch-workspaces'),
-				url: Routes.BASE
-			},
-			{
-				externalLink: true,
-				label: Liferay.Language.get('sign-out'),
-				url: Routes.LOGOUT
-			}
-		];
-
-		// TODO: LRAC-7929 Unhide languages for release
-		if (DEVELOPER_MODE) {
-			baseItems = [
-				{
-					childMenuId: 'language',
-					divider: true,
-					label: Liferay.Language.get('language')
-				},
-				...baseItems
-			];
-		}
-
 		return {
 			base: [
 				{
-					items: baseItems,
+					items: [
+						{
+							childMenuId: 'language',
+							divider: true,
+							label: Liferay.Language.get('language')
+						},
+						{
+							label: Liferay.Language.get('switch-workspaces'),
+							url: Routes.BASE
+						},
+						{
+							externalLink: true,
+							label: Liferay.Language.get('sign-out'),
+							url: Routes.LOGOUT
+						}
+					],
 					subheaderLabel: emailAddress
 				}
 			],
