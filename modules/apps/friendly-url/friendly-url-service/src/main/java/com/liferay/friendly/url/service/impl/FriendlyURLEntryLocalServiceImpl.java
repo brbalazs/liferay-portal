@@ -323,6 +323,8 @@ public class FriendlyURLEntryLocalServiceImpl
 	public String getUniqueUrlTitle(
 		long groupId, long classNameId, long classPK, String urlTitle) {
 
+		urlTitle = urlTitle.replaceAll("^/+", StringPool.BLANK);
+
 		String normalizedUrlTitle =
 			FriendlyURLNormalizerUtil.normalizeWithEncoding(urlTitle);
 
