@@ -106,7 +106,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 		const {criteria, onChange} = this.props;
 
 		const index = SUPPORTED_CONJUNCTION_OPTIONS.findIndex(
-			item => item.name === criteria.conjunctionName
+			({name}) => name === criteria.conjunctionName
 		);
 
 		const conjunctionSelected =

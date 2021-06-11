@@ -33,9 +33,7 @@ const OccurenceConjunctionInput: React.FC<IOccurenceConjunctionInputProps> = ({
 		<Form.GroupItem shrink>
 			<ClaySelectWithOption
 				className='operator-input'
-				onChange={event => {
-					const {value} = event.target;
-
+				onChange={({target: {value}}) => {
 					onChange({
 						criterion: {
 							operatorName: value as Criterion['operatorName']
@@ -65,9 +63,7 @@ const OccurenceConjunctionInput: React.FC<IOccurenceConjunctionInputProps> = ({
 						touched: true
 					});
 				}}
-				onChange={event => {
-					const {value} = event.target;
-
+				onChange={({target: {value}}) => {
 					let numberVal: string | number = '';
 
 					if (isValid(value)) {
