@@ -64,7 +64,7 @@ definition {
 		var categoryId = StringUtil.replace("${categoryId}", "[&quot;", "");
 		var categoryId = StringUtil.replace("${categoryId}", "&quot;]", "");
 
-		if ("${categoryId}" == "[]") {
+		if ("${categoryId}" == "") {
 			fail("FAIL. Cannot find category.");
 		}
 
@@ -87,7 +87,7 @@ definition {
 		var vocabularyId = StringUtil.replace("${vocabularyId}", "[&quot;", "");
 		var vocabularyId = StringUtil.replace("${vocabularyId}", "&quot;]", "");
 
-		if ("${vocabularyId}" == "[]") {
+		if ("${vocabularyId}" == "") {
 			fail("FAIL. Cannot find vocabulary.");
 		}
 

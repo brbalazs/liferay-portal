@@ -24,7 +24,7 @@ definition {
 		var folderId = StringUtil.replace("${folderId}", "[&quot;", "");
 		var folderId = StringUtil.replace("${folderId}", "&quot;]", "");
 
-		if ("${folderId}" == "[]") {
+		if ("${folderId}" == "") {
 			fail("FAIL. Cannot find folder.");
 		}
 		else {

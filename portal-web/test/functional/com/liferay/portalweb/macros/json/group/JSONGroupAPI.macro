@@ -92,7 +92,7 @@ definition {
 		var groupId = StringUtil.replace("${groupId}", "[&quot;", "");
 		var groupId = StringUtil.replace("${groupId}", "&quot;]", "");
 
-		if ("${groupId}" == "[]") {
+		if ("${groupId}" == "") {
 			fail("FAIL. Cannot find group.");
 		}
 
@@ -116,7 +116,7 @@ definition {
 		var groupId = StringUtil.replace("${groupId}", "[&quot;", "");
 		var groupId = StringUtil.replace("${groupId}", "&quot;]", "");
 
-		if ("${groupId}" == "[]") {
+		if ("${groupId}" == "") {
 			fail("FAIL. Cannot find group.");
 		}
 
@@ -160,7 +160,7 @@ definition {
 		var groupId = StringUtil.replace("${groupId}", "[&quot;", "");
 		var groupId = StringUtil.replace("${groupId}", "&quot;]", "");
 
-		if ("${groupId}" == "[]") {
+		if ("${groupId}" == "") {
 			fail("FAIL. Cannot find group.");
 		}
 
@@ -186,7 +186,7 @@ definition {
 		var groupId = StringUtil.replace("${groupId}", "[&quot;", "");
 		var groupId = StringUtil.replace("${groupId}", "&quot;]", "");
 
-		if ("${groupId}" == "[]") {
+		if ("${groupId}" == "") {
 			fail("FAIL. Cannot find group.");
 		}
 
