@@ -1,0 +1,187 @@
+import Constants from 'shared/util/constants';
+import useStatefulPagination from '../useStatefulPagination';
+import {Map, Set} from 'immutable';
+import {OrderParams} from 'shared/util/records';
+import {renderHook} from '@testing-library/react-hooks';
+
+const {
+	cur: DEFAULT_PAGE,
+	delta: DEFAULT_DELTA,
+	orderAscending,
+	orderDescending
+} = Constants.pagination;
+
+describe('useStatefulPagination', () => {
+	it('should return default values', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+
+		jest.runAllTimers();
+
+		expect(result.current).toMatchInlineSnapshot(`
+		Object {
+		  "delta": 2,
+		  "filterBy": Immutable.Map {},
+		  "orderBy": "asc",
+		  "orderByField": "name",
+		  "orderByFields": Array [
+		    Object {
+		      "fieldName": "name",
+		      "orderBy": "asc",
+		    },
+		  ],
+		  "page": 1,
+		  "query": "",
+		  "resetPage": [Function],
+		  "setDelta": [Function],
+		  "setFilterBy": [Function],
+		  "setOrderBy": [Function],
+		  "setOrderByField": [Function],
+		  "setOrderByFields": [Function],
+		  "setPage": [Function],
+		  "setQuery": [Function],
+		}
+	`);
+	});
+
+	it('should set delta value on setDelta and reset page', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newDelta = 10;
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.delta).toBe(DEFAULT_DELTA);
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setDelta(newDelta);
+
+		jest.runAllTimers();
+		expect(result.current.delta).toBe(newDelta);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set page value on setPage and page be reseted', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.resetPage();
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set orderByFields value on setOrderByFields and page be reseted', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.orderByFields.length).toBe(1);
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setOrderByFields({
+			orderByFields: [{}, {}],
+			orderParams: new OrderParams()
+		});
+
+		jest.runAllTimers();
+		expect(result.current.orderByFields.length).toBe(2);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set orderByField value on setOrderByField and page be reseted', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newOrderByField = 'test';
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.orderByField).toBe('name');
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setOrderByField(newOrderByField);
+
+		jest.runAllTimers();
+		expect(result.current.orderByField).toBe(newOrderByField);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set orderBy value on setOrderBy and page be reseted', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.orderBy).toBe(orderAscending);
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setOrderBy(orderDescending);
+
+		jest.runAllTimers();
+		expect(result.current.orderBy).toBe(orderDescending);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set query value on setQuery and reset page', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newQuery = 'test';
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.query).toBe('');
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setQuery(newQuery);
+
+		jest.runAllTimers();
+		expect(result.current.query).toBe(newQuery);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+
+	it('should set filterBy value on setFilterBy and reset page', () => {
+		const {result} = renderHook(() => useStatefulPagination());
+		const newPage = 2;
+
+		jest.runAllTimers();
+		expect(result.current.filterBy.size).toBe(0);
+
+		result.current.setPage(newPage);
+
+		jest.runAllTimers();
+		expect(result.current.page).toBe(newPage);
+
+		result.current.setFilterBy(
+			Map({
+				biz: Set(['buz'])
+			})
+		);
+
+		jest.runAllTimers();
+		expect(result.current.filterBy.size).toBe(1);
+		expect(result.current.page).toBe(DEFAULT_PAGE);
+	});
+});

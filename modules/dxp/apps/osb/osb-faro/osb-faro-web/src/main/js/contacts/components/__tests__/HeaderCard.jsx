@@ -1,23 +1,14 @@
 import HeaderCard from '../HeaderCard';
 import React from 'react';
 import {ACTIVITIES} from 'shared/util/router';
-import {fireEvent, render} from '@testing-library/react';
-import {INTERVAL_KEY_MAP} from 'shared/util/time';
-import {MockedProvider} from '@apollo/react-testing';
-import {mockTimeRangeReq} from 'test/graphql-data';
+import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
 const DefaultComponent = props => (
-	<MockedProvider mocks={[mockTimeRangeReq()]}>
-		<HeaderCard
-			label='Title'
-			rangeSelectors={{rangeKey: '30'}}
-			tabId={ACTIVITIES}
-			{...props}
-		/>
-	</MockedProvider>
+	<HeaderCard label='Title' tabId={ACTIVITIES} {...props} />
 );
+
 describe('HeaderProfile', () => {
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
@@ -25,16 +16,5 @@ describe('HeaderProfile', () => {
 		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
-	});
-
-	it('should call the onChangeInterval prop fn with "day" if the rangekey is changed to an hourly value', () => {
-		const spy = jest.fn();
-		const {getByText} = render(<DefaultComponent onChangeInterval={spy} />);
-
-		jest.runAllTimers();
-
-		fireEvent.click(getByText('Last 24 hours'));
-
-		expect(spy).toHaveBeenCalledWith(INTERVAL_KEY_MAP.day);
 	});
 });

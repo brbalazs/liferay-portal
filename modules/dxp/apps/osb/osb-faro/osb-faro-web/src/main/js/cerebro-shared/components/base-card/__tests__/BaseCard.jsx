@@ -63,16 +63,24 @@ describe('BaseCard', () => {
 			</WrappedComponent>
 		);
 
-		expect(customBodyProps).toEqual({
-			filters: undefined,
-			interval: 'D',
-			rangeSelectors: {rangeEnd: '', rangeKey: '0', rangeStart: ''},
-			router: {
-				query: {
-					rangeKey: '0'
-				}
-			}
-		});
+		expect(customBodyProps).toMatchInlineSnapshot(`
+		Object {
+		  "filters": undefined,
+		  "interval": "D",
+		  "onChangeInterval": [Function],
+		  "onRangeSelectorsChange": [Function],
+		  "rangeSelectors": Object {
+		    "rangeEnd": "",
+		    "rangeKey": "0",
+		    "rangeStart": "",
+		  },
+		  "router": Object {
+		    "query": Object {
+		      "rangeKey": "0",
+		    },
+		  },
+		}
+	`);
 	});
 
 	it('should render a Card Header with an interval selector', () => {
