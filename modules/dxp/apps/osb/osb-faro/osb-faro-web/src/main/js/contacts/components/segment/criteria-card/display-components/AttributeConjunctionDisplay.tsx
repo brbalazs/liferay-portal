@@ -10,7 +10,6 @@ import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
 import {FunctionalOperators} from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {getOperatorOptions} from 'contacts/components/segment-editor/dynamic/inputs/components/attribute-conjunction-input/utils';
-import {sub} from 'shared/util/lang';
 
 interface IAttributeConjunctionDisplayProps {
 	conjunctionCriterion: Criterion;
@@ -76,9 +75,7 @@ const AttributeConjunctionDisplay: React.FC<IAttributeConjunctionDisplayProps> =
 		</>
 	) : (
 		<b className='undefined-entity'>
-			{sub(Liferay.Language.get('undefined-x'), [
-				Liferay.Language.get('attribute')
-			])}
+			{Liferay.Language.get('undefined-attribute')}
 		</b>
 	);
 };
