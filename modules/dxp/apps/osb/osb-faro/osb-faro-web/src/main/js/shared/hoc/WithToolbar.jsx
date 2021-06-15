@@ -9,7 +9,7 @@ import {get} from 'lodash';
 import {hasChanges} from 'shared/util/react';
 import {paginationDefaults} from 'shared/util/pagination';
 import {pickBy} from 'lodash';
-import {setUriQueryValues} from 'shared/util/router';
+import {removeUriQueryParam, setUriQueryValues} from 'shared/util/router';
 
 const {
 	pagination: {cur: DEFAULT_CUR}
@@ -80,7 +80,12 @@ export default configs => WrappedComponent => {
 								rangeEnd,
 								rangeKey,
 								rangeStart
-							})
+							}),
+							removeUriQueryParam(
+								window.location.href,
+								'rangeEnd',
+								'rangeStart'
+							)
 						)
 				  );
 		}

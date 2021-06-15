@@ -460,12 +460,12 @@ export function setUriQueryValues(values, href = window.location.href) {
 /**
  * Remove URL Query Param
  * @param {string} href
- * @param {string} name
+ * @param {string} names
  */
-export function removeUriQueryParam(href, name) {
+export function removeUriQueryParam(href, ...names) {
 	const uri = new Uri(href);
 
-	uri.removeParameter(name);
+	names.map(name => uri.removeParameter(name));
 
 	return `${uri.getPathname()}${uri.getSearch()}`;
 }
