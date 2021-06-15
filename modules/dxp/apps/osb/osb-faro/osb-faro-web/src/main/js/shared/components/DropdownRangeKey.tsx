@@ -117,9 +117,9 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 
 		onChange &&
 			onChange({
-				rangeEnd: 'null',
+				rangeEnd: '',
 				rangeKey: item.value,
-				rangeStart: 'null'
+				rangeStart: ''
 			});
 
 		setCustomDateRange({end: null, start: null});
