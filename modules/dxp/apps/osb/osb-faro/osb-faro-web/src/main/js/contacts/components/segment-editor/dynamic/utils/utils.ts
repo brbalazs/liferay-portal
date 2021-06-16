@@ -193,7 +193,7 @@ export const findPropertyByCriterion = (
 			''
 		);
 
-		return referencedPropertiesIMap.getIn(['events', eventId]);
+		return referencedPropertiesIMap.getIn(['event', eventId]);
 	} else if (
 		[
 			CustomFunctionOperators.AccountsFilter,
@@ -427,10 +427,10 @@ export const convertReferencedObjectsToProperties = (
 	);
 
 	const eventProperties = referencedObjectsIMap
-		.get('events', Map())
+		.get('event', Map())
 		.map(convertEventToProperty);
 
-	return fieldMappingProperties.merge(fromJS({events: eventProperties}));
+	return fieldMappingProperties.merge(fromJS({event: eventProperties}));
 };
 
 /**
