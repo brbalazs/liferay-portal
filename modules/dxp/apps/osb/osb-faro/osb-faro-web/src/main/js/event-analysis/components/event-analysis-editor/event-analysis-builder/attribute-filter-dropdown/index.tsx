@@ -25,7 +25,7 @@ import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
-interface IAttributeDropdownProps {
+interface IAttributeFilterDropdownProps {
 	attribute?: Attribute;
 	close: Modal.close;
 	disabledIds: string[];
@@ -36,7 +36,7 @@ interface IAttributeDropdownProps {
 	trigger: React.ReactElement;
 }
 
-const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
+const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 	attribute,
 	close,
 	disabledIds,
@@ -221,4 +221,4 @@ const AttributeDropdown: React.FC<IAttributeDropdownProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AttributeDropdown);
+export default connect(null, {close, open})(AttributeFilterDropdown);

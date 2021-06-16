@@ -1,4 +1,4 @@
-import AttributeDropdown from './attribute-dropdown';
+import AttributeFilterDropdown from './attribute-filter-dropdown';
 import Button from 'shared/components/Button';
 import Chip from 'shared/components/Chip';
 import getCN from 'classnames';
@@ -196,7 +196,7 @@ const AttributeChipWrapper: React.FC<
 		order: string[];
 	}
 > = ({attribute, eventId, filter, onEditSubmit, order, ...otherProps}) => (
-	<AttributeDropdown
+	<AttributeFilterDropdown
 		attribute={attribute}
 		disabledIds={order}
 		eventId={eventId}

@@ -1,5 +1,5 @@
 import * as data from 'test/data';
-import AttributeDropdown from '../index';
+import AttributeFilterDropdown from '../index';
 import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
@@ -12,7 +12,7 @@ import {range} from 'lodash';
 
 jest.unmock('react-dom');
 
-describe('AttributeDropdown', () => {
+describe('AttributeFilterDropdown', () => {
 	const WrappedComponent = props => (
 		<ApolloProvider client={client}>
 			<Provider store={mockStore()}>
@@ -28,7 +28,7 @@ describe('AttributeDropdown', () => {
 						)
 					]}
 				>
-					<AttributeDropdown
+					<AttributeFilterDropdown
 						onAttributeSelect={jest.fn()}
 						trigger={
 							<button data-testid='target'>{'click me'}</button>

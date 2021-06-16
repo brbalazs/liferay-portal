@@ -1,5 +1,5 @@
 import AttributeChip from './AttributeChip';
-import AttributeDropdown from './attribute-dropdown';
+import AttributeFilterDropdown from './attribute-filter-dropdown';
 import Button from 'shared/components/Button';
 import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
@@ -78,7 +78,7 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 
 			<div>
 				{order.length < MAX_ATTRIBUTES && (
-					<AttributeDropdown
+					<AttributeFilterDropdown
 						disabledIds={order}
 						eventId={eventId}
 						onAttributeSelect={addAttribute}
