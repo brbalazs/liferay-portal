@@ -5,7 +5,7 @@
 
 	<propertycopy from="suite.elastic.version[${env.CI_TEST_SUITE}]" name="suite.elastic.version" silent="true" />
 
-	<condition else="6.8.15" property="elasticsearch.version" value="${suite.elastic.version}">
+	<condition else="6.8.16" property="elasticsearch.version" value="${suite.elastic.version}">
 		<isset property="suite.elastic.version" />
 	</condition>
 
