@@ -92,7 +92,7 @@ class LayoutDragDrop extends State {
 					placeholderItemRegion.top > targetItemRegion.top &&
 					placeholderItemRegion.bottom < targetItemRegion.bottom &&
 					targetItem.classList.contains(
-						DROP_TARGET_ITEM_TYPES.parentable
+						DROP_TARGET_TYPES.parentable
 					)
 				) {
 					this._draggingItemPosition = DRAG_POSITIONS.inside;

@@ -659,7 +659,7 @@ class Layout extends Component {
 
 			this._setElementDragDropCssClass(
 				targetColumnLastItem.plid,
-				DROP_TARGET_BORDERS.bottom
+				DRAG_POSITIONS.bottom
 			);
 		}
 	}
