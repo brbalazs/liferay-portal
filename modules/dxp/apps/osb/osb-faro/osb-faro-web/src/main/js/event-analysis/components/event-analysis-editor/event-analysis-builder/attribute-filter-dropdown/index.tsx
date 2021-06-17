@@ -8,14 +8,12 @@ import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
-import {AddAttribute, EditAttribute} from '../../context/attributes';
 import {
 	Attribute,
 	AttributeOwnerTypes,
 	AttributeTypes,
 	Filter
 } from 'event-analysis/utils/types';
-import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
@@ -31,7 +29,6 @@ interface IAttributeFilterDropdownProps {
 	disabledIds: string[];
 	eventId: string;
 	filter?: Filter;
-	onAttributeSelect: AddAttribute | EditAttribute;
 	open: Modal.open;
 	trigger: React.ReactElement;
 }
@@ -42,7 +39,6 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 	disabledIds,
 	eventId,
 	filter,
-	onAttributeSelect,
 	open,
 	trigger
 }) => {
@@ -146,29 +142,8 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 											onItemClick={(
 												attribute: Attribute
 											) => {
-												const {
-													dataType,
-													id: attributeId
-												} = attribute;
-
-												const breakdownFn =
-													BREAKDOWN_FNS_MAP[dataType];
-
-												onAttributeSelect({
-													attribute,
-													attributeId,
-													breakdown: breakdownFn({
-														attributeId,
-														type: attributeOwnerType
-													}),
-													oldAttributeId
-												});
-
-												setActive(false);
+												setSelectedAttribute(attribute);
 											}}
-											onItemFilterClick={
-												setSelectedAttribute
-											}
 											onQueryChange={setQuery}
 											query={query}
 										/>

@@ -1,13 +1,13 @@
-import AttributeChip from './AttributeChip';
+import AttributeFilterChip from './AttributeFilterChip';
 import AttributeFilterDropdown from './attribute-filter-dropdown';
 import Button from 'shared/components/Button';
 import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
 import {
-	AddAttribute,
-	DeleteAttribute,
-	EditAttribute,
-	MoveAttribute,
+	AddFilter,
+	DeleteFilter,
+	EditFilter,
+	MoveFilter,
 	withAttributesConsumer
 } from '../context/attributes';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
@@ -16,72 +16,65 @@ import {DndProvider} from 'react-dnd';
 const MAX_ATTRIBUTES = 3;
 
 interface IAttributeSectionProps {
-	addAttribute: AddAttribute;
+	addFilter: AddFilter;
 	attributes: Attributes;
+	breakdownOrder: string[];
 	breakdowns: Breakdowns;
-	deleteAttribute: DeleteAttribute;
-	editAttribute: EditAttribute;
+	deleteFilter: DeleteFilter;
+	editFilter: EditFilter;
 	eventId: string;
+	filterOrder: string[];
 	filters: Filters;
-	moveAttribute: MoveAttribute;
-	order: string[];
+	moveFilter: MoveFilter;
 }
 
 const AttributeSection: React.FC<IAttributeSectionProps> = ({
-	addAttribute,
+	addFilter,
 	attributes,
-	breakdowns,
-	deleteAttribute,
-	editAttribute,
+	deleteFilter,
+	editFilter,
 	eventId,
+	filterOrder,
 	filters,
-	moveAttribute,
-	order
+	moveFilter
 }) => (
 	<div className='attribute-section-root flex-grow-1'>
 		<div className='section-header'>
-			{Liferay.Language.get('breakdown-by')}
+			{Liferay.Language.get('filter-by')}
 		</div>
 
 		<div className='attribute-container d-flex align-items-center'>
 			<DndProvider backend={HTML5Backend}>
 				<div className='attribute-list d-flex align-items-center'>
-					{order.map((id, i) => (
-						<AttributeChip
+					{filterOrder.map((id, i) => (
+						<AttributeFilterChip
 							attribute={attributes[id]}
-							breakdown={breakdowns[id]}
 							eventId={eventId}
 							filter={filters[id]}
 							index={i}
 							key={id}
-							onCloseClick={deleteAttribute}
-							onEditSubmit={({
-								attribute,
-								attributeId,
-								breakdown,
-								filter
-							}) =>
-								editAttribute({
+							onCloseClick={deleteFilter}
+							onEditSubmit={({attribute, attributeId, filter}) =>
+								editFilter({
 									attribute,
 									attributeId,
-									breakdown,
 									filter,
 									oldAttributeId: id
 								})
 							}
-							onMove={moveAttribute}
-							order={order}
+							onMove={moveFilter}
+							order={filterOrder}
 						/>
 					))}
 				</div>
 			</DndProvider>
 
 			<div>
-				{order.length < MAX_ATTRIBUTES && (
+				{filterOrder.length < MAX_ATTRIBUTES && (
 					<AttributeFilterDropdown
-						disabledIds={order}
+						disabledIds={filterOrder}
 						eventId={eventId}
-						onAttributeSelect={addAttribute}
+						onAttributeSelect={addFilter}
 						trigger={
 							<Button
 								borderless

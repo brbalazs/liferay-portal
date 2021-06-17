@@ -10,7 +10,7 @@ import {
 	DataTypes,
 	Filter
 } from 'event-analysis/utils/types';
-import {DeleteAttribute, EditAttribute} from '../context/attributes';
+import {DeleteFilter, EditFilter} from '../context/attributes';
 import {DropTargetMonitor, useDrag, useDrop} from 'react-dnd';
 import {getBreakdownDisplay} from 'event-analysis/utils/utils';
 import {mergeRef} from 'shared/util/util';
@@ -42,7 +42,7 @@ interface IAttributeChipProps {
 	breakdown: Breakdown;
 	filter?: Filter;
 	index: number;
-	onCloseClick: DeleteAttribute;
+	onCloseClick: DeleteFilter;
 	onMove: (params: {from: number; to: number}) => void;
 }
 
@@ -189,10 +189,10 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 	}
 );
 
-const AttributeChipWrapper: React.FC<
+const AttributeFilterChipWrapper: React.FC<
 	IAttributeChipProps & {
 		eventId: string;
-		onEditSubmit: EditAttribute;
+		onEditSubmit: EditFilter;
 		order: string[];
 	}
 > = ({attribute, eventId, filter, onEditSubmit, order, ...otherProps}) => (
@@ -212,4 +212,4 @@ const AttributeChipWrapper: React.FC<
 	/>
 );
 
-export default AttributeChipWrapper;
+export default AttributeFilterChipWrapper;

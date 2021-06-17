@@ -1,4 +1,4 @@
-import AttributeSection from './AttributeSection';
+import AttributeFilterSection from './AttributeFilterSection';
 import EventSection from './EventSection';
 import React from 'react';
 import {Event} from 'event-analysis/utils/types';
@@ -15,7 +15,7 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 	<div className='event-analysis-builder-root d-flex'>
 		<EventSection event={event} onEventChange={onEventChange} />
 
-		{event && <AttributeSection eventId={event.id} />}
+		{event && <AttributeFilterSection eventId={event.id} />}
 	</div>
 );
 

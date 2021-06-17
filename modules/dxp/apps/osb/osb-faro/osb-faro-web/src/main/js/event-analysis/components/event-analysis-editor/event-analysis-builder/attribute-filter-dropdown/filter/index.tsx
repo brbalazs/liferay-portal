@@ -7,8 +7,8 @@ import NumberFilter from './NumberFilter';
 import React from 'react';
 import StringFilter from './StringFilter';
 import {
-	AddAttribute,
-	EditAttribute,
+	AddFilter,
+	EditFilter,
 	withAttributesConsumer
 } from '../../../context/attributes';
 import {
@@ -28,11 +28,11 @@ const FILTERS_MAP = {
 };
 
 interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
-	addAttribute: AddAttribute;
+	addFilter: AddFilter;
 	attribute: Attribute;
 	attributeOwnerType: AttributeOwnerTypes;
 	breakdowns: Breakdowns;
-	editAttribute: EditAttribute;
+	editFilter: EditFilter;
 	filters: Filters;
 	oldAttributeId?: string;
 	onActiveChange: (active: boolean) => void;
@@ -41,11 +41,11 @@ interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const AttributeFilter: React.FC<IAttributeFilterProps> = ({
-	addAttribute,
+	addFilter,
 	attribute,
 	attributeOwnerType,
 	breakdowns,
-	editAttribute,
+	editFilter,
 	filters,
 	oldAttributeId,
 	onActiveChange,
@@ -84,18 +84,16 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 				filter={filters[id]}
 				onFilterSubmit={({breakdown, filter}) => {
 					if (oldAttributeId) {
-						editAttribute({
+						editFilter({
 							attribute,
 							attributeId: id,
-							breakdown,
 							filter,
 							oldAttributeId
 						});
 					} else {
-						addAttribute({
+						addFilter({
 							attribute,
 							attributeId: id,
-							breakdown,
 							filter
 						});
 					}
