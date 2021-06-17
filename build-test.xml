@@ -7767,18 +7767,27 @@ go</echo>
 						<if>
 							<and>
 								<available file="${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg" />
-								<not>
-									<equals arg1="${osgi.app.name}" arg2="commerce" />
-								</not>
+								<equals arg1="${osgi.app.name}" arg2="commerce" />
 							</and>
 							<then>
-								<echo>Copying ${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg to ${liferay.home}/osgi/marketplace/${Liferay-Releng-App-Title}.lpkg.</echo>
+								<echo>Copying ${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg to ${liferay.home}/deploy/${Liferay-Releng-App-Title}.lpkg.</echo>
 
 								<copy
 									file="${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg"
-									tofile="${liferay.home}/osgi/marketplace/${Liferay-Releng-App-Title}.lpkg"
+									tofile="${liferay.home}/deploy/${Liferay-Releng-App-Title}.lpkg"
 								/>
 							</then>
+							<elseif>
+								<available file="${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg" />
+								<then>
+									<echo>Copying ${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg to ${liferay.home}/osgi/marketplace/${Liferay-Releng-App-Title}.lpkg.</echo>
+
+									<copy
+										file="${project.dir}/plugins/dist/${Liferay-Releng-App-Title}.lpkg"
+										tofile="${liferay.home}/osgi/marketplace/${Liferay-Releng-App-Title}.lpkg"
+									/>
+								</then>
+							</elseif>
 							<elseif>
 								<and>
 									<available file="${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg" />
