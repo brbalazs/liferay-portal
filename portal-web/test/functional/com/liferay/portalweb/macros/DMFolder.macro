@@ -39,6 +39,12 @@ definition {
 	}
 
 	macro addPG {
+		var key_portletName = "Documents and Media";
+
+		if (IsElementNotPresent(locator1 = "Portlet#ICON_PLUS_SIGN")) {
+			DMDocument.enableActionsMenuOnPortlet();
+		}
+
 		Portlet.clickPortletPlusIconPG(portletName = "Documents and Media");
 
 		AssertClick.assertTextClickAt(

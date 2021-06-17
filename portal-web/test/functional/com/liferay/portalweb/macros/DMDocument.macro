@@ -399,6 +399,8 @@ definition {
 			AssertElementNotPresent(locator1 = "Message#WORKFLOW_UNAPPROVED");
 		}
 
+		var key_portletName = "Documents and Media";
+
 		if (IsElementNotPresent(locator1 = "Portlet#ICON_PLUS_SIGN")) {
 			DMDocument.enableActionsMenuOnPortlet();
 		}
