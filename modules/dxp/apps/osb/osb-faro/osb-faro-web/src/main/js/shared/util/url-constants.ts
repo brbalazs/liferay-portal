@@ -4,7 +4,7 @@ enum URLConstants {
 	DocumentationAdminLink = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace_settings.html',
 	DocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/',
 	HelpCenter = 'https://learn.liferay.com/analytics-cloud/latest/en/index.html',
-	HelpConnectDxp = 'https://learn.liferay.com/analytics-cloud/latest/en/getting-started/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
+	HelpConnectDxp = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
 	PrivacyPolicy = 'https://www.liferay.com/privacy-policy',
 	SalesforceAddDocumentation = 'https://developer.salesforce.com/page/Connected_Apps',
 	SalesforceLogin = 'https://login.salesforce.com',
