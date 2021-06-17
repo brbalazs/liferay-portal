@@ -1,0 +1,76 @@
+import Button from 'shared/components/Button';
+import Form, {validateRequired} from 'shared/components/form';
+import React from 'react';
+import {createNumberBreakdown} from 'event-analysis/utils/utils';
+import {IBreakdownProps} from 'event-analysis/utils/types';
+import {sub} from 'shared/util/lang';
+
+const DEFAULT_NUMBER_BIN = 10;
+
+const NumberBreakdown: React.FC<IBreakdownProps> = ({
+	attributeId,
+	attributeOwnerType,
+	breakdown,
+	onSubmit
+}) => {
+	const getInitialValues = () => {
+		if (breakdown) {
+			const {bin} = breakdown;
+
+			return {bin};
+		}
+
+		return {
+			bin: DEFAULT_NUMBER_BIN
+		};
+	};
+
+	return (
+		<Form
+			initialValues={getInitialValues()}
+			isInitialValid
+			onSubmit={({bin}) => {
+				onSubmit(
+					createNumberBreakdown({
+						attributeId,
+						bin,
+						type: attributeOwnerType
+					})
+				);
+			}}
+		>
+			{({handleSubmit, isValid}) => (
+				<Form.Form onSubmit={handleSubmit}>
+					<div className='filter-body'>
+						<Form.Group autoFit>
+							<Form.GroupItem>
+								<Form.Input
+									label={sub(
+										Liferay.Language.get('group-x-by'),
+										[Liferay.Language.get('numbers')]
+									)}
+									name='bin'
+									type='number'
+									validate={validateRequired}
+								/>
+							</Form.GroupItem>
+						</Form.Group>
+					</div>
+
+					<div className='filter-footer'>
+						<Button
+							block
+							disabled={!isValid}
+							display='primary'
+							type='submit'
+						>
+							{Liferay.Language.get('done')}
+						</Button>
+					</div>
+				</Form.Form>
+			)}
+		</Form>
+	);
+};
+
+export default NumberBreakdown;

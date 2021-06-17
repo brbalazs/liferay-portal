@@ -1,0 +1,89 @@
+import Button from 'shared/components/Button';
+import Form, {validateRequired} from 'shared/components/form';
+import React from 'react';
+import {
+	createDateBreakdown,
+	DATE_GROUPING_LABELS_MAP,
+	DATE_GROUPING_OPTIONS
+} from 'event-analysis/utils/utils';
+import {DateGroupings, IBreakdownProps} from 'event-analysis/utils/types';
+import {sub} from 'shared/util/lang';
+
+const DateBreakdown: React.FC<IBreakdownProps> = ({
+	attributeId,
+	attributeOwnerType,
+	breakdown,
+	onSubmit
+}) => {
+	const getInitialValues = () => {
+		if (breakdown) {
+			const {dateGrouping} = breakdown;
+
+			return {
+				dateGrouping
+			};
+		}
+
+		return {
+			dateGrouping: DateGroupings.Months
+		};
+	};
+
+	return (
+		<Form
+			initialValues={getInitialValues()}
+			isInitialValid
+			onSubmit={({dateGrouping}) => {
+				onSubmit(
+					createDateBreakdown({
+						attributeId,
+						dateGrouping,
+						type: attributeOwnerType
+					})
+				);
+			}}
+		>
+			{({handleSubmit, isValid}) => (
+				<Form.Form onSubmit={handleSubmit}>
+					<div className='filter-body'>
+						<Form.Group autoFit>
+							<Form.GroupItem>
+								<Form.Select
+									label={sub(
+										Liferay.Language.get('group-x-by'),
+										[Liferay.Language.get('dates')]
+									)}
+									name='dateGrouping'
+									type='string'
+									validate={validateRequired}
+								>
+									{DATE_GROUPING_OPTIONS.map(value => (
+										<Form.Select.Item
+											key={value}
+											value={value}
+										>
+											{DATE_GROUPING_LABELS_MAP[value]}
+										</Form.Select.Item>
+									))}
+								</Form.Select>
+							</Form.GroupItem>
+						</Form.Group>
+					</div>
+
+					<div className='filter-footer'>
+						<Button
+							block
+							disabled={!isValid}
+							display='primary'
+							type='submit'
+						>
+							{Liferay.Language.get('done')}
+						</Button>
+					</div>
+				</Form.Form>
+			)}
+		</Form>
+	);
+};
+
+export default DateBreakdown;

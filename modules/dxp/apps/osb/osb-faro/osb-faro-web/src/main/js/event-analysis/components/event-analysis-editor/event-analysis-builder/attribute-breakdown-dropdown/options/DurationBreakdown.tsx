@@ -1,0 +1,87 @@
+import Button from 'shared/components/Button';
+import Form, {validateRequired} from 'shared/components/form';
+import React from 'react';
+import {createDurationBreakdown} from 'event-analysis/utils/utils';
+import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
+import {IBreakdownProps, Operators} from 'event-analysis/utils/types';
+import {sub} from 'shared/util/lang';
+
+const DEFAULT_DURATION_BIN = 60000;
+const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
+
+const DurationFilter: React.FC<IBreakdownProps> = ({
+	attributeId,
+	attributeOwnerType,
+	breakdown,
+	onSubmit
+}) => {
+	const getInitialValues = () => {
+		if (breakdown) {
+			const {bin} = breakdown;
+
+			return {
+				bin: formatTime(bin)
+			};
+		}
+
+		return {
+			bin: formatTime(DEFAULT_DURATION_BIN),
+			operator: Operators.GT,
+			value: ''
+		};
+	};
+
+	// TODO: REname filter to options
+	return (
+		<Form
+			initialValues={getInitialValues()}
+			isInitialValid
+			onSubmit={({bin}) => {
+				onSubmit(
+					createDurationBreakdown({
+						attributeId,
+						bin: getMillisecondsFromTime(
+							bin.replace(/_/g, '0') as string
+						),
+						type: attributeOwnerType
+					})
+				);
+			}}
+		>
+			{({handleSubmit, isValid}) => (
+				<Form.Form onSubmit={handleSubmit}>
+					<div className='filter-body'>
+						<Form.Group autoFit>
+							<Form.GroupItem>
+								<Form.Input
+									label={sub(
+										Liferay.Language.get('group-x-by'),
+										[Liferay.Language.get('duration')]
+									)}
+									mask={DURATION_MASK}
+									name='bin'
+									placeholder='HH:MM:SS'
+									type='string'
+									validate={validateRequired}
+								/>
+							</Form.GroupItem>
+						</Form.Group>
+					</div>
+
+					<div className='filter-footer'>
+						<Button
+							block
+							disabled={!isValid}
+							display='primary'
+							type='submit'
+						>
+							{Liferay.Language.get('done')}
+						</Button>
+					</div>
+				</Form.Form>
+			)}
+		</Form>
+	);
+};
+
+export default DurationFilter;
