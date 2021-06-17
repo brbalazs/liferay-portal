@@ -17,6 +17,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.service.CommerceShipmentService;
@@ -79,6 +80,12 @@ public class CommerceShippableOrderItemsDataSetDataProvider
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
+
+			if (!cpDefinition.isShippable()) {
+				continue;
+			}
+
 			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 			String iconName = _getAddressMatchIcon(
