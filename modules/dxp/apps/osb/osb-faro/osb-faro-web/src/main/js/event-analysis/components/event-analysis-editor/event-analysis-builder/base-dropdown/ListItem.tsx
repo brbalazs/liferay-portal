@@ -13,7 +13,7 @@ interface IListItemProps {
 	item: Attribute | Event;
 	onClick: () => void;
 	onEditClick: () => void;
-	onFilterClick: (item: Attribute) => void;
+	onOptionsClick: (item: any) => void;
 }
 
 const ListItem: React.FC<IListItemProps> = ({
@@ -22,7 +22,7 @@ const ListItem: React.FC<IListItemProps> = ({
 	item,
 	onClick,
 	onEditClick,
-	onFilterClick
+	onOptionsClick
 }) => {
 	const _overlayRef = useRef<any>();
 
@@ -58,19 +58,19 @@ const ListItem: React.FC<IListItemProps> = ({
 					{displayName || name}
 				</Button>
 
-				{isAttribute(item as Attribute) && (
+				{!!onOptionsClick && (
 					<Button
 						borderless
-						className='filter-button'
+						className='options-button'
 						disabled={disabled}
-						icon='filter'
+						icon='control-panel'
 						iconAlignment='left'
 						onClick={() => {
 							if (_overlayRef && _overlayRef.current) {
 								_overlayRef.current.hideOverlay();
 							}
 
-							onFilterClick(item as Attribute);
+							onOptionsClick(item);
 						}}
 						size='sm'
 					/>

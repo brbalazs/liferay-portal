@@ -23,7 +23,7 @@ describe('BaseDropdownSearchableList', () => {
 			]}
 			onEditClick={jest.fn()}
 			onItemClick={jest.fn()}
-			onItemFilterClick={jest.fn()}
+			onItemOptionsClick={jest.fn()}
 			onQueryChange={jest.fn()}
 			query=''
 			{...props}

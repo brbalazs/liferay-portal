@@ -29,8 +29,7 @@
 		&:active,
 		&:hover,
 		&:focus {
-			.filter-button:not([disabled]) {
-				background-color: rgba($main, 0.04);
+			.options-button:not([disabled]) {
 				opacity: 1;
 				visibility: visible;
 
@@ -39,7 +38,6 @@
 				&:hover {
 					background-color: rgba($black, 0.04);
 					border: 1px solid $primaryLighten33;
-					color: $info;
 				}
 			}
 		}
@@ -54,7 +52,7 @@
 			line-height: 32px;
 		}
 
-		.filter-button {
+		.options-button {
 			background-color: transparent;
 			opacity: 0;
 			transition: opacity 100ms ease;

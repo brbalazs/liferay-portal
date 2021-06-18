@@ -16,7 +16,7 @@ describe('BaseDropdownListItem', () => {
 				}}
 				onClick={jest.fn()}
 				onEditClick={jest.fn()}
-				onFilterClick={jest.fn()}
+				onOptionsClick={jest.fn()}
 			/>
 		);
 
@@ -37,7 +37,7 @@ describe('BaseDropdownListItem', () => {
 				}}
 				onClick={jest.fn()}
 				onEditClick={jest.fn()}
-				onFilterClick={jest.fn()}
+				onOptionsClick={jest.fn()}
 			/>
 		);
 
@@ -56,7 +56,7 @@ describe('BaseDropdownListItem', () => {
 				}}
 				onClick={jest.fn()}
 				onEditClick={jest.fn()}
-				onFilterClick={jest.fn()}
+				onOptionsClick={jest.fn()}
 			/>
 		);
 
@@ -75,7 +75,7 @@ describe('BaseDropdownListItem', () => {
 				}}
 				onClick={jest.fn()}
 				onEditClick={jest.fn()}
-				onFilterClick={jest.fn()}
+				onOptionsClick={jest.fn()}
 			/>
 		);
 
