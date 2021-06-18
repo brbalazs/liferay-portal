@@ -2,7 +2,7 @@ Bundle-Name: Liferay Commerce Organization Web
 Bundle-SymbolicName: com.liferay.commerce.organization.web
 Bundle-Version: 2.0.29
 Import-Package:\
-	com.liferay.frontend.js.loader.modules.extender.npm;version="[2.0.0,4.0.0)",\
+	com.liferay.frontend.js.loader.modules.extender.npm;version="[2.0.0,99.0.0)",\
 	\
 	*
 Web-ContextPath: /commerce-organization-web

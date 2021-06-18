@@ -6,6 +6,6 @@ Export-Package:\
 	com.liferay.commerce.punchout.constants,\
 	com.liferay.commerce.punchout.service
 Import-Package:\
-	com.liferay.commerce.model;version="[5.0.0,6.0.0)",\
+	com.liferay.commerce.model;version="[5.0.0,99.0.0)",\
 	\
 	*

@@ -2,7 +2,7 @@ Bundle-Name: Liferay Export Import Service
 Bundle-SymbolicName: com.liferay.exportimport.service
 Bundle-Version: 5.0.92
 Import-Package:\
-	com.liferay.exportimport.kernel.lar;version="[1.0.0,2.0.0)",\
+	com.liferay.exportimport.kernel.lar;version="[1.0.0,99.0.0)",\
 	\
 	*
 Provide-Capability:\
