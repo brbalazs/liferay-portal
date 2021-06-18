@@ -39,13 +39,19 @@ function dropIsValid(
 			sourceItemColumnIndex
 		);
 
-		const sourceColumnHasActiveItem =
-			getColumnActiveItem(layoutColumns, sourceItemColumnIndex) !== null;
+		const columnActiveItem = getColumnActiveItem(
+			layoutColumns,
+			sourceItemColumnIndex
+		);
+
+		const sourceColumnHasValidActiveItem = columnActiveItem
+			? columnActiveItem.parentable
+			: false;
 
 		const targetColumnHasItems = layoutColumns[targetId].length > 0;
 
 		targetColumnHasLayoutAssociated =
-			sourceColumnHasActiveItem || targetColumnHasItems;
+			sourceColumnHasValidActiveItem || targetColumnHasItems;
 	} else if (targetType === DROP_TARGET_TYPES.item) {
 		targetEqualsSource = sourceItem.plid === targetId;
 	}
