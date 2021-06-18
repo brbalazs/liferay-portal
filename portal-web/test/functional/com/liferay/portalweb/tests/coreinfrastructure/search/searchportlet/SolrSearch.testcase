@@ -779,9 +779,8 @@ definition {
 		);
 
 		var currentDate = DateUtil.getFormattedCurrentDate("MMM d, yyyy");
-		var portalURL = PropsUtil.get("portal.url");
 
-		Navigator.openSpecificURL(url = "${portalURL}/web/guest/search");
+		Search.openSearchPage();
 
 		SearchPortlets.configureEmbeddedScope(searchScope = "Everything");
 
@@ -1208,9 +1207,7 @@ definition {
 
 		WebContent.viewVersion(version = "1.0", webContentTitle = "WebContent Title 1");
 
-		var portalURL = PropsUtil.get("portal.url");
-
-		Navigator.openSpecificURL(url = "${portalURL}/web/guest/search");
+		Search.openSearchPage();
 
 		Portlet.addPG(portletName = "Custom Facet");
 

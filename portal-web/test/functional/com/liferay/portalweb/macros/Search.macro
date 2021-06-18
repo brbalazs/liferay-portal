@@ -1,5 +1,13 @@
 definition {
 
+	macro openSearchPage {
+		if (!(isSet(siteURLKey))) {
+			var siteURLKey = "guest";
+		}
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/${siteURLKey}/search");
+	}
+
 	macro searchCP {
 		AssertElementPresent(locator1 = "TextInput#SEARCH");
 
