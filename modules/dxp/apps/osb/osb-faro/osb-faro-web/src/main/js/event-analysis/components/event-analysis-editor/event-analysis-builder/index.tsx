@@ -13,16 +13,12 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 	event,
 	onEventChange
 }) => (
-	<div className='event-analysis-builder-root d-flex'>
+	<div className='event-analysis-builder-root d-flex flex-column'>
 		<EventSection event={event} onEventChange={onEventChange} />
 
-		{event && (
-			<>
-				<AttributeBreakdownSection eventId={event.id} />
+		<AttributeBreakdownSection eventId={event?.id} />
 
-				<AttributeFilterSection eventId={event.id} />
-			</>
-		)}
+		<AttributeFilterSection eventId={event?.id} />
 	</div>
 );
 

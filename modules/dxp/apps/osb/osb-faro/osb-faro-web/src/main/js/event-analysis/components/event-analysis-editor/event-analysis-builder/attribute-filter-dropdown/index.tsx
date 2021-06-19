@@ -1,4 +1,3 @@
-import AttributeFilter from './filter';
 import BaseDropdown from '../base-dropdown';
 import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
 	UPDATE_EVENT_ATTRIBUTE_DEFINITION
@@ -7,11 +6,14 @@ import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 	EventAttributeDefinitionsData,
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import FilterOptions from './filter';
 import React, {useState} from 'react';
+import {Align} from '@clayui/drop-down';
 import {
 	Attribute,
 	AttributeOwnerTypes,
 	AttributeTypes,
+	DataTypes,
 	Filter
 } from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -24,16 +26,18 @@ import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
 interface IAttributeFilterDropdownProps {
+	alignmentPosition?: typeof Align[keyof typeof Align];
 	attribute?: Attribute;
 	close: Modal.close;
 	disabledIds: string[];
 	eventId: string;
-	filter?: Filter;
+	filter: Filter;
 	open: Modal.open;
 	trigger: React.ReactElement;
 }
 
 const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
+	alignmentPosition = Align.RightTop,
 	attribute,
 	close,
 	disabledIds,
@@ -72,6 +76,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 
 	return (
 		<BaseDropdown
+			alignmentPosition={alignmentPosition}
 			className='event-analysis-editor-attribute-dropdown-root'
 			onActiveChange={active => {
 				if (!active) {
@@ -118,36 +123,81 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 										eventAttributeDefinitions: {
 											eventAttributeDefinitions: Attribute[];
 										};
-									}) => (
-										<BaseDropdown.SearchableList
-											activeId={oldAttributeId}
-											disabledIds={disabledIds}
-											items={eventAttributeDefinitions}
-											onEditClick={(
-												attribute: Attribute
-											) => {
-												open(
-													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-													{
-														id: attribute.id,
-														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-														onCancel: close,
-														query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
-														showTypecast: true
-													}
-												);
+									}) => {
+										// TODO: Remove mock data
+										const attributes = [
+											...eventAttributeDefinitions,
+											{
+												dataType: DataTypes.Number,
+												description: null,
+												displayName: 'Number',
+												id: '20',
+												name: 'Number',
+												sampleValue: null,
+												type: 'LOCAL'
+											},
+											{
+												dataType: DataTypes.Boolean,
+												description: null,
+												displayName: 'Is Female',
+												id: '21',
+												name: 'isFemale',
+												sampleValue: null,
+												type: 'LOCAL'
+											},
 
-												setActive(false);
-											}}
-											onItemClick={(
-												attribute: Attribute
-											) => {
-												setSelectedAttribute(attribute);
-											}}
-											onQueryChange={setQuery}
-											query={query}
-										/>
-									)}
+											{
+												dataType: DataTypes.Date,
+												description: null,
+												displayName: 'Date',
+												id: '17',
+												name: 'Date',
+												sampleValue: null,
+												type: 'LOCAL'
+											},
+											{
+												dataType: DataTypes.Duration,
+												description: null,
+												displayName: 'Duration',
+												id: '22',
+												name: 'Duration',
+												sampleValue: null,
+												type: 'LOCAL'
+											}
+										];
+										return (
+											<BaseDropdown.SearchableList
+												activeId={oldAttributeId}
+												disabledIds={disabledIds}
+												items={attributes}
+												onEditClick={(
+													attribute: Attribute
+												) => {
+													open(
+														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+														{
+															id: attribute.id,
+															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+															onCancel: close,
+															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+															showTypecast: true
+														}
+													);
+
+													setActive(false);
+												}}
+												onItemClick={(
+													attribute: Attribute
+												) => {
+													setSelectedAttribute(
+														attribute
+													);
+												}}
+												onQueryChange={setQuery}
+												query={query}
+											/>
+										);
+									}}
 								</SafeResults>
 							</div>
 						</CSSTransition>
@@ -159,7 +209,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 							timeout={250}
 						>
 							<div className='w-100'>
-								<AttributeFilter
+								<FilterOptions
 									attribute={selectedAttribute}
 									attributeOwnerType={attributeOwnerType}
 									oldAttributeId={oldAttributeId}

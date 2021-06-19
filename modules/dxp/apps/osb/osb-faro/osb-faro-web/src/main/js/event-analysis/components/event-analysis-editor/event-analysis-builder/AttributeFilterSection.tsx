@@ -10,6 +10,7 @@ import {
 	MoveFilter,
 	withAttributesConsumer
 } from '../context/attributes';
+import {Align} from '@clayui/drop-down';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
@@ -38,57 +39,62 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 	filters,
 	moveFilter
 }) => (
-	<div className='attribute-section-root flex-grow-1'>
-		<div className='section-header'>
-			{Liferay.Language.get('filter-by')}
-		</div>
+	<div className='attribute-filter-section-root d-flex align-items-center'>
+		<div className='section-header'>{Liferay.Language.get('filter')}</div>
 
-		<div className='attribute-container d-flex align-items-center'>
-			<DndProvider backend={HTML5Backend}>
-				<div className='attribute-list d-flex align-items-center'>
-					{filterOrder.map((id, i) => (
-						<AttributeFilterChip
-							attribute={attributes[id]}
-							eventId={eventId}
-							filter={filters[id]}
-							index={i}
-							key={id}
-							onCloseClick={deleteFilter}
-							onEditSubmit={({attribute, attributeId, filter}) =>
-								editFilter({
+		{!!eventId && (
+			<div className='attribute-container d-flex align-items-center justify-content-between'>
+				<DndProvider backend={HTML5Backend}>
+					<div className='attribute-list d-flex align-items-center'>
+						{filterOrder.map((id, i) => (
+							<AttributeFilterChip
+								attribute={attributes[id]}
+								eventId={eventId}
+								filter={filters[id]}
+								index={i}
+								key={id}
+								onCloseClick={deleteFilter}
+								onEditSubmit={({
 									attribute,
 									attributeId,
-									filter,
-									oldAttributeId: id
-								})
-							}
-							onMove={moveFilter}
-							order={filterOrder}
-						/>
-					))}
-				</div>
-			</DndProvider>
-
-			<div>
-				{filterOrder.length < MAX_ATTRIBUTES && (
-					<AttributeFilterDropdown
-						disabledIds={filterOrder}
-						eventId={eventId}
-						onAttributeSelect={addFilter}
-						trigger={
-							<Button
-								borderless
-								className='add-attribute'
-								display='light'
-								icon='plus'
-								iconAlignment='left'
-								size='sm'
+									filter
+								}) =>
+									editFilter({
+										attribute,
+										attributeId,
+										filter,
+										oldAttributeId: id
+									})
+								}
+								onMove={moveFilter}
+								order={filterOrder}
 							/>
-						}
-					/>
-				)}
+						))}
+					</div>
+				</DndProvider>
+
+				<div>
+					{filterOrder.length < MAX_ATTRIBUTES && (
+						<AttributeFilterDropdown
+							alignmentPosition={Align.LeftTop}
+							disabledIds={filterOrder}
+							eventId={eventId}
+							onAttributeSelect={addFilter}
+							trigger={
+								<Button
+									borderless
+									className='add-attribute'
+									display='light'
+									icon='plus'
+									iconAlignment='left'
+									size='sm'
+								/>
+							}
+						/>
+					)}
+				</div>
 			</div>
-		</div>
+		)}
 	</div>
 );
 

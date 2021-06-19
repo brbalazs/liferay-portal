@@ -8,6 +8,7 @@ import EVENT_DEFINITIONS_QUERY, {
 	EventDefinitionsVariables
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import React, {useState} from 'react';
+import {Align} from '@clayui/drop-down';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {Event, EventTypes} from 'event-analysis/utils/types';
@@ -21,6 +22,7 @@ const {
 } = Constants;
 
 interface IAnalysisDropdownProps {
+	alignmentPosition?: typeof Align[keyof typeof Align];
 	close: Modal.close;
 	eventId?: string;
 	onEventChange: (event: Event) => void;
@@ -29,6 +31,7 @@ interface IAnalysisDropdownProps {
 }
 
 const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
+	alignmentPosition = Align.RightTop,
 	close,
 	eventId,
 	onEventChange,
@@ -56,7 +59,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	);
 
 	return (
-		<BaseDropdown trigger={trigger}>
+		<BaseDropdown alignmentPosition={alignmentPosition} trigger={trigger}>
 			{({setActive}) => (
 				<>
 					<BaseDropdown.Header

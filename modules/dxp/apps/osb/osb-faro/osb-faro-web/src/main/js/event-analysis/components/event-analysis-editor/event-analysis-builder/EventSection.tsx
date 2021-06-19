@@ -2,6 +2,7 @@ import Button from 'shared/components/Button';
 import EventChip from './EventChip';
 import EventDropdown from './EventDropdown';
 import React from 'react';
+import {Align} from '@clayui/drop-down';
 import {
 	DeleteAllAttributes,
 	withAttributesConsumer
@@ -26,21 +27,24 @@ const EventSection: React.FC<IEventSectionProps> = ({
 	};
 
 	return (
-		<div className='event-section-root'>
+		<div className='event-section-root d-flex align-items-center'>
 			<div className='section-header'>
 				{Liferay.Language.get('analyze')}
 			</div>
 
-			<div className='event-list'>
-				{event && (
-					<EventChip
-						event={event}
-						onEventChange={handleEventChange}
-					/>
-				)}
+			<div className='event-container d-flex justify-content-between'>
+				<div className='event-list'>
+					{event && (
+						<EventChip
+							event={event}
+							onEventChange={handleEventChange}
+						/>
+					)}
+				</div>
 
 				{!event && (
 					<EventDropdown
+						alignmentPosition={Align.LeftTop}
 						onEventChange={handleEventChange}
 						trigger={
 							<Button

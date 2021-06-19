@@ -5,11 +5,13 @@ import React, {useEffect, useState} from 'react';
 import SearchableList from './SearchableList';
 
 interface IBaseDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+	alignmentPosition?: typeof Align[keyof typeof Align];
 	trigger: React.ReactElement;
 	onActiveChange?: (active: boolean) => void;
 }
 
 const BaseDropdown: React.FC<IBaseDropdownProps> = ({
+	alignmentPosition = Align.RightTop,
 	children,
 	className,
 	onActiveChange,
@@ -26,7 +28,7 @@ const BaseDropdown: React.FC<IBaseDropdownProps> = ({
 	return (
 		<ClayDropdown
 			active={active}
-			alignmentPosition={Align.RightTop}
+			alignmentPosition={alignmentPosition}
 			menuElementAttrs={{
 				className: getCN('base-dropdown-menu-root', className)
 			}}

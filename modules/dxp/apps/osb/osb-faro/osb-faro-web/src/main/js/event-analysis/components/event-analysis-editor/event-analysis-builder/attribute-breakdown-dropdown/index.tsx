@@ -9,6 +9,7 @@ import EventAttributeDefinitionsQuery, {
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React, {useState} from 'react';
 import {AddBreakdown, EditBreakdown} from '../../context/attributes';
+import {Align} from '@clayui/drop-down';
 import {
 	Attribute,
 	AttributeOwnerTypes,
@@ -27,6 +28,7 @@ import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
 interface IAttributeBreakdownDropdownProps {
+	alignmentPosition?: typeof Align[keyof typeof Align];
 	attribute?: Attribute;
 	breakdown: Breakdown;
 	close: Modal.close;
@@ -38,6 +40,7 @@ interface IAttributeBreakdownDropdownProps {
 }
 
 const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = ({
+	alignmentPosition = Align.RightTop,
 	attribute,
 	breakdown,
 	close,
@@ -82,6 +85,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 
 	return (
 		<BaseDropdown
+			alignmentPosition={alignmentPosition}
 			className='event-analysis-editor-attribute-dropdown-root'
 			onActiveChange={active => {
 				if (!active) {
@@ -133,7 +137,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 										const attributes = [
 											...eventAttributeDefinitions,
 											{
-												dataType: 'NUMBER',
+												dataType: DataTypes.Number,
 												description: null,
 												displayName: 'Number',
 												id: '20',
@@ -143,7 +147,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 											},
 
 											{
-												dataType: 'DATE',
+												dataType: DataTypes.Date,
 												description: null,
 												displayName: 'Date',
 												id: '17',
@@ -152,7 +156,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 												type: 'LOCAL'
 											},
 											{
-												dataType: 'DURATION',
+												dataType: DataTypes.Duration,
 												description: null,
 												displayName: 'Duration',
 												id: '22',
@@ -191,7 +195,6 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 														id: attributeId
 													} = attribute;
 
-													console.log(attribute);
 													const breakdownFn =
 														BREAKDOWN_FNS_MAP[
 															dataType

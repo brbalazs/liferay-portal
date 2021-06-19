@@ -10,6 +10,7 @@ import {
 	MoveBreakdown,
 	withAttributesConsumer
 } from '../context/attributes';
+import {Align} from '@clayui/drop-down';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
@@ -37,61 +38,64 @@ const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps> = ({
 	eventId,
 	moveBreakdown
 }) => (
-	<div className='attribute-section-root flex-grow-1'>
+	<div className='attribute-breakdown-section-root d-flex align-items-center'>
 		<div className='section-header'>
-			{Liferay.Language.get('breakdown-by')}
+			{Liferay.Language.get('breakdown')}
 		</div>
 
-		<div className='attribute-container d-flex align-items-center'>
-			<DndProvider backend={HTML5Backend}>
-				<div className='attribute-list d-flex align-items-center'>
-					{breakdownOrder.map((id, i) => (
-						<AttributeBreakdownChip
-							attribute={attributes[id]}
-							breakdown={breakdowns[id]}
-							eventId={eventId}
-							index={i}
-							key={id}
-							onCloseClick={deleteBreakdown}
-							onEditSubmit={({
-								attribute,
-								attributeId,
-								breakdown
-							}) =>
-								editBreakdown({
+		{!!eventId && (
+			<div className='attribute-container d-flex align-items-center justify-content-between'>
+				<DndProvider backend={HTML5Backend}>
+					<div className='attribute-list d-flex align-items-center'>
+						{breakdownOrder.map((id, i) => (
+							<AttributeBreakdownChip
+								attribute={attributes[id]}
+								breakdown={breakdowns[id]}
+								eventId={eventId}
+								index={i}
+								key={id}
+								onCloseClick={deleteBreakdown}
+								onEditSubmit={({
 									attribute,
 									attributeId,
-									breakdown,
-									oldAttributeId: id
-								})
-							}
-							onMove={moveBreakdown}
-							order={breakdownOrder}
-						/>
-					))}
-				</div>
-			</DndProvider>
-
-			<div>
-				{breakdownOrder.length < MAX_ATTRIBUTES && (
-					<AttributeBreakdownDropdown
-						disabledIds={breakdownOrder}
-						eventId={eventId}
-						onAttributeSelect={addBreakdown}
-						trigger={
-							<Button
-								borderless
-								className='add-attribute'
-								display='light'
-								icon='plus'
-								iconAlignment='left'
-								size='sm'
+									breakdown
+								}) =>
+									editBreakdown({
+										attribute,
+										attributeId,
+										breakdown,
+										oldAttributeId: id
+									})
+								}
+								onMove={moveBreakdown}
+								order={breakdownOrder}
 							/>
-						}
-					/>
-				)}
+						))}
+					</div>
+				</DndProvider>
+
+				<div>
+					{breakdownOrder.length < MAX_ATTRIBUTES && (
+						<AttributeBreakdownDropdown
+							alignmentPosition={Align.LeftTop}
+							disabledIds={breakdownOrder}
+							eventId={eventId}
+							onAttributeSelect={addBreakdown}
+							trigger={
+								<Button
+									borderless
+									className='add-attribute'
+									display='light'
+									icon='plus'
+									iconAlignment='left'
+									size='sm'
+								/>
+							}
+						/>
+					)}
+				</div>
 			</div>
-		</div>
+		)}
 	</div>
 );
 
