@@ -14,8 +14,6 @@ import {Align} from '@clayui/drop-down';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
-const MAX_ATTRIBUTES = 3;
-
 interface IAttributeSectionProps {
 	addFilter: AddFilter;
 	attributes: Attributes;
@@ -74,24 +72,22 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 				</DndProvider>
 
 				<div>
-					{filterOrder.length < MAX_ATTRIBUTES && (
-						<AttributeFilterDropdown
-							alignmentPosition={Align.LeftTop}
-							disabledIds={filterOrder}
-							eventId={eventId}
-							onAttributeSelect={addFilter}
-							trigger={
-								<Button
-									borderless
-									className='add-attribute'
-									display='light'
-									icon='plus'
-									iconAlignment='left'
-									size='sm'
-								/>
-							}
-						/>
-					)}
+					<AttributeFilterDropdown
+						alignmentPosition={Align.LeftTop}
+						disabledIds={filterOrder}
+						eventId={eventId}
+						onAttributeSelect={addFilter}
+						trigger={
+							<Button
+								borderless
+								className='add-attribute'
+								display='light'
+								icon='plus'
+								iconAlignment='left'
+								size='sm'
+							/>
+						}
+					/>
 				</div>
 			</div>
 		)}
