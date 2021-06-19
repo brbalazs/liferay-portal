@@ -24,17 +24,19 @@ interface IEventAnalysisEditorProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
 	attributes: {[key: string]: Attribute};
+	breakdownOrder: string[];
 	breakdowns: {[key: string]: Breakdown};
+	filterOrder: string[];
 	filters: {[key: string]: Filter};
-	order: string[];
 }
 
 const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 	attributes,
+	breakdownOrder,
 	breakdowns,
+	filterOrder,
 	filters,
 	onRangeSelectorsChange,
-	order,
 	rangeSelectors
 }) => {
 	const [compareToPrevious, setCompareToPrevious] = useState(false);
@@ -45,11 +47,12 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 		// TODO: LRAC-7333 Add request here
 	}, [
 		attributes,
+		breakdownOrder,
 		breakdowns,
 		compareToPrevious,
 		event,
+		filterOrder,
 		filters,
-		order,
 		rangeSelectors,
 		type
 	]);
