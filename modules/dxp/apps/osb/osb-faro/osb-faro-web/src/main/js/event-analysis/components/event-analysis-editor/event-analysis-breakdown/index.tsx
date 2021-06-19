@@ -26,39 +26,42 @@ export interface IBreakdownTableProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
 	attributes: Attributes;
+	breakdownOrder: string[];
 	breakdowns: Breakdowns;
 	compareToPrevious: boolean;
 	event: Event;
+	filterOrder: string[];
 	filters: Filters;
-	order: string[];
 }
 
 const TableWithPagination = withPaginationBar()(Table);
 
 const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	attributes,
+	breakdownOrder,
 	breakdowns,
 	compareToPrevious,
 	event,
+	filterOrder,
 	filters,
-	order,
 	rangeSelectors
 }) => {
 	useEffect(() => {
 		// TODO: LRAC-7333 Add request and remove Dummy data
 	}, [
 		attributes,
+		breakdownOrder,
 		breakdowns,
 		compareToPrevious,
 		event,
+		filterOrder,
 		filters,
-		order,
 		rangeSelectors
 	]);
 
 	const [count, items, totalEvents] = useMemo(() => {
 		// TODO: LRAC-7333 Add request and remove Dummy data
-		const data = getDummyBreakdownData(event, attributes, order);
+		const data = getDummyBreakdownData(event, attributes, breakdownOrder);
 
 		if (!Object.keys(attributes).length) {
 			return [data.count, data.breakdownItems, data.totalEvents];
@@ -67,7 +70,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		const items = parserBreakdownData(data);
 
 		return [data.count, items, data.totalEvents];
-	}, [attributes, order]);
+	}, [attributes, breakdownOrder, filterOrder]);
 
 	const [highestValue, columns] = useMemo(() => {
 		if (!Object.keys(attributes).length) {
@@ -87,12 +90,12 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			compareToPrevious,
 			event,
 			highestValue,
-			order,
+			order: breakdownOrder,
 			totalEvents
 		});
 
 		return [highestValue, columns];
-	}, [compareToPrevious, attributes, order]);
+	}, [compareToPrevious, attributes, breakdownOrder]);
 
 	if (!Object.keys(attributes).length) {
 		return (
