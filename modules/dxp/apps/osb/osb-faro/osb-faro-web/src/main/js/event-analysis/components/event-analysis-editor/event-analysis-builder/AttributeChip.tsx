@@ -3,6 +3,7 @@ import Chip from 'shared/components/Chip';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {useEffect, useRef, useState} from 'react';
+import {DATA_TYPE_ICONS_MAP} from 'event-analysis/utils/utils';
 import {DataTypes} from 'event-analysis/utils/types';
 import {DeleteBreakdown, DeleteFilter} from '../context/attributes';
 import {DropTargetMonitor, useDrag, useDrop} from 'react-dnd';
@@ -23,14 +24,6 @@ export enum HoverTypes {
 	Right = 'right'
 }
 
-const TYPE_ICON_MAP = {
-	[DataTypes.Boolean]: 'check',
-	[DataTypes.Date]: 'date',
-	[DataTypes.Duration]: 'time',
-	[DataTypes.Number]: 'integer',
-	[DataTypes.String]: 'text'
-};
-
 interface IAttributeChipProps {
 	dataType: DataTypes;
 	id: string;
@@ -38,7 +31,7 @@ interface IAttributeChipProps {
 	label: string;
 	onCloseClick: DeleteBreakdown | DeleteFilter;
 	onMove: (params: {from: number; to: number}) => void;
-	value: string; // TODO: Can this be more than a string
+	value: boolean | number | string;
 }
 
 const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
@@ -122,12 +115,6 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 		preview(_chipRef);
 	}, []);
 
-	// const [attributeLabel, attributeValue] = getBreakdownDisplay(
-	// 	attribute,
-	// 	breakdown,
-	// 	filter
-	// );
-
 	return (
 		<div
 			className={getCN('attribute-chip-container', {
@@ -152,7 +139,7 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 					onClick={onClick}
 				>
 					<div className='sticker'>
-						<Icon symbol={TYPE_ICON_MAP[dataType]} />
+						<Icon symbol={DATA_TYPE_ICONS_MAP[dataType]} />
 					</div>
 
 					<div>

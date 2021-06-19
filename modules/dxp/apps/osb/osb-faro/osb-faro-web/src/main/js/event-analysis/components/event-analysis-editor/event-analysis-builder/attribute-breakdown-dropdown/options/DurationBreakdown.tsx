@@ -9,7 +9,7 @@ import {sub} from 'shared/util/lang';
 const DEFAULT_DURATION_BIN = 60000;
 const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
 
-const DurationFilter: React.FC<IBreakdownProps> = ({
+const DurationBreakdown: React.FC<IBreakdownProps> = ({
 	attributeId,
 	attributeOwnerType,
 	breakdown,
@@ -31,7 +31,6 @@ const DurationFilter: React.FC<IBreakdownProps> = ({
 		};
 	};
 
-	// TODO: REname filter to options
 	return (
 		<Form
 			initialValues={getInitialValues()}
@@ -50,7 +49,7 @@ const DurationFilter: React.FC<IBreakdownProps> = ({
 		>
 			{({handleSubmit, isValid}) => (
 				<Form.Form onSubmit={handleSubmit}>
-					<div className='filter-body'>
+					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Input
@@ -68,7 +67,7 @@ const DurationFilter: React.FC<IBreakdownProps> = ({
 						</Form.Group>
 					</div>
 
-					<div className='filter-footer'>
+					<div className='options-footer'>
 						<Button
 							block
 							disabled={!isValid}
@@ -84,4 +83,4 @@ const DurationFilter: React.FC<IBreakdownProps> = ({
 	);
 };
 
-export default DurationFilter;
+export default DurationBreakdown;

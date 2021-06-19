@@ -1,22 +1,17 @@
 import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import React from 'react';
-import {
-	BOOLEAN_LABELS_MAP,
-	BOOLEAN_OPTIONS,
-	createBooleanBreakdown
-} from 'event-analysis/utils/utils';
-import {IFilterProps, Operators} from 'event-analysis/utils/types';
+import {BOOLEAN_LABELS_MAP, BOOLEAN_OPTIONS} from 'event-analysis/utils/utils';
+import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const BooleanFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
-	breakdown,
 	filter,
-	onFilterSubmit
+	onSubmit
 }) => {
 	const getInitialValues = () => {
-		if (breakdown && filter) {
+		if (filter) {
 			const {operator, value} = filter;
 
 			return {operator, value: String(value[0])};
@@ -29,18 +24,18 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 		<Form
 			initialValues={getInitialValues()}
 			onSubmit={({operator, value}) => {
-				onFilterSubmit({
-					breakdown: createBooleanBreakdown({
-						attributeId,
-						type: attributeOwnerType
-					}),
-					filter: {attributeId, operator, value: [value === 'true']}
+				onSubmit({
+					attributeId,
+					dataType: DataTypes.Boolean,
+					operator,
+					type: attributeOwnerType,
+					value: [value === 'true']
 				});
 			}}
 		>
 			{({handleSubmit}) => (
 				<Form.Form onSubmit={handleSubmit}>
-					<div className='filter-body'>
+					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Select
@@ -60,7 +55,7 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 						</Form.Group>
 					</div>
 
-					<div className='filter-footer'>
+					<div className='options-footer'>
 						<Button block display='primary' type='submit'>
 							{Liferay.Language.get('done')}
 						</Button>

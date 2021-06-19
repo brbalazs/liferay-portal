@@ -1,36 +1,29 @@
 import Button from 'shared/components/Button';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
+import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
 import {
-	createNumberBreakdown,
 	NUMBER_OPERATOR_LONGHAND_LABELS_MAP,
 	NUMBER_OPTIONS
 } from 'event-analysis/utils/utils';
-import {IFilterProps, Operators} from 'event-analysis/utils/types';
-import {sub} from 'shared/util/lang';
-
-const DEFAULT_NUMBER_BIN = 10;
 
 const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
-	breakdown,
 	filter,
-	onFilterSubmit
+	onSubmit
 }) => {
 	const getInitialValues = () => {
-		if (breakdown && filter) {
-			const {bin} = breakdown;
+		if (filter) {
 			const {
 				operator,
 				value: [startValue = '', endValue = '']
 			} = filter;
 
-			return {bin, endValue, operator, startValue};
+			return {endValue, operator, startValue};
 		}
 
 		return {
-			bin: DEFAULT_NUMBER_BIN,
 			endValue: '',
 			operator: Operators.GT,
 			startValue: ''
@@ -40,44 +33,25 @@ const NumberFilter: React.FC<IFilterProps> = ({
 	return (
 		<Form
 			initialValues={getInitialValues()}
-			onSubmit={({bin, endValue, operator, startValue}) => {
+			onSubmit={({endValue, operator, startValue}) => {
 				let value = [startValue];
 
 				if (operator === Operators.Between) {
 					value = [...value, endValue];
 				}
 
-				onFilterSubmit({
-					breakdown: createNumberBreakdown({
-						attributeId,
-						bin,
-						type: attributeOwnerType
-					}),
-					filter: {
-						attributeId,
-						operator,
-						value
-					}
+				onSubmit({
+					attributeId,
+					dataType: DataTypes.Number,
+					operator,
+					type: attributeOwnerType,
+					value
 				});
 			}}
 		>
 			{({handleSubmit, isValid, values: {operator}}) => (
 				<Form.Form onSubmit={handleSubmit}>
-					<div className='filter-body'>
-						<Form.Group autoFit>
-							<Form.GroupItem>
-								<Form.Input
-									label={sub(
-										Liferay.Language.get('group-x-by'),
-										[Liferay.Language.get('numbers')]
-									)}
-									name='bin'
-									type='number'
-									validate={validateRequired}
-								/>
-							</Form.GroupItem>
-						</Form.Group>
-
+					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Select
@@ -123,7 +97,7 @@ const NumberFilter: React.FC<IFilterProps> = ({
 						</Form.Group>
 					</div>
 
-					<div className='filter-footer'>
+					<div className='options-footer'>
 						<Button
 							block
 							disabled={!isValid}

@@ -14,7 +14,6 @@ import {
 import {
 	Attribute,
 	AttributeOwnerTypes,
-	Breakdowns,
 	DataTypes,
 	Filters
 } from 'event-analysis/utils/types';
@@ -27,11 +26,10 @@ const FILTERS_MAP = {
 	[DataTypes.String]: StringFilter
 };
 
-interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IFilterOptionsProps extends React.HTMLAttributes<HTMLDivElement> {
 	addFilter: AddFilter;
 	attribute: Attribute;
 	attributeOwnerType: AttributeOwnerTypes;
-	breakdowns: Breakdowns;
 	editFilter: EditFilter;
 	filters: Filters;
 	oldAttributeId?: string;
@@ -40,11 +38,10 @@ interface IAttributeFilterProps extends React.HTMLAttributes<HTMLDivElement> {
 	onEditClick?: (id: string) => void;
 }
 
-const AttributeFilter: React.FC<IAttributeFilterProps> = ({
+const FilterOptions: React.FC<IFilterOptionsProps> = ({
 	addFilter,
 	attribute,
 	attributeOwnerType,
-	breakdowns,
 	editFilter,
 	filters,
 	oldAttributeId,
@@ -57,8 +54,8 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 	const FilterBody = FILTERS_MAP[dataType];
 
 	return (
-		<div className='attribute-filter'>
-			<div className='filter-header'>
+		<div className='attribute-options'>
+			<div className='options-header'>
 				<Button
 					className='back-to-attributes-button'
 					display='unstyled'
@@ -80,9 +77,8 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 			<FilterBody
 				attributeId={id}
 				attributeOwnerType={attributeOwnerType}
-				breakdown={breakdowns[id]}
 				filter={filters[id]}
-				onFilterSubmit={({breakdown, filter}) => {
+				onSubmit={filter => {
 					if (oldAttributeId) {
 						editFilter({
 							attribute,
@@ -107,4 +103,4 @@ const AttributeFilter: React.FC<IAttributeFilterProps> = ({
 	);
 };
 
-export default withAttributesConsumer(AttributeFilter);
+export default withAttributesConsumer(FilterOptions);

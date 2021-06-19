@@ -13,11 +13,10 @@ import {
 	Attribute,
 	AttributeOwnerTypes,
 	Breakdowns,
-	DataTypes,
-	Filters
+	DataTypes
 } from 'event-analysis/utils/types';
 
-const FILTERS_MAP = {
+const BREAKDOWNS_MAP = {
 	[DataTypes.Date]: DateBreakdown,
 	[DataTypes.Duration]: DurationBreakdown,
 	[DataTypes.Number]: NumberBreakdown
@@ -29,7 +28,6 @@ interface IBreakdownOptionsProps extends React.HTMLAttributes<HTMLDivElement> {
 	attributeOwnerType: AttributeOwnerTypes;
 	breakdowns: Breakdowns;
 	editBreakdown: EditBreakdown;
-	filters: Filters;
 	oldAttributeId?: string;
 	onActiveChange: (active: boolean) => void;
 	onAttributeChange: (attribute?: Attribute) => void;
@@ -42,7 +40,6 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 	attributeOwnerType,
 	breakdowns,
 	editBreakdown,
-	filters,
 	oldAttributeId,
 	onActiveChange,
 	onAttributeChange,
@@ -50,11 +47,11 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 }) => {
 	const {dataType, displayName, id, name} = attribute;
 
-	const BreakdownBody = FILTERS_MAP[dataType];
+	const BreakdownBody = BREAKDOWNS_MAP[dataType];
 
 	return (
-		<div className='attribute-filter'>
-			<div className='filter-header'>
+		<div className='attribute-options'>
+			<div className='options-header'>
 				<Button
 					className='back-to-attributes-button'
 					display='unstyled'
@@ -77,7 +74,6 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 				attributeId={id}
 				attributeOwnerType={attributeOwnerType}
 				breakdown={breakdowns[id]}
-				filter={filters[id]}
 				onSubmit={breakdown => {
 					if (oldAttributeId) {
 						editBreakdown({

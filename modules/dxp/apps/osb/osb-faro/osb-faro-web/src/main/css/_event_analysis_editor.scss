@@ -18,6 +18,11 @@
 	.base-dropdown-list {
 		max-height: 500px;
 		overflow-y: auto;
+
+		.sticker {
+			background-color: $lightBackground;
+			margin: 4px 16px 4px 4px;
+		}
 	}
 
 	.card-tabs-root {
@@ -68,10 +73,10 @@
 }
 
 .event-analysis-editor-attribute-dropdown-root {
-	.attribute-filter {
+	.attribute-options {
 		padding: 8px 16px;
 
-		.filter-body {
+		.options-body {
 			.form-control {
 				font-size: $fontSizeExtraSmall;
 				height: 32px;
@@ -91,7 +96,7 @@
 			}
 		}
 
-		.filter-header {
+		.options-header {
 			border-bottom: 1px solid $mainLighten74;
 			margin-bottom: 12px;
 

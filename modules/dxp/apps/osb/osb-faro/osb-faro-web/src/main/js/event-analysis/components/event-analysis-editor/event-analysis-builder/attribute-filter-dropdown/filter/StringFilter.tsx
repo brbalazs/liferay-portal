@@ -1,22 +1,20 @@
 import Button from 'shared/components/Button';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
+import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
 import {
-	createStringBreakdown,
 	STRING_OPERATOR_LABELS_MAP,
 	STRING_OPTIONS
 } from 'event-analysis/utils/utils';
-import {IFilterProps, Operators} from 'event-analysis/utils/types';
 
 const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
-	breakdown,
 	filter,
-	onFilterSubmit
+	onSubmit
 }) => {
 	const getInitialValues = () => {
-		if (breakdown && filter) {
+		if (filter) {
 			const {operator, value} = filter;
 
 			return {operator, value: value[0]};
@@ -29,18 +27,18 @@ const StringFilter: React.FC<IFilterProps> = ({
 		<Form
 			initialValues={getInitialValues()}
 			onSubmit={({operator, value}) => {
-				onFilterSubmit({
-					breakdown: createStringBreakdown({
-						attributeId,
-						type: attributeOwnerType
-					}),
-					filter: {attributeId, operator, value: [value]}
+				onSubmit({
+					attributeId,
+					dataType: DataTypes.String,
+					operator,
+					type: attributeOwnerType,
+					value: [value]
 				});
 			}}
 		>
 			{({handleSubmit, isValid}) => (
 				<Form.Form onSubmit={handleSubmit}>
-					<div className='filter-body'>
+					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Select
@@ -71,7 +69,7 @@ const StringFilter: React.FC<IFilterProps> = ({
 						</Form.Group>
 					</div>
 
-					<div className='filter-footer'>
+					<div className='options-footer'>
 						<Button
 							block
 							disabled={!isValid}

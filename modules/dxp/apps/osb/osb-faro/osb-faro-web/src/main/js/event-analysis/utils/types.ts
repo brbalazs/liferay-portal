@@ -90,18 +90,26 @@ export type Event = {
 
 export type Filter = {
 	attributeId: string;
+	dataType: DataTypes;
 	operator: Operators;
+	type: AttributeOwnerTypes;
 	value: (boolean | string | number)[];
 };
 
 export type Filters = {[key: string]: Filter};
 
-export interface IFilterProps {
+export interface IBreakdownProps {
 	attributeId: string;
 	attributeOwnerType: AttributeOwnerTypes;
 	breakdown?: Breakdown;
+	onSubmit: (breakdown: Breakdown) => void;
+}
+
+export interface IFilterProps {
+	attributeId: string;
+	attributeOwnerType: AttributeOwnerTypes;
 	filter?: Filter;
-	onFilterSubmit: (params: {breakdown: Breakdown; filter: Filter}) => void;
+	onSubmit: (filter: Filter) => void;
 }
 
 export type BreakdownDataItem = {

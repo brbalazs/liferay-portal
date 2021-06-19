@@ -56,6 +56,14 @@ export const BOOLEAN_LABELS_MAP = {
 	true: Liferay.Language.get('true')
 };
 
+export const DATA_TYPE_ICONS_MAP = {
+	[DataTypes.Boolean]: 'check',
+	[DataTypes.Date]: 'date',
+	[DataTypes.Duration]: 'time',
+	[DataTypes.Number]: 'integer',
+	[DataTypes.String]: 'text'
+};
+
 export const DATA_TYPE_LABELS_MAP = {
 	[DataTypes.Boolean]: Liferay.Language.get('boolean'),
 	[DataTypes.Date]: Liferay.Language.get('date'),
@@ -115,22 +123,16 @@ export const STRING_OPERATOR_LABELS_MAP = {
 
 const getBooleanDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
-	filter: Filter
+	{type, value: [value]}: Filter
 ): [string, string] => [
-	getDefaultDisplay(attribute, breakdown).join(' | '),
-	BOOLEAN_LABELS_MAP[String(filter.value[0])]
+	getBreakdownDisplay(attribute, type).join(' | '),
+	BOOLEAN_LABELS_MAP[String(value)]
 ];
 
 const getDateDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
-	{operator, value: [startDate, endDate]}: Filter
+	{operator, type, value: [startDate, endDate]}: Filter
 ): [string, string] => {
-	const {dateGrouping} = breakdown;
-
-	const dateGroupingLabel = DATE_GROUPING_LABELS_MAP[dateGrouping];
-
 	const operatorLabel = DATE_OPERATOR_LABELS_MAP[operator];
 
 	const formattedStartDate = formatUTCDate(startDate as string, 'll');
@@ -144,37 +146,32 @@ const getDateDisplay = (
 			: `${operatorLabel} ${formattedStartDate}`;
 
 	return [
-		getDefaultDisplay(attribute, breakdown).join(' | '),
-		`${dateGroupingLabel}, ${breakdownValue}`
+		getBreakdownDisplay(attribute, type).join(' | '),
+		`${breakdownValue}`
 	];
 };
 
-const getDefaultDisplay = (
+export const getBreakdownDisplay = (
 	{displayName, name}: Attribute,
-	{type}: Breakdown
+	type: AttributeOwnerTypes
 ): [string, string] => [ATTRIBUTE_TYPE_LABEL_MAP[type], displayName || name];
 
 const getDurationDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
-	{operator, value: [value]}: Filter
+	{operator, type, value: [value]}: Filter
 ): [string, string] => {
-	const bin = formatTime(breakdown.bin as number);
 	const duration = formatTime(value as number);
 
 	return [
-		getDefaultDisplay(attribute, breakdown).join(' | '),
-		`${bin}, ${DURATION_OPERATOR_LABELS_MAP[operator]} ${duration}`
+		getBreakdownDisplay(attribute, type).join(' | '),
+		`${DURATION_OPERATOR_LABELS_MAP[operator]} ${duration}`
 	];
 };
 
 const getNumberDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
-	{operator, value: [start, end]}: Filter
+	{operator, type, value: [start, end]}: Filter
 ): [string, string] => {
-	const {bin} = breakdown;
-
 	const operatorLabel = NUMBER_OPERATOR_LABELS_MAP[operator];
 
 	const breakdownValue =
@@ -182,22 +179,18 @@ const getNumberDisplay = (
 			? `${start} ${operatorLabel} ${end}`
 			: `${operatorLabel} ${start}`;
 
-	return [
-		getDefaultDisplay(attribute, breakdown).join(' | '),
-		`${bin}, ${breakdownValue}`
-	];
+	return [getBreakdownDisplay(attribute, type).join(' | '), breakdownValue];
 };
 
 const getStringDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
-	{operator, value}: Filter
+	{operator, type, value}: Filter
 ): [string, string] => [
-	getDefaultDisplay(attribute, breakdown).join(' | '),
+	getBreakdownDisplay(attribute, type).join(' | '),
 	`${STRING_OPERATOR_LABELS_MAP[operator]} "${value}"`
 ];
 
-const BREAKDOWN_DISPLAY_MAP = {
+const FILTER_DISPLAY_MAP = {
 	[DataTypes.Boolean]: getBooleanDisplay,
 	[DataTypes.Date]: getDateDisplay,
 	[DataTypes.Duration]: getDurationDisplay,
@@ -205,23 +198,32 @@ const BREAKDOWN_DISPLAY_MAP = {
 	[DataTypes.String]: getStringDisplay
 };
 
-export const getBreakdownDisplay = (
+export const getFilterDisplay = (
 	attribute: Attribute,
-	breakdown: Breakdown,
 	filter: Filter
 ): [string, string] => {
-	let displayFn: (
-		attribute: Attribute,
-		breakdown: Breakdown,
-		filter?: Filter
-	) => [string, string] = getDefaultDisplay;
+	const displayFn = FILTER_DISPLAY_MAP[filter.dataType];
 
-	if (filter) {
-		displayFn = BREAKDOWN_DISPLAY_MAP[breakdown.dataType];
-	}
-
-	return displayFn(attribute, breakdown, filter);
+	return displayFn(attribute, filter);
 };
+
+// export const getBreakdownDisplay = (
+// 	attribute: Attribute,
+// 	breakdown: Breakdown,
+// 	filter: Filter
+// ): [string, string] => {
+// 	let displayFn: (
+// 		attribute: Attribute,
+// 		breakdown: Breakdown,
+// 		filter?: Filter
+// 	) => [string, string] = getBreakdownDisplay;
+
+// 	if (filter) {
+// 		displayFn = BREAKDOWN_DISPLAY_MAP[breakdown.dataType];
+// 	}
+
+// 	return displayFn(attribute, breakdown, filter);
+// };
 
 export const isAttribute = (item: Attribute | Event): item is Attribute =>
 	(item as Attribute).dataType !== undefined;

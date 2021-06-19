@@ -18,6 +18,7 @@ interface ISearchableListProps {
 	onItemOptionsClick?: (item: Attribute) => void;
 	onQueryChange: (query: string) => void;
 	query: string;
+	showOptionsCondition?: (item: Attribute) => boolean;
 }
 
 const SearchableList: React.FC<ISearchableListProps> = ({
@@ -28,7 +29,8 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 	onItemClick,
 	onItemOptionsClick,
 	onQueryChange,
-	query
+	query,
+	showOptionsCondition = () => false
 }) => {
 	const filteredItems = items.filter(({displayName, name}) =>
 		(displayName || name)
@@ -69,6 +71,7 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 							onClick={() => onItemClick(item)}
 							onEditClick={() => onEditClick(item)}
 							onOptionsClick={
+								showOptionsCondition(item as Attribute) &&
 								onItemOptionsClick
 									? () =>
 											onItemOptionsClick(

@@ -41,7 +41,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 		>
 			{({handleSubmit, isValid}) => (
 				<Form.Form onSubmit={handleSubmit}>
-					<div className='filter-body'>
+					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Input
@@ -57,7 +57,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 						</Form.Group>
 					</div>
 
-					<div className='filter-footer'>
+					<div className='options-footer'>
 						<Button
 							block
 							disabled={!isValid}

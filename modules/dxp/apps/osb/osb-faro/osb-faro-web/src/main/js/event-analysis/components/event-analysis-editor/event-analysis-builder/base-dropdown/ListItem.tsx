@@ -1,11 +1,12 @@
 import Button from 'shared/components/Button';
 import ClayDropdown from '@clayui/drop-down';
 import getCN from 'classnames';
+import Icon from 'shared/components/Icon';
 import InfoCardPopover from '../InfoCardPopover';
 import Overlay from 'shared/components/Overlay';
 import React, {useRef} from 'react';
 import {Attribute, Event} from 'event-analysis/utils/types';
-import {isAttribute} from 'event-analysis/utils/utils';
+import {DATA_TYPE_ICONS_MAP, isAttribute} from 'event-analysis/utils/utils';
 
 interface IListItemProps {
 	active?: boolean;
@@ -44,6 +45,7 @@ const ListItem: React.FC<IListItemProps> = ({
 				key={id}
 			>
 				<Button
+					block
 					className='dropdown-item-primary-button'
 					disabled={disabled}
 					display='unstyled'
@@ -55,6 +57,18 @@ const ListItem: React.FC<IListItemProps> = ({
 						onClick();
 					}}
 				>
+					{isAttribute(item as Attribute) && (
+						<div className='sticker'>
+							<Icon
+								symbol={
+									DATA_TYPE_ICONS_MAP[
+										(item as Attribute).dataType
+									]
+								}
+							/>
+						</div>
+					)}
+
 					{displayName || name}
 				</Button>
 
