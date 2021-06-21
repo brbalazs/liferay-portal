@@ -96,7 +96,7 @@ exports[`WithBaseEdit should render the wrapped component 1`] = `
               <span
                 class="label-item"
               >
-                DYNAMIC Segment
+                Dynamic Segment
               </span>
             </div>
           </span>
