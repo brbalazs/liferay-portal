@@ -8,7 +8,7 @@ exports[`BaseDropdownListItem should render 1`] = `
       class="dropdown-item d-flex justify-content-between"
     >
       <button
-        class="button-root btn btn-unstyled dropdown-item-primary-button"
+        class="button-root btn btn-unstyled dropdown-item-primary-button btn-block"
         type="button"
       >
         Test Display Name

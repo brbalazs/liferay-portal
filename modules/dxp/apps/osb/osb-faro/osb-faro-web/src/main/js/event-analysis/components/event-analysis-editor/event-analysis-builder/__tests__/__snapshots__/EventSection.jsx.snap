@@ -3,7 +3,7 @@
 exports[`EventSection render 1`] = `
 <div>
   <div
-    class="event-section-root"
+    class="event-section-root d-flex align-items-center"
   >
     <div
       class="section-header"
@@ -11,8 +11,11 @@ exports[`EventSection render 1`] = `
       Analyze
     </div>
     <div
-      class="event-list"
+      class="event-container d-flex justify-content-between"
     >
+      <div
+        class="event-list"
+      />
       <div
         class="dropdown"
       >
@@ -38,7 +41,7 @@ exports[`EventSection render 1`] = `
 exports[`EventSection render with event 1`] = `
 <div>
   <div
-    class="event-section-root"
+    class="event-section-root d-flex align-items-center"
   >
     <div
       class="section-header"
@@ -46,33 +49,37 @@ exports[`EventSection render with event 1`] = `
       Analyze
     </div>
     <div
-      class="event-list"
+      class="event-container d-flex justify-content-between"
     >
       <div
-        class="dropdown"
+        class="event-list"
       >
         <div
-          class="chip-root d-flex align-items-center justify-content-between event-chip-root"
+          class="dropdown"
         >
-          <button
-            class="button-root btn btn-unstyled event-name"
-            type="button"
+          <div
+            class="chip-root d-flex align-items-center justify-content-between event-chip-root"
           >
-            View Article
-          </button>
-          <button
-            class="button-root btn btn-unstyled remove-button"
-            type="button"
-          >
-            <svg
-              class="icon-root lexicon-icon lexicon-icon-times-circle"
-              viewBox=""
+            <button
+              class="button-root btn btn-unstyled event-name"
+              type="button"
             >
-              <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
-              />
-            </svg>
-          </button>
+              View Article
+            </button>
+            <button
+              class="button-root btn btn-unstyled remove-button"
+              type="button"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-times-circle"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>

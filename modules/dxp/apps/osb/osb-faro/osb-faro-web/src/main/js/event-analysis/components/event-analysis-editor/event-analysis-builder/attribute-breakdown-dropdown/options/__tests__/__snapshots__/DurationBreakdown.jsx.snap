@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DurationFilter should render 1`] = `
+exports[`DurationBreakdown should render 1`] = `
 <div>
   <form
     class="form-root"
@@ -19,52 +19,21 @@ exports[`DurationFilter should render 1`] = `
           >
             <label
               class="form-control-label label-root"
-              for="operator"
+              for="bin"
             >
               <span
                 class="content-container"
               >
-                Condition
+                Group Duration By
               </span>
             </label>
-            <select
-              class="form-control select-root"
-              id="operator"
-              name="operator"
-            >
-              <option
-                class=""
-                value="gt"
-              >
-                is greater than
-              </option>
-              <option
-                class=""
-                value="lt"
-              >
-                is less than
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div
-        class="form-group form-group-autofit"
-      >
-        <div
-          class="form-group-item"
-        >
-          <div
-            class=""
-          >
             <input
-              autocomplete="off"
               class="input-root form-control"
-              id="value"
-              name="value"
+              id="bin"
+              name="bin"
               placeholder="HH:MM:SS"
               type="string"
-              value=""
+              value="00:01:00"
             />
           </div>
         </div>
@@ -75,7 +44,6 @@ exports[`DurationFilter should render 1`] = `
     >
       <button
         class="button-root btn btn-primary btn-block"
-        disabled=""
         type="submit"
       >
         Done

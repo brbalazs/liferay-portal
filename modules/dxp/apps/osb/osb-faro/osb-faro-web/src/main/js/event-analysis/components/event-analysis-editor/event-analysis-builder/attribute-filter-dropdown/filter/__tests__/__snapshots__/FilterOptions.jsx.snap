@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AttributeFilter should render 1`] = `
+exports[`FilterOptions should render 1`] = `
 <div>
   <div
-    class="attribute-filter"
+    class="attribute-options"
   >
     <div
-      class="filter-header"
+      class="options-header"
     >
       <button
         class="button-root btn btn-unstyled back-to-attributes-button btn-sm"
@@ -62,7 +62,7 @@ exports[`AttributeFilter should render 1`] = `
       class="form-root"
     >
       <div
-        class="filter-body"
+        class="options-body"
       >
         <div
           class="form-group form-group-autofit"
@@ -137,7 +137,7 @@ exports[`AttributeFilter should render 1`] = `
         </div>
       </div>
       <div
-        class="filter-footer"
+        class="options-footer"
       >
         <button
           class="button-root btn btn-primary btn-block"

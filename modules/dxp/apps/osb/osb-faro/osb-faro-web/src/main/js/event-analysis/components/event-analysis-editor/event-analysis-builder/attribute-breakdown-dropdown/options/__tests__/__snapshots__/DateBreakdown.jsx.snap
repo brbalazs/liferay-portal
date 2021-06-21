@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StringFilter should render 1`] = `
+exports[`DateBreakdown should render 1`] = `
 <div>
   <form
     class="form-root"
@@ -19,63 +19,39 @@ exports[`StringFilter should render 1`] = `
           >
             <label
               class="form-control-label label-root"
-              for="operator"
+              for="dateGrouping"
             >
               <span
                 class="content-container"
               >
-                Condition
+                Group Dates By
               </span>
             </label>
             <select
               class="form-control select-root"
-              id="operator"
-              name="operator"
+              id="dateGrouping"
+              name="dateGrouping"
+              type="string"
             >
               <option
                 class=""
-                value="contains"
+                value="dates"
               >
-                contains
+                Date
               </option>
               <option
                 class=""
-                value="not-contains"
+                value="months"
               >
-                not contains
+                Month
               </option>
               <option
                 class=""
-                value="eq"
+                value="years"
               >
-                is
-              </option>
-              <option
-                class=""
-                value="ne"
-              >
-                is not
+                Year
               </option>
             </select>
-          </div>
-        </div>
-      </div>
-      <div
-        class="form-group form-group-autofit"
-      >
-        <div
-          class="form-group-item"
-        >
-          <div
-            class=""
-          >
-            <input
-              class="input-root form-control"
-              id="value"
-              name="value"
-              type="text"
-              value=""
-            />
           </div>
         </div>
       </div>
@@ -85,7 +61,6 @@ exports[`StringFilter should render 1`] = `
     >
       <button
         class="button-root btn btn-primary btn-block"
-        disabled=""
         type="submit"
       >
         Done

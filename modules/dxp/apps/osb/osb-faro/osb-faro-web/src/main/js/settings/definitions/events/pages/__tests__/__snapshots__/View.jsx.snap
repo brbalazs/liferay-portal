@@ -248,7 +248,7 @@ exports[`Event View page should render 1`] = `
                     <span
                       class="label-item"
                     >
-                      string
+                      STRING
                     </span>
                   </div>
                 </td>

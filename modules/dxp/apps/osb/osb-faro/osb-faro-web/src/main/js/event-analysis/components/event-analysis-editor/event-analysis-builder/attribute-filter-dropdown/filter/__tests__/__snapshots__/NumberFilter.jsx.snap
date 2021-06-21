@@ -6,37 +6,8 @@ exports[`NumberFilter should render 1`] = `
     class="form-root"
   >
     <div
-      class="filter-body"
+      class="options-body"
     >
-      <div
-        class="form-group form-group-autofit"
-      >
-        <div
-          class="form-group-item"
-        >
-          <div
-            class=""
-          >
-            <label
-              class="form-control-label label-root"
-              for="bin"
-            >
-              <span
-                class="content-container"
-              >
-                Group Numbers By
-              </span>
-            </label>
-            <input
-              class="input-root form-control"
-              id="bin"
-              name="bin"
-              type="number"
-              value="10"
-            />
-          </div>
-        </div>
-      </div>
       <div
         class="form-group form-group-autofit"
       >
@@ -104,7 +75,7 @@ exports[`NumberFilter should render 1`] = `
       </div>
     </div>
     <div
-      class="filter-footer"
+      class="options-footer"
     >
       <button
         class="button-root btn btn-primary btn-block"

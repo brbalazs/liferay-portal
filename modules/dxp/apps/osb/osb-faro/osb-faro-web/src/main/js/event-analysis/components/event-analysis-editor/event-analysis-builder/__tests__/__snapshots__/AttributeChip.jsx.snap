@@ -3,69 +3,65 @@
 exports[`AttributeChip render 1`] = `
 <div>
   <div
-    class="dropdown"
+    class="attribute-chip-container"
   >
     <div
-      class="attribute-chip-container"
+      class="chip-root d-flex align-items-center justify-content-between attribute-chip-root"
     >
       <div
-        class="chip-root d-flex align-items-center justify-content-between attribute-chip-root"
+        class="drag-handle"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-drag"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+          />
+        </svg>
+      </div>
+      <button
+        class="button-root btn btn-unstyled edit-attribute-button d-flex"
+        type="button"
       >
         <div
-          class="drag-handle"
+          class="sticker"
         >
           <svg
-            class="icon-root lexicon-icon lexicon-icon-drag"
+            class="icon-root lexicon-icon lexicon-icon-text"
             viewBox=""
           >
             <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
             />
           </svg>
         </div>
-        <button
-          class="button-root btn btn-unstyled edit-attribute-button d-flex"
-          type="button"
-        >
+        <div>
           <div
-            class="sticker"
+            class="attribute-label"
           >
-            <svg
-              class="icon-root lexicon-icon lexicon-icon-text"
-              viewBox=""
-            >
-              <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
-              />
-            </svg>
+            Event
           </div>
-          <div>
-            <div
-              class="attribute-label"
-            >
-              Event | Article View
-            </div>
-            <div
-              class="attribute-value"
-            >
-              is "Stuff"
-            </div>
+          <div
+            class="attribute-value"
+          >
+            Article Title
           </div>
-        </button>
-        <button
-          class="button-root btn btn-unstyled remove-button"
-          type="button"
+        </div>
+      </button>
+      <button
+        class="button-root btn btn-unstyled remove-button"
+        type="button"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-times-circle"
+          viewBox=""
         >
-          <svg
-            class="icon-root lexicon-icon lexicon-icon-times-circle"
-            viewBox=""
-          >
-            <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
-            />
-          </svg>
-        </button>
-      </div>
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+          />
+        </svg>
+      </button>
     </div>
   </div>
 </div>

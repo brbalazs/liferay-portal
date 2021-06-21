@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BooleanFilter should render 1`] = `
+exports[`NumberBreakdown should render 1`] = `
 <div>
   <form
     class="form-root"
@@ -19,32 +19,21 @@ exports[`BooleanFilter should render 1`] = `
           >
             <label
               class="form-control-label label-root"
-              for="value"
+              for="bin"
             >
               <span
                 class="content-container"
               >
-                Condition
+                Group Numbers By
               </span>
             </label>
-            <select
-              class="form-control select-root"
-              id="value"
-              name="value"
-            >
-              <option
-                class=""
-                value="true"
-              >
-                True
-              </option>
-              <option
-                class=""
-                value="false"
-              >
-                False
-              </option>
-            </select>
+            <input
+              class="input-root form-control"
+              id="bin"
+              name="bin"
+              type="number"
+              value="10"
+            />
           </div>
         </div>
       </div>

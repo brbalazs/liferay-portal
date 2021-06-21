@@ -168,7 +168,7 @@ exports[`EventDetailsCard should render 1`] = `
                 <span
                   class="label-item"
                 >
-                  string
+                  STRING
                 </span>
               </div>
             </td>
@@ -237,7 +237,7 @@ exports[`EventDetailsCard should render 1`] = `
                 <span
                   class="label-item"
                 >
-                  string
+                  STRING
                 </span>
               </div>
             </td>
@@ -306,7 +306,7 @@ exports[`EventDetailsCard should render 1`] = `
                 <span
                   class="label-item"
                 >
-                  string
+                  STRING
                 </span>
               </div>
             </td>
@@ -375,7 +375,7 @@ exports[`EventDetailsCard should render 1`] = `
                 <span
                   class="label-item"
                 >
-                  string
+                  STRING
                 </span>
               </div>
             </td>
@@ -444,7 +444,7 @@ exports[`EventDetailsCard should render 1`] = `
                 <span
                   class="label-item"
                 >
-                  string
+                  STRING
                 </span>
               </div>
             </td>

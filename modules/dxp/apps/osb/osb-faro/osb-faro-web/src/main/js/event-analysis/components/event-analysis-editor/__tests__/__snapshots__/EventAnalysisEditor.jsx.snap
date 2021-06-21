@@ -6,10 +6,10 @@ exports[`Event Analysis Editor render 1`] = `
     class="card card-root event-analysis-editor-root"
   >
     <div
-      class="event-analysis-builder-root d-flex"
+      class="event-analysis-builder-root d-flex flex-column"
     >
       <div
-        class="event-section-root"
+        class="event-section-root d-flex align-items-center"
       >
         <div
           class="section-header"
@@ -17,8 +17,11 @@ exports[`Event Analysis Editor render 1`] = `
           Analyze
         </div>
         <div
-          class="event-list"
+          class="event-container d-flex justify-content-between"
         >
+          <div
+            class="event-list"
+          />
           <div
             class="dropdown"
           >
@@ -36,6 +39,24 @@ exports[`Event Analysis Editor render 1`] = `
               </svg>
             </button>
           </div>
+        </div>
+      </div>
+      <div
+        class="attribute-breakdown-section-root d-flex align-items-center"
+      >
+        <div
+          class="section-header"
+        >
+          Breakdown
+        </div>
+      </div>
+      <div
+        class="attribute-filter-section-root d-flex align-items-center"
+      >
+        <div
+          class="section-header"
+        >
+          Filter
         </div>
       </div>
     </div>

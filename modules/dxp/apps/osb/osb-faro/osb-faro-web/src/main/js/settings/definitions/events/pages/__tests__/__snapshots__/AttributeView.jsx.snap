@@ -86,7 +86,7 @@ exports[`AttributeView should render 1`] = `
             <span
               class="label-item"
             >
-              string
+              STRING
             </span>
           </div>
         </div>

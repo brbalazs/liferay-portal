@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AttributeFilterDropdown render 1`] = `
+exports[`AttributeBreakdownDropdown render 1`] = `
 <div>
   <div
     class="dropdown"
@@ -16,7 +16,7 @@ exports[`AttributeFilterDropdown render 1`] = `
 </div>
 `;
 
-exports[`AttributeFilterDropdown render 2`] = `
+exports[`AttributeBreakdownDropdown render 2`] = `
 <div
   class="dropdown-menu base-dropdown-menu-root event-analysis-editor-attribute-dropdown-root show"
   style="left: -995px; top: -999px;"
