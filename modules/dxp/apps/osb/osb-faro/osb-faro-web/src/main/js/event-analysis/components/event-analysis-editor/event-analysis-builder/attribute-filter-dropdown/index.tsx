@@ -7,6 +7,7 @@ import EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import FilterOptions from './filter';
+import getCN from 'classnames';
 import React, {useState} from 'react';
 import {Align} from '@clayui/drop-down';
 import {
@@ -88,7 +89,11 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 			trigger={trigger}
 		>
 			{({setActive}) => (
-				<TransitionGroup className='transition-carousel-group'>
+				<TransitionGroup
+					className={getCN('transition-carousel-group', {
+						'show-overflow': selectedAttribute
+					})}
+				>
 					{!selectedAttribute && (
 						<CSSTransition
 							classNames='transition-attribute-carousel-right'
