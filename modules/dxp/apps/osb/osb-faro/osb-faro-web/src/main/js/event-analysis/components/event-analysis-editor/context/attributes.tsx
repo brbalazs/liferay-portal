@@ -161,9 +161,9 @@ const actionHandlers = {
 		attributes: breakdowns[attributeId]
 			? attributes
 			: deletePropertyFromObject(attributeId, attributes),
-		breakdownOrder: breakdownOrder.filter(id => id !== attributeId),
+		breakdownOrder,
 		breakdowns,
-		filterOrder,
+		filterOrder: filterOrder.filter(id => id !== attributeId),
 		filters: deletePropertyFromObject(attributeId, filters)
 	}),
 	[ActionTypes.EditBreakdown]: (

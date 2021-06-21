@@ -16,13 +16,12 @@ describe('BaseDropdownListItem', () => {
 				}}
 				onClick={jest.fn()}
 				onEditClick={jest.fn()}
-				onOptionsClick={jest.fn()}
 			/>
 		);
 
 		expect(container.querySelector('.active')).toBeNull();
 		expect(container.querySelector('.disabled')).toBeNull();
-		expect(container.querySelector('.filter-button')).toBeNull();
+		expect(container.querySelector('.options-button')).toBeNull();
 		expect(container).toMatchSnapshot();
 	});
 
@@ -41,7 +40,7 @@ describe('BaseDropdownListItem', () => {
 			/>
 		);
 
-		expect(container.querySelector('.filter-button')).toBeTruthy();
+		expect(container.querySelector('.options-button')).toBeTruthy();
 	});
 
 	it('should render as disabled', () => {

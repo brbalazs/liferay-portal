@@ -43,6 +43,7 @@ const initialAttributes = {
 			name: 'booleanName'
 		}
 	},
+	breakdownOrder: ['1'],
 	breakdowns: {
 		1: {
 			attributeId: '1',
@@ -56,8 +57,7 @@ const initialAttributes = {
 			operator: 'eq',
 			value: ['true']
 		}
-	},
-	order: ['1']
+	}
 };
 
 jest.unmock('react-dom');

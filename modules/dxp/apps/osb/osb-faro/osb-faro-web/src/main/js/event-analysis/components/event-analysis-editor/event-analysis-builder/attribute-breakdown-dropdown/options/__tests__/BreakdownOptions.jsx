@@ -1,7 +1,7 @@
 import FilterOptions from '../index';
 import React from 'react';
 import {render} from '@testing-library/react';
-import {withAttributesProvider} from '../../../../context/attributes';
+import {withAttributesProvider} from 'event-analysis/components/event-analysis-editor/context/attributes';
 
 jest.unmock('react-dom');
 
@@ -12,7 +12,7 @@ describe('FilterOptions', () => {
 		const {container} = render(
 			<WrappedFilterOptions
 				attribute={{
-					dataType: 'STRING',
+					dataType: 'DATE',
 					displayName: 'Filed Ticket',
 					id: '4',
 					name: 'filedTicket'

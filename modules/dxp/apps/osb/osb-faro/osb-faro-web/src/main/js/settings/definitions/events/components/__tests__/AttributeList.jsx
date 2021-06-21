@@ -51,6 +51,6 @@ describe('AttributeList', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('string').parentElement).toHaveClass('label-info');
+		expect(getByText('STRING').parentElement).toHaveClass('label-info');
 	});
 });
