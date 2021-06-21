@@ -15,7 +15,6 @@ import {PropTypes} from 'prop-types';
 import {Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
 import {SegmentTypes} from 'shared/util/constants';
-import {sub} from 'shared/util/lang';
 
 export default WrappedComponent => {
 	class BaseEdit extends React.Component {
@@ -114,11 +113,9 @@ export default WrappedComponent => {
 		getPageTitleLabel() {
 			const {type} = this.props;
 
-			return sub(Liferay.Language.get('x-segment'), [
-				type === SegmentTypes.Static
-					? SegmentTypes.Static
-					: SegmentTypes.Dynamic
-			]);
+			return type === SegmentTypes.Static
+				? Liferay.Language.get('static-segment')
+				: Liferay.Language.get('dynamic-segment');
 		}
 
 		@autobind
