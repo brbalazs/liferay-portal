@@ -84,7 +84,7 @@ describe('Edit', () => {
 		await waitForElementToBeRemoved(() =>
 			container.querySelector('.loading-root')
 		).then(() => {
-			expect(getByText('DYNAMIC Segment')).toBeTruthy();
+			expect(getByText('Dynamic Segment')).toBeTruthy();
 		});
 	});
 
@@ -95,6 +95,6 @@ describe('Edit', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('STATIC Segment')).toBeTruthy();
+		expect(getByText('Static Segment')).toBeTruthy();
 	});
 });
