@@ -207,25 +207,7 @@ export const getFilterDisplay = (
 	return displayFn(attribute, filter);
 };
 
-// export const getBreakdownDisplay = (
-// 	attribute: Attribute,
-// 	breakdown: Breakdown,
-// 	filter: Filter
-// ): [string, string] => {
-// 	let displayFn: (
-// 		attribute: Attribute,
-// 		breakdown: Breakdown,
-// 		filter?: Filter
-// 	) => [string, string] = getBreakdownDisplay;
-
-// 	if (filter) {
-// 		displayFn = BREAKDOWN_DISPLAY_MAP[breakdown.dataType];
-// 	}
-
-// 	return displayFn(attribute, breakdown, filter);
-// };
-
-export const isAttribute = (item: Attribute | Event): item is Attribute =>
+export const isAttribute = (item: Attribute | Event): boolean =>
 	(item as Attribute).dataType !== undefined;
 
 export const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({

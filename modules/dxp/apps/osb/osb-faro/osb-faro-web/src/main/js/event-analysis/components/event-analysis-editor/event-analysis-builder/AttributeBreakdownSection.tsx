@@ -28,7 +28,7 @@ interface IAttributeBreakdownSectionProps {
 	moveBreakdown: MoveBreakdown;
 }
 
-const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps> = ({
+export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps> = ({
 	addBreakdown,
 	attributes,
 	breakdownOrder,
@@ -75,6 +75,7 @@ const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps> = ({
 				</DndProvider>
 
 				<div>
+					{' '}
 					{breakdownOrder.length < MAX_ATTRIBUTES && (
 						<AttributeBreakdownDropdown
 							alignmentPosition={Align.LeftTop}

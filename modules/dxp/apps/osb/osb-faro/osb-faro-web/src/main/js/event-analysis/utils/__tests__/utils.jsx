@@ -7,38 +7,160 @@ import {
 } from '../types';
 
 describe('utils', () => {
-	describe('getBreakdownDisplay', () => {
+	describe('getFilterDisplay', () => {
 		it.each`
-			dataType              | type                              | operator                 | value                           | result                                                    | dateGrouping            | bin
-			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[true]}                       | ${['Account | Test', 'True']}                             | ${null}                 | ${null}
-			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[false]}                      | ${['Account | Test', 'False']}                            | ${null}                 | ${null}
-			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.Between}     | ${['2021-01-20', '2021-01-24']} | ${['Event | Test', 'Month, Jan 20, 2021 - Jan 24, 2021']} | ${DateGroupings.Months} | ${null}
-			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.Between}     | ${['2021-01-20', '2021-01-24']} | ${['Event | Test', 'Year, Jan 20, 2021 - Jan 24, 2021']}  | ${DateGroupings.Years}  | ${null}
-			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.EQ}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, = Jan 20, 2021']}               | ${DateGroupings.Dates}  | ${null}
-			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.GT}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, after Jan 20, 2021']}           | ${DateGroupings.Dates}  | ${null}
-			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.LT}          | ${['2021-01-20']}               | ${['Event | Test', 'Date, before Jan 20, 2021']}          | ${DateGroupings.Dates}  | ${null}
-			${DataTypes.Duration} | ${AttributeOwnerTypes.Session}    | ${Operators.GT}          | ${[123123]}                     | ${['Session | Test', '00:01:00, > 00:02:03']}             | ${null}                 | ${60000}
-			${DataTypes.Duration} | ${AttributeOwnerTypes.Session}    | ${Operators.LT}          | ${[123123123]}                  | ${['Session | Test', '00:01:00, < 34:12:03']}             | ${null}                 | ${60000}
-			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.Between}     | ${[120, 200]}                   | ${['Individual | Test', '10, 120 - 200']}                 | ${null}                 | ${10}
-			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.GT}          | ${[120]}                        | ${['Individual | Test', '10, > 120']}                     | ${null}                 | ${10}
-			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.LT}          | ${[120]}                        | ${['Individual | Test', '10, < 120']}                     | ${null}                 | ${10}
-			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.Contains}    | ${['Hello World']}              | ${['Event | Test', 'contains "Hello World"']}             | ${null}                 | ${null}
-			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.NotContains} | ${['Hello World']}              | ${['Event | Test', 'not contains "Hello World"']}         | ${null}                 | ${null}
-			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.EQ}          | ${['Hello World']}              | ${['Event | Test', 'is "Hello World"']}                   | ${null}                 | ${null}
-			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.NE}          | ${['Hello World']}              | ${['Event | Test', 'is not "Hello World"']}               | ${null}                 | ${null}
+			dataType              | type                              | operator                 | value                           | result
+			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[true]}                       | ${['Account | Test', 'True']}
+			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[false]}                      | ${['Account | Test', 'False']}
+			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.Between}     | ${['2021-01-20', '2021-01-24']} | ${['Event | Test', 'Jan 20, 2021 - Jan 24, 2021']}
+			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.Between}     | ${['2021-01-20', '2021-01-24']} | ${['Event | Test', 'Jan 20, 2021 - Jan 24, 2021']}
+			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.EQ}          | ${['2021-01-20']}               | ${['Event | Test', '= Jan 20, 2021']}
+			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.GT}          | ${['2021-01-20']}               | ${['Event | Test', 'after Jan 20, 2021']}
+			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.LT}          | ${['2021-01-20']}               | ${['Event | Test', 'before Jan 20, 2021']}
+			${DataTypes.Duration} | ${AttributeOwnerTypes.Session}    | ${Operators.GT}          | ${[123123]}                     | ${['Session | Test', '> 00:02:03']}
+			${DataTypes.Duration} | ${AttributeOwnerTypes.Session}    | ${Operators.LT}          | ${[123123123]}                  | ${['Session | Test', '< 34:12:03']}
+			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.Between}     | ${[120, 200]}                   | ${['Individual | Test', '120 - 200']}
+			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.GT}          | ${[120]}                        | ${['Individual | Test', '> 120']}
+			${DataTypes.Number}   | ${AttributeOwnerTypes.Individual} | ${Operators.LT}          | ${[120]}                        | ${['Individual | Test', '< 120']}
+			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.Contains}    | ${['Hello World']}              | ${['Event | Test', 'contains "Hello World"']}
+			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.NotContains} | ${['Hello World']}              | ${['Event | Test', 'not contains "Hello World"']}
+			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.EQ}          | ${['Hello World']}              | ${['Event | Test', 'is "Hello World"']}
+			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.NE}          | ${['Hello World']}              | ${['Event | Test', 'is not "Hello World"']}
 		`(
-			'returns $result for $dataType, $type, $operator, $value, $dateGrouping, $bin',
-			({bin, dataType, dateGrouping, operator, result, type, value}) => {
+			'returns $result for $dataType, $type, $operator, $value',
+			({dataType, operator, result, type, value}) => {
 				expect(
-					utils.getBreakdownDisplay(
+					utils.getFilterDisplay(
 						{
 							displayName: 'Test'
 						},
-						{bin, dataType, dateGrouping, type},
-						{operator, value}
+						{dataType, operator, type, value}
 					)
 				).toEqual(result);
 			}
 		);
+	});
+
+	describe('getBreakdownDisplay', () => {
+		it.each`
+			type                              | result
+			${AttributeOwnerTypes.Account}    | ${['Account', 'Test']}
+			${AttributeOwnerTypes.Event}      | ${['Event', 'Test']}
+			${AttributeOwnerTypes.Session}    | ${['Session', 'Test']}
+			${AttributeOwnerTypes.Individual} | ${['Individual', 'Test']}
+		`('returns $result for attributeOwnerType $type', ({result, type}) => {
+			expect(
+				utils.getBreakdownDisplay(
+					{
+						displayName: 'Test'
+					},
+					type
+				)
+			).toEqual(result);
+		});
+	});
+
+	describe('isAttribute', () => {
+		it('returns true when item is an attribute', () => {
+			expect(
+				utils.isAttribute({
+					dataType: 'STRING',
+					name: 'Test'
+				})
+			).toBeTruthy();
+		});
+
+		it('returns false when item is not an attribute', () => {
+			expect(
+				utils.isAttribute({
+					name: 'Test'
+				})
+			).toBeFalse();
+		});
+	});
+
+	describe('createBooleanBreakdown', () => {
+		it('returns a boolean breakdown', () => {
+			const attributeId = '123';
+			const type = AttributeOwnerTypes.Event;
+
+			expect(
+				utils.createBooleanBreakdown({
+					attributeId,
+					type
+				})
+			).toEqual({attributeId, dataType: DataTypes.Boolean, type});
+		});
+	});
+
+	describe('createDateBreakdown', () => {
+		it('returns a date breakdown', () => {
+			const attributeId = '123';
+			const type = AttributeOwnerTypes.Event;
+
+			expect(
+				utils.createDateBreakdown({
+					attributeId,
+					type
+				})
+			).toEqual({
+				attributeId,
+				dataType: DataTypes.Date,
+				dateGrouping: DateGroupings.Months,
+				type
+			});
+		});
+	});
+
+	describe('createDurationBreakdown', () => {
+		it('returns a duration breakdown', () => {
+			const attributeId = '123';
+			const type = AttributeOwnerTypes.Event;
+
+			expect(
+				utils.createDurationBreakdown({
+					attributeId,
+					type
+				})
+			).toEqual({
+				attributeId,
+				bin: 60000,
+				dataType: DataTypes.Duration,
+				type
+			});
+		});
+	});
+
+	describe('createNumberBreakdown', () => {
+		it('returns a number breakdown', () => {
+			const attributeId = '123';
+			const type = AttributeOwnerTypes.Event;
+
+			expect(
+				utils.createNumberBreakdown({
+					attributeId,
+					type
+				})
+			).toEqual({
+				attributeId,
+				bin: 10,
+				dataType: DataTypes.Number,
+				type
+			});
+		});
+	});
+
+	describe('createStringBreakdown', () => {
+		it('returns a string breakdown', () => {
+			const attributeId = '123';
+			const type = AttributeOwnerTypes.Event;
+
+			expect(
+				utils.createStringBreakdown({
+					attributeId,
+					type
+				})
+			).toEqual({attributeId, dataType: DataTypes.String, type});
+		});
 	});
 });
