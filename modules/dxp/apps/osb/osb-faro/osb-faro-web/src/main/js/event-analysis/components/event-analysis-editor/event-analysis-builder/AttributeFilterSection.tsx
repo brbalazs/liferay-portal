@@ -3,19 +3,17 @@ import AttributeFilterDropdown from './attribute-filter-dropdown';
 import Button from 'shared/components/Button';
 import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
+import {Align} from '@clayui/drop-down';
+import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {
-	AddFilter,
 	DeleteFilter,
 	EditFilter,
 	MoveFilter,
 	withAttributesConsumer
 } from '../context/attributes';
-import {Align} from '@clayui/drop-down';
-import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
-interface IAttributeSectionProps {
-	addFilter: AddFilter;
+interface IAttributeFilterSectionProps {
 	attributes: Attributes;
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
@@ -27,8 +25,7 @@ interface IAttributeSectionProps {
 	moveFilter: MoveFilter;
 }
 
-const AttributeSection: React.FC<IAttributeSectionProps> = ({
-	addFilter,
+export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 	attributes,
 	deleteFilter,
 	editFilter,
@@ -76,7 +73,6 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 						alignmentPosition={Align.LeftTop}
 						disabledIds={filterOrder}
 						eventId={eventId}
-						onAttributeSelect={addFilter}
 						trigger={
 							<Button
 								borderless
@@ -94,4 +90,4 @@ const AttributeSection: React.FC<IAttributeSectionProps> = ({
 	</div>
 );
 
-export default withAttributesConsumer(AttributeSection);
+export default withAttributesConsumer(AttributeFilterSection);

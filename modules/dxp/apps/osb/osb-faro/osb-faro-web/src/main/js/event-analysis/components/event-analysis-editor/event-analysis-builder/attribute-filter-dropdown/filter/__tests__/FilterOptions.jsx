@@ -1,16 +1,16 @@
-import AttributeFilter from '../index';
+import FilterOptions from '../index';
 import React from 'react';
 import {render} from '@testing-library/react';
 import {withAttributesProvider} from '../../../../context/attributes';
 
 jest.unmock('react-dom');
 
-describe('AttributeFilter', () => {
+describe('FilterOptions', () => {
 	it('should render', () => {
-		const WrappedAttributeFilter = withAttributesProvider(AttributeFilter);
+		const WrappedFilterOptions = withAttributesProvider(FilterOptions);
 
 		const {container} = render(
-			<WrappedAttributeFilter
+			<WrappedFilterOptions
 				attribute={{
 					dataType: 'STRING',
 					displayName: 'Filed Ticket',

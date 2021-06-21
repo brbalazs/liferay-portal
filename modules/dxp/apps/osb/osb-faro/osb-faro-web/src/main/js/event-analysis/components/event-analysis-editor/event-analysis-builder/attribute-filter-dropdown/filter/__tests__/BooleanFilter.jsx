@@ -6,9 +6,7 @@ jest.unmock('react-dom');
 
 describe('BooleanFilter', () => {
 	it('should render', () => {
-		const {container} = render(
-			<BooleanFilter onFilterSubmit={jest.fn()} />
-		);
+		const {container} = render(<BooleanFilter onSubmit={jest.fn()} />);
 
 		expect(container).toMatchSnapshot();
 	});

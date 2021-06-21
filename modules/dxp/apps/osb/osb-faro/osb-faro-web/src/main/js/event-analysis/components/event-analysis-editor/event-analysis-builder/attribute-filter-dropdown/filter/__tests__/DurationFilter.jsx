@@ -6,9 +6,7 @@ jest.unmock('react-dom');
 
 describe('DurationFilter', () => {
 	it('should render', () => {
-		const {container} = render(
-			<DurationFilter onFilterSubmit={jest.fn()} />
-		);
+		const {container} = render(<DurationFilter onSubmit={jest.fn()} />);
 
 		expect(container).toMatchSnapshot();
 	});

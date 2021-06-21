@@ -6,7 +6,7 @@ jest.unmock('react-dom');
 
 describe('StringFilter', () => {
 	it('should render', () => {
-		const {container} = render(<StringFilter onFilterSubmit={jest.fn()} />);
+		const {container} = render(<StringFilter onSubmit={jest.fn()} />);
 
 		expect(container).toMatchSnapshot();
 	});

@@ -17,13 +17,23 @@ describe('AttributeChip', () => {
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
 					<AttributeChipContext
-						dataType='STRING'
-						id='0'
+						attribute={{
+							dataType: 'STRING',
+							displayName: 'Article View',
+							id: '0',
+							name: 'articleView'
+						}}
+						breakdown={{
+							attributeId: '0',
+							dataType: 'STRING',
+							type: 'event'
+						}}
+						filter={{
+							attributeId: '0',
+							operator: 'eq',
+							value: ['Stuff']
+						}}
 						index={1}
-						label='Event'
-						onCloseClick={jest.fn()}
-						onMove={jest.fn()}
-						value='Article Title'
 					/>
 				</Provider>
 			</ApolloProvider>

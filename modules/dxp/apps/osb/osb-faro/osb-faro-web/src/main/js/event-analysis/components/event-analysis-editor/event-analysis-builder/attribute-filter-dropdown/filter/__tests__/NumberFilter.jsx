@@ -6,7 +6,7 @@ jest.unmock('react-dom');
 
 describe('NumberFilter', () => {
 	it('should render', () => {
-		const {container} = render(<NumberFilter onFilterSubmit={jest.fn()} />);
+		const {container} = render(<NumberFilter onSubmit={jest.fn()} />);
 
 		expect(container).toMatchSnapshot();
 	});

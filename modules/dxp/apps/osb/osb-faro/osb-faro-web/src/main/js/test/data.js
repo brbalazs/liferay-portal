@@ -794,7 +794,7 @@ export function mockBlockedCustomEventDefinition(seed = 0, data = {}) {
 
 export function mockEventAttributeDefinition(seed = 0, data = {}) {
 	return {
-		dataType: 'string',
+		dataType: 'STRING',
 		description: null,
 		displayName: `displayName-${seed}`,
 		id: String(seed),

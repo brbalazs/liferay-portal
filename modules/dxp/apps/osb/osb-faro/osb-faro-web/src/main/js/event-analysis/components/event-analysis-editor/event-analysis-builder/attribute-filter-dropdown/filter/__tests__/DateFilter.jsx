@@ -6,7 +6,7 @@ jest.unmock('react-dom');
 
 describe('DateFilter', () => {
 	it('should render', () => {
-		const {container} = render(<DateFilter onFilterSubmit={jest.fn()} />);
+		const {container} = render(<DateFilter onSubmit={jest.fn()} />);
 
 		expect(container).toMatchSnapshot();
 	});

@@ -1,20 +1,20 @@
-import AttributeSection from '../AttributeSection';
 import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {AttributeFilterSection} from '../AttributeFilterSection';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-describe('AttributeSection', () => {
+describe('AttributeFilterSection', () => {
 	const WrappedComponent = props => (
 		<ApolloProvider client={client}>
 			<Provider store={mockStore()}>
-				<AttributeSection
+				<AttributeFilterSection
 					attributes={[]}
-					breakdowns={[]}
+					filterOrder={[]}
 					filters={[]}
 					{...props}
 				/>
@@ -22,46 +22,41 @@ describe('AttributeSection', () => {
 		</ApolloProvider>
 	);
 
-	it('render', () => {
+	it('renders', () => {
 		const {container} = render(<WrappedComponent />);
 
+		expect(container.querySelector('.add-attribute')).toBeNull();
 		expect(container).toMatchSnapshot();
 	});
 
-	it('render with breakdown & filter', () => {
+	it('renders w/ add attribute button', () => {
+		const {container} = render(<WrappedComponent eventId='1' />);
+
+		expect(container.querySelector('.add-attribute')).toBeTruthy();
+	});
+
+	it('renders w/ filter', () => {
 		const {container} = render(
 			<WrappedComponent
-				attributes={[
-					{
-						displayName: 'Article Title',
-						id: '321321',
-						name: 'articleTitle'
-					},
-					{
+				attributes={{
+					123123: {
+						dataType: 'STRING',
 						displayName: 'Job Title',
 						id: '123123',
 						name: 'jobTitle'
 					}
-				]}
-				breakdowns={[
-					{
-						attributeId: '321321',
-						dataType: 'string',
-						type: 'event'
-					},
-					{
+				}}
+				eventId='1'
+				filterOrder={['123123']}
+				filters={{
+					123123: {
 						attributeId: '123123',
-						dataType: 'string',
-						type: 'event'
-					}
-				]}
-				filters={[
-					{
-						attributeId: '123123',
+						dataType: 'STRING',
 						operator: 'eq',
+						type: 'event',
 						value: ['Stuff']
 					}
-				]}
+				}}
 			/>
 		);
 
