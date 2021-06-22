@@ -179,7 +179,7 @@ const actionHandlers = {
 		}: Action
 	): AttributesState => ({
 		attributes: Object.assign(
-			filters[attributeId]
+			filters[oldAttributeId]
 				? attributes
 				: deletePropertyFromObject(oldAttributeId, attributes),
 			{
@@ -211,7 +211,7 @@ const actionHandlers = {
 		{payload: {attribute, attributeId, filter, oldAttributeId} = {}}: Action
 	): AttributesState => ({
 		attributes: Object.assign(
-			breakdowns[attributeId]
+			breakdowns[oldAttributeId]
 				? attributes
 				: deletePropertyFromObject(oldAttributeId, attributes),
 			{
