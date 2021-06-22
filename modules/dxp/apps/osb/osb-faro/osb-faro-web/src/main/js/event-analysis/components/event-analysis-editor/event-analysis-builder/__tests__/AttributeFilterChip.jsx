@@ -1,4 +1,4 @@
-import AttributeChip from '../AttributeChip';
+import AttributeFilterChip from '../AttributeFilterChip';
 import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
@@ -9,28 +9,25 @@ import {wrapInTestContext} from 'react-dnd-test-utils';
 
 jest.unmock('react-dom');
 
-describe('AttributeChip', () => {
-	const AttributeChipContext = wrapInTestContext(AttributeChip);
+describe('AttributeFilterChip', () => {
+	const AttributeFilterChipContext = wrapInTestContext(AttributeFilterChip);
 
 	it('render', () => {
 		const {container} = render(
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
-					<AttributeChipContext
+					<AttributeFilterChipContext
 						attribute={{
 							dataType: 'STRING',
 							displayName: 'Article View',
 							id: '0',
 							name: 'articleView'
 						}}
-						breakdown={{
-							attributeId: '0',
-							dataType: 'STRING',
-							type: 'event'
-						}}
 						filter={{
 							attributeId: '0',
+							dataType: 'STRING',
 							operator: 'eq',
+							type: 'event',
 							value: ['Stuff']
 						}}
 						index={1}

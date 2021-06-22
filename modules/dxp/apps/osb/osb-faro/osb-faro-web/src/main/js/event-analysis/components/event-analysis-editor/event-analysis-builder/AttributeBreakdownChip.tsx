@@ -1,5 +1,5 @@
 import AttributeBreakdownDropdown from './attribute-breakdown-dropdown';
-import AttributeChip from './AttributeChip';
+import AttributeChip, {DragTypes} from './AttributeChip';
 import React from 'react';
 import {Attribute, Breakdown} from 'event-analysis/utils/types';
 import {DeleteBreakdown, EditBreakdown} from '../context/attributes';
@@ -36,6 +36,7 @@ const AttributeFilterChipWrapper: React.FC<{
 			trigger={
 				<AttributeChip
 					dataType={breakdown.dataType}
+					dragType={DragTypes.AttributeBreakdownChip}
 					id={breakdown.attributeId}
 					index={index}
 					label={label}

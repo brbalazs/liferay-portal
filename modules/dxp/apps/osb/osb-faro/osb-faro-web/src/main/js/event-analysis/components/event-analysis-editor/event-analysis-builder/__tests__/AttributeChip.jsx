@@ -1,4 +1,4 @@
-import AttributeChip from '../AttributeChip';
+import AttributeChip, {DragTypes} from '../AttributeChip';
 import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
@@ -18,6 +18,7 @@ describe('AttributeChip', () => {
 				<Provider store={mockStore()}>
 					<AttributeChipContext
 						dataType='STRING'
+						dragType={DragTypes.AttributeBreakdownChip}
 						id='0'
 						index={1}
 						label='Event'

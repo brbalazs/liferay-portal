@@ -1,4 +1,4 @@
-import AttributeChip from './AttributeChip';
+import AttributeChip, {DragTypes} from './AttributeChip';
 import AttributeFilterDropdown from './attribute-filter-dropdown';
 import React from 'react';
 import {Attribute, Filter} from 'event-analysis/utils/types';
@@ -36,6 +36,7 @@ const AttributeFilterChip: React.FC<{
 			trigger={
 				<AttributeChip
 					dataType={filter.dataType}
+					dragType={DragTypes.AttributeFilterChip}
 					id={filter.attributeId}
 					index={index}
 					label={label}
