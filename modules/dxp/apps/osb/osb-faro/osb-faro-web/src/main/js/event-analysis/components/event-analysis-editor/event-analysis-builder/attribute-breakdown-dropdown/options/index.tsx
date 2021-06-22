@@ -1,7 +1,7 @@
 import Button from 'shared/components/Button';
 import DateBreakdown from './DateBreakdown';
 import DurationBreakdown from './DurationBreakdown';
-import FilterInfo from '../../FilterInfo'; // TODO Rename to OptionInfo
+import FilterInfo from '../../FilterInfo';
 import NumberBreakdown from './NumberBreakdown';
 import React from 'react';
 import {

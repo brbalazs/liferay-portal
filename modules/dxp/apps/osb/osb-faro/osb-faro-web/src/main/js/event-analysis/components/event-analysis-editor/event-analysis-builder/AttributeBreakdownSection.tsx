@@ -75,7 +75,6 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 				</DndProvider>
 
 				<div>
-					{' '}
 					{breakdownOrder.length < MAX_ATTRIBUTES && (
 						<AttributeBreakdownDropdown
 							alignmentPosition={Align.LeftTop}
