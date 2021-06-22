@@ -525,7 +525,7 @@ exports[`DataSourceList should render toast for one data source with invalid cre
     <b>
       Liferay1
     </b>
-     has expired. Please contact your oAuth Administrator, 
+     has expired. Please contact your OAuth Administrator, 
     test@liferay.com
     , to reauthorize.
   </div>
