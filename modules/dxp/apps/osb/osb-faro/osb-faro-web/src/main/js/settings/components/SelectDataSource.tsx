@@ -1,6 +1,6 @@
 import Button from 'shared/components/Button';
 import getCN from 'classnames';
-import Icon from 'shared/components/Icon';
+import Icon, {Size} from 'shared/components/Icon';
 import React from 'react';
 
 interface ISelectDataSourceProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -44,7 +44,10 @@ const SelectDataSource: React.FC<ISelectDataSourceProps> = ({
 								onClick={onClick}
 							>
 								<div className='image'>
-									<Icon size={iconSize} symbol={iconName} />
+									<Icon
+										size={iconSize as Size}
+										symbol={iconName}
+									/>
 								</div>
 
 								<div className='details'>
