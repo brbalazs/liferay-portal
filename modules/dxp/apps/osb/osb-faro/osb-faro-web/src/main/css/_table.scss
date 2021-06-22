@@ -19,6 +19,15 @@
 		}
 	}
 
+	.table-cell-secondary {
+		color: $secondary;
+
+		.table-title,
+		.table-title > a {
+			color: $secondary;
+		}
+	}
+
 	td,
 	th {
 		padding: 16px;

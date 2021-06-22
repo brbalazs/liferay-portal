@@ -20,6 +20,7 @@ export interface EventDefinitionsVariables {
 export default gql`
 	query EventDefinitions(
 		$eventType: EventDefinitionType!
+		$hidden: Boolean
 		$keyword: String
 		$page: Int!
 		$size: Int!
@@ -27,6 +28,7 @@ export default gql`
 	) {
 		eventDefinitions(
 			eventType: $eventType
+			hidden: $hidden
 			keyword: $keyword
 			page: $page
 			size: $size
@@ -35,6 +37,7 @@ export default gql`
 			eventDefinitions {
 				description
 				displayName
+				hidden
 				id
 				name
 				type

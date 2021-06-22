@@ -1,4 +1,6 @@
 import Checkbox from 'shared/components/Checkbox';
+import getCN from 'classnames';
+import Icon, {Colors} from 'shared/components/Icon';
 import InfoPopover from 'shared/components/InfoPopover';
 import Label from 'shared/components/Label';
 import moment from 'moment';
@@ -350,19 +352,32 @@ export const detailsListColumns = {
 export const eventListColumns = {
 	description: {
 		accessor: 'description',
+		cellRenderer: ({className, data: {description, hidden}}) => (
+			<td className={getCN(className, {'table-cell-secondary': hidden})}>
+				{description}
+			</td>
+		),
 		className: 'table-cell-expand text-truncate',
 		label: Liferay.Language.get('description'),
 		sortable: false
 	},
 	displayName: {
 		accessor: 'displayName',
+		cellRenderer: ({className, data: {displayName, hidden}}) => (
+			<td className={getCN(className, {'table-cell-secondary': hidden})}>
+				{displayName}
+			</td>
+		),
 		className: 'table-cell-expand-small text-truncate',
 		label: Liferay.Language.get('display-name')
 	},
 	getLastSeenDate: timeZoneId => ({
 		accessor: 'lastSeenDate',
-		cellRenderer: ({data}) => (
+		cellRenderer: ({className, data}) => (
 			<DateCell
+				className={getCN(className, {
+					'table-cell-secondary': data.hidden
+				})}
 				data={data}
 				dateFormatter={date =>
 					formatDateToTimeZone(date, 'll', timeZoneId)
@@ -374,7 +389,15 @@ export const eventListColumns = {
 	}),
 	getName: ({groupId}) => ({
 		accessor: 'name',
-		cellRenderer: NameCell,
+		cellRenderer: ({className, data, ...otherProps}) => (
+			<NameCell
+				{...otherProps}
+				className={getCN(className, {
+					'table-cell-secondary': data.hidden
+				})}
+				data={data}
+			/>
+		),
 		cellRendererProps: {
 			routeFn: ({data: {id}}) =>
 				toRoute(Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW, {
@@ -385,15 +408,36 @@ export const eventListColumns = {
 		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('event-name')
 	}),
+	hidden: {
+		accessor: 'hidden',
+		cellRenderer: ({data: {hidden}}) => (
+			<td>
+				{hidden && <Icon color={Colors.Secondary} symbol='ac-hidden' />}
+			</td>
+		)
+	},
 	lastSeenURL: {
 		accessor: 'lastSeenURL',
+		cellRenderer: ({className, data: {hidden, lastSeenURL}}) => (
+			<td className={getCN(className, {'table-cell-secondary': hidden})}>
+				{lastSeenURL}
+			</td>
+		),
 		className: 'table-cell-expand text-truncate',
 		label: Liferay.Language.get('last-seen-url'),
 		sortable: false
 	},
 	name: {
 		accessor: 'name',
-		cellRenderer: NameCell,
+		cellRenderer: ({className, data, ...otherProps}) => (
+			<NameCell
+				{...otherProps}
+				className={getCN(className, {
+					'table-cell-secondary': data.hidden
+				})}
+				data={data}
+			/>
+		),
 		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('event-name')
 	}

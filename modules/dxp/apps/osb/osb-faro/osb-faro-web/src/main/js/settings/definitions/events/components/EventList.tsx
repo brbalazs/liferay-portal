@@ -68,7 +68,8 @@ const EventList = withBaseResults(withData, {
 	getColumns: ({groupId}) => [
 		eventListColumns.getName({groupId}),
 		eventListColumns.displayName,
-		eventListColumns.description
+		eventListColumns.description,
+		eventListColumns.hidden
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false

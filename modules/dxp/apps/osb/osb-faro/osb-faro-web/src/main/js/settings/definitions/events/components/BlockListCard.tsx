@@ -92,7 +92,8 @@ const BlockListCard = withCrossPageSelect(withData, {
 	getColumns: ({timeZoneId}) => [
 		eventListColumns.name,
 		eventListColumns.lastSeenURL,
-		eventListColumns.getLastSeenDate(timeZoneId)
+		eventListColumns.getLastSeenDate(timeZoneId),
+		eventListColumns.hidden
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false,
