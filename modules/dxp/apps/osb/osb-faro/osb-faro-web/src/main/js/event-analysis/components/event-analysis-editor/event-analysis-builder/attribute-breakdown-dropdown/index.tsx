@@ -57,7 +57,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 	const [query, setQuery] = useState('');
 	const [selectedAttribute, setSelectedAttribute] = useState<Attribute>(
 		breakdown ? attribute : null
-	); // TODO  why do we check for breakdown or filter?
+	);
 
 	const result = useQuery<
 		EventAttributeDefinitionsData,
@@ -132,97 +132,58 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 										eventAttributeDefinitions: {
 											eventAttributeDefinitions: Attribute[];
 										};
-									}) => {
-										// TODO: Remove mock data
-										const attributes = [
-											...eventAttributeDefinitions,
-											{
-												dataType: DataTypes.Number,
-												description: null,
-												displayName: 'Number',
-												id: '20',
-												name: 'Number',
-												sampleValue: null,
-												type: 'LOCAL'
-											},
+									}) => (
+										<BaseDropdown.SearchableList
+											activeId={oldAttributeId}
+											disabledIds={disabledIds}
+											items={eventAttributeDefinitions}
+											onEditClick={(
+												attribute: Attribute
+											) => {
+												open(
+													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+													{
+														id: attribute.id,
+														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+														onCancel: close,
+														query: EventAttributeDefinitionQuery,
+														showTypecast: true
+													}
+												);
 
-											{
-												dataType: DataTypes.Date,
-												description: null,
-												displayName: 'Date',
-												id: '17',
-												name: 'Date',
-												sampleValue: null,
-												type: 'LOCAL'
-											},
-											{
-												dataType: DataTypes.Duration,
-												description: null,
-												displayName: 'Duration',
-												id: '22',
-												name: 'Duration',
-												sampleValue: null,
-												type: 'LOCAL'
-											}
-										];
+												setActive(false);
+											}}
+											onItemClick={(
+												attribute: Attribute
+											) => {
+												const {
+													dataType,
+													id: attributeId
+												} = attribute;
 
-										return (
-											<BaseDropdown.SearchableList
-												activeId={oldAttributeId}
-												disabledIds={disabledIds}
-												items={attributes}
-												onEditClick={(
-													attribute: Attribute
-												) => {
-													open(
-														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-														{
-															id: attribute.id,
-															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
-															query: EventAttributeDefinitionQuery,
-															showTypecast: true
-														}
-													);
+												const breakdownFn =
+													BREAKDOWN_FNS_MAP[dataType];
 
-													setActive(false);
-												}}
-												onItemClick={(
-													attribute: Attribute
-												) => {
-													const {
-														dataType,
-														id: attributeId
-													} = attribute;
-
-													const breakdownFn =
-														BREAKDOWN_FNS_MAP[
-															dataType
-														];
-
-													onAttributeSelect({
-														attribute,
+												onAttributeSelect({
+													attribute,
+													attributeId,
+													breakdown: breakdownFn({
 														attributeId,
-														breakdown: breakdownFn({
-															attributeId,
-															type: attributeOwnerType
-														}),
-														oldAttributeId
-													});
+														type: attributeOwnerType
+													}),
+													oldAttributeId
+												});
 
-													setActive(false);
-												}}
-												onItemOptionsClick={
-													setSelectedAttribute
-												}
-												onQueryChange={setQuery}
-												query={query}
-												showOptionsCondition={
-													hasOptions
-												}
-											/>
-										);
-									}}
+												setActive(false);
+											}}
+											onItemOptionsClick={
+												setSelectedAttribute
+											}
+											onQueryChange={setQuery}
+											query={query}
+											showOptionsCondition={hasOptions}
+										/>
+									)}
 								</SafeResults>
 							</div>
 						</CSSTransition>

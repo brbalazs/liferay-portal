@@ -14,7 +14,6 @@ import {
 	Attribute,
 	AttributeOwnerTypes,
 	AttributeTypes,
-	DataTypes,
 	Filter
 } from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -128,81 +127,36 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 										eventAttributeDefinitions: {
 											eventAttributeDefinitions: Attribute[];
 										};
-									}) => {
-										// TODO: Remove mock data
-										const attributes = [
-											...eventAttributeDefinitions,
-											{
-												dataType: DataTypes.Number,
-												description: null,
-												displayName: 'Number',
-												id: '20',
-												name: 'Number',
-												sampleValue: null,
-												type: 'LOCAL'
-											},
-											{
-												dataType: DataTypes.Boolean,
-												description: null,
-												displayName: 'Is Female',
-												id: '21',
-												name: 'isFemale',
-												sampleValue: null,
-												type: 'LOCAL'
-											},
+									}) => (
+										<BaseDropdown.SearchableList
+											activeId={oldAttributeId}
+											disabledIds={disabledIds}
+											items={eventAttributeDefinitions}
+											onEditClick={(
+												attribute: Attribute
+											) => {
+												open(
+													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+													{
+														id: attribute.id,
+														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+														onCancel: close,
+														query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+														showTypecast: true
+													}
+												);
 
-											{
-												dataType: DataTypes.Date,
-												description: null,
-												displayName: 'Date',
-												id: '17',
-												name: 'Date',
-												sampleValue: null,
-												type: 'LOCAL'
-											},
-											{
-												dataType: DataTypes.Duration,
-												description: null,
-												displayName: 'Duration',
-												id: '22',
-												name: 'Duration',
-												sampleValue: null,
-												type: 'LOCAL'
-											}
-										];
-										return (
-											<BaseDropdown.SearchableList
-												activeId={oldAttributeId}
-												disabledIds={disabledIds}
-												items={attributes}
-												onEditClick={(
-													attribute: Attribute
-												) => {
-													open(
-														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-														{
-															id: attribute.id,
-															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
-															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
-															showTypecast: true
-														}
-													);
-
-													setActive(false);
-												}}
-												onItemClick={(
-													attribute: Attribute
-												) => {
-													setSelectedAttribute(
-														attribute
-													);
-												}}
-												onQueryChange={setQuery}
-												query={query}
-											/>
-										);
-									}}
+												setActive(false);
+											}}
+											onItemClick={(
+												attribute: Attribute
+											) => {
+												setSelectedAttribute(attribute);
+											}}
+											onQueryChange={setQuery}
+											query={query}
+										/>
+									)}
 								</SafeResults>
 							</div>
 						</CSSTransition>
