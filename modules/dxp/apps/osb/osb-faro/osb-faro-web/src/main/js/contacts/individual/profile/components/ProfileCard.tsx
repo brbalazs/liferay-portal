@@ -5,7 +5,7 @@ import Card from 'shared/components/Card';
 import Constants, {EntityTypes} from 'shared/util/constants';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import IntervalSelector from 'shared/components/IntervalSelector';
-import React from 'react';
+import React, {useState} from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import SearchInput from 'shared/components/SearchInput';
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
@@ -99,6 +99,12 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		...statefulPagination
 	} = useStatefulPagination(mapPropsFn);
 	const {hasSelectedPoint, onPointSelect, selectedPoint} = useSelectedPoint();
+	const [searchValue, setSearchValue] = useState<string>('');
+
+	const handleQuery = (query: string) => {
+		setSearchValue(query);
+		setQuery(query);
+	};
 
 	const {data: activityData, error, loading, refetch} = useRequest({
 		dataSourceFn: API.activities.fetchHistory,
@@ -173,7 +179,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		...statefulPagination,
 		onOrderByFieldChange: statefulPagination.setOrderByFields,
 		onOrderByFieldsChange: statefulPagination.setOrderByFields,
-		onSearchValueChange: setQuery,
+		onSearchValueChange: handleQuery,
 		paginationProps: {
 			onDeltaChange: statefulPagination.setDelta,
 			onPageChange: statefulPagination.setPage
@@ -182,7 +188,6 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 			onFilterByChange: statefulPagination.setFilterBy,
 			onOrderByFieldChange: statefulPagination.setOrderByField,
 			onOrderClick: statefulPagination.setOrderBy,
-			onSearchSubmit: setQuery,
 			showSearch: false
 		}
 	};
@@ -204,9 +209,10 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 					<SearchInput
 						autoFocus
 						className='search-input mr-3'
-						onChange={setQuery}
+						onChange={setSearchValue}
+						onSubmit={handleQuery}
 						placeholder={Liferay.Language.get('search')}
-						value={query}
+						value={searchValue}
 					/>
 
 					<IntervalSelector
