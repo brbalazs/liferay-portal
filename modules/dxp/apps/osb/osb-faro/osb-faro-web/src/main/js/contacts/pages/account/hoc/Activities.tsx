@@ -1,6 +1,5 @@
 import ActivitiesWithData from 'contacts/pages/account/Activities';
 import BaseCard from 'cerebro-shared/components/base-card';
-import HeaderCard from 'contacts/components/HeaderCard';
 import React from 'react';
 import {Account} from 'shared/util/records';
 
@@ -14,13 +13,13 @@ interface IActivitiesProps extends React.HTMLAttributes<HTMLElement> {
 const ActivitiesPage: React.FC<IActivitiesProps> = ({tabId, ...props}) => (
 	<BaseCard
 		className='account-activities-card page-display'
-		Header={HeaderCard}
 		headerProps={{
+			showRangeKey: false,
 			tabId
 		}}
 		label={Liferay.Language.get('account-activities')}
 		legacyDropdownRangeKey={false}
-		showInterval
+		showInterval={false}
 	>
 		{({interval, rangeSelectors}) => (
 			<ActivitiesWithData
