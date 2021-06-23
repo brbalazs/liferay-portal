@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Events should render 1`] = `
+exports[`EventAttributes should render 1`] = `
 <div>
   <div
     class="settings-base-page-root"
@@ -30,7 +30,7 @@ exports[`Events should render 1`] = `
         <span
           class="breadcrumb-text-truncate"
         >
-          Events
+          Attributes
         </span>
       </li>
     </ol>
@@ -51,14 +51,14 @@ exports[`Events should render 1`] = `
               data-tooltip="false"
               title=""
             >
-              Events
+              Attributes
             </span>
           </h3>
         </div>
         <div
           class="description"
         >
-          This is the data model of events sent to Analytics Cloud.
+          Attributes provide additional context for events. They are usually event specific, but can be used by more than one. Global attributes will be sent with all events without needing to be configured.
         </div>
       </div>
       <div
@@ -82,14 +82,14 @@ exports[`Events should render 1`] = `
             >
               <a
                 class="nav-link"
-                href="/workspace/23/settings/definitions/events/default"
+                href="/workspace/23/settings/definitions/events-attributes/global-attributes"
                 role="tab"
               >
                 <div
                   class="mb-2"
                 >
                   <b>
-                    Default Events
+                    Global Attributtes
                   </b>
                 </div>
               </a>
@@ -100,14 +100,14 @@ exports[`Events should render 1`] = `
             >
               <a
                 class="nav-link"
-                href="/workspace/23/settings/definitions/events/custom"
+                href="/workspace/23/settings/definitions/events-attributes/attributes"
                 role="tab"
               >
                 <div
                   class="mb-2"
                 >
                   <b>
-                    Custom Events
+                    Attributes
                   </b>
                 </div>
               </a>

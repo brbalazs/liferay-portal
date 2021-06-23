@@ -218,7 +218,7 @@ exports[`Event View page should render 1`] = `
                       >
                         <a
                           class="text-truncate"
-                          href="/workspace/23/settings/definitions/events/attributes/1"
+                          href="/workspace/23/settings/definitions/events-attributes/attributes/1"
                         >
                           name-1
                         </a>

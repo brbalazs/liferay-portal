@@ -138,7 +138,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/0"
+                      href="/workspace/23/settings/definitions/events-attributes/attributes/0"
                     >
                       name-0
                     </a>
@@ -207,7 +207,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/1"
+                      href="/workspace/23/settings/definitions/events-attributes/attributes/1"
                     >
                       name-1
                     </a>
@@ -276,7 +276,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/2"
+                      href="/workspace/23/settings/definitions/events-attributes/attributes/2"
                     >
                       name-2
                     </a>
@@ -345,7 +345,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/3"
+                      href="/workspace/23/settings/definitions/events-attributes/attributes/3"
                     >
                       name-3
                     </a>
@@ -414,7 +414,7 @@ exports[`EventDetailsCard should render 1`] = `
                   >
                     <a
                       class="text-truncate"
-                      href="/workspace/23/settings/definitions/events/attributes/4"
+                      href="/workspace/23/settings/definitions/events-attributes/attributes/4"
                     >
                       name-4
                     </a>

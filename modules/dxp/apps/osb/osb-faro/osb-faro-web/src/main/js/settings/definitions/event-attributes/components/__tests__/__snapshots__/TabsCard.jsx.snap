@@ -18,14 +18,14 @@ exports[`TabsCard should render 1`] = `
         >
           <a
             class="nav-link"
-            href="/workspace/23/settings/definitions/events/default"
+            href="/workspace/23/settings/definitions/events-attributes/global-attributes"
             role="tab"
           >
             <div
               class="mb-2"
             >
               <b>
-                Default Events
+                Global Attributtes
               </b>
             </div>
           </a>
@@ -36,14 +36,14 @@ exports[`TabsCard should render 1`] = `
         >
           <a
             class="nav-link"
-            href="/workspace/23/settings/definitions/events/custom"
+            href="/workspace/23/settings/definitions/events-attributes/attributes"
             role="tab"
           >
             <div
               class="mb-2"
             >
               <b>
-                Custom Events
+                Attributes
               </b>
             </div>
           </a>
