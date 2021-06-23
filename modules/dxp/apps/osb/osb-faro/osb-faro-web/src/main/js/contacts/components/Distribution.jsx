@@ -608,15 +608,11 @@ export class Distribution extends React.Component {
 							>
 								<Form.Form className='chart-options'>
 									<Label>
-										{sub(
-											Liferay.Language.get('breakdown-x'),
-											[
-												hasMultipleContextOptions
-													? ''
-													: Liferay.Language.get('by')
-											],
-											true
-										)}
+										{hasMultipleContextOptions
+											? Liferay.Language.get('breakdown')
+											: Liferay.Language.get(
+													'breakdown-by'
+											  )}
 									</Label>
 
 									<Form.Group autoFit className='mt-2'>

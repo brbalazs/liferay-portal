@@ -712,9 +712,10 @@ export const metricsListColumns = {
 			return (
 				<td>
 					{date
-						? `${date} ${Liferay.Language.get(
-								'by'
-						  )} ${modifiedByUserName}`
+						? sub(Liferay.Language.get('x-last-modified-by-x'), [
+								date,
+								modifiedByUserName
+						  ])
 						: '-'}
 				</td>
 			);

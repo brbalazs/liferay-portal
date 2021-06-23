@@ -81,7 +81,7 @@ const CohortAnalysisCard = () => {
 					</Form.GroupItem>
 
 					<Form.GroupItem label shrink>
-						{Liferay.Language.get('by')}
+						{Liferay.Language.get('broken-down-by')}
 					</Form.GroupItem>
 
 					<Form.GroupItem shrink>
