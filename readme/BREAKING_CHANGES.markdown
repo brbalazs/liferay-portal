@@ -981,7 +981,7 @@ This change was made due to changes resulting from [LPS-76488](https://issues.li
 ---------------------------------------
 
 ### Removed Cache Bootstrap Feature
-- **Date:** 2020-Jan-8
+- **Date:** 2020-Jan-08
 - **JIRA Ticket:** [LPS-96563](https://issues.liferay.com/browse/LPS-96563)
 
 #### What changed?
