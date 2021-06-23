@@ -61,6 +61,13 @@ const items = (devMode: boolean = false): ListItem[] => [
 				route: Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT,
 				title: Liferay.Language.get('events')
 			},
+			devMode && {
+				description: Liferay.Language.get(
+					'view-and-manage-the-data-model-of-your-event-attributes.-event-attributes-provide-additional-context-to-your-events'
+				),
+				route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES_DEFAULT,
+				title: Liferay.Language.get('event-attributes')
+			},
 			{
 				description: Liferay.Language.get(
 					'define-the-search-query-parameters-specific-to-your-properties'
