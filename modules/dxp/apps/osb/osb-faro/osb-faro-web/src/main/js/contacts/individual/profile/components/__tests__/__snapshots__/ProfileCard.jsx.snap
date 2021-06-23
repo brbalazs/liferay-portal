@@ -117,20 +117,7 @@ exports[`IndividualProfileCard should render 1`] = `
     >
       <div
         class="toolbar-root"
-      >
-        <nav
-          class="navbar navbar-root management-bar management-bar-light navbar-expand"
-        >
-          <div
-            class="container-fluid"
-          >
-            <ul
-              class="nav-root front-nav navbar-nav"
-              role="tablist"
-            />
-          </div>
-        </nav>
-      </div>
+      />
       <div
         class="vertical-timeline-root"
       >

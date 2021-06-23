@@ -12,13 +12,16 @@ exports[`IndividualOverview should render 1`] = `
         class="card card-root individual-profile-card-root page-display"
       >
         <div
-          class="card-header"
+          class="card-header align-items-center d-flex justify-content-between"
         >
           <h5
             class="card-title"
           >
             Individual Activities
           </h5>
+          <div
+            class="d-flex"
+          />
         </div>
         <div
           class="card-body"
@@ -135,20 +138,7 @@ exports[`IndividualOverview should render 1`] = `
           >
             <div
               class="toolbar-root"
-            >
-              <nav
-                class="navbar navbar-root management-bar management-bar-light navbar-expand"
-              >
-                <div
-                  class="container-fluid"
-                >
-                  <ul
-                    class="nav-root front-nav navbar-nav"
-                    role="tablist"
-                  />
-                </div>
-              </nav>
-            </div>
+            />
             <div
               class="vertical-timeline-root"
             >
