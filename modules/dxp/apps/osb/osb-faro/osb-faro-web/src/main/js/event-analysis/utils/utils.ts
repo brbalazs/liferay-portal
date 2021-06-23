@@ -275,9 +275,18 @@ export const parserBreakdownData = (
 			...node
 		} = data;
 
+		const currentRowIndex = rows.length - 1;
+
+		if (isLeafCurrentNode && level === 1) {
+			Object.assign(rows[currentRowIndex], {
+				events: [data]
+			});
+
+			return;
+		}
+
 		const isLeafNextNode =
 			nextBreakdownItems.length > 0 && nextBreakdownItems[0].isLeafNode;
-		const currentRowIndex = rows.length - 1;
 
 		Object.assign(rows[currentRowIndex], {
 			[`breakdown${level}`]: {
