@@ -783,6 +783,7 @@ export function mockAddOns() {
 
 export function mockBlockedCustomEventDefinition(seed = 0, data = {}) {
 	return {
+		hidden: false,
 		id: String(seed),
 		lastSeenDate: getISODate(getTimestamp()),
 		lastSeenURL: `https//:www.liferay.com/${seed}`,
@@ -809,6 +810,7 @@ export function mockEventDefinition(seed = 0, data = {}) {
 		description: null,
 		displayName: `displayName-${seed}`,
 		eventAttributeDefinitions: [mockEventAttributeDefinition(1)],
+		hidden: false,
 		id: String(seed),
 		name: `name-${seed}`,
 		type: 'DEFAULT',

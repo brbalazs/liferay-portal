@@ -43,6 +43,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 		{
 			variables: {
 				eventType,
+				hidden: false,
 				keyword: '',
 				page: 0,
 				size: 200,

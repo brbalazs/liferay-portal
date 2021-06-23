@@ -68,6 +68,7 @@ const fetchPropertyGroups = ({
 			query: EventDefinitionsQuery,
 			variables: {
 				eventType: EventTypes.Custom,
+				hidden: false,
 				page: 0,
 				size: MAX_DELTA,
 				sort: {

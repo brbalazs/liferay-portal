@@ -24,7 +24,12 @@ describe('EventDropdown', () => {
 									__typename: 'EventDefinition'
 								})
 							),
-							{eventType: 'ALL', keyword: '', size: 200}
+							{
+								eventType: 'ALL',
+								hidden: false,
+								keyword: '',
+								size: 200
+							}
 						)
 					]}
 				>
