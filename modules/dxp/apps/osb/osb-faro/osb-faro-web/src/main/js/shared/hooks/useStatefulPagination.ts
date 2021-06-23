@@ -1,5 +1,4 @@
 import Constants from 'shared/util/constants';
-import {hasChanges} from 'shared/util/react';
 import {Map} from 'immutable';
 import {NAME} from 'shared/util/pagination';
 import {useReducer} from 'react';
@@ -15,47 +14,38 @@ export enum ActionType {
 	setQuery = 'setQuery'
 }
 
-interface Payload {
-	delta?: number;
-	filterBy?: ReturnType<typeof Map>;
-	orderBy?: string;
-	orderByField?: string;
-	orderByFields?: {
-		fieldName: string;
-		orderBy: string;
-	}[];
-	page?: number;
-	query?: string;
-}
+type OrderByFields = Array<{fieldName: string; orderBy: string}>;
 
-interface statefulPaginationResult extends Payload {
-	resetPage: () => void;
-	setDelta: (Payload) => void;
-	setFilterBy: (Payload) => void;
-	setOrderBy: (Payload) => void;
-	setOrderByField: (Payload) => void;
-	setOrderByFields: (Payload) => void;
-	setPage: (Payload) => void;
-	setQuery: (Payload) => void;
-}
+type FilterBy = ReturnType<typeof Map>;
 
-type Action = {
-	payload?: Payload;
+interface Action {
+	payload?: any;
 	type: ActionType;
-};
+}
 
-type State = {
+interface State {
 	delta: number;
-	filterBy: ReturnType<typeof Map>;
+	filterBy: FilterBy;
 	orderBy: string;
 	orderByField: string;
-	orderByFields: {
-		fieldName: string;
-		orderBy: string;
-	}[];
+	orderByFields: OrderByFields;
 	page: number;
 	query: string;
-};
+}
+
+interface statefulPaginationResult extends State {
+	resetPage: () => void;
+	setDelta: (delta: string) => void;
+	setFilterBy: (filterBy: FilterBy) => void;
+	setOrderBy: () => void;
+	setOrderByField: (orderByField: string) => void;
+	setOrderByFields: (orderByFieldsParam: {
+		orderByFields: OrderByFields;
+		orderParams: {field: string; sortOrder: string};
+	}) => void;
+	setPage: (page: string) => void;
+	setQuery: (query: string) => void;
+}
 
 const {
 	pagination: {
@@ -90,20 +80,47 @@ const statefulPaginationReducer = (state: State, {payload, type}: Action) => {
 				page: DEFAULT_PAGE
 			};
 		case 'setDelta':
+			return {
+				...state,
+				delta: payload,
+				page: DEFAULT_PAGE
+			};
 		case 'setFilterBy':
+			return {
+				...state,
+				filterBy: payload,
+				page: DEFAULT_PAGE
+			};
 		case 'setOrderBy':
+			return {
+				...state,
+				orderBy: payload,
+				page: DEFAULT_PAGE
+			};
 		case 'setOrderByField':
+			return {
+				...state,
+				orderByField: payload,
+				page: DEFAULT_PAGE
+			};
 		case 'setOrderByFields':
+			return {
+				...state,
+				orderBy: payload.orderBy,
+				orderByField: payload.orderByField,
+				orderByFields: payload.orderByFields,
+				page: DEFAULT_PAGE
+			};
 		case 'setQuery':
 			return {
 				...state,
-				...payload,
-				page: DEFAULT_PAGE
+				page: DEFAULT_PAGE,
+				query: payload
 			};
 		case 'setPage':
 			return {
 				...state,
-				...payload
+				page: payload
 			};
 		default:
 			return state;
@@ -145,16 +162,16 @@ export default function useStatefulPagination(
 		});
 	};
 
-	const setDelta = (delta): void => {
+	const setDelta = (delta: string): void => {
 		setState({
-			payload: {delta},
+			payload: delta,
 			type: ActionType.setDelta
 		});
 	};
 
-	const setFilterBy = (filterBy): void => {
+	const setFilterBy = (filterBy: string): void => {
 		setState({
-			payload: {filterBy},
+			payload: filterBy,
 			type: ActionType.setFilterBy
 		});
 	};
@@ -163,58 +180,49 @@ export default function useStatefulPagination(
 		const {orderBy} = state;
 
 		setState({
-			payload: {
-				orderBy:
-					orderBy === orderAscending
-						? orderDescending
-						: orderAscending
-			},
+			payload:
+				orderBy === orderAscending ? orderDescending : orderAscending,
 			type: ActionType.setOrderBy
 		});
 	};
 
 	const setOrderByField = (orderByField): void => {
 		setState({
-			payload: {orderByField},
+			payload: orderByField,
 			type: ActionType.setOrderByField
 		});
 	};
 
-	const setOrderByFields = ({orderByFields, orderParams}): void => {
-		if (
-			hasChanges(
-				state,
-				{
-					orderBy: orderParams.sortOrder,
-					orderByField: orderParams.field,
-					orderByFields
-				},
-				'orderBy',
-				'orderByField',
-				'orderByFields'
-			)
-		) {
-			setState({
-				payload: {
-					orderBy: orderParams.sortOrder,
-					orderByField: orderParams.field,
-					orderByFields
-				},
-				type: ActionType.setOrderByFields
-			});
-		}
+	const setOrderByFields = ({
+		orderByFields,
+		orderParams
+	}: {
+		orderByFields: OrderByFields;
+		orderParams: {
+			field: string;
+			sortOrder: string;
+		};
+	}): void => {
+		setState({
+			payload: {
+				orderBy: orderParams.sortOrder,
+				orderByField: orderParams.field,
+				orderByFields
+			},
+			type: ActionType.setOrderByFields
+		});
 	};
 
-	const setPage = (page): void => {
+	const setPage = (page: string): void => {
 		setState({
-			payload: {page},
+			payload: page,
 			type: ActionType.setPage
 		});
 	};
 
-	const setQuery = (query): void => {
+	const setQuery = (query: string): void => {
 		setState({
-			payload: {query},
+			payload: query,
 			type: ActionType.setQuery
 		});
 	};
