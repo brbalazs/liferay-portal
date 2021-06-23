@@ -2,11 +2,13 @@
 <head>
 <title>IFrame</title>
 </head>
+
 <body>
-<table cellpadding="1" cellspacing="1" border="1">
+<table border="1" cellpadding="1" cellspacing="1">
 <thead>
 <tr><td rowspan="1" colspan="3">IFrame</td></tr>
 </thead>
+
 <tbody>
 <tr>
 	<td>CONFIGURATION</td>
@@ -139,9 +141,9 @@
 	<td></td>
 </tr>
 <tr>
- 	<td>SELECT_USER_SITES</td>
- 	<td>//iframe[contains(@id,'selectSite_iframe_')]</td>
- 	<td></td>
+	<td>SELECT_USER_SITES</td>
+	<td>//iframe[contains(@id,'selectSite_iframe_')]</td>
+	<td></td>
 </tr>
 <tr>
 	<td>SELECT_STRUCTURE_FIELD</td>
