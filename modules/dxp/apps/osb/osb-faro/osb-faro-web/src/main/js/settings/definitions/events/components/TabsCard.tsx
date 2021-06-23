@@ -9,10 +9,6 @@ import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {NotificationSubtypes} from 'shared/util/records/Notification';
 import {Switch} from 'react-router';
 
-const AttributeList = lazy(
-	() => import(/* webpackChunkName: "AttributeList" */ './AttributeList')
-);
-
 const CustomEventList = lazy(
 	() => import(/* webpackChunkName: "CustomEventList" */ './CustomEventList')
 );
@@ -31,11 +27,6 @@ const NAV_ITEMS = [
 		exact: true,
 		label: Liferay.Language.get('custom-events'),
 		route: Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM
-	},
-	{
-		exact: true,
-		label: Liferay.Language.get('attributes'),
-		route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES
 	}
 ];
 
@@ -107,12 +98,6 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 						data={CustomEventList}
 						exact
 						path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
-					/>
-
-					<BundleRouter
-						data={AttributeList}
-						exact
-						path={Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES}
 					/>
 				</Switch>
 			</Suspense>

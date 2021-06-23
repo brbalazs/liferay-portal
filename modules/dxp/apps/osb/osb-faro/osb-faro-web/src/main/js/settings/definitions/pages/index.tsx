@@ -45,6 +45,13 @@ const Events = lazy(
 		)
 );
 
+const EventAttributes = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DefinitionsEvents" */ '../event-attributes/pages/EventAttributes'
+		)
+);
+
 const EventView = lazy(
 	() =>
 		import(
@@ -55,7 +62,7 @@ const EventView = lazy(
 const AttributeView = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DefinitionsAttributeView" */ '../events/pages/AttributeView'
+			/* webpackChunkName: "DefinitionsAttributeView" */ '../event-attributes/pages/AttributeView'
 		)
 );
 
@@ -110,9 +117,18 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				<BundleRouter
 					data={Events}
 					path={[
-						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
 						Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
 						Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
+					]}
+				/>
+			)}
+
+			{DEVELOPER_MODE && (
+				<BundleRouter
+					data={EventAttributes}
+					path={[
+						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
+						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES_DEFAULT
 					]}
 				/>
 			)}

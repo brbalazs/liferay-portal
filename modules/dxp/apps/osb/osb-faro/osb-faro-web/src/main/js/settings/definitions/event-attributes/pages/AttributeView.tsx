@@ -14,7 +14,7 @@ import {Attribute} from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DateCell} from 'shared/components/table/cell-components';
-import {getDefinitions, getEvents} from 'shared/util/breadcrumbs';
+import {getDefinitions, getEventAttributes} from 'shared/util/breadcrumbs';
 import {HasModal, Modal} from 'shared/types';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
@@ -71,7 +71,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 				<BasePage
 					breadcrumbItems={[
 						getDefinitions({groupId}),
-						getEvents({groupId}),
+						getEventAttributes({groupId}),
 						{active: true, label: name}
 					]}
 					groupId={groupId}

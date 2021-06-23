@@ -19,7 +19,7 @@ jest.unmock('react-dom');
 const RenderWithRouter = ({children}) => (
 	<MemoryRouter
 		initialEntries={[
-			'/workspace/23/settings/definitions/events/attributes/0'
+			'/workspace/23/settings/definitions/events-attributes/attributes/0'
 		]}
 	>
 		<Route path={Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW}>
