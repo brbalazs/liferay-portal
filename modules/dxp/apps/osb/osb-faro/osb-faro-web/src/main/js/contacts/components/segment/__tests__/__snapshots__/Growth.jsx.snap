@@ -174,9 +174,7 @@ exports[`SegmentGrowthWithList should render 1`] = `
                   </div>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 -
               </td>
               <td

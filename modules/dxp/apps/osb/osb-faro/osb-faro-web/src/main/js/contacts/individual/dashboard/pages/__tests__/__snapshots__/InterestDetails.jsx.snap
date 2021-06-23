@@ -266,32 +266,32 @@ exports[`Individuals Dashboard Individuals Interest Details renders 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     45
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     243
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     00:00:00
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     23.0%
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     56
                   </td>
                   <td
-                    class=" table-column-text-end"
+                    class="table-column-text-end"
                   >
                     53.00%
                   </td>

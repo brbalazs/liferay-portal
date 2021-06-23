@@ -173,9 +173,7 @@ exports[`Membership should render 1`] = `
                     </div>
                   </div>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   -
                 </td>
                 <td
@@ -452,9 +450,7 @@ exports[`MembershipChart should render 1`] = `
                   </div>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 -
               </td>
               <td

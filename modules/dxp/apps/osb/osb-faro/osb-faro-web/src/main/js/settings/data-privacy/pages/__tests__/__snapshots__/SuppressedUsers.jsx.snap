@@ -175,7 +175,7 @@ exports[`SuppressedUsers should render 1`] = `
                 class="disabled"
               >
                 <td
-                  class=" table-cell-expand"
+                  class="table-cell-expand"
                 >
                   <h4
                     class="table-title text-truncate"
@@ -183,23 +183,17 @@ exports[`SuppressedUsers should render 1`] = `
                     Test@liferay.com
                   </h4>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   123
                 </td>
-                <td
-                  class=""
-                >
+                <td>
+                  Jul 10, 2018
+                </td>
+                <td>
                   Jul 10, 2018
                 </td>
                 <td
-                  class=""
-                >
-                  Jul 10, 2018
-                </td>
-                <td
-                  class=" row-inline-actions"
+                  class="row-inline-actions"
                 >
                   <span />
                 </td>

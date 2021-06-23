@@ -133,6 +133,18 @@ exports[`BlockListCard should render 1`] = `
                 </span>
               </a>
             </th>
+            <th
+              class="table-head-title"
+            >
+              <a
+                class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                href="/?orderBy=asc&orderByField=hidden&page=1"
+              >
+                <span
+                  class="text-truncate"
+                />
+              </a>
+            </th>
             <th />
           </tr>
         </thead>
@@ -140,9 +152,7 @@ exports[`BlockListCard should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -176,15 +186,18 @@ exports[`BlockListCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand text-truncate"
+              class="table-cell-expand text-truncate"
             >
               https//:www.liferay.com/0
             </td>
-            <td>
+            <td
+              class=""
+            >
               Jul 10, 2018
             </td>
+            <td />
             <td
-              class=" row-actions"
+              class="row-actions"
             >
               <span>
                 <div

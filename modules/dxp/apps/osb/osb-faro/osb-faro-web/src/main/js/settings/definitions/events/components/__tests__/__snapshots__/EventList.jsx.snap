@@ -108,6 +108,18 @@ exports[`EventList should render 1`] = `
           >
             Description
           </th>
+          <th
+            class="table-head-title"
+          >
+            <a
+              class="button-root btn btn-unstyled inline-item text-truncate-inline"
+              href="/?orderBy=asc&orderByField=hidden&page=1"
+            >
+              <span
+                class="text-truncate"
+              />
+            </a>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -137,15 +149,14 @@ exports[`EventList should render 1`] = `
             </div>
           </td>
           <td
-            class=" table-cell-expand-small text-truncate"
+            class="table-cell-expand-small text-truncate"
           >
             displayName-0
           </td>
           <td
-            class=" table-cell-expand text-truncate"
-          >
-            -
-          </td>
+            class="table-cell-expand text-truncate"
+          />
+          <td />
         </tr>
       </tbody>
     </table>

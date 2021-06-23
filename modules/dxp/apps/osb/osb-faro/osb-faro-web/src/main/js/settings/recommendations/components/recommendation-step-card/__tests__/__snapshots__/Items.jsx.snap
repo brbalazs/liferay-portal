@@ -87,7 +87,7 @@ exports[`Items should render 1`] = `
                 </button>
               </td>
               <td
-                class=" row-inline-actions"
+                class="row-inline-actions"
               >
                 <span>
                   <span>

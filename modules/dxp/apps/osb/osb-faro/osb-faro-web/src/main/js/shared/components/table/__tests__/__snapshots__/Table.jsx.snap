@@ -46,70 +46,50 @@ exports[`Table should render 1`] = `
         <tr
           class=""
         >
-          <td
-            class=""
-          >
+          <td>
             Foo Bar
           </td>
-          <td
-            class=""
-          >
+          <td>
             50,000
           </td>
         </tr>
         <tr
           class=""
         >
-          <td
-            class=""
-          >
+          <td>
             Foo Bar
           </td>
-          <td
-            class=""
-          >
+          <td>
             50,000
           </td>
         </tr>
         <tr
           class=""
         >
-          <td
-            class=""
-          >
+          <td>
             Foo Bar
           </td>
-          <td
-            class=""
-          >
+          <td>
             50,000
           </td>
         </tr>
         <tr
           class=""
         >
-          <td
-            class=""
-          >
+          <td>
             Foo Bar
           </td>
-          <td
-            class=""
-          >
+          <td>
             50,000
           </td>
         </tr>
         <tr
           class=""
         >
-          <td
-            class=""
-          >
+          <td>
             Foo Bar
           </td>
-          <td
-            class=""
-          >
+          <td>
             50,000
           </td>
         </tr>

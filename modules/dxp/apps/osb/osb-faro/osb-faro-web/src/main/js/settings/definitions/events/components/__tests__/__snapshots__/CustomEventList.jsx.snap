@@ -130,6 +130,18 @@ exports[`CustomEventList should render 1`] = `
           >
             Description
           </th>
+          <th
+            class="table-head-title"
+          >
+            <a
+              class="button-root btn btn-unstyled inline-item text-truncate-inline"
+              href="/?orderBy=asc&orderByField=hidden&page=1"
+            >
+              <span
+                class="text-truncate"
+              />
+            </a>
+          </th>
           <th />
         </tr>
       </thead>
@@ -137,9 +149,7 @@ exports[`CustomEventList should render 1`] = `
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -178,17 +188,16 @@ exports[`CustomEventList should render 1`] = `
             </div>
           </td>
           <td
-            class=" table-cell-expand-small text-truncate"
+            class="table-cell-expand-small text-truncate"
           >
             displayName-0
           </td>
           <td
-            class=" table-cell-expand text-truncate"
-          >
-            -
-          </td>
+            class="table-cell-expand text-truncate"
+          />
+          <td />
           <td
-            class=" row-actions"
+            class="row-actions"
           >
             <span>
               <div

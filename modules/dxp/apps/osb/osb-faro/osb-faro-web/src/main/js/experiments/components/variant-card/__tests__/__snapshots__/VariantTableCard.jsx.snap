@@ -136,12 +136,12 @@ exports[`VariantTableCard should render 1`] = `
               </div>
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               37%
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               36% - 37%
             </td>
@@ -155,7 +155,7 @@ exports[`VariantTableCard should render 1`] = `
               </span>
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               63%
             </td>
@@ -191,12 +191,12 @@ exports[`VariantTableCard should render 1`] = `
               </h5>
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               30%
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               28% - 31%
             </td>
@@ -221,7 +221,7 @@ exports[`VariantTableCard should render 1`] = `
               </span>
             </td>
             <td
-              class=" text-right"
+              class="text-right"
             >
               &gt; 99.9%
             </td>

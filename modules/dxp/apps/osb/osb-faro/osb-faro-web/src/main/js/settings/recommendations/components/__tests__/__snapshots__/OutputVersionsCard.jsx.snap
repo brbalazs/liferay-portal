@@ -65,7 +65,7 @@ exports[`OutputVersionsCard should render 1`] = `
               class=""
             >
               <td
-                class=" table-cell-expand"
+                class="table-cell-expand"
               >
                 <h4
                   class="table-title text-truncate"
@@ -74,12 +74,12 @@ exports[`OutputVersionsCard should render 1`] = `
                 </h4>
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 321
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 123
               </td>
@@ -99,7 +99,7 @@ exports[`OutputVersionsCard should render 1`] = `
               class=""
             >
               <td
-                class=" table-cell-expand"
+                class="table-cell-expand"
               >
                 <h4
                   class="table-title text-truncate"
@@ -108,12 +108,12 @@ exports[`OutputVersionsCard should render 1`] = `
                 </h4>
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 321
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 123
               </td>
@@ -133,7 +133,7 @@ exports[`OutputVersionsCard should render 1`] = `
               class=""
             >
               <td
-                class=" table-cell-expand"
+                class="table-cell-expand"
               >
                 <h4
                   class="table-title text-truncate"
@@ -142,12 +142,12 @@ exports[`OutputVersionsCard should render 1`] = `
                 </h4>
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 321
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 123
               </td>
@@ -167,7 +167,7 @@ exports[`OutputVersionsCard should render 1`] = `
               class=""
             >
               <td
-                class=" table-cell-expand"
+                class="table-cell-expand"
               >
                 <h4
                   class="table-title text-truncate"
@@ -176,12 +176,12 @@ exports[`OutputVersionsCard should render 1`] = `
                 </h4>
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 321
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 123
               </td>

@@ -242,9 +242,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable disabled"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -261,9 +259,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -271,18 +267,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               t.smith@nosaints.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Delete
             </td>
-            <td
-              class=""
-            >
+            <td>
               Oct 09, 2019
             </td>
             <td>
@@ -297,7 +289,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span />
             </td>
@@ -305,9 +297,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable disabled"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -324,9 +314,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -334,18 +322,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               alice.bryant@example.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Unsuppress
             </td>
-            <td
-              class=""
-            >
+            <td>
               Oct 09, 2019
             </td>
             <td>
@@ -360,7 +344,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span />
             </td>
@@ -368,9 +352,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable disabled"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -387,9 +369,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -397,18 +377,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               scott.gilbert@example.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Suppress
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 09, 2019
             </td>
             <td>
@@ -423,7 +399,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span>
                 <b>
@@ -435,9 +411,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -453,9 +427,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -463,18 +435,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               foo@bar.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Suppress
             </td>
-            <td
-              class=""
-            >
+            <td>
               Nov 09, 2019
             </td>
             <td>
@@ -489,7 +457,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span>
                 <a
@@ -505,9 +473,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable disabled"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -524,9 +490,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -534,18 +498,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               lillie.foster@example.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Access
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 09, 2019
             </td>
             <td>
@@ -560,7 +520,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span />
             </td>
@@ -568,9 +528,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable disabled"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -587,9 +545,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -597,18 +553,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               bazbuz@example.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Delete
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 09, 2019
             </td>
             <td>
@@ -623,7 +575,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span />
             </td>
@@ -631,9 +583,7 @@ exports[`RequestList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -649,9 +599,7 @@ exports[`RequestList should render 1`] = `
                 </label>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               <h4
                 class="table-title text-truncate"
               >
@@ -659,18 +607,14 @@ exports[`RequestList should render 1`] = `
               </h4>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               scott.gilbert@example.com
             </td>
-            <td
-              class=""
-            >
+            <td>
               Access
             </td>
-            <td
-              class=""
-            >
+            <td>
               Dec 05, 2019
             </td>
             <td>
@@ -685,7 +629,7 @@ exports[`RequestList should render 1`] = `
               </div>
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span>
                 <a

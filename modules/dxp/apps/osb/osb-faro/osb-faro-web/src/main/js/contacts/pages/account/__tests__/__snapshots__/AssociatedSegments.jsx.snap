@@ -238,7 +238,7 @@ exports[`AccountAssociatedSegments should render 1`] = `
                 </div>
               </td>
               <td
-                class=" table-column-text-end"
+                class="table-column-text-end"
               >
                 10
               </td>

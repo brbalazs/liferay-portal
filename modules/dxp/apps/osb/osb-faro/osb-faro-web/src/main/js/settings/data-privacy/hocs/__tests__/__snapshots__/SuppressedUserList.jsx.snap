@@ -142,7 +142,7 @@ exports[`Suppressed User List should render 1`] = `
             class="disabled"
           >
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               <h4
                 class="table-title text-truncate"
@@ -150,23 +150,17 @@ exports[`Suppressed User List should render 1`] = `
                 foo@email
               </h4>
             </td>
-            <td
-              class=""
-            >
+            <td>
               00001
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 09, 2019
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 10, 2019
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span />
             </td>
@@ -175,7 +169,7 @@ exports[`Suppressed User List should render 1`] = `
             class=""
           >
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               <h4
                 class="table-title text-truncate"
@@ -183,23 +177,17 @@ exports[`Suppressed User List should render 1`] = `
                 bar@email
               </h4>
             </td>
-            <td
-              class=""
-            >
+            <td>
               00002
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 09, 2019
             </td>
-            <td
-              class=""
-            >
+            <td>
               Sep 11, 2019
             </td>
             <td
-              class=" row-inline-actions"
+              class="row-inline-actions"
             >
               <span>
                 <button

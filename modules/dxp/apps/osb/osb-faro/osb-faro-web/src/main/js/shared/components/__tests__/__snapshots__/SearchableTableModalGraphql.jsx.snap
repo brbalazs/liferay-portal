@@ -154,9 +154,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
             <tr
               class="clickable"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -172,18 +170,14 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   </label>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 fooOrganization-0
               </td>
             </tr>
             <tr
               class="clickable"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -199,18 +193,14 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   </label>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 fooOrganization-1
               </td>
             </tr>
             <tr
               class="clickable"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -226,18 +216,14 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   </label>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 fooOrganization-2
               </td>
             </tr>
             <tr
               class="clickable"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -253,18 +239,14 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   </label>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 fooOrganization-3
               </td>
             </tr>
             <tr
               class="clickable"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -280,9 +262,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   </label>
                 </div>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 fooOrganization-4
               </td>
             </tr>

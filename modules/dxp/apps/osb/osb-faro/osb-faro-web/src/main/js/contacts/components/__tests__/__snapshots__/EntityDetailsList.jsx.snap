@@ -420,7 +420,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                   </div>
                 </td>
                 <td
-                  class=" table-cell-expand-small"
+                  class="table-cell-expand-small"
                 >
                   industry
                 </td>
@@ -434,9 +434,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                     test data source
                   </a>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   7 days ago
                 </td>
               </tr>
@@ -458,7 +456,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                   </div>
                 </td>
                 <td
-                  class=" table-cell-expand-small"
+                  class="table-cell-expand-small"
                 >
                   businessOwnership
                 </td>
@@ -472,9 +470,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                     test data source
                   </a>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   7 days ago
                 </td>
               </tr>
@@ -496,7 +492,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                   </div>
                 </td>
                 <td
-                  class=" table-cell-expand-small"
+                  class="table-cell-expand-small"
                 >
                   yearStarted
                 </td>
@@ -510,9 +506,7 @@ exports[`EntityDetailsList should render with items 1`] = `
                     test data source
                   </a>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   7 days ago
                 </td>
               </tr>

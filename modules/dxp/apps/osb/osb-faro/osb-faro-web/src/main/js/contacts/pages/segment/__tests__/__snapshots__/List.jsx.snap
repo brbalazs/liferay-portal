@@ -362,12 +362,12 @@ exports[`List should render 1`] = `
                         </div>
                       </td>
                       <td
-                        class=" table-column-text-end"
+                        class="table-column-text-end"
                       >
                         10
                       </td>
                       <td
-                        class=" table-column-text-end"
+                        class="table-column-text-end"
                       >
                         1,000
                       </td>
@@ -382,7 +382,7 @@ exports[`List should render 1`] = `
                         </div>
                       </td>
                       <td
-                        class=" row-actions"
+                        class="row-actions"
                       >
                         <span>
                           <div

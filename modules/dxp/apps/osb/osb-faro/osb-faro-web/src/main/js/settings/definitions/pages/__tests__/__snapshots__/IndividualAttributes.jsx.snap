@@ -187,12 +187,12 @@ exports[`IndividualAttributes should render 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" pr-6"
+                    class="pr-6"
                   >
                     LIFERAY-DATASOURCE-FARO-EXAMPLE-0
                   </td>
                   <td
-                    class=" pr-5"
+                    class="pr-5"
                   >
                     3 years ago
                   </td>
@@ -215,12 +215,12 @@ exports[`IndividualAttributes should render 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" pr-6"
+                    class="pr-6"
                   >
                     2 Sources
                   </td>
                   <td
-                    class=" pr-5"
+                    class="pr-5"
                   >
                     3 years ago
                   </td>
@@ -243,12 +243,12 @@ exports[`IndividualAttributes should render 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" pr-6"
+                    class="pr-6"
                   >
                     3 Sources
                   </td>
                   <td
-                    class=" pr-5"
+                    class="pr-5"
                   >
                     3 years ago
                   </td>
@@ -271,12 +271,12 @@ exports[`IndividualAttributes should render 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" pr-6"
+                    class="pr-6"
                   >
                     4 Sources
                   </td>
                   <td
-                    class=" pr-5"
+                    class="pr-5"
                   >
                     3 years ago
                   </td>
@@ -299,12 +299,12 @@ exports[`IndividualAttributes should render 1`] = `
                     </div>
                   </td>
                   <td
-                    class=" pr-6"
+                    class="pr-6"
                   >
                     5 Sources
                   </td>
                   <td
-                    class=" pr-5"
+                    class="pr-5"
                   >
                     3 years ago
                   </td>

@@ -64,14 +64,10 @@ exports[`IndividualAttributesModal should render 1`] = `
               <tr
                 class=""
               >
-                <td
-                  class=""
-                >
+                <td>
                   LIFERAY-DATASOURCE-FARO-EXAMPLE-0
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   testMiddleName0
                 </td>
               </tr>

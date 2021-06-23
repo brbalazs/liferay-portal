@@ -286,18 +286,16 @@ exports[`List should render 1`] = `
                           </div>
                         </div>
                       </td>
-                      <td
-                        class=""
-                      >
+                      <td>
                         customer
                       </td>
                       <td
-                        class=" table-column-text-end"
+                        class="table-column-text-end"
                       >
                         10
                       </td>
                       <td
-                        class=" table-column-text-end"
+                        class="table-column-text-end"
                       >
                         100
                       </td>

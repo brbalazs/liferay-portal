@@ -147,17 +147,17 @@ exports[`AttributeList should render 1`] = `
             </div>
           </td>
           <td
-            class=" table-cell-expand-small text-truncate"
+            class="table-cell-expand-small text-truncate"
           >
             displayName-0
           </td>
           <td
-            class=" table-cell-expand text-truncate"
+            class="table-cell-expand text-truncate"
           >
             -
           </td>
           <td
-            class=" table-cell-expand-smaller text-truncate"
+            class="table-cell-expand-smaller text-truncate"
           >
             samplevalue-0
           </td>

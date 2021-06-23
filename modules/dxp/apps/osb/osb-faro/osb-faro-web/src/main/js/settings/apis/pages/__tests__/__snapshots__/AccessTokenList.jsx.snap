@@ -128,23 +128,17 @@ exports[`AccessTokenList should render 1`] = `
                     4ABC
                   </strong>
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   Jul 10, 2018
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   Jul 10, 2018
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   Aug 9, 2018
                 </td>
                 <td
-                  class=" row-inline-actions"
+                  class="row-inline-actions"
                 >
                   <span>
                     <button
@@ -236,23 +230,17 @@ exports[`AccessTokenList should show the generated token in a list and the "Gene
             4ABC
           </strong>
         </td>
-        <td
-          class=""
-        >
+        <td>
           Jul 10, 2018
         </td>
-        <td
-          class=""
-        >
+        <td>
           Jul 10, 2018
         </td>
-        <td
-          class=""
-        >
+        <td>
           Aug 9, 2018
         </td>
         <td
-          class=" row-inline-actions"
+          class="row-inline-actions"
         >
           <span>
             <button

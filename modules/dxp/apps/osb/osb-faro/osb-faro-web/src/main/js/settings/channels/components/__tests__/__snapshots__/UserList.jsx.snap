@@ -118,9 +118,7 @@ exports[`ChannelUserList should render 1`] = `
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -137,7 +135,7 @@ exports[`ChannelUserList should render 1`] = `
             </div>
           </td>
           <td
-            class=" table-cell-expand"
+            class="table-cell-expand"
           >
             <h4
               class="table-title text-truncate"
@@ -146,12 +144,12 @@ exports[`ChannelUserList should render 1`] = `
             </h4>
           </td>
           <td
-            class=" table-cell-expand"
+            class="table-cell-expand"
           >
             test@liferay.com
           </td>
           <td
-            class=" row-actions"
+            class="row-actions"
           >
             <span>
               <div

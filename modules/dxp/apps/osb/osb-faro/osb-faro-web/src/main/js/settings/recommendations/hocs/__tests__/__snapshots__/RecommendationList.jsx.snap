@@ -206,9 +206,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -246,24 +244,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -281,9 +271,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -321,24 +309,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -356,9 +336,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -396,24 +374,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -431,9 +401,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -471,24 +439,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -506,9 +466,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -546,24 +504,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -581,9 +531,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -621,24 +569,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -656,9 +596,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -696,24 +634,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -731,9 +661,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -771,24 +699,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -806,9 +726,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -846,24 +764,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>
@@ -881,9 +791,7 @@ exports[`RecommendationList should render 1`] = `
           <tr
             class="clickable"
           >
-            <td
-              class=""
-            >
+            <td>
               <div
                 class="custom-control custom-checkbox"
               >
@@ -921,24 +829,16 @@ exports[`RecommendationList should render 1`] = `
                 </div>
               </div>
             </td>
-            <td
-              class=""
-            >
+            <td>
               Item Similarity
             </td>
-            <td
-              class=""
-            >
+            <td>
               Last 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Every 30 days
             </td>
-            <td
-              class=""
-            >
+            <td>
               Jul 8th, 2018
             </td>
             <td>

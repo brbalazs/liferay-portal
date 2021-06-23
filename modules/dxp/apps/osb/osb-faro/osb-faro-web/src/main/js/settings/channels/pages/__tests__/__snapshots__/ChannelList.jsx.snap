@@ -213,9 +213,7 @@ exports[`Channels List should render 1`] = `
                   <tr
                     class="clickable"
                   >
-                    <td
-                      class=""
-                    >
+                    <td>
                       <div
                         class="custom-control custom-checkbox"
                       >
@@ -250,19 +248,13 @@ exports[`Channels List should render 1`] = `
                         </a>
                       </div>
                     </td>
-                    <td
-                      class=""
-                    >
+                    <td>
                       0
                     </td>
-                    <td
-                      class=""
-                    >
+                    <td>
                       All Users
                     </td>
-                    <td
-                      class=""
-                    >
+                    <td>
                       Feb 14, 2020
                     </td>
                   </tr>

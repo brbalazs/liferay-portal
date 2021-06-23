@@ -96,7 +96,7 @@ exports[`InterestsCard renders 1`] = `
               </div>
             </td>
             <td
-              class=" table-column-text-end"
+              class="table-column-text-end"
             >
               <h4
                 class="table-title text-truncate"
@@ -158,7 +158,7 @@ exports[`InterestsCard renders 1`] = `
               </div>
             </td>
             <td
-              class=" table-column-text-end"
+              class="table-column-text-end"
             >
               <h4
                 class="table-title text-truncate"
@@ -220,7 +220,7 @@ exports[`InterestsCard renders 1`] = `
               </div>
             </td>
             <td
-              class=" table-column-text-end"
+              class="table-column-text-end"
             >
               <h4
                 class="table-title text-truncate"
@@ -282,7 +282,7 @@ exports[`InterestsCard renders 1`] = `
               </div>
             </td>
             <td
-              class=" table-column-text-end"
+              class="table-column-text-end"
             >
               <h4
                 class="table-title text-truncate"
@@ -344,7 +344,7 @@ exports[`InterestsCard renders 1`] = `
               </div>
             </td>
             <td
-              class=" table-column-text-end"
+              class="table-column-text-end"
             >
               <h4
                 class="table-title text-truncate"

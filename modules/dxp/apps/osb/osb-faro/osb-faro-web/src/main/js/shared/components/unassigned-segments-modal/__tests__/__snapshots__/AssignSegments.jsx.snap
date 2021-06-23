@@ -78,14 +78,10 @@ exports[`AssignSegments should render 1`] = `
               <tr
                 class=""
               >
-                <td
-                  class=""
-                >
+                <td>
                   Seattle1
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   -
                 </td>
                 <td>
@@ -120,14 +116,10 @@ exports[`AssignSegments should render 1`] = `
               <tr
                 class=""
               >
-                <td
-                  class=""
-                >
+                <td>
                   Seattle2
                 </td>
-                <td
-                  class=""
-                >
+                <td>
                   -
                 </td>
                 <td>

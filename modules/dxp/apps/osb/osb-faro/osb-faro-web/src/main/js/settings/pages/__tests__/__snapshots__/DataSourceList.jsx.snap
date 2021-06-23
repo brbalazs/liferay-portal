@@ -266,9 +266,7 @@ exports[`DataSourceList should render 1`] = `
                       </a>
                     </div>
                   </td>
-                  <td
-                    class=""
-                  >
+                  <td>
                     .CSV
                   </td>
                   <td>
@@ -282,9 +280,7 @@ exports[`DataSourceList should render 1`] = `
                     </svg>
                   </td>
                   <td />
-                  <td
-                    class=""
-                  >
+                  <td>
                     Jul 8, 2018
                   </td>
                   <td>

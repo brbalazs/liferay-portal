@@ -146,9 +146,7 @@ exports[`CrossPageSelect should render the selected list when the user presses t
         <tr
           class="clickable table-active"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -164,9 +162,7 @@ exports[`CrossPageSelect should render the selected list when the user presses t
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             orange
           </td>
         </tr>
@@ -384,9 +380,7 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -402,18 +396,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             orange
           </td>
         </tr>
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -429,18 +419,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             apple
           </td>
         </tr>
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -456,18 +442,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             banana
           </td>
         </tr>
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -483,18 +465,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             grapefruit
           </td>
         </tr>
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -510,18 +488,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             strawberry
           </td>
         </tr>
         <tr
           class="clickable"
         >
-          <td
-            class=""
-          >
+          <td>
             <div
               class="custom-control custom-checkbox"
             >
@@ -537,9 +511,7 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </td>
-          <td
-            class=""
-          >
+          <td>
             tangerine
           </td>
         </tr>

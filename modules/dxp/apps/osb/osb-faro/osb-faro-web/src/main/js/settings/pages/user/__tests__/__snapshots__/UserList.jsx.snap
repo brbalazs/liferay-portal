@@ -229,9 +229,7 @@ exports[`UserList should render 1`] = `
             <tr
               class="clickable disabled"
             >
-              <td
-                class=""
-              >
+              <td>
                 <div
                   class="custom-control custom-checkbox"
                 >
@@ -249,7 +247,7 @@ exports[`UserList should render 1`] = `
                 </div>
               </td>
               <td
-                class=" table-cell-expand"
+                class="table-cell-expand"
               >
                 <h4
                   class="table-title text-truncate"
@@ -257,9 +255,7 @@ exports[`UserList should render 1`] = `
                   Test Test
                 </h4>
               </td>
-              <td
-                class=""
-              >
+              <td>
                 test@liferay.com
               </td>
               <td>
@@ -279,7 +275,7 @@ exports[`UserList should render 1`] = `
                 </span>
               </td>
               <td
-                class=" row-inline-actions"
+                class="row-inline-actions"
               >
                 <span>
                   <span

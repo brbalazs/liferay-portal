@@ -72,7 +72,7 @@ exports[`TrackedBehaviorsList should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               Page Event
             </td>
@@ -119,7 +119,7 @@ exports[`TrackedBehaviorsList should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               Blog Event
             </td>
@@ -165,7 +165,7 @@ exports[`TrackedBehaviorsList should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               Blog Event
             </td>
@@ -211,7 +211,7 @@ exports[`TrackedBehaviorsList should render 1`] = `
               </div>
             </td>
             <td
-              class=" table-cell-expand"
+              class="table-cell-expand"
             >
               Document & Media Event
             </td>
