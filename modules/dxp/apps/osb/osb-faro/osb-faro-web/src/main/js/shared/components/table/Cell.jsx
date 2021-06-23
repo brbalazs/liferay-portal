@@ -7,14 +7,10 @@ class Cell extends React.Component {
 	};
 
 	render() {
-		const {children, title} = this.props;
+		const {children, className, title} = this.props;
 
 		return (
-			<td
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
+			<td className={className}>
 				{title ? (
 					<h4 className='table-title text-truncate'>{children}</h4>
 				) : (
