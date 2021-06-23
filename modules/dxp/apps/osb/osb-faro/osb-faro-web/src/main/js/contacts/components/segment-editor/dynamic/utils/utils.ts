@@ -10,7 +10,7 @@ import {
 } from './constants';
 import {Criteria, Criterion, CriterionGroup, Operator} from './types';
 import {Event} from 'event-analysis/utils/types';
-import {every, isBoolean, isString, isUndefined, map} from 'lodash';
+import {every, isBoolean, isString, isUndefined} from 'lodash';
 import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {fromJS, Map} from 'immutable';
 import {getUid} from 'metal';
@@ -472,7 +472,10 @@ export const invalidateCriterionWithMissingProperty = (
 			...criteria,
 			valid: isBoolean(criteria.valid)
 				? false
-				: map(criteria.valid, () => false)
+				: Object.keys(criteria.valid).reduce(
+						(acc, key) => ({...acc, [key]: false}),
+						{}
+				  )
 		};
 	}
 };
