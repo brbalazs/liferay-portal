@@ -223,6 +223,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 					/>
 
 					<DropdownRangeKey
+						legacy={false}
 						onChange={onRangeSelectorsChange}
 						rangeSelectors={rangeSelectors}
 					/>
