@@ -41,10 +41,14 @@ describe('Definitions Overview', () => {
 
 		expect(
 			container.querySelectorAll('.list-group-title a')[4]
-		).toHaveTextContent('Search');
+		).toHaveTextContent('Event Attributes');
 
 		expect(
 			container.querySelectorAll('.list-group-title a')[5]
+		).toHaveTextContent('Search');
+
+		expect(
+			container.querySelectorAll('.list-group-title a')[6]
 		).toHaveTextContent('Interests');
 	});
 
