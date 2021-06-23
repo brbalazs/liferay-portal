@@ -224,7 +224,9 @@ This change was made as part of the modularization efforts to ease portal config
 
 #### What changed?
 
-```
+The following methods no longer throw `PortalException`:
+
+```java
 public DDMStructure fetchStructure(
   long groupId, long classNameId, String structureKey,
   boolean includeAncestorStructures)
@@ -232,7 +234,6 @@ public DDMStructure fetchStructure(
 public DDMStructure fetchStructureByUuidAndGroupId(
   String uuid, long groupId, boolean includeAncestorStructures)
 ```
-The following methods don't throw `PortalException` anymore:
 
 #### Who is affected?
 
@@ -240,11 +241,11 @@ This affects anyone using these methods.
 
 #### How should I update my code?
 
-Keep using these methods, but be aware that no exceptions will be thrown.
+Keep using these methods, but be aware that they don't throw exceptions.
 
 #### Why was this change made?
 
-The current implementation of these methods won't generate any exception during their execution, therefore doesn't make sense keep `PortalException` on the method signature.
+Since the current method implementations don't generate exceptions, there's no need for the methods to declare throwing a `PortalException`.
 
 ---------------------------------------
 
@@ -541,13 +542,13 @@ This change provides the latest jQuery and Lodash versions available.
 
 ---------------------------------------
 
-### Removed Constant VALIDATE_DDM_FORM_VALUES from DDMWebKeys
+### Removed the VALIDATE_DDM_FORM_VALUES Constant from DDMWebKeys
 - **Date:** 2018-Feb-22
 - **JIRA Ticket:** LPS-77168
 
 #### What changed?
 
-The constant `VALIDATE_DDM_FORM_VALUES` isn't available on `DDMWebKeys`.
+The `VALIDATE_DDM_FORM_VALUES` constant has been removed from `DDMWebKeys`.
 
 #### Who is affected?
 
@@ -555,11 +556,11 @@ This affects anyone using this constant.
 
 #### How should I update my code?
 
-Use the String `validateDDMFormValues`, which is the value of the constant `VALIDATE_DDM_FORM_VALUES`.
+Use the String `validateDDMFormValues`, which was the constant's value.
 
 #### Why was this change made?
 
-Actually, this constant was added only to 7.0 in order to improve code legibility and maintainability, therefore you won't get access to it on 7.1.
+A constant is unnecessary for a value that's not part of an API.
 
 ---------------------------------------
 
