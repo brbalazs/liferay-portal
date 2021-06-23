@@ -317,49 +317,51 @@ export default class Toolbar extends React.Component {
 
 		return (
 			<div className={getCN('toolbar-root', className)}>
-				<NavBar
-					className={classes}
-					display={itemsSelected ? 'primary' : 'light'}
-					expand
-					managementBar
-				>
-					<Nav className='front-nav'>
-						{showCheckbox && (
-							<Nav.Item>
-								<Checkbox
-									checked={selectEntirePage}
-									data-testid='select-all-checkbox'
-									disabled={disabled || loading}
-									indeterminate={
-										selectEntirePageIndeterminate
-									}
-									onChange={this.handleCheckboxChange}
+				{(showCheckbox || showSearch) && (
+					<NavBar
+						className={classes}
+						display={itemsSelected ? 'primary' : 'light'}
+						expand
+						managementBar
+					>
+						<Nav className='front-nav'>
+							{showCheckbox && (
+								<Nav.Item>
+									<Checkbox
+										checked={selectEntirePage}
+										data-testid='select-all-checkbox'
+										disabled={disabled || loading}
+										indeterminate={
+											selectEntirePageIndeterminate
+										}
+										onChange={this.handleCheckboxChange}
+									/>
+								</Nav.Item>
+							)}
+
+							{this.renderFilterAndOrder()}
+						</Nav>
+
+						{(!itemsSelected || alwaysShowSearch) && showSearch && (
+							<div className='navbar-form navbar-form-autofit'>
+								<SearchInput
+									autoFocus={autoFocus}
+									className={getCN('search', {
+										disabled: disabled || disableSearch
+									})}
+									disabled={disabled || disableSearch}
+									maxLength={maxLength}
+									onChange={onSearchValueChange}
+									onSubmit={this.handleSearchSubmit}
+									placeholder={placeholder}
+									value={searchValue}
 								/>
-							</Nav.Item>
+							</div>
 						)}
 
-						{this.renderFilterAndOrder()}
-					</Nav>
-
-					{(!itemsSelected || alwaysShowSearch) && showSearch && (
-						<div className='navbar-form navbar-form-autofit'>
-							<SearchInput
-								autoFocus={autoFocus}
-								className={getCN('search', {
-									disabled: disabled || disableSearch
-								})}
-								disabled={disabled || disableSearch}
-								maxLength={maxLength}
-								onChange={onSearchValueChange}
-								onSubmit={this.handleSearchSubmit}
-								placeholder={placeholder}
-								value={searchValue}
-							/>
-						</div>
-					)}
-
-					{children}
-				</NavBar>
+						{children}
+					</NavBar>
+				)}
 
 				{(query ||
 					activeFilters ||
