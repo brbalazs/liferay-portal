@@ -16,6 +16,7 @@ export interface BaseCardHeaderDefaultIProps
 	onRangeSelectorsChange: (val: any) => void;
 	rangeSelectors: RangeSelectors;
 	showInterval: boolean;
+	showRangeKey?: boolean;
 }
 
 const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
@@ -25,7 +26,8 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 	onChangeInterval,
 	onRangeSelectorsChange,
 	rangeSelectors,
-	showInterval
+	showInterval,
+	showRangeKey = true
 }) => {
 	const handleRangeSelectorsChange = useCallback(newVal => {
 		onRangeSelectorsChange && onRangeSelectorsChange(newVal);
@@ -54,11 +56,13 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 					/>
 				)}
 
-				<DropdownRangeKey
-					legacy={legacy}
-					onChange={handleRangeSelectorsChange}
-					rangeSelectors={rangeSelectors}
-				/>
+				{showRangeKey && (
+					<DropdownRangeKey
+						legacy={legacy}
+						onChange={handleRangeSelectorsChange}
+						rangeSelectors={rangeSelectors}
+					/>
+				)}
 			</div>
 		</Card.Header>
 	);
