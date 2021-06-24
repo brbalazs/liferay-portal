@@ -74,6 +74,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Instance Settings");
 
+		Navigator.gotoNavTab(navTab = "Miscellaneous");
+
 		task ("Assert current time displays in user's selected time zone by asserting time zone specific label") {
 			Calendar.viewSelectedTimeZone(timeZone = "(UTC -08:00) Pacific Standard Time");
 		}
@@ -101,6 +103,8 @@ definition {
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Instance Settings");
+
+		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
 		PortalSettings.configureTimeZone(timeZone = "(UTC) Coordinated Universal Time");
 
@@ -286,6 +290,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Instance Settings");
 
+		Navigator.gotoNavTab(navTab = "Miscellaneous");
+
 		task ("Assert there is at least one language available in current languages") {
 			AssertElementPresent(locator1 = "LanguageConfiguration#LANGUAGES_CURRENT_SELECT");
 		}
@@ -338,6 +344,8 @@ definition {
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Instance Settings");
+
+		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
 		task ("Assert that some of the configured languages are available in available languages") {
 			for (var language : list "Hungarian (Hungary),Portuguese (Brazil)") {
