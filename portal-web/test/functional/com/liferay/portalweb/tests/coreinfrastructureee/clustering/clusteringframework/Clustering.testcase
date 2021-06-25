@@ -329,6 +329,7 @@ definition {
 
 	@priority = "4"
 	test ValidateDocumentOnSeparateNodes {
+		property custom.properties = "default.layout.template.id=1_column";
 		property test.name.skip.portal.instance = "Clustering#ValidateDocumentOnSeparateNodes";
 
 		Clustering.viewClusterStatusInConsole();
