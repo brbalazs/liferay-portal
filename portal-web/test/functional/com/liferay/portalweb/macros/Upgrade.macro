@@ -1347,6 +1347,17 @@ definition {
 	}
 
 	macro viewDocument {
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Document",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
 		Navigator.gotoPage(pageName = "Document");
 
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
