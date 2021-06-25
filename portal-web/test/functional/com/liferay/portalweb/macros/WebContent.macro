@@ -2184,6 +2184,7 @@ definition {
 				locator1 = "TextInput#SELECTOR_INPUT",
 				value1 = "${webContentLinkToPage}");
 		}
+
 		if (isSet(webContentNumber)) {
 			AssertTextEquals(
 				key_fieldLabel = "Number",

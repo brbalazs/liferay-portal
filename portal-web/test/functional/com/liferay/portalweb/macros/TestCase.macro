@@ -51,6 +51,7 @@ definition {
 
 	macro getSiteViaEnvironment {
 		var testRunEnvironment = PropsUtil.get("test.run.environment");
+
 		if ("${testRunEnvironment}" == "EE") {
 			return "Liferay DXP";
 		}
