@@ -9,7 +9,7 @@ Here are some of the types of changes documented in this file:
 * Changes to context variables available to templates
 * Changes in CSS classes available to Liferay themes and portlets
 * Configuration changes: Changes in configuration files, like `portal.properties`, `system.properties`, etc.
-* Execution requirements: Java version, J2EE Version, browser versions, etc.
+* Execution requirements: Java version, Java EE Version, browser versions, etc.
 * Deprecations or end of support: For example, warning that a certain feature or API will be dropped in an upcoming version.
 
 *This document has been reviewed through commit `ca6566333c987`.*
@@ -51,7 +51,7 @@ The remaining content of this document consists of the breaking changes listed i
 
 ### Standardized Data Attribute Names Passed into Selectors
 - **Date:** 2016-Oct-26
-- **JIRA Ticket:** LPS-66646
+- **JIRA Ticket:** [LPS-66646](https://issues.liferay.com/browse/LPS-66646)
 
 #### What changed?
 
@@ -93,7 +93,7 @@ This change was made to standardize the data attribute names and allow utility m
 
 ### Removed URL Parameters p_p_col_id, p_p_col_pos, and p_p_col_count from Every Portlet URL.
 - **Date:** 2016-Dec-12
-- **JIRA Ticket:** LPS-69482
+- **JIRA Ticket:** [LPS-69482](https://issues.liferay.com/browse/LPS-69482)
 
 #### What changed?
 
@@ -119,7 +119,7 @@ This change simplifies portlet URLs so they only contain the required parameters
 
 ### Moved Users File Uploads Portlet Properties to OSGi Configuration
 - **Date:** 2017-Feb-06
-- **JIRA Ticket:** LPS-69211
+- **JIRA Ticket:** [LPS-69211](https://issues.liferay.com/browse/LPS-69211)
 
 #### What changed?
 
@@ -148,7 +148,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Moved CAPTCHA Portal Properties to OSGi Configuration
 - **Date:** 2017-Feb-13
-- **JIRA Ticket:** LPS-67830
+- **JIRA Ticket:** [LPS-67830](https://issues.liferay.com/browse/LPS-67830)
 
 #### What changed?
 
@@ -191,7 +191,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Moved OpenOffice Properties to OSGi Configuration
 - **Date:** 2017-Mar-24
-- **JIRA Ticket:** LPS-71382
+- **JIRA Ticket:** [LPS-71382](https://issues.liferay.com/browse/LPS-71382)
 
 #### What changed?
 
@@ -220,7 +220,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### No More Exceptions Are Thrown When a DDMStructure Is Fetched
 - **Date:** 2017-Mar-31
-- **JIRA Ticket:** LPS-52675
+- **JIRA Ticket:** [LPS-52675](https://issues.liferay.com/browse/LPS-52675)
 
 #### What changed?
 
@@ -251,7 +251,7 @@ Since the current method implementations don't generate exceptions, there's no n
 
 ### Removed Indexation of Fields ratings and viewCount
 - **Date:** 2017-May-16
-- **JIRA Ticket:** LPS-70724
+- **JIRA Ticket:** [LPS-70724](https://issues.liferay.com/browse/LPS-70724)
 
 #### What changed?
 
@@ -279,7 +279,7 @@ In addition, the view count is not always up-to-date in the database. This behav
 
 ### Moved Upload Servlet Request Portal Properties to OSGi Configuration
 - **Date:** 2017-May-30
-- **JIRA Ticket:** LPS-69102
+- **JIRA Ticket:** [LPS-69102](https://issues.liferay.com/browse/LPS-69102)
 
 #### What changed?
 
@@ -306,7 +306,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Moved Three DL File Properties to OSGi Configuration
 - **Date:** 2017-Aug-01
-- **JIRA Ticket:** LPS-69208
+- **JIRA Ticket:** [LPS-69208](https://issues.liferay.com/browse/LPS-69208)
 
 #### What changed?
 
@@ -334,7 +334,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Removed the soyutils Module
 - **Date:** 2017-Aug-28
-- **JIRA Ticket:** LPS-69102
+- **JIRA Ticket:** [LPS-69102](https://issues.liferay.com/browse/LPS-69102)
 
 #### What changed?
 
@@ -356,7 +356,7 @@ The removed module exposed a legacy version of `soyutils`. This caused interoper
 
 ### Converted liferay-ui Tags to Module-Specific Tags
 - **Date:** 2017-Aug-28
-- **JIRA Ticket:** LPS-74331
+- **JIRA Ticket:** [LPS-74331](https://issues.liferay.com/browse/LPS-74331)
 
 #### What changed?
 
@@ -397,7 +397,7 @@ This change was made to categorize taglibs properly by moving them to their resp
 
 ### Changed Default Value for Browser Cache Properties
 - **Date:** 2017-Sep-05
-- **JIRA Ticket:** LPS-74452
+- **JIRA Ticket:** [LPS-74452](https://issues.liferay.com/browse/LPS-74452)
 
 #### What changed?
 
@@ -425,7 +425,7 @@ A value of `true` will improve a portal administrator's experience, and a value 
 
 ### Users Can Have Numeric Screen Names with No Limitations, and Sites Can No Longer Have Numeric Friendly URLs
 - **Date:** 2017-Oct-10
-- **JIRA Ticket:** LPS-66460
+- **JIRA Ticket:** [LPS-66460](https://issues.liferay.com/browse/LPS-66460)
 
 #### What changed?
 
@@ -465,7 +465,7 @@ Since LDAP import is more commonly used than a site using the group ID as its fr
 
 ### Removed Support for Velocity in Themes
 - **Date:** 2017-Oct-19
-- **JIRA Ticket:** LPS-74379
+- **JIRA Ticket:** [LPS-74379](https://issues.liferay.com/browse/LPS-74379)
 
 #### What changed?
 
@@ -492,7 +492,7 @@ The removal of Velocity support for Liferay Portal 7.1 themes allows for an incr
 
 ### Moved Organization Type Properties to OSGi Configuration
 - **Date:** 2018-Jan-19
-- **JIRA Ticket:** LPS-77183
+- **JIRA Ticket:** [LPS-77183](https://issues.liferay.com/browse/LPS-77183)
 
 #### What changed?
 
@@ -522,7 +522,8 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Updated jQuery and Lodash Bundled Versions
 - **Date:** 2018-Feb-07
-- **JIRA Ticket:** LPS-77764, LPS-77765
+- **JIRA Ticket:** [LPS-77764](https://issues.liferay.com/browse/LPS-77764),
+[LPS-77765](https://issues.liferay.com/browse/LPS-77765)
 
 #### What changed?
 
@@ -544,7 +545,7 @@ This change provides the latest jQuery and Lodash versions available.
 
 ### Removed the VALIDATE_DDM_FORM_VALUES Constant from DDMWebKeys
 - **Date:** 2018-Feb-22
-- **JIRA Ticket:** LPS-77168
+- **JIRA Ticket:** [LPS-77168](https://issues.liferay.com/browse/LPS-77168)
 
 #### What changed?
 
@@ -566,7 +567,7 @@ A constant is unnecessary for a value that's not part of an API.
 
 ### Removed JavaScript Minification Properties minifier.javascript.impl and yui.compressor.* from portal.properties
 - **Date:** 2018-Feb-28
-- **JIRA Ticket:** LPS-74375
+- **JIRA Ticket:** [LPS-74375](https://issues.liferay.com/browse/LPS-74375)
 
 #### What changed?
 
@@ -590,7 +591,7 @@ Having JavaScript minifiers in their own OSGi modules requires less dependency m
 
 ### Changed Behavior of liferay-ui:input-date Taglib's showDisableCheckbox Argument
 - **Date:** 2018-Mar-06
-- **JIRA Ticket:** LPS-78475
+- **JIRA Ticket:** [LPS-78475](https://issues.liferay.com/browse/LPS-78475)
 
 #### What changed?
 
@@ -612,7 +613,7 @@ The behavior did not match with the name of the argument and was counter-intuiti
 
 ### DDLExporterFactory Became an Interface
 - **Date:** 2018-Apr-20
-- **JIRA Ticket:** LPS-79221
+- **JIRA Ticket:** [LPS-79221](https://issues.liferay.com/browse/LPS-79221)
 
 #### What changed?
 
@@ -634,7 +635,7 @@ To encapsulate the default implementation of `DDLExporterFactory`, which doesn't
 
 ### Updated Liferay Portal's Portlet API Implementation
 - **Date:** 2018-May-10
-- **JIRA Ticket:** LPS-73282
+- **JIRA Ticket:** [LPS-73282](https://issues.liferay.com/browse/LPS-73282)
 
 #### What changed?
 
@@ -674,10 +675,14 @@ To take advantage of new features in Portlet 3.0, you must rebuild portlet proje
 
 2. Add the following property in your portlet's `@Component` tag:
 
-        @Component( property = {
-                "javax.portlet.version=3.0"
-            },
-            service = Portlet.class )
+    ```java
+    @Component(
+        property = {
+            "javax.portlet.version=3.0"
+        },
+        service = Portlet.class
+    )
+    ```
 
 In addition, you must opt-in to new JSP features by specifying the Portlet 3.0 tag library in your JSP views. For example,
 
@@ -713,7 +718,8 @@ For example, JSP scriptlets like the following had to be removed from several of
 
     String namespace = AUIUtil.getNamespace(portletRequest, portletResponse);
 
-    if (Validator.isNull(namespace)) { namespace = AUIUtil.getNamespace(request);
+    if (Validator.isNull(namespace)) {
+        namespace = AUIUtil.getNamespace(request);
     }
     %>
 
@@ -729,7 +735,7 @@ This change provides the latest features offered by the Portlet 3.0 Specificatio
 
 ### Changed the From Last Publish Date Option in Staging
 - **Date:** 2018-Jun-06
-- **JIRA Ticket:** LPS-81695
+- **JIRA Ticket:** [LPS-81695](https://issues.liferay.com/browse/LPS-81695)
 
 #### What changed?
 
@@ -753,7 +759,7 @@ It was hard to collect which entities should be published to the live site. Inst
 
 ### Changed the Dependency for the liferay-util:html-top JSP tag
 - **Date:** 2018-Jun-07
-- **JIRA Ticket:** LPS-81983
+- **JIRA Ticket:** [LPS-81983](https://issues.liferay.com/browse/LPS-81983)
 
 #### What changed?
 
@@ -769,7 +775,10 @@ You must add the following dependency in your build file for your JSPs to compil
 
 **build.gradle**:
 
-    dependencies { ... compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "1.2.0" ...
+    dependencies {
+        ...
+        compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "1.2.0"
+        ...
     }
 
 **pom.xml**:
@@ -789,7 +798,7 @@ This change helps stabilize the foundation of Liferay Portal's utilities.
 
 ### Decoupled Several Classes from PortletURLImpl
 - **Date:** 2018-Jun-08
-- **JIRA Ticket:** LPS-82119
+- **JIRA Ticket:** [LPS-82119](https://issues.liferay.com/browse/LPS-82119)
 
 #### What changed?
 
@@ -810,17 +819,17 @@ You must refactor the constructors of your affected classes to receive `com.life
 In addition, their class hierarchies must be changed. For example, the `com.liferay.portal.struts.StrutsActionPortletURL` class hierarchy was changed from
 
 - `com.liferay.portlet.PortletURLImpl`
-    - `com.liferay.portlet.PortletURLImplWrapper`
-        - `com.liferay.portal.struts.StrutsActionPortletURL`
+- `com.liferay.portlet.PortletURLImplWrapper`
+- `com.liferay.portal.struts.StrutsActionPortletURL`
 
 to
 
 - `javax.portlet.filter.RenderStateWrapper`
-    - `javax.portlet.filter.BaseURLWrapper`
-        - `javax.portlet.filter.PortletURLWrapper`
-            - `com.liferay.portal.kernel.portlet.LiferayPortletURLWrapper`
-                - `com.liferay.portlet.PortletURLImplWrapper`
-                    - `com.liferay.portal.struts.StrutsActionPortletURL`
+- `javax.portlet.filter.BaseURLWrapper`
+- `javax.portlet.filter.PortletURLWrapper`
+- `com.liferay.portal.kernel.portlet.LiferayPortletURLWrapper`
+- `com.liferay.portlet.PortletURLImplWrapper`
+- `com.liferay.portal.struts.StrutsActionPortletURL`
 
 #### Why was this change made?
 
@@ -830,7 +839,7 @@ This change corrects a best practice violation regarding implementation-specific
 
 ### Changed the Request Object in Web Content Templates
 - **Date:** 2018-Jun-12
-- **JIRA Ticket:** LPS-77766
+- **JIRA Ticket:** [LPS-77766](https://issues.liferay.com/browse/LPS-77766)
 
 #### What changed?
 
@@ -856,7 +865,7 @@ This was done to allow template context contributors to work in Web Content temp
 
 ### Disabled Access to Gogo Shell Using Telnet
 - **Date:** 2018-Jun-25
-- **JIRA Ticket:** LPS-82849
+- **JIRA Ticket:** [LPS-82849](https://issues.liferay.com/browse/LPS-82849)
 
 #### What changed?
 
@@ -884,7 +893,7 @@ This was done to strengthen Liferay Portal's security due to potential XXE/SSRF 
 
 ### Removed Description HTML Escaping in PortletDisplay
 - **Date:** 2018-Jul-17
-- **JIRA Ticket:** LPS-83185
+- **JIRA Ticket:** [LPS-83185](https://issues.liferay.com/browse/LPS-83185)
 
 #### What changed?
 
@@ -906,7 +915,7 @@ This change corrects a best practice violation regarding content escaping.
 
 ### Changed modelName Attribute to be Mandatory in liferay-ui:input-permissions Taglib
 - **Date:** 2018-Oct-04
-- **JIRA Ticket:** LPS-85998
+- **JIRA Ticket:** [LPS-85998](https://issues.liferay.com/browse/LPS-85998)
 
 #### What changed?
 
@@ -987,9 +996,12 @@ This change was made due to changes resulting from [LPS-76488](https://issues.li
 
 #### What changed?
 
-The cache bootstrap feature has been removed. These properties can no longer be used to enable/configure cache bootstrap:
+The cache bootstrap feature has been removed. These properties can no longer
+be used to enable/configure cache bootstrap:
 
-`ehcache.bootstrap.cache.loader.enabled`, `ehcache.bootstrap.cache.loader.properties.default`, `ehcache.bootstrap.cache.loader.properties.${specific.cache.name}`.
+- `ehcache.bootstrap.cache.loader.enabled`
+- `ehcache.bootstrap.cache.loader.properties.default`
+- `ehcache.bootstrap.cache.loader.properties.${specific.cache.name}`
 
 #### Who is affected?
 
