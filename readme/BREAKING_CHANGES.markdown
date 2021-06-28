@@ -522,8 +522,7 @@ This change was made as part of the modularization efforts to ease portal config
 
 ### Updated jQuery and Lodash Bundled Versions
 - **Date:** 2018-Feb-07
-- **JIRA Ticket:** [LPS-77764](https://issues.liferay.com/browse/LPS-77764),
-[LPS-77765](https://issues.liferay.com/browse/LPS-77765)
+- **JIRA Ticket:** [LPS-77764](https://issues.liferay.com/browse/LPS-77764), [LPS-77765](https://issues.liferay.com/browse/LPS-77765)
 
 #### What changed?
 
@@ -996,8 +995,7 @@ This change was made due to changes resulting from [LPS-76488](https://issues.li
 
 #### What changed?
 
-The cache bootstrap feature has been removed. These properties can no longer
-be used to enable/configure cache bootstrap:
+The cache bootstrap feature has been removed. These properties can no longer be used to enable/configure cache bootstrap:
 
 - `ehcache.bootstrap.cache.loader.enabled`
 - `ehcache.bootstrap.cache.loader.properties.default`
