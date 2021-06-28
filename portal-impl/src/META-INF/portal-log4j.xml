@@ -1092,6 +1092,10 @@
 		<priority value="ERROR" />
 	</category>
 
+	<category name="org.elasticsearch.client.RestClient">
+		<priority value="ERROR" />
+	</category>
+
 	<category name="org.hibernate">
 		<priority value="ERROR" />
 	</category>
