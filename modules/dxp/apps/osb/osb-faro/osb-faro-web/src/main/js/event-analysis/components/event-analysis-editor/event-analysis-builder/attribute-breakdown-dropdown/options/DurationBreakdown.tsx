@@ -4,7 +4,6 @@ import React from 'react';
 import {createDurationBreakdown} from 'event-analysis/utils/utils';
 import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
 import {IBreakdownProps, Operators} from 'event-analysis/utils/types';
-import {sub} from 'shared/util/lang';
 
 const DEFAULT_DURATION_BIN = 60000;
 const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
@@ -53,9 +52,8 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Input
-									label={sub(
-										Liferay.Language.get('group-x-by'),
-										[Liferay.Language.get('duration')]
+									label={Liferay.Language.get(
+										'group-duration-by'
 									)}
 									mask={DURATION_MASK}
 									name='bin'

@@ -68,23 +68,21 @@ export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 					</div>
 				</DndProvider>
 
-				<div>
-					<AttributeFilterDropdown
-						alignmentPosition={Align.LeftTop}
-						disabledIds={filterOrder}
-						eventId={eventId}
-						trigger={
-							<Button
-								borderless
-								className='add-attribute'
-								display='light'
-								icon='plus'
-								iconAlignment='left'
-								size='sm'
-							/>
-						}
-					/>
-				</div>
+				<AttributeFilterDropdown
+					alignmentPosition={Align.LeftTop}
+					disabledIds={filterOrder}
+					eventId={eventId}
+					trigger={
+						<Button
+							borderless
+							className='add-attribute'
+							display='light'
+							icon='plus'
+							iconAlignment='left'
+							size='sm'
+						/>
+					}
+				/>
 			</div>
 		)}
 	</div>

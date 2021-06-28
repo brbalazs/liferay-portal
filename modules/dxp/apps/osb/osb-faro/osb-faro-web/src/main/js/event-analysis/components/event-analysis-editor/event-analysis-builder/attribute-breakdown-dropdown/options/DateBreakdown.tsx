@@ -7,7 +7,6 @@ import {
 	DATE_GROUPING_OPTIONS
 } from 'event-analysis/utils/utils';
 import {DateGroupings, IBreakdownProps} from 'event-analysis/utils/types';
-import {sub} from 'shared/util/lang';
 
 const DateBreakdown: React.FC<IBreakdownProps> = ({
 	attributeId,
@@ -49,9 +48,8 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Select
-									label={sub(
-										Liferay.Language.get('group-x-by'),
-										[Liferay.Language.get('dates')]
+									label={Liferay.Language.get(
+										'group-dates-by'
 									)}
 									name='dateGrouping'
 									type='string'

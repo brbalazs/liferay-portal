@@ -3,7 +3,6 @@ import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {createNumberBreakdown} from 'event-analysis/utils/utils';
 import {IBreakdownProps} from 'event-analysis/utils/types';
-import {sub} from 'shared/util/lang';
 
 const DEFAULT_NUMBER_BIN = 10;
 
@@ -45,9 +44,8 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 						<Form.Group autoFit>
 							<Form.GroupItem>
 								<Form.Input
-									label={sub(
-										Liferay.Language.get('group-x-by'),
-										[Liferay.Language.get('numbers')]
+									label={Liferay.Language.get(
+										'group-numbers-by'
 									)}
 									name='bin'
 									type='number'

@@ -74,26 +74,24 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 					</div>
 				</DndProvider>
 
-				<div>
-					{breakdownOrder.length < MAX_ATTRIBUTES && (
-						<AttributeBreakdownDropdown
-							alignmentPosition={Align.LeftTop}
-							disabledIds={breakdownOrder}
-							eventId={eventId}
-							onAttributeSelect={addBreakdown}
-							trigger={
-								<Button
-									borderless
-									className='add-attribute'
-									display='light'
-									icon='plus'
-									iconAlignment='left'
-									size='sm'
-								/>
-							}
-						/>
-					)}
-				</div>
+				{breakdownOrder.length < MAX_ATTRIBUTES && (
+					<AttributeBreakdownDropdown
+						alignmentPosition={Align.LeftTop}
+						disabledIds={breakdownOrder}
+						eventId={eventId}
+						onAttributeSelect={addBreakdown}
+						trigger={
+							<Button
+								borderless
+								className='add-attribute'
+								display='light'
+								icon='plus'
+								iconAlignment='left'
+								size='sm'
+							/>
+						}
+					/>
+				)}
 			</div>
 		)}
 	</div>
