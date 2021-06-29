@@ -131,9 +131,9 @@ class Table extends React.Component {
 
 	@autobind
 	handleItemClick(item) {
-		const {onRowClick, onSelectItemsChange} = this.props;
+		const {onRowClick, onSelectItemsChange, showCheckbox} = this.props;
 
-		if (onSelectItemsChange) {
+		if (showCheckbox && onSelectItemsChange) {
 			onSelectItemsChange(item);
 		}
 
@@ -272,7 +272,8 @@ class Table extends React.Component {
 										clickable={
 											!!directNestedTable ||
 											onRowClick ||
-											onSelectItemsChange
+											(showCheckbox &&
+												onSelectItemsChange)
 										}
 										columns={columns}
 										data={item}
