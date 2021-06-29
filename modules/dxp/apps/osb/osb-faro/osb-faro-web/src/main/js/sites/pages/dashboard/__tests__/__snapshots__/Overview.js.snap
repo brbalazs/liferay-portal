@@ -641,7 +641,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               <div
                 class="form-group-item form-group-item-label form-group-item-shrink"
               >
-                by
+                Broken Down By
               </div>
               <div
                 class="form-group-item form-group-item-shrink"

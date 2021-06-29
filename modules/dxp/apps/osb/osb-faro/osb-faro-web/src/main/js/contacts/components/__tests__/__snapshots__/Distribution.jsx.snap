@@ -37,7 +37,7 @@ exports[`SegmentDistribution should render 1`] = `
               <span
                 class="content-container"
               >
-                Breakdown 
+                Breakdown
               </span>
             </label>
             <div
