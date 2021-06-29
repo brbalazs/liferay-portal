@@ -2,8 +2,10 @@ import {Event, EventTypes} from '../utils/types';
 import {gql} from 'apollo-boost';
 
 export interface EventDefinitionsData {
-	eventDefinition: Event[];
-	total: number;
+	eventDefinitions: {
+		eventDefinitions: Event[];
+		total: number;
+	};
 }
 
 export interface EventDefinitionsVariables {
@@ -43,6 +45,44 @@ export default gql`
 				type
 			}
 			total
+		}
+	}
+`;
+
+export interface HideEventDefinitionsData {
+	hideEventDefinitions: Event[];
+}
+
+export interface HideEventDefinitionsVariables {
+	eventDefinitionIds: string[];
+}
+
+export const HideEventDefinitions = gql`
+	mutation HideEventDefinitions($eventDefinitionIds: [String]!) {
+		hideEventDefinitions(eventDefinitionIds: $eventDefinitionIds) {
+			description
+			displayName
+			hidden
+			id
+			name
+			type
+		}
+	}
+`;
+
+export interface UnhideEventDefinitionsData {
+	unhideEventDefinitions: Event[];
+}
+
+export const UnhideEventDefinitions = gql`
+	mutation UnhideEventDefinitions($eventDefinitionIds: [String]!) {
+		unhideEventDefinitions(eventDefinitionIds: $eventDefinitionIds) {
+			description
+			displayName
+			hidden
+			id
+			name
+			type
 		}
 	}
 `;

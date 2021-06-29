@@ -83,6 +83,7 @@ export type Event = {
 	description?: string;
 	displayName?: string;
 	eventAttributeDefinitions?: Attribute[];
+	hidden: boolean;
 	id: string;
 	name: string;
 	type: EventTypes;
