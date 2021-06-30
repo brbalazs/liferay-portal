@@ -59,9 +59,11 @@ public class StructuredContentEntityModel implements EntityModel {
 				"datePublished",
 				locale -> Field.getSortableFieldName(Field.DISPLAY_DATE),
 				locale -> Field.DISPLAY_DATE),
+			new IntegerEntityField("assetLibraryId", locale -> Field.GROUP_ID),
 			new IntegerEntityField(
 				"contentStructureId", locale -> Field.CLASS_TYPE_ID),
 			new IntegerEntityField("creatorId", locale -> Field.USER_ID),
+			new IntegerEntityField("siteId", locale -> Field.GROUP_ID),
 			new StringEntityField(
 				"title",
 				locale -> Field.getSortableFieldName(
