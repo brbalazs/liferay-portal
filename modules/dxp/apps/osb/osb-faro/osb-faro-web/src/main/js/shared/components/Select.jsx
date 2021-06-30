@@ -1,3 +1,4 @@
+import getCN from 'classnames';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {PropTypes} from 'prop-types';
@@ -7,10 +8,7 @@ class SelectItem extends React.Component {
 		const {children, className, ...otherProps} = this.props;
 
 		return (
-			<option
-				{...otherProps}
-				className={className ? ` ${className}` : ''}
-			>
+			<option className={getCN(className)} {...otherProps}>
 				{children}
 			</option>
 		);
@@ -36,9 +34,7 @@ class Select extends React.Component {
 
 		return (
 			<select
-				className={`form-control select-root${
-					className ? ` ${className}` : ''
-				}`}
+				className={getCN('form-control select-root', className)}
 				{...omitDefinedProps(otherProps, Select.propTypes)}
 			>
 				{showBlankOption && <SelectItem />}
