@@ -244,7 +244,10 @@ public class AssetTagsSelectorDisplayContext {
 			return _keywords;
 		}
 
-		_keywords = ParamUtil.getString(_request, "keywords", null);
+		String keywords = ParamUtil.getString(
+			_request, "keywords", null);
+
+		_keywords = StringUtil.quote(keywords, StringPool.PERCENT);
 
 		return _keywords;
 	}
