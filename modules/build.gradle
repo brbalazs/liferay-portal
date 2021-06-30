@@ -90,6 +90,20 @@ if (FileUtil.exists(rootProject, "private/yarn.lock")) {
 	}
 }
 
+if (FileUtil.exists(rootProject, "dxp/apps/osb/osb-faro/yarn.lock") && FileUtil.exists(rootProject, "../release.profile-dxp.properties")) {
+	gradle.beforeProject {
+		if (it.path.equals(":dxp:apps:osb:osb-faro")) {
+			configure(it) {
+				apply plugin: "com.liferay.yarn.defaults.plugin"
+			}
+		}
+	}
+
+	portalYarnInstall {
+		dependsOn ":dxp:apps:osb:osb-faro:yarnInstall"
+	}
+}
+
 buildDir = new File(rootDir.parentFile, "build")
 
 for (String gradleVersion in ["6.6.1"]) {
