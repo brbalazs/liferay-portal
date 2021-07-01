@@ -1,14 +1,15 @@
 .onboarding-modal-root {
-	.connect-dxp {
-		.description {
-			font-size: 18px;
-			font-weight: $fontWeightSemiBold;
-			margin-bottom: 24px;
-			text-align: center;
-		}
+	.close {
+		color: $mainLighten28;
+	}
 
-		.dxp-to-analytics-container {
+	.connect-dxp {
+		.analytics-to-dxp-container {
+			align-items: center;
+			display: flex;
+			justify-content: space-evenly;
 			margin-bottom: 44px;
+			width: 100%;
 
 			.arrows {
 				color: $infoLighten28;
@@ -18,13 +19,33 @@
 				}
 			}
 
-			.icon-root:not(:last-child) {
-				margin-right: 40px;
+			.icon-size-xl {
+				font-size: 6rem;
+			}
+		}
+
+		.fix-pack-container {
+			display: flex;
+			margin-top: 32px;
+			padding: 0 31px 0;
+			width: 100%;
+
+			.fix-pack-button {
+				align-self: flex-end;
+			}
+
+			.fix-pack-select {
+				margin-right: 24px;
+				width: 332px;
+
+				label {
+					font-size: 20px;
+				}
 			}
 		}
 
 		.input-group {
-			max-width: 480px;
+			max-width: 490px;
 
 			.input-root {
 				font-weight: $fontWeightSemiBold;
@@ -34,6 +55,13 @@
 			.button-root {
 				color: $mainLighten28;
 			}
+		}
+
+		.input-success {
+			background-color: $successLighten63;
+			border: unset;
+			border-radius: 4px;
+			color: $success;
 		}
 
 		.modal-footer > div {
@@ -56,15 +84,6 @@
 	}
 
 	.dxp-connection-type {
-		.header {
-			.title {
-				color: $mainLighten8;
-				font-size: $fontSizeExtraLarge;
-				font-weight: $fontWeightBold;
-				margin-top: 60px;
-			}
-		}
-
 		.description {
 			font-size: $fontSizeMedium;
 			margin-bottom: 16px;
@@ -73,6 +92,15 @@
 				color: $mainLighten28;
 				font-size: $fontSizeSmall;
 				margin-top: 16px;
+			}
+		}
+
+		.header {
+			.title {
+				color: $mainLighten8;
+				font-size: $fontSizeExtraLarge;
+				font-weight: $fontWeightBold;
+				margin-top: 60px;
 			}
 		}
 
@@ -209,11 +237,11 @@
 	}
 
 	.success-info {
-		margin-top: 76px;
+		margin: 23px 0 74px;
 
 		.success-message {
 			color: $success;
-			font-size: 18px;
+			font-size: 20px;
 			font-weight: $fontWeightSemiBold;
 			margin-left: 12px;
 		}

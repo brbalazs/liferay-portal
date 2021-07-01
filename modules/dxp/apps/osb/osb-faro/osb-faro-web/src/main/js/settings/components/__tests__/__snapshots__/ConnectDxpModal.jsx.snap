@@ -20,15 +20,15 @@ exports[`ConnectDXPModal renders 1`] = `
             class="d-flex justify-content-end"
           >
             <button
-              class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+              class="button-root btn btn-secondary close"
               type="button"
             >
               <svg
-                class="lexicon-icon lexicon-icon-times"
-                role="presentation"
+                class="icon-root lexicon-icon lexicon-icon-times"
+                viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>
@@ -43,14 +43,14 @@ exports[`ConnectDXPModal renders 1`] = `
           class="modal-body d-flex flex-column align-items-center flex-grow-1 justify-content-center"
         >
           <div
-            class="dxp-to-analytics-container d-flex align-items-center justify-content-center"
+            class="analytics-to-dxp-container"
           >
             <svg
-              class="icon-root lexicon-icon lexicon-icon-dxp-icon-grayscale icon-size-xxl"
+              class="icon-root lexicon-icon lexicon-icon-ac-logo icon-size-xl"
               viewBox=""
             >
               <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#dxp-icon-grayscale"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <svg
@@ -62,24 +62,19 @@ exports[`ConnectDXPModal renders 1`] = `
               />
             </svg>
             <svg
-              class="icon-root lexicon-icon lexicon-icon-ac-logo icon-size-xxl"
+              class="icon-root lexicon-icon lexicon-icon-dxp-icon-grayscale icon-size-xl"
               viewBox=""
             >
               <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#dxp-icon-grayscale"
               />
             </svg>
           </div>
-          <div
-            class="description"
+          <span
+            class="title d-flex justify-content-center"
           >
-            <div>
-              Copy this token and enter it in the Analytics Cloud configuration in your DXP Instance Settings.
-            </div>
-            <div>
-              Then choose what sites you'd like to sync to Analytics Cloud.
-            </div>
-          </div>
+            Connect Your DXP Instance
+          </span>
           <div
             class="input-group"
           >
@@ -114,18 +109,97 @@ exports[`ConnectDXPModal renders 1`] = `
               </div>
             </div>
           </div>
-          <a
-            class="button-root btn btn-secondary more-information-link mt-4 btn-outline-borderless"
-            href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html"
-            target="_blank"
+          <div
+            class="w-100 ml-6 mt-1"
           >
-            More Information
-          </a>
+            Copy this token to your DXP instance.
+          </div>
+          <div
+            class="fix-pack-container"
+          >
+            <div
+              class="fix-pack-select"
+            >
+              <label
+                class="form-control-label label-root"
+              >
+                <span
+                  class="content-container"
+                >
+                  DXP Fix Pack Requirements
+                  <span
+                    class="ml-2"
+                    data-tooltip="true"
+                    title="Minimum fix pack version required for full compatibility"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-question-circle-full"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </label>
+              <select
+                class="form-control select-root mt-1"
+              >
+                <option
+                  class=""
+                  value="dxp-70-fixpack-97"
+                >
+                  DXP 7.0 Fix Pack 97
+                </option>
+                <option
+                  class=""
+                  value="dxp-71-fixpack-21"
+                >
+                  DXP 7.1 Fix Pack 21
+                </option>
+                <option
+                  class=""
+                  value="dxp-72-fixpack-1"
+                >
+                  DXP 7.2 Fix Pack 11
+                </option>
+                <option
+                  class=""
+                  value="dxp-73-fixpack-1"
+                >
+                  DXP 7.3 Fix Pack 1
+                </option>
+              </select>
+            </div>
+            <div
+              class="fix-pack-button"
+            >
+              <a
+                class="button-root btn btn-secondary more-information-link mt-4 btn-outline-borderless"
+                href="https://customer.liferay.com/downloads/-/download/liferay-dxp-7-0-fix-pack-97"
+                target="_blank"
+              >
+                Download
+                <span
+                  class="inline-item inline-item-after"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-shortcut"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#shortcut"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
         <div
-          class="modal-footer d-flex justify-content-between"
+          class="modal-footer d-flex justify-content-end"
         >
-          <div />
           <div>
             <button
               class="button-root btn btn-secondary"

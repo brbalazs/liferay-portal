@@ -6,8 +6,10 @@ import DataSourceQuery from 'shared/queries/DataSourceQuery';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
+import Label from '../form/Label';
 import Modal from '../modal';
 import React, {useEffect, useRef, useState} from 'react';
+import Select from 'shared/components/Select';
 import URLConstants from 'shared/util/url-constants';
 import {ActionType, useChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
@@ -22,6 +24,25 @@ import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
 const TIMEOUT_INTERVAL = 5000;
+
+const DXP_VERSIONS = {
+	'dxp-70-fixpack-97': {
+		label: Liferay.Language.get('dxp-70-fixpack-97'),
+		url: URLConstants.DownloadDXP70FixPack97
+	},
+	'dxp-71-fixpack-21': {
+		label: Liferay.Language.get('dxp-71-fixpack-21'),
+		url: URLConstants.DownloadDXP71FixPack21
+	},
+	'dxp-72-fixpack-1': {
+		label: Liferay.Language.get('dxp-72-fixpack-11'),
+		url: URLConstants.DownloadDXP72FixPack11
+	},
+	'dxp-73-fixpack-1': {
+		label: Liferay.Language.get('dxp-73-fixpack-1'),
+		url: URLConstants.DownloadDXP73FixPack1
+	}
+};
 
 interface IConnectDXPProps {
 	dataSourceId?: string;
@@ -51,12 +72,10 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	fetchDataSource,
 	groupId,
 	history,
-	isUpgrading,
 	onboarding,
 	onClose,
 	onDxpConnected,
-	onNext,
-	onPrevious
+	onNext
 }) => {
 	const {channelDispatch} = useChannelContext();
 
@@ -77,6 +96,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	});
 
 	const [token, setToken] = useState('');
+	const [dxpVersion, setDxpVersion] = useState<string>('dxp-70-fixpack-97');
 
 	const _inputRef = useRef<any>();
 
@@ -182,13 +202,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 			}
 		>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
-				<div className='dxp-to-analytics-container d-flex align-items-center justify-content-center'>
-					<Icon
-						size='xxl'
-						symbol={
-							dxpConnected ? 'dxp-icon' : 'dxp-icon-grayscale'
-						}
-					/>
+				<div className='analytics-to-dxp-container'>
+					<Icon size='xl' symbol='ac-logo' />
 
 					<Icon
 						className={getCN('arrows', {connected: dxpConnected})}
@@ -196,8 +211,52 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						symbol='ac-horizontal-arrows'
 					/>
 
-					<Icon size='xxl' symbol='ac-logo' />
+					<Icon
+						size='xl'
+						symbol={
+							dxpConnected ? 'dxp-icon' : 'dxp-icon-grayscale'
+						}
+					/>
 				</div>
+
+				<span className='title d-flex justify-content-center'>
+					{onboarding
+						? Liferay.Language.get(
+								'first-connect-your-dxp-analytics'
+						  )
+						: Liferay.Language.get('connect-your-dxp-instance')}
+				</span>
+
+				<Input.Group>
+					<Input.GroupItem position='prepend'>
+						<Input
+							className={getCN('text-truncate', {
+								'input-success': dxpConnected
+							})}
+							inset='after'
+							onChange={noop}
+							onClick={selectAll}
+							ref={_inputRef}
+							value={token}
+						/>
+
+						{!dxpConnected && (
+							<Input.Inset position='after'>
+								<CopyButton
+									display='light'
+									onClick={() => {
+										analytics.track(
+											'Clicked Copy Token Button - TEST',
+											null,
+											{ip: '0'}
+										);
+									}}
+									text={token}
+								/>
+							</Input.Inset>
+						)}
+					</Input.GroupItem>
+				</Input.Group>
 
 				{dxpConnected ? (
 					<div className='success-info d-flex align-items-center'>
@@ -214,77 +273,62 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 					</div>
 				) : (
 					<>
-						<div className='description'>
-							<div>
-								{Liferay.Language.get(
-									'copy-this-token-and-enter-it-in-the-analytics-cloud-configuration-in-your-dxp-instance-settings'
-								)}
-							</div>
-
-							{isUpgrading ? (
-								<div>
-									{Liferay.Language.get(
-										'then-verify-your-sites-and-contacts-configuration-once-connected'
-									)}
-								</div>
-							) : (
-								<div>
-									{Liferay.Language.get(
-										'then-choose-what-sites-youd-like-to-sync-to-analytics-cloud'
-									)}
-								</div>
+						<div className='w-100 ml-6 mt-1'>
+							{Liferay.Language.get(
+								'copy-this-token-to-your-dxp-instance'
 							)}
 						</div>
 
-						<Input.Group>
-							<Input.GroupItem position='prepend'>
-								<Input
-									className='text-truncate'
-									inset='after'
-									onChange={noop}
-									onClick={selectAll}
-									ref={_inputRef}
-									value={token}
-								/>
+						<div className='fix-pack-container'>
+							<div className='fix-pack-select'>
+								<Label>
+									{Liferay.Language.get(
+										'dxp-fix-pack-requirements'
+									)}
+									<span
+										className='ml-2'
+										data-tooltip
+										title={Liferay.Language.get(
+											'minimum-fix-pack-version-required-for-full-compatibility'
+										)}
+									>
+										<Icon symbol='question-circle-full' />
+									</span>
+								</Label>
+								<Select
+									className='mt-1'
+									onChange={({target: {value}}) =>
+										setDxpVersion(value)
+									}
+									value={dxpVersion}
+								>
+									{Object.keys(DXP_VERSIONS).map(key => (
+										<Select.Item key={key} value={key}>
+											{DXP_VERSIONS[key].label}
+										</Select.Item>
+									))}
+								</Select>
+							</div>
 
-								<Input.Inset position='after'>
-									<CopyButton
-										display='light'
-										onClick={() => {
-											analytics.track(
-												'Clicked Copy Token Button - TEST',
-												null,
-												{ip: '0'}
-											);
-										}}
-										text={token}
-									/>
-								</Input.Inset>
-							</Input.GroupItem>
-						</Input.Group>
-
-						<Button
-							borderless
-							className='more-information-link mt-4'
-							externalLink
-							href={URLConstants.HelpConnectDxp}
-							target='_blank'
-						>
-							{Liferay.Language.get('more-information')}
-						</Button>
+							<div className='fix-pack-button'>
+								<Button
+									borderless
+									className='more-information-link mt-4'
+									externalLink
+									href={DXP_VERSIONS[dxpVersion].url}
+									icon='shortcut'
+									iconAlignment='right'
+									target='_blank'
+								>
+									{Liferay.Language.get('download')}
+								</Button>
+							</div>
+						</div>
 					</>
 				)}
 			</Modal.Body>
 
-			<Modal.Footer className='d-flex justify-content-between'>
-				<div>
-					{!dxpConnected && onPrevious && (
-						<Button onClick={onPrevious}>
-							{Liferay.Language.get('back')}
-						</Button>
-					)}
-				</div>
-
+			<Modal.Footer className='d-flex justify-content-end'>
 				<div>
 					{!(dxpConnected && onboarding) && (
 						<Button
