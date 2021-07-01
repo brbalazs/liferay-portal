@@ -3,7 +3,7 @@ import ConnectDXP from '../ConnectDXP';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
-import {cleanup, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 import {noop} from 'lodash';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
@@ -11,8 +11,6 @@ import {StaticRouter} from 'react-router-dom';
 jest.unmock('react-dom');
 
 describe('ConnectDXP', () => {
-	afterEach(cleanup);
-
 	it('renders', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
@@ -43,26 +41,34 @@ describe('ConnectDXP', () => {
 		expect(queryByText('Connected')).not.toBeNull();
 	});
 
-	it('renders More information button and new text when isUpgrading is true', () => {
+	it('renders Download button', () => {
 		const {queryByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<ConnectDXP
-						groupId='123'
-						isUpgrading
-						onClose={noop}
-						onNext={noop}
-					/>
+					<ConnectDXP groupId='123' onClose={noop} onNext={noop} />
 				</StaticRouter>
 			</Provider>
 		);
 
-		expect(queryByText('More Information')).toBeTruthy();
-		expect(
-			queryByText(
-				'Then verify your sites and contacts configuration once connected.'
-			)
-		).toBeTruthy();
+		expect(queryByText('Download')).toBeTruthy();
+	});
+
+	it('change Download link when change DXP version', () => {
+		const {container, queryByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConnectDXP groupId='123' onClose={noop} onNext={noop} />
+				</StaticRouter>
+			</Provider>
+		);
+
+		const select = container.querySelector('.select-root');
+
+		fireEvent.change(select, {
+			target: {value: 'dxp-71-fixpack-21'}
+		});
+
+		expect(queryByText('Download').href).toMatch(/7-1-fix-pack-21/);
 	});
 
 	it('fires "setDxpConnected" when the token value changes', () => {
