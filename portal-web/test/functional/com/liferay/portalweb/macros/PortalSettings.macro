@@ -156,7 +156,7 @@ definition {
 			var defaultPortalLanguage = "${defaultPortalLanguage}";
 
 			Select(
-				locator1 = "Select#DEFAULT_LANGUAGE",
+				locator1 = "Select#DEFAULT_LANGUAGE_2",
 				value1 = "${defaultPortalLanguage}");
 		}
 
