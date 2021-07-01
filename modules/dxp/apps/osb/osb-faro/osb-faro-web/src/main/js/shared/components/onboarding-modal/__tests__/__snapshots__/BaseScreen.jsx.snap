@@ -12,15 +12,15 @@ exports[`BaseScreen renders 1`] = `
         class="d-flex justify-content-end"
       >
         <button
-          class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+          class="button-root btn btn-secondary close"
           type="button"
         >
           <svg
-            class="lexicon-icon lexicon-icon-times"
-            role="presentation"
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>

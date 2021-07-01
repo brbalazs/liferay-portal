@@ -1,6 +1,7 @@
+import Button from '../Button';
 import getCN from 'classnames';
+import Icon from '../Icon';
 import React from 'react';
-import {ClayButtonWithIcon} from '@clayui/button';
 
 interface IBaseScreenProps extends React.HTMLAttributes<HTMLElement> {
 	onClose: () => void;
@@ -21,14 +22,9 @@ const BaseScreen: React.FC<IBaseScreenProps> = ({
 	>
 		<div className='header'>
 			<div className='d-flex justify-content-end'>
-				<ClayButtonWithIcon
-					borderless
-					className='close-button'
-					displayType='secondary'
-					onClick={onClose}
-					small
-					symbol='times'
-				/>
+				<Button className='close' onClick={onClose}>
+					<Icon symbol='times' />
+				</Button>
 			</div>
 
 			{title && (
