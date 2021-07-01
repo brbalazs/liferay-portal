@@ -147,7 +147,18 @@ definition {
 			var fieldName = StringUtil.replace("${fieldValue}", " ", "");
 		}
 
-		FormFields.viewFieldName(fieldName = "${fieldName}");
+		if ((isSet(localeAdvanced)) && (isSet(localeBasic))) {
+			var key_localeAdvanced = "${localeAdvanced}";
+			var key_localeBasic = "${localeBasic}";
+
+			FormFields.viewFieldName(
+				fieldName = "${fieldName}",
+				localeAdvanced = "${key_localeAdvanced}",
+				localeBasic = "${key_localeBasic}");
+		}
+		else {
+			FormFields.viewFieldName(fieldName = "${fieldName}");
+		}
 
 		var key_fieldName = "${fieldName}";
 
@@ -226,7 +237,12 @@ definition {
 	macro gotoAddField {
 		Form._addField();
 
-		Form.gotoElementsTab();
+		if (isSet(localeElements)) {
+			Form.gotoElementsTab(key_localeElements = "${localeElements}");
+		}
+		else {
+			Form.gotoElementsTab();
+		}
 
 		var key_fieldType = "${fieldType}";
 
@@ -235,7 +251,13 @@ definition {
 			locator2 = "Form#ADD_FIELD_POSITION",
 			value1 = "${fieldType}");
 
-		AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB");
+		if (isSet(localeBasic)) {
+			var key_localeBasic = "${localeBasic}";
+			AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB_LOCALE");
+		}
+		else {
+			AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB");
+		}
 	}
 
 	macro gotoAdvancedTab {
@@ -251,9 +273,16 @@ definition {
 	}
 
 	macro gotoElementsTab {
-		AssertClick(
-			locator1 = "Form#SIDEBAR_ELEMENTS_TAB",
-			value1 = "Elements");
+		if (isSet(key_localeElements)) {
+			AssertClick(
+				locator1 = "Form#SIDEBAR_ELEMENTS_TAB_LOCALE",
+				value1 = "${key_localeElements}");
+		}
+		else {
+			AssertClick(
+				locator1 = "Form#SIDEBAR_ELEMENTS_TAB",
+				value1 = "Elements");
+		}
 	}
 
 	macro gotoFormPage {
@@ -301,9 +330,18 @@ definition {
 	}
 
 	macro save {
-		AssertClick(
-			locator1 = "Form#SAVE_FORM_BUTTON",
-			value1 = "Save Form");
+		if (isSet(localeSaveForm)) {
+			var key_localeSaveForm = "${localeSaveForm}";
+
+			AssertClick(
+				locator1 = "Form#SAVE_FORM_BUTTON_LOCALE",
+				value1 = "${key_localeSaveForm}");
+		}
+		else {
+			AssertClick(
+				locator1 = "Form#SAVE_FORM_BUTTON",
+				value1 = "Save Form");
+		}
 
 		Alert.viewSuccessMessage();
 	}
