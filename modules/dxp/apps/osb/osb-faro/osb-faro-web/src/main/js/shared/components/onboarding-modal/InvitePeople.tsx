@@ -78,14 +78,14 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	};
 
 	return (
-		<BaseScreen
-			className='invite-people'
-			onClose={onClose}
-			title={Liferay.Language.get('invite-people-to-workspace')}
-		>
-			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
+		<BaseScreen className='invite-people' onClose={onClose}>
+			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-start'>
 				{/* TODO: LRAC-7427 Adjust SVGs with Linear Gradients */}
 				<div className='ac-invite' />
+
+				<span className='title d-flex justify-content-center'>
+					{Liferay.Language.get('invite-people-to-workspace')}
+				</span>
 
 				{sent ? (
 					<div className='success-info d-flex align-items-center'>

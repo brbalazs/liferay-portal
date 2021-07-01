@@ -160,15 +160,18 @@
 		// TODO: LRAC-7427 Adjust SVGs with Linear Gradients
 		.ac-invite {
 			background-image: url('/o/osb-faro-web/dist/sprite.svg#ac-invite-usage');
-			padding: 240px 244px 0px;
-			width: 488px;
+			margin: 20px 0 10px;
+			padding: 201px 203px 0px;
+			width: 406px;
 		}
 
 		.add-emails {
+			margin-top: 35px;
+
 			.input-group {
 				margin-bottom: 4px;
 				margin-top: 12px;
-				width: 600px;
+				width: 490px;
 			}
 
 			.secondary-info {
@@ -194,7 +197,7 @@
 		}
 
 		.title {
-			font-size: 40px;
+			font-size: 32px;
 			font-weight: bold;
 		}
 	}
