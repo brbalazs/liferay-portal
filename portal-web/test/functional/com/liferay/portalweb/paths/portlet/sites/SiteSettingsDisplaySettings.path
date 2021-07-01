@@ -16,6 +16,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>LANGUAGES_RADIO_1</td>
+	<td>//input[contains(@id,'inheritLocales')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DEFINE_DEFAULT_AND_AVAILABLE_SITE_LANGUAGES_RADIO</td>
 	<td>//input[contains(@id,'customLocales')]</td>
 	<td></td>
