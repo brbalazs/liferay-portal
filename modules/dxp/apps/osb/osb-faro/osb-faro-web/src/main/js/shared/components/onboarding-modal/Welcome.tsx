@@ -19,6 +19,10 @@ const Welcome: React.FC<IWelcomeProps> = ({onClose, onNext}) => (
 			{/* TODO: LRAC-7427 Adjust SVGs with Linear Gradients */}
 			<div className='ac-setup' />
 
+			<span className='title d-flex justify-content-center'>
+				{Liferay.Language.get('welcome-to-analytics-cloud')}
+			</span>
+
 			<span className='description'>
 				{Liferay.Language.get(
 					'just-a-few-more-steps-to-set-up-your-workspace'
@@ -27,7 +31,7 @@ const Welcome: React.FC<IWelcomeProps> = ({onClose, onNext}) => (
 		</Modal.Body>
 
 		<Modal.Footer className='d-flex justify-content-center'>
-			<ClayButton autoFocus className='wide' onClick={() => onNext()}>
+			<ClayButton autoFocus onClick={() => onNext()}>
 				{Liferay.Language.get('next')}
 			</ClayButton>
 		</Modal.Footer>

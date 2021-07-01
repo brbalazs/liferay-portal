@@ -194,9 +194,17 @@
 		// TODO: LRAC-7427 Adjust SVGs with Linear Gradients
 		.ac-setup {
 			background-image: url('/o/osb-faro-web/dist/sprite.svg#analytics-onboarding-welcome-usage');
-			margin-bottom: 44px;
-			padding: 275px 132px 0px;
-			width: 264px;
+			margin: 20px 0 24px;
+			padding: 302px 143px 0px;
+		}
+
+		.description {
+			font-size: 24px;
+			margin-top: 15px;
+		}
+
+		.title {
+			font-size: 40px;
 		}
 	}
 
