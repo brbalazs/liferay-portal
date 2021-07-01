@@ -22,7 +22,7 @@ const OnboardingModal: React.FC<IOnboardingModalProps> = ({
 	const ScreenComponent = MODAL_SCREENS[step];
 
 	return (
-		<Modal className='onboarding-modal-root' size='xxl'>
+		<Modal className='onboarding-modal-root'>
 			<ScreenComponent
 				dxpConnected={dxpConnected}
 				groupId={groupId}

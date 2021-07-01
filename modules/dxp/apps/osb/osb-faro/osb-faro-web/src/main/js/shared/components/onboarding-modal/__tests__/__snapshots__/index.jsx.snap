@@ -4,7 +4,7 @@ exports[`OnboardingModal renders 1`] = `
 <div>
   <div
     aria-modal="true"
-    class="modal-dialog onboarding-modal-root modal-xxl"
+    class="modal-dialog onboarding-modal-root"
     role="dialog"
   >
     <div
@@ -20,15 +20,15 @@ exports[`OnboardingModal renders 1`] = `
             class="d-flex justify-content-end"
           >
             <button
-              class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+              class="button-root btn btn-secondary close"
               type="button"
             >
               <svg
-                class="lexicon-icon lexicon-icon-times"
-                role="presentation"
+                class="icon-root lexicon-icon lexicon-icon-times"
+                viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>
@@ -46,6 +46,11 @@ exports[`OnboardingModal renders 1`] = `
             class="ac-setup"
           />
           <span
+            class="title d-flex justify-content-center"
+          >
+            Welcome to Analytics Cloud
+          </span>
+          <span
             class="description"
           >
             Just a few more steps to set up your workspace.
@@ -55,7 +60,7 @@ exports[`OnboardingModal renders 1`] = `
           class="modal-footer d-flex justify-content-center"
         >
           <button
-            class="wide btn btn-primary"
+            class="btn btn-primary"
             type="button"
           >
             Next
