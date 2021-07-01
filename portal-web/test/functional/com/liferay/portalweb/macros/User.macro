@@ -51,6 +51,18 @@ definition {
 		}
 	}
 
+	macro acceptEndUserLicenseAgreementLocalized {
+		var key_localizedAgree = "${localizedAgree}";
+
+		if (IsElementPresent(locator1 = "Button#I_AGREE_LOCALIZED")) {
+			AssertClick(
+				locator1 = "Button#I_AGREE_LOCALIZED",
+				value1 = "${localizedAgree}");
+
+			AssertElementNotPresent(locator1 = "Button#I_AGREE_LOCALIZED");
+		}
+	}
+
 	macro activateCP {
 		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
 
@@ -602,6 +614,22 @@ definition {
 			Button.clickSave();
 
 			AssertElementNotPresent(locator1 = "Button#SAVE");
+		}
+	}
+
+	macro answerPasswordReminderLocalized {
+		Pause(locator1 = "3000");
+
+		var key_localizedAnswer = "${localizedAnswer}";
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER_LOCALIZED")) {
+			Type(
+				locator1 = "TextInput#ANSWER_LOCALIZED",
+				value1 = "test");
+
+			Button.click(button = "${localizedSaveButton}");
+
+			Button.viewNotPresent(button = "${localizedSaveButton}");
 		}
 	}
 
@@ -1408,6 +1436,9 @@ definition {
 		else {
 			User.loginPG(
 				localization = "${localization}",
+				localizedAgree = "${localizedAgree}",
+				localizedAnswer = "${localizedAnswer}",
+				localizedSaveButton = "${localizedSaveButton}",
 				samlEnabled = "${samlEnabled}",
 				setupWizardEnabled = "${setupWizardEnabled}",
 				specificURL = "${virtualHostsURL}",
@@ -1559,14 +1590,26 @@ definition {
 
 		Button.viewNotPresent(button = "Sign In");
 
-		User.acceptEndUserLicenseAgreement();
+		if (isSet(localizedAgree)) {
+			User.acceptEndUserLicenseAgreementLocalized(localizedAgree = "${localizedAgree}");
+		}
+		else {
+			User.acceptEndUserLicenseAgreement();
+		}
 
 		User.resetPassword(
 			resetPassword = "${resetPassword}",
 			setupWizardEnabled = "${setupWizardEnabled}",
 			syntaxCheckingEnabled = "${syntaxCheckingEnabled}");
 
-		User.answerPasswordReminder();
+		if (isSet(localizedAnswer)) {
+			User.answerPasswordReminderLocalized(
+				localizedAnswer = "${localizedAnswer}",
+				localizedSaveButton = "${localizedSaveButton}");
+		}
+		else {
+			User.answerPasswordReminder();
+		}
 
 		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
 	}
