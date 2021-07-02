@@ -151,9 +151,7 @@ export class ActivitiesChartTimeline extends React.Component {
 
 		const date = hasSelectedPoint
 			? getDateRangeLabelFromDate(intervalInitDate, interval)
-			: sub(activitiesLabel, [
-					getDateRangeLabel(history, interval, 'intervalInitDate')
-			  ]);
+			: getDateRangeLabel(history, interval, 'intervalInitDate');
 
 		return (
 			<Card.Body
