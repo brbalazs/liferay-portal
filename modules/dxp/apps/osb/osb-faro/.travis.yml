@@ -12,10 +12,14 @@ jobs:
     include:
         - stage: push docker image
           if: branch = 7.1.x AND type = push
+          install: true
           script: ./gradlew pushAppDockerImage
         - stage: source formatting checks
+          install: true
+          before_script: gradle wrapper --gradle-version 6.6.1
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
         - stage: javascript tests
+          install: true
           script: ./gradlew packageRunWebpack packageRunTest
           after_success:
               - test $TRAVIS_BRANCH = "7.1.x" &&
