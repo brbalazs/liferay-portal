@@ -128,7 +128,7 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					data={EventAttributes}
 					path={[
 						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
-						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES_DEFAULT
+						Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES
 					]}
 				/>
 			)}

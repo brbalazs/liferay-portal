@@ -65,7 +65,7 @@ const items = (devMode: boolean = false): ListItem[] => [
 				description: Liferay.Language.get(
 					'view-and-manage-the-data-model-of-your-event-attributes.-event-attributes-provide-additional-context-to-your-events'
 				),
-				route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES_DEFAULT,
+				route: Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES,
 				title: Liferay.Language.get('event-attributes')
 			},
 			{
