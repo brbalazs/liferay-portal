@@ -10,6 +10,13 @@ const AttributeList = lazy(
 	() => import(/* webpackChunkName: "AttributeList" */ './AttributeList')
 );
 
+const GlobalAttributeList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "GlobalAttributeList" */ './GlobalAttributeList'
+		)
+);
+
 const NAV_ITEMS = [
 	{
 		exact: true,
@@ -54,6 +61,11 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 						data={AttributeList}
 						exact
 						path={Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES}
+					/>
+					<BundleRouter
+						data={GlobalAttributeList}
+						exact
+						path={Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES}
 					/>
 				</Switch>
 			</Suspense>
