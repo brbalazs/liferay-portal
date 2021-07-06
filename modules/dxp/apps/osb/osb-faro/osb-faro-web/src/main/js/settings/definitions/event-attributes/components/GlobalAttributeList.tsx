@@ -70,7 +70,7 @@ const GlobalAttributeList = withBaseResults(withData, {
 		globalAttributeListColumns.displayName,
 		globalAttributeListColumns.description
 	],
-	rowIdentifier: 'globalAttributeId',
+	rowIdentifier: 'id',
 	showDropdownRangeKey: false
 });
 export default GlobalAttributeList;
