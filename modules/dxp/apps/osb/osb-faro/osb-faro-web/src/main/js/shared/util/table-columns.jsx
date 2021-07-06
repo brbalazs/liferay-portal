@@ -129,53 +129,6 @@ export const assetsListColumns = {
 	}
 };
 
-export const globalAttributeListColumns = {
-	dataType: {
-		accessor: 'dataType',
-		cellRenderer: ({data: {dataType}}) => (
-			<td>
-				<Label display='info' size='lg' uppercase>
-					{dataType}
-				</Label>
-			</td>
-		),
-		label: Liferay.Language.get('data-typecast'),
-		sortable: false
-	},
-	description: {
-		accessor: 'description',
-		className: 'table-cell-expand text-truncate',
-		dataFormatter: value =>
-			value || <i>{Liferay.Language.get('no-description')}</i>,
-		label: Liferay.Language.get('description'),
-		sortable: false
-	},
-	displayName: {
-		accessor: 'displayName',
-		className: 'table-cell-expand-small text-truncate',
-		label: Liferay.Language.get('display-name')
-	},
-	getName: ({channelId, groupId}) => ({
-		accessor: 'name',
-		cellRenderer: NameCell,
-		cellRendererProps: {
-			routeFn: ({data: {id}}) =>
-				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
-					attributeId: id,
-					channelId,
-					groupId
-				})
-		},
-		className: 'table-cell-expand-small',
-		label: Liferay.Language.get('attribute-name')
-	}),
-	name: {
-		accessor: 'name',
-		className: 'table-cell-expand-small text-truncate',
-		label: Liferay.Language.get('attribute-name')
-	}
-};
-
 /**
  * Attribute List Columns
  */
@@ -487,6 +440,44 @@ export const eventListColumns = {
 		),
 		className: 'table-cell-expand-small',
 		label: Liferay.Language.get('event-name')
+	}
+};
+
+/**
+ * Global Attribute List Columns
+ */
+export const globalAttributeListColumns = {
+	description: {
+		accessor: 'description',
+		className: 'table-cell-expand text-truncate',
+		dataFormatter: value =>
+			value || <i>{Liferay.Language.get('no-description')}</i>,
+		label: Liferay.Language.get('description'),
+		sortable: false
+	},
+	displayName: {
+		accessor: 'displayName',
+		className: 'table-cell-expand-small text-truncate',
+		label: Liferay.Language.get('display-name')
+	},
+	getName: ({channelId, groupId}) => ({
+		accessor: 'name',
+		cellRenderer: NameCell,
+		cellRendererProps: {
+			routeFn: ({data: {id}}) =>
+				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
+					attributeId: id,
+					channelId,
+					groupId
+				})
+		},
+		className: 'table-cell-expand-small',
+		label: Liferay.Language.get('attribute-name')
+	}),
+	name: {
+		accessor: 'name',
+		className: 'table-cell-expand-small text-truncate',
+		label: Liferay.Language.get('attribute-name')
 	}
 };
 
