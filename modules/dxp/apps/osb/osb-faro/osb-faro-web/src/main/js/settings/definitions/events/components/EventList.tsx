@@ -168,7 +168,7 @@ const EventList = withCrossPageSelect(withData, {
 									visibleEventsCount > 1
 										? sub(
 												Liferay.Language.get(
-													'x-events-set-to-hide'
+													'x-events-have-been-set-to-hide'
 												),
 												[visibleEventsCount]
 										  )

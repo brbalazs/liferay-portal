@@ -302,7 +302,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 										  )
 										: sub(
 												Liferay.Language.get(
-													'x-have-been-set-to-hide'
+													'x-has-been-set-to-hide'
 												),
 												[visibleEvents[0].displayName]
 										  )
