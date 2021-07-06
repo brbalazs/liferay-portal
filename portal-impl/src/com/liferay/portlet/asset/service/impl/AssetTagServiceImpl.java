@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Autocomplete;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.asset.service.base.AssetTagServiceBaseImpl;
 import com.liferay.portlet.asset.service.permission.AssetTagsPermission;
@@ -191,7 +192,9 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 		}
 
 		return sanitize(
-			assetTagPersistence.findByG_LikeN(groupIds, name, start, end, obc));
+			assetTagPersistence.findByG_LikeN(
+				groupIds, StringUtil.quote(name, StringPool.PERCENT), start,
+				end, obc));
 	}
 
 	@Override
