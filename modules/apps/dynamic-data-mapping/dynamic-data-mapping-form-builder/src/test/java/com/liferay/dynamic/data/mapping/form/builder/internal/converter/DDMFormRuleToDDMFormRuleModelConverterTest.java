@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 
 import java.lang.reflect.Field;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -369,13 +368,8 @@ public class DDMFormRuleToDDMFormRuleModelConverterTest
 
 		matcher.find();
 
-		List<String> callFunctionParameters = new ArrayList<>(3);
-
-		callFunctionParameters.add(matcher.group(1));
-		callFunctionParameters.add(matcher.group(2));
-		callFunctionParameters.add(matcher.group(3));
-
-		return callFunctionParameters;
+		return ListUtil.fromArray(
+			matcher.group(1), matcher.group(2), matcher.group(3));
 	}
 
 	protected void setUpDDMFormRuleDeserializer()
