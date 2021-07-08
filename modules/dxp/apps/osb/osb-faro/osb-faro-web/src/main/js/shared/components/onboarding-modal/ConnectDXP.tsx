@@ -27,19 +27,19 @@ const TIMEOUT_INTERVAL = 5000;
 
 const DXP_VERSIONS = {
 	'dxp-70-fixpack-97': {
-		label: Liferay.Language.get('dxp-70-fixpack-97'),
+		label: 'DXP 7.0 Fix Pack 97',
 		url: URLConstants.DownloadDXP70FixPack97
 	},
 	'dxp-71-fixpack-21': {
-		label: Liferay.Language.get('dxp-71-fixpack-21'),
+		label: 'DXP 7.1 Fix Pack 21',
 		url: URLConstants.DownloadDXP71FixPack21
 	},
 	'dxp-72-fixpack-1': {
-		label: Liferay.Language.get('dxp-72-fixpack-11'),
+		label: 'DXP 7.2 Fix Pack 11',
 		url: URLConstants.DownloadDXP72FixPack11
 	},
 	'dxp-73-fixpack-1': {
-		label: Liferay.Language.get('dxp-73-fixpack-1'),
+		label: 'DXP 7.3 Fix Pack 1',
 		url: URLConstants.DownloadDXP73FixPack1
 	}
 };
