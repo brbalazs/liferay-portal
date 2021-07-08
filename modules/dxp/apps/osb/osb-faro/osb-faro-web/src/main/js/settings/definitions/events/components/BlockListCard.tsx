@@ -1,6 +1,11 @@
 import BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
 	BlockedCustomEventDefinitionsData,
-	BlockedCustomEventDefinitionsVariables
+	BlockedCustomEventDefinitionsVariables,
+	HideBlockedCustomEventDefinitions,
+	HideBlockedCustomEventDefinitionsData,
+	HideBlockedCustomEventDefinitionsVariables,
+	UnhideBlockedCustomEventDefinitions,
+	UnhideBlockedCustomEventDefinitionsData
 } from '../queries/BlockedCustomEventDefinitionsQuery';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
@@ -16,11 +21,13 @@ import {
 	UnblockCustomEventDefinitions
 } from 'event-analysis/queries/CustomEventDefinitions';
 import {BlockedCustomEvent} from 'event-analysis/utils/types';
+import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
 import {NAME} from 'shared/util/pagination';
+import {OrderedMap} from 'immutable';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
@@ -46,7 +53,7 @@ const withData = () => WrapperComponent => ({
 		BlockedCustomEventDefinitionsData,
 		BlockedCustomEventDefinitionsVariables
 	>(BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
-		fetchPolicy: 'no-cache',
+		fetchPolicy: 'network-only',
 		variables: {
 			keyword: query,
 			page: Number(page) - 1,
@@ -97,7 +104,13 @@ const BlockListCard = withCrossPageSelect(withData, {
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false,
-	withQueryOptions: Component => ({addAlert, currentUser, ...otherProps}) => {
+	withQueryOptions: Component => ({
+		addAlert,
+		close,
+		currentUser,
+		open,
+		...otherProps
+	}) => {
 		const {
 			delta,
 			groupId,
@@ -115,6 +128,148 @@ const BlockListCard = withCrossPageSelect(withData, {
 			BlockCustomEventDefinitionsData,
 			BlockCustomEventDefinitionsVariables
 		>(UnblockCustomEventDefinitions);
+
+		const [hideEventDefinitions] = useMutation<
+			HideBlockedCustomEventDefinitionsData,
+			HideBlockedCustomEventDefinitionsVariables
+		>(HideBlockedCustomEventDefinitions, {
+			onCompleted: ({
+				hideBlockedEventDefinitions
+			}: {
+				hideBlockedEventDefinitions: BlockedCustomEvent[];
+			}) => {
+				if (!selectedItems.isEmpty()) {
+					selectionDispatch({
+						payload: {
+							items: hideBlockedEventDefinitions
+						},
+						type: 'add'
+					});
+				}
+			}
+		});
+
+		const [unhideEventDefinitions] = useMutation<
+			UnhideBlockedCustomEventDefinitionsData,
+			HideBlockedCustomEventDefinitionsVariables
+		>(UnhideBlockedCustomEventDefinitions, {
+			onCompleted: ({
+				unhideBlockedEventDefinitions
+			}: {
+				unhideBlockedEventDefinitions: BlockedCustomEvent[];
+			}) => {
+				if (!selectedItems.isEmpty()) {
+					selectionDispatch({
+						payload: {
+							items: unhideBlockedEventDefinitions
+						},
+						type: 'add'
+					});
+				}
+			}
+		});
+
+		const handleHideEvents = (events: BlockedCustomEvent[] = []) => {
+			const visibleEvents = events.filter(({hidden}) => !hidden);
+
+			const visibleEventsCount = visibleEvents.length;
+
+			open(modalTypes.CONFIRMATION_MODAL, {
+				message: (
+					<p className='text-secondary'>
+						{Liferay.Language.get(
+							'hiding-events-in-the-interface-may-require-reconfiguration-of-segments-and-other-analysis-using-this-event.-hidden-events-will-be-available-for-calculating-metrics'
+						)}
+					</p>
+				),
+				modalVariant: 'modal-warning',
+				onClose: close,
+				onSubmit: () => {
+					hideEventDefinitions({
+						variables: {
+							eventDefinitionIds: events.map(({id}) => id)
+						}
+					})
+						.then(() => {
+							addAlert({
+								alertType: Alert.Types.Success,
+								message:
+									visibleEventsCount > 1
+										? sub(
+												Liferay.Language.get(
+													'x-events-have-been-set-to-hide'
+												),
+												[visibleEventsCount]
+										  )
+										: sub(
+												Liferay.Language.get(
+													'x-has-been-set-to-hide'
+												),
+												[visibleEvents[0].name]
+										  )
+							});
+						})
+						.catch(() =>
+							addAlert({
+								alertType: Alert.Types.Error,
+								message: Liferay.Language.get(
+									'there-was-an-error-processing-your-request.-please-try-again'
+								),
+								timeout: false
+							})
+						);
+				},
+				submitButtonDisplay: 'warning',
+				submitMessage: Liferay.Language.get('hide'),
+				title:
+					visibleEventsCount > 1
+						? Liferay.Language.get('hide-events')
+						: sub(Liferay.Language.get('hide-x'), [
+								visibleEvents[0].name
+						  ]),
+				titleIcon: 'warning'
+			});
+		};
+
+		const handleUnhideEvents = (events: BlockedCustomEvent[] = []) => {
+			const hiddenEvents = events.filter(({hidden}) => hidden);
+
+			const hiddenEventsCount = hiddenEvents.length;
+
+			unhideEventDefinitions({
+				variables: {
+					eventDefinitionIds: events.map(({id}) => id)
+				}
+			})
+				.then(() => {
+					addAlert({
+						alertType: Alert.Types.Success,
+						message:
+							hiddenEventsCount > 1
+								? sub(
+										Liferay.Language.get(
+											'x-events-have-been-set-to-show'
+										),
+										[hiddenEventsCount]
+								  )
+								: sub(
+										Liferay.Language.get(
+											'x-has-been-set-to-show'
+										),
+										[hiddenEvents[0].name]
+								  )
+					});
+				})
+				.catch(() =>
+					addAlert({
+						alertType: Alert.Types.Error,
+						message: Liferay.Language.get(
+							'there-was-an-error-processing-your-request.-please-try-again'
+						),
+						timeout: false
+					})
+				);
+		};
 
 		const handleUnblockEvents = (events: BlockedCustomEvent[] = []) => {
 			const eventsCount = events.length;
@@ -149,7 +304,7 @@ const BlockListCard = withCrossPageSelect(withData, {
 						);
 					} else {
 						refetch({
-							fetchPolicy: 'no-cache',
+							fetchPolicy: 'network-only',
 							variables: {
 								keywords: query,
 								size: delta,
@@ -192,21 +347,42 @@ const BlockListCard = withCrossPageSelect(withData, {
 				);
 		};
 
-		const renderRowActions = ({data}: {data: BlockedCustomEvent}) => (
-			<RowActions
-				quickActions={[
-					{
-						iconSymbol: 'undo',
-						label: Liferay.Language.get('unblock-event'),
-						onClick: () => {
-							handleUnblockEvents([data]);
+		const renderRowActions = ({data}: {data: BlockedCustomEvent}) => {
+			const {hidden} = data;
+
+			return (
+				<RowActions
+					quickActions={[
+						{
+							iconSymbol: 'undo',
+							label: Liferay.Language.get('unblock-event'),
+							onClick: () => {
+								handleUnblockEvents([data]);
+							}
+						},
+						{
+							iconSymbol: hidden ? 'view' : 'ac-hidden',
+							label: hidden
+								? Liferay.Language.get('set-to-show')
+								: Liferay.Language.get('set-to-hide'),
+							onClick: () => {
+								const hideEventFn = hidden
+									? handleUnhideEvents
+									: handleHideEvents;
+
+								hideEventFn([data]);
+							}
 						}
-					}
-				]}
-			/>
-		);
+					]}
+				/>
+			);
+		};
 
 		const authorized = currentUser.isAdmin();
+
+		const hasUnhiddenEvent = (
+			events: OrderedMap<string, BlockedCustomEvent>
+		) => events.some(({hidden}) => !hidden);
 
 		return (
 			<Card pageDisplay>
@@ -233,6 +409,39 @@ const BlockListCard = withCrossPageSelect(withData, {
 													'unblock-events'
 												)}
 											</Button>
+
+											<Button
+												borderless
+												className='nav-btn'
+												display='outline-secondary'
+												icon={
+													hasUnhiddenEvent(
+														selectedItems
+													)
+														? 'ac-hidden'
+														: 'view'
+												}
+												iconAlignment='left'
+												onClick={() => {
+													const hideEventFn = hasUnhiddenEvent(
+														selectedItems
+													)
+														? handleHideEvents
+														: handleUnhideEvents;
+
+													hideEventFn(
+														selectedItems.toArray()
+													);
+												}}
+											>
+												{hasUnhiddenEvent(selectedItems)
+													? Liferay.Language.get(
+															'hide'
+													  )
+													: Liferay.Language.get(
+															'show'
+													  )}
+											</Button>
 										</Nav.Item>
 									</Nav>
 							  )
@@ -253,5 +462,5 @@ const BlockListCard = withCrossPageSelect(withData, {
 export default compose<any>(
 	withSelectionProvider,
 	withCurrentUser,
-	connect(null, {addAlert})
+	connect(null, {addAlert, close, open})
 )(BlockListCard);

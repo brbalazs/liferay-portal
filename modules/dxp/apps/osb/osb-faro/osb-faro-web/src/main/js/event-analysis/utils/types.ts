@@ -63,6 +63,7 @@ export type Attribute = {
 export type Attributes = {[key: string]: Attribute};
 
 export type BlockedCustomEvent = {
+	hidden: boolean;
 	id: string;
 	name: string;
 	lastSeenDate: string;

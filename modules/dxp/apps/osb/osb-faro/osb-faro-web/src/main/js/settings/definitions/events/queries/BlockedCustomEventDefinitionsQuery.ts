@@ -40,3 +40,45 @@ export default gql`
 		}
 	}
 `;
+
+export interface HideBlockedCustomEventDefinitionsData {
+	hideBlockedEventDefinitions: BlockedCustomEvent[];
+}
+
+export interface HideBlockedCustomEventDefinitionsVariables {
+	eventDefinitionIds: string[];
+}
+
+export const HideBlockedCustomEventDefinitions = gql`
+	mutation HideBlockedCustomEventDefinitions($eventDefinitionIds: [String]!) {
+		hideBlockedEventDefinitions(
+			blockedEventDefinitionIds: $eventDefinitionIds
+		) {
+			hidden
+			id
+			name
+			lastSeenDate
+			lastSeenURL
+		}
+	}
+`;
+
+export interface UnhideBlockedCustomEventDefinitionsData {
+	unhideBlockedEventDefinitions: BlockedCustomEvent[];
+}
+
+export const UnhideBlockedCustomEventDefinitions = gql`
+	mutation UnhideBlockedCustomEventDefinitions(
+		$eventDefinitionIds: [String]!
+	) {
+		unhideBlockedEventDefinitions(
+			blockedEventDefinitionIds: $eventDefinitionIds
+		) {
+			hidden
+			id
+			name
+			lastSeenDate
+			lastSeenURL
+		}
+	}
+`;

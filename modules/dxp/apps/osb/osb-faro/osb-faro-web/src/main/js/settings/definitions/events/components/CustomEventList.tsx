@@ -217,7 +217,7 @@ const CustomEventList = withCrossPageSelect(withData, {
 								);
 							} else {
 								refetch({
-									fetchPolicy: 'no-cache',
+									fetchPolicy: 'network-only',
 									variables: {
 										keywords: query,
 										size: delta,
