@@ -220,6 +220,23 @@ exports[`BlockListCard should render 1`] = `
                       />
                     </svg>
                   </button>
+                  <button
+                    alt="Set to Hide"
+                    aria-label="Set to Hide"
+                    class="button-root btn btn-unstyled component-action quick-action-item"
+                    data-tooltip="true"
+                    title="Set to Hide"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-ac-hidden"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-hidden"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </span>
             </td>
