@@ -33,11 +33,6 @@ exports[`ConnectDXPModal renders 1`] = `
               </svg>
             </button>
           </div>
-          <span
-            class="title d-flex justify-content-center"
-          >
-            Connect Your DXP Instance
-          </span>
         </div>
         <div
           class="modal-body d-flex flex-column align-items-center flex-grow-1 justify-content-center"
@@ -147,25 +142,21 @@ exports[`ConnectDXPModal renders 1`] = `
                 class="form-control select-root mt-1"
               >
                 <option
-                  class=""
                   value="dxp-70-fixpack-97"
                 >
                   DXP 7.0 Fix Pack 97
                 </option>
                 <option
-                  class=""
                   value="dxp-71-fixpack-21"
                 >
                   DXP 7.1 Fix Pack 21
                 </option>
                 <option
-                  class=""
                   value="dxp-72-fixpack-1"
                 >
                   DXP 7.2 Fix Pack 11
                 </option>
                 <option
-                  class=""
                   value="dxp-73-fixpack-1"
                 >
                   DXP 7.3 Fix Pack 1

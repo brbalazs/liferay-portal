@@ -25,11 +25,6 @@ exports[`Welcome renders 1`] = `
           </svg>
         </button>
       </div>
-      <span
-        class="title d-flex justify-content-center"
-      >
-        Welcome to Analytics Cloud
-      </span>
     </div>
     <div
       class="modal-body d-flex flex-column align-items-center"
