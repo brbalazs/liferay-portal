@@ -10,11 +10,7 @@ interface IWelcomeProps {
 }
 
 const Welcome: React.FC<IWelcomeProps> = ({onClose, onNext}) => (
-	<BaseScreen
-		className='welcome'
-		onClose={onClose}
-		title={Liferay.Language.get('welcome-to-analytics-cloud')}
-	>
+	<BaseScreen className='welcome' onClose={onClose}>
 		<Modal.Body className='d-flex flex-column align-items-center'>
 			{/* TODO: LRAC-7427 Adjust SVGs with Linear Gradients */}
 			<div className='ac-setup' />

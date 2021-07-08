@@ -192,15 +192,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	}, []);
 
 	return (
-		<BaseScreen
-			className='connect-dxp'
-			onClose={onClose}
-			title={
-				onboarding
-					? Liferay.Language.get('first-connect-your-dxp-analytics')
-					: Liferay.Language.get('connect-your-dxp-instance')
-			}
-		>
+		<BaseScreen className='connect-dxp' onClose={onClose}>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
 				<div className='analytics-to-dxp-container'>
 					<Icon size='xl' symbol='ac-logo' />

@@ -1,6 +1,5 @@
 import Button from '../Button';
 import getCN from 'classnames';
-import Icon from '../Icon';
 import React from 'react';
 
 interface IBaseScreenProps extends React.HTMLAttributes<HTMLElement> {
@@ -22,9 +21,12 @@ const BaseScreen: React.FC<IBaseScreenProps> = ({
 	>
 		<div className='header'>
 			<div className='d-flex justify-content-end'>
-				<Button className='close' onClick={onClose}>
-					<Icon symbol='times' />
-				</Button>
+				<Button
+					className='close'
+					icon='times'
+					iconAlignment='left'
+					onClick={onClose}
+				/>
 			</div>
 
 			{title && (

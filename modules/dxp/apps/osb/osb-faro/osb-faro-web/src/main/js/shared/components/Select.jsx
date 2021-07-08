@@ -8,7 +8,7 @@ class SelectItem extends React.Component {
 		const {children, className, ...otherProps} = this.props;
 
 		return (
-			<option className={getCN(className)} {...otherProps}>
+			<option className={className} {...otherProps}>
 				{children}
 			</option>
 		);
