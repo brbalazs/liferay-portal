@@ -4,7 +4,7 @@ exports[`ConnectDXPModal renders 1`] = `
 <div>
   <div
     aria-modal="true"
-    class="modal-dialog connect-dxp onboarding-modal-root modal-xxl"
+    class="modal-dialog connect-dxp onboarding-modal-root"
     role="dialog"
   >
     <div

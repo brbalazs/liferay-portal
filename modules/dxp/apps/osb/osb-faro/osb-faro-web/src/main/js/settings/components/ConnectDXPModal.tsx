@@ -21,7 +21,7 @@ const ConnectDXPModal: React.FC<IConnectDXPModalProps> = ({
 	const ScreenComponent = MODAL_SCREENS[step];
 
 	return (
-		<Modal className='connect-dxp onboarding-modal-root' size='xxl'>
+		<Modal className='connect-dxp onboarding-modal-root'>
 			<ScreenComponent
 				dataSourceId={id}
 				dxpConnected={dxpConnected}
