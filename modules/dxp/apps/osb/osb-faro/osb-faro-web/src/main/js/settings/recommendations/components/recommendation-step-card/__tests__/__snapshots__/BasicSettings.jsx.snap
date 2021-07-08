@@ -55,25 +55,21 @@ exports[`BasicSettings should render 1`] = `
             name="runFrequency"
           >
             <option
-              class=""
               value="MANUAL"
             >
               Run Manually
             </option>
             <option
-              class=""
               value="EVERY_7_DAYS"
             >
               Every 7 days
             </option>
             <option
-              class=""
               value="EVERY_14_DAYS"
             >
               Every 14 days
             </option>
             <option
-              class=""
               value="EVERY_30_DAYS"
             >
               Every 30 days

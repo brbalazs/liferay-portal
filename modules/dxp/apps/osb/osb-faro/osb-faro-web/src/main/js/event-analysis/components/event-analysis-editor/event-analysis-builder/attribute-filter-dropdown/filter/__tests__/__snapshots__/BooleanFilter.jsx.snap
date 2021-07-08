@@ -33,13 +33,11 @@ exports[`BooleanFilter should render 1`] = `
               name="value"
             >
               <option
-                class=""
                 value="true"
               >
                 True
               </option>
               <option
-                class=""
                 value="false"
               >
                 False

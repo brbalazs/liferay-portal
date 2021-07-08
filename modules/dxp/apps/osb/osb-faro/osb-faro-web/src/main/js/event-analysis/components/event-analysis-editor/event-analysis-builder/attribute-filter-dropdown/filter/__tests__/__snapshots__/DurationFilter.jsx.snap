@@ -33,13 +33,11 @@ exports[`DurationFilter should render 1`] = `
               name="operator"
             >
               <option
-                class=""
                 value="gt"
               >
                 is greater than
               </option>
               <option
-                class=""
                 value="lt"
               >
                 is less than

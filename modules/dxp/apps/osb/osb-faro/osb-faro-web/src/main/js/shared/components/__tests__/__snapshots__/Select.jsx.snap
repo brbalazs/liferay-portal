@@ -13,9 +13,7 @@ exports[`Select should render with blank option 1`] = `
   <select
     class="form-control select-root"
   >
-    <option
-      class=""
-    />
+    <option />
   </select>
 </div>
 `;

@@ -20,19 +20,16 @@ exports[`TimeZonePicker should render 1`] = `
             Country
           </option>
           <option
-            class=""
             value="Brazil"
           >
             Brazil
           </option>
           <option
-            class=""
             value="Chile"
           >
             Chile
           </option>
           <option
-            class=""
             value="UTC"
           >
             UTC
@@ -50,11 +47,8 @@ exports[`TimeZonePicker should render 1`] = `
             id="timezone"
             name="timezone"
           >
+            <option />
             <option
-              class=""
-            />
-            <option
-              class=""
               value="UTC"
             >
               (UTC) UTC

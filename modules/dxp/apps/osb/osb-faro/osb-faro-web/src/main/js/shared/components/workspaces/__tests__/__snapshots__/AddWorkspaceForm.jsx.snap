@@ -105,25 +105,21 @@ exports[`AddWorkspaceForm should render 1`] = `
                 name="serverLocation"
               >
                 <option
-                  class=""
                   value="LONDON, ENGLAND"
                 >
                   London, England
                 </option>
                 <option
-                  class=""
                   value="FRANKFURT, GERMANY"
                 >
                   Frankfurt, Germany
                 </option>
                 <option
-                  class=""
                   value="SÃO PAULO, BRAZIL"
                 >
                   São Paulo, Brazil
                 </option>
                 <option
-                  class=""
                   value="OREGON, USA"
                 >
                   Oregon, USA
@@ -177,9 +173,7 @@ exports[`AddWorkspaceForm should render 1`] = `
                     id="timeZoneId"
                     name="timeZoneId"
                   >
-                    <option
-                      class=""
-                    />
+                    <option />
                   </select>
                 </div>
               </div>

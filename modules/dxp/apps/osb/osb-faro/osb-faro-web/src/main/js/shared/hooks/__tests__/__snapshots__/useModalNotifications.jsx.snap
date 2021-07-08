@@ -59,19 +59,16 @@ exports[`useModalNotifications should open a notification modal 1`] = `
                           Country
                         </option>
                         <option
-                          class=""
                           value="Brazil"
                         >
                           Brazil
                         </option>
                         <option
-                          class=""
                           value="Chile"
                         >
                           Chile
                         </option>
                         <option
-                          class=""
                           value="UTC"
                         >
                           UTC
@@ -89,11 +86,8 @@ exports[`useModalNotifications should open a notification modal 1`] = `
                           id="timeZoneId"
                           name="timeZoneId"
                         >
+                          <option />
                           <option
-                            class=""
-                          />
-                          <option
-                            class=""
                             value="UTC"
                           >
                             (UTC) UTC

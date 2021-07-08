@@ -33,25 +33,21 @@ exports[`StringFilter should render 1`] = `
               name="operator"
             >
               <option
-                class=""
                 value="contains"
               >
                 contains
               </option>
               <option
-                class=""
                 value="not-contains"
               >
                 not contains
               </option>
               <option
-                class=""
                 value="eq"
               >
                 is
               </option>
               <option
-                class=""
                 value="ne"
               >
                 is not

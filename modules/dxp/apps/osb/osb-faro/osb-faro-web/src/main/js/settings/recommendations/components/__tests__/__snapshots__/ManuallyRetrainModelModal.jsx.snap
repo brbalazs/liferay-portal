@@ -55,25 +55,21 @@ exports[`ManuallyRetrainModelModal should render 1`] = `
                   name="runDataPeriod"
                 >
                   <option
-                    class=""
                     value="LAST_7_DAYS"
                   >
                     Last 7 days
                   </option>
                   <option
-                    class=""
                     value="LAST_30_DAYS"
                   >
                     Last 30 days
                   </option>
                   <option
-                    class=""
                     value="LAST_180_DAYS"
                   >
                     Last 180 days
                   </option>
                   <option
-                    class=""
                     value="LAST_365_DAYS"
                   >
                     Last Year

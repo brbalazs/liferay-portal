@@ -33,25 +33,21 @@ exports[`DateFilter should render 1`] = `
               name="operator"
             >
               <option
-                class=""
                 value="eq"
               >
                 is
               </option>
               <option
-                class=""
                 value="lt"
               >
                 before
               </option>
               <option
-                class=""
                 value="gt"
               >
                 after
               </option>
               <option
-                class=""
                 value="between"
               >
                 is between

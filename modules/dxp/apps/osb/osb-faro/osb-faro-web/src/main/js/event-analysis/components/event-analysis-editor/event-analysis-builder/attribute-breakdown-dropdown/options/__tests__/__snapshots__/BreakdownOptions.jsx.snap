@@ -90,19 +90,16 @@ exports[`FilterOptions should render 1`] = `
                 type="string"
               >
                 <option
-                  class=""
                   value="dates"
                 >
                   Date
                 </option>
                 <option
-                  class=""
                   value="months"
                 >
                   Month
                 </option>
                 <option
-                  class=""
                   value="years"
                 >
                   Year
