@@ -537,7 +537,7 @@ export default class MainMetrics extends React.Component {
 		const header = [
 			{
 				columns: [
-					{label: title, weight: 'semibold', width: 100},
+					{label: title, weight: 'semibold', width: 116},
 					showPrevious && {
 						align: 'right',
 						label: previousPeriodTitle,
