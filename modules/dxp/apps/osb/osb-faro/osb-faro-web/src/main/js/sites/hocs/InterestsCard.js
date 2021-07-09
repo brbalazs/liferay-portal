@@ -24,7 +24,7 @@ const TableWithData = withTableData(withData, {
 	getColumns: ({maxCount, totalCount}) => [
 		compositionListColumns.getRelativeMetricBar({
 			label: `${Liferay.Language.get(
-				'interest-topic'
+				'interest-topics'
 			)} | ${Liferay.Language.get('sessions')}`,
 			maxCount,
 			showName: true,
