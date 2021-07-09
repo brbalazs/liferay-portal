@@ -324,7 +324,7 @@ definition {
 
 		PortalSettings.viewCurrentDefaultPortalLanguageCP(
 			defaultPortalLanguage = "español (España)",
-			localizationTranslation = "Localización");
+			miscellaneousTranslation = "Varios");
 
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
 
