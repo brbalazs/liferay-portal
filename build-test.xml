@@ -11483,10 +11483,15 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 
 				<mkdir dir="dist" />
 
-				<mirrors-get
-					dest="dist/liferay-portal-${lp.version}.war"
-					src="${test.build.portal.war.url}"
-				/>
+				<if>
+					<matches pattern="(file|https?)://" string="${test.build.portal.war.url}" />
+					<then>
+						<mirrors-get
+							dest="liferay-portal.war"
+							src="${test.build.portal.war.url}"
+						/>
+					</then>
+				</if>
 
 				<if>
 					<equals arg1="${app.server.type}" arg2="websphere" />
@@ -11499,7 +11504,7 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 
 						<unzip
 							dest="${tstamp.value}"
-							src="dist/liferay-portal-${lp.version}.war"
+							src="liferay-portal.war"
 						/>
 
 						<if>
@@ -11516,32 +11521,35 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 
 						<zip
 							basedir="${tstamp.value}"
-							destfile="dist/liferay-portal-${lp.version}.war"
+							destfile="liferay-portal.war"
 						/>
 
 						<delete dir="${tstamp.value}" />
 
 						<copy
-							file="dist/liferay-portal-${lp.version}.war"
+							file="liferay-portal.war"
 							tofile="${app.server.websphere.deploy.dir}/liferay-portal.war"
 						/>
 					</then>
 					<else>
 						<unzip
 							dest="${app.server.portal.dir}"
-							src="dist/liferay-portal-${lp.version}.war"
+							src="liferay-portal.war"
 						/>
 					</else>
 				</if>
 
-				<delete dir="dist" />
-
 				<ant antfile="build.xml" inheritAll="false" target="update-app-server-scripts" />
 
-				<mirrors-get
-					dest="liferay-portal-dependencies.zip"
-					src="${test.build.portal.dependencies.zip.url}"
-				/>
+				<if>
+					<matches pattern="(file|https?)://" string="${test.build.portal.dependencies.zip.url}" />
+					<then>
+						<mirrors-get
+							dest="liferay-portal-dependencies.zip"
+							src="${test.build.portal.dependencies.zip.url}"
+						/>
+					</then>
+				</if>
 
 				<unzip
 					dest="${app.server.lib.global.dir}"
@@ -11601,10 +11609,15 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 
 				<delete file="liferay-portal-dependencies.zip" />
 
-				<mirrors-get
-					dest="liferay-portal-osgi.zip"
-					src="${test.build.portal.osgi.zip.url}"
-				/>
+				<if>
+					<matches pattern="(file|https?)://" string="${test.build.portal.osgi.zip.url}" />
+					<then>
+						<mirrors-get
+							dest="liferay-portal-osgi.zip"
+							src="${test.build.portal.osgi.zip.url}"
+						/>
+					</then>
+				</if>
 
 				<unzip
 					dest="${liferay.home}/osgi"
@@ -11619,10 +11632,15 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 
 				<delete file="liferay-portal-osgi.zip" />
 
-				<mirrors-get
-					dest="liferay-portal-tools.zip"
-					src="${test.build.portal.tools.zip.url}"
-				/>
+				<if>
+					<matches pattern="(file|https?)://" string="${test.build.portal.tools.zip.url}" />
+					<then>
+						<mirrors-get
+							dest="liferay-portal-tools.zip"
+							src="${test.build.portal.tools.zip.url}"
+						/>
+					</then>
+				</if>
 
 				<local name="liferay.portal.tools.temp.dir" />
 
