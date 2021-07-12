@@ -1,6 +1,6 @@
-*    @shinnlok
-*.java    @matthewkong @shinnlok
-osb-faro-web/src/main/css/**/*    @fcodias @gabrielpramos @JhonattasFerreira @kienD @shinnlok
-osb-faro-web/src/main/js/**/*    @fcodias @gabrielpramos @JhonattasFerreira @kienD @shinnlok
-package-lock.json    @fcodias @gabrielpramos @JhonattasFerreira @kienD @shinnlok
-package.json    @fcodias @gabrielpramos @JhonattasFerreira @kienD @shinnlok
+*    @marcellustavares
+*.java    @marcellustavares @matthewkong
+osb-faro-web/src/main/css/**/*    @fcodias @gabrielpramos @JhonattasFerreira @kienD @marcellustavares
+osb-faro-web/src/main/js/**/*    @fcodias @gabrielpramos @JhonattasFerreira @kienD @marcellustavares
+package-lock.json    @fcodias @gabrielpramos @JhonattasFerreira @kienD @marcellustavares
+package.json    @fcodias @gabrielpramos @JhonattasFerreira @kienD @marcellustavares
