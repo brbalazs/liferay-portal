@@ -367,6 +367,31 @@ public class LayoutReferencesExportImportContentProcessor
 
 						layoutSet = group.getPrivateLayoutSet();
 					}
+					else if (urlSBString.contains(
+								_DATA_HANDLER_COMPANY_SECURE_URL) ||
+							 urlSBString.contains(_DATA_HANDLER_COMPANY_URL)) {
+
+						if (StringUtil.equals(
+								group.getGroupKey(),
+								PropsValues.VIRTUAL_HOSTS_DEFAULT_SITE_NAME)) {
+
+							layoutSet = group.getPublicLayoutSet();
+						}
+					}
+					else {
+						LayoutSet publicLayoutSet = group.getPublicLayoutSet();
+
+						String publicVirtualHostname =
+							publicLayoutSet.getVirtualHostname();
+
+						if (Validator.isNotNull(publicVirtualHostname) ||
+							StringUtil.equals(
+								group.getGroupKey(),
+								PropsValues.VIRTUAL_HOSTS_DEFAULT_SITE_NAME)) {
+
+							layoutSet = group.getPublicLayoutSet();
+						}
+					}
 
 					if (layoutSet == null) {
 						continue;
