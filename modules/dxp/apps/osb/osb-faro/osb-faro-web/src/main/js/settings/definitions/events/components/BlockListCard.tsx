@@ -13,6 +13,7 @@ import Constants from 'shared/util/constants';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
+import URLConstants from 'shared/util/url-constants';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {
@@ -40,6 +41,8 @@ import {withCrossPageSelect, withCurrentUser} from 'shared/hoc';
 const {
 	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
 } = Constants;
+
+const EVENT_LIMIT_REACHED = /Processing request will exceed custom event definition limit/;
 
 const withData = () => WrapperComponent => ({
 	delta = defaultDelta,
@@ -335,16 +338,37 @@ const BlockListCard = withCrossPageSelect(withData, {
 								  )
 					});
 				})
-				.catch(() =>
-					// TODO: LRAC-7606 Add custom mesage for when returning an event to custom event list will go over 100 events
+				.catch(err => {
+					let message = Liferay.Language.get(
+						'there-was-an-error-processing-your-request.-please-try-again'
+					);
+
+					if (EVENT_LIMIT_REACHED.test(err.message)) {
+						message = sub(
+							Liferay.Language.get(
+								'your-workspace-is-over-the-event-limit.-please-remove-some-events-from-the-allow-list-to-continue.-visit-our-x-to-learn-more'
+							),
+							[
+								<a
+									href={URLConstants.DocumentationLink}
+									key='DOCUMENTATION_LINK'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'documentation-fragment'
+									)}
+								</a>
+							],
+							false
+						);
+					}
+
 					addAlert({
 						alertType: Alert.Types.Error,
-						message: Liferay.Language.get(
-							'there-was-an-error-processing-your-request.-please-try-again'
-						),
+						message,
 						timeout: false
-					})
-				);
+					});
+				});
 		};
 
 		const renderRowActions = ({data}: {data: BlockedCustomEvent}) => {
