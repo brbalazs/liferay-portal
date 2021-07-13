@@ -35,7 +35,7 @@ const getDropdownItems = ({
 				target: '_blank'
 		  },
 	{
-		href: URLConstants.HelpCenter,
+		href: URLConstants.DocumentationLink,
 		label: Liferay.Language.get('help-center'),
 		target: '_blank'
 	}
