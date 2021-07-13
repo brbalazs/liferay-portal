@@ -208,7 +208,8 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 			return assetTagPersistence.countByGroupId(groupId);
 		}
 
-		return assetTagPersistence.countByG_LikeN(groupId, name);
+		return assetTagPersistence.countByG_LikeN(
+			groupId, StringUtil.quote(name, StringPool.PERCENT));
 	}
 
 	@Override
@@ -217,7 +218,8 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 			return assetTagPersistence.countByGroupId(groupIds);
 		}
 
-		return assetTagPersistence.countByG_LikeN(groupIds, name);
+		return assetTagPersistence.countByG_LikeN(
+			groupIds, StringUtil.quote(name, StringPool.PERCENT));
 	}
 
 	@Override
