@@ -128,7 +128,7 @@ name = HtmlUtil.escapeJS(name);
 	var windowNode = A.getWin();
 
 	var instanceDataReady = false;
-	var instancePendingData;
+	var instancePendingData = null;
 
 	var getInitialContent = function() {
 		var data;
@@ -622,7 +622,7 @@ name = HtmlUtil.escapeJS(name);
 		ckEditor.on(
 			'dataReady',
 			function(event) {
-				if (instancePendingData) {
+				if (instancePendingData !== null) {
 					var pendingData = instancePendingData;
 
 					instancePendingData = null;
