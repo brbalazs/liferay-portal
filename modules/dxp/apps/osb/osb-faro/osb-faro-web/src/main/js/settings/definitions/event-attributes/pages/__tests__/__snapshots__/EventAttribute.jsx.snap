@@ -82,7 +82,7 @@ exports[`EventAttributes should render 1`] = `
             >
               <a
                 class="nav-link"
-                href="/workspace/23/settings/definitions/events-attributes/global-attributes"
+                href="/workspace/23/settings/definitions/event-attributes/global"
                 role="tab"
               >
                 <div
@@ -100,7 +100,7 @@ exports[`EventAttributes should render 1`] = `
             >
               <a
                 class="nav-link"
-                href="/workspace/23/settings/definitions/events-attributes/attributes"
+                href="/workspace/23/settings/definitions/event-attributes/local"
                 role="tab"
               >
                 <div

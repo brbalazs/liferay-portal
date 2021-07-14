@@ -19,10 +19,10 @@ jest.unmock('react-dom');
 const RenderWithRouter = ({children}) => (
 	<MemoryRouter
 		initialEntries={[
-			'/workspace/23/settings/definitions/events-attributes/attributes/0'
+			'/workspace/23/settings/definitions/event-attributes/0'
 		]}
 	>
-		<Route path={Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW}>
+		<Route path={Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW}>
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
 					<MockedProvider

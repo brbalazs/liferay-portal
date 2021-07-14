@@ -29,7 +29,7 @@ exports[`AttributeView should render 1`] = `
       >
         <a
           class="breadcrumb-link breadcrumb-text-truncate"
-          href="/workspace/23/settings/definitions/events-attributes/global-attributes"
+          href="/workspace/23/settings/definitions/event-attributes/global"
         >
           Event Attributes
         </a>
