@@ -62,7 +62,7 @@ const EventView = lazy(
 const AttributeView = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DefinitionsAttributeView" */ '../event-attributes/pages/AttributeView'
+			/* webpackChunkName: "DefinitionsEventAttributesView" */ '../event-attributes/pages/AttributeView'
 		)
 );
 
