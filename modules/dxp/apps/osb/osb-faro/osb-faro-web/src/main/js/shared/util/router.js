@@ -260,6 +260,17 @@ export const Routes = buildRoutes({
 								routes: {
 									SETTINGS_DEFINITIONS_BEHAVIORS:
 										'/behaviors',
+									SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES: {
+										path: '/event-attributes',
+										routes: {
+											SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL:
+												'/global',
+											SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL:
+												'/local',
+											SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW:
+												'/:attributeId(\\d+)'
+										}
+									},
 									SETTINGS_DEFINITIONS_EVENTS: {
 										path: '/events',
 										routes: {
@@ -271,20 +282,6 @@ export const Routes = buildRoutes({
 												'/default',
 											SETTINGS_DEFINITIONS_EVENTS_VIEW:
 												'/:eventId(\\d+)'
-										}
-									},
-									SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES_DEFAULT: {
-										path: '/events-attributes',
-										routes: {
-											SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES: {
-												path: '/attributes',
-												routes: {
-													SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW:
-														'/:attributeId(\\d+)'
-												}
-											},
-											SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES:
-												'/global-attributes'
 										}
 									},
 									SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES:

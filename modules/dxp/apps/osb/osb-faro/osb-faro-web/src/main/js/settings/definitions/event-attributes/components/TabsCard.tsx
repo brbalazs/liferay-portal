@@ -21,12 +21,12 @@ const NAV_ITEMS = [
 	{
 		exact: true,
 		label: Liferay.Language.get('global-attributes'),
-		route: Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES
+		route: Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL
 	},
 	{
 		exact: true,
 		label: Liferay.Language.get('attributes'),
-		route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES
+		route: Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL
 	}
 ];
 
@@ -60,12 +60,17 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 					<BundleRouter
 						data={AttributeList}
 						exact
-						path={Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES}
+						path={
+							Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL
+						}
 					/>
+
 					<BundleRouter
 						data={GlobalAttributeList}
 						exact
-						path={Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES}
+						path={
+							Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL
+						}
 					/>
 				</Switch>
 			</Suspense>

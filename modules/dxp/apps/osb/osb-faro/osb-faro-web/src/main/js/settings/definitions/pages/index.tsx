@@ -108,7 +108,7 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				<BundleRouter
 					data={AttributeView}
 					exact
-					path={Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW}
+					path={Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW}
 				/>
 			)}
 
@@ -127,8 +127,8 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				<BundleRouter
 					data={EventAttributes}
 					path={[
-						Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES,
-						Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES
+						Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL,
+						Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL
 					]}
 				/>
 			)}

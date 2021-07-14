@@ -221,7 +221,7 @@ export const getEvents = ({groupId}: IBasicRouteArgs) => ({
 });
 
 export const getEventAttributes = ({groupId}: IBasicRouteArgs) => ({
-	href: toRoute(Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES, {
+	href: toRoute(Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL, {
 		groupId
 	}),
 	label: Liferay.Language.get('event-attributes')

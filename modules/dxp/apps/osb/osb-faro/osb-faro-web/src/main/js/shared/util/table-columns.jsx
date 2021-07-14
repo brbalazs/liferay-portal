@@ -164,7 +164,7 @@ export const attributeListColumns = {
 		cellRenderer: NameCell,
 		cellRendererProps: {
 			routeFn: ({data: {id}}) =>
-				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
+				toRoute(Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW, {
 					attributeId: id,
 					channelId,
 					groupId
@@ -465,7 +465,7 @@ export const globalAttributeListColumns = {
 		cellRenderer: NameCell,
 		cellRendererProps: {
 			routeFn: ({data: {id}}) =>
-				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
+				toRoute(Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW, {
 					attributeId: id,
 					channelId,
 					groupId

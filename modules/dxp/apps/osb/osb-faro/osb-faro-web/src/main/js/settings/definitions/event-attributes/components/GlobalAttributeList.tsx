@@ -44,7 +44,7 @@ const withData = () => WrapperComponent => ({
 			{...otherProps}
 			delta={delta}
 			entityLabel={Liferay.Language.get(
-				'global-attributtes'
+				'global-attributes'
 			).toLowerCase()}
 			error={error}
 			items={get(
