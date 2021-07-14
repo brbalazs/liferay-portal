@@ -105,6 +105,10 @@ public class SessionMessages {
 			return;
 		}
 
+		if (_log.isDebugEnabled()) {
+			_log.debug("Adding key " + key);
+		}
+
 		map.put(key, key);
 	}
 
@@ -113,6 +117,18 @@ public class SessionMessages {
 
 		if (map == null) {
 			return;
+		}
+
+		if (_log.isDebugEnabled()) {
+			Exception exception = null;
+
+			if (value instanceof Exception) {
+				exception = (Exception)value;
+			}
+
+			_log.debug(
+				StringBundler.concat("Adding key ", key, " with value ", value),
+				exception);
 		}
 
 		map.put(key, value);
@@ -135,6 +151,13 @@ public class SessionMessages {
 			return;
 		}
 
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				StringBundler.concat(
+					"Adding key ", key, " to portlet ",
+					portletRequest.getWindowID()));
+		}
+
 		map.put(key, key);
 	}
 
@@ -145,6 +168,20 @@ public class SessionMessages {
 
 		if (map == null) {
 			return;
+		}
+
+		if (_log.isDebugEnabled()) {
+			Exception exception = null;
+
+			if (value instanceof Exception) {
+				exception = (Exception)value;
+			}
+
+			_log.debug(
+				StringBundler.concat(
+					"Adding key ", key, " to portlet ",
+					portletRequest.getWindowID(), " with value ", value),
+				exception);
 		}
 
 		map.put(key, value);
