@@ -15,6 +15,8 @@
 package com.liferay.portal.kernel.servlet;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletSession;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -441,6 +443,9 @@ public class SessionMessages {
 			return map;
 		}
 		catch (IllegalStateException ise) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(illegalStateException, illegalStateException);
+			}
 
 			// Session is already invalidated, just return a null map
 
@@ -473,6 +478,9 @@ public class SessionMessages {
 	}
 
 	private static final String _CLASS_NAME = SessionMessages.class.getName();
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SessionMessages.class);
 
 	private static class SessionMessagesMap extends HashMap<String, Object> {
 
