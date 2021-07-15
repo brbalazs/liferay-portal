@@ -95,6 +95,13 @@
 			<finder-column name="type" />
 			<finder-column name="subtype" />
 		</finder>
+		<finder name="G_C_O_T_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column comparator="&gt;" name="createTime" />
+			<finder-column arrayable-operator="OR" name="ownerId" />
+			<finder-column name="type" />
+			<finder-column name="subtype" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="FaroPreferences" remote-service="false">
 
