@@ -20,13 +20,19 @@ import com.liferay.journal.model.JournalFolderConstants;
 import com.liferay.journal.service.JournalFolderLocalServiceUtil;
 import com.liferay.journal.test.util.JournalTestUtil;
 import com.liferay.portal.kernel.model.TreeModel;
-import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistry;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.SearchContextTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.service.test.BaseLocalServiceTreeTestCase;
+import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +53,9 @@ public class JournalFolderLocalServiceTreeTest
 	@ClassRule
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
-		new LiferayIntegrationTestRule();
+		new AggregateTestRule(
+			new LiferayIntegrationTestRule(),
+			PermissionCheckerMethodTestRule.INSTANCE);
 
 	@Test
 	public void testJournalFolderTreePathWhenMovingFolderWithSubfolder()
@@ -84,6 +92,44 @@ public class JournalFolderLocalServiceTreeTest
 
 			Assert.assertEquals(folder.buildTreePath(), folder.getTreePath());
 		}
+	}
+
+	@Test
+	public void testSearchTreePath() throws Exception {
+		Indexer<JournalFolder> indexer = _indexerRegistry.getIndexer(
+			JournalFolder.class);
+
+		SearchContext searchContext = SearchContextTestUtil.getSearchContext(
+			group.getGroupId());
+
+		Hits hits = indexer.search(searchContext);
+
+		int initialFoldersCount = hits.getLength();
+
+		JournalFolder folderA = JournalTestUtil.addFolder(
+			group.getGroupId(), JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			"Folder A");
+
+		JournalFolder folderB = JournalTestUtil.addFolder(
+			group.getGroupId(), JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			"Folder B");
+
+		JournalTestUtil.addFolder(
+			group.getGroupId(), folderA.getFolderId(), "Folder AA");
+
+		JournalTestUtil.addFolder(
+			group.getGroupId(), folderB.getFolderId(), "Folder BA");
+
+		hits = indexer.search(searchContext);
+
+		Assert.assertEquals(
+			hits.toString(), initialFoldersCount + 4, hits.getLength());
+
+		searchContext.setFolderIds(new long[] {folderA.getFolderId()});
+
+		hits = indexer.search(searchContext);
+
+		Assert.assertEquals(hits.toString(), 2, hits.getLength());
 	}
 
 	@Override
@@ -123,5 +169,8 @@ public class JournalFolderLocalServiceTreeTest
 		JournalFolderLocalServiceUtil.rebuildTree(
 			TestPropsValues.getCompanyId());
 	}
+
+	@Inject
+	private static IndexerRegistry _indexerRegistry;
 
 }
