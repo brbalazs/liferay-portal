@@ -17,7 +17,7 @@ const NumberFilter: React.FC<IFilterProps> = ({
 		if (filter) {
 			const {
 				operator,
-				value: [startValue = '', endValue = '']
+				values: [startValue = '', endValue = '']
 			} = filter;
 
 			return {endValue, operator, startValue};
@@ -35,18 +35,18 @@ const NumberFilter: React.FC<IFilterProps> = ({
 			enableReinitialize
 			initialValues={getInitialValues()}
 			onSubmit={({endValue, operator, startValue}) => {
-				let value = [startValue];
+				let values = [startValue];
 
 				if (operator === Operators.Between) {
-					value = [...value, endValue];
+					values = [...values, endValue];
 				}
 
 				onSubmit({
 					attributeId,
+					attributeType: attributeOwnerType,
 					dataType: DataTypes.Number,
 					operator,
-					type: attributeOwnerType,
-					value
+					values
 				});
 			}}
 		>

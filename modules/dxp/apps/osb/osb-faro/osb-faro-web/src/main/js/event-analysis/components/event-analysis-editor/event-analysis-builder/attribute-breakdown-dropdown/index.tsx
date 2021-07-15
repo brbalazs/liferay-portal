@@ -173,7 +173,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 													attribute,
 													breakdown: breakdownFn({
 														attributeId: newAttributeId,
-														type: attributeOwnerType
+														attributeType: attributeOwnerType
 													}),
 													id: breakdownId
 												});

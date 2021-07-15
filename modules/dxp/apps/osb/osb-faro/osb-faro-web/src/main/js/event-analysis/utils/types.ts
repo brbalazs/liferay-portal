@@ -1,8 +1,8 @@
 export enum AttributeOwnerTypes {
-	Account = 'account',
-	Event = 'event',
-	Individual = 'individual',
-	Session = 'session'
+	Account = 'ACCOUNT',
+	Event = 'EVENT',
+	Individual = 'INDIVIDUAL',
+	Session = 'SESSION'
 }
 
 export enum AttributeTypes {
@@ -12,9 +12,9 @@ export enum AttributeTypes {
 }
 
 export enum CalculationTypes {
-	Average = 'average',
-	Total = 'total',
-	Unique = 'unique'
+	Average = 'AVERAGE',
+	Total = 'TOTAL',
+	Unique = 'UNIQUE'
 }
 
 export enum DataTypes {
@@ -72,11 +72,11 @@ export type BlockedCustomEvent = {
 
 export type Breakdown = {
 	attributeId: string;
+	attributeType: AttributeOwnerTypes;
 	bin?: number;
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
 	id?: string;
-	type: AttributeOwnerTypes;
 };
 
 export type Breakdowns = {[key: string]: Breakdown};
@@ -93,11 +93,11 @@ export type Event = {
 
 export type Filter = {
 	attributeId: string;
+	attributeType: AttributeOwnerTypes;
 	dataType: DataTypes;
 	id?: string;
 	operator: Operators;
-	type: AttributeOwnerTypes;
-	value: (boolean | string | number)[];
+	values: (boolean | string | number)[];
 };
 
 export type Filters = {[key: string]: Filter};
@@ -126,7 +126,8 @@ export type BreakdownDataItem = {
 
 export type BreakdownData = {
 	count: number;
-	totalEvents: number;
+	value: number;
+	page: number;
 	breakdownItems: BreakdownDataItem[];
 };
 

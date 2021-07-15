@@ -20,7 +20,7 @@ const DateFilter: React.FC<IFilterProps> = ({
 		if (filter) {
 			const {
 				operator,
-				value: [start, end]
+				values: [start, end]
 			} = filter;
 
 			return {
@@ -55,10 +55,10 @@ const DateFilter: React.FC<IFilterProps> = ({
 
 				onSubmit({
 					attributeId,
+					attributeType: attributeOwnerType,
 					dataType: DataTypes.Date,
 					operator,
-					type: attributeOwnerType,
-					value: dateValue
+					values: dateValue
 				});
 			}}
 		>

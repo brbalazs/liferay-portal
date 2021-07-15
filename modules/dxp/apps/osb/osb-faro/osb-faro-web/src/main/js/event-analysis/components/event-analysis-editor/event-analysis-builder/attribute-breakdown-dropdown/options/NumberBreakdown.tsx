@@ -33,8 +33,8 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 				onSubmit(
 					createNumberBreakdown({
 						attributeId,
-						bin,
-						type: attributeOwnerType
+						attributeType: attributeOwnerType,
+						bin
 					})
 				);
 			}}

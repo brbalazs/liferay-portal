@@ -986,31 +986,35 @@ export function mockTreeItem(seed = 0, parentId = 0) {
 	};
 }
 
-export function getDummyEvent(event) {
+export function getDummyEvent(
+	event,
+	value = getRandom(100, 2000),
+	previousValue = getRandom(100, 2000)
+) {
 	return [
 		{
 			breakdownItems: [
 				{
 					name: 'All Individuals',
-					previousValue: getRandom(100, 2000),
-					value: getRandom(100, 2000)
+					previousValue,
+					value
 				}
 			],
 			isLeafNode: true,
 			name: event.name,
-			previousValue: getRandom(100, 2000),
-			value: getRandom(100, 2000)
+			previousValue,
+			value
 		}
 	];
 }
 
-export function getDummyBreakdown(i, event, attributes, order, currentLevel) {
+export function getDummyBreakdown(i, event, breakdowns, order, currentLevel) {
 	const isNextLeaf = currentLevel === order.length;
-	const attribute = attributes[order[currentLevel - 1]];
+	const attribute = breakdowns[order[currentLevel - 1]];
 
 	const breakdownItems = isNextLeaf
 		? getDummyEvent(event)
-		: getDummyBreakdowns(event, order, attributes, ++currentLevel);
+		: getDummyBreakdowns(event, order, breakdowns, ++currentLevel);
 
 	return {
 		breakdownItems,
@@ -1021,26 +1025,27 @@ export function getDummyBreakdown(i, event, attributes, order, currentLevel) {
 	};
 }
 
-export function getDummyBreakdowns(event, order, attributes, currentLevel = 1) {
-	const count = currentLevel <= 2 ? getRandom(1, 3) : 1;
-	const breakdowns = [];
+export function getDummyBreakdowns(event, order, breakdowns, currentLevel = 1) {
+	const count = currentLevel <= 2 ? getRandom(0, 5) : 1;
+	const breakdownsArr = [];
 
 	for (let index = 0; index < count; index++) {
-		breakdowns.push(
-			getDummyBreakdown(index, event, attributes, order, currentLevel)
+		breakdownsArr.push(
+			getDummyBreakdown(index, event, breakdowns, order, currentLevel)
 		);
 	}
 
-	return breakdowns;
+	return breakdownsArr;
 }
 
-export function getDummyBreakdownData(event, attributes, order) {
+export function getDummyBreakdownData(event, breakdowns, order) {
 	return {
 		breakdownItems: order.length
-			? getDummyBreakdowns(event, order, attributes)
+			? getDummyBreakdowns(event, order, breakdowns)
 			: getDummyEvent(event),
 		count: 25,
-		totalEvents: 100000
+		page: 1,
+		value: 100000
 	};
 }
 

@@ -123,15 +123,15 @@ export const STRING_OPERATOR_LABELS_MAP = {
 
 const getBooleanDisplay = (
 	attribute: Attribute,
-	{type, value: [value]}: Filter
+	{attributeType, values: [value]}: Filter
 ): [string, string] => [
-	getBreakdownDisplay(attribute, type).join(' | '),
+	getBreakdownDisplay(attribute, attributeType).join(' | '),
 	BOOLEAN_LABELS_MAP[String(value)]
 ];
 
 const getDateDisplay = (
 	attribute: Attribute,
-	{operator, type, value: [startDate, endDate]}: Filter
+	{operator, attributeType, values: [startDate, endDate]}: Filter
 ): [string, string] => {
 	const operatorLabel = DATE_OPERATOR_LABELS_MAP[operator];
 
@@ -146,31 +146,34 @@ const getDateDisplay = (
 			: `${operatorLabel} ${formattedStartDate}`;
 
 	return [
-		getBreakdownDisplay(attribute, type).join(' | '),
+		getBreakdownDisplay(attribute, attributeType).join(' | '),
 		`${breakdownValue}`
 	];
 };
 
 export const getBreakdownDisplay = (
 	{displayName, name}: Attribute,
-	type: AttributeOwnerTypes
-): [string, string] => [ATTRIBUTE_TYPE_LABEL_MAP[type], displayName || name];
+	attributeType: AttributeOwnerTypes
+): [string, string] => [
+	ATTRIBUTE_TYPE_LABEL_MAP[attributeType],
+	displayName || name
+];
 
 const getDurationDisplay = (
 	attribute: Attribute,
-	{operator, type, value: [value]}: Filter
+	{operator, attributeType, values: [value]}: Filter
 ): [string, string] => {
 	const duration = formatTime(value as number);
 
 	return [
-		getBreakdownDisplay(attribute, type).join(' | '),
+		getBreakdownDisplay(attribute, attributeType).join(' | '),
 		`${DURATION_OPERATOR_LABELS_MAP[operator]} ${duration}`
 	];
 };
 
 const getNumberDisplay = (
 	attribute: Attribute,
-	{operator, type, value: [start, end]}: Filter
+	{operator, attributeType, values: [start, end]}: Filter
 ): [string, string] => {
 	const operatorLabel = NUMBER_OPERATOR_LABELS_MAP[operator];
 
@@ -179,15 +182,18 @@ const getNumberDisplay = (
 			? `${start} ${operatorLabel} ${end}`
 			: `${operatorLabel} ${start}`;
 
-	return [getBreakdownDisplay(attribute, type).join(' | '), breakdownValue];
+	return [
+		getBreakdownDisplay(attribute, attributeType).join(' | '),
+		breakdownValue
+	];
 };
 
 const getStringDisplay = (
 	attribute: Attribute,
-	{operator, type, value}: Filter
+	{attributeType, operator, values}: Filter
 ): [string, string] => [
-	getBreakdownDisplay(attribute, type).join(' | '),
-	`${STRING_OPERATOR_LABELS_MAP[operator]} "${value}"`
+	getBreakdownDisplay(attribute, attributeType).join(' | '),
+	`${STRING_OPERATOR_LABELS_MAP[operator]} "${values}"`
 ];
 
 const FILTER_DISPLAY_MAP = {
@@ -210,49 +216,55 @@ export const getFilterDisplay = (
 export const isAttribute = (item: Attribute | Event): boolean =>
 	(item as Attribute).dataType !== undefined;
 
-export const createBooleanBreakdown = ({attributeId, type}): Breakdown => ({
+export const createBooleanBreakdown = ({
 	attributeId,
-	dataType: DataTypes.Boolean,
-	type
+	attributeType
+}): Breakdown => ({
+	attributeId,
+	attributeType,
+	dataType: DataTypes.Boolean
 });
 
 export const createDateBreakdown = ({
 	attributeId,
 	dateGrouping = DEFAULT_DATE_GROUPING,
-	type
+	attributeType
 }): Breakdown => ({
 	attributeId,
+	attributeType,
 	dataType: DataTypes.Date,
-	dateGrouping,
-	type
+	dateGrouping
 });
 
 export const createDurationBreakdown = ({
 	attributeId,
-	bin = DEFAULT_DURATION_BIN,
-	type
+	attributeType,
+	bin = DEFAULT_DURATION_BIN
 }): Breakdown => ({
 	attributeId,
+	attributeType,
 	bin,
-	dataType: DataTypes.Duration,
-	type
+	dataType: DataTypes.Duration
 });
 
 export const createNumberBreakdown = ({
 	attributeId,
-	bin = DEFAULT_NUMBER_BIN,
-	type
+	attributeType,
+	bin = DEFAULT_NUMBER_BIN
 }): Breakdown => ({
 	attributeId,
+	attributeType,
 	bin,
-	dataType: DataTypes.Number,
-	type
+	dataType: DataTypes.Number
 });
 
-export const createStringBreakdown = ({attributeId, type}): Breakdown => ({
+export const createStringBreakdown = ({
 	attributeId,
-	dataType: DataTypes.String,
-	type
+	attributeType
+}): Breakdown => ({
+	attributeId,
+	attributeType,
+	dataType: DataTypes.String
 });
 
 export const BREAKDOWN_FNS_MAP = {

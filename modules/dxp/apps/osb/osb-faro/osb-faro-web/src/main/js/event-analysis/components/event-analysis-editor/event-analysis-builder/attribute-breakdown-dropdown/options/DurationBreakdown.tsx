@@ -39,10 +39,10 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 				onSubmit(
 					createDurationBreakdown({
 						attributeId,
+						attributeType: attributeOwnerType,
 						bin: getMillisecondsFromTime(
 							bin.replace(/_/g, '0') as string
-						),
-						type: attributeOwnerType
+						)
 					})
 				);
 			}}

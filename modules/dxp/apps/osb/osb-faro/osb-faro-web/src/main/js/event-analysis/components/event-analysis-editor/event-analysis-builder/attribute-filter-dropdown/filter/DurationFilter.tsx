@@ -21,7 +21,7 @@ const DurationFilter: React.FC<IFilterProps> = ({
 		if (filter) {
 			const {
 				operator,
-				value: [value]
+				values: [value]
 			} = filter;
 
 			return {
@@ -44,10 +44,10 @@ const DurationFilter: React.FC<IFilterProps> = ({
 			onSubmit={({operator, value}) => {
 				onSubmit({
 					attributeId,
+					attributeType: attributeOwnerType,
 					dataType: DataTypes.Duration,
 					operator,
-					type: attributeOwnerType,
-					value: [getMillisecondsFromTime(value.replace(/_/g, '0'))]
+					values: [getMillisecondsFromTime(value.replace(/_/g, '0'))]
 				});
 			}}
 		>

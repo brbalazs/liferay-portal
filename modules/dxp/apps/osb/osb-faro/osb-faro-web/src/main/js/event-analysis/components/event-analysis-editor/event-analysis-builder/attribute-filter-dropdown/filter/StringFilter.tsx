@@ -15,9 +15,9 @@ const StringFilter: React.FC<IFilterProps> = ({
 }) => {
 	const getInitialValues = () => {
 		if (filter) {
-			const {operator, value} = filter;
+			const {operator, values} = filter;
 
-			return {operator, value: value[0]};
+			return {operator, value: values[0]};
 		}
 
 		return {operator: Operators.Contains, value: ''};
@@ -30,10 +30,10 @@ const StringFilter: React.FC<IFilterProps> = ({
 			onSubmit={({operator, value}) => {
 				onSubmit({
 					attributeId,
+					attributeType: attributeOwnerType,
 					dataType: DataTypes.String,
 					operator,
-					type: attributeOwnerType,
-					value: [value]
+					values: [value]
 				});
 			}}
 		>

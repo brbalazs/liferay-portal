@@ -26,7 +26,10 @@ const AttributeFilterChipWrapper: React.FC<{
 	onMove,
 	uneditableIds
 }) => {
-	const [label, value] = getBreakdownDisplay(attribute, breakdown.type);
+	const [label, value] = getBreakdownDisplay(
+		attribute,
+		breakdown.attributeType
+	);
 
 	return (
 		<AttributeBreakdownDropdown

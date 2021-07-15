@@ -12,9 +12,9 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 }) => {
 	const getInitialValues = () => {
 		if (filter) {
-			const {operator, value} = filter;
+			const {operator, values} = filter;
 
-			return {operator, value: String(value[0])};
+			return {operator, value: String(values[0])};
 		}
 
 		return {operator: Operators.EQ, value: 'true'};
@@ -27,10 +27,10 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 			onSubmit={({operator, value}) => {
 				onSubmit({
 					attributeId,
+					attributeType: attributeOwnerType,
 					dataType: DataTypes.Boolean,
 					operator,
-					type: attributeOwnerType,
-					value: [value === 'true']
+					values: [value === 'true']
 				});
 			}}
 		>

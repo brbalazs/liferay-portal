@@ -37,8 +37,8 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 				onSubmit(
 					createDateBreakdown({
 						attributeId,
-						dateGrouping,
-						type: attributeOwnerType
+						attributeType: attributeOwnerType,
+						dateGrouping
 					})
 				);
 			}}
