@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.controller.main;
 
+import com.liferay.osb.faro.constants.FaroNotificationConstants;
+import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.FaroNotificationLocalService;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
@@ -21,6 +23,7 @@ import com.liferay.osb.faro.web.internal.controller.FaroController;
 import com.liferay.osb.faro.web.internal.model.display.contacts.NotificationDisplay;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,7 +67,38 @@ public class NotificationController extends BaseFaroController {
 	@GET
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<NotificationDisplay> getNotifications(
-		@PathParam("groupId") long groupId, @QueryParam("type") String type) {
+			@PathParam("groupId") long groupId, @QueryParam("type") String type)
+		throws Exception {
+
+		if (StringUtil.equals(FaroNotificationConstants.TYPE_ALERT, type)) {
+			boolean customEventsLimitReached =
+				_cerebroEngineClient.isCustomEventsLimitReached(
+					faroProjectLocalService.getFaroProjectByGroupId(groupId));
+
+			long faroNotificationsLast30DaysCount =
+				_faroNotificationLocalService.
+					getFaroNotificationsLast30DaysCount(
+						groupId,
+						FaroNotificationConstants.SUBTYPE_BLOCKED_EVENTS_LIMIT,
+						type, getUserId());
+
+			if (customEventsLimitReached &&
+				(faroNotificationsLast30DaysCount == 0)) {
+
+				_faroNotificationLocalService.addFaroNotification(
+					getUserId(), groupId, getUserId(),
+					FaroNotificationConstants.SCOPE_USER, type,
+					FaroNotificationConstants.SUBTYPE_BLOCKED_EVENTS_LIMIT);
+			}
+			else if (!customEventsLimitReached &&
+					 (faroNotificationsLast30DaysCount > 0)) {
+
+				_faroNotificationLocalService.deleteFaroNotifications(
+					groupId, type,
+					FaroNotificationConstants.SUBTYPE_BLOCKED_EVENTS_LIMIT,
+					getUserId());
+			}
+		}
 
 		List<FaroNotification> faroNotifications =
 			_faroNotificationLocalService.findFaroNotificationsLast30Days(
@@ -93,6 +127,9 @@ public class NotificationController extends BaseFaroController {
 
 		_faroNotificationLocalService.updateFaroNotification(faroNotification);
 	}
+
+	@Reference
+	private CerebroEngineClient _cerebroEngineClient;
 
 	@Reference
 	private FaroNotificationLocalService _faroNotificationLocalService;

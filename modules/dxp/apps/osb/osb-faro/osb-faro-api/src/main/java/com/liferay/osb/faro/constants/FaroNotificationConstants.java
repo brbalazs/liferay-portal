@@ -23,6 +23,9 @@ public class FaroNotificationConstants {
 
 	public static final String SCOPE_WORKSPACE = "WORKSPACE";
 
+	public static final String SUBTYPE_BLOCKED_EVENTS_LIMIT =
+		"BLOCKED_EVENTS_LIMIT";
+
 	public static final String SUBTYPE_TIME_ZONE_ADMIN = "TIME_ZONE_ADMIN";
 
 	public static final String SUBTYPE_TIME_ZONE_CHANGED = "TIME_ZONE_CHANGED";
