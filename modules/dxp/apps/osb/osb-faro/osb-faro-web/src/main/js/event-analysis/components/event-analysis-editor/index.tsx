@@ -4,14 +4,8 @@ import CardTabs, {CardTabSizes} from 'shared/components/CardTabs';
 import Checkbox from 'shared/components/Checkbox';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
-import React, {useEffect, useState} from 'react';
-import {
-	Attribute,
-	Breakdown,
-	CalculationTypes,
-	Event,
-	Filter
-} from 'event-analysis/utils/types';
+import React, {useState} from 'react';
+import {CalculationTypes, Event} from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {
 	withAttributesConsumer,
@@ -23,39 +17,17 @@ import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 interface IEventAnalysisEditorProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
-	attributes: {[key: string]: Attribute};
-	breakdownOrder: string[];
-	breakdowns: {[key: string]: Breakdown};
-	filterOrder: string[];
-	filters: {[key: string]: Filter};
+	channelId: string;
 }
 
 const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
-	attributes,
-	breakdownOrder,
-	breakdowns,
-	filterOrder,
-	filters,
+	channelId,
 	onRangeSelectorsChange,
 	rangeSelectors
 }) => {
 	const [compareToPrevious, setCompareToPrevious] = useState(false);
 	const [event, setEvent] = useState<Event>(null);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
-
-	useEffect(() => {
-		// TODO: LRAC-7333 Add request here
-	}, [
-		attributes,
-		breakdownOrder,
-		breakdowns,
-		compareToPrevious,
-		event,
-		filterOrder,
-		filters,
-		rangeSelectors,
-		type
-	]);
 
 	return (
 		<Card className='event-analysis-editor-root'>
@@ -96,6 +68,7 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 					/>
 
 					<DropdownRangeKey
+						legacy={false}
 						onChange={onRangeSelectorsChange}
 						rangeSelectors={rangeSelectors}
 					/>
@@ -103,9 +76,11 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 			</div>
 
 			<BreakdownTable
+				channelId={channelId}
 				compareToPrevious={compareToPrevious}
 				event={event}
 				rangeSelectors={rangeSelectors}
+				type={type}
 			/>
 		</Card>
 	);

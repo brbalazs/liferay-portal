@@ -43,7 +43,7 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 		</BasePage.Header>
 
 		<BasePage.Body>
-			<EventAnalysisEditor />
+			<EventAnalysisEditor channelId={channelId} />
 		</BasePage.Body>
 	</BasePage>
 );

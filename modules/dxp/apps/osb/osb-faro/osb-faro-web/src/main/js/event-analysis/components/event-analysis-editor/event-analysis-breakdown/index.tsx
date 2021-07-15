@@ -1,23 +1,32 @@
 import BarComparisonCell from './BarComparisonCell';
+import EventAnalysisQuery, {
+	EventAnalysisData,
+	EventAnalysisVariables
+} from 'event-analysis/queries/EventAnalysisQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
-import React, {useEffect, useMemo} from 'react';
+import React from 'react';
 import Table from 'shared/components/table';
 import WithEmptyState from './hoc/WithEmptyState';
 import {
 	Attributes,
+	BreakdownDataItem,
 	Breakdowns,
+	CalculationTypes,
 	Event,
 	Filters
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {get, isNil} from 'lodash';
-import {getDummyBreakdownData} from 'test/data';
+import {getDummyBreakdownData, getDummyEvent} from 'test/data';
 import {
 	getMaxEventValue,
 	parserBreakdownData
 } from 'event-analysis/utils/utils';
+import {getSafeRangeSelectors} from 'shared/util/util';
+import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
+import {useQuery} from '@apollo/react-hooks';
 import {withAttributesConsumer} from '../context/attributes';
 import {withPaginationBar} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
@@ -28,10 +37,12 @@ export interface IBreakdownTableProps
 	attributes: Attributes;
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
+	channelId: string;
 	compareToPrevious: boolean;
 	event: Event;
 	filterOrder: string[];
 	filters: Filters;
+	type: CalculationTypes;
 }
 
 const TableWithPagination = withPaginationBar()(Table);
@@ -40,53 +51,36 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	attributes,
 	breakdownOrder,
 	breakdowns,
+	channelId,
 	compareToPrevious,
 	event,
-	filterOrder,
 	filters,
-	rangeSelectors
+	rangeSelectors,
+	type
 }) => {
-	useEffect(() => {
-		// TODO: LRAC-7333 Add request and remove Dummy data
-	}, [
-		attributes,
-		breakdownOrder,
-		breakdowns,
-		compareToPrevious,
-		event,
-		filterOrder,
-		filters,
-		rangeSelectors
-	]);
+	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
+		EventAnalysisQuery,
+		{
+			variables: {
+				analysisType: type,
+				channelId,
+				eventAnalysisFilters: Object.values(filters),
+				eventDefinitionId: event.id,
+				...getSafeRangeSelectors(rangeSelectors)
+			}
+		}
+	);
 
-	const [count, items, totalEvents] = useMemo(() => {
-		// TODO: LRAC-7333 Add request and remove Dummy data
-		const data = getDummyBreakdownData(
+	const parseData = ({count, value}) => {
+		const mockData = getDummyBreakdownData(
 			event,
 			attributes,
-			breakdownOrder.map(
-				breakdownId => breakdowns[breakdownId].attributeId
-			)
+			breakdownOrder
 		);
 
-		if (!Object.keys(attributes).length) {
-			return [data.count, data.breakdownItems, data.totalEvents];
-		}
-
-		const items = parserBreakdownData(data);
-
-		return [data.count, items, data.totalEvents];
-	}, [attributes, breakdownOrder, filterOrder]);
-
-	const [highestValue, columns] = useMemo(() => {
-		if (!Object.keys(attributes).length) {
-			const highestValue = getMaxEventValue(
-				[{events: items}],
-				compareToPrevious
-			);
-
-			return [highestValue, []];
-		}
+		const items = breakdownOrder.length
+			? parserBreakdownData(mockData)
+			: getDummyEvent(event, value, value);
 
 		const highestValue = getMaxEventValue(items, compareToPrevious);
 
@@ -97,36 +91,51 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			event,
 			highestValue,
 			order: breakdownOrder,
-			totalEvents
+			value
 		});
 
-		return [highestValue, columns];
-	}, [compareToPrevious, attributes, breakdownOrder]);
-
-	if (!Object.keys(attributes).length) {
-		return (
-			<div className='breakdown-table-root breakdown-single-event'>
-				<BarComparisonCell
-					compareToPrevious={compareToPrevious}
-					event={event}
-					events={items}
-					topValue={highestValue}
-				/>
-			</div>
-		);
-	}
+		return {
+			columns,
+			count,
+			highestValue,
+			items
+		};
+	};
 
 	return (
-		<div className='breakdown-table-root'>
-			<TableWithPagination
-				bordered
-				columns={columns}
-				internalSort
-				items={items}
-				rowIdentifier='index'
-				total={count}
-			/>
-		</div>
+		<SafeResults {...result} page={false} pageDisplay={false}>
+			{({eventAnalysis}: {eventAnalysis: EventAnalysisData}) => {
+				const {columns, count, highestValue, items} = parseData(
+					eventAnalysis
+				);
+
+				return (
+					<div
+						className={getCN('breakdown-table-root', {
+							'breakdown-single-event': !breakdownOrder.length
+						})}
+					>
+						{!breakdownOrder.length ? (
+							<BarComparisonCell
+								compareToPrevious={compareToPrevious}
+								event={event}
+								events={items as BreakdownDataItem[]}
+								topValue={highestValue}
+							/>
+						) : (
+							<TableWithPagination
+								bordered
+								columns={columns}
+								internalSort
+								items={items}
+								rowIdentifier='index'
+								total={count}
+							/>
+						)}
+					</div>
+				);
+			}}
+		</SafeResults>
 	);
 };
 
@@ -137,7 +146,7 @@ const getColumns = ({
 	event,
 	highestValue,
 	order,
-	totalEvents
+	value
 }) => {
 	const columns = order.map((breakdownId, i) => {
 		const {attributeId, type} = breakdowns[breakdownId];
@@ -145,8 +154,9 @@ const getColumns = ({
 		return {
 			cellRenderer: ({className, data}) => {
 				const dataValue = get(data, `breakdown${i + 1}`);
+				const dataEvents = get(data, 'events');
 
-				if (isNil(dataValue)) {
+				if (isNil(dataValue) && isNil(dataEvents)) {
 					return (
 						<td
 							className={getCN(
@@ -158,6 +168,8 @@ const getColumns = ({
 							{Liferay.Language.get('no-results')}
 						</td>
 					);
+				} else if (isNil(dataValue)) {
+					return null;
 				}
 
 				return (
@@ -218,7 +230,7 @@ const getColumns = ({
 				<PercentOfCell
 					compareToPrevious={compareToPrevious}
 					events={events}
-					totalEvents={totalEvents}
+					totalValue={value}
 				/>
 			</td>
 		),
