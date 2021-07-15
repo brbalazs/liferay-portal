@@ -130,6 +130,9 @@ public interface FaroNotificationLocalService
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
+	public void deleteUnreadFaroNotifications(
+		long groupId, String type, String subtype, long userId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
 
@@ -237,6 +240,10 @@ public interface FaroNotificationLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFaroNotificationsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getFaroNotificationsLast30DaysCount(
+		long groupId, String subtype, String type, long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

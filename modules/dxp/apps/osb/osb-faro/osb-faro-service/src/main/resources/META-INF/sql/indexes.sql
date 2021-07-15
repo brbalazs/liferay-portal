@@ -3,6 +3,7 @@ create index IX_28923D9C on OSBFaro_FaroChannel (groupId, userId);
 create index IX_286BA5A1 on OSBFaro_FaroChannel (workspaceGroupId);
 
 create index IX_A41A962F on OSBFaro_FaroNotification (createTime);
+create index IX_8C52A745 on OSBFaro_FaroNotification (groupId, createTime, ownerId, read_, type_[$COLUMN_LENGTH:75$], subtype[$COLUMN_LENGTH:75$]);
 create index IX_CBF4F47E on OSBFaro_FaroNotification (groupId, createTime, ownerId, type_[$COLUMN_LENGTH:75$], subtype[$COLUMN_LENGTH:75$]);
 create index IX_A608C94D on OSBFaro_FaroNotification (groupId, scope[$COLUMN_LENGTH:75$], read_);
 create index IX_8E7E81C1 on OSBFaro_FaroNotification (userId, scope[$COLUMN_LENGTH:75$], read_);

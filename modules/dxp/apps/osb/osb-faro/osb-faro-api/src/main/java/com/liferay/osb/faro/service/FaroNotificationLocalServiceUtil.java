@@ -134,6 +134,13 @@ public class FaroNotificationLocalServiceUtil {
 		return getService().deletePersistedModel(persistedModel);
 	}
 
+	public static void deleteUnreadFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
+		getService().deleteUnreadFaroNotifications(
+			groupId, type, subtype, userId);
+	}
+
 	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
@@ -267,6 +274,13 @@ public class FaroNotificationLocalServiceUtil {
 	 */
 	public static int getFaroNotificationsCount() {
 		return getService().getFaroNotificationsCount();
+	}
+
+	public static long getFaroNotificationsLast30DaysCount(
+		long groupId, String subtype, String type, long userId) {
+
+		return getService().getFaroNotificationsLast30DaysCount(
+			groupId, subtype, type, userId);
 	}
 
 	public static

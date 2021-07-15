@@ -138,6 +138,14 @@ public class FaroNotificationLocalServiceWrapper
 	}
 
 	@Override
+	public void deleteUnreadFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
+		_faroNotificationLocalService.deleteUnreadFaroNotifications(
+			groupId, type, subtype, userId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _faroNotificationLocalService.dynamicQuery();
 	}
@@ -294,6 +302,14 @@ public class FaroNotificationLocalServiceWrapper
 	@Override
 	public int getFaroNotificationsCount() {
 		return _faroNotificationLocalService.getFaroNotificationsCount();
+	}
+
+	@Override
+	public long getFaroNotificationsLast30DaysCount(
+		long groupId, String subtype, String type, long userId) {
+
+		return _faroNotificationLocalService.
+			getFaroNotificationsLast30DaysCount(groupId, subtype, type, userId);
 	}
 
 	@Override
