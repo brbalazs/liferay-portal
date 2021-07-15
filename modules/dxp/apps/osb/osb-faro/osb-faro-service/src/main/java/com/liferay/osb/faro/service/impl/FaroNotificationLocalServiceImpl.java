@@ -77,6 +77,14 @@ public class FaroNotificationLocalServiceImpl
 	public void deleteFaroNotifications(
 		long groupId, String type, String subtype, long userId) {
 
+		faroNotificationPersistence.removeByG_C_O_T_S(
+			groupId, _getDateMillis(), userId, type, subtype);
+	}
+
+	@Override
+	public void deleteUnreadFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
 		faroNotificationPersistence.removeByG_C_C_T_S(
 			groupId, _getDateMillis(), userId, type, subtype);
 	}
@@ -97,6 +105,14 @@ public class FaroNotificationLocalServiceImpl
 
 		return faroNotificationPersistence.findByG_C_C_T(
 			groupId, _getDateMillis(), userId, type);
+	}
+
+	@Override
+	public long getFaroNotificationsLast30DaysCount(
+		long groupId, String subtype, String type, long userId) {
+
+		return faroNotificationPersistence.countByG_C_O_T_S(
+			groupId, _getDateMillis(), userId, type, subtype);
 	}
 
 	private long _getDateMillis() {
