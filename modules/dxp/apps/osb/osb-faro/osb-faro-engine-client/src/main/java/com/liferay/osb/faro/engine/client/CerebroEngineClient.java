@@ -29,6 +29,9 @@ public interface CerebroEngineClient {
 			Optional<Date> toDateOptional)
 		throws Exception;
 
+	public boolean isCustomEventsLimitReached(FaroProject faroProject)
+		throws Exception;
+
 	public void updateTimeZone(FaroProject faroProject) throws Exception;
 
 }

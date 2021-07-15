@@ -67,6 +67,25 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 	}
 
 	@Override
+	public boolean isCustomEventsLimitReached(FaroProject faroProject)
+		throws Exception {
+
+		GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+		graphQLRequest.setQuery("{customEventLimitReached}");
+
+		ResponseEntity<String> responseEntity = _getResponseEntity(
+			faroProject, graphQLRequest);
+
+		JSONObject jsonObject = _jsonFactory.createJSONObject(
+			responseEntity.getBody());
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		return dataJSONObject.getBoolean("customEventLimitReached");
+	}
+
+	@Override
 	public void updateTimeZone(FaroProject faroProject) throws Exception {
 		_getResponseEntity(
 			faroProject,
