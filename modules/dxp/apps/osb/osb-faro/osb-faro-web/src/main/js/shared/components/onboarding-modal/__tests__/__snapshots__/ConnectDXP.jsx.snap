@@ -117,7 +117,7 @@ exports[`ConnectDXP renders 1`] = `
               <span
                 class="ml-2"
                 data-tooltip="true"
-                title="Minimum fix pack version required for full compatibility"
+                title="Minimum Fix Pack Version Required for Full Compatibility"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-question-circle-full"
