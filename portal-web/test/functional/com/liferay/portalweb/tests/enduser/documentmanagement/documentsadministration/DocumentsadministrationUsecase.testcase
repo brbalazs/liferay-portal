@@ -465,6 +465,36 @@ definition {
 		}
 	}
 
+	@description = "This test covers LPS-109066. It ensures that the localizable field available languages can be displayed correctly."
+	@priority = "3"
+	test CanViewLocalizableFieldCorrectAvailableLanguages {
+		CustomFields.openCustomFieldAdmin();
+
+		CustomFields.addCP(
+			customFieldName = "Text",
+			customFieldType = "Localized Text",
+			resourceName = "Document");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMNavigator.gotoDocumentType();
+
+		DMDocumentType.add(
+			dmDocumentTypeDescription = "DM Document Type Description",
+			dmDocumentTypeFieldNames = "Text",
+			dmDocumentTypeName = "DM Document Type Name");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMNavigator.gotoAddDocumentType(dmDocumentTypeName = "DM Document Type Name");
+
+		DMDocument.viewTypeFieldLocalizableLanguages(localizableLanguages = "en-US,ca-ES,zh-CN,nl-NL,fi-FI,fr-FR,de-DE,iw-IL,hu-HU,ja-JP,pt-BR,es-ES");
+
+		DMDocument.viewCustomFieldLocalizableLanguages(
+			fieldName = "Text",
+			localizableLanguages = "en-US,ca-ES,zh-CN,nl-NL,fi-FI,fr-FR,de-DE,iw-IL,hu-HU,ja-JP,pt-BR,es-ES");
+	}
+
 	@description = "This test ensures that a checked out document cannot be edited by another user."
 	@priority = "5"
 	test CheckOutDocument {
