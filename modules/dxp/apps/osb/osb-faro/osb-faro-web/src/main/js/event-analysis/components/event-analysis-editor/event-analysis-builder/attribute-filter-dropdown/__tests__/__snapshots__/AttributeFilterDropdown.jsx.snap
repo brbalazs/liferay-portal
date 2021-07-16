@@ -40,7 +40,7 @@ exports[`AttributeFilterDropdown render 2`] = `
         >
           <li
             class="card-tab active"
-            data-testid="event"
+            data-testid="EVENT"
           >
             <button
               class="button-root btn btn-unstyled"

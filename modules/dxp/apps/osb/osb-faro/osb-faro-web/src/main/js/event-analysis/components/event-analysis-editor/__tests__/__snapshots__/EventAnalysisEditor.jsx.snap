@@ -68,7 +68,7 @@ exports[`Event Analysis Editor render 1`] = `
       >
         <li
           class="card-tab active"
-          data-testid="total"
+          data-testid="TOTAL"
         >
           <button
             class="button-root btn btn-unstyled"
@@ -84,7 +84,7 @@ exports[`Event Analysis Editor render 1`] = `
         </li>
         <li
           class="card-tab"
-          data-testid="unique"
+          data-testid="UNIQUE"
         >
           <button
             class="button-root btn btn-unstyled"
@@ -100,7 +100,7 @@ exports[`Event Analysis Editor render 1`] = `
         </li>
         <li
           class="card-tab"
-          data-testid="average"
+          data-testid="AVERAGE"
         >
           <button
             class="button-root btn btn-unstyled"

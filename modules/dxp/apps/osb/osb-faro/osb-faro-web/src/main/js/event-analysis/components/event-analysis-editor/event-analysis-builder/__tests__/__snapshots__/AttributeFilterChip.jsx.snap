@@ -31,12 +31,12 @@ exports[`AttributeFilterChip render 1`] = `
             <div
               class="attribute-label"
             >
-              Event | Article View
+               | Article View
             </div>
             <div
               class="attribute-value"
             >
-              is "Stuff"
+              is "undefined"
             </div>
           </div>
         </button>

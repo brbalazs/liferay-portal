@@ -42,9 +42,7 @@ exports[`AttributeBreakdownChip render 1`] = `
           <div>
             <div
               class="attribute-label"
-            >
-              Event
-            </div>
+            />
             <div
               class="attribute-value"
             >

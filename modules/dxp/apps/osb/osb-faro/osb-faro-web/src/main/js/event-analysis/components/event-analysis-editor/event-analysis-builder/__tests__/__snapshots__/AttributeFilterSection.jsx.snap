@@ -59,12 +59,12 @@ exports[`AttributeFilterSection renders w/ filter 1`] = `
                   <div
                     class="attribute-label"
                   >
-                    Event | Job Title
+                     | Job Title
                   </div>
                   <div
                     class="attribute-value"
                   >
-                    is "Stuff"
+                    is "undefined"
                   </div>
                 </div>
               </button>
