@@ -9,7 +9,7 @@ import {
 describe('utils', () => {
 	describe('getFilterDisplay', () => {
 		it.each`
-			dataType              | type                              | operator                 | value                           | result
+			dataType              | attributeType                     | operator                 | values                          | result
 			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[true]}                       | ${['Account | Test', 'True']}
 			${DataTypes.Boolean}  | ${AttributeOwnerTypes.Account}    | ${Operators.EQ}          | ${[false]}                      | ${['Account | Test', 'False']}
 			${DataTypes.Date}     | ${AttributeOwnerTypes.Event}      | ${Operators.Between}     | ${['2021-01-20', '2021-01-24']} | ${['Event | Test', 'Jan 20, 2021 - Jan 24, 2021']}
@@ -28,13 +28,13 @@ describe('utils', () => {
 			${DataTypes.String}   | ${AttributeOwnerTypes.Event}      | ${Operators.NE}          | ${['Hello World']}              | ${['Event | Test', 'is not "Hello World"']}
 		`(
 			'returns $result for $dataType, $type, $operator, $value',
-			({dataType, operator, result, type, value}) => {
+			({attributeType, dataType, operator, result, values}) => {
 				expect(
 					utils.getFilterDisplay(
 						{
 							displayName: 'Test'
 						},
-						{dataType, operator, type, value}
+						{attributeType, dataType, operator, values}
 					)
 				).toEqual(result);
 			}
@@ -82,32 +82,36 @@ describe('utils', () => {
 	describe('createBooleanBreakdown', () => {
 		it('returns a boolean breakdown', () => {
 			const attributeId = '123';
-			const type = AttributeOwnerTypes.Event;
+			const attributeType = AttributeOwnerTypes.Event;
 
 			expect(
 				utils.createBooleanBreakdown({
 					attributeId,
-					type
+					attributeType
 				})
-			).toEqual({attributeId, dataType: DataTypes.Boolean, type});
+			).toEqual({
+				attributeId,
+				attributeType,
+				dataType: DataTypes.Boolean
+			});
 		});
 	});
 
 	describe('createDateBreakdown', () => {
 		it('returns a date breakdown', () => {
 			const attributeId = '123';
-			const type = AttributeOwnerTypes.Event;
+			const attributeType = AttributeOwnerTypes.Event;
 
 			expect(
 				utils.createDateBreakdown({
 					attributeId,
-					type
+					attributeType
 				})
 			).toEqual({
 				attributeId,
+				attributeType,
 				dataType: DataTypes.Date,
-				dateGrouping: DateGroupings.Months,
-				type
+				dateGrouping: DateGroupings.Months
 			});
 		});
 	});
@@ -115,18 +119,18 @@ describe('utils', () => {
 	describe('createDurationBreakdown', () => {
 		it('returns a duration breakdown', () => {
 			const attributeId = '123';
-			const type = AttributeOwnerTypes.Event;
+			const attributeType = AttributeOwnerTypes.Event;
 
 			expect(
 				utils.createDurationBreakdown({
 					attributeId,
-					type
+					attributeType
 				})
 			).toEqual({
 				attributeId,
+				attributeType,
 				bin: 60000,
-				dataType: DataTypes.Duration,
-				type
+				dataType: DataTypes.Duration
 			});
 		});
 	});
@@ -134,18 +138,18 @@ describe('utils', () => {
 	describe('createNumberBreakdown', () => {
 		it('returns a number breakdown', () => {
 			const attributeId = '123';
-			const type = AttributeOwnerTypes.Event;
+			const attributeType = AttributeOwnerTypes.Event;
 
 			expect(
 				utils.createNumberBreakdown({
 					attributeId,
-					type
+					attributeType
 				})
 			).toEqual({
 				attributeId,
+				attributeType,
 				bin: 10,
-				dataType: DataTypes.Number,
-				type
+				dataType: DataTypes.Number
 			});
 		});
 	});
@@ -153,14 +157,14 @@ describe('utils', () => {
 	describe('createStringBreakdown', () => {
 		it('returns a string breakdown', () => {
 			const attributeId = '123';
-			const type = AttributeOwnerTypes.Event;
+			const attributeType = AttributeOwnerTypes.Event;
 
 			expect(
 				utils.createStringBreakdown({
 					attributeId,
-					type
+					attributeType
 				})
-			).toEqual({attributeId, dataType: DataTypes.String, type});
+			).toEqual({attributeId, attributeType, dataType: DataTypes.String});
 		});
 	});
 });
