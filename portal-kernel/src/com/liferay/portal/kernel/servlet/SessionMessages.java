@@ -129,7 +129,8 @@ public class SessionMessages {
 			}
 
 			_log.debug(
-				StringBundler.concat("Adding key ", key, " with value ", value),
+				StringBundler.concat(
+					"Adding key ", key, " with value ", String.valueOf(value)),
 				exception);
 		}
 
@@ -182,7 +183,8 @@ public class SessionMessages {
 			_log.debug(
 				StringBundler.concat(
 					"Adding key ", key, " to portlet ",
-					portletRequest.getWindowID(), " with value ", value),
+					portletRequest.getWindowID(), " with value ",
+					String.valueOf(value)),
 				exception);
 		}
 
