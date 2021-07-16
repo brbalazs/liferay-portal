@@ -1465,6 +1465,20 @@ definition {
 		}
 	}
 
+	macro viewCustomFieldLocalizableLanguages {
+		Panel.expandPanel(panel = "Custom Fields");
+
+		Click(
+			key_fieldName = "${fieldName}",
+			locator1 = "Button#LOCALIZATION_ANY_FIELD");
+
+		for (var language : list "${localizableLanguages}") {
+			AssertVisible(
+				key_menuItem = "${language}",
+				locator1 = "DocumentsAndMedia#SIDEBAR_MENU_ITEM");
+		}
+	}
+
 	macro viewDefaultCP {
 		AssertElementNotPresent(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_GENERIC");
 
@@ -2109,6 +2123,16 @@ definition {
 			AssertTextEquals(
 				locator1 = "DocumentsAndMedia#TAG",
 				value1 = "${tagName}");
+		}
+	}
+
+	macro viewTypeFieldLocalizableLanguages {
+		Click(locator1 = "Button#LOCALIZATION");
+
+		for (var language : list "${localizableLanguages}") {
+			AssertVisible(
+				key_menuItem = "${language}",
+				locator1 = "DocumentsAndMedia#SIDEBAR_MENU_ITEM");
 		}
 	}
 
