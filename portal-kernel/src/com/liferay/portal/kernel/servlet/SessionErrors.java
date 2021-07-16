@@ -441,7 +441,7 @@ public class SessionErrors {
 
 			return map;
 		}
-		catch (IllegalStateException ise) {
+		catch (IllegalStateException illegalStateException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(illegalStateException, illegalStateException);
 			}
