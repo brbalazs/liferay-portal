@@ -66,7 +66,7 @@ public class FaroNotificationLocalServiceImpl
 	@Override
 	public void clearDismissedNotifications() {
 		List<FaroNotification> faroNotifications =
-			faroNotificationPersistence.findByCreateTime(_getDateMillis());
+			faroNotificationPersistence.findByLtCreateTime(_getDateMillis());
 
 		Stream<FaroNotification> stream = faroNotifications.stream();
 
@@ -77,7 +77,7 @@ public class FaroNotificationLocalServiceImpl
 	public void deleteFaroNotifications(
 		long groupId, String type, String subtype, long userId) {
 
-		faroNotificationPersistence.removeByG_C_O_T_S(
+		faroNotificationPersistence.removeByG_GtC_O_T_S(
 			groupId, _getDateMillis(), userId, type, subtype);
 	}
 
@@ -85,7 +85,7 @@ public class FaroNotificationLocalServiceImpl
 	public void deleteUnreadFaroNotifications(
 		long groupId, String type, String subtype, long userId) {
 
-		faroNotificationPersistence.removeByG_C_C_T_S(
+		faroNotificationPersistence.removeByG_GtC_C_T_S(
 			groupId, _getDateMillis(), userId, type, subtype);
 	}
 
@@ -99,11 +99,11 @@ public class FaroNotificationLocalServiceImpl
 		if (permissionChecker.isGroupAdmin(groupId) ||
 			permissionChecker.isGroupOwner(groupId)) {
 
-			return faroNotificationPersistence.findByG_C_C_T(
+			return faroNotificationPersistence.findByG_GtC_C_T(
 				groupId, _getDateMillis(), new long[] {groupId, userId}, type);
 		}
 
-		return faroNotificationPersistence.findByG_C_C_T(
+		return faroNotificationPersistence.findByG_GtC_C_T(
 			groupId, _getDateMillis(), userId, type);
 	}
 
@@ -111,7 +111,7 @@ public class FaroNotificationLocalServiceImpl
 	public long getFaroNotificationsLast30DaysCount(
 		long groupId, String subtype, String type, long userId) {
 
-		return faroNotificationPersistence.countByG_C_O_T_S(
+		return faroNotificationPersistence.countByG_GtC_O_T_S(
 			groupId, _getDateMillis(), userId, type, subtype);
 	}
 
