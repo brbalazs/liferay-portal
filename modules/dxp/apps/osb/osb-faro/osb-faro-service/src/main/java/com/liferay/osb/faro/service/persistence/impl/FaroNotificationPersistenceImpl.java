@@ -81,8 +81,8 @@ public class FaroNotificationPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathWithPaginationFindByCreateTime;
-	private FinderPath _finderPathWithPaginationCountByCreateTime;
+	private FinderPath _finderPathWithPaginationFindByLtCreateTime;
+	private FinderPath _finderPathWithPaginationCountByLtCreateTime;
 
 	/**
 	 * Returns all the faro notifications where createTime &lt; &#63;.
@@ -91,8 +91,8 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByCreateTime(long createTime) {
-		return findByCreateTime(
+	public List<FaroNotification> findByLtCreateTime(long createTime) {
+		return findByLtCreateTime(
 			createTime, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -109,10 +109,10 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByCreateTime(
+	public List<FaroNotification> findByLtCreateTime(
 		long createTime, int start, int end) {
 
-		return findByCreateTime(createTime, start, end, null);
+		return findByLtCreateTime(createTime, start, end, null);
 	}
 
 	/**
@@ -129,11 +129,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByCreateTime(
+	public List<FaroNotification> findByLtCreateTime(
 		long createTime, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByCreateTime(
+		return findByLtCreateTime(
 			createTime, start, end, orderByComparator, true);
 	}
 
@@ -152,7 +152,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByCreateTime(
+	public List<FaroNotification> findByLtCreateTime(
 		long createTime, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
@@ -160,7 +160,7 @@ public class FaroNotificationPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		finderPath = _finderPathWithPaginationFindByCreateTime;
+		finderPath = _finderPathWithPaginationFindByLtCreateTime;
 		finderArgs = new Object[] {createTime, start, end, orderByComparator};
 
 		List<FaroNotification> list = null;
@@ -193,7 +193,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_LTCREATETIME_CREATETIME_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -249,12 +249,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByCreateTime_First(
+	public FaroNotification findByLtCreateTime_First(
 			long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByCreateTime_First(
+		FaroNotification faroNotification = fetchByLtCreateTime_First(
 			createTime, orderByComparator);
 
 		if (faroNotification != null) {
@@ -281,11 +281,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByCreateTime_First(
+	public FaroNotification fetchByLtCreateTime_First(
 		long createTime,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		List<FaroNotification> list = findByCreateTime(
+		List<FaroNotification> list = findByLtCreateTime(
 			createTime, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -304,12 +304,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByCreateTime_Last(
+	public FaroNotification findByLtCreateTime_Last(
 			long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByCreateTime_Last(
+		FaroNotification faroNotification = fetchByLtCreateTime_Last(
 			createTime, orderByComparator);
 
 		if (faroNotification != null) {
@@ -336,17 +336,17 @@ public class FaroNotificationPersistenceImpl
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByCreateTime_Last(
+	public FaroNotification fetchByLtCreateTime_Last(
 		long createTime,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByCreateTime(createTime);
+		int count = countByLtCreateTime(createTime);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<FaroNotification> list = findByCreateTime(
+		List<FaroNotification> list = findByLtCreateTime(
 			createTime, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -366,7 +366,7 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
 	@Override
-	public FaroNotification[] findByCreateTime_PrevAndNext(
+	public FaroNotification[] findByLtCreateTime_PrevAndNext(
 			long faroNotificationId, long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
@@ -381,12 +381,12 @@ public class FaroNotificationPersistenceImpl
 
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
-			array[0] = getByCreateTime_PrevAndNext(
+			array[0] = getByLtCreateTime_PrevAndNext(
 				session, faroNotification, createTime, orderByComparator, true);
 
 			array[1] = faroNotification;
 
-			array[2] = getByCreateTime_PrevAndNext(
+			array[2] = getByLtCreateTime_PrevAndNext(
 				session, faroNotification, createTime, orderByComparator,
 				false);
 
@@ -400,7 +400,7 @@ public class FaroNotificationPersistenceImpl
 		}
 	}
 
-	protected FaroNotification getByCreateTime_PrevAndNext(
+	protected FaroNotification getByLtCreateTime_PrevAndNext(
 		Session session, FaroNotification faroNotification, long createTime,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean previous) {
@@ -418,7 +418,7 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-		sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
+		sb.append(_FINDER_COLUMN_LTCREATETIME_CREATETIME_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -516,9 +516,9 @@ public class FaroNotificationPersistenceImpl
 	 * @param createTime the create time
 	 */
 	@Override
-	public void removeByCreateTime(long createTime) {
+	public void removeByLtCreateTime(long createTime) {
 		for (FaroNotification faroNotification :
-				findByCreateTime(
+				findByLtCreateTime(
 					createTime, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(faroNotification);
@@ -532,8 +532,8 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByCreateTime(long createTime) {
-		FinderPath finderPath = _finderPathWithPaginationCountByCreateTime;
+	public int countByLtCreateTime(long createTime) {
+		FinderPath finderPath = _finderPathWithPaginationCountByLtCreateTime;
 
 		Object[] finderArgs = new Object[] {createTime};
 
@@ -544,7 +544,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_LTCREATETIME_CREATETIME_2);
 
 			String sql = sb.toString();
 
@@ -576,11 +576,11 @@ public class FaroNotificationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CREATETIME_CREATETIME_2 =
+	private static final String _FINDER_COLUMN_LTCREATETIME_CREATETIME_2 =
 		"faroNotification.createTime < ?";
 
-	private FinderPath _finderPathWithPaginationFindByG_C_C_T;
-	private FinderPath _finderPathWithPaginationCountByG_C_C_T;
+	private FinderPath _finderPathWithPaginationFindByG_GtC_C_T;
+	private FinderPath _finderPathWithPaginationCountByG_GtC_C_T;
 
 	/**
 	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63;.
@@ -592,10 +592,10 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerId, type, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -616,11 +616,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerId, type, start, end, null);
 	}
 
@@ -641,11 +641,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerId, type, start, end, orderByComparator,
 			true);
 	}
@@ -668,7 +668,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
@@ -678,7 +678,7 @@ public class FaroNotificationPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		finderPath = _finderPathWithPaginationFindByG_C_C_T;
+		finderPath = _finderPathWithPaginationFindByG_GtC_C_T;
 		finderArgs = new Object[] {
 			groupId, createTime, ownerId, type, start, end, orderByComparator
 		};
@@ -717,21 +717,21 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_2);
 			}
 
 			if (orderByComparator != null) {
@@ -799,12 +799,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_C_T_First(
+	public FaroNotification findByG_GtC_C_T_First(
 			long groupId, long createTime, long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_C_T_First(
+		FaroNotification faroNotification = fetchByG_GtC_C_T_First(
 			groupId, createTime, ownerId, type, orderByComparator);
 
 		if (faroNotification != null) {
@@ -843,11 +843,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_C_T_First(
+	public FaroNotification fetchByG_GtC_C_T_First(
 		long groupId, long createTime, long ownerId, String type,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		List<FaroNotification> list = findByG_C_C_T(
+		List<FaroNotification> list = findByG_GtC_C_T(
 			groupId, createTime, ownerId, type, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -869,12 +869,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_C_T_Last(
+	public FaroNotification findByG_GtC_C_T_Last(
 			long groupId, long createTime, long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_C_T_Last(
+		FaroNotification faroNotification = fetchByG_GtC_C_T_Last(
 			groupId, createTime, ownerId, type, orderByComparator);
 
 		if (faroNotification != null) {
@@ -913,17 +913,17 @@ public class FaroNotificationPersistenceImpl
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_C_T_Last(
+	public FaroNotification fetchByG_GtC_C_T_Last(
 		long groupId, long createTime, long ownerId, String type,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByG_C_C_T(groupId, createTime, ownerId, type);
+		int count = countByG_GtC_C_T(groupId, createTime, ownerId, type);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<FaroNotification> list = findByG_C_C_T(
+		List<FaroNotification> list = findByG_GtC_C_T(
 			groupId, createTime, ownerId, type, count - 1, count,
 			orderByComparator);
 
@@ -947,7 +947,7 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
 	@Override
-	public FaroNotification[] findByG_C_C_T_PrevAndNext(
+	public FaroNotification[] findByG_GtC_C_T_PrevAndNext(
 			long faroNotificationId, long groupId, long createTime,
 			long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
@@ -965,13 +965,13 @@ public class FaroNotificationPersistenceImpl
 
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
-			array[0] = getByG_C_C_T_PrevAndNext(
+			array[0] = getByG_GtC_C_T_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				orderByComparator, true);
 
 			array[1] = faroNotification;
 
-			array[2] = getByG_C_C_T_PrevAndNext(
+			array[2] = getByG_GtC_C_T_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				orderByComparator, false);
 
@@ -985,7 +985,7 @@ public class FaroNotificationPersistenceImpl
 		}
 	}
 
-	protected FaroNotification getByG_C_C_T_PrevAndNext(
+	protected FaroNotification getByG_GtC_C_T_PrevAndNext(
 		Session session, FaroNotification faroNotification, long groupId,
 		long createTime, long ownerId, String type,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -1004,21 +1004,21 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_GROUPID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_GROUPID_2);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_CREATETIME_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_CREATETIME_2);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_OWNERID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_OWNERID_2);
 
 		boolean bindType = false;
 
 		if (type.isEmpty()) {
-			sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_3);
 		}
 		else {
 			bindType = true;
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -1133,10 +1133,10 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long[] ownerIds, String type) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerIds, type, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -1157,11 +1157,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerIds, type, start, end, null);
 	}
 
@@ -1182,11 +1182,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_C_T(
+		return findByG_GtC_C_T(
 			groupId, createTime, ownerIds, type, start, end, orderByComparator,
 			true);
 	}
@@ -1209,7 +1209,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T(
+	public List<FaroNotification> findByG_GtC_C_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
@@ -1226,7 +1226,7 @@ public class FaroNotificationPersistenceImpl
 		type = Objects.toString(type, "");
 
 		if (ownerIds.length == 1) {
-			return findByG_C_C_T(
+			return findByG_GtC_C_T(
 				groupId, createTime, ownerIds[0], type, start, end,
 				orderByComparator);
 		}
@@ -1253,7 +1253,7 @@ public class FaroNotificationPersistenceImpl
 
 		if (useFinderCache) {
 			list = (List<FaroNotification>)finderCache.getResult(
-				_finderPathWithPaginationFindByG_C_C_T, finderArgs, this);
+				_finderPathWithPaginationFindByG_GtC_C_T, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (FaroNotification faroNotification : list) {
@@ -1276,14 +1276,14 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -1297,12 +1297,12 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_2);
 			}
 
 			sb.setStringAt(
@@ -1344,14 +1344,14 @@ public class FaroNotificationPersistenceImpl
 
 				if (useFinderCache) {
 					finderCache.putResult(
-						_finderPathWithPaginationFindByG_C_C_T, finderArgs,
+						_finderPathWithPaginationFindByG_GtC_C_T, finderArgs,
 						list);
 				}
 			}
 			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
-						_finderPathWithPaginationFindByG_C_C_T, finderArgs);
+						_finderPathWithPaginationFindByG_GtC_C_T, finderArgs);
 				}
 
 				throw processException(exception);
@@ -1373,11 +1373,11 @@ public class FaroNotificationPersistenceImpl
 	 * @param type the type
 	 */
 	@Override
-	public void removeByG_C_C_T(
+	public void removeByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type) {
 
 		for (FaroNotification faroNotification :
-				findByG_C_C_T(
+				findByG_GtC_C_T(
 					groupId, createTime, ownerId, type, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS, null)) {
 
@@ -1395,12 +1395,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C_T(
+	public int countByG_GtC_C_T(
 		long groupId, long createTime, long ownerId, String type) {
 
 		type = Objects.toString(type, "");
 
-		FinderPath finderPath = _finderPathWithPaginationCountByG_C_C_T;
+		FinderPath finderPath = _finderPathWithPaginationCountByG_GtC_C_T;
 
 		Object[] finderArgs = new Object[] {groupId, createTime, ownerId, type};
 
@@ -1411,21 +1411,21 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_2);
 			}
 
 			String sql = sb.toString();
@@ -1476,7 +1476,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C_T(
+	public int countByG_GtC_C_T(
 		long groupId, long createTime, long[] ownerIds, String type) {
 
 		if (ownerIds == null) {
@@ -1495,21 +1495,21 @@ public class FaroNotificationPersistenceImpl
 		};
 
 		Long count = (Long)finderCache.getResult(
-			_finderPathWithPaginationCountByG_C_C_T, finderArgs, this);
+			_finderPathWithPaginationCountByG_GtC_C_T, finderArgs, this);
 
 		if (count == null) {
 			StringBundler sb = new StringBundler();
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -1523,12 +1523,12 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_TYPE_2);
 			}
 
 			sb.setStringAt(
@@ -1558,11 +1558,12 @@ public class FaroNotificationPersistenceImpl
 				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
-					_finderPathWithPaginationCountByG_C_C_T, finderArgs, count);
+					_finderPathWithPaginationCountByG_GtC_C_T, finderArgs,
+					count);
 			}
 			catch (Exception exception) {
 				finderCache.removeResult(
-					_finderPathWithPaginationCountByG_C_C_T, finderArgs);
+					_finderPathWithPaginationCountByG_GtC_C_T, finderArgs);
 
 				throw processException(exception);
 			}
@@ -1574,26 +1575,26 @@ public class FaroNotificationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_G_C_C_T_GROUPID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_GROUPID_2 =
 		"faroNotification.groupId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_CREATETIME_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_CREATETIME_2 =
 		"faroNotification.createTime > ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_OWNERID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_OWNERID_2 =
 		"faroNotification.ownerId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_OWNERID_7 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_OWNERID_7 =
 		"faroNotification.ownerId IN (";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_TYPE_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_TYPE_2 =
 		"faroNotification.type = ? AND faroNotification.read = [$FALSE$]";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_TYPE_3 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_TYPE_3 =
 		"(faroNotification.type IS NULL OR faroNotification.type = '') AND faroNotification.read = [$FALSE$]";
 
-	private FinderPath _finderPathWithPaginationFindByG_C_C_T_S;
-	private FinderPath _finderPathWithPaginationCountByG_C_C_T_S;
+	private FinderPath _finderPathWithPaginationFindByG_GtC_C_T_S;
+	private FinderPath _finderPathWithPaginationCountByG_GtC_C_T_S;
 
 	/**
 	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
@@ -1606,11 +1607,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -1632,11 +1633,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype, start, end, null);
 	}
 
@@ -1658,12 +1659,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype, start, end,
 			orderByComparator, true);
 	}
@@ -1687,7 +1688,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -1699,7 +1700,7 @@ public class FaroNotificationPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		finderPath = _finderPathWithPaginationFindByG_C_C_T_S;
+		finderPath = _finderPathWithPaginationFindByG_GtC_C_T_S;
 		finderArgs = new Object[] {
 			groupId, createTime, ownerId, type, subtype, start, end,
 			orderByComparator
@@ -1740,32 +1741,32 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2);
 			}
 
 			if (orderByComparator != null) {
@@ -1838,13 +1839,13 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_C_T_S_First(
+	public FaroNotification findByG_GtC_C_T_S_First(
 			long groupId, long createTime, long ownerId, String type,
 			String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_C_T_S_First(
+		FaroNotification faroNotification = fetchByG_GtC_C_T_S_First(
 			groupId, createTime, ownerId, type, subtype, orderByComparator);
 
 		if (faroNotification != null) {
@@ -1887,11 +1888,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_C_T_S_First(
+	public FaroNotification fetchByG_GtC_C_T_S_First(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
 
-		List<FaroNotification> list = findByG_C_C_T_S(
+		List<FaroNotification> list = findByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype, 0, 1,
 			orderByComparator);
 
@@ -1915,13 +1916,13 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_C_T_S_Last(
+	public FaroNotification findByG_GtC_C_T_S_Last(
 			long groupId, long createTime, long ownerId, String type,
 			String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_C_T_S_Last(
+		FaroNotification faroNotification = fetchByG_GtC_C_T_S_Last(
 			groupId, createTime, ownerId, type, subtype, orderByComparator);
 
 		if (faroNotification != null) {
@@ -1964,18 +1965,18 @@ public class FaroNotificationPersistenceImpl
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_C_T_S_Last(
+	public FaroNotification fetchByG_GtC_C_T_S_Last(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByG_C_C_T_S(
+		int count = countByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<FaroNotification> list = findByG_C_C_T_S(
+		List<FaroNotification> list = findByG_GtC_C_T_S(
 			groupId, createTime, ownerId, type, subtype, count - 1, count,
 			orderByComparator);
 
@@ -2000,7 +2001,7 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
 	@Override
-	public FaroNotification[] findByG_C_C_T_S_PrevAndNext(
+	public FaroNotification[] findByG_GtC_C_T_S_PrevAndNext(
 			long faroNotificationId, long groupId, long createTime,
 			long ownerId, String type, String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
@@ -2019,13 +2020,13 @@ public class FaroNotificationPersistenceImpl
 
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
-			array[0] = getByG_C_C_T_S_PrevAndNext(
+			array[0] = getByG_GtC_C_T_S_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				subtype, orderByComparator, true);
 
 			array[1] = faroNotification;
 
-			array[2] = getByG_C_C_T_S_PrevAndNext(
+			array[2] = getByG_GtC_C_T_S_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				subtype, orderByComparator, false);
 
@@ -2039,7 +2040,7 @@ public class FaroNotificationPersistenceImpl
 		}
 	}
 
-	protected FaroNotification getByG_C_C_T_S_PrevAndNext(
+	protected FaroNotification getByG_GtC_C_T_S_PrevAndNext(
 		Session session, FaroNotification faroNotification, long groupId,
 		long createTime, long ownerId, String type, String subtype,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -2058,32 +2059,32 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_S_GROUPID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_S_CREATETIME_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2);
 
-		sb.append(_FINDER_COLUMN_G_C_C_T_S_OWNERID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_C_T_S_OWNERID_2);
 
 		boolean bindType = false;
 
 		if (type.isEmpty()) {
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_3);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_3);
 		}
 		else {
 			bindType = true;
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_2);
 		}
 
 		boolean bindSubtype = false;
 
 		if (subtype.isEmpty()) {
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3);
 		}
 		else {
 			bindSubtype = true;
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -2203,11 +2204,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerIds, type, subtype, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -2229,11 +2230,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerIds, type, subtype, start, end, null);
 	}
 
@@ -2255,12 +2256,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_C_T_S(
+		return findByG_GtC_C_T_S(
 			groupId, createTime, ownerIds, type, subtype, start, end,
 			orderByComparator, true);
 	}
@@ -2284,7 +2285,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_C_T_S(
+	public List<FaroNotification> findByG_GtC_C_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -2303,7 +2304,7 @@ public class FaroNotificationPersistenceImpl
 		subtype = Objects.toString(subtype, "");
 
 		if (ownerIds.length == 1) {
-			return findByG_C_C_T_S(
+			return findByG_GtC_C_T_S(
 				groupId, createTime, ownerIds[0], type, subtype, start, end,
 				orderByComparator);
 		}
@@ -2331,7 +2332,7 @@ public class FaroNotificationPersistenceImpl
 
 		if (useFinderCache) {
 			list = (List<FaroNotification>)finderCache.getResult(
-				_finderPathWithPaginationFindByG_C_C_T_S, finderArgs, this);
+				_finderPathWithPaginationFindByG_GtC_C_T_S, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (FaroNotification faroNotification : list) {
@@ -2355,14 +2356,14 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -2376,23 +2377,23 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2);
 			}
 
 			sb.setStringAt(
@@ -2438,14 +2439,14 @@ public class FaroNotificationPersistenceImpl
 
 				if (useFinderCache) {
 					finderCache.putResult(
-						_finderPathWithPaginationFindByG_C_C_T_S, finderArgs,
+						_finderPathWithPaginationFindByG_GtC_C_T_S, finderArgs,
 						list);
 				}
 			}
 			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
-						_finderPathWithPaginationFindByG_C_C_T_S, finderArgs);
+						_finderPathWithPaginationFindByG_GtC_C_T_S, finderArgs);
 				}
 
 				throw processException(exception);
@@ -2468,12 +2469,12 @@ public class FaroNotificationPersistenceImpl
 	 * @param subtype the subtype
 	 */
 	@Override
-	public void removeByG_C_C_T_S(
+	public void removeByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
 		for (FaroNotification faroNotification :
-				findByG_C_C_T_S(
+				findByG_GtC_C_T_S(
 					groupId, createTime, ownerId, type, subtype,
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
@@ -2492,14 +2493,14 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C_T_S(
+	public int countByG_GtC_C_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
 		type = Objects.toString(type, "");
 		subtype = Objects.toString(subtype, "");
 
-		FinderPath finderPath = _finderPathWithPaginationCountByG_C_C_T_S;
+		FinderPath finderPath = _finderPathWithPaginationCountByG_GtC_C_T_S;
 
 		Object[] finderArgs = new Object[] {
 			groupId, createTime, ownerId, type, subtype
@@ -2512,32 +2513,32 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2);
 			}
 
 			String sql = sb.toString();
@@ -2593,7 +2594,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C_T_S(
+	public int countByG_GtC_C_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype) {
 
@@ -2614,21 +2615,21 @@ public class FaroNotificationPersistenceImpl
 		};
 
 		Long count = (Long)finderCache.getResult(
-			_finderPathWithPaginationCountByG_C_C_T_S, finderArgs, this);
+			_finderPathWithPaginationCountByG_GtC_C_T_S, finderArgs, this);
 
 		if (count == null) {
 			StringBundler sb = new StringBundler();
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -2642,23 +2643,23 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2);
 			}
 
 			sb.setStringAt(
@@ -2692,12 +2693,12 @@ public class FaroNotificationPersistenceImpl
 				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
-					_finderPathWithPaginationCountByG_C_C_T_S, finderArgs,
+					_finderPathWithPaginationCountByG_GtC_C_T_S, finderArgs,
 					count);
 			}
 			catch (Exception exception) {
 				finderCache.removeResult(
-					_finderPathWithPaginationCountByG_C_C_T_S, finderArgs);
+					_finderPathWithPaginationCountByG_GtC_C_T_S, finderArgs);
 
 				throw processException(exception);
 			}
@@ -2709,32 +2710,32 @@ public class FaroNotificationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_GROUPID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_GROUPID_2 =
 		"faroNotification.groupId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_CREATETIME_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_CREATETIME_2 =
 		"faroNotification.createTime > ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_OWNERID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_OWNERID_2 =
 		"faroNotification.ownerId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_OWNERID_7 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_OWNERID_7 =
 		"faroNotification.ownerId IN (";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_TYPE_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_TYPE_2 =
 		"faroNotification.type = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_TYPE_3 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_TYPE_3 =
 		"(faroNotification.type IS NULL OR faroNotification.type = '') AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_SUBTYPE_2 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_2 =
 		"faroNotification.subtype = ? AND faroNotification.read = [$FALSE$]";
 
-	private static final String _FINDER_COLUMN_G_C_C_T_S_SUBTYPE_3 =
+	private static final String _FINDER_COLUMN_G_GTC_C_T_S_SUBTYPE_3 =
 		"(faroNotification.subtype IS NULL OR faroNotification.subtype = '') AND faroNotification.read = [$FALSE$]";
 
-	private FinderPath _finderPathWithPaginationFindByG_C_O_T_S;
-	private FinderPath _finderPathWithPaginationCountByG_C_O_T_S;
+	private FinderPath _finderPathWithPaginationFindByG_GtC_O_T_S;
+	private FinderPath _finderPathWithPaginationCountByG_GtC_O_T_S;
 
 	/**
 	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
@@ -2747,11 +2748,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -2773,11 +2774,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype, start, end, null);
 	}
 
@@ -2799,12 +2800,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype, start, end,
 			orderByComparator, true);
 	}
@@ -2828,7 +2829,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -2840,7 +2841,7 @@ public class FaroNotificationPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		finderPath = _finderPathWithPaginationFindByG_C_O_T_S;
+		finderPath = _finderPathWithPaginationFindByG_GtC_O_T_S;
 		finderArgs = new Object[] {
 			groupId, createTime, ownerId, type, subtype, start, end,
 			orderByComparator
@@ -2881,32 +2882,32 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2);
 			}
 
 			if (orderByComparator != null) {
@@ -2979,13 +2980,13 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_O_T_S_First(
+	public FaroNotification findByG_GtC_O_T_S_First(
 			long groupId, long createTime, long ownerId, String type,
 			String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_O_T_S_First(
+		FaroNotification faroNotification = fetchByG_GtC_O_T_S_First(
 			groupId, createTime, ownerId, type, subtype, orderByComparator);
 
 		if (faroNotification != null) {
@@ -3028,11 +3029,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_O_T_S_First(
+	public FaroNotification fetchByG_GtC_O_T_S_First(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
 
-		List<FaroNotification> list = findByG_C_O_T_S(
+		List<FaroNotification> list = findByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype, 0, 1,
 			orderByComparator);
 
@@ -3056,13 +3057,13 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByG_C_O_T_S_Last(
+	public FaroNotification findByG_GtC_O_T_S_Last(
 			long groupId, long createTime, long ownerId, String type,
 			String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByG_C_O_T_S_Last(
+		FaroNotification faroNotification = fetchByG_GtC_O_T_S_Last(
 			groupId, createTime, ownerId, type, subtype, orderByComparator);
 
 		if (faroNotification != null) {
@@ -3105,18 +3106,18 @@ public class FaroNotificationPersistenceImpl
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByG_C_O_T_S_Last(
+	public FaroNotification fetchByG_GtC_O_T_S_Last(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByG_C_O_T_S(
+		int count = countByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<FaroNotification> list = findByG_C_O_T_S(
+		List<FaroNotification> list = findByG_GtC_O_T_S(
 			groupId, createTime, ownerId, type, subtype, count - 1, count,
 			orderByComparator);
 
@@ -3141,7 +3142,7 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
 	@Override
-	public FaroNotification[] findByG_C_O_T_S_PrevAndNext(
+	public FaroNotification[] findByG_GtC_O_T_S_PrevAndNext(
 			long faroNotificationId, long groupId, long createTime,
 			long ownerId, String type, String subtype,
 			OrderByComparator<FaroNotification> orderByComparator)
@@ -3160,13 +3161,13 @@ public class FaroNotificationPersistenceImpl
 
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
-			array[0] = getByG_C_O_T_S_PrevAndNext(
+			array[0] = getByG_GtC_O_T_S_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				subtype, orderByComparator, true);
 
 			array[1] = faroNotification;
 
-			array[2] = getByG_C_O_T_S_PrevAndNext(
+			array[2] = getByG_GtC_O_T_S_PrevAndNext(
 				session, faroNotification, groupId, createTime, ownerId, type,
 				subtype, orderByComparator, false);
 
@@ -3180,7 +3181,7 @@ public class FaroNotificationPersistenceImpl
 		}
 	}
 
-	protected FaroNotification getByG_C_O_T_S_PrevAndNext(
+	protected FaroNotification getByG_GtC_O_T_S_PrevAndNext(
 		Session session, FaroNotification faroNotification, long groupId,
 		long createTime, long ownerId, String type, String subtype,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -3199,32 +3200,32 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-		sb.append(_FINDER_COLUMN_G_C_O_T_S_GROUPID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2);
 
-		sb.append(_FINDER_COLUMN_G_C_O_T_S_CREATETIME_2);
+		sb.append(_FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2);
 
-		sb.append(_FINDER_COLUMN_G_C_O_T_S_OWNERID_2);
+		sb.append(_FINDER_COLUMN_G_GTC_O_T_S_OWNERID_2);
 
 		boolean bindType = false;
 
 		if (type.isEmpty()) {
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_3);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_3);
 		}
 		else {
 			bindType = true;
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_2);
 		}
 
 		boolean bindSubtype = false;
 
 		if (subtype.isEmpty()) {
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3);
 		}
 		else {
 			bindSubtype = true;
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -3344,11 +3345,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerIds, type, subtype, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -3370,11 +3371,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerIds, type, subtype, start, end, null);
 	}
 
@@ -3396,12 +3397,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByG_C_O_T_S(
+		return findByG_GtC_O_T_S(
 			groupId, createTime, ownerIds, type, subtype, start, end,
 			orderByComparator, true);
 	}
@@ -3425,7 +3426,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByG_C_O_T_S(
+	public List<FaroNotification> findByG_GtC_O_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
@@ -3444,7 +3445,7 @@ public class FaroNotificationPersistenceImpl
 		subtype = Objects.toString(subtype, "");
 
 		if (ownerIds.length == 1) {
-			return findByG_C_O_T_S(
+			return findByG_GtC_O_T_S(
 				groupId, createTime, ownerIds[0], type, subtype, start, end,
 				orderByComparator);
 		}
@@ -3472,7 +3473,7 @@ public class FaroNotificationPersistenceImpl
 
 		if (useFinderCache) {
 			list = (List<FaroNotification>)finderCache.getResult(
-				_finderPathWithPaginationFindByG_C_O_T_S, finderArgs, this);
+				_finderPathWithPaginationFindByG_GtC_O_T_S, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (FaroNotification faroNotification : list) {
@@ -3496,14 +3497,14 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -3517,23 +3518,23 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2);
 			}
 
 			sb.setStringAt(
@@ -3577,14 +3578,14 @@ public class FaroNotificationPersistenceImpl
 
 				if (useFinderCache) {
 					finderCache.putResult(
-						_finderPathWithPaginationFindByG_C_O_T_S, finderArgs,
+						_finderPathWithPaginationFindByG_GtC_O_T_S, finderArgs,
 						list);
 				}
 			}
 			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
-						_finderPathWithPaginationFindByG_C_O_T_S, finderArgs);
+						_finderPathWithPaginationFindByG_GtC_O_T_S, finderArgs);
 				}
 
 				throw processException(exception);
@@ -3607,12 +3608,12 @@ public class FaroNotificationPersistenceImpl
 	 * @param subtype the subtype
 	 */
 	@Override
-	public void removeByG_C_O_T_S(
+	public void removeByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
 		for (FaroNotification faroNotification :
-				findByG_C_O_T_S(
+				findByG_GtC_O_T_S(
 					groupId, createTime, ownerId, type, subtype,
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
@@ -3631,14 +3632,14 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_O_T_S(
+	public int countByG_GtC_O_T_S(
 		long groupId, long createTime, long ownerId, String type,
 		String subtype) {
 
 		type = Objects.toString(type, "");
 		subtype = Objects.toString(subtype, "");
 
-		FinderPath finderPath = _finderPathWithPaginationCountByG_C_O_T_S;
+		FinderPath finderPath = _finderPathWithPaginationCountByG_GtC_O_T_S;
 
 		Object[] finderArgs = new Object[] {
 			groupId, createTime, ownerId, type, subtype
@@ -3651,32 +3652,32 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_OWNERID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_OWNERID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2);
 			}
 
 			String sql = sb.toString();
@@ -3732,7 +3733,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_O_T_S(
+	public int countByG_GtC_O_T_S(
 		long groupId, long createTime, long[] ownerIds, String type,
 		String subtype) {
 
@@ -3753,21 +3754,21 @@ public class FaroNotificationPersistenceImpl
 		};
 
 		Long count = (Long)finderCache.getResult(
-			_finderPathWithPaginationCountByG_C_O_T_S, finderArgs, this);
+			_finderPathWithPaginationCountByG_GtC_O_T_S, finderArgs, this);
 
 		if (count == null) {
 			StringBundler sb = new StringBundler();
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_GROUPID_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2);
 
-			sb.append(_FINDER_COLUMN_G_C_O_T_S_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2);
 
 			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_OWNERID_7);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_OWNERID_7);
 
 				sb.append(StringUtil.merge(ownerIds));
 
@@ -3781,23 +3782,23 @@ public class FaroNotificationPersistenceImpl
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_TYPE_2);
 			}
 
 			boolean bindSubtype = false;
 
 			if (subtype.isEmpty()) {
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3);
 			}
 			else {
 				bindSubtype = true;
 
-				sb.append(_FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2);
+				sb.append(_FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2);
 			}
 
 			sb.setStringAt(
@@ -3829,12 +3830,12 @@ public class FaroNotificationPersistenceImpl
 				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
-					_finderPathWithPaginationCountByG_C_O_T_S, finderArgs,
+					_finderPathWithPaginationCountByG_GtC_O_T_S, finderArgs,
 					count);
 			}
 			catch (Exception exception) {
 				finderCache.removeResult(
-					_finderPathWithPaginationCountByG_C_O_T_S, finderArgs);
+					_finderPathWithPaginationCountByG_GtC_O_T_S, finderArgs);
 
 				throw processException(exception);
 			}
@@ -3846,28 +3847,28 @@ public class FaroNotificationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_GROUPID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_GROUPID_2 =
 		"faroNotification.groupId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_CREATETIME_2 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_CREATETIME_2 =
 		"faroNotification.createTime > ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_OWNERID_2 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_OWNERID_2 =
 		"faroNotification.ownerId = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_OWNERID_7 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_OWNERID_7 =
 		"faroNotification.ownerId IN (";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_TYPE_2 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_TYPE_2 =
 		"faroNotification.type = ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_TYPE_3 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_TYPE_3 =
 		"(faroNotification.type IS NULL OR faroNotification.type = '') AND ";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_SUBTYPE_2 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_2 =
 		"faroNotification.subtype = ?";
 
-	private static final String _FINDER_COLUMN_G_C_O_T_S_SUBTYPE_3 =
+	private static final String _FINDER_COLUMN_G_GTC_O_T_S_SUBTYPE_3 =
 		"(faroNotification.subtype IS NULL OR faroNotification.subtype = '')";
 
 	public FaroNotificationPersistenceImpl() {
@@ -4557,27 +4558,27 @@ public class FaroNotificationPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_finderPathWithPaginationFindByCreateTime = new FinderPath(
+		_finderPathWithPaginationFindByLtCreateTime = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED,
 			FaroNotificationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByCreateTime",
+			"findByLtCreateTime",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithPaginationCountByCreateTime = new FinderPath(
+		_finderPathWithPaginationCountByLtCreateTime = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByCreateTime",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByLtCreateTime",
 			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByG_C_C_T = new FinderPath(
+		_finderPathWithPaginationFindByG_GtC_C_T = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED,
 			FaroNotificationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByG_C_C_T",
+			"findByG_GtC_C_T",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName(),
@@ -4585,20 +4586,20 @@ public class FaroNotificationPersistenceImpl
 				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithPaginationCountByG_C_C_T = new FinderPath(
+		_finderPathWithPaginationCountByG_GtC_C_T = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_C_C_T",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_GtC_C_T",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName()
 			});
 
-		_finderPathWithPaginationFindByG_C_C_T_S = new FinderPath(
+		_finderPathWithPaginationFindByG_GtC_C_T_S = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED,
 			FaroNotificationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByG_C_C_T_S",
+			"findByG_GtC_C_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName(),
@@ -4606,21 +4607,21 @@ public class FaroNotificationPersistenceImpl
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithPaginationCountByG_C_C_T_S = new FinderPath(
+		_finderPathWithPaginationCountByG_GtC_C_T_S = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_C_C_T_S",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_GtC_C_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName(),
 				String.class.getName()
 			});
 
-		_finderPathWithPaginationFindByG_C_O_T_S = new FinderPath(
+		_finderPathWithPaginationFindByG_GtC_O_T_S = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED,
 			FaroNotificationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByG_C_O_T_S",
+			"findByG_GtC_O_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName(),
@@ -4628,10 +4629,10 @@ public class FaroNotificationPersistenceImpl
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithPaginationCountByG_C_O_T_S = new FinderPath(
+		_finderPathWithPaginationCountByG_GtC_O_T_S = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_C_O_T_S",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_GtC_O_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), String.class.getName(),
