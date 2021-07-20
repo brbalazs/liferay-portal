@@ -75,9 +75,7 @@ const Interests = ({router}) => {
 		<Card pageDisplay>
 			<Card.Header className='align-items-center d-flex justify-content-between'>
 				<Card.Title>
-					{sub(Liferay.Language.get('x-interest-topics'), [
-						Liferay.Language.get('individual')
-					])}
+					{Liferay.Language.get('interest-topics')}
 				</Card.Title>
 			</Card.Header>
 
