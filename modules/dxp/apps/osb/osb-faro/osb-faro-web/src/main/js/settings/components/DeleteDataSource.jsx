@@ -311,11 +311,8 @@ export class DeleteDataSource extends React.Component {
 			},
 			{
 				entityType: EntityTypes.Page,
-				secondaryInfo: sub(
-					Liferay.Language.get(
-						'all-x-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
-					),
-					[Liferay.Language.get('pages')]
+				secondaryInfo: Liferay.Language.get(
+					'all-pages-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
 				),
 				title: sub(Liferay.Language.get('x-pages'), [
 					entitiesCount[EntityTypes.Page].toLocaleString()
@@ -323,11 +320,8 @@ export class DeleteDataSource extends React.Component {
 			},
 			{
 				entityType: EntityTypes.Asset,
-				secondaryInfo: sub(
-					Liferay.Language.get(
-						'all-x-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
-					),
-					[Liferay.Language.get('assets')]
+				secondaryInfo: Liferay.Language.get(
+					'all-assets-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
 				),
 				title: sub(Liferay.Language.get('x-assets'), [
 					entitiesCount[EntityTypes.Asset].toLocaleString()
