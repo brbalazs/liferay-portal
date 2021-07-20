@@ -37,16 +37,12 @@ const TableWithData = withTableData(withData, {
 			sortable: false
 		}),
 		compositionListColumns.getRelativeMetricBar({
-			label: sub(Liferay.Language.get('x-individuals'), [
-				Liferay.Language.get('total')
-			]),
+			label: Liferay.Language.get('total-individuals'),
 			maxCount,
 			totalCount
 		}),
 		compositionListColumns.getPercentOf({
-			metricName: sub(Liferay.Language.get('x-individuals'), [
-				Liferay.Language.get('total')
-			]),
+			metricName: Liferay.Language.get('total-individuals'),
 			totalCount
 		})
 	],
