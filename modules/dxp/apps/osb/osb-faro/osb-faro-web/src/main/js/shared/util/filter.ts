@@ -23,7 +23,7 @@ type FilterItem = {
 	value: string;
 };
 
-const filterLangMap = {
+export const filterLangMap = {
 	devices: Liferay.Language.get('devices'),
 	location: Liferay.Language.get('location')
 };

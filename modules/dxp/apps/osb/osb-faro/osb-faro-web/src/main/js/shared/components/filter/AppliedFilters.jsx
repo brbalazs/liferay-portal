@@ -2,8 +2,12 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Label from 'cerebro-shared/components/Label';
 import React from 'react';
+import {
+	filterLangMap,
+	hasCategoryFilters,
+	isClearFilterVisible
+} from 'shared/util/filter';
 import {getDeviceLabel} from 'shared/util/lang';
-import {hasCategoryFilters, isClearFilterVisible} from 'shared/util/filter';
 import {PropTypes} from 'prop-types';
 
 const CLASSNAME = 'analytics-applied-filters';
@@ -75,7 +79,7 @@ class AppliedFilters extends React.Component {
 		return (
 			<div className='ml-3' key={`${category}_item`}>
 				<small className='font-weight-semibold mr-2 text-secondary text-uppercase'>
-					{category}
+					{filterLangMap[category]}
 				</small>
 				{subItems.map((label, index) => (
 					<Label
