@@ -112,6 +112,12 @@ AUI.add(
 						config.data.doAsUserId = doAsUserIdEncoded;
 					}
 
+					var doAsGroupId = themeDisplay.getScopeGroupId();
+
+					if(doAsGroupId){
+						config.data.doAsGroupId = doAsGroupId;
+					}
+
 					A.io.request(
 						themeDisplay.getPathMain() + '/portal/session_click',
 						config
