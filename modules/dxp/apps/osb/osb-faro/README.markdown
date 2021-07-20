@@ -1,6 +1,7 @@
 # Faro
 
 [![Build Status](https://travis-ci.com/liferay/com-liferay-osb-faro-private.svg?token=a43XxxAet6usa4DRSqNr&branch=7.1.x)](https://travis-ci.com/liferay/com-liferay-osb-faro-private)
+[![Coverage Status](https://coveralls.io/repos/github/liferay/com-liferay-osb-faro-private/badge.svg?branch=7.1.x&t=Qnhecp)](https://coveralls.io/github/liferay/com-liferay-osb-faro-private?branch=7.1.x)
 
 ## Prerequisites
 
