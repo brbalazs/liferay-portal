@@ -10,9 +10,7 @@ exports[`AppliedFilters should render 1`] = `
   >
     <small
       className="font-weight-semibold mr-2 text-secondary text-uppercase"
-    >
-      Devices
-    </small>
+    />
     <Label
       closeable={true}
       data={
@@ -34,9 +32,7 @@ exports[`AppliedFilters should render 1`] = `
   >
     <small
       className="font-weight-semibold mr-2 text-secondary text-uppercase"
-    >
-      Location
-    </small>
+    />
     <Label
       closeable={true}
       data={

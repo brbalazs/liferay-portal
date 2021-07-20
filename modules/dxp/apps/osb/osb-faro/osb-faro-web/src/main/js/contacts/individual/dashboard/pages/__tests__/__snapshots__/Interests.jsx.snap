@@ -20,7 +20,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
             <h5
               class="card-title"
             >
-              Individual Interest Topics
+              Interest Topics
             </h5>
           </div>
           <div

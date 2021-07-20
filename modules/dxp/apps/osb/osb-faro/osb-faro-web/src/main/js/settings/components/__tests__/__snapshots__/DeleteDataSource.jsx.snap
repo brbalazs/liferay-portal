@@ -71,7 +71,7 @@ exports[`DeleteDataSource should render 1`] = `
         <div
           class="secondary-info"
         >
-          All Pages and related behaviors for both known and anonymous Individuals will be deleted.
+          All pages and related behaviors for both known and anonymous Individuals will be deleted.
         </div>
       </div>
       <div
@@ -88,7 +88,7 @@ exports[`DeleteDataSource should render 1`] = `
         <div
           class="secondary-info"
         >
-          All Assets and related behaviors for both known and anonymous Individuals will be deleted.
+          All assets and related behaviors for both known and anonymous Individuals will be deleted.
         </div>
       </div>
     </div>
