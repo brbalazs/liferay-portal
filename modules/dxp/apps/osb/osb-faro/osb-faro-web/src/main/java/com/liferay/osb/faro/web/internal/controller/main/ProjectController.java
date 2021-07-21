@@ -304,8 +304,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("name") String name,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation,
-			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
-				<Boolean> sharedCluster)
+			@DefaultValue("true") @FormParam("sharedCluster") FaroParam<Boolean>
+				sharedCluster)
 		throws Exception {
 
 		User user = getUser();
@@ -339,8 +339,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("incidentReportEmailAddresses")
 			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
-			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
-				<Boolean> sharedCluster,
+			@DefaultValue("true") @FormParam("sharedCluster") FaroParam<Boolean>
+				sharedCluster,
 			@FormParam("serverLocation") String serverLocation,
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
@@ -389,8 +389,8 @@ public class ProjectController extends BaseFaroController {
 			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
-			@DefaultValue("false") @FormParam("sharedCluster") FaroParam
-				<Boolean> sharedCluster,
+			@DefaultValue("true") @FormParam("sharedCluster") FaroParam<Boolean>
+				sharedCluster,
 			@FormParam("timeZoneId") String timeZoneId,
 			@FormParam("trial") boolean trial)
 		throws Exception {
