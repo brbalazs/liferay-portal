@@ -31,10 +31,10 @@ public class LCPProjectConstants {
 	private static final Map<String, String> _locations =
 		new HashMap<String, String>() {
 			{
-				put("EU", LCPProject.Cluster.EU.toString());
-				put("EU2", LCPProject.Cluster.EU2.toString());
-				put("SA", LCPProject.Cluster.SA.toString());
-				put("US", LCPProject.Cluster.US.toString());
+				put("EU", LCPProject.Cluster.EU_AC.toString());
+				put("EU2", LCPProject.Cluster.EU2_AC.toString());
+				put("SA", LCPProject.Cluster.SA_AC.toString());
+				put("US", LCPProject.Cluster.US_AC.toString());
 			}
 		};
 
