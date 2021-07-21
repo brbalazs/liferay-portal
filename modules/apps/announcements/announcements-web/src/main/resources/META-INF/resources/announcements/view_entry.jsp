@@ -93,9 +93,11 @@ if (portletTitleBasedNavigation) {
 					<%@ include file="/announcements/entry_scope.jspf" %>
 				</div>
 
-				<div class="card-col-field">
-					<%@ include file="/announcements/entry_action.jspf" %>
-				</div>
+				<c:if test="<%= !StringUtil.equals(announcementsRequestHelper.getPortletId(), AnnouncementsPortletKeys.ANNOUNCEMENTS_ADMIN) %>">
+					<div class="card-col-field">
+						<%@ include file="/announcements/entry_action.jspf" %>
+					</div>
+				</c:if>
 			</div>
 		</div>
 
