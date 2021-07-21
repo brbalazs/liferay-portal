@@ -72,22 +72,24 @@ const withBaseResults = (withData, configs) => {
 			const query = router ? router.query.query : otherProps.query;
 
 			return (
-				<TableWithData
-					defaultSort={{
-						field: orderByField,
-						sortOrder: orderBy
-					}}
-					delta={delta}
-					filters={filters}
-					orderBy={orderBy}
-					orderByField={orderByField}
-					page={page}
-					query={query}
-					rangeSelectors={rangeSelectors}
-					router={router}
-					rowIdentifier={rowIdentifier}
-					{...otherProps}
-				/>
+				<div className='d-flex flex-column flex-grow-1 justify-content-between'>
+					<TableWithData
+						defaultSort={{
+							field: orderByField,
+							sortOrder: orderBy
+						}}
+						delta={delta}
+						filters={filters}
+						orderBy={orderBy}
+						orderByField={orderByField}
+						page={page}
+						query={query}
+						rangeSelectors={rangeSelectors}
+						router={router}
+						rowIdentifier={rowIdentifier}
+						{...otherProps}
+					/>
+				</div>
 			);
 		}
 	}
