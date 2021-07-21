@@ -65,7 +65,6 @@ export class AddWorkspace extends React.Component {
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
 			incidentReportEmailAddresses,
 			name,
-			sharedCluster: FARO_ENV === 'uat',
 			timeZoneId,
 			...(state === DataSourceStates.Unconfigured
 				? {groupId}
