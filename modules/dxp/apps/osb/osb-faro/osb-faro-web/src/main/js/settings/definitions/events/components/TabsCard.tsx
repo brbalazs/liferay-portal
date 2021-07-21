@@ -75,13 +75,11 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 				)}
 			</div>
 
-			{customEventTab && ( // TODO: LRAC-7641 Make request to new backend API and wait for response before displaying
+			{customEventTab && (
 				<div className='mx-4'>
 					<NotificationAlertList
 						groupId={groupId}
-						subtypes={[
-							NotificationSubtypes.CustomEventDefinitionLimitReached
-						]}
+						subtypes={[NotificationSubtypes.BlockedEventsLimit]}
 					/>
 				</div>
 			)}

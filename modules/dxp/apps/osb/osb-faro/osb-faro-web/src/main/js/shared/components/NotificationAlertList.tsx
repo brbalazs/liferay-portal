@@ -43,7 +43,7 @@ const notificationStrategies = new Map<string, Function>([
 		})
 	],
 	[
-		NotificationSubtypes.CustomEventDefinitionLimitReached,
+		NotificationSubtypes.BlockedEventsLimit,
 		({
 			groupId,
 			notificationId,
@@ -121,16 +121,7 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	const notifications =
 		loading || !data
 			? []
-			: [
-					...data,
-					// TODO: LRAC-7641 Remove mock data
-					{
-						id: 32835,
-						subtype: 'CUSTOM_EVENT_DEFINITION_LIMIT_REACHED',
-						type: 'ALERT'
-					}
-			  ]
-					// TODO: LRAC-7641 Remove filter
+			: data
 					.filter(({subtype}) => subtypes.includes(subtype))
 					.map(({id, modifiedTime, subtype}) => {
 						const transformer = notificationStrategies.get(subtype);

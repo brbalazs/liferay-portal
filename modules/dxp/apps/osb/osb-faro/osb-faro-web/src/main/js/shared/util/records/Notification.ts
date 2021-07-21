@@ -6,7 +6,7 @@ export enum NotificationTypes {
 }
 
 export enum NotificationSubtypes {
-	CustomEventDefinitionLimitReached = 'CUSTOM_EVENT_DEFINITION_LIMIT_REACHED',
+	BlockedEventsLimit = 'BLOCKED_EVENTS_LIMIT',
 	TimeZoneAdmin = 'TIME_ZONE_ADMIN',
 	TimeZoneChanged = 'TIME_ZONE_CHANGED'
 }
