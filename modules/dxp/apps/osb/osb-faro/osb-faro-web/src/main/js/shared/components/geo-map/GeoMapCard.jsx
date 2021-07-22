@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
+import GeoMapLangKey from './geo-map-lang-key';
 import GeomapReact from './index';
 import getCN from 'classnames';
 import memoize from 'memoize-one';
@@ -12,6 +13,7 @@ import {sub} from 'shared/util/lang';
 import {toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-geomap';
+const OTHERS = 'others';
 const TOTAL_COUNTRIES_LIST = 5;
 
 const GEOMAP_KEY = CEREBRO_PATHS_GEOMAP_KEY // eslint-disable-line no-undef
@@ -215,13 +217,15 @@ class GeoLocation extends React.Component {
 	 * @param {object} param0
 	 */
 	normalizeGeoData({features}) {
-		for (let i = 0; i < features.length; i++) {
-			features[i].properties = Object.assign(features[i].properties, {
+		return features.map(({properties: {name}, ...otherProps}) => ({
+			...otherProps,
+			properties: {
+				countryName: GeoMapLangKey[name],
+				name,
 				total: 0,
 				value: 0
-			});
-		}
-		return features;
+			}
+		}));
 	}
 
 	/**
@@ -282,14 +286,14 @@ class GeoLocation extends React.Component {
 						.filter(
 							(value, index) =>
 								index < TOTAL_COUNTRIES_LIST ||
-								value.id === 'others'
+								value.id === OTHERS
 						)
 						.map((value, index) => {
 							const {hoverList} = this.state;
 							const otherClass = getCN({
 								['lighten-item']:
 									hoverList !== null && hoverList !== index,
-								['text-l-secondary']: value.id === 'others'
+								['text-l-secondary']: value.id === OTHERS
 							});
 							return (
 								<tr
@@ -311,7 +315,9 @@ class GeoLocation extends React.Component {
 									<td
 										className={`text-left font-weight-semibold ${otherClass}`}
 									>
-										{value.name}
+										{value.name.toLowerCase() === OTHERS
+											? Liferay.Language.get('others')
+											: GeoMapLangKey[value.name]}
 									</td>
 
 									<td className={`text-right ${otherClass}`}>

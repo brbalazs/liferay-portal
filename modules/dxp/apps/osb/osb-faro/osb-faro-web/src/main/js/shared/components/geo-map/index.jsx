@@ -218,7 +218,7 @@ class GeoMap extends ClayGeoMap.Geomap {
 					{
 						align: 'left',
 						colspan: 2,
-						label: d.properties.name
+						label: d.properties.countryName
 					}
 				]
 			}
