@@ -204,7 +204,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 
 					<TooltipRechart
 						content={({active, payload}) => {
-							if (active && !!payload.length) {
+							if (active && !!payload?.length) {
 								return <Tooltip dataPoint={payload} />;
 							}
 						}}
