@@ -8,7 +8,7 @@ definition {
 	property portal.release = "false";
 	property portal.upstream = "false";
 	property test.run.environment = "EE";
-	property testray.main.component.name = "Documents Management";
+	property testray.main.component.name = "Document Management";
 
 	setUp {
 		TestCase.setUpPortalInstance();
