@@ -70,7 +70,6 @@ export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 
 				<AttributeFilterDropdown
 					alignmentPosition={Align.LeftTop}
-					disabledIds={filterOrder}
 					eventId={eventId}
 					trigger={
 						<Button
