@@ -82,13 +82,13 @@
 		<finder name="LtCreateTime" return-type="Collection">
 			<finder-column comparator="&lt;" name="createTime" />
 		</finder>
-		<finder name="G_GtC_C_T" return-type="Collection" where="read = [$FALSE$]">
+		<finder name="G_GtC_O_T" return-type="Collection" where="read = [$FALSE$]">
 			<finder-column name="groupId" />
 			<finder-column comparator="&gt;" name="createTime" />
 			<finder-column arrayable-operator="OR" name="ownerId" />
 			<finder-column name="type" />
 		</finder>
-		<finder name="G_GtC_C_T_S" return-type="Collection" where="read = [$FALSE$]">
+		<finder name="G_GtC_O_T_S" return-type="Collection" where="read = [$FALSE$]">
 			<finder-column name="groupId" />
 			<finder-column comparator="&gt;" name="createTime" />
 			<finder-column arrayable-operator="OR" name="ownerId" />
