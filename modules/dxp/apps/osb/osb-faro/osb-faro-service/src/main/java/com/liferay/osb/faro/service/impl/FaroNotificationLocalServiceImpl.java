@@ -85,8 +85,8 @@ public class FaroNotificationLocalServiceImpl
 	public void deleteUnreadFaroNotifications(
 		long groupId, String type, String subtype, long userId) {
 
-		faroNotificationPersistence.removeByG_GtC_C_T_S(
-			groupId, _getDateMillis(), userId, type, subtype);
+		faroNotificationPersistence.removeByG_GtC_O_R_T_S(
+			groupId, _getDateMillis(), userId, false, type, subtype);
 	}
 
 	@Override
@@ -99,11 +99,11 @@ public class FaroNotificationLocalServiceImpl
 		if (permissionChecker.isGroupAdmin(groupId) ||
 			permissionChecker.isGroupOwner(groupId)) {
 
-			return faroNotificationPersistence.findByG_GtC_C_T(
+			return faroNotificationPersistence.findByG_GtC_O_T(
 				groupId, _getDateMillis(), new long[] {groupId, userId}, type);
 		}
 
-		return faroNotificationPersistence.findByG_GtC_C_T(
+		return faroNotificationPersistence.findByG_GtC_O_T(
 			groupId, _getDateMillis(), userId, type);
 	}
 
