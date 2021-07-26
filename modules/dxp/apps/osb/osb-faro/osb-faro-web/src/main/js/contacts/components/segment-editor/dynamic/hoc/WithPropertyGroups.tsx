@@ -11,8 +11,12 @@ import {
 	convertFieldMappingToOrganizationProperty
 } from '../utils/utils';
 import {createInterestProperty} from '../utils/utils';
+import {
+	DEVELOPER_MODE,
+	FieldContexts,
+	FieldOwnerTypes
+} from 'shared/util/constants';
 import {EventTypes} from 'event-analysis/utils/types';
-import {FieldContexts, FieldOwnerTypes} from 'shared/util/constants';
 import {
 	INDIVIDUAL_PROPERTIES,
 	ORGANIZATION_PROPERTIES,
@@ -64,19 +68,22 @@ const fetchPropertyGroups = ({
 		}),
 		API.interests.searchKeywords({delta: MAX_DELTA, groupId}),
 		Promise.resolve(SESSION_PROPERTIES),
-		client.query({
-			query: EventDefinitionsQuery,
-			variables: {
-				eventType: EventTypes.Custom,
-				hidden: false,
-				page: 0,
-				size: MAX_DELTA,
-				sort: {
-					column: NAME,
-					type: OrderByDirections.Ascending
-				}
-			}
-		}),
+		// TODO: LRAC-8210 Remove for release 3.1
+		DEVELOPER_MODE
+			? client.query({
+					query: EventDefinitionsQuery,
+					variables: {
+						eventType: EventTypes.Custom,
+						hidden: false,
+						page: 0,
+						size: MAX_DELTA,
+						sort: {
+							column: NAME,
+							type: OrderByDirections.Ascending
+						}
+					}
+			  })
+			: Promise.resolve([]),
 		Promise.resolve(WEB_BEHAVIORS)
 	]);
 
@@ -145,20 +152,27 @@ const mapResultToProps = ([
 		new PropertyGroup({
 			label: Liferay.Language.get('events'),
 			propertyKey: 'web',
-			propertySubgroups: List([
-				new PropertySubgroup({
-					label: Liferay.Language.get('default-events'),
-					properties: webBehaviors
-				}),
-				new PropertySubgroup({
-					label: Liferay.Language.get('custom-events'),
-					properties: List(
-						eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
-							convertEventToProperty
-						)
-					)
-				})
-			])
+			propertySubgroups: List(
+				[
+					new PropertySubgroup({
+						// TODO: LRAC-8210 Remove for release 3.1
+						label: DEVELOPER_MODE
+							? Liferay.Language.get('default-events')
+							: null,
+						properties: webBehaviors
+					}),
+					// TODO: LRAC-8210 Remove for release 3.1
+					DEVELOPER_MODE &&
+						new PropertySubgroup({
+							label: Liferay.Language.get('custom-events'),
+							properties: List(
+								eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
+									convertEventToProperty
+								)
+							)
+						})
+				].filter(Boolean)
+			)
 		}),
 		new PropertyGroup({
 			label: sub(Liferay.Language.get('x-attributes'), [

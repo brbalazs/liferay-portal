@@ -75,17 +75,21 @@ describe('Edit', () => {
 			})
 		);
 
-		const {container, getByText} = render(
+		const {getByText} = render(
 			<DefaultComponent type={SegmentTypes.Dynamic} />
 		);
 
 		jest.runAllTimers();
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.loading-root')
-		).then(() => {
-			expect(getByText('Dynamic Segment')).toBeTruthy();
-		});
+		// TODO: LRAC-8210 Uncomment for release 3.1
+		// await waitForElementToBeRemoved(() =>
+		// 	container.querySelector('.loading-root')
+		// ).then(() => {
+		// 	expect(getByText('Dynamic Segment')).toBeTruthy();
+		// });
+
+		// TODO: LRAC-8210 Remove for release 3.1
+		expect(getByText('Dynamic Segment')).toBeTruthy();
 	});
 
 	it('should render a static segment', () => {
