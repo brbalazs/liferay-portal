@@ -88,17 +88,11 @@
 			<finder-column arrayable-operator="OR" name="ownerId" />
 			<finder-column name="type" />
 		</finder>
-		<finder name="G_GtC_O_T_S" return-type="Collection" where="read = [$FALSE$]">
+		<finder name="G_GtC_O_R_T_S" return-type="Collection">
 			<finder-column name="groupId" />
 			<finder-column comparator="&gt;" name="createTime" />
 			<finder-column arrayable-operator="OR" name="ownerId" />
-			<finder-column name="type" />
-			<finder-column name="subtype" />
-		</finder>
-		<finder name="G_GtC_O_T_S" return-type="Collection">
-			<finder-column name="groupId" />
-			<finder-column comparator="&gt;" name="createTime" />
-			<finder-column arrayable-operator="OR" name="ownerId" />
+			<finder-column name="read" />
 			<finder-column name="type" />
 			<finder-column name="subtype" />
 		</finder>
