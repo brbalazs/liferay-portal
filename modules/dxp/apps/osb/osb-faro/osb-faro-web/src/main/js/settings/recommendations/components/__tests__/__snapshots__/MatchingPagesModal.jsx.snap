@@ -23,73 +23,77 @@ exports[`MatchingPagesModal should render 1`] = `
         class="modal-body"
       />
       <div
-        class="toolbar-root"
+        class="d-flex flex-column flex-grow-1 justify-content-between"
       >
-        <nav
-          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        <div
+          class="toolbar-root"
         >
-          <div
-            class="container-fluid"
+          <nav
+            class="navbar navbar-root management-bar management-bar-light navbar-expand"
           >
-            <ul
-              class="nav-root front-nav navbar-nav"
-              role="tablist"
-            />
             <div
-              class="navbar-form navbar-form-autofit"
+              class="container-fluid"
             >
+              <ul
+                class="nav-root front-nav navbar-nav"
+                role="tablist"
+              />
               <div
-                class="input-group search"
+                class="navbar-form navbar-form-autofit"
               >
                 <div
-                  class="input-group-item"
+                  class="input-group search"
                 >
-                  <input
-                    class="input-root form-control input-group-inset input-group-inset-after"
-                    placeholder="Search"
-                    type="text"
-                    value=""
-                  />
                   <div
-                    class="input-group-inset-item input-group-inset-item-after"
+                    class="input-group-item"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
+                    <input
+                      class="input-root form-control input-group-inset input-group-inset-after"
+                      placeholder="Search"
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      class="input-group-inset-item input-group-inset-item-after"
                     >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-search"
-                        viewBox=""
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
                       >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
-                        />
-                      </svg>
-                    </button>
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-search"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </nav>
-      </div>
-      <div
-        class="error-display-root error-spacer no-results-root flex-grow-1"
-      >
+          </nav>
+        </div>
         <div
-          class="no-results-content"
+          class="error-display-root error-spacer no-results-root flex-grow-1"
         >
-          <h4
-            class="no-results-title"
+          <div
+            class="no-results-content"
           >
-            An unexpected error occurred.
-          </h4>
-          <button
-            class="button-root btn btn-secondary"
-            type="button"
-          >
-            Reload
-          </button>
+            <h4
+              class="no-results-title"
+            >
+              An unexpected error occurred.
+            </h4>
+            <button
+              class="button-root btn btn-secondary"
+              type="button"
+            >
+              Reload
+            </button>
+          </div>
         </div>
       </div>
       <div

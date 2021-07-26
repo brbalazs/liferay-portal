@@ -39,146 +39,150 @@ exports[`RequestLog should render 1`] = `
         class="card card-root request-list-root page-display"
       >
         <div
-          class="toolbar-root"
+          class="d-flex flex-column flex-grow-1 justify-content-between"
         >
-          <nav
-            class="navbar navbar-root management-bar management-bar-light navbar-expand"
+          <div
+            class="toolbar-root"
           >
-            <div
-              class="container-fluid"
+            <nav
+              class="navbar navbar-root management-bar management-bar-light navbar-expand"
             >
-              <ul
-                class="nav-root front-nav navbar-nav"
-                role="tablist"
-              >
-                <li
-                  class="nav-item"
-                  role="presentation"
-                >
-                  <div
-                    class="custom-control custom-checkbox"
-                  >
-                    <label>
-                      <input
-                        class="custom-control-input"
-                        data-testid="select-all-checkbox"
-                        type="checkbox"
-                        value="false"
-                      />
-                      <span
-                        class="custom-control-label"
-                      />
-                    </label>
-                  </div>
-                </li>
-                <li
-                  aria-haspopup="true"
-                  class="dropdown dropdown-root filter-and-order-root nav-item"
-                >
-                  <button
-                    class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
-                    data-testid="filter-and-order-button"
-                    type="button"
-                  >
-                    <span
-                      class="text-truncate"
-                    >
-                      Filter
-                    </span>
-                    
-                    <span
-                      class="caret-root"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </li>
-                <li
-                  class="nav-item"
-                  role="presentation"
-                >
-                  <a
-                    class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
-                    href="/?orderBy=asc&page=1"
-                  >
-                    <svg
-                      class="icon-root lexicon-icon lexicon-icon-order-arrow-descending"
-                      viewBox=""
-                    >
-                      <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-descending"
-                      />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
               <div
-                class="navbar-form navbar-form-autofit"
+                class="container-fluid"
               >
-                <div
-                  class="input-group search"
+                <ul
+                  class="nav-root front-nav navbar-nav"
+                  role="tablist"
                 >
-                  <div
-                    class="input-group-item"
+                  <li
+                    class="nav-item"
+                    role="presentation"
                   >
-                    <input
-                      class="input-root form-control input-group-inset input-group-inset-after"
-                      placeholder="Search"
-                      type="text"
-                      value=""
-                    />
                     <div
-                      class="input-group-inset-item input-group-inset-item-after"
+                      class="custom-control custom-checkbox"
                     >
-                      <button
-                        class="button-root btn btn-unstyled"
-                        type="button"
+                      <label>
+                        <input
+                          class="custom-control-input"
+                          data-testid="select-all-checkbox"
+                          type="checkbox"
+                          value="false"
+                        />
+                        <span
+                          class="custom-control-label"
+                        />
+                      </label>
+                    </div>
+                  </li>
+                  <li
+                    aria-haspopup="true"
+                    class="dropdown dropdown-root filter-and-order-root nav-item"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+                      data-testid="filter-and-order-button"
+                      type="button"
+                    >
+                      <span
+                        class="text-truncate"
+                      >
+                        Filter
+                      </span>
+                      
+                      <span
+                        class="caret-root"
                       >
                         <svg
-                          class="icon-root lexicon-icon lexicon-icon-search"
+                          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
                         >
                           <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                           />
                         </svg>
-                      </button>
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    class="nav-item"
+                    role="presentation"
+                  >
+                    <a
+                      class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                      href="/?orderBy=asc&page=1"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-order-arrow-descending"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-descending"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+                <div
+                  class="navbar-form navbar-form-autofit"
+                >
+                  <div
+                    class="input-group search"
+                  >
+                    <div
+                      class="input-group-item"
+                    >
+                      <input
+                        class="input-root form-control input-group-inset input-group-inset-after"
+                        placeholder="Search"
+                        type="text"
+                        value=""
+                      />
+                      <div
+                        class="input-group-inset-item input-group-inset-item-after"
+                      >
+                        <button
+                          class="button-root btn btn-unstyled"
+                          type="button"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-search"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <ul
-                class="nav-root navbar-nav"
-                role="tablist"
-              >
-                <li
-                  class="nav-item"
-                  role="presentation"
+                <ul
+                  class="nav-root navbar-nav"
+                  role="tablist"
                 >
-                  <button
-                    class="button-root btn btn-primary nav-btn"
-                    type="button"
+                  <li
+                    class="nav-item"
+                    role="presentation"
                   >
-                    Create Request
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div
-          class="spinner-root spinner-center spinner-spacer"
-        >
-          <span
-            class="loading-animation loading-animation-dotted"
-          />
+                    <button
+                      class="button-root btn btn-primary nav-btn"
+                      type="button"
+                    >
+                      Create Request
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+          <div
+            class="spinner-root spinner-center spinner-spacer"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
         </div>
       </div>
     </div>
