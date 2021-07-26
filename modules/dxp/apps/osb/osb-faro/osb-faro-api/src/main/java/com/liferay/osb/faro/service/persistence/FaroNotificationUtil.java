@@ -305,10 +305,10 @@ public class FaroNotificationUtil {
 	 * @param type the type
 	 * @return the matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerId, type);
 	}
 
@@ -327,11 +327,11 @@ public class FaroNotificationUtil {
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @return the range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerId, type, start, end);
 	}
 
@@ -351,11 +351,11 @@ public class FaroNotificationUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerId, type, start, end, orderByComparator);
 	}
 
@@ -376,12 +376,12 @@ public class FaroNotificationUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerId, type, start, end, orderByComparator,
 			useFinderCache);
 	}
@@ -397,12 +397,12 @@ public class FaroNotificationUtil {
 	 * @return the first matching faro notification
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
-	public static FaroNotification findByG_GtC_C_T_First(
+	public static FaroNotification findByG_GtC_O_T_First(
 			long groupId, long createTime, long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
 
-		return getPersistence().findByG_GtC_C_T_First(
+		return getPersistence().findByG_GtC_O_T_First(
 			groupId, createTime, ownerId, type, orderByComparator);
 	}
 
@@ -416,11 +416,11 @@ public class FaroNotificationUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
-	public static FaroNotification fetchByG_GtC_C_T_First(
+	public static FaroNotification fetchByG_GtC_O_T_First(
 		long groupId, long createTime, long ownerId, String type,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return getPersistence().fetchByG_GtC_C_T_First(
+		return getPersistence().fetchByG_GtC_O_T_First(
 			groupId, createTime, ownerId, type, orderByComparator);
 	}
 
@@ -435,12 +435,12 @@ public class FaroNotificationUtil {
 	 * @return the last matching faro notification
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
-	public static FaroNotification findByG_GtC_C_T_Last(
+	public static FaroNotification findByG_GtC_O_T_Last(
 			long groupId, long createTime, long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
 
-		return getPersistence().findByG_GtC_C_T_Last(
+		return getPersistence().findByG_GtC_O_T_Last(
 			groupId, createTime, ownerId, type, orderByComparator);
 	}
 
@@ -454,11 +454,11 @@ public class FaroNotificationUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
-	public static FaroNotification fetchByG_GtC_C_T_Last(
+	public static FaroNotification fetchByG_GtC_O_T_Last(
 		long groupId, long createTime, long ownerId, String type,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return getPersistence().fetchByG_GtC_C_T_Last(
+		return getPersistence().fetchByG_GtC_O_T_Last(
 			groupId, createTime, ownerId, type, orderByComparator);
 	}
 
@@ -474,13 +474,13 @@ public class FaroNotificationUtil {
 	 * @return the previous, current, and next faro notification
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
-	public static FaroNotification[] findByG_GtC_C_T_PrevAndNext(
+	public static FaroNotification[] findByG_GtC_O_T_PrevAndNext(
 			long faroNotificationId, long groupId, long createTime,
 			long ownerId, String type,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
 
-		return getPersistence().findByG_GtC_C_T_PrevAndNext(
+		return getPersistence().findByG_GtC_O_T_PrevAndNext(
 			faroNotificationId, groupId, createTime, ownerId, type,
 			orderByComparator);
 	}
@@ -498,10 +498,10 @@ public class FaroNotificationUtil {
 	 * @param type the type
 	 * @return the matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long[] ownerIds, String type) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerIds, type);
 	}
 
@@ -520,11 +520,11 @@ public class FaroNotificationUtil {
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @return the range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerIds, type, start, end);
 	}
 
@@ -544,11 +544,11 @@ public class FaroNotificationUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerIds, type, start, end, orderByComparator);
 	}
 
@@ -569,12 +569,12 @@ public class FaroNotificationUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching faro notifications
 	 */
-	public static List<FaroNotification> findByG_GtC_C_T(
+	public static List<FaroNotification> findByG_GtC_O_T(
 		long groupId, long createTime, long[] ownerIds, String type, int start,
 		int end, OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByG_GtC_C_T(
+		return getPersistence().findByG_GtC_O_T(
 			groupId, createTime, ownerIds, type, start, end, orderByComparator,
 			useFinderCache);
 	}
@@ -587,10 +587,10 @@ public class FaroNotificationUtil {
 	 * @param ownerId the owner ID
 	 * @param type the type
 	 */
-	public static void removeByG_GtC_C_T(
+	public static void removeByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type) {
 
-		getPersistence().removeByG_GtC_C_T(groupId, createTime, ownerId, type);
+		getPersistence().removeByG_GtC_O_T(groupId, createTime, ownerId, type);
 	}
 
 	/**
@@ -602,10 +602,10 @@ public class FaroNotificationUtil {
 	 * @param type the type
 	 * @return the number of matching faro notifications
 	 */
-	public static int countByG_GtC_C_T(
+	public static int countByG_GtC_O_T(
 		long groupId, long createTime, long ownerId, String type) {
 
-		return getPersistence().countByG_GtC_C_T(
+		return getPersistence().countByG_GtC_O_T(
 			groupId, createTime, ownerId, type);
 	}
 
@@ -618,370 +618,11 @@ public class FaroNotificationUtil {
 	 * @param type the type
 	 * @return the number of matching faro notifications
 	 */
-	public static int countByG_GtC_C_T(
+	public static int countByG_GtC_O_T(
 		long groupId, long createTime, long[] ownerIds, String type) {
 
-		return getPersistence().countByG_GtC_C_T(
+		return getPersistence().countByG_GtC_O_T(
 			groupId, createTime, ownerIds, type);
-	}
-
-	/**
-	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @return the matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype);
-	}
-
-	/**
-	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @return the range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype, int start, int end) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype, int start, int end,
-		OrderByComparator<FaroNotification> orderByComparator) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype, start, end,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype, int start, int end,
-		OrderByComparator<FaroNotification> orderByComparator,
-		boolean useFinderCache) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype, start, end,
-			orderByComparator, useFinderCache);
-	}
-
-	/**
-	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching faro notification
-	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
-	 */
-	public static FaroNotification findByG_GtC_C_T_S_First(
-			long groupId, long createTime, long ownerId, String type,
-			String subtype,
-			OrderByComparator<FaroNotification> orderByComparator)
-		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
-
-		return getPersistence().findByG_GtC_C_T_S_First(
-			groupId, createTime, ownerId, type, subtype, orderByComparator);
-	}
-
-	/**
-	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
-	 */
-	public static FaroNotification fetchByG_GtC_C_T_S_First(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
-
-		return getPersistence().fetchByG_GtC_C_T_S_First(
-			groupId, createTime, ownerId, type, subtype, orderByComparator);
-	}
-
-	/**
-	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching faro notification
-	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
-	 */
-	public static FaroNotification findByG_GtC_C_T_S_Last(
-			long groupId, long createTime, long ownerId, String type,
-			String subtype,
-			OrderByComparator<FaroNotification> orderByComparator)
-		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
-
-		return getPersistence().findByG_GtC_C_T_S_Last(
-			groupId, createTime, ownerId, type, subtype, orderByComparator);
-	}
-
-	/**
-	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
-	 */
-	public static FaroNotification fetchByG_GtC_C_T_S_Last(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
-
-		return getPersistence().fetchByG_GtC_C_T_S_Last(
-			groupId, createTime, ownerId, type, subtype, orderByComparator);
-	}
-
-	/**
-	 * Returns the faro notifications before and after the current faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param faroNotificationId the primary key of the current faro notification
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next faro notification
-	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
-	 */
-	public static FaroNotification[] findByG_GtC_C_T_S_PrevAndNext(
-			long faroNotificationId, long groupId, long createTime,
-			long ownerId, String type, String subtype,
-			OrderByComparator<FaroNotification> orderByComparator)
-		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
-
-		return getPersistence().findByG_GtC_C_T_S_PrevAndNext(
-			faroNotificationId, groupId, createTime, ownerId, type, subtype,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerIds the owner IDs
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @return the matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long[] ownerIds, String type,
-		String subtype) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerIds, type, subtype);
-	}
-
-	/**
-	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerIds the owner IDs
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @return the range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long[] ownerIds, String type,
-		String subtype, int start, int end) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerIds, type, subtype, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerIds the owner IDs
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long[] ownerIds, String type,
-		String subtype, int start, int end,
-		OrderByComparator<FaroNotification> orderByComparator) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerIds, type, subtype, start, end,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;, optionally using the finder cache.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @param start the lower bound of the range of faro notifications
-	 * @param end the upper bound of the range of faro notifications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching faro notifications
-	 */
-	public static List<FaroNotification> findByG_GtC_C_T_S(
-		long groupId, long createTime, long[] ownerIds, String type,
-		String subtype, int start, int end,
-		OrderByComparator<FaroNotification> orderByComparator,
-		boolean useFinderCache) {
-
-		return getPersistence().findByG_GtC_C_T_S(
-			groupId, createTime, ownerIds, type, subtype, start, end,
-			orderByComparator, useFinderCache);
-	}
-
-	/**
-	 * Removes all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63; from the database.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 */
-	public static void removeByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype) {
-
-		getPersistence().removeByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype);
-	}
-
-	/**
-	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerId the owner ID
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @return the number of matching faro notifications
-	 */
-	public static int countByG_GtC_C_T_S(
-		long groupId, long createTime, long ownerId, String type,
-		String subtype) {
-
-		return getPersistence().countByG_GtC_C_T_S(
-			groupId, createTime, ownerId, type, subtype);
-	}
-
-	/**
-	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and type = &#63; and subtype = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @param createTime the create time
-	 * @param ownerIds the owner IDs
-	 * @param type the type
-	 * @param subtype the subtype
-	 * @return the number of matching faro notifications
-	 */
-	public static int countByG_GtC_C_T_S(
-		long groupId, long createTime, long[] ownerIds, String type,
-		String subtype) {
-
-		return getPersistence().countByG_GtC_C_T_S(
-			groupId, createTime, ownerIds, type, subtype);
 	}
 
 	/**
@@ -1341,6 +982,385 @@ public class FaroNotificationUtil {
 
 		return getPersistence().countByG_GtC_O_T_S(
 			groupId, createTime, ownerIds, type, subtype);
+	}
+
+	/**
+	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @return the matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype);
+	}
+
+	/**
+	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @return the range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype, int start, int end) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype, int start, int end,
+		OrderByComparator<FaroNotification> orderByComparator) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype, int start, int end,
+		OrderByComparator<FaroNotification> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype, start, end,
+			orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro notification
+	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
+	 */
+	public static FaroNotification findByG_GtC_O_R_T_S_First(
+			long groupId, long createTime, long ownerId, boolean read,
+			String type, String subtype,
+			OrderByComparator<FaroNotification> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
+
+		return getPersistence().findByG_GtC_O_R_T_S_First(
+			groupId, createTime, ownerId, read, type, subtype,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
+	 */
+	public static FaroNotification fetchByG_GtC_O_R_T_S_First(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
+
+		return getPersistence().fetchByG_GtC_O_R_T_S_First(
+			groupId, createTime, ownerId, read, type, subtype,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro notification
+	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
+	 */
+	public static FaroNotification findByG_GtC_O_R_T_S_Last(
+			long groupId, long createTime, long ownerId, boolean read,
+			String type, String subtype,
+			OrderByComparator<FaroNotification> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
+
+		return getPersistence().findByG_GtC_O_R_T_S_Last(
+			groupId, createTime, ownerId, read, type, subtype,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
+	 */
+	public static FaroNotification fetchByG_GtC_O_R_T_S_Last(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype, OrderByComparator<FaroNotification> orderByComparator) {
+
+		return getPersistence().fetchByG_GtC_O_R_T_S_Last(
+			groupId, createTime, ownerId, read, type, subtype,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns the faro notifications before and after the current faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param faroNotificationId the primary key of the current faro notification
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next faro notification
+	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
+	 */
+	public static FaroNotification[] findByG_GtC_O_R_T_S_PrevAndNext(
+			long faroNotificationId, long groupId, long createTime,
+			long ownerId, boolean read, String type, String subtype,
+			OrderByComparator<FaroNotification> orderByComparator)
+		throws com.liferay.osb.faro.exception.NoSuchFaroNotificationException {
+
+		return getPersistence().findByG_GtC_O_R_T_S_PrevAndNext(
+			faroNotificationId, groupId, createTime, ownerId, read, type,
+			subtype, orderByComparator);
+	}
+
+	/**
+	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerIds the owner IDs
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @return the matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long[] ownerIds, boolean read,
+		String type, String subtype) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerIds, read, type, subtype);
+	}
+
+	/**
+	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerIds the owner IDs
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @return the range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long[] ownerIds, boolean read,
+		String type, String subtype, int start, int end) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerIds, read, type, subtype, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerIds the owner IDs
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long[] ownerIds, boolean read,
+		String type, String subtype, int start, int end,
+		OrderByComparator<FaroNotification> orderByComparator) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerIds, read, type, subtype, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @param start the lower bound of the range of faro notifications
+	 * @param end the upper bound of the range of faro notifications (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching faro notifications
+	 */
+	public static List<FaroNotification> findByG_GtC_O_R_T_S(
+		long groupId, long createTime, long[] ownerIds, boolean read,
+		String type, String subtype, int start, int end,
+		OrderByComparator<FaroNotification> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByG_GtC_O_R_T_S(
+			groupId, createTime, ownerIds, read, type, subtype, start, end,
+			orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Removes all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 */
+	public static void removeByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype) {
+
+		getPersistence().removeByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype);
+	}
+
+	/**
+	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerId the owner ID
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @return the number of matching faro notifications
+	 */
+	public static int countByG_GtC_O_R_T_S(
+		long groupId, long createTime, long ownerId, boolean read, String type,
+		String subtype) {
+
+		return getPersistence().countByG_GtC_O_R_T_S(
+			groupId, createTime, ownerId, read, type, subtype);
+	}
+
+	/**
+	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63; and read = &#63; and type = &#63; and subtype = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param createTime the create time
+	 * @param ownerIds the owner IDs
+	 * @param read the read
+	 * @param type the type
+	 * @param subtype the subtype
+	 * @return the number of matching faro notifications
+	 */
+	public static int countByG_GtC_O_R_T_S(
+		long groupId, long createTime, long[] ownerIds, boolean read,
+		String type, String subtype) {
+
+		return getPersistence().countByG_GtC_O_R_T_S(
+			groupId, createTime, ownerIds, read, type, subtype);
 	}
 
 	/**

@@ -128,11 +128,13 @@ public class FaroNotificationModelImpl
 
 	public static final long OWNERID_COLUMN_BITMASK = 4L;
 
-	public static final long SUBTYPE_COLUMN_BITMASK = 8L;
+	public static final long READ_COLUMN_BITMASK = 8L;
 
-	public static final long TYPE_COLUMN_BITMASK = 16L;
+	public static final long SUBTYPE_COLUMN_BITMASK = 16L;
 
-	public static final long FARONOTIFICATIONID_COLUMN_BITMASK = 32L;
+	public static final long TYPE_COLUMN_BITMASK = 32L;
+
+	public static final long FARONOTIFICATIONID_COLUMN_BITMASK = 64L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.osb.faro.service.util.ServiceProps.get(
@@ -637,7 +639,19 @@ public class FaroNotificationModelImpl
 
 	@Override
 	public void setRead(boolean read) {
+		_columnBitmask |= READ_COLUMN_BITMASK;
+
+		if (!_setOriginalRead) {
+			_setOriginalRead = true;
+
+			_originalRead = _read;
+		}
+
 		_read = read;
+	}
+
+	public boolean getOriginalRead() {
+		return _originalRead;
 	}
 
 	@Override
@@ -808,6 +822,10 @@ public class FaroNotificationModelImpl
 
 		_setOriginalOwnerId = false;
 
+		_originalRead = _read;
+
+		_setOriginalRead = false;
+
 		_originalType = _type;
 
 		_originalSubtype = _subtype;
@@ -945,6 +963,8 @@ public class FaroNotificationModelImpl
 	private boolean _setOriginalOwnerId;
 	private String _scope;
 	private boolean _read;
+	private boolean _originalRead;
+	private boolean _setOriginalRead;
 	private String _type;
 	private String _originalType;
 	private String _subtype;
