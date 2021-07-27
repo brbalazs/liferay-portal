@@ -26,6 +26,7 @@ export enum HoverTypes {
 
 interface IAttributeChipProps {
 	dataType: DataTypes;
+	draggable?: boolean;
 	dragType: DragTypes;
 	id: string;
 	index: number;
@@ -42,6 +43,7 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 	(
 		{
 			dataType,
+			draggable = true,
 			dragType,
 			id,
 			index,
@@ -150,9 +152,11 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 					onCloseClick={() => onCloseClick({id})}
 					ref={mergeRef(ref, _chipRef)}
 				>
-					<div className='drag-handle' ref={drag}>
-						<Icon symbol='drag' />
-					</div>
+					{draggable && (
+						<div className='drag-handle' ref={drag}>
+							<Icon symbol='drag' />
+						</div>
+					)}
 
 					<Button
 						className='edit-attribute-button d-flex'

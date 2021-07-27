@@ -23,6 +23,7 @@ const AttributeFilterChip: React.FC<{
 			trigger={
 				<AttributeChip
 					dataType={filter.dataType}
+					draggable={false}
 					dragType={DragTypes.AttributeFilterChip}
 					id={filter.id}
 					index={index}
