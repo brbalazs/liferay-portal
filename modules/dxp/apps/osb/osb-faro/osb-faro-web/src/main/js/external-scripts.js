@@ -49,7 +49,7 @@ if (['local', 'prd'].some(val => val === FARO_ENV)) {
 } else {
 	scripts = [
 		...scripts,
-		{innerHTML: '(function(){window.analytics = {initialize: () => {}}})'},
+		{innerHTML: '(function(){window.pendo = {initialize: () => {}}})()'},
 		{
 			innerHTML:
 				"(function(){var analytics = window.analytics=window.analytics||[];analytics.methods=['trackSubmit','trackClick','trackLink','trackForm','pageview','identify','reset','group','track','ready','alias','debug','page','once','off','on','addSourceMiddleware','addIntegrationMiddleware','setAnonymousId','addDestinationMiddleware'];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)};return analytics;})()"
