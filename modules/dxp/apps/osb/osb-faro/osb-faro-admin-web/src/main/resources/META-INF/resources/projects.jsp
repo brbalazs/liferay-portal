@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(renderRequest, renderResponse, request);
+FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(request, renderRequest, renderResponse);
 %>
 
 <clay:management-toolbar
