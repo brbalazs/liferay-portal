@@ -7,7 +7,6 @@ import {Align} from '@clayui/drop-down';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {
 	DeleteFilter,
-	EditFilter,
 	MoveFilter,
 	withAttributesConsumer
 } from '../context/attributes';
@@ -18,7 +17,6 @@ interface IAttributeFilterSectionProps {
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
 	deleteFilter: DeleteFilter;
-	editFilter: EditFilter;
 	eventId: string;
 	filterOrder: string[];
 	filters: Filters;
@@ -28,7 +26,6 @@ interface IAttributeFilterSectionProps {
 export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 	attributes,
 	deleteFilter,
-	editFilter,
 	eventId,
 	filterOrder,
 	filters,
@@ -43,26 +40,13 @@ export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 					<div className='attribute-list d-flex align-items-center'>
 						{filterOrder.map((id, i) => (
 							<AttributeFilterChip
-								attribute={attributes[id]}
+								attribute={attributes[filters[id].attributeId]}
 								eventId={eventId}
 								filter={filters[id]}
 								index={i}
 								key={id}
 								onCloseClick={deleteFilter}
-								onEditSubmit={({
-									attribute,
-									attributeId,
-									filter
-								}) =>
-									editFilter({
-										attribute,
-										attributeId,
-										filter,
-										oldAttributeId: id
-									})
-								}
 								onMove={moveFilter}
-								order={filterOrder}
 							/>
 						))}
 					</div>

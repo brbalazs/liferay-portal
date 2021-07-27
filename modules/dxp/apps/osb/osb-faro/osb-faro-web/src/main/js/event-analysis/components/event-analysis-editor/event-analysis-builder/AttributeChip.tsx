@@ -147,7 +147,7 @@ const AttributeChip: React.FC<IAttributeChipProps> = React.forwardRef<
 					className={getCN('attribute-chip-root', {
 						dragging: isDragging
 					})}
-					onCloseClick={() => onCloseClick({attributeId: id})}
+					onCloseClick={() => onCloseClick({id})}
 					ref={mergeRef(ref, _chipRef)}
 				>
 					<div className='drag-handle' ref={drag}>

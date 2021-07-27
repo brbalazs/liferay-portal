@@ -31,8 +31,8 @@ interface IFilterOptionsProps extends React.HTMLAttributes<HTMLDivElement> {
 	attribute: Attribute;
 	attributeOwnerType: AttributeOwnerTypes;
 	editFilter: EditFilter;
+	filterId?: string;
 	filters: Filters;
-	oldAttributeId?: string;
 	onActiveChange: (active: boolean) => void;
 	onAttributeChange: (attribute?: Attribute) => void;
 	onEditClick?: (id: string) => void;
@@ -43,15 +43,17 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 	attribute,
 	attributeOwnerType,
 	editFilter,
+	filterId,
 	filters,
-	oldAttributeId,
 	onActiveChange,
 	onAttributeChange,
 	onEditClick
 }) => {
-	const {dataType, displayName, id, name} = attribute;
+	const {dataType, displayName, id: attributeId, name} = attribute;
 
 	const FilterBody = FILTERS_MAP[dataType];
+
+	const filter = filters[filterId];
 
 	return (
 		<div className='attribute-options'>
@@ -75,22 +77,20 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 			</div>
 
 			<FilterBody
-				attributeId={id}
+				attributeId={attributeId}
 				attributeOwnerType={attributeOwnerType}
-				filter={filters[id]}
-				onSubmit={filter => {
-					if (oldAttributeId) {
+				filter={filter?.attributeId === attributeId ? filter : null}
+				onSubmit={newFilter => {
+					if (filterId) {
 						editFilter({
 							attribute,
-							attributeId: id,
-							filter,
-							oldAttributeId
+							filter: newFilter,
+							id: filterId
 						});
 					} else {
 						addFilter({
 							attribute,
-							attributeId: id,
-							filter
+							filter: newFilter
 						});
 					}
 

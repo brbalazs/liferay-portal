@@ -72,7 +72,8 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 		}
 	});
 
-	const oldAttributeId = attribute ? attribute.id : null;
+	const attributeId = attribute ? attribute.id : null;
+	const filterId = filter ? filter.id : null;
 
 	return (
 		<BaseDropdown
@@ -129,7 +130,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 										};
 									}) => (
 										<BaseDropdown.SearchableList
-											activeId={oldAttributeId}
+											activeId={attributeId}
 											disabledIds={disabledIds}
 											items={eventAttributeDefinitions}
 											onEditClick={(
@@ -171,13 +172,13 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 								<FilterOptions
 									attribute={selectedAttribute}
 									attributeOwnerType={attributeOwnerType}
-									oldAttributeId={oldAttributeId}
+									filterId={filterId}
 									onActiveChange={setActive}
 									onAttributeChange={params => {
 										setSelectedAttribute(params);
 									}}
 									onEditClick={
-										selectedAttribute.id === oldAttributeId
+										selectedAttribute.id === attributeId // TODO: Maybe we can update this to where it'll update the attribute as well. so we don't have to disallow editing of the value
 											? null
 											: () => {
 													open(

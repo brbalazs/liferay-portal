@@ -70,6 +70,7 @@ export type BlockedCustomEvent = {
 	lastSeenURL: string;
 };
 
+// TODO: Add optional ID to breakdown as well
 export type Breakdown = {
 	attributeId: string;
 	bin?: number;
@@ -93,6 +94,7 @@ export type Event = {
 export type Filter = {
 	attributeId: string;
 	dataType: DataTypes;
+	id?: string;
 	operator: Operators;
 	type: AttributeOwnerTypes;
 	value: (boolean | string | number)[];
