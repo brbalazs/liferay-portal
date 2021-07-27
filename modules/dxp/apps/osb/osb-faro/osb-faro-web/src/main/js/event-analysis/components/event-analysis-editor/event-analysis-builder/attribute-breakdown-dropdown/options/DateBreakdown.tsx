@@ -30,6 +30,7 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 
 	return (
 		<Form
+			enableReinitialize
 			initialValues={getInitialValues()}
 			isInitialValid
 			onSubmit={({dateGrouping}) => {

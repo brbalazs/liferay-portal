@@ -32,6 +32,7 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 
 	return (
 		<Form
+			enableReinitialize
 			initialValues={getInitialValues()}
 			isInitialValid
 			onSubmit={({bin}) => {

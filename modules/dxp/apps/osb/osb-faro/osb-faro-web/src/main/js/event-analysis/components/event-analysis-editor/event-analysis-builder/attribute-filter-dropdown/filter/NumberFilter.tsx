@@ -32,6 +32,7 @@ const NumberFilter: React.FC<IFilterProps> = ({
 
 	return (
 		<Form
+			enableReinitialize
 			initialValues={getInitialValues()}
 			onSubmit={({endValue, operator, startValue}) => {
 				let value = [startValue];

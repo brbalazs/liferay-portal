@@ -42,6 +42,7 @@ const DateFilter: React.FC<IFilterProps> = ({
 
 	return (
 		<Form
+			enableReinitialize
 			initialValues={getInitialValues()}
 			onSubmit={({date, dateRange, operator}) => {
 				let dateValue: string[] = [date as string];

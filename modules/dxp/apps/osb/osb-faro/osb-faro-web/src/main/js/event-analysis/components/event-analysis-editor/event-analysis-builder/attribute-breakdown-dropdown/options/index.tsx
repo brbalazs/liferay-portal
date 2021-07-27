@@ -26,9 +26,9 @@ interface IBreakdownOptionsProps extends React.HTMLAttributes<HTMLDivElement> {
 	addBreakdown: AddBreakdown;
 	attribute: Attribute;
 	attributeOwnerType: AttributeOwnerTypes;
+	breakdownId?: string;
 	breakdowns: Breakdowns;
 	editBreakdown: EditBreakdown;
-	oldAttributeId?: string;
 	onActiveChange: (active: boolean) => void;
 	onAttributeChange: (attribute?: Attribute) => void;
 	onEditClick?: (id: string) => void;
@@ -38,14 +38,16 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 	addBreakdown,
 	attribute,
 	attributeOwnerType,
+	breakdownId,
 	breakdowns,
 	editBreakdown,
-	oldAttributeId,
 	onActiveChange,
 	onAttributeChange,
 	onEditClick
 }) => {
-	const {dataType, displayName, id, name} = attribute;
+	const {dataType, displayName, id: attributeId, name} = attribute;
+
+	const breakdown = breakdowns[breakdownId];
 
 	const BreakdownBody = BREAKDOWNS_MAP[dataType];
 
@@ -71,22 +73,22 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 			</div>
 
 			<BreakdownBody
-				attributeId={id}
+				attributeId={attributeId}
 				attributeOwnerType={attributeOwnerType}
-				breakdown={breakdowns[id]}
-				onSubmit={breakdown => {
-					if (oldAttributeId) {
+				breakdown={
+					breakdown?.attributeId === attributeId ? breakdown : null
+				}
+				onSubmit={newBreakdown => {
+					if (breakdownId) {
 						editBreakdown({
 							attribute,
-							attributeId: id,
-							breakdown,
-							oldAttributeId
+							breakdown: newBreakdown,
+							id: breakdownId
 						});
 					} else {
 						addBreakdown({
 							attribute,
-							attributeId: id,
-							breakdown
+							breakdown: newBreakdown
 						});
 					}
 

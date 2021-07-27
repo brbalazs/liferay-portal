@@ -39,6 +39,7 @@ const DurationFilter: React.FC<IFilterProps> = ({
 
 	return (
 		<Form
+			enableReinitialize
 			initialValues={getInitialValues()}
 			onSubmit={({operator, value}) => {
 				onSubmit({
