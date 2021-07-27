@@ -34,19 +34,15 @@ const {
 
 const DEFAULT_TIME_ZONE = 'UTC';
 
-let projectLocations = [
-	{label: Liferay.Language.get('location-eu'), value: EU},
-	{label: Liferay.Language.get('location-eu2'), value: EU2},
-	{label: Liferay.Language.get('location-sa'), value: SA},
-	{label: Liferay.Language.get('location-us'), value: US}
-];
-
-if (FARO_ENV === 'uat') {
-	projectLocations = [
-		...projectLocations,
-		{label: Liferay.Language.get('location-uat'), value: UAT}
-	];
-}
+const projectLocations =
+	FARO_ENV === 'uat'
+		? [{label: Liferay.Language.get('location-uat'), value: UAT}]
+		: [
+				{label: Liferay.Language.get('location-eu'), value: EU},
+				{label: Liferay.Language.get('location-eu2'), value: EU2},
+				{label: Liferay.Language.get('location-sa'), value: SA},
+				{label: Liferay.Language.get('location-us'), value: US}
+		  ];
 
 interface IAddWorkspaceFormProps extends React.HTMLAttributes<HTMLElement> {
 	close: Modal.close;
