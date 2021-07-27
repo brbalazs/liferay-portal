@@ -1111,17 +1111,21 @@ public class DefaultExportImportContentProcessorTest {
 		content = replaceExternalGroupFriendlyURLs(content);
 		content = replaceMultiLocaleLayoutFriendlyURLs(content);
 
-		LayoutSet stagingPrivateLayoutSet = _stagingGroup.getPrivateLayoutSet();
-		LayoutSet stagingPublicLayoutSet = _stagingGroup.getPublicLayoutSet();
-
 		Map<Locale, String> livePublicLayoutFriendlyURLMap =
 			_livePublicLayout.getFriendlyURLMap();
 		Map<Locale, String> stagingPrivateLayoutFriendlyURLMap =
 			_stagingPrivateLayout.getFriendlyURLMap();
-		Map<Locale, String> stagingPublicLayoutFriendlyURLMap =
-			_stagingPublicLayout.getFriendlyURLMap();
+
+		LayoutSet stagingPrivateLayoutSet = _stagingGroup.getPrivateLayoutSet();
+
 		String stagingPrivateVirtualHostname =
 			stagingPrivateLayoutSet.getVirtualHostname();
+
+		Map<Locale, String> stagingPublicLayoutFriendlyURLMap =
+			_stagingPublicLayout.getFriendlyURLMap();
+
+		LayoutSet stagingPublicLayoutSet = _stagingGroup.getPublicLayoutSet();
+
 		String stagingPublicVirtualHostname =
 			stagingPublicLayoutSet.getVirtualHostname();
 
