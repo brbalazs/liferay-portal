@@ -21,7 +21,7 @@ FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(re
 %>
 
 <clay:management-toolbar
-	displayContext="<%= new FaroAdminManagementToolbarDisplayContext(renderResponse, liferayPortletRequest, liferayPortletResponse, request, faroAdminDisplayContext.getSearchContainer()) %>"
+	displayContext="<%= new FaroAdminManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, renderResponse, faroAdminDisplayContext.getSearchContainer()) %>"
 />
 
 <div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />infoPanelId">
