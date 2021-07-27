@@ -39,21 +39,25 @@ const initialAttributes = {
 	attributes: {
 		1: {
 			defaultDataType: 'boolean',
+			displayName: 'Boolean Name',
 			id: '1',
 			name: 'booleanName'
 		}
 	},
-	breakdownOrder: ['1'],
+	breakdownOrder: ['111'],
 	breakdowns: {
-		1: {
+		111: {
 			attributeId: '1',
 			dataType: 'boolean',
+			id: '111',
 			type: 'event'
 		}
 	},
+	filterOrder: ['123'],
 	filters: {
-		1: {
+		123: {
 			attributeId: '1',
+			id: '123',
 			operator: 'eq',
 			value: ['true']
 		}

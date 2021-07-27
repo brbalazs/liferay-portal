@@ -61,7 +61,13 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 	const [count, items, totalEvents] = useMemo(() => {
 		// TODO: LRAC-7333 Add request and remove Dummy data
-		const data = getDummyBreakdownData(event, attributes, breakdownOrder);
+		const data = getDummyBreakdownData(
+			event,
+			attributes,
+			breakdownOrder.map(
+				breakdownId => breakdowns[breakdownId].attributeId
+			)
+		);
 
 		if (!Object.keys(attributes).length) {
 			return [data.count, data.breakdownItems, data.totalEvents];
@@ -133,46 +139,48 @@ const getColumns = ({
 	order,
 	totalEvents
 }) => {
-	const columns = order.map((id, i) => ({
-		cellRenderer: ({className, data}) => {
-			const dataValue = get(data, `breakdown${i + 1}`);
+	const columns = order.map((breakdownId, i) => {
+		const {attributeId, type} = breakdowns[breakdownId];
 
-			if (isNil(dataValue)) {
+		return {
+			cellRenderer: ({className, data}) => {
+				const dataValue = get(data, `breakdown${i + 1}`);
+
+				if (isNil(dataValue)) {
+					return (
+						<td
+							className={getCN(
+								'align-top',
+								'empty-breakdown-column',
+								className
+							)}
+						>
+							{Liferay.Language.get('no-results')}
+						</td>
+					);
+				}
+
 				return (
 					<td
 						className={getCN(
+							'font-weight-semibold',
 							'align-top',
-							'empty-breakdown-column',
 							className
 						)}
+						rowSpan={dataValue.rowSpan}
 					>
-						{Liferay.Language.get('no-results')}
+						{dataValue.name}
 					</td>
 				);
-			}
-
-			return (
-				<td
-					className={getCN(
-						'font-weight-semibold',
-						'align-top',
-						className
-					)}
-					rowSpan={dataValue.rowSpan}
-				>
-					{dataValue.name}
-				</td>
-			);
-		},
-		label: (
-			<div>
-				<span className='breakdown-category'>
-					{breakdowns[id].type}
-				</span>
-				{attributes[id].displayName || attributes[id].name}
-			</div>
-		)
-	}));
+			},
+			label: (
+				<div>
+					<span className='breakdown-category'>{type}</span>
+					{attributes[attributeId].displayName}
+				</div>
+			)
+		};
+	});
 
 	columns.push({
 		cellRenderer: ({className, data: {events}}) => {

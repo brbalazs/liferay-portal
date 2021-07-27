@@ -37,64 +37,61 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 	editBreakdown,
 	eventId,
 	moveBreakdown
-}) => (
-	<div className='attribute-breakdown-section-root d-flex align-items-center'>
-		<div className='section-header'>
-			{Liferay.Language.get('breakdown')}
-		</div>
+}) => {
+	const order = breakdownOrder.map(
+		breakdownId => breakdowns[breakdownId].attributeId
+	);
 
-		{!!eventId && (
-			<div className='attribute-container d-flex align-items-center justify-content-between'>
-				<DndProvider backend={HTML5Backend}>
-					<div className='attribute-list d-flex align-items-center'>
-						{breakdownOrder.map((id, i) => (
-							<AttributeBreakdownChip
-								attribute={attributes[id]}
-								breakdown={breakdowns[id]}
-								eventId={eventId}
-								index={i}
-								key={id}
-								onCloseClick={deleteBreakdown}
-								onEditSubmit={({
-									attribute,
-									attributeId,
-									breakdown
-								}) =>
-									editBreakdown({
-										attribute,
-										attributeId,
-										breakdown,
-										oldAttributeId: id
-									})
-								}
-								onMove={moveBreakdown}
-								order={breakdownOrder}
-							/>
-						))}
-					</div>
-				</DndProvider>
-
-				{breakdownOrder.length < MAX_ATTRIBUTES && (
-					<AttributeBreakdownDropdown
-						alignmentPosition={Align.LeftTop}
-						disabledIds={breakdownOrder}
-						eventId={eventId}
-						onAttributeSelect={addBreakdown}
-						trigger={
-							<Button
-								borderless
-								className='add-attribute'
-								display='light'
-								icon='plus'
-								iconAlignment='left'
-								size='sm'
-							/>
-						}
-					/>
-				)}
+	return (
+		<div className='attribute-breakdown-section-root d-flex align-items-center'>
+			<div className='section-header'>
+				{Liferay.Language.get('breakdown')}
 			</div>
-		)}
-	</div>
-);
+
+			{!!eventId && (
+				<div className='attribute-container d-flex align-items-center justify-content-between'>
+					<DndProvider backend={HTML5Backend}>
+						<div className='attribute-list d-flex align-items-center'>
+							{breakdownOrder.map((id, i) => (
+								<AttributeBreakdownChip
+									attribute={
+										attributes[breakdowns[id].attributeId]
+									}
+									breakdown={breakdowns[id]}
+									eventId={eventId}
+									index={i}
+									key={id}
+									onCloseClick={deleteBreakdown}
+									onEditSubmit={editBreakdown}
+									onMove={moveBreakdown}
+									order={order}
+								/>
+							))}
+						</div>
+					</DndProvider>
+
+					{breakdownOrder.length < MAX_ATTRIBUTES && (
+						<AttributeBreakdownDropdown
+							alignmentPosition={Align.LeftTop}
+							disabledIds={order}
+							eventId={eventId}
+							onAttributeSelect={addBreakdown}
+							trigger={
+								<Button
+									borderless
+									className='add-attribute'
+									display='light'
+									icon='plus'
+									iconAlignment='left'
+									size='sm'
+								/>
+							}
+						/>
+					)}
+				</div>
+			)}
+		</div>
+	);
+};
 
 export default withAttributesConsumer(AttributeBreakdownSection);

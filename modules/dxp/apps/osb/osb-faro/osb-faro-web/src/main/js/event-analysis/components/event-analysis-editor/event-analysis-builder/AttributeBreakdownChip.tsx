@@ -37,7 +37,7 @@ const AttributeFilterChipWrapper: React.FC<{
 				<AttributeChip
 					dataType={breakdown.dataType}
 					dragType={DragTypes.AttributeBreakdownChip}
-					id={breakdown.attributeId}
+					id={breakdown.id}
 					index={index}
 					label={label}
 					onCloseClick={onCloseClick}

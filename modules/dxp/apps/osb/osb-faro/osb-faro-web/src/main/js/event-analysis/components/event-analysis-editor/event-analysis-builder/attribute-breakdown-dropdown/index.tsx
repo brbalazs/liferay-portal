@@ -76,12 +76,15 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 		}
 	});
 
-	const oldAttributeId = attribute ? attribute.id : null;
+	const attributeId = attribute ? attribute.id : null;
+	const breakdownId = breakdown ? breakdown.id : null;
 
 	const hasOptions = (attribute: Attribute) =>
 		[DataTypes.Date, DataTypes.Duration, DataTypes.Number].includes(
 			attribute.dataType
 		);
+
+	const showOptions = selectedAttribute && hasOptions(selectedAttribute);
 
 	return (
 		<BaseDropdown
@@ -91,14 +94,14 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 				if (!active) {
 					setAttributeOwnerType(AttributeOwnerTypes.Event);
 					setQuery('');
-					setSelectedAttribute(null);
+					setSelectedAttribute(breakdown ? attribute : null);
 				}
 			}}
 			trigger={trigger}
 		>
 			{({setActive}) => (
 				<TransitionGroup className='transition-carousel-group'>
-					{!selectedAttribute && (
+					{(!selectedAttribute || !showOptions) && (
 						<CSSTransition
 							classNames='transition-attribute-carousel-right'
 							timeout={250}
@@ -134,7 +137,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 										};
 									}) => (
 										<BaseDropdown.SearchableList
-											activeId={oldAttributeId}
+											activeId={attributeId}
 											disabledIds={disabledIds}
 											items={eventAttributeDefinitions}
 											onEditClick={(
@@ -158,7 +161,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 											) => {
 												const {
 													dataType,
-													id: attributeId
+													id: newAttributeId
 												} = attribute;
 
 												const breakdownFn =
@@ -166,12 +169,11 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 
 												onAttributeSelect({
 													attribute,
-													attributeId,
 													breakdown: breakdownFn({
-														attributeId,
+														attributeId: newAttributeId,
 														type: attributeOwnerType
 													}),
-													oldAttributeId
+													id: breakdownId
 												});
 
 												setActive(false);
@@ -189,7 +191,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 						</CSSTransition>
 					)}
 
-					{selectedAttribute && hasOptions(selectedAttribute) && (
+					{showOptions && (
 						<CSSTransition
 							classNames='transition-attribute-carousel-left'
 							timeout={250}
@@ -198,13 +200,13 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 								<BreakdownOptions
 									attribute={selectedAttribute}
 									attributeOwnerType={attributeOwnerType}
-									oldAttributeId={oldAttributeId}
+									breakdownId={breakdownId}
 									onActiveChange={setActive}
 									onAttributeChange={params => {
 										setSelectedAttribute(params);
 									}}
 									onEditClick={
-										selectedAttribute.id === oldAttributeId
+										selectedAttribute.id === attributeId
 											? null
 											: () => {
 													open(

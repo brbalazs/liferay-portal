@@ -18,18 +18,21 @@ describe('attributes', () => {
 				name: 'booleanName'
 			}
 		},
-		breakdownOrder: ['1'],
+		breakdownOrder: ['123'],
 		breakdowns: {
-			1: {
+			123: {
 				attributeId: '1',
 				dataType: 'BOOLEAN',
+				id: '123',
 				type: 'event'
 			}
 		},
-		filterOrder: ['1'],
+		filterOrder: ['111'],
 		filters: {
-			1: {
+			111: {
 				attributeId: '1',
+				dataType: 'BOOLEAN',
+				id: '111',
 				operator: 'eq',
 				value: ['true']
 			}
@@ -49,6 +52,7 @@ describe('attributes', () => {
 		};
 		const filter = {
 			attributeId: '0',
+			dataType: 'STRING',
 			operator: 'eq',
 			value: ['test']
 		};
@@ -64,16 +68,23 @@ describe('attributes', () => {
 			const attributes = attributesReducer(initialState, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					breakdown
 				},
 				type: ActionTypes.AddBreakdown
 			});
 
+			const newBreakdown =
+				attributes.breakdowns[attributes.breakdownOrder[0]];
+
 			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.breakdownOrder[0]).toEqual('0');
-			expect(attributes.breakdowns['0']).toEqual(breakdown);
+			expect(newBreakdown).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newBreakdown).toHaveProperty('dataType', breakdown.dataType);
+			expect(newBreakdown).toHaveProperty('id');
+			expect(newBreakdown).toHaveProperty('type', breakdown.type);
 		});
 
 		it('should AddFilter', () => {
@@ -87,35 +98,47 @@ describe('attributes', () => {
 			const attributes = attributesReducer(initialState, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					filter
 				},
 				type: ActionTypes.AddFilter
 			});
 
+			const newFilter = attributes.filters[attributes.filterOrder[0]];
+
 			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.filterOrder[0]).toEqual('0');
-			expect(attributes.filters['0']).toEqual(filter);
+			expect(newFilter).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newFilter).toHaveProperty('id');
+			expect(newFilter).toHaveProperty('operator', filter.operator);
+			expect(newFilter).toHaveProperty('value', filter.value);
 		});
 
 		it('should EditBreakdown and not delete attribute if attribute is being used by filter', () => {
 			const attributes = attributesReducer(initialAttributes, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					breakdown,
-					oldAttributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.EditBreakdown
 			});
 
+			const newBreakdown =
+				attributes.breakdowns[attributes.breakdownOrder[0]];
+
 			expect(initialAttributes).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.breakdowns['0']).toEqual(breakdown);
-			expect(attributes.breakdownOrder[0]).toEqual('0');
+			expect(newBreakdown).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newBreakdown).toHaveProperty('dataType', breakdown.dataType);
+			expect(newBreakdown).toHaveProperty('id');
+			expect(newBreakdown).toHaveProperty('type', breakdown.type);
 			expect(attributes.breakdownOrder.length).toBe(1);
-			expect(attributes.breakdowns['1']).toBeUndefined();
 			expect(attributes.attributes['1']).toBeTruthy();
 		});
 
@@ -133,23 +156,27 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['1', '2'],
+				breakdownOrder: ['123', '234'],
 				breakdowns: {
-					1: {
+					123: {
 						attributeId: '1',
 						dataType: 'BOOLEAN',
+						id: '123',
 						type: 'event'
 					},
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['2'],
+				filterOrder: ['222'],
 				filters: {
-					2: {
+					222: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '222',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -159,19 +186,26 @@ describe('attributes', () => {
 			const attributes = attributesReducer(initialState, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					breakdown,
-					oldAttributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.EditBreakdown
 			});
 
+			const newBreakdown =
+				attributes.breakdowns[attributes.breakdownOrder[0]];
+
 			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.breakdowns['0']).toEqual(breakdown);
-			expect(attributes.breakdownOrder[0]).toEqual('0');
+			expect(newBreakdown).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newBreakdown).toHaveProperty('dataType', breakdown.dataType);
+			expect(newBreakdown).toHaveProperty('id');
+			expect(newBreakdown).toHaveProperty('type', breakdown.type);
+			expect(attributes.breakdownOrder[0]).toEqual('123');
 			expect(attributes.breakdownOrder.length).toBe(2);
-			expect(attributes.breakdowns['1']).toBeUndefined();
 			expect(attributes.attributes['1']).toBeUndefined();
 		});
 
@@ -179,17 +213,23 @@ describe('attributes', () => {
 			const attributes = attributesReducer(initialAttributes, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					filter,
-					oldAttributeId: '1'
+					id: '111'
 				},
 				type: ActionTypes.EditFilter
 			});
 
+			const newFilter = attributes.filters[attributes.filterOrder[0]];
+
 			expect(initialAttributes).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.filters['0']).toEqual(filter);
-			expect(attributes.filterOrder[0]).toEqual('0');
+			expect(newFilter).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newFilter).toHaveProperty('id');
+			expect(newFilter).toHaveProperty('operator', filter.operator);
+			expect(newFilter).toHaveProperty('value', filter.value);
 			expect(attributes.filterOrder.length).toBe(1);
 			expect(attributes.attributes['1']).toBeTruthy();
 		});
@@ -208,23 +248,28 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['2'],
+				breakdownOrder: ['234'],
 				breakdowns: {
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['1', '2'],
+				filterOrder: ['123', '234'],
 				filters: {
-					1: {
+					123: {
 						attributeId: '1',
+						dataType: 'BOOLEAN',
+						id: '123',
 						operator: 'eq',
 						value: ['true']
 					},
-					2: {
+					234: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '234',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -234,17 +279,23 @@ describe('attributes', () => {
 			const attributes = attributesReducer(initialState, {
 				payload: {
 					attribute,
-					attributeId: '0',
 					filter,
-					oldAttributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.EditFilter
 			});
 
+			const newFilter = attributes.filters[attributes.filterOrder[0]];
+
 			expect(initialState).not.toEqual(attributes);
 			expect(attributes.attributes['0']).toEqual(attribute);
-			expect(attributes.filters['0']).toEqual(filter);
-			expect(attributes.filterOrder[0]).toEqual('0');
+			expect(newFilter).toHaveProperty(
+				'attributeId',
+				breakdown.attributeId
+			);
+			expect(newFilter).toHaveProperty('id');
+			expect(newFilter).toHaveProperty('operator', filter.operator);
+			expect(newFilter).toHaveProperty('value', filter.value);
 			expect(attributes.filterOrder.length).toBe(2);
 			expect(attributes.attributes['1']).toBeUndefined();
 		});
@@ -263,23 +314,27 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['1', '2'],
+				breakdownOrder: ['123', '234'],
 				breakdowns: {
-					1: {
+					123: {
 						attributeId: '1',
 						dataType: 'BOOLEAN',
+						id: '123',
 						type: 'event'
 					},
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['2'],
+				filterOrder: ['234'],
 				filters: {
-					2: {
+					234: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '234',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -288,7 +343,7 @@ describe('attributes', () => {
 
 			const attributes = attributesReducer(initialState, {
 				payload: {
-					attributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.DeleteBreakdown
 			});
@@ -298,15 +353,15 @@ describe('attributes', () => {
 			expect(attributes.filterOrder.length).toBe(1);
 			expect(attributes.attributes['2']).toBeTruthy();
 			expect(attributes.attributes['1']).toBeUndefined();
-			expect(attributes.breakdowns['1']).toBeUndefined();
-			expect(attributes.breakdowns['2']).toBeTruthy();
-			expect(attributes.filters['2']).toBeTruthy();
+			expect(attributes.breakdowns['123']).toBeUndefined();
+			expect(attributes.breakdowns['234']).toBeTruthy();
+			expect(attributes.filters['234']).toBeTruthy();
 		});
 
 		it('should DeleteBreakdown', () => {
 			const attributes = attributesReducer(initialAttributes, {
 				payload: {
-					attributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.DeleteBreakdown
 			});
@@ -315,14 +370,14 @@ describe('attributes', () => {
 			expect(attributes.breakdownOrder.length).toBe(0);
 			expect(attributes.filterOrder.length).toBe(1);
 			expect(attributes.attributes['1']).toBeTruthy();
-			expect(attributes.breakdowns['1']).toBeUndefined();
-			expect(attributes.filters['1']).toBeTruthy();
+			expect(attributes.breakdowns['123']).toBeUndefined();
+			expect(attributes.filters['111']).toBeTruthy();
 		});
 
 		it('should DeleteFilter', () => {
 			const attributes = attributesReducer(initialAttributes, {
 				payload: {
-					attributeId: '1'
+					id: '111'
 				},
 				type: ActionTypes.DeleteFilter
 			});
@@ -331,8 +386,8 @@ describe('attributes', () => {
 			expect(attributes.breakdownOrder.length).toBe(1);
 			expect(attributes.filterOrder.length).toBe(0);
 			expect(attributes.attributes['1']).toBeTruthy();
-			expect(attributes.breakdowns['1']).toBeTruthy();
-			expect(attributes.filters['1']).toBeUndefined();
+			expect(attributes.breakdowns['123']).toBeTruthy();
+			expect(attributes.filters['111']).toBeUndefined();
 		});
 
 		it('should DeleteFilter', () => {
@@ -349,23 +404,28 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['2'],
+				breakdownOrder: ['223'],
 				breakdowns: {
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['1', '2'],
+				filterOrder: ['123', '234'],
 				filters: {
-					1: {
+					123: {
 						attributeId: '1',
+						dataType: 'BOOLEAN',
+						id: '123',
 						operator: 'eq',
 						value: ['true']
 					},
-					2: {
+					234: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '234',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -374,7 +434,7 @@ describe('attributes', () => {
 
 			const attributes = attributesReducer(initialState, {
 				payload: {
-					attributeId: '1'
+					id: '123'
 				},
 				type: ActionTypes.DeleteFilter
 			});
@@ -384,9 +444,9 @@ describe('attributes', () => {
 			expect(attributes.filterOrder.length).toBe(1);
 			expect(attributes.attributes['2']).toBeTruthy();
 			expect(attributes.attributes['1']).toBeUndefined();
-			expect(attributes.breakdowns['2']).toBeTruthy();
-			expect(attributes.filters['1']).toBeUndefined();
-			expect(attributes.filters['2']).toBeTruthy();
+			expect(attributes.breakdowns['234']).toBeTruthy();
+			expect(attributes.filters['123']).toBeUndefined();
+			expect(attributes.filters['234']).toBeTruthy();
 		});
 
 		it('should MoveBreakdown', () => {
@@ -403,28 +463,34 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['1', '2'],
+				breakdownOrder: ['123', '234'],
 				breakdowns: {
-					1: {
+					123: {
 						attributeId: '1',
 						dataType: 'BOOLEAN',
+						id: '123',
 						type: 'event'
 					},
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['1', '2'],
+				filterOrder: ['123', '234'],
 				filters: {
-					1: {
+					123: {
 						attributeId: '1',
+						dataType: 'BOOLEAN',
+						id: '123',
 						operator: 'eq',
 						value: ['true']
 					},
-					2: {
+					234: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '234',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -440,11 +506,11 @@ describe('attributes', () => {
 			});
 
 			expect(initialState).not.toEqual(attributes);
-			expect(attributes.breakdownOrder[0]).toEqual('2');
-			expect(attributes.breakdownOrder[1]).toEqual('1');
+			expect(attributes.breakdownOrder[0]).toEqual('234');
+			expect(attributes.breakdownOrder[1]).toEqual('123');
 			expect(attributes.breakdownOrder.length).toBe(2);
-			expect(attributes.filterOrder[0]).toEqual('1');
-			expect(attributes.filterOrder[1]).toEqual('2');
+			expect(attributes.filterOrder[0]).toEqual('123');
+			expect(attributes.filterOrder[1]).toEqual('234');
 			expect(attributes.filterOrder.length).toBe(2);
 		});
 
@@ -462,28 +528,34 @@ describe('attributes', () => {
 						name: 'durationName'
 					}
 				},
-				breakdownOrder: ['1', '2'],
+				breakdownOrder: ['123', '234'],
 				breakdowns: {
-					1: {
+					123: {
 						attributeId: '1',
 						dataType: 'BOOLEAN',
+						id: '123',
 						type: 'event'
 					},
-					2: {
+					234: {
 						attributeId: '2',
 						dataType: 'DURATION',
+						id: '234',
 						type: 'event'
 					}
 				},
-				filterOrder: ['1', '2'],
+				filterOrder: ['123', '234'],
 				filters: {
-					1: {
+					123: {
 						attributeId: '1',
+						dataType: 'BOOLEAN',
+						id: '123',
 						operator: 'eq',
 						value: ['true']
 					},
-					2: {
+					223: {
 						attributeId: '2',
+						dataType: 'DURATION',
+						id: '234',
 						operator: 'gt',
 						value: [60000]
 					}
@@ -499,11 +571,11 @@ describe('attributes', () => {
 			});
 
 			expect(initialState).not.toEqual(attributes);
-			expect(attributes.breakdownOrder[0]).toEqual('1');
-			expect(attributes.breakdownOrder[1]).toEqual('2');
+			expect(attributes.breakdownOrder[0]).toEqual('123');
+			expect(attributes.breakdownOrder[1]).toEqual('234');
 			expect(attributes.breakdownOrder.length).toBe(2);
-			expect(attributes.filterOrder[0]).toEqual('2');
-			expect(attributes.filterOrder[1]).toEqual('1');
+			expect(attributes.filterOrder[0]).toEqual('234');
+			expect(attributes.filterOrder[1]).toEqual('123');
 			expect(attributes.filterOrder.length).toBe(2);
 		});
 

@@ -70,12 +70,12 @@ export type BlockedCustomEvent = {
 	lastSeenURL: string;
 };
 
-// TODO: Add optional ID to breakdown as well
 export type Breakdown = {
 	attributeId: string;
 	bin?: number;
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
+	id?: string;
 	type: AttributeOwnerTypes;
 };
 

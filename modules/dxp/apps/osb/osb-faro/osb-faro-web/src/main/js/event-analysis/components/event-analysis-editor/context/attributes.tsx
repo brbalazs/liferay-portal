@@ -1,11 +1,14 @@
 import React, {createContext, useReducer} from 'react';
 import {Attribute, Breakdown, Filter} from 'event-analysis/utils/types';
 import {deletePropertyFromObject} from 'shared/util/object';
-import {moveItem, replaceAtIndex} from 'shared/util/array';
+import {moveItem} from 'shared/util/array';
+
+type Breakdowns = {[key: string]: Breakdown};
+type Filters = {[key: string]: Filter};
 
 const isAttributeInUse = (
 	attributeId: string,
-	...items: Object<string, Breakdown | Filter>
+	...items: (Breakdowns | Filters)[]
 ): boolean =>
 	items.some(item =>
 		Object.values(item).some(item => item.attributeId === attributeId)
@@ -25,7 +28,6 @@ export enum ActionTypes {
 
 export type AddBreakdown = (params: {
 	attribute: Attribute;
-	attributeId: string;
 	breakdown: Breakdown;
 }) => void;
 
@@ -36,14 +38,13 @@ export type AddFilter = (params: {
 
 export type DeleteAllAttributes = () => void;
 
-export type DeleteBreakdown = (params: {attributeId: string}) => void;
+export type DeleteBreakdown = (params: {id: string}) => void;
 export type DeleteFilter = (params: {id: string}) => void;
 
 export type EditBreakdown = (params: {
 	attribute: Attribute;
-	attributeId: string;
 	breakdown: Breakdown;
-	oldAttributeId?: string;
+	id: string;
 }) => void;
 
 export type EditFilter = (params: {
@@ -58,9 +59,9 @@ export type MoveFilter = (params: {from: number; to: number}) => void;
 type AttributesState = {
 	attributes: {[key: string]: Attribute};
 	breakdownOrder: string[];
-	breakdowns: {[key: string]: Breakdown};
+	breakdowns: Breakdowns;
 	filterOrder: string[];
-	filters: {[key: string]: Filter};
+	filters: Filters;
 };
 
 export const AttributesContext = createContext<
@@ -104,14 +105,25 @@ const actionHandlers = {
 			filterOrder,
 			filters
 		}: AttributesState,
-		{payload: {attribute, attributeId, breakdown} = {}}: Action
-	): AttributesState => ({
-		attributes: Object.assign({[attributeId]: attribute}, attributes),
-		breakdownOrder: [...breakdownOrder, attributeId],
-		breakdowns: Object.assign({[attributeId]: breakdown}, breakdowns),
-		filterOrder,
-		filters
-	}),
+		{payload: {attribute, breakdown} = {}}: Action
+	): AttributesState => {
+		const id = Date.now().toString();
+
+		return {
+			attributes: Object.assign({}, attributes, {
+				[attribute.id]: attribute
+			}),
+			breakdownOrder: [...breakdownOrder, id],
+			breakdowns: Object.assign(
+				{
+					[id]: {...breakdown, id}
+				},
+				breakdowns
+			),
+			filterOrder,
+			filters
+		};
+	},
 	[ActionTypes.AddFilter]: (
 		{
 			attributes,
@@ -124,8 +136,14 @@ const actionHandlers = {
 	): AttributesState => {
 		const id = Date.now().toString();
 
+		console.log(
+			attributes,
+			Object.assign({}, attributes, {[attribute.id]: attribute})
+		);
 		return {
-			attributes: Object.assign({[attribute.id]: attribute}, attributes),
+			attributes: Object.assign({}, attributes, {
+				[attribute.id]: attribute
+			}),
 			breakdownOrder,
 			breakdowns,
 			filterOrder: [...filterOrder, id],
@@ -147,16 +165,28 @@ const actionHandlers = {
 			filterOrder,
 			filters
 		}: AttributesState,
-		{payload: {attributeId} = {}}: Action
-	): AttributesState => ({
-		attributes: filters[attributeId]
-			? attributes
-			: deletePropertyFromObject(attributeId, attributes),
-		breakdownOrder: breakdownOrder.filter(id => id !== attributeId),
-		breakdowns: deletePropertyFromObject(attributeId, breakdowns),
-		filterOrder,
-		filters
-	}),
+		{payload: {id} = {}}: Action
+	): AttributesState => {
+		const {attributeId} = breakdowns[id];
+
+		const updatedBreakdowns = deletePropertyFromObject(id, breakdowns);
+
+		return {
+			attributes: isAttributeInUse(
+				attributeId,
+				updatedBreakdowns,
+				filters
+			)
+				? attributes
+				: deletePropertyFromObject(attributeId, attributes),
+			breakdownOrder: breakdownOrder.filter(
+				breakdownId => breakdownId !== id
+			),
+			breakdowns: updatedBreakdowns,
+			filterOrder,
+			filters
+		};
+	},
 	[ActionTypes.DeleteFilter]: (
 		{
 			attributes,
@@ -169,7 +199,7 @@ const actionHandlers = {
 	): AttributesState => {
 		const {attributeId} = filters[id];
 
-		const updatedFilters = deletePropertyFromObject(attributeId, filters);
+		const updatedFilters = deletePropertyFromObject(id, filters);
 
 		return {
 			attributes: isAttributeInUse(
@@ -193,32 +223,33 @@ const actionHandlers = {
 			filterOrder,
 			filters
 		}: AttributesState,
-		{
-			payload: {attribute, attributeId, breakdown, oldAttributeId} = {}
-		}: Action
-	): AttributesState => ({
-		attributes: Object.assign(
-			filters[oldAttributeId]
-				? attributes
-				: deletePropertyFromObject(oldAttributeId, attributes),
+		{payload: {attribute, breakdown, id} = {}}: Action
+	): AttributesState => {
+		const {attributeId: oldAttributeId} = breakdowns[id];
+
+		const updatedBreakdowns = Object.assign(
+			deletePropertyFromObject(id, breakdowns),
 			{
-				[attributeId]: attribute
+				[id]: {...breakdown, id}
 			}
-		),
-		breakdownOrder: replaceAtIndex(
-			[...breakdownOrder],
-			breakdownOrder.findIndex(id => id === oldAttributeId),
-			attributeId
-		),
-		breakdowns: Object.assign(
-			deletePropertyFromObject(oldAttributeId, breakdowns),
-			{
-				[attributeId]: breakdown
-			}
-		),
-		filterOrder,
-		filters
-	}),
+		);
+
+		return {
+			attributes: Object.assign(
+				{},
+				isAttributeInUse(oldAttributeId, updatedBreakdowns, filters)
+					? attributes
+					: deletePropertyFromObject(oldAttributeId, attributes),
+				{
+					[attribute.id]: attribute
+				}
+			),
+			breakdownOrder,
+			breakdowns: updatedBreakdowns,
+			filterOrder,
+			filters
+		};
+	},
 	[ActionTypes.EditFilter]: (
 		{
 			attributes,
@@ -240,6 +271,7 @@ const actionHandlers = {
 
 		return {
 			attributes: Object.assign(
+				{},
 				isAttributeInUse(oldAttributeId, updatedFilters, breakdowns)
 					? attributes
 					: deletePropertyFromObject(oldAttributeId, attributes),
@@ -319,14 +351,14 @@ const AttributesProvider = ({children}: {children: React.ReactNode}) => {
 		addFilter: AddFilter;
 		attributes: {[key: string]: Attribute};
 		breakdownOrder: string[];
-		breakdowns: {[key: string]: Breakdown};
+		breakdowns: Breakdowns;
 		deleteAllAttributes: DeleteAllAttributes;
 		deleteBreakdown: DeleteBreakdown;
 		deleteFilter: DeleteFilter;
 		editBreakdown: EditBreakdown;
 		editFilter: EditFilter;
 		filterOrder: string[];
-		filters: {[key: string]: Filter};
+		filters: Filters;
 		moveBreakdown: MoveBreakdown;
 		moveFilter: MoveFilter;
 	} = {
