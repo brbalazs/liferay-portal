@@ -119,6 +119,7 @@ public class LCPProject {
 		@Deprecated
 		SA("ac-southamerica", "southamerica-east1-c1"),
 		SA_AC("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
+		SA_AC_STAGING("ac-southamericaeast1-staging", "southamerica-east1-staging-ac1-c2"),
 		/** @deprecated After multitenancy is fully deployed eliminate US_AC but use its value */
 		@Deprecated
 		US("ac-us", "us-west1-c1"), US_AC("ac-uswest1", "us-west1-ac4-c1");
