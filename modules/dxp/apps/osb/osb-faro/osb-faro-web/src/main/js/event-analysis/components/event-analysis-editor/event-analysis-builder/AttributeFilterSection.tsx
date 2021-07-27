@@ -30,45 +30,55 @@ export const AttributeFilterSection: React.FC<IAttributeFilterSectionProps> = ({
 	filterOrder,
 	filters,
 	moveFilter
-}) => (
-	<div className='attribute-filter-section-root d-flex align-items-center'>
-		<div className='section-header'>{Liferay.Language.get('filter')}</div>
+}) => {
+	const uneditableIds = Object.keys(attributes);
 
-		{!!eventId && (
-			<div className='attribute-container d-flex align-items-center justify-content-between'>
-				<DndProvider backend={HTML5Backend}>
-					<div className='attribute-list d-flex align-items-center'>
-						{filterOrder.map((id, i) => (
-							<AttributeFilterChip
-								attribute={attributes[filters[id].attributeId]}
-								eventId={eventId}
-								filter={filters[id]}
-								index={i}
-								key={id}
-								onCloseClick={deleteFilter}
-								onMove={moveFilter}
-							/>
-						))}
-					</div>
-				</DndProvider>
-
-				<AttributeFilterDropdown
-					alignmentPosition={Align.LeftTop}
-					eventId={eventId}
-					trigger={
-						<Button
-							borderless
-							className='add-attribute'
-							display='light'
-							icon='plus'
-							iconAlignment='left'
-							size='sm'
-						/>
-					}
-				/>
+	return (
+		<div className='attribute-filter-section-root d-flex align-items-center'>
+			<div className='section-header'>
+				{Liferay.Language.get('filter')}
 			</div>
-		)}
-	</div>
-);
+
+			{!!eventId && (
+				<div className='attribute-container d-flex align-items-center justify-content-between'>
+					<DndProvider backend={HTML5Backend}>
+						<div className='attribute-list d-flex align-items-center'>
+							{filterOrder.map((id, i) => (
+								<AttributeFilterChip
+									attribute={
+										attributes[filters[id].attributeId]
+									}
+									eventId={eventId}
+									filter={filters[id]}
+									index={i}
+									key={id}
+									onCloseClick={deleteFilter}
+									onMove={moveFilter}
+									uneditableIds={uneditableIds}
+								/>
+							))}
+						</div>
+					</DndProvider>
+
+					<AttributeFilterDropdown
+						alignmentPosition={Align.LeftTop}
+						eventId={eventId}
+						trigger={
+							<Button
+								borderless
+								className='add-attribute'
+								display='light'
+								icon='plus'
+								iconAlignment='left'
+								size='sm'
+							/>
+						}
+						uneditableIds={uneditableIds}
+					/>
+				</div>
+			)}
+		</div>
+	);
+};
 
 export default withAttributesConsumer(AttributeFilterSection);

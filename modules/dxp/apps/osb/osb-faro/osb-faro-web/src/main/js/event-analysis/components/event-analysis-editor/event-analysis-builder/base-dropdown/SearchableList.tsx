@@ -19,6 +19,7 @@ interface ISearchableListProps {
 	onQueryChange: (query: string) => void;
 	query: string;
 	showOptionsCondition?: (item: Attribute) => boolean;
+	uneditableIds?: string[];
 }
 
 const SearchableList: React.FC<ISearchableListProps> = ({
@@ -30,7 +31,8 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 	onItemOptionsClick,
 	onQueryChange,
 	query,
-	showOptionsCondition = () => false
+	showOptionsCondition = () => false,
+	uneditableIds
 }) => {
 	const filteredItems = items.filter(({displayName, name}) =>
 		(displayName || name)
@@ -57,30 +59,42 @@ const SearchableList: React.FC<ISearchableListProps> = ({
 
 			{!noResults && (
 				<ClayDropdown.ItemList className='base-dropdown-list'>
-					{filteredItems.map(item => (
-						<ListItem
-							active={activeId === item.id}
-							disabled={
-								disabledIds &&
-								disabledIds.some(
-									id => id === item.id && id !== activeId
-								)
-							}
-							item={item}
-							key={item.id}
-							onClick={() => onItemClick(item)}
-							onEditClick={() => onEditClick(item)}
-							onOptionsClick={
-								showOptionsCondition(item as Attribute) &&
-								onItemOptionsClick
-									? () =>
-											onItemOptionsClick(
-												item as Attribute
-											)
-									: null
-							}
-						/>
-					))}
+					{filteredItems.map(item => {
+						const active = activeId === item.id;
+
+						const disabled =
+							disabledIds &&
+							disabledIds.some(
+								id => id === item.id && id !== activeId
+							);
+
+						const editable =
+							!(
+								uneditableIds &&
+								uneditableIds.some(id => id === item.id)
+							) && !active;
+
+						return (
+							<ListItem
+								active={active}
+								disabled={disabled}
+								editable={editable}
+								item={item}
+								key={item.id}
+								onClick={() => onItemClick(item)}
+								onEditClick={() => onEditClick(item)}
+								onOptionsClick={
+									showOptionsCondition(item as Attribute) &&
+									onItemOptionsClick
+										? () =>
+												onItemOptionsClick(
+													item as Attribute
+												)
+										: null
+								}
+							/>
+						);
+					})}
 				</ClayDropdown.ItemList>
 			)}
 		</>

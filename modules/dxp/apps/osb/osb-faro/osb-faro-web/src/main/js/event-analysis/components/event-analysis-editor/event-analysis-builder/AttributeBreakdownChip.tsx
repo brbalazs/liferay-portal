@@ -8,21 +8,23 @@ import {getBreakdownDisplay} from 'event-analysis/utils/utils';
 const AttributeFilterChipWrapper: React.FC<{
 	attribute: Attribute;
 	breakdown: Breakdown;
+	disabledIds: string[];
 	eventId: string;
 	index: number;
 	onCloseClick: DeleteBreakdown;
 	onEditSubmit: EditBreakdown;
 	onMove: (params: {from: number; to: number}) => void;
-	order: string[];
+	uneditableIds: string[];
 }> = ({
 	attribute,
 	breakdown,
+	disabledIds,
 	eventId,
 	index,
 	onCloseClick,
 	onEditSubmit,
 	onMove,
-	order
+	uneditableIds
 }) => {
 	const [label, value] = getBreakdownDisplay(attribute, breakdown.type);
 
@@ -30,7 +32,7 @@ const AttributeFilterChipWrapper: React.FC<{
 		<AttributeBreakdownDropdown
 			attribute={attribute}
 			breakdown={breakdown}
-			disabledIds={order}
+			disabledIds={disabledIds}
 			eventId={eventId}
 			onAttributeSelect={onEditSubmit}
 			trigger={
@@ -45,6 +47,7 @@ const AttributeFilterChipWrapper: React.FC<{
 					value={value}
 				/>
 			}
+			uneditableIds={uneditableIds}
 		/>
 	);
 };

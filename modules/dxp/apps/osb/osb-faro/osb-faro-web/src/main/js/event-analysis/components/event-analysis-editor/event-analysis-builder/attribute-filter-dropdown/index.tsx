@@ -34,6 +34,7 @@ interface IAttributeFilterDropdownProps {
 	filter: Filter;
 	open: Modal.open;
 	trigger: React.ReactElement;
+	uneditableIds: string[];
 }
 
 const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
@@ -44,7 +45,8 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 	eventId,
 	filter,
 	open,
-	trigger
+	trigger,
+	uneditableIds
 }) => {
 	const [
 		attributeOwnerType,
@@ -156,6 +158,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 											}}
 											onQueryChange={setQuery}
 											query={query}
+											uneditableIds={uneditableIds}
 										/>
 									)}
 								</SafeResults>
@@ -178,7 +181,12 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 										setSelectedAttribute(params);
 									}}
 									onEditClick={
-										selectedAttribute.id === attributeId // TODO: Maybe we can update this to where it'll update the attribute as well. so we don't have to disallow editing of the value
+										uneditableIds &&
+										uneditableIds.some(
+											uneditableAttributeId =>
+												uneditableAttributeId ===
+												selectedAttribute.id
+										)
 											? null
 											: () => {
 													open(

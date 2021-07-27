@@ -136,10 +136,6 @@ const actionHandlers = {
 	): AttributesState => {
 		const id = Date.now().toString();
 
-		console.log(
-			attributes,
-			Object.assign({}, attributes, {[attribute.id]: attribute})
-		);
 		return {
 			attributes: Object.assign({}, attributes, {
 				[attribute.id]: attribute

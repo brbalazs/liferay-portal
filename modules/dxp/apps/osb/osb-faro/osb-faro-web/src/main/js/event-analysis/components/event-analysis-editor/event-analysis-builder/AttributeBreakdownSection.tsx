@@ -38,9 +38,11 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 	eventId,
 	moveBreakdown
 }) => {
-	const order = breakdownOrder.map(
+	const disabledIds = breakdownOrder.map(
 		breakdownId => breakdowns[breakdownId].attributeId
 	);
+
+	const uneditableIds = Object.keys(attributes);
 
 	return (
 		<div className='attribute-breakdown-section-root d-flex align-items-center'>
@@ -58,13 +60,14 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 										attributes[breakdowns[id].attributeId]
 									}
 									breakdown={breakdowns[id]}
+									disabledIds={disabledIds}
 									eventId={eventId}
 									index={i}
 									key={id}
 									onCloseClick={deleteBreakdown}
 									onEditSubmit={editBreakdown}
 									onMove={moveBreakdown}
-									order={order}
+									uneditableIds={uneditableIds}
 								/>
 							))}
 						</div>
@@ -73,7 +76,7 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 					{breakdownOrder.length < MAX_ATTRIBUTES && (
 						<AttributeBreakdownDropdown
 							alignmentPosition={Align.LeftTop}
-							disabledIds={order}
+							disabledIds={disabledIds}
 							eventId={eventId}
 							onAttributeSelect={addBreakdown}
 							trigger={
@@ -86,6 +89,7 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 									size='sm'
 								/>
 							}
+							uneditableIds={uneditableIds}
 						/>
 					)}
 				</div>

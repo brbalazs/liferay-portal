@@ -12,7 +12,16 @@ const AttributeFilterChip: React.FC<{
 	index: number;
 	onCloseClick: DeleteFilter;
 	onMove: (params: {from: number; to: number}) => void;
-}> = ({attribute, eventId, filter, index, onCloseClick, onMove}) => {
+	uneditableIds: string[];
+}> = ({
+	attribute,
+	eventId,
+	filter,
+	index,
+	onCloseClick,
+	onMove,
+	uneditableIds
+}) => {
 	const [label, value] = getFilterDisplay(attribute, filter);
 
 	return (
@@ -33,6 +42,7 @@ const AttributeFilterChip: React.FC<{
 					value={value}
 				/>
 			}
+			uneditableIds={uneditableIds}
 		/>
 	);
 };

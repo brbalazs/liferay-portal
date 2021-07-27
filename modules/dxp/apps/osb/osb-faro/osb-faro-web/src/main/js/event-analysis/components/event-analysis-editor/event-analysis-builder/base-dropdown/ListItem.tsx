@@ -11,6 +11,7 @@ import {DATA_TYPE_ICONS_MAP, isAttribute} from 'event-analysis/utils/utils';
 interface IListItemProps {
 	active?: boolean;
 	disabled?: boolean;
+	editable?: boolean;
 	item: Attribute | Event;
 	onClick: () => void;
 	onEditClick: () => void;
@@ -20,6 +21,7 @@ interface IListItemProps {
 const ListItem: React.FC<IListItemProps> = ({
 	active,
 	disabled,
+	editable = true,
 	item,
 	onClick,
 	onEditClick,
@@ -100,15 +102,15 @@ const ListItem: React.FC<IListItemProps> = ({
 				description={description}
 				name={displayName || name}
 				onEditClick={
-					active || disabled
-						? null
-						: () => {
+					editable
+						? () => {
 								if (_overlayRef && _overlayRef.current) {
 									_overlayRef.current.hideOverlay();
 								}
 
 								onEditClick();
 						  }
+						: null
 				}
 			/>
 		</Overlay>

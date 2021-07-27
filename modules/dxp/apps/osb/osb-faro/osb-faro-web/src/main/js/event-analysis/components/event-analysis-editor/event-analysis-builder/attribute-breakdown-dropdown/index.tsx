@@ -37,6 +37,7 @@ interface IAttributeBreakdownDropdownProps {
 	onAttributeSelect: AddBreakdown | EditBreakdown;
 	open: Modal.open;
 	trigger: React.ReactElement;
+	uneditableIds: string[];
 }
 
 const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = ({
@@ -48,7 +49,8 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 	eventId,
 	onAttributeSelect,
 	open,
-	trigger
+	trigger,
+	uneditableIds
 }) => {
 	const [
 		attributeOwnerType,
@@ -184,6 +186,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 											onQueryChange={setQuery}
 											query={query}
 											showOptionsCondition={hasOptions}
+											uneditableIds={uneditableIds}
 										/>
 									)}
 								</SafeResults>
@@ -206,7 +209,12 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 										setSelectedAttribute(params);
 									}}
 									onEditClick={
-										selectedAttribute.id === attributeId
+										uneditableIds &&
+										uneditableIds.some(
+											uneditableAttributeId =>
+												uneditableAttributeId ===
+												selectedAttribute.id
+										)
 											? null
 											: () => {
 													open(
