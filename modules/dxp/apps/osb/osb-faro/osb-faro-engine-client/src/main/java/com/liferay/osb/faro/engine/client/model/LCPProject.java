@@ -143,6 +143,9 @@ public class LCPProject {
 			else if (StringUtil.equals(value, Cluster.SA_AC._value)) {
 				return Cluster.SA_AC;
 			}
+			else if (StringUtil.equals(value, Cluster.SA_AC_STAGING._value)) {
+				return Cluster.SA_AC_STAGING;
+			}
 			else if (StringUtil.equals(value, Cluster.US._value)) {
 				return Cluster.US;
 			}
