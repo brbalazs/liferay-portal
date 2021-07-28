@@ -89,7 +89,7 @@ exports[`EventAttributes should render 1`] = `
                   class="mb-2"
                 >
                   <b>
-                    Global Attributtes
+                    Global Attributes
                   </b>
                 </div>
               </a>

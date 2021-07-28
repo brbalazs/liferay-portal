@@ -13,7 +13,7 @@ const AttributeList = lazy(
 const NAV_ITEMS = [
 	{
 		exact: true,
-		label: Liferay.Language.get('global-attributtes'),
+		label: Liferay.Language.get('global-attributes'),
 		route: Routes.SETTINGS_DEFINITIONS_GLOBAL_ATTRIBUTES
 	},
 	{
