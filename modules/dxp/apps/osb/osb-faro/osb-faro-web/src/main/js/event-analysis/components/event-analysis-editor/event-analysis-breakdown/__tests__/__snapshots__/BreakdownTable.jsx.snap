@@ -31,7 +31,7 @@ exports[`BreakdownTable render 1`] = `
                     >
                       event
                     </span>
-                    booleanName
+                    Boolean Name
                   </div>
                 </span>
               </button>

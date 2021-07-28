@@ -39,19 +39,6 @@ exports[`AttributeFilterSection renders w/ filter 1`] = `
             <div
               class="chip-root d-flex align-items-center justify-content-between attribute-chip-root"
             >
-              <div
-                class="drag-handle"
-                draggable="true"
-              >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-drag"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
-                  />
-                </svg>
-              </div>
               <button
                 class="button-root btn btn-unstyled edit-attribute-button d-flex"
                 type="button"
