@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	ActionTypes,
 	attributesReducer,
+	isAttributeInUse,
 	withAttributesConsumer,
 	withAttributesProvider
 } from '../attributes';
@@ -38,6 +39,28 @@ describe('attributes', () => {
 			}
 		}
 	};
+
+	describe('isAttributeInUse', () => {
+		it('should return false if no attributes are in use', () => {
+			expect(
+				isAttributeInUse(
+					'2',
+					initialAttributes.breakdowns,
+					initialAttributes.filters
+				)
+			).toBeFalse();
+		});
+
+		it('should return true if at least 1 attribute is in use', () => {
+			expect(
+				isAttributeInUse(
+					'1',
+					initialAttributes.breakdowns,
+					initialAttributes.filters
+				)
+			).toBeTrue();
+		});
+	});
 
 	describe('attributesReducer', () => {
 		const attribute = {

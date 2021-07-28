@@ -6,7 +6,7 @@ import {moveItem} from 'shared/util/array';
 type Breakdowns = {[key: string]: Breakdown};
 type Filters = {[key: string]: Filter};
 
-const isAttributeInUse = (
+export const isAttributeInUse = (
 	attributeId: string,
 	...items: (Breakdowns | Filters)[]
 ): boolean =>
