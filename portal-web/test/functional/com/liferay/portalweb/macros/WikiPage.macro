@@ -370,7 +370,7 @@ definition {
 
 		if (isSet(tagNameList)) {
 			for (var tagName : list "${tagNameList}") {
-				Type(
+				Type.clickAtType(
 					locator1 = "AssetCategorization#TAGS_FIELD",
 					value1 = "${tagName}");
 
@@ -382,7 +382,7 @@ definition {
 		else {
 			var key_tagName = "${tagName}";
 
-			Type(
+			Type.clickAtType(
 				locator1 = "AssetCategorization#TAGS_FIELD",
 				value1 = "${tagName}");
 

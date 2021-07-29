@@ -1225,7 +1225,7 @@ definition {
 			for (var tagText : list "${tagTextList}") {
 				var key_tagText = "${tagText}";
 
-				Type.typePause(
+				Type.clickAtType(
 					locator1 = "CalendarEditEvent#CATEGORIZATION_TAG_FIELD",
 					value1 = "${tagText}");
 
@@ -1241,7 +1241,7 @@ definition {
 		else {
 			var key_tagText = "${tagText}";
 
-			Type.typePause(
+			Type.clickAtType(
 				locator1 = "CalendarEditEvent#CATEGORIZATION_TAG_FIELD",
 				value1 = "${tagText}");
 
