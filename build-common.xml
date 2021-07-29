@@ -2292,6 +2292,8 @@ rerun your task.
 			<property file="release.${env.HOSTNAME}.properties" />
 			<property file="release.properties" />
 
+			<mkdir dir="${sdk.dir}" />
+
 			<property location="${sdk.dir}/build.${env.COMPUTERNAME}.properties" name="sdk.properties.file" />
 
 			<delete file="${sdk.properties.file}" />
@@ -2337,10 +2339,17 @@ rerun your task.
 
 			<copy
 				file="${sdk.properties.file}"
+				overwrite="true"
+				tofile="${sdk.dir}/build.${user.name}.properties"
+			/>
+			<copy
+				file="${sdk.properties.file}"
+				overwrite="true"
 				tofile="${sdk.dir}/build.${env.HOST}.properties"
 			/>
 			<copy
 				file="${sdk.properties.file}"
+				overwrite="true"
 				tofile="${sdk.dir}/build.${env.HOSTNAME}.properties"
 			/>
 		</sequential>

@@ -1192,6 +1192,8 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 				<ant dir="portal-kernel" inheritAll="false" target="replace-release-info-tokens" />
 			</then>
 		</if>
+
+		<antcall inheritAll="false" target="update-sdk-properties" />
 	</target>
 
 	<target name="setup-profile-portal">
@@ -1213,6 +1215,8 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 				<ant dir="portal-kernel" inheritAll="false" target="replace-release-info-tokens" />
 			</then>
 		</if>
+
+		<antcall inheritAll="false" target="update-sdk-properties" />
 	</target>
 
 	<target name="setup-sdk">
