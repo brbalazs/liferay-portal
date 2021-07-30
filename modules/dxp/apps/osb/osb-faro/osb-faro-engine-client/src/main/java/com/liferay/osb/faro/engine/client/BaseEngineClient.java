@@ -23,6 +23,7 @@ import com.liferay.osb.faro.engine.client.exception.FaroEngineClientException;
 import com.liferay.osb.faro.engine.client.http.client.AuditClientHttpRequestInterceptor;
 import com.liferay.osb.faro.engine.client.http.client.AuthenticationClientHttpRequestInterceptor;
 import com.liferay.osb.faro.engine.client.http.client.CacheClientHttpRequestInterceptor;
+import com.liferay.osb.faro.engine.client.http.client.LoggingClientHttpRequestInterceptor;
 import com.liferay.osb.faro.engine.client.http.client.SSLHandshakeExceptionHttpRequestInterceptor;
 import com.liferay.osb.faro.engine.client.mixin.ResourceMixin;
 import com.liferay.osb.faro.engine.client.model.BulkRequest;
@@ -68,6 +69,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -373,35 +375,38 @@ public abstract class BaseEngineClient {
 		}
 
 		clientHttpRequestInterceptors.add(
+			new LoggingClientHttpRequestInterceptor());
+		clientHttpRequestInterceptors.add(
 			new SSLHandshakeExceptionHttpRequestInterceptor());
 
 		restTemplate.setInterceptors(clientHttpRequestInterceptors);
 
 		restTemplate.setRequestFactory(
-			new HttpComponentsClientHttpRequestFactory() {
+			new BufferingClientHttpRequestFactory(
+				new HttpComponentsClientHttpRequestFactory() {
 
-				@Override
-				protected HttpUriRequest createHttpUriRequest(
-					HttpMethod httpMethod, URI uri) {
+					@Override
+					protected HttpUriRequest createHttpUriRequest(
+						HttpMethod httpMethod, URI uri) {
 
-					if (httpMethod == HttpMethod.GET) {
-						return new HttpEntityEnclosingRequestBase() {
-							{
-								setURI(uri);
-							}
+						if (httpMethod == HttpMethod.GET) {
+							return new HttpEntityEnclosingRequestBase() {
+								{
+									setURI(uri);
+								}
 
-							@Override
-							public String getMethod() {
-								return HttpMethod.GET.name();
-							}
+								@Override
+								public String getMethod() {
+									return HttpMethod.GET.name();
+								}
 
-						};
+							};
+						}
+
+						return super.createHttpUriRequest(httpMethod, uri);
 					}
 
-					return super.createHttpUriRequest(httpMethod, uri);
-				}
-
-			});
+				}));
 
 		return restTemplate;
 	}
