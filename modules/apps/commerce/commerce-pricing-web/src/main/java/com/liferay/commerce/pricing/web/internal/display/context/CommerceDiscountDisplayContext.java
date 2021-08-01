@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
@@ -164,17 +165,12 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			getClayHeadlessDataSetActionDiscountCategoryTemplates()
 		throws PortalException {
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates = new ArrayList<>();
-
-		clayHeadlessDataSetActionTemplates.add(
+		return ListUtil.fromArray(
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
-
-		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>

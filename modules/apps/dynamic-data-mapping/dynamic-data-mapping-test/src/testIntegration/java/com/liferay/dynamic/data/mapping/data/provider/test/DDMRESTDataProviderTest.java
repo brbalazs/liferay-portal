@@ -30,12 +30,12 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.registry.Registry;
 import com.liferay.registry.RegistryUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -255,14 +255,10 @@ public class DDMRESTDataProviderTest {
 	}
 
 	protected List<KeyValuePair> createExpectedData() {
-		List<KeyValuePair> expectedData = new ArrayList<>();
-
-		expectedData.add(new KeyValuePair("3", "France"));
-		expectedData.add(new KeyValuePair("15", "Spain"));
-		expectedData.add(new KeyValuePair("19", "United States"));
-		expectedData.add(new KeyValuePair("48", "Brazil"));
-
-		return expectedData;
+		return ListUtil.fromArray(
+			new KeyValuePair("3", "France"), new KeyValuePair("15", "Spain"),
+			new KeyValuePair("19", "United States"),
+			new KeyValuePair("48", "Brazil"));
 	}
 
 	private DDMDataProvider _ddmDataProvider;

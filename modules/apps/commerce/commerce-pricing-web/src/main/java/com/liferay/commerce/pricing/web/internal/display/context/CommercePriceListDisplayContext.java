@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.URLCodec;
@@ -164,51 +165,36 @@ public class CommercePriceListDisplayContext
 			getClayHeadlessDataSetActionPriceModifierCategoryTemplates()
 		throws PortalException {
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates = new ArrayList<>();
-
-		clayHeadlessDataSetActionTemplates.add(
+		return ListUtil.fromArray(
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
-
-		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
 			getClayHeadlessDataSetActionPriceModifierCPDefinitionTemplates()
 		throws PortalException {
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates = new ArrayList<>();
-
-		clayHeadlessDataSetActionTemplates.add(
+		return ListUtil.fromArray(
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
-
-		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
 			getClayHeadlessDataSetActionPriceModifierPricingClassTemplates()
 		throws PortalException {
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates = new ArrayList<>();
-
-		clayHeadlessDataSetActionTemplates.add(
+		return ListUtil.fromArray(
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
-
-		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<CommerceCatalog> getCommerceCatalogs() throws PortalException {

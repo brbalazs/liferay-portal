@@ -21,6 +21,7 @@ import com.liferay.dynamic.data.mapping.model.DDMFormFieldValidation;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.util.ArrayList;
@@ -64,17 +65,12 @@ public abstract class BaseDDMFormSerializerTestCase extends BaseDDMTestCase {
 	}
 
 	protected List<DDMFormField> createDDMFormFields() {
-		List<DDMFormField> ddmFormFields = new ArrayList<>();
-
-		ddmFormFields.add(
-			createNestedDDMFormFields("ParentField", "ChildField"));
-
-		ddmFormFields.add(createRadioDDMFormField("BooleanField"));
-		ddmFormFields.add(createSelectDDMFormField("SelectField"));
-		ddmFormFields.add(createTextDDMFormField("TextField"));
-		ddmFormFields.add(createHTMLDDMFormField("HTMLField"));
-
-		return ddmFormFields;
+		return ListUtil.fromArray(
+			createNestedDDMFormFields("ParentField", "ChildField"),
+			createRadioDDMFormField("BooleanField"),
+			createSelectDDMFormField("SelectField"),
+			createTextDDMFormField("TextField"),
+			createHTMLDDMFormField("HTMLField"));
 	}
 
 	protected DDMFormField createHTMLDDMFormField(String name) {

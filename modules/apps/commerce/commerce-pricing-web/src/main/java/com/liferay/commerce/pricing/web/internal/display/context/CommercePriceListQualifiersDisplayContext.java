@@ -29,8 +29,8 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.util.ListUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -106,17 +106,12 @@ public class CommercePriceListQualifiersDisplayContext
 			getClayHeadlessDataSetActionPriceListAccountGroupTemplates()
 		throws PortalException {
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates = new ArrayList<>();
-
-		clayHeadlessDataSetActionTemplates.add(
+		return ListUtil.fromArray(
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
-
-		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>

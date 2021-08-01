@@ -23,12 +23,12 @@ import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseOutput;
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderTracker;
 import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.registry.Registry;
 import com.liferay.registry.RegistryUtil;
 import com.liferay.registry.ServiceRegistration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,12 +121,8 @@ public class DDMDataProviderTest {
 				DDMDataProviderContext ddmDataProviderContext)
 			throws DDMDataProviderException {
 
-			List<KeyValuePair> data = new ArrayList<>();
-
-			data.add(new KeyValuePair("1", "A"));
-			data.add(new KeyValuePair("2", "B"));
-
-			return data;
+			return ListUtil.fromArray(
+				new KeyValuePair("1", "A"), new KeyValuePair("2", "B"));
 		}
 
 		@Override
