@@ -24,10 +24,10 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portlet.ratings.util.test.RatingsTestUtil;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -167,14 +167,8 @@ public class AssetEntryServiceTest {
 		AssetEntry assetEntry4 = AssetTestUtil.addAssetEntry(
 			_group.getGroupId(), dayBeforeYesterday);
 
-		List<AssetEntry> assetEntries = new ArrayList<>(4);
-
-		assetEntries.add(assetEntry3);
-		assetEntries.add(assetEntry1);
-		assetEntries.add(assetEntry2);
-		assetEntries.add(assetEntry4);
-
-		return assetEntries;
+		return ListUtil.fromArray(
+			assetEntry3, assetEntry1, assetEntry2, assetEntry4);
 	}
 
 	protected void validateAssetEntries(

@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.service.UserNotificationEventLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.test.mail.MailServiceTestUtil;
 
 import java.util.ArrayList;
@@ -334,35 +335,27 @@ public abstract class BaseUserNotificationTestCase {
 			long userId)
 		throws Exception {
 
-		List<UserNotificationDelivery> userNotificationDeliveries =
-			new ArrayList<>();
-
-		userNotificationDeliveries.add(
+		return ListUtil.fromArray(
 			UserNotificationDeliveryLocalServiceUtil.
 				getUserNotificationDelivery(
 					userId, getPortletId(), 0,
 					UserNotificationDefinition.NOTIFICATION_TYPE_ADD_ENTRY,
-					UserNotificationDeliveryConstants.TYPE_EMAIL, true));
-		userNotificationDeliveries.add(
+					UserNotificationDeliveryConstants.TYPE_EMAIL, true),
 			UserNotificationDeliveryLocalServiceUtil.
 				getUserNotificationDelivery(
 					userId, getPortletId(), 0,
 					UserNotificationDefinition.NOTIFICATION_TYPE_ADD_ENTRY,
-					UserNotificationDeliveryConstants.TYPE_WEBSITE, true));
-		userNotificationDeliveries.add(
+					UserNotificationDeliveryConstants.TYPE_WEBSITE, true),
 			UserNotificationDeliveryLocalServiceUtil.
 				getUserNotificationDelivery(
 					userId, getPortletId(), 0,
 					UserNotificationDefinition.NOTIFICATION_TYPE_UPDATE_ENTRY,
-					UserNotificationDeliveryConstants.TYPE_EMAIL, true));
-		userNotificationDeliveries.add(
+					UserNotificationDeliveryConstants.TYPE_EMAIL, true),
 			UserNotificationDeliveryLocalServiceUtil.
 				getUserNotificationDelivery(
 					userId, getPortletId(), 0,
 					UserNotificationDefinition.NOTIFICATION_TYPE_UPDATE_ENTRY,
 					UserNotificationDeliveryConstants.TYPE_WEBSITE, true));
-
-		return userNotificationDeliveries;
 	}
 
 	protected List<JSONObject> getUserNotificationEventsJSONObjects(
