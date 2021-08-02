@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.ModelPermissions;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
@@ -295,11 +296,7 @@ public class AssetVocabularyLocalServiceImpl
 
 		AssetVocabulary vocabulary = addDefaultVocabulary(groupId);
 
-		vocabularies = new ArrayList<>();
-
-		vocabularies.add(vocabulary);
-
-		return vocabularies;
+		return ListUtil.fromArray(vocabulary);
 	}
 
 	@Override
