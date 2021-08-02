@@ -949,29 +949,17 @@ public class PortalImpl implements Portal {
 			return null;
 		}
 
-		String authority = uri.getAuthority();
+		String path = uri.getPath();
 
-		String protocol = uri.getScheme();
+		// Return when it's a relative URL
 
-		// When authority is empty, only return when it's a valid relative URL
-
-		if (authority == null) {
-			if (uri.getPath() == null) {
-				return null;
-			}
-
-			// Specs allows URL of protocol followed by path, but we do not.
-
-			if (protocol != null) {
-				return null;
-			}
-
-			// The URL is a relative path
-
+		if (Validator.isNotNull(path) && url.startsWith(path)) {
 			return url;
 		}
 
-		// Specs regards URL staring with double slashes valid, but we do not.
+		String protocol = uri.getScheme();
+
+		// Specs regard URL starting with double slashes as valid, but we do not
 
 		if (protocol == null) {
 			return null;
