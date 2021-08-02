@@ -949,11 +949,13 @@ public class PortalImpl implements Portal {
 			return null;
 		}
 
-		String domain = uri.getHost();
+		String authority = uri.getAuthority();
 
 		String protocol = uri.getScheme();
 
-		if (domain == null) {
+		// When authority is empty, only return when it's a valid relative URL
+
+		if (authority == null) {
 			if (uri.getPath() == null) {
 				return null;
 			}
@@ -974,6 +976,8 @@ public class PortalImpl implements Portal {
 		if (protocol == null) {
 			return null;
 		}
+
+		String domain = uri.getHost();
 
 		if (!_validPortalDomainCheckDisabled && isValidPortalDomain(domain)) {
 			return url;
