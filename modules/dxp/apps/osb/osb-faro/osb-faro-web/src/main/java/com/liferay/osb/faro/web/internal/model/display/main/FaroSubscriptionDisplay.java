@@ -125,8 +125,9 @@ public class FaroSubscriptionDisplay {
 	}
 
 	public void setCounts(
-		FaroProject faroProject, CerebroEngineClient cerebroEngineClient,
-		ContactsEngineClient contactsEngineClient) {
+			FaroProject faroProject, CerebroEngineClient cerebroEngineClient,
+			ContactsEngineClient contactsEngineClient)
+		throws Exception {
 
 		if ((faroProject == null) ||
 			!StringUtil.equals(
@@ -143,14 +144,10 @@ public class FaroSubscriptionDisplay {
 
 		_individualsStatus = getStatus(_individualsCount, _individualsLimit);
 
-		try {
-			_pageViewsCount = GetterUtil.getInteger(
-				cerebroEngineClient.getPageViews(
-					faroProject, Optional.ofNullable(_startDate),
-					Optional.of(new Date())));
-		}
-		catch (Exception exception) {
-		}
+		_pageViewsCount = GetterUtil.getInteger(
+			cerebroEngineClient.getPageViews(
+				faroProject, Optional.ofNullable(_startDate),
+				Optional.of(new Date())));
 
 		_pageViewsStatus = getStatus(_pageViewsCount, _pageViewsLimit);
 	}
