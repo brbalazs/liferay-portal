@@ -146,7 +146,7 @@ public class FaroSubscriptionDisplay {
 		try {
 			_pageViewsCount = GetterUtil.getInteger(
 				cerebroEngineClient.getPageViews(
-					faroProject, Optional.of(_startDate),
+					faroProject, Optional.ofNullable(_startDate),
 					Optional.of(new Date())));
 		}
 		catch (Exception exception) {
