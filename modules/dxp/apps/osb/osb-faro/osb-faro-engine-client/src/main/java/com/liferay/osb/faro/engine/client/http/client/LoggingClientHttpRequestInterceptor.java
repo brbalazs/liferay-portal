@@ -51,26 +51,29 @@ public class LoggingClientHttpRequestInterceptor
 					new String(bytes, StandardCharsets.UTF_8)));
 		}
 
-		ClientHttpResponse response = clientHttpRequestExecution.execute(
-			httpRequest, bytes);
+		ClientHttpResponse clientHttpResponse =
+			clientHttpRequestExecution.execute(httpRequest, bytes);
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
 				String.format(
-					"Response status code: %s", response.getStatusCode()));
+					"Response status code: %s",
+					clientHttpResponse.getStatusCode()));
 			_log.debug(
 				String.format(
-					"Response status text: %s", response.getStatusText()));
+					"Response status text: %s",
+					clientHttpResponse.getStatusText()));
 			_log.debug(
-				String.format("Response headers: %s", response.getHeaders()));
+				String.format(
+					"Response headers: %s", clientHttpResponse.getHeaders()));
 			_log.debug(
 				String.format(
 					"Response body: %s",
 					StreamUtils.copyToString(
-						response.getBody(), StandardCharsets.UTF_8)));
+						clientHttpResponse.getBody(), StandardCharsets.UTF_8)));
 		}
 
-		return response;
+		return clientHttpResponse;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
