@@ -6,7 +6,8 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {get} from 'lodash';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
+import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
@@ -30,7 +31,7 @@ function WebContentRoutes({className, router}) {
 
 	const decodedTitle = decodeURIComponent(title);
 
-	const rangeKeyFromQuery = get(router, ['query', 'rangeKey']);
+	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(router.query);
 
 	const {selectedChannel} = useChannelContext();
 
@@ -74,7 +75,7 @@ function WebContentRoutes({className, router}) {
 						title,
 						touchpoint
 					}}
-					routeQueries={{rangeKey: rangeKeyFromQuery}}
+					routeQueries={pickBy(rangeSelectorsFromQuery)}
 				/>
 			</BasePage.Header>
 
