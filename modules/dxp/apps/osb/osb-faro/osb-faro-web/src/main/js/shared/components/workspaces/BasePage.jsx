@@ -84,7 +84,6 @@ export class WorkspacesBasePage extends React.Component {
 								: () =>
 										API.user
 											.updateLanguage({
-												groupId: '0',
 												languageId: id
 											})
 											.then(() =>

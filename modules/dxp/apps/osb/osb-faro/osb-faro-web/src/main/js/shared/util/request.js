@@ -65,9 +65,15 @@ export function stringifyValues(data) {
 }
 
 export default request => {
-	const {data = {}, method, path, contentType = 'json'} = request;
+	const {
+		baseURL = '/o/faro',
+		contentType = 'json',
+		data = {},
+		method,
+		path
+	} = request;
 
-	const requestURL = `/o/faro/${path}`;
+	const requestURL = `${baseURL}/${path}`;
 
 	const authData = {
 		...stringifyValues(data)

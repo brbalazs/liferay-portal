@@ -158,7 +158,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
 								: () =>
 										API.user
 											.updateLanguage({
-												groupId,
 												languageId: id
 											})
 											.then(() =>

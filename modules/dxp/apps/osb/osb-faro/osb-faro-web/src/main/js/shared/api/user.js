@@ -66,11 +66,13 @@ export function inviteMany({emailAddresses, groupId, roleName}) {
 	});
 }
 
-export function updateLanguage({groupId, languageId}) {
+export function updateLanguage({languageId}) {
 	return sendRequest({
+		baseURL: '/c/portal',
+		contentType: '',
 		data: {languageId},
-		method: 'PUT',
-		path: `main/${groupId}/user/language`
+		method: 'GET',
+		path: 'update_language'
 	});
 }
 
