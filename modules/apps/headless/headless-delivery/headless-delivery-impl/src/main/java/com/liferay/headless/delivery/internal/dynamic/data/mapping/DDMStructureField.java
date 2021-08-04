@@ -33,25 +33,23 @@ public class DDMStructureField {
 		String[] ddmStructureParts = StringUtil.split(
 			ddmStructureField, DDMIndexer.DDM_FIELD_SEPARATOR);
 
-		String fieldReference = StringUtil.removeSubstring(
+		String name = StringUtil.removeSubstring(
 			ddmStructureParts[3], "_sortable");
 
-		String type = fieldReference.substring(
-			fieldReference.lastIndexOf(StringPool.UNDERLINE) + 1);
+		String type = name.substring(
+			name.lastIndexOf(StringPool.UNDERLINE) + 1);
 
-		fieldReference = fieldReference.substring(
-			0, fieldReference.lastIndexOf(StringPool.UNDERLINE));
+		name = name.substring(0, name.lastIndexOf(StringPool.UNDERLINE));
 
-		String locale = _getSuffixLocale(fieldReference);
+		String locale = _getSuffixLocale(name);
 
 		if (locale != null) {
-			fieldReference = StringUtil.removeSubstring(
-				fieldReference, StringPool.UNDERLINE + locale);
+			name = StringUtil.removeSubstring(
+				name, StringPool.UNDERLINE + locale);
 		}
 
 		return new DDMStructureField(
-			ddmStructureParts[2], fieldReference, ddmStructureParts[1], locale,
-			type);
+			ddmStructureParts[2], ddmStructureParts[1], locale, name, type);
 	}
 
 	public static String getNestedFieldName() {
@@ -64,8 +62,7 @@ public class DDMStructureField {
 		return StringBundler.concat(
 			DDMIndexer.DDM_FIELD_PREFIX, _indexType,
 			DDMIndexer.DDM_FIELD_SEPARATOR, _ddmStructureId,
-			DDMIndexer.DDM_FIELD_SEPARATOR, _fieldReference,
-			_getLocaleSuffix());
+			DDMIndexer.DDM_FIELD_SEPARATOR, _name, _getLocaleSuffix());
 	}
 
 	public String getDDMStructureNestedFieldName() {
