@@ -3,13 +3,13 @@ import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
 
 export interface WithRangeKeyProps {
-	onRangeSelectorsChange: (val) => void;
-	rangeSelectors: RangeSelectors;
+	onRangeSelectorsChange?: (val) => void;
+	rangeSelectors?: RangeSelectors;
 }
 
 const withRangeKey = <P extends WithRangeKeyProps>(
 	WrappedComponent: React.ComponentType<P>
-): React.FC<Omit<P, keyof WithRangeKeyProps>> => {
+): React.FC<P> => {
 	const defaultRangeSelectors = {
 		rangeEnd: null,
 		rangeKey: RangeKeyTimeRanges.Last30Days,
@@ -18,7 +18,7 @@ const withRangeKey = <P extends WithRangeKeyProps>(
 
 	return props => {
 		const [rangeSelectors, setRangeSelectors] = useState(
-			defaultRangeSelectors
+			props?.rangeSelectors || defaultRangeSelectors
 		);
 
 		return (
