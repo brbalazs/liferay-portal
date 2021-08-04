@@ -16,7 +16,7 @@ import {
 	getFilterCriterionIMap,
 	getIndexFromPropertyName
 } from '../utils/custom-inputs';
-import {isNil} from 'lodash';
+import {isBoolean, isNil} from 'lodash';
 import {NAME} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
@@ -140,25 +140,32 @@ const EventInput: React.FC<IEventInputProps> = ({
 			valid
 		};
 
-		if (criterion) {
-			const {operatorName, value} = criterion;
-
+		if (criterion?.operatorName) {
 			params = {
 				...params,
-				value: valueIMap.merge(
-					fromJS({operator: operatorName, value})
+				value: valueIMap.mergeIn(
+					['operator'],
+					criterion.operatorName
+				) as CustomValue
+			};
+		} else if (!isNil(criterion?.value)) {
+			params = {
+				...params,
+				value: valueIMap.mergeIn(
+					['value'],
+					criterion.value
 				) as CustomValue
 			};
 		}
 
-		if (touched) {
+		if (isBoolean(occurenceCountTouched)) {
 			params = {
 				...params,
 				touched: {...touched, occurenceCount: occurenceCountTouched}
 			};
 		}
 
-		if (valid) {
+		if (isBoolean(occurenceCountValid)) {
 			params = {
 				...params,
 				valid: {...valid, occurenceCount: occurenceCountValid}

@@ -1,7 +1,7 @@
 import {Map, Record} from 'immutable';
 
 interface ICustomValue {
-	criterionGroup: Map<string, any>;
+	criterionGroup?: Map<string, any>;
 	operator?: string;
 	value?: string | number;
 }
@@ -13,7 +13,7 @@ export default class CustomValue
 		value: null
 	})
 	implements ICustomValue {
-	criterionGroup: Map<string, any>;
+	criterionGroup?: Map<string, any>;
 	operator?: string;
 	value?: string | number;
 

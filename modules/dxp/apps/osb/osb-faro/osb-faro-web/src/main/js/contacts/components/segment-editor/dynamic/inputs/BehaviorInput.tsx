@@ -27,7 +27,7 @@ import {
 	getPropertyValue,
 	setPropertyValue
 } from '../utils/custom-inputs';
-import {isNull} from 'lodash';
+import {isBoolean, isNil, isNull} from 'lodash';
 import {Modal} from 'shared/types/Modal';
 import {parseActivityKey} from '../utils/utils';
 
@@ -263,25 +263,32 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 			valid
 		};
 
-		if (criterion) {
-			const {operatorName, value} = criterion;
-
+		if (criterion?.operatorName) {
 			params = {
 				...params,
-				value: valueIMap.merge(
-					fromJS({operator: operatorName, value})
+				value: valueIMap.mergeIn(
+					['operator'],
+					criterion.operatorName
+				) as CustomValue
+			};
+		} else if (!isNil(criterion?.value)) {
+			params = {
+				...params,
+				value: valueIMap.mergeIn(
+					['value'],
+					criterion.value
 				) as CustomValue
 			};
 		}
 
-		if (touched) {
+		if (isBoolean(occurenceCountTouched)) {
 			params = {
 				...params,
 				touched: {...touched, occurenceCount: occurenceCountTouched}
 			};
 		}
 
-		if (valid) {
+		if (isBoolean(occurenceCountValid)) {
 			params = {
 				...params,
 				valid: {...valid, occurenceCount: occurenceCountValid}
