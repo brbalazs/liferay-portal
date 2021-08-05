@@ -50,7 +50,7 @@ const TableWithData = withBaseResults(withData, {
 				'blog-name'
 			)} | ${Liferay.Language.get('id').toUpperCase()}`,
 			rangeSelectors: getRangeSelectorsFromQuery(query),
-			route: Routes.ASSETS_BLOGS_DASHBOARD
+			route: Routes.ASSETS_BLOGS_OVERVIEW
 		}),
 		metricsListColumns.viewsMetric,
 		metricsListColumns.readingTimeMetric,

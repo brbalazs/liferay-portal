@@ -13,16 +13,14 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const Dashboard = lazy(
+const Overview = lazy(
 	() =>
-		import(
-			/* webpackChunkName: "DocumentsAndMediaDashboardPage" */ './Dashboard'
-		)
+		import(/* webpackChunkName: "DocumentsAndMediaOverview" */ './Overview')
 );
 const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DocumentsAndMediaKnownIndividualsPage" */ './KnownIndividuals'
+			/* webpackChunkName: "DocumentsAndMediaKnownIndividuals" */ './KnownIndividuals'
 		)
 );
 
@@ -73,7 +71,7 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD
+							route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW
 						},
 						{
 							exact: true,
@@ -102,11 +100,11 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={Dashboard}
+								data={Overview}
 								destructured={false}
 								exact
 								path={
-									Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD
+									Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW
 								}
 							/>
 

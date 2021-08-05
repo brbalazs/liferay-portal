@@ -13,13 +13,13 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const Dashboard = lazy(
-	() => import(/* webpackChunkName: "FormsDashboard" */ './Dashboard')
+const Overview = lazy(
+	() => import(/* webpackChunkName: "FormsOverview" */ './Overview')
 );
 const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "FormsKnownIndividualsPage" */ './KnownIndividuals'
+			/* webpackChunkName: "FormsKnownIndividuals" */ './KnownIndividuals'
 		)
 );
 
@@ -67,7 +67,7 @@ const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_FORMS_DASHBOARD
+							route: Routes.ASSETS_FORMS_OVERVIEW
 						},
 						{
 							exact: true,
@@ -95,10 +95,10 @@ const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={Dashboard}
+								data={Overview}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_FORMS_DASHBOARD}
+								path={Routes.ASSETS_FORMS_OVERVIEW}
 							/>
 
 							<BundleRouter

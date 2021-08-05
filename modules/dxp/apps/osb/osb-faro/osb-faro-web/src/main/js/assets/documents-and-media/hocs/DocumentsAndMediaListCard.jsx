@@ -49,7 +49,7 @@ const TableWithData = withBaseResults(withData, {
 				'document-name'
 			)} | ${Liferay.Language.get('id').toUpperCase()}`,
 			rangeSelectors: getRangeSelectorsFromQuery(query),
-			route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD
+			route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW
 		}),
 		metricsListColumns.downloadsMetric,
 		metricsListColumns.previewsMetric,

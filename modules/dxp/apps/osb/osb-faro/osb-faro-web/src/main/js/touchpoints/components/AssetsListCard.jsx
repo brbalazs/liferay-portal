@@ -5,7 +5,7 @@ import TextTruncate from 'shared/components/TextTruncate';
 import {Link} from 'react-router-dom';
 import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
-import {toAssetDashboardRoute} from 'shared/util/router';
+import {toAssetOverviewRoute} from 'shared/util/router';
 
 const CLASSNAME = 'analytics-assets-list';
 
@@ -41,7 +41,7 @@ class AssetsListCard extends React.Component {
 
 	/**
 	 * Get Asset URL
-	 * @description Get url to navigate in a dashboard
+	 * @description Get url to navigate in an overview
 	 * @param {string} assetId
 	 * @param {string} assetType
 	 * @param {string} title
@@ -54,7 +54,7 @@ class AssetsListCard extends React.Component {
 			props: {rangeSelectors}
 		} = this;
 
-		return toAssetDashboardRoute(
+		return toAssetOverviewRoute(
 			assetType,
 			{
 				...params,

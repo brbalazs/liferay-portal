@@ -49,7 +49,7 @@ const TableWithData = withBaseResults(withData, {
 				'id'
 			).toUpperCase()}`,
 			rangeSelectors: getRangeSelectorsFromQuery(query),
-			route: Routes.ASSETS_WEB_CONTENT_DASHBOARD
+			route: Routes.ASSETS_WEB_CONTENT_OVERVIEW
 		}),
 		metricsListColumns.viewsMetric
 	],

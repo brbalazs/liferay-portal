@@ -60,10 +60,10 @@ export const Routes = buildRoutes({
 									ASSETS_BLOGS: {
 										path: '/:assetType(blogs)?',
 										routes: {
-											ASSETS_BLOGS_DASHBOARD:
-												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_BLOGS_KNOWN_INDIVIDUALS:
 												'/:assetId/known-individuals/:touchpoint/:title?',
+											ASSETS_BLOGS_OVERVIEW:
+												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_BLOGS_ROUTES:
 												'/:assetId/:tabId(page|known-individuals)/:touchpoint/:title?'
 										}
@@ -78,10 +78,10 @@ export const Routes = buildRoutes({
 									ASSETS_DOCUMENTS_AND_MEDIA: {
 										path: '/documents-and-media',
 										routes: {
-											ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD:
-												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_DOCUMENTS_AND_MEDIA_KNOWN_INDIVIDUALS:
 												'/:assetId/known-individuals/:touchpoint/:title?',
+											ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW:
+												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_DOCUMENTS_AND_MEDIA_ROUTES:
 												'/:assetId/:tabId(page|known-individuals)/:touchpoint/:title'
 										}
@@ -89,10 +89,10 @@ export const Routes = buildRoutes({
 									ASSETS_FORMS: {
 										path: '/forms',
 										routes: {
-											ASSETS_FORMS_DASHBOARD:
-												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_FORMS_KNOWN_INDIVIDUALS:
 												'/:assetId/known-individuals/:touchpoint/:title?',
+											ASSETS_FORMS_OVERVIEW:
+												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_FORMS_ROUTES:
 												'/:assetId/:tabId(page|known-individuals)/:touchpoint/:title?'
 										}
@@ -100,10 +100,10 @@ export const Routes = buildRoutes({
 									ASSETS_WEB_CONTENT: {
 										path: '/web-content',
 										routes: {
-											ASSETS_WEB_CONTENT_DASHBOARD:
-												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_WEB_CONTENT_KNOWN_INDIVIDUALS:
 												'/:assetId/known-individuals/:touchpoint/:title?',
+											ASSETS_WEB_CONTENT_OVERVIEW:
+												'/:assetId/page/:touchpoint/:title?',
 											ASSETS_WEB_CONTENT_ROUTES:
 												'/:assetId/:tabId(page|known-individuals)/:touchpoint/:title?'
 										}
@@ -384,14 +384,14 @@ const TYPE_TO_ROUTE_MAP = {
 };
 
 export const assetTypePaths = {
-	blog: Routes.ASSETS_BLOGS_DASHBOARD,
+	blog: Routes.ASSETS_BLOGS_OVERVIEW,
 	custom: Routes.ASSETS_CUSTOM_DASHBOARD,
-	document: Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD,
-	form: Routes.ASSETS_FORMS_DASHBOARD,
-	journal: Routes.ASSETS_WEB_CONTENT_DASHBOARD
+	document: Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW,
+	form: Routes.ASSETS_FORMS_OVERVIEW,
+	journal: Routes.ASSETS_WEB_CONTENT_OVERVIEW
 };
 
-export const toAssetDashboardRoute = (assetType, routeParams, query) => {
+export const toAssetOverviewRoute = (assetType, routeParams, query) => {
 	let route = '';
 
 	if (assetType === 'blog') {

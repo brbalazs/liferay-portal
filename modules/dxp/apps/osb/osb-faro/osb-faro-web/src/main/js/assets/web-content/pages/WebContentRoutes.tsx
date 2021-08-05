@@ -13,14 +13,13 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const Dashboard = lazy(
-	() =>
-		import(/* webpackChunkName: "WebContentDashboardPage" */ './Dashboard')
+const Overview = lazy(
+	() => import(/* webpackChunkName: "WebContentOverview" */ './Overview')
 );
 const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "WebContentKnownIndividualsPage" */ './KnownIndividuals'
+			/* webpackChunkName: "WebContentKnownIndividuals" */ './KnownIndividuals'
 		)
 );
 
@@ -71,7 +70,7 @@ const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_WEB_CONTENT_DASHBOARD
+							route: Routes.ASSETS_WEB_CONTENT_OVERVIEW
 						},
 						{
 							exact: true,
@@ -99,10 +98,10 @@ const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={Dashboard}
+								data={Overview}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_WEB_CONTENT_DASHBOARD}
+								path={Routes.ASSETS_WEB_CONTENT_OVERVIEW}
 							/>
 
 							<BundleRouter

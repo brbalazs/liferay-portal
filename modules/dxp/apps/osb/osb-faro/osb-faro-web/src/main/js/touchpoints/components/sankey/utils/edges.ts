@@ -6,7 +6,7 @@ import {
 } from 'shared/util/util';
 import {getUrl} from 'shared/util/urls';
 import {pickBy} from 'lodash';
-import {Routes, toAssetDashboardRoute} from 'shared/util/router';
+import {Routes, toAssetOverviewRoute} from 'shared/util/router';
 import {SankeyNode} from './types';
 import {textWrap} from 'd3plus-text';
 import {toThousands, undoThousands} from 'shared/util/numbers';
@@ -26,7 +26,7 @@ export function getAssetUrl(
 ) {
 	const rangeSelectors = getRangeSelectorsFromQuery(query);
 
-	return toAssetDashboardRoute(
+	return toAssetOverviewRoute(
 		type,
 		{
 			...params,

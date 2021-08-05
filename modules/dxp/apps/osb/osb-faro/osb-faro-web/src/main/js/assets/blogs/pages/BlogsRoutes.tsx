@@ -13,13 +13,13 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const Dashboard = lazy(
-	() => import(/* webpackChunkName: "BlogsDashboardPage" */ './Dashboard')
+const Overview = lazy(
+	() => import(/* webpackChunkName: "BlogsOverview" */ './Overview')
 );
 const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "BlogsKnownIndividualsPage" */ './KnownIndividuals'
+			/* webpackChunkName: "BlogsKnownIndividuals" */ './KnownIndividuals'
 		)
 );
 
@@ -67,7 +67,7 @@ const BlogsRoutes: React.FC<IBlogsRoutesProps> = ({className, router}) => {
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_BLOGS_DASHBOARD
+							route: Routes.ASSETS_BLOGS_OVERVIEW
 						},
 						{
 							exact: true,
@@ -100,10 +100,10 @@ const BlogsRoutes: React.FC<IBlogsRoutesProps> = ({className, router}) => {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={Dashboard}
+								data={Overview}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_BLOGS_DASHBOARD}
+								path={Routes.ASSETS_BLOGS_OVERVIEW}
 							/>
 
 							<BundleRouter

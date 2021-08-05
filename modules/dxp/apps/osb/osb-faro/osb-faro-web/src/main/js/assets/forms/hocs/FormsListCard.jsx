@@ -49,7 +49,7 @@ const TableWithData = withBaseResults(withData, {
 				'form-name'
 			)} | ${Liferay.Language.get('id').toUpperCase()}`,
 			rangeSelectors: getRangeSelectorsFromQuery(query),
-			route: Routes.ASSETS_FORMS_DASHBOARD
+			route: Routes.ASSETS_FORMS_OVERVIEW
 		}),
 		metricsListColumns.submissionsMetric,
 		metricsListColumns.viewsMetric,
