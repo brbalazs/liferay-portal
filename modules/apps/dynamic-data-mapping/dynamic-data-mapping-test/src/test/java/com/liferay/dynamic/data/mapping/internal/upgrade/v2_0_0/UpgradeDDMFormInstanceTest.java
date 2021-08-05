@@ -84,7 +84,7 @@ public class UpgradeDDMFormInstanceTest extends PowerMockito {
 	}
 
 	protected List<ResourceAction> createRecorSetResourceActionList() {
-		ListUtil.fromArray(
+		return ListUtil.fromArray(
 			createResourceAction("VIEW", 1), createResourceAction("DELETE", 2),
 			createResourceAction("PERMISSIONS", 4),
 			createResourceAction("ADD_RECORD", 8),
