@@ -4,10 +4,6 @@ import {graphql} from '@apollo/react-hoc';
 import {Routes} from 'shared/util/router';
 import {withAudienceReportCard} from 'shared/hoc/AudienceReportCard';
 
-/**
- * HOC
- * @description Documents And Media Audience Report
- */
 const withDocumentsAndMediaAudienceReport = () =>
 	graphql(DocumentsAndMediaMetricsQuery, {
 		...getAudienceReportMapper(

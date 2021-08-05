@@ -4,10 +4,6 @@ import {graphql} from '@apollo/react-hoc';
 import {Routes} from 'shared/util/router';
 import {withAudienceReportCard} from 'shared/hoc/AudienceReportCard';
 
-/**
- * HOC
- * @description Touchpoint Audience Report
- */
 const withTouchpointAudienceReport = () =>
 	graphql(TouchpointMetricsQuery, {
 		...getAudienceReportMapper(

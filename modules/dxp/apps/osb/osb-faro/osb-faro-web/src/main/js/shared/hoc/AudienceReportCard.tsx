@@ -3,8 +3,17 @@ import BaseCard from 'cerebro-shared/components/base-card';
 import Card from 'shared/components/Card';
 import React from 'react';
 import {compose} from 'redux';
-import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {withError, withLoading} from 'shared/hoc';
+
+interface IAudienceReportCardProps {
+	className?: string;
+	knownIndividualsTitle: string;
+	label: string;
+	legacyDropdownRangeKey?: boolean;
+	metricAction: React.ReactText;
+	segmentsTitle?: string;
+	uniqueVisitorsTitle?: string;
+}
 
 /**
  * HOC
@@ -12,20 +21,14 @@ import {withError, withLoading} from 'shared/hoc';
  * @param {function} withAudienceReportCard
  */
 const withAudienceReportCard = withData => {
-	const AudienceReportWithData = compose(
+	const AudienceReportWithData = compose<any>(
 		withData(),
 		withLoading({alignCenter: true, page: false}),
 		withError({page: false})
 	)(AudienceReport);
 
-	AudienceReportWithData.propTypes = HOC_CARD_PROPTYPES;
-
-	const defaultProps = {
-		className: 'analytics-audience-report-card'
-	};
-
-	const AudienceReportCard = ({
-		className,
+	const AudienceReportCard: React.FC<IAudienceReportCardProps> = ({
+		className = 'analytics-audience-report-card',
 		knownIndividualsTitle,
 		label,
 		legacyDropdownRangeKey,
@@ -55,8 +58,6 @@ const withAudienceReportCard = withData => {
 			)}
 		</BaseCard>
 	);
-
-	AudienceReportCard.defaultProps = defaultProps;
 
 	return AudienceReportCard;
 };
