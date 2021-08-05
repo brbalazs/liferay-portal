@@ -15,9 +15,9 @@ import {PropTypes} from 'prop-types';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const TouchpointKnownIndividualsPage = lazy(() =>
+const KnownIndividuals = lazy(() =>
 	import(
-		/* webpackChunkName: "TouchpointKnownIndividualsPage" */ './TouchpointKnownIndividualsPage'
+		/* webpackChunkName: "TouchpointKnownIndividualsPage" */ './KnownIndividuals'
 	)
 );
 const TouchpointOverviewPage = lazy(() =>
@@ -135,7 +135,7 @@ function TouchpointRoutes({className, router}) {
 							/>
 
 							<BundleRouter
-								data={TouchpointKnownIndividualsPage}
+								data={KnownIndividuals}
 								destructured={false}
 								exact
 								path={

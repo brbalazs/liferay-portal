@@ -17,10 +17,10 @@ const Dashboard = lazy(
 	() =>
 		import(/* webpackChunkName: "WebContentDashboardPage" */ './Dashboard')
 );
-const WebContentKnownIndividualsPage = lazy(
+const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "WebContentKnownIndividualsPage" */ './WebContentKnownIndividualsPage'
+			/* webpackChunkName: "WebContentKnownIndividualsPage" */ './KnownIndividuals'
 		)
 );
 
@@ -106,7 +106,7 @@ const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
 							/>
 
 							<BundleRouter
-								data={WebContentKnownIndividualsPage}
+								data={KnownIndividuals}
 								destructured={false}
 								exact
 								path={

@@ -7,6 +7,7 @@ import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {NAME, VIEWS_METRIC} from 'shared/util/pagination';
+import {Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {withBaseResults, withRangeKey} from 'shared/hoc';
@@ -53,7 +54,7 @@ const TableWithData = withRangeKey(
 	})
 );
 
-const KnownIndividualsListCard = props => (
+const KnownIndividualsListCard: React.FC<{router: Router}> = props => (
 	<Card className='known-individuals-root' pageDisplay>
 		<TableWithData
 			{...props}

@@ -16,10 +16,10 @@ import {useChannelContext} from 'shared/context/channel';
 const Dashboard = lazy(
 	() => import(/* webpackChunkName: "BlogsDashboardPage" */ './Dashboard')
 );
-const BlogsKnownIndividualsPage = lazy(
+const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "BlogsKnownIndividualsPage" */ './BlogsKnownIndividualsPage'
+			/* webpackChunkName: "BlogsKnownIndividualsPage" */ './KnownIndividuals'
 		)
 );
 
@@ -107,7 +107,7 @@ const BlogsRoutes: React.FC<IBlogsRoutesProps> = ({className, router}) => {
 							/>
 
 							<BundleRouter
-								data={BlogsKnownIndividualsPage}
+								data={KnownIndividuals}
 								destructured={false}
 								exact
 								path={Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS}

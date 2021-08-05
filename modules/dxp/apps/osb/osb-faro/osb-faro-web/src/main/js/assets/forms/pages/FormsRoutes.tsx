@@ -16,10 +16,10 @@ import {useChannelContext} from 'shared/context/channel';
 const Dashboard = lazy(
 	() => import(/* webpackChunkName: "FormsDashboard" */ './Dashboard')
 );
-const FormsKnownIndividualsPage = lazy(
+const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "FormsKnownIndividualsPage" */ './FormsKnownIndividualsPage'
+			/* webpackChunkName: "FormsKnownIndividualsPage" */ './KnownIndividuals'
 		)
 );
 
@@ -102,7 +102,7 @@ const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
 							/>
 
 							<BundleRouter
-								data={FormsKnownIndividualsPage}
+								data={KnownIndividuals}
 								destructured={false}
 								exact
 								path={Routes.ASSETS_FORMS_KNOWN_INDIVIDUALS}

@@ -1,13 +1,10 @@
 import KnownIndividualsListCard from '../hocs/KnownIndividualsListCard';
 import React from 'react';
+import {Router} from 'shared/types';
 
-interface IFormsKnownIndividualsPageProps {
-	router: object;
-}
-
-const FormsKnownIndividualsPage: React.FC<IFormsKnownIndividualsPageProps> = ({
-	router
-}) => (
+const KnownIndividuals: React.FC<{
+	router: Router;
+}> = ({router}) => (
 	<div className='row'>
 		<div className='col-sm-12'>
 			<KnownIndividualsListCard router={router} />
@@ -15,4 +12,4 @@ const FormsKnownIndividualsPage: React.FC<IFormsKnownIndividualsPageProps> = ({
 	</div>
 );
 
-export default FormsKnownIndividualsPage;
+export default KnownIndividuals;

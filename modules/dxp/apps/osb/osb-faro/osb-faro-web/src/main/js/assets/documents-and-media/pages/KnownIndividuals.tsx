@@ -1,13 +1,10 @@
 import KnownIndividualsListCard from '../hocs/KnownIndividualsListCard';
 import React from 'react';
+import {Router} from 'shared/types';
 
-interface IWebContentKnownIndividualsPageProps {
-	router: object;
-}
-
-const WebContentKnownIndividualsPage: React.FC<IWebContentKnownIndividualsPageProps> = ({
-	router
-}) => (
+const DocumentsAndMediaKnownIndividualsPage: React.FC<{
+	router: Router;
+}> = ({router}) => (
 	<div className='row'>
 		<div className='col-sm-12'>
 			<KnownIndividualsListCard router={router} />
@@ -15,4 +12,4 @@ const WebContentKnownIndividualsPage: React.FC<IWebContentKnownIndividualsPagePr
 	</div>
 );
 
-export default WebContentKnownIndividualsPage;
+export default DocumentsAndMediaKnownIndividualsPage;

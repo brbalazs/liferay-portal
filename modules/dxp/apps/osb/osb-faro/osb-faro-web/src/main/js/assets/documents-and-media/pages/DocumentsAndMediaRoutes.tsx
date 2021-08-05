@@ -19,10 +19,10 @@ const Dashboard = lazy(
 			/* webpackChunkName: "DocumentsAndMediaDashboardPage" */ './Dashboard'
 		)
 );
-const DocumentsAndMediaKnownIndividualsPage = lazy(
+const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DocumentsAndMediaKnownIndividualsPage" */ './DocumentsAndMediaKnownIndividualsPage'
+			/* webpackChunkName: "DocumentsAndMediaKnownIndividualsPage" */ './KnownIndividuals'
 		)
 );
 
@@ -111,7 +111,7 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 							/>
 
 							<BundleRouter
-								data={DocumentsAndMediaKnownIndividualsPage}
+								data={KnownIndividuals}
 								destructured={false}
 								exact
 								path={
