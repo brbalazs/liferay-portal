@@ -1,44 +1,47 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import BundleRouter from 'route-middleware/BundleRouter';
-import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {PropTypes} from 'prop-types';
+import {Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-/**
- * Forms List Page
- * @function
- */
-
-const BlogsList = lazy(() =>
-	import(/* webpackChunkName: "BlogsList" */ './blogs/pages/BlogsListPage')
+const BlogsList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "BlogsList" */ './blogs/pages/BlogsListPage'
+		)
 );
 
-const CustomList = lazy(() =>
-	import(
-		/* webpackChunkName: "CustomList" */ './custom-assets/pages/CustomAssetsListPage'
-	)
+const CustomList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "CustomList" */ './custom-assets/pages/CustomAssetsListPage'
+		)
 );
 
-const DocumentsAndMediaList = lazy(() =>
-	import(
-		/* webpackChunkName: "DocumentsAndMediaList" */ './documents-and-media/pages/DocumentsAndMediaListPage'
-	)
+const DocumentsAndMediaList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DocumentsAndMediaList" */ './documents-and-media/pages/DocumentsAndMediaListPage'
+		)
 );
 
-const FormsList = lazy(() =>
-	import(/* webpackChunkName: "FormsList" */ './forms/pages/FormsListPage')
+const FormsList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "FormsList" */ './forms/pages/FormsListPage'
+		)
 );
 
-const WebContentList = lazy(() =>
-	import(
-		/* webpackChunkName: "WebContentList" */ './web-content/pages/WebContentListPage'
-	)
+const WebContentList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "WebContentList" */ './web-content/pages/WebContentListPage'
+		)
 );
 
 const NAV_ITEMS = [
@@ -69,14 +72,17 @@ const NAV_ITEMS = [
 	}
 ];
 
-function AssetsRoutes({className, router}) {
+const Assets: React.FC<{className: string; router: Router}> = ({
+	className,
+	router
+}) => {
 	const {channelId, groupId} = router.params;
 
 	const {selectedChannel} = useChannelContext();
 
 	return (
 		<BasePage
-			className={getCN(className)}
+			className={className}
 			documentTitle={Liferay.Language.get('assets')}
 		>
 			<BasePage.Header
@@ -84,7 +90,7 @@ function AssetsRoutes({className, router}) {
 					breadcrumbs.getHome({
 						channelId,
 						groupId,
-						label: selectedChannel && selectedChannel.name
+						label: selectedChannel?.name
 					})
 				]}
 				groupId={groupId}
@@ -150,14 +156,6 @@ function AssetsRoutes({className, router}) {
 			</BasePage.Body>
 		</BasePage>
 	);
-}
-
-AssetsRoutes.propTypes = {
-	/**
-	 * @type {object}
-	 * @default undefined
-	 */
-	router: PropTypes.object
 };
 
-export default AssetsRoutes;
+export default Assets;
