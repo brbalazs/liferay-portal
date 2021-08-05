@@ -8,30 +8,43 @@ import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
-import {PropTypes} from 'prop-types';
+import {Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const WebContentDashboardPage = lazy(() =>
-	import(
-		/* webpackChunkName: "WebContentDashboardPage" */ './WebContentDashboardPage'
-	)
+const WebContentDashboardPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "WebContentDashboardPage" */ './WebContentDashboardPage'
+		)
 );
-const WebContentKnownIndividualsPage = lazy(() =>
-	import(
-		/* webpackChunkName: "WebContentKnownIndividualsPage" */ './WebContentKnownIndividualsPage'
-	)
+const WebContentKnownIndividualsPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "WebContentKnownIndividualsPage" */ './WebContentKnownIndividualsPage'
+		)
 );
 
-function WebContentRoutes({className, router}) {
-	const {assetId, channelId, groupId, title, touchpoint} = router.params;
+interface IWebContentRoutesProps {
+	className: string;
+	router: Router;
+}
+
+const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
+	className,
+	router
+}) => {
+	const {
+		params: {assetId, channelId, groupId, title, touchpoint},
+		query
+	} = router;
 
 	const [filters, setFilters] = useState({});
 
 	const decodedTitle = decodeURIComponent(title);
 
-	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(router.query);
+	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(query);
 
 	const {selectedChannel} = useChannelContext();
 
@@ -45,7 +58,7 @@ function WebContentRoutes({className, router}) {
 					breadcrumbs.getHome({
 						channelId,
 						groupId,
-						label: selectedChannel && selectedChannel.name
+						label: selectedChannel?.name
 					}),
 					breadcrumbs.getAssets({channelId, groupId}),
 					breadcrumbs.getWebContent({channelId, groupId}),
@@ -110,20 +123,6 @@ function WebContentRoutes({className, router}) {
 			</BasePage.Context.Provider>
 		</BasePage>
 	);
-}
-
-WebContentRoutes.propTypes = {
-	/**
-	 * @type {object}
-	 * @default undefined
-	 */
-	router: PropTypes.object,
-
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	title: PropTypes.string
 };
 
 export default WebContentRoutes;

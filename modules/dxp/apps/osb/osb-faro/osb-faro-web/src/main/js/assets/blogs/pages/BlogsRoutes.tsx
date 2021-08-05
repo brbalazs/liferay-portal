@@ -8,28 +8,40 @@ import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
-import {PropTypes} from 'prop-types';
+import {Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const FormsDashboardPage = lazy(() =>
-	import(/* webpackChunkName: "FormsDashboardPage" */ './FormsDashboardPage')
+const BlogsDashboardPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "BlogsDashboardPage" */ './BlogsDashboardPage'
+		)
 );
-const FormsKnownIndividualsPage = lazy(() =>
-	import(
-		/* webpackChunkName: "FormsKnownIndividualsPage" */ './FormsKnownIndividualsPage'
-	)
+const BlogsKnownIndividualsPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "BlogsKnownIndividualsPage" */ './BlogsKnownIndividualsPage'
+		)
 );
 
-function FormsRoutes({className, router}) {
-	const {assetId, channelId, groupId, title, touchpoint} = router.params;
+interface IBlogsRoutesProps {
+	className: string;
+	router: Router;
+}
+
+const BlogsRoutes: React.FC<IBlogsRoutesProps> = ({className, router}) => {
+	const {
+		params: {assetId, channelId, groupId, title, touchpoint},
+		query
+	} = router;
 
 	const [filters, setFilters] = useState({});
 
 	const decodedTitle = decodeURIComponent(title);
 
-	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(router.query);
+	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(query);
 
 	const {selectedChannel} = useChannelContext();
 
@@ -43,10 +55,10 @@ function FormsRoutes({className, router}) {
 					breadcrumbs.getHome({
 						channelId,
 						groupId,
-						label: selectedChannel && selectedChannel.name
+						label: selectedChannel?.name
 					}),
 					breadcrumbs.getAssets({channelId, groupId}),
-					breadcrumbs.getForms({channelId, groupId}),
+					breadcrumbs.getBlogs({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
 				groupId={groupId}
@@ -58,12 +70,12 @@ function FormsRoutes({className, router}) {
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_FORMS_DASHBOARD
+							route: Routes.ASSETS_BLOGS_DASHBOARD
 						},
 						{
 							exact: true,
 							label: Liferay.Language.get('known-individuals'),
-							route: Routes.ASSETS_FORMS_KNOWN_INDIVIDUALS
+							route: Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS
 						}
 					]}
 					routeParams={{
@@ -77,7 +89,12 @@ function FormsRoutes({className, router}) {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider value={{filters, router}}>
+			<BasePage.Context.Provider
+				value={{
+					filters,
+					router
+				}}
+			>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -86,17 +103,17 @@ function FormsRoutes({className, router}) {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={FormsDashboardPage}
+								data={BlogsDashboardPage}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_FORMS_DASHBOARD}
+								path={Routes.ASSETS_BLOGS_DASHBOARD}
 							/>
 
 							<BundleRouter
-								data={FormsKnownIndividualsPage}
+								data={BlogsKnownIndividualsPage}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_FORMS_KNOWN_INDIVIDUALS}
+								path={Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS}
 							/>
 
 							<RouteNotFound />
@@ -106,20 +123,6 @@ function FormsRoutes({className, router}) {
 			</BasePage.Context.Provider>
 		</BasePage>
 	);
-}
-
-FormsRoutes.propTypes = {
-	/**
-	 * @type {object}
-	 * @default undefined
-	 */
-	router: PropTypes.object,
-
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	title: PropTypes.string
 };
 
-export default FormsRoutes;
+export default BlogsRoutes;

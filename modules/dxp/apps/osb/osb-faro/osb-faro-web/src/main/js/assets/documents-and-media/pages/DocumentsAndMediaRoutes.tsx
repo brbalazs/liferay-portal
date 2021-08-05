@@ -8,28 +8,43 @@ import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
-import {PropTypes} from 'prop-types';
+import {Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const BlogsDashboardPage = lazy(() =>
-	import(/* webpackChunkName: "BlogsDashboardPage" */ './BlogsDashboardPage')
+const DocumentsAndMediaDashboardPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DocumentsAndMediaDashboardPage" */ './DocumentsAndMediaDashboardPage'
+		)
 );
-const BlogsKnownIndividualsPage = lazy(() =>
-	import(
-		/* webpackChunkName: "BlogsKnownIndividualsPage" */ './BlogsKnownIndividualsPage'
-	)
+const DocumentsAndMediaKnownIndividualsPage = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "DocumentsAndMediaKnownIndividualsPage" */ './DocumentsAndMediaKnownIndividualsPage'
+		)
 );
 
-function BlogsRoutes({className, router}) {
-	const {assetId, channelId, groupId, title, touchpoint} = router.params;
+interface IDocumentsAndMediaRoutesProps {
+	className: string;
+	router: Router;
+}
+
+const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
+	className,
+	router
+}) => {
+	const {
+		params: {assetId, channelId, groupId, title, touchpoint},
+		query
+	} = router;
 
 	const [filters, setFilters] = useState({});
 
 	const decodedTitle = decodeURIComponent(title);
 
-	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(router.query);
+	const rangeSelectorsFromQuery = getRangeSelectorsFromQuery(query);
 
 	const {selectedChannel} = useChannelContext();
 
@@ -43,10 +58,10 @@ function BlogsRoutes({className, router}) {
 					breadcrumbs.getHome({
 						channelId,
 						groupId,
-						label: selectedChannel && selectedChannel.name
+						label: selectedChannel?.name
 					}),
 					breadcrumbs.getAssets({channelId, groupId}),
-					breadcrumbs.getBlogs({channelId, groupId}),
+					breadcrumbs.getDocumentsAndMedia({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
 				groupId={groupId}
@@ -58,12 +73,13 @@ function BlogsRoutes({className, router}) {
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_BLOGS_DASHBOARD
+							route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD
 						},
 						{
 							exact: true,
 							label: Liferay.Language.get('known-individuals'),
-							route: Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS
+							route:
+								Routes.ASSETS_DOCUMENTS_AND_MEDIA_KNOWN_INDIVIDUALS
 						}
 					]}
 					routeParams={{
@@ -77,12 +93,7 @@ function BlogsRoutes({className, router}) {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider
-				value={{
-					filters,
-					router
-				}}
-			>
+			<BasePage.Context.Provider value={{filters, router}}>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -91,17 +102,21 @@ function BlogsRoutes({className, router}) {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={BlogsDashboardPage}
+								data={DocumentsAndMediaDashboardPage}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_BLOGS_DASHBOARD}
+								path={
+									Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD
+								}
 							/>
 
 							<BundleRouter
-								data={BlogsKnownIndividualsPage}
+								data={DocumentsAndMediaKnownIndividualsPage}
 								destructured={false}
 								exact
-								path={Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS}
+								path={
+									Routes.ASSETS_DOCUMENTS_AND_MEDIA_KNOWN_INDIVIDUALS
+								}
 							/>
 
 							<RouteNotFound />
@@ -111,20 +126,6 @@ function BlogsRoutes({className, router}) {
 			</BasePage.Context.Provider>
 		</BasePage>
 	);
-}
-
-BlogsRoutes.propTypes = {
-	/**
-	 * @type {object}
-	 * @default undefined
-	 */
-	router: PropTypes.object,
-
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	title: PropTypes.string
 };
 
-export default BlogsRoutes;
+export default DocumentsAndMediaRoutes;

@@ -5,11 +5,6 @@ import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
 import TouchpointsListCard from '../../shared/hocs/TouchpointsListCard';
 
-/**
- * Documents And Media Dashboard Page
- * @class
- */
-
 export default function DocumentsAndMediaDashboardPage() {
 	return (
 		<>
