@@ -16,7 +16,7 @@ import {
 	withSelectionProvider
 } from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, Modal, RouterType} from 'shared/types';
+import {Alert, Modal, Router} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -56,7 +56,7 @@ interface IRecommendationListProps {
 		push: (string) => void;
 	};
 	open: Modal.open;
-	router: RouterType;
+	router: Router;
 	timeZoneId: string;
 }
 

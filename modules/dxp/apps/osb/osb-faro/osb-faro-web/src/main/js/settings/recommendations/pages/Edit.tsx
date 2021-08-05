@@ -6,13 +6,13 @@ import {compose} from 'redux';
 import {get} from 'lodash';
 import {getRecommendations} from 'shared/util/breadcrumbs';
 import {Job} from '../utils/utils';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {withAdminPermission} from 'shared/hoc';
 
 interface IEditProps {
 	job: Job;
-	router: RouterType;
+	router: Router;
 }
 
 const Edit: React.FC<IEditProps> = ({job, router}) => {

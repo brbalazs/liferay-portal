@@ -10,7 +10,7 @@ import {
 	metricsListColumns,
 	sitePagesListColumns
 } from 'shared/util/table-columns';
-import {RangeSelectors, RouterType} from 'shared/types';
+import {RangeSelectors, Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {VISITORS_METRIC} from 'shared/util/pagination';
@@ -27,7 +27,7 @@ const withData = () =>
 
 interface ITableWithDataProps {
 	rangeSelectors: RangeSelectors;
-	router: RouterType;
+	router: Router;
 }
 
 const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
@@ -78,7 +78,7 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 
 interface IInterestDetailsProps {
 	className?: string;
-	router: RouterType;
+	router: Router;
 }
 
 const InterestDetails: React.FC<IInterestDetailsProps> = ({

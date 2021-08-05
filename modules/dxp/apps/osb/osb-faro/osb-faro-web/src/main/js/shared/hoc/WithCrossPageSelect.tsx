@@ -3,7 +3,7 @@ import ClayButton from '@clayui/button';
 import Constants from 'shared/util/constants';
 import React, {useEffect, useState} from 'react';
 import {ACTION_TYPES, useSelectionContext} from 'shared/context/selection';
-import {FilterByType, IPagination, RouterType} from 'shared/types';
+import {FilterByType, IPagination, Router} from 'shared/types';
 import {get, omit, pickBy} from 'lodash';
 import {getDisplayName} from 'shared/util/react';
 import {getSafeDisplayValue} from 'shared/util/util';
@@ -185,7 +185,7 @@ export const withSelection: (
 
 interface ICrossPageSelectProps {
 	filterBy?: FilterByType;
-	router: RouterType;
+	router: Router;
 	searchSelectedFn: ({
 		filterBy,
 		items,

@@ -2,18 +2,11 @@ import BackButton from 'contacts/components/BackButton';
 import InterestDetails from 'shared/components/InterestDetails';
 import React from 'react';
 import {isNil, pickBy} from 'lodash';
+import {Router} from 'shared/types';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 
 interface IInterestDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
-	router: {
-		params: {
-			channelId: string;
-			groupId: string;
-		};
-		query: {
-			rangeKey: string;
-		};
-	};
+	router: Router;
 }
 
 const InterestDetailsPage: React.FC<IInterestDetailsProps> = ({router}) => {

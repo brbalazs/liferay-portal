@@ -22,7 +22,7 @@ import {
 	RECOMMENDATION_MUTATION,
 	RECOMMENDATION_UPDATE_MUTATION
 } from '../../queries/RecommendationMutation';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
@@ -55,7 +55,7 @@ interface IRecommendationStepCardProps {
 	};
 	job?: Job;
 	jobType?: JobTypes;
-	router: RouterType;
+	router: Router;
 }
 
 const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({

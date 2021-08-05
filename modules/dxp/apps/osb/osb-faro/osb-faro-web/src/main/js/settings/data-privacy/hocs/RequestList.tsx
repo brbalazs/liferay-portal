@@ -13,7 +13,7 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {CREATE_DATE} from 'shared/util/pagination';
-import {FilterByType, RouterType} from 'shared/types';
+import {FilterByType, Router} from 'shared/types';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GDPRRequestStatuses,
@@ -391,7 +391,7 @@ interface IRequestListProps {
 		push: (string) => void;
 	};
 	open: (modalType: string, options: object) => void;
-	router: RouterType;
+	router: Router;
 	timeZoneId: string;
 }
 

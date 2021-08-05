@@ -4,13 +4,13 @@ import SuppressedUserList from '../hocs/SuppressedUserList';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {getDataPrivacy} from 'shared/util/breadcrumbs';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {User} from 'shared/util/records';
 import {withAdminPermission} from 'shared/hoc';
 
 interface ISuppressedUsersProps {
 	currentUser: User;
-	router: RouterType;
+	router: Router;
 	timeZoneId: string;
 }
 

@@ -9,6 +9,7 @@ import {
 import {ExperimentResolver as Experiment} from 'shared/apollo/resolvers';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockExperimentReq} from 'test/graphql-data';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {StateProvider} from 'experiments/state';
 import {StaticRouter} from 'react-router';
 
@@ -23,7 +24,7 @@ const MOCK_CONTEXT = {
 			id: '123'
 		},
 		query: {
-			rangeKey: '30'
+			rangeKey: RangeKeyTimeRanges.Last30Days
 		}
 	}
 };

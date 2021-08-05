@@ -4,13 +4,13 @@ import RequestList from '../hocs/RequestList';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {getDataPrivacy} from 'shared/util/breadcrumbs';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {User} from 'shared/util/records';
 import {withCurrentUser} from 'shared/hoc';
 
 interface IRequestLogProps {
 	currentUser: User;
-	router: RouterType;
+	router: Router;
 	timeZoneId: string;
 }
 

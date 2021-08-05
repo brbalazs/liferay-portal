@@ -13,6 +13,7 @@ import {
 	mockExperimentReq,
 	mockExperimentVariantsHistogramReq
 } from 'test/graphql-data';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {StateProvider} from 'experiments/state';
 import {StaticRouter} from 'react-router';
 
@@ -30,7 +31,7 @@ const MOCK_CONTEXT = {
 			id: '123'
 		},
 		query: {
-			rangeKey: '30'
+			rangeKey: RangeKeyTimeRanges.Last30Days
 		}
 	}
 };

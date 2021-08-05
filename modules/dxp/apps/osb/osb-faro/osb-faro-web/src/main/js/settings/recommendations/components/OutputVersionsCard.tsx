@@ -18,7 +18,7 @@ import {
 	JOB_RUN_STATUSES_DISPLAY_MAP,
 	JOB_RUN_STATUSES_LABEL_MAP
 } from '../utils/utils';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {sub} from 'shared/util/lang';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {
@@ -48,7 +48,7 @@ const getContextItemCount = (contextItemKey: string) => (
 
 interface IOutputVersionsCardProps {
 	nextRunDate: string;
-	router: RouterType;
+	router: Router;
 	runFrequency: JobRunFrequencies;
 	timeZoneId: string;
 }

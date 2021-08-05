@@ -3,18 +3,11 @@ import InterestDetails from 'shared/components/InterestDetails';
 import React from 'react';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
+import {Router} from 'shared/types';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 
 interface IInterestDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
-	router: {
-		params: {
-			channelId: string;
-			groupId: string;
-		};
-		query: {
-			rangeKey: string;
-		};
-	};
+	router: Router;
 }
 
 export default class InterestDetailsPage extends React.Component<IInterestDetailsProps> {

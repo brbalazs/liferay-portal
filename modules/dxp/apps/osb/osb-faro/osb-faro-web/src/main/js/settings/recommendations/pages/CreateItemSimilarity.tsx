@@ -3,12 +3,12 @@ import React from 'react';
 import RecommendationStepCard from '../components/recommendation-step-card';
 import {getRecommendations} from 'shared/util/breadcrumbs';
 import {JobTypes} from 'shared/util/constants';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {withAdminPermission} from 'shared/hoc';
 
 interface ICreateItemSimilarityProps {
-	router: RouterType;
+	router: Router;
 }
 
 const CreateItemSimilarity: React.FC<ICreateItemSimilarityProps> = ({

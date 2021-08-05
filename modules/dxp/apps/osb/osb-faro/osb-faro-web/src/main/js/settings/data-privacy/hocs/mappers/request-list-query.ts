@@ -3,7 +3,7 @@ import {
 	FilterByType,
 	FilterInputType,
 	FilterOptionType,
-	RouterType
+	Router
 } from 'shared/types';
 import {get, omit} from 'lodash';
 import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
@@ -27,7 +27,7 @@ export const mapPropsToOptions = ({
 }: {
 	defaultSort: {field: string; sortOrder: string};
 	filterBy: FilterByType;
-	router: RouterType;
+	router: Router;
 	toolbarProps: {filterByOptions: FilterOptionType[]};
 }) => {
 	const {variables, ...otherOptions} = getMapPropsToOptions(

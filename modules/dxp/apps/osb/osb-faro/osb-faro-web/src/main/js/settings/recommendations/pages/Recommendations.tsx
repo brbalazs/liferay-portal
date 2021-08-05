@@ -1,13 +1,13 @@
 import BasePage from 'settings/components/BasePage';
 import React from 'react';
 import RecommendationList from '../hocs/RecommendationList';
-import {RouterType} from 'shared/types';
+import {Router} from 'shared/types';
 
 interface IRecommendationsProps {
 	history: {
 		push: (string) => void;
 	};
-	router: RouterType;
+	router: Router;
 }
 
 const Recommendations: React.FC<IRecommendationsProps> = ({

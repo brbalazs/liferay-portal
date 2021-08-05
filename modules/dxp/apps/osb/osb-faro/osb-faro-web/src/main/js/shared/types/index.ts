@@ -50,13 +50,7 @@ export interface ICompositionBag {
 
 export interface IBasePageContext {
 	filters: object;
-	router: {
-		params: {
-			groupId: string;
-			[key: string]: string;
-		};
-		query: object;
-	};
+	router: Router;
 }
 
 export interface IPagination {
@@ -90,9 +84,29 @@ export interface RESTParams {
 	query?: string;
 }
 
-export type RouterType = {
-	params: {[key: string]: string};
-	query: {[key: string]: string};
+export type Router = {
+	params: {
+		assetId?: string;
+		channelId?: string;
+		groupId?: string;
+		id?: string;
+		interestId?: string;
+		jobId?: string;
+		tabId?: string;
+		title?: string;
+		touchpoint?: string;
+		type?: string;
+	};
+	query: {
+		orderby?: 'asc' | 'desc';
+		orderByField?: string;
+		page?: string;
+		query?: string;
+		rangeEnd?: string;
+		rangeKey?: RangeKeyTimeRanges;
+		rangeStart?: string;
+		state?: string;
+	};
 };
 
 export type Sort = {

@@ -333,7 +333,20 @@ export const Routes = buildRoutes({
 	WORKSPACES: '/workspaces'
 });
 
-export function buildRoutes(config, routes = {}, prefix = '') {
+type Config = {
+	[key: string]:
+		| string
+		| {
+				path?: string;
+				routes?: Config;
+		  };
+};
+
+export function buildRoutes(
+	config: Config,
+	routes: {[key: string]: string} = {},
+	prefix: string = ''
+): {[key: string]: string} {
 	for (const [key, pathOrConfig] of Object.entries(config)) {
 		if (isString(pathOrConfig)) {
 			routes[key] = prefix + pathOrConfig;
@@ -349,7 +362,7 @@ export function buildRoutes(config, routes = {}, prefix = '') {
 
 const getCompiledRoute = memoize(pathToRegexp.compile);
 
-export function toRoute(route, options) {
+export function toRoute(route: string, options?: {[key: string]: any}) {
 	return getCompiledRoute(route)(options);
 }
 

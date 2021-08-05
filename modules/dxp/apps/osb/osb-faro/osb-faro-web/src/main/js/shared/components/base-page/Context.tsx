@@ -9,7 +9,7 @@ const Context: React.Context<IBasePageContext> = React.createContext({
 		},
 		query: {}
 	}
-});
+} as IBasePageContext);
 
 Context.displayName = 'BasePageContext';
 
