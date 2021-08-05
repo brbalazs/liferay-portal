@@ -123,9 +123,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 									</p>
 								}
 								symbol='ac-satellite'
-								title={Liferay.Language.get(
-									'no-sample-data-found'
-								)}
+								title={Liferay.Language.get('no-sample-data')}
 							/>
 						</Card>
 					)}
