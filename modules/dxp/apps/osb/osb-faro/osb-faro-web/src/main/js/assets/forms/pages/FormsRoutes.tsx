@@ -13,11 +13,8 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const FormsDashboardPage = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "FormsDashboardPage" */ './FormsDashboardPage'
-		)
+const Dashboard = lazy(
+	() => import(/* webpackChunkName: "FormsDashboard" */ './Dashboard')
 );
 const FormsKnownIndividualsPage = lazy(
 	() =>
@@ -98,7 +95,7 @@ const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={FormsDashboardPage}
+								data={Dashboard}
 								destructured={false}
 								exact
 								path={Routes.ASSETS_FORMS_DASHBOARD}

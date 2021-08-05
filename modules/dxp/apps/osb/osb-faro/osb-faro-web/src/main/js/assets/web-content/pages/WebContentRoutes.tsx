@@ -13,11 +13,9 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const WebContentDashboardPage = lazy(
+const Dashboard = lazy(
 	() =>
-		import(
-			/* webpackChunkName: "WebContentDashboardPage" */ './WebContentDashboardPage'
-		)
+		import(/* webpackChunkName: "WebContentDashboardPage" */ './Dashboard')
 );
 const WebContentKnownIndividualsPage = lazy(
 	() =>
@@ -101,7 +99,7 @@ const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={WebContentDashboardPage}
+								data={Dashboard}
 								destructured={false}
 								exact
 								path={Routes.ASSETS_WEB_CONTENT_DASHBOARD}

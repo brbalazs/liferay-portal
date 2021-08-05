@@ -13,10 +13,10 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const DocumentsAndMediaDashboardPage = lazy(
+const Dashboard = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DocumentsAndMediaDashboardPage" */ './DocumentsAndMediaDashboardPage'
+			/* webpackChunkName: "DocumentsAndMediaDashboardPage" */ './Dashboard'
 		)
 );
 const DocumentsAndMediaKnownIndividualsPage = lazy(
@@ -102,7 +102,7 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={DocumentsAndMediaDashboardPage}
+								data={Dashboard}
 								destructured={false}
 								exact
 								path={

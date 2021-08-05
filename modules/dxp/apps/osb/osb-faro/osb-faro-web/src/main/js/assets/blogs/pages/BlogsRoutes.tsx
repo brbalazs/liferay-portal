@@ -13,11 +13,8 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
-const BlogsDashboardPage = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "BlogsDashboardPage" */ './BlogsDashboardPage'
-		)
+const Dashboard = lazy(
+	() => import(/* webpackChunkName: "BlogsDashboardPage" */ './Dashboard')
 );
 const BlogsKnownIndividualsPage = lazy(
 	() =>
@@ -103,7 +100,7 @@ const BlogsRoutes: React.FC<IBlogsRoutesProps> = ({className, router}) => {
 					<Suspense fallback={<Loading />}>
 						<Switch>
 							<BundleRouter
-								data={BlogsDashboardPage}
+								data={Dashboard}
 								destructured={false}
 								exact
 								path={Routes.ASSETS_BLOGS_DASHBOARD}
