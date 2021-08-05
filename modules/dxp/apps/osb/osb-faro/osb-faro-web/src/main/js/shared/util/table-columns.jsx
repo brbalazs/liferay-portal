@@ -694,20 +694,17 @@ export const metricsListColumns = {
 		),
 		label: Liferay.Language.get('added')
 	}),
-	getNameEmail: ({channelId, groupId, rangeKey, route}) => ({
+	getNameEmail: ({channelId, groupId, route}) => ({
 		accessor: 'name',
 		cellRenderer: NameCell,
 		cellRendererProps: {
 			renderSecondaryInfo: ({email}) => <TextTruncate title={email} />,
 			routeFn: ({data: {id}}) =>
-				setUriQueryValues(
-					pickBy({rangeKey}),
-					toRoute(route, {
-						channelId,
-						groupId,
-						id
-					})
-				)
+				toRoute(route, {
+					channelId,
+					groupId,
+					id
+				})
 		},
 		className: 'table-cell-expand',
 		label: Liferay.Language.get('name-email'),
