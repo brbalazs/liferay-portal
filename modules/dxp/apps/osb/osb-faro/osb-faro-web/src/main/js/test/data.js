@@ -709,19 +709,38 @@ export function mockMapping(seed = 0, data = {}) {
 	};
 }
 
-export function mockActivity(seed = 0, data = {}, actionData) {
+export function mockSession(seed = 0, data = {}, actionData) {
 	return {
-		activities: times(seed + (1 % 10), i => mockAction(i, actionData)),
+		browserName: 'Chrome',
+		completedDate: getTimestamp() + 10000000,
+		createDate: getTimestamp(),
 		day: getTimestamp(),
-		endTime: getTimestamp() + 10000000,
+		events: times(seed + (1 % 10), i => mockEvent(i, actionData)),
 		id: `activity_id_${seed}`,
 		name: `activity_${seed}`,
-		startTime: getTimestamp(),
 		...data
 	};
 }
 
-export function mockActivityDeprecated(seed = 0, data = {}, actionData) {
+export function mockAction(seed = 0, data = {}) {
+	return {
+		action: ActivityActions.Visits,
+		activityKey: `key_${seed}`,
+		assetType: AssetTypes.Form,
+		canonicalUrl: `https://www.liferay${seed}.com`,
+		dataSourceAssetPK: String(seed),
+		day: seed,
+		eventId: String(seed),
+		groupName: `group_${seed}`,
+		id: `action_${seed}`,
+		name: `Asset ${seed}`,
+		startTime: seed + 100000,
+		url: `https://www.liferay${seed}.com`,
+		...data
+	};
+}
+
+export function mockActivity(seed = 0, data = {}, actionData) {
 	return {
 		activities: times(seed + (1 % 10), i => mockAction(i, actionData)),
 		day: getTimestamp(),
@@ -752,21 +771,16 @@ export function mockActivityHistory(data = {}) {
 	};
 }
 
-export function mockAction(seed = 0, data = {}) {
+export function mockEvent(seed = 0) {
 	return {
-		action: ActivityActions.Visits,
-		activityKey: `key_${seed}`,
-		assetType: AssetTypes.Form,
 		canonicalUrl: `https://www.liferay${seed}.com`,
-		dataSourceAssetPK: String(seed),
-		day: seed,
-		eventId: String(seed),
-		groupName: `group_${seed}`,
-		id: `action_${seed}`,
+		createDate: seed + 100000,
 		name: `Asset ${seed}`,
-		startTime: seed + 100000,
-		url: `https://www.liferay${seed}.com`,
-		...data
+		pageDescription: 'Page Description',
+		pageKeywords: '',
+		pageTitle: 'Page Title',
+		referrer: 'www.liferay.com',
+		url: `https://www.liferay${seed}.com`
 	};
 }
 
@@ -946,6 +960,76 @@ export function mockRecommendationJob(seed = 0, data = {}) {
 		...data
 	};
 }
+
+export const mockSessions = () => ({
+	eventsByUserSessions: {
+		totalEvents: 4,
+		userSessions: [
+			{
+				browserName: 'Firefox',
+				completeDate: null,
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				deviceType: 'Desktop',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			},
+			{
+				browserName: 'Firefox',
+				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
+				deviceType: 'Desktop',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			}
+		]
+	}
+});
 
 export function mockSite(seed = 0, data = {}) {
 	return {
