@@ -511,12 +511,16 @@ definition {
 
 	@priority = "4"
 	test ViewLocaleInNewVirtualInstance {
+		property test.name.skip.portal.instance = "Locale#ViewLocaleInNewVirtualInstance";
+
 		User.firstLoginPG();
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Instance Settings");
+
+		PortalSettings.configureCurrentLanguagesCP(currentPortalLanguages = "English (United States),Italian (Italy)");
 
 		PortalSettings.configureCurrentLanguagesCP(defaultPortalLanguage = "Italian (Italy)");
 
