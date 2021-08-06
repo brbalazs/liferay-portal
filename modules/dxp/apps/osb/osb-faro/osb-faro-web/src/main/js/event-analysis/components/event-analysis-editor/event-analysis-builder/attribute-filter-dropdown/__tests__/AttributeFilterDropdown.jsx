@@ -4,7 +4,7 @@ import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
-import {fireEvent, render} from '@testing-library/react';
+import {fireEvent, render, waitForElement} from '@testing-library/react';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventAttributeDefinitionsReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
@@ -40,7 +40,7 @@ describe('AttributeFilterDropdown', () => {
 		</ApolloProvider>
 	);
 
-	it('render', () => {
+	it('render', async () => {
 		const {container, getByTestId} = render(<WrappedComponent />);
 
 		fireEvent.click(getByTestId('target'));
@@ -48,6 +48,8 @@ describe('AttributeFilterDropdown', () => {
 		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
+
+		await waitForElement(() => container.querySelector('.dropdown'));
 
 		const dropdownMenu = document.body.getElementsByClassName(
 			'base-dropdown-menu-root'
@@ -60,8 +62,8 @@ describe('AttributeFilterDropdown', () => {
 		).toBeEmpty();
 	});
 
-	it('render w/ selected attribute', () => {
-		const {getByTestId} = render(
+	it('render w/ selected attribute', async () => {
+		const {container, getByTestId} = render(
 			<WrappedComponent
 				attribute={{
 					dataType: 'STRING',
@@ -76,19 +78,23 @@ describe('AttributeFilterDropdown', () => {
 
 		jest.runAllTimers();
 
+		await waitForElement(() => container.querySelector('.dropdown'));
+
 		expect(
 			document.body.getElementsByClassName('dropdown-item active').length
 		).toBe(1);
 	});
 
-	it('render w/ disabled attributes', () => {
-		const {getByTestId} = render(
+	it('render w/ disabled attributes', async () => {
+		const {container, getByTestId} = render(
 			<WrappedComponent disabledIds={['1', '2']} />
 		);
 
 		fireEvent.click(getByTestId('target'));
 
 		jest.runAllTimers();
+
+		await waitForElement(() => container.querySelector('.dropdown'));
 
 		expect(
 			document.body.getElementsByClassName('dropdown-item disabled')

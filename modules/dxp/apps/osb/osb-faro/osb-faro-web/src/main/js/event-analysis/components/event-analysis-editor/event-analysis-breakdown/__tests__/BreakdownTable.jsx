@@ -1,39 +1,14 @@
-jest.mock('test/data', () => ({
-	getDummyBreakdownData: jest.fn(() => ({
-		breakdownItems: [
-			{
-				breakdownItems: [
-					{
-						breakdownItems: [
-							{
-								name: 'All Individuals',
-								previousValue: 2633,
-								value: 1717
-							}
-						],
-						isLeafNode: true,
-						name: 'View Article',
-						previousValue: 5033,
-						value: 3367
-					}
-				],
-				isLeafNode: false,
-				name: 'articleTitle [0]',
-				previousValue: 5033,
-				value: 3367
-			}
-		],
-		count: 1,
-		totalEvents: 5033
-	}))
-}));
-
 import BreakdownTable from '../index';
 import React from 'react';
-import {AttributesContext} from '../../context/attributes';
-import {getDummyBreakdownData} from 'test/data';
+import {
+	AttributesContext,
+	withAttributesProvider
+} from '../../context/attributes';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockEventAnalysisQueryReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
+import {waitForTable} from 'test/helpers';
 
 const initialAttributes = {
 	attributes: {
@@ -48,9 +23,9 @@ const initialAttributes = {
 	breakdowns: {
 		111: {
 			attributeId: '1',
+			attributeType: 'EVENT',
 			dataType: 'boolean',
-			id: '111',
-			type: 'event'
+			id: '111'
 		}
 	},
 	filterOrder: ['123'],
@@ -59,64 +34,112 @@ const initialAttributes = {
 			attributeId: '1',
 			id: '123',
 			operator: 'eq',
-			value: ['true']
+			values: ['true']
 		}
 	}
 };
 
+const breakdownItems = [
+	{
+		__typename: 'BreakdownItem',
+		breakdownItems: [
+			{
+				__typename: 'BreakdownItem',
+				breakdownItems: [
+					{
+						__typename: 'BreakdownItem',
+						breakdownItems: [],
+						leafNode: false,
+						name: 'All Individuals',
+						previousValue: 2633,
+						value: 1717
+					}
+				],
+				leafNode: true,
+				name: 'View Article',
+				previousValue: 5033,
+				value: 3367
+			}
+		],
+		leafNode: false,
+		name: 'articleTitle [0]',
+		previousValue: 5033,
+		value: 3367
+	}
+];
+
 jest.unmock('react-dom');
 
 describe('BreakdownTable', () => {
-	const event = {name: 'View Article'};
+	const event = {id: '1', name: 'View Article'};
 
-	it('render', () => {
-		const {container} = render(
-			<StaticRouter>
-				<AttributesContext.Provider value={initialAttributes}>
+	const WrappedComponent = props => (
+		<StaticRouter>
+			<AttributesContext.Provider value={initialAttributes}>
+				<MockedProvider
+					mocks={[
+						mockEventAnalysisQueryReq(breakdownItems, {
+							eventAnalysisBreakdowns: Object.values(
+								initialAttributes.breakdowns
+							),
+							eventAnalysisFilters: Object.values(
+								initialAttributes.filters
+							)
+						})
+					]}
+				>
 					<BreakdownTable
+						channelId='123'
 						compareToPrevious
 						event={event}
 						rangeSelectors={{
 							rangeKey: '30'
 						}}
+						type='TOTAL'
+						{...props}
 					/>
-				</AttributesContext.Provider>
-			</StaticRouter>
-		);
+				</MockedProvider>
+			</AttributesContext.Provider>
+		</StaticRouter>
+	);
+
+	it('render', async () => {
+		const {container} = render(<WrappedComponent />);
+		jest.runAllTimers();
+
+		await waitForTable(container);
 
 		expect(container).toMatchSnapshot();
 	});
 
-	it('render with single event', () => {
-		getDummyBreakdownData.mockReturnValueOnce({
-			breakdownItems: [
-				{
-					breakdownItems: [
-						{
-							name: 'All Individuals',
-							previousValue: 2633,
-							value: 1717
-						}
-					],
-					isLeafNode: true,
-					name: 'View Article',
-					previousValue: 5033,
-					value: 3367
-				}
-			],
-			count: 1,
-			totalEvents: 5033
-		});
+	it('render with single event', async () => {
+		const BreakdownWithProvider = withAttributesProvider(BreakdownTable);
 
 		const {container} = render(
-			<BreakdownTable
-				compareToPrevious
-				event={event}
-				rangeSelectors={{
-					rangeKey: '30'
-				}}
-			/>
+			<StaticRouter>
+				<MockedProvider
+					mocks={[
+						mockEventAnalysisQueryReq(breakdownItems, {
+							eventAnalysisBreakdowns: [],
+							eventAnalysisFilters: []
+						})
+					]}
+				>
+					<BreakdownWithProvider
+						channelId='123'
+						compareToPrevious
+						event={event}
+						rangeSelectors={{
+							rangeKey: '30'
+						}}
+						type='TOTAL'
+					/>
+				</MockedProvider>
+			</StaticRouter>
 		);
+		jest.runAllTimers();
+
+		await waitForTable(container);
 
 		expect(container).toMatchSnapshot();
 	});

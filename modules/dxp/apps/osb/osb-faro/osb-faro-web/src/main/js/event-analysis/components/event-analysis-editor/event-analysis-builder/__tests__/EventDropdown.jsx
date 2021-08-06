@@ -4,7 +4,7 @@ import EventDropdown from '../EventDropdown';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
-import {fireEvent, render} from '@testing-library/react';
+import {fireEvent, render, waitForElement} from '@testing-library/react';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventDefinitionsReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
@@ -44,7 +44,7 @@ describe('EventDropdown', () => {
 		</ApolloProvider>
 	);
 
-	it('render', () => {
+	it('render', async () => {
 		const {container, getByTestId} = render(<WrappedComponent />);
 
 		fireEvent.click(getByTestId('target'));
@@ -52,6 +52,8 @@ describe('EventDropdown', () => {
 		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
+
+		await waitForElement(() => container.querySelector('.dropdown'));
 
 		const dropdownMenu = document.body.getElementsByClassName(
 			'base-dropdown-menu-root'
@@ -64,12 +66,16 @@ describe('EventDropdown', () => {
 		).toBeEmpty();
 	});
 
-	it('render with selected event', () => {
-		const {getByTestId} = render(<WrappedComponent eventId='3' />);
+	it('render with selected event', async () => {
+		const {container, getByTestId} = render(
+			<WrappedComponent eventId='3' />
+		);
 
 		fireEvent.click(getByTestId('target'));
 
 		jest.runAllTimers();
+
+		await waitForElement(() => container.querySelector('.dropdown'));
 
 		expect(
 			document.body.getElementsByClassName('dropdown-item active').length
