@@ -193,7 +193,6 @@ public class GroupServiceTest {
 		testUpdateDisplaySettings(
 			_group.getGroupId(), Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US),
 			Arrays.asList(LocaleUtil.US), LocaleUtil.US, false);
-
 		testUpdateDisplaySettings(
 			_group.getGroupId(), Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US),
 			Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US), LocaleUtil.US,
