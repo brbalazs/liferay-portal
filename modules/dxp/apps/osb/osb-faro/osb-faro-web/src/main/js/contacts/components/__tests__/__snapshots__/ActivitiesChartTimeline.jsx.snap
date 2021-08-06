@@ -91,7 +91,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
         </nav>
       </div>
       <div
-        class="vertical-timeline-root"
+        class="vertical-timeline-root-deprecated"
       >
         <div
           class="timeline-header"
