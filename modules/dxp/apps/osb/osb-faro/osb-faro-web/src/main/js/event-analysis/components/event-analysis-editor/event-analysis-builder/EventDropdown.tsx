@@ -44,6 +44,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 	const result = useQuery<EventDefinitionsData | EventDefinitionsVariables>(
 		EVENT_DEFINITIONS_QUERY,
 		{
+			fetchPolicy: 'network-only',
 			variables: {
 				eventType,
 				hidden: false,

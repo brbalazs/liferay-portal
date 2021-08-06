@@ -71,6 +71,7 @@ const fetchPropertyGroups = ({
 		// TODO: LRAC-8210 Remove for release 3.1
 		DEVELOPER_MODE
 			? client.query({
+					fetchPolicy: 'network-only',
 					query: EventDefinitionsQuery,
 					variables: {
 						eventType: EventTypes.Custom,

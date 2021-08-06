@@ -61,6 +61,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 		EventAttributeDefinitionsData,
 		EventAttributeDefinitionsVariables
 	>(EVENT_ATTRIBUTE_DEFINITIONS_QUERY, {
+		fetchPolicy: 'network-only',
 		variables: {
 			eventDefinitionId: eventId,
 			keyword: '',

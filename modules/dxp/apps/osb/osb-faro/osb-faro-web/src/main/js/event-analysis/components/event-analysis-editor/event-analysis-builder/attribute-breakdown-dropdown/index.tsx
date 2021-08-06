@@ -65,6 +65,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 		EventAttributeDefinitionsData,
 		EventAttributeDefinitionsVariables
 	>(EventAttributeDefinitionsQuery, {
+		fetchPolicy: 'network-only',
 		variables: {
 			eventDefinitionId: eventId,
 			keyword: '',
