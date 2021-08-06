@@ -128,7 +128,7 @@ const statefulPaginationReducer = (state: State, {payload, type}: Action) => {
 };
 
 export default function useStatefulPagination(
-	mapPropsFn,
+	mapPropsFn = undefined,
 	defaultPaginationProps = {}
 ): statefulPaginationResult {
 	const paginationProps = {

@@ -222,7 +222,8 @@ export const createBooleanBreakdown = ({
 }): Breakdown => ({
 	attributeId,
 	attributeType,
-	dataType: DataTypes.Boolean
+	dataType: DataTypes.Boolean,
+	sortType: 'ASC'
 });
 
 export const createDateBreakdown = ({
@@ -233,7 +234,8 @@ export const createDateBreakdown = ({
 	attributeId,
 	attributeType,
 	dataType: DataTypes.Date,
-	dateGrouping
+	dateGrouping,
+	sortType: 'ASC'
 });
 
 export const createDurationBreakdown = ({
@@ -244,7 +246,8 @@ export const createDurationBreakdown = ({
 	attributeId,
 	attributeType,
 	bin,
-	dataType: DataTypes.Duration
+	dataType: DataTypes.Duration,
+	sortType: 'ASC'
 });
 
 export const createNumberBreakdown = ({
@@ -255,7 +258,8 @@ export const createNumberBreakdown = ({
 	attributeId,
 	attributeType,
 	bin,
-	dataType: DataTypes.Number
+	dataType: DataTypes.Number,
+	sortType: 'ASC'
 });
 
 export const createStringBreakdown = ({
@@ -264,7 +268,8 @@ export const createStringBreakdown = ({
 }): Breakdown => ({
 	attributeId,
 	attributeType,
-	dataType: DataTypes.String
+	dataType: DataTypes.String,
+	sortType: 'ASC'
 });
 
 export const BREAKDOWN_FNS_MAP = {
@@ -277,13 +282,13 @@ export const BREAKDOWN_FNS_MAP = {
 
 export const parserBreakdownData = (
 	{breakdownItems}: BreakdownData | BreakdownDataItem,
-	rows: ParsedBreakdownData = [{} as ParsedBreakdownItem],
+	rows: ParsedBreakdownData = [{index: '0'} as ParsedBreakdownItem],
 	level: number = 1
 ): ParsedBreakdownData => {
 	breakdownItems.forEach(data => {
 		const {
 			breakdownItems: nextBreakdownItems,
-			isLeafNode: isLeafCurrentNode,
+			leafNode: isLeafCurrentNode,
 			...node
 		} = data;
 
@@ -298,7 +303,7 @@ export const parserBreakdownData = (
 		}
 
 		const isLeafNextNode =
-			nextBreakdownItems.length > 0 && nextBreakdownItems[0].isLeafNode;
+			nextBreakdownItems.length > 0 && nextBreakdownItems[0].leafNode;
 
 		Object.assign(rows[currentRowIndex], {
 			[`breakdown${level}`]: {

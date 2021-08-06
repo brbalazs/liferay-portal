@@ -77,6 +77,7 @@ export type Breakdown = {
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
 	id?: string;
+	sortType: 'ASC' | 'DESC';
 };
 
 export type Breakdowns = {[key: string]: Breakdown};
@@ -117,18 +118,19 @@ export interface IFilterProps {
 }
 
 export type BreakdownDataItem = {
+	breakdownItems?: BreakdownDataItem[];
+	leafNode: boolean;
 	name: string;
 	previousValue?: number;
 	value: number;
-	isLeafNode: boolean;
-	breakdownItems?: BreakdownDataItem[];
 };
 
 export type BreakdownData = {
-	count: number;
-	value: number;
-	page: number;
 	breakdownItems: BreakdownDataItem[];
+	count: number;
+	page: number;
+	previousValue?: number;
+	value: number;
 };
 
 export type ParsedBreakdownItem = {

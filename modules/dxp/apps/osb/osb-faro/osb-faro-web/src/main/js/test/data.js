@@ -1026,7 +1026,7 @@ export function getDummyBreakdown(i, event, breakdowns, order, currentLevel) {
 }
 
 export function getDummyBreakdowns(event, order, breakdowns, currentLevel = 1) {
-	const count = currentLevel <= 2 ? getRandom(0, 5) : 1;
+	const count = getRandom(0, 5);
 	const breakdownsArr = [];
 
 	for (let index = 0; index < count; index++) {
@@ -1076,7 +1076,7 @@ export const mockBreakdownData = (
 							  ]
 							: [])
 					],
-					isLeafNode: true,
+					leafNode: true,
 					name: 'View Article',
 					value: 3367,
 					...(comparePrevious ? {previousValue: 5033} : {})
@@ -1105,7 +1105,7 @@ export const mockBreakdownData = (
 										  ]
 										: [])
 								],
-								isLeafNode: true,
+								leafNode: true,
 								name: 'Read Article',
 								value: 1200,
 								...(comparePrevious
@@ -1115,12 +1115,14 @@ export const mockBreakdownData = (
 					  ]
 					: [])
 			],
-			isLeafNode: false,
+			leafNode: false,
 			name: 'articleTitle [0]',
 			value: 3367,
 			...(comparePrevious ? {previousValue: 5033} : {})
 		}
 	],
 	count: 1,
-	totalEvents: 5033
+	page: 1,
+	value: 5033,
+	...(comparePrevious ? {previousValue: 2400} : {})
 });

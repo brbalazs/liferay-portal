@@ -92,7 +92,8 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
-				dataType: DataTypes.Boolean
+				dataType: DataTypes.Boolean,
+				sortType: 'ASC'
 			});
 		});
 	});
@@ -111,7 +112,8 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				dataType: DataTypes.Date,
-				dateGrouping: DateGroupings.Months
+				dateGrouping: DateGroupings.Months,
+				sortType: 'ASC'
 			});
 		});
 	});
@@ -130,7 +132,8 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				bin: 60000,
-				dataType: DataTypes.Duration
+				dataType: DataTypes.Duration,
+				sortType: 'ASC'
 			});
 		});
 	});
@@ -149,7 +152,8 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				bin: 10,
-				dataType: DataTypes.Number
+				dataType: DataTypes.Number,
+				sortType: 'ASC'
 			});
 		});
 	});
@@ -164,7 +168,12 @@ describe('utils', () => {
 					attributeId,
 					attributeType
 				})
-			).toEqual({attributeId, attributeType, dataType: DataTypes.String});
+			).toEqual({
+				attributeId,
+				attributeType,
+				dataType: DataTypes.String,
+				sortType: 'ASC'
+			});
 		});
 	});
 });
