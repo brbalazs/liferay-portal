@@ -185,6 +185,22 @@ public class GroupServiceTest {
 	}
 
 	@Test
+	public void testChangeLocaleFromCurrentToAvailableAndBackAgain()
+		throws Exception {
+
+		_group = GroupTestUtil.addGroup(GroupConstants.DEFAULT_PARENT_GROUP_ID);
+
+		testUpdateDisplaySettings(
+			_group.getGroupId(), Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US),
+			Arrays.asList(LocaleUtil.US), LocaleUtil.US, false);
+
+		testUpdateDisplaySettings(
+			_group.getGroupId(), Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US),
+			Arrays.asList(LocaleUtil.SPAIN, LocaleUtil.US), LocaleUtil.US,
+			false);
+	}
+
+	@Test
 	public void testDeleteGroupRemovesSharedPortletPreferences()
 		throws Exception {
 
