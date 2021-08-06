@@ -18,7 +18,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({tabId, ...props}) => (
 			showRangeKey: false,
 			tabId
 		}}
-		label={Liferay.Language.get('individual-activities')}
+		label={Liferay.Language.get('individual-events')}
 		legacyDropdownRangeKey={false}
 		showInterval={false}
 	>

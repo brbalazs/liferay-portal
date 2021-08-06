@@ -2,14 +2,19 @@ import * as API from 'shared/api';
 import ActivitiesChart from '../../../components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants, {EntityTypes} from 'shared/util/constants';
+import client from 'shared/apollo/client';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import IntervalSelector from 'shared/components/IntervalSelector';
 import React, {useState} from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import SearchInput from 'shared/components/SearchInput';
+import UserSessionQuery, {
+	UserSessionData,
+	UserSessionVariables
+} from 'shared/queries/UserSessionQuery';
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
+import {EntityTypes, SessionEntityTypes} from 'shared/util/constants';
 import {
 	formatSessions,
 	getActivityLabel,
@@ -24,18 +29,14 @@ import {
 	getLastDate
 } from 'shared/util/date';
 import {getSafeChange} from 'shared/util/change';
+import {getSafeRangeSelectors} from 'shared/util/util';
 import {Individual} from 'shared/util/records';
 import {Interval, RangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {omit} from 'lodash';
-import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
 import {useRequest} from 'shared/hooks';
 import {WrapSafeResults} from 'shared/hoc/util';
-
-const {
-	pagination: {orderDescending}
-} = Constants;
 
 interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
@@ -47,37 +48,6 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	rangeSelectors: RangeSelectors;
 	tabId: string;
 	timeZoneId: string;
-}
-
-function getActivities(params) {
-	const {
-		channelId,
-		contactsEntityId,
-		delta,
-		endDate,
-		groupId,
-		page,
-		query,
-		startDate
-	} = params;
-
-	return API.activities
-		.fetchGroup({
-			channelId,
-			contactsEntityId,
-			contactsEntityType: EntityTypes.Individual,
-			cur: page,
-			delta,
-			endDate,
-			groupId,
-			orderByFields: [{fieldName: START_TIME, orderBy: orderDescending}],
-			query,
-			startDate
-		})
-		.then(({items, total}) => ({
-			items: formatSessions(items, groupId, channelId),
-			total
-		}));
 }
 
 const mapPropsFn = props => omit(props, 'onSearchValueChange');
@@ -106,6 +76,37 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		setQuery(query);
 	};
 
+	const getActivities = ({
+		channelId,
+		contactsEntityId,
+		delta,
+		page,
+		query
+	}) => {
+		const {rangeEnd, rangeKey, rangeStart} = getSafeRangeSelectors(
+			rangeSelectors
+		);
+
+		return client
+			.query<UserSessionData, UserSessionVariables>({
+				query: UserSessionQuery,
+				variables: {
+					channelId,
+					entityId: contactsEntityId,
+					entityType: SessionEntityTypes.Individual,
+					keywords: query,
+					page: page - 1,
+					rangeEnd: rangeEnd || null,
+					rangeKey: Number(rangeKey),
+					rangeStart: rangeStart || null,
+					size: delta
+				}
+			})
+			.then(({data: {userSessions}}) => ({
+				items: formatSessions(userSessions)
+			}));
+	};
+
 	const {data: activityData, error, loading, refetch} = useRequest({
 		dataSourceFn: API.activities.fetchHistory,
 		normalize: ({
@@ -123,7 +124,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 			contactsEntityType: EntityTypes.Individual,
 			groupId,
 			interval: INTERVAL_MAP[interval],
-			max: getSafeRangeKey(rangeSelectors.rangeKey),
+			max: getSafeRangeKey(rangeSelectors?.rangeKey),
 			...rangeSelectors
 		}
 	});
@@ -193,7 +194,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	};
 
 	return (
-		<Card.Body>
+		<>
 			<WrapSafeResults
 				className='flex-grow-1'
 				error={error}
@@ -205,79 +206,81 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				page={false}
 				pageDisplay={false}
 			>
-				<div className='align-items-center d-flex justify-content-end mt-3'>
-					<SearchInput
-						autoFocus
-						className='search-input mr-3'
-						onChange={setSearchValue}
-						onSubmit={handleQuery}
-						placeholder={Liferay.Language.get('search')}
-						value={searchValue}
-					/>
+				<Card.Body>
+					<div className='align-items-center d-flex justify-content-end mt-3'>
+						<SearchInput
+							autoFocus
+							className='search-input mr-3'
+							onChange={setSearchValue}
+							onSubmit={handleQuery}
+							placeholder={Liferay.Language.get('search')}
+							value={searchValue}
+						/>
 
-					<IntervalSelector
-						activeInterval={interval}
-						className='mr-3'
-						disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
-						onChange={onChangeInterval}
-					/>
+						<IntervalSelector
+							activeInterval={interval}
+							className='mr-3'
+							disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
+							onChange={onChangeInterval}
+						/>
 
-					<DropdownRangeKey
-						legacy={false}
-						onChange={onRangeSelectorsChange}
-						rangeSelectors={rangeSelectors}
-					/>
-				</div>
+						<DropdownRangeKey
+							legacy={false}
+							onChange={onRangeSelectorsChange}
+							rangeSelectors={rangeSelectors}
+						/>
+					</div>
 
-				<div className='individuals-activities-chart'>
-					<ActivitiesChart
-						alwaysShowSelectedTooltip
-						hasSelectedPoint={hasSelectedPoint}
-						history={activityData?.activityHistory}
-						interval={interval}
-						onPointSelect={handleChartSelect}
-						rangeSelectors={rangeSelectors}
-						selectedPoint={selectedPoint}
-					/>
+					<div className='individuals-activities-chart'>
+						<ActivitiesChart
+							alwaysShowSelectedTooltip
+							hasSelectedPoint={hasSelectedPoint}
+							history={activityData?.activityHistory}
+							interval={interval}
+							onPointSelect={handleChartSelect}
+							rangeSelectors={rangeSelectors}
+							selectedPoint={selectedPoint}
+						/>
 
-					<div className='selected-info'>
-						<div className='activities-date d-flex align-items-baseline'>
-							<h4>
-								{activityData?.activityHistory?.length
-									? sub(
-											Liferay.Language.get(
-												'individuals-activities-x'
-											),
-											[date]
-									  )
-									: Liferay.Language.get(
-											'individuals-activities'
-									  )}
-							</h4>
+						<div className='selected-info'>
+							<div className='activities-date d-flex align-items-baseline'>
+								<h4>
+									{activityData?.activityHistory?.length
+										? sub(
+												Liferay.Language.get(
+													'individuals-events-x'
+												),
+												[date]
+										  )
+										: Liferay.Language.get(
+												'individuals-events'
+										  )}
+								</h4>
 
-							{selected && (
-								<Button
-									display='link'
-									onClick={handleClearSelection}
-									size='sm'
-								>
-									{Liferay.Language.get(
-										'clear-date-selection'
-									)}
-								</Button>
-							)}
-						</div>
+								{selected && (
+									<Button
+										display='link'
+										onClick={handleClearSelection}
+										size='sm'
+									>
+										{Liferay.Language.get(
+											'clear-date-selection'
+										)}
+									</Button>
+								)}
+							</div>
 
-						<div className='details'>
-							{getActivityLabel(
-								(selected
-									? totalElements
-									: activityData?.activityCount
-								)?.toLocaleString()
-							)}
+							<div className='details'>
+								{getActivityLabel(
+									(selected
+										? totalElements
+										: activityData?.activityCount
+									)?.toLocaleString()
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				</Card.Body>
 
 				<SearchableVerticalTimeline
 					dataSourceFn={getActivities}
@@ -288,18 +291,13 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 						groupId
 					}}
 					entityLabel={Liferay.Language.get('activities')}
-					headerLabels={{
-						count: Liferay.Language.get('activity-count'),
-						label: Liferay.Language.get('time'),
-						title: Liferay.Language.get('session')
-					}}
 					initialExpanded={false}
 					query={query}
 					timeZoneId={timeZoneId}
 					{...statefulProps}
 				/>
 			</WrapSafeResults>
-		</Card.Body>
+		</>
 	);
 };
 
