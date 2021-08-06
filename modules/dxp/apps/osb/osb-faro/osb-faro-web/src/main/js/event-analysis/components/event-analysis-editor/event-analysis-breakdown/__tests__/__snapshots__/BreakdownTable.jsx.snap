@@ -28,9 +28,7 @@ exports[`BreakdownTable render 1`] = `
                   <div>
                     <span
                       class="breakdown-category"
-                    >
-                      event
-                    </span>
+                    />
                     Boolean Name
                   </div>
                 </span>
@@ -39,30 +37,12 @@ exports[`BreakdownTable render 1`] = `
             <th
               class="table-head-title"
             >
-              <button
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                type="button"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  Events
-                </span>
-              </button>
+              Events
             </th>
             <th
               class="table-head-title"
             >
-              <button
-                class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                type="button"
-              >
-                <span
-                  class="text-truncate"
-                >
-                  % of View Article
-                </span>
-              </button>
+              % of View Article
             </th>
           </tr>
         </thead>
@@ -219,8 +199,10 @@ exports[`BreakdownTable render 1`] = `
           <li
             class="page-item disabled"
           >
-            <a
-              class="button-root btn btn-unstyled page-link link-disabled"
+            <button
+              class="button-root btn btn-unstyled page-link"
+              disabled=""
+              type="button"
             >
               <svg
                 class="icon-root lexicon-icon lexicon-icon-angle-left"
@@ -230,23 +212,25 @@ exports[`BreakdownTable render 1`] = `
                   xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                 />
               </svg>
-            </a>
+            </button>
           </li>
           <li
             class="page-item active"
           >
-            <a
+            <button
               class="button-root btn btn-unstyled page-link"
-              href="/?page=1"
+              type="button"
             >
               1
-            </a>
+            </button>
           </li>
           <li
             class="page-item disabled"
           >
-            <a
-              class="button-root btn btn-unstyled page-link link-disabled"
+            <button
+              class="button-root btn btn-unstyled page-link"
+              disabled=""
+              type="button"
             >
               <svg
                 class="icon-root lexicon-icon lexicon-icon-angle-right"
@@ -256,7 +240,7 @@ exports[`BreakdownTable render 1`] = `
                   xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                 />
               </svg>
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -265,4 +249,87 @@ exports[`BreakdownTable render 1`] = `
 </div>
 `;
 
-exports[`BreakdownTable render with single event 1`] = `<div />`;
+exports[`BreakdownTable render with single event 1`] = `
+<div>
+  <div
+    class="breakdown-table-root breakdown-single-event"
+  >
+    <div
+      class="table-responsive table-root bar-comparison-root"
+    >
+      <table
+        class="table"
+      >
+        <thead>
+          <tr>
+            <th
+              class="table-head-title table-column-event-name"
+            >
+              Event Name
+            </th>
+            <th
+              class="table-head-title"
+            >
+              Total Events
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class="table-column-event-name"
+            >
+              View Article
+            </td>
+            <td>
+              <div
+                class="metric-bar-root breakdown-table-bar"
+              >
+                <div
+                  class="bar bar-primary bar-default"
+                  style="width: 67%; background-color: rgb(24, 127, 255);"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="ml-2"
+                  >
+                    3,367
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="table-column-event-name"
+            >
+              Previous Value
+            </td>
+            <td>
+              <div
+                class="metric-bar-root breakdown-table-bar"
+              >
+                <div
+                  class="bar lines bar-primary bar-default"
+                  style="width: 100%; background-color: rgb(151, 197, 255);"
+                />
+                <div
+                  class="info-wrapper align-items-center d-flex justify-content-between"
+                >
+                  <span
+                    class="ml-2"
+                  >
+                    5,033
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
