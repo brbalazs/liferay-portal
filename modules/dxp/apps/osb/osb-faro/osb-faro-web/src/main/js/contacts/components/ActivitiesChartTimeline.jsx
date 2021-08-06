@@ -6,8 +6,11 @@ import Card from 'shared/components/Card';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
-import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import {formatSessions, getActivityLabel} from 'shared/util/activities';
+import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimelineDeprecated';
+import {
+	formatSessions,
+	getActivityLabel
+} from 'shared/util/activitiesDeprecated';
 import {
 	getDateRangeLabel,
 	getDateRangeLabelFromDate,

@@ -13,7 +13,7 @@ const activityHistory = Array.from({length: 30}, (_, i) => ({
 Object.assign(API.activities, {
 	fetchGroup: () =>
 		Promise.resolve({
-			items: [data.mockActivity(2)],
+			items: [data.mockSession(2)],
 			total: 1
 		})
 });

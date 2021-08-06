@@ -721,6 +721,18 @@ export function mockActivity(seed = 0, data = {}, actionData) {
 	};
 }
 
+export function mockActivityDeprecated(seed = 0, data = {}, actionData) {
+	return {
+		activities: times(seed + (1 % 10), i => mockAction(i, actionData)),
+		day: getTimestamp(),
+		endTime: getTimestamp() + 10000000,
+		id: `activity_id_${seed}`,
+		name: `activity_${seed}`,
+		startTime: getTimestamp(),
+		...data
+	};
+}
+
 export function mockActivityHistory(data = {}) {
 	return {
 		activityAggregations: [

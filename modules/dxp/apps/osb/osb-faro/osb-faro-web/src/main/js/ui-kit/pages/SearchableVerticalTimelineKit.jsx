@@ -1,8 +1,8 @@
 import * as data from 'test/data';
 import Promise from 'metal-promise';
 import React from 'react';
-import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import {formatSessions} from 'shared/util/activities';
+import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimelineDeprecated';
+import {formatSessions} from 'shared/util/activitiesDeprecated';
 
 const dataSourceFn = ({channelId, groupId}) =>
 	Promise.resolve(data.mockSearch(data.mockActivity, 2)).then(

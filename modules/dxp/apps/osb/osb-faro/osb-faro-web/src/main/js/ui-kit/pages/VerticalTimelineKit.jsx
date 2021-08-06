@@ -1,6 +1,6 @@
 import React from 'react';
 import Row from '../components/Row';
-import VerticalTimeline from 'shared/components/VerticalTimeline';
+import VerticalTimeline from 'shared/components/VerticalTimelineDeprecated';
 import {Link} from 'react-router-dom';
 
 const NESTED_ITEMS = [
@@ -29,7 +29,7 @@ const NESTED_ITEMS = [
 const ITEMS = [
 	{
 		header: true,
-		title: 'Today'
+		title: 'Aug 19, 2021'
 	},
 	{
 		subtitle: [
@@ -82,11 +82,26 @@ export default class VerticalTimelineKit extends React.Component {
 				}
 			>
 				<Row>
-					<VerticalTimeline items={ITEMS} />
+					<VerticalTimeline
+						headerLabels={{
+							count: Liferay.Language.get('activity-count'),
+							label: Liferay.Language.get('time'),
+							title: Liferay.Language.get('session')
+						}}
+						items={ITEMS}
+					/>
 				</Row>
 
 				<Row>
-					<VerticalTimeline initialExpanded={false} items={ITEMS} />
+					<VerticalTimeline
+						headerLabels={{
+							count: Liferay.Language.get('activity-count'),
+							label: Liferay.Language.get('time'),
+							title: Liferay.Language.get('session')
+						}}
+						initialExpanded={false}
+						items={ITEMS}
+					/>
 				</Row>
 			</div>
 		);
