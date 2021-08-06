@@ -192,7 +192,11 @@ public class FilterBuilder {
 				sb, _requiredFilters, FilterConstants.LOGICAL_OPERATOR_AND);
 		}
 
-		return sb.toString();
+		if (sb.length() > 0) {
+			return sb.toString();
+		}
+
+		return null;
 	}
 
 	@Override
