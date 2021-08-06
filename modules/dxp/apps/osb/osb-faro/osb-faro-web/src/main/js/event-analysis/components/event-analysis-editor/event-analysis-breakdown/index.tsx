@@ -7,10 +7,11 @@ import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
 import React from 'react';
 import Table from 'shared/components/table';
+import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
 import {
 	Attributes,
-	BreakdownDataItem,
+	BreakdownData,
 	Breakdowns,
 	CalculationTypes,
 	Event,
@@ -18,7 +19,6 @@ import {
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {get, isNil} from 'lodash';
-import {getDummyBreakdownData, getDummyEvent} from 'test/data';
 import {
 	getMaxEventValue,
 	parserBreakdownData
@@ -58,29 +58,28 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	rangeSelectors,
 	type
 }) => {
+	const {delta, page, setDelta, setPage} = useStatefulPagination();
+
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
 		EventAnalysisQuery,
 		{
+			fetchPolicy: 'network-only',
 			variables: {
 				analysisType: type,
 				channelId,
+				compareToPrevious,
+				eventAnalysisBreakdowns: Object.values(breakdowns),
 				eventAnalysisFilters: Object.values(filters),
 				eventDefinitionId: event.id,
+				page,
+				size: delta,
 				...getSafeRangeSelectors(rangeSelectors)
 			}
 		}
 	);
 
-	const parseData = ({count, value}) => {
-		const mockData = getDummyBreakdownData(
-			event,
-			attributes,
-			breakdownOrder
-		);
-
-		const items = breakdownOrder.length
-			? parserBreakdownData(mockData)
-			: getDummyEvent(event, value, value);
+	const parseData = (data: BreakdownData) => {
+		const items = parserBreakdownData(data);
 
 		const highestValue = getMaxEventValue(items, compareToPrevious);
 
@@ -91,12 +90,12 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			event,
 			highestValue,
 			order: breakdownOrder,
-			value
+			value: data.value
 		});
 
 		return {
 			columns,
-			count,
+			count: data.count,
 			highestValue,
 			items
 		};
@@ -119,7 +118,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 							<BarComparisonCell
 								compareToPrevious={compareToPrevious}
 								event={event}
-								events={items as BreakdownDataItem[]}
+								events={items[0].events}
 								topValue={highestValue}
 							/>
 						) : (
@@ -128,6 +127,10 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 								columns={columns}
 								internalSort
 								items={items}
+								paginationProps={{
+									onDeltaChange: setDelta,
+									onPageChange: setPage
+								}}
 								rowIdentifier='index'
 								total={count}
 							/>
@@ -153,10 +156,15 @@ const getColumns = ({
 
 		return {
 			cellRenderer: ({className, data}) => {
-				const dataValue = get(data, `breakdown${i + 1}`);
 				const dataEvents = get(data, 'events');
+				const dataValue = get(data, `breakdown${i + 1}`);
+				const nextDataValue = get(data, `breakdown${i + 2}`);
 
-				if (isNil(dataValue) && isNil(dataEvents)) {
+				if (
+					isNil(dataValue) &&
+					isNil(dataEvents) &&
+					isNil(nextDataValue)
+				) {
 					return (
 						<td
 							className={getCN(
@@ -221,7 +229,8 @@ const getColumns = ({
 				</td>
 			);
 		},
-		label: Liferay.Language.get('events')
+		label: Liferay.Language.get('events'),
+		sortable: false
 	});
 
 	columns.push({
@@ -236,7 +245,8 @@ const getColumns = ({
 		),
 		label: sub(Liferay.Language.get('percent-of-x'), [
 			event.displayName || event.name
-		])
+		]),
+		sortable: false
 	});
 
 	return columns;
