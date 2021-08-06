@@ -248,11 +248,11 @@ export function getActivityLabel(totalElements: number): React.ReactNode[] {
 function getAssetRoute(assetType: string): string {
 	switch (assetType) {
 		case AssetTypes.Blog:
-			return Routes.ASSETS_BLOGS_DASHBOARD;
+			return Routes.ASSETS_BLOGS_OVERVIEW;
 		case AssetTypes.Document:
-			return Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD;
+			return Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW;
 		case AssetTypes.Form:
-			return Routes.ASSETS_FORMS_DASHBOARD;
+			return Routes.ASSETS_FORMS_OVERVIEW;
 		case AssetTypes.WebPage:
 			return Routes.SITES_TOUCHPOINTS_OVERVIEW;
 		default:
