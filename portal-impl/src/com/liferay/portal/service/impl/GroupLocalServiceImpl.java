@@ -3992,8 +3992,10 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		if (Validator.isNotNull(newLanguageIds)) {
 			Group companyGroup = getCompanyGroup(group.getCompanyId());
+
 			UnicodeProperties oldTypeSettingsProperties =
 				group.getTypeSettingsProperties();
+
 			String oldLanguageIds = oldTypeSettingsProperties.getProperty(
 				PropsKeys.LOCALES, StringPool.BLANK);
 
