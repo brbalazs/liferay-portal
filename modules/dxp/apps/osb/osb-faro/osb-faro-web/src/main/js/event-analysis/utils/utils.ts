@@ -280,6 +280,18 @@ export const BREAKDOWN_FNS_MAP = {
 	[DataTypes.String]: createStringBreakdown
 };
 
+export const getRowSpan = (breakdownItems: BreakdownDataItem[]): number => {
+	let rowSpan = breakdownItems.length || 1;
+
+	breakdownItems.forEach(({breakdownItems, leafNode}) => {
+		if (!leafNode) {
+			rowSpan = rowSpan + (getRowSpan(breakdownItems) - 1);
+		}
+	});
+
+	return rowSpan;
+};
+
 export const parserBreakdownData = (
 	{breakdownItems}: BreakdownData | BreakdownDataItem,
 	rows: ParsedBreakdownData = [{index: '0'} as ParsedBreakdownItem],
@@ -310,11 +322,15 @@ export const parserBreakdownData = (
 				...node,
 				rowSpan:
 					!isLeafCurrentNode && !isLeafNextNode
-						? nextBreakdownItems.length
+						? getRowSpan(nextBreakdownItems)
 						: 1
 			},
 			index: currentRowIndex
 		});
+
+		if (!nextBreakdownItems.length) {
+			rows.push({} as ParsedBreakdownItem);
+		}
 
 		if (!isLeafNextNode) {
 			parserBreakdownData(data, rows, level + 1);
@@ -327,7 +343,9 @@ export const parserBreakdownData = (
 		}
 	});
 
-	return rows.filter(obj => Object.keys(obj).length !== 0);
+	return level === 1 && !breakdownItems.length
+		? rows
+		: rows.filter(obj => Object.keys(obj).length !== 0);
 };
 
 export const getMaxEventValue = (parsedData, compareToPrevious: boolean) =>
