@@ -4,7 +4,7 @@ import FormAbandonmentCard from '../hocs/FormAbandonmentCard';
 import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
-import TouchpointsListCard from '../../shared/hocs/TouchpointsListCard';
+import TouchpointsListCard from '../../hocs/TouchpointsListCard';
 
 const Overview = () => (
 	<>
