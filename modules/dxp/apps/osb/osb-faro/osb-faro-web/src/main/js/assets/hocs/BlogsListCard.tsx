@@ -1,4 +1,4 @@
-import BlogsListQuery from '../queries/BlogsListQuery';
+import BlogsListQuery from 'shared/queries/BlogsListQuery';
 import Card from 'shared/components/Card';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';

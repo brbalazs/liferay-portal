@@ -2,7 +2,7 @@ import Card from 'shared/components/Card';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
-import WebContentListQuery from '../queries/WebContentListQuery';
+import WebContentListQuery from 'shared/queries/WebContentListQuery';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';

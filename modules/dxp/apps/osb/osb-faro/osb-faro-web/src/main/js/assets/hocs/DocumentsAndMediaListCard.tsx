@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import DocumentsAndMediaListQuery from '../queries/DocumentsAndMediaListQuery';
+import DocumentsAndMediaListQuery from 'shared/queries/DocumentsAndMediaListQuery';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';

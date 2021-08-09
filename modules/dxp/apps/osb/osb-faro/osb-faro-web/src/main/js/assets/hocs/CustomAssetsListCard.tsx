@@ -1,8 +1,9 @@
 import Card from 'shared/components/Card';
-import CustomAssetsListQuery from '../queries/CustomAssetsListQuery';
+import CustomAssetsListQuery from 'shared/queries/CustomAssetsListQuery';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {MODIFIED_DATE} from 'shared/util/pagination';
@@ -38,7 +39,7 @@ const TableWithData = withBaseResults(withData, {
 	getColumns: ({
 		router: {
 			params: {channelId, groupId},
-			query: {rangeKey}
+			query
 		},
 		timeZoneId
 	}) => [
@@ -48,7 +49,7 @@ const TableWithData = withBaseResults(withData, {
 			label: `${Liferay.Language.get('asset')} | ${Liferay.Language.get(
 				'id'
 			).toUpperCase()}`,
-			rangeKey,
+			rangeSelectors: getRangeSelectorsFromQuery(query),
 			route: Routes.ASSETS_CUSTOM_DASHBOARD
 		}),
 		metricsListColumns.modifiedDate,

@@ -103,7 +103,7 @@ const TouchpointRoutes = lazy(() =>
 /* Assets - Blogs */
 
 const AssetsList = lazy(() =>
-	import(/* webpackChunkName: "AssetsList" */ 'assets/index')
+	import(/* webpackChunkName: "AssetsList" */ 'assets/pages')
 );
 
 const BlogsRoutes = lazy(() =>

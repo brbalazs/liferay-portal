@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import FormsListQuery from '../queries/FormsListQuery';
+import FormsListQuery from 'shared/queries/FormsListQuery';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
