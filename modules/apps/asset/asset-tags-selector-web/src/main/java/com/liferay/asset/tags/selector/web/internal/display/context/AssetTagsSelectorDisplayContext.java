@@ -244,7 +244,6 @@ public class AssetTagsSelectorDisplayContext {
 			return _keywords;
 		}
 
-
 		_keywords = ParamUtil.getString(_request, "keywords", null);
 
 		return _keywords;
