@@ -55,7 +55,7 @@ export function getVariables({filters, interval, params, rangeSelectors = {}}) {
 	if (assetId) {
 		variables = {
 			...variables,
-			assetId
+			assetId: decodeURIComponent(assetId)
 		};
 	}
 

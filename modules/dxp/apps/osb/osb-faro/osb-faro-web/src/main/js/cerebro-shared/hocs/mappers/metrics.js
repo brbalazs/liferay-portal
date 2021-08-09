@@ -41,7 +41,7 @@ const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 		return {
 			variables: {
 				...variables,
-				assetId: assetIdProps || params.assetId
+				assetId: decodeURIComponent(assetIdProps || params.assetId)
 			}
 		};
 	};
