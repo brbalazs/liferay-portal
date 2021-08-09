@@ -9,7 +9,8 @@ const actionHandlers = {
 	[actionTypes.FETCH_PROJECT_FAILURE]: handleError,
 	[actionTypes.FETCH_PROJECT_VIA_CORP_PROJECT_UUID_FAILURE]: handleError,
 	[actionTypes.FETCH_PROJECT_VIA_CORP_PROJECT_UUID_REQUEST]: handleLoading,
-	[actionTypes.UPDATE_PROJECT_FAILURE]: handleError,
+	[actionTypes.UPDATE_PROJECT_FAILURE]: state =>
+		state.merge({loading: false}),
 	[actionTypes.UPDATE_PROJECT_REQUEST]: handleLoading,
 	[actionTypes.UPDATE_PROJECT_SUCCESS]: (
 		state,
