@@ -100,40 +100,34 @@ const TouchpointRoutes = lazy(() =>
 	)
 );
 
-/* Assets - Blogs */
+/* Assets */
 
 const AssetsList = lazy(() =>
 	import(/* webpackChunkName: "AssetsList" */ 'assets/pages')
 );
 
-const BlogsRoutes = lazy(() =>
-	import(
-		/* webpackChunkName: "BlogsRoutes" */ 'assets/blogs/pages/BlogsRoutes'
-	)
+const Blog = lazy(() =>
+	import(/* webpackChunkName: "Blog" */ 'assets/blog/pages')
 );
 
 const CustomAssetsDashboard = lazy(() =>
 	import(
-		/* webpackChunkName: "CustomAssetsDashboard" */ 'assets/custom-assets/pages/CustomAssetsDashboardPage'
+		/* webpackChunkName: "CustomAssetsDashboard" */ 'assets/custom-asset/pages/Dashboard'
 	)
 );
 
-const DocumentsAndMediaRoutes = lazy(() =>
+const DocumentAndMedia = lazy(() =>
 	import(
-		/* webpackChunkName: "DocumentsAndMediaRoutes" */ 'assets/documents-and-media/pages/DocumentsAndMediaRoutes'
+		/* webpackChunkName: "DocumentAndMedia" */ 'assets/document-and-media/pages'
 	)
 );
 
-const FormsRoutes = lazy(() =>
-	import(
-		/* webpackChunkName: "FormsRoutes" */ 'assets/forms/pages/FormsRoutes'
-	)
+const Form = lazy(() =>
+	import(/* webpackChunkName: "Form" */ 'assets/form/pages')
 );
 
-const WebContentRoutes = lazy(() =>
-	import(
-		/* webpackChunkName: "WebContentRoutes" */ 'assets/web-content/pages/WebContentRoutes'
-	)
+const WebContent = lazy(() =>
+	import(/* webpackChunkName: "WebContent" */ 'assets/web-content/pages')
 );
 
 const ROUTES = [
@@ -175,7 +169,7 @@ const ROUTES = [
 		path: Routes.CONTACTS_SEGMENT
 	},
 	{
-		data: BlogsRoutes,
+		data: Blog,
 		destructured: false,
 		path: Routes.ASSETS_BLOGS_ROUTES
 	},
@@ -185,19 +179,19 @@ const ROUTES = [
 		path: Routes.ASSETS_CUSTOM_DASHBOARD
 	},
 	{
-		data: DocumentsAndMediaRoutes,
+		data: DocumentAndMedia,
 		destructured: false,
 		exact: false,
 		path: Routes.ASSETS_DOCUMENTS_AND_MEDIA_ROUTES
 	},
 	{
-		data: FormsRoutes,
+		data: Form,
 		destructured: false,
 		exact: false,
 		path: Routes.ASSETS_FORMS_ROUTES
 	},
 	{
-		data: WebContentRoutes,
+		data: WebContent,
 		destructured: false,
 		exact: false,
 		path: Routes.ASSETS_WEB_CONTENT_ROUTES

@@ -23,12 +23,10 @@ const KnownIndividuals = lazy(
 		)
 );
 
-interface IFormsRoutesProps {
+const Form: React.FC<{
 	className: string;
 	router: Router;
-}
-
-const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
+}> = ({className, router}) => {
 	const {
 		params: {assetId, channelId, groupId, title, touchpoint},
 		query
@@ -117,4 +115,4 @@ const FormsRoutes: React.FC<IFormsRoutesProps> = ({className, router}) => {
 	);
 };
 
-export default FormsRoutes;
+export default Form;

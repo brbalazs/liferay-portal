@@ -23,15 +23,10 @@ const KnownIndividuals = lazy(
 		)
 );
 
-interface IWebContentRoutesProps {
+const WebContent: React.FC<{
 	className: string;
 	router: Router;
-}
-
-const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
-	className,
-	router
-}) => {
+}> = ({className, router}) => {
 	const {
 		params: {assetId, channelId, groupId, title, touchpoint},
 		query
@@ -122,4 +117,4 @@ const WebContentRoutes: React.FC<IWebContentRoutesProps> = ({
 	);
 };
 
-export default WebContentRoutes;
+export default WebContent;

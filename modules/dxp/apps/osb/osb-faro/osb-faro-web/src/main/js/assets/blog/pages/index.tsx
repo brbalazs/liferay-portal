@@ -14,25 +14,19 @@ import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
 const Overview = lazy(
-	() =>
-		import(/* webpackChunkName: "DocumentsAndMediaOverview" */ './Overview')
+	() => import(/* webpackChunkName: "BlogsOverview" */ './Overview')
 );
 const KnownIndividuals = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DocumentsAndMediaKnownIndividuals" */ './KnownIndividuals'
+			/* webpackChunkName: "BlogsKnownIndividuals" */ './KnownIndividuals'
 		)
 );
 
-interface IDocumentsAndMediaRoutesProps {
+const Blog: React.FC<{
 	className: string;
 	router: Router;
-}
-
-const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
-	className,
-	router
-}) => {
+}> = ({className, router}) => {
 	const {
 		params: {assetId, channelId, groupId, title, touchpoint},
 		query
@@ -59,7 +53,7 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 						label: selectedChannel?.name
 					}),
 					breadcrumbs.getAssets({channelId, groupId}),
-					breadcrumbs.getDocumentsAndMedia({channelId, groupId}),
+					breadcrumbs.getBlogs({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
 				groupId={groupId}
@@ -71,13 +65,12 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 						{
 							exact: true,
 							label: Liferay.Language.get('overview'),
-							route: Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW
+							route: Routes.ASSETS_BLOGS_OVERVIEW
 						},
 						{
 							exact: true,
 							label: Liferay.Language.get('known-individuals'),
-							route:
-								Routes.ASSETS_DOCUMENTS_AND_MEDIA_KNOWN_INDIVIDUALS
+							route: Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS
 						}
 					]}
 					routeParams={{
@@ -91,7 +84,12 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 				/>
 			</BasePage.Header>
 
-			<BasePage.Context.Provider value={{filters, router}}>
+			<BasePage.Context.Provider
+				value={{
+					filters,
+					router
+				}}
+			>
 				<BasePage.SubHeader>
 					<Filter onChange={setFilters} />
 				</BasePage.SubHeader>
@@ -103,18 +101,14 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 								data={Overview}
 								destructured={false}
 								exact
-								path={
-									Routes.ASSETS_DOCUMENTS_AND_MEDIA_OVERVIEW
-								}
+								path={Routes.ASSETS_BLOGS_OVERVIEW}
 							/>
 
 							<BundleRouter
 								data={KnownIndividuals}
 								destructured={false}
 								exact
-								path={
-									Routes.ASSETS_DOCUMENTS_AND_MEDIA_KNOWN_INDIVIDUALS
-								}
+								path={Routes.ASSETS_BLOGS_KNOWN_INDIVIDUALS}
 							/>
 
 							<RouteNotFound />
@@ -126,4 +120,4 @@ const DocumentsAndMediaRoutes: React.FC<IDocumentsAndMediaRoutesProps> = ({
 	);
 };
 
-export default DocumentsAndMediaRoutes;
+export default Blog;
