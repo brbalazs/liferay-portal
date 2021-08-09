@@ -666,4 +666,46 @@ definition {
 			workflowTask = "Review");
 	}
 
+	@description = "This is a use case for LPS-98825."
+	@priority = "5"
+	test ViewMyWorkflowTasksOrderResults {
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Web Content Article");
+
+		for (var webContentNumber : list "1,2,3") {
+			JSONWebcontent.addWebContent(
+				content = "WC Content",
+				groupName = "Guest",
+				title = "Web Content Title ${webContentNumber}");
+		}
+
+		ProductMenu.gotoPortlet(
+			category = "My Account",
+			panel = "User",
+			portlet = "My Workflow Tasks");
+
+		Navigator.gotoNavTab(navTab = "Assigned to My Roles");
+
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Last Activity Date");
+
+		for (var rowNumber : list "1,2,3") {
+			AssertElementPresent(
+				key_rowNumber = "${rowNumber} + 1",
+				locator1 = "MyWorkflowTasks#ASSET_TITLE_TABLE_ROW",
+				value1 = "Web Content Title ${rowNumber}");
+		}
+
+		Click(locator1 = "MyWorkflowTasks#REVERSE_SORT_DIRECTION_BUTTON");
+
+		for (var rowNumber : list "3,2,1") {
+			AssertElementPresent(
+				key_rowNumber = "5 - ${rowNumber}",
+				locator1 = "MyWorkflowTasks#ASSET_TITLE_TABLE_ROW",
+				value1 = "Web Content Title ${rowNumber}");
+		}
+	}
+
 }
