@@ -1,6 +1,6 @@
 import getMetricsMapper from 'cerebro-shared/hocs/mappers/metrics';
 import metrics from './metrics';
-import WebContentMetricsQuery from '../queries/WebContentMetricsQuery';
+import WebContentMetricsQuery from 'shared/queries/WebContentMetricsQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
 

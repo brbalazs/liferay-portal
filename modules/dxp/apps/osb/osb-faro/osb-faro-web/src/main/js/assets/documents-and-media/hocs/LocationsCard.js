@@ -1,4 +1,4 @@
-import DocumentsAndMediaMetricsQuery from '../queries/DocumentsAndMediaMetricsQuery';
+import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetricsQuery';
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';

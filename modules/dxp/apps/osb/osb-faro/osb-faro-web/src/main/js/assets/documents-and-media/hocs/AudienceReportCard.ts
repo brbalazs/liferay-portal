@@ -1,4 +1,4 @@
-import DocumentsAndMediaMetricsQuery from '../queries/DocumentsAndMediaMetricsQuery';
+import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetricsQuery';
 import getAudienceReportMapper from 'cerebro-shared/hocs/mappers/audience-report';
 import {graphql} from '@apollo/react-hoc';
 import {Routes} from 'shared/util/router';

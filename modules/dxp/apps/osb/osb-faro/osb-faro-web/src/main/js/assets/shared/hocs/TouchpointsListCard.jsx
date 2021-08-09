@@ -1,4 +1,4 @@
-import AssetsTouchpointQuery from '../queries/AssetsTouchpointQuery';
+import AssetsTouchpointQuery from 'shared/queries/AssetsTouchpointQuery';
 import BaseCard from 'cerebro-shared/components/base-card';
 import React from 'react';
 import TouchpointsListCard from '../components/TouchpointsListCard';

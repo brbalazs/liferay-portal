@@ -1,4 +1,4 @@
-import FormMetricsQuery from '../queries/FormMetricsQuery';
+import FormMetricsQuery from 'shared/queries/FormMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';

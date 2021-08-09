@@ -1,4 +1,4 @@
-import FormMetricsQuery from '../queries/FormMetricsQuery';
+import FormMetricsQuery from 'shared/queries/FormMetricsQuery';
 import getAudienceReportMapper from 'cerebro-shared/hocs/mappers/audience-report';
 import {graphql} from '@apollo/react-hoc';
 import {Routes} from 'shared/util/router';

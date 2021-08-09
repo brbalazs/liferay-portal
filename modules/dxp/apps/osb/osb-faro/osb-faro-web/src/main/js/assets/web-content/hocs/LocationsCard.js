@@ -1,7 +1,7 @@
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
-import WebContentMetricsQuery from '../queries/WebContentMetricsQuery';
+import WebContentMetricsQuery from 'shared/queries/WebContentMetricsQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
 

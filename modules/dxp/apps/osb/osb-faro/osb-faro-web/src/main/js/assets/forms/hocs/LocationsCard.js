@@ -1,4 +1,4 @@
-import FormMetricsQuery from '../queries/FormMetricsQuery';
+import FormMetricsQuery from 'shared/queries/FormMetricsQuery';
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';

@@ -1,5 +1,5 @@
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
-import WebContentMetricsQuery from '../queries/WebContentMetricsQuery';
+import WebContentMetricsQuery from 'shared/queries/WebContentMetricsQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';
 

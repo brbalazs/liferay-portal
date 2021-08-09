@@ -1,4 +1,4 @@
-import DocumentsAndMediaMetricsQuery from '../queries/DocumentsAndMediaMetricsQuery';
+import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';

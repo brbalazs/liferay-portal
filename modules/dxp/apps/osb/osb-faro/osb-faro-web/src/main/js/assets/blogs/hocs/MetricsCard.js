@@ -1,4 +1,4 @@
-import BlogMetricsQuery from '../queries/BlogMetricsQuery';
+import BlogMetricsQuery from 'shared/queries/BlogMetricsQuery';
 import getMetricsMapper from 'cerebro-shared/hocs/mappers/metrics';
 import metrics from './metrics';
 import {graphql} from '@apollo/react-hoc';

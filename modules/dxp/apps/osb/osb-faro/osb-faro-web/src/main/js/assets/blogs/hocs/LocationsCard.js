@@ -1,4 +1,4 @@
-import BlogMetricsQuery from '../queries/BlogMetricsQuery';
+import BlogMetricsQuery from 'shared/queries/BlogMetricsQuery';
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
