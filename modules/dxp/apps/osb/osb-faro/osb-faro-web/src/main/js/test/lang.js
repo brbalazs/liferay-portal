@@ -5,6 +5,7 @@
  */
 
 import fs from 'fs';
+import LanguageIgnoreList from './language-ignore-list';
 import path from 'path';
 import properties from 'properties';
 
@@ -37,6 +38,10 @@ export default function lang(key) {
 	const value = keys[key];
 
 	if (!value) {
+		if (LanguageIgnoreList.includes(key)) {
+			return key;
+		}
+
 		throw new Error(`Language key not found: ${key}`);
 	}
 

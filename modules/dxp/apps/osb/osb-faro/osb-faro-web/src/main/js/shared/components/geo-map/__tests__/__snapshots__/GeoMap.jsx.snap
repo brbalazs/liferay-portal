@@ -34,7 +34,7 @@ exports[`GeoMapCard should render GeoMap 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          United States
+          country.united-states
         </td>
         <td
           className="text-right "
@@ -57,7 +57,7 @@ exports[`GeoMapCard should render GeoMap 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          Brazil
+          country.brazil
         </td>
         <td
           className="text-right "
@@ -80,7 +80,7 @@ exports[`GeoMapCard should render GeoMap 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          India
+          country.india
         </td>
         <td
           className="text-right "
@@ -103,7 +103,7 @@ exports[`GeoMapCard should render GeoMap 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          Spain
+          country.spain
         </td>
         <td
           className="text-right "
@@ -126,7 +126,7 @@ exports[`GeoMapCard should render GeoMap 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          Italy
+          country.italy
         </td>
         <td
           className="text-right "
@@ -202,7 +202,7 @@ exports[`GeoMapCard should render GeoMap again when data changes 1`] = `
         <td
           className="text-left font-weight-semibold "
         >
-          Canada
+          country.canada
         </td>
         <td
           className="text-right "
@@ -255,7 +255,7 @@ exports[`GeoMapCard should render component list with lighten-item class when mo
         <td
           className="text-left font-weight-semibold "
         >
-          United States
+          country.united-states
         </td>
         <td
           className="text-right "
@@ -278,7 +278,7 @@ exports[`GeoMapCard should render component list with lighten-item class when mo
         <td
           className="text-left font-weight-semibold lighten-item"
         >
-          Brazil
+          country.brazil
         </td>
         <td
           className="text-right lighten-item"
@@ -301,7 +301,7 @@ exports[`GeoMapCard should render component list with lighten-item class when mo
         <td
           className="text-left font-weight-semibold lighten-item"
         >
-          India
+          country.india
         </td>
         <td
           className="text-right lighten-item"
@@ -324,7 +324,7 @@ exports[`GeoMapCard should render component list with lighten-item class when mo
         <td
           className="text-left font-weight-semibold lighten-item"
         >
-          Spain
+          country.spain
         </td>
         <td
           className="text-right lighten-item"
@@ -347,7 +347,7 @@ exports[`GeoMapCard should render component list with lighten-item class when mo
         <td
           className="text-left font-weight-semibold lighten-item"
         >
-          Italy
+          country.italy
         </td>
         <td
           className="text-right lighten-item"
@@ -423,7 +423,7 @@ exports[`GeoMapCard should render component list without lighten-item class when
         <td
           className="text-left font-weight-semibold "
         >
-          United States
+          country.united-states
         </td>
         <td
           className="text-right "
@@ -446,7 +446,7 @@ exports[`GeoMapCard should render component list without lighten-item class when
         <td
           className="text-left font-weight-semibold "
         >
-          Brazil
+          country.brazil
         </td>
         <td
           className="text-right "
@@ -469,7 +469,7 @@ exports[`GeoMapCard should render component list without lighten-item class when
         <td
           className="text-left font-weight-semibold "
         >
-          India
+          country.india
         </td>
         <td
           className="text-right "
@@ -492,7 +492,7 @@ exports[`GeoMapCard should render component list without lighten-item class when
         <td
           className="text-left font-weight-semibold "
         >
-          Spain
+          country.spain
         </td>
         <td
           className="text-right "
@@ -515,7 +515,7 @@ exports[`GeoMapCard should render component list without lighten-item class when
         <td
           className="text-left font-weight-semibold "
         >
-          Italy
+          country.italy
         </td>
         <td
           className="text-right "
