@@ -10,38 +10,26 @@ import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 
 const BlogsList = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "BlogsList" */ './blogs/pages/BlogsListPage'
-		)
+	() => import(/* webpackChunkName: "BlogsList" */ './BlogsList')
 );
 
 const CustomList = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "CustomList" */ './custom-assets/pages/CustomAssetsListPage'
-		)
+	() => import(/* webpackChunkName: "CustomList" */ './CustomAssetsList')
 );
 
 const DocumentsAndMediaList = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "DocumentsAndMediaList" */ './documents-and-media/pages/DocumentsAndMediaListPage'
+			/* webpackChunkName: "DocumentsAndMediaList" */ './DocumentsAndMediaList'
 		)
 );
 
 const FormsList = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "FormsList" */ './forms/pages/FormsListPage'
-		)
+	() => import(/* webpackChunkName: "FormsList" */ './FormsList')
 );
 
 const WebContentList = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "WebContentList" */ './web-content/pages/WebContentListPage'
-		)
+	() => import(/* webpackChunkName: "WebContentList" */ './WebContentList')
 );
 
 const NAV_ITEMS = [
