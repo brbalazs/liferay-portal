@@ -16,15 +16,15 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 }) => {
 	const getInitialValues = () => {
 		if (breakdown) {
-			const {bin} = breakdown;
+			const {binSize} = breakdown;
 
 			return {
-				bin: formatTime(bin)
+				binSize: formatTime(binSize)
 			};
 		}
 
 		return {
-			bin: formatTime(DEFAULT_DURATION_BIN),
+			binSize: formatTime(DEFAULT_DURATION_BIN),
 			operator: Operators.GT,
 			value: ''
 		};
@@ -35,13 +35,13 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 			enableReinitialize
 			initialValues={getInitialValues()}
 			isInitialValid
-			onSubmit={({bin}) => {
+			onSubmit={({binSize}) => {
 				onSubmit(
 					createDurationBreakdown({
 						attributeId,
 						attributeType: attributeOwnerType,
-						bin: getMillisecondsFromTime(
-							bin.replace(/_/g, '0') as string
+						binSize: getMillisecondsFromTime(
+							binSize.replace(/_/g, '0') as string
 						)
 					})
 				);
@@ -57,7 +57,7 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 										'group-duration-by'
 									)}
 									mask={DURATION_MASK}
-									name='bin'
+									name='binSize'
 									placeholder='HH:MM:SS'
 									type='string'
 									validate={validateRequired}

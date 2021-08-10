@@ -14,13 +14,13 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 }) => {
 	const getInitialValues = () => {
 		if (breakdown) {
-			const {bin} = breakdown;
+			const {binSize} = breakdown;
 
-			return {bin};
+			return {binSize};
 		}
 
 		return {
-			bin: DEFAULT_NUMBER_BIN
+			binSize: DEFAULT_NUMBER_BIN
 		};
 	};
 
@@ -29,12 +29,12 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 			enableReinitialize
 			initialValues={getInitialValues()}
 			isInitialValid
-			onSubmit={({bin}) => {
+			onSubmit={({binSize}) => {
 				onSubmit(
 					createNumberBreakdown({
 						attributeId,
 						attributeType: attributeOwnerType,
-						bin
+						binSize
 					})
 				);
 			}}
@@ -48,7 +48,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 									label={Liferay.Language.get(
 										'group-numbers-by'
 									)}
-									name='bin'
+									name='binSize'
 									type='number'
 									validate={validateRequired}
 								/>

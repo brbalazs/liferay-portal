@@ -241,11 +241,11 @@ export const createDateBreakdown = ({
 export const createDurationBreakdown = ({
 	attributeId,
 	attributeType,
-	bin = DEFAULT_DURATION_BIN
+	binSize = DEFAULT_DURATION_BIN
 }): Breakdown => ({
 	attributeId,
 	attributeType,
-	bin,
+	binSize,
 	dataType: DataTypes.Duration,
 	sortType: 'ASC'
 });
@@ -253,11 +253,11 @@ export const createDurationBreakdown = ({
 export const createNumberBreakdown = ({
 	attributeId,
 	attributeType,
-	bin = DEFAULT_NUMBER_BIN
+	binSize = DEFAULT_NUMBER_BIN
 }): Breakdown => ({
 	attributeId,
 	attributeType,
-	bin,
+	binSize,
 	dataType: DataTypes.Number,
 	sortType: 'ASC'
 });

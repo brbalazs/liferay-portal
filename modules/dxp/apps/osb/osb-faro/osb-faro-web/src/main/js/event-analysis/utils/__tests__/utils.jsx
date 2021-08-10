@@ -131,7 +131,7 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
-				bin: 60000,
+				binSize: 60000,
 				dataType: DataTypes.Duration,
 				sortType: 'ASC'
 			});
@@ -151,7 +151,7 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
-				bin: 10,
+				binSize: 10,
 				dataType: DataTypes.Number,
 				sortType: 'ASC'
 			});

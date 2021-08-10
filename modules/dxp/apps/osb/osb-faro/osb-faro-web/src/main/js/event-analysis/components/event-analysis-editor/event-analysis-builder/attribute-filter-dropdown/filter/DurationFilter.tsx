@@ -31,7 +31,7 @@ const DurationFilter: React.FC<IFilterProps> = ({
 		}
 
 		return {
-			bin: formatTime(DEFAULT_DURATION_BIN),
+			binSize: formatTime(DEFAULT_DURATION_BIN),
 			operator: Operators.GT,
 			value: ''
 		};
