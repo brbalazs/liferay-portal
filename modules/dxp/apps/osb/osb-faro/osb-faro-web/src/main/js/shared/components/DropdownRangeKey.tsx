@@ -74,6 +74,12 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		}
 	}, [customDateRange]);
 
+	useEffect(() => {
+		if (showDatePicker) {
+			setActive(true);
+		}
+	}, [showDatePicker]);
+
 	const filterItems = () => {
 		if (legacy) {
 			return items.filter(({value}) =>
@@ -212,7 +218,10 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 									active: selectedItem.value === 'CUSTOM'
 								})}
 								key='CUSTOM'
-								onClick={() => setShowDatePicker(true)}
+								onClick={() => {
+									setActive(false);
+									setShowDatePicker(true);
+								}}
 							>
 								<b>{Liferay.Language.get('custom-range')}</b>
 							</ClayDropDown.Item>
