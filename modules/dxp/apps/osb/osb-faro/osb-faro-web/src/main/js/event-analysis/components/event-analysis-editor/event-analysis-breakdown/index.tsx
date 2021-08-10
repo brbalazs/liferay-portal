@@ -18,7 +18,7 @@ import {
 	Filters
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
-import {get, isNil} from 'lodash';
+import {get, isNil, omit} from 'lodash';
 import {
 	getMaxEventValue,
 	parserBreakdownData
@@ -68,8 +68,12 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 				analysisType: type,
 				channelId,
 				compareToPrevious,
-				eventAnalysisBreakdowns: Object.values(breakdowns),
-				eventAnalysisFilters: Object.values(filters),
+				eventAnalysisBreakdowns: Object.values(
+					breakdowns
+				).map(breakdown => omit(breakdown, 'id')),
+				eventAnalysisFilters: Object.values(filters).map(filter =>
+					omit(filter, 'id')
+				),
 				eventDefinitionId: event.id,
 				page,
 				size: delta,

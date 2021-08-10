@@ -24,15 +24,15 @@ const initialAttributes = {
 		111: {
 			attributeId: '1',
 			attributeType: 'EVENT',
-			dataType: 'boolean',
-			id: '111'
+			dataType: 'BOOLEAN'
 		}
 	},
 	filterOrder: ['123'],
 	filters: {
 		123: {
 			attributeId: '1',
-			id: '123',
+			attributeType: 'EVENT',
+			dataType: 'BOOLEAN',
 			operator: 'eq',
 			values: ['true']
 		}
