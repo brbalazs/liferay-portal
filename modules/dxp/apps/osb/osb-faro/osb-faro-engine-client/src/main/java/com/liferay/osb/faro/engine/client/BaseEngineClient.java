@@ -48,6 +48,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -202,6 +203,15 @@ public abstract class BaseEngineClient {
 		}
 
 		return httpHeaders;
+	}
+
+	protected void delete(FaroProject faroProject) throws Exception {
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		restTemplate.delete(
+			getUriString(
+				faroProject, "/projects/" + faroProject.getProjectId(),
+				Collections.emptyMap()));
 	}
 
 	protected void delete(

@@ -282,6 +282,11 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public void deleteProject(FaroProject faroProject) throws Exception {
+		contactsEngineClient.deleteProject(faroProject);
+	}
+
+	@Override
 	public void disconnectDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 

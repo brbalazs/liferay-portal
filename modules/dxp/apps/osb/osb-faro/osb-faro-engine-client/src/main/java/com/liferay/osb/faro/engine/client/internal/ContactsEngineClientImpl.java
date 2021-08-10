@@ -519,6 +519,11 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public void deleteProject(FaroProject faroProject) throws Exception {
+		delete(faroProject);
+	}
+
+	@Override
 	public void disconnectDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 
