@@ -63,16 +63,20 @@ public class UpdateServicesMVCActionCommand extends BaseMVCActionCommand {
 			FaroProject faroProject = _faroProjectLocalService.getFaroProject(
 				faroProjectId);
 
-			_workspaceEngineClient.updateServices(
-				faroProject.getWeDeployKey(), operation);
+			if (!faroProject.isSharedCluster()) {
+				_workspaceEngineClient.updateServices(
+					faroProject.getWeDeployKey(), operation);
+			}
 		}
 		else {
 			for (FaroProject faroProject :
 					_faroProjectLocalService.getFaroProjects(
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
-				_workspaceEngineClient.updateServices(
-					faroProject.getWeDeployKey(), operation);
+				if (!faroProject.isSharedCluster()) {
+					_workspaceEngineClient.updateServices(
+						faroProject.getWeDeployKey(), operation);
+				}
 			}
 		}
 	}

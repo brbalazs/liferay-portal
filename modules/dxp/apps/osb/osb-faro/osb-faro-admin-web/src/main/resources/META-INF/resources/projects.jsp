@@ -85,13 +85,20 @@ FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(re
 						property="offline"
 					/>
 
-					<c:if test="<%= permissionChecker.isOmniadmin() %>">
-						<liferay-ui:search-container-column-text>
-							<clay:dropdown-actions
-								dropdownItems="<%= faroAdminDisplayContext.getActionDropdownItems(faroProjectAdminDisplay) %>"
-							/>
-						</liferay-ui:search-container-column-text>
-					</c:if>
+					<liferay-ui:search-container-column-text>
+						<c:if test="<%= permissionChecker.isOmniadmin() %>">
+
+							<%
+							List<DropdownItem> dropdownItems = faroAdminDisplayContext.getActionDropdownItems(faroProjectAdminDisplay);
+							%>
+
+							<c:if test="<%= ListUtil.isNotEmpty(dropdownItems) %>">
+								<clay:dropdown-actions
+									dropdownItems="<%= dropdownItems %>"
+								/>
+							</c:if>
+						</c:if>
+					</liferay-ui:search-container-column-text>
 				</liferay-ui:search-container-row>
 
 				<liferay-ui:search-iterator

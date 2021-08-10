@@ -61,15 +61,21 @@ public class UpdateSecretsMVCActionCommand extends BaseMVCActionCommand {
 		long faroProjectId = ParamUtil.getLong(actionRequest, "faroProjectId");
 
 		if (faroProjectId > 0) {
-			_workspaceEngineClient.updateSecrets(
-				_faroProjectLocalService.getFaroProject(faroProjectId));
+			FaroProject faroProject = _faroProjectLocalService.getFaroProject(
+				faroProjectId);
+
+			if (!faroProject.isSharedCluster()) {
+				_workspaceEngineClient.updateSecrets(faroProject);
+			}
 		}
 		else {
 			for (FaroProject faroProject :
 					_faroProjectLocalService.getFaroProjects(
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
-				_workspaceEngineClient.updateSecrets(faroProject);
+				if (!faroProject.isSharedCluster()) {
+					_workspaceEngineClient.updateSecrets(faroProject);
+				}
 			}
 		}
 	}

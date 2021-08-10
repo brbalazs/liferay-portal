@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -63,6 +64,10 @@ public class FaroAdminDisplayContext {
 
 	public List<DropdownItem> getActionDropdownItems(
 		FaroProjectAdminDisplay faroProjectAdminDisplay) {
+
+		if (faroProjectAdminDisplay.isOffline()) {
+			return Collections.emptyList();
+		}
 
 		PortletURL portletURL = _renderResponse.createActionURL();
 
@@ -104,28 +109,32 @@ public class FaroAdminDisplayContext {
 							LanguageUtil.get(
 								_httpServletRequest, "refresh-project"));
 					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_services", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId(),
-							"operation", "restart");
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "restart-services"));
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_services", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId(),
-							"operation", "stop");
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "stop-services"));
-					});
+
+				if (!faroProjectAdminDisplay.isSharedCluster()) {
+					add(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								portletURL, ActionRequest.ACTION_NAME,
+								"/faro_admin/update_services", "faroProjectId",
+								faroProjectAdminDisplay.getFaroProjectId(),
+								"operation", "restart");
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_httpServletRequest, "restart-services"));
+						});
+					add(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								portletURL, ActionRequest.ACTION_NAME,
+								"/faro_admin/update_services", "faroProjectId",
+								faroProjectAdminDisplay.getFaroProjectId(),
+								"operation", "stop");
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_httpServletRequest, "stop-services"));
+						});
+				}
+
 				add(
 					dropdownItem -> {
 						dropdownItem.setHref(
@@ -146,16 +155,19 @@ public class FaroAdminDisplayContext {
 							LanguageUtil.get(
 								_httpServletRequest, "stop-upgrade"));
 					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_secrets", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "update-secrets"));
-					});
+
+				if (!faroProjectAdminDisplay.isSharedCluster()) {
+					add(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								portletURL, ActionRequest.ACTION_NAME,
+								"/faro_admin/update_secrets", "faroProjectId",
+								faroProjectAdminDisplay.getFaroProjectId());
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_httpServletRequest, "update-secrets"));
+						});
+				}
 			}
 		};
 	}
