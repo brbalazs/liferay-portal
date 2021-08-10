@@ -19,6 +19,7 @@ package com.liferay.osb.faro.engine.client.model;
  */
 public class StringPagedResources extends PagedResources<String, String> {
 
+	@Override
 	public String processContent(String content) {
 		return content;
 	}

@@ -119,6 +119,7 @@ import org.springframework.web.client.RestTemplate;
 public class ContactsEngineClientImpl
 	extends BaseEngineClient implements ContactsEngineClient {
 
+	@Override
 	public Results<BlockedKeyword> addBlockedKeywords(
 		FaroProject faroProject, List<String> keywords) {
 
@@ -942,6 +943,7 @@ public class ContactsEngineClientImpl
 		return get(faroProject, Rels.BLOCKED_KEYWORD, id, BlockedKeyword.class);
 	}
 
+	@Override
 	public Results<BlockedKeyword> getBlockedKeywords(
 		FaroProject faroProject, String query, int cur, int delta,
 		List<OrderByField> orderByFields) {

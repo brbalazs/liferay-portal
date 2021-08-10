@@ -26,11 +26,13 @@ import java.util.ResourceBundle;
  */
 public class FaroEmailLocalServiceImpl extends FaroEmailLocalServiceBaseImpl {
 
+	@Override
 	public ResourceBundle getResourceBundle(Locale locale) {
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 	}
 
+	@Override
 	public String getTemplate(String name) throws Exception {
 		return StringUtil.read(getClassLoader(), name);
 	}

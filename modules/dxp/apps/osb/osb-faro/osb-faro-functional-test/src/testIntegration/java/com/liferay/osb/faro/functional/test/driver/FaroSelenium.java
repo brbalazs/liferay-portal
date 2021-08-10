@@ -28,6 +28,7 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 
 	public void assertWebElementHasAnyText(String xpath);
 
+	@Override
 	public void click(String locator);
 
 	public void click(WebElement webElement);
@@ -63,6 +64,7 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 			int timeout, int pollInterval, String xpath, String expectedValue)
 		throws Exception;
 
+	@Override
 	public void sendKeys(String locator, String value) throws Exception;
 
 	public void setMainWindowHandle();

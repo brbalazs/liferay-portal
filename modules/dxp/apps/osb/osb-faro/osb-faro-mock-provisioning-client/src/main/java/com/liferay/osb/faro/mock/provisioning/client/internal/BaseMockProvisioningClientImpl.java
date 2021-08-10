@@ -28,12 +28,14 @@ import org.osgi.service.component.annotations.Reference;
 public abstract class BaseMockProvisioningClientImpl
 	extends BaseProvisioningClient implements ProvisioningClient {
 
+	@Override
 	public void addCorpProjectUsers(String corpProjectUuid, String[] userUuids)
 		throws Exception {
 
 		provisioningClient.addCorpProjectUsers(corpProjectUuid, userUuids);
 	}
 
+	@Override
 	public void addUserCorpProjectRoles(
 			String corpProjectUuid, String[] userUuids, String roleName)
 		throws Exception {
@@ -42,6 +44,7 @@ public abstract class BaseMockProvisioningClientImpl
 			corpProjectUuid, userUuids, roleName);
 	}
 
+	@Override
 	public void deleteUserCorpProjectRoles(
 			String corpProjectUuid, String[] userUuids, String roleName)
 		throws Exception {
@@ -50,6 +53,7 @@ public abstract class BaseMockProvisioningClientImpl
 			corpProjectUuid, userUuids, roleName);
 	}
 
+	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
 		String userUuid, Long[] productEntryIds) {
 
@@ -57,10 +61,12 @@ public abstract class BaseMockProvisioningClientImpl
 			userUuid, productEntryIds);
 	}
 
+	@Override
 	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid) {
 		return provisioningClient.getOSBAccountEntry(corpProjectUuid);
 	}
 
+	@Override
 	public void unsetCorpProjectUsers(
 			String corpProjectUuid, String[] userUuids)
 		throws Exception {

@@ -21,6 +21,7 @@ import org.springframework.hateoas.Resource;
  */
 public class ResourcePagedResources<T> extends PagedResources<Resource<T>, T> {
 
+	@Override
 	public T processContent(Resource<T> resource) {
 		return resource.getContent();
 	}

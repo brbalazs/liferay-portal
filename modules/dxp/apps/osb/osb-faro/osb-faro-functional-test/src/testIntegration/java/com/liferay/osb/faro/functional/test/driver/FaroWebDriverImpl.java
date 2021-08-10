@@ -477,6 +477,7 @@ public class FaroWebDriverImpl
 		}
 	}
 
+	@Override
 	public void setMainWindowHandle() {
 		_mainWindowHandle = getWindowHandle();
 	}
@@ -485,6 +486,7 @@ public class FaroWebDriverImpl
 	 * Switches focus back to the main window launched at the start of test
 	 * execution after calling {@link #switchToPopupWindow()}.
 	 */
+	@Override
 	public void switchToMainWindow() {
 		TargetLocator targetLocator = switchTo();
 
@@ -495,6 +497,7 @@ public class FaroWebDriverImpl
 	 * Switches focus to the most recent popup window. Call {@link
 	 * #switchToMainWindow()} to return to the main window after.
 	 */
+	@Override
 	public void switchToPopupWindow() throws Exception {
 
 		// Switching focus is somehow interrupting the OAuth redirect. Add a
@@ -521,10 +524,12 @@ public class FaroWebDriverImpl
 		}
 	}
 
+	@Override
 	public void waitForElementNotPresent(String locator) throws Exception {
 		super.waitForElementNotPresent(locator, "false");
 	}
 
+	@Override
 	public void waitForElementPresent(String locator) throws Exception {
 		super.waitForElementPresent(locator, "false");
 	}
@@ -534,6 +539,7 @@ public class FaroWebDriverImpl
 	 *
 	 * @throws Exception if an exception occurred
 	 */
+	@Override
 	public void waitForLoadingComplete() throws Exception {
 		waitForElementNotPresent(
 			"//div[not(@aria-hidden)]" +
@@ -565,6 +571,7 @@ public class FaroWebDriverImpl
 	/**
 	 * Waits for the page's javascript to finish loading.
 	 */
+	@Override
 	public void waitForPageLoadingComplete() {
 		WebDriverWait waitDriverWait = new WebDriverWait(
 			WebDriverUtil.getWebDriver(), 30);

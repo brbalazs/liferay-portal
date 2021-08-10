@@ -26,6 +26,7 @@ public class TokenCredentials implements Credentials {
 	public TokenCredentials() {
 	}
 
+	@Override
 	public void clearPasswords() {
 		_privateKey = null;
 		_publicKey = null;

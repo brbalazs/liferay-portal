@@ -206,6 +206,7 @@ public abstract class BaseMockContactsEngineClientImpl
 		contactsEngineClient.addNanites(faroProject, classNames);
 	}
 
+	@Override
 	public String addProject(FaroProject faroProject) throws Exception {
 		return contactsEngineClient.addProject(faroProject);
 	}
@@ -668,6 +669,7 @@ public abstract class BaseMockContactsEngineClientImpl
 			interval, orderByFields);
 	}
 
+	@Override
 	public List<List<Field>> getFieldsList(
 		FaroProject faroProject, String context, List<String> names, int cur,
 		int delta, List<OrderByField> orderByFields) {

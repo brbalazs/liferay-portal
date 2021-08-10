@@ -69,7 +69,10 @@ public class FaroProjectEmailAddressDomainLocalServiceImpl
 		}
 	}
 
+	@Override
 	public void afterPropertiesSet() {
+		super.afterPropertiesSet();
+
 		ClassLoader classLoader = getClassLoader();
 
 		try (InputStream is = classLoader.getResourceAsStream(

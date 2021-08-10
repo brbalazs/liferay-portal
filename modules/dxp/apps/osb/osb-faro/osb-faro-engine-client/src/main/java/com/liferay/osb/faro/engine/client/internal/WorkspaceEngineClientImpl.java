@@ -164,6 +164,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return response.getBody();
 	}
 
+	@Override
 	public List<String> getLoadBalancerIPs(String weDeployKey) {
 		if (Validator.isNull(weDeployKey)) {
 			return Collections.emptyList();
