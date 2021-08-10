@@ -51,10 +51,12 @@ public class ResponseErrorHandler extends DefaultResponseErrorHandler {
 			if (statusCode == HttpStatus.SC_CONFLICT) {
 				throw new DuplicateEntryException(response);
 			}
-			else if (statusCode == HttpStatus.SC_NOT_FOUND) {
+
+			if (statusCode == HttpStatus.SC_NOT_FOUND) {
 				throw new NoSuchEntryException(response);
 			}
-			else if (statusCode == HttpStatus.SC_UNPROCESSABLE_ENTITY) {
+
+			if (statusCode == HttpStatus.SC_UNPROCESSABLE_ENTITY) {
 				throw new InvalidFilterException(response);
 			}
 

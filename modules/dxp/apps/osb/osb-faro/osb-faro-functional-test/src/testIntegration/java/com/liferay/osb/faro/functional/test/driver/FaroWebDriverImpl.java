@@ -217,12 +217,7 @@ public class FaroWebDriverImpl
 
 		Matcher matcher = _propertyIdPattern.matcher(url);
 
-		String propertyId;
-
-		if (matcher.find()) {
-			propertyId = matcher.group(2);
-		}
-		else {
+		if (!matcher.find()) {
 			StringBundler sb = new StringBundler(4);
 
 			sb.append("Unable to find a Property ID matching regex pattern ");
@@ -233,7 +228,7 @@ public class FaroWebDriverImpl
 			throw new Exception(sb.toString());
 		}
 
-		return propertyId;
+		return matcher.group(2);
 	}
 
 	/**
@@ -247,12 +242,7 @@ public class FaroWebDriverImpl
 
 		Matcher matcher = _workspaceIdPattern.matcher(url);
 
-		String workspaceId;
-
-		if (matcher.find()) {
-			workspaceId = matcher.group(1);
-		}
-		else {
+		if (!matcher.find()) {
 			StringBundler sb = new StringBundler(4);
 
 			sb.append("Unable to find a workspace ID matching regex pattern ");
@@ -263,7 +253,7 @@ public class FaroWebDriverImpl
 			throw new Exception(sb.toString());
 		}
 
-		return workspaceId;
+		return matcher.group(1);
 	}
 
 	/**
@@ -514,14 +504,13 @@ public class FaroWebDriverImpl
 		Optional<String> handleOptional = stream.reduce(
 			(first, second) -> second);
 
-		if (handleOptional.isPresent()) {
-			TargetLocator targetLocator = switchTo();
-
-			targetLocator.window(handleOptional.get());
-		}
-		else {
+		if (!handleOptional.isPresent()) {
 			throw new Exception("There is no other window to switch to");
 		}
+
+		TargetLocator targetLocator = switchTo();
+
+		targetLocator.window(handleOptional.get());
 	}
 
 	@Override

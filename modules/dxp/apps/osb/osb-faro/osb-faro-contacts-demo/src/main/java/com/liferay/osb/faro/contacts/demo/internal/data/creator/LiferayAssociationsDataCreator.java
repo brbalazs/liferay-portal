@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +44,7 @@ public class LiferayAssociationsDataCreator extends DataCreator {
 
 		this.dataSourceId = dataSourceId;
 
-		for (DataCreator dataCreator : dataCreators) {
-			_dataCreators.add(dataCreator);
-		}
+		Collections.addAll(_dataCreators, dataCreators);
 	}
 
 	@Override

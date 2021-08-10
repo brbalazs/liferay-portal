@@ -651,7 +651,7 @@ public abstract class BaseEngineClient {
 
 		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getTemplatedURL(faroProject, type), HttpMethod.PUT,
-			new HttpEntity<T>((T)object), responseType, uriVariables);
+			new HttpEntity<>((T)object), responseType, uriVariables);
 
 		return responseEntity.getBody();
 	}

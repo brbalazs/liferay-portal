@@ -33,7 +33,8 @@ public class UpgradeUtil {
 		if (Validator.isNull(version)) {
 			return _REPOSITORY_SHA;
 		}
-		else if (Validator.isNull(_REPOSITORY_SHA)) {
+
+		if (Validator.isNull(_REPOSITORY_SHA)) {
 			return version;
 		}
 

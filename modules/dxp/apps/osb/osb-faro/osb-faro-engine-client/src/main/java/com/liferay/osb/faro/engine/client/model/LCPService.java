@@ -101,7 +101,7 @@ public class LCPService {
 		_serviceId = serviceId;
 	}
 
-	public class LoadBalancer {
+	public static class LoadBalancer {
 
 		public String getTargetPort() {
 			return _targetPort;

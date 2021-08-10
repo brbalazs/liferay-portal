@@ -72,25 +72,29 @@ public class ActivityConstants {
 
 			return ACTION_COMMENTS;
 		}
-		else if (StringUtil.equalsIgnoreCase(
-					eventId, Activity.EventId.documentDownloaded.name())) {
+
+		if (StringUtil.equalsIgnoreCase(
+				eventId, Activity.EventId.documentDownloaded.name())) {
 
 			return ACTION_DOWNLOADS;
 		}
-		else if (StringUtil.equalsIgnoreCase(
-					eventId, Activity.EventId.documentPreviewed.name())) {
+
+		if (StringUtil.equalsIgnoreCase(
+				eventId, Activity.EventId.documentPreviewed.name())) {
 
 			return ACTION_PREVIEWS;
 		}
-		else if (StringUtil.equalsIgnoreCase(
-					eventId, Activity.EventId.formSubmitted.name())) {
+
+		if (StringUtil.equalsIgnoreCase(
+				eventId, Activity.EventId.formSubmitted.name())) {
 
 			return ACTION_SUBMISSIONS;
 		}
-		else if (StringUtil.equalsIgnoreCase(
-					eventId, Activity.EventId.formViewed.name()) ||
-				 StringUtil.equalsIgnoreCase(
-					 eventId, Activity.EventId.pageViewed.name())) {
+
+		if (StringUtil.equalsIgnoreCase(
+				eventId, Activity.EventId.formViewed.name()) ||
+			StringUtil.equalsIgnoreCase(
+				eventId, Activity.EventId.pageViewed.name())) {
 
 			return ACTION_VISITS;
 		}
@@ -105,19 +109,24 @@ public class ActivityConstants {
 				ACTION_KEY_DOCUMENT_PREVIEWED, ACTION_KEY_FORM_SUBMITTED,
 				ACTION_KEY_FORM_VIEWED, ACTION_KEY_PAGE_VIEWED);
 		}
-		else if (action == ACTION_COMMENTS) {
+
+		if (action == ACTION_COMMENTS) {
 			return Collections.singletonList(ACTION_KEY_COMMENT_POSTED);
 		}
-		else if (action == ACTION_DOWNLOADS) {
+
+		if (action == ACTION_DOWNLOADS) {
 			return Collections.singletonList(ACTION_KEY_DOCUMENT_DOWNLOADED);
 		}
-		else if (action == ACTION_PREVIEWS) {
+
+		if (action == ACTION_PREVIEWS) {
 			return Collections.singletonList(ACTION_KEY_DOCUMENT_PREVIEWED);
 		}
-		else if (action == ACTION_SUBMISSIONS) {
+
+		if (action == ACTION_SUBMISSIONS) {
 			return Collections.singletonList(ACTION_KEY_FORM_SUBMITTED);
 		}
-		else if (action == ACTION_VISITS) {
+
+		if (action == ACTION_VISITS) {
 			return Arrays.asList(
 				ACTION_KEY_FORM_VIEWED, ACTION_KEY_PAGE_VIEWED);
 		}

@@ -410,19 +410,19 @@ public class DxpSteps {
 
 	@Given("^I go to the (.*) DXP Page$")
 	public void goToDXPPage(@Transform(FaroTransformer.class) String pageName) {
-		String url = PropsUtil.get("portal.url");
+		StringBuilder url = new StringBuilder(PropsUtil.get("portal.url"));
 
 		if (StringUtil.equalsIgnoreCase(pageName, "Synced Contacts")) {
-			url += DxpStringPool.SYNCED_CONTACTS_PATH;
+			url.append(DxpStringPool.SYNCED_CONTACTS_PATH);
 		}
 		else if (StringUtil.equalsIgnoreCase(pageName, "Synced Sites")) {
-			url += DxpStringPool.SYNCED_SITES_PATH;
+			url.append(DxpStringPool.SYNCED_SITES_PATH);
 		}
 		else if (StringUtil.equalsIgnoreCase(pageName, "Analytics Cloud")) {
-			url += DxpStringPool.AC_INSTANCE_SETTINGS_URL_PATH;
+			url.append(DxpStringPool.AC_INSTANCE_SETTINGS_URL_PATH);
 		}
 
-		_faroSelenium.get(url);
+		_faroSelenium.get(url.toString());
 	}
 
 	@When("^I select DXP site (.*)$")

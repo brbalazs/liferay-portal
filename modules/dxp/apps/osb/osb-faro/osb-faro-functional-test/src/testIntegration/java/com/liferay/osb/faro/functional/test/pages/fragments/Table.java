@@ -333,12 +333,11 @@ public class Table {
 			}
 		}
 		catch (Exception exception) {
-			if (negation == null) {
-				_faroSelenium.refreshUntilElementPresent(60, 10, sb.toString());
-			}
-			else {
+			if (negation != null) {
 				throw exception;
 			}
+
+			_faroSelenium.refreshUntilElementPresent(60, 10, sb.toString());
 		}
 	}
 
@@ -475,14 +474,13 @@ public class Table {
 			Assert.assertEquals(dataTableNames, rowNames);
 		}
 		catch (AssertionError ae) {
-			if (colNum.equals("1")) {
-				List<String> firstColumnNames = getSearchResultNames();
-
-				Assert.assertEquals(dataTableNames, firstColumnNames);
-			}
-			else {
+			if (!colNum.equals("1")) {
 				throw ae;
 			}
+
+			List<String> firstColumnNames = getSearchResultNames();
+
+			Assert.assertEquals(dataTableNames, firstColumnNames);
 		}
 	}
 

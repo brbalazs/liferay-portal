@@ -128,28 +128,36 @@ public class LCPProject {
 			if (StringUtil.equals(value, Cluster.EU._value)) {
 				return Cluster.EU;
 			}
-			else if (StringUtil.equals(value, Cluster.EU_AC._value)) {
+
+			if (StringUtil.equals(value, Cluster.EU_AC._value)) {
 				return Cluster.EU_AC;
 			}
-			else if (StringUtil.equals(value, Cluster.EU2._value)) {
+
+			if (StringUtil.equals(value, Cluster.EU2._value)) {
 				return Cluster.EU2;
 			}
-			else if (StringUtil.equals(value, Cluster.EU2_AC._value)) {
+
+			if (StringUtil.equals(value, Cluster.EU2_AC._value)) {
 				return Cluster.EU2_AC;
 			}
-			else if (StringUtil.equals(value, Cluster.SA._value)) {
+
+			if (StringUtil.equals(value, Cluster.SA._value)) {
 				return Cluster.SA;
 			}
-			else if (StringUtil.equals(value, Cluster.SA_AC._value)) {
+
+			if (StringUtil.equals(value, Cluster.SA_AC._value)) {
 				return Cluster.SA_AC;
 			}
-			else if (StringUtil.equals(value, Cluster.SA_AC_STAGING._value)) {
+
+			if (StringUtil.equals(value, Cluster.SA_AC_STAGING._value)) {
 				return Cluster.SA_AC_STAGING;
 			}
-			else if (StringUtil.equals(value, Cluster.US._value)) {
+
+			if (StringUtil.equals(value, Cluster.US._value)) {
 				return Cluster.US;
 			}
-			else if (StringUtil.equals(value, Cluster.US_AC._value)) {
+
+			if (StringUtil.equals(value, Cluster.US_AC._value)) {
 				return Cluster.US_AC;
 			}
 

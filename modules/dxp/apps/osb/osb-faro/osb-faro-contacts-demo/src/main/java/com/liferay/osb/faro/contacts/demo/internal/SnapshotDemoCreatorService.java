@@ -210,7 +210,8 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		if (collectionName.equals("osbasahmarkers")) {
 			return "OSBAsahMarkers";
 		}
-		else if (collectionName.equals("osbasahtasks")) {
+
+		if (collectionName.equals("osbasahtasks")) {
 			return "OSBAsahTasks";
 		}
 
@@ -220,10 +221,12 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 			if (collectionName.equals("account")) {
 				return "Account";
 			}
-			else if (collectionName.equals("contact")) {
+
+			if (collectionName.equals("contact")) {
 				return "Contact";
 			}
-			else if (collectionName.equals("lead")) {
+
+			if (collectionName.equals("lead")) {
 				return "Lead";
 			}
 		}

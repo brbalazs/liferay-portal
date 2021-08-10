@@ -160,7 +160,7 @@ public class DataSourcePage {
 		for (List<String> dataTableRow : dataTableRows) {
 			Stream<String> dataTableRowStream = dataTableRow.stream();
 
-			String dataTableRowString = (String)dataTableRowStream.collect(
+			String dataTableRowString = dataTableRowStream.collect(
 				Collectors.joining(StringPool.SPACE));
 
 			dataTableRowStrings.add(dataTableRowString);
@@ -168,7 +168,7 @@ public class DataSourcePage {
 
 		Stream<String> dataTableStringListStream = dataTableRowStrings.stream();
 
-		String dataTableString = (String)dataTableStringListStream.collect(
+		String dataTableString = dataTableStringListStream.collect(
 			Collectors.joining(StringPool.NEW_LINE));
 
 		WebElement webElement = _faroSelenium.findElement(
