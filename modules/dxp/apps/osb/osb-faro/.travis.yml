@@ -19,9 +19,6 @@ env:
 jdk: openjdk8
 jobs:
     include:
-        - name: push docker image
-          if: branch = 7.1.x AND type = push
-          script: ./gradlew pushAppDockerImage --no-daemon
         - name: source formatting checks
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration --no-daemon --parallel
         - name: javascript tests
@@ -30,7 +27,7 @@ jobs:
               - test ${TRAVIS_BRANCH} = "7.1.x" &&
                 test ${TRAVIS_EVENT_TYPE} = "push" &&
                 test ${TRAVIS_REPO_SLUG} = "liferay/com-liferay-osb-faro-private" &&
-                ./gradlew packageRunCoveralls --no-daemon
+                ./gradlew packageRunCoveralls --no-daemon && ./gradlew pushAppDockerImage --no-daemon
 language: java
 os: linux
 services:
