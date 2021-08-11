@@ -1,3 +1,5 @@
+configurations.portalTestSnapshot.exclude group: "com.liferay.portal", module: "com.liferay.portal.impl"
+
 dependencies {
 	testCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "default"
 	testCompile group: "com.liferay", name: "com.liferay.petra.reflect", version: "default"
