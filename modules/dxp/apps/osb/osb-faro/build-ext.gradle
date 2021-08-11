@@ -4,8 +4,6 @@ import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
 import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 import com.bmuschko.gradle.docker.tasks.container.extras.DockerWaitHealthyContainer
 
-import com.github.spotbugs.snom.SpotBugsPlugin
-
 import com.liferay.gradle.plugins.app.docker.AppDockerPlugin
 
 buildscript {

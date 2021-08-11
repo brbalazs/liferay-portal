@@ -19,8 +19,8 @@ env:
 jdk: openjdk8
 jobs:
     include:
-        - name: source formatting checks
-          script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration --no-daemon --parallel
+        - name: "Analysis"
+          script: ./gradlew checkSourceFormatting packageRunLint pmdMain pmdTest pmdTestIntegration spotbugsMain spotbugsTest spotbugsTestIntegration --configure-on-demand --continue --parallel
         - name: "Tests"
           after_success:
               - test ${TRAVIS_BRANCH} = "7.1.x" &&
