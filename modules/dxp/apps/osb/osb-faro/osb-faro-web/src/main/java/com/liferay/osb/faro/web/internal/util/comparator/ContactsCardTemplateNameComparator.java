@@ -47,13 +47,11 @@ public class ContactsCardTemplateNameComparator
 		String name1 = contactsCardTemplate1.getName();
 		String name2 = contactsCardTemplate2.getName();
 
-		int value = name1.compareTo(name2);
-
 		if (_ascending) {
-			return value;
+			return name1.compareTo(name2);
 		}
 
-		return -value;
+		return name2.compareTo(name1);
 	}
 
 	@Override

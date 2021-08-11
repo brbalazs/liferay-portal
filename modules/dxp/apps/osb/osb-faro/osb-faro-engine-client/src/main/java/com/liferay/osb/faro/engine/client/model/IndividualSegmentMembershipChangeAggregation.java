@@ -37,7 +37,11 @@ public class IndividualSegmentMembershipChangeAggregation {
 	}
 
 	public Date getIntervalInitDate() {
-		return _intervalInitDate;
+		if (_intervalInitDate == null) {
+			return null;
+		}
+
+		return new Date(_intervalInitDate.getTime());
 	}
 
 	public long getKnownIndividualsCount() {
@@ -61,7 +65,9 @@ public class IndividualSegmentMembershipChangeAggregation {
 	}
 
 	public void setIntervalInitDate(Date intervalInitDate) {
-		_intervalInitDate = intervalInitDate;
+		if (intervalInitDate != null) {
+			_intervalInitDate = new Date(intervalInitDate.getTime());
+		}
 	}
 
 	public void setKnownIndividualsCount(long knownIndividualsCount) {

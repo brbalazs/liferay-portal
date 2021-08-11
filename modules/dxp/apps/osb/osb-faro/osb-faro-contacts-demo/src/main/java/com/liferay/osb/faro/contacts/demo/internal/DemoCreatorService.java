@@ -40,8 +40,10 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 
+import java.nio.charset.StandardCharsets;
+
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
@@ -85,7 +87,10 @@ public abstract class DemoCreatorService {
 			password
 		);
 
-		return new String(Base64.encodeBase64(authorizationString.getBytes()));
+		return new String(
+			Base64.encodeBase64(
+				authorizationString.getBytes(StandardCharsets.UTF_8)),
+			StandardCharsets.UTF_8);
 	}
 
 	protected abstract void createData() throws Exception;
@@ -184,14 +189,9 @@ public abstract class DemoCreatorService {
 	}
 
 	protected static final Map<String, String> headers =
-		new HashMap<String, String>() {
-			{
-				put(
-					"Authorization",
-					"Basic " +
-						encodeAuthorizationFields("test@liferay.com", "test"));
-			}
-		};
+		Collections.singletonMap(
+			"Authorization",
+			"Basic " + encodeAuthorizationFields("test@liferay.com", "test"));
 	protected static final Log log = LogFactoryUtil.getLog(
 		DemoCreatorService.class);
 

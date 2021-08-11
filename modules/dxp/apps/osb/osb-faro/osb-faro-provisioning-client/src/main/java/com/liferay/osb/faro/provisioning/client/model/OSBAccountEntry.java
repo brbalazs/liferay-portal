@@ -50,7 +50,11 @@ public class OSBAccountEntry {
 	}
 
 	public Date getCreateDate() {
-		return _createDate;
+		if (_createDate == null) {
+			return null;
+		}
+
+		return new Date(_createDate.getTime());
 	}
 
 	public String getDossieraAccountKey() {
@@ -70,7 +74,11 @@ public class OSBAccountEntry {
 	}
 
 	public Date getLastAuditDate() {
-		return _lastAuditDate;
+		if (_lastAuditDate == null) {
+			return null;
+		}
+
+		return new Date(_lastAuditDate.getTime());
 	}
 
 	public long getMaxCustomers() {
@@ -78,7 +86,11 @@ public class OSBAccountEntry {
 	}
 
 	public Date getModifiedDate() {
-		return _modifiedDate;
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public long getModifiedUserId() {
@@ -122,7 +134,11 @@ public class OSBAccountEntry {
 	}
 
 	public Date getStatusDate() {
-		return _statusDate;
+		if (_statusDate == null) {
+			return null;
+		}
+
+		return new Date(_statusDate.getTime());
 	}
 
 	public String getStatusMessage() {
@@ -174,7 +190,9 @@ public class OSBAccountEntry {
 	}
 
 	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
+		if (createDate != null) {
+			_createDate = new Date(createDate.getTime());
+		}
 	}
 
 	public void setDossieraAccountKey(String dossieraAccountKey) {
@@ -194,7 +212,9 @@ public class OSBAccountEntry {
 	}
 
 	public void setLastAuditDate(Date lastAuditDate) {
-		_lastAuditDate = lastAuditDate;
+		if (lastAuditDate != null) {
+			_lastAuditDate = new Date(lastAuditDate.getTime());
+		}
 	}
 
 	public void setMaxCustomers(long maxCustomers) {
@@ -202,7 +222,9 @@ public class OSBAccountEntry {
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setModifiedUserId(long modifiedUserId) {
@@ -250,7 +272,9 @@ public class OSBAccountEntry {
 	}
 
 	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
+		if (statusDate != null) {
+			_statusDate = new Date(statusDate.getTime());
+		}
 	}
 
 	public void setStatusMessage(String statusMessage) {

@@ -117,7 +117,11 @@ public class FaroSubscriptionDisplay {
 	}
 
 	public Date getStartDate() {
-		return _startDate;
+		if (_startDate == null) {
+			return null;
+		}
+
+		return new Date(_startDate.getTime());
 	}
 
 	public boolean isActive() {

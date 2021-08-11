@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.constants;
 
+import com.liferay.portal.util.PropsValues;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,12 +25,6 @@ import java.util.Map;
 public class FaroPaginationConstants {
 
 	public static final int CUR_DEFAULT = 1;
-
-	public static final int DELTA_DEFAULT = 20;
-
-	public static final Integer[] DELTA_VALUES_DEFAULT = {
-		5, 10, 20, 30, 50, 75
-	};
 
 	public static final String ORDER_BY_TYPE_ASC = "asc";
 
@@ -44,8 +40,10 @@ public class FaroPaginationConstants {
 		new HashMap<String, Object>() {
 			{
 				put("cur", CUR_DEFAULT);
-				put("delta", DELTA_DEFAULT);
-				put("deltaValues", DELTA_VALUES_DEFAULT);
+				put("delta", PropsValues.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+				put(
+					"deltaValues",
+					PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES);
 				put("orderAscending", ORDER_BY_TYPE_ASC);
 				put("orderDefault", ORDER_BY_TYPE_DEFAULT);
 				put("orderDescending", ORDER_BY_TYPE_DESC);

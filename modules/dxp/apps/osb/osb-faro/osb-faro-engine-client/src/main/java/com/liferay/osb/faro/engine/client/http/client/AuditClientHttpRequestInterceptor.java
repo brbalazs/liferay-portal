@@ -51,7 +51,9 @@ public class AuditClientHttpRequestInterceptor
 
 		HttpMethod httpMethod = httpRequest.getMethod();
 
-		childFaroRequestAudit.setMethod(httpMethod.toString());
+		if (httpMethod != null) {
+			childFaroRequestAudit.setMethod(httpMethod.toString());
+		}
 
 		URI uri = httpRequest.getURI();
 

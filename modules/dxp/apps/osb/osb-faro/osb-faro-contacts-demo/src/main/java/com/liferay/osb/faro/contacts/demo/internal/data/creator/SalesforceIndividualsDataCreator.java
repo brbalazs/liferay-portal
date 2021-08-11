@@ -111,7 +111,7 @@ public class SalesforceIndividualsDataCreator extends DataCreator {
 		salesforceIndividual.put("lastName", lastName);
 		salesforceIndividual.put("middleName", name.firstName());
 		salesforceIndividual.put("mobilePhone", phoneNumber.cellPhone());
-		salesforceIndividual.put("modifiedDate", dateFormat.format(new Date()));
+		salesforceIndividual.put("modifiedDate", formatDate(new Date()));
 		salesforceIndividual.put("osbAsahDataSourceId", _dataSourceId);
 		salesforceIndividual.put("phone", phoneNumber.phoneNumber());
 		salesforceIndividual.put("postalCode", address.zipCode());

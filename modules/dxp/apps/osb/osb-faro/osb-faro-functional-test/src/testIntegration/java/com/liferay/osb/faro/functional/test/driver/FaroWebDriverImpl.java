@@ -138,16 +138,18 @@ public class FaroWebDriverImpl
 		JavascriptExecutor jse =
 			(JavascriptExecutor)WebDriverUtil.getWebDriver();
 
-		BufferedReader bufferedReader = Files.newBufferedReader(
-			Paths.get("src/testIntegration/resources/drag_and_drop_helper.js"));
+		try (BufferedReader bufferedReader = Files.newBufferedReader(
+				Paths.get(
+					"src/testIntegration/resources/drag_and_drop_helper.js"))) {
 
-		Stream<String> stream = bufferedReader.lines();
+			Stream<String> stream = bufferedReader.lines();
 
-		jse.executeScript(
-			StringBundler.concat(
-				stream.collect(Collectors.joining(" ")),
-				"DndSimulator.simulate('", fromElement, "', '", toElement,
-				"');"));
+			jse.executeScript(
+				StringBundler.concat(
+					stream.collect(Collectors.joining(" ")),
+					"DndSimulator.simulate('", fromElement, "', '", toElement,
+					"');"));
+		}
 	}
 
 	@Override

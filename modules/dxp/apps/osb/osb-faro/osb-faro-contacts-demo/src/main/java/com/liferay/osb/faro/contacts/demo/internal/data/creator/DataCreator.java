@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -160,6 +161,13 @@ public abstract class DataCreator {
 		return _totalCount;
 	}
 
+	protected static String formatDate(Date date) {
+		DateFormat dateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+		return dateFormat.format(date);
+	}
+
 	protected void addData(List<Map<String, Object>> objects) {
 		_contactsEngineClient.addData(
 			faroProject, _weDeployServiceName, _collectionName, objects);
@@ -167,8 +175,6 @@ public abstract class DataCreator {
 
 	protected abstract Map<String, Object> doCreate(Object[] params);
 
-	protected static final DateFormat dateFormat = new SimpleDateFormat(
-		"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 	protected static final Random random = new Random(0);
 
 	protected Address address = _faker.address();

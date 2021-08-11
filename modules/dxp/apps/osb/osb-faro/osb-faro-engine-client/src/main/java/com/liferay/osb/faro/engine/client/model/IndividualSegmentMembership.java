@@ -25,11 +25,19 @@ public class IndividualSegmentMembership {
 	}
 
 	public Date getDateCreated() {
-		return _dateCreated;
+		if (_dateCreated == null) {
+			return null;
+		}
+
+		return new Date(_dateCreated.getTime());
 	}
 
 	public Date getDateRemoved() {
-		return _dateRemoved;
+		if (_dateRemoved == null) {
+			return null;
+		}
+
+		return new Date(_dateRemoved.getTime());
 	}
 
 	public String getIndividualId() {
@@ -45,11 +53,15 @@ public class IndividualSegmentMembership {
 	}
 
 	public void setDateCreated(Date dateCreated) {
-		_dateCreated = dateCreated;
+		if (dateCreated != null) {
+			_dateCreated = new Date(dateCreated.getTime());
+		}
 	}
 
 	public void setDateRemoved(Date dateRemoved) {
-		_dateRemoved = dateRemoved;
+		if (dateRemoved != null) {
+			_dateRemoved = new Date(dateRemoved.getTime());
+		}
 	}
 
 	public void setIndividualId(String individualId) {

@@ -47,13 +47,13 @@ public class MembershipChangesDataCreator extends DataCreator {
 
 		membershipChange.put(
 			"dateChanged",
-			dateFormat.format(new Date(dateChanged.getTime() - Time.MONTH)));
+			formatDate(new Date(dateChanged.getTime() - Time.MONTH)));
 
 		Date dateFirst = individualSegmentMembershipChange.getDateFirst();
 
 		membershipChange.put(
 			"dateFirst",
-			dateFormat.format(new Date(dateFirst.getTime() - Time.MONTH)));
+			formatDate(new Date(dateFirst.getTime() - Time.MONTH)));
 
 		membershipChange.put("id", individualSegmentMembershipChange.getId());
 		membershipChange.put(

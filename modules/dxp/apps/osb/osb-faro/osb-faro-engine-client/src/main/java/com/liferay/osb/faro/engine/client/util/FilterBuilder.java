@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author Matthew Kong
  */
-public class FilterBuilder {
+public class FilterBuilder implements Cloneable {
 
 	public void addBlankFilter(
 		String fieldName, String operator, String fieldNameContext) {
@@ -200,8 +200,8 @@ public class FilterBuilder {
 	}
 
 	@Override
-	public FilterBuilder clone() {
-		FilterBuilder filterBuilder = new FilterBuilder();
+	public FilterBuilder clone() throws CloneNotSupportedException {
+		FilterBuilder filterBuilder = (FilterBuilder)super.clone();
 
 		List<String> requiredFilters = filterBuilder._requiredFilters;
 

@@ -31,7 +31,9 @@ public class MockWorkspaceEngineClientImpl
 	extends BaseMockWorkspaceEngineClientImpl {
 
 	@Override
-	public Workspace createWorkspace(String region, boolean trial) {
+	public Workspace createWorkspace(String region, boolean trial)
+		throws Exception {
+
 		if (Validator.isNotNull(_WEDEPLOY_EMAIL_ADDRESS)) {
 			return workspaceEngineClient.createWorkspace(region, trial);
 		}

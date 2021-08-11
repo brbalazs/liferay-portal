@@ -30,7 +30,11 @@ public class LCPBuildService {
 	}
 
 	public Date getCreatedAt() {
-		return _createdAt;
+		if (_createdAt == null) {
+			return null;
+		}
+
+		return new Date(_createdAt.getTime());
 	}
 
 	public String getGroupUid() {
@@ -66,7 +70,9 @@ public class LCPBuildService {
 	}
 
 	public void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
+		if (createdAt != null) {
+			_createdAt = new Date(createdAt.getTime());
+		}
 	}
 
 	public void setGroupUid(String groupUid) {

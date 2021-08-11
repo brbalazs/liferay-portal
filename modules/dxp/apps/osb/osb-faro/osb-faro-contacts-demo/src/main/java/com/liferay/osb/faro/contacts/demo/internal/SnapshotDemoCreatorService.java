@@ -32,7 +32,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -134,9 +133,12 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 			try {
 				String stringValue = (String)value;
 
-				Date date = _dateFormat.parse(stringValue);
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-				return _dateFormat.format(
+				Date date = simpleDateFormat.parse(stringValue);
+
+				return simpleDateFormat.format(
 					new Date(date.getTime() + timeOffset));
 			}
 			catch (Exception exception) {
@@ -251,6 +253,10 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 	private void _processFile(Path path, long timeOffset) throws Exception {
 		Path fileName = path.getFileName();
 
+		if (fileName == null) {
+			throw new Exception("File name is null");
+		}
+
 		String entryName = StringUtil.removeSubstring(
 			fileName.toString(), ".json");
 
@@ -286,8 +292,6 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		"birthdate", "lastactivitydates"
 	};
 
-	private static final DateFormat _dateFormat = new SimpleDateFormat(
-		"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 	private static final List<String> _priorityFileNames = Arrays.asList(
 		"osbasahfaroinfo_channels_0.json",
 		"osbasahfaroinfo_data-sources_0.json");

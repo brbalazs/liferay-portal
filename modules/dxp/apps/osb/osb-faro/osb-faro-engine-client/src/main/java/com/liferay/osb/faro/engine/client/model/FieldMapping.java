@@ -48,11 +48,19 @@ public class FieldMapping {
 	}
 
 	public Date getDateCreated() {
-		return _dateCreated;
+		if (_dateCreated == null) {
+			return null;
+		}
+
+		return new Date(_dateCreated.getTime());
 	}
 
 	public Date getDateModified() {
-		return _dateModified;
+		if (_dateModified == null) {
+			return null;
+		}
+
+		return new Date(_dateModified.getTime());
 	}
 
 	public String getDisplayName() {
@@ -102,11 +110,15 @@ public class FieldMapping {
 	}
 
 	public void setDateCreated(Date dateCreated) {
-		_dateCreated = dateCreated;
+		if (dateCreated != null) {
+			_dateCreated = new Date(dateCreated.getTime());
+		}
 	}
 
 	public void setDateModified(Date dateModified) {
-		_dateModified = dateModified;
+		if (dateModified != null) {
+			_dateModified = new Date(dateModified.getTime());
+		}
 	}
 
 	public void setDisplayName(String displayName) {

@@ -220,7 +220,7 @@ public class IndividualSegmentController extends BaseFaroController {
 
 	@Override
 	public int[] getEntityTypes() {
-		return _ENTITY_TYPES;
+		return _ENTITY_TYPES.clone();
 	}
 
 	@GET
@@ -443,8 +443,7 @@ public class IndividualSegmentController extends BaseFaroController {
 		return new IndividualSegmentDisplay(individualSegment);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected FaroResultsDisplay search(
+	protected FaroResultsDisplay<IndividualSegment> search(
 			long groupId, String channelId, String contactsEntityId,
 			int contactsEntityType, String dataSourceId, String query,
 			String segmentType, String state, int cur, int delta,
@@ -476,10 +475,12 @@ public class IndividualSegmentController extends BaseFaroController {
 				orderByFields);
 		}
 
-		Function<IndividualSegment, IndividualSegmentDisplay> function =
-			IndividualSegmentDisplay::new;
+		if (results != null) {
+			return new FaroResultsDisplay<>(
+				results, IndividualSegmentDisplay::new);
+		}
 
-		return new FaroResultsDisplay(results, function);
+		return new FaroResultsDisplay<>();
 	}
 
 	protected IndividualSegmentDisplay updateDynamic(

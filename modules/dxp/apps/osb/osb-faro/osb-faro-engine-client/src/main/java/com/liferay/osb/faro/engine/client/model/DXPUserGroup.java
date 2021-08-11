@@ -26,7 +26,11 @@ public class DXPUserGroup {
 	}
 
 	public Date getCreateDate() {
-		return _createDate;
+		if (_createDate == null) {
+			return null;
+		}
+
+		return new Date(_createDate.getTime());
 	}
 
 	public String getDescription() {
@@ -38,7 +42,11 @@ public class DXPUserGroup {
 	}
 
 	public Date getModifiedDate() {
-		return _modifiedDate;
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public long getMvccVersion() {
@@ -86,7 +94,9 @@ public class DXPUserGroup {
 	}
 
 	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
+		if (createDate != null) {
+			_createDate = new Date(createDate.getTime());
+		}
 	}
 
 	public void setDescription(String description) {
@@ -98,7 +108,9 @@ public class DXPUserGroup {
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setMvccVersion(long mvccVersion) {

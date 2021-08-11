@@ -43,7 +43,7 @@ public class FaroInfoOrganizationsDataCreator extends DataCreator {
 		faroInfoOrganization.put(
 			"dataSourceId", organization.get("osbAsahDataSourceId"));
 
-		faroInfoOrganization.put("dateCreated", dateFormat.format(new Date()));
+		faroInfoOrganization.put("dateCreated", formatDate(new Date()));
 		faroInfoOrganization.put(
 			"dateModified", organization.get("modifiedDate"));
 		faroInfoOrganization.put("id", internet.uuid());

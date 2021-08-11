@@ -73,9 +73,8 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 
 	private void _notifyFaroProjects() throws Exception {
 		try (PreparedStatement ps = connection.prepareStatement(
-				"select groupId from OSBFaro_FaroProject")) {
-
-			ResultSet rs = ps.executeQuery();
+				"select groupId from OSBFaro_FaroProject");
+			ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
 				_addFaroNotification(rs.getLong(1));

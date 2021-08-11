@@ -103,7 +103,7 @@ public class AnalyticEventsDataCreator extends DataCreator {
 
 		List<Map<String, Object>> events = new ArrayList<>();
 
-		String eventDateString = dateFormat.format(
+		String eventDateString = formatDate(
 			dateAndTime.past(30, TimeUnit.DAYS));
 
 		if (bool.bool()) {

@@ -25,7 +25,11 @@ public class ActivityAggregation {
 	}
 
 	public Date getIntervalInitDate() {
-		return _intervalInitDate;
+		if (_intervalInitDate == null) {
+			return null;
+		}
+
+		return new Date(_intervalInitDate.getTime());
 	}
 
 	public int getTotalElements() {
@@ -33,7 +37,9 @@ public class ActivityAggregation {
 	}
 
 	public void setIntervalInitDate(Date intervalInitDate) {
-		_intervalInitDate = intervalInitDate;
+		if (intervalInitDate != null) {
+			_intervalInitDate = new Date(intervalInitDate.getTime());
+		}
 	}
 
 	public void setTotalElements(int totalElements) {

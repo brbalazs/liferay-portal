@@ -136,11 +136,15 @@ public class ProjectDisplay {
 	}
 
 	public void setStateEndDate(Date stateEndDate) {
-		_stateEndDate = stateEndDate;
+		if (stateEndDate != null) {
+			_stateEndDate = new Date(stateEndDate.getTime());
+		}
 	}
 
 	public void setStateStartDate(Date stateStartDate) {
-		_stateStartDate = stateStartDate;
+		if (stateStartDate != null) {
+			_stateStartDate = new Date(stateStartDate.getTime());
+		}
 	}
 
 	protected FaroSubscriptionDisplay getFaroSubscriptionDisplay(

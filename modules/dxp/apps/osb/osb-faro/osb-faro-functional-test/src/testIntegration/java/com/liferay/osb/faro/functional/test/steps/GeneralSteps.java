@@ -25,8 +25,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
+
+import java.nio.charset.StandardCharsets;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
@@ -100,18 +105,20 @@ public class GeneralSteps {
 	 * Creates a file with a given name from a Cucumber Doc String.
 	 *
 	 * @param  fileName name to save the file as, including file extension
-	 * @throws FileNotFoundException if the file failed to be created and was
-	 *         not found
+	 * @throws IOException
 	 */
 	@When("^I create a file named (.*) with the following content:$")
 	public void createFile(
 			@Transform(FaroTransformer.class) String fileName,
 			@Transform(FaroTransformer.class) String dataTable)
-		throws FileNotFoundException {
+		throws IOException {
 
 		File file = new File(FaroSeleniumUtil.getDependenciesDir(), fileName);
 
-		try (PrintWriter printWriter = new PrintWriter(file)) {
+		try (Writer writer = new OutputStreamWriter(
+				new FileOutputStream(file), StandardCharsets.UTF_8);
+			PrintWriter printWriter = new PrintWriter(writer)) {
+
 			printWriter.write(dataTable);
 		}
 	}

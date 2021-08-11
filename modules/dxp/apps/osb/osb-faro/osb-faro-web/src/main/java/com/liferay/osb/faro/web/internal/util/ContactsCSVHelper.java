@@ -42,8 +42,14 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+
+import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,11 +76,14 @@ public class ContactsCSVHelper {
 
 		tempFile.deleteOnExit();
 
-		UnsyncBufferedWriter unsyncBufferedWriter = new UnsyncBufferedWriter(
-			new FileWriter(tempFile));
-
-		try (UnsyncBufferedReader unsyncBufferedReader =
-				new UnsyncBufferedReader(new FileReader(file))) {
+		try (Reader reader = new InputStreamReader(
+				new FileInputStream(file), StandardCharsets.UTF_8);
+			UnsyncBufferedReader unsyncBufferedReader =
+				new UnsyncBufferedReader(reader);
+			Writer writer = new OutputStreamWriter(
+				new FileOutputStream(tempFile), StandardCharsets.UTF_8);
+			UnsyncBufferedWriter unsyncBufferedWriter =
+				new UnsyncBufferedWriter(writer)) {
 
 			List<String> previousHeaders = new ArrayList<>();
 
@@ -100,9 +109,9 @@ public class ContactsCSVHelper {
 
 				line = unsyncBufferedReader.readLine();
 			}
-		}
 
-		unsyncBufferedWriter.flush();
+			unsyncBufferedWriter.flush();
+		}
 
 		DLFileVersion dlFileVersion = addDLFileVersion(
 			dataSourceId, userId, groupId, fileName, tempFile);
@@ -176,8 +185,6 @@ public class ContactsCSVHelper {
 							key -> new DataSourceField(key, new ArrayList<>()));
 
 					List<String> fields = dataSourceField.getValues();
-
-					dataSourceFieldMap.get(header);
 
 					String value = values[i];
 

@@ -37,7 +37,11 @@ public class Field {
 	}
 
 	public Date getDateModified() {
-		return _dateModified;
+		if (_dateModified == null) {
+			return null;
+		}
+
+		return new Date(_dateModified.getTime());
 	}
 
 	public String getFieldType() {
@@ -85,7 +89,9 @@ public class Field {
 	}
 
 	public void setDateModified(Date dateModified) {
-		_dateModified = dateModified;
+		if (dateModified != null) {
+			_dateModified = new Date(dateModified.getTime());
+		}
 	}
 
 	public void setFieldType(String fieldType) {

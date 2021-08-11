@@ -37,7 +37,11 @@ public class Activity {
 	}
 
 	public Date getDay() {
-		return _day;
+		if (_day == null) {
+			return null;
+		}
+
+		return new Date(_day.getTime());
 	}
 
 	public String getDescription() {
@@ -45,7 +49,11 @@ public class Activity {
 	}
 
 	public Date getEndTime() {
-		return _endTime;
+		if (_endTime == null) {
+			return null;
+		}
+
+		return new Date(_endTime.getTime());
 	}
 
 	public String getEventId() {
@@ -81,7 +89,11 @@ public class Activity {
 	}
 
 	public Date getStartTime() {
-		return _startTime;
+		if (_startTime == null) {
+			return null;
+		}
+
+		return new Date(_startTime.getTime());
 	}
 
 	public void setActivityKey(String activityKey) {
@@ -97,7 +109,9 @@ public class Activity {
 	}
 
 	public void setDay(Date day) {
-		_day = day;
+		if (day != null) {
+			_day = new Date(day.getTime());
+		}
 	}
 
 	public void setDescription(String description) {
@@ -105,7 +119,9 @@ public class Activity {
 	}
 
 	public void setEndTime(Date endTime) {
-		_endTime = endTime;
+		if (endTime != null) {
+			_endTime = new Date(endTime.getTime());
+		}
 	}
 
 	public void setEventId(String eventId) {
@@ -141,7 +157,9 @@ public class Activity {
 	}
 
 	public void setStartTime(Date startTime) {
-		_startTime = startTime;
+		if (startTime != null) {
+			_startTime = new Date(startTime.getTime());
+		}
 	}
 
 	public static class ActionObject {

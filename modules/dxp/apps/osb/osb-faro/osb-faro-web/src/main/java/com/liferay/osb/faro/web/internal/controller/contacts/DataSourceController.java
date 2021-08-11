@@ -93,6 +93,8 @@ import java.io.File;
 
 import java.net.URI;
 
+import java.nio.charset.StandardCharsets;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -449,7 +451,7 @@ public class DataSourceController extends BaseFaroController {
 
 	@Override
 	public int[] getEntityTypes() {
-		return _ENTITY_TYPES;
+		return _ENTITY_TYPES.clone();
 	}
 
 	@GET
@@ -1324,7 +1326,7 @@ public class DataSourceController extends BaseFaroController {
 
 		String json = JSONUtil.writeValueAsString(properties);
 
-		return Base64.encode(json.getBytes());
+		return Base64.encode(json.getBytes(StandardCharsets.UTF_8));
 	}
 
 	protected String getURL(String url) {

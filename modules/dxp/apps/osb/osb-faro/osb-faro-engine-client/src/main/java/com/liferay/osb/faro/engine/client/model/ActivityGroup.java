@@ -33,7 +33,11 @@ public class ActivityGroup {
 	}
 
 	public Date getDay() {
-		return _day;
+		if (_day == null) {
+			return null;
+		}
+
+		return new Date(_day.getTime());
 	}
 
 	@JsonProperty("_embedded")
@@ -42,7 +46,11 @@ public class ActivityGroup {
 	}
 
 	public Date getEndTime() {
-		return _endTime;
+		if (_endTime == null) {
+			return null;
+		}
+
+		return new Date(_endTime.getTime());
 	}
 
 	public String getId() {
@@ -62,7 +70,11 @@ public class ActivityGroup {
 	}
 
 	public Date getStartTime() {
-		return _startTime;
+		if (_startTime == null) {
+			return null;
+		}
+
+		return new Date(_startTime.getTime());
 	}
 
 	public void setActivityType(String activityType) {
@@ -70,7 +82,9 @@ public class ActivityGroup {
 	}
 
 	public void setDay(Date day) {
-		_day = day;
+		if (day != null) {
+			_day = new Date(day.getTime());
+		}
 	}
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {
@@ -78,7 +92,9 @@ public class ActivityGroup {
 	}
 
 	public void setEndTime(Date endTime) {
-		_endTime = endTime;
+		if (endTime != null) {
+			_endTime = new Date(endTime.getTime());
+		}
 	}
 
 	public void setId(String id) {
@@ -98,7 +114,9 @@ public class ActivityGroup {
 	}
 
 	public void setStartTime(Date startTime) {
-		_startTime = startTime;
+		if (startTime != null) {
+			_startTime = new Date(startTime.getTime());
+		}
 	}
 
 	private String _activityType;

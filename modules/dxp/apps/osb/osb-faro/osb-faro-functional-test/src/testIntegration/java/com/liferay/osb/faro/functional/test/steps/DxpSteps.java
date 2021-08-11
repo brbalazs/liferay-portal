@@ -56,9 +56,11 @@ public class DxpSteps {
 	public void addDxpOAuth2App() throws Exception {
 		Properties properties = new Properties();
 
-		properties.load(
-			new FileInputStream(
-				"src/testIntegration/resources/ngrok.properties"));
+		try (FileInputStream fileInputStream = new FileInputStream(
+				"src/testIntegration/resources/ngrok.properties")) {
+
+			properties.load(fileInputStream);
+		}
 
 		FaroTestDataUtil.setPlaceholder(
 			"NGROK_URL", "http://" + properties.getProperty("url"));
@@ -168,13 +170,16 @@ public class DxpSteps {
 
 	@Then("^I should see a property named (.*) in DXP$")
 	public void assertDXPListItem(
-		@Transform(FaroTransformer.class) String propName) {
+			@Transform(FaroTransformer.class) String propName)
+		throws Exception {
 
 		StringBundler sb = new StringBundler(3);
 
 		sb.append("//table[contains(@class,'table')]//a[contains(text(),'");
 		sb.append(propName);
 		sb.append("')]");
+
+		_faroSelenium.waitForElementPresent(sb.toString());
 	}
 
 	@Then("^I should see an oauth alert message (.*)$")

@@ -47,7 +47,7 @@ public class LiferayExperimentsDataCreator extends DataCreator {
 		experiment.put("channelId", _channelId);
 		experiment.put("confidenceLevel", 95);
 
-		String dateString = dateFormat.format(
+		String dateString = formatDate(
 			new Date(
 				System.currentTimeMillis() -
 					(number.numberBetween(0, 100) * Time.DAY)));

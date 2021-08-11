@@ -46,11 +46,19 @@ public class IndividualSegment {
 	}
 
 	public Date getDateCreated() {
-		return _dateCreated;
+		if (_dateCreated == null) {
+			return null;
+		}
+
+		return new Date(_dateCreated.getTime());
 	}
 
 	public Date getDateModified() {
-		return _dateModified;
+		if (_dateModified == null) {
+			return null;
+		}
+
+		return new Date(_dateModified.getTime());
 	}
 
 	@JsonProperty("_embedded")
@@ -79,7 +87,11 @@ public class IndividualSegment {
 	}
 
 	public Date getLastActivityDate() {
-		return _lastActivityDate;
+		if (_lastActivityDate == null) {
+			return null;
+		}
+
+		return new Date(_lastActivityDate.getTime());
 	}
 
 	public String getName() {
@@ -127,11 +139,15 @@ public class IndividualSegment {
 	}
 
 	public void setDateCreated(Date dateCreated) {
-		_dateCreated = dateCreated;
+		if (dateCreated != null) {
+			_dateCreated = new Date(dateCreated.getTime());
+		}
 	}
 
 	public void setDateModified(Date dateModified) {
-		_dateModified = dateModified;
+		if (dateModified != null) {
+			_dateModified = new Date(dateModified.getTime());
+		}
 	}
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {
@@ -163,7 +179,9 @@ public class IndividualSegment {
 	}
 
 	public void setLastActivityDate(Date lastActivityDate) {
-		_lastActivityDate = lastActivityDate;
+		if (lastActivityDate != null) {
+			_lastActivityDate = new Date(lastActivityDate.getTime());
+		}
 	}
 
 	public void setName(String name) {

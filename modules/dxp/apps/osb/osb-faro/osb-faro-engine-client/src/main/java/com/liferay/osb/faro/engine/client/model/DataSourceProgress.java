@@ -26,7 +26,11 @@ public class DataSourceProgress {
 	}
 
 	public Date getDateRecorded() {
-		return _dateRecorded;
+		if (_dateRecorded == null) {
+			return null;
+		}
+
+		return new Date(_dateRecorded.getTime());
 	}
 
 	public long getProcessedOperations() {
@@ -42,7 +46,9 @@ public class DataSourceProgress {
 	}
 
 	public void setDateRecorded(Date dateRecorded) {
-		_dateRecorded = dateRecorded;
+		if (dateRecorded != null) {
+			_dateRecorded = new Date(dateRecorded.getTime());
+		}
 	}
 
 	public void setProcessedOperations(long processedOperations) {

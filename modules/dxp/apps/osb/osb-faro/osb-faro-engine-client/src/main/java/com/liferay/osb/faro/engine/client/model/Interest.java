@@ -29,7 +29,11 @@ public class Interest {
 	}
 
 	public Date getDateRecorded() {
-		return _dateRecorded;
+		if (_dateRecorded == null) {
+			return null;
+		}
+
+		return new Date(_dateRecorded.getTime());
 	}
 
 	@JsonProperty("_embedded")
@@ -62,7 +66,9 @@ public class Interest {
 	}
 
 	public void setDateRecorded(Date dateRecorded) {
-		_dateRecorded = dateRecorded;
+		if (dateRecorded != null) {
+			_dateRecorded = new Date(dateRecorded.getTime());
+		}
 	}
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {

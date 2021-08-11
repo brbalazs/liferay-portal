@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.nio.charset.StandardCharsets;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -127,7 +129,10 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			password
 		);
 
-		return new String(Base64.encodeBase64(authorizationString.getBytes()));
+		return new String(
+			Base64.encodeBase64(
+				authorizationString.getBytes(StandardCharsets.UTF_8)),
+			StandardCharsets.UTF_8);
 	}
 
 	protected Http.Options getOptions(String emailAddress) {

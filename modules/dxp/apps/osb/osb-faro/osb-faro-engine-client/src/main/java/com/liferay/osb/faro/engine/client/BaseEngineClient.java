@@ -138,46 +138,52 @@ public abstract class BaseEngineClient {
 		Map<String, Object> responseBody =
 			(Map<String, Object>)responseEntity.getBody();
 
-		for (Object result : (List<Object>)responseBody.get("responses")) {
-			try {
-				String resultString = objectMapper.writeValueAsString(result);
+		if (responseBody != null) {
+			for (Object result : (List<Object>)responseBody.get("responses")) {
+				try {
+					String resultString = objectMapper.writeValueAsString(
+						result);
 
-				if (resultString.startsWith(StringPool.OPEN_BRACKET)) {
+					if (resultString.startsWith(StringPool.OPEN_BRACKET)) {
+						responses.add(
+							objectMapper.readValue(
+								resultString, typeReference));
+
+						continue;
+					}
+
+					Map<String, Map<String, Object>> resultMap =
+						(Map<String, Map<String, Object>>)result;
+
+					Map<String, Object> embeddedObject = resultMap.get(
+						"_embedded");
+
+					if (embeddedObject == null) {
+						responses.add(
+							objectMapper.readValue(
+								resultString, typeReference));
+
+						continue;
+					}
+
+					Collection<Object> collection = embeddedObject.values();
+
+					Iterator<Object> iterator = collection.iterator();
+
+					if (!iterator.hasNext()) {
+						continue;
+					}
+
 					responses.add(
-						objectMapper.readValue(resultString, typeReference));
-
-					continue;
+						objectMapper.readValue(
+							objectMapper.writeValueAsString(iterator.next()),
+							typeReference));
 				}
+				catch (Exception exception) {
+					_log.error(exception, exception);
 
-				Map<String, Map<String, Object>> resultMap =
-					(Map<String, Map<String, Object>>)result;
-
-				Map<String, Object> embeddedObject = resultMap.get("_embedded");
-
-				if (embeddedObject == null) {
-					responses.add(
-						objectMapper.readValue(resultString, typeReference));
-
-					continue;
+					responses.add(null);
 				}
-
-				Collection<Object> collection = embeddedObject.values();
-
-				Iterator<Object> iterator = collection.iterator();
-
-				if (!iterator.hasNext()) {
-					continue;
-				}
-
-				responses.add(
-					objectMapper.readValue(
-						objectMapper.writeValueAsString(iterator.next()),
-						typeReference));
-			}
-			catch (Exception exception) {
-				_log.error(exception, exception);
-
-				responses.add(null);
 			}
 		}
 
@@ -441,6 +447,10 @@ public abstract class BaseEngineClient {
 		}
 
 		Resource<?> resource = responseEntity.getBody();
+
+		if (resource == null) {
+			return null;
+		}
 
 		Link link = resource.getLink(type);
 

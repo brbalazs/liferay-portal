@@ -50,10 +50,11 @@ public class CacheClientHttpRequestInterceptor
 
 		HttpMethod httpMethod = httpRequest.getMethod();
 
-		if (httpMethod.equals(HttpMethod.PATCH) ||
-			httpMethod.equals(HttpMethod.POST) ||
-			httpMethod.equals(HttpMethod.PUT) ||
-			httpMethod.equals(HttpMethod.DELETE)) {
+		if ((httpMethod != null) &&
+			(httpMethod.equals(HttpMethod.PATCH) ||
+			 httpMethod.equals(HttpMethod.POST) ||
+			 httpMethod.equals(HttpMethod.PUT) ||
+			 httpMethod.equals(HttpMethod.DELETE))) {
 
 			_cache.clear();
 		}
@@ -106,7 +107,9 @@ public class CacheClientHttpRequestInterceptor
 
 		HttpMethod httpMethod = httpRequest.getMethod();
 
-		sb.append(httpMethod.name());
+		if (httpMethod != null) {
+			sb.append(httpMethod.name());
+		}
 
 		sb.append(StringPool.COLON);
 		sb.append(httpRequest.getURI());

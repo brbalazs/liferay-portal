@@ -27,7 +27,8 @@ import java.util.List;
  */
 public interface WorkspaceEngineClient {
 
-	public Workspace createWorkspace(String region, boolean trial);
+	public Workspace createWorkspace(String region, boolean trial)
+		throws Exception;
 
 	public void deleteWorkspaceService(String weDeployKey, String serviceId);
 

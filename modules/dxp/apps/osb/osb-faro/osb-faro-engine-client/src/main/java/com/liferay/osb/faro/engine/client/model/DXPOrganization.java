@@ -26,7 +26,11 @@ public class DXPOrganization {
 	}
 
 	public Date getModifiedDate() {
-		return _modifiedDate;
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public String getName() {
@@ -70,7 +74,9 @@ public class DXPOrganization {
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setName(String name) {

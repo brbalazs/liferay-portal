@@ -35,6 +35,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -76,7 +77,7 @@ public class HubSpotEngineClientImpl implements HubSpotEngineClient {
 				"ac_workspace_id", faroProject.getGroupId(),
 				"ac_workspace_name", faroProject.getName(), "email",
 				faroUser.getEmailAddress()),
-			null, _getURIVariables(formId));
+			Void.class, _getURIVariables(formId));
 	}
 
 	@Override
@@ -91,7 +92,8 @@ public class HubSpotEngineClientImpl implements HubSpotEngineClient {
 				"ac_last_activity_date",
 				_getNormalizedTime(faroProject.getLastAccessTime()), "email",
 				faroUser.getEmailAddress()),
-			null, _getURIVariables("c01de9b3-b3c1-4401-a3e1-5b1a53802e1c"));
+			Void.class,
+			_getURIVariables("c01de9b3-b3c1-4401-a3e1-5b1a53802e1c"));
 	}
 
 	@Override
@@ -121,7 +123,8 @@ public class HubSpotEngineClientImpl implements HubSpotEngineClient {
 				faroUser.getEmailAddress(), "firstname", user.getFirstName(),
 				"lastname", user.getLastName(), "recent_conversion_type",
 				"Software Download"),
-			null, _getURIVariables("c0bc56bd-9f5e-479a-9de4-9db4fc5555d3"));
+			Void.class,
+			_getURIVariables("c0bc56bd-9f5e-479a-9de4-9db4fc5555d3"));
 	}
 
 	private long _getNormalizedTime(long time) {
@@ -165,7 +168,7 @@ public class HubSpotEngineClientImpl implements HubSpotEngineClient {
 				Map<String, ?> uriVariables) {
 
 				if (!_HUBSPOT_ENABLED) {
-					return null;
+					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 				}
 
 				return super.postForEntity(

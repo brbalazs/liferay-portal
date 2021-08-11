@@ -25,7 +25,11 @@ public class Event {
 	}
 
 	public Date getEndDate() {
-		return _endDate;
+		if (_endDate == null) {
+			return null;
+		}
+
+		return new Date(_endDate.getTime());
 	}
 
 	public PostalAddress getLocation() {
@@ -41,11 +45,17 @@ public class Event {
 	}
 
 	public Date getStartDate() {
-		return _startDate;
+		if (_startDate == null) {
+			return null;
+		}
+
+		return new Date(_startDate.getTime());
 	}
 
 	public void setEndDate(Date endDate) {
-		_endDate = endDate;
+		if (endDate != null) {
+			_endDate = new Date(endDate.getTime());
+		}
 	}
 
 	public void setLocation(PostalAddress location) {
@@ -61,7 +71,9 @@ public class Event {
 	}
 
 	public void setStartDate(Date startDate) {
-		_startDate = startDate;
+		if (startDate != null) {
+			_startDate = new Date(startDate.getTime());
+		}
 	}
 
 	private Date _endDate;

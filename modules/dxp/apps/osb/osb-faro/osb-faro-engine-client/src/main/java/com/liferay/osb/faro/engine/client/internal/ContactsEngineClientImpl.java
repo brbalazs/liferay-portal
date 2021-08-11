@@ -2374,18 +2374,20 @@ public class ContactsEngineClientImpl
 
 		Map<String, Object> context = responseEntity.getBody();
 
-		Map<String, String> environment = (Map)context.get("environment");
+		if (context != null) {
+			Map<String, String> environment = (Map)context.get("environment");
 
-		String labelVcsRef = environment.get("LABEL_VCS_REF");
+			String labelVcsRef = environment.get("LABEL_VCS_REF");
 
-		if (Validator.isNull(labelVcsRef)) {
-			return true;
-		}
+			if (Validator.isNull(labelVcsRef)) {
+				return true;
+			}
 
-		String[] parts = StringUtil.split(version, StringPool.MINUS);
+			String[] parts = StringUtil.split(version, StringPool.MINUS);
 
-		if (labelVcsRef.startsWith(parts[1])) {
-			return true;
+			if (labelVcsRef.startsWith(parts[1])) {
+				return true;
+			}
 		}
 
 		return false;

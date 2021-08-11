@@ -29,11 +29,19 @@ public class IndividualSegmentMembershipChange {
 	}
 
 	public Date getDateChanged() {
-		return _dateChanged;
+		if (_dateChanged == null) {
+			return null;
+		}
+
+		return new Date(_dateChanged.getTime());
 	}
 
 	public Date getDateFirst() {
-		return _dateFirst;
+		if (_dateFirst == null) {
+			return null;
+		}
+
+		return new Date(_dateFirst.getTime());
 	}
 
 	@JsonProperty("_embedded")
@@ -74,11 +82,15 @@ public class IndividualSegmentMembershipChange {
 	}
 
 	public void setDateChanged(Date dateChanged) {
-		_dateChanged = dateChanged;
+		if (dateChanged != null) {
+			_dateChanged = new Date(dateChanged.getTime());
+		}
 	}
 
 	public void setDateFirst(Date dateFirst) {
-		_dateFirst = dateFirst;
+		if (dateFirst != null) {
+			_dateFirst = new Date(dateFirst.getTime());
+		}
 	}
 
 	public void setEmbeddedResources(Map<String, Object> embeddedResources) {

@@ -16,6 +16,8 @@ package com.liferay.osb.faro.functional.test.util;
 
 import com.liferay.petra.string.StringPool;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.fluent.Executor;
@@ -74,7 +76,10 @@ public class FaroRestUtil {
 			password
 		);
 
-		return new String(Base64.encodeBase64(authorizationString.getBytes()));
+		return new String(
+			Base64.encodeBase64(
+				authorizationString.getBytes(StandardCharsets.UTF_8)),
+			StandardCharsets.UTF_8);
 	}
 
 	/**

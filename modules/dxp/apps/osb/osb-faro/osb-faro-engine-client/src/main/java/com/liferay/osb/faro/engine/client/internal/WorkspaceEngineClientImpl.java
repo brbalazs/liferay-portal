@@ -69,7 +69,9 @@ import org.springframework.web.client.RestTemplate;
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	@Override
-	public Workspace createWorkspace(String region, boolean trial) {
+	public Workspace createWorkspace(String region, boolean trial)
+		throws Exception {
+
 		String uuid = String.valueOf(UUID.randomUUID());
 
 		final String projectId =
@@ -87,6 +89,10 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			LCPProject.class);
 
 		LCPProject lcpProject = responseEntity.getBody();
+
+		if (lcpProject == null) {
+			throw new Exception("Could not create a workspace");
+		}
 
 		Workspace workspace = createWorkspace(lcpProject, trial);
 
@@ -138,6 +144,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			}
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		return null;
@@ -480,6 +487,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			return true;
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			return false;
 		}
 	}

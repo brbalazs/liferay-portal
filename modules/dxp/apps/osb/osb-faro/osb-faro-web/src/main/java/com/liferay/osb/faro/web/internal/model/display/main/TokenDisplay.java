@@ -27,9 +27,9 @@ public class TokenDisplay {
 		Date createDate, Date expirationDate, Date lastAccessDate,
 		String token) {
 
-		_createDate = createDate;
-		_expirationDate = expirationDate;
-		_lastAccessDate = lastAccessDate;
+		_createDate = new Date(createDate.getTime());
+		_expirationDate = new Date(expirationDate.getTime());
+		_lastAccessDate = new Date(lastAccessDate.getTime());
 		_token = token;
 	}
 

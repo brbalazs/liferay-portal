@@ -32,7 +32,11 @@ public class LCPProject {
 	}
 
 	public Date getCreatedAt() {
-		return _createdAt;
+		if (_createdAt == null) {
+			return null;
+		}
+
+		return new Date(_createdAt.getTime());
 	}
 
 	public String getESProjectId() {
@@ -78,7 +82,9 @@ public class LCPProject {
 	}
 
 	public void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
+		if (createdAt != null) {
+			_createdAt = new Date(createdAt.getTime());
+		}
 	}
 
 	public void setHealth(String health) {

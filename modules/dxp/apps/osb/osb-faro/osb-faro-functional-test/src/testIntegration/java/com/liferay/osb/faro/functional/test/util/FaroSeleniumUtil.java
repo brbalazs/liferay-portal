@@ -22,6 +22,7 @@ import com.liferay.poshi.runner.selenium.WebDriverUtil;
 import com.liferay.poshi.runner.util.PropsValues;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,14 +41,16 @@ public class FaroSeleniumUtil {
 			reportFile, false);
 	}
 
-	public static File getDependenciesDir() {
+	public static synchronized File getDependenciesDir() throws IOException {
 		if (_dependenciesDir != null) {
 			return _dependenciesDir;
 		}
 
 		_dependenciesDir = new File("test-classes/functional/dependencies/");
 
-		_dependenciesDir.mkdirs();
+		if (!_dependenciesDir.exists() && !_dependenciesDir.mkdirs()) {
+			throw new IOException("Unable to get dependencies dir");
+		}
 
 		return _dependenciesDir;
 	}
@@ -56,7 +59,7 @@ public class FaroSeleniumUtil {
 		return _faroSeleniumUtil._getFaroSelenium();
 	}
 
-	public static File getScreenshotsDir() {
+	public static synchronized File getScreenshotsDir() throws IOException {
 		if (_screenshotsDir != null) {
 			return _screenshotsDir;
 		}
@@ -67,7 +70,9 @@ public class FaroSeleniumUtil {
 			"test-results/functional/screenshots/" +
 				dateFormat.format(new Date()));
 
-		_screenshotsDir.mkdirs();
+		if (!_screenshotsDir.exists() && !_screenshotsDir.mkdirs()) {
+			throw new IOException("Unable to get screenshots dir");
+		}
 
 		return _screenshotsDir;
 	}

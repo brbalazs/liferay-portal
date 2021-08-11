@@ -71,8 +71,7 @@ public class SalesforceAccountsDataCreator extends DataCreator {
 		salesforceAccount.put("Fax", phoneNumber.phoneNumber());
 
 		salesforceAccount.put("Industry", company.industry());
-		salesforceAccount.put(
-			"LastModifiedDate", dateFormat.format(new Date()));
+		salesforceAccount.put("LastModifiedDate", formatDate(new Date()));
 		salesforceAccount.put("Name", company.name());
 		salesforceAccount.put(
 			"NumberOfEmployees", number.numberBetween(1, 100000));

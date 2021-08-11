@@ -14,10 +14,12 @@
 
 package com.liferay.osb.faro.engine.client.util;
 
+import java.io.Serializable;
+
 /**
  * @author Shinn Lok
  */
-public class OrderByField {
+public class OrderByField implements Serializable {
 
 	public OrderByField() {
 	}

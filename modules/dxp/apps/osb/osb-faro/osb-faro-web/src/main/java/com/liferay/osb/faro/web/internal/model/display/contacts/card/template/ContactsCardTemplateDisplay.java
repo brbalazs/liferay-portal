@@ -42,7 +42,7 @@ public abstract class ContactsCardTemplateDisplay extends FaroModelDisplay {
 			ContactsCardTemplate contactsCardTemplate, int size)
 		throws Exception {
 
-		this(contactsCardTemplate, size, null);
+		this(contactsCardTemplate, size, new int[0]);
 	}
 
 	public ContactsCardTemplateDisplay(
@@ -61,13 +61,13 @@ public abstract class ContactsCardTemplateDisplay extends FaroModelDisplay {
 
 		_showTitle = MapUtil.getBoolean(settings, "showTitle", true);
 
-		if (size == 0) {
+		if ((size == 0) && (supportedSizes.length > 0)) {
 			size = supportedSizes[0];
 		}
 
 		_size = size;
 
-		_supportedSizes = supportedSizes;
+		_supportedSizes = supportedSizes.clone();
 
 		_type = contactsCardTemplate.getType();
 	}
@@ -89,7 +89,7 @@ public abstract class ContactsCardTemplateDisplay extends FaroModelDisplay {
 	}
 
 	public int[] getSupportedSizes() {
-		return _supportedSizes;
+		return _supportedSizes.clone();
 	}
 
 	public void setName(String name) {

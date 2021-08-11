@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,26 +63,26 @@ public class ProjectHelper {
 	}
 
 	private List<Long> _getGroupIds(List<String> keys) {
-		List<FaroProject> faroProjects = new ArrayList<>();
-
 		String key = keys.get(0);
 
 		if (key.equals("all")) {
-			faroProjects = _faroProjectLocalService.getFaroProjects(
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-		}
-		else if (key.equals(LCPProject.Cluster.EU.toString()) ||
-				 key.equals(LCPProject.Cluster.EU2.toString()) ||
-				 key.equals(LCPProject.Cluster.SA.toString()) ||
-				 key.equals(LCPProject.Cluster.US.toString())) {
-
-			faroProjects = _faroProjectLocalService.getFaroProjects(key);
-		}
-		else {
-			return StreamUtil.toList(keys, GetterUtil::getLong);
+			return StreamUtil.toList(
+				_faroProjectLocalService.getFaroProjects(
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS),
+				FaroProject::getGroupId);
 		}
 
-		return StreamUtil.toList(faroProjects, FaroProject::getGroupId);
+		if (key.equals(LCPProject.Cluster.EU.toString()) ||
+			key.equals(LCPProject.Cluster.EU2.toString()) ||
+			key.equals(LCPProject.Cluster.SA.toString()) ||
+			key.equals(LCPProject.Cluster.US.toString())) {
+
+			return StreamUtil.toList(
+				_faroProjectLocalService.getFaroProjects(key),
+				FaroProject::getGroupId);
+		}
+
+		return StreamUtil.toList(keys, GetterUtil::getLong);
 	}
 
 	private static final Map<Long, Map<String, Object>> _globalStateMaps =

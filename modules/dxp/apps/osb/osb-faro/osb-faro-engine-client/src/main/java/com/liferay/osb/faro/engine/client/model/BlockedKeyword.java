@@ -25,7 +25,11 @@ public class BlockedKeyword {
 	}
 
 	public Date getCreateDate() {
-		return _createDate;
+		if (_createDate == null) {
+			return null;
+		}
+
+		return new Date(_createDate.getTime());
 	}
 
 	public String getId() {
@@ -41,7 +45,9 @@ public class BlockedKeyword {
 	}
 
 	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
+		if (createDate != null) {
+			_createDate = new Date(createDate.getTime());
+		}
 	}
 
 	public void setDuplicate(boolean duplicate) {

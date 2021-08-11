@@ -26,6 +26,7 @@ import com.liferay.osb.faro.web.internal.card.template.ContactsCardTemplateManag
 import com.liferay.osb.faro.web.internal.model.display.FaroModelDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroEntityDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class ContactsLayoutTemplateDisplay extends FaroModelDisplay {
 
 			ContactsCardTemplate contactsCardTemplate =
 				ContactsCardTemplateLocalServiceUtil.getContactsCardTemplate(
-					Long.valueOf(headerContactsCardTemplateId));
+					GetterUtil.getLong(headerContactsCardTemplateId));
 
 			_headerContactsCardTemplateDisplays.add(
 				contactsCardTemplateManagerHelper.

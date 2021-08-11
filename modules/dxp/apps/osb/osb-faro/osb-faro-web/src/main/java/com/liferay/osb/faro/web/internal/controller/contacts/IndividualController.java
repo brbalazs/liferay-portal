@@ -176,7 +176,7 @@ public class IndividualController extends BaseFaroController {
 
 	@Override
 	public int[] getEntityTypes() {
-		return _ENTITY_TYPES;
+		return _ENTITY_TYPES.clone();
 	}
 
 	@Override

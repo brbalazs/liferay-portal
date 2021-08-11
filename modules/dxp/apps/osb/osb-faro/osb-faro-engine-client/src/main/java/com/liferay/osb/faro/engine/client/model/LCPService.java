@@ -22,7 +22,11 @@ import java.util.Date;
 public class LCPService {
 
 	public Date getCreatedAt() {
-		return _createdAt;
+		if (_createdAt == null) {
+			return null;
+		}
+
+		return new Date(_createdAt.getTime());
 	}
 
 	public String getDeployGroupUid() {
@@ -62,7 +66,9 @@ public class LCPService {
 	}
 
 	public void setCreatedAt(Date createdAt) {
-		_createdAt = createdAt;
+		if (createdAt != null) {
+			_createdAt = new Date(createdAt.getTime());
+		}
 	}
 
 	public void setDeployGroupUid(String deployGroupUid) {

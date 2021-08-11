@@ -26,7 +26,11 @@ public class ConnectionStatus {
 
 	public ConnectionStatus(long count, Date modifiedDate, int status) {
 		_count = count;
-		_modifiedDate = modifiedDate;
+
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
+
 		_status = status;
 	}
 
@@ -35,7 +39,11 @@ public class ConnectionStatus {
 	}
 
 	public Date getModifiedDate() {
-		return _modifiedDate;
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public int getStatus() {
@@ -47,7 +55,9 @@ public class ConnectionStatus {
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setStatus(int status) {

@@ -32,7 +32,7 @@ import org.springframework.http.client.ClientHttpResponse;
  * @author Shinn Lok
  */
 public class FaroClientHttpResponse
-	implements ClientHttpResponse, Serializable {
+	implements ClientHttpResponse, Cloneable, Serializable {
 
 	public FaroClientHttpResponse(
 		byte[] bytes, HttpHeaders httpHeaders, HttpStatus httpStatus) {
@@ -41,7 +41,7 @@ public class FaroClientHttpResponse
 			_bytes = new byte[0];
 		}
 		else {
-			_bytes = bytes;
+			_bytes = bytes.clone();
 		}
 
 		if (httpHeaders == null) {
@@ -64,8 +64,8 @@ public class FaroClientHttpResponse
 	}
 
 	@Override
-	public FaroClientHttpResponse clone() {
-		HttpHeaders httpHeaders = new HttpHeaders();
+	public FaroClientHttpResponse clone() throws CloneNotSupportedException {
+		HttpHeaders httpHeaders = (HttpHeaders)super.clone();
 
 		for (Map.Entry<String, List<String>> entry : _httpHeaders.entrySet()) {
 			httpHeaders.put(entry.getKey(), new LinkedList<>(entry.getValue()));

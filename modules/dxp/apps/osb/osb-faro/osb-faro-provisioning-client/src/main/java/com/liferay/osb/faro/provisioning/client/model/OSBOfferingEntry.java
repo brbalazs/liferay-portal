@@ -29,7 +29,11 @@ public class OSBOfferingEntry {
 	}
 
 	public Date getActualStartDate() {
-		return _actualStartDate;
+		if (_actualStartDate == null) {
+			return null;
+		}
+
+		return new Date(_actualStartDate.getTime());
 	}
 
 	public long getLicenseLifetime() {
@@ -45,7 +49,11 @@ public class OSBOfferingEntry {
 	}
 
 	public Date getModifiedDate() {
-		return _modifiedDate;
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public long getOfferingEntryId() {
@@ -81,7 +89,11 @@ public class OSBOfferingEntry {
 	}
 
 	public Date getStartDate() {
-		return _startDate;
+		if (_startDate == null) {
+			return null;
+		}
+
+		return new Date(_startDate.getTime());
 	}
 
 	public int getStatus() {
@@ -89,7 +101,11 @@ public class OSBOfferingEntry {
 	}
 
 	public Date getSupportEndDate() {
-		return _supportEndDate;
+		if (_supportEndDate == null) {
+			return null;
+		}
+
+		return new Date(_supportEndDate.getTime());
 	}
 
 	public long getSupportLifetime() {
@@ -129,7 +145,9 @@ public class OSBOfferingEntry {
 	}
 
 	public void setActualStartDate(Date actualStartDate) {
-		_actualStartDate = actualStartDate;
+		if (actualStartDate != null) {
+			_actualStartDate = new Date(actualStartDate.getTime());
+		}
 	}
 
 	public void setLicenseLifetime(long licenseLifetime) {
@@ -149,7 +167,9 @@ public class OSBOfferingEntry {
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setOfferingEntryId(long offeringEntryId) {
@@ -185,7 +205,9 @@ public class OSBOfferingEntry {
 	}
 
 	public void setStartDate(Date startDate) {
-		_startDate = startDate;
+		if (startDate != null) {
+			_startDate = new Date(startDate.getTime());
+		}
 	}
 
 	public void setStatus(int status) {
@@ -193,7 +215,9 @@ public class OSBOfferingEntry {
 	}
 
 	public void setSupportEndDate(Date supportEndDate) {
-		_supportEndDate = supportEndDate;
+		if (supportEndDate != null) {
+			_supportEndDate = new Date(supportEndDate.getTime());
+		}
 	}
 
 	public void setSupportLifetime(long supportLifetime) {
