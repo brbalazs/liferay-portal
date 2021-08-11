@@ -51,6 +51,16 @@ public class DDMStructureTestHelper {
 	public DDMStructureTestHelper(long classNameId, Group group)
 		throws Exception {
 
+		_userId = TestPropsValues.getUserId();
+
+		_classNameId = classNameId;
+		_group = group;
+	}
+
+	public DDMStructureTestHelper(long userId, long classNameId, Group group)
+		throws Exception {
+
+		_userId = userId;
 		_classNameId = classNameId;
 		_group = group;
 	}
@@ -86,8 +96,8 @@ public class DDMStructureTestHelper {
 		serviceContext.setAttribute("status", status);
 
 		return DDMStructureLocalServiceUtil.addStructure(
-			TestPropsValues.getUserId(), group.getGroupId(), parentStructureId,
-			classNameId, structureKey, getDefaultLocaleMap(name),
+			_userId, group.getGroupId(), parentStructureId, classNameId,
+			structureKey, getDefaultLocaleMap(name),
 			getDefaultLocaleMap(description), ddmForm, ddmFormLayout,
 			storageType, type, serviceContext);
 	}
@@ -155,7 +165,7 @@ public class DDMStructureTestHelper {
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
 		return DDMStructureLocalServiceUtil.updateStructure(
-			TestPropsValues.getUserId(), structureId,
+			_userId, structureId,
 			DDMStructureConstants.DEFAULT_PARENT_STRUCTURE_ID,
 			getDefaultLocaleMap(name), getDefaultLocaleMap(description),
 			ddmForm, ddmFormLayout, serviceContext);
@@ -163,5 +173,6 @@ public class DDMStructureTestHelper {
 
 	private final long _classNameId;
 	private final Group _group;
+	private final long _userId;
 
 }
