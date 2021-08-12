@@ -42,6 +42,13 @@ import java.util.Map;
 public class DDLRecordSetTestHelper {
 
 	public DDLRecordSetTestHelper(Group group) throws Exception {
+		_userId = TestPropsValues.getUserId();
+
+		_group = group;
+	}
+
+	public DDLRecordSetTestHelper(long userId, Group group) throws Exception {
+		_userId = userId;
 		_group = group;
 	}
 
@@ -74,10 +81,9 @@ public class DDLRecordSetTestHelper {
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
 		return DDLRecordSetLocalServiceUtil.addRecordSet(
-			TestPropsValues.getUserId(), _group.getGroupId(),
-			ddmStructure.getStructureId(), null, nameMap, null,
-			DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT, scope,
-			serviceContext);
+			_userId, _group.getGroupId(), ddmStructure.getStructureId(), null,
+			nameMap, null, DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT,
+			scope, serviceContext);
 	}
 
 	public DDLRecordSet updateRecordSet(
@@ -104,6 +110,7 @@ public class DDLRecordSetTestHelper {
 			DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT, serviceContext);
 	}
 
+	private final long _userId;
 	private final Group _group;
 
 }
