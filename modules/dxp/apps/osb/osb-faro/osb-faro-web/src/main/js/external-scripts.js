@@ -45,6 +45,11 @@ if (['local', 'prd'].some(val => val === FARO_ENV)) {
 				})('71794a60-73d6-4a8a-78f8-e8d9e091f919')`
 			}
 		];
+	} else if (FARO_ENV === 'prd') {
+		scripts = [
+			...scripts,
+			{innerHTML: '(function(){window.pendo = {initialize: () => {}}})()'}
+		];
 	}
 } else {
 	scripts = [
