@@ -94,7 +94,7 @@ exports[`FilterOptions should render 1`] = `
                   contains
                 </option>
                 <option
-                  value="not-contains"
+                  value="notContains"
                 >
                   not contains
                 </option>
