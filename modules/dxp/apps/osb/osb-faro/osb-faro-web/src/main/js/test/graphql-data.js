@@ -596,7 +596,7 @@ export function mockEventAnalysisQueryReq(breakdownItems, mockVariables = {}) {
 				channelId: '123',
 				compareToPrevious: true,
 				eventDefinitionId: '1',
-				page: 1,
+				page: 0,
 				rangeEnd: null,
 				rangeKey: 30,
 				rangeStart: null,
@@ -610,7 +610,7 @@ export function mockEventAnalysisQueryReq(breakdownItems, mockVariables = {}) {
 					__typename: 'EventAnalysis',
 					breakdownItems,
 					count: 1,
-					page: 1,
+					page: 0,
 					previousValue: 1234,
 					value: 5033
 				}

@@ -58,7 +58,9 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	rangeSelectors,
 	type
 }) => {
-	const {delta, page, setDelta, setPage} = useStatefulPagination();
+	const {delta, page, setDelta, setPage} = useStatefulPagination(undefined, {
+		defaultPage: 0
+	});
 
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
 		EventAnalysisQuery,
