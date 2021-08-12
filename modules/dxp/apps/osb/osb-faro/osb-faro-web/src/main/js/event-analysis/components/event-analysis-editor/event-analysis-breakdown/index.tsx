@@ -54,6 +54,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	channelId,
 	compareToPrevious,
 	event,
+	filterOrder,
 	filters,
 	rangeSelectors,
 	type
@@ -70,11 +71,11 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 				analysisType: type,
 				channelId,
 				compareToPrevious,
-				eventAnalysisBreakdowns: Object.values(
-					breakdowns
-				).map(breakdown => omit(breakdown, 'id')),
-				eventAnalysisFilters: Object.values(filters).map(filter =>
-					omit(filter, 'id')
+				eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
+					omit(breakdowns[breakdownId], 'id')
+				),
+				eventAnalysisFilters: filterOrder.map(filterId =>
+					omit(filters[filterId], 'id')
 				),
 				eventDefinitionId: event.id,
 				page,
