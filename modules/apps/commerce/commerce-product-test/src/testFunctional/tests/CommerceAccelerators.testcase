@@ -48,6 +48,7 @@ definition {
 
 	test DeactivateCommerceAccount {
 		property portal.acceptance = "quarantine";
+		property portal.release = "false";
 		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
 
@@ -312,6 +313,7 @@ definition {
 
 	test MiniumSiteFullFlow {
 		property portal.acceptance = "quarantine";
+		property portal.release = "false";
 		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlow";
 
