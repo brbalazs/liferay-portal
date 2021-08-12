@@ -11,7 +11,7 @@
 			"path": "/nginx_status",
 			"port": 80
 		},
-		"initialDelaySeconds": 60,
+		"initialDelaySeconds": 360,
 		"timeoutSeconds": 10
 	},
 	"loadBalancer": {
@@ -25,7 +25,7 @@
 			"path": "/nginx_status",
 			"port": 80
 		},
-		"initialDelaySeconds": 30,
+		"initialDelaySeconds": 360,
 		"timeoutSeconds": 10
 	},
 	"strategy": {

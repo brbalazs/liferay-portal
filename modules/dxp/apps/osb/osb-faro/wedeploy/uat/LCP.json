@@ -20,7 +20,7 @@
 			"path": "/c/portal/layout",
 			"port": 8080
 		},
-		"initialDelaySeconds": 180
+		"initialDelaySeconds": 360
 	},
 	"memory": 8192,
 	"ports": [
@@ -34,7 +34,7 @@
 			"path": "/c/portal/layout",
 			"port": 8080
 		},
-		"initialDelaySeconds": 180
+		"initialDelaySeconds": 360
 	},
 	"volumes": {
 		"data": "/opt/liferay/data"
