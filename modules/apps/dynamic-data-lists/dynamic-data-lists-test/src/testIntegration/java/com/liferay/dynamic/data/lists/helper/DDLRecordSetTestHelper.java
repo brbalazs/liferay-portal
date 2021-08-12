@@ -110,7 +110,7 @@ public class DDLRecordSetTestHelper {
 			DDLRecordSetConstants.MIN_DISPLAY_ROWS_DEFAULT, serviceContext);
 	}
 
-	private final long _userId;
 	private final Group _group;
+	private final long _userId;
 
 }
