@@ -162,12 +162,36 @@ definition {
 		}
 		else {
 			if (!(contains("${maxHeightEdit}", "{maxHeightEdit}"))) {
+				Click(locator1 = "TextInput#MAX_HEIGHT");
+
+				var count = "0";
+
+				while ("${count}" != "${backspaceCount}") {
+					KeyPress(
+						locator1 = "TextInput#MAX_HEIGHT",
+						value1 = "\BACK_SPACE");
+
+					var count = ${count} + 1;
+				}
+
 				Type(
 					locator1 = "TextInput#MAX_HEIGHT",
 					value1 = "${maxHeightEdit}");
 			}
 
 			if (!(contains("${maxWidthEdit}", "{maxWidthEdit}"))) {
+				Click(locator1 = "TextInput#MAX_WIDTH");
+
+				var count = "0";
+
+				while ("${count}" != "${backspaceCount}") {
+					KeyPress(
+						locator1 = "TextInput#MAX_WIDTH",
+						value1 = "\BACK_SPACE");
+
+					var count = ${count} + 1;
+				}
+
 				Type(
 					locator1 = "TextInput#MAX_WIDTH",
 					value1 = "${maxWidthEdit}");
