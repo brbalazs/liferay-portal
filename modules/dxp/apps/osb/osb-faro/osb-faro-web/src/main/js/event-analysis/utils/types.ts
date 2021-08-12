@@ -40,7 +40,7 @@ export enum EventTypes {
 export enum Operators {
 	Between = 'between',
 	Contains = 'contains',
-	NotContains = 'not-contains',
+	NotContains = 'notContains',
 	EQ = 'eq',
 	GT = 'gt',
 	LT = 'lt',

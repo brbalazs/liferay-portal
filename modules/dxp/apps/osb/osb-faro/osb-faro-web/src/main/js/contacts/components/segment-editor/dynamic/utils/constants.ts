@@ -431,6 +431,20 @@ export const SUPPORTED_PROPERTY_TYPES_MAP = {
  * Values for criteria row inputs.
  */
 
+export const STRING_OPTIONS = [
+	FunctionalOperators.Contains,
+	NotOperators.NotContains,
+	RelationalOperators.EQ,
+	RelationalOperators.NE
+];
+
+export const STRING_OPERATOR_LABELS_MAP = {
+	[FunctionalOperators.Contains]: Liferay.Language.get('contains-fragment'),
+	[NotOperators.NotContains]: Liferay.Language.get('not-contains-fragment'),
+	[RelationalOperators.EQ]: Liferay.Language.get('is-fragment'),
+	[RelationalOperators.NE]: Liferay.Language.get('is-not-fragment')
+};
+
 export const BOOLEAN_OPTIONS = [
 	{
 		label: Liferay.Language.get('true'),

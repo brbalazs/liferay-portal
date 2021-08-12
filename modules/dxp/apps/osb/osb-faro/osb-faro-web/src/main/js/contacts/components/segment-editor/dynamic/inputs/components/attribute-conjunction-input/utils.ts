@@ -6,15 +6,15 @@ import {
 	DURATION_OPERATOR_LONGHAND_LABELS_MAP,
 	DURATION_OPTIONS,
 	NUMBER_OPERATOR_LONGHAND_LABELS_MAP,
-	NUMBER_OPTIONS,
-	STRING_OPERATOR_LABELS_MAP,
-	STRING_OPTIONS
+	NUMBER_OPTIONS
 } from 'event-analysis/utils/utils';
 import {DataTypes} from 'event-analysis/utils/types';
 import {DateRange} from 'shared/components/DateRangeInput';
 import {
 	FunctionalOperators,
-	RelationalOperators
+	RelationalOperators,
+	STRING_OPERATOR_LABELS_MAP,
+	STRING_OPTIONS
 } from '../../../utils/constants';
 import {isNumber} from 'lodash';
 import {isValid} from '../../../utils/utils';
@@ -25,7 +25,7 @@ export const createOption = (option, dataType: DataTypes) => {
 		[DataTypes.Date]: DATE_OPERATOR_LONGHAND_LABELS_MAP,
 		[DataTypes.Duration]: DURATION_OPERATOR_LONGHAND_LABELS_MAP,
 		[DataTypes.Number]: NUMBER_OPERATOR_LONGHAND_LABELS_MAP,
-		[DataTypes.String]: STRING_OPERATOR_LABELS_MAP
+		[DataTypes.String]: STRING_OPERATOR_LABELS_MAP // STRING_OPERATOR_LABELS_MAP is provided from the segment-editor utils as "NotContains" differs from segment-editor and event-analysis. We should be able to use the evente-analysis version once we move away from odata.
 	};
 
 	return {
@@ -39,7 +39,7 @@ export const getOperatorOptions = (dataType: DataTypes) => {
 		[DataTypes.Date]: DATE_OPTIONS,
 		[DataTypes.Duration]: DURATION_OPTIONS,
 		[DataTypes.Number]: NUMBER_OPTIONS,
-		[DataTypes.String]: STRING_OPTIONS
+		[DataTypes.String]: STRING_OPTIONS // STRING_OPTIONS is provided from the segment-editor utils as "NotContains" differs from segment-editor and event-analysis. We should be able to use the evente-analysis version once we move away from odata.
 	};
 
 	return OPERATOR_OPTIONS[dataType]?.map(option =>
