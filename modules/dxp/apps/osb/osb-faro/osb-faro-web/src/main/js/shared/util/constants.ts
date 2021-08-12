@@ -319,6 +319,11 @@ export enum FieldContexts {
 	Organization = 'organization'
 }
 
+export enum SessionEntityTypes {
+	Account = 'ACCOUNT',
+	Individual = 'INDIVIDUAL'
+}
+
 export enum FieldOwnerTypes {
 	Account = 'account',
 	Individual = 'individual',
