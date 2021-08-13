@@ -93,7 +93,7 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				dataType: DataTypes.Boolean,
-				sortType: 'ASC'
+				sortType: 'DESC'
 			});
 		});
 	});
@@ -113,7 +113,7 @@ describe('utils', () => {
 				attributeType,
 				dataType: DataTypes.Date,
 				dateGrouping: DateGroupings.Months,
-				sortType: 'ASC'
+				sortType: 'DESC'
 			});
 		});
 	});
@@ -133,7 +133,7 @@ describe('utils', () => {
 				attributeType,
 				binSize: 60000,
 				dataType: DataTypes.Duration,
-				sortType: 'ASC'
+				sortType: 'DESC'
 			});
 		});
 	});
@@ -153,7 +153,7 @@ describe('utils', () => {
 				attributeType,
 				binSize: 10,
 				dataType: DataTypes.Number,
-				sortType: 'ASC'
+				sortType: 'DESC'
 			});
 		});
 	});
@@ -172,7 +172,7 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				dataType: DataTypes.String,
-				sortType: 'ASC'
+				sortType: 'DESC'
 			});
 		});
 	});

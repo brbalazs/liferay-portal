@@ -1,3 +1,5 @@
+import {OrderByDirections} from 'shared/util/constants';
+
 export enum AttributeOwnerTypes {
 	Account = 'ACCOUNT',
 	Event = 'EVENT',
@@ -77,7 +79,7 @@ export type Breakdown = {
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
 	id?: string;
-	sortType: 'ASC' | 'DESC';
+	sortType: OrderByDirections;
 };
 
 export type Breakdowns = {[key: string]: Breakdown};

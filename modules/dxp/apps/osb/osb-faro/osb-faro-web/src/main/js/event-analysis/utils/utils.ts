@@ -13,6 +13,7 @@ import {
 } from './types';
 import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
+import {OrderByDirections} from 'shared/util/constants';
 
 const DEFAULT_DATE_GROUPING = DateGroupings.Months;
 const DEFAULT_DURATION_BIN = 60000;
@@ -223,7 +224,7 @@ export const createBooleanBreakdown = ({
 	attributeId,
 	attributeType,
 	dataType: DataTypes.Boolean,
-	sortType: 'ASC'
+	sortType: OrderByDirections.Descending
 });
 
 export const createDateBreakdown = ({
@@ -235,7 +236,7 @@ export const createDateBreakdown = ({
 	attributeType,
 	dataType: DataTypes.Date,
 	dateGrouping,
-	sortType: 'ASC'
+	sortType: OrderByDirections.Descending
 });
 
 export const createDurationBreakdown = ({
@@ -247,7 +248,7 @@ export const createDurationBreakdown = ({
 	attributeType,
 	binSize,
 	dataType: DataTypes.Duration,
-	sortType: 'ASC'
+	sortType: OrderByDirections.Descending
 });
 
 export const createNumberBreakdown = ({
@@ -259,7 +260,7 @@ export const createNumberBreakdown = ({
 	attributeType,
 	binSize,
 	dataType: DataTypes.Number,
-	sortType: 'ASC'
+	sortType: OrderByDirections.Descending
 });
 
 export const createStringBreakdown = ({
@@ -269,7 +270,7 @@ export const createStringBreakdown = ({
 	attributeId,
 	attributeType,
 	dataType: DataTypes.String,
-	sortType: 'ASC'
+	sortType: OrderByDirections.Descending
 });
 
 export const BREAKDOWN_FNS_MAP = {
