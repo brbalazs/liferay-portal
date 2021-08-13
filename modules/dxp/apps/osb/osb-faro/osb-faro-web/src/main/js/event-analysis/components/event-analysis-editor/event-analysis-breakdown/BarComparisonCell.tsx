@@ -101,7 +101,7 @@ const getSections = (
 			value
 		});
 
-		if (compareToPrevious && previousValue) {
+		if (compareToPrevious) {
 			data.push({
 				isPreviousValue: true,
 				name: Liferay.Language.get('previous-value'),
