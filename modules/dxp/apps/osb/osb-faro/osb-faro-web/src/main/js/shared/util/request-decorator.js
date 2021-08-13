@@ -72,7 +72,7 @@ export function autoCancelWith(cancel = true) {
 					value: (...args) => {
 						const curRequest = get(this, requestKey);
 
-						if (cancel && curRequest) {
+						if (cancel && curRequest && curRequest.cancel) {
 							curRequest.cancel();
 						}
 
