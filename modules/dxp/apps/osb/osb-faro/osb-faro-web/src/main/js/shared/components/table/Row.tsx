@@ -158,9 +158,10 @@ const Row: React.FC<IRowProps> = ({
 						accessor,
 						cellRenderer: CellRenderer,
 						cellRendererProps,
+						className,
 						dataFormatter = val => val,
 						editable = false,
-						className,
+						headProps = {},
 						label,
 						sortable,
 						title
@@ -176,6 +177,7 @@ const Row: React.FC<IRowProps> = ({
 									accessor={accessor}
 									className={className}
 									sortable={sortable}
+									{...headProps}
 								>
 									{label}
 								</HeaderCell>
@@ -189,6 +191,7 @@ const Row: React.FC<IRowProps> = ({
 								className={className}
 								key={i}
 								sortable={sortable}
+								{...headProps}
 							>
 								{label}
 							</HeaderCell>

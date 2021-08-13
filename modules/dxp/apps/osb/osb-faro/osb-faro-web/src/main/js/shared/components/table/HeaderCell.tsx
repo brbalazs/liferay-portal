@@ -1,5 +1,5 @@
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
+import Constants, {OrderByDirections} from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
@@ -18,6 +18,7 @@ interface IHeaderCellProps {
 	className?: string;
 	headerLink?: boolean;
 	onSort?: (fieldName: string) => void;
+	order?: OrderByDirections;
 	orderParams?: {OrderParams};
 	sortable?: boolean;
 }
@@ -28,6 +29,7 @@ const HeaderCell: React.FC<IHeaderCellProps> = ({
 	className,
 	headerLink = false,
 	onSort = noop,
+	order: orderProp = null,
 	orderParams = new OrderParams(),
 	sortable = true
 }) => {
@@ -36,7 +38,7 @@ const HeaderCell: React.FC<IHeaderCellProps> = ({
 	const fieldName = get(ACCESSOR_TO_FIELD_MAP, [accessor], accessor);
 
 	const getOrder = () =>
-		orderParams.field === fieldName ? orderParams.sortOrder : null;
+		orderParams.field === fieldName ? orderParams.sortOrder : orderProp;
 
 	const handleSort = () => onSort(fieldName);
 

@@ -5,7 +5,7 @@ import EventAnalysisQuery, {
 } from 'event-analysis/queries/EventAnalysisQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
-import React from 'react';
+import React, {useState} from 'react';
 import Table from 'shared/components/table';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
@@ -18,16 +18,17 @@ import {
 	Filters
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
+import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
 import {get, isNil, omit} from 'lodash';
 import {
 	getMaxEventValue,
 	parserBreakdownData
 } from 'event-analysis/utils/utils';
 import {getSafeRangeSelectors} from 'shared/util/util';
+import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
-import {withAttributesConsumer} from '../context/attributes';
 import {withPaginationBar} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
@@ -39,11 +40,19 @@ export interface IBreakdownTableProps
 	breakdowns: Breakdowns;
 	channelId: string;
 	compareToPrevious: boolean;
+	editBreakdown: EditBreakdown;
 	event: Event;
 	filterOrder: string[];
 	filters: Filters;
 	type: CalculationTypes;
 }
+
+const getBreakdownByAccessor = (accessor, breakdownOrder, breakdowns) => {
+	const orderIndex = Number(accessor.split('breakdown').pop()) - 1;
+	const breakdownId = breakdownOrder[orderIndex];
+
+	return breakdowns[breakdownId];
+};
 
 const TableWithPagination = withPaginationBar()(Table);
 
@@ -53,6 +62,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	breakdowns,
 	channelId,
 	compareToPrevious,
+	editBreakdown,
 	event,
 	filterOrder,
 	filters,
@@ -83,6 +93,8 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		}
 	);
 
+	const [orderFields, setOrderFields] = useState({});
+
 	const parseData = (data: BreakdownData) => {
 		const items = parserBreakdownData(data);
 
@@ -95,6 +107,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			event,
 			highestValue,
 			order: breakdownOrder,
+			orderFields,
 			value: data.value
 		});
 
@@ -104,6 +117,33 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			highestValue,
 			items
 		};
+	};
+
+	const handleSort = ({orderParams: {field, sortOrder}}) => {
+		const breakdown = getBreakdownByAccessor(
+			field,
+			breakdownOrder,
+			breakdowns
+		);
+
+		const attribute = attributes[breakdown.attributeId];
+
+		editBreakdown({
+			attribute,
+			breakdown: {
+				...breakdown,
+				sortType:
+					sortOrder === 'asc'
+						? OrderByDirections.Ascending
+						: OrderByDirections.Descending
+			},
+			id: breakdown.id
+		});
+
+		setOrderFields(orderFields => ({
+			...orderFields,
+			[field]: sortOrder
+		}));
 	};
 
 	return (
@@ -133,6 +173,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 								delta={delta}
 								internalSort
 								items={items}
+								onSortChange={handleSort}
 								page={page}
 								paginationProps={{
 									onDeltaChange: setDelta,
@@ -156,15 +197,18 @@ const getColumns = ({
 	event,
 	highestValue,
 	order,
+	orderFields,
 	value
 }) => {
 	const columns = order.map((breakdownId, i) => {
 		const {attributeId, type} = breakdowns[breakdownId];
+		const accessor = `breakdown${i + 1}`;
 
 		return {
+			accessor,
 			cellRenderer: ({className, data}) => {
 				const dataEvents = get(data, 'events');
-				const dataValue = get(data, `breakdown${i + 1}`);
+				const dataValue = get(data, accessor);
 				const nextDataValue = get(data, `breakdown${i + 2}`);
 
 				if (
@@ -199,6 +243,9 @@ const getColumns = ({
 						{dataValue.name}
 					</td>
 				);
+			},
+			headProps: {
+				order: orderFields[accessor]
 			},
 			label: (
 				<div>
