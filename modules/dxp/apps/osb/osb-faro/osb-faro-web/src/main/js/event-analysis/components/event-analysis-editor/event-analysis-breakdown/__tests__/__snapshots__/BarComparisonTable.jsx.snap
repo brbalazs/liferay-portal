@@ -31,15 +31,13 @@ exports[`BarComparisonTable render 1`] = `
             class="metric-bar-root breakdown-table-bar"
           >
             <div
-              class="bar bar-primary bar-default"
+              class="bar mr-2 bar-primary bar-default"
               style="width: 100%; background-color: rgb(24, 127, 255);"
             />
             <div
               class="info-wrapper align-items-center d-flex justify-content-between"
             >
-              <span
-                class="ml-2"
-              >
+              <span>
                 100
               </span>
             </div>
@@ -82,15 +80,13 @@ exports[`BarComparisonTable render comparing previous 1`] = `
             class="metric-bar-root breakdown-table-bar"
           >
             <div
-              class="bar bar-primary bar-default"
+              class="bar mr-2 bar-primary bar-default"
               style="width: 100%; background-color: rgb(24, 127, 255);"
             />
             <div
               class="info-wrapper align-items-center d-flex justify-content-between"
             >
-              <span
-                class="ml-2"
-              >
+              <span>
                 100
               </span>
             </div>
@@ -108,15 +104,13 @@ exports[`BarComparisonTable render comparing previous 1`] = `
             class="metric-bar-root breakdown-table-bar"
           >
             <div
-              class="bar lines bar-primary bar-default"
+              class="bar lines mr-2 bar-primary bar-default"
               style="width: 70%; background-color: rgb(49, 190, 136);"
             />
             <div
               class="info-wrapper align-items-center d-flex justify-content-between"
             >
-              <span
-                class="ml-2"
-              >
+              <span>
                 70
               </span>
             </div>

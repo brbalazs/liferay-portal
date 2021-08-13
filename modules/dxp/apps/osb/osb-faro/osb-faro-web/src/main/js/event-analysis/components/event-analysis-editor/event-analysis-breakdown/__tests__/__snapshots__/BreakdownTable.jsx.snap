@@ -91,15 +91,13 @@ exports[`BreakdownTable render 1`] = `
                           class="metric-bar-root breakdown-table-bar"
                         >
                           <div
-                            class="bar bar-primary bar-default"
+                            class="bar mr-2 bar-primary bar-default"
                             style="width: 67%; background-color: rgb(24, 127, 255);"
                           />
                           <div
                             class="info-wrapper align-items-center d-flex justify-content-between"
                           >
-                            <span
-                              class="ml-2"
-                            >
+                            <span>
                               3,367
                             </span>
                           </div>
@@ -117,15 +115,13 @@ exports[`BreakdownTable render 1`] = `
                           class="metric-bar-root breakdown-table-bar"
                         >
                           <div
-                            class="bar lines bar-primary bar-default"
+                            class="bar lines mr-2 bar-primary bar-default"
                             style="width: 100%; background-color: rgb(151, 197, 255);"
                           />
                           <div
                             class="info-wrapper align-items-center d-flex justify-content-between"
                           >
-                            <span
-                              class="ml-2"
-                            >
+                            <span>
                               5,033
                             </span>
                           </div>
@@ -286,15 +282,13 @@ exports[`BreakdownTable render with single event 1`] = `
                 class="metric-bar-root breakdown-table-bar"
               >
                 <div
-                  class="bar bar-primary bar-default"
+                  class="bar mr-2 bar-primary bar-default"
                   style="width: 67%; background-color: rgb(24, 127, 255);"
                 />
                 <div
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
-                  <span
-                    class="ml-2"
-                  >
+                  <span>
                     3,367
                   </span>
                 </div>
@@ -312,15 +306,13 @@ exports[`BreakdownTable render with single event 1`] = `
                 class="metric-bar-root breakdown-table-bar"
               >
                 <div
-                  class="bar lines bar-primary bar-default"
+                  class="bar lines mr-2 bar-primary bar-default"
                   style="width: 100%; background-color: rgb(151, 197, 255);"
                 />
                 <div
                   class="info-wrapper align-items-center d-flex justify-content-between"
                 >
-                  <span
-                    class="ml-2"
-                  >
+                  <span>
                     5,033
                   </span>
                 </div>

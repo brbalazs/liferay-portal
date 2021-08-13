@@ -34,15 +34,13 @@ exports[`BarComparisonCell render 1`] = `
               class="metric-bar-root breakdown-table-bar"
             >
               <div
-                class="bar bar-primary bar-default"
+                class="bar mr-2 bar-primary bar-default"
                 style="width: 100%; background-color: rgb(24, 127, 255);"
               />
               <div
                 class="info-wrapper align-items-center d-flex justify-content-between"
               >
-                <span
-                  class="ml-2"
-                >
+                <span>
                   3,367
                 </span>
               </div>
@@ -89,15 +87,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
               class="metric-bar-root breakdown-table-bar"
             >
               <div
-                class="bar bar-primary bar-default"
+                class="bar mr-2 bar-primary bar-default"
                 style="width: 100%; background-color: rgb(24, 127, 255);"
               />
               <div
                 class="info-wrapper align-items-center d-flex justify-content-between"
               >
-                <span
-                  class="ml-2"
-                >
+                <span>
                   1,717
                 </span>
               </div>
@@ -115,15 +111,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
               class="metric-bar-root breakdown-table-bar"
             >
               <div
-                class="bar bar-primary bar-default"
+                class="bar mr-2 bar-primary bar-default"
                 style="width: 96%; background-color: rgb(75, 155, 255);"
               />
               <div
                 class="info-wrapper align-items-center d-flex justify-content-between"
               >
-                <span
-                  class="ml-2"
-                >
+                <span>
                   1,650
                 </span>
               </div>
@@ -161,15 +155,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
               class="metric-bar-root breakdown-table-bar"
             >
               <div
-                class="bar bar-primary bar-default"
+                class="bar mr-2 bar-primary bar-default"
                 style="width: 41%; background-color: rgb(49, 190, 136);"
               />
               <div
                 class="info-wrapper align-items-center d-flex justify-content-between"
               >
-                <span
-                  class="ml-2"
-                >
+                <span>
                   700
                 </span>
               </div>
@@ -187,15 +179,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
               class="metric-bar-root breakdown-table-bar"
             >
               <div
-                class="bar bar-primary bar-default"
+                class="bar mr-2 bar-primary bar-default"
                 style="width: 29%; background-color: rgb(60, 205, 149);"
               />
               <div
                 class="info-wrapper align-items-center d-flex justify-content-between"
               >
-                <span
-                  class="ml-2"
-                >
+                <span>
                   500
                 </span>
               </div>
