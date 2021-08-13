@@ -129,6 +129,12 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		}
 	});
 
+	const handleChangeCustomRange = rangeSelectors => {
+		setTimeRangeType(TIMERANGE_TYPE_MAP.TIME_RANGE);
+		onRangeSelectorsChange(rangeSelectors);
+		onPointSelect(null);
+	};
+
 	const handleChartSelect = ({index}) => {
 		resetPage();
 		onPointSelect(index);
@@ -194,110 +200,108 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	};
 
 	return (
-		<>
-			<WrapSafeResults
-				className='flex-grow-1'
-				error={error}
-				errorProps={{
-					className: 'flex-grow-1',
-					onReload: refetch
-				}}
-				loading={loading}
-				page={false}
-				pageDisplay={false}
-			>
-				<Card.Body>
-					<div className='align-items-center d-flex justify-content-end mt-3'>
-						<SearchInput
-							autoFocus
-							className='search-input mr-3'
-							onChange={setSearchValue}
-							onSubmit={handleQuery}
-							placeholder={Liferay.Language.get('search')}
-							value={searchValue}
-						/>
+		<WrapSafeResults
+			className='flex-grow-1'
+			error={error}
+			errorProps={{
+				className: 'flex-grow-1',
+				onReload: refetch
+			}}
+			loading={loading}
+			page={false}
+			pageDisplay={false}
+		>
+			<Card.Body>
+				<div className='align-items-center d-flex justify-content-end mt-3'>
+					<SearchInput
+						autoFocus
+						className='search-input mr-3'
+						onChange={setSearchValue}
+						onSubmit={handleQuery}
+						placeholder={Liferay.Language.get('search')}
+						value={searchValue}
+					/>
 
-						<IntervalSelector
-							activeInterval={interval}
-							className='mr-3'
-							disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
-							onChange={onChangeInterval}
-						/>
+					<IntervalSelector
+						activeInterval={interval}
+						className='mr-3'
+						disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
+						onChange={onChangeInterval}
+					/>
 
-						<DropdownRangeKey
-							legacy={false}
-							onChange={onRangeSelectorsChange}
-							rangeSelectors={rangeSelectors}
-						/>
-					</div>
+					<DropdownRangeKey
+						legacy={false}
+						onChange={handleChangeCustomRange}
+						rangeSelectors={rangeSelectors}
+					/>
+				</div>
 
-					<div className='individuals-activities-chart'>
-						<ActivitiesChart
-							alwaysShowSelectedTooltip
-							hasSelectedPoint={hasSelectedPoint}
-							history={activityData?.activityHistory}
-							interval={interval}
-							onPointSelect={handleChartSelect}
-							rangeSelectors={rangeSelectors}
-							selectedPoint={selectedPoint}
-						/>
+				<div className='individuals-activities-chart'>
+					<ActivitiesChart
+						alwaysShowSelectedTooltip
+						hasSelectedPoint={hasSelectedPoint}
+						history={activityData?.activityHistory}
+						interval={interval}
+						onPointSelect={handleChartSelect}
+						rangeSelectors={rangeSelectors}
+						selectedPoint={selectedPoint}
+					/>
 
-						<div className='selected-info'>
-							<div className='activities-date d-flex align-items-baseline'>
-								<h4>
-									{activityData?.activityHistory?.length
-										? sub(
-												Liferay.Language.get(
-													'individuals-events-x'
-												),
-												[date]
-										  )
-										: Liferay.Language.get(
-												'individuals-events'
-										  )}
-								</h4>
+					<div className='selected-info'>
+						<div className='activities-date d-flex align-items-baseline'>
+							<h4>
+								{activityData?.activityHistory?.length
+									? sub(
+											Liferay.Language.get(
+												'individuals-events-x'
+											),
+											[date]
+									  )
+									: Liferay.Language.get(
+											'individuals-events'
+									  )}
+							</h4>
 
-								{selected && (
-									<Button
-										display='link'
-										onClick={handleClearSelection}
-										size='sm'
-									>
-										{Liferay.Language.get(
-											'clear-date-selection'
-										)}
-									</Button>
-								)}
-							</div>
+							{selected && (
+								<Button
+									display='link'
+									onClick={handleClearSelection}
+									size='sm'
+								>
+									{Liferay.Language.get(
+										'clear-date-selection'
+									)}
+								</Button>
+							)}
+						</div>
 
-							<div className='details'>
-								{getActivityLabel(
-									(selected
-										? totalElements
-										: activityData?.activityCount
-									)?.toLocaleString()
-								)}
-							</div>
+						<div className='details'>
+							{getActivityLabel(
+								(selected
+									? totalElements
+									: activityData?.activityCount
+								)?.toLocaleString()
+							)}
 						</div>
 					</div>
-				</Card.Body>
+				</div>
+			</Card.Body>
 
-				<SearchableVerticalTimeline
-					dataSourceFn={getActivities}
-					dataSourceParams={{
-						...getDateRange(),
-						channelId,
-						contactsEntityId: entityId,
-						groupId
-					}}
-					entityLabel={Liferay.Language.get('activities')}
-					initialExpanded={false}
-					query={query}
-					timeZoneId={timeZoneId}
-					{...statefulProps}
-				/>
-			</WrapSafeResults>
-		</>
+			<SearchableVerticalTimeline
+				dataSourceFn={getActivities}
+				dataSourceParams={{
+					...getDateRange(),
+					channelId,
+					contactsEntityId: entityId,
+					groupId
+				}}
+				entityLabel={Liferay.Language.get('activities')}
+				initialExpanded={false}
+				query={query}
+				timeZoneId={timeZoneId}
+				{...statefulProps}
+			/>
+		</WrapSafeResults>
 	);
 };
 
