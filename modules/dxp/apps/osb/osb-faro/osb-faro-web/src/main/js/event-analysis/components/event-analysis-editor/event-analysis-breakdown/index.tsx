@@ -95,6 +95,10 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 	const [orderFields, setOrderFields] = useState({});
 
+	useEffect(() => {
+		setPage('1');
+	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
+
 	const parseData = (data: BreakdownData) => {
 		const items = parserBreakdownData(data);
 
