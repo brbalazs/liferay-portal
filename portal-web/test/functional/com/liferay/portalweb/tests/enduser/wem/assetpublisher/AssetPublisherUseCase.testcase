@@ -1304,6 +1304,59 @@ definition {
 			assetTitle = "Web Content Tag Title");
 	}
 
+	@description = "This is a use case for LPS-120568."
+	@priority = "5"
+	test EditMessageBoardPostsViaAP {
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Message Boards Page");
+
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Message Boards Page",
+			widgetName = "Message Boards");
+
+		Navigator.gotoPage(pageName = "Message Boards Page");
+
+		MessageboardsThread.addPG(
+			threadBody = "MB Thread Message Body",
+			threadSubject = "MB Thread Message Subject");
+
+		Navigator.gotoPage(pageName = "Message Boards Page");
+
+		MessageboardsThread.replyPG(
+			threadBody = "MB Thread Message Body",
+			threadReplyBody = "MB Thread Reply Body",
+			threadSubject = "MB Thread Message Subject");
+
+		Navigator.gotoPage(pageName = "Asset Publisher Page");
+
+		AssetPublisherPortlet.gotoConfigurationPG();
+
+		Navigator.gotoNavTab(navTab = "Asset Selection");
+
+		Click(locator1 = "APConfiguration#ASSET_SELECTION_DYNAMIC");
+
+		PortletEntry.save();
+
+		IFrame.closeFrame();
+
+		AssetPublisherPortlet.configureSelectedPG(selectedAsset = "Message Boards Message");
+
+		Navigator.gotoPage(pageName = "Asset Publisher Page");
+
+		MessageboardsThread.editReplyViaAP(
+			assetTitle = "RE: MB Thread Message Subject",
+			threadBody = "MB Thread Reply Body Edit",
+			threadReplySubject = "RE: MB Thread Message Subject",
+			threadSubject = "RE: MB Thread Message Subject Edit");
+
+		AssetPublisherPortlet.viewPG(
+			assetContent = "MB Thread Reply Body Edit",
+			assetTitle = "RE: MB Thread Message Subject Edit");
+	}
+
 	@priority = "4"
 	test ViewAPPortletAsNewUserSiteAdministratorViaUserSite {
 		ProductMenu.gotoPortlet(
