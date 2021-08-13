@@ -94,7 +94,7 @@ const getSections = (
 		data.push({
 			isPreviousValue: false,
 			name,
-			percent: value / topValue,
+			percent: value / topValue ? value / topValue : 0.01,
 			style: {
 				backgroundColor: MAP_COLORS[color][index].current
 			},
@@ -105,7 +105,10 @@ const getSections = (
 			data.push({
 				isPreviousValue: true,
 				name: Liferay.Language.get('previous-value'),
-				percent: previousValue / topValue,
+				percent:
+					previousValue / topValue > 1
+						? previousValue / topValue
+						: 0.01,
 				style: {
 					backgroundColor: MAP_COLORS[color][index].previous
 				},
