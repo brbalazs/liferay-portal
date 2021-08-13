@@ -308,13 +308,18 @@ definition {
 			locator1 = "Button#SELECT",
 			value1 = "Select");
 
-		SelectFrame(locator1 = "IFrame#DIALOG");
+		var key_iframeTitle = "${assetTitle}";
 
-		var key_assetTitle = "${assetTitle}";
-
-		AssertTextEquals(
-			locator1 = "NavBar#ASSET_TITLE",
-			value1 = "${assetTitle}");
+		if (IsElementNotPresent(locator1 = "IFrame#IFRAME_TITLE")) {
+			AssertTextEquals(
+				locator1 = "Modal#HEADER",
+				value1 = "${assetTitle}");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "IFrame#IFRAME_TITLE",
+				value1 = "${assetTitle}");
+		}
 	}
 
 }
