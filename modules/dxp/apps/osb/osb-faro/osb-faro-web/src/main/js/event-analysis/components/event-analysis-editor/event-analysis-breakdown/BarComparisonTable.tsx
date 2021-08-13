@@ -47,7 +47,9 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 					<td>
 						<MetricBar
 							barClassName={getCN({
-								lines: isPreviousValue
+								['bar-zero']: value === 0,
+								lines: isPreviousValue,
+								['mr-2']: value > 0
 							})}
 							barStyle={style}
 							className='breakdown-table-bar'
@@ -55,9 +57,7 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 							percent={percent}
 							size={Sizes.Default}
 						>
-							<span className='ml-2'>
-								{Number(value).toLocaleString()}
-							</span>
+							<span>{Number(value).toLocaleString()}</span>
 						</MetricBar>
 					</td>
 				</tr>

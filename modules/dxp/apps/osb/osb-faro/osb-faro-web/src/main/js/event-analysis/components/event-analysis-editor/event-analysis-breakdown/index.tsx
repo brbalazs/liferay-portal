@@ -5,7 +5,7 @@ import EventAnalysisQuery, {
 } from 'event-analysis/queries/EventAnalysisQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Table from 'shared/components/table';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
