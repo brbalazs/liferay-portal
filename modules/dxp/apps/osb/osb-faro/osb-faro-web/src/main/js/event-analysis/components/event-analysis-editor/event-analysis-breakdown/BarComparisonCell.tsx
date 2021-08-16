@@ -10,6 +10,8 @@ enum BAR_COMPARISON_COLORS {
 	Green = 'green'
 }
 
+const EMPTY_BAR_COLOR = '#CDCED9';
+
 const MAP_COLORS: Record<
 	BAR_COMPARISON_COLORS,
 	Array<{
@@ -96,7 +98,10 @@ const getSections = (
 			name,
 			percent: value / topValue,
 			style: {
-				backgroundColor: MAP_COLORS[color][index].current
+				backgroundColor:
+					value > 0
+						? MAP_COLORS[color][index].current
+						: EMPTY_BAR_COLOR
 			},
 			value
 		});
@@ -107,7 +112,10 @@ const getSections = (
 				name: Liferay.Language.get('previous-value'),
 				percent: previousValue / topValue,
 				style: {
-					backgroundColor: MAP_COLORS[color][index].previous
+					backgroundColor:
+						previousValue > 0
+							? MAP_COLORS[color][index].previous
+							: EMPTY_BAR_COLOR
 				},
 				value: previousValue
 			});

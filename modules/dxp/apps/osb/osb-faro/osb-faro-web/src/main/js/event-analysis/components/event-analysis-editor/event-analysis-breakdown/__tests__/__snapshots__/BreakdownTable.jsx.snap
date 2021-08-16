@@ -115,7 +115,7 @@ exports[`BreakdownTable render 1`] = `
                           class="metric-bar-root breakdown-table-bar"
                         >
                           <div
-                            class="bar lines mr-2 bar-primary bar-default"
+                            class="bar mr-2 lines bar-primary bar-default"
                             style="width: 100%; background-color: rgb(151, 197, 255);"
                           />
                           <div
@@ -306,7 +306,7 @@ exports[`BreakdownTable render with single event 1`] = `
                 class="metric-bar-root breakdown-table-bar"
               >
                 <div
-                  class="bar lines mr-2 bar-primary bar-default"
+                  class="bar mr-2 lines bar-primary bar-default"
                   style="width: 100%; background-color: rgb(151, 197, 255);"
                 />
                 <div

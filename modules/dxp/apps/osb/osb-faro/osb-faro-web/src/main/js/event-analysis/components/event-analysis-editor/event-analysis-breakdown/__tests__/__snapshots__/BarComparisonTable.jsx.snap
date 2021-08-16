@@ -104,7 +104,7 @@ exports[`BarComparisonTable render comparing previous 1`] = `
             class="metric-bar-root breakdown-table-bar"
           >
             <div
-              class="bar lines mr-2 bar-primary bar-default"
+              class="bar mr-2 lines bar-primary bar-default"
               style="width: 70%; background-color: rgb(49, 190, 136);"
             />
             <div

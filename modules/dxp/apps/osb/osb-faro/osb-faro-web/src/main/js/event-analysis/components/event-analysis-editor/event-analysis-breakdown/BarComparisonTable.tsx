@@ -46,10 +46,9 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 					<td className='table-column-event-name'>{name}</td>
 					<td>
 						<MetricBar
-							barClassName={getCN({
+							barClassName={getCN('mr-2', {
 								['bar-zero']: value === 0,
-								lines: isPreviousValue,
-								['mr-2']: value > 0
+								lines: isPreviousValue
 							})}
 							barStyle={style}
 							className='breakdown-table-bar'
