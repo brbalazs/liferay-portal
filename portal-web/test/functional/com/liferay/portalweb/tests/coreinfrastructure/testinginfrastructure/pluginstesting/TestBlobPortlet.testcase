@@ -20,12 +20,9 @@ definition {
 			groupName = "Guest",
 			layoutName = "Test Page");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Test Page",
-			widgetName = "Test Blob");
-
 		Navigator.gotoPage(pageName = "Test Page");
+
+		Portlet.addPG(portletName = "Test Blob");
 
 		AssertVisible(locator1 = "TestBlob#TEST_PORTLET_BODY_PASSED");
 

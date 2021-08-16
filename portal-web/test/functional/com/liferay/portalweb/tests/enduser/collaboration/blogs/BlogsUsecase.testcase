@@ -1,7 +1,6 @@
 @component-name = "portal-collaboration"
 definition {
-
-	property custom.properties = "default.layout.template.id=1_column";
+	property custom.properties = "default.layout.template.id=1_column${line.separator}layout.default.template.id=1_column";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Blogs";
@@ -113,6 +112,8 @@ definition {
 
 	@priority = "5"
 	test AddBlogsEntryWithSpecialCharacters {
+		Navigator.gotoPage(pageName = "Blogs Page");
+		
 		Blogs.addEntry(
 			entryContent = '''Blogs Entry Content `~!@#$%^&*(){}[],.<>/?|''',
 			entryTitle = '''Blogs Entry Title `~!@#$%^&*(){}[],.<>/?|''');
@@ -475,6 +476,8 @@ definition {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry1 Content",
 			entryTitle = "Blogs Entry1 Title");
+
+		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsEntry.addWithTrackbackURLPG(
 			entryContent = "Blogs Entry1 Content",

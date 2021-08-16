@@ -987,15 +987,20 @@ definition {
 
 		Page.assertNodePortPG(nodePort = "8080");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Documents and Media Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Documents and Media Page",
-			widgetName = "Documents and Media");
+		SitePages.addPublicPage(
+			pageName = "Documents and Media Page",
+			sitePageType = "Widget Page");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Documents and Media Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 

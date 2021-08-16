@@ -319,7 +319,7 @@ definition {
 			layoutName = "Language Page",
 			widgetName = "Language Selector");
 
-		Navigator.openURL();
+		Navigator.gotoPage(pageName = "Language Page");
 
 		LanguagePortlet.selectLanguagePG(
 			locale = "de-DE",
@@ -1010,44 +1010,28 @@ definition {
 			groupName = "Site Name 1",
 			title = "Apple");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
-
 		JSONGroup.addGroup(groupName = "Site Name 2");
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name 2",
 			layoutName = "Site 2 HP");
 
-
 		Navigator.openSiteURL(siteName = "Site Name 2");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
-			portlet = "Documents and Media"
-		);
+			portlet = "Documents and Media");
 
 		DMDocument.addCP(
 			dmDocumentDescription = "DM Document Description",
 			dmDocumentFile = "Document_1.doc",
-			dmDocumentTitle = "Apple"
-		);
+			dmDocumentTitle = "Apple");
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
-			portlet = "Sites"
-		);
+			portlet = "Sites");
 
 		JSONGroup.addGroup(groupName = "Site Name 3");
 
@@ -1057,7 +1041,7 @@ definition {
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title",
+			entryTitle = "Apple",
 			groupName = "Site Name 3");
 
 		Navigator.openSiteURL(siteName = "Site Name 3");
@@ -1118,12 +1102,10 @@ definition {
 		SearchResultPortlet.viewSearchResults(
 			searchAssetTitle = "Apple",
 			searchAssetType = "Blogs Entry",
-			searchTerm = "Apple"
-		);
+			searchTerm = "Apple");
 
 		SearchResultPortlet.viewMultipleSearchResultsNotPresent(
-			noResultsList = "Apple/Web Content Article,Apple/Document"
-		);
+			noResultsList = "Apple/Web Content Article,Apple/Document");
 	}
 
 	@description = "This test will assert that configurations set within the Embedded search bar will be used when searching via the Widget search bar"
@@ -1135,13 +1117,11 @@ definition {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
-			portlet = "Documents and Media"
-		);
+			portlet = "Documents and Media");
 
 		DMDocument.addCP(
 			dmDocumentFile = "Document_1.doc",
-			dmDocumentTitle = "Potato Document"
-		);
+			dmDocumentTitle = "Potato Document");
 
 		JSONGroup.addGroup(groupName = "Test Site");
 
@@ -1165,15 +1145,13 @@ definition {
 			searchAssetSummary = "This is a blog about Potatoes",
 			searchAssetTitle = "Potato Blog",
 			searchAssetType = "Blogs Entry",
-			searchTerm = "Potato"
-		);
+			searchTerm = "Potato");
 
 		SearchResultPortlet.viewSearchResults(
 			entryDate = "${currentDate}",
 			searchAssetTitle = "Potato Document",
 			searchAssetType = "Document",
-			searchTerm = "Potato"
-		);
+			searchTerm = "Potato");
 
 		SearchPortlets.configureEmbeddedScope(searchScope = "This Site");
 
@@ -1183,13 +1161,11 @@ definition {
 			entryDate = "${currentDate}",
 			searchAssetTitle = "Potato Document",
 			searchAssetType = "Document",
-			searchTerm = "Potato"
-		);
+			searchTerm = "Potato");
 
 		SearchResultPortlet.viewSearchResultNotPresent(
 			searchAssetTitle = "Potato Blog",
-			searchAssetType = "Blogs Entry"
-		);
+			searchAssetType = "Blogs Entry");
 	}
 
 	@priority = "5"

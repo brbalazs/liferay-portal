@@ -152,17 +152,6 @@ definition {
 			groupName = "Global",
 			title = "WC WebContent Title");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
-
-		WebContent.viewCP(
-			webContentContent = "WC WebContent Content",
-			webContentTitle = "WC WebContent Title");
-
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(

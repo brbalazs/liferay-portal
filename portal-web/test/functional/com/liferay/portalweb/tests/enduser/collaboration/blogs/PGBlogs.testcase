@@ -351,6 +351,8 @@ definition {
 			entryContent = "Blogs Entry1 Content",
 			entryTitle = "Blogs Entry1 Title");
 
+		Navigator.gotoPage(pageName = "Blogs Page");
+
 		BlogsEntry.addWithTrackbackURLPG(
 			entryContent = "Blogs Entry1 Content",
 			entryContent2 = "Blogs Entry2 Content",
@@ -666,6 +668,8 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
+		Navigator.gotoPage(pageName = "Blogs Page");
+
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
@@ -715,6 +719,8 @@ definition {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
+
+		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",
@@ -847,6 +853,8 @@ definition {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
+
+		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",
@@ -1188,6 +1196,8 @@ definition {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
+
+		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",

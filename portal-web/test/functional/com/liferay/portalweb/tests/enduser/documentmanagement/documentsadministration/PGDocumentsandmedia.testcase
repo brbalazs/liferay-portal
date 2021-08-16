@@ -1665,10 +1665,6 @@ definition {
 			groupName = "Site Name 2",
 			layoutName = "Documents and Media Page");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Site Name 2",
-			layoutName = "Documents and Media Page");
-
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Site Name 2",

@@ -79,6 +79,8 @@ definition {
 
 	@priority = "5"
 	test ViewMentionViaBlogsEntryComment {
+		property custom.properties = "layout.default.template.id=1_column";
+
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Blogs Page");

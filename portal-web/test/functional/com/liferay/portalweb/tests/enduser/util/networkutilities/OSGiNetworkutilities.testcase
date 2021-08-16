@@ -15,13 +15,9 @@ definition {
 			groupName = "Guest",
 			layoutName = "Network Utilities Page");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Network Utilities Page",
-			widgetName = "Network Utilities");
-
 		Navigator.gotoPage(pageName = "Network Utilities Page");
+
+		Portlet.addPG(portletName = "Network Utilities");
 	}
 
 	tearDown {

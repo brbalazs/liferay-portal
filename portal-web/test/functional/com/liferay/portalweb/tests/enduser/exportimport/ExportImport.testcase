@@ -882,13 +882,9 @@ definition {
 			groupName = "Guest",
 			layoutName = "Test Page Name");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Test Page Name",
-			widgetName = "Sample LAR");
-
 		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.addPG(portletName = "Sample LAR");
 
 		SampleLARPortlet.addSampleBooking();
 
@@ -1235,7 +1231,7 @@ definition {
 
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
-			groupName = "Guest",
+			groupName = "Site Name B",
 			layoutName = "Test Page",
 			widgetName = "Web Content Display");
 
@@ -1637,16 +1633,11 @@ definition {
 	test ExportImportWebcontentWithRepeatField {
 		JSONGroup.addGroup(groupName = "Exported Site");
 
-		Navigator.openSiteURL(siteName = "Exported Site");
-
 		JSONLayout.addPublicLayout(
 			groupName = "Exported Site",
 			layoutName = "Exported Site Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
+		WebContent.openWebContentAdmin(siteURLKey = "exported-site");
 
 		NavItem.gotoStructures();
 

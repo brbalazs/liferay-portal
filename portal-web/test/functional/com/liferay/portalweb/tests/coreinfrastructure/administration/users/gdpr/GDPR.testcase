@@ -1,7 +1,7 @@
 @component-name = "portal-user-management-and-portal-configuration"
 definition {
 
-	property custom.properties = "jsonws.web.service.paths.excludes=";
+	property custom.properties = "jsonws.web.service.paths.excludes=${line.separator}layout.default.template.id=1_column";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Users and Organizations";
@@ -117,7 +117,9 @@ definition {
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "test@liferay.com",

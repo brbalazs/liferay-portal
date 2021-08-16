@@ -650,6 +650,8 @@ definition {
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
 
+		Navigator.gotoPage(pageName = "Message Boards Page");
+
 		MessageboardsThread.addPG(
 			threadBody = "MB Thread Message Body 1",
 			threadSubject = "MB Thread Message Subject 1");

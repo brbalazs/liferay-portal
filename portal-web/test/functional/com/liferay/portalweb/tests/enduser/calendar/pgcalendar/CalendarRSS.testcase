@@ -147,6 +147,19 @@ definition {
 	test ViewSiteCalendarFeed {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Calendar Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "Calendar Page");
+
 		CalendarNavigator.gotoPreviousDay();
 
 		CalendarEvent.addViaDayView(eventTitle = "Previous Day Event");

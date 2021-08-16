@@ -39,6 +39,11 @@ definition {
 			pageName = "Home",
 			siteName = "Site Name");
 
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
 			pageName = "Home");

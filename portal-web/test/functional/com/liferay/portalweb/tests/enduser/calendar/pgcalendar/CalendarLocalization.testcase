@@ -1,7 +1,7 @@
 @component-name = "portal-calendar"
 definition {
 
-	property custom.properties = "default.layout.template.id=1_column${line.separator}company.default.time.zone=America/Los_Angeles";
+	property custom.properties = "default.layout.template.id=1_column${line.separator}layout.default.template.id=1_column${line.separator}company.default.time.zone=America/Los_Angeles";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Calendar";
@@ -60,7 +60,7 @@ definition {
 		JSONLayout.addWidgetToPublicLayout(
 			groupName = "Guest",
 			layoutName = "Calendar Page",
-			widgetName = "Language");
+			widgetName = "Language Selector");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 

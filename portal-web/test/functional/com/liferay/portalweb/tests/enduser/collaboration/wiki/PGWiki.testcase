@@ -534,6 +534,8 @@ definition {
 
 	@priority = "4"
 	test AddPageWithInlineImage {
+		property custom.properties = "layout.default.template.id=1_column";
+
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 
 		WikiNavigator.gotoAllPagesPG();

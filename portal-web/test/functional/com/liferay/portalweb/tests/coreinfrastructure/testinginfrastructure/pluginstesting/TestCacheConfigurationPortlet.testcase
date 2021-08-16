@@ -20,12 +20,9 @@ definition {
 			groupName = "Guest",
 			layoutName = "Test Cache Configuration Page");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Test Cache Configuration Page",
-			widgetName = "Test Cache Configuration");
-
 		Navigator.gotoPage(pageName = "Test Cache Configuration Page");
+
+		Portlet.addPG(portletName = "Test Cache Configuration");
 
 		AssertVisible(locator1 = "TestBlob#TEST_PORTLET_BODY_PASSED");
 

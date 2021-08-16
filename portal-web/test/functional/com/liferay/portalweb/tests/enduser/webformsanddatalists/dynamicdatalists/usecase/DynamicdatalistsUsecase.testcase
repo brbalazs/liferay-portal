@@ -1,6 +1,7 @@
 @component-name = "portal-web-forms-and-data-lists"
 definition {
 
+	property custom.properties = "layout.default.template.id=1_column";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Dynamic Data Lists";
@@ -914,14 +915,14 @@ definition {
 
 		DDLList.selectViaDDLDisplayPG(ddlListName = "DDL List");
 
-		Navigator.gotoPage(pageName = "Dynamic Data Lists Page");
+		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
 
 		DDLDisplayPortlet.configureListViewPG(
 			configureCheckBoxName = "TEMPLATES_SPREADSHEET_VIEW_CHECKBOX",
 			configureChecked = "true",
 			ddlListName = "DDL List");
 
-		Navigator.gotoPage(pageName = "Dynamic Data Lists Page");
+		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
 
 		DDLDisplayPortlet.viewFieldSelectViaSpreadsheetView(
 			ddlRecordFieldData = "ENGOption1",
@@ -930,7 +931,7 @@ definition {
 
 		Navigator.openSpecificURL(url = "${portalURL}/ja/");
 
-		Navigator.gotoPage(pageName = "Dynamic Data Lists Page");
+		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
 
 		DDLDisplayPortlet.viewFieldSelectViaSpreadsheetView(
 			ddlRecordFieldData = "JAOption1",

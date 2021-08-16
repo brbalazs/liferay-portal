@@ -453,6 +453,8 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
+		Navigator.gotoPage(pageName = "Blogs Page");
+
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");

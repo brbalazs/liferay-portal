@@ -20,10 +20,6 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Staging Test Page");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page");
-
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Site Name",

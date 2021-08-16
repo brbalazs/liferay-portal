@@ -1299,7 +1299,7 @@ definition {
 
 		User.assignRegularRoleCP(
 			roleTitle = "Power User",
-			userScreenName = "test1test"
+			userScreenName = "usersn"
 		);
 
 		Navigator.openURL();

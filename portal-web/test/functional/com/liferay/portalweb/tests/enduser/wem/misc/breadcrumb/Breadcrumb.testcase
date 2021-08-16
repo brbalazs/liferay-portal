@@ -108,7 +108,7 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
-			layoutName = "Site Page");
+			layoutName = "Page Name");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 

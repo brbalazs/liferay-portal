@@ -1,7 +1,7 @@
 @component-name = "portal-collaboration"
 definition {
 
-	property custom.properties = "default.layout.template.id=1_column";
+	property custom.properties = "default.layout.template.id=1_column${line.separator}layout.default.template.id=1_column";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Wiki";

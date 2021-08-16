@@ -15,6 +15,10 @@ definition {
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
 			layoutName = "Staging Test Page");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
 	}
 
 	tearDown {
@@ -790,6 +794,8 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Staging Test Page",
 			widgetName = "Asset Publisher");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
@@ -4137,6 +4143,8 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Staging Test Page",
 			widgetName = "Asset Publisher");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",

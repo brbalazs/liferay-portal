@@ -32,7 +32,7 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
-			layoutName = "Site Page");
+			layoutName = "Page Name");
 
 		for (var tagName : list "tag name 1,tag name 2,tag name 3") {
 			Navigator.openSiteURL(siteName = "Site Name");

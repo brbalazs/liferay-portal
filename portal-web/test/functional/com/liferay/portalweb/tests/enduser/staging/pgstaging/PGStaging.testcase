@@ -851,14 +851,11 @@ definition {
 
 		Staging.addSitePagesVariationPG(sitePagesVariationName = "Test Site Pages Variation");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page",
-			widgetName = "Web Content Display");
-
 		Navigator.gotoSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Web Content Display");
 
 		WebContent.addPGViaWCD(
 			webContentContent = "Web Content Content",
@@ -876,15 +873,14 @@ definition {
 			sitePagesVariationMenulistName = "Test Site Pages Variation",
 			sitePagesVariationName = "Main Variation");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Test Variation Page");
+		Navigator.openSiteURL(siteName = "Site Name");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Site Name",
-			layoutName = "Test Variation Page",
-			widgetName = "Blogs");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Test Variation Page");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Variation Page",
@@ -895,6 +891,8 @@ definition {
 		Navigator.gotoSitePage(
 			pageName = "Test Variation Page",
 			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Blogs");
 
 		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",

@@ -65,7 +65,7 @@ definition {
 
 		echo("## * Content: ${entryContent}");
 
-		var messageId = JSONCurlUtil.post("${curl}");
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
 	}
 
 }
