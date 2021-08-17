@@ -51,26 +51,4 @@ describe('Definitions Overview', () => {
 			container.querySelectorAll('.list-group-title a')[6]
 		).toHaveTextContent('Interests');
 	});
-
-	it('should render a list of definitions that includes interests and search when DEVELOPER_MODE is false', () => {
-		Constants.DEVELOPER_MODE = false;
-
-		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<Overview groupId='23' />
-				</StaticRouter>
-			</Provider>
-		);
-
-		jest.runAllTimers();
-
-		expect(
-			container.querySelectorAll('.list-group-title a')[1]
-		).toHaveTextContent('Search');
-
-		expect(
-			container.querySelectorAll('.list-group-title a')[2]
-		).toHaveTextContent('Interests');
-	});
 });

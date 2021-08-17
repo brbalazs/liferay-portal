@@ -104,51 +104,38 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 				/>
 			)}
 
-			{DEVELOPER_MODE && (
-				<BundleRouter
-					data={AttributeView}
-					exact
-					path={Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW}
-				/>
-			)}
+			<BundleRouter
+				data={AttributeView}
+				exact
+				path={Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_VIEW}
+			/>
 
-			{DEVELOPER_MODE && (
-				// TODO: LRAC-7254 Move events route out of devmode
-				<BundleRouter
-					data={Events}
-					path={[
-						Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
-						Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
-					]}
-				/>
-			)}
+			<BundleRouter
+				data={Events}
+				path={[
+					Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM,
+					Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
+				]}
+			/>
 
-			{DEVELOPER_MODE && (
-				<BundleRouter
-					data={EventAttributes}
-					path={[
-						Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL,
-						Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL
-					]}
-				/>
-			)}
+			<BundleRouter
+				data={EventAttributes}
+				path={[
+					Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_LOCAL,
+					Routes.SETTINGS_DEFINITIONS_EVENT_ATTRIBUTES_GLOBAL
+				]}
+			/>
 
-			{DEVELOPER_MODE && (
-				// TODO: LRAC-7254 Move events route out of devmode
-				<BundleRouter
-					data={EventBlockList}
-					path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}
-				/>
-			)}
+			<BundleRouter
+				data={EventBlockList}
+				path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}
+			/>
 
-			{DEVELOPER_MODE && (
-				// TODO: LRAC-7254 Move events route out of devmode
-				<BundleRouter
-					data={EventView}
-					exact
-					path={Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW}
-				/>
-			)}
+			<BundleRouter
+				data={EventView}
+				exact
+				path={Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW}
+			/>
 
 			<RouteNotFound />
 		</Switch>
