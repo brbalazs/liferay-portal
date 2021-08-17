@@ -396,16 +396,6 @@ AUI.add(
 											instance.extend();
 										}
 										else {
-									if (extend && hasExpired) {
-										// eslint-disable-next-line no-console
-										console.log(
-											'Session was already expired: sessionLength=' +
-												sessionLength +
-												', elapsed time=' +
-												elapsed
-										);
-									}
-
 											instance.expire();
 
 											expirationMoment = true;
