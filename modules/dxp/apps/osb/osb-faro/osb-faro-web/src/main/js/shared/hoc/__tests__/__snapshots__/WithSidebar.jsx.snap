@@ -148,6 +148,36 @@ exports[`withSidebar should render with the sidebar 1`] = `
                 </span>
               </a>
             </li>
+            <li
+              class="sidebar-item-root"
+            >
+              <a
+                class="button-root btn btn-link link"
+                href="/workspace/23/1/event-analysis/create"
+              >
+                <span
+                  class="link-content-wrapper"
+                >
+                  <span
+                    class="icon-wrapper"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-ac-event-analysis"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-analysis"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="item-label"
+                  >
+                    Event Analysis
+                  </span>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
         <div
