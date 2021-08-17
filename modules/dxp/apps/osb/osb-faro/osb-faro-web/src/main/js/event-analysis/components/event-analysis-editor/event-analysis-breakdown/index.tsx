@@ -11,11 +11,14 @@ import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
 import {
 	Attributes,
+	Breakdown,
 	BreakdownData,
 	Breakdowns,
 	CalculationTypes,
 	Event,
-	Filters
+	Filters,
+	ParsedBreakdownData,
+	ParsedBreakdownItem
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
 import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
@@ -47,7 +50,11 @@ export interface IBreakdownTableProps
 	type: CalculationTypes;
 }
 
-const getBreakdownByAccessor = (accessor, breakdownOrder, breakdowns) => {
+const getBreakdownByAccessor = (
+	accessor: string,
+	breakdownOrder: string[],
+	breakdowns: Breakdowns
+): Breakdown => {
 	const orderIndex = Number(accessor.split('breakdown').pop()) - 1;
 	const breakdownId = breakdownOrder[orderIndex];
 
@@ -99,7 +106,25 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		setPage('1');
 	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
 
-	const parseData = (data: BreakdownData) => {
+	const parseData = (
+		data: BreakdownData
+	): {
+		columns: {
+			accessor: string;
+			cellRenderer: (props: {
+				className: string;
+				data: ParsedBreakdownItem;
+			}) => React.TdHTMLAttributes<HTMLElement>;
+			headProps?: {
+				order: string;
+			};
+			label: string;
+			sortable: boolean;
+		};
+		count: number;
+		highestValue: number;
+		items: ParsedBreakdownData;
+	} => {
 		const items = parserBreakdownData(data);
 
 		const highestValue = getMaxEventValue(items, compareToPrevious);

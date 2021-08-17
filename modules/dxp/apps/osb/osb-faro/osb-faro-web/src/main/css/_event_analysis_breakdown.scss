@@ -26,37 +26,37 @@
 	.bar-comparison-root .table {
 		margin-top: 10px;
 		table-layout: fixed;
-	
+
 		td, th {
 			border: none;
 			padding: 0px 12px;
 		}
-	
+
 		td {
 			line-height: 1;
 		}
-	
+
 		th {
 			font-size: $font-size-sm-2x;
 			font-weight: $fontWeightRegular;
 			height: 20px;
 			text-transform: uppercase;
 		}
-	
+
 		tr:nth-child(even) td {
 			padding-bottom: 8px;
 		}
-	
+
 		.table-column-event-name, .table-column-event-name:first-child {
 			padding-left: 0;
 			text-align: right;
 			width: 18%;
 		}
-	
+
 		.table-column-event-total {
 			width: 10%;
 		}
-	
+
 		.breakdown-table-bar {
 			align-items: center;
 			background: unset;
@@ -64,7 +64,7 @@
 			display: flex;
 			height: 20px;
 			justify-content: flex-start;
-			
+
 			.bar {
 				border-radius: 0;
 				min-width: 2px;
@@ -86,7 +86,7 @@
 					rgba(0,0,0,0) 100%);
 				background-size: 10px 10px;
 			}
-	
+
 			.info-wrapper {
 				position: unset;
 			}
