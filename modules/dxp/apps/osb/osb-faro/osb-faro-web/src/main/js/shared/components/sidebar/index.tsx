@@ -56,20 +56,18 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
 		return [
 			{
-				items: DEVELOPER_MODE // TODO: LRAC-7253
-					? [
-							...items,
-							{
-								icon: 'ac-event-analysis',
-								label: Liferay.Language.get('events'),
-								route: Routes.EVENT_ANALYSIS_CREATE,
-								url: toRoute(Routes.EVENT_ANALYSIS_CREATE, {
-									channelId,
-									groupId
-								})
-							}
-					  ]
-					: items,
+				items: [
+					...items,
+					{
+						icon: 'ac-event-analysis',
+						label: Liferay.Language.get('event'),
+						route: Routes.EVENT_ANALYSIS_CREATE,
+						url: toRoute(Routes.EVENT_ANALYSIS_CREATE, {
+							channelId,
+							groupId
+						})
+					}
+				],
 				label: Liferay.Language.get('touchpoints')
 			},
 			{

@@ -202,8 +202,7 @@ const ROUTES = [
 		exact: false,
 		path: Routes.SITES_TOUCHPOINTS_ROUTES
 	},
-	DEVELOPER_MODE && {
-		// TODO: LRAC-7253
+	{
 		data: CreateEventAnalysis,
 		destructured: false,
 		exact: true,
