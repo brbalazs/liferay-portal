@@ -8,8 +8,8 @@ dependencies {
 	compileOnly group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.13"
 	compileOnly group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.5"
 	compileOnly group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.2"
-	compileOnly group: "org.springframework", name: "spring-core", version: "4.3.5.RELEASE"
-	compileOnly group: "org.springframework", name: "spring-web", version: "4.3.5.RELEASE"
+	compileOnly group: "org.springframework", name: "spring-core", version: "5.2.12.RELEASE"
+	compileOnly group: "org.springframework", name: "spring-web", version: "5.2.12.RELEASE"
 	compileOnly group: "org.springframework.boot", name: "spring-boot", version: "1.4.3.RELEASE"
 	compileOnly group: "org.springframework.hateoas", name: "spring-hateoas", version: "0.23.0.RELEASE"
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-api")
