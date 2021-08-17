@@ -46,7 +46,7 @@ exports[`Create Event Analysis render 1`] = `
                 data-tooltip="false"
                 title=""
               >
-                Event Analysis
+                Events
               </span>
             </h1>
           </span>
