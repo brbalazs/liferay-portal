@@ -1,5 +1,6 @@
 @component-name = "portal-collaboration"
 definition {
+
 	property custom.properties = "default.layout.template.id=1_column${line.separator}layout.default.template.id=1_column";
 	property portal.release = "true";
 	property portal.upstream = "true";
@@ -113,7 +114,7 @@ definition {
 	@priority = "5"
 	test AddBlogsEntryWithSpecialCharacters {
 		Navigator.gotoPage(pageName = "Blogs Page");
-		
+
 		Blogs.addEntry(
 			entryContent = '''Blogs Entry Content `~!@#$%^&*(){}[],.<>/?|''',
 			entryTitle = '''Blogs Entry Title `~!@#$%^&*(){}[],.<>/?|''');

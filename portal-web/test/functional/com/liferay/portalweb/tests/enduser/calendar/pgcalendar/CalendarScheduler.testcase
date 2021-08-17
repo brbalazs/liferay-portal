@@ -84,15 +84,15 @@ definition {
 	@priority = "3"
 	test ViewDefaultDurationsViaScheduler {
 		ProductMenu.gotoPortlet(
-				category = "Build",
-				panel = "Site Administration",
-				portlet = "Pages");
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-			SitePages.configurePage(
-				columnName = "1 Column",
-				pageName = "Calendar Page",
-				privacy = "Public Pages",
-				sitePageType = "Widget Page");
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Calendar Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
 
 		for (var minutes : list "15,30,60,120") {
 			Navigator.gotoPage(pageName = "Calendar Page");
