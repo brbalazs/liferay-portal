@@ -40,10 +40,10 @@ AUI.add(
 					sessionState: {
 						value: 'active'
 					},
-				sessionTimeoutOffset: {
-					getter: '_getLengthInMillis',
-					value: 0,
-				},
+					sessionTimeoutOffset: {
+						getter: '_getLengthInMillis',
+						value: 0,
+					},
 					timestamp: {
 						getter: '_getTimestamp',
 						setter: '_setTimestamp',
@@ -327,9 +327,9 @@ AUI.add(
 
 						var sessionLength = instance.get('sessionLength');
 
-					var sessionTimeoutOffset = instance.get(
-						'sessionTimeoutOffset'
-					);
+						var sessionTimeoutOffset = instance.get(
+							'sessionTimeoutOffset'
+						);
 
 						var warningTime = instance.get('warningTime');
 
@@ -370,26 +370,26 @@ AUI.add(
 								var warningMoment = false;
 
 								var hasExpired = elapsed >= sessionLength;
-						var hasExpiredTimeoutOffset =
-							elapsed >= sessionLength - sessionTimeoutOffset;
-								var hasWarned = elapsed >= warningTime;
-
-						if (hasExpiredTimeoutOffset || hasWarned) {
+								var hasExpiredTimeoutOffset =
+									elapsed >= sessionLength - sessionTimeoutOffset;
+										var hasWarned = elapsed >= warningTime;
+		
+								if (hasExpiredTimeoutOffset || hasWarned) {
 									if (timestamp == 'expired') {
 										expirationMoment = true;
 										extend = false;
 										hasExpired = true;
-								hasExpiredTimeoutOffset = true;
+										hasExpiredTimeoutOffset = true;
 									}
 
-							if (
-								hasExpiredTimeoutOffset &&
-								sessionState != 'expired'
-							) {
-								if (extend && !hasExpired) {
+									if (
+										hasExpiredTimeoutOffset &&
+										sessionState != 'expired'
+									) {
+										if (extend && !hasExpired) {
 											expirationMoment = false;
 											hasExpired = false;
-									hasExpiredTimeoutOffset = false;
+											hasExpiredTimeoutOffset = false;
 											hasWarned = false;
 											warningMoment = false;
 
@@ -401,12 +401,12 @@ AUI.add(
 											expirationMoment = true;
 										}
 									}
-							else if (
-								hasWarned &&
-								!hasExpiredTimeoutOffset &&
-								!extend &&
-								sessionState != 'warned'
-							) {
+									else if (
+										hasWarned &&
+										!hasExpiredTimeoutOffset &&
+										!extend &&
+										sessionState != 'warned'
+									) {
 										instance.warn();
 
 										warningMoment = true;
@@ -414,15 +414,15 @@ AUI.add(
 								}
 
 								for (var i in registered) {
-							registered[i](
-								elapsed,
-								interval,
-								hasWarned,
-								hasExpired,
-								hasExpiredTimeoutOffset,
-								warningMoment,
-								expirationMoment
-							);
+									registered[i](
+										elapsed,
+										interval,
+										hasWarned,
+										hasExpired,
+										hasExpiredTimeoutOffset,
+										warningMoment,
+										expirationMoment
+									);
 								}
 							},
 							interval
