@@ -16,10 +16,6 @@ const CLASSNAME = 'analytics-geomap';
 const OTHERS = 'others';
 const TOTAL_COUNTRIES_LIST = 5;
 
-const GEOMAP_KEY = CEREBRO_PATHS_GEOMAP_KEY // eslint-disable-line no-undef
-	? CEREBRO_PATHS_GEOMAP_KEY // eslint-disable-line no-undef
-	: 'paths';
-
 /**
  * Geo Location
  * @class
@@ -187,18 +183,6 @@ class GeoLocation extends React.Component {
 	 * Load Paths
 	 */
 	loadPaths() {
-		const paths = localStorage.getItem(GEOMAP_KEY);
-		if (paths) {
-			return Promise.resolve(JSON.parse(paths));
-		} else {
-			return this.fetchJson();
-		}
-	}
-
-	/**
-	 * Fecth JSON
-	 */
-	fetchJson() {
 		const data = import(
 			'../../../../resources/META-INF/resources/countries.geo.json'
 		);
@@ -206,7 +190,6 @@ class GeoLocation extends React.Component {
 		return data
 			.then(paths => {
 				paths.data.features = this.normalizeGeoData(paths.data);
-				localStorage.setItem(GEOMAP_KEY, JSON.stringify(paths.data));
 				return paths.data;
 			})
 			.catch(() => ({features: []}));

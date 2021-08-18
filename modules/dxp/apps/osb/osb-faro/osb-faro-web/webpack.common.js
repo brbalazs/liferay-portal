@@ -1,7 +1,5 @@
 const BundleQueryStringPlugin = require('./bundle-query-string-webpack-plugin');
 const clayCss = require('@clayui/css');
-const crypto = require('crypto');
-const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
@@ -9,20 +7,6 @@ const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const PUBLIC_PATH = '/o/osb-faro-web/dist/';
-
-function checksum(obj) {
-	return crypto.createHash('MD5').update(JSON.stringify(obj)).digest('hex');
-}
-
-function getPathsChecksum() {
-	const obj = JSON.parse(
-		fs.readFileSync(
-			'./src/main/resources/META-INF/resources/countries.geo.json',
-			'utf8'
-		)
-	);
-	return checksum(obj);
-}
 
 function resolveModule(name = '') {
 	return path.resolve(__dirname, 'src', 'main', 'js', name);
@@ -153,7 +137,6 @@ const config = {
 		}),
 		new SpriteLoaderPlugin(),
 		new webpack.DefinePlugin({
-			CEREBRO_PATHS_GEOMAP_KEY: JSON.stringify(getPathsChecksum()),
 			FARO_ENV: JSON.stringify(process.env.FARO_ENVIRONMENT_NAME || '')
 		}),
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
