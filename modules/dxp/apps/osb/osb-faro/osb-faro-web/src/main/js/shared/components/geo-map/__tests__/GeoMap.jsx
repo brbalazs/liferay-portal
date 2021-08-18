@@ -1,7 +1,8 @@
 import GeoLocation from '../GeoMapCard';
 import React from 'react';
-import {shallow} from 'enzyme';
-jest.unmock('clay-charts');
+import {fireEvent, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const data = [
 	{
@@ -56,80 +57,28 @@ const props = {
 	loading: false
 };
 describe('GeoMapCard', () => {
-	let component;
-
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
-
-	it('should render GeoMap', () => {
-		const component = shallow(<GeoLocation {...props} />);
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render GeoMap again when data changes', () => {
-		const component = shallow(<GeoLocation {...props} />);
-
-		const newData = [
-			{
-				group: 'Canada',
-				id: 'Canada',
-				name: 'Canada',
-				total: 100,
-				value: '100'
-			}
-		];
-
-		component.setProps({
-			countries: newData,
-			data: newData
-		});
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should get select path based on country name', async () => {
-		const component = await shallow(<GeoLocation {...props} />);
-		const instance = component.instance();
-
-		const spainPath = {
-			group: 'Spain',
-			id: 'Spain',
-			name: 'Spain',
-			total: 490,
-			value: '2.7'
-		};
-
-		const pathSelected = instance.getPathSelected('Spain');
-		expect(pathSelected.properties.name).toBe(spainPath.name);
-	});
-
-	it('should render component list with lighten-item class when mouseover on table line', () => {
-		const component = shallow(<GeoLocation {...props} />);
-		component
-			.find('.analytics-geomap-table > tbody > tr')
-			.first()
-			.simulate('mouseover');
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render component list without lighten-item class when mouseleave on table line', () => {
-		const component = shallow(<GeoLocation {...props} />);
-		component
-			.find('.analytics-geomap-table > tbody > tr')
-			.first()
-			.simulate('mouseover');
-		component
-			.find('.analytics-geomap-table > tbody > tr')
-			.first()
-			.simulate('mouseleave');
-
-		expect(component).toMatchSnapshot();
+	it('should render', () => {
+		const {container} = render(<GeoLocation {...props} />);
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with empty message', () => {
-		const component = shallow(<GeoLocation {...props} empty />);
-		expect(component).toMatchSnapshot();
+		const {getByText} = render(<GeoLocation {...props} empty />);
+
+		expect(getByText(/There are no views/)).toBeTruthy();
+	});
+
+	it('should highlight the list item when mouse over', () => {
+		const {container} = render(<GeoLocation {...props} />);
+
+		const firstRow = container.querySelector(
+			'.analytics-geomap-table > tbody > tr'
+		);
+
+		fireEvent.mouseOver(firstRow);
+
+		jest.runAllTimers();
+
+		expect(container.querySelector('.lighten-item')).toBeTruthy();
 	});
 });
