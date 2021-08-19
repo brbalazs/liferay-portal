@@ -32,11 +32,21 @@ const getDropdownItems = ({
 		: {
 				href: URLConstants.TicketPageLink,
 				label: Liferay.Language.get('report-an-issue'),
+				onClick: () => {
+					analytics.track('Clicked Paid Tier Ticket Link', {
+						currentUrl: window.location.href
+					});
+				},
 				target: '_blank'
 		  },
 	{
 		href: URLConstants.DocumentationLink,
 		label: Liferay.Language.get('help-center'),
+		onClick: () => {
+			analytics.track('Clicked Help Center Link', {
+				currentUrl: window.location.href
+			});
+		},
 		target: '_blank'
 	}
 ];
