@@ -154,7 +154,7 @@ exports[`Sidebar should render 1`] = `
                 <span
                   class="item-label"
                 >
-                  Event Analysis
+                  Event
                 </span>
               </span>
             </a>
