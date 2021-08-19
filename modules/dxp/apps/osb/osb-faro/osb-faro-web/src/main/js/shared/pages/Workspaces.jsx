@@ -18,6 +18,7 @@ import {
 import {connect} from 'react-redux';
 import {groupBy, isEmpty, map, sortBy} from 'lodash';
 import {PLANS} from 'shared/util/subscriptions';
+import {PROD_MODE} from 'shared/util/constants';
 import {Project} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -86,7 +87,7 @@ const Workspaces = ({
 				{Liferay.Language.get('buy-paid-tier')}
 			</Button>
 
-			{!hasFreeTrial(projects, currentUserId) && (
+			{(!PROD_MODE || !hasFreeTrial(projects, currentUserId)) && (
 				<Button href={toRoute(Routes.WORKSPACE_ADD_TRIAL)} size='sm'>
 					{Liferay.Language.get('start-free-trial')}
 				</Button>
