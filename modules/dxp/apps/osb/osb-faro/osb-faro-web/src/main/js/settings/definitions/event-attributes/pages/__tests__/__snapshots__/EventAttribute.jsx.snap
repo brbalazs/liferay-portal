@@ -30,7 +30,7 @@ exports[`EventAttributes should render 1`] = `
         <span
           class="breadcrumb-text-truncate"
         >
-          Attributes
+          Event Attributes
         </span>
       </li>
     </ol>
@@ -51,7 +51,7 @@ exports[`EventAttributes should render 1`] = `
               data-tooltip="false"
               title=""
             >
-              Attributes
+              Event Attributes
             </span>
           </h3>
         </div>
