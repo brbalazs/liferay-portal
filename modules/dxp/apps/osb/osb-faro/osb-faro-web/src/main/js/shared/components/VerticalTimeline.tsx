@@ -1,70 +1,104 @@
 import getCN from 'classnames';
 import Icon from './Icon';
-import NoResultsDisplay, {getFormattedTitle} from './NoResultsDisplay';
-import React from 'react';
+import React, {FC, useState} from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
 import TextTruncate from './TextTruncate';
-import {FC} from 'react';
 import {formatDateToTimeZone} from 'shared/util/date';
-import {get} from 'lodash';
 import {Link} from 'react-router-dom';
-import {Routes, toRoute} from 'shared/util/router';
-import {useState} from 'react';
+import {UserSessionAttributes} from 'shared/util/activities';
 
-interface ITEM_SHAPE {
+const DEVICE_ICONS_MAP = {
+	desktop: {symbol: 'ac-display', title: Liferay.Language.get('desktop')},
+	mobile: {symbol: 'mobile-portrait', title: Liferay.Language.get('mobile')},
+	tablet: {
+		className: 'device-icon tablet-icon',
+		symbol: 'tablet-portrait',
+		title: Liferay.Language.get('tablet')
+	}
+};
+
+const ATTRIBUTE_CLASSES_MAP = {
+	title: 'attribute-important'
+};
+
+type TITLE_ELEMENT_ATTRIBUTES = {
+	key: string;
+	props: {
+		children: string;
+	};
+	type: string;
+	ref: string;
+	_owner: string;
+	_store: {};
+};
+
+type ITEM_SHAPE = {
+	attributes: UserSessionAttributes;
+	browserName: string;
+	description: string;
+	device: string;
+	endTime: number;
 	header: boolean;
-	individual: object;
-	nestedItems: [];
-	subtitle: string | [];
-	symbol: string;
-	time: number;
-	title: string | string[];
+	nestedItems: ITEM_SHAPE[];
+	subtitle: string | TITLE_ELEMENT_ATTRIBUTES[];
+	time: string;
+	title: string | TITLE_ELEMENT_ATTRIBUTES[];
+	totalEvents: number;
 	url: string;
-}
+};
 
-interface ITimelineItemProps {
+type ITimelineItemProps = {
 	channelId?: string;
 	className?: string;
 	groupId?: string;
 	initialExpanded?: boolean;
 	item: ITEM_SHAPE;
 	timeZoneId: string;
-}
+};
 
 const TimelineItem: FC<ITimelineItemProps> = ({
-	channelId,
 	className,
-	groupId,
-	initialExpanded = true,
-	item: {header, individual, nestedItems, subtitle, symbol, time, title, url},
+	initialExpanded = false,
+	item: {
+		attributes,
+		browserName,
+		description,
+		device,
+		endTime,
+		header,
+		nestedItems,
+		subtitle,
+		time,
+		title,
+		totalEvents,
+		url
+	},
 	timeZoneId
 }) => {
 	const [expanded, setExpanded] = useState(initialExpanded);
 
+	const timeRange = !nestedItems ? (
+		formatDateToTimeZone(time, 'h:mma', timeZoneId)
+	) : (
+		<>
+			<span>{formatDateToTimeZone(time, 'h:mma', timeZoneId)}</span>
+			{' - '}
+			<span>
+				{endTime
+					? formatDateToTimeZone(endTime, 'h:mma', timeZoneId)
+					: Liferay.Language.get('in-progress').toLowerCase()}
+			</span>
+		</>
+	);
+
+	const expandable = !!attributes;
+
 	const toggleExpand = () => {
-		if (isExpandable()) {
+		if (expandable) {
 			setExpanded(!expanded);
 		}
 	};
-
-	const handleClick = () => {
-		toggleExpand();
-	};
-
-	const handleKeyPress = () => {
-		toggleExpand();
-	};
-
-	const isExpandable = () => {
-		return nestedItems?.length;
-	};
-
-	const classes = getCN('timeline-item', className, {
-		header
-	});
-
-	const expandable = isExpandable();
 
 	const bodyClasses = getCN('timeline-panel-body-content', {
 		selectable: expandable
@@ -72,67 +106,68 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 
 	const bodyAttributes = expandable
 		? {
-				onClick: handleClick,
-				onKeyPress: handleKeyPress,
+				onClick: toggleExpand,
+				onKeyPress: toggleExpand,
 				role: 'button',
 				tabIndex: 0
 		  }
 		: {};
 
-	const individualName = get(individual, 'name');
-	const individualId = get(individual, 'id');
+	const {header: attributesTitle, ...otherValues} = attributes || {};
+	const {title: deviceIconTitle, ...otherIconAttributes} =
+		expandable && !!nestedItems && DEVICE_ICONS_MAP[device.toLowerCase()];
 
 	return (
-		<li className={classes}>
+		<li
+			className={getCN('timeline-item', className, {
+				expanded,
+				header
+			})}
+		>
 			<div className='timeline-panel'>
 				<div className='timeline-panel-body'>
 					{!header && (
 						<div className='timeline-increment'>
 							<Sticker circle display='point' size='lg' />
-						</div>
-					)}
 
-					{time && (
-						<div className='timeline-item-label'>
-							{formatDateToTimeZone(time, 'h:mma', timeZoneId)}
+							{time && (
+								<div className='timeline-item-label timeline-time-label label-root'>
+									{timeRange}
+								</div>
+							)}
 						</div>
 					)}
 
 					<div className={bodyClasses} {...bodyAttributes}>
-						{symbol && (
-							<div className='sticker-container'>
-								<Sticker display='light' symbol={symbol} />
-							</div>
-						)}
-
 						<div className='timeline-panel-body-content-text'>
-							<div>
-								{!!individualName && (
-									<Link
-										className='entity-link'
-										to={toRoute(
-											Routes.CONTACTS_INDIVIDUAL,
-											{
-												channelId,
-												groupId,
-												id: individualId
-											}
-										)}
-									>
-										{individualName}
-									</Link>
-								)}
-
+							{url ? (
 								<span className='text-truncate'>
-									{url ? (
-										<Link className='title' to={url}>
-											{title}
-										</Link>
-									) : (
-										<span className='title'>{title}</span>
-									)}
+									<Link className='title' to={url}>
+										{title}
+									</Link>
 								</span>
-							</div>
+							) : (
+								<span className='title'>{title}</span>
+							)}
+
+							{header && (
+								<>
+									<Icon
+										className='event-icon'
+										symbol='ac-event-icon'
+									/>
+
+									<span className='item-count'>
+										{totalEvents}
+									</span>
+								</>
+							)}
+
+							{description && (
+								<span className='description'>
+									{description}
+								</span>
+							)}
 
 							{subtitle && (
 								<TextTruncate
@@ -142,23 +177,70 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 							)}
 						</div>
 
-						{isExpandable() && (
-							<div className='timeline-panel-body-content-details'>
-								<span className='item-count'>
-									{nestedItems.length}
-								</span>
+						<div className='timeline-panel-body-content-details'>
+							{expandable && !!nestedItems && (
+								<div className='icon-group'>
+									<Icon
+										className='event-icon'
+										symbol='ac-event-icon'
+									/>
 
-								<Icon
-									symbol={
-										expanded ? 'caret-bottom' : 'caret-top'
-									}
-								/>
-							</div>
+									<span className='item-count'>
+										{nestedItems.length}
+									</span>
+
+									<span
+										className='device-icon'
+										data-tooltip
+										data-tooltip-align='bottom'
+										title={`${deviceIconTitle}\n${browserName}`}
+									>
+										<Icon {...otherIconAttributes} />
+									</span>
+								</div>
+							)}
+						</div>
+
+						{!header && (
+							<Icon
+								symbol={expanded ? 'caret-top' : 'caret-bottom'}
+							/>
 						)}
 					</div>
+
+					{expanded && (
+						<div className='timeline-panel-body-content'>
+							<div className='timeline-panel-body-content-text'>
+								<div className='attributes-title'>
+									<span className='label-root'>
+										{attributesTitle}
+									</span>
+								</div>
+
+								{Object.entries(otherValues).map(
+									([key, value]) => (
+										<div
+											className='attributes-item'
+											key={key}
+										>
+											<span className='attribute-key'>{`${key}`}</span>
+
+											<TextTruncate
+												className={getCN(
+													'attribute-value',
+													ATTRIBUTE_CLASSES_MAP[key]
+												)}
+												title={value || '""'}
+											/>
+										</div>
+									)
+								)}
+							</div>
+						</div>
+					)}
 				</div>
 
-				{expanded && nestedItems && (
+				{nestedItems && (
 					<VerticalTimeline
 						items={nestedItems}
 						nested
@@ -170,66 +252,43 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 	);
 };
 
-interface HEADER_LABEL_SHAPE {
-	count: string;
-	label: string;
-	title: string;
-}
-
-interface IVerticalTimelineProps {
+type IVerticalTimelineProps = {
 	groupId?: string;
-	headerLabels?: HEADER_LABEL_SHAPE;
 	initialExpanded?: boolean;
 	items: ITEM_SHAPE[];
 	loading?: boolean;
 	nested?: boolean;
 	timeZoneId: string;
-}
+};
 
 const VerticalTimeline: FC<IVerticalTimelineProps> = ({
 	groupId,
-	headerLabels,
-	initialExpanded = true,
+	initialExpanded = false,
 	items = [],
 	loading = false,
 	nested = false,
 	timeZoneId
-}) => {
-	const classes = getCN('timeline', 'timeline-center', {
-		'timeline-nested': nested
-	});
-
-	if (loading) {
-		return <Spinner alignCenter={false} className='flex-grow-1' spacer />;
-	} else if (!items.length && !nested) {
-		return <NoResultsDisplay title={getFormattedTitle()} />;
-	} else {
-		return (
-			<div className='vertical-timeline-root'>
-				{headerLabels && (
-					<div className='timeline-header'>
-						<div className='header-label'>{headerLabels.label}</div>
-
-						<div className='header-title'>{headerLabels.title}</div>
-
-						<div className='header-count'>{headerLabels.count}</div>
-					</div>
-				)}
-
-				<ul className={classes}>
-					{items.map((item, i) => (
-						<TimelineItem
-							groupId={groupId}
-							initialExpanded={initialExpanded}
-							item={item}
-							key={i}
-							timeZoneId={timeZoneId}
-						/>
-					))}
-				</ul>
-			</div>
-		);
-	}
-};
+}) =>
+	loading ? (
+		<Spinner alignCenter={false} className='flex-grow-1' spacer />
+	) : (
+		<div className='vertical-timeline-root'>
+			<ul
+				className={getCN('timeline', 'timeline-center', {
+					'timeline-nested': nested
+				})}
+			>
+				{items.map((item, i) => (
+					<TimelineItem
+						groupId={groupId}
+						initialExpanded={initialExpanded}
+						item={item}
+						key={i}
+						timeZoneId={timeZoneId}
+					/>
+				))}
+			</ul>
+		</div>
+	);
 
 export default VerticalTimeline;

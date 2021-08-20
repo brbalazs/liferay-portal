@@ -16,7 +16,6 @@ export default class SearchableVerticalTimeline extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
 		groupId: PropTypes.string,
-		headerLabels: PropTypes.object,
 		initialExpanded: PropTypes.bool,
 		items: PropTypes.arrayOf(PropTypes.object),
 		loading: PropTypes.bool,
@@ -26,18 +25,11 @@ export default class SearchableVerticalTimeline extends React.Component {
 
 	@autobind
 	renderVerticalTimeline({items, loading}) {
-		const {
-			groupId,
-			headerLabels,
-			initialExpanded,
-			nested,
-			timeZoneId
-		} = this.props;
+		const {groupId, initialExpanded, nested, timeZoneId} = this.props;
 
 		return (
 			<VerticalTimeline
 				groupId={groupId}
-				headerLabels={headerLabels}
 				initialExpanded={initialExpanded}
 				items={items}
 				loading={loading}
