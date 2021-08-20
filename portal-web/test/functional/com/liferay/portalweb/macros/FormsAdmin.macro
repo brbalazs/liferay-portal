@@ -29,16 +29,9 @@ definition {
 
 			var key_fieldName = "$password";
 
-			if (IsElementPresent(locator1 = "FormFields#PASSWORD_FIELD")) {
-				FormFields.editPassword(
-					fieldName = "$password",
-					fieldValue = "${password}");
-			}
-			else {
-				FormFields.editText(
-					fieldName = "$password",
-					fieldValue = "${password}");
-			}
+			FormFields.editPassword(
+				fieldName = "$password",
+				fieldValue = "${password}");
 		}
 
 		if (isSet(inputParameterLabel)) {
