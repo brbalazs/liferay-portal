@@ -107,9 +107,15 @@ definition {
 			actionRowNumber = "1",
 			actionTarget = "zipcloud");
 
-		FormRules.selectAutofill(
-			dataProviderInput = "Postal code",
-			dataProviderOutput = "Prefectures");
+		FormRules.selectAutofillFromDataProvider(
+			dataProviderOption = "Postal code",
+			dataProviderParameterName = "zipcode");
+
+		ScrollBy(value1 = "0, 200");
+
+		FormRules.selectAutofillFromDataProvider(
+			dataProviderOption = "Prefectures",
+			dataProviderParameterName = "prefecture");
 
 		FormRules.save();
 
@@ -204,7 +210,9 @@ definition {
 			actionRowNumber = "1",
 			actionTarget = "Liferay Countries");
 
-		FormRules.selectAutofillOutput(dataProviderOutput = "Countries");
+		FormRules.selectAutofillFromDataProvider(
+			dataProviderOption = "Countries",
+			dataProviderParameterName = "Countries Full Name");
 
 		FormRules.save();
 
