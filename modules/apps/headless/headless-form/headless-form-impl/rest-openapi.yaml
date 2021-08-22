@@ -455,8 +455,6 @@ paths:
                     content:
                         application/json: {}
                         application/xml: {}
-                    description:
-                        ""
             tags: ["FormDocument"]
         get:
             operationId: getFormDocument
@@ -476,8 +474,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormDocument"
-                    description:
-                        ""
             tags: ["FormDocument"]
     "/form-records/{formRecordId}":
         get:
@@ -498,8 +494,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormRecord"
-                    description:
-                        ""
             tags: ["FormRecord"]
         put:
             operationId: putFormRecord
@@ -531,8 +525,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormRecord"
-                    description:
-                        ""
             tags: ["FormRecord"]
     "/form-structures/{formStructureId}":
         get:
@@ -553,8 +545,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormStructure"
-                    description:
-                        ""
             tags: ["FormStructure"]
     "/forms/{formId}":
         get:
@@ -575,8 +565,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Form"
-                    description:
-                        ""
             tags: ["Form"]
     "/forms/{formId}/evaluate-context":
         post:
@@ -609,8 +597,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormContext"
-                    description:
-                        ""
             tags: ["Form"]
     "/forms/{formId}/form-document":
         post:
@@ -642,8 +628,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormDocument"
-                    description:
-                        ""
             tags: ["Form"]
     "/forms/{formId}/form-records":
         get:
@@ -676,8 +660,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/FormRecord"
                                 type: array
-                    description:
-                        ""
             tags: ["FormRecord"]
         post:
             operationId: postFormFormRecord
@@ -709,8 +691,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormRecord"
-                    description:
-                        ""
             tags: ["FormRecord"]
     "/forms/{formId}/form-records/by-latest-draft":
         get:
@@ -731,8 +711,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FormRecord"
-                    description:
-                        ""
             tags: ["FormRecord"]
     "/sites/{siteId}/form-structures":
         get:
@@ -765,8 +743,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/FormStructure"
                                 type: array
-                    description:
-                        ""
             tags: ["FormStructure"]
     "/sites/{siteId}/forms":
         get:
@@ -799,6 +775,4 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Form"
                                 type: array
-                    description:
-                        ""
             tags: ["Form"]

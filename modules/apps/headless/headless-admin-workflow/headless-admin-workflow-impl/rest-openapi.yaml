@@ -277,8 +277,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/WorkflowTask"
                                 type: array
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-logs/{workflowLogId}":
         get:
@@ -299,8 +297,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowLog"
-                    description:
-                        ""
             tags: ["WorkflowLog"]
     "/workflow-tasks/assigned-to-me":
         get:
@@ -327,8 +323,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/WorkflowTask"
                                 type: array
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/assigned-to-my-roles":
         get:
@@ -355,8 +349,6 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/WorkflowTask"
                                 type: array
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}":
         get:
@@ -377,8 +369,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowTask"
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}/assign-to-me":
         post:
@@ -407,8 +397,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowTask"
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}/assign-to-user":
         post:
@@ -437,8 +425,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowTask"
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}/change-transition":
         post:
@@ -467,8 +453,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowTask"
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}/update-due-date":
         post:
@@ -497,8 +481,6 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/WorkflowTask"
-                    description:
-                        ""
             tags: ["WorkflowTask"]
     "/workflow-tasks/{workflowTaskId}/workflow-logs":
         get:
@@ -531,6 +513,4 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/WorkflowLog"
                                 type: array
-                    description:
-                        ""
             tags: ["WorkflowLog"]

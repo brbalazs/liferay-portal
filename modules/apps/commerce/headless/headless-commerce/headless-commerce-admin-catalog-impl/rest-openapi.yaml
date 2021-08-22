@@ -328,8 +328,6 @@ components:
                         The field's internal name. This is valid for comparisons and unique in the structured content.
                     type: string
         CustomValue:
-            description:
-                ""
             properties:
                 data:
                     description:
@@ -2895,8 +2893,6 @@ paths:
                     content:
                         application/json: {}
                         application/xml: {}
-                    description:
-                        ""
                 401:
                     content:
                         application/json:
@@ -3080,8 +3076,6 @@ paths:
                     content:
                         application/json: {}
                         application/xml: {}
-                    description:
-                        ""
                 401:
                     content:
                         application/json:
@@ -3411,8 +3405,6 @@ paths:
                     content:
                         application/json: {}
                         application/xml: {}
-                    description:
-                        ""
                 401:
                     content:
                         application/json:
