@@ -1,4 +1,4 @@
-import InviteUsersModal from 'settings/components/InviteUsersModal';
+import InviteUsersModal from 'shared/components/modals/InviteUsersModal';
 import mockStore from 'test/mock-store';
 import ModalRenderer from 'shared/components/ModalRenderer';
 import React from 'react';

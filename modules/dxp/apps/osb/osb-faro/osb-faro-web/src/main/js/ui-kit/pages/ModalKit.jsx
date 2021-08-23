@@ -1,5 +1,5 @@
 import React from 'react';
-import TestModal from 'shared/components/TestModal';
+import TestModal from 'shared/components/modals/TestModal';
 
 class ModalKit extends React.Component {
 	render() {

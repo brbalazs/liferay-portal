@@ -1,4 +1,4 @@
-import FieldPreviewModal from 'settings/components/data-transformation-list/FieldPreviewModal';
+import FieldPreviewModal from 'shared/components/modals/FieldPreviewModal';
 import Promise from 'metal-promise';
 import React from 'react';
 

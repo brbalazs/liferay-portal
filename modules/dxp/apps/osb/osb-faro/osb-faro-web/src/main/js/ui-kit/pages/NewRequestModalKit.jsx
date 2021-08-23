@@ -1,4 +1,4 @@
-import NewRequestModal from 'shared/components/NewRequestModal';
+import NewRequestModal from 'shared/components/modals/NewRequestModal';
 import React from 'react';
 
 const handleClose = () => alert('close!');

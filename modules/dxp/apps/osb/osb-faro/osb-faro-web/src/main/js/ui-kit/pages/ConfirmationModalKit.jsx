@@ -1,4 +1,4 @@
-import ConfirmationModal from 'shared/components/ConfirmationModal';
+import ConfirmationModal from 'shared/components/modals/ConfirmationModal';
 import mockStore from 'test/mock-store';
 import ModalRenderer from 'shared/components/ModalRenderer';
 import Promise from 'metal-promise';

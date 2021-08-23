@@ -1,4 +1,4 @@
-import InputModal from 'shared/components/InputModal';
+import InputModal from 'shared/components/modals/InputModal';
 import React from 'react';
 
 class InputModalKit extends React.Component {

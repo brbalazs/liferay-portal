@@ -1,4 +1,4 @@
-import LoadingModal from 'shared/components/LoadingModal';
+import LoadingModal from 'shared/components/modals/LoadingModal';
 import React from 'react';
 import Row from '../components/Row';
 

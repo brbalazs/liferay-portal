@@ -1,5 +1,5 @@
 import React from 'react';
-import ToggleSwitchModal from 'shared/components/ToggleSwitchModal';
+import ToggleSwitchModal from 'shared/components/modals/ToggleSwitchModal';
 
 class ToggleSwitchModalKit extends React.Component {
 	handleSubmit(val) {

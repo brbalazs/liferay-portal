@@ -1,4 +1,4 @@
-import CreateMappingModal from 'shared/components/CreateMappingModal';
+import CreateMappingModal from 'shared/components/modals/CreateMappingModal';
 import mockStore from 'test/mock-store';
 import ModalRenderer from 'shared/components/ModalRenderer';
 import React from 'react';
