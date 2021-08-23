@@ -248,7 +248,7 @@ export class UserList extends React.Component {
 
 		const {edits, ids} = attrObj;
 
-		API.user
+		return API.user
 			.updateMany({...edits, groupId, ids})
 			.then(data => {
 				addAlert({
