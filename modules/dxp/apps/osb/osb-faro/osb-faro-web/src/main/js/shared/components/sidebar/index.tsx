@@ -60,7 +60,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
 					...items,
 					{
 						icon: 'ac-event-analysis',
-						label: Liferay.Language.get('event'),
+						label: Liferay.Language.get('events'),
 						route: Routes.EVENT_ANALYSIS_CREATE,
 						url: toRoute(Routes.EVENT_ANALYSIS_CREATE, {
 							channelId,

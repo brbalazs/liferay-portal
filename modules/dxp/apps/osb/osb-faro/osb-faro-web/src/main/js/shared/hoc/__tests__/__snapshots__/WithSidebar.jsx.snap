@@ -173,7 +173,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                   <span
                     class="item-label"
                   >
-                    Event
+                    Events
                   </span>
                 </span>
               </a>
