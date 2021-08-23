@@ -4,7 +4,7 @@ exports[`CSVPreviewModal should render 1`] = `
 <div>
   <div
     aria-modal="true"
-    class="modal-dialog  undefined modal-lg"
+    class="modal-dialog csv-preview-modal-root modal-lg"
     role="dialog"
   >
     <div
@@ -32,30 +32,60 @@ exports[`CSVPreviewModal should render 1`] = `
           </svg>
         </button>
       </div>
-      <table>
-        <tr>
-          <th>
-            email
-          </th>
-          <th>
-            familyName
-          </th>
-          <th>
-            givenName
-          </th>
-        </tr>
-        <tr>
-          <td>
-            test@liferay.com
-          </td>
-          <td>
-            Bloggs
-          </td>
-          <td>
-            Joe
-          </td>
-        </tr>
-      </table>
+      <div
+        class="modal-body"
+      >
+        <div
+          class="table-responsive"
+        >
+          <table
+            class="table table-autofit show-quick-actions-on-hover table-hover table-list"
+          >
+            <thead>
+              <tr
+                class=""
+              >
+                <th
+                  class="table-cell-expand"
+                >
+                  email
+                </th>
+                <th
+                  class="table-cell-expand"
+                >
+                  familyName
+                </th>
+                <th
+                  class="table-cell-expand"
+                >
+                  givenName
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class=""
+                >
+                  test@liferay.com
+                </td>
+                <td
+                  class=""
+                >
+                  Bloggs
+                </td>
+                <td
+                  class=""
+                >
+                  Joe
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
