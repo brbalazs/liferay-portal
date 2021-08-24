@@ -3,13 +3,13 @@ import autobind from 'autobind-decorator';
 import BundleRouter from './route-middleware/BundleRouter';
 import ChannelProvider from 'shared/context/channel';
 import client from 'shared/apollo/client';
-import configureStore from 'shared/store/configure-store';
 import ErrorPage from 'shared/pages/ErrorPage';
 import Loading from './shared/pages/Loading';
 import ModalRenderer from 'shared/components/ModalRenderer';
 import pathToRegexp from 'path-to-regexp';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
+import store from 'shared/store';
 import Tooltip from 'shared/components/Tooltip';
 import UnassignedSegmentsProvider from 'shared/context/unassignedSegments';
 import {ApolloProvider} from '@apollo/react-components';
@@ -27,11 +27,11 @@ import {
 	Switch,
 	withRouter
 } from 'react-router-dom';
-import {loadState, saveState} from 'shared/store/local-storage';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {OnboardingContext} from 'shared/context/onboarding';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
+import {saveState} from 'shared/store/local-storage';
 import {setBackURL} from 'shared/actions/settings';
 import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
@@ -228,16 +228,12 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this._store = configureStore(loadState());
-
-		this._store.subscribe(
-			throttle(() => saveState(this._store.getState()), 1000)
-		);
+		store.subscribe(throttle(() => saveState(store.getState()), 1000));
 	}
 
 	@autobind
 	handleUserConfirmation(message, callback) {
-		this._store.dispatch(
+		store.dispatch(
 			open(modalTypes.CONFIRMATION_MODAL, {
 				cancelMessage: Liferay.Language.get('stay-on-page'),
 				message,
@@ -245,7 +241,7 @@ export default class App extends React.Component {
 				onClose: () => {
 					callback(false);
 
-					this._store.dispatch(close());
+					store.dispatch(close());
 				},
 				onSubmit: () => {
 					callback(true);
@@ -264,7 +260,7 @@ export default class App extends React.Component {
 		return (
 			<ApolloProvider client={client}>
 				<ApolloProviderHooks client={client}>
-					<Provider store={this._store}>
+					<Provider store={store}>
 						<ClayIconSpriteContext.Provider value={spritemap}>
 							<ClayLinkContext.Provider
 								value={({children, href, ...otherProps}) => (

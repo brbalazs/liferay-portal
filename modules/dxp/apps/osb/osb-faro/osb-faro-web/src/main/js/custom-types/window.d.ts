@@ -19,6 +19,8 @@ import {
 	UserRoleNames,
 	UserStatuses
 } from 'shared/util/constants';
+import {compose} from 'redux';
+
 export {};
 
 declare global {
@@ -68,5 +70,6 @@ declare global {
 			};
 		};
 		jQuery: object;
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__: compose;
 	}
 }

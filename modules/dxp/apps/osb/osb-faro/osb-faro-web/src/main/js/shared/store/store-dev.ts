@@ -8,8 +8,8 @@ export default function configureStore(initialState) {
 		initialState,
 		compose(
 			middleware,
-			window.__REDUX_DEVTOOLS_EXTENSION__ // eslint-disable-line no-underscore-dangle
-				? window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line no-underscore-dangle
+			window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ // eslint-disable-line no-underscore-dangle
+				? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() // eslint-disable-line no-underscore-dangle
 				: f => f
 		)
 	);
