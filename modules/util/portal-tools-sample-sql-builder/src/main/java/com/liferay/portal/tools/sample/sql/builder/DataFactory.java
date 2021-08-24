@@ -395,7 +395,7 @@ public class DataFactory {
 		List<AssetCategoryModel> assetCategoryModels =
 			assetCategoryModelsMap.get(assetEntryModel.getClassNameId());
 
-		if ((assetCategoryModels == null) || assetCategoryModels.isEmpty()) {
+		if (ListUtil.isEmpty(assetCategoryModels)) {
 			return Collections.emptyList();
 		}
 
@@ -450,7 +450,7 @@ public class DataFactory {
 		List<AssetTagModel> assetTagModels = assetTagModelsMap.get(
 			assetEntryModel.getClassNameId());
 
-		if ((assetTagModels == null) || assetTagModels.isEmpty()) {
+		if (ListUtil.isEmpty(assetTagModels)) {
 			return Collections.emptyList();
 		}
 
@@ -2403,9 +2403,7 @@ public class DataFactory {
 			List<AssetCategoryModel> assetCategoryModels =
 				assetCategoryModelsMap.get(getNextAssetClassNameId(groupId));
 
-			if ((assetCategoryModels == null) ||
-				assetCategoryModels.isEmpty()) {
-
+			if (ListUtil.isEmpty(assetCategoryModels)) {
 				return newPortletPreferencesModel(
 					plid, portletId, PortletConstants.DEFAULT_PREFERENCES);
 			}
@@ -2420,7 +2418,7 @@ public class DataFactory {
 			List<AssetTagModel> assetTagModels = assetTagModelsMap.get(
 				getNextAssetClassNameId(groupId));
 
-			if ((assetTagModels == null) || assetTagModels.isEmpty()) {
+			if (ListUtil.isEmpty(assetTagModels)) {
 				return newPortletPreferencesModel(
 					plid, portletId, PortletConstants.DEFAULT_PREFERENCES);
 			}
