@@ -55,6 +55,10 @@ public class SalesforceIndividualsDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> salesforceIndividual = new HashMap<>();
 
+		salesforceIndividual.put("dataSourceId", _dataSourceId);
+
+		Map<String, Object> fields = new HashMap<>();
+
 		Map<String, Object> liferayUser = new HashMap<>();
 		Map<String, Object> salesforceAccount = new HashMap<>();
 
@@ -66,59 +70,57 @@ public class SalesforceIndividualsDataCreator extends DataCreator {
 		Object accountPKs = salesforceAccount.get("id");
 
 		if (accountPKs != null) {
-			salesforceIndividual.put(
-				"accountPKs", Collections.singletonList(accountPKs));
+			fields.put("accountPKs", Collections.singletonList(accountPKs));
 		}
 
-		salesforceIndividual.put(
+		fields.put(
 			"birthDate",
 			liferayUser.getOrDefault(
 				"birthday", dateAndTime.past(18250, TimeUnit.DAYS)));
-		salesforceIndividual.put("city", address.city());
-		salesforceIndividual.put(
+		fields.put("city", address.city());
+		fields.put(
 			"company", salesforceAccount.getOrDefault("Name", company.name()));
 
 		if (!salesforceAccount.isEmpty()) {
-			salesforceIndividual.put(
-				"contactId", number.randomNumber(8, false));
+			fields.put("contactId", number.randomNumber(8, false));
 		}
 
-		salesforceIndividual.put("country", address.country());
-		salesforceIndividual.put("department", commerce.department());
-		salesforceIndividual.put("description", company.buzzword());
-		salesforceIndividual.put("doNotCall", bool.bool());
+		fields.put("country", address.country());
+		fields.put("department", commerce.department());
+		fields.put("description", company.buzzword());
+		fields.put("doNotCall", bool.bool());
 
 		String firstName = (String)liferayUser.getOrDefault(
 			"firstName", name.firstName());
 		String lastName = (String)liferayUser.getOrDefault(
 			"lastName", name.lastName());
 
-		salesforceIndividual.put(
+		fields.put(
 			"email",
 			liferayUser.getOrDefault(
 				"emailAddress",
 				internet.emailAddress(
 					firstName + StringPool.PERIOD + lastName)));
 
-		salesforceIndividual.put("fax", phoneNumber.phoneNumber());
-		salesforceIndividual.put("firstName", firstName);
-		salesforceIndividual.put(
-			"fullName", firstName + StringPool.SPACE + lastName);
-		salesforceIndividual.put("id", internet.uuid());
-		salesforceIndividual.put(
+		fields.put("fax", phoneNumber.phoneNumber());
+		fields.put("firstName", firstName);
+		fields.put("fullName", firstName + StringPool.SPACE + lastName);
+		fields.put(
 			"industry",
 			salesforceAccount.getOrDefault("Industry", company.industry()));
-		salesforceIndividual.put("lastName", lastName);
-		salesforceIndividual.put("middleName", name.firstName());
-		salesforceIndividual.put("mobilePhone", phoneNumber.cellPhone());
-		salesforceIndividual.put("modifiedDate", formatDate(new Date()));
-		salesforceIndividual.put("osbAsahDataSourceId", _dataSourceId);
-		salesforceIndividual.put("phone", phoneNumber.phoneNumber());
-		salesforceIndividual.put("postalCode", address.zipCode());
-		salesforceIndividual.put("state", address.state());
-		salesforceIndividual.put("street", address.streetAddress());
-		salesforceIndividual.put("suffix", name.suffix());
-		salesforceIndividual.put("title", name.title());
+		fields.put("lastName", lastName);
+		fields.put("middleName", name.firstName());
+		fields.put("mobilePhone", phoneNumber.cellPhone());
+		fields.put("modifiedDate", formatDate(new Date()));
+		fields.put("phone", phoneNumber.phoneNumber());
+		fields.put("postalCode", address.zipCode());
+		fields.put("state", address.state());
+		fields.put("street", address.streetAddress());
+		fields.put("suffix", name.suffix());
+		fields.put("title", name.title());
+
+		salesforceIndividual.put("fields", fields);
+		salesforceIndividual.put("id", internet.uuid());
 
 		_salesforceAuditEventsDataCreator.create(
 			new Object[] {salesforceIndividual});

@@ -54,38 +54,42 @@ public class SalesforceAccountsDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> salesforceAccount = new HashMap<>();
 
-		salesforceAccount.put(
-			"AnnualRevenue", number.numberBetween(0, 1000) * 1000);
-		salesforceAccount.put("BillingCity", address.city());
-		salesforceAccount.put("BillingCountry", address.country());
-		salesforceAccount.put("BillingPostalCode", address.zipCode());
-		salesforceAccount.put("BillingState", address.state());
-		salesforceAccount.put("BillingStreet", address.streetAddress());
-		salesforceAccount.put(
+		salesforceAccount.put("dataSourceId", _dataSourceId);
+
+		Map<String, Object> fields = new HashMap<>();
+
+		fields.put("AnnualRevenue", number.numberBetween(0, 1000) * 1000);
+		fields.put("BillingCity", address.city());
+		fields.put("BillingCountry", address.country());
+		fields.put("BillingPostalCode", address.zipCode());
+		fields.put("BillingState", address.state());
+		fields.put("BillingStreet", address.streetAddress());
+		fields.put(
 			"CurrencyIsoCode",
 			_currencyIsoCodes.get(random.nextInt(_currencyIsoCodes.size())));
+
+		fields.put("Description", company.catchPhrase());
+
+		fields.put("Fax", phoneNumber.phoneNumber());
+
+		fields.put("Industry", company.industry());
+		fields.put("LastModifiedDate", formatDate(new Date()));
+		fields.put("Name", company.name());
+		fields.put("NumberOfEmployees", number.numberBetween(1, 100000));
+		fields.put("Ownership", "Private");
+		fields.put("Phone", phoneNumber.phoneNumber());
+		fields.put("ShippingCity", address.city());
+		fields.put("ShippingCountry", address.country());
+		fields.put("ShippingPostalCode", address.zipCode());
+		fields.put("ShippingState", address.state());
+		fields.put("ShippingStreet", address.streetAddress());
+		fields.put("Type", "Customer");
+		fields.put("Website", "https://" + internet.url());
+		fields.put("YearStarted", number.numberBetween(1900, 2019));
+
+		salesforceAccount.put("fields", fields);
+
 		salesforceAccount.put("id", internet.uuid());
-
-		salesforceAccount.put("Description", company.catchPhrase());
-
-		salesforceAccount.put("Fax", phoneNumber.phoneNumber());
-
-		salesforceAccount.put("Industry", company.industry());
-		salesforceAccount.put("LastModifiedDate", formatDate(new Date()));
-		salesforceAccount.put("Name", company.name());
-		salesforceAccount.put(
-			"NumberOfEmployees", number.numberBetween(1, 100000));
-		salesforceAccount.put("osbAsahDataSourceId", _dataSourceId);
-		salesforceAccount.put("Ownership", "Private");
-		salesforceAccount.put("Phone", phoneNumber.phoneNumber());
-		salesforceAccount.put("ShippingCity", address.city());
-		salesforceAccount.put("ShippingCountry", address.country());
-		salesforceAccount.put("ShippingPostalCode", address.zipCode());
-		salesforceAccount.put("ShippingState", address.state());
-		salesforceAccount.put("ShippingStreet", address.streetAddress());
-		salesforceAccount.put("Type", "Customer");
-		salesforceAccount.put("Website", "https://" + internet.url());
-		salesforceAccount.put("YearStarted", number.numberBetween(1900, 2019));
 
 		_salesforceAuditEventsDataCreator.create(
 			new Object[] {salesforceAccount});
