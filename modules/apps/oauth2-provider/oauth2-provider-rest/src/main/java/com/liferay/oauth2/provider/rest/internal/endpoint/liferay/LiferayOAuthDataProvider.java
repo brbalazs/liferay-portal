@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -954,7 +955,7 @@ public class LiferayOAuthDataProvider
 	protected void saveRefreshToken(RefreshToken refreshToken) {
 		List<String> accessTokens = refreshToken.getAccessTokens();
 
-		if ((accessTokens == null) || accessTokens.isEmpty()) {
+		if (ListUtil.isEmpty(accessTokens)) {
 			throw new OAuthServiceException("Unable to find granted token");
 		}
 
