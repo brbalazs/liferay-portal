@@ -226,8 +226,11 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 			Map<String, String> group = new HashMap<>();
 
-			group.put("id", String.valueOf(liferayGroup.get("groupId")));
-			group.put("name", (String)liferayGroup.get("name"));
+			Map<String, Object> fields = (Map<String, Object>)liferayGroup.get(
+				"fields");
+
+			group.put("id", String.valueOf(fields.get("groupId")));
+			group.put("name", (String)fields.get("name"));
 
 			groups.add(group);
 		}

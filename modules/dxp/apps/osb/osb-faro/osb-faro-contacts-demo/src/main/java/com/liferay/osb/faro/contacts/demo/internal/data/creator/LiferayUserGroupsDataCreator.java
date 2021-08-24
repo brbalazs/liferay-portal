@@ -47,14 +47,21 @@ public class LiferayUserGroupsDataCreator extends DataCreator {
 
 	@Override
 	protected Map<String, Object> doCreate(Object[] params) {
-		Map<String, Object> team = new HashMap<>();
+		Map<String, Object> userGroup = new HashMap<>();
 
-		team.put("id", internet.uuid());
-		team.put("name", country.name());
-		team.put("osbAsahDataSourceId", _dataSourceId);
-		team.put("userGroupId", number.randomNumber(8, false));
+		userGroup.put("dataSourceId", _dataSourceId);
+		userGroup.put(
+			"fields",
+			new HashMap<String, Object>() {
+				{
+					put("name", country.name());
+					put("userGroupId", number.randomNumber(8, false));
+				}
+			});
 
-		return team;
+		userGroup.put("id", number.randomNumber(8, false));
+
+		return userGroup;
 	}
 
 	private final String _dataSourceId;

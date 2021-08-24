@@ -48,10 +48,17 @@ public class LiferayGroupsDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> group = new HashMap<>();
 
-		group.put("groupId", number.randomNumber(8, false));
-		group.put("id", internet.uuid());
-		group.put("name", pokemon.name());
-		group.put("osbAsahDataSourceId", _dataSourceId);
+		group.put("dataSourceId", _dataSourceId);
+		group.put(
+			"fields",
+			new HashMap<String, Object>() {
+				{
+					put("groupId", number.randomNumber(8, false));
+					put("name", pokemon.name());
+				}
+			});
+
+		group.put("id", number.randomNumber(8, false));
 
 		return group;
 	}

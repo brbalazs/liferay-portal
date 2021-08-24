@@ -86,8 +86,18 @@ public class LiferayAssociationsDataCreator extends DataCreator {
 
 		Map<String, Object> associatedObject = dataCreator.getRandom();
 
-		objectMap.put(
-			"classPK", associatedObject.get(dataCreator.getClassPKFieldName()));
+		if (dataCreator instanceof LiferayOrganizationsDataCreator) {
+			objectMap.put(
+				"classPK",
+				associatedObject.get(dataCreator.getClassPKFieldName()));
+		}
+		else {
+			Map<String, Object> fields =
+				(Map<String, Object>)associatedObject.get("fields");
+
+			objectMap.put(
+				"classPK", fields.get(dataCreator.getClassPKFieldName()));
+		}
 
 		Map<String, Object> liferayUser = (Map<String, Object>)params[0];
 

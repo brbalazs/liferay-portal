@@ -50,12 +50,18 @@ public class LiferayTeamsDataCreator extends DataCreator {
 
 		Map<String, Object> group = (Map<String, Object>)params[0];
 
-		team.put("groupId", group.get("groupId"));
+		team.put("dataSourceId", _dataSourceId);
+		team.put(
+			"fields",
+			new HashMap<String, Object>() {
+				{
+					put("groupId", group.get("groupId"));
+					put("name", lordOfTheRings.location());
+					put("teamId", number.randomNumber(8, false));
+				}
+			});
 
-		team.put("id", internet.uuid());
-		team.put("name", lordOfTheRings.location());
-		team.put("osbAsahDataSourceId", _dataSourceId);
-		team.put("teamId", number.randomNumber(8, false));
+		team.put("id", number.randomNumber(8, false));
 
 		return team;
 	}

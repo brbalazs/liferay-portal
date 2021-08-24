@@ -48,10 +48,17 @@ public class LiferayRolesDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> role = new HashMap<>();
 
-		role.put("id", internet.uuid());
-		role.put("name", job.position());
-		role.put("osbAsahDataSourceId", _dataSourceId);
-		role.put("roleId", number.randomNumber(8, false));
+		role.put("dataSourceId", _dataSourceId);
+		role.put(
+			"fields",
+			new HashMap<String, Object>() {
+				{
+					put("name", job.position());
+					put("roleId", number.randomNumber(8, false));
+				}
+			});
+
+		role.put("id", number.randomNumber(8, false));
 
 		return role;
 	}
