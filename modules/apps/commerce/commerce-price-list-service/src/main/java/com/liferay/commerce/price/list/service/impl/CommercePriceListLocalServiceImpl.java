@@ -62,6 +62,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -632,7 +633,7 @@ public class CommercePriceListLocalServiceImpl
 			commercePriceListFinder.findByCommerceAccountAndChannelId(
 				queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
@@ -658,7 +659,7 @@ public class CommercePriceListLocalServiceImpl
 			commercePriceListFinder.findByCommerceAccountGroupIds(
 				queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
@@ -686,7 +687,7 @@ public class CommercePriceListLocalServiceImpl
 			commercePriceListFinder.findByCommerceAccountGroupsAndChannelId(
 				queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
@@ -710,7 +711,7 @@ public class CommercePriceListLocalServiceImpl
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceAccountId(queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
@@ -734,7 +735,7 @@ public class CommercePriceListLocalServiceImpl
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByCommerceChannelId(queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
@@ -762,7 +763,7 @@ public class CommercePriceListLocalServiceImpl
 		List<CommercePriceEntry> commercePriceEntries =
 			commercePriceListFinder.findByLowestPrice(queryDefinition);
 
-		if ((commercePriceEntries == null) || commercePriceEntries.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceEntries)) {
 			return null;
 		}
 
@@ -787,7 +788,7 @@ public class CommercePriceListLocalServiceImpl
 		List<CommercePriceList> commercePriceLists =
 			commercePriceListFinder.findByUnqualified(queryDefinition);
 
-		if ((commercePriceLists == null) || commercePriceLists.isEmpty()) {
+		if (ListUtil.isEmpty(commercePriceLists)) {
 			return null;
 		}
 
