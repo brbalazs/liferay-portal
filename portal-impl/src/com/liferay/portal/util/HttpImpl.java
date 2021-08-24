@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.InetAddressUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -1483,7 +1484,7 @@ public class HttpImpl implements Http {
 		RequestBuilder requestBuilder, Map<String, String> headers,
 		List<Http.FilePart> fileParts, Map<String, String> parts) {
 
-		if ((fileParts == null) || fileParts.isEmpty()) {
+		if (ListUtil.isEmpty(fileParts)) {
 			if (parts != null) {
 				for (Map.Entry<String, String> entry : parts.entrySet()) {
 					String value = entry.getValue();

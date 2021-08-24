@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourceActionLocalServiceUtil;
 import com.liferay.portal.kernel.service.persistence.RoleFinder;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -1133,7 +1134,7 @@ public class RoleFinderImpl extends RoleFinderBaseImpl implements RoleFinder {
 	}
 
 	protected String getExcludedNames(List<String> excludedNames) {
-		if ((excludedNames == null) || excludedNames.isEmpty()) {
+		if (ListUtil.isEmpty(excludedNames)) {
 			return StringPool.BLANK;
 		}
 
