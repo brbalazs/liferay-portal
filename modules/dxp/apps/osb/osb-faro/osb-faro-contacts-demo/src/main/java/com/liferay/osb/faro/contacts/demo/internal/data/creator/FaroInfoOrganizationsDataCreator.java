@@ -46,7 +46,7 @@ public class FaroInfoOrganizationsDataCreator extends DataCreator {
 		faroInfoOrganization.put("dateCreated", formatDate(new Date()));
 		faroInfoOrganization.put(
 			"dateModified", organization.get("modifiedDate"));
-		faroInfoOrganization.put("id", internet.uuid());
+		faroInfoOrganization.put("id", number.randomNumber(8, false));
 		faroInfoOrganization.put("name", organization.get("name"));
 		faroInfoOrganization.put(
 			"nameTreePath", organization.get("nameTreePath"));

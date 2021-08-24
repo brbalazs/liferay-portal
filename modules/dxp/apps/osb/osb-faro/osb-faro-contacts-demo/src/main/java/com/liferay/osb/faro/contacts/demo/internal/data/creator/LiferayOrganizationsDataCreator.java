@@ -18,6 +18,7 @@ import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.petra.string.StringPool;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,9 +67,8 @@ public class LiferayOrganizationsDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> organization = new HashMap<>();
 
-		organization.put("id", internet.uuid());
-		organization.put(
-			"modifiedDate", String.valueOf(System.currentTimeMillis()));
+		organization.put("id", number.randomNumber(8, false));
+		organization.put("modifiedDate", formatDate(new Date()));
 
 		String name = (String)params[0];
 
