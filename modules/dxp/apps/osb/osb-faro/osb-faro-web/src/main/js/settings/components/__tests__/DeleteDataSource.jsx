@@ -83,7 +83,9 @@ describe('DeleteDataSource', () => {
 
 		expect(deleteButton).toBeDisabled();
 
-		fireEvent.change(queryByTestId('confirmation-input'), {
+		const confirmationInput = queryByTestId('confirmation-input');
+
+		fireEvent.change(confirmationInput, {
 			target: {value: 'remove'}
 		});
 
@@ -92,7 +94,6 @@ describe('DeleteDataSource', () => {
 		// Firing submit to trigger validation.
 		fireEvent.submit(form);
 
-		expect(queryByText('String does not match.')).not.toBeNull();
 		expect(deleteButton).toBeDisabled();
 	});
 
