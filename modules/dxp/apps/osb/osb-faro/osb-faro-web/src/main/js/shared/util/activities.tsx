@@ -32,7 +32,7 @@ type SessionEventAttribute = {
 	url: string;
 };
 
-type UserSessionAttributes = {
+export type UserSessionAttributes = {
 	contentLanguageID: string;
 	description: string;
 	devicePixelRatioz: number;
@@ -45,13 +45,13 @@ type UserSessionAttributes = {
 	userAgent: string;
 };
 
-type VerticalTimelineHeader = {
+export type VerticalTimelineHeader = {
 	header: boolean;
 	title: moment.Moment;
 	totalEvents: number;
 };
 
-type VerticalTimelineSession = {
+export type VerticalTimelineSession = {
 	attributes: UserSessionAttributes;
 	device: string;
 	endTime: Date;

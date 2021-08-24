@@ -4,8 +4,9 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import client from 'shared/apollo/client';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import IntervalSelector from 'shared/components/IntervalSelector';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import SearchInput from 'shared/components/SearchInput';
 import UserSessionQuery, {
@@ -14,30 +15,35 @@ import UserSessionQuery, {
 } from 'shared/queries/UserSessionQuery';
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
-import {EntityTypes, SessionEntityTypes} from 'shared/util/constants';
+import {
+	EntityTypes,
+	RangeKeyTimeRanges,
+	SessionEntityTypes
+} from 'shared/util/constants';
+import {
+	FORMAT,
+	formatUTCDate,
+	getDateRangeLabel,
+	getDateRangeLabelFromDate,
+	getEndDate
+} from 'shared/util/date';
 import {
 	formatSessions,
 	getActivityLabel,
-	getSafeRangeKey,
-	INTERVAL_MAP
+	INTERVAL_MAP,
+	VerticalTimelineHeader,
+	VerticalTimelineSession
 } from 'shared/util/activities';
-import {
-	getDateRangeLabel,
-	getDateRangeLabelFromDate,
-	getEndDate,
-	getFirstDate,
-	getLastDate
-} from 'shared/util/date';
 import {getSafeChange} from 'shared/util/change';
+import {getSafeRangeKey} from 'shared/util/activitiesDeprecated';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {Individual} from 'shared/util/records';
-import {Interval, RangeSelectors} from 'shared/types';
+import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
-import {omit} from 'lodash';
+import {isNil, omit} from 'lodash';
 import {sub} from 'shared/util/lang';
 import {useRequest} from 'shared/hooks';
 import {WrapSafeResults} from 'shared/hoc/util';
-
 interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
 	entity: Individual;
@@ -51,6 +57,8 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const mapPropsFn = props => omit(props, 'onSearchValueChange');
+
+const DEFAULT_SESSIONS_DELTA = 50;
 
 const ProfileCard: React.FC<IProfileCardProps> = ({
 	channelId,
@@ -67,45 +75,11 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		resetPage,
 		setQuery,
 		...statefulPagination
-	} = useStatefulPagination(mapPropsFn);
+	} = useStatefulPagination(mapPropsFn, {
+		defaultDelta: DEFAULT_SESSIONS_DELTA
+	});
 	const {hasSelectedPoint, onPointSelect, selectedPoint} = useSelectedPoint();
 	const [searchValue, setSearchValue] = useState<string>('');
-
-	const handleQuery = (query: string) => {
-		setSearchValue(query);
-		setQuery(query);
-	};
-
-	const getActivities = ({
-		channelId,
-		contactsEntityId,
-		delta,
-		page,
-		query
-	}) => {
-		const {rangeEnd, rangeKey, rangeStart} = getSafeRangeSelectors(
-			rangeSelectors
-		);
-
-		return client
-			.query<UserSessionData, UserSessionVariables>({
-				query: UserSessionQuery,
-				variables: {
-					channelId,
-					entityId: contactsEntityId,
-					entityType: SessionEntityTypes.Individual,
-					keywords: query,
-					page: page - 1,
-					rangeEnd: rangeEnd || null,
-					rangeKey: Number(rangeKey),
-					rangeStart: rangeStart || null,
-					size: delta
-				}
-			})
-			.then(({data: {userSessions}}) => ({
-				items: formatSessions(userSessions)
-			}));
-	};
 
 	const {data: activityData, error, loading, refetch} = useRequest({
 		dataSourceFn: API.activities.fetchHistory,
@@ -129,13 +103,90 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		}
 	});
 
-	const handleChangeCustomRange = rangeSelectors => {
-		setTimeRangeType(TIMERANGE_TYPE_MAP.TIME_RANGE);
+	const getDateRange = ({
+		rangeEnd,
+		rangeKey,
+		rangeStart
+	}: RangeSelectors): SafeRangeSelectors => {
+		const {intervalInitDate} =
+			activityData?.activityHistory[selectedPoint] || {};
+		const endDate = getEndDate(intervalInitDate, interval);
+
+		const hasSelectedDate = !isNil(endDate) && !isNil(intervalInitDate);
+
+		return getSafeRangeSelectors(
+			hasSelectedDate
+				? {
+						rangeEnd: formatUTCDate(
+							getEndDate(intervalInitDate, interval),
+							FORMAT
+						),
+						rangeKey,
+						rangeStart: formatUTCDate(intervalInitDate, FORMAT)
+				  }
+				: {rangeEnd, rangeKey, rangeStart}
+		);
+	};
+
+	const {rangeEnd, rangeKey, rangeStart} = getDateRange(rangeSelectors);
+
+	const getSessions = useCallback(
+		({
+			channelId,
+			contactsEntityId,
+			delta,
+			page,
+			query,
+			rangeEnd,
+			rangeKey,
+			rangeStart
+		}: {
+			channelId: string;
+			contactsEntityId: string;
+			delta: number;
+			page: number;
+			query: string;
+			rangeEnd: string;
+			rangeKey: RangeKeyTimeRanges;
+			rangeStart: string;
+		}): Promise<{
+			items: (VerticalTimelineHeader | VerticalTimelineSession)[];
+			total: number;
+		}> =>
+			client
+				.query<UserSessionData, UserSessionVariables>({
+					query: UserSessionQuery,
+					variables: {
+						channelId,
+						entityId: contactsEntityId,
+						entityType: SessionEntityTypes.Individual,
+						keywords: query,
+						page: page - 1,
+						rangeEnd,
+						rangeKey,
+						rangeStart,
+						size: delta
+					}
+				})
+				.then(
+					({
+						data: {
+							eventsByUserSessions: {totalEvents, userSessions}
+						}
+					}) => ({
+						items: formatSessions(userSessions),
+						total: totalEvents
+					})
+				),
+		[query, rangeEnd, rangeKey, rangeStart]
+	);
+
+	const handleChangeCustomRange = (rangeSelectors: RangeSelectors) => {
 		onRangeSelectorsChange(rangeSelectors);
 		onPointSelect(null);
 	};
 
-	const handleChartSelect = ({index}) => {
+	const handleChartSelect = ({index}: {index: number}) => {
 		resetPage();
 		onPointSelect(index);
 	};
@@ -145,28 +196,8 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		onPointSelect(null);
 	};
 
-	const getDateRange = () => {
-		if (!hasSelectedPoint) {
-			return {
-				endDate: getLastDate(
-					activityData?.activityHistory,
-					interval,
-					'intervalInitDate'
-				),
-				startDate: getFirstDate(
-					activityData?.activityHistory,
-					'intervalInitDate'
-				)
-			};
-		}
-
-		const {intervalInitDate} =
-			activityData?.activityHistory[selectedPoint] || {};
-
-		return {
-			endDate: getEndDate(intervalInitDate, interval),
-			startDate: intervalInitDate
-		};
+	const handleQuery = (query: string) => {
+		setQuery(query);
 	};
 
 	const selected = hasSelectedPoint || selectedPoint;
@@ -288,15 +319,31 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 			</Card.Body>
 
 			<SearchableVerticalTimeline
-				dataSourceFn={getActivities}
+				dataSourceFn={getSessions}
 				dataSourceParams={{
-					...getDateRange(),
 					channelId,
 					contactsEntityId: entityId,
-					groupId
+					groupId,
+					rangeEnd,
+					rangeKey,
+					rangeStart
 				}}
-				entityLabel={Liferay.Language.get('activities')}
 				initialExpanded={false}
+				noResultsRenderer={() => (
+					<EmptyStateDashboard
+						description={
+							<>
+								<p className='mb-1'>
+									{Liferay.Language.get(
+										'try-a-different-date-range-or-search-term'
+									)}
+								</p>
+							</>
+						}
+						symbol='ac-satellite'
+						title={Liferay.Language.get('no-events-found')}
+					/>
+				)}
 				query={query}
 				timeZoneId={timeZoneId}
 				{...statefulProps}
