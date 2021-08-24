@@ -8,6 +8,7 @@ import {
 	getMapResultToProps,
 	mapPropsToOptions
 } from '../mappers/dxp-entity-bag-mapper';
+import {IPagination} from 'shared/types';
 import {ISegmentEditorInputBase} from '../utils/types';
 import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
@@ -53,8 +54,9 @@ const PROPERTY_COLUMNS_MAP = {
 	]
 };
 
-interface IIndividualSelectProps extends ISegmentEditorInputBase {
+interface IIndividualSelectProps extends ISegmentEditorInputBase, IPagination {
 	channelId: string;
+	groupId: string;
 	touched: boolean;
 	valid: boolean;
 	value: string;

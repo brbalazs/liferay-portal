@@ -14,9 +14,9 @@ interface IInputWithEditToggleProps {
 	inputWidth?: number;
 	label: string;
 	name?: string;
-	onSubmit: (value, name) => Promise<any>;
+	onSubmit: (value, name) => typeof Promise;
 	required: boolean;
-	validate: Promise<any>;
+	validate: typeof Promise;
 	value: string;
 }
 

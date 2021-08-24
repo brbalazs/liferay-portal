@@ -22,7 +22,7 @@ const UserRequest = lazy(
 
 interface IUserProps extends React.HTMLAttributes<HTMLElement> {
 	currentUser: UserRecord;
-	groupId: number;
+	groupId: string;
 }
 
 export const User: React.FC<IUserProps> = ({
@@ -65,9 +65,6 @@ export const User: React.FC<IUserProps> = ({
 
 	return (
 		<BasePage
-			backURL={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
-				groupId
-			})}
 			className={getCN('user-list-page-root', className)}
 			groupId={groupId}
 			key='userListPage'

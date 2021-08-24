@@ -1,7 +1,9 @@
 import Form from 'shared/components/form';
 import getCN from 'classnames';
+import Promise from 'metal-promise';
 import React, {useContext, useEffect} from 'react';
 import SelectEntityFromModal from '../components/SelectEntityFromModal';
+import {Columns} from 'shared/types';
 import {
 	EntityType,
 	ReferencedObjectsContext
@@ -11,8 +13,13 @@ import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {Map, OrderedMap} from 'immutable';
 
 interface ISelectEntityInputProps {
+	columns: Columns;
+	dataSourceFn?: () => typeof Promise;
+	delta?: number;
 	entityLabel: string;
 	entityType: EntityType;
+	graphqlProps?: {[key: string]: any};
+	groupId?: string;
 	onItemsChange: (items: OrderedMap<string, any>) => void;
 	onValidChange: ({
 		touched,
@@ -21,6 +28,10 @@ interface ISelectEntityInputProps {
 		touched: boolean;
 		valid: boolean;
 	}) => void;
+	orderBy?: string;
+	orderByField?: string;
+	page?: number;
+	query?: string;
 	touched: boolean;
 	valid: boolean;
 	value: string;

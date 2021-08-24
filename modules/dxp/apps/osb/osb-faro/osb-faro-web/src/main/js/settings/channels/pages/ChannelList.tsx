@@ -14,39 +14,51 @@ import {
 	withSelectionProvider
 } from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, Modal} from 'shared/types';
+import {Alert} from 'shared/types';
 import {autoCancel} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {FormikActions} from 'formik';
 import {getPluralMessage, sub} from 'shared/util/lang';
 import {IPagination} from 'shared/types';
 import {Link} from 'react-router-dom';
 import {paginationDefaults} from 'shared/util/pagination';
+import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {updateDefaultChannelId} from 'shared/actions/preferences';
 import {User} from 'shared/util/records';
 
-interface IChannelListProps extends IPagination {
-	addAlert: Alert.AddAlert;
-	close: Modal.close;
+const connector = connect(
+	(state: RootState, {groupId}: {groupId: string}) => ({
+		defaultChannelId: state.getIn([
+			'preferences',
+			'user',
+			'defaultChannelId',
+			'data'
+		]),
+		timeZoneId: state.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open, setBackURL, updateDefaultChannelId}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IChannelListProps extends IPagination, PropsFromRedux {
 	currentUser: User;
-	defaultChannelId: string;
 	groupId: string;
 	history: {
-		push: (string) => void;
+		push: (value: string) => void;
 	};
-	open: Modal.open;
-	setBackURL: (url: string) => void;
-	timeZoneId: string;
-	updateDefaultChannelId: (params: {
-		defaultChannelId: string;
-		groupId: string;
-	}) => void;
 }
 
 type ChannelNameFn = (attrs: {
@@ -495,24 +507,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 }
 
 export default compose(
-	connect(
-		(state, {groupId}) => ({
-			defaultChannelId: state.getIn([
-				'preferences',
-				'user',
-				'defaultChannelId',
-				'data'
-			]),
-			timeZoneId: state.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open, setBackURL, updateDefaultChannelId}
-	),
+	connector,
 	withCurrentUser,
 	withSelectionProvider
 )(ChannelList);

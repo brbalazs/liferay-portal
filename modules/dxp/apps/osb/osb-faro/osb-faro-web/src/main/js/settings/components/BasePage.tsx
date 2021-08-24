@@ -5,10 +5,16 @@ import MaintenanceAlert from 'shared/components/MaintenanceAlert';
 import NotificationAlertList from 'shared/components/NotificationAlertList';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {PageActions} from 'shared/components/base-page/Header';
 
-interface ISettingsBasePageProps {
+const connector = connect((_, {children}: {children: React.ReactNode}) => ({
+	passedChildren: children
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ISettingsBasePageProps extends PropsFromRedux {
 	breadcrumbItems?: Array<any>;
 	className?: string;
 	documentTitle?: string;
@@ -18,7 +24,6 @@ interface ISettingsBasePageProps {
 	pageDescription?: React.ReactNode;
 	pageTitle?: React.ReactNode;
 	subTitle?: React.ReactNode;
-	passedChildren?: React.ReactNode;
 }
 
 const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
@@ -86,6 +91,4 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 	</div>
 );
 
-export default connect((store, ownProps) => ({
-	passedChildren: ownProps.children
-}))(SettingsBasePage);
+export default connector(SettingsBasePage);

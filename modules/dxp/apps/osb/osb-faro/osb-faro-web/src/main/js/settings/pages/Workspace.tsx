@@ -6,7 +6,7 @@ import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {compose, withCurrentUser, withHistory, withQuery} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Project, User} from 'shared/util/records';
 import {Routes, toRoute} from 'shared/util/router';
 import {updateProject} from 'shared/actions/projects';
@@ -16,14 +16,21 @@ type History = {
 	push: (path: string) => void;
 };
 
-interface IWorkspaceProps extends React.HTMLAttributes<HTMLElement> {
-	addAlert: (object) => Promise<any>;
+const connector = connect(null, {
+	addAlert,
+	updateProject
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IWorkspaceProps
+	extends React.HTMLAttributes<HTMLElement>,
+		PropsFromRedux {
 	currentUser: User;
 	emailAddressDomains: string[];
 	groupId: string;
 	project: Project;
 	history: History;
-	updateProject: (object) => Promise<any>;
 }
 
 export const Workspace: React.FC<IWorkspaceProps> = ({
@@ -78,9 +85,6 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 
 	return (
 		<BasePage
-			backURL={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
-				groupId
-			})}
 			className='workspace-settings'
 			groupId={groupId}
 			key='workspaceSettingsPage'
@@ -102,10 +106,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 };
 
 export default compose(
-	connect(null, {
-		addAlert,
-		updateProject
-	}),
+	connector,
 	withCurrentUser,
 	withHistory,
 	withProject(true),

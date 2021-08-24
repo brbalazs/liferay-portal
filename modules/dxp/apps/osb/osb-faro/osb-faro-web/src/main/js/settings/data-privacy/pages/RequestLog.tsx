@@ -2,16 +2,28 @@ import BasePage from 'settings/components/BasePage';
 import React from 'react';
 import RequestList from '../hocs/RequestList';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {getDataPrivacy} from 'shared/util/breadcrumbs';
+import {RootState} from 'shared/store';
 import {Router} from 'shared/types';
 import {User} from 'shared/util/records';
 import {withCurrentUser} from 'shared/hoc';
 
-interface IRequestLogProps {
+const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IRequestLogProps extends PropsFromRedux {
 	currentUser: User;
 	router: Router;
-	timeZoneId: string;
 }
 
 export const RequestLog: React.FC<IRequestLogProps> = ({
@@ -45,15 +57,4 @@ export const RequestLog: React.FC<IRequestLogProps> = ({
 	);
 };
 
-export default compose<any>(
-	withCurrentUser,
-	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	}))
-)(RequestLog);
+export default compose<any>(withCurrentUser)(RequestLog);

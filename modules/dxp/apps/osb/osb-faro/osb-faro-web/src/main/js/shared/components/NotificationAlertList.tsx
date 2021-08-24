@@ -5,7 +5,7 @@ import React from 'react';
 import TimeZoneAlert from './TimeZoneAlert';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {
 	NotificationSubtypes,
 	NotificationTypes
@@ -82,8 +82,11 @@ const notificationStrategies = new Map<string, Function>([
 	]
 ]);
 
-interface INotificationAlertListProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface INotificationAlertListProps extends PropsFromRedux {
 	groupId: string;
 	stripe?: boolean;
 	subtypes?: NotificationSubtypes[];
@@ -103,7 +106,7 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 		}
 	});
 
-	const removeNotification = notificationId => {
+	const removeNotification = (notificationId: string) => {
 		API.notifications
 			.readNotification(groupId, notificationId)
 			.then(refetch)
@@ -145,4 +148,4 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	);
 };
 
-export default connect(null, {addAlert})(NotificationAlertList);
+export default connector(NotificationAlertList);

@@ -6,10 +6,10 @@ import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
 import TrainingItemsCard from '../components/TrainingItemsCard';
 import withRecommendation from 'shared/hoc/WithRecommendation';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, Modal, Router} from 'shared/types';
+import {Alert, Router} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Filter, Job} from '../utils/utils';
 import {get} from 'lodash';
 import {getOperationName} from 'apollo-link';
@@ -18,6 +18,7 @@ import {
 	RECOMMENDATION_DELETE_MUTATION,
 	RECOMMENDATION_RUN_MUTATION
 } from '../queries/RecommendationMutation';
+import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
@@ -27,18 +28,35 @@ import {withCurrentUser, withHistory} from 'shared/hoc';
 const {
 	pagination: {orderDescending}
 } = Constants;
+const connector = connect(
+	(
+		store: RootState,
+		{
+			router: {
+				params: {groupId}
+			}
+		}: {router: Router}
+	) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
 
-interface IViewProps {
-	addAlert: Alert.AddAlert;
-	close: Modal.close;
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IViewProps extends PropsFromRedux {
 	currentUser: User;
 	history: {
-		push: (string) => void;
+		push: (value: string) => void;
 	};
 	job: Job;
-	open: Modal.open;
 	router: Router;
-	timeZoneId: string;
 }
 
 const View: React.FC<IViewProps> = ({
@@ -280,23 +298,5 @@ export default compose<any>(
 	withRecommendation,
 	withHistory,
 	withCurrentUser,
-	connect(
-		(
-			store,
-			{
-				router: {
-					params: {groupId}
-				}
-			}
-		) => ({
-			timeZoneId: store.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open}
-	)
+	connector
 )(View);

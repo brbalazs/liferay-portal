@@ -8,14 +8,17 @@ import Modal from 'shared/components/modal';
 import React, {useState} from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {UserRoleNames} from 'shared/util/constants';
 import {validateEmail} from 'shared/util/email-validators';
 
 const TIMEOUT_INTERVAL = 1500;
 
-interface IInvitePeopleProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IInvitePeopleProps extends PropsFromRedux {
 	dxpConnected: boolean;
 	groupId: string;
 	onClose: () => void;
@@ -170,4 +173,4 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	);
 };
 
-export default connect(null, {addAlert})(InvitePeople);
+export default connector(InvitePeople);

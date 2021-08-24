@@ -17,10 +17,11 @@ import SitesSyncedStripe from '../components/SitesSyncedStripe';
 import TitleEditor from 'shared/components/TitleEditor';
 import UserList from '../components/UserList';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, HasModal, IPaginationUnsorted} from 'shared/types';
+import {Alert, IPaginationUnsorted} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
+import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {SafeResults} from 'shared/hoc/util';
 import {sequence} from 'shared/util/promise';
@@ -81,24 +82,31 @@ export const ViewContainer: React.FC<Omit<IViewProps, 'channel'>> = ({
 	);
 };
 
+const connector = connect(
+	(state: RootState) => ({
+		defaultChannelId: state.getIn([
+			'preferences',
+			'user',
+			'defaultChannelId',
+			'data'
+		])
+	}),
+	{addAlert, close, open, setBackURL, updateDefaultChannelId}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
 interface IViewProps
 	extends React.HTMLAttributes<HTMLElement>,
-		HasModal,
+		PropsFromRedux,
 		IPaginationUnsorted {
-	addAlert: Alert.AddAlert;
 	channel?: Channel;
 	currentUser: User;
-	defaultChannelId: string;
 	groupId: string;
 	history: {
-		push: (string) => void;
+		push: (value: string) => void;
 	};
 	id: string;
-	setBackURL: (url: string) => void;
-	updateDefaultChannelId: (params: {
-		defaultChannelId: string;
-		groupId: string;
-	}) => void;
 }
 
 const View: React.FC<IViewProps> = ({
@@ -454,17 +462,4 @@ const View: React.FC<IViewProps> = ({
 	);
 };
 
-export default compose<any>(
-	withCurrentUser,
-	connect(
-		state => ({
-			defaultChannelId: state.getIn([
-				'preferences',
-				'user',
-				'defaultChannelId',
-				'data'
-			])
-		}),
-		{addAlert, close, open, setBackURL, updateDefaultChannelId}
-	)
-)(ViewContainer);
+export default compose<any>(withCurrentUser, connector)(ViewContainer);

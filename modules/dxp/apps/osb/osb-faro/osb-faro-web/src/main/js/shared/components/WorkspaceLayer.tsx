@@ -4,10 +4,10 @@ import React, {lazy, Suspense, useEffect} from 'react';
 import useModalNotifications from 'shared/hooks/useModalNotifications';
 import {close, open} from 'shared/actions/modals';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {matchPath} from 'react-router';
-import {Modal} from 'shared/types';
 import {Project} from 'shared/util/records';
+import {RootState} from 'shared/store';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {withHelpWidget} from 'shared/hoc';
@@ -25,15 +25,34 @@ const Settings = lazy(
 	() => import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
 );
 
-interface IWorkspaceLayerProps {
-	close: Modal.close;
-	currentUserId: string;
-	groupId: string;
-	open: Modal.open;
-	serverLocation: string;
-	subscriptionName: string;
-	workspaceName: string;
-}
+const connector = connect(
+	(store: RootState, {location: {pathname}}: {location: Location}) => {
+		const {
+			params: {groupId}
+		} = matchPath(pathname, {
+			path: Routes.WORKSPACE_WITH_ID
+		});
+
+		const project =
+			store.getIn(['projects', groupId, 'data'], new Project()) ||
+			new Project();
+
+		const faroSubscriptionIMap = project.get('faroSubscription');
+
+		return {
+			currentUserId: String(store.getIn(['currentUser', 'data'])),
+			groupId,
+			serverLocation: project.get('serverLocation'),
+			subscriptionName: faroSubscriptionIMap.get('name'),
+			workspaceName: project.get('name')
+		};
+	},
+	{close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IWorkspaceLayerProps extends PropsFromRedux {}
 
 const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	close,
@@ -73,30 +92,4 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	);
 };
 
-export default compose<any>(
-	connect(
-		(store, {location: {pathname}}) => {
-			const {
-				params: {groupId}
-			} = matchPath(pathname, {
-				path: Routes.WORKSPACE_WITH_ID
-			});
-
-			const project =
-				store.getIn(['projects', groupId, 'data'], new Project()) ||
-				new Project();
-
-			const faroSubscriptionIMap = project.get('faroSubscription');
-
-			return {
-				currentUserId: String(store.getIn(['currentUser', 'data'])),
-				groupId,
-				serverLocation: project.get('serverLocation'),
-				subscriptionName: faroSubscriptionIMap.get('name'),
-				workspaceName: project.get('name')
-			};
-		},
-		{close, open}
-	),
-	withHelpWidget
-)(WorkspaceLayer);
+export default compose(connector, withHelpWidget)(WorkspaceLayer);

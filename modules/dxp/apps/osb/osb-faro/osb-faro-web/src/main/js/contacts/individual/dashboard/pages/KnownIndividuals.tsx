@@ -29,12 +29,13 @@ import {Alert} from 'shared/types';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {EntityTypes, SegmentTypes} from 'shared/util/constants';
 import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {isNil, noop} from 'lodash';
 import {OrderParams, User} from 'shared/util/records';
+import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
@@ -59,10 +60,25 @@ const getIndividualsDataSource = ({
 		query
 	});
 
-interface IKnownIndividualsProps extends React.HTMLAttributes<HTMLDivElement> {
-	addAlert: (object) => void;
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IKnownIndividualsProps
+	extends React.HTMLAttributes<HTMLDivElement>,
+		PropsFromRedux {
 	channelId: string;
-	close: () => void;
 	currentUser: {
 		isAdmin: () => boolean;
 		isMember: () => boolean;
@@ -70,12 +86,10 @@ interface IKnownIndividualsProps extends React.HTMLAttributes<HTMLDivElement> {
 	};
 	delta: string;
 	groupId: string;
-	open: (string, object) => void;
 	orderBy?: string;
 	orderByField?: string;
 	page?: string;
 	query?: string;
-	timeZoneId?: string;
 }
 
 interface IKnownIndividualsState {
@@ -398,17 +412,6 @@ export class KnownIndividuals extends React.Component<
 
 export default compose<any>(
 	withCurrentUser,
-	connect(
-		(store, {groupId}) => ({
-			timeZoneId: store.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open}
-	),
+	connector,
 	withSelectionProvider
 )(KnownIndividuals);

@@ -18,6 +18,8 @@ export class Activities extends React.Component {
 		account: PropTypes.instanceOf(Account).isRequired,
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
+		interval: PropTypes.string.isRequired,
+		rangeSelectors: PropTypes.object.isRequired,
 		timeZoneId: PropTypes.string.isRequired
 	};
 

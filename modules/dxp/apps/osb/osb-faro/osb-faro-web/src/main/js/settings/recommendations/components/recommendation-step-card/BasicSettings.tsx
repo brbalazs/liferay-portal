@@ -7,15 +7,20 @@ import Form, {
 import React, {useEffect} from 'react';
 import {FormikErrors} from 'formik';
 import {JOB_RUN_FREQUENCIES_LIST} from '../../utils/utils';
+import {JobStatuses} from 'shared/util/constants';
 import {RECOMMENDATION_BY_NAME_QUERY} from '../../queries/RecommendationQuery';
 import {sequence} from 'shared/util/promise';
 
 interface IBasicSettingsProps {
+	currentStep?: number;
 	disabled: boolean;
 	errors: FormikErrors<any>;
 	initialValues: any;
+	jobRunStatus?: JobStatuses;
 	name: string;
 	onSetDisabled: (disabled: boolean) => void;
+	runDate?: string;
+	setStep?: (step: number) => void;
 }
 
 const BasicSettings: React.FC<IBasicSettingsProps> = ({

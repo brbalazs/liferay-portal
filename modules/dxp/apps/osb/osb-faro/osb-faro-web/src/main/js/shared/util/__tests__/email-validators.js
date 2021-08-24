@@ -53,11 +53,13 @@ describe('email-validators', () => {
 		it('should return an empty string if there are valid emails', () => {
 			expect(
 				validateEmailArr(['test@liferay.com.br', 'test@liferay.com'])
-			).toBeFalsy();
+			).resolves.toBeFalsy();
 		});
 
 		it('should return an error message when an email is not valid', () => {
-			expect(validateEmailArr(['test@liferay', 'liferay.com'])).toEqual(
+			expect(
+				validateEmailArr(['test@liferay', 'liferay.com'])
+			).resolves.toEqual(
 				'Please enter the email in this format: sample@email.com'
 			);
 		});

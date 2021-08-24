@@ -1,11 +1,13 @@
 import React from 'react';
 import SelectEntityInput from './SelectEntityInput';
+import {Columns} from 'shared/types';
 import {EntityType} from '../../context/referencedObjects';
 import {getPropertyValue, setPropertyValue} from '../../utils/custom-inputs';
 import {ISegmentEditorCustomInputBase} from '../../utils/types';
 import {OrderedMap} from 'immutable';
 
 interface ICustomSelectEntityInputProps extends ISegmentEditorCustomInputBase {
+	columns: Columns;
 	entityLabel: string;
 	entityType: EntityType;
 	touched: boolean;

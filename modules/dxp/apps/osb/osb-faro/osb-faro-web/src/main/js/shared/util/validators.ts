@@ -10,9 +10,11 @@ import {sub} from 'shared/util/lang';
  * @return {Promise}
  */
 
-export function toPromise(value: Promise | Object | string): Promise {
+export function toPromise(
+	value: typeof Promise | Object | string
+): typeof Promise {
 	if (value instanceof Promise) {
-		return value.then(val => toPromise(val));
+		return (value as typeof Promise).then(val => toPromise(val));
 	} else if (value) {
 		return Promise.reject(value);
 	}
@@ -154,7 +156,7 @@ export function validateMaxLength(maxLength: number) {
 export function validatePattern(
 	regex,
 	errorMessage: string
-): (value: any) => Promise {
+): (value: any) => typeof Promise {
 	return value => {
 		let error = '';
 

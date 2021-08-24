@@ -2,10 +2,11 @@ import Alert, {ALERT_CONFIG_MAP, AlertTypes} from './Alert';
 import getCN from 'classnames';
 import React from 'react';
 import {Alert as AlertType} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {List, Map} from 'immutable';
 import {removeAlert} from '../actions/alerts';
+import {RootState} from 'shared/store';
 
 const {danger, info, secondary, success, warning} = ALERT_CONFIG_MAP;
 
@@ -25,11 +26,21 @@ const ALERT_DISPLAYS: AlertDisplaysType = {
 	[AlertType.Types.Warning]: warning
 };
 
-interface IAlertFeedProps extends React.HTMLAttributes<HTMLElement> {
-	alertsIMap: Map<string, Map<string, any>>;
-	modalActive?: boolean;
-	removeAlert: AlertType.RemoveAlert;
-}
+const connector = connect(
+	(state: RootState) => ({
+		alertsIMap: state.get('alerts'),
+		modalActive: state.get('modals').size > 0
+	}),
+	{
+		removeAlert
+	}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IAlertFeedProps
+	extends React.HTMLAttributes<HTMLElement>,
+		PropsFromRedux {}
 
 export const AlertFeed: React.FC<IAlertFeedProps> = ({
 	alertsIMap,
@@ -44,7 +55,7 @@ export const AlertFeed: React.FC<IAlertFeedProps> = ({
 	>
 		<TransitionGroup>
 			{alertsIMap
-				.map(alertIMap => {
+				.map((alertIMap: Map<string, any>) => {
 					const {
 						iconSymbol: symbol,
 						title: label,
@@ -80,12 +91,4 @@ export const AlertFeed: React.FC<IAlertFeedProps> = ({
 	</div>
 );
 
-export default connect(
-	state => ({
-		alertsIMap: state.get('alerts'),
-		modalActive: state.get('modals').size > 0
-	}),
-	{
-		removeAlert
-	}
-)(AlertFeed);
+export default connector(AlertFeed);

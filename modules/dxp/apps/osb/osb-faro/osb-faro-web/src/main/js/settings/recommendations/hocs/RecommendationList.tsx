@@ -16,10 +16,10 @@ import {
 	withSelectionProvider
 } from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, Modal, Router} from 'shared/types';
+import {Alert, Router} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {
@@ -37,6 +37,7 @@ import {
 import {NAME} from 'shared/util/pagination';
 import {NameCell} from 'shared/components/table/cell-components';
 import {RECOMMENDATION_DELETE_MUTATION} from '../queries/RecommendationMutation';
+import {RootState} from 'shared/store';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
@@ -47,17 +48,28 @@ const {
 	pagination: {cur: defaultPage, orderDescending}
 } = Constants;
 
-interface IRecommendationListProps {
-	addAlert: Alert.AddAlert;
-	close: Modal.close;
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IRecommendationListProps extends PropsFromRedux {
 	currentUser: User;
 	groupId: string;
 	history: {
-		push: (string) => void;
+		push: (value: string) => void;
 	};
-	open: Modal.open;
 	router: Router;
-	timeZoneId: string;
 }
 
 const withData = () =>
@@ -365,16 +377,5 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 export default compose<any>(
 	withCurrentUser,
 	withSelectionProvider,
-	connect(
-		(store, {groupId}) => ({
-			timeZoneId: store.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open}
-	)
+	connector
 )(RecommendationList);

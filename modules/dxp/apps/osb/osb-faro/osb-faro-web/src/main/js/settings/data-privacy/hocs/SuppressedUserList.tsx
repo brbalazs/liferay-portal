@@ -5,8 +5,8 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import SuppressedUsersListQuery from '../queries/SuppressedUsersListQuery';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {Alert, Router} from 'shared/types';
+import {connect, ConnectedProps} from 'react-redux';
 import {CREATE_DATE} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
@@ -130,9 +130,13 @@ const SuppressedListWithData = withBaseResults(withData, {
 	withQueryOptions
 });
 
-interface ISuppressedUserListProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ISuppressedUserListProps extends PropsFromRedux {
 	currentUser: User;
+	router: Router;
 	timeZoneId: string;
 }
 
@@ -148,4 +152,4 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 	</Card>
 );
 
-export default connect(null, {addAlert})(SuppressedUserList);
+export default connector(SuppressedUserList);

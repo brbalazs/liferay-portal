@@ -17,24 +17,44 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
 import {FieldTypes} from 'shared/util/constants';
 import {getBarColor} from 'shared/util/charts';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
 import {noop, pickBy} from 'lodash';
+import {RootState} from 'shared/store';
 
 const BAR_WIDTH = 30;
 const CHART_DATA_ID = 'count';
 const CHART_PADDING = 60;
 const MAX_BARS = 10;
 
-interface IDistributionChartProps {
+const connector = connect(
+	(state: RootState, {distributionKey}: {distributionKey: string}) => {
+		const distributionIMap = state.getIn(
+			['distributions', distributionKey],
+			Map()
+		);
+
+		return {
+			error: distributionIMap.get('error', false),
+			individualFieldDistributionIList: distributionIMap
+				.getIn(['data', 'items'], List())
+				.slice(0, 11),
+			loading: distributionIMap.get('loading', true)
+		};
+	}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IDistributionChartProps extends PropsFromRedux {
 	channelId: string;
 	distributionKey: string;
 	error: boolean;
-	fetchDistribution: (object) => Promise<any>;
+	fetchDistribution: (params: object) => typeof Promise;
 	groupId: string;
 	id: string;
 	individualFieldDistributionIList: List<Map<string, any>>;
@@ -276,17 +296,4 @@ class DistributionChart extends React.Component<
 	}
 }
 
-export default connect((state, {distributionKey}) => {
-	const distributionIMap = state.getIn(
-		['distributions', distributionKey],
-		Map()
-	);
-
-	return {
-		error: distributionIMap.get('error', false),
-		individualFieldDistributionIList: distributionIMap
-			.getIn(['data', 'items'], List())
-			.slice(0, 11),
-		loading: distributionIMap.get('loading', true)
-	};
-})(DistributionChart);
+export default connector(DistributionChart);

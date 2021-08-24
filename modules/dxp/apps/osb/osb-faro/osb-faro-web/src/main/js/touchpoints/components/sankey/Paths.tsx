@@ -74,7 +74,7 @@ const Paths: React.FC<IPathsProps> = ({
 				return (
 					<path
 						className={`${CLASSNAME}-path`}
-						d={sankeyLinkHorizontal()}
+						d={sankeyLinkHorizontal(null)}
 						data-index={index}
 						key={`${index}_path`}
 						onMouseEnter={({currentTarget}) =>

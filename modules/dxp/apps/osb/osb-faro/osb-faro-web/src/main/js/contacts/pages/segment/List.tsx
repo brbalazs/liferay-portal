@@ -17,12 +17,13 @@ import {
 	USER_NAME
 } from 'shared/util/pagination';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, Modal} from 'shared/types';
+import {Alert} from 'shared/types';
 import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser, withFilters} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {RootState} from 'shared/store';
 import {
 	Routes,
 	SEGMENT_STATE,
@@ -88,21 +89,32 @@ function fetchDisabledSegments(channelId: string, groupId: string): any {
 	});
 }
 
-interface IListProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IListProps extends PropsFromRedux {
 	channelId: string;
-	close: Modal.close;
 	currentUser: User;
 	delta?: string | number;
 	filterBy?: Map<string, Set<string>>;
 	groupId: string;
 	history: any;
-	open: Modal.open;
 	orderBy?: string;
 	orderByField?: string;
 	page?: string | number;
 	query?: string;
-	timeZoneId: string;
 }
 
 export const List: React.FC<IListProps> = ({
@@ -123,7 +135,7 @@ export const List: React.FC<IListProps> = ({
 }) => {
 	const [alerts, setAlerts] = useState([]);
 	const _tableRef = useRef<any>();
-	const _disableSegmentsRequestRef = useRef<Promise>();
+	const _disableSegmentsRequestRef = useRef<typeof Promise>();
 	const {
 		showUnassignedAlert,
 		unassignedSegments,
@@ -400,18 +412,7 @@ export const List: React.FC<IListProps> = ({
 };
 
 export default compose(
-	connect(
-		(store, {groupId}) => ({
-			timeZoneId: store.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open}
-	),
+	connector,
 	withCurrentUser,
 	withFilters({filterFields: [SEGMENT_STATE]})
 )(List);

@@ -19,23 +19,24 @@ import {
 } from 'event-analysis/utils/types';
 import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {Modal} from 'shared/types';
 import {NAME} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
-interface IAttributeBreakdownDropdownProps {
+const connector = connect(null, {close, open});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IAttributeBreakdownDropdownProps extends PropsFromRedux {
 	alignmentPosition?: typeof Align[keyof typeof Align];
 	attribute?: Attribute;
-	breakdown: Breakdown;
-	close: Modal.close;
+	breakdown?: Breakdown;
 	disabledIds: string[];
 	eventId: string;
 	onAttributeSelect: AddBreakdown | EditBreakdown;
-	open: Modal.open;
 	trigger: React.ReactElement;
 	uneditableIds: string[];
 }
@@ -243,4 +244,4 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 	);
 };
 
-export default connect(null, {close, open})(AttributeBreakdownDropdown);
+export default connector(AttributeBreakdownDropdown);

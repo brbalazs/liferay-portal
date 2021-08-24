@@ -3,6 +3,7 @@ import React from 'react';
 import {applyTimeZone} from 'shared/util/date';
 import {connect} from 'react-redux';
 import {Map} from 'immutable';
+import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 
 const TIME_ZONE_COUNTRY_REGEX = /\([^)]+.*/;
@@ -41,7 +42,7 @@ const TimeZoneAlert: React.FC<ITimeZoneAlertProps> = ({
 	</Alert>
 );
 
-export default connect((state, {groupId}) => {
+export default connect((state: RootState, {groupId}: {groupId: string}) => {
 	const timeZone = state.getIn(
 		['projects', groupId, 'data', 'timeZone'],
 		Map()

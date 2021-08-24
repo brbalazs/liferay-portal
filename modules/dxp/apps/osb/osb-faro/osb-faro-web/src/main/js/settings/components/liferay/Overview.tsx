@@ -8,13 +8,12 @@ import Form, {
 } from 'shared/components/form';
 import InputWithEditToggle from 'shared/components/InputWithEditToggle';
 import Label from 'shared/components/Label';
-import Promise from 'metal-promise';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import {addAlert} from '../../../shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
 import {DataSourceStates} from 'shared/util/constants';
 import {
@@ -56,30 +55,21 @@ const configurationItems: ConfigurationItem[] = [
 	}
 ];
 
-interface ILiferayOverviewProps {
-	addAlert: (object) => void;
-	close: () => void;
+const connector = connect(null, {
+	addAlert,
+	close,
+	fetchDataSource,
+	open,
+	updateLiferayDataSource
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ILiferayOverviewProps extends PropsFromRedux {
 	currentUser: User;
 	dataSource: DataSource;
-	fetchDataSource: ({
-		groupId,
-		id
-	}: {
-		groupId: string;
-		id: string;
-	}) => DataSource;
 	groupId: string;
 	id: string;
-	open: (modalType: string, options: object) => void;
-	updateLiferayDataSource: ({
-		groupId,
-		id,
-		name
-	}: {
-		groupId: string;
-		id: string;
-		name: string;
-	}) => Promise<any>;
 }
 
 class LiferayOverview extends React.Component<ILiferayOverviewProps> {
@@ -297,10 +287,4 @@ class LiferayOverview extends React.Component<ILiferayOverviewProps> {
 	}
 }
 
-export default connect(null, {
-	addAlert,
-	close,
-	fetchDataSource,
-	open,
-	updateLiferayDataSource
-})(LiferayOverview);
+export default connector(LiferayOverview);

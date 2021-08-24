@@ -8,12 +8,16 @@ import Modal from 'shared/components/modal';
 import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {IHelpWidgetScreenProps} from './types';
 import {sequence} from 'shared/util/promise';
 
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
 const ReportIssue: React.FC<
-	IHelpWidgetScreenProps & {addAlert: Alert.AddAlert}
+	IHelpWidgetScreenProps & PropsFromRedux & {addAlert: Alert.AddAlert}
 > = ({addAlert, groupId, onClose, onNext}) => {
 	const onSubmit = ({description, issueTitle}, {setSubmitting}) => {
 		API.issue
@@ -114,4 +118,4 @@ const ReportIssue: React.FC<
 	);
 };
 
-export default connect(null, {addAlert})(ReportIssue);
+export default connector(ReportIssue);

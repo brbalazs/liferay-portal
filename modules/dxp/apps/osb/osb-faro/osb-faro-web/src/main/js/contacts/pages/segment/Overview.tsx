@@ -4,21 +4,32 @@ import DistributionCard from 'contacts/hoc/segment/DistributionCard';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React, {useCallback, useEffect, useRef} from 'react';
 import SegmentProfileCard from 'contacts/components/segment/ProfileCard';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {debounce} from 'lodash';
 import {GROWTH} from 'shared/util/router';
+import {RootState} from 'shared/store';
 import {Segment} from 'shared/util/records';
 import {SegmentTypes} from 'shared/util/constants';
 
 const HEADER_MARGIN = 16;
+const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}));
 
-interface IOverviewProps {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IOverviewProps extends PropsFromRedux {
 	channelId: string;
 	groupId: string;
 	id: string;
 	segment: Segment;
 	tabId?: string;
-	timeZoneId: string;
 }
 
 const Overview: React.FC<IOverviewProps> = ({
@@ -107,12 +118,4 @@ const Overview: React.FC<IOverviewProps> = ({
 	);
 };
 
-export default connect((store, {groupId}) => ({
-	timeZoneId: store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'timeZoneId'
-	])
-}))(Overview);
+export default connector(Overview);

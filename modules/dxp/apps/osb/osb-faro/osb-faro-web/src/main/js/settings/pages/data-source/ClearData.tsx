@@ -71,10 +71,11 @@ export const ClearData: React.FC<IClearDataProps> = ({
 			}
 		]}
 		className={getCN('data-source-clear-data-root', className)}
-		documentTitle={sub(
-			Liferay.Language.get('confirm-clearing-of-all-data-from-x'),
-			[dataSource.name]
-		)}
+		documentTitle={
+			sub(Liferay.Language.get('confirm-clearing-of-all-data-from-x'), [
+				dataSource.name
+			]) as string
+		}
 		groupId={groupId}
 		pageDescription={Liferay.Language.get(
 			'the-following-data-will-be-impacted-and-can-yield-unexpected-results.-this-action-will-not-remove-the-data-source'

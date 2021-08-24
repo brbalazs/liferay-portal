@@ -82,7 +82,7 @@ interface ISegmentEditorProps {
 	onSubmit: (
 		form: FormValues,
 		ref: React.Ref<Formik>,
-		requestFn: (params: FormValues) => Promise<Segment>
+		requestFn: (params: FormValues) => typeof Promise
 	) => void;
 	propertyGroupsIList: List<PropertyGroup>;
 	segment: Segment;
@@ -210,8 +210,6 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 										includeAnonymousUsers={
 											includeAnonymousUsers
 										}
-										name={name}
-										submitting={isSubmitting}
 										valid={isValid && hasChanges}
 									/>
 

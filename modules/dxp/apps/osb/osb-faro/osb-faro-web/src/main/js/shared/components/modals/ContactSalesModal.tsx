@@ -3,13 +3,18 @@ import Modal from 'shared/components/modal';
 import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 
 const FORM_ID = '32cf039a-7a47-4461-82c5-e694d9f29057';
 const PORTAL_ID = '252686';
 
-interface IContactSalesModalProps extends React.HTMLAttributes<HTMLElement> {
-	addAlert: (object) => Promise<any>;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IContactSalesModalProps
+	extends React.HTMLAttributes<HTMLElement>,
+		PropsFromRedux {
 	onClose: () => void;
 }
 
@@ -44,4 +49,4 @@ const ContactSalesModal: React.FC<IContactSalesModalProps> = ({
 	</Modal>
 );
 
-export default connect(null, {addAlert})(ContactSalesModal);
+export default connector(ContactSalesModal);

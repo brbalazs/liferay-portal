@@ -3,10 +3,11 @@ import React from 'react';
 import URLConstants from 'shared/util/url-constants';
 import {Align, ClayDropDownWithItems} from '@clayui/drop-down';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Map} from 'immutable';
 import {Modal} from 'shared/types';
 import {PLANS} from 'shared/util/subscriptions';
+import {RootState} from 'shared/store';
 
 const getDropdownItems = ({
 	close,
@@ -51,11 +52,20 @@ const getDropdownItems = ({
 	}
 ];
 
-interface IHelpWidgetProps {
-	close: Modal.close;
-	faroSubscriptionIMap: Map<string, any>;
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		faroSubscriptionIMap: store.getIn(
+			['projects', groupId, 'data', 'faroSubscription'],
+			Map()
+		)
+	}),
+	{close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IHelpWidgetProps extends PropsFromRedux {
 	groupId: string;
-	open: Modal.open;
 }
 
 const HelpWidget: React.FC<IHelpWidgetProps> = ({
@@ -95,12 +105,4 @@ const HelpWidget: React.FC<IHelpWidgetProps> = ({
 	);
 };
 
-export default connect(
-	(store, {groupId}) => ({
-		faroSubscriptionIMap: store.getIn(
-			['projects', groupId, 'data', 'faroSubscription'],
-			Map()
-		)
-	}),
-	{close, open}
-)(HelpWidget);
+export default connector(HelpWidget);

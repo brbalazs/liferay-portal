@@ -16,7 +16,8 @@ export class BaseDetails extends React.Component {
 		dataSourceFn: PropTypes.func.isRequired,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
-		timeZoneId: PropTypes.string.isRequired
+		timeZoneId: PropTypes.string.isRequired,
+		title: PropTypes.string
 	};
 
 	state = {
@@ -52,7 +53,7 @@ export class BaseDetails extends React.Component {
 
 	render() {
 		const {
-			props: {groupId, timeZoneId, ...otherProps},
+			props: {groupId, timeZoneId, title, ...otherProps},
 			state: {detailsIMap, error, loading}
 		} = this;
 
@@ -79,6 +80,7 @@ export class BaseDetails extends React.Component {
 					demographicsIMap={detailsIMap}
 					groupId={groupId}
 					timeZoneId={timeZoneId}
+					title={title}
 				/>
 			);
 		}

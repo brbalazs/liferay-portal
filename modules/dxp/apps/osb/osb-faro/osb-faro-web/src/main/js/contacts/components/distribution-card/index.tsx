@@ -4,6 +4,7 @@ import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
 import DistributionChart from './DistributionChart';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
+import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import Tabs from './Tabs';
@@ -14,26 +15,45 @@ import {
 	removeDistributionTab
 } from 'shared/actions/preferences';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
 import {List, Map} from 'immutable';
 import {PreferencesScopes} from 'shared/util/constants';
+import {RootState} from 'shared/store';
 
-interface IDistributionCardProps extends React.HTMLAttributes<HTMLElement> {
-	addAlert: (object) => Promise<any>;
-	addDistributionTab: (object) => Promise<any>;
+const connector = connect(
+	(state: RootState, {distributionKey}: {distributionKey: string}) => {
+		const distributionTabs = state.getIn(
+			[
+				'preferences',
+				PreferencesScopes.Group,
+				'distributionCardTabs',
+				distributionKey
+			],
+			Map()
+		);
+
+		return {
+			distributionTabsIList: distributionTabs.get('data', List()),
+			error: distributionTabs.get('error', false),
+			loading: distributionTabs.get('loading', true)
+		};
+	},
+	{addAlert, addDistributionTab, fetchDistributionTabs, removeDistributionTab}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IDistributionCardProps
+	extends React.HTMLAttributes<HTMLElement>,
+		PropsFromRedux {
 	channelId: string;
 	distributionKey: string;
-	distributionTabsIList: List<DistributionTab>;
-	error: boolean;
-	fetchDistribution: (object) => Promise<any>;
-	fetchDistributionTabs: (object) => Promise<any>;
+	fetchDistribution: (params: object) => typeof Promise;
 	groupId: string;
 	id: string;
-	loading: boolean;
-	removeDistributionTab: (object) => Promise<any>;
 	showAddDataSource: boolean;
-	showContext: boolean;
+	showContext?: boolean;
 	viewAllLink: string;
 }
 
@@ -219,23 +239,4 @@ class DistributionCard extends React.Component<
 	}
 }
 
-export default connect(
-	(state, {distributionKey}) => {
-		const distributionTabs = state.getIn(
-			[
-				'preferences',
-				PreferencesScopes.Group,
-				'distributionCardTabs',
-				distributionKey
-			],
-			Map()
-		);
-
-		return {
-			distributionTabsIList: distributionTabs.get('data', List()),
-			error: distributionTabs.get('error', false),
-			loading: distributionTabs.get('loading', true)
-		};
-	},
-	{addAlert, addDistributionTab, fetchDistributionTabs, removeDistributionTab}
-)(DistributionCard);
+export default connector(DistributionCard);

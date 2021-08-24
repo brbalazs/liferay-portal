@@ -9,7 +9,7 @@ import Spinner from 'shared/components/Spinner';
 import TextTruncate from 'shared/components/TextTruncate';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {round} from 'lodash';
 import {sub} from 'shared/util/lang';
 
@@ -120,11 +120,14 @@ export const FileItem: React.FC<IFileItemProps> = ({file, onCancel}) => {
 	);
 };
 
-interface IFileDropTargetProps {
-	addAlert: (object) => void;
-	className: string;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IFileDropTargetProps extends PropsFromRedux {
+	className?: string;
 	fileTypes: string[];
-	onChange: (File) => void;
+	onChange: (file: File) => void;
 	uploadURL: string;
 	useJaxRS?: boolean;
 }
@@ -230,4 +233,4 @@ export class FileDropTarget extends React.Component<IFileDropTargetProps> {
 	}
 }
 
-export default connect(null, {addAlert})(FileDropTarget);
+export default connector(FileDropTarget);

@@ -14,12 +14,13 @@ import {Alert} from 'shared/types';
 import {buildOrderByFields, NAME} from 'shared/util/pagination';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withPaginationBar, withToolbar} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {get} from 'lodash';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getPluralMessage} from 'shared/util/lang';
-import {HasModal, IPaginationUnsorted} from 'shared/types';
+import {IPaginationUnsorted} from 'shared/types';
 import {OrderedMap} from 'immutable';
+import {RootState} from 'shared/store';
 import {SelectionProvider} from 'shared/context/selection';
 import {User} from 'shared/util/records';
 import {useRequest} from 'shared/hooks';
@@ -71,14 +72,26 @@ const UserListNav: React.FC<{
 		</Nav.Item>
 	</Nav>
 );
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
 
-interface IUserListProps extends HasModal, IPaginationUnsorted {
-	addAlert: Alert.AddAlert;
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IUserListProps extends PropsFromRedux, IPaginationUnsorted {
 	authorized: boolean;
 	groupId: string;
 	id: string;
 	propertyName: string;
-	timeZoneId: string;
 }
 
 const UserList: React.FC<IUserListProps> = ({
@@ -407,15 +420,4 @@ const UserList: React.FC<IUserListProps> = ({
 	return renderContent();
 };
 
-export default connect(
-	(store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	}),
-	{addAlert, close, open}
-)(UserList);
+export default connector(UserList);

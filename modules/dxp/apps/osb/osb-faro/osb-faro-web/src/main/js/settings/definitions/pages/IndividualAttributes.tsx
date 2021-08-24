@@ -8,9 +8,9 @@ import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
 import {applyTimeZone} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
-import {HasModal} from 'shared/types';
+import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 
 const {
@@ -26,11 +26,25 @@ const SearchableEntityTableHOC = withStatefulPagination(SearchableEntityTable, {
 	]
 });
 
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
 interface IIndividualAttributesProps
-	extends HasModal,
+	extends PropsFromRedux,
 		React.HTMLAttributes<HTMLElement> {
 	groupId: string;
-	timeZoneId: string;
 }
 
 const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
@@ -119,15 +133,4 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 	);
 };
 
-export default connect(
-	(store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	}),
-	{close, open}
-)(IndividualAttributes);
+export default connector(IndividualAttributes);

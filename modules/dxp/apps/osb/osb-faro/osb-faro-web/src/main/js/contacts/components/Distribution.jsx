@@ -935,6 +935,7 @@ export class Distribution extends React.Component {
 }
 
 export default compose(
+	withSelectedPoint,
 	connect(
 		(
 			state,
@@ -963,6 +964,5 @@ export default compose(
 					selectedContext || distributionIMap.get('context')
 			};
 		}
-	),
-	withSelectedPoint
+	)
 )(Distribution);

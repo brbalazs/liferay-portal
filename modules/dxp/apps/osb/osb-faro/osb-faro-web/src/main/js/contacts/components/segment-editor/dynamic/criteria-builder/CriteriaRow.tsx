@@ -29,7 +29,7 @@ import {
 } from '../context/referencedObjects';
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {
 	ConnectDragPreview,
 	ConnectDragSource,
@@ -57,6 +57,7 @@ import {
 } from '../utils/constants';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
+import {RootState} from 'shared/store';
 
 const acceptedDragTypes = [DragTypes.CriteriaRow, DragTypes.Property];
 
@@ -169,7 +170,19 @@ function beginDrag({criteriaGroupId, criterion, index}) {
 	return {criteriaGroupId, criterion, index};
 }
 
-interface ICriteriaRowProps {
+const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ICriteriaRowProps extends PropsFromRedux {
 	addProperty: AddProperty;
 	canDrop: boolean;
 	channelId: string;
@@ -507,15 +520,7 @@ const CriteriaRowWithDrag = dragSource(
 )(CriteriaRow);
 
 export default compose<any>(
-	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	})),
+	connector,
 	withReferencedObjectsConsumer,
 	dropTarget(
 		acceptedDragTypes,

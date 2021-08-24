@@ -11,7 +11,7 @@ import Summary from './Summary';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {Filter, Job, JobParameter} from '../../utils/utils';
 import {
 	JobRunDataPeriods,
@@ -47,11 +47,14 @@ const STEPS = [
 	}
 ];
 
-interface IRecommendationStepCardProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IRecommendationStepCardProps extends PropsFromRedux {
 	cancelHref: string;
 	history: {
-		push: (string) => void;
+		push: (value: string) => void;
 	};
 	job?: Job;
 	jobType?: JobTypes;
@@ -307,7 +310,4 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 	);
 };
 
-export default compose<any>(
-	withHistory,
-	connect(null, {addAlert})
-)(RecommendationStepCard);
+export default compose<any>(withHistory, connector)(RecommendationStepCard);

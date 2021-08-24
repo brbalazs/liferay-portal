@@ -1,4 +1,5 @@
-import * as emailValidator from 'isemail';
+import emailValidator from 'isemail';
+import {toPromise} from 'shared/components/form';
 
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
 
@@ -24,12 +25,16 @@ export const validateEmail = (email: string): boolean =>
 export const validateEmailArr = (
 	items: string[],
 	inputListValue: string
-): string | void => {
+): Promise<string> => {
 	const emails = items.concat(inputListValue || []);
 
+	let error = '';
+
 	if (emails.some(email => !validateEmail(email))) {
-		return Liferay.Language.get(
+		error = Liferay.Language.get(
 			'please-enter-the-email-in-this-format-sample-email-com'
 		);
 	}
+
+	return toPromise(error);
 };

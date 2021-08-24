@@ -11,7 +11,7 @@ import React from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {Attribute, DataTypes, Event} from 'event-analysis/utils/types';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {DATA_TYPE_LABELS_MAP} from 'event-analysis/utils/utils';
 import {debounce, get} from 'lodash/fp';
 import {DocumentNode} from 'graphql';
@@ -38,8 +38,11 @@ const DATA_TYPE_OPTIONS = [
 	DataTypes.String
 ];
 
-interface IEditAttributeEventModalProps {
-	addAlert: Alert.AddAlert;
+const connector = connect(null, {addAlert});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IEditAttributeEventModalProps extends PropsFromRedux {
 	id: string;
 	mutation: DocumentNode;
 	onCancel: Types.Modal.close;
@@ -304,4 +307,4 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 	);
 };
 
-export default connect(null, {addAlert})(EditAttributeEventModal);
+export default connector(EditAttributeEventModal);

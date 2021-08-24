@@ -17,22 +17,23 @@ import {
 	Filter
 } from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {Modal} from 'shared/types';
 import {NAME} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
-interface IAttributeFilterDropdownProps {
+const connector = connect(null, {close, open});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IAttributeFilterDropdownProps extends PropsFromRedux {
 	alignmentPosition?: typeof Align[keyof typeof Align];
 	attribute?: Attribute;
-	close: Modal.close;
-	disabledIds: string[];
+	disabledIds?: string[];
 	eventId: string;
-	filter: Filter;
-	open: Modal.open;
+	filter?: Filter;
 	trigger: React.ReactElement;
 	uneditableIds: string[];
 }
@@ -215,4 +216,4 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AttributeFilterDropdown);
+export default connector(AttributeFilterDropdown);

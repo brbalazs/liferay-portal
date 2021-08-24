@@ -61,7 +61,7 @@ const ConfirmationModal: React.FC<IConfirmationModalProps> = ({
 						const submitVal: any = onSubmit();
 
 						if (submitVal instanceof Promise) {
-							(submitVal as Promise)
+							(submitVal as typeof Promise)
 								.then(() => {
 									setSubmitting(false);
 

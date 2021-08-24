@@ -6,8 +6,10 @@ import SessionCard from 'experiments/components/SessionCard';
 import SummaryCard from 'experiments/components/summary-card/SummaryCard';
 import TextTruncate from 'shared/components/TextTruncate';
 import VariantCard from 'experiments/components/variant-card/index';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {EXPERIMENT_ROOT_QUERY} from 'experiments/queries/ExperimentQuery';
+import {RootState} from 'shared/store';
+import {Router} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {SafeResults} from 'shared/hoc/util';
 import {StateProvider} from 'experiments/state';
@@ -23,16 +25,31 @@ const NAV_ITEMS = [
 	}
 ];
 
-interface IExperimentOverviewPage extends React.HTMLAttributes<HTMLElement> {
-	router: {
-		params: {
-			channelId: string;
-			groupId: string;
-			id: string;
-		};
-		query: object;
-	};
-	timeZoneId: string;
+const connector = connect(
+	(
+		store: RootState,
+		{
+			router: {
+				params: {groupId}
+			}
+		}: {router: Router}
+	) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	})
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IExperimentOverviewPage
+	extends React.HTMLAttributes<HTMLElement>,
+		PropsFromRedux {
+	router: Router;
 }
 
 const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
@@ -156,12 +173,4 @@ const ExperimentWithState = props => (
 	</StateProvider>
 );
 
-export default connect((store, {router: {params: {groupId}}}) => ({
-	timeZoneId: store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'timeZoneId'
-	])
-}))(ExperimentWithState);
+export default connector(ExperimentWithState);

@@ -5,8 +5,8 @@ import Input from 'shared/components/Input';
 import Promise from 'metal-promise';
 import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {Columns, IPagination, Modal} from 'shared/types';
-import {connect} from 'react-redux';
+import {Columns} from 'shared/types';
+import {connect, ConnectedProps} from 'react-redux';
 import {detailsListColumns} from 'shared/util/table-columns';
 import {OrderedMap} from 'immutable';
 
@@ -14,17 +14,27 @@ const {
 	pagination: {orderDescending}
 } = FaroConstants;
 
-interface ISelectEntityFromModalProps extends IPagination {
-	close: Modal.close;
+const connector = connect(null, {close, open});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ISelectEntityFromModalProps extends PropsFromRedux {
 	columns: Columns;
-	dataSourceFn: () => Promise<any>;
-	entity: {dataSourceName: string; [key: string]: any};
+	dataSourceFn?: (params: {[key: string]: any}) => typeof Promise;
+	delta?: number;
+	entity: {dataSourceName?: string; [key: string]: any};
 	error: boolean;
-	graphqlProps: {[key: string]: any};
-	groupId: string;
+	graphqlProps?: {[key: string]: any};
+	groupId?: string;
+	noResultsIcon?: string;
+	noResultsProps?: {[key: string]: any};
 	onSubmit: (items: OrderedMap<string, object>) => void;
-	open: Modal.open;
-	renderEntity: (entity: any) => React.ElementType;
+	orderBy?: string;
+	orderByField?: string;
+	orderByOptions?: {label: string; value: any}[];
+	page?: number;
+	query?: string;
+	renderEntity: (entity: any) => React.ReactNode;
 	submitMessage?: string;
 	title: string;
 }
@@ -107,4 +117,4 @@ const SelectEntityFromModal: React.FC<ISelectEntityFromModalProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(SelectEntityFromModal);
+export default connector(SelectEntityFromModal);

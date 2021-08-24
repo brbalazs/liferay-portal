@@ -9,9 +9,12 @@ import {Routes, toRoute} from 'shared/util/router';
 import {updateDefaultChannelId} from 'shared/actions/preferences';
 
 export type Channel = {
+	createTime: number;
+	groupIdCount: number;
 	id: string;
 	name: string;
-	url: string;
+	permissionType: number;
+	tokenAuth: boolean;
 };
 
 interface IChannelsMenuProps extends React.HTMLAttributes<HTMLElement> {

@@ -2,14 +2,20 @@ import * as API from 'shared/api';
 import Distribution, {CONTEXT_OPTIONS} from 'contacts/components/Distribution';
 import React from 'react';
 import {compose, withQuery} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {
 	fetchIndividualsDistribution,
 	INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY
 } from 'shared/actions/distributions';
 import {get} from 'lodash';
 
-interface IIndividualsDistributionProps {
+const connector = connect(null, {
+	fetchDistribution: fetchIndividualsDistribution
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IIndividualsDistributionProps extends PropsFromRedux {
 	knownIndividualCount: number | null;
 	router: object;
 }
@@ -45,5 +51,5 @@ export default compose<any>(
 			knownIndividualCount: error ? 0 : get(data, 'total', null)
 		})
 	),
-	connect(null, {fetchDistribution: fetchIndividualsDistribution})
+	connector
 )(IndividualsDistribution);

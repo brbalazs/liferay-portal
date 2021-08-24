@@ -306,9 +306,6 @@ const NewRequestModal: React.FC<INewRequestModalProps> = ({
 											<div>
 												<FileDropTarget
 													fileTypes={['.csv']}
-													name={Liferay.Language.get(
-														'csv-file'
-													)}
 													onChange={handleFileChange}
 													uploadURL={`/o/proxy/download/data-control-tasks?projectGroupId=${groupId}`}
 												/>

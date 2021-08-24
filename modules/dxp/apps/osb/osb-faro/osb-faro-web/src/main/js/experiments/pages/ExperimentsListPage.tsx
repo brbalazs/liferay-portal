@@ -4,11 +4,12 @@ import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
 import {get} from 'lodash';
 import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
-import {IBasePageContext} from 'shared/types';
+import {IBasePageContext, Router} from 'shared/types';
+import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
 import {useQuery} from '@apollo/react-hooks';
@@ -16,7 +17,28 @@ import {useQuery} from '@apollo/react-hooks';
 const DEFAULT_FIELD = 'modifiedDate';
 const DEFAULT_SORT_ORDER = 'DESC';
 
-interface IExperimentsListPage extends IBasePageContext {
+const connector = connect(
+	(
+		store: RootState,
+		{
+			router: {
+				params: {groupId}
+			}
+		}: {router: Router}
+	) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	})
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IExperimentsListPage extends IBasePageContext, PropsFromRedux {
 	router: {
 		params: {
 			channelId: string;
@@ -124,12 +146,4 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 	);
 };
 
-export default connect((store, {router: {params: {groupId}}}) => ({
-	timeZoneId: store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'timeZoneId'
-	])
-}))(ExperimentsListPage);
+export default connector(ExperimentsListPage);

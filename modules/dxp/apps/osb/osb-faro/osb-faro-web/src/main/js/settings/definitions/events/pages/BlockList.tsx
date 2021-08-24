@@ -1,13 +1,25 @@
 import BasePage from 'settings/components/BasePage';
 import BlockListCard from '../components/BlockListCard';
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
+import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 
-interface IBlockListProps {
+const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IBlockListProps extends PropsFromRedux {
 	groupId: string;
-	timeZoneId: string;
 }
 
 const BlockList: React.FC<IBlockListProps> = ({
@@ -40,12 +52,4 @@ const BlockList: React.FC<IBlockListProps> = ({
 	</BasePage>
 );
 
-export default connect((store, {groupId}) => ({
-	timeZoneId: store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'timeZoneId'
-	])
-}))(BlockList);
+export default connector(BlockList);

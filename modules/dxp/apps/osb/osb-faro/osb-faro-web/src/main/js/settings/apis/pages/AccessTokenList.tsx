@@ -15,9 +15,9 @@ import {Alert} from 'shared/types';
 import {ApisPath} from 'shared/util/url-constants';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {formatDateToTimeZone, getDateNow} from 'shared/util/date';
-import {Modal} from 'shared/types';
+import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 import {
 	withAdminPermission,
@@ -31,15 +31,28 @@ export const isExpired = (expirationDate: string) =>
 
 const DATE_FORMAT = 'MMM DD, YYYY';
 
-const TokenList: React.FC<{
-	addAlert: Alert.AddAlert;
-	close: Modal.close;
-	groupId: string;
-	open: Modal.open;
-	refetch: () => Promise<any>;
-	timeZoneId: string;
-	tokens: AccessToken[];
-}> = ({addAlert, close, groupId, open, refetch, timeZoneId, tokens}) => {
+const connector = connect(
+	(store: RootState, {groupId}: {groupId: string}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
+	{addAlert, close, open}
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const TokenList: React.FC<
+	{
+		groupId: string;
+		refetch: () => Promise<any>;
+		tokens: AccessToken[];
+	} & PropsFromRedux
+> = ({addAlert, close, groupId, open, refetch, timeZoneId, tokens}) => {
 	const [loading, setLoading] = useState(false);
 
 	const handleError = () => {
@@ -233,18 +246,7 @@ const TokenList: React.FC<{
 };
 
 const ListWithData = compose<any>(
-	connect(
-		(store, {groupId}) => ({
-			timeZoneId: store.getIn([
-				'projects',
-				groupId,
-				'data',
-				'timeZone',
-				'timeZoneId'
-			])
-		}),
-		{addAlert, close, open}
-	),
+	connector,
 	withQuery(
 		API.apiTokens.search,
 		({groupId}: {groupId: string}) => ({groupId}),

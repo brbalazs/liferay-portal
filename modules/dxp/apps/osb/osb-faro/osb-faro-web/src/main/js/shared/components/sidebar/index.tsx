@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import ChannelsMenu from '../channels-menu';
+import ChannelsMenu, {Channel} from '../channels-menu';
 import getCN from 'classnames';
 import Icon from '../Icon';
 import React from 'react';
@@ -13,14 +13,7 @@ import {User} from 'shared/util/records';
 interface ISidebarProps {
 	activePathname: string;
 	channelId: string;
-	channels: {
-		createTime: number;
-		groupIdCount: number;
-		id: string;
-		name: string;
-		permissionType: number;
-		tokenAuth: boolean;
-	}[];
+	channels: Channel[];
 	className?: string;
 	collapsed: boolean;
 	currentUser: User;
