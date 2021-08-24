@@ -45,10 +45,10 @@ public class SalesforceAuditEventsDataCreator extends DataCreator {
 
 		auditEvent.put("additionalInfo", salesforceObject);
 
+		auditEvent.put("dataSourceId", salesforceObject.get("dataSourceId"));
+
 		auditEvent.put("dateCreated", formatDate(new Date()));
 		auditEvent.put("eventType", "UPDATE");
-		auditEvent.put(
-			"osbAsahDataSourceId", salesforceObject.get("osbAsahDataSourceId"));
 		auditEvent.put("recordId", salesforceObject.get("id"));
 		auditEvent.put("typeName", _typeName);
 
