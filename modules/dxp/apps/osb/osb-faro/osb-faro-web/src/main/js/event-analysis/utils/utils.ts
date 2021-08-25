@@ -15,7 +15,7 @@ import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
 import {OrderByDirections} from 'shared/util/constants';
 
-const DEFAULT_DATE_GROUPING = DateGroupings.Months;
+const DEFAULT_DATE_GROUPING = DateGroupings.Month;
 const DEFAULT_DURATION_BIN = 60000;
 const DEFAULT_NUMBER_BIN = 10;
 
@@ -29,9 +29,9 @@ const ATTRIBUTE_TYPE_LABEL_MAP = {
 export const BOOLEAN_OPTIONS = ['true', 'false'];
 
 export const DATE_GROUPING_OPTIONS = [
-	DateGroupings.Dates,
-	DateGroupings.Months,
-	DateGroupings.Years
+	DateGroupings.Day,
+	DateGroupings.Month,
+	DateGroupings.Year
 ];
 
 export const DATE_OPTIONS = [
@@ -74,9 +74,9 @@ export const DATA_TYPE_LABELS_MAP = {
 };
 
 export const DATE_GROUPING_LABELS_MAP = {
-	[DateGroupings.Dates]: Liferay.Language.get('date'),
-	[DateGroupings.Months]: Liferay.Language.get('month'),
-	[DateGroupings.Years]: Liferay.Language.get('year')
+	[DateGroupings.Day]: Liferay.Language.get('date'),
+	[DateGroupings.Month]: Liferay.Language.get('month'),
+	[DateGroupings.Year]: Liferay.Language.get('year')
 };
 
 export const DATE_OPERATOR_LABELS_MAP = {

@@ -28,9 +28,9 @@ export enum DataTypes {
 }
 
 export enum DateGroupings {
-	Dates = 'dates',
-	Months = 'months',
-	Years = 'years'
+	Day = 'DAY',
+	Month = 'MONTH',
+	Year = 'YEAR'
 }
 
 export enum EventTypes {

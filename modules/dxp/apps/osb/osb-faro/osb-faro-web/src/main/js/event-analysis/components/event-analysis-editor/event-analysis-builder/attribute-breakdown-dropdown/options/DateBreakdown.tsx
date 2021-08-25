@@ -24,7 +24,7 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 		}
 
 		return {
-			dateGrouping: DateGroupings.Months
+			dateGrouping: DateGroupings.Month
 		};
 	};
 
