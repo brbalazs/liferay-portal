@@ -69,8 +69,8 @@ const useRequest = ({
 		}
 
 		return () => {
-			debounceRef.current?.cancel();
-			requestRef.current?.cancel();
+			debounceRef.current?.cancel?.();
+			requestRef.current?.cancel?.();
 		};
 	}, [skipRequest, variables]);
 
