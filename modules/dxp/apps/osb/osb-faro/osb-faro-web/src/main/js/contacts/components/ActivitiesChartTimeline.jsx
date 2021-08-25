@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import ActivitiesChart from './ActivitiesChart';
+import ActivitiesChart from './ActivitiesChartDeprecated';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';

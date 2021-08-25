@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import ActivitiesChart from '../ActivitiesChart';
+import ActivitiesChart from '../ActivitiesChartDeprecated';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
@@ -10,7 +10,7 @@ import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {Account} from 'shared/util/records';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {buildLegendItems} from 'shared/util/activities';
+import {buildLegendItems} from 'shared/util/activitiesDeprecated';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {EntityTypes, TimeIntervals} from 'shared/util/constants';
 import {getSafeChange} from 'shared/util/change';
