@@ -942,9 +942,10 @@ public class PortalImpl implements Portal {
 			return url;
 		}
 
+		String decodedURL = HttpUtil.decodeURL(url);
 		String path = HttpUtil.getPath(url);
 
-		if (Validator.isNotNull(path) && url.startsWith(path)) {
+		if (Validator.isNotNull(path) && decodedURL.startsWith(path)) {
 
 			// Relative URL
 
