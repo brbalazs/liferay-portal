@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import BundleRouter from 'route-middleware/BundleRouter';
 import Card from 'shared/components/Card';
@@ -10,6 +11,7 @@ import {compose, withCurrentUser} from 'shared/hoc';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch, withRouter} from 'react-router-dom';
 import {User as UserRecord} from 'shared/util/records';
+import {UserStatuses} from 'shared/util/constants';
 
 const UserList = lazy(
 	() => import(/* webpackChunkName: "UserManagement" */ './UserList')
@@ -31,6 +33,13 @@ export const User: React.FC<IUserProps> = ({
 	const [userRequest, setUserRequest] = useState<number>(0);
 
 	const onSetUserRequest = userRequest => setUserRequest(userRequest);
+
+	API.user
+		.fetchCount({
+			groupId,
+			statuses: [UserStatuses.Requested]
+		})
+		.then(setUserRequest);
 
 	const NAV_ITEMS = [
 		{
