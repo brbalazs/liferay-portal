@@ -120,7 +120,7 @@ exports[`IndividualOverview should render 1`] = `
                 class="activities-date d-flex align-items-baseline"
               >
                 <h4>
-                  Individual's Events - July 9, 2018 - July 10, 2018
+                  Individual's Events - August 3, 2021 - August 7, 2021
                 </h4>
               </div>
               <div
@@ -128,7 +128,7 @@ exports[`IndividualOverview should render 1`] = `
               >
                 Events 
                 <b>
-                  123
+                  2,208
                 </b>
               </div>
             </div>
