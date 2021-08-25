@@ -112,7 +112,7 @@ describe('utils', () => {
 				attributeId,
 				attributeType,
 				dataType: DataTypes.Date,
-				dateGrouping: DateGroupings.Months,
+				dateGrouping: DateGroupings.Month,
 				sortType: 'DESC'
 			});
 		});

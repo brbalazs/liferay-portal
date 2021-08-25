@@ -34,17 +34,17 @@ exports[`DateBreakdown should render 1`] = `
               type="string"
             >
               <option
-                value="dates"
+                value="DAY"
               >
                 Date
               </option>
               <option
-                value="months"
+                value="MONTH"
               >
                 Month
               </option>
               <option
-                value="years"
+                value="YEAR"
               >
                 Year
               </option>
