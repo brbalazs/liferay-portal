@@ -1,11 +1,15 @@
-import * as API from 'shared/api';
 import ActivitiesChart from '../../../components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import client from 'shared/apollo/client';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
+import EventMetricQuery, {
+	EventMetricsData,
+	EventMetricsVariables
+} from 'shared/queries/EventMetricQuery';
 import IntervalSelector from 'shared/components/IntervalSelector';
+import moment from 'moment';
 import React, {useCallback, useState} from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import SearchInput from 'shared/components/SearchInput';
@@ -16,11 +20,6 @@ import UserSessionQuery, {
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import {
-	EntityTypes,
-	RangeKeyTimeRanges,
-	SessionEntityTypes
-} from 'shared/util/constants';
-import {
 	FORMAT,
 	formatUTCDate,
 	getDateRangeLabel,
@@ -30,20 +29,19 @@ import {
 import {
 	formatSessions,
 	getActivityLabel,
-	INTERVAL_MAP,
 	VerticalTimelineHeader,
 	VerticalTimelineSession
 } from 'shared/util/activities';
-import {getSafeChange} from 'shared/util/change';
-import {getSafeRangeKey} from 'shared/util/activitiesDeprecated';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {Individual} from 'shared/util/records';
 import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {isNil, omit} from 'lodash';
+import {RangeKeyTimeRanges, SessionEntityTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useRequest} from 'shared/hooks';
 import {WrapSafeResults} from 'shared/hoc/util';
+
 interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
 	entity: Individual;
@@ -81,25 +79,60 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	const {hasSelectedPoint, onPointSelect, selectedPoint} = useSelectedPoint();
 	const [searchValue, setSearchValue] = useState<string>('');
 
+	const getHistory = ({
+		channelId,
+		contactsEntityId,
+		contactsEntityType,
+		interval,
+		query,
+		rangeEnd,
+		rangeKey,
+		rangeStart
+	}): Promise<{
+		activityCount: number;
+		activityHistory: {
+			intervalInitDate: number;
+			totalEvents: number;
+			totalSessions: number;
+		}[];
+	}> =>
+		client
+			.query<EventMetricsData, EventMetricsVariables>({
+				query: EventMetricQuery,
+				variables: {
+					channelId,
+					entityId: contactsEntityId,
+					entityType: contactsEntityType,
+					interval,
+					keywords: query,
+					rangeEnd,
+					rangeKey,
+					rangeStart
+				}
+			})
+			.then(({data: {eventMetric}}) => ({
+				activityCount: eventMetric.totalEventsMetric?.value,
+				activityHistory: eventMetric.totalEventsMetric.histogram.metrics?.map(
+					({key, value}, index) => ({
+						intervalInitDate: moment.utc(key).valueOf(),
+						totalEvents: value,
+						totalSessions:
+							eventMetric.totalSessionsMetric.histogram.metrics?.[
+								index
+							].value
+					})
+				)
+			}));
+
 	const {data: activityData, error, loading, refetch} = useRequest({
-		dataSourceFn: API.activities.fetchHistory,
-		normalize: ({
-			activityAggregations: activityHistory,
-			change: activityChange,
-			count: activityCount
-		}) => ({
-			activityChange: getSafeChange(activityChange),
-			activityCount,
-			activityHistory
-		}),
+		dataSourceFn: getHistory,
 		variables: {
 			channelId,
 			contactsEntityId: entityId,
-			contactsEntityType: EntityTypes.Individual,
-			groupId,
-			interval: INTERVAL_MAP[interval],
-			max: getSafeRangeKey(rangeSelectors?.rangeKey),
-			...rangeSelectors
+			contactsEntityType: SessionEntityTypes.Individual,
+			interval,
+			query,
+			...getSafeRangeSelectors(rangeSelectors)
 		}
 	});
 
@@ -202,7 +235,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 
 	const selected = hasSelectedPoint || selectedPoint;
 
-	const {intervalInitDate, totalElements = 0} =
+	const {intervalInitDate, totalEvents = 0} =
 		activityData?.activityHistory[selectedPoint] || {};
 
 	const date = selected
@@ -309,7 +342,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 						<div className='details'>
 							{getActivityLabel(
 								(selected
-									? totalElements
+									? totalEvents
 									: activityData?.activityCount
 								)?.toLocaleString()
 							)}
