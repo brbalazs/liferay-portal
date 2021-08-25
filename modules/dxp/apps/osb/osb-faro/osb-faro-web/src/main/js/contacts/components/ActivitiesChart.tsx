@@ -27,6 +27,7 @@ import {
 } from 'shared/util/charts';
 import {get} from 'lodash';
 import {Interval, RangeSelectors} from 'shared/types';
+import {isHourlyRangeKey} from 'shared/util/time';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
@@ -50,7 +51,7 @@ interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 
 interface IActivitiesHistory<initDateType = number> {
 	intervalInitDate: initDateType;
-	totalElements: number;
+	totalEvents: number;
 }
 
 const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
@@ -77,25 +78,44 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 
 	const renderTooltip = ({active, payload}) => {
 		if ((active && !!payload.length) || hasSelectedPoint) {
-			const {intervalInitDate, totalElements} = get(
+			const {intervalInitDate, totalEvents, totalSessions} = get(
 				payload,
 				[0, 'payload'],
 				history[selectedPoint]
 			);
 
+			const rows: Array<{
+				className?: string;
+				label: string;
+				value?: string;
+			}> = [
+				{
+					label: Liferay.Language.get('events'),
+					value: totalEvents.toLocaleString()
+				},
+				{
+					label: Liferay.Language.get('sessions'),
+					value: totalSessions.toLocaleString()
+				}
+			];
+
+			if (isHourlyRangeKey(rangeSelectors.rangeKey)) {
+				rows.push({
+					className: 'informative-text',
+					label: Liferay.Language.get(
+						'data-for-todays-events-may-vary-or-be-incomplete'
+					).toUpperCase()
+				});
+			}
+
 			return getChartTooltip({
-				dateTitle: getDateTitle(
+				dateTitle: '',
+				rows,
+				title: getDateTitle(
 					dateKeysIMap.get(intervalInitDate),
 					rangeSelectors.rangeKey,
 					interval
-				),
-				rows: [
-					{
-						label: Liferay.Language.get('activities'),
-						value: totalElements.toLocaleString()
-					}
-				],
-				title: Liferay.Language.get('activities')
+				)
 			});
 		}
 	};
@@ -109,7 +129,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 
 	const showFixedTooltip = hasSelectedPoint && mouseOutside;
 
-	const yAxisWidth = getYAxisWidth(history, 'totalElements');
+	const yAxisWidth = getYAxisWidth(history, 'totalEvents');
 
 	return (
 		<ResponsiveContainer height={height}>
@@ -176,7 +196,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				<YAxis
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
-					name={Liferay.Language.get('activities')}
+					name={Liferay.Language.get('events')}
 					stroke={AXIS.gridStroke}
 					tick={getAxisTickText('y')}
 					tickCount={6}
@@ -227,7 +247,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 
 				<Bar
 					animationDuration={ANIMATION_DURATION.bar}
-					dataKey='totalElements'
+					dataKey='totalEvents'
 					fill={CHART_BLUE}
 					onMouseEnter={(e, index) => setHoverIndex(index)}
 					onMouseLeave={() => setHoverIndex(-1)}
