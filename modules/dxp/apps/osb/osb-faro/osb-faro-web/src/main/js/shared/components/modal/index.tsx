@@ -6,7 +6,7 @@ import React from 'react';
 
 const SIZES = ['sm', 'lg', 'xl', 'xxl'];
 
-type Size = 'sm' | 'lg' | 'xl' | 'xxl';
+export type Size = 'sm' | 'lg' | 'xl' | 'xxl';
 
 type Type = 'danger' | 'info' | 'success' | 'warning';
 
