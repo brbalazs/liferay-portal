@@ -135,3 +135,17 @@ export const TREND_FRAGMENT = gql`
 		}
 	}
 `;
+
+export const TREND_FRAGMENT_EVENT_METRIC = gql`
+	fragment trendFragment on Metric {
+		histogram {
+			metrics {
+				key
+				value
+				valueKey
+			}
+			total
+		}
+		value
+	}
+`;
