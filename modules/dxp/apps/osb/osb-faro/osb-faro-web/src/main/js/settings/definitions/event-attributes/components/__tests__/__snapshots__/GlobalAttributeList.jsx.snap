@@ -111,6 +111,16 @@ exports[`GlobalAttributeList should render 1`] = `
             >
               Description
             </th>
+            <th
+              class="table-head-title table-cell-expand-smaller text-truncate"
+            >
+              Sample Raw Data
+            </th>
+            <th
+              class="table-head-title"
+            >
+              Data Typecast
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -148,6 +158,22 @@ exports[`GlobalAttributeList should render 1`] = `
               class="table-cell-expand text-truncate"
             >
               -
+            </td>
+            <td
+              class="table-cell-expand-smaller text-truncate"
+            >
+              samplevalue-0
+            </td>
+            <td>
+              <div
+                class="label label-root label-info label-lg label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  STRING
+                </span>
+              </div>
             </td>
           </tr>
         </tbody>

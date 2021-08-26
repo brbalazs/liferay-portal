@@ -92,7 +92,7 @@ exports[`EventDetailsCard should render 1`] = `
             <th
               class="table-head-title table-cell-expand-smaller text-truncate"
             >
-              Sample Value
+              Sample Raw Data
             </th>
             <th
               class="table-head-title"

@@ -116,7 +116,7 @@ exports[`AttributeView should render 1`] = `
               <th
                 class="table-head-title table-cell-expand-small text-truncate"
               >
-                Sample Data
+                Sample Raw Data
               </th>
               <th
                 class="table-head-title table-column-text-end"
