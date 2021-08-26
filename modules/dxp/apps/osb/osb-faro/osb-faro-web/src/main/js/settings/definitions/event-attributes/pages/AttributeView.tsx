@@ -155,7 +155,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 								}
 							]}
 							items={recentValues}
-							rowIdentifier='sampleData'
+							rowIdentifier='value'
 						/>
 					)}
 				</BasePage>
