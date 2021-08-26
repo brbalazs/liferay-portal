@@ -181,7 +181,7 @@ export const attributeListColumns = {
 	sampleValue: {
 		accessor: 'sampleValue',
 		className: 'table-cell-expand-smaller text-truncate',
-		label: Liferay.Language.get('sample-value'),
+		label: Liferay.Language.get('sample-raw-data'),
 		sortable: false
 	}
 };

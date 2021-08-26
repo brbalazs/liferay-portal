@@ -75,6 +75,6 @@ describe('AttributeView', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('Sample Data')).toBeTruthy();
+		expect(getByText('Sample Raw Data')).toBeTruthy();
 	});
 });
