@@ -4,9 +4,9 @@ import EventAttributeDefinitionsQuery, {
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import React from 'react';
+import {attributeListColumns} from 'shared/util/table-columns';
 import {AttributeTypes} from 'event-analysis/utils/types';
 import {get} from 'lodash';
-import {globalAttributeListColumns} from 'shared/util/table-columns';
 import {NAME} from 'shared/util/pagination';
 import {useQuery} from '@apollo/react-hooks';
 import {withBaseResults} from 'shared/hoc';
@@ -66,9 +66,11 @@ const GlobalAttributeList = withBaseResults(withData, {
 	defaultOrderByField: NAME,
 	emptyTitle: Liferay.Language.get('empty-title-pages'),
 	getColumns: ({channelId, groupId}) => [
-		globalAttributeListColumns.getName({channelId, groupId}),
-		globalAttributeListColumns.displayName,
-		globalAttributeListColumns.description
+		attributeListColumns.getName({channelId, groupId}),
+		attributeListColumns.displayName,
+		attributeListColumns.description,
+		attributeListColumns.sampleValue,
+		attributeListColumns.dataType
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false
