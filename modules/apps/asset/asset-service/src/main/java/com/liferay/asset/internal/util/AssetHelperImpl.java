@@ -572,21 +572,6 @@ public class AssetHelperImpl implements AssetHelper {
 		return assetSearcher;
 	}
 
-	private boolean _getDDMFormFieldLocalizable(String sortField)
-		throws PortalException {
-
-		String[] sortFields = StringUtil.split(
-			sortField, DDMIndexer.DDM_FIELD_SEPARATOR);
-
-		long ddmStructureId = GetterUtil.getLong(sortFields[2]);
-
-		DDMStructure ddmStructure = _ddmStructureLocalService.getStructure(
-			ddmStructureId);
-
-		return GetterUtil.getBoolean(
-			ddmStructure.getFieldProperty(sortFields[3], "localizable"));
-	}
-
 	private String _getDDMFormFieldType(String sortField)
 		throws PortalException {
 
@@ -695,7 +680,7 @@ public class AssetHelperImpl implements AssetHelper {
 
 		sb.append(sortField);
 
-		if (_getDDMFormFieldLocalizable(sortField)) {
+		if (_isDDMFormFieldLocalizable(sortField)) {
 			sb.append(StringPool.UNDERLINE);
 			sb.append(LocaleUtil.toLanguageId(locale));
 		}
@@ -733,7 +718,7 @@ public class AssetHelperImpl implements AssetHelper {
 		String ddmFormFieldType = sortField;
 
 		if (ddmFormFieldType.startsWith(DDMIndexer.DDM_FIELD_PREFIX)) {
-			ddmFormFieldLocalizable = _getDDMFormFieldLocalizable(sortField);
+			ddmFormFieldLocalizable = _isDDMFormFieldLocalizable(sortField);
 
 			ddmFormFieldType = _getDDMFormFieldType(ddmFormFieldType);
 		}
@@ -769,6 +754,21 @@ public class AssetHelperImpl implements AssetHelper {
 		}
 
 		return sortType;
+	}
+
+	private boolean _isDDMFormFieldLocalizable(String sortField)
+		throws PortalException {
+
+		String[] sortFields = StringUtil.split(
+			sortField, DDMIndexer.DDM_FIELD_SEPARATOR);
+
+		long ddmStructureId = GetterUtil.getLong(sortFields[2]);
+
+		DDMStructure ddmStructure = _ddmStructureLocalService.getStructure(
+			ddmStructureId);
+
+		return GetterUtil.getBoolean(
+			ddmStructure.getFieldProperty(sortFields[3], "localizable"));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
