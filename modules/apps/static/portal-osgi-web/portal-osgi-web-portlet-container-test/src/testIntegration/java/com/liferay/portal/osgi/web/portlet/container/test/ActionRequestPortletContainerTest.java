@@ -216,7 +216,7 @@ public class ActionRequestPortletContainerTest
 					"PrincipalException$MustHaveSessionCSRFToken: User 0 ",
 					"session does not have a CSRF token for ",
 					"com.liferay.portlet.SecurityPortletContainerWrapper"),
-				loggingEvent.getMessage());
+				String.valueOf(loggingEvent.getMessage()));
 
 			Assert.assertEquals(403, response.getCode());
 			Assert.assertFalse(testPortlet.isCalledAction());
