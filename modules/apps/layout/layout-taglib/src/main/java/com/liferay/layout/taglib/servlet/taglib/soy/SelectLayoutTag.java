@@ -183,8 +183,8 @@ public class SelectLayoutTag extends ComponentRendererTag {
 
 		Group group = themeDisplay.getScopeGroup();
 
-		if ((_getPrivateLayout() && !group.hasPrivateLayouts()) ||
-			(!_getPrivateLayout() && !group.hasPublicLayouts())) {
+		if ((_isPrivateLayout() && !group.hasPrivateLayouts()) ||
+			(!_isPrivateLayout() && !group.hasPublicLayouts())) {
 
 			return JSONFactoryUtil.createJSONArray();
 		}
@@ -192,7 +192,7 @@ public class SelectLayoutTag extends ComponentRendererTag {
 		String layoutUuid = ParamUtil.getString(request, "layoutUuid");
 
 		JSONArray jsonArray = _getLayoutsJSONArray(
-			themeDisplay.getScopeGroupId(), _getPrivateLayout(), 0, layoutUuid);
+			themeDisplay.getScopeGroupId(), _isPrivateLayout(), 0, layoutUuid);
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -270,12 +270,6 @@ public class SelectLayoutTag extends ComponentRendererTag {
 		return pageContext;
 	}
 
-	private boolean _getPrivateLayout() {
-		Map<String, Object> context = getContext();
-
-		return GetterUtil.getBoolean(context.get("privateLayout"));
-	}
-
 	private long _getSelPlid() {
 		return ParamUtil.getLong(
 			request, "selPlid", LayoutConstants.DEFAULT_PLID);
@@ -291,6 +285,12 @@ public class SelectLayoutTag extends ComponentRendererTag {
 		Map<String, Object> context = getContext();
 
 		return GetterUtil.getBoolean(context.get("enableCurrentPage"));
+	}
+
+	private boolean _isPrivateLayout() {
+		Map<String, Object> context = getContext();
+
+		return GetterUtil.getBoolean(context.get("privateLayout"));
 	}
 
 	private boolean _isShowHiddenLayouts() {
