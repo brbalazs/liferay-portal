@@ -67,11 +67,8 @@ public class SalesforceAccountsDataCreator extends DataCreator {
 		fields.put(
 			"CurrencyIsoCode",
 			_currencyIsoCodes.get(random.nextInt(_currencyIsoCodes.size())));
-
 		fields.put("Description", company.catchPhrase());
-
 		fields.put("Fax", phoneNumber.phoneNumber());
-
 		fields.put("Industry", company.industry());
 		fields.put("LastModifiedDate", formatDate(new Date()));
 		fields.put("Name", company.name());

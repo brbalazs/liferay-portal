@@ -44,7 +44,6 @@ public class SalesforceAuditEventsDataCreator extends DataCreator {
 		Map<String, Object> salesforceObject = (Map<String, Object>)params[0];
 
 		auditEvent.put("additionalInfo", salesforceObject);
-
 		auditEvent.put("dataSourceId", salesforceObject.get("dataSourceId"));
 
 		auditEvent.put("dateCreated", formatDate(new Date()));
