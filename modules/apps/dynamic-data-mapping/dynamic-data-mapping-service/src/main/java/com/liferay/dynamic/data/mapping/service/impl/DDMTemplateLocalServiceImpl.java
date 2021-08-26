@@ -427,11 +427,6 @@ public class DDMTemplateLocalServiceImpl
 
 		ddmTemplatePersistence.remove(template);
 
-		// Template versions
-
-		ddmTemplateVersionPersistence.removeByTemplateId(
-			template.getTemplateId());
-
 		// Resources
 
 		String resourceName = ddmPermissionSupport.getTemplateModelResourceName(
@@ -440,6 +435,11 @@ public class DDMTemplateLocalServiceImpl
 		resourceLocalService.deleteResource(
 			template.getCompanyId(), resourceName,
 			ResourceConstants.SCOPE_INDIVIDUAL, template.getTemplateId());
+
+		// Template versions
+
+		ddmTemplateVersionPersistence.removeByTemplateId(
+			template.getTemplateId());
 
 		// Indexer
 
