@@ -21,6 +21,7 @@ import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstanceSettings;
+import com.liferay.dynamic.data.mapping.model.DDMFormInstanceVersion;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceRecordVersionLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceService;
@@ -210,8 +211,7 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 			mock(DDMFormFieldTypeServicesTracker.class),
 			_ddmFormInstanceLocalService,
 			mock(DDMFormInstanceRecordVersionLocalService.class),
-			_ddmFormInstanceService,
-			mock(DDMFormInstanceVersionLocalService.class),
+			_ddmFormInstanceService, _mockDDMFormInstanceVersionLocalService(),
 			mock(DDMFormRenderer.class), mock(DDMFormValuesFactory.class),
 			mock(DDMFormValuesMerger.class), mock(GroupLocalService.class),
 			new JSONFactoryImpl(),
@@ -284,6 +284,26 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 		).thenReturn(
 			_request
 		);
+	}
+
+	private DDMFormInstanceVersionLocalService
+			_mockDDMFormInstanceVersionLocalService()
+		throws PortalException {
+
+		DDMFormInstanceVersionLocalService ddmFormInstanceVersionLocalService =
+			mock(DDMFormInstanceVersionLocalService.class);
+
+		DDMFormInstanceVersion ddmFormInstanceVersion = mock(
+			DDMFormInstanceVersion.class);
+
+		when(
+			ddmFormInstanceVersionLocalService.getLatestFormInstanceVersion(
+				Matchers.anyLong(), Matchers.anyInt())
+		).thenReturn(
+			ddmFormInstanceVersion
+		);
+
+		return ddmFormInstanceVersionLocalService;
 	}
 
 	@Mock
