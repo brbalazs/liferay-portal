@@ -5,8 +5,8 @@
 		"search"
 	],
 	"env": {
-		"CATALINA_OPTS": "-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true",
 		"FARO_URL": "https://analytics-uat.liferay.com",
+		"LIFERAY_JAVA_OPTS": "-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true",
 		"OSB_API_TOKEN": "lwn8C5iAlUi2bvaqSm",
 		"OSB_API_URL": "https://web.liferay.com",
 		"OSB_ASAH_BACKEND_URL": "https://osbasahbackend-{weDeployKey}",

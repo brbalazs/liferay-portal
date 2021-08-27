@@ -68,7 +68,7 @@ configure(project(":dxp:apps:osb:osb-faro:osb-faro-dependencies")) {
 	task copyWedeployResources(type: Copy)
 	task wedeploy(type: Exec)
 
-	String deployDir = "../wedeploy/" + faroEnvironmentName + "/deploy"
+	String deployDir = "../wedeploy/" + faroEnvironmentName + "/deploy/common"
 
 	copyWedeployResources {
 		doFirst {
