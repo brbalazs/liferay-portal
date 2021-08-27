@@ -289,7 +289,9 @@ export default class BaseResults extends React.Component {
 				</div>
 			);
 		} else if (!loading && !items.length && (!!total || !!query)) {
-			return (
+			return noResultsRenderer ? (
+				noResultsRenderer(query, activeFilters)
+			) : (
 				<NoResultsDisplay
 					description={noResultsDescription}
 					icon={noResultsIcon ? {symbol: noResultsIcon} : undefined}
