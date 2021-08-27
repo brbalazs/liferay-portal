@@ -125,7 +125,11 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		highestValue: number;
 		items: ParsedBreakdownData;
 	} => {
-		const items = parserBreakdownData(data);
+		const orderedBreakdowns = breakdownOrder.map(
+			breakdownId => breakdowns[breakdownId]
+		);
+
+		const items = parserBreakdownData(data, orderedBreakdowns);
 
 		const highestValue = getMaxEventValue(items, compareToPrevious);
 

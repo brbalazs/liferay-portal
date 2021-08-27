@@ -7,6 +7,52 @@ import {
 } from '../types';
 
 describe('utils', () => {
+	describe('formatDateName', () => {
+		it.each`
+			name            | dateGrouping           | result
+			${'2020-11-22'} | ${DateGroupings.Day}   | ${'Nov 22, 2020'}
+			${'2020-11'}    | ${DateGroupings.Month} | ${'Nov 2020'}
+			${'2020'}       | ${DateGroupings.Year}  | ${'2020'}
+		`(
+			'returns $result for $name & $dateGrouping',
+			({dateGrouping, name, result}) => {
+				expect(utils.formatDateName(name, dateGrouping)).toEqual(
+					result
+				);
+			}
+		);
+	});
+
+	describe('formatDurationName', () => {
+		it.each`
+			name                       | result
+			${'6000 -12000'}           | ${'00:00:06 - 00:00:12'}
+			${'123123 - 321321'}       | ${'00:02:03 - 00:05:21'}
+			${'123123123 - 321123123'} | ${'34:12:03 - 89:12:03'}
+		`('returns $result for $name', ({name, result}) => {
+			expect(utils.formatDurationName(name)).toEqual(result);
+		});
+	});
+
+	describe('formatBreakdownNameByDataType', () => {
+		it.each`
+			name              | breakdown                                                      | result
+			${'2020-11-22'}   | ${{dataType: DataTypes.Date, dateGrouping: DateGroupings.Day}} | ${'Nov 22, 2020'}
+			${'6000 - 12000'} | ${{dataType: DataTypes.Duration}}                              | ${'00:00:06 - 00:00:12'}
+			${123}            | ${{dataType: DataTypes.Number}}                                | ${123}
+			${true}           | ${{dataType: DataTypes.Boolean}}                               | ${true}
+			${'undefined'}    | ${{dataType: DataTypes.Duration}}                              | ${'undefined'}
+			${'undefined'}    | ${{dataType: DataTypes.Boolean}}                               | ${'undefined'}
+			${'undefined'}    | ${{dataType: DataTypes.Date}}                                  | ${'undefined'}
+			${'undefined'}    | ${{dataType: DataTypes.Number}}                                | ${'undefined'}
+			${'undefined'}    | ${{dataType: DataTypes.String}}                                | ${'undefined'}
+		`('returns $result for $name', ({breakdown, name, result}) => {
+			expect(
+				utils.formatBreakdownNameByDataType(name, breakdown)
+			).toEqual(result);
+		});
+	});
+
 	describe('getFilterDisplay', () => {
 		it.each`
 			dataType              | attributeType                     | operator                 | values                          | result

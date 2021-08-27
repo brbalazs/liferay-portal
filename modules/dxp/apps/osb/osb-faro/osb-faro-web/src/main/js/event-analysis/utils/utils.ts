@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
 	Attribute,
 	AttributeOwnerTypes,
@@ -293,8 +294,53 @@ export const getRowSpan = (breakdownItems: BreakdownDataItem[]): number => {
 	return rowSpan;
 };
 
+export const formatDateName = (
+	name: string,
+	dateGrouping: DateGroupings
+): string => {
+	switch (dateGrouping) {
+		case DateGroupings.Day:
+			return moment(name, 'YYYY-MM-DD').format('ll');
+		case DateGroupings.Month:
+			return moment(name, 'YYYY-MM').format('MMM YYYY');
+		case DateGroupings.Year:
+		default:
+			return name;
+	}
+};
+
+export const formatDurationName = (name: string): string => {
+	const [durationStart, durationEnd] = name.split('-');
+
+	return `${formatTime(Number(durationStart))} - ${formatTime(
+		Number(durationEnd)
+	)}`;
+};
+
+export const formatBreakdownNameByDataType = (
+	name: string,
+	breakdown: Breakdown
+): string | number => {
+	if (name === 'undefined') {
+		return name;
+	}
+
+	switch (breakdown?.dataType) {
+		case DataTypes.Date:
+			return formatDateName(name, breakdown.dateGrouping);
+		case DataTypes.Duration:
+			return formatDurationName(name);
+		case DataTypes.Boolean:
+		case DataTypes.String:
+		case DataTypes.Number:
+		default:
+			return name;
+	}
+};
+
 export const parserBreakdownData = (
 	{breakdownItems}: BreakdownData | BreakdownDataItem,
+	orderedBreakdowns: Breakdown[],
 	rows: ParsedBreakdownData = [{index: '0'} as ParsedBreakdownItem],
 	level: number = 1
 ): ParsedBreakdownData => {
@@ -302,6 +348,7 @@ export const parserBreakdownData = (
 		const {
 			breakdownItems: nextBreakdownItems,
 			leafNode: isLeafCurrentNode,
+			name,
 			...node
 		} = data;
 
@@ -321,6 +368,12 @@ export const parserBreakdownData = (
 		Object.assign(rows[currentRowIndex], {
 			[`breakdown${level}`]: {
 				...node,
+				name: isLeafCurrentNode
+					? name
+					: formatBreakdownNameByDataType(
+							name,
+							orderedBreakdowns[level - 1]
+					  ),
 				rowSpan:
 					!isLeafCurrentNode && !isLeafNextNode
 						? getRowSpan(nextBreakdownItems)
@@ -334,7 +387,7 @@ export const parserBreakdownData = (
 		}
 
 		if (!isLeafNextNode) {
-			parserBreakdownData(data, rows, level + 1);
+			parserBreakdownData(data, orderedBreakdowns, rows, level + 1);
 		} else {
 			Object.assign(rows[currentRowIndex], {
 				events: nextBreakdownItems

@@ -1,5 +1,6 @@
 import BarComparisonCell from '../BarComparisonCell';
 import React from 'react';
+import {DataTypes} from 'event-analysis/utils/types';
 import {
 	getMaxEventValue,
 	parserBreakdownData
@@ -10,10 +11,19 @@ import {render} from '@testing-library/react';
 jest.unmock('react-dom');
 
 describe('BarComparisonCell', () => {
+	const orderedBreakdowns = [
+		{dataType: DataTypes.String},
+		{dataType: DataTypes.String},
+		{dataType: DataTypes.String}
+	];
+
 	const event = {name: 'View Article'};
 
 	it('render', () => {
-		const items = parserBreakdownData(mockBreakdownData());
+		const items = parserBreakdownData(
+			mockBreakdownData(),
+			orderedBreakdowns
+		);
 		const topValue = getMaxEventValue(items, false);
 		const {events} = items[0];
 
@@ -30,7 +40,10 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous', () => {
-		const items = parserBreakdownData(mockBreakdownData(true));
+		const items = parserBreakdownData(
+			mockBreakdownData(true),
+			orderedBreakdowns
+		);
 		const topValue = getMaxEventValue(items, true);
 		const {events} = items[0];
 
@@ -49,7 +62,10 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous and segment', () => {
-		const items = parserBreakdownData(mockBreakdownData(true, true));
+		const items = parserBreakdownData(
+			mockBreakdownData(true, true),
+			orderedBreakdowns
+		);
 		const topValue = getMaxEventValue(items, true);
 		const {events} = items[0];
 
@@ -67,7 +83,10 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous and event', () => {
-		const items = parserBreakdownData(mockBreakdownData(true, false, true));
+		const items = parserBreakdownData(
+			mockBreakdownData(true, false, true),
+			orderedBreakdowns
+		);
 		const topValue = getMaxEventValue(items, true);
 		const {events} = items[0];
 
@@ -85,7 +104,10 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render two tables when comparing segment and event', () => {
-		const items = parserBreakdownData(mockBreakdownData(false, true, true));
+		const items = parserBreakdownData(
+			mockBreakdownData(false, true, true),
+			orderedBreakdowns
+		);
 		const topValue = getMaxEventValue(items, false);
 		const {events} = items[0];
 
