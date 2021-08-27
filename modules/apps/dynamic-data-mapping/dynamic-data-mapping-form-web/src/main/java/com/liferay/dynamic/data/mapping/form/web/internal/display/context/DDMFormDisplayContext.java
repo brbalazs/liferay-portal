@@ -248,6 +248,14 @@ public class DDMFormDisplayContext {
 		try {
 			_ddmFormInstance = _ddmFormInstanceService.fetchFormInstance(
 				getFormInstanceId());
+
+			if ((_ddmFormInstance != null) && !isPreview()) {
+				DDMFormInstanceVersion latestApprovedDDMFormInstanceVersion =
+					_getLatestApprovedDDMFormInstanceVersion();
+
+				_ddmFormInstance.setSettings(
+					latestApprovedDDMFormInstanceVersion.getSettings());
+			}
 		}
 		catch (PortalException pe) {
 
@@ -554,10 +562,7 @@ public class DDMFormDisplayContext {
 		}
 		else {
 			DDMFormInstanceVersion latestFormInstanceVersion =
-				_ddmFormInstanceVersionLocalService.
-					getLatestFormInstanceVersion(
-						ddmFormInstance.getFormInstanceId(),
-						WorkflowConstants.STATUS_APPROVED);
+				_getLatestApprovedDDMFormInstanceVersion();
 
 			DDMStructureVersion structureVersion =
 				latestFormInstanceVersion.getStructureVersion();
@@ -591,10 +596,7 @@ public class DDMFormDisplayContext {
 		}
 		else {
 			DDMFormInstanceVersion latestFormInstanceVersion =
-				_ddmFormInstanceVersionLocalService.
-					getLatestFormInstanceVersion(
-						ddmFormInstance.getFormInstanceId(),
-						WorkflowConstants.STATUS_APPROVED);
+				_getLatestApprovedDDMFormInstanceVersion();
 
 			DDMStructureVersion structureVersion =
 				latestFormInstanceVersion.getStructureVersion();
@@ -769,6 +771,21 @@ public class DDMFormDisplayContext {
 		return true;
 	}
 
+	private DDMFormInstanceVersion _getLatestApprovedDDMFormInstanceVersion()
+		throws PortalException {
+
+		if (_latestDDMFormInstanceVersion != null) {
+			return _latestDDMFormInstanceVersion;
+		}
+
+		_latestDDMFormInstanceVersion =
+			_ddmFormInstanceVersionLocalService.getLatestFormInstanceVersion(
+				_ddmFormInstance.getFormInstanceId(),
+				WorkflowConstants.STATUS_APPROVED);
+
+		return _latestDDMFormInstanceVersion;
+	}
+
 	private static final String _DDM_FORM_FIELD_NAME_CAPTCHA = "_CAPTCHA_";
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -793,6 +810,7 @@ public class DDMFormDisplayContext {
 	private Boolean _hasAddFormInstanceRecordPermission;
 	private Boolean _hasViewPermission;
 	private final JSONFactory _jsonFactory;
+	private DDMFormInstanceVersion _latestDDMFormInstanceVersion;
 	private final Portal _portal;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
