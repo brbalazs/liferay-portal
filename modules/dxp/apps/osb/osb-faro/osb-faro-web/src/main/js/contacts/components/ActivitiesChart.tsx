@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useRef, useState} from 'react';
 import {
 	ANIMATION_DURATION,
@@ -27,7 +28,6 @@ import {
 } from 'shared/util/charts';
 import {get} from 'lodash';
 import {Interval, RangeSelectors} from 'shared/types';
-import {isHourlyRangeKey} from 'shared/util/time';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
@@ -49,12 +49,14 @@ interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 	}>;
 }
 
-interface IActivitiesHistory<initDateType = number> {
+interface IActivitiesHistoryProps<initDateType = number> {
 	intervalInitDate: initDateType;
 	totalEvents: number;
 }
 
-const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
+const ActivitiesChart: React.FC<
+	IChartProps<IActivitiesHistoryProps<number>>
+> = ({
 	alwaysShowSelectedTooltip = false,
 	hasSelectedPoint,
 	height = 340,
@@ -99,7 +101,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				}
 			];
 
-			if (isHourlyRangeKey(rangeSelectors.rangeKey)) {
+			if (moment.utc(intervalInitDate).isSame(moment(), 'day')) {
 				rows.push({
 					className: 'informative-text',
 					label: Liferay.Language.get(

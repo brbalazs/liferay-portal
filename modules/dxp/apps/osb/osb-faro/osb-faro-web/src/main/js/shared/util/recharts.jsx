@@ -85,9 +85,10 @@ export const getChartTooltip = ({dateTitle, rows, title}) => (
 					]
 				}
 			]}
-			rows={rows.map(({label, value}) => ({
+			rows={rows.map(({className, label, value}) => ({
 				columns: [
 					{
+						className,
 						label,
 						weight: 'normal'
 					},
