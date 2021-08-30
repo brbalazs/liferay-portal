@@ -32,9 +32,9 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
-import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +49,10 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v2_0/price-list-account.properties",
-	scope = ServiceScope.PROTOTYPE,
-	service = {NestedFieldSupport.class, PriceListAccountResource.class}
+	scope = ServiceScope.PROTOTYPE, service = PriceListAccountResource.class
 )
 public class PriceListAccountResourceImpl
-	extends BasePriceListAccountResourceImpl implements NestedFieldSupport {
+	extends BasePriceListAccountResourceImpl implements EntityModelResource {
 
 	@Override
 	public void deletePriceListAccount(Long id) throws Exception {
