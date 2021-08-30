@@ -23,6 +23,8 @@ import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
@@ -97,6 +99,8 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 					faroProject, (String)null, true, 0, 0, null);
 			}
 			catch (Exception exception) {
+				_log.error(exception, exception);
+
 				projectExceptions.put(faroProject, exception);
 			}
 
@@ -175,6 +179,8 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 						user.getEmailAddress(), user.getFullName());
 				}
 				catch (Exception exception) {
+					_log.error(exception, exception);
+
 					return null;
 				}
 			}
@@ -190,6 +196,9 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 
 		_mailService.sendEmail(mailMessage);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CheckFaroProjectsMessageListener.class);
 
 	private static long _systemsDownStartTime;
 

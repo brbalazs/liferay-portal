@@ -15,6 +15,8 @@
 package com.liferay.osb.faro.web.internal.util;
 
 import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -63,6 +65,8 @@ public class TimeZoneUtil {
 			return _timeZoneIdCountryMap.containsKey(timeZoneId);
 		}
 		catch (ZoneRulesException zoneRulesException) {
+			_log.error(zoneRulesException, zoneRulesException);
+
 			return false;
 		}
 	}
@@ -86,6 +90,8 @@ public class TimeZoneUtil {
 
 		return value;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(TimeZoneUtil.class);
 
 	private static final Map<String, String> _timeZoneIdCountryMap =
 		new TreeMap<String, String>(TimeZoneUtil::_compareTimeZoneId) {

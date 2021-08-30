@@ -21,6 +21,8 @@ import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Http;
@@ -164,6 +166,8 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			return jsonObject.getString("uuid");
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			return userUuid;
 		}
 	}
@@ -181,6 +185,9 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			"/api/secure/jsonws/user/get-user-by-email-address";
 
 	private static final String _PROJECT_ID = System.getenv("FARO_PROJECT_ID");
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		MockProvisioningClientImpl.class);
 
 	private static final Map<String, String> _headers =
 		new HashMap<String, String>() {

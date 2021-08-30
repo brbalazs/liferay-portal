@@ -137,6 +137,8 @@ public class ContactsCardTemplateManagerHelper {
 				contactsCardTemplateType.getDefaultSettings());
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			return StringPool.BLANK;
 		}
 	}

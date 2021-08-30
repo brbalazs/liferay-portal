@@ -17,6 +17,8 @@ package com.liferay.osb.faro.web.internal.exception;
 import com.liferay.osb.faro.engine.client.exception.FaroEngineClientException;
 import com.liferay.osb.faro.engine.client.model.ErrorResponse;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -59,10 +61,15 @@ public class FaroEngineClientExceptionMapper
 			}
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			responseBuilder = Response.serverError();
 		}
 
 		return responseBuilder.build();
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		FaroEngineClientExceptionMapper.class);
 
 }

@@ -264,6 +264,8 @@ public class UpgradeExecutor {
 			}
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			return false;
 		}
 
@@ -349,6 +351,8 @@ public class UpgradeExecutor {
 						}
 					}
 					catch (Exception exception) {
+						_log.error(exception, exception);
+
 						_upgradeProgress.put(
 							_getKey(faroProject), "Complete - Failed Refresh");
 					}

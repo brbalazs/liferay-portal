@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -142,6 +144,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 					new Date(date.getTime() + timeOffset));
 			}
 			catch (Exception exception) {
+				_log.error(exception, exception);
 			}
 		}
 
@@ -291,6 +294,9 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 	private static final String[] _EXCLUDE_DATE_FIELD_NAMES = {
 		"birthdate", "lastactivitydates"
 	};
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SnapshotDemoCreatorService.class);
 
 	private static final List<String> _priorityFileNames = Arrays.asList(
 		"osbasahfaroinfo_channels_0.json",

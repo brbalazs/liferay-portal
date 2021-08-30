@@ -117,12 +117,10 @@ public class ProxyDownloadAsahServlet extends BaseAsahServlet {
 
 			urlConnection.setDoOutput(true);
 
-			try (OutputStream outputStream = urlConnection.getOutputStream()) {
-				try (InputStream inputStream =
-						httpServletRequest.getInputStream()) {
+			try (OutputStream outputStream = urlConnection.getOutputStream();
+				InputStream inputStream = httpServletRequest.getInputStream()) {
 
-					StreamUtil.transfer(inputStream, outputStream);
-				}
+				StreamUtil.transfer(inputStream, outputStream);
 			}
 
 			ServletResponseUtil.write(

@@ -1235,6 +1235,8 @@ public class ProjectController extends BaseFaroController {
 					faroProject, (String)null, false, 1, 0, null);
 			}
 			catch (Exception exception) {
+				_log.error(exception, exception);
+
 				return false;
 			}
 		}

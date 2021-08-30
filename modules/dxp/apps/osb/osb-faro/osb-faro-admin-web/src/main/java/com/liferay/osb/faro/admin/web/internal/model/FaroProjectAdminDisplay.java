@@ -17,6 +17,8 @@ package com.liferay.osb.faro.admin.web.internal.model;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.service.FaroUserLocalServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -43,6 +45,7 @@ public class FaroProjectAdminDisplay {
 			_createDate = document.getDate("createDate");
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		_faroProjectId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
@@ -54,6 +57,7 @@ public class FaroProjectAdminDisplay {
 			_lastAccessDate = document.getDate("lastAccessDate");
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		_name = document.get(Field.NAME);
@@ -287,6 +291,9 @@ public class FaroProjectAdminDisplay {
 
 		return null;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		FaroProjectAdminDisplay.class);
 
 	private static final DecimalFormat _decimalFormat = new DecimalFormat(
 		"#.##");

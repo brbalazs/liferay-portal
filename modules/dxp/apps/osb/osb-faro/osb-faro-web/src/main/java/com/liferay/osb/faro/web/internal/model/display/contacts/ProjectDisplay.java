@@ -191,6 +191,8 @@ public class ProjectDisplay {
 				faroProject, cerebroEngineClient, contactsEngineClient);
 		}
 		catch (Exception exception) {
+			_log.error(exception, exception);
+
 			_state = FaroProjectConstants.STATE_UNAVAILABLE;
 		}
 
