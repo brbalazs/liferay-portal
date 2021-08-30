@@ -50,8 +50,12 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -404,6 +408,38 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 				membershipChangesDataCreator.create(
 					new Object[] {individualSegmentMembershipChange});
 			}
+
+			DateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+			contactsEngineClient.addNanite(
+				faroProject, "UpdateDynamicMembershipsNanite",
+				new HashMap<String, Object>() {
+					{
+						put(
+							"dateModified",
+							dateFormat.format(
+								new Date(
+									System.currentTimeMillis() - Time.MONTH)));
+						put(
+							"individualSegmentJSONObject",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"channelId",
+										individualSegment.getChannelId());
+									put(
+										"filter",
+										individualSegment.getFilter());
+									put("id", individualSegment.getId());
+									put(
+										"includeAnonymousUsers",
+										individualSegment.
+											isIncludeAnonymousUsers());
+								}
+							});
+					}
+				});
 		}
 
 		membershipChangesDataCreator.execute();
