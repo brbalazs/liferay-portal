@@ -17,6 +17,7 @@ package com.liferay.headless.delivery.internal.resource.v1_0;
 import com.liferay.headless.delivery.dto.v1_0.BlogPosting;
 import com.liferay.headless.delivery.dto.v1_0.Rating;
 import com.liferay.headless.delivery.resource.v1_0.BlogPostingResource;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.Sort;
@@ -555,9 +556,17 @@ public abstract class BaseBlogPostingResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
+		UnsafeConsumer<BlogPosting, Exception> blogPostingUnsafeConsumer =
+			blogPosting -> {
+			};
+
+		if (parameters.containsKey("siteId")) {
+			blogPostingUnsafeConsumer = blogPosting -> postSiteBlogPosting(
+				(Long)parameters.get("siteId"), blogPosting);
+		}
+
 		for (BlogPosting blogPosting : blogPostings) {
-			postSiteBlogPosting(
-				Long.parseLong((String)parameters.get("siteId")), blogPosting);
+			blogPostingUnsafeConsumer.accept(blogPosting);
 		}
 	}
 
@@ -593,9 +602,14 @@ public abstract class BaseBlogPostingResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getSiteBlogPostingsPage(
-			Long.parseLong((String)parameters.get("siteId")), search, null,
-			filter, pagination, sorts);
+		if (parameters.containsKey("siteId")) {
+			return getSiteBlogPostingsPage(
+				(Long)parameters.get("siteId"), search, null, filter,
+				pagination, sorts);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override

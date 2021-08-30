@@ -16,6 +16,7 @@ package com.liferay.headless.delivery.internal.resource.v1_0;
 
 import com.liferay.headless.delivery.dto.v1_0.StructuredContentFolder;
 import com.liferay.headless.delivery.resource.v1_0.StructuredContentFolderResource;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.Sort;
@@ -560,11 +561,20 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
+		UnsafeConsumer<StructuredContentFolder, Exception>
+			structuredContentFolderUnsafeConsumer = structuredContentFolder -> {
+			};
+
+		if (parameters.containsKey("siteId")) {
+			structuredContentFolderUnsafeConsumer =
+				structuredContentFolder -> postSiteStructuredContentFolder(
+					(Long)parameters.get("siteId"), structuredContentFolder);
+		}
+
 		for (StructuredContentFolder structuredContentFolder :
 				structuredContentFolders) {
 
-			postSiteStructuredContentFolder(
-				Long.parseLong((String)parameters.get("siteId")),
+			structuredContentFolderUnsafeConsumer.accept(
 				structuredContentFolder);
 		}
 	}
@@ -604,10 +614,15 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getSiteStructuredContentFoldersPage(
-			Long.parseLong((String)parameters.get("siteId")),
-			Boolean.parseBoolean((String)parameters.get("flatten")), search,
-			null, filter, pagination, sorts);
+		if (parameters.containsKey("siteId")) {
+			return getSiteStructuredContentFoldersPage(
+				(Long)parameters.get("siteId"),
+				Boolean.parseBoolean((String)parameters.get("flatten")), search,
+				null, filter, pagination, sorts);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override

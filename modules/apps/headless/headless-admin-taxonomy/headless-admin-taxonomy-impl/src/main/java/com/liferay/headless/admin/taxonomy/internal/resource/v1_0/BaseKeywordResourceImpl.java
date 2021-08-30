@@ -16,6 +16,7 @@ package com.liferay.headless.admin.taxonomy.internal.resource.v1_0;
 
 import com.liferay.headless.admin.taxonomy.dto.v1_0.Keyword;
 import com.liferay.headless.admin.taxonomy.resource.v1_0.KeywordResource;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.Sort;
@@ -319,9 +320,16 @@ public abstract class BaseKeywordResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
+		UnsafeConsumer<Keyword, Exception> keywordUnsafeConsumer = keyword -> {
+		};
+
+		if (parameters.containsKey("siteId")) {
+			keywordUnsafeConsumer = keyword -> postSiteKeyword(
+				(Long)parameters.get("siteId"), keyword);
+		}
+
 		for (Keyword keyword : keywords) {
-			postSiteKeyword(
-				Long.parseLong((String)parameters.get("siteId")), keyword);
+			keywordUnsafeConsumer.accept(keyword);
 		}
 	}
 
@@ -357,9 +365,14 @@ public abstract class BaseKeywordResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getSiteKeywordsPage(
-			Long.parseLong((String)parameters.get("siteId")), search, filter,
-			pagination, sorts);
+		if (parameters.containsKey("siteId")) {
+			return getSiteKeywordsPage(
+				(Long)parameters.get("siteId"), search, filter, pagination,
+				sorts);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
