@@ -33,7 +33,7 @@ const ListItem: React.FC<IListItemProps> = ({
 
 	return (
 		<Overlay
-			alignment='rightCenter'
+			alignment='leftCenter'
 			hideDelay={200}
 			ref={_overlayRef}
 			showDelay={200}
