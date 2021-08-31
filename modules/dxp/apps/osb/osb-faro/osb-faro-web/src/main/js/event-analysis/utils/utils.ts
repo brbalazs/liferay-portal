@@ -338,7 +338,7 @@ export const formatBreakdownNameByDataType = (
 	}
 };
 
-export const parserBreakdownData = (
+export const parseBreakdownData = (
 	{breakdownItems}: BreakdownData | BreakdownDataItem,
 	orderedBreakdowns: Breakdown[],
 	rows: ParsedBreakdownData = [{index: '0'} as ParsedBreakdownItem],
@@ -387,7 +387,7 @@ export const parserBreakdownData = (
 		}
 
 		if (!isLeafNextNode) {
-			parserBreakdownData(data, orderedBreakdowns, rows, level + 1);
+			parseBreakdownData(data, orderedBreakdowns, rows, level + 1);
 		} else {
 			Object.assign(rows[currentRowIndex], {
 				events: nextBreakdownItems

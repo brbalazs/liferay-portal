@@ -1,10 +1,7 @@
 import BarComparisonCell from '../BarComparisonCell';
 import React from 'react';
 import {DataTypes} from 'event-analysis/utils/types';
-import {
-	getMaxEventValue,
-	parserBreakdownData
-} from 'event-analysis/utils/utils';
+import {getMaxEventValue, parseBreakdownData} from 'event-analysis/utils/utils';
 import {mockBreakdownData} from 'test/data';
 import {render} from '@testing-library/react';
 
@@ -20,7 +17,7 @@ describe('BarComparisonCell', () => {
 	const event = {name: 'View Article'};
 
 	it('render', () => {
-		const items = parserBreakdownData(
+		const items = parseBreakdownData(
 			mockBreakdownData(),
 			orderedBreakdowns
 		);
@@ -40,7 +37,7 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous', () => {
-		const items = parserBreakdownData(
+		const items = parseBreakdownData(
 			mockBreakdownData(true),
 			orderedBreakdowns
 		);
@@ -62,7 +59,7 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous and segment', () => {
-		const items = parserBreakdownData(
+		const items = parseBreakdownData(
 			mockBreakdownData(true, true),
 			orderedBreakdowns
 		);
@@ -83,7 +80,7 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render comparing previous and event', () => {
-		const items = parserBreakdownData(
+		const items = parseBreakdownData(
 			mockBreakdownData(true, false, true),
 			orderedBreakdowns
 		);
@@ -104,7 +101,7 @@ describe('BarComparisonCell', () => {
 	});
 
 	it('render two tables when comparing segment and event', () => {
-		const items = parserBreakdownData(
+		const items = parseBreakdownData(
 			mockBreakdownData(false, true, true),
 			orderedBreakdowns
 		);

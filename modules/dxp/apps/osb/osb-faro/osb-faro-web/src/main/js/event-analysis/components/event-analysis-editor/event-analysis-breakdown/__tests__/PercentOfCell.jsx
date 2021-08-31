@@ -2,7 +2,7 @@ import PercentOfCell from '../PercentOfCell';
 import React from 'react';
 import {DataTypes} from 'event-analysis/utils/types';
 import {mockBreakdownData} from 'test/data';
-import {parserBreakdownData} from 'event-analysis/utils/utils';
+import {parseBreakdownData} from 'event-analysis/utils/utils';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
@@ -16,7 +16,7 @@ describe('PercentOfCell', () => {
 
 	it('render', () => {
 		const data = mockBreakdownData();
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 		const {events} = items[0];
 
 		const {container} = render(
@@ -32,7 +32,7 @@ describe('PercentOfCell', () => {
 
 	it('render comparing previous', () => {
 		const data = mockBreakdownData(true);
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 		const {events} = items[0];
 
 		const {container} = render(
@@ -48,7 +48,7 @@ describe('PercentOfCell', () => {
 
 	it('render comparing previous and segment', () => {
 		const data = mockBreakdownData(true, true);
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 		const {events} = items[0];
 
 		const {container} = render(
@@ -64,7 +64,7 @@ describe('PercentOfCell', () => {
 
 	it('render comparing previous and event', () => {
 		const data = mockBreakdownData(true, false, true);
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 		const {events} = items[0];
 
 		const {container} = render(
@@ -80,7 +80,7 @@ describe('PercentOfCell', () => {
 
 	it('render two list when comparing segment and event', () => {
 		const data = mockBreakdownData(false, true, true);
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 		const {events} = items[0];
 
 		const {container} = render(

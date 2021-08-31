@@ -23,10 +23,7 @@ import {
 import {compose} from 'redux';
 import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
 import {get, isNil, omit} from 'lodash';
-import {
-	getMaxEventValue,
-	parserBreakdownData
-} from 'event-analysis/utils/utils';
+import {getMaxEventValue, parseBreakdownData} from 'event-analysis/utils/utils';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
@@ -129,7 +126,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			breakdownId => breakdowns[breakdownId]
 		);
 
-		const items = parserBreakdownData(data, orderedBreakdowns);
+		const items = parseBreakdownData(data, orderedBreakdowns);
 
 		const highestValue = getMaxEventValue(items, compareToPrevious);
 
