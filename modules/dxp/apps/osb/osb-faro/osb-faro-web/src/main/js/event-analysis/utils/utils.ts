@@ -342,7 +342,7 @@ export const parserBreakdownData = (
 	{breakdownItems}: BreakdownData | BreakdownDataItem,
 	orderedBreakdowns: Breakdown[],
 	rows: ParsedBreakdownData = [{index: '0'} as ParsedBreakdownItem],
-	level: number = 1
+	level: number = 0
 ): ParsedBreakdownData => {
 	breakdownItems.forEach(data => {
 		const {
@@ -354,7 +354,7 @@ export const parserBreakdownData = (
 
 		const currentRowIndex = rows.length - 1;
 
-		if (isLeafCurrentNode && level === 1) {
+		if (isLeafCurrentNode && level === 0) {
 			Object.assign(rows[currentRowIndex], {
 				events: [data]
 			});
@@ -372,7 +372,7 @@ export const parserBreakdownData = (
 					? name
 					: formatBreakdownNameByDataType(
 							name,
-							orderedBreakdowns[level - 1]
+							orderedBreakdowns[level]
 					  ),
 				rowSpan:
 					!isLeafCurrentNode && !isLeafNextNode
@@ -397,7 +397,7 @@ export const parserBreakdownData = (
 		}
 	});
 
-	return level === 1 && !breakdownItems.length
+	return level === 0 && !breakdownItems.length
 		? rows
 		: rows.filter(obj => Object.keys(obj).length !== 0);
 };

@@ -235,14 +235,14 @@ const getColumns = ({
 }) => {
 	const columns = order.map((breakdownId, i) => {
 		const {attributeId, type} = breakdowns[breakdownId];
-		const accessor = `breakdown${i + 1}`;
+		const accessor = `breakdown${i}`;
 
 		return {
 			accessor,
 			cellRenderer: ({className, data}) => {
 				const dataEvents = get(data, 'events');
 				const dataValue = get(data, accessor);
-				const nextDataValue = get(data, `breakdown${i + 2}`);
+				const nextDataValue = get(data, `breakdown${i + 1}`);
 
 				if (
 					isNil(dataValue) &&
