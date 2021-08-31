@@ -24,14 +24,11 @@ import com.liferay.portal.kernel.license.messaging.LCSPortletState;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.Message;
-import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.servlet.PortletServlet;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicenseEnterpriseAppDestinationNames;
 import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
 import java.io.FileInputStream;
@@ -90,17 +87,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		_scanBundles(bundleContext);
 
-		Dictionary<String, Object> dictionary = new HashMapDictionary<>();
-
-		dictionary.put(
-			"destination.name",
-			PortalLicenseEnterpriseAppDestinationNames.
-				PORTAL_LICENSE_ENTERPRISE_APP);
-
-		_serviceRegistration = bundleContext.registerService(
-			MessageListener.class,
-			new PortalLicenseEnterpriseAppMessageListener(), dictionary);
-
 		_serviceTracker = ServiceTrackerFactory.open(
 			bundleContext,
 			StringBundler.concat(
@@ -113,8 +99,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	@Deactivate
 	protected void deactivate() {
 		_serviceTracker.close();
-
-		_serviceRegistration.unregister();
 
 		_bundleContext.removeBundleListener(_bundleListener);
 	}
@@ -464,41 +448,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		return true;
 	}
 
-	private void _receive(String productId) {
-		if (!productId.equals("Portal")) {
-			if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
-					productId) &&
-				_verifyLicense(productId, false)) {
-
-				_installBundles(
-					productId,
-					_portalLicenseEnterpriseAppBlockedBundleDataSetMap.remove(
-						productId));
-			}
-
-			return;
-		}
-
-		Set<Map.Entry<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-			set = _portalLicenseEnterpriseAppBlockedBundleDataSetMap.entrySet();
-
-		Iterator
-			<Map.Entry
-				<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-					iterator = set.iterator();
-
-		while (iterator.hasNext()) {
-			Map.Entry<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
-				entry = iterator.next();
-
-			if (_verifyLicense(entry.getKey(), true)) {
-				iterator.remove();
-
-				_installBundles(entry.getKey(), entry.getValue());
-			}
-		}
-	}
-
 	private void _scanBlockedBundles() {
 		synchronized (this) {
 			Set
@@ -627,7 +576,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 	private final Map<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
 		_portalLicenseEnterpriseAppBlockedBundleDataSetMap = new HashMap<>();
-	private ServiceRegistration<MessageListener> _serviceRegistration;
 	private ServiceTracker<Object, ServiceRegistration<Filter>> _serviceTracker;
 	private final Map<String, String> _webContextPathMap =
 		new ConcurrentHashMap<>();
@@ -677,32 +625,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		private final Bundle _bundle;
 		private Map<String, Bundle> _lpkgOriginBundles =
 			new ConcurrentHashMap<>();
-
-	}
-
-	private class PortalLicenseEnterpriseAppMessageListener
-		implements MessageListener {
-
-		@Override
-		public void receive(Message message) {
-			String productId = (String)message.getPayload();
-
-			if (Validator.isNull(productId)) {
-				return;
-			}
-
-			synchronized (PortalLicenseEnterpriseAppGateKeeper.this) {
-				LCSPortletState lcsPortletState = (LCSPortletState)message.get(
-					"LCSPortletState");
-
-				if (lcsPortletState != null) {
-					PortalLicenseEnterpriseAppGateKeeper.lcsPortletState =
-						lcsPortletState;
-				}
-
-				_receive(productId);
-			}
-		}
 
 	}
 
