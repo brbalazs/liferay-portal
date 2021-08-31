@@ -145,9 +145,6 @@ public class FriendlyURLEntryLocalServiceImpl
 	public FriendlyURLEntry deleteFriendlyURLEntry(
 		FriendlyURLEntry friendlyURLEntry) {
 
-		friendlyURLEntryLocalizationPersistence.removeByFriendlyURLEntryId(
-			friendlyURLEntry.getFriendlyURLEntryId());
-
 		FriendlyURLEntry deletedFriendlyURLEntry =
 			friendlyURLEntryPersistence.remove(friendlyURLEntry);
 
@@ -202,9 +199,6 @@ public class FriendlyURLEntryLocalServiceImpl
 				groupId, classNameId, classPK);
 
 		for (FriendlyURLEntry friendlyURLEntry : friendlyURLEntries) {
-			friendlyURLEntryLocalizationPersistence.removeByFriendlyURLEntryId(
-				friendlyURLEntry.getFriendlyURLEntryId());
-
 			friendlyURLEntryPersistence.remove(friendlyURLEntry);
 		}
 
