@@ -15,15 +15,10 @@
 package com.liferay.portal.license.enterprise.app.internal;
 
 import com.liferay.osgi.util.BundleUtil;
-import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.PortletServlet;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HashMapDictionary;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -37,23 +32,16 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.Filter;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
 import org.osgi.framework.Constants;
-import org.osgi.framework.ServiceReference;
-import org.osgi.framework.ServiceRegistration;
 import org.osgi.framework.SynchronousBundleListener;
 import org.osgi.framework.startlevel.BundleStartLevel;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
-import org.osgi.util.tracker.ServiceTracker;
-import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 /**
  * @author Tina Tian
@@ -71,20 +59,10 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		bundleContext.addBundleListener(_bundleListener);
 
 		_scanBundles(bundleContext);
-
-		_serviceTracker = ServiceTrackerFactory.open(
-			bundleContext,
-			StringBundler.concat(
-				"(&(", HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME,
-				"=*)(objectClass=org.osgi.service.http.context.",
-				"ServletContextHelper))"),
-			new PortalLicenseEnterpriseAppWebContextServiceTrackerCustomizer());
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		_serviceTracker.close();
-
 		_bundleContext.removeBundleListener(_bundleListener);
 	}
 
@@ -159,23 +137,9 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				"Invalid product id " + productId);
 		}
 
-		String webContextPath = headers.get("Web-ContextPath");
-
-		if (webContextPath == null) {
-			String symbolicName = bundle.getSymbolicName();
-
-			if (symbolicName.endsWith(".web")) {
-				webContextPath = StringPool.SLASH + symbolicName;
-			}
-		}
-
 		synchronized (this) {
 			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
 					productId)) {
-
-				if (webContextPath != null) {
-					_webContextPathMap.put(webContextPath, productId);
-				}
 
 				return false;
 			}
@@ -197,7 +161,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
 					new PortalLicenseEnterpriseAppBlockedBundleData(
 						_getFragmentHost(headers), bundle.getLocation(),
-						startLevel, webContextPath));
+						startLevel, null));
 			}
 			catch (Exception exception) {
 				_log.error(
@@ -261,9 +225,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	private BundleListener _bundleListener;
 	private final Map<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
 		_portalLicenseEnterpriseAppBlockedBundleDataSetMap = new HashMap<>();
-	private ServiceTracker<Object, ServiceRegistration<Filter>> _serviceTracker;
-	private final Map<String, String> _webContextPathMap =
-		new ConcurrentHashMap<>();
 
 	private class PortalLicenseEnterpriseAppBundleListener
 		implements SynchronousBundleListener {
@@ -310,84 +271,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		private final Bundle _bundle;
 		private Map<String, Bundle> _lpkgOriginBundles =
 			new ConcurrentHashMap<>();
-
-	}
-
-	private class PortalLicenseEnterpriseAppWebContextServiceTrackerCustomizer
-		implements ServiceTrackerCustomizer
-			<Object, ServiceRegistration<Filter>> {
-
-		@Override
-		public ServiceRegistration<Filter> addingService(
-			ServiceReference<Object> serviceReference) {
-
-			String webContextPath = GetterUtil.getString(
-				serviceReference.getProperty(
-					HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH));
-
-			String productId = _webContextPathMap.remove(webContextPath);
-
-			if (productId == null) {
-				return null;
-			}
-
-			return _bundleContext.registerService(
-				Filter.class,
-				new PortalLicenseEnterpriseAppPortletServletFilter(productId),
-				_buildProperties(serviceReference));
-		}
-
-		@Override
-		public void modifiedService(
-			ServiceReference<Object> serviceReference,
-			ServiceRegistration<Filter> filterServiceRegistration) {
-
-			filterServiceRegistration.setProperties(
-				_buildProperties(serviceReference));
-		}
-
-		@Override
-		public void removedService(
-			ServiceReference<Object> serviceReference,
-			ServiceRegistration<Filter> filterServiceRegistration) {
-
-			filterServiceRegistration.unregister();
-		}
-
-		private Dictionary<String, Object> _buildProperties(
-			ServiceReference<Object> serviceReference) {
-
-			Dictionary<String, Object> properties = new HashMapDictionary<>();
-
-			for (String key : serviceReference.getPropertyKeys()) {
-				if (key.startsWith("osgi.http.whiteboard")) {
-					properties.put(key, serviceReference.getProperty(key));
-				}
-			}
-
-			properties.put(
-				HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT,
-				StringBundler.concat(
-					"(", HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME,
-					"=",
-					GetterUtil.getString(
-						serviceReference.getProperty(
-							HttpWhiteboardConstants.
-								HTTP_WHITEBOARD_CONTEXT_NAME)),
-					")"));
-			properties.put(
-				HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER,
-				new String[] {
-					HttpWhiteboardConstants.DISPATCHER_INCLUDE,
-					HttpWhiteboardConstants.DISPATCHER_FORWARD,
-					HttpWhiteboardConstants.DISPATCHER_REQUEST
-				});
-			properties.put(
-				HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET,
-				PortletServlet.class.getName());
-
-			return properties;
-		}
 
 	}
 
