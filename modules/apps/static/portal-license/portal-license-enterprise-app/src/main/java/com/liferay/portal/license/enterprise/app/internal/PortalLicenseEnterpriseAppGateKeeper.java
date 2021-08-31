@@ -23,22 +23,16 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
-import org.osgi.framework.Constants;
 import org.osgi.framework.SynchronousBundleListener;
-import org.osgi.framework.startlevel.BundleStartLevel;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -82,22 +76,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		return location.substring(startIndex + 9, endIndex);
 	}
 
-	private String _getFragmentHost(Dictionary<String, String> headers) {
-		String fragmentHost = headers.get(Constants.FRAGMENT_HOST);
-
-		if (fragmentHost == null) {
-			return null;
-		}
-
-		int index = fragmentHost.indexOf(CharPool.SEMICOLON);
-
-		if (index != -1) {
-			fragmentHost = fragmentHost.substring(0, index);
-		}
-
-		return fragmentHost;
-	}
-
 	private String _getProductId(Dictionary<String, String> headers) {
 		String enterpriseAppHeader = headers.get("Liferay-Enterprise-App");
 
@@ -138,30 +116,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		}
 
 		synchronized (this) {
-			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
-					productId)) {
-
-				return false;
-			}
-
-			BundleStartLevel bundleStartLevel = bundle.adapt(
-				BundleStartLevel.class);
-
-			int startLevel = bundleStartLevel.getStartLevel();
-
 			try {
 				bundle.uninstall();
-
-				Set<PortalLicenseEnterpriseAppBlockedBundleData>
-					portalLicenseEnterpriseAppBlockedBundleDataSet =
-						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							computeIfAbsent(
-								productId, key -> new TreeSet<>(_comparator));
-
-				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
-					new PortalLicenseEnterpriseAppBlockedBundleData(
-						_getFragmentHost(headers), bundle.getLocation(),
-						startLevel, null));
 			}
 			catch (Exception exception) {
 				_log.error(
@@ -194,28 +150,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalLicenseEnterpriseAppGateKeeper.class);
 
-	private static final Comparator<PortalLicenseEnterpriseAppBlockedBundleData>
-		_comparator =
-			new Comparator<PortalLicenseEnterpriseAppBlockedBundleData>() {
-
-				@Override
-				public int compare(
-					PortalLicenseEnterpriseAppBlockedBundleData
-						portalLicenseEnterpriseAppBlockedBundleData1,
-					PortalLicenseEnterpriseAppBlockedBundleData
-						portalLicenseEnterpriseAppBlockedBundleData2) {
-
-					String location =
-						portalLicenseEnterpriseAppBlockedBundleData1.
-							getLocation();
-
-					return location.compareTo(
-						portalLicenseEnterpriseAppBlockedBundleData2.
-							getLocation());
-				}
-
-			};
-
 	private static final Map<String, String> _productNames =
 		Collections.singletonMap(
 			"9a473157-06a6-44b6-b017-a360ffaf5f38",
@@ -223,8 +157,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
-	private final Map<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
-		_portalLicenseEnterpriseAppBlockedBundleDataSetMap = new HashMap<>();
 
 	private class PortalLicenseEnterpriseAppBundleListener
 		implements SynchronousBundleListener {
