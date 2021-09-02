@@ -16,12 +16,8 @@ package com.liferay.portal.license.enterprise.app.internal;
 
 import com.liferay.osgi.util.BundleUtil;
 import com.liferay.osgi.util.ServiceTrackerFactory;
-import com.liferay.osgi.util.bundle.BundleStartLevelUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.cluster.ClusterExecutor;
-import com.liferay.portal.kernel.license.messaging.LCSPortletState;
-import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.PortletServlet;
@@ -29,24 +25,17 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
-import java.io.FileInputStream;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.servlet.Filter;
 
@@ -62,10 +51,6 @@ import org.osgi.framework.startlevel.BundleStartLevel;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
@@ -102,38 +87,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		_bundleContext.removeBundleListener(_bundleListener);
 	}
-
-	@Reference(
-		cardinality = ReferenceCardinality.OPTIONAL,
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	protected void setClusterExecutor(ClusterExecutor clusterExecutor) {
-		_clusterExecutorAtomicReference.set(clusterExecutor);
-
-		_scanBlockedBundles();
-	}
-
-	@Reference(
-		cardinality = ReferenceCardinality.OPTIONAL,
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	protected void setLicenseManager(LicenseManager licenseManager) {
-		_licenseManagerAtomicReference.set(licenseManager);
-
-		_scanBlockedBundles();
-	}
-
-	protected void unsetClusterExecutor(ClusterExecutor clusterExecutor) {
-		_clusterExecutorAtomicReference.compareAndSet(clusterExecutor, null);
-	}
-
-	protected void unsetLicenseManager(LicenseManager licenseManager) {
-		_licenseManagerAtomicReference.compareAndSet(licenseManager, null);
-	}
-
-	protected static LCSPortletState lcsPortletState;
 
 	private static String _getLPKGPath(String location) {
 		int startIndex = location.indexOf("lpkgPath");
@@ -191,197 +144,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			index + _KEY_PRODUCT_ID.length(), endIndex);
 	}
 
-	private void _installBundles(
-		String productId,
-		Set<PortalLicenseEnterpriseAppBlockedBundleData>
-			portalLicenseEnterpriseAppBlockedBundleDataSet) {
-
-		if (portalLicenseEnterpriseAppBlockedBundleDataSet == null) {
-			return;
-		}
-
-		Set<String> lpkgPaths = new TreeSet<>();
-
-		Iterator<PortalLicenseEnterpriseAppBlockedBundleData> iterator =
-			portalLicenseEnterpriseAppBlockedBundleDataSet.iterator();
-
-		while (iterator.hasNext()) {
-			PortalLicenseEnterpriseAppBlockedBundleData
-				portalLicenseEnterpriseAppBlockedBundleData = iterator.next();
-
-			String webContextPath =
-				portalLicenseEnterpriseAppBlockedBundleData.getWebContextPath();
-
-			String location =
-				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
-
-			if (location.contains("protocol=lpkg")) {
-				if (webContextPath != null) {
-					_webContextPathMap.put(webContextPath, productId);
-				}
-
-				iterator.remove();
-
-				continue;
-			}
-
-			String lpkgPath = _getLPKGPath(location);
-
-			if (lpkgPath != null) {
-				lpkgPaths.add(lpkgPath);
-
-				if (webContextPath != null) {
-					_webContextPathMap.put(webContextPath, productId);
-				}
-
-				iterator.remove();
-			}
-		}
-
-		List<Bundle> uninstalledBundles = new ArrayList<>();
-		Map<String, Integer> lpkgBundleMap = new TreeMap<>();
-
-		for (String lpkgPath : lpkgPaths) {
-			Bundle bundle = _bundleContext.getBundle(lpkgPath);
-
-			if (bundle == null) {
-				continue;
-			}
-
-			BundleStartLevel bundleStartLevel = bundle.adapt(
-				BundleStartLevel.class);
-
-			lpkgBundleMap.put(
-				bundle.getLocation(), bundleStartLevel.getStartLevel());
-
-			try {
-				bundle.uninstall();
-
-				uninstalledBundles.add(bundle);
-			}
-			catch (Exception exception) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Unable to uninstall bundle " +
-							bundle.getSymbolicName(),
-						exception);
-				}
-
-				lpkgBundleMap.remove(bundle.getLocation());
-			}
-		}
-
-		if (!uninstalledBundles.isEmpty()) {
-			BundleUtil.refreshBundles(_bundleContext, uninstalledBundles);
-		}
-
-		for (Map.Entry<String, Integer> entry : lpkgBundleMap.entrySet()) {
-			try {
-				BundleUtil.installBundle(
-					_bundleContext, _lpkgDeployer, entry.getKey(),
-					entry.getValue());
-			}
-			catch (Exception exception) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Unable to install bundle " + entry.getKey(),
-						exception);
-				}
-			}
-		}
-
-		if (portalLicenseEnterpriseAppBlockedBundleDataSet.isEmpty()) {
-			return;
-		}
-
-		List<Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>>
-			bundleEntries = new ArrayList<>();
-
-		Set<String> fragmentHosts = new HashSet<>();
-
-		for (PortalLicenseEnterpriseAppBlockedBundleData
-				portalLicenseEnterpriseAppBlockedBundleData :
-					portalLicenseEnterpriseAppBlockedBundleDataSet) {
-
-			String location =
-				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
-
-			try {
-				Bundle bundle = null;
-
-				if (location.startsWith(_LPKG_OVERRIDE_PREFIX)) {
-					String overridePath = location.substring(
-						_LPKG_OVERRIDE_PREFIX.length());
-
-					bundle = _bundleContext.installBundle(
-						location, new FileInputStream(overridePath));
-				}
-				else {
-					bundle = _bundleContext.installBundle(location);
-				}
-
-				bundleEntries.add(
-					new AbstractMap.SimpleImmutableEntry<>(
-						bundle, portalLicenseEnterpriseAppBlockedBundleData));
-
-				String fragmentHost =
-					portalLicenseEnterpriseAppBlockedBundleData.
-						getFragmentHost();
-
-				if (Validator.isNotNull(fragmentHost)) {
-					fragmentHosts.add(fragmentHost);
-				}
-			}
-			catch (Exception exception) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Unable to install bundle " + location, exception);
-				}
-			}
-		}
-
-		List<Bundle> refreshBundles = new ArrayList<>();
-
-		for (Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>
-				bundleEntry : bundleEntries) {
-
-			Bundle bundle = bundleEntry.getKey();
-
-			PortalLicenseEnterpriseAppBlockedBundleData blockedBundleData =
-				bundleEntry.getValue();
-
-			String webContextPath = blockedBundleData.getWebContextPath();
-
-			if (webContextPath != null) {
-				_webContextPathMap.put(webContextPath, productId);
-			}
-
-			try {
-				BundleStartLevelUtil.setStartLevelAndStart(
-					bundle, blockedBundleData.getStartLevel(), _bundleContext);
-
-				if (fragmentHosts.contains(bundle.getSymbolicName())) {
-					refreshBundles.add(bundle);
-				}
-			}
-			catch (Exception exception) {
-				if (webContextPath != null) {
-					_webContextPathMap.remove(webContextPath);
-				}
-
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Unable to start bundle " + bundle.getSymbolicName(),
-						exception);
-				}
-			}
-		}
-
-		if (!refreshBundles.isEmpty()) {
-			BundleUtil.refreshBundles(_bundleContext, refreshBundles);
-		}
-	}
-
 	private boolean _processBundle(Bundle bundle) {
 		Dictionary<String, String> headers = bundle.getHeaders(
 			StringPool.BLANK);
@@ -409,8 +171,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		synchronized (this) {
 			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
-					productId) &&
-				_verifyLicense(productId, false)) {
+					productId)) {
 
 				if (webContextPath != null) {
 					_webContextPathMap.put(webContextPath, productId);
@@ -448,34 +209,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		return true;
 	}
 
-	private void _scanBlockedBundles() {
-		synchronized (this) {
-			Set
-				<Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-						set =
-							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-								entrySet();
-
-			Iterator
-				<Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-						iterator = set.iterator();
-
-			while (iterator.hasNext()) {
-				Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
-						entry = iterator.next();
-
-				if (_verifyLicense(entry.getKey(), true)) {
-					iterator.remove();
-
-					_installBundles(entry.getKey(), entry.getValue());
-				}
-			}
-		}
-	}
-
 	private void _scanBundles(BundleContext bundleContext) {
 		List<Bundle> uninstalledBundles = new ArrayList<>();
 
@@ -492,47 +225,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		}
 	}
 
-	private boolean _verifyLicense(String productId, boolean swallowException) {
-		ClusterExecutor clusterExecutor = _clusterExecutorAtomicReference.get();
-
-		if (clusterExecutor == null) {
-			return false;
-		}
-
-		LicenseManager licenseManager = _licenseManagerAtomicReference.get();
-
-		if (licenseManager == null) {
-			return false;
-		}
-
-		if (PortalLicenseEnterpriseAppLicenseUtil.getPortalLicenseState(
-				licenseManager) != LicenseManager.STATE_GOOD) {
-
-			return false;
-		}
-
-		try {
-			PortalLicenseEnterpriseAppLicenseUtil.verify(
-				licenseManager, productId);
-
-			return true;
-		}
-		catch (Exception exception) {
-			if (!swallowException && _log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Failed to verify license for ",
-						_productNames.get(productId), ": ",
-						exception.getMessage()));
-			}
-		}
-
-		return false;
-	}
-
 	private static final String _KEY_PRODUCT_ID = "product.id=";
-
-	private static final String _LPKG_OVERRIDE_PREFIX = "LPKG-Override::";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalLicenseEnterpriseAppGateKeeper.class);
@@ -566,14 +259,6 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
-	private final AtomicReference<ClusterExecutor>
-		_clusterExecutorAtomicReference = new AtomicReference<>();
-	private final AtomicReference<LicenseManager>
-		_licenseManagerAtomicReference = new AtomicReference<>();
-
-	@Reference
-	private LPKGDeployer _lpkgDeployer;
-
 	private final Map<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
 		_portalLicenseEnterpriseAppBlockedBundleDataSetMap = new HashMap<>();
 	private ServiceTracker<Object, ServiceRegistration<Filter>> _serviceTracker;
