@@ -80,6 +80,7 @@ JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalE
 <liferay-frontend:edit-form
 	action="<%= editArticleActionURL %>"
 	enctype="multipart/form-data"
+	fluid="<%= true %>"
 	method="post"
 	name="fm1"
 	onSubmit="event.preventDefault();"
