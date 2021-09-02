@@ -27,7 +27,7 @@ const DefaultComponent = props => (
 );
 
 describe('Activities', () => {
-	it('should render', () => {
+	it('should render', async () => {
 		const {container} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
@@ -35,7 +35,7 @@ describe('Activities', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with error display', () => {
+	it('should render with error display', async () => {
 		API.activities.fetchHistory.mockReturnValueOnce(Promise.reject({}));
 
 		const {getByText} = render(<DefaultComponent />);
