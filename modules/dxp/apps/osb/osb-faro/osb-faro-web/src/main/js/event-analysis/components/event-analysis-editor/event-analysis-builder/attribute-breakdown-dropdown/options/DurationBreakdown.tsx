@@ -1,9 +1,13 @@
 import Button from 'shared/components/Button';
-import Form, {validateRequired} from 'shared/components/form';
+import Form, {
+	validateMinDuration,
+	validateRequired
+} from 'shared/components/form';
 import React from 'react';
 import {createDurationBreakdown} from 'event-analysis/utils/utils';
 import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
 import {IBreakdownProps, Operators} from 'event-analysis/utils/types';
+import {sequence} from 'shared/util/promise';
 
 const DEFAULT_DURATION_BIN = 60000;
 const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
@@ -60,7 +64,10 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 									name='binSize'
 									placeholder='HH:MM:SS'
 									type='string'
-									validate={validateRequired}
+									validate={sequence([
+										validateRequired,
+										validateMinDuration('00:00:01')
+									])}
 								/>
 							</Form.GroupItem>
 						</Form.Group>

@@ -3,6 +3,7 @@ import {
 	toPromise,
 	validateInputMessage,
 	validateMaxLength,
+	validateMinDuration,
 	validateMinLength,
 	validateMinValue,
 	validatePattern,
@@ -51,6 +52,24 @@ describe('validateInputMessage', () => {
 		const response = validateInputMessage('aa')('aa');
 
 		return expect(response).toEqual('');
+	});
+});
+
+describe('validateMinDuration', () => {
+	it('should validate min duration as not valid', () => {
+		expect.assertions(1);
+
+		const response = validateMinDuration('00:00:01')('00:00:00');
+
+		return expect(response).rejects.toMatchSnapshot();
+	});
+
+	it('should validate min duration as valid', () => {
+		expect.assertions(1);
+
+		const response = validateMinDuration('00:01:00')('00:10:00');
+
+		return expect(response).resolves.toBe('');
 	});
 });
 

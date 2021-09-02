@@ -1,5 +1,6 @@
 import Promise from 'metal-promise';
 import {formatStringToLowercase} from 'shared/util/util';
+import {formatTime, getMillisecondsFromTime} from 'shared/util/time';
 import {isArray, isNil, isObject, isString} from 'lodash';
 import {sub} from 'shared/util/lang';
 
@@ -64,6 +65,28 @@ export function validateRequired(value: {value: any} | string | Array<string>) {
 	}
 
 	return toPromise(error);
+}
+
+export function validateMinDuration(minDuration: string) {
+	return (value: string) => {
+		let error = '';
+
+		const minDurationInMilliseconds: number = getMillisecondsFromTime(
+			minDuration.replace(/_/g, '0')
+		);
+
+		const valueInMilliseconds: number = getMillisecondsFromTime(
+			value.replace(/_/g, '0')
+		);
+
+		if (valueInMilliseconds < minDurationInMilliseconds) {
+			error = sub(Liferay.Language.get('must-be-greater-than-x'), [
+				formatTime(minDurationInMilliseconds - 1000)
+			]) as string;
+		}
+
+		return toPromise(error);
+	};
 }
 
 export function validateMinLength(minLength: number) {
