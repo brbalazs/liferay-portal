@@ -233,21 +233,27 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay createProvisioned(
 			@FormParam("corpProjectUuid") String corpProjectUuid,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
+			@FormParam("emailAddressDomains")
+			FaroParam
+				<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("friendlyURL") String friendlyURL,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
-			@FormParam("serverLocation") String serverLocation)
+			@FormParam("serverLocation") String serverLocation,
+			@DefaultValue("UTC") @FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
 
 		User user = getUser();
 
 		FaroProject faroProject = _create(
-			corpProjectUuid, name, Collections.emptyList(), null,
-			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
-			FaroProjectConstants.STATE_UNCONFIGURED,
-			TimeZoneUtil.UTC_TIME_ZONE_ID);
+			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
+			friendlyURL, incidentReportEmailAddressesFaroParam.getValue(),
+			serverLocation, FaroProjectConstants.STATE_UNCONFIGURED,
+			timeZoneId);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
