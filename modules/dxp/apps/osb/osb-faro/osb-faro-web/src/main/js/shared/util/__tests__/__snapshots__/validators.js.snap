@@ -2,6 +2,8 @@
 
 exports[`validateMaxLength should validate max length as not valid 1`] = `"Exceeds maximum length."`;
 
+exports[`validateMinDuration should validate min duration as not valid 1`] = `"Must be greater than 00:00:00."`;
+
 exports[`validateMinLength should validate min length as not valid 1`] = `"Does not meet minimum length required."`;
 
 exports[`validateMinValue should validate min value as not valid 1`] = `"Must be greater than 29."`;
