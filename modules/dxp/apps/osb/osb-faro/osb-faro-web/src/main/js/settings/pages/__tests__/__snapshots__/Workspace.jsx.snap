@@ -35,7 +35,7 @@ exports[`Workspace Settting should render 1`] = `
         <div
           class="description"
         >
-          Here you can view and change your workspace settings. You can only set your Friendly Workspace URL once. Data Center Location and Timezone cannot be changed.
+          View and edit your workspace settings. Data Center Location and Friendly Workspace URL cannot be edited once it has been set.
         </div>
       </div>
       <div
