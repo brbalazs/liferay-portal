@@ -10059,7 +10059,7 @@ session.cookie.use.full.hostname=true
 			<![CDATA[
 				import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil;
 
-				Properties properties = project.getProperties();
+				Hashtable properties = project.getProperties();
 
 				StringBuilder sb = new StringBuilder();
 
