@@ -136,7 +136,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 				String stringValue = (String)value;
 
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+					"yyyy-MM-dd HH:mm:ss.SSS'Z'");
 
 				Date date = simpleDateFormat.parse(stringValue);
 
