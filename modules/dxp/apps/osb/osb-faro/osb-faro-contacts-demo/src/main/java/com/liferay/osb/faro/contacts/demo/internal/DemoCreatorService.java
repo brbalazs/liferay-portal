@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.contacts.demo.internal;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.model.Channel;
@@ -114,17 +115,24 @@ public abstract class DemoCreatorService {
 
 		options.addPart("corpProjectUuid", _PROJECT_ID);
 		options.addPart("name", _PROJECT_ID);
+		options.addPart("ownerEmailAddress", "test@liferay.com");
 		options.addPart("serverLocation", LCPProject.Cluster.US.toString());
 		options.addPart("timeZoneId", "UTC");
 		options.setHeaders(headers);
-		options.setLocation("http://localhost:8080/o/faro/main/project");
+		options.setLocation(
+			"http://localhost:8080/o/faro/main/project/provisioned");
 		options.setPost(true);
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
 			http.URLtoString(options));
 
-		return faroProjectLocalService.getFaroProjectByGroupId(
-			jsonObject.getLong("groupId"));
+		FaroProject faroProject =
+			faroProjectLocalService.getFaroProjectByGroupId(
+				jsonObject.getLong("groupId"));
+
+		faroProject.setState(FaroProjectConstants.STATE_NOT_READY);
+
+		return faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
 	protected void createUsers(FaroProject faroProject) throws Exception {
