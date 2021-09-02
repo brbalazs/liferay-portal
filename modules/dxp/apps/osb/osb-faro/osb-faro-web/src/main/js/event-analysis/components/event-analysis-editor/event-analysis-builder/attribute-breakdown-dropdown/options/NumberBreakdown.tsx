@@ -1,8 +1,9 @@
 import Button from 'shared/components/Button';
-import Form, {validateRequired} from 'shared/components/form';
+import Form, {validateMinValue, validateRequired} from 'shared/components/form';
 import React from 'react';
 import {createNumberBreakdown} from 'event-analysis/utils/utils';
 import {IBreakdownProps} from 'event-analysis/utils/types';
+import {sequence} from 'shared/util/promise';
 
 const DEFAULT_NUMBER_BIN = 10;
 
@@ -50,7 +51,10 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 									)}
 									name='binSize'
 									type='number'
-									validate={validateRequired}
+									validate={sequence([
+										validateRequired,
+										validateMinValue(1)
+									])}
 								/>
 							</Form.GroupItem>
 						</Form.Group>
