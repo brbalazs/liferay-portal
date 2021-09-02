@@ -14,7 +14,6 @@
 
 package com.liferay.osb.faro.engine.client.internal;
 
-import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPBuildService;
@@ -24,7 +23,6 @@ import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.util.UpgradeUtil;
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -34,7 +32,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -44,9 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -67,40 +61,6 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component(immediate = true, service = WorkspaceEngineClient.class)
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
-
-	@Override
-	public Workspace createWorkspace(String region, boolean trial)
-		throws Exception {
-
-		String uuid = String.valueOf(UUID.randomUUID());
-
-		final String projectId =
-			"asah" + StringUtil.replace(uuid, CharPool.DASH, StringPool.BLANK);
-
-		ResponseEntity<LCPProject> responseEntity = getRestTemplate().exchange(
-			_PROJECT_API_URL, HttpMethod.POST,
-			new HttpEntity<Object>(
-				new HashMap<String, String>() {
-					{
-						put("cluster", region);
-						put("projectId", projectId);
-					}
-				}),
-			LCPProject.class);
-
-		LCPProject lcpProject = responseEntity.getBody();
-
-		if (lcpProject == null) {
-			throw new Exception("Could not create a workspace");
-		}
-
-		Workspace workspace = createWorkspace(lcpProject, trial);
-
-		_threadPoolTaskExecutor.execute(
-			new CheckWorkspaceRunnable(workspace, null, trial));
-
-		return workspace;
-	}
 
 	@Override
 	public void deleteWorkspaceService(String weDeployKey, String serviceId) {
@@ -398,19 +358,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return responseEntity.getBody();
 	}
 
-	protected void createElasticSearchLink(LCPProject lcpProject) {
-		getRestTemplate().exchange(
-			_PROJECT_API_URL + lcpProject.getESProjectId() + "/link",
-			HttpMethod.POST,
-			new HttpEntity<Object>(
-				new HashMap<String, String>() {
-					{
-						put("allowedProjectUid", lcpProject.getId());
-					}
-				}),
-			Void.class);
-	}
-
 	protected void createSecret(String weDeployKey, String name, String value) {
 		getRestTemplate().exchange(
 			StringBundler.concat(
@@ -424,30 +371,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 					}
 				}),
 			Void.class);
-	}
-
-	protected Workspace createWorkspace(LCPProject lcpProject, boolean trial) {
-		createElasticSearchLink(lcpProject);
-
-		for (String secretKey : _secretKeys) {
-			String secretValue = System.getenv(secretKey);
-
-			if (Validator.isNull(secretValue)) {
-				continue;
-			}
-
-			createSecret(
-				lcpProject.getProjectId(), getSecretName(secretKey),
-				secretValue);
-		}
-
-		Workspace workspace = new Workspace();
-
-		buildWorkspace(lcpProject.getProjectId(), null, trial, false);
-
-		workspace.setWeDeployKey(lcpProject.getProjectId() + ".lfr.cloud");
-
-		return workspace;
 	}
 
 	protected String getProjectId(String weDeployKey) {
@@ -526,28 +449,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			Void.class);
 	}
 
-	protected List<LCPService> waitForLCPServices(String weDeployKey)
-		throws Exception {
-
-		long startTime = System.currentTimeMillis();
-
-		List<LCPService> lcpServices = getLCPServices(weDeployKey);
-
-		while (lcpServices.isEmpty()) {
-			Thread.sleep(10 * Time.SECOND);
-
-			lcpServices = getLCPServices(weDeployKey);
-
-			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
-				_log.error("Unable to deploy services to " + weDeployKey);
-
-				return Collections.emptyList();
-			}
-		}
-
-		return lcpServices;
-	}
-
 	private static final String _PROJECT_API_URL = GetterUtil.getString(
 		System.getenv("FARO_DXP_CLOUD_API_URL"),
 		"https://api.liferay.cloud/projects/");
@@ -578,98 +479,5 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;
-
-	private final ExecutorService _threadPoolTaskExecutor =
-		Executors.newFixedThreadPool(10);
-
-	private class CheckWorkspaceRunnable implements Runnable {
-
-		public CheckWorkspaceRunnable(
-			Workspace workspace, String sha, boolean trial) {
-
-			_workspace = workspace;
-			_sha = sha;
-			_trial = trial;
-		}
-
-		@Override
-		public void run() {
-			try {
-				doRun();
-			}
-			catch (Exception exception) {
-				_log.error(exception, exception);
-			}
-		}
-
-		protected void doRun() throws Exception {
-			List<String> envVarSecretNames = new ArrayList<>();
-
-			for (String secretKey : _secretKeys) {
-				String secretValue = System.getenv(secretKey);
-
-				if (Validator.isNull(secretValue)) {
-					continue;
-				}
-
-				envVarSecretNames.add(secretKey);
-				envVarSecretNames.add(getSecretName(secretKey));
-			}
-
-			for (LCPService lcpService :
-					waitForLCPServices(_workspace.getWeDeployKey())) {
-
-				attachSecrets(
-					_workspace.getWeDeployKey(), lcpService.getServiceId(),
-					envVarSecretNames.toArray(new String[0]));
-			}
-
-			for (int i = 0; i < 3; i++) {
-				Thread.sleep(Time.HOUR);
-
-				Workspace workspace = getWorkspace(_workspace.getWeDeployKey());
-
-				if (workspace.isReady()) {
-					_faroProjectLocalService.sendCreatedWorkspaceEmail(
-						workspace.getWeDeployKey());
-
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"Successfully deployed to " +
-								workspace.getWeDeployKey());
-					}
-
-					return;
-				}
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						StringBundler.concat(
-							"Unable to deploy to ", workspace.getWeDeployKey(),
-							". Retry ", i + 1, "."));
-				}
-
-				updateWorkspace(workspace.getWeDeployKey(), _sha, _trial);
-			}
-
-			FaroProject faroProject =
-				_faroProjectLocalService.fetchFaroProjectByWeDeployKey(
-					_workspace.getWeDeployKey());
-
-			if (faroProject != null) {
-				faroProject.setState(
-					FaroProjectConstants.STATE_AUTO_REDEPLOY_FAILED);
-
-				_faroProjectLocalService.updateFaroProject(faroProject);
-			}
-
-			_log.error("Unable to deploy to " + _workspace.getWeDeployKey());
-		}
-
-		private final String _sha;
-		private final boolean _trial;
-		private final Workspace _workspace;
-
-	}
 
 }

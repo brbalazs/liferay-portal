@@ -32,13 +32,6 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	implements WorkspaceEngineClient {
 
 	@Override
-	public Workspace createWorkspace(String region, boolean trial)
-		throws Exception {
-
-		return workspaceEngineClient.createWorkspace(region, trial);
-	}
-
-	@Override
 	public void deleteWorkspaceService(String weDeployKey, String serviceId) {
 		workspaceEngineClient.deleteWorkspaceService(weDeployKey, serviceId);
 	}
