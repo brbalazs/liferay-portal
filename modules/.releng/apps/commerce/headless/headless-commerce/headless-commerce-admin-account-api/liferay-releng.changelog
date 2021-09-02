@@ -112,3 +112,8 @@ ae50e747a06ce2b92f2f90e9a16c3a16ba6e842a^..ae0d9f790715d062dcccbc4f5cd2b2e8e1f7b
 # Bundle Version 8.3.2
 #
 ae0d9f790715d062dcccbc4f5cd2b2e8e1f7b8cc^..73a9ce406c81bf84ff98884dd9eccc057f71ddc2=LPS-105380
+
+#
+# Bundle Version 8.4.0
+#
+73a9ce406c81bf84ff98884dd9eccc057f71ddc2^..1529e5b99bd10e0b9c4120831af0e73449dcb83e=LPS-137961 LPS-138282
