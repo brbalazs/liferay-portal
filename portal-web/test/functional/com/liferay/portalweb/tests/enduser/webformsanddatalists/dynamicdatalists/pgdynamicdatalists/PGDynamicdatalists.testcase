@@ -12,17 +12,17 @@ definition {
 
 		User.firstLoginPG();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Dynamic Data Lists Display Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages"
+		);
 
- 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Dynamic Data Lists Display Page",
-			widgetName = "Dynamic Data Lists Display");
+		SitePages.addPublicPage(pageName = "Dynamic Data Lists Display Page");
 
 		Navigator.gotoPage(pageName = "Dynamic Data Lists Display Page");
+
+		Portlet.addPG(portletName = "Dynamic Data Lists Display");
 	}
 
 	tearDown {

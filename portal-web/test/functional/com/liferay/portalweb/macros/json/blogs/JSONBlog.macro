@@ -43,8 +43,8 @@ definition {
 			-u test@liferay.com:test \
 			-d title=${entryTitle} \
 			-d subtitle=${entrySubtitle} \
-			-d description='' \
-			-d content=${entryContent} \
+			-d description= \
+			-d content=${contentXML} \
 			-d displayDateMonth=01 \
 			-d displayDateDay=01 \
 			-d displayDateYear=2004 \
@@ -63,7 +63,7 @@ definition {
 
 		echo("## * Title: ${entryTitle}");
 
-		echo("## * Content: ${entryContent}");
+		echo("## * Content: ${contentXML}");
 
 		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
 	}

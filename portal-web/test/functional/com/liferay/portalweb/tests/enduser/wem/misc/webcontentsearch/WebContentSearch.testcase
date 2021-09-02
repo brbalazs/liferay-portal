@@ -50,12 +50,9 @@ definition {
 	test SearchWebContent {
 		property testray.component.names = "Categories,Web Content Search";
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Web Content Display Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Web Content Display Page");
 
 		Navigator.gotoPage(pageName = "Web Content Display Page");
 
