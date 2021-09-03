@@ -5,7 +5,7 @@ import Overview from '../Overview';
 import React from 'react';
 import {Individual} from 'shared/util/records';
 import {MockedProvider} from '@apollo/react-testing';
-import {mockSessions} from 'test/data';
+import {mockEventMetrics, mockSessions} from 'test/data';
 import {mockTimeRangeReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
 import {render, waitForElementToBeRemoved} from '@testing-library/react';
@@ -17,9 +17,13 @@ jest.mock('shared/apollo/client', () => ({
 	query: jest.fn()
 }));
 
-client.query.mockResolvedValue({
-	data: mockSessions()
-});
+client.query
+	.mockResolvedValueOnce({
+		data: mockEventMetrics()
+	})
+	.mockResolvedValue({
+		data: mockSessions()
+	});
 
 describe('IndividualOverview', () => {
 	it('should render', async () => {

@@ -5,7 +5,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import {Individual} from 'shared/util/records';
 import {MockedProvider} from '@apollo/react-testing';
-import {mockIndividual, mockSessions} from 'test/data';
+import {mockEventMetrics, mockIndividual, mockSessions} from 'test/data';
 import {mockTimeRangeReq} from 'test/graphql-data';
 import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
@@ -16,9 +16,13 @@ jest.mock('shared/apollo/client', () => ({
 	query: jest.fn()
 }));
 
-client.query.mockResolvedValue({
-	data: mockSessions()
-});
+client.query
+	.mockResolvedValueOnce({
+		data: mockEventMetrics()
+	})
+	.mockResolvedValue({
+		data: mockSessions()
+	});
 
 const DefaultComponent = props => (
 	<MockedProvider mocks={[mockTimeRangeReq()]}>
