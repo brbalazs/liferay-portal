@@ -961,6 +961,77 @@ export function mockRecommendationJob(seed = 0, data = {}) {
 	};
 }
 
+export const mockEventMetrics = () => ({
+	eventMetric: {
+		totalEventsMetric: {
+			histogram: {
+				metrics: [
+					{
+						key: '2021-08-03T00:00',
+						value: 0,
+						valueKey: '2021-08-03T00:00'
+					},
+					{
+						key: '2021-08-04T00:00',
+						value: 0,
+						valueKey: '2021-08-04T00:00'
+					},
+					{
+						key: '2021-08-05T00:00',
+						value: 0,
+						valueKey: '2021-08-05T00:00'
+					},
+					{
+						key: '2021-08-06T00:00',
+						value: 0,
+						valueKey: '2021-08-06T00:00'
+					},
+					{
+						key: '2021-08-07T00:00',
+						value: 0,
+						valueKey: '2021-08-07T00:00'
+					}
+				],
+				total: 30
+			},
+			value: 2208
+		},
+		totalSessionsMetric: {
+			histogram: {
+				metrics: [
+					{
+						key: '2021-08-03T00:00',
+						value: 0,
+						valueKey: '2021-08-03T00:00'
+					},
+					{
+						key: '2021-08-04T00:00',
+						value: 0,
+						valueKey: '2021-08-04T00:00'
+					},
+					{
+						key: '2021-08-05T00:00',
+						value: 0,
+						valueKey: '2021-08-05T00:00'
+					},
+					{
+						key: '2021-08-06T00:00',
+						value: 0,
+						valueKey: '2021-08-06T00:00'
+					},
+					{
+						key: '2021-08-07T00:00',
+						value: 0,
+						valueKey: '2021-08-07T00:00'
+					}
+				],
+				total: 30
+			},
+			value: 1
+		}
+	}
+});
+
 export const mockSessions = () => ({
 	eventsByUserSessions: {
 		totalEvents: 4,
