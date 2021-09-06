@@ -54,7 +54,13 @@ exports[`BreakdownTable render 1`] = `
               class="font-weight-semibold align-top"
               rowspan="1"
             >
-              articleTitle [0]
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                articleTitle [0]
+              </span>
             </td>
             <td
               class="align-top"
