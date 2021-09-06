@@ -5,8 +5,9 @@ import EventAnalysisQuery, {
 } from 'event-analysis/queries/EventAnalysisQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Table from 'shared/components/table';
+import TextTruncate from 'shared/components/TextTruncate';
 import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
 import {
@@ -21,8 +22,8 @@ import {
 	ParsedBreakdownItem
 } from 'event-analysis/utils/types';
 import {compose} from 'redux';
+import {debounce, get, isNil, omit} from 'lodash';
 import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
-import {get, isNil, omit} from 'lodash';
 import {getMaxEventValue, parseBreakdownData} from 'event-analysis/utils/utils';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {OrderByDirections} from 'shared/util/constants';
@@ -46,6 +47,30 @@ export interface IBreakdownTableProps
 	filters: Filters;
 	type: CalculationTypes;
 }
+
+type TableColumnAttributesType = {
+	charWidthRatio: number;
+	columnSizePercentage: {
+		breakdownColumn1x: number;
+		breakdownColumn2x: number;
+		breakdownColumn3x: number;
+	};
+	fontSize: number;
+	paddingX: number;
+	truncateGap: number;
+};
+
+const TABLE_COLUMN_ATTRIBUTES_MAP: TableColumnAttributesType = {
+	charWidthRatio: 2,
+	columnSizePercentage: {
+		breakdownColumn1x: 0.33,
+		breakdownColumn2x: 0.25,
+		breakdownColumn3x: 0.2
+	},
+	fontSize: 14,
+	paddingX: 32,
+	truncateGap: 1
+};
 
 const getBreakdownByAccessor = (
 	accessor: string,
@@ -74,6 +99,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	type
 }) => {
 	const {delta, page, setDelta, setPage} = useStatefulPagination();
+	const tableRef = useRef<HTMLDivElement>(null);
 
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
 		EventAnalysisQuery,
@@ -98,6 +124,58 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	);
 
 	const [orderFields, setOrderFields] = useState({});
+	const [maxBreakdownLength, setMaxBreakdownLength] = useState<number>();
+
+	const getBreakdownColumnMaxCharLength = (
+		tableSize: number,
+		breakDownLength: number
+	) => {
+		const {
+			charWidthRatio,
+			columnSizePercentage,
+			fontSize,
+			paddingX,
+			truncateGap
+		} = TABLE_COLUMN_ATTRIBUTES_MAP;
+
+		const columnTablePercentage = Math.floor(
+			tableSize *
+				columnSizePercentage[`breakdownColumn${breakDownLength}x`]
+		);
+		const columnContentWidth = columnTablePercentage - paddingX;
+		const pixelsPerFontSize = Math.floor(columnContentWidth / fontSize);
+		const maxCharLengthPerColumn =
+			pixelsPerFontSize * charWidthRatio - truncateGap;
+
+		setMaxBreakdownLength(maxCharLengthPerColumn);
+	};
+
+	const {clientWidth} = tableRef.current || {};
+
+	useEffect(() => {
+		const handleResize = debounce(
+			() =>
+				getBreakdownColumnMaxCharLength(
+					document.querySelector('.breakdown-table-root').clientWidth,
+					breakdownOrder.length
+				),
+			100
+		);
+
+		window.removeEventListener('resize', handleResize);
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [breakdownOrder.length]);
+
+	useEffect(() => {
+		if (clientWidth) {
+			getBreakdownColumnMaxCharLength(clientWidth, breakdownOrder.length);
+		}
+	}, [breakdownOrder.length]);
 
 	useEffect(() => {
 		setPage('1');
@@ -136,6 +214,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			compareToPrevious,
 			event,
 			highestValue,
+			maxBreakdownLength,
 			order: breakdownOrder,
 			orderFields,
 			value: data.value
@@ -188,6 +267,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 						className={getCN('breakdown-table-root', {
 							'breakdown-single-event': !breakdownOrder.length
 						})}
+						ref={tableRef}
 					>
 						{!breakdownOrder.length ? (
 							<BarComparisonCell
@@ -226,6 +306,7 @@ const getColumns = ({
 	compareToPrevious,
 	event,
 	highestValue,
+	maxBreakdownLength,
 	order,
 	orderFields,
 	value
@@ -270,7 +351,10 @@ const getColumns = ({
 						)}
 						rowSpan={dataValue.rowSpan}
 					>
-						{dataValue.name}
+						<TextTruncate
+							maxCharLength={maxBreakdownLength}
+							title={dataValue.name}
+						/>
 					</td>
 				);
 			},
