@@ -1145,8 +1145,12 @@ public class LayoutSetModelImpl
 		layoutSetCacheModel.layoutSetPrototypeLinkEnabled =
 			isLayoutSetPrototypeLinkEnabled();
 
+		setCompanyFallbackVirtualHostname(null);
+
 		layoutSetCacheModel._companyFallbackVirtualHostname =
 			getCompanyFallbackVirtualHostname();
+
+		setVirtualHostname(null);
 
 		layoutSetCacheModel._virtualHostname = getVirtualHostname();
 

@@ -937,9 +937,15 @@ public class CompanyModelImpl
 
 		companyCacheModel.active = isActive();
 
+		setCompanySecurityBag(null);
+
 		companyCacheModel._companySecurityBag = getCompanySecurityBag();
 
+		setKeyObj(null);
+
 		companyCacheModel._keyObj = getKeyObj();
+
+		setVirtualHostname(null);
 
 		companyCacheModel._virtualHostname = getVirtualHostname();
 
