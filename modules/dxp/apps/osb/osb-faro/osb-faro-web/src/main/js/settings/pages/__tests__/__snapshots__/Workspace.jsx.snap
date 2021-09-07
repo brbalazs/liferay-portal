@@ -35,7 +35,7 @@ exports[`Workspace Settting should render 1`] = `
         <div
           class="description"
         >
-          View and edit your workspace settings. Data Center Location and Friendly Workspace URL cannot be edited once it has been set.
+          View and edit your workspace settings. Data center location and friendly workspace url cannot be edited once it has been set.
         </div>
       </div>
       <div
