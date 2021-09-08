@@ -1783,6 +1783,8 @@ definition {
 	@description = "This is a use case for LPS-74299."
 	@priority = "3"
 	test ViewFacetPersistence {
+		property test.name.skip.portal.instance = "SolrSearch#ViewFacetPersistence";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
