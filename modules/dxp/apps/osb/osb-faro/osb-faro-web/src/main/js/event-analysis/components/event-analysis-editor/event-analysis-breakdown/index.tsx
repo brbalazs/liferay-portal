@@ -77,7 +77,7 @@ const getBreakdownByAccessor = (
 	breakdownOrder: string[],
 	breakdowns: Breakdowns
 ): Breakdown => {
-	const orderIndex = Number(accessor.split('breakdown').pop()) - 1;
+	const orderIndex = Number(accessor.split('breakdown').pop());
 	const breakdownId = breakdownOrder[orderIndex];
 
 	return breakdowns[breakdownId];
