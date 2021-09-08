@@ -108,7 +108,7 @@ exports[`TimeZoneSelectionModal should render 1`] = `
             class="button-root btn btn-secondary"
             type="button"
           >
-            Do This later
+            Do This Later
           </button>
           <button
             class="button-root btn btn-primary"
