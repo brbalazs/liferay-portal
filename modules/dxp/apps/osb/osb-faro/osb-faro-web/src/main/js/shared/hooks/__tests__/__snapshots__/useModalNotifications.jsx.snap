@@ -116,7 +116,7 @@ exports[`useModalNotifications should open a notification modal 1`] = `
                 class="button-root btn btn-secondary"
                 type="button"
               >
-                Do this later
+                Do This later
               </button>
               <button
                 class="button-root btn btn-primary"
