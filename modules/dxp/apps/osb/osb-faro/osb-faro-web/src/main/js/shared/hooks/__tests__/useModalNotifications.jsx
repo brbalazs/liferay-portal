@@ -78,7 +78,7 @@ describe('useModalNotifications', () => {
 
 		jest.runAllTimers();
 
-		fireEvent.click(getByText('Do this later'));
+		fireEvent.click(getByText('Do This later'));
 
 		expect(getByText('Set Timezone')).toBeTruthy();
 	});
