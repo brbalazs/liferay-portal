@@ -176,7 +176,7 @@ public class ChannelController extends BaseFaroController {
 
 		List<Integer> statuses = statusesFaroParam.getValue();
 
-		if ((statuses == null) || statuses.isEmpty()) {
+		if (ListUtil.isEmpty(statuses)) {
 			throw new FaroException("Invalid statuses values");
 		}
 

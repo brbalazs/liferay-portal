@@ -17,6 +17,7 @@ package com.liferay.osb.faro.engine.client.http.client;
 import com.liferay.osb.faro.engine.client.constants.TokenConstants;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 
 import java.io.IOException;
 
@@ -100,7 +101,7 @@ public class AuthenticationClientHttpRequestInterceptor
 
 			List<String> values = httpHeaders.get(headerKey);
 
-			if ((values == null) || values.isEmpty()) {
+			if (ListUtil.isEmpty(values)) {
 				return null;
 			}
 

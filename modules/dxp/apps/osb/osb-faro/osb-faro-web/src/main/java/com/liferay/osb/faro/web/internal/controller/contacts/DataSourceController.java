@@ -1447,7 +1447,7 @@ public class DataSourceController extends BaseFaroController {
 		FaroProject faroProject, String dataSourceId,
 		List<FieldMappingMap> fieldMappingMaps) {
 
-		if ((fieldMappingMaps == null) || fieldMappingMaps.isEmpty()) {
+		if (ListUtil.isEmpty(fieldMappingMaps)) {
 			return;
 		}
 

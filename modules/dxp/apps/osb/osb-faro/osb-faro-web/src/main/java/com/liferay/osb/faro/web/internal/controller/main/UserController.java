@@ -194,7 +194,7 @@ public class UserController extends BaseFaroController {
 
 		List<Integer> statuses = statusesFaroParam.getValue();
 
-		if ((statuses == null) || statuses.isEmpty()) {
+		if (ListUtil.isEmpty(statuses)) {
 			throw new FaroException("Invalid statuses values");
 		}
 
@@ -249,7 +249,7 @@ public class UserController extends BaseFaroController {
 
 		List<Integer> statuses = statusesFaroParam.getValue();
 
-		if ((statuses == null) || statuses.isEmpty()) {
+		if (ListUtil.isEmpty(statuses)) {
 			throw new FaroException("Invalid statuses values");
 		}
 
