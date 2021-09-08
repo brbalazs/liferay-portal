@@ -12,7 +12,7 @@ const DEVICE_ICONS_MAP = {
 	desktop: {symbol: 'ac-display', title: Liferay.Language.get('desktop')},
 	mobile: {symbol: 'mobile-portrait', title: Liferay.Language.get('mobile')},
 	tablet: {
-		className: 'device-icon tablet-icon',
+		className: 'tablet-icon',
 		symbol: 'tablet-portrait',
 		title: Liferay.Language.get('tablet')
 	}
