@@ -3353,9 +3353,9 @@ AUI.add(
 						var fieldOptions = fieldDefinition.options;
 
 						if (fieldOptions && fieldOptions[0]) {
-							fieldOptions = fieldOptions.filter(
-								fieldOption => fieldOption.value !== ''
-							);
+							fieldOptions = fieldOptions.filter(function (fieldOption) {
+								return fieldOption.value !== ''
+							});
 							fieldOptions.unshift(instance._getPlaceholderOption());
 						}
 
