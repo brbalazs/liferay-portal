@@ -28,11 +28,11 @@ export default class CompositionCard extends React.Component {
 				<Card.Body>
 					<CompositionChart
 						innerData={{
-							label: Liferay.Language.get('known'),
+							label: Liferay.Language.get('known-members'),
 							value: knownIndividualCount
 						}}
 						outerData={{
-							label: Liferay.Language.get('active'),
+							label: Liferay.Language.get('active-last-30-days'),
 							value: activeIndividualCount
 						}}
 						total={individualCount}
