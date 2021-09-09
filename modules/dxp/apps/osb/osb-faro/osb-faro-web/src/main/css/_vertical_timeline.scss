@@ -203,6 +203,12 @@
 				&:hover {
 					cursor: pointer;
 				}
+
+				.timeline-panel-body-content-text {
+					&:not(.header) {
+						width: 100%;
+					}
+				}
 			}
 		}
 

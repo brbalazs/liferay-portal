@@ -117,6 +117,9 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 	const {title: deviceIconTitle, ...otherIconAttributes} =
 		expandable && !!nestedItems && DEVICE_ICONS_MAP[device.toLowerCase()];
 
+	const eventTitle =
+		title && !header ? <TextTruncate title={`${title}`} /> : title;
+
 	return (
 		<li
 			className={getCN('timeline-item', className, {
@@ -139,15 +142,20 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 					)}
 
 					<div className={bodyClasses} {...bodyAttributes}>
-						<div className='timeline-panel-body-content-text'>
+						<div
+							className={getCN(
+								'timeline-panel-body-content-text',
+								{header: !title}
+							)}
+						>
 							{url ? (
 								<span className='text-truncate'>
 									<Link className='title' to={url}>
-										{title}
+										{eventTitle}
 									</Link>
 								</span>
 							) : (
-								<span className='title'>{title}</span>
+								<span className='title'>{eventTitle}</span>
 							)}
 
 							{header && (
