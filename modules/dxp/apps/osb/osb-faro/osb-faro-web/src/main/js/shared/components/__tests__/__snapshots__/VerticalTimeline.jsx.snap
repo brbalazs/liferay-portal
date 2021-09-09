@@ -77,13 +77,13 @@ exports[`VerticalTimeline should render 1`] = `
                 <span
                   class="title"
                 >
-                  Visited
-                   
-                  <a
-                    href="/#1"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     www.liferay.com
-                  </a>
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -138,11 +138,13 @@ exports[`VerticalTimeline should render 1`] = `
                 <span
                   class="title"
                 >
-                  <a
-                    href="/#2"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     New Business Purchase
-                  </a>
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -236,7 +238,13 @@ exports[`VerticalTimeline should render 1`] = `
                 <span
                   class="title"
                 >
-                  Opened Email
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    Opened Email
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -343,13 +351,13 @@ exports[`VerticalTimeline should render with a header 1`] = `
                 <span
                   class="title"
                 >
-                  Visited
-                   
-                  <a
-                    href="/#1"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     www.liferay.com
-                  </a>
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -404,11 +412,13 @@ exports[`VerticalTimeline should render with a header 1`] = `
                 <span
                   class="title"
                 >
-                  <a
-                    href="/#2"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     New Business Purchase
-                  </a>
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -502,7 +512,13 @@ exports[`VerticalTimeline should render with a header 1`] = `
                 <span
                   class="title"
                 >
-                  Opened Email
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    Opened Email
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -615,7 +631,13 @@ exports[`VerticalTimeline should render with nested items 1`] = `
                 <span
                   class="title"
                 >
-                  Opened Email
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    Opened Email
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -674,7 +696,13 @@ exports[`VerticalTimeline should render with nested items 1`] = `
                         <span
                           class="title"
                         >
-                          Visited Liferay: Testing
+                          <span
+                            class="text-truncate"
+                            data-tooltip="false"
+                            title=""
+                          >
+                            Visited Liferay: Testing
+                          </span>
                         </span>
                         <span
                           class="text-truncate subtitle"
@@ -729,7 +757,13 @@ exports[`VerticalTimeline should render with nested items 1`] = `
                         <span
                           class="title"
                         >
-                          Visited Liferay: Testing 2
+                          <span
+                            class="text-truncate"
+                            data-tooltip="false"
+                            title=""
+                          >
+                            Visited Liferay: Testing 2
+                          </span>
                         </span>
                         <span
                           class="text-truncate subtitle"
@@ -846,7 +880,13 @@ exports[`VerticalTimeline should render with nested items collapsed 1`] = `
                 <span
                   class="title"
                 >
-                  Opened Email
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    Opened Email
+                  </span>
                 </span>
                 <span
                   class="text-truncate subtitle"
@@ -905,7 +945,13 @@ exports[`VerticalTimeline should render with nested items collapsed 1`] = `
                         <span
                           class="title"
                         >
-                          Visited Liferay: Testing
+                          <span
+                            class="text-truncate"
+                            data-tooltip="false"
+                            title=""
+                          >
+                            Visited Liferay: Testing
+                          </span>
                         </span>
                         <span
                           class="text-truncate subtitle"
@@ -960,7 +1006,13 @@ exports[`VerticalTimeline should render with nested items collapsed 1`] = `
                         <span
                           class="title"
                         >
-                          Visited Liferay: Testing 2
+                          <span
+                            class="text-truncate"
+                            data-tooltip="false"
+                            title=""
+                          >
+                            Visited Liferay: Testing 2
+                          </span>
                         </span>
                         <span
                           class="text-truncate subtitle"

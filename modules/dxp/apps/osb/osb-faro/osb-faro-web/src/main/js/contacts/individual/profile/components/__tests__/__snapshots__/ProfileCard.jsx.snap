@@ -105,7 +105,7 @@ exports[`IndividualProfileCard should render 1`] = `
         <div
           class="details"
         >
-          Events 
+          Events: 
           <b>
             2,208
           </b>
@@ -199,7 +199,7 @@ exports[`IndividualProfileCard should render 1`] = `
                 tabindex="0"
               >
                 <div
-                  class="timeline-panel-body-content-text"
+                  class="timeline-panel-body-content-text header"
                 >
                   <span
                     class="title"
@@ -290,15 +290,25 @@ Firefox"
                           <span
                             class="title"
                           >
-                            pageViewed
+                            <span
+                              class="text-truncate"
+                              data-tooltip="false"
+                              title=""
+                            >
+                              pageViewed
+                            </span>
                           </span>
-                          
+                          <span
+                            class="description"
+                          >
+                            Home - Liferay DXP
+                          </span>
                           <span
                             class="text-truncate subtitle"
                             data-tooltip="false"
                             title=""
                           >
-                            http://localhost:8089/web/
+                            http://localhost:8089
                           </span>
                         </div>
                         <div
@@ -348,15 +358,25 @@ Firefox"
                           <span
                             class="title"
                           >
-                            tabBlurred
+                            <span
+                              class="text-truncate"
+                              data-tooltip="false"
+                              title=""
+                            >
+                              tabBlurred
+                            </span>
                           </span>
-                          
+                          <span
+                            class="description"
+                          >
+                            Home - Liferay DXP
+                          </span>
                           <span
                             class="text-truncate subtitle"
                             data-tooltip="false"
                             title=""
                           >
-                            http://localhost:8089/web/guest/home
+                            http://localhost:8089/home
                           </span>
                         </div>
                         <div
@@ -411,7 +431,7 @@ Firefox"
                 tabindex="0"
               >
                 <div
-                  class="timeline-panel-body-content-text"
+                  class="timeline-panel-body-content-text header"
                 >
                   <span
                     class="title"
@@ -502,15 +522,25 @@ Firefox"
                           <span
                             class="title"
                           >
-                            pageViewed
+                            <span
+                              class="text-truncate"
+                              data-tooltip="false"
+                              title=""
+                            >
+                              pageViewed
+                            </span>
                           </span>
-                          
+                          <span
+                            class="description"
+                          >
+                            Home - Liferay DXP
+                          </span>
                           <span
                             class="text-truncate subtitle"
                             data-tooltip="false"
                             title=""
                           >
-                            http://localhost:8089/web/
+                            http://localhost:8089
                           </span>
                         </div>
                         <div
@@ -560,15 +590,25 @@ Firefox"
                           <span
                             class="title"
                           >
-                            tabBlurred
+                            <span
+                              class="text-truncate"
+                              data-tooltip="false"
+                              title=""
+                            >
+                              tabBlurred
+                            </span>
                           </span>
-                          
+                          <span
+                            class="description"
+                          >
+                            Home - Liferay DXP
+                          </span>
                           <span
                             class="text-truncate subtitle"
                             data-tooltip="false"
                             title=""
                           >
-                            http://localhost:8089/web/guest/home
+                            http://localhost:8089/home
                           </span>
                         </div>
                         <div
