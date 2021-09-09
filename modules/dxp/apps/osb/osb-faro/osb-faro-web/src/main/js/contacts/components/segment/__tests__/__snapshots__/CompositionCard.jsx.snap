@@ -69,7 +69,7 @@ exports[`CompositionCard should render 1`] = `
               <span
                 class="text-truncate"
               >
-                Active
+                Active Last 30 Days
               </span>
             </div>
             <div
@@ -98,7 +98,7 @@ exports[`CompositionCard should render 1`] = `
               <span
                 class="text-truncate"
               >
-                Known
+                Known Members
               </span>
             </div>
             <div
