@@ -174,24 +174,24 @@
 			</library>
 			<library>
 				<file-name>com.liferay.batch.engine.service.jar!httpclient.jar</file-name>
-				<version>4.5.3</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
 			<library>
 				<file-name>com.liferay.batch.engine.service.jar!httpcore.jar</file-name>
-				<version>4.4.6</version>
+				<version>4.4.14</version>
 				<project-name>HttpComponents Apache HttpCore</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-core-ga</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -506,12 +506,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.commerce.payment.method.authorize.net.jar!httpclient.jar</file-name>
-				<version>4.5.3</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -554,12 +554,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.commerce.payment.method.mercanet.jar!httpclient.jar</file-name>
-				<version>4.5.3</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -2580,12 +2580,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!httpclient.jar</file-name>
-				<version>4.4</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -3461,14 +3461,13 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.security.sso.openid.connect.impl.jar!javax.mail.jar</file-name>
+				<file-name>com.liferay.portal.security.sso.openid.connect.impl.jar!jakarta.mail.jar</file-name>
 				<version>1.6.6</version>
-				<project-name>JavaMail API</project-name>
-				<project-url>https://eclipse-ee4j.github.io/mail/</project-url>
+				<project-name>Jakarta Mail API</project-name>
+				<project-url>http://www.oracle.com</project-url>
 				<licenses>
 					<license>
-						<license-name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</license-name>
-						<license-url>https://opensource.org/licenses/CDDL-1.0</license-url>
+						<license-name>http://www.eclipse.org/legal/epl-2.0, https://www.gnu.org/software/classpath/license.html, http://www.eclipse.org/org/documents/edl-v10.php</license-name>
 					</license>
 				</licenses>
 			</library>
@@ -4568,14 +4567,14 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.push.notifications.sender.apple.jar!apns.jar</file-name>
-				<version>1.0.0.Beta6</version>
-				<project-name>Java Apple Push Notification Service Library</project-name>
-				<project-url>http://notnoop.github.com/java-apns</project-url>
+				<file-name>com.liferay.push.notifications.sender.apple.jar!fast-uuid.jar</file-name>
+				<version>0.1</version>
+				<project-name>fast-uuid</project-name>
+				<project-url>https://github.com/jchambers/fast-uuid</project-url>
 				<licenses>
 					<license>
-						<license-name>New BSD License</license-name>
-						<license-url>http://www.opensource.org/licenses/bsd-license.php</license-url>
+						<license-name>The MIT License (MIT)</license-name>
+						<license-url>http://opensource.org/licenses/MIT</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -4612,6 +4611,29 @@
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-all.jar</file-name>
+				<version>4.1.62.Final</version>
+				<project-name>Netty/All-in-One</project-name>
+				<licenses>
+					<license>
+						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.push.notifications.sender.apple.jar!pushy.jar</file-name>
+				<version>0.14.2</version>
+				<project-name>Pushy</project-name>
+				<project-url>https://github.com/jchambers</project-url>
+				<licenses>
+					<license>
+						<license-name>The MIT License (MIT)</license-name>
+						<license-url>http://opensource.org/licenses/MIT</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -5629,9 +5651,9 @@
 			</library>
 			<library>
 				<file-name>lib/development/mail.jar</file-name>
-				<version>1.6.2</version>
+				<version>1.6.6</version>
 				<project-name>JavaMail</project-name>
-				<project-url>http://java.sun.com/products/javamail</project-url>
+				<project-url>https://eclipse-ee4j.github.io/mail/</project-url>
 				<licenses>
 					<license>
 						<license-name>Sun Binary Code License Agreement</license-name>
@@ -8569,7 +8591,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/xstream.jar</file-name>
-				<version>1.4.16</version>
+				<version>1.4.17</version>
 				<project-name>XStream</project-name>
 				<project-url>http://xstream.codehaus.org</project-url>
 				<licenses>
