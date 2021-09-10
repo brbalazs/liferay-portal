@@ -212,19 +212,18 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 	public void testGetMessageBoardSectionMessageBoardThreadsPage()
 		throws Exception {
 
-		Page<MessageBoardThread> page =
-			messageBoardThreadResource.
-				getMessageBoardSectionMessageBoardThreadsPage(
-					testGetMessageBoardSectionMessageBoardThreadsPage_getMessageBoardSectionId(),
-					RandomTestUtil.randomString(), null, null,
-					Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long messageBoardSectionId =
 			testGetMessageBoardSectionMessageBoardThreadsPage_getMessageBoardSectionId();
 		Long irrelevantMessageBoardSectionId =
 			testGetMessageBoardSectionMessageBoardThreadsPage_getIrrelevantMessageBoardSectionId();
+
+		Page<MessageBoardThread> page =
+			messageBoardThreadResource.
+				getMessageBoardSectionMessageBoardThreadsPage(
+					messageBoardSectionId, RandomTestUtil.randomString(), null,
+					null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantMessageBoardSectionId != null) {
 			MessageBoardThread irrelevantMessageBoardThread =
@@ -258,7 +257,7 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 			messageBoardThreadResource.
 				getMessageBoardSectionMessageBoardThreadsPage(
 					messageBoardSectionId, null, null, null,
-					Pagination.of(1, 2), null);
+					Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -874,17 +873,16 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 
 	@Test
 	public void testGetSiteMessageBoardThreadsPage() throws Exception {
-		Page<MessageBoardThread> page =
-			messageBoardThreadResource.getSiteMessageBoardThreadsPage(
-				testGetSiteMessageBoardThreadsPage_getSiteId(), null,
-				RandomTestUtil.randomString(), null, null, Pagination.of(1, 2),
-				null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long siteId = testGetSiteMessageBoardThreadsPage_getSiteId();
 		Long irrelevantSiteId =
 			testGetSiteMessageBoardThreadsPage_getIrrelevantSiteId();
+
+		Page<MessageBoardThread> page =
+			messageBoardThreadResource.getSiteMessageBoardThreadsPage(
+				siteId, null, RandomTestUtil.randomString(), null, null,
+				Pagination.of(1, 10), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantSiteId != null) {
 			MessageBoardThread irrelevantMessageBoardThread =
@@ -912,7 +910,7 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 				siteId, randomMessageBoardThread());
 
 		page = messageBoardThreadResource.getSiteMessageBoardThreadsPage(
-			siteId, null, null, null, null, Pagination.of(1, 2), null);
+			siteId, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -1208,7 +1206,7 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 			new HashMap<String, Object>() {
 				{
 					put("page", 1);
-					put("pageSize", 2);
+					put("pageSize", 10);
 
 					put("siteKey", "\"" + siteId + "\"");
 				}
@@ -1232,7 +1230,8 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/messageBoardThreads");
 
-		Assert.assertEquals(2, messageBoardThreadsJSONObject.get("totalCount"));
+		Assert.assertEquals(
+			2, messageBoardThreadsJSONObject.getLong("totalCount"));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(messageBoardThread1, messageBoardThread2),
@@ -1433,6 +1432,25 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 						graphQLFields)),
 				"JSONObject/data", "JSONObject/createSiteMessageBoardThread"),
 			MessageBoardThread.class);
+	}
+
+	protected void assertContains(
+		MessageBoardThread messageBoardThread,
+		List<MessageBoardThread> messageBoardThreads) {
+
+		boolean contains = false;
+
+		for (MessageBoardThread item : messageBoardThreads) {
+			if (equals(messageBoardThread, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			messageBoardThreads + " does not contain " + messageBoardThread,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

@@ -199,17 +199,16 @@ public abstract class BaseAttachmentResourceTestCase {
 	public void testGetProductByExternalReferenceCodeAttachmentsPage()
 		throws Exception {
 
-		Page<Attachment> page =
-			attachmentResource.getProductByExternalReferenceCodeAttachmentsPage(
-				testGetProductByExternalReferenceCodeAttachmentsPage_getExternalReferenceCode(),
-				Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetProductByExternalReferenceCodeAttachmentsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetProductByExternalReferenceCodeAttachmentsPage_getIrrelevantExternalReferenceCode();
+
+		Page<Attachment> page =
+			attachmentResource.getProductByExternalReferenceCodeAttachmentsPage(
+				externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			Attachment irrelevantAttachment =
@@ -240,7 +239,7 @@ public abstract class BaseAttachmentResourceTestCase {
 
 		page =
 			attachmentResource.getProductByExternalReferenceCodeAttachmentsPage(
-				externalReferenceCode, Pagination.of(1, 2));
+				externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -393,17 +392,16 @@ public abstract class BaseAttachmentResourceTestCase {
 	public void testGetProductByExternalReferenceCodeImagesPage()
 		throws Exception {
 
-		Page<Attachment> page =
-			attachmentResource.getProductByExternalReferenceCodeImagesPage(
-				testGetProductByExternalReferenceCodeImagesPage_getExternalReferenceCode(),
-				Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetProductByExternalReferenceCodeImagesPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetProductByExternalReferenceCodeImagesPage_getIrrelevantExternalReferenceCode();
+
+		Page<Attachment> page =
+			attachmentResource.getProductByExternalReferenceCodeImagesPage(
+				externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			Attachment irrelevantAttachment =
@@ -432,7 +430,7 @@ public abstract class BaseAttachmentResourceTestCase {
 				externalReferenceCode, randomAttachment());
 
 		page = attachmentResource.getProductByExternalReferenceCodeImagesPage(
-			externalReferenceCode, Pagination.of(1, 2));
+			externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -581,13 +579,13 @@ public abstract class BaseAttachmentResourceTestCase {
 
 	@Test
 	public void testGetProductIdAttachmentsPage() throws Exception {
-		Page<Attachment> page = attachmentResource.getProductIdAttachmentsPage(
-			testGetProductIdAttachmentsPage_getId(), Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetProductIdAttachmentsPage_getId();
 		Long irrelevantId = testGetProductIdAttachmentsPage_getIrrelevantId();
+
+		Page<Attachment> page = attachmentResource.getProductIdAttachmentsPage(
+			id, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			Attachment irrelevantAttachment =
@@ -612,7 +610,7 @@ public abstract class BaseAttachmentResourceTestCase {
 			id, randomAttachment());
 
 		page = attachmentResource.getProductIdAttachmentsPage(
-			id, Pagination.of(1, 2));
+			id, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -739,13 +737,13 @@ public abstract class BaseAttachmentResourceTestCase {
 
 	@Test
 	public void testGetProductIdImagesPage() throws Exception {
-		Page<Attachment> page = attachmentResource.getProductIdImagesPage(
-			testGetProductIdImagesPage_getId(), Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetProductIdImagesPage_getId();
 		Long irrelevantId = testGetProductIdImagesPage_getIrrelevantId();
+
+		Page<Attachment> page = attachmentResource.getProductIdImagesPage(
+			id, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			Attachment irrelevantAttachment =
@@ -770,7 +768,7 @@ public abstract class BaseAttachmentResourceTestCase {
 			id, randomAttachment());
 
 		page = attachmentResource.getProductIdImagesPage(
-			id, Pagination.of(1, 2));
+			id, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -898,6 +896,23 @@ public abstract class BaseAttachmentResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		Attachment attachment, List<Attachment> attachments) {
+
+		boolean contains = false;
+
+		for (Attachment item : attachments) {
+			if (equals(attachment, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			attachments + " does not contain " + attachment, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

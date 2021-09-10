@@ -196,18 +196,17 @@ public abstract class BaseOptionValueResourceTestCase {
 	public void testGetOptionByExternalReferenceCodeOptionValuesPage()
 		throws Exception {
 
-		Page<OptionValue> page =
-			optionValueResource.
-				getOptionByExternalReferenceCodeOptionValuesPage(
-					testGetOptionByExternalReferenceCodeOptionValuesPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetOptionByExternalReferenceCodeOptionValuesPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetOptionByExternalReferenceCodeOptionValuesPage_getIrrelevantExternalReferenceCode();
+
+		Page<OptionValue> page =
+			optionValueResource.
+				getOptionByExternalReferenceCodeOptionValuesPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			OptionValue irrelevantOptionValue =
@@ -239,7 +238,7 @@ public abstract class BaseOptionValueResourceTestCase {
 		page =
 			optionValueResource.
 				getOptionByExternalReferenceCodeOptionValuesPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -347,14 +346,14 @@ public abstract class BaseOptionValueResourceTestCase {
 
 	@Test
 	public void testGetOptionIdOptionValuesPage() throws Exception {
-		Page<OptionValue> page =
-			optionValueResource.getOptionIdOptionValuesPage(
-				testGetOptionIdOptionValuesPage_getId(), Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetOptionIdOptionValuesPage_getId();
 		Long irrelevantId = testGetOptionIdOptionValuesPage_getIrrelevantId();
+
+		Page<OptionValue> page =
+			optionValueResource.getOptionIdOptionValuesPage(
+				id, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			OptionValue irrelevantOptionValue =
@@ -381,7 +380,7 @@ public abstract class BaseOptionValueResourceTestCase {
 				id, randomOptionValue());
 
 		page = optionValueResource.getOptionIdOptionValuesPage(
-			id, Pagination.of(1, 2));
+			id, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -479,6 +478,23 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		OptionValue optionValue, List<OptionValue> optionValues) {
+
+		boolean contains = false;
+
+		for (OptionValue item : optionValues) {
+			if (equals(optionValue, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			optionValues + " does not contain " + optionValue, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

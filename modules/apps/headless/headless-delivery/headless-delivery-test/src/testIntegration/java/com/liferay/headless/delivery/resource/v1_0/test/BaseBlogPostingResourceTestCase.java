@@ -408,16 +408,15 @@ public abstract class BaseBlogPostingResourceTestCase {
 
 	@Test
 	public void testGetSiteBlogPostingsPage() throws Exception {
-		Page<BlogPosting> page = blogPostingResource.getSiteBlogPostingsPage(
-			testGetSiteBlogPostingsPage_getSiteId(),
-			RandomTestUtil.randomString(), null, null, Pagination.of(1, 2),
-			null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long siteId = testGetSiteBlogPostingsPage_getSiteId();
 		Long irrelevantSiteId =
 			testGetSiteBlogPostingsPage_getIrrelevantSiteId();
+
+		Page<BlogPosting> page = blogPostingResource.getSiteBlogPostingsPage(
+			siteId, RandomTestUtil.randomString(), null, null,
+			Pagination.of(1, 10), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantSiteId != null) {
 			BlogPosting irrelevantBlogPosting =
@@ -442,7 +441,7 @@ public abstract class BaseBlogPostingResourceTestCase {
 			siteId, randomBlogPosting());
 
 		page = blogPostingResource.getSiteBlogPostingsPage(
-			siteId, null, null, null, Pagination.of(1, 2), null);
+			siteId, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -703,7 +702,7 @@ public abstract class BaseBlogPostingResourceTestCase {
 			new HashMap<String, Object>() {
 				{
 					put("page", 1);
-					put("pageSize", 2);
+					put("pageSize", 10);
 
 					put("siteKey", "\"" + siteId + "\"");
 				}
@@ -724,7 +723,7 @@ public abstract class BaseBlogPostingResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/blogPostings");
 
-		Assert.assertEquals(2, blogPostingsJSONObject.get("totalCount"));
+		Assert.assertEquals(2, blogPostingsJSONObject.getLong("totalCount"));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(blogPosting1, blogPosting2),
@@ -961,6 +960,23 @@ public abstract class BaseBlogPostingResourceTestCase {
 						graphQLFields)),
 				"JSONObject/data", "JSONObject/createSiteBlogPosting"),
 			BlogPosting.class);
+	}
+
+	protected void assertContains(
+		BlogPosting blogPosting, List<BlogPosting> blogPostings) {
+
+		boolean contains = false;
+
+		for (BlogPosting item : blogPostings) {
+			if (equals(blogPosting, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			blogPostings + " does not contain " + blogPosting, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

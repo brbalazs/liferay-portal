@@ -195,13 +195,12 @@ public abstract class BaseLanguageResourceTestCase {
 
 	@Test
 	public void testGetSiteLanguagesPage() throws Exception {
-		Page<Language> page = languageResource.getSiteLanguagesPage(
-			testGetSiteLanguagesPage_getSiteId());
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long siteId = testGetSiteLanguagesPage_getSiteId();
 		Long irrelevantSiteId = testGetSiteLanguagesPage_getIrrelevantSiteId();
+
+		Page<Language> page = languageResource.getSiteLanguagesPage(siteId);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantSiteId != null) {
 			Language irrelevantLanguage = testGetSiteLanguagesPage_addLanguage(
@@ -278,7 +277,7 @@ public abstract class BaseLanguageResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/languages");
 
-		Assert.assertEquals(2, languagesJSONObject.get("totalCount"));
+		Assert.assertEquals(2, languagesJSONObject.getLong("totalCount"));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(language1, language2),
@@ -289,6 +288,21 @@ public abstract class BaseLanguageResourceTestCase {
 	protected Language testGraphQLLanguage_addLanguage() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(Language language, List<Language> languages) {
+		boolean contains = false;
+
+		for (Language item : languages) {
+			if (equals(language, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			languages + " does not contain " + language, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

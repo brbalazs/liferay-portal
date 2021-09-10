@@ -205,16 +205,16 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 
 	@Test
 	public void testGetSiteTaxonomyVocabulariesPage() throws Exception {
-		Page<TaxonomyVocabulary> page =
-			taxonomyVocabularyResource.getSiteTaxonomyVocabulariesPage(
-				testGetSiteTaxonomyVocabulariesPage_getSiteId(),
-				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long siteId = testGetSiteTaxonomyVocabulariesPage_getSiteId();
 		Long irrelevantSiteId =
 			testGetSiteTaxonomyVocabulariesPage_getIrrelevantSiteId();
+
+		Page<TaxonomyVocabulary> page =
+			taxonomyVocabularyResource.getSiteTaxonomyVocabulariesPage(
+				siteId, RandomTestUtil.randomString(), null,
+				Pagination.of(1, 10), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantSiteId != null) {
 			TaxonomyVocabulary irrelevantTaxonomyVocabulary =
@@ -241,7 +241,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 				siteId, randomTaxonomyVocabulary());
 
 		page = taxonomyVocabularyResource.getSiteTaxonomyVocabulariesPage(
-			siteId, null, null, Pagination.of(1, 2), null);
+			siteId, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -537,7 +537,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 			new HashMap<String, Object>() {
 				{
 					put("page", 1);
-					put("pageSize", 2);
+					put("pageSize", 10);
 
 					put("siteKey", "\"" + siteId + "\"");
 				}
@@ -563,7 +563,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 			"JSONObject/taxonomyVocabularies");
 
 		Assert.assertEquals(
-			2, taxonomyVocabulariesJSONObject.get("totalCount"));
+			2, taxonomyVocabulariesJSONObject.getLong("totalCount"));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(taxonomyVocabulary1, taxonomyVocabulary2),
@@ -908,6 +908,25 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 						graphQLFields)),
 				"JSONObject/data", "JSONObject/createSiteTaxonomyVocabulary"),
 			TaxonomyVocabulary.class);
+	}
+
+	protected void assertContains(
+		TaxonomyVocabulary taxonomyVocabulary,
+		List<TaxonomyVocabulary> taxonomyVocabularies) {
+
+		boolean contains = false;
+
+		for (TaxonomyVocabulary item : taxonomyVocabularies) {
+			if (equals(taxonomyVocabulary, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			taxonomyVocabularies + " does not contain " + taxonomyVocabulary,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

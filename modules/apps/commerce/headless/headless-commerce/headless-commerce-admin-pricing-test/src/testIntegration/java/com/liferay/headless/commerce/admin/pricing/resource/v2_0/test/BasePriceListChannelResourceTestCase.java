@@ -243,18 +243,17 @@ public abstract class BasePriceListChannelResourceTestCase {
 	public void testGetPriceListByExternalReferenceCodePriceListChannelsPage()
 		throws Exception {
 
-		Page<PriceListChannel> page =
-			priceListChannelResource.
-				getPriceListByExternalReferenceCodePriceListChannelsPage(
-					testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetPriceListByExternalReferenceCodePriceListChannelsPage_getIrrelevantExternalReferenceCode();
+
+		Page<PriceListChannel> page =
+			priceListChannelResource.
+				getPriceListByExternalReferenceCodePriceListChannelsPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			PriceListChannel irrelevantPriceListChannel =
@@ -286,7 +285,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 		page =
 			priceListChannelResource.
 				getPriceListByExternalReferenceCodePriceListChannelsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -405,16 +404,16 @@ public abstract class BasePriceListChannelResourceTestCase {
 
 	@Test
 	public void testGetPriceListIdPriceListChannelsPage() throws Exception {
-		Page<PriceListChannel> page =
-			priceListChannelResource.getPriceListIdPriceListChannelsPage(
-				testGetPriceListIdPriceListChannelsPage_getId(),
-				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetPriceListIdPriceListChannelsPage_getId();
 		Long irrelevantId =
 			testGetPriceListIdPriceListChannelsPage_getIrrelevantId();
+
+		Page<PriceListChannel> page =
+			priceListChannelResource.getPriceListIdPriceListChannelsPage(
+				id, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
+				null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			PriceListChannel irrelevantPriceListChannel =
@@ -441,7 +440,7 @@ public abstract class BasePriceListChannelResourceTestCase {
 				id, randomPriceListChannel());
 
 		page = priceListChannelResource.getPriceListIdPriceListChannelsPage(
-			id, null, null, Pagination.of(1, 2), null);
+			id, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -757,6 +756,25 @@ public abstract class BasePriceListChannelResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		PriceListChannel priceListChannel,
+		List<PriceListChannel> priceListChannels) {
+
+		boolean contains = false;
+
+		for (PriceListChannel item : priceListChannels) {
+			if (equals(priceListChannel, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			priceListChannels + " does not contain " + priceListChannel,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

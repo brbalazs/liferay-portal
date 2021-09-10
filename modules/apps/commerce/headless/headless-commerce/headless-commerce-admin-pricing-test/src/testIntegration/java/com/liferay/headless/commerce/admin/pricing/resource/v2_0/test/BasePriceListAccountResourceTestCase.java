@@ -243,18 +243,17 @@ public abstract class BasePriceListAccountResourceTestCase {
 	public void testGetPriceListByExternalReferenceCodePriceListAccountsPage()
 		throws Exception {
 
-		Page<PriceListAccount> page =
-			priceListAccountResource.
-				getPriceListByExternalReferenceCodePriceListAccountsPage(
-					testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetPriceListByExternalReferenceCodePriceListAccountsPage_getIrrelevantExternalReferenceCode();
+
+		Page<PriceListAccount> page =
+			priceListAccountResource.
+				getPriceListByExternalReferenceCodePriceListAccountsPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			PriceListAccount irrelevantPriceListAccount =
@@ -286,7 +285,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 		page =
 			priceListAccountResource.
 				getPriceListByExternalReferenceCodePriceListAccountsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -405,16 +404,16 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 	@Test
 	public void testGetPriceListIdPriceListAccountsPage() throws Exception {
-		Page<PriceListAccount> page =
-			priceListAccountResource.getPriceListIdPriceListAccountsPage(
-				testGetPriceListIdPriceListAccountsPage_getId(),
-				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetPriceListIdPriceListAccountsPage_getId();
 		Long irrelevantId =
 			testGetPriceListIdPriceListAccountsPage_getIrrelevantId();
+
+		Page<PriceListAccount> page =
+			priceListAccountResource.getPriceListIdPriceListAccountsPage(
+				id, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
+				null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			PriceListAccount irrelevantPriceListAccount =
@@ -441,7 +440,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 				id, randomPriceListAccount());
 
 		page = priceListAccountResource.getPriceListIdPriceListAccountsPage(
-			id, null, null, Pagination.of(1, 2), null);
+			id, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -757,6 +756,25 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		PriceListAccount priceListAccount,
+		List<PriceListAccount> priceListAccounts) {
+
+		boolean contains = false;
+
+		for (PriceListAccount item : priceListAccounts) {
+			if (equals(priceListAccount, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			priceListAccounts + " does not contain " + priceListAccount,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

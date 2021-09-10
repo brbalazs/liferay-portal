@@ -331,14 +331,14 @@ public abstract class BaseKeywordResourceTestCase {
 
 	@Test
 	public void testGetSiteKeywordsPage() throws Exception {
-		Page<Keyword> page = keywordResource.getSiteKeywordsPage(
-			testGetSiteKeywordsPage_getSiteId(), RandomTestUtil.randomString(),
-			null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long siteId = testGetSiteKeywordsPage_getSiteId();
 		Long irrelevantSiteId = testGetSiteKeywordsPage_getIrrelevantSiteId();
+
+		Page<Keyword> page = keywordResource.getSiteKeywordsPage(
+			siteId, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
+			null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantSiteId != null) {
 			Keyword irrelevantKeyword = testGetSiteKeywordsPage_addKeyword(
@@ -362,7 +362,7 @@ public abstract class BaseKeywordResourceTestCase {
 			siteId, randomKeyword());
 
 		page = keywordResource.getSiteKeywordsPage(
-			siteId, null, null, Pagination.of(1, 2), null);
+			siteId, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -613,7 +613,7 @@ public abstract class BaseKeywordResourceTestCase {
 			new HashMap<String, Object>() {
 				{
 					put("page", 1);
-					put("pageSize", 2);
+					put("pageSize", 10);
 
 					put("siteKey", "\"" + siteId + "\"");
 				}
@@ -634,7 +634,7 @@ public abstract class BaseKeywordResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/keywords");
 
-		Assert.assertEquals(2, keywordsJSONObject.get("totalCount"));
+		Assert.assertEquals(2, keywordsJSONObject.getLong("totalCount"));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(keyword1, keyword2),
@@ -765,6 +765,20 @@ public abstract class BaseKeywordResourceTestCase {
 						graphQLFields)),
 				"JSONObject/data", "JSONObject/createSiteKeyword"),
 			Keyword.class);
+	}
+
+	protected void assertContains(Keyword keyword, List<Keyword> keywords) {
+		boolean contains = false;
+
+		for (Keyword item : keywords) {
+			if (equals(keyword, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(keywords + " does not contain " + keyword, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

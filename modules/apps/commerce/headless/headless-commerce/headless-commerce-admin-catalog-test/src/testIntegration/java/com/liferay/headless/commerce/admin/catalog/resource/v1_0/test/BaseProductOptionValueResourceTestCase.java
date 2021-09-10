@@ -196,17 +196,16 @@ public abstract class BaseProductOptionValueResourceTestCase {
 	public void testGetProductOptionIdProductOptionValuesPage()
 		throws Exception {
 
-		Page<ProductOptionValue> page =
-			productOptionValueResource.
-				getProductOptionIdProductOptionValuesPage(
-					testGetProductOptionIdProductOptionValuesPage_getId(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetProductOptionIdProductOptionValuesPage_getId();
 		Long irrelevantId =
 			testGetProductOptionIdProductOptionValuesPage_getIrrelevantId();
+
+		Page<ProductOptionValue> page =
+			productOptionValueResource.
+				getProductOptionIdProductOptionValuesPage(
+					id, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			ProductOptionValue irrelevantProductOptionValue =
@@ -237,7 +236,7 @@ public abstract class BaseProductOptionValueResourceTestCase {
 		page =
 			productOptionValueResource.
 				getProductOptionIdProductOptionValuesPage(
-					id, Pagination.of(1, 2));
+					id, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -351,6 +350,25 @@ public abstract class BaseProductOptionValueResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		ProductOptionValue productOptionValue,
+		List<ProductOptionValue> productOptionValues) {
+
+		boolean contains = false;
+
+		for (ProductOptionValue item : productOptionValues) {
+			if (equals(productOptionValue, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			productOptionValues + " does not contain " + productOptionValue,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

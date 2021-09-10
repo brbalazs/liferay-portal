@@ -243,18 +243,17 @@ public abstract class BaseDiscountAccountResourceTestCase {
 	public void testGetDiscountByExternalReferenceCodeDiscountAccountsPage()
 		throws Exception {
 
-		Page<DiscountAccount> page =
-			discountAccountResource.
-				getDiscountByExternalReferenceCodeDiscountAccountsPage(
-					testGetDiscountByExternalReferenceCodeDiscountAccountsPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetDiscountByExternalReferenceCodeDiscountAccountsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetDiscountByExternalReferenceCodeDiscountAccountsPage_getIrrelevantExternalReferenceCode();
+
+		Page<DiscountAccount> page =
+			discountAccountResource.
+				getDiscountByExternalReferenceCodeDiscountAccountsPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			DiscountAccount irrelevantDiscountAccount =
@@ -286,7 +285,7 @@ public abstract class BaseDiscountAccountResourceTestCase {
 		page =
 			discountAccountResource.
 				getDiscountByExternalReferenceCodeDiscountAccountsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -402,16 +401,16 @@ public abstract class BaseDiscountAccountResourceTestCase {
 
 	@Test
 	public void testGetDiscountIdDiscountAccountsPage() throws Exception {
-		Page<DiscountAccount> page =
-			discountAccountResource.getDiscountIdDiscountAccountsPage(
-				testGetDiscountIdDiscountAccountsPage_getId(),
-				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetDiscountIdDiscountAccountsPage_getId();
 		Long irrelevantId =
 			testGetDiscountIdDiscountAccountsPage_getIrrelevantId();
+
+		Page<DiscountAccount> page =
+			discountAccountResource.getDiscountIdDiscountAccountsPage(
+				id, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
+				null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			DiscountAccount irrelevantDiscountAccount =
@@ -438,7 +437,7 @@ public abstract class BaseDiscountAccountResourceTestCase {
 				id, randomDiscountAccount());
 
 		page = discountAccountResource.getDiscountIdDiscountAccountsPage(
-			id, null, null, Pagination.of(1, 2), null);
+			id, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -751,6 +750,25 @@ public abstract class BaseDiscountAccountResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		DiscountAccount discountAccount,
+		List<DiscountAccount> discountAccounts) {
+
+		boolean contains = false;
+
+		for (DiscountAccount item : discountAccounts) {
+			if (equals(discountAccount, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			discountAccounts + " does not contain " + discountAccount,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

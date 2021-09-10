@@ -248,18 +248,17 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 	public void testGetDiscountByExternalReferenceCodeDiscountProductGroupsPage()
 		throws Exception {
 
-		Page<DiscountProductGroup> page =
-			discountProductGroupResource.
-				getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
-					testGetDiscountByExternalReferenceCodeDiscountProductGroupsPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetDiscountByExternalReferenceCodeDiscountProductGroupsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetDiscountByExternalReferenceCodeDiscountProductGroupsPage_getIrrelevantExternalReferenceCode();
+
+		Page<DiscountProductGroup> page =
+			discountProductGroupResource.
+				getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			DiscountProductGroup irrelevantDiscountProductGroup =
@@ -291,7 +290,7 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 		page =
 			discountProductGroupResource.
 				getDiscountByExternalReferenceCodeDiscountProductGroupsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -415,16 +414,16 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 
 	@Test
 	public void testGetDiscountIdDiscountProductGroupsPage() throws Exception {
-		Page<DiscountProductGroup> page =
-			discountProductGroupResource.getDiscountIdDiscountProductGroupsPage(
-				testGetDiscountIdDiscountProductGroupsPage_getId(),
-				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetDiscountIdDiscountProductGroupsPage_getId();
 		Long irrelevantId =
 			testGetDiscountIdDiscountProductGroupsPage_getIrrelevantId();
+
+		Page<DiscountProductGroup> page =
+			discountProductGroupResource.getDiscountIdDiscountProductGroupsPage(
+				id, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
+				null);
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			DiscountProductGroup irrelevantDiscountProductGroup =
@@ -454,7 +453,7 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 
 		page =
 			discountProductGroupResource.getDiscountIdDiscountProductGroupsPage(
-				id, null, null, Pagination.of(1, 2), null);
+				id, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -784,6 +783,25 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		DiscountProductGroup discountProductGroup,
+		List<DiscountProductGroup> discountProductGroups) {
+
+		boolean contains = false;
+
+		for (DiscountProductGroup item : discountProductGroups) {
+			if (equals(discountProductGroup, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			discountProductGroups + " does not contain " + discountProductGroup,
+			contains);
 	}
 
 	protected void assertHttpResponseStatusCode(

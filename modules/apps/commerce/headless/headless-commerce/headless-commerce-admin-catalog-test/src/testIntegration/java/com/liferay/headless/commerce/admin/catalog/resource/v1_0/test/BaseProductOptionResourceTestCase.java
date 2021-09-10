@@ -324,18 +324,17 @@ public abstract class BaseProductOptionResourceTestCase {
 	public void testGetProductByExternalReferenceCodeProductOptionsPage()
 		throws Exception {
 
-		Page<ProductOption> page =
-			productOptionResource.
-				getProductByExternalReferenceCodeProductOptionsPage(
-					testGetProductByExternalReferenceCodeProductOptionsPage_getExternalReferenceCode(),
-					Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		String externalReferenceCode =
 			testGetProductByExternalReferenceCodeProductOptionsPage_getExternalReferenceCode();
 		String irrelevantExternalReferenceCode =
 			testGetProductByExternalReferenceCodeProductOptionsPage_getIrrelevantExternalReferenceCode();
+
+		Page<ProductOption> page =
+			productOptionResource.
+				getProductByExternalReferenceCodeProductOptionsPage(
+					externalReferenceCode, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantExternalReferenceCode != null) {
 			ProductOption irrelevantProductOption =
@@ -367,7 +366,7 @@ public abstract class BaseProductOptionResourceTestCase {
 		page =
 			productOptionResource.
 				getProductByExternalReferenceCodeProductOptionsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -467,16 +466,15 @@ public abstract class BaseProductOptionResourceTestCase {
 
 	@Test
 	public void testGetProductIdProductOptionsPage() throws Exception {
-		Page<ProductOption> page =
-			productOptionResource.getProductIdProductOptionsPage(
-				testGetProductIdProductOptionsPage_getId(),
-				Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
 		Long id = testGetProductIdProductOptionsPage_getId();
 		Long irrelevantId =
 			testGetProductIdProductOptionsPage_getIrrelevantId();
+
+		Page<ProductOption> page =
+			productOptionResource.getProductIdProductOptionsPage(
+				id, Pagination.of(1, 10));
+
+		Assert.assertEquals(0, page.getTotalCount());
 
 		if (irrelevantId != null) {
 			ProductOption irrelevantProductOption =
@@ -503,7 +501,7 @@ public abstract class BaseProductOptionResourceTestCase {
 				id, randomProductOption());
 
 		page = productOptionResource.getProductIdProductOptionsPage(
-			id, Pagination.of(1, 2));
+			id, Pagination.of(1, 10));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -595,6 +593,23 @@ public abstract class BaseProductOptionResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected void assertContains(
+		ProductOption productOption, List<ProductOption> productOptions) {
+
+		boolean contains = false;
+
+		for (ProductOption item : productOptions) {
+			if (equals(productOption, item)) {
+				contains = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			productOptions + " does not contain " + productOption, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(
