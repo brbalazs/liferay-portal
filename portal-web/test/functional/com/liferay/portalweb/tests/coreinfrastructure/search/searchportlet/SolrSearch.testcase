@@ -2271,81 +2271,52 @@ definition {
 
 	@priority = "4"
 	test ViewStagedAndLiveContentInSearchResults {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		SitePages.openPagesAdmin(siteURLKey = "Site Name");
 
 		SitePages.addPublicPage(
 			inheritChanges = "disable",
 			pageName = "search",
-			pageTemplateName = "Search"
-		);
+			pageTemplateName = "Search");
 
-		ProductMenu.gotoPortlet(
-			category = "Publishing",
-			panel = "Site Administration",
-			portlet = "Staging"
-		);
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		SearchPortlets.configureEmbeddedScope(searchScope = "Let the User Choose");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
 
 		Staging.activateStagingCP(siteName = "Site Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
 
 		WebContent.addArticleCP(
-			webContentContent = "WebContent Content",
-			webContentTitle = "WebContent Title"
-		);
+			webContentContent = "WC Content",
+			webContentTitle = "Apple");
 
-		Navigator.gotoStagedSitePage(pageName = "search", siteName = "Site Name");
+		Navigator.openStagingSiteURL(siteName = "Site Name");
 
-		SearchPortlets.searchEmbedded(searchTerm = "Web Content Article");
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
 
 		SearchResultPortlet.viewSearchResults(
-			searchAssetTitle = "WebContent Title",
-			searchAssetType = "Web Content Article"
-		);
+			searchAssetTitle = "Apple",
+			searchAssetType = "Web Content Article");
 
-		ProductMenu.gotoLiveSite();
+		ProductMenu.gotoLiveSite(site = "Site Name");
 
-		SearchPortlets.searchEmbedded(searchTerm = "Web Content Article");
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
 
 		SearchResultPortlet.viewSearchResultNotPresent(
-			searchAssetTitle = "WebContent Title",
-			searchAssetType = "Web Content Article"
-		);
+			searchAssetTitle = "Apple",
+			searchAssetType = "Web Content Article");
 
-		// LPS-83060
+		SearchPortlets.selectEmbeddedScopeInput(searchScope = "Everything");
 
-		/* <execute macro="SearchPortlets#configureEmbeddedScope">
-			<var name="searchScope" value="Everything" />
-		</execute>
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
 
-		<execute macro="SearchPortlets#searchEmbedded">
-			<var name="searchTerm" value="Web Content Article" />
-		</execute>
-
-		<execute macro="SearchResultPortlet#viewSearchResultNotPresent">
-			<var name="searchAssetTitle" value="WebContent Title" />
-			<var name="searchAssetType" value="Web Content Article" />
-		</execute>
-
-		<execute macro="SearchPortlets#configureEmbeddedScope">
-			<var name="searchScope" value="This Site" />
-		</execute> */
+		SearchResultPortlet.viewSearchResultNotPresent(
+			searchAssetTitle = "Apple",
+			searchAssetType = "Web Content Article");
 
 		Navigator.gotoStagedView();
 
@@ -2353,34 +2324,26 @@ definition {
 
 		Staging.publishToLive();
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
 
-		WebContent.deleteStagedCP(
-			pageName = "search",
-			siteName = "Site Name",
-			webContentTitle = "WebContent Title"
-		);
+		WebContent.deleteCP(
+			siteURLKey = "site-name-staging",
+			webContentTitle = "Apple");
 
-		Navigator.gotoStagedSitePage(pageName = "search", siteName = "Site Name");
+		Navigator.openStagingSiteURL(siteName = "Site Name");
 
-		SearchPortlets.searchEmbedded(searchTerm = "Web Content Article");
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
 
 		SearchResultPortlet.viewSearchResultNotPresent(
-			searchAssetTitle = "WebContent Title",
-			searchAssetType = "Web Content Article"
-		);
+			searchAssetTitle = "Apple",
+			searchAssetType = "Web Content Article");
 
-		ProductMenu.gotoLiveSite();
+		ProductMenu.gotoLiveSite(site = "Site Name");
 
-		SearchPortlets.searchEmbedded(searchTerm = "Web Content Article");
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
 
 		SearchResultPortlet.viewSearchResults(
-			searchAssetTitle = "WebContent Title",
-			searchAssetType = "Web Content Article"
-		);
+			searchAssetTitle = "Apple",
+			searchAssetType = "Web Content Article");
 	}
 }
