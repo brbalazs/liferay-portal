@@ -1,7 +1,15 @@
 import moment from 'moment';
 import React from 'react';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
-import {flattenDepth, flow, groupBy, map, mapValues, toPairs} from 'lodash/fp';
+import {
+	flattenDepth,
+	flow,
+	groupBy,
+	map,
+	mapValues,
+	orderBy,
+	toPairs
+} from 'lodash/fp';
 import {RangeSelectors} from 'shared/types';
 import {sub} from 'shared/util/lang';
 import {TimeIntervals} from 'shared/util/constants';
@@ -20,7 +28,7 @@ type SessionEvent = {
 	attributes: SessionEventAttribute;
 	description: string;
 	subtitle: string;
-	time: Date;
+	time: moment.Moment;
 	title: string;
 };
 
@@ -56,7 +64,7 @@ export type VerticalTimelineSession = {
 	device: string;
 	endTime: Date;
 	nestedItems: SessionEvent[];
-	time: Date;
+	time: moment.Moment;
 };
 
 /**
@@ -93,15 +101,7 @@ export const buildLegendItems = ({
  */
 const formatEvents = (events: UserSessionEvent[]): Array<SessionEvent> =>
 	events.map(
-		({
-			canonicalUrl,
-			createDate,
-			name,
-			pageDescription,
-			pageTitle,
-			referrer,
-			url
-		}) => ({
+		({canonicalUrl, createDate, name, pageTitle, referrer, url}) => ({
 			attributes: {
 				canonicalUrl,
 				header: Liferay.Language.get('event-attributes'),
@@ -109,9 +109,9 @@ const formatEvents = (events: UserSessionEvent[]): Array<SessionEvent> =>
 				title: pageTitle,
 				url
 			},
-			description: pageDescription,
-			subtitle: referrer,
-			time: new Date(createDate),
+			description: pageTitle,
+			subtitle: canonicalUrl,
+			time: moment(createDate),
 			title: name
 		})
 	);
@@ -178,6 +178,7 @@ export const formatSessions = (
 			)
 		),
 		toPairs,
+		orderBy([([time]) => moment(time).unix()], ['desc']),
 		map(([time, items]: any[]) => [
 			{
 				header: true,
