@@ -2,7 +2,6 @@ import mockDate from 'test/mock-date';
 import React from 'react';
 import VerticalTimeline from '../VerticalTimeline';
 import {cleanup, render} from '@testing-library/react';
-import {Link} from 'react-router-dom';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
@@ -16,24 +15,14 @@ const ITEMS = [
 		subtitle: '3 Document Downloads, 2 Form Submissions, 24 Page Visits',
 		symbol: 'web-content',
 		time: 1518648993917,
-		title: [
-			'Visited',
-			' ',
-			<Link key='3' to='#1'>
-				{'www.liferay.com'}
-			</Link>
-		],
+		title: 'www.liferay.com',
 		type: 'Document'
 	},
 	{
 		subtitle: '3 Document Downloads, 2 Form Submissions, 24 Page Visits',
 		symbol: 'web-content',
 		time: 1518648993917,
-		title: [
-			<Link key='1' to='#2'>
-				{'New Business Purchase'}
-			</Link>
-		],
+		title: 'New Business Purchase',
 		type: 'Download'
 	},
 	{
@@ -44,7 +33,7 @@ const ITEMS = [
 		subtitle: '3 Document Downloads, 2 Form Submissions, 24 Page Visits',
 		symbol: 'web-content',
 		time: 1518648993917,
-		title: ['Opened Email'],
+		title: 'Opened Email',
 		type: 'Download'
 	}
 ];
@@ -72,7 +61,7 @@ const ITEMS_NESTED = [
 		subtitle: '3 Document Downloads, 2 Form Submissions, 24 Page Visits',
 		symbol: 'web-content',
 		time: 1518648993917,
-		title: ['Opened Email'],
+		title: 'Opened Email',
 		type: 'Download'
 	}
 ];
