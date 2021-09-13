@@ -22,17 +22,6 @@ const ATTRIBUTE_CLASSES_MAP = {
 	title: 'attribute-important'
 };
 
-type TITLE_ELEMENT_ATTRIBUTES = {
-	key: string;
-	props: {
-		children: string;
-	};
-	type: string;
-	ref: string;
-	_owner: string;
-	_store: {};
-};
-
 type ITEM_SHAPE = {
 	attributes: UserSessionAttributes;
 	browserName: string;
@@ -41,9 +30,9 @@ type ITEM_SHAPE = {
 	endTime: number;
 	header: boolean;
 	nestedItems: ITEM_SHAPE[];
-	subtitle: string | TITLE_ELEMENT_ATTRIBUTES[];
+	subtitle: string;
 	time: string;
-	title: string | TITLE_ELEMENT_ATTRIBUTES[];
+	title: string;
 	totalEvents: number;
 	url: string;
 };
