@@ -219,6 +219,11 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		onPointSelect(null);
 	};
 
+	const handleChangeInterval = (interval: Interval) => {
+		onChangeInterval(interval);
+		onPointSelect(null);
+	};
+
 	const handleChartSelect = ({index}: {index: number}) => {
 		resetPage();
 		onPointSelect(index);
@@ -290,7 +295,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 						activeInterval={interval}
 						className='mr-3'
 						disabled={isHourlyRangeKey(rangeSelectors.rangeKey)}
-						onChange={onChangeInterval}
+						onChange={handleChangeInterval}
 					/>
 
 					<DropdownRangeKey
