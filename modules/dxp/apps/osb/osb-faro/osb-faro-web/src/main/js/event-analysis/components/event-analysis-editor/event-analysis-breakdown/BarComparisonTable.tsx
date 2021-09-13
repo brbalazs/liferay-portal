@@ -56,7 +56,12 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 							percent={percent}
 							size={Sizes.Default}
 						>
-							<span>{Number(value).toLocaleString()}</span>
+							<span>
+								{Number(value).toLocaleString(undefined, {
+									maximumFractionDigits: 2,
+									minimumFractionDigits: 0
+								})}
+							</span>
 						</MetricBar>
 					</td>
 				</tr>
