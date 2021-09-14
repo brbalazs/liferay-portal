@@ -1,5 +1,5 @@
 import getCN from 'classnames';
-import Icon from './Icon';
+import Icon, {Colors} from './Icon';
 import React, {FC, useState} from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
@@ -9,8 +9,18 @@ import {Link} from 'react-router-dom';
 import {UserSessionAttributes} from 'shared/util/activities';
 
 const DEVICE_ICONS_MAP = {
+	any: {
+		color: Colors.MainLighten65,
+		id: 'anyIcon',
+		symbol: 'devices',
+		title: Liferay.Language.get('unknown-device')
+	},
 	desktop: {symbol: 'ac-display', title: Liferay.Language.get('desktop')},
 	mobile: {symbol: 'mobile-portrait', title: Liferay.Language.get('mobile')},
+	smartphone: {
+		symbol: 'mobile-portrait',
+		title: Liferay.Language.get('mobile')
+	},
 	tablet: {
 		className: 'tablet-icon',
 		symbol: 'tablet-portrait',
@@ -104,7 +114,9 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 
 	const {header: attributesTitle, ...otherValues} = attributes || {};
 	const {title: deviceIconTitle, ...otherIconAttributes} =
-		expandable && !!nestedItems && DEVICE_ICONS_MAP[device.toLowerCase()];
+		expandable &&
+		!!nestedItems &&
+		(DEVICE_ICONS_MAP[device.toLowerCase()] || DEVICE_ICONS_MAP.any);
 
 	const eventTitle =
 		title && !header ? <TextTruncate title={`${title}`} /> : title;
@@ -192,7 +204,10 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 										data-tooltip-align='bottom'
 										title={`${deviceIconTitle}\n${browserName}`}
 									>
-										<Icon {...otherIconAttributes} />
+										<Icon
+											color={Colors.MainLighten28}
+											{...otherIconAttributes}
+										/>
 									</span>
 								</div>
 							)}
