@@ -26,21 +26,21 @@ public class MatchFunctionTest {
 	public void testEvaluateFalse1() throws Exception {
 		MatchFunction matchFunction = new MatchFunction();
 
-		Assert.assertFalse(matchFunction.evaluate("texto", "[0-9]+"));
+		Assert.assertFalse((boolean)matchFunction.evaluate("texto", "[0-9]+"));
 	}
 
 	@Test
 	public void testEvaluateFalse2() throws Exception {
 		MatchFunction matchFunction = new MatchFunction();
 
-		Assert.assertFalse(matchFunction.evaluate("123", "[a-z]+"));
+		Assert.assertFalse((boolean)matchFunction.evaluate("123", "[a-z]+"));
 	}
 
 	@Test
 	public void testEvaluateFalse3() throws Exception {
 		MatchFunction matchFunction = new MatchFunction();
 
-		Assert.assertFalse(matchFunction.evaluate("invalid*", "\\w+"));
+		Assert.assertFalse((boolean)matchFunction.evaluate("invalid*", "\\w+"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -55,7 +55,7 @@ public class MatchFunctionTest {
 		MatchFunction matchFunction = new MatchFunction();
 
 		Assert.assertTrue(
-			matchFunction.evaluate("Liferay123", "Liferay[0-9]{3}"));
+			(boolean)matchFunction.evaluate("Liferay123", "Liferay[0-9]{3}"));
 	}
 
 	@Test
@@ -63,7 +63,8 @@ public class MatchFunctionTest {
 		MatchFunction matchFunction = new MatchFunction();
 
 		Assert.assertTrue(
-			matchFunction.evaluate("admin@liferay.com", "\\w+@liferay.com"));
+			(boolean)matchFunction.evaluate(
+				"admin@liferay.com", "\\w+@liferay.com"));
 	}
 
 }

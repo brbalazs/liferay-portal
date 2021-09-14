@@ -33,7 +33,7 @@ public class JumpPageFunctionTest {
 
 		Object result = jumpPageFunction.evaluate(1.0, 4.0);
 
-		Assert.assertTrue(result);
+		Assert.assertTrue((boolean)result);
 
 		Assert.assertEquals(4, (int)pageFlow.get(1));
 	}
