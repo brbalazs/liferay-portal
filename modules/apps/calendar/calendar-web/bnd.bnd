@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Calendar Web
 Bundle-SymbolicName: com.liferay.calendar.web
-Bundle-Version: 2.0.86
+Bundle-Version: 2.0.87
 Liferay-JS-Config: /META-INF/resources/js/config.js
 Web-ContextPath: /calendar-web
