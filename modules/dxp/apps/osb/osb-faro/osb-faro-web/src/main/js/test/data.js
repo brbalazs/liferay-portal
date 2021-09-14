@@ -1072,7 +1072,131 @@ export const mockSessions = () => ({
 				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
 				contentLanguageId: null,
 				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
-				deviceType: 'Desktop',
+				deviceType: 'Mobile',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			},
+			{
+				browserName: 'Firefox',
+				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
+				deviceType: 'Tablet',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			},
+			{
+				browserName: 'Firefox',
+				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
+				deviceType: 'SmartPhone',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			},
+			{
+				browserName: 'Firefox',
+				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
+				deviceType: 'any',
+				events: [
+					{
+						canonicalUrl: 'http://localhost:8089',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'pageViewed',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/',
+						url: 'http://localhost:8089/web/guest/home'
+					},
+					{
+						canonicalUrl: 'http://localhost:8089/home',
+						createDate: 'Wed Aug 25 20:17:42 GMT 2021',
+						name: 'tabBlurred',
+						pageDescription: '',
+						pageKeywords: '',
+						pageTitle: 'Home - Liferay DXP',
+						referrer: 'http://localhost:8089/web/guest/home',
+						url: 'http://localhost:8089/'
+					}
+				],
+				languageId: null,
+				timezoneOffset: null
+			},
+			{
+				browserName: 'Firefox',
+				completeDate: 'Wed Aug 25 20:00:00 GMT 2021',
+				contentLanguageId: null,
+				createDate: 'Wed Aug 25 00:00:00 GMT 2021',
+				deviceType: 'unknown',
 				events: [
 					{
 						canonicalUrl: 'http://localhost:8089',
