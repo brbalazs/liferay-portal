@@ -500,7 +500,7 @@ public class LayoutPageTemplateEntryServiceTest {
 			LayoutPageTemplateEntryServiceUtil.updateLayoutPageTemplateEntry(
 				layoutPageTemplateEntry.getLayoutPageTemplateEntryId(), true);
 
-		Assert.assertEquals(true, layoutPageTemplateEntry.isDefaultTemplate());
+		Assert.assertTrue(layoutPageTemplateEntry.isDefaultTemplate());
 	}
 
 	@Test

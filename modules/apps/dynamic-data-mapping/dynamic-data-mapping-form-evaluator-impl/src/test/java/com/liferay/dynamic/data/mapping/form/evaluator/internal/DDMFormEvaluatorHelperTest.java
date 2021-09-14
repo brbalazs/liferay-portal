@@ -1162,8 +1162,7 @@ public class DDMFormEvaluatorHelperTest {
 		Assert.assertEquals(
 			"The value should be greater than 10.",
 			actualDDMFormFieldEvaluationResult.getErrorMessage());
-		Assert.assertEquals(
-			false, actualDDMFormFieldEvaluationResult.isValid());
+		Assert.assertFalse(actualDDMFormFieldEvaluationResult.isValid());
 	}
 
 	@Test

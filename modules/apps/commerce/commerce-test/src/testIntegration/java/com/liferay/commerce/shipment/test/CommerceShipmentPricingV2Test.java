@@ -600,8 +600,7 @@ public class CommerceShipmentPricingV2Test {
 			commerceOrder.getGroupId(), commerceOrder.getCommerceOrderId(),
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId());
 
-		Assert.assertEquals(
-			false, _commerceShippingHelper.isShippable(commerceOrder));
+		Assert.assertFalse(_commerceShippingHelper.isShippable(commerceOrder));
 	}
 
 	@Test

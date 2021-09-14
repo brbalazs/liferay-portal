@@ -47,7 +47,7 @@ public class FunctionEvaluationTest {
 
 		ddmExpression.setDDMExpressionFunction("length", new LengthFunction());
 
-		Assert.assertEquals(false, ddmExpression.evaluate());
+		Assert.assertFalse(ddmExpression.evaluate());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class FunctionEvaluationTest {
 
 		ddmExpression.setDDMExpressionFunction("length", new LengthFunction());
 
-		Assert.assertEquals(true, ddmExpression.evaluate());
+		Assert.assertTrue(ddmExpression.evaluate());
 	}
 
 	@Test

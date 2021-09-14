@@ -61,7 +61,7 @@ public class LiferayFileItemTest {
 
 		Assert.assertEquals(fieldName, liferayFileItem.getFieldName());
 		Assert.assertEquals(fileName, liferayFileItem.getFullFileName());
-		Assert.assertEquals(false, liferayFileItem.isFormField());
+		Assert.assertFalse(liferayFileItem.isFormField());
 	}
 
 	@Test(expected = NullPointerException.class)

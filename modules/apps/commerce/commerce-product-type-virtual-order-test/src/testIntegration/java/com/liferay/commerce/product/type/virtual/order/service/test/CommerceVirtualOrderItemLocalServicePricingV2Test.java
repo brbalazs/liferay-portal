@@ -171,7 +171,7 @@ public class CommerceVirtualOrderItemLocalServicePricingV2Test {
 		for (CommerceVirtualOrderItem commerceVirtualOrderItem :
 				userCommerceVirtualOrderItems) {
 
-			Assert.assertEquals(true, commerceVirtualOrderItem.isActive());
+			Assert.assertTrue(commerceVirtualOrderItem.isActive());
 			Assert.assertEquals(
 				CommerceOrderConstants.ORDER_STATUS_PENDING,
 				commerceVirtualOrderItem.getActivationStatus());
@@ -265,7 +265,7 @@ public class CommerceVirtualOrderItemLocalServicePricingV2Test {
 		for (CommerceVirtualOrderItem commerceVirtualOrderItem :
 				userCommerceVirtualOrderItems) {
 
-			Assert.assertEquals(true, commerceVirtualOrderItem.isActive());
+			Assert.assertTrue(commerceVirtualOrderItem.isActive());
 			Assert.assertEquals(
 				CommerceOrderConstants.ORDER_STATUS_PENDING,
 				commerceVirtualOrderItem.getActivationStatus());
@@ -274,7 +274,7 @@ public class CommerceVirtualOrderItemLocalServicePricingV2Test {
 			CommerceOrderItem commerceOrderItem =
 				commerceVirtualOrderItem.getCommerceOrderItem();
 
-			Assert.assertEquals(true, commerceOrderItem.isSubscription());
+			Assert.assertTrue(commerceOrderItem.isSubscription());
 		}
 	}
 

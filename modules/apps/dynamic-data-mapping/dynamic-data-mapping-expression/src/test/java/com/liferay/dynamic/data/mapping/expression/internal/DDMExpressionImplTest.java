@@ -117,7 +117,7 @@ public class DDMExpressionImplTest {
 		Object result = ddmExpression.toRetunType(true);
 
 		Assert.assertTrue(result instanceof Boolean);
-		Assert.assertEquals(true, result);
+		Assert.assertTrue(result);
 	}
 
 	@Test(expected = DDMExpressionException.IncompatipleReturnType.class)
@@ -209,7 +209,7 @@ public class DDMExpressionImplTest {
 
 		Object result = ddmExpression.toRetunType(true);
 
-		Assert.assertEquals(true, result);
+		Assert.assertTrue(result);
 	}
 
 	@Test

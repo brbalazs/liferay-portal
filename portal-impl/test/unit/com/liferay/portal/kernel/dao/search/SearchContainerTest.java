@@ -123,7 +123,7 @@ public class SearchContainerTest {
 
 		_searchContainer.setTotal(0);
 
-		Assert.assertEquals(false, _searchContainer.isRecalculateCur());
+		Assert.assertFalse(_searchContainer.isRecalculateCur());
 	}
 
 	@Test

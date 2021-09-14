@@ -110,9 +110,9 @@ public class DDMFormValuesToPropertiesConverterTest extends Mockito {
 
 		Boolean[] booleanValues = (Boolean[])value;
 
-		Assert.assertEquals(true, booleanValues[0]);
-		Assert.assertEquals(false, booleanValues[1]);
-		Assert.assertEquals(true, booleanValues[2]);
+		Assert.assertTrue(booleanValues[0]);
+		Assert.assertFalse(booleanValues[1]);
+		Assert.assertTrue(booleanValues[2]);
 	}
 
 	@Test
@@ -161,7 +161,7 @@ public class DDMFormValuesToPropertiesConverterTest extends Mockito {
 		Dictionary<String, Object> properties =
 			ddmFormValuesToPropertiesConverter.getProperties();
 
-		Assert.assertEquals(true, properties.get("Boolean"));
+		Assert.assertTrue(properties.get("Boolean"));
 	}
 
 	@Test
@@ -366,9 +366,9 @@ public class DDMFormValuesToPropertiesConverterTest extends Mockito {
 
 		Vector<Boolean> booleanValues = (Vector<Boolean>)value;
 
-		Assert.assertEquals(true, booleanValues.get(0));
-		Assert.assertEquals(false, booleanValues.get(1));
-		Assert.assertEquals(true, booleanValues.get(2));
+		Assert.assertTrue(booleanValues.get(0));
+		Assert.assertFalse(booleanValues.get(1));
+		Assert.assertTrue(booleanValues.get(2));
 	}
 
 	protected DDMFormFieldValue createDDMFormFieldValue(

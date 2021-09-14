@@ -104,7 +104,7 @@ public class FieldSetDDMFormFieldTemplateContextContributorTest {
 
 		Assert.assertTrue(parameters.containsKey("showLabel"));
 
-		Assert.assertEquals(true, parameters.get("showLabel"));
+		Assert.assertTrue(parameters.get("showLabel"));
 
 		Assert.assertTrue(parameters.containsKey("columnSize"));
 

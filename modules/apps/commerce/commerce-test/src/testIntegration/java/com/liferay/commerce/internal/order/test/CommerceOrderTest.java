@@ -208,8 +208,8 @@ public class CommerceOrderTest {
 		Assert.assertEquals(
 			commerceOrders.toString(), 2, commerceOrders.size());
 
-		Assert.assertEquals(true, commerceOrders.contains(commerceOrder));
-		Assert.assertEquals(true, commerceOrders.contains(secondCommerceOrder));
+		Assert.assertTrue(commerceOrders.contains(commerceOrder));
+		Assert.assertTrue(commerceOrders.contains(secondCommerceOrder));
 
 		_commerceOrderLocalService.deleteCommerceOrders(
 			_commerceChannel.getGroupId());
@@ -280,8 +280,8 @@ public class CommerceOrderTest {
 		Assert.assertEquals(
 			commerceOrders.toString(), 2, commerceOrders.size());
 
-		Assert.assertEquals(true, commerceOrders.contains(commerceOrder));
-		Assert.assertEquals(true, commerceOrders.contains(secondCommerceOrder));
+		Assert.assertTrue(commerceOrders.contains(commerceOrder));
+		Assert.assertTrue(commerceOrders.contains(secondCommerceOrder));
 
 		// Remove the user from the second account and get user's orders again
 

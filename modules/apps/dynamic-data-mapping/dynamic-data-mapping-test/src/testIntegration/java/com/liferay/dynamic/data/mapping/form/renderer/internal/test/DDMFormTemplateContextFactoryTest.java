@@ -172,7 +172,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertEquals(true, templateContext.get("readOnly"));
+		Assert.assertTrue(templateContext.get("readOnly"));
 	}
 
 	@Test
@@ -227,8 +227,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertEquals(
-			false, templateContext.get("showRequiredFieldsWarning"));
+		Assert.assertFalse(templateContext.get("showRequiredFieldsWarning"));
 	}
 
 	@Test
@@ -246,7 +245,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertEquals(true, templateContext.get("showSubmitButton"));
+		Assert.assertTrue(templateContext.get("showSubmitButton"));
 	}
 
 	@Test
@@ -265,7 +264,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertEquals(false, templateContext.get("showSubmitButton"));
+		Assert.assertFalse(templateContext.get("showSubmitButton"));
 	}
 
 	@Test
@@ -396,7 +395,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertEquals(true, templateContext.get("viewMode"));
+		Assert.assertTrue(templateContext.get("viewMode"));
 	}
 
 	protected void setUpThemeDisplay() {

@@ -119,7 +119,7 @@ public class TextDDMFormFieldTypeSettingsTest
 
 		Assert.assertEquals("ddm-options", optionsDDMFormField.getDataType());
 		Assert.assertNotNull(optionsDDMFormField.getLabel());
-		Assert.assertEquals(false, optionsDDMFormField.isRequired());
+		Assert.assertFalse(optionsDDMFormField.isRequired());
 		Assert.assertEquals("options", optionsDDMFormField.getType());
 		Assert.assertEquals(
 			"false", optionsDDMFormField.getProperty("showLabel"));

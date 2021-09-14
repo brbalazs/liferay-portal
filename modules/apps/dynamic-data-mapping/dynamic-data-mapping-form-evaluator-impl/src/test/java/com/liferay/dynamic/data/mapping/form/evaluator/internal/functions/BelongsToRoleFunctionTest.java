@@ -56,8 +56,7 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasSiteRole();
 
-		Assert.assertEquals(
-			false, belongsToRoleFunction.evaluate("Role0", "Role2"));
+		Assert.assertFalse(belongsToRoleFunction.evaluate("Role0", "Role2"));
 	}
 
 	@Test
@@ -68,8 +67,7 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasRegularRole();
 
-		Assert.assertEquals(
-			false, belongsToRoleFunction.evaluate("Role0", "Role2"));
+		Assert.assertFalse(belongsToRoleFunction.evaluate("Role0", "Role2"));
 	}
 
 	@Test
@@ -80,8 +78,7 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasSiteRole();
 
-		Assert.assertEquals(
-			false, belongsToRoleFunction.evaluate("Role0", "Role2"));
+		Assert.assertFalse(belongsToRoleFunction.evaluate("Role0", "Role2"));
 	}
 
 	@Test
@@ -92,8 +89,8 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasSiteRole();
 
-		Assert.assertEquals(
-			true, belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
+		Assert.assertTrue(
+			belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
 	}
 
 	@Test
@@ -104,8 +101,8 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasRegularRole();
 
-		Assert.assertEquals(
-			true, belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
+		Assert.assertTrue(
+			belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
 	}
 
 	@Test
@@ -116,8 +113,8 @@ public class BelongsToRoleFunctionTest {
 
 		mockHasSiteRole();
 
-		Assert.assertEquals(
-			true, belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
+		Assert.assertTrue(
+			belongsToRoleFunction.evaluate("Role0", "Role1", "Role2"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

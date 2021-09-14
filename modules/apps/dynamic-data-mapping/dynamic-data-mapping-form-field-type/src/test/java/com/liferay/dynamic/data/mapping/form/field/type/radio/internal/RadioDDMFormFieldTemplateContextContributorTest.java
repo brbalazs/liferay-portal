@@ -63,7 +63,7 @@ public class RadioDDMFormFieldTemplateContextContributorTest
 			_radioDDMFormFieldTemplateContextContributor.getParameters(
 				ddmFormField, ddmFormFieldRenderingContext);
 
-		Assert.assertEquals(true, parameters.get("inline"));
+		Assert.assertTrue(parameters.get("inline"));
 	}
 
 	@Test
