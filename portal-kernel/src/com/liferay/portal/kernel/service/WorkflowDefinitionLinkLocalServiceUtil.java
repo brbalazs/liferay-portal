@@ -245,6 +245,13 @@ public class WorkflowDefinitionLinkLocalServiceUtil {
 	}
 
 	public static List<WorkflowDefinitionLink> fetchWorkflowDefinitionLinks(
+		long companyId, long groupId, long classPK) {
+
+		return getService().fetchWorkflowDefinitionLinks(
+			companyId, groupId, classPK);
+	}
+
+	public static List<WorkflowDefinitionLink> fetchWorkflowDefinitionLinks(
 		long companyId, long groupId, String className, long classPK) {
 
 		return getService().fetchWorkflowDefinitionLinks(

@@ -276,6 +276,16 @@ public class WorkflowDefinitionLinkLocalServiceWrapper
 	public java.util.List
 		<com.liferay.portal.kernel.model.WorkflowDefinitionLink>
 			fetchWorkflowDefinitionLinks(
+				long companyId, long groupId, long classPK) {
+
+		return _workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLinks(
+			companyId, groupId, classPK);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.portal.kernel.model.WorkflowDefinitionLink>
+			fetchWorkflowDefinitionLinks(
 				long companyId, long groupId, java.lang.String className,
 				long classPK) {
 
