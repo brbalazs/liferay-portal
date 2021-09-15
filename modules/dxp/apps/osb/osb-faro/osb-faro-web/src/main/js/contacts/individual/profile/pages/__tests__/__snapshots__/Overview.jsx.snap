@@ -253,7 +253,7 @@ exports[`IndividualOverview should render 1`] = `
 Firefox"
                           >
                             <svg
-                              class="icon-root lexicon-icon lexicon-icon-ac-display"
+                              class="icon-root lexicon-icon lexicon-icon-ac-display mainLighten28-color"
                               viewBox=""
                             >
                               <use
@@ -485,7 +485,7 @@ Firefox"
 Firefox"
                           >
                             <svg
-                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait"
+                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait mainLighten28-color"
                               viewBox=""
                             >
                               <use
@@ -717,7 +717,7 @@ Firefox"
 Firefox"
                           >
                             <svg
-                              class="icon-root lexicon-icon lexicon-icon-tablet-portrait tablet-icon"
+                              class="icon-root lexicon-icon lexicon-icon-tablet-portrait tablet-icon mainLighten28-color"
                               viewBox=""
                             >
                               <use
@@ -949,7 +949,7 @@ Firefox"
 Firefox"
                           >
                             <svg
-                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait"
+                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait mainLighten28-color"
                               viewBox=""
                             >
                               <use
