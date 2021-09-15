@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.engine.client.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Matthew Kong
@@ -22,6 +23,37 @@ import java.util.Date;
 public class Field {
 
 	public Field() {
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof Field)) {
+			return false;
+		}
+
+		Field field = (Field)obj;
+
+		if (Objects.equals(_context, field._context) &&
+			Objects.equals(_dataSourceId, field._dataSourceId) &&
+			Objects.equals(_dataSourceName, field._dataSourceName) &&
+			Objects.equals(_dateModified, field._dateModified) &&
+			Objects.equals(_fieldType, field._fieldType) &&
+			Objects.equals(_id, field._id) &&
+			Objects.equals(_label, field._label) &&
+			Objects.equals(_name, field._name) &&
+			Objects.equals(_ownerId, field._ownerId) &&
+			Objects.equals(_ownerType, field._ownerType) &&
+			Objects.equals(_sourceName, field._sourceName) &&
+			Objects.equals(_value, field._value)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public String getContext() {
@@ -74,6 +106,13 @@ public class Field {
 
 	public String getValue() {
 		return _value;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(
+			_context, _dataSourceId, _dataSourceName, _dateModified, _fieldType,
+			_id, _label, _name, _ownerId, _ownerType, _sourceName, _value);
 	}
 
 	public void setContext(String context) {

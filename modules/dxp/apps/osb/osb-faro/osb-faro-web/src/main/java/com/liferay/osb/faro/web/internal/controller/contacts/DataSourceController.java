@@ -634,6 +634,7 @@ public class DataSourceController extends BaseFaroController {
 
 		Map<String, Field> fieldsMap = fieldsListStream.flatMap(
 			List::stream
+		).distinct(
 		).collect(
 			Collectors.toMap(Field::getName, Function.identity())
 		);
