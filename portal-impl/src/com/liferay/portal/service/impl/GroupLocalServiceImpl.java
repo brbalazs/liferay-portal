@@ -1040,7 +1040,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			// Workflow
 
 			List<WorkflowDefinitionLink> workflowDefinitionLinks =
-				workflowDefinitionLinkLocalService.getWorkflowDefinitionLinks(
+				workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLinks(
 					group.getCompanyId(), group.getGroupId(), 0);
 
 			for (WorkflowDefinitionLink workflowDefinitionLink :

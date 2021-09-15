@@ -138,6 +138,18 @@ public class WorkflowDefinitionLinkLocalServiceImpl
 
 	@Override
 	public List<WorkflowDefinitionLink> fetchWorkflowDefinitionLinks(
+		long companyId, long groupId, long classPK) {
+
+		if (!WorkflowEngineManagerUtil.isDeployed()) {
+			return Collections.emptyList();
+		}
+
+		return workflowDefinitionLinkPersistence.findByG_C_CPK(
+			groupId, companyId, classPK);
+	}
+
+	@Override
+	public List<WorkflowDefinitionLink> fetchWorkflowDefinitionLinks(
 		long companyId, long groupId, String className, long classPK) {
 
 		if (!WorkflowEngineManagerUtil.isDeployed()) {
