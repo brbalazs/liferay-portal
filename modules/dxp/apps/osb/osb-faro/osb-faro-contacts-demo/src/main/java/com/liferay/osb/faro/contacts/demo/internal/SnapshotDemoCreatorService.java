@@ -34,7 +34,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,13 +139,24 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 			try {
 				String stringValue = (String)value;
 
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss.SSS'Z'");
+				DateTimeFormatter dateTimeFormatter =
+					DateTimeFormatter.ofPattern(
+						"yyyy-MM-dd['T']HH:mm:ss[.SSS]['Z']");
 
-				Date date = simpleDateFormat.parse(stringValue);
+				LocalDateTime localDateTime = LocalDateTime.parse(
+					stringValue, dateTimeFormatter);
 
-				return simpleDateFormat.format(
-					new Date(date.getTime() + timeOffset));
+				ZonedDateTime zonedDateTime = localDateTime.atZone(
+					ZoneId.of("UTC"));
+
+				Instant instant = zonedDateTime.toInstant();
+
+				instant = instant.plusMillis(timeOffset);
+
+				localDateTime = LocalDateTime.ofInstant(
+					instant, ZoneId.of("UTC"));
+
+				return localDateTime.format(dateTimeFormatter);
 			}
 			catch (Exception exception) {
 				_log.error(exception, exception);
