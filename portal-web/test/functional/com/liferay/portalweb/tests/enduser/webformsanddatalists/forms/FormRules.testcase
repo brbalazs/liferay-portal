@@ -73,7 +73,7 @@ definition {
 
 		Form.editDescription();
 
-		Form.addTextField(fieldPositionNumber = "0");
+		Form.addTextField(fieldPositionNumber = "1");
 
 		var fieldNameTextField = FormFields.getFieldName();
 
@@ -83,7 +83,7 @@ definition {
 
 		Form.closeSidebar();
 
-		Form.addTextField(fieldPositionNumber = "1");
+		Form.addTextField(fieldPositionNumber = "2");
 
 		var fieldNameTextField2 = FormFields.getFieldName();
 
@@ -133,7 +133,7 @@ definition {
 			fieldName = "${fieldNameTextField2}",
 			fieldValue = "東京都");
 
-		FormPortlet.submitSuccessfullyAndViewSuccessPage();
+		FormPortlet.submitSuccessfully();
 	}
 
 	@description = "This is a use case for LPS-70446."
