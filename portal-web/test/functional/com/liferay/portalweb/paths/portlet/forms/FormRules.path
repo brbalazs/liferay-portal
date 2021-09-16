@@ -129,7 +129,7 @@
 <!--RULE_BUILDER_AUTOFILL-->
 <tr>
 	<td>RULE_BUILDER_AUTOFILL_FROM_DATA_PROVIDER</td>
-	<td>//span[contains(.,'${key_dataProviderParameterName}')]/../following-sibling::div//div[contains(@class,'option-selected')]</td>
+	<td>//div[contains(.,'${key_dataProviderParameterName}')]/following-sibling::div//div[contains(@class,'option-selected')]</td>
 	<td></td>
 </tr>
 <tr>
