@@ -260,7 +260,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		}
 
 		if (key.contains("date") || key.contains("day") ||
-			key.contains("time")) {
+			(key.contains("time") && !key.contains("timezone"))) {
 
 			return true;
 		}
