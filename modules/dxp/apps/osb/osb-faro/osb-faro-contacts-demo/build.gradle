@@ -12,6 +12,7 @@ dependencies {
 	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.27"
 	compileInclude group: "user-agent-utils", name: "user-agent-utils", version: "1.2.3"
 
+	compileOnly ext: "zip", group: "com.liferay.osb.faro", name: "elasticsearch-snapshot", version: "1.0.0"
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.osgi.util", version: "4.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
@@ -21,4 +22,12 @@ dependencies {
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-api")
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-contacts-api")
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-engine-client")
+}
+
+processResources {
+	into("com/liferay/osb/faro/dependencies") {
+		from configurations.compileOnly
+		include "**/elasticsearch-snapshot-1.0.0.zip"
+		rename 'elasticsearch-snapshot-1.0.0.zip', "elasticsearch-snapshot.zip"
+	}
 }
