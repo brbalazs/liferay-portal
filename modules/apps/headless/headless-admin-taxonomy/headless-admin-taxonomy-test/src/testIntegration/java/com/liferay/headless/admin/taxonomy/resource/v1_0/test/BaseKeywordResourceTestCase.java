@@ -335,8 +335,7 @@ public abstract class BaseKeywordResourceTestCase {
 		Long irrelevantSiteId = testGetSiteKeywordsPage_getIrrelevantSiteId();
 
 		Page<Keyword> page = keywordResource.getSiteKeywordsPage(
-			siteId, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
-			null);
+			siteId, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 

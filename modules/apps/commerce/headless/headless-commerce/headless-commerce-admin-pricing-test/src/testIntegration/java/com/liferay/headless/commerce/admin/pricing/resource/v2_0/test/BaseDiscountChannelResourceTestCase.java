@@ -407,8 +407,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 		Page<DiscountChannel> page =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(
-				id, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
-				null);
+				id, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 

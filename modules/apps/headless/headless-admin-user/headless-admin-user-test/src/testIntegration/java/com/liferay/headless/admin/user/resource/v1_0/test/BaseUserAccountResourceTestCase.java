@@ -271,8 +271,7 @@ public abstract class BaseUserAccountResourceTestCase {
 
 		Page<UserAccount> page =
 			userAccountResource.getOrganizationUserAccountsPage(
-				organizationId, RandomTestUtil.randomString(), null,
-				Pagination.of(1, 10), null);
+				organizationId, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -582,8 +581,7 @@ public abstract class BaseUserAccountResourceTestCase {
 			testGetSiteUserAccountsPage_getIrrelevantSiteId();
 
 		Page<UserAccount> page = userAccountResource.getSiteUserAccountsPage(
-			siteId, RandomTestUtil.randomString(), null, Pagination.of(1, 10),
-			null);
+			siteId, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -862,7 +860,7 @@ public abstract class BaseUserAccountResourceTestCase {
 	@Test
 	public void testGetUserAccountsPage() throws Exception {
 		Page<UserAccount> page = userAccountResource.getUserAccountsPage(
-			RandomTestUtil.randomString(), null, Pagination.of(1, 10), null);
+			null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 

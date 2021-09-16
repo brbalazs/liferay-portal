@@ -221,8 +221,8 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 		Page<StructuredContent> page =
 			structuredContentResource.getContentStructureStructuredContentsPage(
-				contentStructureId, RandomTestUtil.randomString(), null, null,
-				Pagination.of(1, 10), null);
+				contentStructureId, null, null, null, Pagination.of(1, 10),
+				null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -566,8 +566,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 		Page<StructuredContent> page =
 			structuredContentResource.getSiteStructuredContentsPage(
-				siteId, null, RandomTestUtil.randomString(), null, null,
-				Pagination.of(1, 10), null);
+				siteId, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -1123,8 +1122,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 		Page<StructuredContent> page =
 			structuredContentResource.
 				getStructuredContentFolderStructuredContentsPage(
-					structuredContentFolderId, null,
-					RandomTestUtil.randomString(), null, null,
+					structuredContentFolderId, null, null, null, null,
 					Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
