@@ -1,3 +1,5 @@
+$circleSize: 8px;
+
 .chart-legend {
 	display: flex;
 	justify-content: flex-end;
@@ -39,8 +41,9 @@
 	.circle {
 		border-radius: 50%;
 		float: left;
-		height: 8px;
-		width: 8px;
+		height: $circleSize;
+		margin-right: unset;
+		width: $circleSize;
 	}
 
 	.legend-template-column {
@@ -61,6 +64,11 @@
 		&:nth-child(2),
 		&:nth-child(3) {
 			text-align: right;
+		}
+
+		.text-truncate {
+			padding-left: 0.5rem;
+			width: calc(100% - #{$circleSize});
 		}
 	}
 

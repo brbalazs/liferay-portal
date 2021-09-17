@@ -2,6 +2,7 @@ import * as d3Selection from 'd3-selection';
 import * as d3Shape from 'd3-shape';
 import getCN from 'classnames';
 import React from 'react';
+import TextTruncate from './TextTruncate';
 import {CHART_COLORS} from 'shared/components/Chart';
 import {get, isNull} from 'lodash';
 import {getFinitePercent} from 'shared/util/numbers';
@@ -54,7 +55,7 @@ export class CompositionLegend extends React.Component {
 									style={{backgroundColor: color}}
 								/>
 
-								<span className='text-truncate'>{label}</span>
+								<TextTruncate title={label} />
 							</div>
 
 							<div className='legend-template-column justify-content-end'>
