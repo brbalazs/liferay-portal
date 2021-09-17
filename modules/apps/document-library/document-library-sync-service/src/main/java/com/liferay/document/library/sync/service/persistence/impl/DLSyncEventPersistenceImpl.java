@@ -30,7 +30,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -808,6 +811,8 @@ public class DLSyncEventPersistenceImpl
 		dlSyncEvent.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the dl sync events in the entity cache if it is enabled.
 	 *
@@ -815,6 +820,13 @@ public class DLSyncEventPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<DLSyncEvent> dlSyncEvents) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (dlSyncEvents.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (DLSyncEvent dlSyncEvent : dlSyncEvents) {
 			if (entityCache.getResult(
 					DLSyncEventModelImpl.ENTITY_CACHE_ENABLED,
@@ -1510,6 +1522,9 @@ public class DLSyncEventPersistenceImpl
 	 * Initializes the dl sync event persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			DLSyncEventModelImpl.ENTITY_CACHE_ENABLED,
 			DLSyncEventModelImpl.FINDER_CACHE_ENABLED, DLSyncEventImpl.class,

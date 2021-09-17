@@ -34,7 +34,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -3283,6 +3286,8 @@ public class CPOptionCategoryPersistenceImpl
 		cpOptionCategory.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the cp option categories in the entity cache if it is enabled.
 	 *
@@ -3290,6 +3295,14 @@ public class CPOptionCategoryPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<CPOptionCategory> cpOptionCategories) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (cpOptionCategories.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (CPOptionCategory cpOptionCategory : cpOptionCategories) {
 			if (entityCache.getResult(
 					CPOptionCategoryModelImpl.ENTITY_CACHE_ENABLED,
@@ -4123,6 +4136,9 @@ public class CPOptionCategoryPersistenceImpl
 	 * Initializes the cp option category persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			CPOptionCategoryModelImpl.ENTITY_CACHE_ENABLED,
 			CPOptionCategoryModelImpl.FINDER_CACHE_ENABLED,

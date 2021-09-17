@@ -28,7 +28,10 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -113,6 +116,8 @@ public class TestEntityPersistenceImpl
 		testEntity.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the test entities in the entity cache if it is enabled.
 	 *
@@ -120,6 +125,13 @@ public class TestEntityPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<TestEntity> testEntities) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (testEntities.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (TestEntity testEntity : testEntities) {
 			if (entityCache.getResult(
 					TestEntityModelImpl.ENTITY_CACHE_ENABLED,
@@ -750,6 +762,9 @@ public class TestEntityPersistenceImpl
 	 * Initializes the test entity persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			TestEntityModelImpl.ENTITY_CACHE_ENABLED,
 			TestEntityModelImpl.FINDER_CACHE_ENABLED, TestEntityImpl.class,

@@ -35,7 +35,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -3420,6 +3423,8 @@ public class DDMDataProviderInstancePersistenceImpl
 		ddmDataProviderInstance.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the ddm data provider instances in the entity cache if it is enabled.
 	 *
@@ -3428,6 +3433,14 @@ public class DDMDataProviderInstancePersistenceImpl
 	@Override
 	public void cacheResult(
 		List<DDMDataProviderInstance> ddmDataProviderInstances) {
+
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (ddmDataProviderInstances.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
 
 		for (DDMDataProviderInstance ddmDataProviderInstance :
 				ddmDataProviderInstances) {
@@ -4328,6 +4341,9 @@ public class DDMDataProviderInstancePersistenceImpl
 	 * Initializes the ddm data provider instance persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			DDMDataProviderInstanceModelImpl.ENTITY_CACHE_ENABLED,
 			DDMDataProviderInstanceModelImpl.FINDER_CACHE_ENABLED,

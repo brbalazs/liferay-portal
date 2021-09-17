@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -607,6 +610,8 @@ public class AnalyticsMessagePersistenceImpl
 		analyticsMessage.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the analytics messages in the entity cache if it is enabled.
 	 *
@@ -614,6 +619,14 @@ public class AnalyticsMessagePersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<AnalyticsMessage> analyticsMessages) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (analyticsMessages.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (AnalyticsMessage analyticsMessage : analyticsMessages) {
 			if (entityCache.getResult(
 					AnalyticsMessageModelImpl.ENTITY_CACHE_ENABLED,
@@ -1321,6 +1334,9 @@ public class AnalyticsMessagePersistenceImpl
 	 * Initializes the analytics message persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			AnalyticsMessageModelImpl.ENTITY_CACHE_ENABLED,
 			AnalyticsMessageModelImpl.FINDER_CACHE_ENABLED,

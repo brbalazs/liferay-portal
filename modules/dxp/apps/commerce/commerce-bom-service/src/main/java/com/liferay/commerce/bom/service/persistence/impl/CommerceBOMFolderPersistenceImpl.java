@@ -34,7 +34,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -1970,6 +1973,8 @@ public class CommerceBOMFolderPersistenceImpl
 		commerceBOMFolder.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the commerce bom folders in the entity cache if it is enabled.
 	 *
@@ -1977,6 +1982,14 @@ public class CommerceBOMFolderPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<CommerceBOMFolder> commerceBOMFolders) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (commerceBOMFolders.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (CommerceBOMFolder commerceBOMFolder : commerceBOMFolders) {
 			if (entityCache.getResult(
 					CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
@@ -2728,6 +2741,9 @@ public class CommerceBOMFolderPersistenceImpl
 	 * Initializes the commerce bom folder persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,

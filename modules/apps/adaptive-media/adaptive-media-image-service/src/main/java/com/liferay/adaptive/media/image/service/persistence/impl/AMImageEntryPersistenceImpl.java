@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -4427,6 +4430,8 @@ public class AMImageEntryPersistenceImpl
 		amImageEntry.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the am image entries in the entity cache if it is enabled.
 	 *
@@ -4434,6 +4439,13 @@ public class AMImageEntryPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<AMImageEntry> amImageEntries) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (amImageEntries.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (AMImageEntry amImageEntry : amImageEntries) {
 			if (entityCache.getResult(
 					AMImageEntryModelImpl.ENTITY_CACHE_ENABLED,
@@ -5388,6 +5400,9 @@ public class AMImageEntryPersistenceImpl
 	 * Initializes the am image entry persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			AMImageEntryModelImpl.ENTITY_CACHE_ENABLED,
 			AMImageEntryModelImpl.FINDER_CACHE_ENABLED, AMImageEntryImpl.class,

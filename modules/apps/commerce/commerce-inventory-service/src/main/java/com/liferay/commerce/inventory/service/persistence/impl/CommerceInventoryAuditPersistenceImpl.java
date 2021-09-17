@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -1253,6 +1256,8 @@ public class CommerceInventoryAuditPersistenceImpl
 		commerceInventoryAudit.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the commerce inventory audits in the entity cache if it is enabled.
 	 *
@@ -1261,6 +1266,14 @@ public class CommerceInventoryAuditPersistenceImpl
 	@Override
 	public void cacheResult(
 		List<CommerceInventoryAudit> commerceInventoryAudits) {
+
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (commerceInventoryAudits.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
 
 		for (CommerceInventoryAudit commerceInventoryAudit :
 				commerceInventoryAudits) {
@@ -2013,6 +2026,9 @@ public class CommerceInventoryAuditPersistenceImpl
 	 * Initializes the commerce inventory audit persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			CommerceInventoryAuditModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceInventoryAuditModelImpl.FINDER_CACHE_ENABLED,

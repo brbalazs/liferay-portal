@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -619,6 +622,8 @@ public class CommerceOrderPaymentPersistenceImpl
 		commerceOrderPayment.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the commerce order payments in the entity cache if it is enabled.
 	 *
@@ -626,6 +631,14 @@ public class CommerceOrderPaymentPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<CommerceOrderPayment> commerceOrderPayments) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (commerceOrderPayments.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (CommerceOrderPayment commerceOrderPayment :
 				commerceOrderPayments) {
 
@@ -1362,6 +1375,9 @@ public class CommerceOrderPaymentPersistenceImpl
 	 * Initializes the commerce order payment persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			CommerceOrderPaymentModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceOrderPaymentModelImpl.FINDER_CACHE_ENABLED,

@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -6090,6 +6093,8 @@ public class DLFileShortcutPersistenceImpl
 		dlFileShortcut.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the document library file shortcuts in the entity cache if it is enabled.
 	 *
@@ -6097,6 +6102,13 @@ public class DLFileShortcutPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<DLFileShortcut> dlFileShortcuts) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (dlFileShortcuts.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (DLFileShortcut dlFileShortcut : dlFileShortcuts) {
 			if (EntityCacheUtil.getResult(
 					DLFileShortcutModelImpl.ENTITY_CACHE_ENABLED,
@@ -7062,6 +7074,9 @@ public class DLFileShortcutPersistenceImpl
 	 * Initializes the document library file shortcut persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			DLFileShortcutModelImpl.ENTITY_CACHE_ENABLED,
 			DLFileShortcutModelImpl.FINDER_CACHE_ENABLED,

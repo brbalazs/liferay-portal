@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -2506,6 +2509,8 @@ public class OAuthApplicationPersistenceImpl
 		oAuthApplication.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the o auth applications in the entity cache if it is enabled.
 	 *
@@ -2513,6 +2518,14 @@ public class OAuthApplicationPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<OAuthApplication> oAuthApplications) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (oAuthApplications.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (OAuthApplication oAuthApplication : oAuthApplications) {
 			if (entityCache.getResult(
 					OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
@@ -3299,6 +3312,9 @@ public class OAuthApplicationPersistenceImpl
 	 * Initializes the o auth application persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,

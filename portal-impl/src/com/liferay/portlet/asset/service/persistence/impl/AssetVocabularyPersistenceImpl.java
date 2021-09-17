@@ -33,7 +33,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -4951,6 +4954,8 @@ public class AssetVocabularyPersistenceImpl
 		assetVocabulary.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the asset vocabularies in the entity cache if it is enabled.
 	 *
@@ -4958,6 +4963,14 @@ public class AssetVocabularyPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<AssetVocabulary> assetVocabularies) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (assetVocabularies.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (AssetVocabulary assetVocabulary : assetVocabularies) {
 			if (EntityCacheUtil.getResult(
 					AssetVocabularyModelImpl.ENTITY_CACHE_ENABLED,
@@ -5882,6 +5895,9 @@ public class AssetVocabularyPersistenceImpl
 	 * Initializes the asset vocabulary persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			AssetVocabularyModelImpl.ENTITY_CACHE_ENABLED,
 			AssetVocabularyModelImpl.FINDER_CACHE_ENABLED,

@@ -25,7 +25,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -1371,6 +1374,8 @@ public class TrashVersionPersistenceImpl
 		trashVersion.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the trash versions in the entity cache if it is enabled.
 	 *
@@ -1378,6 +1383,13 @@ public class TrashVersionPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<TrashVersion> trashVersions) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (trashVersions.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (TrashVersion trashVersion : trashVersions) {
 			if (entityCache.getResult(
 					TrashVersionModelImpl.ENTITY_CACHE_ENABLED,
@@ -2134,6 +2146,9 @@ public class TrashVersionPersistenceImpl
 	 * Initializes the trash version persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			TrashVersionModelImpl.ENTITY_CACHE_ENABLED,
 			TrashVersionModelImpl.FINDER_CACHE_ENABLED, TrashVersionImpl.class,

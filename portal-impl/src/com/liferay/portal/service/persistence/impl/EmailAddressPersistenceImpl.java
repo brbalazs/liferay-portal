@@ -30,7 +30,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.EmailAddressPersistence;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -4003,6 +4006,8 @@ public class EmailAddressPersistenceImpl
 		emailAddress.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the email addresses in the entity cache if it is enabled.
 	 *
@@ -4010,6 +4015,13 @@ public class EmailAddressPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<EmailAddress> emailAddresses) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (emailAddresses.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (EmailAddress emailAddress : emailAddresses) {
 			if (EntityCacheUtil.getResult(
 					EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
@@ -4917,6 +4929,9 @@ public class EmailAddressPersistenceImpl
 	 * Initializes the email address persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
 			EmailAddressModelImpl.FINDER_CACHE_ENABLED, EmailAddressImpl.class,

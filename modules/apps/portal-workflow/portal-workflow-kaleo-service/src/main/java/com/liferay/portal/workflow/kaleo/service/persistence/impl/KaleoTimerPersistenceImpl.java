@@ -27,7 +27,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -1332,6 +1335,8 @@ public class KaleoTimerPersistenceImpl
 		kaleoTimer.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the kaleo timers in the entity cache if it is enabled.
 	 *
@@ -1339,6 +1344,13 @@ public class KaleoTimerPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<KaleoTimer> kaleoTimers) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (kaleoTimers.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (KaleoTimer kaleoTimer : kaleoTimers) {
 			if (entityCache.getResult(
 					KaleoTimerModelImpl.ENTITY_CACHE_ENABLED,
@@ -2082,6 +2094,9 @@ public class KaleoTimerPersistenceImpl
 	 * Initializes the kaleo timer persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			KaleoTimerModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoTimerModelImpl.FINDER_CACHE_ENABLED, KaleoTimerImpl.class,

@@ -28,7 +28,10 @@ import com.liferay.portal.kernel.model.ResourceBlock;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.ResourceBlockPersistence;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.ResourceBlockImpl;
@@ -1657,6 +1660,8 @@ public class ResourceBlockPersistenceImpl
 		resourceBlock.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the resource blocks in the entity cache if it is enabled.
 	 *
@@ -1664,6 +1669,13 @@ public class ResourceBlockPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<ResourceBlock> resourceBlocks) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (resourceBlocks.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (ResourceBlock resourceBlock : resourceBlocks) {
 			if (EntityCacheUtil.getResult(
 					ResourceBlockModelImpl.ENTITY_CACHE_ENABLED,
@@ -2445,6 +2457,9 @@ public class ResourceBlockPersistenceImpl
 	 * Initializes the resource block persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			ResourceBlockModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceBlockModelImpl.FINDER_CACHE_ENABLED,

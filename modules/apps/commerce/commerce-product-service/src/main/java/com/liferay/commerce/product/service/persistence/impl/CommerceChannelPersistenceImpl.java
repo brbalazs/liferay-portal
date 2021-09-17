@@ -34,7 +34,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -1522,6 +1525,8 @@ public class CommerceChannelPersistenceImpl
 		commerceChannel.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the commerce channels in the entity cache if it is enabled.
 	 *
@@ -1529,6 +1534,14 @@ public class CommerceChannelPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<CommerceChannel> commerceChannels) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (commerceChannels.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (CommerceChannel commerceChannel : commerceChannels) {
 			if (entityCache.getResult(
 					CommerceChannelModelImpl.ENTITY_CACHE_ENABLED,
@@ -2327,6 +2340,9 @@ public class CommerceChannelPersistenceImpl
 	 * Initializes the commerce channel persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			CommerceChannelModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceChannelModelImpl.FINDER_CACHE_ENABLED,

@@ -29,7 +29,10 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -626,6 +629,8 @@ public class ContactsCardTemplatePersistenceImpl
 		contactsCardTemplate.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the contacts card templates in the entity cache if it is enabled.
 	 *
@@ -633,6 +638,14 @@ public class ContactsCardTemplatePersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<ContactsCardTemplate> contactsCardTemplates) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (contactsCardTemplates.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (ContactsCardTemplate contactsCardTemplate :
 				contactsCardTemplates) {
 
@@ -1345,6 +1358,9 @@ public class ContactsCardTemplatePersistenceImpl
 	 * Initializes the contacts card template persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			ContactsCardTemplateModelImpl.ENTITY_CACHE_ENABLED,
 			ContactsCardTemplateModelImpl.FINDER_CACHE_ENABLED,

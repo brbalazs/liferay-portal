@@ -27,7 +27,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -966,6 +969,8 @@ public class SamlSpAuthRequestPersistenceImpl
 		samlSpAuthRequest.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the saml sp auth requests in the entity cache if it is enabled.
 	 *
@@ -973,6 +978,14 @@ public class SamlSpAuthRequestPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<SamlSpAuthRequest> samlSpAuthRequests) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (samlSpAuthRequests.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (SamlSpAuthRequest samlSpAuthRequest : samlSpAuthRequests) {
 			if (entityCache.getResult(
 					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
@@ -1704,6 +1717,9 @@ public class SamlSpAuthRequestPersistenceImpl
 	 * Initializes the saml sp auth request persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,

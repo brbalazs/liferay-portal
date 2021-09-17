@@ -27,7 +27,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -2939,6 +2942,8 @@ public class KaleoTaskFormInstancePersistenceImpl
 		kaleoTaskFormInstance.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the kaleo task form instances in the entity cache if it is enabled.
 	 *
@@ -2947,6 +2952,14 @@ public class KaleoTaskFormInstancePersistenceImpl
 	@Override
 	public void cacheResult(
 		List<KaleoTaskFormInstance> kaleoTaskFormInstances) {
+
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (kaleoTaskFormInstances.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
 
 		for (KaleoTaskFormInstance kaleoTaskFormInstance :
 				kaleoTaskFormInstances) {
@@ -3867,6 +3880,9 @@ public class KaleoTaskFormInstancePersistenceImpl
 	 * Initializes the kaleo task form instance persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			KaleoTaskFormInstanceModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoTaskFormInstanceModelImpl.FINDER_CACHE_ENABLED,

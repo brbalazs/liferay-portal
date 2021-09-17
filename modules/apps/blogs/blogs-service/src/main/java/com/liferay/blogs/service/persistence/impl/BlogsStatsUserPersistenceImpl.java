@@ -30,7 +30,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -2985,6 +2988,8 @@ public class BlogsStatsUserPersistenceImpl
 		blogsStatsUser.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the blogs stats users in the entity cache if it is enabled.
 	 *
@@ -2992,6 +2997,13 @@ public class BlogsStatsUserPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<BlogsStatsUser> blogsStatsUsers) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (blogsStatsUsers.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (BlogsStatsUser blogsStatsUser : blogsStatsUsers) {
 			if (entityCache.getResult(
 					BlogsStatsUserModelImpl.ENTITY_CACHE_ENABLED,
@@ -3781,6 +3793,9 @@ public class BlogsStatsUserPersistenceImpl
 	 * Initializes the blogs stats user persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			BlogsStatsUserModelImpl.ENTITY_CACHE_ENABLED,
 			BlogsStatsUserModelImpl.FINDER_CACHE_ENABLED,

@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -1741,6 +1744,8 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 		oAuth2ApplicationScopeAliases.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the o auth2 application scope aliaseses in the entity cache if it is enabled.
 	 *
@@ -1749,6 +1754,14 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 	@Override
 	public void cacheResult(
 		List<OAuth2ApplicationScopeAliases> oAuth2ApplicationScopeAliaseses) {
+
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (oAuth2ApplicationScopeAliaseses.size() >
+				 _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
 
 		for (OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases :
 				oAuth2ApplicationScopeAliaseses) {
@@ -2584,6 +2597,9 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 	 * Initializes the o auth2 application scope aliases persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			OAuth2ApplicationScopeAliasesModelImpl.ENTITY_CACHE_ENABLED,
 			OAuth2ApplicationScopeAliasesModelImpl.FINDER_CACHE_ENABLED,

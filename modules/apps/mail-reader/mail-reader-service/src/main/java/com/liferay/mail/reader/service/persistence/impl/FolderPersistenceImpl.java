@@ -32,7 +32,10 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -869,6 +872,8 @@ public class FolderPersistenceImpl
 		folder.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the folders in the entity cache if it is enabled.
 	 *
@@ -876,6 +881,13 @@ public class FolderPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<Folder> folders) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (folders.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (Folder folder : folders) {
 			if (entityCache.getResult(
 					FolderModelImpl.ENTITY_CACHE_ENABLED, FolderImpl.class,
@@ -1608,6 +1620,9 @@ public class FolderPersistenceImpl
 	 * Initializes the folder persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			FolderModelImpl.ENTITY_CACHE_ENABLED,
 			FolderModelImpl.FINDER_CACHE_ENABLED, FolderImpl.class,

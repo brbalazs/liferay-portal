@@ -26,7 +26,10 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ClusterGroup;
 import com.liferay.portal.kernel.service.persistence.ClusterGroupPersistence;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.ClusterGroupImpl;
 import com.liferay.portal.model.impl.ClusterGroupModelImpl;
@@ -91,6 +94,8 @@ public class ClusterGroupPersistenceImpl
 		clusterGroup.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the cluster groups in the entity cache if it is enabled.
 	 *
@@ -98,6 +103,13 @@ public class ClusterGroupPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<ClusterGroup> clusterGroups) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (clusterGroups.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (ClusterGroup clusterGroup : clusterGroups) {
 			if (EntityCacheUtil.getResult(
 					ClusterGroupModelImpl.ENTITY_CACHE_ENABLED,
@@ -727,6 +739,9 @@ public class ClusterGroupPersistenceImpl
 	 * Initializes the cluster group persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			ClusterGroupModelImpl.ENTITY_CACHE_ENABLED,
 			ClusterGroupModelImpl.FINDER_CACHE_ENABLED, ClusterGroupImpl.class,

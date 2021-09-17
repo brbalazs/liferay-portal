@@ -34,7 +34,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -3214,6 +3217,8 @@ public class GadgetPersistenceImpl
 		gadget.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the gadgets in the entity cache if it is enabled.
 	 *
@@ -3221,6 +3226,13 @@ public class GadgetPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<Gadget> gadgets) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (gadgets.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (Gadget gadget : gadgets) {
 			if (EntityCacheUtil.getResult(
 					GadgetModelImpl.ENTITY_CACHE_ENABLED, GadgetImpl.class,
@@ -4025,6 +4037,9 @@ public class GadgetPersistenceImpl
 	 * Initializes the gadget persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			GadgetModelImpl.ENTITY_CACHE_ENABLED,
 			GadgetModelImpl.FINDER_CACHE_ENABLED, GadgetImpl.class,

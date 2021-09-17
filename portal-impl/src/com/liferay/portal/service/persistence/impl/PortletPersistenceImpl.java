@@ -28,7 +28,10 @@ import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.PortletPersistence;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -875,6 +878,8 @@ public class PortletPersistenceImpl
 		portlet.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the portlets in the entity cache if it is enabled.
 	 *
@@ -882,6 +887,13 @@ public class PortletPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<Portlet> portlets) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (portlets.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (Portlet portlet : portlets) {
 			if (EntityCacheUtil.getResult(
 					PortletModelImpl.ENTITY_CACHE_ENABLED, PortletImpl.class,
@@ -1602,6 +1614,9 @@ public class PortletPersistenceImpl
 	 * Initializes the portlet persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			PortletModelImpl.ENTITY_CACHE_ENABLED,
 			PortletModelImpl.FINDER_CACHE_ENABLED, PortletImpl.class,

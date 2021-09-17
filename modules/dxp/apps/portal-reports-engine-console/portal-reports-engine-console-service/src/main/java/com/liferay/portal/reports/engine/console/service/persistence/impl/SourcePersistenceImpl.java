@@ -29,7 +29,10 @@ import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -2856,6 +2859,8 @@ public class SourcePersistenceImpl
 		source.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the sources in the entity cache if it is enabled.
 	 *
@@ -2863,6 +2868,13 @@ public class SourcePersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<Source> sources) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (sources.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (Source source : sources) {
 			if (entityCache.getResult(
 					SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
@@ -3690,6 +3702,9 @@ public class SourcePersistenceImpl
 	 * Initializes the source persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			SourceModelImpl.ENTITY_CACHE_ENABLED,
 			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,

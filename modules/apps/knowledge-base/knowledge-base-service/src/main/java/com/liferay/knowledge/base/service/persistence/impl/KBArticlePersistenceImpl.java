@@ -43,6 +43,8 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33892,6 +33894,8 @@ public class KBArticlePersistenceImpl
 		kbArticle.resetOriginalValues();
 	}
 
+	private int _valueObjectFinderCacheListThreshold;
+
 	/**
 	 * Caches the kb articles in the entity cache if it is enabled.
 	 *
@@ -33899,6 +33903,13 @@ public class KBArticlePersistenceImpl
 	 */
 	@Override
 	public void cacheResult(List<KBArticle> kbArticles) {
+		if ((_valueObjectFinderCacheListThreshold == 0) ||
+			((_valueObjectFinderCacheListThreshold > 0) &&
+			 (kbArticles.size() > _valueObjectFinderCacheListThreshold))) {
+
+			return;
+		}
+
 		for (KBArticle kbArticle : kbArticles) {
 			if (entityCache.getResult(
 					KBArticleModelImpl.ENTITY_CACHE_ENABLED,
@@ -35601,6 +35612,9 @@ public class KBArticlePersistenceImpl
 	 * Initializes the kb article persistence.
 	 */
 	public void afterPropertiesSet() {
+		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
+			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
+
 		_finderPathWithPaginationFindAll = new FinderPath(
 			KBArticleModelImpl.ENTITY_CACHE_ENABLED,
 			KBArticleModelImpl.FINDER_CACHE_ENABLED, KBArticleImpl.class,
