@@ -18,6 +18,11 @@ import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
@@ -30,25 +35,29 @@ public class X509TrustManagerImpl implements X509TrustManager {
 
 	public X509TrustManagerImpl() {
 		try {
-			X509TrustManager x509TrustManager = null;
+			_defaultX509TrustManager = _getX509TrustManager(null);
+			_extraX509TrustManager = null;
+			_trustSelfSignedCertificates = true;
+		}
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
+		}
+	}
 
-			TrustManagerFactory trustManagerFactory =
-				TrustManagerFactory.getInstance(
-					TrustManagerFactory.getDefaultAlgorithm());
+	public X509TrustManagerImpl(
+		KeyStore keyStore, boolean trustSelfSignedCertificates) {
 
-			trustManagerFactory.init((KeyStore)null);
+		try {
+			_defaultX509TrustManager = _getX509TrustManager(null);
 
-			for (TrustManager trustManager :
-					trustManagerFactory.getTrustManagers()) {
-
-				if (trustManager instanceof X509TrustManager) {
-					x509TrustManager = (X509TrustManager)trustManager;
-
-					break;
-				}
+			if (keyStore != null) {
+				_extraX509TrustManager = _getX509TrustManager(keyStore);
+			}
+			else {
+				_extraX509TrustManager = null;
 			}
 
-			_x509TrustManager = x509TrustManager;
+			_trustSelfSignedCertificates = trustSelfSignedCertificates;
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -60,8 +69,20 @@ public class X509TrustManagerImpl implements X509TrustManager {
 			X509Certificate[] x509Certificates, String authType)
 		throws CertificateException {
 
-		if (x509Certificates.length != 1) {
-			_x509TrustManager.checkClientTrusted(x509Certificates, authType);
+		if (!_trustSelfSignedCertificates || (x509Certificates.length != 1)) {
+			try {
+				_defaultX509TrustManager.checkClientTrusted(
+					x509Certificates, authType);
+			}
+			catch (CertificateException certificateException) {
+				if (_extraX509TrustManager != null) {
+					_extraX509TrustManager.checkClientTrusted(
+						x509Certificates, authType);
+				}
+				else {
+					throw certificateException;
+				}
+			}
 		}
 	}
 
@@ -70,16 +91,60 @@ public class X509TrustManagerImpl implements X509TrustManager {
 			X509Certificate[] x509Certificates, String authType)
 		throws CertificateException {
 
-		if (x509Certificates.length != 1) {
-			_x509TrustManager.checkServerTrusted(x509Certificates, authType);
+		if (!_trustSelfSignedCertificates || (x509Certificates.length != 1)) {
+			try {
+				_defaultX509TrustManager.checkServerTrusted(
+					x509Certificates, authType);
+			}
+			catch (CertificateException certificateException) {
+				if (_extraX509TrustManager != null) {
+					_extraX509TrustManager.checkServerTrusted(
+						x509Certificates, authType);
+				}
+				else {
+					throw certificateException;
+				}
+			}
 		}
 	}
 
 	@Override
 	public X509Certificate[] getAcceptedIssuers() {
-		return _x509TrustManager.getAcceptedIssuers();
+		if (_extraX509TrustManager != null) {
+			List<X509Certificate> x509Certificates = new ArrayList<>(
+				Arrays.asList(_defaultX509TrustManager.getAcceptedIssuers()));
+
+			Collections.addAll(
+				x509Certificates, _extraX509TrustManager.getAcceptedIssuers());
+
+			return x509Certificates.toArray(new X509Certificate[0]);
+		}
+
+		return _defaultX509TrustManager.getAcceptedIssuers();
 	}
 
-	private final X509TrustManager _x509TrustManager;
+	private X509TrustManager _getX509TrustManager(KeyStore keyStore)
+		throws Exception {
+
+		TrustManagerFactory trustManagerFactory =
+			TrustManagerFactory.getInstance(
+				TrustManagerFactory.getDefaultAlgorithm());
+
+		trustManagerFactory.init(keyStore);
+
+		for (TrustManager trustManager :
+				trustManagerFactory.getTrustManagers()) {
+
+			if (trustManager instanceof X509TrustManager) {
+				return (X509TrustManager)trustManager;
+			}
+		}
+
+		return null;
+	}
+
+	private final X509TrustManager _defaultX509TrustManager;
+	private final X509TrustManager _extraX509TrustManager;
+	private final boolean _trustSelfSignedCertificates;
 
 }
