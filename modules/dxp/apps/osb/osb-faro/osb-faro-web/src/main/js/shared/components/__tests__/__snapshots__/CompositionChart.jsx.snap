@@ -17,6 +17,8 @@ exports[`CompositionLegend should render 1`] = `
         />
         <span
           class="text-truncate"
+          data-tooltip="false"
+          title=""
         >
           foo
         </span>
@@ -46,6 +48,8 @@ exports[`CompositionLegend should render 1`] = `
         />
         <span
           class="text-truncate"
+          data-tooltip="false"
+          title=""
         >
           bar
         </span>

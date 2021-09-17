@@ -68,6 +68,8 @@ exports[`CompositionCard should render 1`] = `
               />
               <span
                 class="text-truncate"
+                data-tooltip="false"
+                title=""
               >
                 Active Last 30 Days
               </span>
@@ -97,6 +99,8 @@ exports[`CompositionCard should render 1`] = `
               />
               <span
                 class="text-truncate"
+                data-tooltip="false"
+                title=""
               >
                 Known Members
               </span>

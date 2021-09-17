@@ -297,6 +297,8 @@ exports[`SegmentOverview should render 1`] = `
                   />
                   <span
                     class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     Active Last 30 Days
                   </span>
@@ -326,6 +328,8 @@ exports[`SegmentOverview should render 1`] = `
                   />
                   <span
                     class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
                     Known Members
                   </span>
