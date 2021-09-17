@@ -1,459 +1,269 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StaticSegmentEdit should not render a navigation warning after being changed back to the original value 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {
-        "name": "",
-        "segmentType": "STATIC",
-      },
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": undefined,
-      "values": Object {
-        "name": "",
-        "segmentType": "STATIC",
-      },
-    }
-  }
->
-  <Form
-    onSubmit={[Function]}
-  >
-    <Sheet
-      className="d-flex flex-column"
-      large={false}
-      pageDisplay={true}
-    >
-      <NavigationWarning
-        when={true}
-      />
-      <Header
-        border={true}
-        divider={true}
-      >
-        <h2
-          className="segment-form-title"
-        >
-          Define Segment
-        </h2>
-      </Header>
-      <Body
-        className="form-content form-content-static d-flex flex-column flex-grow-1"
-      >
-        <div
-          className="row"
-        >
-          <div
-            className="col-lg-4"
-          >
-            <FormGroup
-              autoFit={true}
-              className="name-container"
-            >
-              <FormGroupItem>
-                <ForwardRef
-                  inline={true}
-                  label="Name"
-                  name="name"
-                  placeholder="Segment Name"
-                  required={true}
-                  validate={[Function]}
-                />
-              </FormGroupItem>
-            </FormGroup>
-          </div>
-        </div>
-        <div
-          className="row flex-grow-1"
-        >
-          <div
-            className="form-inputs-container col-lg-12"
-          >
-            <Connect(Component)
-              changeset={
-                Immutable.Record {
-                  "added": Immutable.Map {
-                    "test": Object {},
-                  },
-                  "removed": Immutable.Map {},
-                }
-              }
-              delta={2}
-              entityLabel="Individuals"
-              filterBy={Immutable.Map {}}
-              groupId="23"
-              onChange={[Function]}
-              orderBy="asc"
-              orderByField="name"
-              page={1}
-              query=""
-            />
-          </div>
-        </div>
-        <div>
-          <div
-            className="form-actions"
-          >
-            <ForwardRef
-              className="cancel"
-              href="/workspace/23/contacts/segments"
-            >
-              Cancel
-            </ForwardRef>
-            <ForwardRef
-              className="submit"
-              disabled={false}
-              display="primary"
-              type="submit"
-            >
-              Create
-            </ForwardRef>
-          </div>
-        </div>
-      </Body>
-    </Sheet>
-  </Form>
-</ContextProvider>
-`;
-
-exports[`StaticSegmentEdit should not render a navigation warning after being changed back to the original value 2`] = `
-<ContextProvider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {
-        "name": "",
-        "segmentType": "STATIC",
-      },
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": undefined,
-      "values": Object {
-        "name": "",
-        "segmentType": "STATIC",
-      },
-    }
-  }
->
-  <Form
-    onSubmit={[Function]}
-  >
-    <Sheet
-      className="d-flex flex-column"
-      large={false}
-      pageDisplay={true}
-    >
-      <NavigationWarning
-        when={false}
-      />
-      <Header
-        border={true}
-        divider={true}
-      >
-        <h2
-          className="segment-form-title"
-        >
-          Define Segment
-        </h2>
-      </Header>
-      <Body
-        className="form-content form-content-static d-flex flex-column flex-grow-1"
-      >
-        <div
-          className="row"
-        >
-          <div
-            className="col-lg-4"
-          >
-            <FormGroup
-              autoFit={true}
-              className="name-container"
-            >
-              <FormGroupItem>
-                <ForwardRef
-                  inline={true}
-                  label="Name"
-                  name="name"
-                  placeholder="Segment Name"
-                  required={true}
-                  validate={[Function]}
-                />
-              </FormGroupItem>
-            </FormGroup>
-          </div>
-        </div>
-        <div
-          className="row flex-grow-1"
-        >
-          <div
-            className="form-inputs-container col-lg-12"
-          >
-            <Connect(Component)
-              changeset={
-                Immutable.Record {
-                  "added": Immutable.Map {},
-                  "removed": Immutable.Map {},
-                }
-              }
-              delta={2}
-              entityLabel="Individuals"
-              filterBy={Immutable.Map {}}
-              groupId="23"
-              onChange={[Function]}
-              orderBy="asc"
-              orderByField="name"
-              page={1}
-              query=""
-            />
-          </div>
-        </div>
-        <div>
-          <div
-            className="form-actions"
-          >
-            <ForwardRef
-              className="cancel"
-              href="/workspace/23/contacts/segments"
-            >
-              Cancel
-            </ForwardRef>
-            <ForwardRef
-              className="submit"
-              disabled={true}
-              display="primary"
-              type="submit"
-            >
-              Create
-            </ForwardRef>
-          </div>
-        </div>
-      </Body>
-    </Sheet>
-  </Form>
-</ContextProvider>
-`;
-
 exports[`StaticSegmentEdit should render 1`] = `
-<Formik
-  enableReinitialize={false}
-  initialValues={
-    Object {
-      "name": "",
-      "segmentType": "STATIC",
-    }
-  }
-  isInitialValid={false}
-  onSubmit={[Function]}
-  validateOnBlur={true}
-  validateOnChange={true}
->
-  <Component />
-</Formik>
-`;
-
-exports[`StaticSegmentEdit should render a navigation warning 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {
-        "name": "Seattle1",
-        "segmentType": "STATIC",
-      },
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": undefined,
-      "values": Object {
-        "name": "Seattle1",
-        "segmentType": "STATIC",
-      },
-    }
-  }
->
-  <Form
-    onSubmit={[Function]}
+<div>
+  <form
+    class="form-root"
   >
-    <Sheet
-      className="d-flex flex-column"
-      large={false}
-      pageDisplay={true}
+    <div
+      class="sheet d-flex flex-column page-display"
     >
-      <NavigationWarning
-        when={true}
-      />
-      <Header
-        border={true}
-        divider={true}
+      <div
+        class="sheet-header divider"
       >
         <h2
-          className="segment-form-title"
+          class="segment-form-title"
         >
           Define Segment
         </h2>
-      </Header>
-      <Body
-        className="form-content form-content-static d-flex flex-column flex-grow-1"
+      </div>
+      <div
+        class="sheet-body form-content form-content-static d-flex flex-column flex-grow-1"
       >
         <div
-          className="row"
+          class="row"
         >
           <div
-            className="col-lg-4"
+            class="col-lg-4"
           >
-            <FormGroup
-              autoFit={true}
-              className="name-container"
+            <div
+              class="form-group name-container form-group-autofit"
             >
-              <FormGroupItem>
-                <ForwardRef
-                  inline={true}
-                  label="Name"
-                  name="name"
-                  placeholder="Segment Name"
-                  required={true}
-                  validate={[Function]}
-                />
-              </FormGroupItem>
-            </FormGroup>
+              <div
+                class="form-group-item"
+              >
+                <div
+                  class="form-inline-group"
+                >
+                  <label
+                    class="form-control-label label-root required"
+                    for="name"
+                  >
+                    <span
+                      class="content-container"
+                    >
+                      Name
+                    </span>
+                  </label>
+                  <input
+                    class="input-root form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Segment Name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
-          className="row flex-grow-1"
+          class="row flex-grow-1"
         >
           <div
-            className="form-inputs-container col-lg-12"
+            class="form-inputs-container col-lg-12"
           >
-            <Connect(Component)
-              changeset={
-                Immutable.Record {
-                  "added": Immutable.Map {
-                    "test": Object {},
-                  },
-                  "removed": Immutable.Map {},
-                }
-              }
-              delta={2}
-              entityLabel="Individuals"
-              filterBy={Immutable.Map {}}
-              groupId="23"
-              membershipCount={10}
-              onChange={[Function]}
-              orderBy="asc"
-              orderByField="name"
-              page={1}
-              query=""
-            />
+            <div
+              class="segment-edit-static-root d-flex flex-column flex-grow-1"
+            >
+              <div
+                class="select-items-header"
+              >
+                <h3 />
+              </div>
+              <div
+                class="searchable-table-with-staged-root d-flex flex-column flex-grow-1 d-flex flex-column flex-grow-1"
+              >
+                <div
+                  class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+                >
+                  <div
+                    class="toolbar-root"
+                  >
+                    <nav
+                      class="navbar navbar-root management-bar management-bar-light navbar-expand"
+                    >
+                      <div
+                        class="container-fluid"
+                      >
+                        <ul
+                          class="nav-root front-nav navbar-nav"
+                          role="tablist"
+                        >
+                          <li
+                            class="nav-item"
+                            role="presentation"
+                          >
+                            <div
+                              class="custom-control custom-checkbox"
+                            >
+                              <label>
+                                <input
+                                  class="custom-control-input"
+                                  data-testid="select-all-checkbox"
+                                  type="checkbox"
+                                  value="false"
+                                />
+                                <span
+                                  class="custom-control-label"
+                                />
+                              </label>
+                            </div>
+                          </li>
+                          <li
+                            aria-haspopup="true"
+                            class="dropdown dropdown-root filter-and-order-root nav-item"
+                          >
+                            <button
+                              class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+                              data-testid="filter-and-order-button"
+                              type="button"
+                            >
+                              <span
+                                class="text-truncate"
+                              >
+                                Order
+                              </span>
+                              
+                              <span
+                                class="caret-root"
+                              >
+                                <svg
+                                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                                  viewBox=""
+                                >
+                                  <use
+                                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </li>
+                          <li
+                            class="nav-item"
+                            role="presentation"
+                          >
+                            <a
+                              class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                              href="/?orderBy=desc&page=1"
+                            >
+                              <svg
+                                class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                                viewBox=""
+                              >
+                                <use
+                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                                />
+                              </svg>
+                            </a>
+                          </li>
+                        </ul>
+                        <div
+                          class="navbar-form navbar-form-autofit"
+                        >
+                          <div
+                            class="input-group search"
+                          >
+                            <div
+                              class="input-group-item"
+                            >
+                              <input
+                                class="input-root form-control input-group-inset input-group-inset-after"
+                                placeholder="Search"
+                                type="text"
+                                value=""
+                              />
+                              <div
+                                class="input-group-inset-item input-group-inset-item-after"
+                              >
+                                <button
+                                  class="button-root btn btn-unstyled"
+                                  type="button"
+                                >
+                                  <svg
+                                    class="icon-root lexicon-icon lexicon-icon-search"
+                                    viewBox=""
+                                  >
+                                    <use
+                                      xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ul
+                          class="nav-root navbar-nav"
+                          role="tablist"
+                        >
+                          <li
+                            class="nav-item"
+                            role="presentation"
+                          >
+                            <button
+                              class="button-root btn btn-primary"
+                              type="button"
+                            >
+                              Add Members
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </nav>
+                  </div>
+                  <div
+                    class="no-results-root flex-grow-1"
+                  >
+                    <div
+                      class="no-results-content spacer"
+                    >
+                      <div
+                        class="no-results-icon no-results-icon-border"
+                      >
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-ac-individual icon-size-xxl"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
+                          />
+                        </svg>
+                      </div>
+                      <h4
+                        class="no-results-title"
+                      >
+                        There are no Individuals found.
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div>
           <div
-            className="form-actions"
+            class="form-actions"
           >
-            <ForwardRef
-              className="cancel"
+            <a
+              class="button-root btn btn-secondary cancel"
               href="/workspace/23/contacts/segments"
             >
               Cancel
-            </ForwardRef>
-            <ForwardRef
-              className="submit"
-              disabled={false}
-              display="primary"
+            </a>
+            <button
+              class="button-root btn btn-primary submit"
+              disabled=""
               type="submit"
             >
               Create
-            </ForwardRef>
+            </button>
           </div>
         </div>
-      </Body>
-    </Sheet>
-  </Form>
-</ContextProvider>
+      </div>
+    </div>
+  </form>
+</div>
 `;

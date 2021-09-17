@@ -1,53 +1,104 @@
 import * as data from 'test/data';
-import Form from 'shared/components/form';
+import mockStore from 'test/mock-store';
+import ModalRenderer from 'shared/components/ModalRenderer';
 import React from 'react';
-import {Changeset, Segment} from 'shared/util/records';
+import {BrowserRouter, StaticRouter} from 'react-router-dom';
+import {fireEvent, render} from '@testing-library/react';
 import {INDIVIDUALS} from 'shared/util/router';
-import {Map} from 'immutable';
+import {Provider} from 'react-redux';
+import {Segment} from 'shared/util/records';
 import {SegmentTypes} from 'shared/util/constants';
-import {shallow} from 'enzyme';
 import {StaticSegmentEdit} from '../Static';
 
+jest.unmock('react-dom');
+
+let isShowingNavigationWarning;
+
+window.confirm = () => {
+	isShowingNavigationWarning = true;
+};
+
 describe('StaticSegmentEdit', () => {
+	beforeEach(() => {
+		isShowingNavigationWarning = false;
+	});
+
 	it('should render', () => {
-		const component = shallow(
-			<StaticSegmentEdit groupId='23' type={INDIVIDUALS} />
+		const {container} = render(
+			<BrowserRouter>
+				<Provider store={mockStore()}>
+					<StaticSegmentEdit groupId='23' type={INDIVIDUALS} />
+				</Provider>
+			</BrowserRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a navigation warning', () => {
-		const component = shallow(
-			<StaticSegmentEdit
-				groupId='23'
-				segment={data.getImmutableMock(Segment, data.mockSegment, 1, {
-					segmentType: SegmentTypes.Static
-				})}
-				type={INDIVIDUALS}
-			/>
+		const {getByText} = render(
+			<BrowserRouter>
+				<Provider store={mockStore()}>
+					<ModalRenderer />
+
+					<StaticSegmentEdit
+						groupId='23'
+						segment={data.getImmutableMock(
+							Segment,
+							data.mockSegment,
+							1,
+							{
+								segmentType: SegmentTypes.Static
+							}
+						)}
+						type={INDIVIDUALS}
+					/>
+				</Provider>
+			</BrowserRouter>
 		);
 
-		component.setState({
-			changeset: new Changeset({added: new Map({test: {}})})
-		});
+		jest.runAllTimers();
 
-		expect(component.find(Form).shallow()).toMatchSnapshot();
+		fireEvent.click(getByText('Add Members'));
+		jest.runAllTimers();
+
+		fireEvent.click(getByText('Foo Bar'));
+		fireEvent.click(getByText('Add'));
+		jest.runAllTimers();
+
+		fireEvent.click(getByText('Cancel'));
+
+		expect(isShowingNavigationWarning).toBeTruthy();
 	});
 
-	it('should not render a navigation warning after being changed back to the original value', () => {
-		const component = shallow(
-			<StaticSegmentEdit groupId='23' type={INDIVIDUALS} />
+	it('should not render a navigation warning after doing anything', () => {
+		const {getByText} = render(
+			<StaticRouter>
+				<Provider store={mockStore()}>
+					<ModalRenderer />
+
+					<StaticSegmentEdit
+						groupId='23'
+						segment={data.getImmutableMock(
+							Segment,
+							data.mockSegment,
+							1,
+							{
+								segmentType: SegmentTypes.Static
+							}
+						)}
+						type={INDIVIDUALS}
+					/>
+				</Provider>
+			</StaticRouter>
 		);
 
-		component.setState({
-			changeset: new Changeset({added: new Map({test: {}})})
-		});
+		jest.runAllTimers();
 
-		expect(component.find(Form).shallow()).toMatchSnapshot();
+		fireEvent.click(getByText('Cancel'));
 
-		component.setState({changeset: new Changeset()});
-
-		expect(component.find(Form).shallow()).toMatchSnapshot();
+		expect(isShowingNavigationWarning).not.toBeTruthy();
 	});
 });
