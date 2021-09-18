@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`validateGreaterThanZero should validate value as invalid 1`] = `"Must be greater than 0."`;
+
 exports[`validateMaxLength should validate max length as not valid 1`] = `"Exceeds maximum length."`;
 
 exports[`validateMinDuration should validate min duration as not valid 1`] = `"Must be greater than 00:00:00."`;

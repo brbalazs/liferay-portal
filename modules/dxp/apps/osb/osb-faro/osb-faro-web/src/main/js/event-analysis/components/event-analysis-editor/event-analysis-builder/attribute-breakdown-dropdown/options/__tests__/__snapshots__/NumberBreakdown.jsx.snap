@@ -31,6 +31,7 @@ exports[`NumberBreakdown should render 1`] = `
               class="input-root form-control"
               id="binSize"
               name="binSize"
+              step="any"
               type="number"
               value="10"
             />
