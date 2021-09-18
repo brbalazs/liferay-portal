@@ -1,6 +1,7 @@
 import Promise from 'metal-promise';
 import {
 	toPromise,
+	validateGreaterThanZero,
 	validateInputMessage,
 	validateMaxLength,
 	validateMinDuration,
@@ -104,6 +105,24 @@ describe('validateMinLength', () => {
 		expect.assertions(1);
 
 		const response = validateMinLength(2)('aa');
+
+		return expect(response).resolves.toBe('');
+	});
+});
+
+describe('validateGreaterThanZero', () => {
+	it('should validate value as invalid', () => {
+		expect.assertions(1);
+
+		const response = validateGreaterThanZero(0);
+
+		return expect(response).rejects.toMatchSnapshot();
+	});
+
+	it('should validate value as valid', () => {
+		expect.assertions(1);
+
+		const response = validateGreaterThanZero(0.01);
 
 		return expect(response).resolves.toBe('');
 	});

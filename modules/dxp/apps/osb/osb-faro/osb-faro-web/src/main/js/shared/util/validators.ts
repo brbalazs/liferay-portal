@@ -52,6 +52,18 @@ export function validateDateRangeRequired({
 	return toPromise(error);
 }
 
+export const validateGreaterThanZero = (value: string) => {
+	let error = '';
+
+	if (Number(value) <= 0) {
+		error = sub(Liferay.Language.get('must-be-greater-than-x'), [
+			'0'
+		]) as string;
+	}
+
+	return toPromise(error);
+};
+
 export function validateRequired(value: {value: any} | string | Array<string>) {
 	let error = '';
 

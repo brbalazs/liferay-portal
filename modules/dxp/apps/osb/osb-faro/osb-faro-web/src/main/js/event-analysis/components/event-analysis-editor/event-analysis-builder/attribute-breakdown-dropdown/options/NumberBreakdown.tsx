@@ -1,5 +1,8 @@
 import Button from 'shared/components/Button';
-import Form, {validateMinValue, validateRequired} from 'shared/components/form';
+import Form, {
+	validateGreaterThanZero,
+	validateRequired
+} from 'shared/components/form';
 import React from 'react';
 import {createNumberBreakdown} from 'event-analysis/utils/utils';
 import {IBreakdownProps} from 'event-analysis/utils/types';
@@ -54,7 +57,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 									type='number'
 									validate={sequence([
 										validateRequired,
-										validateMinValue(1)
+										validateGreaterThanZero
 									])}
 								/>
 							</Form.GroupItem>
