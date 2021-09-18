@@ -50,6 +50,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 										'group-numbers-by'
 									)}
 									name='binSize'
+									step='any'
 									type='number'
 									validate={sequence([
 										validateRequired,
