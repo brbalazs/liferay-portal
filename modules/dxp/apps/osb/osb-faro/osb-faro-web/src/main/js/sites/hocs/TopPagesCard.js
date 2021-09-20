@@ -3,7 +3,6 @@ import SitesTopPagesQuery from '../queries/SitesTopPagesQuery';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {NameCell} from 'shared/components/table/cell-components';
-import {sub} from 'shared/util/lang';
 import {withTableTabs} from './TableTabs';
 
 const ROW_IDENTIFIER = ['assetId', 'assetTitle'];
@@ -49,9 +48,7 @@ const Tabs = [
 		orderByField: 'visitorsMetric',
 		rowIdentifier: ROW_IDENTIFIER,
 		tabId: 'visitorsMetric',
-		title: sub(Liferay.Language.get('visited-x'), [
-			Liferay.Language.get('pages')
-		])
+		title: Liferay.Language.get('visited-pages')
 	},
 	{
 		getColumns: () => [
