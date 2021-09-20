@@ -38,9 +38,7 @@ const TableWithData = withTableData(withData, {
 			sortable: false
 		}),
 		compositionListColumns.getRelativeMetricBar({
-			label: sub(Liferay.Language.get('x-members'), [
-				Liferay.Language.get('account')
-			]),
+			label: Liferay.Language.get('account-members'),
 			maxCount,
 			totalCount
 		}),
