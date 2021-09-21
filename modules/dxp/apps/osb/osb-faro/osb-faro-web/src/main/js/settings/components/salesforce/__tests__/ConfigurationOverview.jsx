@@ -1,14 +1,19 @@
+import * as data from 'test/data';
+import mockStore from 'test/mock-store';
+import React from 'react';
+import {addAlert} from 'shared/actions/alerts';
+import {BrowserRouter} from 'react-router-dom';
+import {DataSource} from 'shared/util/records';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {ConfigurationOverview as SalesforceConfigurationOverview} from '../ConfigurationOverview';
+
 jest.mock('shared/actions/alerts', () => ({
 	actionTypes: {},
 	addAlert: jest.fn(() => ({meta: {}, payload: {}, type: 'addAlert'}))
 }));
 
-import * as data from 'test/data';
-import React from 'react';
-import {addAlert} from 'shared/actions/alerts';
-import {DataSource} from 'shared/util/records';
-import {ConfigurationOverview as SalesforceConfigurationOverview} from '../ConfigurationOverview';
-import {shallow} from 'enzyme';
+jest.unmock('react-dom');
 
 const pushSpy = jest.fn();
 
@@ -27,34 +32,43 @@ const defaultProps = {
 	id: 'test'
 };
 
-describe('SalesforceConfigurationOverview', () => {
-	it('should render', () => {
-		const component = shallow(
-			<SalesforceConfigurationOverview {...defaultProps} />
-		);
+const DefaultComponent = props => (
+	<Provider store={mockStore()}>
+		<BrowserRouter>
+			<SalesforceConfigurationOverview {...defaultProps} {...props} />
+		</BrowserRouter>
+	</Provider>
+);
 
-		expect(component).toMatchSnapshot();
+describe('SalesforceConfigurationOverview', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it('should render', () => {
+		const {container} = render(<DefaultComponent />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as disabled', () => {
-		const component = shallow(
-			<SalesforceConfigurationOverview {...defaultProps} disabled />
-		);
+		const {container} = render(<DefaultComponent disabled />);
 
-		expect(component.shallow()).toMatchSnapshot();
+		expect(container.querySelector('.link-disabled')).toBeTruthy();
 	});
 
 	it('should display an alert toast message and navigate to the datasource profile if a service permission error is received from fetching sync counts', () => {
 		const errorString = JSON.stringify({status: 403});
 		const mockError = new Error(errorString);
 
-		const component = shallow(
-			<SalesforceConfigurationOverview {...defaultProps} />
-		);
+		const {rerender} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		component.setProps({pollingError: mockError});
+		expect(addAlert).not.toBeCalled();
+		expect(pushSpy).not.toHaveBeenCalled();
+
+		rerender(<DefaultComponent pollingError={mockError} />);
 
 		jest.runAllTimers();
 
@@ -66,18 +80,18 @@ describe('SalesforceConfigurationOverview', () => {
 		const errorString = JSON.stringify({status: 404});
 		const mockError = new Error(errorString);
 
-		const component = shallow(
-			<SalesforceConfigurationOverview {...defaultProps} />
-		);
+		const {rerender} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		component.setProps({pollingError: mockError});
+		expect(addAlert).not.toBeCalled();
+		expect(pushSpy).not.toHaveBeenCalled();
+
+		rerender(<DefaultComponent pollingError={mockError} />);
 
 		jest.runAllTimers();
 
 		expect(addAlert).toBeCalled();
-
 		expect(pushSpy).toHaveBeenCalled();
 	});
 });
