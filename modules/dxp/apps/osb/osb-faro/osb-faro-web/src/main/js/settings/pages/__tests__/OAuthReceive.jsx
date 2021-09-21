@@ -1,5 +1,7 @@
 import OAuthReceive from '../OAuthReceive';
 import React from 'react';
+import {emitAuthCode, emitError, emitToken} from 'shared/util/oauth';
+import {render} from '@testing-library/react';
 
 jest.mock('shared/util/oauth', () => ({
 	emitAuthCode: jest.fn(),
@@ -7,8 +9,7 @@ jest.mock('shared/util/oauth', () => ({
 	emitToken: jest.fn()
 }));
 
-import {emitAuthCode, emitError, emitToken} from 'shared/util/oauth';
-import {shallow} from 'enzyme';
+jest.unmock('react-dom');
 
 describe('OAuthReceive', () => {
 	afterEach(() => {
@@ -16,8 +17,9 @@ describe('OAuthReceive', () => {
 	});
 
 	it('should render', () => {
-		const component = shallow(<OAuthReceive />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<OAuthReceive />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should call emitToken if one was passed', () => {
@@ -25,7 +27,7 @@ describe('OAuthReceive', () => {
 		const token = 'foobarbazbiz';
 		const verifier = 'bizfizzbuzz';
 
-		shallow(<OAuthReceive oauth_token={token} oauth_verifier={verifier} />);
+		render(<OAuthReceive oauth_token={token} oauth_verifier={verifier} />);
 		expect(emitToken).toBeCalledWith({token, verifier});
 	});
 
@@ -33,7 +35,7 @@ describe('OAuthReceive', () => {
 		expect(emitAuthCode).not.toBeCalled();
 		const code = 'foobarbazbiz';
 
-		shallow(<OAuthReceive code={code} />);
+		render(<OAuthReceive code={code} />);
 		expect(emitAuthCode).toBeCalledWith({code});
 	});
 
@@ -41,7 +43,7 @@ describe('OAuthReceive', () => {
 		expect(emitToken).not.toBeCalled();
 		const token = 'foobarbazbiz';
 
-		shallow(<OAuthReceive oauth_token={token} />);
+		render(<OAuthReceive oauth_token={token} />);
 		expect(emitToken).not.toBeCalled();
 	});
 
@@ -51,7 +53,7 @@ describe('OAuthReceive', () => {
 		const errorDescription = 'bazbiz';
 		const errorMessage = `${error}: ${errorDescription}`;
 
-		shallow(
+		render(
 			<OAuthReceive error={error} error_description={errorDescription} />
 		);
 		expect(emitError).toBeCalledWith({message: errorMessage});
