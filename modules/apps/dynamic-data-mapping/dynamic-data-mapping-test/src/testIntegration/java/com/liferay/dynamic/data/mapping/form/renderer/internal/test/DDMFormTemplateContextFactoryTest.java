@@ -265,7 +265,7 @@ public class DDMFormTemplateContextFactoryTest {
 			_ddmFormTemplateContextFactory.create(
 				ddmForm, ddmFormRenderingContext);
 
-		Assert.assertFalse(templateContext.get("showSubmitButton"));
+		Assert.assertFalse((boolean)templateContext.get("showSubmitButton"));
 	}
 
 	@Test
