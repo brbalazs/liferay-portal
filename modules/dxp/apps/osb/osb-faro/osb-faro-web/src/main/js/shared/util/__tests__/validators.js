@@ -3,6 +3,7 @@ import {
 	toPromise,
 	validateGreaterThanZero,
 	validateInputMessage,
+	validateIsInteger,
 	validateMaxLength,
 	validateMinDuration,
 	validateMinLength,
@@ -123,6 +124,24 @@ describe('validateGreaterThanZero', () => {
 		expect.assertions(1);
 
 		const response = validateGreaterThanZero(0.01);
+
+		return expect(response).resolves.toBe('');
+	});
+});
+
+describe('validateIsInteger', () => {
+	it('should validate value as invalid', () => {
+		expect.assertions(1);
+
+		const response = validateIsInteger(1.001);
+
+		return expect(response).rejects.toMatchSnapshot();
+	});
+
+	it('should validate value as valid', () => {
+		expect.assertions(1);
+
+		const response = validateIsInteger(123123);
 
 		return expect(response).resolves.toBe('');
 	});

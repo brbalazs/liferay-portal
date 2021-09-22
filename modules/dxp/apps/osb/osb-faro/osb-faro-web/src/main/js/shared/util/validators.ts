@@ -64,6 +64,16 @@ export const validateGreaterThanZero = (value: string) => {
 	return toPromise(error);
 };
 
+export const validateIsInteger = (value: string) => {
+	let error = '';
+
+	if (!Number.isInteger(Number(value))) {
+		error = Liferay.Language.get('must-be-an-integer');
+	}
+
+	return toPromise(error);
+};
+
 export function validateRequired(value: {value: any} | string | Array<string>) {
 	let error = '';
 
