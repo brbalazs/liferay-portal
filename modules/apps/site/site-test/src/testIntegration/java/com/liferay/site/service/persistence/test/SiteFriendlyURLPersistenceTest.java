@@ -125,6 +125,8 @@ public class SiteFriendlyURLPersistenceTest {
 
 		newSiteFriendlyURL.setUuid(RandomTestUtil.randomString());
 
+		newSiteFriendlyURL.setGroupId(RandomTestUtil.nextLong());
+
 		newSiteFriendlyURL.setCompanyId(RandomTestUtil.nextLong());
 
 		newSiteFriendlyURL.setUserId(RandomTestUtil.nextLong());
@@ -134,8 +136,6 @@ public class SiteFriendlyURLPersistenceTest {
 		newSiteFriendlyURL.setCreateDate(RandomTestUtil.nextDate());
 
 		newSiteFriendlyURL.setModifiedDate(RandomTestUtil.nextDate());
-
-		newSiteFriendlyURL.setGroupId(RandomTestUtil.nextLong());
 
 		newSiteFriendlyURL.setFriendlyURL(RandomTestUtil.randomString());
 
@@ -154,6 +154,9 @@ public class SiteFriendlyURLPersistenceTest {
 			existingSiteFriendlyURL.getSiteFriendlyURLId(),
 			newSiteFriendlyURL.getSiteFriendlyURLId());
 		Assert.assertEquals(
+			existingSiteFriendlyURL.getGroupId(),
+			newSiteFriendlyURL.getGroupId());
+		Assert.assertEquals(
 			existingSiteFriendlyURL.getCompanyId(),
 			newSiteFriendlyURL.getCompanyId());
 		Assert.assertEquals(
@@ -168,9 +171,6 @@ public class SiteFriendlyURLPersistenceTest {
 		Assert.assertEquals(
 			Time.getShortTimestamp(existingSiteFriendlyURL.getModifiedDate()),
 			Time.getShortTimestamp(newSiteFriendlyURL.getModifiedDate()));
-		Assert.assertEquals(
-			existingSiteFriendlyURL.getGroupId(),
-			newSiteFriendlyURL.getGroupId());
 		Assert.assertEquals(
 			existingSiteFriendlyURL.getFriendlyURL(),
 			newSiteFriendlyURL.getFriendlyURL());
@@ -272,8 +272,8 @@ public class SiteFriendlyURLPersistenceTest {
 	protected OrderByComparator<SiteFriendlyURL> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
 			"SiteFriendlyURL", "uuid", true, "siteFriendlyURLId", true,
-			"companyId", true, "userId", true, "userName", true, "createDate",
-			true, "modifiedDate", true, "groupId", true, "friendlyURL", true,
+			"groupId", true, "companyId", true, "userId", true, "userName",
+			true, "createDate", true, "modifiedDate", true, "friendlyURL", true,
 			"languageId", true, "lastPublishDate", true);
 	}
 
@@ -523,14 +523,14 @@ public class SiteFriendlyURLPersistenceTest {
 				new Class<?>[0]));
 
 		Assert.assertEquals(
-			Long.valueOf(existingSiteFriendlyURL.getCompanyId()),
-			ReflectionTestUtil.<Long>invoke(
-				existingSiteFriendlyURL, "getOriginalCompanyId",
-				new Class<?>[0]));
-		Assert.assertEquals(
 			Long.valueOf(existingSiteFriendlyURL.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingSiteFriendlyURL, "getOriginalGroupId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Long.valueOf(existingSiteFriendlyURL.getCompanyId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingSiteFriendlyURL, "getOriginalCompanyId",
 				new Class<?>[0]));
 		Assert.assertEquals(
 			existingSiteFriendlyURL.getLanguageId(),
@@ -562,6 +562,8 @@ public class SiteFriendlyURLPersistenceTest {
 
 		siteFriendlyURL.setUuid(RandomTestUtil.randomString());
 
+		siteFriendlyURL.setGroupId(RandomTestUtil.nextLong());
+
 		siteFriendlyURL.setCompanyId(RandomTestUtil.nextLong());
 
 		siteFriendlyURL.setUserId(RandomTestUtil.nextLong());
@@ -571,8 +573,6 @@ public class SiteFriendlyURLPersistenceTest {
 		siteFriendlyURL.setCreateDate(RandomTestUtil.nextDate());
 
 		siteFriendlyURL.setModifiedDate(RandomTestUtil.nextDate());
-
-		siteFriendlyURL.setGroupId(RandomTestUtil.nextLong());
 
 		siteFriendlyURL.setFriendlyURL(RandomTestUtil.randomString());
 

@@ -33,12 +33,12 @@ public class SiteFriendlyURLSoap implements Serializable {
 
 		soapModel.setUuid(model.getUuid());
 		soapModel.setSiteFriendlyURLId(model.getSiteFriendlyURLId());
+		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setGroupId(model.getGroupId());
 		soapModel.setFriendlyURL(model.getFriendlyURL());
 		soapModel.setLanguageId(model.getLanguageId());
 		soapModel.setLastPublishDate(model.getLastPublishDate());
@@ -117,6 +117,14 @@ public class SiteFriendlyURLSoap implements Serializable {
 		_siteFriendlyURLId = siteFriendlyURLId;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -157,14 +165,6 @@ public class SiteFriendlyURLSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getGroupId() {
-		return _groupId;
-	}
-
-	public void setGroupId(long groupId) {
-		_groupId = groupId;
-	}
-
 	public String getFriendlyURL() {
 		return _friendlyURL;
 	}
@@ -191,12 +191,12 @@ public class SiteFriendlyURLSoap implements Serializable {
 
 	private String _uuid;
 	private long _siteFriendlyURLId;
+	private long _groupId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _groupId;
 	private String _friendlyURL;
 	private String _languageId;
 	private Date _lastPublishDate;
