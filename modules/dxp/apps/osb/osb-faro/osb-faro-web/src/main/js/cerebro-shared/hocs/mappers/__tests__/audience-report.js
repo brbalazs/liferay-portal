@@ -38,10 +38,13 @@ const data = {
 				],
 				total: 6
 			},
+			segmentedAnonymousUsersCount: 100,
 			segmentedKnownUsersCount: 3500
 		}
 	}
 };
+
+const segmentValuesPercentages = [97, 55, 41, 27, 12, 4];
 
 describe('Shared HOCs Mappers - Segments', () => {
 	it('should map segments information', () => {
@@ -56,10 +59,12 @@ describe('Shared HOCs Mappers - Segments', () => {
 		const mapper = getAudienceReportMapper(
 			result => result.form.submissionsMetric
 		);
+
 		const props = mapper.props({data});
+
 		const arr = props.segments.items.map(({progress}) => progress[0].value);
 
-		expect(arr).toEqual([100, 57, 42, 28, 12, 4]);
+		expect(arr).toEqual(segmentValuesPercentages);
 	});
 
 	it('should return an array with only 6 segments when there are more than 6 segments', () => {
