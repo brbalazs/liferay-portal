@@ -31,7 +31,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "4.3%",
+          "label": "4.2%",
           "weight": "semibold",
           "width": 50,
         },
@@ -72,7 +72,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "12.9%",
+          "label": "12.5%",
           "weight": "semibold",
           "width": 50,
         },
@@ -92,7 +92,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "4.3%",
+          "label": "4.2%",
           "weight": "semibold",
           "width": 50,
         },
@@ -133,7 +133,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "14.9%",
+          "label": "14.5%",
           "weight": "semibold",
           "width": 50,
         },
@@ -153,7 +153,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "12.9%",
+          "label": "12.5%",
           "weight": "semibold",
           "width": 50,
         },
@@ -173,7 +173,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "9.9%",
+          "label": "9.6%",
           "weight": "semibold",
           "width": 50,
         },
@@ -193,7 +193,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "9.8%",
+          "label": "9.5%",
           "weight": "semibold",
           "width": 50,
         },
@@ -213,7 +213,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "9.4%",
+          "label": "9.2%",
           "weight": "semibold",
           "width": 50,
         },
@@ -233,7 +233,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "6.9%",
+          "label": "6.7%",
           "weight": "semibold",
           "width": 50,
         },
@@ -253,7 +253,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "4.3%",
+          "label": "4.2%",
           "weight": "semibold",
           "width": 50,
         },
@@ -273,7 +273,7 @@ Object {
         },
         Object {
           "align": "right",
-          "label": "3.5%",
+          "label": "3.4%",
           "weight": "semibold",
           "width": 50,
         },
@@ -328,7 +328,7 @@ Object {
   "disableScroll": true,
   "formatSpacement": false,
   "grid": Object {
-    "maxValue": 100,
+    "maxValue": 97,
     "minValue": 0,
     "show": true,
     "type": "percentage",
@@ -344,7 +344,7 @@ Object {
       "progress": Array [
         Object {
           "color": "#A1E7CC",
-          "value": 100,
+          "value": 97,
         },
       ],
       "tooltip": Object {
@@ -377,7 +377,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "100%",
+                "label": "97.2%",
                 "weight": "semibold",
                 "width": 50,
               },
@@ -396,7 +396,7 @@ Object {
       "progress": Array [
         Object {
           "color": "#A1E7CC",
-          "value": 57,
+          "value": 55,
         },
       ],
       "tooltip": Object {
@@ -429,7 +429,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "57.1%",
+                "label": "55.6%",
                 "weight": "semibold",
                 "width": 50,
               },
@@ -448,7 +448,7 @@ Object {
       "progress": Array [
         Object {
           "color": "#A1E7CC",
-          "value": 42,
+          "value": 41,
         },
       ],
       "tooltip": Object {
@@ -481,7 +481,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "42.9%",
+                "label": "41.7%",
                 "weight": "semibold",
                 "width": 50,
               },
@@ -500,7 +500,7 @@ Object {
       "progress": Array [
         Object {
           "color": "#A1E7CC",
-          "value": 28,
+          "value": 27,
         },
       ],
       "tooltip": Object {
@@ -533,7 +533,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "28.6%",
+                "label": "27.8%",
                 "weight": "semibold",
                 "width": 50,
               },
@@ -585,7 +585,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "12.9%",
+                "label": "12.5%",
                 "weight": "semibold",
                 "width": 50,
               },
@@ -637,7 +637,7 @@ Object {
               },
               Object {
                 "align": "right",
-                "label": "4.3%",
+                "label": "4.2%",
                 "weight": "semibold",
                 "width": 50,
               },
