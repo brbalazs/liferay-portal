@@ -50,6 +50,10 @@ public class DDMDataProviderResponse {
 		return _status;
 	}
 
+	public int size() {
+		return _dataMap.size();
+	}
+
 	public static class Builder {
 
 		public static Builder newBuilder() {
@@ -64,6 +68,13 @@ public class DDMDataProviderResponse {
 		public Builder withOutput(String name, Object value) {
 			_ddmDataProviderResponseOutputs.add(
 				DDMDataProviderResponseOutput.of(name, null, value));
+
+			return this;
+		}
+
+		public Builder withOutput(String name, String type, Object value) {
+			_ddmDataProviderResponseOutputs.add(
+				DDMDataProviderResponseOutput.of(name, type, value));
 
 			return this;
 		}
