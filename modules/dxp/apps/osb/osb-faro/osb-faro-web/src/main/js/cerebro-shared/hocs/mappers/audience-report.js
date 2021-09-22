@@ -156,6 +156,7 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 			knownUsersCount,
 			nonsegmentedKnownUsersCount,
 			segment: {metrics, total: totalOthers},
+			segmentedAnonymousUsersCount,
 			segmentedKnownUsersCount
 		} = getMetric(result);
 
@@ -193,7 +194,7 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 						.filter(({valueKey}) => valueKey !== 'others'),
 					...metrics.filter(({valueKey}) => valueKey === 'others')
 				],
-				total: segmentedKnownUsersCount,
+				total: segmentedAnonymousUsersCount + segmentedKnownUsersCount,
 				totalOthers
 			},
 			martellL4
