@@ -12,6 +12,7 @@ export const AUDIENCE_REPORT_FRAGMENT = gql`
 			}
 			total
 		}
+		segmentedAnonymousUsersCount
 		segmentedKnownUsersCount
 	}
 `;
