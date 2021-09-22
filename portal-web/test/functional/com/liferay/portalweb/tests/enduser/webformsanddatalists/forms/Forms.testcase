@@ -4125,6 +4125,49 @@ definition {
 			fieldValue = "01/01/2016");
 	}
 
+	@description = "LPS-84111 - Verify that Text Field can be autosaved on form builder"
+	@priority = "5"
+	test TextFieldCanBeAutosaved {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName();
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.editFieldLabel(fieldValue = "First Field");
+
+		Form.save();
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.editFieldLabel(fieldValue = "For Autosave");
+
+		Form.gotoAdvancedTab();
+
+		Form.enableAutocompleteConfiguration();
+
+		Pause(locator1 = "60000");
+
+		FormsAdminNavigator.gotoBack();
+
+		FormsAdminNavigator.gotoEditFormByName();
+
+		FormFields.viewTextLabel(
+			fieldLabel = "First Field",
+			fieldName = "FirstField");
+
+		FormFields.viewTextLabel(
+			fieldLabel = "For Autosave",
+			fieldName = "ForAutosave");
+	}
+
 	@description = "This is a use case for LPS-71485 and LPS-71512."
 	@priority = "2"
 	test ViewAltSuccessPagePagination {
