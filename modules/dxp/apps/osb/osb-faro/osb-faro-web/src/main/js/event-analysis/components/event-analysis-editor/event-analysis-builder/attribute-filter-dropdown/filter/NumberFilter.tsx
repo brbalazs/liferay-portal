@@ -1,11 +1,15 @@
 import Button from 'shared/components/Button';
-import Form, {validateRequired} from 'shared/components/form';
+import Form, {
+	validateIsInteger,
+	validateRequired
+} from 'shared/components/form';
 import React from 'react';
 import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
 import {
 	NUMBER_OPERATOR_LONGHAND_LABELS_MAP,
 	NUMBER_OPTIONS
 } from 'event-analysis/utils/utils';
+import {sequence} from 'shared/util/promise';
 
 const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,
@@ -91,7 +95,10 @@ const NumberFilter: React.FC<IFilterProps> = ({
 										name='endValue'
 										required
 										type='number'
-										validate={validateRequired}
+										validate={sequence([
+											validateRequired,
+											validateIsInteger
+										])}
 									/>
 								</Form.GroupItem>
 							)}

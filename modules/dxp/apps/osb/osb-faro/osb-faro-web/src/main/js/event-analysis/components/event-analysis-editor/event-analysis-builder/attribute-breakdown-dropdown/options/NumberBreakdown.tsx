@@ -1,6 +1,7 @@
 import Button from 'shared/components/Button';
 import Form, {
 	validateGreaterThanZero,
+	validateIsInteger,
 	validateRequired
 } from 'shared/components/form';
 import React from 'react';
@@ -57,7 +58,8 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 									type='number'
 									validate={sequence([
 										validateRequired,
-										validateGreaterThanZero
+										validateGreaterThanZero,
+										validateIsInteger
 									])}
 								/>
 							</Form.GroupItem>
