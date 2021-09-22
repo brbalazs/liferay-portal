@@ -70,7 +70,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -398,31 +397,30 @@ public abstract class BaseEngineClient {
 		restTemplate.setInterceptors(clientHttpRequestInterceptors);
 
 		restTemplate.setRequestFactory(
-			new BufferingClientHttpRequestFactory(
-				new HttpComponentsClientHttpRequestFactory() {
+			new HttpComponentsClientHttpRequestFactory() {
 
-					@Override
-					protected HttpUriRequest createHttpUriRequest(
-						HttpMethod httpMethod, URI uri) {
+				@Override
+				protected HttpUriRequest createHttpUriRequest(
+					HttpMethod httpMethod, URI uri) {
 
-						if (httpMethod == HttpMethod.GET) {
-							return new HttpEntityEnclosingRequestBase() {
-								{
-									setURI(uri);
-								}
+					if (httpMethod == HttpMethod.GET) {
+						return new HttpEntityEnclosingRequestBase() {
+							{
+								setURI(uri);
+							}
 
-								@Override
-								public String getMethod() {
-									return HttpMethod.GET.name();
-								}
+							@Override
+							public String getMethod() {
+								return HttpMethod.GET.name();
+							}
 
-							};
-						}
-
-						return super.createHttpUriRequest(httpMethod, uri);
+						};
 					}
 
-				}));
+					return super.createHttpUriRequest(httpMethod, uri);
+				}
+
+			});
 
 		return restTemplate;
 	}
