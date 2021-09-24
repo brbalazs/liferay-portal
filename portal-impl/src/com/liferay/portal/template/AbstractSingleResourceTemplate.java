@@ -56,6 +56,24 @@ public abstract class AbstractSingleResourceTemplate extends AbstractTemplate {
 	}
 
 	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #AbstractSingleResourceTemplate(TemplateResource,
+	 *             TemplateResource, Map, TemplateContextHelper, boolean,
+	 *             TemplateResourceCache)}}
+	 */
+	@Deprecated
+	public AbstractSingleResourceTemplate(
+		TemplateResource templateResource,
+		TemplateResource errorTemplateResource, Map<String, Object> context,
+		TemplateContextHelper templateContextHelper, String templateManagerName,
+		boolean restricted, TemplateResourceCache templateResourceCache) {
+
+		this(
+			templateResource, errorTemplateResource, context,
+			templateContextHelper, false, null);
+	}
+
+	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 *             #AbstractSingleResourceTemplate(TemplateResource,
 	 *             TemplateResource, Map, TemplateContextHelper, String, long,
