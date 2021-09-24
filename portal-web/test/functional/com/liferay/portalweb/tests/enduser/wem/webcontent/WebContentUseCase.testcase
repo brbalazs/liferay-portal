@@ -1504,7 +1504,8 @@ definition {
 
 		WebContentStructures.deleteCP(
 			structureName = "WC Structure Name",
-			webContentHasReference = "true");
+			webContentHasReference = "true",
+			webStructureLinkReference = "true");
 
 		WebContentStructures.viewCP(
 			structureDescription = "WC Structure Description",
