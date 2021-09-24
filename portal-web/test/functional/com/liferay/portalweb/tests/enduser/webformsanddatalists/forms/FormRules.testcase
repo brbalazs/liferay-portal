@@ -694,6 +694,103 @@ definition {
 		FormRules.save();
 	}
 
+	@description = "LPS-77284 - Verify that sync between rule builder and fields/pages "
+	@priority = "5"
+	test SyncBetweenFormAndRuleBuilder {
+		property portal.acceptance = "true";
+		property portal.upstream = "true";
+		property test.name.skip.portal.instance = "FormRules#SyncBetweenFormAndRuleBuilder";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName();
+
+		Form.editPageTitle(formPageName = "Page 1");
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.editFieldLabel(fieldValue = "Text Field 1");
+
+		Form.closeSidebar();
+
+		Form.addPage();
+
+		Form.editPageTitle(formPageName = "Page 2");
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.editFieldLabel(fieldValue = "Text Field 2");
+
+		Form.closeSidebar();
+
+		Form.addPage();
+
+		Form.editPageTitle(formPageName = "Page 3");
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.editFieldLabel(fieldValue = "Text Field 3");
+
+		Form.closeSidebar();
+
+		FormsAdminNavigator.gotoRules();
+
+		FormRules.addRule();
+
+		FormRules.configureConditionOptions(
+			conditionField = "Text Field 1",
+			conditionOperator = "Is not empty",
+			conditionRowNumber = "1");
+
+		FormRules.configureActionOptions(
+			action = "Jump to Page",
+			actionRowNumber = "1",
+			actionTarget = "2 Page 2");
+
+		FormsAdminNavigator.gotoFormBuilder();
+
+		Form.deleteCurrentPage(formPageName = "Page 3");
+
+		Form.gotoFormPage(formPageName = "Page 1");
+
+		Form.gotoAddField(fieldType = "Date");
+
+		FormsAdminNavigator.gotoRules();
+
+		var key_conditionRowNumber = "1";
+
+		Click(locator1 = "FormRules#RULE_BUILDER_CONDITION_FIELD");
+
+		for (var conditionField : list "Text Field 1,Text Field 2,date") {
+			var key_conditionField = "${conditionField}";
+
+			AssertElementPresent(
+				locator1 = "FormRules#RULE_BUILDER_SELECT_CONDITION_FIELD",
+				value1 = "${conditionField}");
+		}
+
+		var key_actionRowNumber = "1";
+
+		Click(locator1 = "FormRules#RULE_BUILDER_JUMP_TO_PAGE_ACTION_TARGET");
+
+		AssertElementPresent(
+			key_actionRowNumber = "1",
+			key_actionTarget = "2 Page 2",
+			locator1 = "FormRules#RULE_BUILDER_SELECT_ACTION_TARGET");
+
+		AssertElementNotPresent(
+			key_actionRowNumber = "1",
+			key_actionTarget = "3 Page 3",
+			locator1 = "FormRules#RULE_BUILDER_SELECT_ACTION_TARGET");
+	}
+
 	@description = "This is a use case for LPS-71399."
 	@priority = "4"
 	test UseIsNotEmptyRuleToShowField {
