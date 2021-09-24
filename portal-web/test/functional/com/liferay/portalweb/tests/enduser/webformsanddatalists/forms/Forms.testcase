@@ -704,62 +704,6 @@ definition {
 			fieldValue = "Text Field Value");
 	}
 
-	@description = "This is a use case for LPS-81578."
-	@priority = "4"
-	test CanNotSeeFormForGuestUserWhenPermissionRemove {
-		property forms.functional = "true";
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Forms");
-
-		FormsAdminNavigator.gotoAddForm();
-
-		Form.editName();
-
-		Form.editDescription();
-
-		Form.gotoAddField(fieldType = "Text Field");
-
-		Form.save();
-
-		Form.publishForm();
-
-		Navigator.gotoBack();
-
-		FormsAdminNavigator.gotoPermissions(
-			entryTitle = "Created Form Name",
-			menuItem = "Permissions");
-
-		Role.removePermissionPG(
-			permissionDefinitionKey = "CONTENT_PERMISSIONS_ADD_FORM_INSTANCE_RECORD_CHECKBOX",
-			roleTitle = "Guest");
-
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Forms");
-
-		FormsAdminNavigator.gotoEditFormByName();
-
-		FormsAdminNavigator.gotoPublishCopyURLLink();
-
-		var publishedFormPublicURL = Form.getPublishedFormPublicURL(
-			publishedFormPublicURL = "${publishedFormPublicURL}"
-		);
-
-		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
-
-		User.logoutPG();
-
-		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
-
-		Alert.viewWarningSpecific(warningMessage = "You do not have the permission to view this form.");
-	}
-
 	@description = "This is a use case for LPS-75116 and LPS-79101."
 	@priority = "4"
 	test ChangeFieldType {
@@ -2033,6 +1977,62 @@ definition {
 
 			Form.closeSidebar();
 		}
+	}
+
+	@description = "This is a use case for LPS-81578."
+	@priority = "4"
+	test GuestUserCanNotSeeFormAfterPermissionRemoved {
+		property forms.functional = "true";
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName();
+
+		Form.editDescription();
+
+		Form.gotoAddField(fieldType = "Text Field");
+
+		Form.save();
+
+		Form.publishForm();
+
+		Navigator.gotoBack();
+
+		FormsAdminNavigator.gotoPermissions(
+			entryTitle = "Created Form Name",
+			menuItem = "Permissions");
+
+		Role.removePermissionPG(
+			permissionDefinitionKey = "CONTENT_PERMISSIONS_ADD_FORM_INSTANCE_RECORD_CHECKBOX",
+			roleTitle = "Guest");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoEditFormByName();
+
+		FormsAdminNavigator.gotoPublishCopyURLLink();
+
+		var publishedFormPublicURL = Form.getPublishedFormPublicURL(
+			publishedFormPublicURL = "${publishedFormPublicURL}"
+		);
+
+		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
+
+		Alert.viewWarningSpecific(warningMessage = "You do not have the permission to view this form.");
 	}
 
 	@description = "This is a use case for LPS-59331"
