@@ -673,6 +673,8 @@ definition {
 
 	@priority = "3"
 	test DeleteWorkflowDefinitionDraft {
+		property test.name.skip.portal.instance = "Kaleodesigner#DeleteWorkflowDefinitionDraft";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
