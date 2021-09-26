@@ -59,6 +59,7 @@
 			<liferay-ui:message key="city-or-zip-code" />
 
 			<input name="q" size="23" type="text" />
+
 			<input type="submit" value="<liferay-ui:message key="search" />" />
 		</form>
 
