@@ -159,9 +159,6 @@ exports[`IndividualProfileCard should render 1`] = `
                     12
                   </span>
                 </div>
-                <div
-                  class="timeline-panel-body-content-details"
-                />
               </div>
             </div>
           </div>
@@ -175,6 +172,9 @@ exports[`IndividualProfileCard should render 1`] = `
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -268,6 +268,9 @@ Firefox"
                       class="timeline-panel-body"
                     >
                       <div
+                        class="timeline-line"
+                      />
+                      <div
                         class="timeline-increment"
                       >
                         <div
@@ -311,9 +314,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -335,6 +335,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -379,9 +382,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -407,6 +407,9 @@ Firefox"
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -500,6 +503,9 @@ Firefox"
                       class="timeline-panel-body"
                     >
                       <div
+                        class="timeline-line"
+                      />
+                      <div
                         class="timeline-increment"
                       >
                         <div
@@ -543,9 +549,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -567,6 +570,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -611,9 +617,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -639,6 +642,9 @@ Firefox"
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -696,11 +702,11 @@ Firefox"
 Firefox"
                     >
                       <svg
-                        class="icon-root lexicon-icon lexicon-icon-tablet-portrait tablet-icon mainLighten28-color"
+                        class="icon-root lexicon-icon lexicon-icon-ac-tablet-landscape mainLighten28-color"
                         viewBox=""
                       >
                         <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#tablet-portrait"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-tablet-landscape"
                         />
                       </svg>
                     </span>
@@ -731,6 +737,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -775,9 +784,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -799,6 +805,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -843,9 +852,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -871,6 +877,9 @@ Firefox"
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -964,6 +973,9 @@ Firefox"
                       class="timeline-panel-body"
                     >
                       <div
+                        class="timeline-line"
+                      />
+                      <div
                         class="timeline-increment"
                       >
                         <div
@@ -1007,9 +1019,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -1031,6 +1040,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -1075,9 +1087,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -1103,6 +1112,9 @@ Firefox"
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -1197,6 +1209,9 @@ Firefox"
                       class="timeline-panel-body"
                     >
                       <div
+                        class="timeline-line"
+                      />
+                      <div
                         class="timeline-increment"
                       >
                         <div
@@ -1240,9 +1255,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -1264,6 +1276,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -1308,9 +1323,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -1336,6 +1348,9 @@ Firefox"
             <div
               class="timeline-panel-body"
             >
+              <div
+                class="timeline-line"
+              />
               <div
                 class="timeline-increment"
               >
@@ -1430,6 +1445,9 @@ Firefox"
                       class="timeline-panel-body"
                     >
                       <div
+                        class="timeline-line"
+                      />
+                      <div
                         class="timeline-increment"
                       >
                         <div
@@ -1473,9 +1491,6 @@ Firefox"
                             http://localhost:8089
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
@@ -1497,6 +1512,9 @@ Firefox"
                     <div
                       class="timeline-panel-body"
                     >
+                      <div
+                        class="timeline-line"
+                      />
                       <div
                         class="timeline-increment"
                       >
@@ -1541,9 +1559,6 @@ Firefox"
                             http://localhost:8089/home
                           </span>
                         </div>
-                        <div
-                          class="timeline-panel-body-content-details"
-                        />
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                           viewBox=""
