@@ -22,8 +22,7 @@ const DEVICE_ICONS_MAP = {
 		title: Liferay.Language.get('mobile')
 	},
 	tablet: {
-		className: 'tablet-icon',
-		symbol: 'tablet-portrait',
+		symbol: 'ac-tablet-landscape',
 		title: Liferay.Language.get('tablet')
 	}
 };
@@ -58,7 +57,7 @@ type ITimelineItemProps = {
 
 const TimelineItem: FC<ITimelineItemProps> = ({
 	className,
-	initialExpanded = false,
+	initialExpanded,
 	item: {
 		attributes,
 		browserName,
@@ -76,50 +75,7 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 	timeZoneId
 }) => {
 	const [expanded, setExpanded] = useState(initialExpanded);
-
-	const timeRange = !nestedItems ? (
-		formatDateToTimeZone(time, 'h:mma', timeZoneId)
-	) : (
-		<>
-			<span>{formatDateToTimeZone(time, 'h:mma', timeZoneId)}</span>
-			{' - '}
-			<span>
-				{endTime
-					? formatDateToTimeZone(endTime, 'h:mma', timeZoneId)
-					: Liferay.Language.get('in-progress').toLowerCase()}
-			</span>
-		</>
-	);
-
 	const expandable = !!attributes;
-
-	const toggleExpand = () => {
-		if (expandable) {
-			setExpanded(!expanded);
-		}
-	};
-
-	const bodyClasses = getCN('timeline-panel-body-content', {
-		selectable: expandable
-	});
-
-	const bodyAttributes = expandable
-		? {
-				onClick: toggleExpand,
-				onKeyPress: toggleExpand,
-				role: 'button',
-				tabIndex: 0
-		  }
-		: {};
-
-	const {header: attributesTitle, ...otherValues} = attributes || {};
-	const {title: deviceIconTitle, ...otherIconAttributes} =
-		expandable &&
-		!!nestedItems &&
-		(DEVICE_ICONS_MAP[device.toLowerCase()] || DEVICE_ICONS_MAP.any);
-
-	const eventTitle =
-		title && !header ? <TextTruncate title={`${title}`} /> : title;
 
 	return (
 		<li
@@ -131,124 +87,51 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 			<div className='timeline-panel'>
 				<div className='timeline-panel-body'>
 					{!header && (
-						<div className='timeline-increment'>
-							<Sticker circle display='point' size='lg' />
-
-							{time && (
-								<div className='timeline-item-label timeline-time-label label-root'>
-									{timeRange}
-								</div>
-							)}
-						</div>
+						<TimelineElement
+							endTime={endTime}
+							nestedItems={nestedItems}
+							time={time}
+							timeZoneId={timeZoneId}
+						/>
 					)}
 
-					<div className={bodyClasses} {...bodyAttributes}>
-						<div
+					<TimelinePanelBody
+						expandable={expandable}
+						expanded={expanded}
+						setExpanded={setExpanded}
+					>
+						<TimelinePanelBodyContentText
 							className={getCN(
 								'timeline-panel-body-content-text',
-								{header: !title}
+								{
+									header: !title
+								}
 							)}
-						>
-							{url ? (
-								<span className='text-truncate'>
-									<Link className='title' to={url}>
-										{eventTitle}
-									</Link>
-								</span>
-							) : (
-								<span className='title'>{eventTitle}</span>
-							)}
+							description={description}
+							header={header}
+							subtitle={subtitle}
+							title={title}
+							totalEvents={totalEvents}
+							url={url}
+						/>
 
-							{header && (
-								<>
-									<Icon
-										className='event-icon'
-										symbol='ac-event-icon'
-									/>
-
-									<span className='item-count'>
-										{totalEvents}
-									</span>
-								</>
-							)}
-
-							{description && (
-								<span className='description'>
-									{description}
-								</span>
-							)}
-
-							{subtitle && (
-								<TextTruncate
-									className='subtitle'
-									title={subtitle}
-								/>
-							)}
-						</div>
-
-						<div className='timeline-panel-body-content-details'>
-							{expandable && !!nestedItems && (
-								<div className='icon-group'>
-									<Icon
-										className='event-icon'
-										symbol='ac-event-icon'
-									/>
-
-									<span className='item-count'>
-										{nestedItems.length}
-									</span>
-
-									<span
-										className='device-icon'
-										data-tooltip
-										data-tooltip-align='bottom'
-										title={`${deviceIconTitle}\n${browserName}`}
-									>
-										<Icon
-											color={Colors.MainLighten28}
-											{...otherIconAttributes}
-										/>
-									</span>
-								</div>
-							)}
-						</div>
+						{expandable && !!nestedItems && (
+							<TimelinePanelBodyContentDetails
+								browserName={browserName}
+								device={device}
+								itemCount={nestedItems.length}
+							/>
+						)}
 
 						{!header && (
 							<Icon
 								symbol={expanded ? 'caret-top' : 'caret-bottom'}
 							/>
 						)}
-					</div>
+					</TimelinePanelBody>
 
 					{expanded && (
-						<div className='timeline-panel-body-content'>
-							<div className='timeline-panel-body-content-text'>
-								<div className='attributes-title'>
-									<span className='label-root'>
-										{attributesTitle}
-									</span>
-								</div>
-
-								{Object.entries(otherValues).map(
-									([key, value]) => (
-										<div
-											className='attributes-item'
-											key={key}
-										>
-											<span className='attribute-key'>{`${key}`}</span>
-
-											<TextTruncate
-												className={getCN(
-													'attribute-value',
-													ATTRIBUTE_CLASSES_MAP[key]
-												)}
-												title={value || '""'}
-											/>
-										</div>
-									)
-								)}
-							</div>
-						</div>
+						<TimelineItemAttributes attributes={attributes} />
 					)}
 				</div>
 
@@ -264,6 +147,170 @@ const TimelineItem: FC<ITimelineItemProps> = ({
 	);
 };
 
+const TimelinePanelBody: FC<{
+	expandable: boolean;
+	expanded: boolean;
+	setExpanded: (expandable: boolean) => void;
+}> = ({children, expandable, expanded, setExpanded}) => {
+	const toggleExpand = () => {
+		if (expandable) {
+			setExpanded(!expanded);
+		}
+	};
+
+	const bodyAttributes = expandable
+		? {
+				onClick: toggleExpand,
+				onKeyPress: toggleExpand,
+				role: 'button',
+				tabIndex: 0
+		  }
+		: {};
+
+	const bodyClasses = getCN('timeline-panel-body-content', {
+		selectable: expandable
+	});
+
+	return (
+		<div className={bodyClasses} {...bodyAttributes}>
+			{children}
+		</div>
+	);
+};
+
+const TimelinePanelBodyContentDetails: FC<{
+	browserName: string;
+	device: string;
+	itemCount: number;
+}> = ({browserName, device, itemCount}) => {
+	const {title: deviceIconTitle, ...otherIconAttributes} =
+		DEVICE_ICONS_MAP[device.toLowerCase()] || DEVICE_ICONS_MAP.any;
+
+	return (
+		<div className='timeline-panel-body-content-details'>
+			<div className='icon-group'>
+				<Icon className='event-icon' symbol='ac-event-icon' />
+
+				<span className='item-count'>{itemCount}</span>
+
+				<span
+					className='device-icon'
+					data-tooltip
+					data-tooltip-align='bottom'
+					title={`${deviceIconTitle}\n${browserName}`}
+				>
+					<Icon
+						color={Colors.MainLighten28}
+						{...otherIconAttributes}
+					/>
+				</span>
+			</div>
+		</div>
+	);
+};
+
+const TimelinePanelBodyContentText: FC<{
+	className: string;
+	description: string;
+	header: boolean;
+	subtitle: string;
+	title: string;
+	totalEvents: number;
+	url: string;
+}> = ({className, description, header, subtitle, title, totalEvents, url}) => {
+	const eventTitle =
+		title && !header ? <TextTruncate title={`${title}`} /> : title;
+
+	return (
+		<div className={className}>
+			{url ? (
+				<span className='text-truncate'>
+					<Link className='title' to={url}>
+						{eventTitle}
+					</Link>
+				</span>
+			) : (
+				<span className='title'>{eventTitle}</span>
+			)}
+
+			{header && (
+				<>
+					<Icon className='event-icon' symbol='ac-event-icon' />
+
+					<span className='item-count'>{totalEvents}</span>
+				</>
+			)}
+
+			{description && <span className='description'>{description}</span>}
+
+			{subtitle && <TextTruncate className='subtitle' title={subtitle} />}
+		</div>
+	);
+};
+
+const TimelineElement: FC<{
+	endTime: number;
+	nestedItems: ITEM_SHAPE[];
+	time: string;
+	timeZoneId: string;
+}> = ({endTime, nestedItems, time, timeZoneId}) => {
+	const timeRange = !nestedItems ? (
+		formatDateToTimeZone(time, 'h:mma', timeZoneId)
+	) : (
+		<>
+			<span>{formatDateToTimeZone(time, 'h:mma', timeZoneId)}</span>
+			{' - '}
+			<span>
+				{endTime
+					? formatDateToTimeZone(endTime, 'h:mma', timeZoneId)
+					: Liferay.Language.get('in-progress').toLowerCase()}
+			</span>
+		</>
+	);
+
+	return (
+		<>
+			<div className='timeline-line' />
+
+			<div className='timeline-increment'>
+				<Sticker circle display='point' size='lg' />
+
+				{time && (
+					<div className='timeline-item-label timeline-time-label label-root'>
+						{timeRange}
+					</div>
+				)}
+			</div>
+		</>
+	);
+};
+
+const TimelineItemAttributes: FC<{attributes: UserSessionAttributes}> = ({
+	attributes: {header: attributesTitle, ...otherValues} = {}
+}) => (
+	<div className='timeline-panel-body-content'>
+		<div className='timeline-panel-body-content-text'>
+			<div className='attributes-title'>
+				<span className='label-root'>{attributesTitle}</span>
+			</div>
+
+			{Object.entries(otherValues).map(([key, value]) => (
+				<div className='attributes-item' key={key}>
+					<span className='attribute-key'>{`${key}`}</span>
+
+					<TextTruncate
+						className={getCN(
+							'attribute-value',
+							ATTRIBUTE_CLASSES_MAP[key]
+						)}
+						title={value || '""'}
+					/>
+				</div>
+			))}
+		</div>
+	</div>
+);
+
 type IVerticalTimelineProps = {
 	groupId?: string;
 	initialExpanded?: boolean;
@@ -275,7 +322,7 @@ type IVerticalTimelineProps = {
 
 const VerticalTimeline: FC<IVerticalTimelineProps> = ({
 	groupId,
-	initialExpanded = false,
+	initialExpanded,
 	items = [],
 	loading = false,
 	nested = false,

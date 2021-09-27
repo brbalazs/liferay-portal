@@ -1,4 +1,6 @@
 .vertical-timeline-root {
+	$borderSize1: 1px;
+
 	width: 100%;
 
 	.label-root {
@@ -7,43 +9,19 @@
 		font-weight: $fontWeightSemiBold;
 	}
 
-	.timeline-header {
-		align-items: center;
-		border-bottom: 1px solid $mainLighten74;
-		border-top: 1px solid $mainLighten74;
-		color: $mainLighten28;
-		display: flex;
-		font-size: $fontSizeSmall;
-		padding: 8px 0;
-
-		.header-count {
-			margin-left: auto;
-			padding-right: 56px;
-		}
-
-		.header-label {
-			flex-basis: 10%;
-			padding-left: 16px;
-		}
-
-		.header-title {
-			padding-left: 40px;
-		}
-	}
-
 	.timeline-item {
 		.timeline-panel-body {
 			.entity-link {
 				margin-right: 4px;
 			}
 
+			.subtitle {
+				font-size: $fontSizeSmall;
+			}
+
 			.title {
 				font-weight: $fontWeightSemiBold;
 				line-height: 1;
-			}
-
-			.subtitle {
-				font-size: $fontSizeSmall;
 			}
 		}
 	}
@@ -53,6 +31,8 @@
 		padding: 1px 0;
 
 		.timeline-increment {
+			top: 22px;
+
 			.timeline-item-label {
 				color: $mainLighten28;
 				font-size: inherit;
@@ -68,29 +48,52 @@
 			}
 		}
 
-		.timeline-item {
+		> .timeline-item {
 			background-color: $white;
 			width: 100%;
+
+			&:not(.expanded) {
+				.timeline-panel-body-content {
+					&.selectable:hover {
+						background-color: $secondaryHover;
+					}
+				}
+			}
 
 			.timeline-panel-body {
 				.timeline-panel-body-content {
 					&.selectable {
 						padding-top: 16px;
-					}
-					.timeline-panel-body-content-details {
-						width: auto;
+
+						> .icon-root {
+							align-self: normal;
+						}
 					}
 
-					.title {
-						font-size: $fontSizeSmall;
-						line-height: 1;
+					.description {
+						color: $mainLighten28;
+						font-weight: $fontWeightSemiBold;
+					}
+
+					.timeline-panel-body-content-details {
+						width: auto;
 					}
 
 					.subtitle {
 						font-size: $fontSizeExtraSmall;
 					}
+
+					.title {
+						font-size: $fontSizeSmall;
+						line-height: 1;
+
+						.text-truncate {
+							margin-bottom: 8px;
+						}
+					}
 				}
 			}
+
 			&.header:first-child {
 				&:before {
 					visibility: visible;
@@ -153,10 +156,6 @@
 							font-size: $fontSizeMedium;
 						}
 					}
-
-					.tablet-icon {
-						transform: scaleX(1.2);
-					}
 				}
 			}
 
@@ -174,7 +173,8 @@
 
 					.attribute-key {
 						display: table-cell;
-						width: 130px;
+						min-width: 140px;
+						padding-right: 8px;
 					}
 
 					.attribute-value {
@@ -193,11 +193,15 @@
 			}
 
 			&.selectable {
-				padding-bottom: 24px;
+				padding-bottom: 16px;
 				padding-top: 24px;
 
 				&:hover {
 					cursor: pointer;
+				}
+
+				> .icon-root {
+					fill: $mainLighten28;
 				}
 
 				.timeline-panel-body-content-text {
@@ -226,11 +230,15 @@
 
 		&.expanded {
 			background-color: $primaryLighten45;
+
+			.timeline-panel-body-content:not(.selectable) {
+				background-color: $lightBackground;
+			}
 		}
 
 		&.header {
 			background-color: $white;
-			border-bottom: 1px solid $mainLighten74;
+			border-bottom: $borderSize1 solid $mainLighten74;
 			height: 80px;
 			padding-bottom: 16px;
 			padding-top: 39px;
@@ -250,29 +258,37 @@
 			}
 		}
 
-		&:before {
+		&:not(.header):not(.expanded) {
+			> .timeline-panel {
+				> .timeline-panel-body {
+					.timeline-panel-body-content {
+						&.selectable:hover {
+							background-color: $secondaryHover;
+						}
+					}
+				}
+			}
+		}
+
+		.timeline-line {
 			background-color: $mainLighten52;
+			height: calc(100% + #{$borderSize1});
 			left: 35px;
+			pointer-events: none;
+			position: absolute;
 			width: 2px;
 		}
 
-		&.header {
-			&:before {
-				visibility: hidden;
-			}
-		}
-
-		&:not(.header):not(.expanded) {
-			&:hover {
-				background-color: $secondaryHover;
-			}
+		&:before {
+			visibility: hidden;
 		}
 	}
 
 	.timeline-increment {
 		background-color: transparent;
 		left: 36px;
-		top: 25px;
+		pointer-events: none;
+		top: 34px;
 
 		> .sticker-point {
 			background-color: $primary;
@@ -285,7 +301,6 @@
 			display: flex;
 			left: 34px;
 			margin: unset;
-			pointer-events: none;
 			white-space: pre;
 		}
 	}
