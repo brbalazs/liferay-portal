@@ -762,7 +762,7 @@ definition {
 
 	macro viewFirstRecordSearchResult {
 		AssertTextEquals(
-			locator1 = "Portlet#H3_HEADER",
+			locator1 = "Portlet#H4_COMPONENT_TITLE",
 			value1 = "New Data Definition Name for List: ${ddlListName}");
 
 		AssertTextEquals(
@@ -886,7 +886,7 @@ definition {
 
 	macro viewSecondRecordSearchResult {
 		AssertTextEquals(
-			locator1 = "Portlet#H3_HEADER",
+			locator1 = "Portlet#H4_COMPONENT_TITLE",
 			value1 = "New Data Definition Name for List: ${ddlListName}");
 
 		AssertTextEquals(
