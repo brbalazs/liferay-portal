@@ -3229,7 +3229,7 @@ public class StringUtil {
 			String newValue = values.get(oldValue);
 
 			if (newValue == null) {
-				newValue = oldValue;
+				newValue = StringBundler.concat(begin, oldValue, end);
 			}
 
 			sb.append(newValue);
