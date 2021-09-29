@@ -81,6 +81,7 @@ public class GoogleJavaScriptMinifier implements JavaScriptMinifier {
 		compilerOptions.labelRenaming = true;
 		compilerOptions.removeDeadCode = true;
 		compilerOptions.optimizeArgumentsArray = true;
+
 		compilerOptions.setAssumeClosuresOnlyCaptureReferences(false);
 		compilerOptions.setInlineFunctions(CompilerOptions.Reach.LOCAL_ONLY);
 		compilerOptions.setInlineVariables(CompilerOptions.Reach.LOCAL_ONLY);

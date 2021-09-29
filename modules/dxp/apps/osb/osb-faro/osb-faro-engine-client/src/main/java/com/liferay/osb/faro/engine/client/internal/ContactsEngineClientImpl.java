@@ -822,6 +822,7 @@ public class ContactsEngineClientImpl
 		addActionFilter(
 			expandFilterBuilder,
 			ActivityConstants.getActionKeys(ActivityConstants.ACTION_ANY));
+
 		expandFilterBuilder.addSearchFilter(query, "object/name");
 
 		uriVariables.put("expandFilter", expandFilterBuilder.build());

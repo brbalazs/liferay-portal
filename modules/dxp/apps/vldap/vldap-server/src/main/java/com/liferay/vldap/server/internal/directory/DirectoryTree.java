@@ -95,6 +95,7 @@ public class DirectoryTree {
 
 	public DirectoryTree() {
 		_rootBuilder.addDirectoryBuilder(_topBuilder);
+
 		_topBuilder.addDirectoryBuilder(_companyBuilder);
 
 		_companyBuilder.addDirectoryBuilder(_communitiesBuilder);
