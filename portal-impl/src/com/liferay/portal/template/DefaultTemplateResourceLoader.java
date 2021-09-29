@@ -36,8 +36,8 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             #DefaultTemplateResourceLoader(
-	 * 				String, Set, long, MultiVMPool, SingleVMPool)}
+	 *             #DefaultTemplateResourceLoader(String, Set, long,
+	 *             MultiVMPool, SingleVMPool)}
 	 */
 	@Deprecated
 	public DefaultTemplateResourceLoader(
@@ -52,8 +52,8 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *             #DefaultTemplateResourceLoader(
-	 * 				String, Set, TemplateResourceCache)}
+	 *             #DefaultTemplateResourceLoader(String, Set,
+	 *             TemplateResourceCache)}
 	 */
 	@Deprecated
 	public DefaultTemplateResourceLoader(
@@ -96,8 +96,8 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
-	 *   #DefaultTemplateResourceLoader(
-	 *      String, Set, TemplateResourceCache)}
+	 *             #DefaultTemplateResourceLoader(String, Set,
+	 *             TemplateResourceCache)}
 	 */
 	@Deprecated
 	public DefaultTemplateResourceLoader(
