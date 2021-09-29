@@ -154,8 +154,8 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 
 			return _createDDMDataProviderResponse(
 				JsonPath.parse("{}"), ddmDataProviderRequest,
-				ddmRESTDataProviderSettings,
-				DDMDataProviderResponseStatus.SERVICE_UNAVAILABLE);
+				DDMDataProviderResponseStatus.SERVICE_UNAVAILABLE,
+				ddmRESTDataProviderSettings);
 		}
 		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
@@ -215,8 +215,8 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 	private DDMDataProviderResponse _createDDMDataProviderResponse(
 		DocumentContext documentContext,
 		DDMDataProviderRequest ddmDataProviderRequest,
-		DDMRESTDataProviderSettings ddmRESTDataProviderSettings,
-		DDMDataProviderResponseStatus ddmDataProviderResponseStatus) {
+		DDMDataProviderResponseStatus ddmDataProviderResponseStatus,
+		DDMRESTDataProviderSettings ddmRESTDataProviderSettings) {
 
 		DDMDataProviderOutputParametersSettings[] outputParameters =
 			ddmRESTDataProviderSettings.outputParameters();
@@ -428,7 +428,7 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 		DDMDataProviderResponse ddmDataProviderResponse =
 			_createDDMDataProviderResponse(
 				JsonPath.parse(sanitizedResponse), ddmDataProviderRequest,
-				ddmRESTDataProviderSettings, DDMDataProviderResponseStatus.OK);
+				DDMDataProviderResponseStatus.OK, ddmRESTDataProviderSettings);
 
 		if (ddmRESTDataProviderSettings.cacheable()) {
 			_portalCache.put(
