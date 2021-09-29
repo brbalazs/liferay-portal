@@ -94,6 +94,21 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 		this(name, modificationCheckInterval, multiVMPool, singleVMPool);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *   #DefaultTemplateResourceLoader(
+	 *      String, Set, TemplateResourceCache)}
+	 */
+	@Deprecated
+	public DefaultTemplateResourceLoader(
+		String name, TemplateResourceCache templateResourceCache) {
+
+		throw new UnsupportedOperationException(
+			"This constructor is deprecated and replaced by " +
+				"#DefaultTemplateResourceLoader(String, Set, " +
+					"TemplateResourceCache)");
+	}
+
 	@Override
 	public void clearCache() {
 		_templateResourceCache.clear();
