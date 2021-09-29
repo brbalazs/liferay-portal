@@ -303,7 +303,6 @@ public class DDMRESTDataProviderTest {
 		Assert.assertEquals(
 			DDMDataProviderResponse.Status.OK,
 			ddmDataProviderResponse.getStatus());
-
 		Assert.assertEquals(
 			ddmDataProviderResponse.toString(), 0,
 			ddmDataProviderResponse.size());
