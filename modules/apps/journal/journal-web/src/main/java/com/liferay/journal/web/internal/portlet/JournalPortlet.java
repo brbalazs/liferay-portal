@@ -1467,10 +1467,11 @@ public class JournalPortlet extends MVCPortlet {
 				hideDefaultSuccessMessage(actionRequest);
 			}
 		}
-		else if (windowState.equals(LiferayWindowState.POP_UP)) {
+		else {
 			redirect = _portal.escapeRedirect(redirect);
 
-			if (Validator.isNotNull(redirect) &&
+			if (windowState.equals(LiferayWindowState.POP_UP) &&
+				Validator.isNotNull(redirect) &&
 				actionName.equals("addArticle") && (article != null)) {
 
 				redirect = _http.addParameter(
