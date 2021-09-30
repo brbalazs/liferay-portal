@@ -7,8 +7,12 @@ import {Criterion} from '../../utils/types';
 import {isValid} from '../../utils/utils';
 import {OCCURENCE_OPTIONS} from '../../utils/constants';
 
+const MAX_OCCURENCE_COUNT_LIMIT = 2147483647;
+
 const isValidOccurenceCount = occurenceCount =>
-	isValid(occurenceCount) && occurenceCount >= 0;
+	isValid(occurenceCount) &&
+	occurenceCount >= 0 &&
+	occurenceCount <= MAX_OCCURENCE_COUNT_LIMIT;
 
 interface IOccurenceConjunctionInputProps {
 	onChange: (params: {
