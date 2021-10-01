@@ -34,6 +34,7 @@ public class FiniteUniqueStack<E> extends FiniteStack<E> {
 		else {
 			if (!item.equals(peek())) {
 				remove(item);
+
 				super.push(item);
 			}
 		}

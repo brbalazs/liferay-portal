@@ -216,6 +216,7 @@ public class CompanyIndexFactoryTest {
 				}
 
 			});
+
 		createIndices();
 
 		Settings settings = getIndexSettings();
