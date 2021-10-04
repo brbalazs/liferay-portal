@@ -544,16 +544,21 @@ AUI.add(
 
 						var fields = [];
 
+						var pushNestedFields = field => {
+							field.nestedFields.forEach(nestedField => {
+								fields.push(nestedField);
+								if (nestedField.nestedFields) {
+									pushNestedFields(nestedField);
+								}
+							});
+						};
+
 						if (definition && definition.fields) {
 							definition.fields.forEach(
 								function (field, indexField) {
 									fields.push(field);
 									if (field.nestedFields) {
-										field.nestedFields.forEach(
-											function (nestedField, indexNestedfield) {
-												fields.push(nestedField);
-											}
-										);
+										pushNestedFields(field);
 									}
 								}
 							);
