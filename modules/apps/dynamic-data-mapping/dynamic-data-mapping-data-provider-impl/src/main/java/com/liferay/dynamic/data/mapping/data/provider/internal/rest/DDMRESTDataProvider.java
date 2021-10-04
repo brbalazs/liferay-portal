@@ -35,7 +35,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.cache.MultiVMPool;
 import com.liferay.portal.kernel.cache.PortalCache;
-import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -133,22 +132,15 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 				return _getData(
 					ddmDataProviderRequest, ddmRESTDataProviderSettings);
 			}
-			catch (JSONException jsonException) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(jsonException, jsonException);
-				}
-				else if (_log.isWarnEnabled()) {
-					Throwable throwable = jsonException.getCause();
-
-					_log.warn(
-						"The web service's response is not a proper JSON. " +
-							throwable.getMessage());
-				}
-			}
 			catch (JSONWebServiceException jsonWebServiceException) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
 						jsonWebServiceException, jsonWebServiceException);
+				}
+				else if (_log.isWarnEnabled()) {
+					_log.warn(
+						"The data provider was not able to connect to the " +
+							"web service. " + jsonWebServiceException);
 				}
 			}
 
@@ -423,8 +415,6 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 			new BOMInputStream(new ByteArrayInputStream(response.getBytes())),
 			StandardCharsets.UTF_8);
 
-		_validateResponse(sanitizedResponse);
-
 		DDMDataProviderResponse ddmDataProviderResponse =
 			_createDDMDataProviderResponse(
 				JsonPath.parse(sanitizedResponse), ddmDataProviderRequest,
@@ -637,15 +627,6 @@ public class DDMRESTDataProvider implements DDMDataProvider {
 		_portalCache =
 			(PortalCache<String, DDMRESTDataProviderResult>)
 				multiVMPool.getPortalCache(DDMRESTDataProvider.class.getName());
-	}
-
-	private void _validateResponse(String response) throws Exception {
-		try {
-			_jsonFactory.createJSONArray(response);
-		}
-		catch (JSONException jsonException) {
-			_jsonFactory.createJSONObject(response);
-		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
