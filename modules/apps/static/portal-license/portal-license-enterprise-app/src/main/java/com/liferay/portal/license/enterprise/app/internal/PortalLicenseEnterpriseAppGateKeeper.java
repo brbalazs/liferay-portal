@@ -20,11 +20,11 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
@@ -165,9 +165,11 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalLicenseEnterpriseAppGateKeeper.class);
 
-	private static final Map<String, String> _productNames =
-		Collections.singletonMap(
-			"9a473157-06a6-44b6-b017-a360ffaf5f38", "commerce");
+	private static final Map<String, String> _productNames = HashMapBuilder.put(
+		"9a473157-06a6-44b6-b017-a360ffaf5f38", "commerce"
+	).put(
+		"22b7e30f-34d4-4a63-9696-56987ad66e4e", "enterprise.search"
+	).build();
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
