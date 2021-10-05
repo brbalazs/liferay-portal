@@ -110,6 +110,20 @@ Liferay = window.Liferay || {};
 		}
 	);
 
+	$(document).on('shown.bs.dropdown', () => {
+		const dropdown = document.querySelector('.dropdown-menu.show');
+
+		if (dropdown) {
+			const {x,y} = dropdown.getBoundingClientRect();
+
+			dropdown.style.left = x + 'px';
+			dropdown.style.top = y + 'px';
+			dropdown.style.transform = '';
+
+			document.body.appendChild(dropdown);
+		}
+	});
+
 	/**
 	 * OPTIONS
 	 *
