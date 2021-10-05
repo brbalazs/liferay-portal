@@ -21,6 +21,11 @@ import com.liferay.expando.kernel.model.ExpandoTableConstants;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
 import com.liferay.oauth2.provider.model.OAuth2Authorization;
+import com.liferay.oauth2.provider.scope.spi.prefix.handler.PrefixHandler;
+import com.liferay.oauth2.provider.scope.spi.prefix.handler.PrefixHandlerFactory;
+import com.liferay.oauth2.provider.scope.spi.scope.finder.ScopeFinder;
+import com.liferay.oauth2.provider.scope.spi.scope.mapper.ScopeMapper;
+import com.liferay.osb.faro.web.internal.application.ApiApplication;
 import com.liferay.portal.instance.lifecycle.BasePortalInstanceLifecycleListener;
 import com.liferay.portal.instance.lifecycle.PortalInstanceLifecycleListener;
 import com.liferay.portal.kernel.model.Company;
@@ -28,7 +33,12 @@ import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -36,9 +46,35 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marcellus Tavares
  */
-@Component(immediate = true, service = PortalInstanceLifecycleListener.class)
+@Component(
+	immediate = true, property = "osgi.jaxrs.name=Liferay.Analytics.Cloud.REST",
+	service = {
+		PortalInstanceLifecycleListener.class, PrefixHandlerFactory.class,
+		ScopeFinder.class, ScopeMapper.class
+	}
+)
 public class OAuth2AuthorizationExpandoPortalInstanceLifecycleListener
-	extends BasePortalInstanceLifecycleListener {
+	extends BasePortalInstanceLifecycleListener
+	implements PrefixHandlerFactory, ScopeFinder, ScopeMapper {
+
+	@Override
+	public PrefixHandler create(
+		Function<String, Object> propertyAccessorFunction) {
+
+		return PrefixHandler.PASS_THROUGH_PREFIX_HANDLER;
+	}
+
+	@Override
+	public Collection<String> findScopes() {
+		return Arrays.asList(
+			ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING,
+			ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING);
+	}
+
+	@Override
+	public Set<String> map(String scope) {
+		return Collections.singleton(scope);
+	}
 
 	@Override
 	public void portalInstanceRegistered(Company company) throws Exception {
