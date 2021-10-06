@@ -131,10 +131,6 @@
 		<finder name="RefreshTokenContentHash" return-type="Collection">
 			<finder-column name="refreshTokenContentHash" />
 		</finder>
-
-		<!-- References -->
-
-		<reference entity="OAuth2ScopeGrant" package-path="com.liferay.oauth2.provider" />
 	</entity>
 	<entity json-enabled="false" local-service="true" name="OAuth2ScopeGrant" remote-service="false">
 

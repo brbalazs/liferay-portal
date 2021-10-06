@@ -2617,7 +2617,6 @@
 		<reference entity="Resource" package-path="com.liferay.portal" />
 		<reference entity="Role" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
-		<reference entity="UserGroup" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="Theme" remote-service="true" tx-manager="none">
 
