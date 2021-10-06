@@ -1,4 +1,4 @@
-FROM liferay/portal-snapshot:7.1.x-201811281240-5dc481e
+FROM liferay/dxp:7.1.10-dxp-15
 
 USER root
 
