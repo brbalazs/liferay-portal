@@ -1485,9 +1485,21 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			}
 		}
 
-		bundles.removeIf(bundle -> bundle.getState() == Bundle.UNINSTALLED);
+		Set<Map.Entry<String, Bundle>> entrySet = bundles.entrySet();
 
-		for (Bundle bundle : bundles.values()) {
+		Iterator<Map.Entry<String, Bundle>> iterator = entrySet.iterator();
+
+		while (iterator.hasNext()) {
+			Map.Entry<String, Bundle> entry = iterator.next();
+
+			Bundle bundle = entry.getValue();
+
+			if (bundle.getState() == Bundle.UNINSTALLED) {
+				iterator.remove();
+
+				continue;
+			}
+
 			if (!_isFragmentBundle(bundle)) {
 				bundle.stop();
 			}
