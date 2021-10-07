@@ -581,6 +581,19 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
+	@Path("/{groupId}/send-created-workspace-email")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public void sendCreatedWorkspaceEmail(@PathParam("groupId") long groupId)
+		throws Exception {
+
+		FaroProject faroProject =
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
+
+		_faroProjectLocalService.sendCreatedWorkspaceEmail(
+			faroProject.getWeDeployKey());
+	}
+
 	@Path("/{groupId}")
 	@PUT
 	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
