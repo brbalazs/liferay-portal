@@ -242,6 +242,9 @@ public class ProjectController extends BaseFaroController {
 			getUserId(), faroProject.getGroupId(), 0, role.getRoleId(),
 			ownerEmailAddress, FaroUserConstants.STATUS_PENDING, false);
 
+		_faroProjectLocalService.sendCreatedWorkspaceEmail(
+			faroProject.getWeDeployKey());
+
 		return new ProjectDisplay(faroProject);
 	}
 
