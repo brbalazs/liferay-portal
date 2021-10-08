@@ -30,7 +30,7 @@ CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
 <aui:script require="commerce-dashboard-web/js/history/index.es as chart">
 chart.default('<%= historyChartRootElementId %>', {
-	APIBaseUrl: `/o/----`,
+	APIBaseUrl: '/o/----',
 	accountIdParamName: '----',
 	commerceAccountId: '<%= commerceAccount.getCommerceAccountId() %>',
 	noAccountErrorMessage: Liferay.Language.get('no-account-selected'),
