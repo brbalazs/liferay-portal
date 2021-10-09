@@ -35,6 +35,121 @@ definition {
 		}
 	}
 
+	@description = "LRQA-70845 Verify that cannot bypass workflow by duplicating article."
+	@priority = "5"
+	test CannotBypassWorkflowByduplicatingArticle {
+		Workflow.configureWorkflowViaFolderInfo(workflowDefinition = "Single Approver");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
+			userEmailAddress = "user1@liferay.com",
+			userFirstName = "user1",
+			userLastName = "user1",
+			userScreenName = "user1");
+
+		User.openUsersAdmin();
+
+		Site.assignUserSitesCP(
+			siteName = "Liferay DXP",
+			userScreenName = "user1");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.assignSiteRoleCP(
+			siteRoleName = "Site Owner",
+			userScreenName = "user1");
+
+		UserNavigator.gotoPassword();
+
+		User.setPasswordByResetLink(
+			newPassword1 = "password",
+			newPassword2 = "password");
+
+		User.logoutPG();
+
+		User.loginPG(
+			password = "password",
+			userEmailAddress = "user1@liferay.com");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "EXAMPLE");
+
+		Button.clickSubmitForPublication();
+
+		WebContentNavigator.gotoViewStatus(
+			webContentStatus = "Pending",
+			webContentTitle = "EXAMPLE");
+
+		AssertTextEquals(
+			key_status = "Pending (Review)",
+			locator1 = "AssetWorkflow#WORKFLOW_STATUS",
+			value1 = "Pending (Review)");
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "EXAMPLE");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Notifications.viewBadgeCount(notificationCount = "1");
+
+		WorkflowAsset.gotoViaNotification(
+			assetType = "Web Content Article",
+			user = "user1 user1");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Assign to Me");
+
+		Workflow.confirmWorkflowAction();
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Approve");
+
+		Workflow.confirmWorkflowAction();
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "user1@liferay.com",
+			userLoginFullName = "user1 user1");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		WebContent.copyCP(webContentTitle = "EXAMPLE");
+
+		var key_webContentTitle = "EXAMPLE Duplicate 1";
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		AssertTextEquals(
+			locator1 = "WC#ENTRY_TABLE_WORKFLOW_STATUS",
+			value1 = "Draft");
+
+		AssertTextNotEquals(
+			locator1 = "WC#ENTRY_TABLE_WORKFLOW_STATUS",
+			value1 = "Approved");
+	}
+
 	@priority = "4"
 	test ConfigureFolderWorkflow {
 		Workflow.configureWorkflowViaFolderInfo(workflowDefinition = "Single Approver");
