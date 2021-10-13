@@ -123,7 +123,7 @@ definition {
 
 	@priority = "5"
 	test XPackSmokeTest {
-		property elastic.override.version = "7.11.0";
+		property browser.chrome.version = "86.0";
 		property elastic.xpack.enabled = "true";
 		property osgi.app.includes = "portal-search-elasticsearch6-xpack-monitoring,portal-search-elasticsearch7";
 		property remote.elasticsearch7.enabled = "true";
