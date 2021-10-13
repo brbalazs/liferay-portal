@@ -236,6 +236,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 
 	const handleQuery = (query: string) => {
 		setQuery(query);
+		setSearchValue(query);
 	};
 
 	const selected = hasSelectedPoint || selectedPoint;
