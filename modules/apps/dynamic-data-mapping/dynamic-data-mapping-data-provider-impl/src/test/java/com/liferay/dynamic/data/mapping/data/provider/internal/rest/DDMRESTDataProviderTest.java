@@ -14,7 +14,11 @@
 
 package com.liferay.dynamic.data.mapping.data.provider.internal.rest;
 
+import com.jayway.jsonpath.DocumentContext;
+
 import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderRequest;
+import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponse;
+import com.liferay.dynamic.data.mapping.data.provider.DDMDataProviderResponseOutput;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
@@ -22,14 +26,20 @@ import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
 import com.liferay.dynamic.data.mapping.util.DDMFormFactory;
 import com.liferay.dynamic.data.mapping.util.DDMFormInstanceFactory;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.json.JSONFactoryImpl;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.util.HtmlImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -58,6 +68,7 @@ public class DDMRESTDataProviderTest {
 		setUpLanguageUtil();
 		setUpPortalUtil();
 		setUpResourceBundleUtil();
+		setUpJSONUtil();
 	}
 
 	@Test
@@ -92,6 +103,65 @@ public class DDMRESTDataProviderTest {
 		Assert.assertEquals(
 			queryParameters.toString(), 1, queryParameters.size());
 		Assert.assertEquals("Region", queryParameters.get("regionName"));
+	}
+
+	@Test
+	public void testListWithVariousTypes() {
+		DocumentContext documentContext = PowerMockito.mock(
+			DocumentContext.class);
+
+		DDMDataProviderRequest ddmDataProviderRequest =
+			new DDMDataProviderRequest(null, null);
+
+		String outputParameterId = StringUtil.randomString();
+
+		DDMRESTDataProviderSettings ddmRESTDataProviderSettings =
+			_createSettingsWithOutputParameter(
+				outputParameterId, "list output", false, "value;key", "list");
+
+		PowerMockito.when(
+			documentContext.read(".value", List.class)
+		).thenReturn(
+			new ArrayList() {
+				{
+					add("Moreno");
+					add(42);
+					add(3.14);
+				}
+			}
+		);
+
+		PowerMockito.when(
+			documentContext.read(".key")
+		).thenReturn(
+			new ArrayList() {
+				{
+					add("5");
+					add("6");
+					add("7");
+				}
+			}
+		);
+
+		DDMDataProviderResponse ddmDataProviderResponse =
+			_ddmRESTDataProvider.createDDMDataProviderResponse(
+				documentContext, ddmDataProviderRequest,
+				ddmRESTDataProviderSettings);
+
+		DDMDataProviderResponseOutput ddmDataProviderResponseOutput =
+			ddmDataProviderResponse.get(outputParameterId);
+
+		List<?> value = ddmDataProviderResponseOutput.getValue(List.class);
+
+		List<KeyValuePair> keyValuePairs = new ArrayList<KeyValuePair>() {
+			{
+				add(new KeyValuePair("5", "Moreno"));
+				add(new KeyValuePair("6", "42"));
+				add(new KeyValuePair("7", "3.14"));
+			}
+		};
+
+		Assert.assertEquals(keyValuePairs.toString(), keyValuePairs, value);
 	}
 
 	protected DDMDataProviderRequest createDDMDataProviderRequest() {
@@ -178,6 +248,12 @@ public class DDMRESTDataProviderTest {
 		htmlUtil.setHtml(new HtmlImpl());
 	}
 
+	protected void setUpJSONUtil() {
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+
+		jsonFactoryUtil.setJSONFactory(new JSONFactoryImpl());
+	}
+
 	protected void setUpLanguageUtil() {
 		LanguageUtil languageUtil = new LanguageUtil();
 
@@ -212,6 +288,49 @@ public class DDMRESTDataProviderTest {
 		).thenReturn(
 			ResourceBundleUtil.EMPTY_RESOURCE_BUNDLE
 		);
+	}
+
+	private DDMRESTDataProviderSettings _createSettingsWithOutputParameter(
+		String id, String name, boolean pagination, String path, String type) {
+
+		DDMForm ddmForm = DDMFormFactory.create(
+			DDMRESTDataProviderSettings.class);
+
+		DDMFormValues ddmFormValues = DDMFormValuesTestUtil.createDDMFormValues(
+			ddmForm);
+
+		ddmFormValues.addDDMFormFieldValue(
+			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+				"url", "http://someservice.com/api"));
+
+		ddmFormValues.addDDMFormFieldValue(
+			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+				"pagination", Boolean.toString(pagination)));
+
+		DDMFormFieldValue outputParameters =
+			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+				"outputParameters", StringPool.BLANK);
+
+		ddmFormValues.addDDMFormFieldValue(outputParameters);
+
+		outputParameters.addNestedDDMFormFieldValue(
+			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+				"outputParameterName", name));
+
+		outputParameters.addNestedDDMFormFieldValue(
+			DDMFormValuesTestUtil.createLocalizedDDMFormFieldValue(
+				"outputParameterPath", path));
+
+		outputParameters.addNestedDDMFormFieldValue(
+			DDMFormValuesTestUtil.createLocalizedDDMFormFieldValue(
+				"outputParameterType", String.format("[\"%s\"]", type)));
+
+		outputParameters.addNestedDDMFormFieldValue(
+			DDMFormValuesTestUtil.createLocalizedDDMFormFieldValue(
+				"outputParameterId", id));
+
+		return DDMFormInstanceFactory.create(
+			DDMRESTDataProviderSettings.class, ddmFormValues);
 	}
 
 	private final DDMRESTDataProvider _ddmRESTDataProvider =
