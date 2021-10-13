@@ -27,6 +27,8 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.User;
@@ -289,6 +291,12 @@ public class FaroProjectLocalServiceImpl
 				new InternetAddress("ac@liferay.com", "Analytics Cloud"),
 				new InternetAddress(faroUser.getEmailAddress(), null), subject,
 				body, true));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Created workspace email notification sent to " +
+					faroUser.getEmailAddress());
+		}
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -325,6 +333,9 @@ public class FaroProjectLocalServiceImpl
 	}
 
 	private static final String _FARO_URL = System.getenv("FARO_URL");
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		FaroProjectLocalServiceImpl.class);
 
 	@ServiceReference(type = Language.class)
 	private Language _language;

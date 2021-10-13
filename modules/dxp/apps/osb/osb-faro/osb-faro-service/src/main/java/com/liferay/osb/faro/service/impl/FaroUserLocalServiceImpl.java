@@ -27,6 +27,8 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
@@ -354,6 +356,12 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 			});
 
 		_mailService.sendEmail(new MailMessage(from, to, subject, body, true));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"New user invite email notification sent to " +
+					to.getAddress());
+		}
 	}
 
 	protected void sendEmailRequest(long userId, long groupId)
@@ -417,6 +425,12 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 			resourceBundle, "new-request-to-join-x", faroProject.getName());
 
 		_mailService.sendEmail(new MailMessage(from, to, subject, body, true));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Request to join workspace email notification sent to " +
+					to.getAddress());
+		}
 	}
 
 	protected void updateRoles(FaroUser faroUser) {
@@ -436,6 +450,9 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	}
 
 	private static final String _FARO_URL = System.getenv("FARO_URL");
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		FaroUserLocalServiceImpl.class);
 
 	@ServiceReference(type = Http.class)
 	private Http _http;
