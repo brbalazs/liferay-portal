@@ -291,7 +291,7 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 							%>
 
 							<div id="<portlet:namespace />CoordinatesContainer">
-								<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= HtmlUtil.escapeJS(name) %>--Location">
+								<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= HtmlUtil.escapeAttribute(name) %>--Location">
 								</div>
 
 								<liferay-map:map-display
@@ -803,7 +803,7 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 					%>
 
 					<div id="<portlet:namespace />CoordinatesContainer">
-						<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= HtmlUtil.escapeJS(name) %>--Location">
+						<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= HtmlUtil.escapeAttribute(name) %>--Location">
 						</div>
 
 						<liferay-map:map-display
