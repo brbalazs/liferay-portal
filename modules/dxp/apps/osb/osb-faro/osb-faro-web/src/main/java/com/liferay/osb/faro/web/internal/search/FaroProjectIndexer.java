@@ -67,7 +67,7 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 			"corpProjectName", "corpProjectUuid", "createDate",
 			"individualsCount", "individualsLimit", "individualsUsage",
 			"lastAccessDate", "offline", "pageViewsCount", "pageViewsLimit",
-			"pageViewsUsage", "subscriptionName", "version");
+			"pageViewsUsage", "subscriptionName");
 	}
 
 	@Override
@@ -229,12 +229,6 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 			return document;
 		}
 
-		if (!StringUtil.equals(faroProject.getCorpProjectUuid(), _PROJECT_ID)) {
-			document.addKeyword(
-				"version",
-				_workspaceEngineClient.getBranch(faroProject.getWeDeployKey()));
-		}
-
 		document.addKeyword("weDeployKey", faroProject.getWeDeployKey());
 
 		if (_log.isInfoEnabled()) {
@@ -301,8 +295,6 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 
 		return 100D * count / limit;
 	}
-
-	private static final String _PROJECT_ID = System.getenv("FARO_PROJECT_ID");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		FaroProjectIndexer.class);

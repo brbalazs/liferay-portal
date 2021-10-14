@@ -37,11 +37,6 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	}
 
 	@Override
-	public String getBranch(String weDeployKey) {
-		return workspaceEngineClient.getBranch(weDeployKey);
-	}
-
-	@Override
 	public LCPProject getLCPProject(String weDeployKey) {
 		return workspaceEngineClient.getLCPProject(weDeployKey);
 	}

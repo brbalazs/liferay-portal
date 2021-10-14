@@ -29,8 +29,6 @@ public interface WorkspaceEngineClient {
 
 	public void deleteWorkspaceService(String weDeployKey, String serviceId);
 
-	public String getBranch(String weDeployKey);
-
 	public LCPProject getLCPProject(String weDeployKey);
 
 	public List<LCPService> getLCPServices(String weDeployKey);

@@ -25,9 +25,6 @@ import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.util.UpgradeUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -69,45 +66,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 				_PROJECT_API_URL, getProjectId(weDeployKey), "/services/",
 				serviceId),
 			HttpMethod.DELETE, null, Void.class);
-	}
-
-	@Override
-	public String getBranch(String weDeployKey) {
-		try {
-			ResponseEntity<String> responseEntity = getRestTemplate().exchange(
-				StringBundler.concat(
-					_PROJECT_API_URL, getProjectId(weDeployKey),
-					"/activities/builds-deployments?limit=1&shouldGroup=true",
-					"&type=BUILD_SUCCEEDED"),
-				HttpMethod.GET, null, String.class);
-
-			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-				responseEntity.getBody());
-
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONArray innerJSONArray = jsonArray.getJSONArray(i);
-
-				for (int j = 0; j < innerJSONArray.length(); j++) {
-					JSONObject activityJSONObject =
-						innerJSONArray.getJSONObject(j);
-
-					JSONObject metadataJSONObject =
-						activityJSONObject.getJSONObject("metadata");
-
-					String branch = metadataJSONObject.getString(
-						"branch", null);
-
-					if (Validator.isNotNull(branch)) {
-						return branch;
-					}
-				}
-			}
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-		}
-
-		return null;
 	}
 
 	@Override
