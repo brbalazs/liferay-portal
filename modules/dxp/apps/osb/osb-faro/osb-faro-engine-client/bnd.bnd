@@ -122,8 +122,6 @@ Import-Package:\
 	!org.apache.http.nio.*,\
 	!org.apache.juli.*,\
 	!org.apache.logging.log4j.*,\
-	!org.apache.lucene.geo3d.*,\
-	!org.apache.lucene.spatial.geopoint.*,\
 	!org.apache.naming.*,\
 	!org.apache.tomcat.*,\
 	!org.apache.velocity.*,\
