@@ -14,39 +14,13 @@
 
 package com.liferay.osb.faro.engine.client;
 
-import com.liferay.osb.faro.engine.client.model.LCPBuildService;
-import com.liferay.osb.faro.engine.client.model.LCPProject;
-import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
-import com.liferay.osb.faro.model.FaroProject;
-
-import java.util.List;
 
 /**
  * @author Matthew Kong
  */
 public interface WorkspaceEngineClient {
 
-	public void deleteWorkspaceService(String weDeployKey, String serviceId);
-
-	public LCPProject getLCPProject(String weDeployKey);
-
-	public List<LCPService> getLCPServices(String weDeployKey);
-
-	public List<String> getLoadBalancerIPs(String weDeployKey);
-
 	public Workspace getWorkspace(String weDeployKey) throws Exception;
-
-	public void updateSecrets(FaroProject faroProject);
-
-	public void updateServices(String weDeployKey, String operation)
-		throws Exception;
-
-	public void updateServices(
-			String weDeployKey, String operation, List<String> serviceIds)
-		throws Exception;
-
-	public List<LCPBuildService> updateWorkspace(
-		String weDeployKey, String sha, boolean trial);
 
 }

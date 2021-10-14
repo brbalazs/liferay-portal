@@ -109,65 +109,6 @@ public class FaroAdminDisplayContext {
 							LanguageUtil.get(
 								_httpServletRequest, "refresh-project"));
 					});
-
-				if (!faroProjectAdminDisplay.isSharedCluster()) {
-					add(
-						dropdownItem -> {
-							dropdownItem.setHref(
-								portletURL, ActionRequest.ACTION_NAME,
-								"/faro_admin/update_services", "faroProjectId",
-								faroProjectAdminDisplay.getFaroProjectId(),
-								"operation", "restart");
-							dropdownItem.setLabel(
-								LanguageUtil.get(
-									_httpServletRequest, "restart-services"));
-						});
-					add(
-						dropdownItem -> {
-							dropdownItem.setHref(
-								portletURL, ActionRequest.ACTION_NAME,
-								"/faro_admin/update_services", "faroProjectId",
-								faroProjectAdminDisplay.getFaroProjectId(),
-								"operation", "stop");
-							dropdownItem.setLabel(
-								LanguageUtil.get(
-									_httpServletRequest, "stop-services"));
-						});
-				}
-
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/start_project_upgrade",
-							"faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId());
-						dropdownItem.setLabel(
-							LanguageUtil.get(_httpServletRequest, "upgrade"));
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/stop_project_upgrade", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "stop-upgrade"));
-					});
-
-				if (!faroProjectAdminDisplay.isSharedCluster()) {
-					add(
-						dropdownItem -> {
-							dropdownItem.setHref(
-								portletURL, ActionRequest.ACTION_NAME,
-								"/faro_admin/update_secrets", "faroProjectId",
-								faroProjectAdminDisplay.getFaroProjectId());
-							dropdownItem.setLabel(
-								LanguageUtil.get(
-									_httpServletRequest, "update-secrets"));
-						});
-				}
 			}
 		};
 	}

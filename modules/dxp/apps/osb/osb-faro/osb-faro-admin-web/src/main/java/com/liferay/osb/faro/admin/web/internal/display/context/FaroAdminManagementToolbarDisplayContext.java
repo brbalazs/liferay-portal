@@ -90,60 +90,6 @@ public class FaroAdminManagementToolbarDisplayContext
 						dropdownItem.setLabel(
 							LanguageUtil.get(request, "refresh-all-projects"));
 					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_services", "faroProjectId", -1,
-							"operation", "restart");
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "restart-all-services"));
-					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_services", "faroProjectId", -1,
-							"operation", "stop");
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "stop-all-services"));
-					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/stop_project_upgrade", "faroProjectId",
-							-1);
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "stop-all-upgrades"));
-					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/start_project_upgrade",
-							"faroProjectId", -1);
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "upgrade-all-projects"));
-					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/start_project_upgrade",
-							"faroProjectId", -1, "waitForHealthy", false);
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								request, "upgrade-all-projects-fast"));
-					});
-				addDropdownItem(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/update_secrets", "faroProjectId", -1);
-						dropdownItem.setLabel(
-							LanguageUtil.get(request, "update-all-secrets"));
-					});
 			}
 		};
 	}
@@ -184,8 +130,7 @@ public class FaroAdminManagementToolbarDisplayContext
 	@Override
 	protected String[] getOrderByKeys() {
 		return new String[] {
-			"createDate", "individualsUsage", "name", "pageViewsUsage",
-			"version"
+			"createDate", "individualsUsage", "name", "pageViewsUsage"
 		};
 	}
 

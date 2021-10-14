@@ -16,8 +16,6 @@ package com.liferay.osb.faro.admin.web.internal.portlet.action;
 
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
-import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
-import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -59,18 +57,7 @@ public class DeactivateProjectMVCActionCommand extends BaseMVCActionCommand {
 
 		_faroProjectLocalService.updateFaroProject(faroProject);
 
-		if (faroProject.isSharedCluster()) {
-			contactsEngineClient.deleteProject(faroProject);
-		}
-		else {
-			for (LCPService lcpService :
-					_workspaceEngineClient.getLCPServices(
-						faroProject.getWeDeployKey())) {
-
-				_workspaceEngineClient.deleteWorkspaceService(
-					faroProject.getWeDeployKey(), lcpService.getServiceId());
-			}
-		}
+		contactsEngineClient.deleteProject(faroProject);
 	}
 
 	@Reference(
@@ -81,11 +68,5 @@ public class DeactivateProjectMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;
-
-	@Reference(
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	private volatile WorkspaceEngineClient _workspaceEngineClient;
 
 }

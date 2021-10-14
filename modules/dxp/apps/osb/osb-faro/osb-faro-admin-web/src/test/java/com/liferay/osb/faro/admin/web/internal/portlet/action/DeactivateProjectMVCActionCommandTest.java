@@ -60,12 +60,6 @@ public class DeactivateProjectMVCActionCommandTest {
 
 	@Test
 	public void test() throws Exception {
-		Mockito.when(
-			_faroProject.isSharedCluster()
-		).thenReturn(
-			true
-		);
-
 		ActionRequest actionRequest = Mockito.mock(ActionRequest.class);
 
 		Mockito.when(

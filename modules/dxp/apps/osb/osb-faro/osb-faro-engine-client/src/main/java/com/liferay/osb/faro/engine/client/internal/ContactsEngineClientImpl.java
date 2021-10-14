@@ -66,8 +66,6 @@ import com.liferay.osb.faro.engine.client.util.FilterConstants;
 import com.liferay.osb.faro.engine.client.util.FilterUtil;
 import com.liferay.osb.faro.engine.client.util.OrderByField;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.osb.faro.util.FaroThreadLocal;
-import com.liferay.osb.faro.util.UpgradeUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
@@ -106,7 +104,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
@@ -2348,50 +2345,6 @@ public class ContactsEngineClientImpl
 			uriVariables);
 
 		return pagedResources.getResults();
-	}
-
-	@Override
-	public boolean isLatestVersion(FaroProject faroProject) {
-		String version = UpgradeUtil.getLatestVersion();
-
-		if (Validator.isNull(version)) {
-			return true;
-		}
-
-		boolean cacheEnabled = FaroThreadLocal.isCacheEnabled();
-
-		FaroThreadLocal.setCacheEnabled(false);
-
-		RestTemplate restTemplate = getRestTemplate(faroProject);
-
-		ResponseEntity<Map<String, Object>> responseEntity =
-			restTemplate.exchange(
-				getEngineURL(faroProject) + "/context", HttpMethod.GET, null,
-				new ParameterizedTypeReference<Map<String, Object>>() {
-				},
-				getUriVariables(faroProject));
-
-		FaroThreadLocal.setCacheEnabled(cacheEnabled);
-
-		Map<String, Object> context = responseEntity.getBody();
-
-		if (context != null) {
-			Map<String, String> environment = (Map)context.get("environment");
-
-			String labelVcsRef = environment.get("LABEL_VCS_REF");
-
-			if (Validator.isNull(labelVcsRef)) {
-				return true;
-			}
-
-			String[] parts = StringUtil.split(version, StringPool.MINUS);
-
-			if (labelVcsRef.startsWith(parts[1])) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	@Override

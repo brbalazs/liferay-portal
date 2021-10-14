@@ -16,7 +16,6 @@ package com.liferay.osb.faro.web.internal.controller.main;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
-import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.FaroController;
@@ -92,8 +91,5 @@ public class IssueController extends BaseFaroController {
 
 	@Reference
 	private MailService _mailService;
-
-	@Reference
-	private WorkspaceEngineClient _workspaceEngineClient;
 
 }

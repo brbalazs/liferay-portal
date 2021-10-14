@@ -78,10 +78,6 @@ FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(re
 					/>
 
 					<liferay-ui:search-container-column-text
-						property="version"
-					/>
-
-					<liferay-ui:search-container-column-text
 						property="offline"
 					/>
 

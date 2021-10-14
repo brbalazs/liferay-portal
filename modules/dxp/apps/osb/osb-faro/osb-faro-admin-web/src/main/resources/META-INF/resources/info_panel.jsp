@@ -100,18 +100,6 @@ request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 						<%= StringBundler.concat(faroProjectAdminDisplay.getPageViewsCount(), " / ", faroProjectAdminDisplay.getPageViewsLimit(), " (", faroProjectAdminDisplay.getPageViewsUsage(), "%)") %>
 					</p>
 
-					<h5><liferay-ui:message key="version" /></h5>
-
-					<p>
-						<%= faroProjectAdminDisplay.getVersion() %>
-					</p>
-
-					<h5><liferay-ui:message key="services" /></h5>
-
-					<p>
-						<%= faroProjectAdminDisplay.getServices() %>
-					</p>
-
 					<h5><liferay-ui:message key="subscription" /></h5>
 
 					<p>
@@ -122,12 +110,6 @@ request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 					<p>
 						<%= faroProjectAdminDisplay.getServerLocation() %>
-					</p>
-
-					<h5><liferay-ui:message key="sharedCluster" /></h5>
-
-					<p>
-						<%= faroProjectAdminDisplay.isSharedCluster() %>
 					</p>
 				</div>
 			</c:when>

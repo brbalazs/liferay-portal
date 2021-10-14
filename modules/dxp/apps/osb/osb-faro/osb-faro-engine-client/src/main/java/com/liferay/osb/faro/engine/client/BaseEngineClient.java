@@ -334,19 +334,11 @@ public abstract class BaseEngineClient {
 			return _engineURL;
 		}
 
-		if (faroProject.isSharedCluster()) {
-			try {
-				return EngineServiceURLUtil.getBackendExternalURL(faroProject);
-			}
-			catch (URISyntaxException uriSyntaxException) {
-				_log.error(uriSyntaxException, uriSyntaxException);
-			}
+		try {
+			return EngineServiceURLUtil.getBackendExternalURL(faroProject);
 		}
-
-		if (faroProject.isTrial() &&
-			Validator.isNotNull(_OSB_ASAH_MONOLITH_URL)) {
-
-			return _OSB_ASAH_MONOLITH_URL;
+		catch (URISyntaxException uriSyntaxException) {
+			_log.error(uriSyntaxException, uriSyntaxException);
 		}
 
 		return _OSB_ASAH_BACKEND_URL;
@@ -674,9 +666,6 @@ public abstract class BaseEngineClient {
 
 	private static final String _OSB_ASAH_BACKEND_URL = System.getenv(
 		"OSB_ASAH_BACKEND_URL");
-
-	private static final String _OSB_ASAH_MONOLITH_URL = System.getenv(
-		"OSB_ASAH_MONOLITH_URL");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseEngineClient.class);

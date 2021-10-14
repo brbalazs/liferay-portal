@@ -445,8 +445,6 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields);
 
-	public boolean isLatestVersion(FaroProject faroProject);
-
 	public Channel patchChannel(
 		FaroProject faroProject, String id, String name);
 

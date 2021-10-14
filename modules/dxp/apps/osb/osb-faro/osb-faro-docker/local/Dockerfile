@@ -15,7 +15,6 @@ ENV FARO_DEFAULT_WE_DEPLOY_KEY=osbasah.lfr.cloud \
 	OSB_API_TOKEN=lwn8C5iAlUi2bvaqSm \
 	OSB_API_URL=https://web-uat.liferay.com \
 	OSB_ASAH_BACKEND_URL=http://osbasahbackend:8080 \
-	OSB_ASAH_MONOLITH_URL=http://osbasahmonolith:8080 \
 	OSB_ASAH_PUBLISHER_URL=http://osbasahpublisher:8080
 
 EXPOSE 8000 8080 11311

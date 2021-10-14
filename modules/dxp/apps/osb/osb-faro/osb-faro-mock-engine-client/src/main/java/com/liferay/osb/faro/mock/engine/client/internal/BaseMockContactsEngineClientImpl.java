@@ -942,11 +942,6 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
-	public boolean isLatestVersion(FaroProject faroProject) {
-		return contactsEngineClient.isLatestVersion(faroProject);
-	}
-
-	@Override
 	public Channel patchChannel(
 		FaroProject faroProject, String id, String name) {
 

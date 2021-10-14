@@ -23,7 +23,6 @@ import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -54,12 +53,8 @@ public class EngineServiceURLUtil {
 	public static String getBackendURL(FaroProject faroProject, String path)
 		throws URISyntaxException {
 
-		String url = _OSB_ASAH_BACKEND_URL;
-
-		if (faroProject.isSharedCluster()) {
-			url = StringUtil.replace(
-				_getClusterBaseURL(faroProject), "{service}", "osbasahbackend");
-		}
+		String url = StringUtil.replace(
+			_getClusterBaseURL(faroProject), "{service}", "osbasahbackend");
 
 		return _getURL(faroProject, url, path);
 	}
@@ -79,13 +74,8 @@ public class EngineServiceURLUtil {
 	public static String getPublisherURL(FaroProject faroProject, String path)
 		throws URISyntaxException {
 
-		String url = _OSB_ASAH_PUBLISHER_URL;
-
-		if (faroProject.isSharedCluster()) {
-			url = StringUtil.replace(
-				_getClusterBaseURL(faroProject), "{service}",
-				"osbasahpublisher");
-		}
+		String url = StringUtil.replace(
+			_getClusterBaseURL(faroProject), "{service}", "osbasahpublisher");
 
 		return _getURL(faroProject, url, path);
 	}
@@ -133,12 +123,6 @@ public class EngineServiceURLUtil {
 			FaroProject faroProject, String url, String path)
 		throws URISyntaxException {
 
-		if (faroProject.isTrial() && !faroProject.isSharedCluster() &&
-			Validator.isNotNull(_OSB_ASAH_MONOLITH_URL)) {
-
-			url = _OSB_ASAH_MONOLITH_URL;
-		}
-
 		url = StringUtil.replace(
 			url, "{weDeployKey}", faroProject.getWeDeployKey());
 
@@ -156,9 +140,6 @@ public class EngineServiceURLUtil {
 
 	private static final String _OSB_ASAH_LOCAL_CLUSTER_URL = System.getenv(
 		"OSB_ASAH_LOCAL_CLUSTER_URL");
-
-	private static final String _OSB_ASAH_MONOLITH_URL = System.getenv(
-		"OSB_ASAH_MONOLITH_URL");
 
 	private static final String _OSB_ASAH_PUBLISHER_URL = System.getenv(
 		"OSB_ASAH_PUBLISHER_URL");

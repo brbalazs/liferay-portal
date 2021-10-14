@@ -33,21 +33,16 @@ page import="com.liferay.osb.faro.admin.web.internal.constants.FaroAdminWebKeys"
 page import="com.liferay.osb.faro.admin.web.internal.display.context.FaroAdminDisplayContext" %><%@
 page import="com.liferay.osb.faro.admin.web.internal.display.context.FaroAdminManagementToolbarDisplayContext" %><%@
 page import="com.liferay.osb.faro.admin.web.internal.model.FaroProjectAdminDisplay" %><%@
-page import="com.liferay.osb.faro.constants.UpgradeConstants" %><%@
 page import="com.liferay.petra.string.StringBundler" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.PrefsPropsUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
 
 <%@ page import="java.util.Collections" %><%@
-page import="java.util.List" %><%@
-page import="java.util.Map" %>
-
-<%@ page import="javax.portlet.PortletURL" %>
+page import="java.util.List" %>
 
 <liferay-frontend:defineObjects />
 

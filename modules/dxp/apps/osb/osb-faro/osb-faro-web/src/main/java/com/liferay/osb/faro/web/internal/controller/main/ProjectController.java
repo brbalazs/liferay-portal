@@ -23,10 +23,6 @@ import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
-import com.liferay.osb.faro.engine.client.model.DataSource;
-import com.liferay.osb.faro.engine.client.model.LCPProject;
-import com.liferay.osb.faro.engine.client.model.LCPService;
-import com.liferay.osb.faro.engine.client.model.Results;
 import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
@@ -50,11 +46,9 @@ import com.liferay.osb.faro.web.internal.model.display.contacts.JoinableProjectD
 import com.liferay.osb.faro.web.internal.model.display.contacts.ProjectDisplay;
 import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
-import com.liferay.osb.faro.web.internal.model.display.main.LCPServiceDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.util.ContactsLayoutHelper;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
-import com.liferay.osb.faro.web.internal.util.StreamUtil;
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -133,9 +127,6 @@ public class ProjectController extends BaseFaroController {
 		faroProject.setState(FaroProjectConstants.STATE_ACTIVATING);
 
 		faroProjectLocalService.updateFaroProject(faroProject);
-
-		workspaceEngineClient.updateWorkspace(
-			faroProject.getWeDeployKey(), null, faroProject.isTrial());
 	}
 
 	@Path("/state")
@@ -371,16 +362,6 @@ public class ProjectController extends BaseFaroController {
 		_faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
-	@Path("/{groupId}/multitenant/enable")
-	@POST
-	@RolesAllowed(StringPool.BLANK)
-	public void enableMultitenancy(@PathParam("groupId") long groupId) {
-		FaroProject faroProject =
-			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
-
-		_enableMultitenancy(faroProject);
-	}
-
 	@Path("/{groupId}/recommendations/enable")
 	@POST
 	@RolesAllowed(StringPool.BLANK)
@@ -410,24 +391,6 @@ public class ProjectController extends BaseFaroController {
 
 		if (forceUpdate) {
 			faroProject.setModifiedTime(now);
-
-			if (!faroProject.isSharedCluster()) {
-				LCPProject lcpProject = workspaceEngineClient.getLCPProject(
-					faroProject.getWeDeployKey());
-
-				faroProject.setServerLocation(lcpProject.getCluster());
-
-				if (!StringUtil.equals(
-						faroProject.getCorpProjectUuid(), _PROJECT_ID)) {
-
-					faroProject.setServices(
-						JSONUtil.writeValueAsString(
-							StreamUtil.toList(
-								workspaceEngineClient.getLCPServices(
-									faroProject.getWeDeployKey()),
-								LCPServiceDisplay::new)));
-				}
-			}
 
 			if (Validator.isNotNull(faroProject.getCorpProjectUuid())) {
 				faroProject.setSubscription(
@@ -588,23 +551,6 @@ public class ProjectController extends BaseFaroController {
 	@Path("/time_zones")
 	public List<TimeZoneDisplay> getTimeZones() {
 		return TimeZoneUtil.getTimeZoneDisplays();
-	}
-
-	@Path("/migrate")
-	@POST
-	@RolesAllowed(StringPool.BLANK)
-	public void migrate(
-			@DefaultValue("true") @FormParam("dryRun") boolean dryRun,
-			@DefaultValue("false") @FormParam("includePaidTier") boolean
-				includePaidTier,
-			@FormParam("serverLocation") String serverLocation)
-		throws Exception {
-
-		for (FaroProject faroProject :
-				_faroProjectLocalService.getFaroProjects(serverLocation)) {
-
-			_migrate(dryRun, faroProject, includePaidTier);
-		}
 	}
 
 	@PATCH
@@ -771,8 +717,6 @@ public class ProjectController extends BaseFaroController {
 			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
 		}
 		else {
-			faroProject.setSharedCluster(true);
-
 			weDeployKey =
 				contactsEngineClient.addProject(faroProject) + ".lfr.cloud";
 		}
@@ -855,56 +799,12 @@ public class ProjectController extends BaseFaroController {
 			role.getRoleId(), user.getEmailAddress(),
 			FaroUserConstants.STATUS_APPROVED, false);
 
-		faroProject.setSharedCluster(true);
-
 		faroProject.setWeDeployKey(
 			contactsEngineClient.addProject(faroProject) + ".lfr.cloud");
 
 		return new ProjectDisplay(
 			_faroProjectLocalService.updateFaroProject(faroProject),
 			friendlyURL);
-	}
-
-	private void _enableMultitenancy(FaroProject faroProject) {
-		for (LCPService lcpService :
-				_workspaceEngineClient.getLCPServices(
-					faroProject.getWeDeployKey())) {
-
-			_workspaceEngineClient.deleteWorkspaceService(
-				faroProject.getWeDeployKey(), lcpService.getServiceId());
-		}
-
-		if (Objects.equals(
-				LCPProject.Cluster.EU.toString(),
-				faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.EU_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.EU2.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.EU2_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.SA.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.SA_AC.toString());
-		}
-		else if (Objects.equals(
-					LCPProject.Cluster.US.toString(),
-					faroProject.getServerLocation())) {
-
-			faroProject.setServerLocation(LCPProject.Cluster.US_AC.toString());
-		}
-		else {
-			return;
-		}
-
-		faroProject.setSharedCluster(true);
-
-		_faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
 	private String _getEmailAddressDomainsErrorMessage(
@@ -1065,8 +965,7 @@ public class ProjectController extends BaseFaroController {
 					projectDisplay.getState(),
 					FaroProjectConstants.STATE_READY) &&
 				 StringUtil.equals(
-					 state, FaroProjectConstants.STATE_MAINTENANCE) &&
-				 contactsEngineClient.isLatestVersion(faroProject)) {
+					 state, FaroProjectConstants.STATE_MAINTENANCE)) {
 
 			projectHelper.deleteGlobalState(faroProject.getGroupId());
 
@@ -1117,72 +1016,17 @@ public class ProjectController extends BaseFaroController {
 	}
 
 	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
-		for (LCPService lcpService :
-				workspaceEngineClient.getLCPServices(
-					faroProject.getWeDeployKey())) {
+		try {
+			contactsEngineClient.getIndividuals(
+				faroProject, (String)null, false, 1, 0, null);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			if (!lcpService.isReady() ||
-				!StringUtil.equals(
-					lcpService.getHealth(), Workspace.Health.healthy.name())) {
-
-				return false;
-			}
-
-			try {
-				contactsEngineClient.getIndividuals(
-					faroProject, (String)null, false, 1, 0, null);
-			}
-			catch (Exception exception) {
-				_log.error(exception, exception);
-
-				return false;
-			}
+			return false;
 		}
 
 		return true;
-	}
-
-	private void _migrate(
-			boolean dryRun, FaroProject faroProject, boolean includePaidTier)
-		throws Exception {
-
-		if (faroProject.isSharedCluster()) {
-			return;
-		}
-
-		ProjectDisplay projectDisplay = new ProjectDisplay(faroProject);
-
-		FaroSubscriptionDisplay faroSubscriptionDisplay =
-			projectDisplay.getFaroSubscriptionDisplay();
-
-		if ((!includePaidTier && !faroProject.isTrial()) ||
-			(faroSubscriptionDisplay.getIndividualsCount() > 0) ||
-			(faroSubscriptionDisplay.getPageViewsCount() > 0)) {
-
-			return;
-		}
-
-		Results<DataSource> dataSources = contactsEngineClient.getDataSources(
-			faroProject, null, null, null, null, null, 1, 1, null);
-
-		if (dataSources.getTotal() > 0) {
-			return;
-		}
-
-		if (dryRun) {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Dry run migrate: " + faroProject.getProjectId());
-			}
-
-			return;
-		}
-
-		_enableMultitenancy(faroProject);
-
-		_contactsEngineClient.addProject(faroProject);
-
-		_fieldMappingController.addDefaultFieldMappings(
-			faroProject.getGroupId());
 	}
 
 	private void _refreshProjectState(FaroProject faroProject)

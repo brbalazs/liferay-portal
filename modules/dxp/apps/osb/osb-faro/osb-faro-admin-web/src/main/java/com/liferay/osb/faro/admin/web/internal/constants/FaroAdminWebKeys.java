@@ -24,7 +24,4 @@ public class FaroAdminWebKeys {
 	public static final String FARO_PROJECT_ENTRIES_COUNT =
 		"FARO_PROJECT_ENTRIES_COUNT";
 
-	public static final String FARO_PROJECT_UPGRADE_PROGRESS =
-		"FARO_PROJECT_UPGRADE_PROGRESS";
-
 }

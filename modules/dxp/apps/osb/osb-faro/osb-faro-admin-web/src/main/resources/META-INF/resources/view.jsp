@@ -18,8 +18,6 @@
 
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1", "projects");
-
-boolean omniAdmin = permissionChecker.isOmniadmin();
 %>
 
 <clay:navigation-bar
@@ -33,28 +31,6 @@ boolean omniAdmin = permissionChecker.isOmniadmin();
 						navigationItem.setHref(renderResponse.createRenderURL(), "mvcPath", "/view.jsp", "tabs1", "projects");
 						navigationItem.setLabel(LanguageUtil.get(request, "projects"));
 					});
-
-				if (omniAdmin) {
-					add(
-						navigationItem -> {
-							navigationItem.setActive(tabs1.equals("settings"));
-							navigationItem.setHref(renderResponse.createRenderURL(), "mvcPath", "/view.jsp", "tabs1", "settings");
-							navigationItem.setLabel(LanguageUtil.get(request, "settings"));
-						});
-
-					PortletURL viewUpgradeProgressURL = renderResponse.createRenderURL();
-
-					viewUpgradeProgressURL.setParameter("mvcRenderCommandName", "/faro_admin/view_upgrade_progress");
-					viewUpgradeProgressURL.setParameter("tabs1", "upgrade");
-
-					add(
-						navigationItem -> {
-							navigationItem.setActive(tabs1.equals("upgrade"));
-							navigationItem.setHref(viewUpgradeProgressURL);
-							navigationItem.setLabel(LanguageUtil.get(request, "upgrade"));
-						});
-				}
-
 				add(
 					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("system_info"));
@@ -69,12 +45,6 @@ boolean omniAdmin = permissionChecker.isOmniadmin();
 <c:choose>
 	<c:when test='<%= tabs1.equals("projects") %>'>
 		<liferay-util:include page="/projects.jsp" servletContext="<%= application %>" />
-	</c:when>
-	<c:when test='<%= tabs1.equals("settings") %>'>
-		<liferay-util:include page="/settings.jsp" servletContext="<%= application %>" />
-	</c:when>
-	<c:when test='<%= tabs1.equals("upgrade") %>'>
-		<liferay-util:include page="/upgrade_progress.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
 		<liferay-util:include page="/system_info.jsp" servletContext="<%= application %>" />

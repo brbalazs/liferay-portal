@@ -15,24 +15,11 @@
 package com.liferay.osb.faro.admin.web.internal.portlet;
 
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
-import com.liferay.osb.faro.constants.UpgradeConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.PrefsPropsUtil;
 
-import java.io.IOException;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.PortletPreferences;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Shinn Lok
@@ -55,43 +42,4 @@ import org.osgi.service.component.annotations.Reference;
 	service = Portlet.class
 )
 public class FaroAdminPortlet extends MVCPortlet {
-
-	@Override
-	public void render(RenderRequest request, RenderResponse response)
-		throws IOException, PortletException {
-
-		super.render(request, response);
-	}
-
-	public void updatePreferences(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws PortletException {
-
-		try {
-			PortletPreferences portletPreferences =
-				PrefsPropsUtil.getPreferences(
-					_portal.getCompanyId(actionRequest));
-
-			String version = ParamUtil.getString(actionRequest, "version");
-
-			portletPreferences.setValue(
-				UpgradeConstants.REPOSITORY_SHA, version);
-
-			int threadCount = ParamUtil.getInteger(
-				actionRequest, "threadCount");
-
-			portletPreferences.setValue(
-				UpgradeConstants.UPGRADE_THREAD_COUNT,
-				String.valueOf(threadCount));
-
-			portletPreferences.store();
-		}
-		catch (Exception exception) {
-			throw new PortletException(exception);
-		}
-	}
-
-	@Reference
-	private Portal _portal;
-
 }

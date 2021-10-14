@@ -66,9 +66,7 @@ public class FaroProjectAdminDisplay {
 		_pageViewsUsage = _decimalFormat.format(
 			GetterUtil.getDouble(document.get("pageViewsUsage")));
 		_serverLocation = document.get("serverLocation");
-		_sharedCluster = GetterUtil.getBoolean(document.get("sharedCluster"));
 		_subscriptionName = document.get("subscriptionName");
-		_version = document.get("version");
 	}
 
 	public FaroProjectAdminDisplay(FaroProject faroProject, Document document) {
@@ -81,10 +79,8 @@ public class FaroProjectAdminDisplay {
 		_pageViewsCount = GetterUtil.getLong(document.get("pageViewsCount"));
 		_pageViewsLimit = GetterUtil.getLong(document.get("pageViewsLimit"));
 		_serverLocation = faroProject.getServerLocation();
-		_sharedCluster = faroProject.getSharedCluster();
 		_subscription = faroProject.getSubscription();
 		_weDeployKey = faroProject.getWeDeployKey();
-		_services = faroProject.getServices();
 	}
 
 	public String getCorpProjectName() {
@@ -155,10 +151,6 @@ public class FaroProjectAdminDisplay {
 		return _serverLocation;
 	}
 
-	public String getServices() {
-		return _services;
-	}
-
 	public String getSubscription() {
 		return _subscription;
 	}
@@ -167,20 +159,12 @@ public class FaroProjectAdminDisplay {
 		return _subscriptionName;
 	}
 
-	public String getVersion() {
-		return _version;
-	}
-
 	public String getWeDeployKey() {
 		return _weDeployKey;
 	}
 
 	public boolean isOffline() {
 		return _offline;
-	}
-
-	public boolean isSharedCluster() {
-		return _sharedCluster;
 	}
 
 	public void setCorpProjectName(String corpProjectName) {
@@ -251,24 +235,12 @@ public class FaroProjectAdminDisplay {
 		_serverLocation = serverLocation;
 	}
 
-	public void setServices(String services) {
-		_services = services;
-	}
-
-	public void setSharedCluster(boolean sharedCluster) {
-		_sharedCluster = sharedCluster;
-	}
-
 	public void setSubscription(String subscription) {
 		_subscription = subscription;
 	}
 
 	public void setSubscriptionName(String subscriptionName) {
 		_subscriptionName = subscriptionName;
-	}
-
-	public void setVersion(String version) {
-		_version = version;
 	}
 
 	public void setWeDeployKey(String weDeployKey) {
@@ -314,11 +286,8 @@ public class FaroProjectAdminDisplay {
 	private long _pageViewsLimit;
 	private String _pageViewsUsage;
 	private String _serverLocation;
-	private String _services;
-	private boolean _sharedCluster;
 	private String _subscription;
 	private String _subscriptionName;
-	private String _version;
 	private String _weDeployKey;
 
 }

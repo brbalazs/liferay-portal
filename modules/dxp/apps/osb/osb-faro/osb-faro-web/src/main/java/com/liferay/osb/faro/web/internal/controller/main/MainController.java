@@ -83,18 +83,6 @@ public class MainController extends BaseFaroController {
 		}
 	}
 
-	@Path("/workspace/build_time")
-	@POST
-	@RolesAllowed(StringPool.BLANK)
-	public void setWorkspaceBuildTime(
-		@FormParam("expectedBuildTime") double expectedBuildTime,
-		@FormParam("expectedBuildTimeMonolith") double
-			expectedBuildTimeMonolith) {
-
-		// TODO remove
-
-	}
-
 	@Reference
 	private FaroControllerRegistry _faroControllerRegistry;
 

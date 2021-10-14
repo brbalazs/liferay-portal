@@ -5,7 +5,6 @@
 		"search"
 	],
 	"env": {
-		"FARO_REPOSITORY_SHA": "20200803-dd43399",
 		"FARO_URL": "https://analytics.liferay.com",
 		"HUBSPOT_ENABLED": "true",
 		"ISSUES_EMAIL_ADDRESS": "ac-issues-trial@liferay.com",
@@ -13,7 +12,6 @@
 		"OSB_API_TOKEN": "lwn8C5iAlUi2bvaqSm",
 		"OSB_API_URL": "https://web.liferay.com",
 		"OSB_ASAH_BACKEND_URL": "https://osbasahbackend-{weDeployKey}",
-		"OSB_ASAH_MONOLITH_URL": "https://osbasahmonolith-{weDeployKey}",
 		"OSB_ASAH_PUBLISHER_URL": "https://osbasahpublisher-{weDeployKey}"
 	},
 	"id": "liferay",

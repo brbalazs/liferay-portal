@@ -100,7 +100,6 @@ public class ProjectDisplay {
 
 		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
-		_sharedCluster = faroProject.isSharedCluster();
 		_state = faroProject.getState();
 		_timeZoneDisplay = TimeZoneUtil.getTimeZoneDisplay(
 			faroProject.getTimeZoneId());
@@ -213,7 +212,6 @@ public class ProjectDisplay {
 	private String _ownerEmailAddress;
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;
-	private boolean _sharedCluster;
 	private String _state;
 	private Date _stateEndDate;
 	private Date _stateStartDate;
