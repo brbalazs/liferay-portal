@@ -421,6 +421,74 @@ definition {
 		Staging.deletePublishTemplate(publishTemplateName = "Publish Template Name");
 	}
 
+	@description = "LPS-83795 Disabled content cannot be published in Asset Publisher in Staging."
+	@priority = "4"
+	test DisabledContentCannotBePublishedInStaging {
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC Web Content Content",
+			webContentTitle = "WC Web Content Title");
+
+		PortletEntry.publish();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(
+			pageName = "Staging Test Page",
+			portletName = "Calendar");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		CalendarNavigator.gotoAddEvent();
+
+		PortletEntry.inputTitle(title = "Calendar Event Title");
+
+		CalendarEvent.publish();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(
+			pageName = "Staging Test Page",
+			portletName = "Asset Publisher");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "Calendar Event Title");
+
+		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "WC Web Content Title");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.activateStagingCP(
+			siteName = "Site Name",
+			uncheckContent = "Calendar");
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "Calendar Event Title");
+
+		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "WC Web Content Title");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "WC Web Content Title");
+
+		AssetPublisherPortlet.viewAssetNotPresentDisabledContentPG(assetTitle = "Calendar Event Title");
+	}
+
 	@description = "This is a use case for LPS-89546"
 	@priority = "3"
 	test EditPageCreatedBasedOnPageTemplateWithPageVersioning {
