@@ -1087,7 +1087,7 @@ definition {
 
 		FormFields.editText(
 			fieldName = "redirectURL",
-			fieldValue = "http://localhost:8080/");
+			fieldValue = "http://localhost:8080/web/guest");
 
 		Form.save();
 
@@ -1124,7 +1124,7 @@ definition {
 
 		FormPortlet.submit();
 
-		Form.viewRedirectedURL(friendlyURL = "http://localhost:8080/");
+		Form.viewRedirectedURL(friendlyURL = "http://localhost:8080/web/guest");
 	}
 
 	@description = "This is a use case for LPS-64379."
