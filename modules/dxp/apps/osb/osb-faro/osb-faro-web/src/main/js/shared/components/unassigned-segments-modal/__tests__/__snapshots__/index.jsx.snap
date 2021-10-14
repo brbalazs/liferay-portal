@@ -25,7 +25,7 @@ exports[`UnassignedSegmentsModal renders 1`] = `
           <span
             class="subtitle"
           >
-            We've upgraded your Analytics Cloud workspace to include properties.
+            We have upgraded your Analytics Cloud workspace to include properties.
           </span>
           <ul
             class="description"

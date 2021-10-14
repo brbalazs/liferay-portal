@@ -35,7 +35,7 @@ exports[`ReadyToGo renders 1`] = `
       <span
         class="title d-flex justify-content-center"
       >
-        You're Ready to Go
+        You are Ready to Go
       </span>
       <span
         class="description"

@@ -41,7 +41,7 @@ exports[`IssueSubmitted should render 1`] = `
     <p
       class="description"
     >
-      Thanks for your contribution. We'll look in to this as soon as possible.
+      Thanks for your contribution. We will look in to this as soon as possible.
     </p>
   </div>
 </div>

@@ -105,7 +105,7 @@ exports[`WorkspacesSuccessDisplay should render 1`] = `
               class="sheet-section"
             >
               <p>
-                We'll send you an email once it's ready to access at this URL: 
+                We will send you an email once it is ready to access at this URL: 
                 <a
                   href="https://analytics.liferay.com/workspace/fooFriendlyUrl"
                 >
@@ -113,7 +113,7 @@ exports[`WorkspacesSuccessDisplay should render 1`] = `
                 </a>
               </p>
               <p>
-                You can also leave this page open and we'll notify you here. It should take around 1 hour.
+                You can also leave this page open and we will notify you here. It should take around 1 hour.
               </p>
               <p>
                 In the meantime, check out our documentation to get familiar with the features.

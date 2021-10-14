@@ -70,7 +70,7 @@ exports[`NoPropertiesAvailable should render 1`] = `
           <span
             class="secondary-info"
           >
-            To get your workspace set up, you'll need to connect your DXP instance and add sites to a property.
+            To get your workspace set up, you will need to connect your DXP instance and add sites to a property.
           </span>
           <button
             class="button-root btn btn-primary"

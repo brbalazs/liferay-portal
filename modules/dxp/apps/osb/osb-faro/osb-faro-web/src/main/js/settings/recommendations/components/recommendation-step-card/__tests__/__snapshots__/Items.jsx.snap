@@ -16,7 +16,7 @@ exports[`Items should render 1`] = `
       <div
         class="secondary-info"
       >
-        Create rules to match your URLs and page metadata. If you don't define rules, the recommendation model will use all URLs from this workspace to train the recommendations model.
+        Create rules to match your URLs and page metadata. If you do not define rules, the recommendation model will use all URLs from this workspace to train the recommendations model.
       </div>
       <button
         class="button-root btn btn-secondary new-rule-button"

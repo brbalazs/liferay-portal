@@ -89,7 +89,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
               class="details-container"
             >
               <p>
-                We've found multiple accounts associated with 
+                We have found multiple accounts associated with 
                 <b>
                   test@liferay.com
                 </b>

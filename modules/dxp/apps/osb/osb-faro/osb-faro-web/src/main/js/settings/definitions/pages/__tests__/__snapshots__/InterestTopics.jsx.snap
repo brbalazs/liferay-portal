@@ -67,7 +67,7 @@ exports[`InterestTopics should render 1`] = `
             Keywords Blocklist
           </h4>
           <p>
-            Keywords can be excluded by adding them to a blocklist. Manage the keywords that you don't want listed in Liferay Analytics Cloud, and don't want them to be used to generate content recommendation in Liferay DXP.
+            Keywords can be excluded by adding them to a blocklist. Manage the keywords that you do not want listed in Liferay Analytics Cloud, and do not want them to be used to generate content recommendation in Liferay DXP.
           </p>
         </div>
       </div>
