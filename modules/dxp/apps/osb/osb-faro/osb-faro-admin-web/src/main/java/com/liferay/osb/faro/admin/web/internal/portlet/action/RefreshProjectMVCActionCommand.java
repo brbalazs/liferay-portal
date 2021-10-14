@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -70,7 +71,8 @@ public class RefreshProjectMVCActionCommand extends BaseMVCActionCommand {
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 
 		if (groupId > 0) {
-			sendRequest(options, themeDisplay.getPortalURL(), groupId);
+			sendRequest(
+				actionRequest, options, themeDisplay.getPortalURL(), groupId);
 		}
 		else {
 			for (FaroProject faroProject :
@@ -82,7 +84,7 @@ public class RefreshProjectMVCActionCommand extends BaseMVCActionCommand {
 						FaroProjectConstants.STATE_READY)) {
 
 					sendRequest(
-						options, themeDisplay.getPortalURL(),
+						actionRequest, options, themeDisplay.getPortalURL(),
 						faroProject.getGroupId());
 				}
 			}
@@ -116,15 +118,18 @@ public class RefreshProjectMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected void sendRequest(
-		Http.Options options, String portalURL, long groupId) {
-
-		options.setLocation(getURL(portalURL, groupId));
+		ActionRequest actionRequest, Http.Options options, String portalURL,
+		long groupId) {
 
 		try {
+			options.setLocation(getURL(portalURL, groupId));
+
 			_http.URLtoString(options);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
+
+			SessionErrors.add(actionRequest, exception.getClass());
 		}
 	}
 

@@ -17,8 +17,11 @@ package com.liferay.osb.faro.admin.web.internal.portlet.action;
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import javax.portlet.ActionRequest;
@@ -49,9 +52,19 @@ public class RefreshLiferayMVCActionCommand extends BaseMVCActionCommand {
 
 		long faroProjectId = ParamUtil.getLong(actionRequest, "faroProjectId");
 
-		_contactsEngineClient.refreshLiferay(
-			_faroProjectLocalService.getFaroProject(faroProjectId));
+		try {
+			_contactsEngineClient.refreshLiferay(
+				_faroProjectLocalService.getFaroProject(faroProjectId));
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			SessionErrors.add(actionRequest, exception.getClass());
+		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		RefreshLiferayMVCActionCommand.class);
 
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,

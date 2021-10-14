@@ -433,7 +433,7 @@ public abstract class BaseEngineClient {
 			getUriVariables(faroProject));
 
 		if (responseEntity.getStatusCodeValue() != HttpStatus.SC_OK) {
-			return null;
+			throw new IllegalStateException("Invalid url: " + engineURL);
 		}
 
 		Resource<?> resource = responseEntity.getBody();
@@ -443,6 +443,11 @@ public abstract class BaseEngineClient {
 		}
 
 		Link link = resource.getLink(type);
+
+		if (link == null) {
+			throw new IllegalStateException(
+				"URL does not exist for type: " + type);
+		}
 
 		String href = link.getHref();
 
