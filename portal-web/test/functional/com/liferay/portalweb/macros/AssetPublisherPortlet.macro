@@ -823,6 +823,14 @@ definition {
 			value1 = "${categoryName}");
 	}
 
+	macro viewAssetNotPresentDisabledContentPG {
+		var key_assetTitle = "${assetTitle}";
+
+		AssertElementNotPresent(
+			locator1 = "AP#ASSET_ABSTRACT_TITLE",
+			value1 = "${assetTitle}");
+	}
+
 	macro viewAssetNotPresentPG {
 		var key_assetTitle = "${assetTitle}";
 
