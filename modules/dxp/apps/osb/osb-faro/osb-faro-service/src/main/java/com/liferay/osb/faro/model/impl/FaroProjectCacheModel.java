@@ -60,7 +60,7 @@ public class FaroProjectCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{faroProjectId=");
 		sb.append(faroProjectId);
@@ -96,8 +96,6 @@ public class FaroProjectCacheModel
 		sb.append(serverLocation);
 		sb.append(", services=");
 		sb.append(services);
-		sb.append(", sharedCluster=");
-		sb.append(sharedCluster);
 		sb.append(", state=");
 		sb.append(state);
 		sb.append(", subscription=");
@@ -196,8 +194,6 @@ public class FaroProjectCacheModel
 			faroProjectImpl.setServices(services);
 		}
 
-		faroProjectImpl.setSharedCluster(sharedCluster);
-
 		if (state == null) {
 			faroProjectImpl.setState("");
 		}
@@ -256,8 +252,6 @@ public class FaroProjectCacheModel
 		recommendationsEnabled = objectInput.readBoolean();
 		serverLocation = objectInput.readUTF();
 		services = objectInput.readUTF();
-
-		sharedCluster = objectInput.readBoolean();
 		state = objectInput.readUTF();
 		subscription = objectInput.readUTF();
 		timeZoneId = objectInput.readUTF();
@@ -350,8 +344,6 @@ public class FaroProjectCacheModel
 			objectOutput.writeUTF(services);
 		}
 
-		objectOutput.writeBoolean(sharedCluster);
-
 		if (state == null) {
 			objectOutput.writeUTF("");
 		}
@@ -398,7 +390,6 @@ public class FaroProjectCacheModel
 	public boolean recommendationsEnabled;
 	public String serverLocation;
 	public String services;
-	public boolean sharedCluster;
 	public String state;
 	public String subscription;
 	public String timeZoneId;
