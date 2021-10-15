@@ -30,16 +30,17 @@ const CSVPreviewModal: React.FC<ICSVPreviewModalProps> = ({
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const data = await API.dataSource.fetchFieldValues({
-				count: ROW_DELTA,
-				fieldName,
-				fileVersionId,
-				groupId,
-				id
-			});
-
-			setData(data);
+		const fetchData = () => {
+			API.dataSource
+				.fetchFieldValues({
+					count: ROW_DELTA,
+					fieldName,
+					fileVersionId,
+					groupId,
+					id
+				})
+				.then(data => setData(data))
+				.catch(noop);
 		};
 
 		fetchData();
