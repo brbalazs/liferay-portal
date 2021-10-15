@@ -67,6 +67,11 @@ public class KnowledgeBaseFolder implements Serializable {
 		return ObjectMapperUtil.readValue(KnowledgeBaseFolder.class, json);
 	}
 
+	public static KnowledgeBaseFolder unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(
+			KnowledgeBaseFolder.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

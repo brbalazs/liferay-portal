@@ -62,6 +62,10 @@ public class WikiNode implements Serializable {
 		return ObjectMapperUtil.readValue(WikiNode.class, json);
 	}
 
+	public static WikiNode unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(WikiNode.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

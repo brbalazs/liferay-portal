@@ -57,6 +57,10 @@ public class OptionValue implements Serializable {
 		return ObjectMapperUtil.readValue(OptionValue.class, json);
 	}
 
+	public static OptionValue unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(OptionValue.class, json);
+	}
+
 	@Schema
 	public String getExternalReferenceCode() {
 		return externalReferenceCode;

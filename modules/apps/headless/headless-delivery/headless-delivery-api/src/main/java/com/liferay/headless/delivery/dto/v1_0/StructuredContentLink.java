@@ -56,6 +56,11 @@ public class StructuredContentLink implements Serializable {
 		return ObjectMapperUtil.readValue(StructuredContentLink.class, json);
 	}
 
+	public static StructuredContentLink unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(
+			StructuredContentLink.class, json);
+	}
+
 	@Schema
 	public String getContentType() {
 		return contentType;

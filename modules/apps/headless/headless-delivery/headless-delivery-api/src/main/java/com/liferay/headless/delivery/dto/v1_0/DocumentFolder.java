@@ -67,6 +67,10 @@ public class DocumentFolder implements Serializable {
 		return ObjectMapperUtil.readValue(DocumentFolder.class, json);
 	}
 
+	public static DocumentFolder unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(DocumentFolder.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

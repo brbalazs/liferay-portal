@@ -65,6 +65,10 @@ public class Keyword implements Serializable {
 		return ObjectMapperUtil.readValue(Keyword.class, json);
 	}
 
+	public static Keyword unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Keyword.class, json);
+	}
+
 	@Schema(description = "The keyword's creator.")
 	@Valid
 	public Creator getCreator() {

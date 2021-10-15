@@ -54,6 +54,10 @@ public class Brand implements Serializable {
 		return ObjectMapperUtil.readValue(Brand.class, json);
 	}
 
+	public static Brand unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Brand.class, json);
+	}
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {

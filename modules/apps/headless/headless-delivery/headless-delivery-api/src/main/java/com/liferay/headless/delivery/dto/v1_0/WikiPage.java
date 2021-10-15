@@ -64,6 +64,10 @@ public class WikiPage implements Serializable {
 		return ObjectMapperUtil.readValue(WikiPage.class, json);
 	}
 
+	public static WikiPage unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(WikiPage.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

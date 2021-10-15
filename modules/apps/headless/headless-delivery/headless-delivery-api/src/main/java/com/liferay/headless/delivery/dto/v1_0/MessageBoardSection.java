@@ -67,6 +67,11 @@ public class MessageBoardSection implements Serializable {
 		return ObjectMapperUtil.readValue(MessageBoardSection.class, json);
 	}
 
+	public static MessageBoardSection unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(
+			MessageBoardSection.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

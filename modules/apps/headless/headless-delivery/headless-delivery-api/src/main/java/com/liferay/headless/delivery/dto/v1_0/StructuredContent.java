@@ -67,6 +67,10 @@ public class StructuredContent implements Serializable {
 		return ObjectMapperUtil.readValue(StructuredContent.class, json);
 	}
 
+	public static StructuredContent unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(StructuredContent.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

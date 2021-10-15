@@ -67,6 +67,10 @@ public class TaxonomyVocabulary implements Serializable {
 		return ObjectMapperUtil.readValue(TaxonomyVocabulary.class, json);
 	}
 
+	public static TaxonomyVocabulary unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(TaxonomyVocabulary.class, json);
+	}
+
 	@Schema(
 		description = "A list of asset types that can be associated with this vocabulary."
 	)

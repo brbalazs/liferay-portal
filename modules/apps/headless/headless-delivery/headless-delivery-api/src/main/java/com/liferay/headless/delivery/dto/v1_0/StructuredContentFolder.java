@@ -67,6 +67,11 @@ public class StructuredContentFolder implements Serializable {
 		return ObjectMapperUtil.readValue(StructuredContentFolder.class, json);
 	}
 
+	public static StructuredContentFolder unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(
+			StructuredContentFolder.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Map<String, Map<String, String>> getActions() {

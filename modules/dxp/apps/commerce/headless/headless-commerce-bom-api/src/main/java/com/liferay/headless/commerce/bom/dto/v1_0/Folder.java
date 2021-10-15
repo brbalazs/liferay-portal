@@ -53,6 +53,10 @@ public class Folder implements Serializable {
 		return ObjectMapperUtil.readValue(Folder.class, json);
 	}
 
+	public static Folder unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Folder.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Breadcrumb[] getBreadcrumbs() {

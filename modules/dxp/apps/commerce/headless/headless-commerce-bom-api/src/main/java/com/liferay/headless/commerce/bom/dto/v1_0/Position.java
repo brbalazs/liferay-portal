@@ -51,6 +51,10 @@ public class Position implements Serializable {
 		return ObjectMapperUtil.readValue(Position.class, json);
 	}
 
+	public static Position unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Position.class, json);
+	}
+
 	@Schema
 	public Double getX() {
 		return x;

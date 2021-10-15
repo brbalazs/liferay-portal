@@ -53,6 +53,10 @@ public class ItemData implements Serializable {
 		return ObjectMapperUtil.readValue(ItemData.class, json);
 	}
 
+	public static ItemData unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(ItemData.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Brand[] getBrands() {

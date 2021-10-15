@@ -54,6 +54,10 @@ public class Spot implements Serializable {
 		return ObjectMapperUtil.readValue(Spot.class, json);
 	}
 
+	public static Spot unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Spot.class, json);
+	}
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {

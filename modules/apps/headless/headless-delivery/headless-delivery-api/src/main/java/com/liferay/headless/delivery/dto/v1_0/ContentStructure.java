@@ -60,6 +60,10 @@ public class ContentStructure implements Serializable {
 		return ObjectMapperUtil.readValue(ContentStructure.class, json);
 	}
 
+	public static ContentStructure unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(ContentStructure.class, json);
+	}
+
 	@Schema(
 		description = "The list of languages the structure has a translation for."
 	)

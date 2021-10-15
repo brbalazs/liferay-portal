@@ -56,6 +56,10 @@ public class RenderedContent implements Serializable {
 		return ObjectMapperUtil.readValue(RenderedContent.class, json);
 	}
 
+	public static RenderedContent unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(RenderedContent.class, json);
+	}
+
 	@Schema(description = "An absolute URL to the rendered content.")
 	public String getRenderedContentURL() {
 		return renderedContentURL;

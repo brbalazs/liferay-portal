@@ -53,6 +53,10 @@ public class Model implements Serializable {
 		return ObjectMapperUtil.readValue(Model.class, json);
 	}
 
+	public static Model unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Model.class, json);
+	}
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {

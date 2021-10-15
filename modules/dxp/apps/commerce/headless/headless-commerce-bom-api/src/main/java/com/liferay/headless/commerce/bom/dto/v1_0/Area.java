@@ -53,6 +53,10 @@ public class Area implements Serializable {
 		return ObjectMapperUtil.readValue(Area.class, json);
 	}
 
+	public static Area unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Area.class, json);
+	}
+
 	@Schema
 	@Valid
 	public Breadcrumb[] getBreadcrumbs() {

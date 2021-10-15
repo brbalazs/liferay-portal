@@ -60,6 +60,10 @@ public class Organization implements Serializable {
 		return ObjectMapperUtil.readValue(Organization.class, json);
 	}
 
+	public static Organization unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Organization.class, json);
+	}
+
 	@Schema(
 		description = "The text of a comment associated with the organization."
 	)

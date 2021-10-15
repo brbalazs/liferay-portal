@@ -51,6 +51,10 @@ public class Breadcrumb implements Serializable {
 		return ObjectMapperUtil.readValue(Breadcrumb.class, json);
 	}
 
+	public static Breadcrumb unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Breadcrumb.class, json);
+	}
+
 	@Schema
 	public String getLabel() {
 		return label;
