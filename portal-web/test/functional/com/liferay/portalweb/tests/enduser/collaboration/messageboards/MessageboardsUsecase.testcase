@@ -700,6 +700,8 @@ definition {
 		MessageboardsPortlet.viewBannedUserCP(userScreenName = "userfn2 userln2");
 	}
 
+	@description = "This will be ignored until POSHI-6 is fixed."
+	@ignore = "true"
 	@priority = "4"
 	test ViewMessageBoardsRSS {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
@@ -1024,7 +1026,8 @@ definition {
 		MenuItem.viewNotPresent(menuItem = "Unsubscribe");
 	}
 
-	@description = "This test covers LPS-77252 and LPS-86797. It ensures that Categories group and Threads group are listed independently with their own pager."
+	@description = "This will be ignored until LPS-86797 is fixed. This test covers LPS-77252 and LPS-86797. It ensures that Categories group and Threads group are listed independently with their own pager."
+	@ignore = "true"
 	@priority = "4"
 	test ViewPagersForCategoriesAndThreads {
 		JSONLayout.addPublicLayout(

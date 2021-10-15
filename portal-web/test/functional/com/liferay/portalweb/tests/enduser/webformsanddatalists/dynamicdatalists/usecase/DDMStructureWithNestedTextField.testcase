@@ -67,7 +67,8 @@ definition {
 		}
 	}
 
-	@description = "This is a use case for LPS-69335."
+	@description = "This will be ignored until LPS-118460 is fixed. This is a use case for LPS-69335."
+	@ignore = "true"
 	@priority = "4"
 	test ViewFieldTranslations {
 		DDLRecord.addCP();

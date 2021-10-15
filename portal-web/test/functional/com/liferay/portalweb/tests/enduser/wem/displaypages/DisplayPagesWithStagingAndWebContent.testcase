@@ -154,7 +154,8 @@ definition {
 			locator1 = "Fragment#FRAGMENT");
 	}
 
-	@description = "This tests one of the workarounds of LPS-86373 and a use case for LPS-118841."
+	@description = "This will be ignored until LPS-125469 is fixed. This tests one of the workarounds of LPS-86373 and a use case for LPS-118841."
+	@ignore = "true"
 	@priority = "5"
 	test PublishDisplayPageMarkedAsDefault {
 		property portal.acceptance = "quarantine";

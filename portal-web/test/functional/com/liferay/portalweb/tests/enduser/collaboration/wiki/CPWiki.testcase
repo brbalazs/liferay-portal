@@ -439,6 +439,8 @@ definition {
 		WikiEntry.viewPageContentBody(wikiPageContent = "Wiki Page Content 1");
 	}
 
+	@description = "This will be ignored until POSHI-6 is fixed."
+	@ignore = "true"
 	@priority = "4"
 	test ViewPageRSS {
 		Navigator.openURL();

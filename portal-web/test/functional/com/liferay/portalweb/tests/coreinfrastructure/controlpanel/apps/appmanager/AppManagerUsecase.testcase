@@ -13,6 +13,8 @@ definition {
 		Page.tearDownCP();
 	}
 
+	@description = "This will be ignored until LPS-114840 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test InstallUninstallApp {
 		property test.name.skip.portal.instance = "AppManagerUsecase#InstallUninstallApp";

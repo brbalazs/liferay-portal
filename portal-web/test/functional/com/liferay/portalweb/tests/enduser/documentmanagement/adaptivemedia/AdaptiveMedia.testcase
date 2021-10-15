@@ -16,6 +16,8 @@ definition {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test AddAMIWithHighDensityResolution {
 		property portal.acceptance = "true";
@@ -101,6 +103,8 @@ definition {
 		AdaptiveMedia.viewImageVariantDescription(description = "1234567890!@#$%^&amp;*()~`");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test AddAndUpdateAMIWithImagesInDM {
 		ProductMenu.gotoPortlet(
@@ -349,6 +353,8 @@ definition {
 		AdaptiveMedia.viewNoImageResolution(imageName = "Small Image Variant");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test EditAndDeleteDisabledAMI {
 		ProductMenu.gotoPortlet(
@@ -390,6 +396,8 @@ definition {
 		AdaptiveMedia.deleteImageResolution(imageName = "Large Image Variant");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test EditImageResolutionWithAdaptedImages {
 		ProductMenu.gotoPortlet(
@@ -468,6 +476,8 @@ definition {
 		AdaptiveMedia.viewNoImageResolution(imageName = "testResolutionEdit");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test EditImageResolutionWithoutAdaptedImage {
 		ProductMenu.gotoPortlet(
@@ -677,6 +687,8 @@ definition {
 		AdaptiveMedia.viewNoImageResolution(imageName = "This should not appear on new virtual instance");
 	}
 
+	@description = "This will be ignored until LPS-118257 is fixed."
+	@ignore = "true"
 	@priority = "5"
 	test ViewNumberOfAdaptedImagesAfterAdaptingImages {
 		ProductMenu.gotoPortlet(

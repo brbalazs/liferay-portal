@@ -2724,7 +2724,8 @@ definition {
 		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
 	}
 
-	@description = "This is a use case for LPS-101289."
+	@description = "This will be ignored until LPS-101289 is fixed. This is a use case for LPS-101289."
+	@ignore = "true"
 	@priority = "4"
 	test ViewCommentAfterEditingViaStage {
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -3001,6 +3002,8 @@ definition {
 		);
 	}
 
+	@description = "This will be ignored until LPS-125161 is fixed."
+	@ignore = "true"
 	@priority = "4"
 	test ViewSourceContainsNoGarbageData {
 		property testray.component.names = "Web Content Administration";
