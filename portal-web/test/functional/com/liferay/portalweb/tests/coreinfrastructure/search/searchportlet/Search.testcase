@@ -1746,6 +1746,19 @@ definition {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		WebContentTemplates.addCP(
+			structureName = "Test Structure",
+			templateDescription = "Template Description",
+			templateFieldNames = "Text",
+			templateName = "Template Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
 			portlet = "Web Content"
 		);
 
