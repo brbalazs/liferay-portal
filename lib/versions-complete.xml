@@ -90,12 +90,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.analytics.message.sender.impl.jar!httpclient.jar</file-name>
-				<version>4.5.3</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
@@ -126,12 +126,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.analytics.settings.web.jar!httpclient.jar</file-name>
-				<version>4.5.3</version>
-				<project-name>HttpComponents Apache HttpClient</project-name>
+				<version>4.5.13</version>
+				<project-name>Apache HttpClient</project-name>
 				<project-url>http://hc.apache.org/httpcomponents-client</project-url>
 				<licenses>
 					<license>
-						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
