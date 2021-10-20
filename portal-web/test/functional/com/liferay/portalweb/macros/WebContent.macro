@@ -827,6 +827,17 @@ definition {
 			value1 = "${webContentTitle} is not approved.");
 	}
 
+	macro clickChangeDefaultLanguage {
+		var menuItem = "${menuItem}";
+
+		Click(locator1 = "Button#CHANGE");
+
+		AssertClick(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM",
+			value1 = "${menuItem}");
+	}
+
 	macro copyCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Copy",
