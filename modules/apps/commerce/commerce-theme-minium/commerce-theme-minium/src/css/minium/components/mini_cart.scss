@@ -2,7 +2,7 @@
 	right: -#{$frame-size};
 	top: $frame-size;
 
-	.signed-in &.is-open {
+	.has-control-menu &.is-open {
 		height: calc(100vh - #{$frame-size-small});
 	}
 
