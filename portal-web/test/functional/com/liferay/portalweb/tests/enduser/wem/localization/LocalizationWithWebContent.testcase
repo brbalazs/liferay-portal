@@ -202,4 +202,67 @@ definition {
 		PortletEntry.viewLocale(locale = "es-ES");
 	}
 
+	@description = "This will be ignored until LPS-141007 is fixed. This is a use case for LPS-141007"
+	@ignore = "true"
+	@priority = "5"
+	test ViewChangeWebContentLanguage {
+		task ("Check Changeable Default Language setting") {
+			ProductMenu.gotoPortlet(
+				category = "Configuration",
+				panel = "Control Panel",
+				portlet = "System Settings");
+
+			SystemSettings.gotoConfiguration(
+				configurationCategory = "Web Content",
+				configurationName = "Administration",
+				configurationScope = "System Scope");
+
+			FormFields.enableCheckbox(fieldName = "Changeable Default Language");
+
+			SystemSettings.saveConfiguration();
+		}
+
+		task ("Go To Test Site And Create a Web Content") {
+			ProductMenu.gotoPortlet(
+				category = "Content",
+				panel = "Site Administration",
+				portlet = "Web Content");
+
+			JSONWebcontent.addWebContent(
+				content = "WC WebContent Content",
+				groupName = "Test Site Name",
+				title = "WC WebContent Title");
+		}
+
+		task ("Set Web Content with two translations") {
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+			WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+			PortletEntry.changeLocale(locale = "es-ES");
+
+			WebContent.addCP(
+				webContentContent = "WC Contenido de la web Contenido",
+				webContentTitle = "WC Contenido de la web Titulo");
+
+			PortletEntry.publish();
+		}
+
+		task ("View Web Content with two translations") {
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+			WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+			WebContent.clickChangeDefaultLanguage(menuItem = "es_ES");
+
+			WebContent.viewCP(
+				webContentContent = "WC Contenido de la web Contenido",
+				webContentTitle = "WC Contenido de la web Titulo");
+		}
+	}
+
 }
