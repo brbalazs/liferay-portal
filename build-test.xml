@@ -10199,6 +10199,7 @@ session.cookie.use.full.hostname=true
 			<then>
 				<echo append="true" file="${test.ext.properties.file}">
 					default.portal.url=${test.url}
+					portal.hostname=${env.HOSTNAME}
 				</echo>
 			</then>
 			<elseif>
@@ -10208,12 +10209,14 @@ session.cookie.use.full.hostname=true
 
 					<echo append="true" file="${test.ext.properties.file}">
 						default.portal.url=${operating.system.host.alias}:8080
+						portal.hostname=${operating.system.host.alias}
 					</echo>
 				</then>
 			</elseif>
 			<else>
 				<echo append="true" file="${test.ext.properties.file}">
 					default.portal.url=http://localhost:8080
+					portal.hostname=localhost
 				</echo>
 			</else>
 		</if>
