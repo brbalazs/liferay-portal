@@ -767,4 +767,25 @@ definition {
 
 		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
 	}
+
+	@description = "This is a use case for LPS-90727."
+	@priority = "5"
+	test AssertXSSVulnerabilityInControlPanel {
+		var portalURL = PropsUtil.get("portal.url");
+
+		ProductMenu.gotoPortlet(
+			category = "My Account",
+			panel = "User",
+			portlet = "Account Settings"
+		);
+
+		AssertElementPresent(locator1 = "Button#SAVE");
+
+		var currentURL = Navigator.getCurrentURL();
+		var p_p_authParam = StringUtil.extractLast("${currentURL}", "=");
+
+		Navigator.openSpecificURL(url = "${portalURL}/en/group/control_panel/manage;'*prompt()*'?p_p_id=com_liferay_my_account_web_portlet_MyAccountPortlet&p_p_lifecycle=0&p_p_state=maximized&p_p_auth=${p_p_authParam}");
+
+		AssertAlertNotPresent();
+	}
 }
