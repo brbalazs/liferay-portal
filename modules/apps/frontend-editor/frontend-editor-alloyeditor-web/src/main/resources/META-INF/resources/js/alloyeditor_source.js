@@ -216,7 +216,7 @@ AUI.add(
 												{
 													boundingBox: dialog.getStdModNode(A.WidgetStdMod.BODY).appendChild('<div></div>'),
 													dataProcessor: host.getNativeEditor().dataProcessor,
-													previewCssClass: 'alloy-editor alloy-editor-placeholder',
+													previewCssClass: 'alloy-editor',
 													value: host.getHTML()
 												}
 											).render();

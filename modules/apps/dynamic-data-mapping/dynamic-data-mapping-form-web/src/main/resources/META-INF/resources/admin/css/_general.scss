@@ -184,7 +184,7 @@ td.lfr-name-column {
 
 .form-builder-sidebar,
 .portlet-forms {
-	.form-group .alloy-editor-container.input-group .alloy-editor-placeholder.ae-placeholder {
+	.form-group .alloy-editor-container.input-group .ae-placeholder {
 		border-left: 0;
 		padding-left: 0;
 		width: inherit;
@@ -267,7 +267,8 @@ td.lfr-name-column {
 			content: attr(data-placeholder);
 		}
 
-		.alloy-editor-container .alloy-editor.alloy-editor-placeholder.ae-placeholder:not(:focus):not(.form-control),
+		.alloy-editor-container
+			.alloy-editor.alloy-editor-placeholder.ae-placeholder:not(:focus):not(.form-control),
 		.ddm-form-name,
 		.ddm-form-description {
 			border-width: 0;
@@ -283,13 +284,13 @@ td.lfr-name-column {
 			}
 		}
 
-		.alloy-editor.alloy-editor-placeholder {
+		.alloy-editor ~ .alloy-editor-placeholder {
 			color: #000;
 			font-weight: 500;
 		}
 
 		.alloy-editor.alloy-editor-placeholder:empty:not(:focus) {
-			color: #C0CCD3;
+			color: #c0ccd3;
 		}
 
 		.ddm-form-name {

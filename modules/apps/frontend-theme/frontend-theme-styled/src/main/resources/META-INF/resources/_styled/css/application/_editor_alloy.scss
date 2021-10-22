@@ -1,16 +1,18 @@
 .alloy-editor-container {
 	.alloy-editor {
-		&.alloy-editor-placeholder {
-			color: #2B4259;
+		&.ae-placeholder {
+			~ .alloy-editor-placeholder {
+				color: #2B4259;
 
-			&.ae-placeholder:not(:focus) {
-				background: transparent;
-				border-left-color: #DBDDE1;
-				color: #B0B4BB;
-			}
+				&:not(:focus) {
+					background: transparent;
+					border-left-color: #DBDDE1;
+					color: #B0B4BB;
+				}
 
-			&.readonly {
-				color: #CCC;
+				&.readonly ~ .alloy-editor-placeholder {
+					color: #CCC;
+				}
 			}
 		}
 
@@ -22,7 +24,7 @@
 	}
 }
 
-.has-error .alloy-editor-container .alloy-editor.alloy-editor-placeholder {
+.has-error .alloy-editor-container .alloy-editor {
 	&.ae-placeholder:not(:focus) {
 		border-left-color: #CC6677;
 	}

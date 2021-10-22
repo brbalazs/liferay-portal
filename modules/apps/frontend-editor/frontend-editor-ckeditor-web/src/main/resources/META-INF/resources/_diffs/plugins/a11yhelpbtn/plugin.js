@@ -5,12 +5,13 @@
 		pluginName,
 		{
 			init: function(editor) {
+				var helpText = CKEDITOR.env.mac ? ' Option+0' : ' Alt+0';
 				if (editor.ui.addButton) {
 					editor.ui.addButton(
 						'A11YBtn',
 						{
 							command: 'a11yHelp',
-							label: Liferay.Language.get('action.HELP')
+							label: Liferay.Language.get('action.HELP') + helpText
 						}
 					);
 				}
