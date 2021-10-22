@@ -39,7 +39,7 @@ const CSVPreviewModal: React.FC<ICSVPreviewModalProps> = ({
 					groupId,
 					id
 				})
-				.then(data => setData(data))
+				.then(setData)
 				.catch(noop);
 		};
 
