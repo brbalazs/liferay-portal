@@ -91,8 +91,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.File;
 
-import java.net.URI;
-
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
@@ -1313,10 +1311,8 @@ public class DataSourceController extends BaseFaroController {
 		properties.put(
 			"token", _tokenManager.getToken(dataSourceId, faroProjectId));
 
-		URI requestURI = uriInfo.getRequestUri();
-
 		String url = StringUtil.replaceFirst(
-			requestURI.toString(), "/token", "/connect");
+			String.valueOf(uriInfo.getRequestUri()), "/token", "/connect");
 
 		if (dataSourceId != null) {
 			url = StringUtil.replaceLast(
