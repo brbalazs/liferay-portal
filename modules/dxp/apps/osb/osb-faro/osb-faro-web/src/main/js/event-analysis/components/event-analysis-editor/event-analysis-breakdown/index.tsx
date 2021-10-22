@@ -150,7 +150,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		setMaxBreakdownLength(maxCharLengthPerColumn);
 	};
 
-	const {clientWidth} = tableRef.current || {};
+	const {clientWidth} = tableRef?.current || {};
 
 	useEffect(() => {
 		const handleResize = debounce(
