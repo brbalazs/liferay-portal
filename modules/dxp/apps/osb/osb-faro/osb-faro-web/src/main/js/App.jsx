@@ -18,8 +18,10 @@ import {ClayIconSpriteContext} from '@clayui/icon';
 import {ClayLinkContext} from '@clayui/link';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect, Provider} from 'react-redux';
+import {hasChanges} from 'shared/util/react';
 import {
 	Link,
+	matchPath,
 	Route,
 	BrowserRouter as Router,
 	Switch,
@@ -66,15 +68,106 @@ const OAuthReceive = lazy(() =>
 const SETTINGS_PATH_REGEX = pathToRegexp(Routes.SETTINGS, null, {end: false});
 
 @withRouter
-@connect(null)
+@connect((store, {location: {pathname}}) => {
+	const matchingPath = matchPath(pathname, {
+		path: Routes.WORKSPACE_WITH_ID
+	});
+
+	const currentUserId = store.getIn(['currentUser', 'data']);
+	const currentUser = store.getIn(['users', currentUserId, 'data']);
+
+	if (matchingPath) {
+		const {
+			params: {groupId}
+		} = matchingPath;
+
+		return {
+			currentUser,
+			project: store.getIn(['projects', groupId, 'data'])
+		};
+	}
+
+	return {currentUser};
+})
 class RoutesContainer extends React.Component {
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired
 	};
 
 	componentDidUpdate(prevProps) {
-		if (this.props.location !== prevProps.location) {
+		const {currentUser, project} = this.props;
+
+		const pendoFn = pendo?.isReady?.()
+			? pendo?.identify
+			: pendo?.initialize;
+
+		if (hasChanges(prevProps, this.props, 'location')) {
 			this.onRouteChanged();
+		}
+
+		let account;
+		let visitor;
+
+		if (hasChanges(prevProps, this.props, 'currentUser', 'project')) {
+			if (currentUser) {
+				// We use userId instead of id because userId persists across workspaces.
+				const {
+					emailAddress,
+					name: userName,
+					roleName,
+					userId
+				} = currentUser;
+
+				visitor = {
+					emailAddress,
+					id: userId,
+					name: userName,
+					roleName
+				};
+
+				analytics?.identify(userId, null, {ip: '0'});
+			}
+
+			if (project) {
+				const {
+					corpProjectName,
+					corpProjectUuid,
+					faroSubscription: faroSubscriptionIMap,
+					groupId,
+					name: workspaceName,
+					ownerEmailAddress: workspaceOwnerEmailAddress,
+					serverLocation
+				} = project;
+
+				const subscriptionName = faroSubscriptionIMap.get('name');
+
+				account = {
+					corpProjectNameId: `${corpProjectName}: ${corpProjectUuid}`,
+					id: groupId,
+					serverLocation,
+					subscriptionName,
+					workspaceName,
+					workspaceOwnerEmailAddress
+				};
+
+				analytics?.group(
+					groupId,
+					{
+						groupId,
+						serverLocation,
+						subscriptionName,
+						workspaceName
+					},
+					{ip: '0'}
+				);
+			}
+
+			if (account || visitor) {
+				pendoFn({
+					account,
+					visitor
+				});
+			}
 		}
 	}
 

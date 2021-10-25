@@ -28,64 +28,37 @@ const Settings = lazy(
 interface IWorkspaceLayerProps {
 	close: Modal.close;
 	currentUserId: string;
-	faroSubscriptionIMap: Map<string, any>;
 	groupId: string;
 	open: Modal.open;
 	serverLocation: string;
+	subscriptionName: string;
 	workspaceName: string;
 }
 
 const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	close,
 	currentUserId,
-	faroSubscriptionIMap,
 	groupId,
 	open,
 	serverLocation,
+	subscriptionName,
 	workspaceName
 }) => {
 	useEffect(() => {
-		if (currentUserId && currentUserId !== '0' && workspaceName) {
-			analytics.identify(currentUserId, null, {ip: '0'});
-
-			pendo?.initialize({
-				account: {
-					groupId,
-					id: groupId,
-					name,
-					serverLocation,
-					subscriptionName: faroSubscriptionIMap.get('name'),
-					workspaceName: name
-				},
-				visitor: {
-					id: currentUserId
-				}
-			});
-
-			analytics?.group(
-				groupId,
-				{
-					groupId,
-					serverLocation,
-					subscriptionName: faroSubscriptionIMap.get('name'),
-					workspaceName: name
-				},
-				{ip: '0'}
-			);
-
+		if (groupId !== '0' && workspaceName) {
 			analytics?.track(
 				'User accessed workspace',
 				{
 					groupId,
 					serverLocation,
-					subscriptionName: faroSubscriptionIMap.get('name'),
-					userId: String(currentUserId),
+					subscriptionName,
+					userId: currentUserId,
 					workspaceName
 				},
 				{ip: '0'}
 			);
 		}
-	}, [currentUserId, workspaceName]);
+	}, [groupId, workspaceName]);
 
 	useModalNotifications(close, groupId, open);
 
@@ -100,7 +73,7 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	);
 };
 
-export default compose(
+export default compose<any>(
 	connect(
 		(store, {location: {pathname}}) => {
 			const {
@@ -113,11 +86,13 @@ export default compose(
 				store.getIn(['projects', groupId, 'data'], new Project()) ||
 				new Project();
 
+			const faroSubscriptionIMap = project.get('faroSubscription');
+
 			return {
-				currentUserId: store.getIn(['currentUser', 'data']),
-				faroSubscriptionIMap: project.get('faroSubscription'),
+				currentUserId: String(store.getIn(['currentUser', 'data'])),
 				groupId,
 				serverLocation: project.get('serverLocation'),
+				subscriptionName: faroSubscriptionIMap.get('name'),
 				workspaceName: project.get('name')
 			};
 		},
