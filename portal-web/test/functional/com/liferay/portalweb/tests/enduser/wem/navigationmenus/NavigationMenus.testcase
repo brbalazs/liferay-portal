@@ -283,6 +283,66 @@ definition {
 		LexiconEntry.viewEntryName(rowEntry = "Navigation Menu Name 1 Edit");
 	}
 
+	@description = "LPS-97049 - View default configuration for Navigation Menu widgets in a fragment."
+	@priority = "5"
+	test ViewDefaultConfigurationForNavigationMenu {
+		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
+
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Page Fragments");
+
+		FragmentsAdmin.addCollection(collectionName = "Collection Name");
+
+		Navigator.gotoNavNested(navNested = "Collection Name");
+
+		FragmentsAdmin.addFragment(fragmentName = "Fragment Name");
+
+		var htmlSnippet = '''<lfr-widget-nav></lfr-widget-nav>''';
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#HTML_EDITOR",
+			value1 = "${htmlSnippet}");
+
+		PortletEntry.publish();
+
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPrivatePage(pageName = "Private Page");
+
+		ContentPages.addPage(pageName = "Public Page");
+
+		PageEditor.addFragment(
+			collectionName = "Collection Name",
+			fragmentName = "Fragment Name");
+
+		AssertElementPresent(
+			key_fragmentName = "Public Page",
+			locator1 = "Fragment#FRAGMENT_HEADER");
+
+		MouseOver(
+			key_fragmentName = "Public Page",
+			locator1 = "Fragment#FRAGMENT_HEADER");
+
+		Click.clickNoMouseOver(
+			key_text = "Configure",
+			locator1 = "Button#ANY");
+
+		IFrame.selectModalFrame();
+
+		AssertElementPresent(
+			locator1 = "NavigationMenusWidget#SELECT_NAVIGATION",
+			value1 = "Public Pages Hierarchy");
+
+		AssertTextNotEquals(
+			locator1 = "NavigationMenusWidget#SELECT_NAVIGATION",
+			value1 = "Private Pages Hierarchy");
+	}
+
 	@description = "This is a use case for LPS-67191."
 	@priority = "5"
 	test ViewNavigationMenuPropertiesSidebar {
