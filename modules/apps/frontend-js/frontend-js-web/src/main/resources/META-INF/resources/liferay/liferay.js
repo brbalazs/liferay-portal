@@ -113,8 +113,14 @@ Liferay = window.Liferay || {};
 	$(document).on('shown.bs.dropdown', () => {
 		const dropdown = document.querySelector('.dropdown-menu.show');
 
-		if (dropdown) {
-			const {x,y} = dropdown.getBoundingClientRect();
+		const parent = dropdown.parentElement;
+
+		if (
+			dropdown &&
+			(parent.classList.contains('dropdown-action') ||
+				parent.nodeName === 'BODY')
+		) {
+			const {x, y} = dropdown.getBoundingClientRect();
 
 			dropdown.style.left = x + 'px';
 			dropdown.style.top = y + 'px';
