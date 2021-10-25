@@ -1682,39 +1682,48 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	protected void validateVirtualHost(String webId, String virtualHostname)
 		throws PortalException {
 
-		if (Validator.isNull(virtualHostname)) {
-			throw new CompanyVirtualHostException();
-		}
-		else if (virtualHostname.equals(_DEFAULT_VIRTUAL_HOST) &&
-				 !webId.equals(PropsValues.COMPANY_DEFAULT_WEB_ID)) {
+		try {
+			if (Validator.isNull(virtualHostname)) {
+				throw new CompanyVirtualHostException();
+			}
+			else if (virtualHostname.equals(_DEFAULT_VIRTUAL_HOST) &&
+					 !webId.equals(PropsValues.COMPANY_DEFAULT_WEB_ID)) {
 
-			throw new CompanyVirtualHostException();
-		}
-		else if (!Validator.isDomain(virtualHostname)) {
-			throw new CompanyVirtualHostException();
-		}
-		else {
-			try {
-				VirtualHost virtualHost = virtualHostPersistence.findByHostname(
-					virtualHostname);
+				throw new CompanyVirtualHostException();
+			}
+			else if (!Validator.isDomain(virtualHostname)) {
+				throw new CompanyVirtualHostException();
+			}
+			else {
+				try {
+					VirtualHost virtualHost =
+						virtualHostPersistence.findByHostname(virtualHostname);
 
-				long companyId = virtualHost.getCompanyId();
+					long companyId = virtualHost.getCompanyId();
 
-				Company virtualHostnameCompany =
-					companyPersistence.findByPrimaryKey(companyId);
+					Company virtualHostnameCompany =
+						companyPersistence.findByPrimaryKey(companyId);
 
-				if (!webId.equals(virtualHostnameCompany.getWebId())) {
-					throw new CompanyVirtualHostException();
+					if (!webId.equals(virtualHostnameCompany.getWebId())) {
+						throw new CompanyVirtualHostException();
+					}
+				}
+				catch (NoSuchVirtualHostException nsvhe) {
+
+					// LPS-52675
+
+					if (_log.isDebugEnabled()) {
+						_log.debug(nsvhe, nsvhe);
+					}
 				}
 			}
-			catch (NoSuchVirtualHostException nsvhe) {
-
-				// LPS-52675
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(nsvhe, nsvhe);
-				}
+		}
+		catch (CompanyVirtualHostException companyVirtualHostException) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(companyVirtualHostException.getMessage());
 			}
+
+			throw companyVirtualHostException;
 		}
 	}
 
