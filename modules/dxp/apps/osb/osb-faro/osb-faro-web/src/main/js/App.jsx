@@ -97,9 +97,10 @@ class RoutesContainer extends React.Component {
 	componentDidUpdate(prevProps) {
 		const {currentUser, project} = this.props;
 
-		const pendoFn = pendo?.isReady?.()
-			? pendo?.identify
-			: pendo?.initialize;
+		const pendoFn =
+			pendo && pendo.isReady && pendo.isReady()
+				? pendo.identify
+				: pendo.initialize;
 
 		if (hasChanges(prevProps, this.props, 'location')) {
 			this.onRouteChanged();
@@ -125,7 +126,7 @@ class RoutesContainer extends React.Component {
 					roleName
 				};
 
-				analytics?.identify(userId, null, {ip: '0'});
+				analytics && analytics.identify(userId, null, {ip: '0'});
 			}
 
 			if (project) {
@@ -150,23 +151,25 @@ class RoutesContainer extends React.Component {
 					workspaceOwnerEmailAddress
 				};
 
-				analytics?.group(
-					groupId,
-					{
+				analytics &&
+					analytics.group(
 						groupId,
-						serverLocation,
-						subscriptionName,
-						workspaceName
-					},
-					{ip: '0'}
-				);
+						{
+							groupId,
+							serverLocation,
+							subscriptionName,
+							workspaceName
+						},
+						{ip: '0'}
+					);
 			}
 
 			if (account || visitor) {
-				pendoFn({
-					account,
-					visitor
-				});
+				pendoFn &&
+					pendoFn({
+						account,
+						visitor
+					});
 			}
 		}
 	}
