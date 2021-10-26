@@ -63,6 +63,12 @@ definition {
 			pageName = "Test Page",
 			siteName = "Site Name");
 
+		Portlet.addPG(portletName = "Blogs");
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page",
+			siteName = "Site Name");
+
 		BlogsEntry.moveToRecycleBinPG(
 			assetType = "Blogs Entry",
 			entryContent = "Blogs Entry Content",
@@ -268,6 +274,12 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title",
 			groupName = "Site Name");
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Blogs");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Page",

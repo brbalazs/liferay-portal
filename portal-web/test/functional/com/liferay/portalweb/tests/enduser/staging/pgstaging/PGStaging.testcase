@@ -236,19 +236,17 @@ definition {
 
 	@priority = "3"
 	test AssertEditWebContentStaging {
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page",
-			widgetName = "Asset Publisher");
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page",
-			widgetName = "Web Content Display");
+		Portlet.addPG(portletName = "Asset Publisher");
 
 		Navigator.gotoSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Web Content Display");
 
 		WebContent.addPGViaWCD(
 			webContentContent = "Web Content Content",

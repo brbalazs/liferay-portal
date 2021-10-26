@@ -115,11 +115,16 @@ definition {
 			password = "test",
 			userEmailAddress = "userea@liferay.com");
 
-		JSONBlog.addEntry(
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Blogs");
+
+		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title",
-			password = "test",
-			userEmailAddress = "userea@liferay.com");
+			entryTitle = "Blogs Entry Title");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "test@liferay.com",
@@ -289,8 +294,14 @@ definition {
 			dmDocumentFile = "Document_1.txt",
 			dmDocumentTitle = "DM Document Title");
 
-		JSONMBMessage.addMessage(
-			groupName = "Guest",
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Message Boards");
+
+		MessageboardsThread.addCP(
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 

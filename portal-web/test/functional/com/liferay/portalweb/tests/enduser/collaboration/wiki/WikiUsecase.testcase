@@ -14,15 +14,24 @@ definition {
 
 		User.firstLoginPG();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Wiki Test Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Wiki Test Page",
-			widgetName = "Wiki");
+		SitePages.addPublicPage(
+			pageName = "Wiki Test Page",
+			sitePageType = "Widget Page");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Wiki Test Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "Wiki Test Page");
+
+		Portlet.addPG(portletName = "Wiki");
 	}
 
 	tearDown {

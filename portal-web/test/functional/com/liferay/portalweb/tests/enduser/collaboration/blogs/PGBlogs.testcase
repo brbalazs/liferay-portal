@@ -1168,7 +1168,6 @@ definition {
 
 	@priority = "4"
 	test UserFlagsEntryAndAdminViewsNotificationInMockMock {
-		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.smtp.server.enabled = "true";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
@@ -1179,11 +1178,6 @@ definition {
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		JSONUser.setFirstPassword(
-			agreeToTermsAndAnswerReminderQuery = "true",
-			requireReset = "false",
-			userEmailAddress = "userea@liferay.com");
-
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -1193,11 +1187,11 @@ definition {
 			roleTitle = "Administrator",
 			userScreenName = "usersn");
 
-		JSONBlog.addEntry(
+		Navigator.gotoPage(pageName = "Blogs Page");
+
+		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
-
-		Navigator.gotoPage(pageName = "Blogs Page");
 
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",

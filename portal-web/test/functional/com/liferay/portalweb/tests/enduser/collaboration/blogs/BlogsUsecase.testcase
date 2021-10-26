@@ -798,27 +798,21 @@ definition {
 
 		Portlet.deletePG(portletName = "Blogs");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Blogs Page",
-			widgetName = "Asset Publisher");
-
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Blogs Page",
-			widgetName = "Blogs");
-
-		JSONBlog.addEntry(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title",
-			groupName = "Guest");
-
-		JSONBlog.addEntry(
-			entryContent = "Blogs Entry Content 2",
-			entryTitle = "Blogs Entry Title 2",
-			groupName = "Guest");
+		Portlet.addPG(portletName = "Asset Publisher");
 
 		Navigator.gotoPage(pageName = "Blogs Page");
+
+		Portlet.addPG(portletName = "Blogs");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		Refresh();
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content 2",
+			entryTitle = "Blogs Entry Title 2");
 
 		BlogsEntry.removeViewPermissionsPG(
 			entryTitle = "Blogs Entry Title 2",
@@ -981,15 +975,24 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Recent Bloggers Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Recent Bloggers Page",
-			widgetName = "Recent Bloggers");
+		SitePages.addPublicPage(
+			pageName = "Recent Bloggers Page",
+			sitePageType = "Widget Page");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Recent Bloggers Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "Recent Bloggers Page");
+
+		Portlet.addPG(portletName = "Recent Bloggers");
 
 		var key_entryAuthor = "Test Test";
 
@@ -1629,12 +1632,9 @@ definition {
 
 	@priority = "4"
 	test ViewParentOrganizationViaSelectOrganizationInBlogsConfiguration {
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Blogs Page",
-			widgetName = "Blogs Aggregator");
-
 		Navigator.gotoPage(pageName = "Blogs Page");
+
+		Portlet.addPG(portletName = "Blogs Aggregator");
 
 		Portlet.gotoPortletOptions(
 			portletName = "${portletName}",

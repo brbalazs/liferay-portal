@@ -14,17 +14,26 @@ definition {
 
 		User.firstLoginPG();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Calendar Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Calendar Page",
-			widgetName = "Calendar");
+		SitePages.addPublicPage(
+			pageName = "Calendar Page",
+			sitePageType = "Widget Page");
+
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Calendar Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
+
+		Portlet.addPG(
+			pageName = "Calendar Page",
+			portletName = "Calendar");
 	}
 
 	tearDown {

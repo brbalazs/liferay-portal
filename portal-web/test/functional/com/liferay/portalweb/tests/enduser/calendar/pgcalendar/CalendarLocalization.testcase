@@ -53,16 +53,11 @@ definition {
 	test EditLanguageSelectorAndViewEvent {
 		property test.name.skip.portal.instance = "CalendarLocalization#EditLanguageSelectorAndViewEvent";
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Calendar Page");
-
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Calendar Page",
-			widgetName = "Language Selector");
-
 		Navigator.gotoPage(pageName = "Calendar Page");
+
+		Portlet.addPG(
+			pageName = "Calendar Page",
+			portletName = "Language");
 
 		LanguagePortlet.selectLanguagePG(
 			locale = "es_ES",

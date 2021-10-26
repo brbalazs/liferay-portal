@@ -55,13 +55,12 @@ definition {
 			pageTemplateActive = "Active",
 			pageTemplateName = "Page Template Name");
 
-		JSONGroup.addGroup(groupName = "Site Name");
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Site Page Name");
-
-		Navigator.openSiteURL(siteName = "Site Name");
+		Site.addBlankCP(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

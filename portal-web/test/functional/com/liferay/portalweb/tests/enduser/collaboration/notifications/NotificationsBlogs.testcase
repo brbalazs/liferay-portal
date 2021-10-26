@@ -331,7 +331,7 @@ definition {
 	@description = "This will be ignored until LPS-103502 is backported on BPR-46081. This test covers LPS-103502."
 	@ignore = "true"
 	@priority = "3"
-	test ViewWebsiteNotificationdForMention {
+	test ViewWebsiteNotificationForMention {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
@@ -417,7 +417,9 @@ definition {
 			password = "test",
 			userEmailAddress = "userea@liferay.com");
 
-		JSONBlog.addEntry(
+		Navigator.gotoPage(pageName = "Blogs Page");
+
+		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 

@@ -2612,14 +2612,11 @@ definition {
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page",
-			widgetName = "Blogs");
-
 		Navigator.gotoSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Blogs");
 
 		Staging.gotoPublishToLive();
 
@@ -3214,10 +3211,11 @@ definition {
 			remoteStaging = "true",
 			siteName = "Site Name");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page",
-			widgetName = "Asset Publisher");
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Asset Publisher");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -4654,10 +4652,20 @@ definition {
 
 		ProductMenu.gotoStagingSite();
 
-		JSONWebcontent.addWebContent(
-			content = "Web Content Content",
-			groupName = "Site Name",
-			title = "Web Content Title");
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+
+		PortletEntry.publish();
+
+		WebContent.viewTitle(webContentTitle = "Web Content Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

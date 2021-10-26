@@ -304,11 +304,12 @@ definition {
 			userEmailAddress = "${userEmailAddress}",
 			userScreenName = "${userScreenName}");
 
-		JSONGroup.addGroup(groupName = "${siteName}");
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
 
-		JSONLayout.addPublicLayout(
-			groupName = "${siteName}",
-			layoutName = "${pageName}");
+		Site.addBlankCP(siteName = "${siteName}");
 
 		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
 
@@ -322,6 +323,13 @@ definition {
 			userLastName = "${userLastName}",
 			userMiddleName = "${userMiddleName}",
 			userScreenName = "${userScreenName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
 
 		Navigator.gotoSitePage(
 			pageName = "${pageName}",
@@ -431,13 +439,12 @@ definition {
 			userEmailAddress = "${userEmailAddress}",
 			userScreenName = "${userScreenName}");
 
-		JSONGroup.addGroup(groupName = "${siteName}");
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
 
-		JSONLayout.addPublicLayout(
-			groupName = "${siteName}",
-			layoutName = "${pageName}");
-
-		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+		Site.addBlankCP(siteName = "${siteName}");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -449,6 +456,13 @@ definition {
 			userLastName = "${userLastName}",
 			userMiddleName = "${userMiddleName}",
 			userScreenName = "${userScreenName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
 
 		Navigator.gotoSitePage(
 			pageName = "${pageName}",
@@ -517,13 +531,12 @@ definition {
 			userEmailAddress = "${userEmailAddress}",
 			userScreenName = "${userScreenName}");
 
-		JSONGroup.addGroup(groupName = "${siteName}");
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
 
-		JSONLayout.addPublicLayout(
-			groupName = "${siteName}",
-			layoutName = "${pageName}");
-
-		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+		Site.addBlankCP(siteName = "${siteName}");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -554,6 +567,13 @@ definition {
 			userLastName = "${userLastName}",
 			userNameIsNotFound = "${userNameIsNotFound}",
 			userScreenName = "${userScreenName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
 
 		Navigator.gotoSitePage(
 			pageName = "${pageName}",

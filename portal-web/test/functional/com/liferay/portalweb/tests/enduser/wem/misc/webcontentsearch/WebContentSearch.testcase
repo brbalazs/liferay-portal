@@ -16,17 +16,16 @@ definition {
 
 		User.firstLoginPG();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Web Content Search Page");
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
 
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Guest",
-			layoutName = "Web Content Search Page",
-			widgetName = "Web Content Search");
+		SitePages.addPublicPage(pageName = "Web Content Search Page");
 
 		Navigator.gotoPage(pageName = "Web Content Search Page");
+
+		Portlet.addPG(portletName = "Web Content Search");
 	}
 
 	tearDown {
