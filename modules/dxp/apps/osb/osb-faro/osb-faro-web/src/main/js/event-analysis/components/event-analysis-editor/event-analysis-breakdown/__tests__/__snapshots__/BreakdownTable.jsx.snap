@@ -76,7 +76,13 @@ exports[`BreakdownTable render 1`] = `
                       <th
                         class="table-head-title table-column-event-name"
                       >
-                        Event Name
+                        <span
+                          class="text-truncate"
+                          data-tooltip="false"
+                          title=""
+                        >
+                          Event Name
+                        </span>
                       </th>
                       <th
                         class="table-head-title"
@@ -90,7 +96,13 @@ exports[`BreakdownTable render 1`] = `
                       <td
                         class="table-column-event-name"
                       >
-                        View Article
+                        <span
+                          class="text-truncate"
+                          data-tooltip="false"
+                          title=""
+                        >
+                          View Article
+                        </span>
                       </td>
                       <td>
                         <div
@@ -114,7 +126,13 @@ exports[`BreakdownTable render 1`] = `
                       <td
                         class="table-column-event-name"
                       >
-                        Previous Value
+                        <span
+                          class="text-truncate"
+                          data-tooltip="false"
+                          title=""
+                        >
+                          Previous Value
+                        </span>
                       </td>
                       <td>
                         <div
@@ -267,7 +285,13 @@ exports[`BreakdownTable render with single event 1`] = `
             <th
               class="table-head-title table-column-event-name"
             >
-              Event Name
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                Event Name
+              </span>
             </th>
             <th
               class="table-head-title"
@@ -281,7 +305,13 @@ exports[`BreakdownTable render with single event 1`] = `
             <td
               class="table-column-event-name"
             >
-              View Article
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                View Article
+              </span>
             </td>
             <td>
               <div
@@ -305,7 +335,13 @@ exports[`BreakdownTable render with single event 1`] = `
             <td
               class="table-column-event-name"
             >
-              Previous Value
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                Previous Value
+              </span>
             </td>
             <td>
               <div

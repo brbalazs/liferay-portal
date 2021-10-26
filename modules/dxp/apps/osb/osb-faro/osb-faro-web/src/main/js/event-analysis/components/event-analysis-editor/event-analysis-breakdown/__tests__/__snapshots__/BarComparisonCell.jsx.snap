@@ -13,7 +13,13 @@ exports[`BarComparisonCell render 1`] = `
           <th
             class="table-head-title table-column-event-name"
           >
-            Event Name
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Event Name
+            </span>
           </th>
           <th
             class="table-head-title"
@@ -27,7 +33,13 @@ exports[`BarComparisonCell render 1`] = `
           <td
             class="table-column-event-name"
           >
-            View Article
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              View Article
+            </span>
           </td>
           <td>
             <div
@@ -66,7 +78,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <th
             class="table-head-title table-column-event-name"
           >
-            View Article
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              View Article
+            </span>
           </th>
           <th
             class="table-head-title"
@@ -80,7 +98,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <td
             class="table-column-event-name"
           >
-            All Individuals
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              All Individuals
+            </span>
           </td>
           <td>
             <div
@@ -104,7 +128,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <td
             class="table-column-event-name"
           >
-            Segmented
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Segmented
+            </span>
           </td>
           <td>
             <div
@@ -134,7 +164,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <th
             class="table-head-title table-column-event-name"
           >
-            View Article
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              View Article
+            </span>
           </th>
           <th
             class="table-head-title"
@@ -148,7 +184,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <td
             class="table-column-event-name"
           >
-            All Individuals
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              All Individuals
+            </span>
           </td>
           <td>
             <div
@@ -172,7 +214,13 @@ exports[`BarComparisonCell render two tables when comparing segment and event 1`
           <td
             class="table-column-event-name"
           >
-            Segmented
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Segmented
+            </span>
           </td>
           <td>
             <div

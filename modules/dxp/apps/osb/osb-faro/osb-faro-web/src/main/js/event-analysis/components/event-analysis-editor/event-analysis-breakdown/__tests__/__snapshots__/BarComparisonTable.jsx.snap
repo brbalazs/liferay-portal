@@ -10,7 +10,13 @@ exports[`BarComparisonTable render 1`] = `
         <th
           class="table-head-title table-column-event-name"
         >
-          Event Name
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Event Name
+          </span>
         </th>
         <th
           class="table-head-title"
@@ -24,7 +30,13 @@ exports[`BarComparisonTable render 1`] = `
         <td
           class="table-column-event-name"
         >
-          Item 0
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Item 0
+          </span>
         </td>
         <td>
           <div
@@ -59,7 +71,13 @@ exports[`BarComparisonTable render comparing previous 1`] = `
         <th
           class="table-head-title table-column-event-name"
         >
-          Event Name
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Event Name
+          </span>
         </th>
         <th
           class="table-head-title"
@@ -73,7 +91,13 @@ exports[`BarComparisonTable render comparing previous 1`] = `
         <td
           class="table-column-event-name"
         >
-          Item 0
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Item 0
+          </span>
         </td>
         <td>
           <div
@@ -97,7 +121,13 @@ exports[`BarComparisonTable render comparing previous 1`] = `
         <td
           class="table-column-event-name"
         >
-          Previous Value
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Previous Value
+          </span>
         </td>
         <td>
           <div
