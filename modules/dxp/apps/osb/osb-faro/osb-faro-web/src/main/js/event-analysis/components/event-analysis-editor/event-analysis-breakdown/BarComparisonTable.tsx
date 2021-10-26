@@ -1,6 +1,7 @@
 import getCN from 'classnames';
 import MetricBar, {Displays, Sizes} from 'shared/components/MetricBar';
 import React from 'react';
+import TextTruncate from 'shared/components/TextTruncate';
 import {Event} from 'event-analysis/utils/types';
 
 export type BarComparisonTableItems = {
@@ -28,12 +29,17 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 		<thead>
 			<tr>
 				<th className='table-head-title table-column-event-name'>
-					{!isComparingSegment
-						? Liferay.Language.get('event-name')
-						: event.displayName
-						? event.displayName
-						: event.name}
+					<TextTruncate
+						title={
+							!isComparingSegment
+								? Liferay.Language.get('event-name')
+								: event.displayName
+								? event.displayName
+								: event.name
+						}
+					/>
 				</th>
+
 				<th className='table-head-title'>
 					{Liferay.Language.get('total-events')}
 				</th>
@@ -43,7 +49,9 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 		<tbody>
 			{items.map(({isPreviousValue, name, percent, style, value}, i) => (
 				<tr key={i}>
-					<td className='table-column-event-name'>{name}</td>
+					<td className='table-column-event-name'>
+						<TextTruncate title={name} />
+					</td>
 					<td>
 						<MetricBar
 							barClassName={getCN('mr-2', {
