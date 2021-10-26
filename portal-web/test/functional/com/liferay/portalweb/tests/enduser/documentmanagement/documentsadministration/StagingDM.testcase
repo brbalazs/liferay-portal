@@ -130,6 +130,76 @@ definition {
 			userFullName = "Test Test (You)");
 	}
 
+	@description = "LPS-90557 - Publishing deletion of shortcut target results in PortletDataException."
+	@priority = "5"
+	test PublishDeletionOfShortcutTarget {
+		DMNavigator.gotoAddDocumentType();
+
+		DMDocument.editDocument(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "Document_1.doc",
+			dmDocumentTitle = "DM Document Title");
+
+		Button.clickPublish();
+
+		DMDocument.addDMShortcutCP(
+			dmDocumentTitle = "DM Document Title",
+			siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Documents and Media");
+
+		AssertElementPresent(
+			key_cardText = "DM Document Title",
+			locator1 = "Card#STICKER");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Documents and Media");
+
+		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+
+		AssertElementNotPresent(
+			key_cardText = "DM Document Title",
+			locator1 = "Card#STICKER");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Documents and Media");
+
+		AssertElementNotPresent(
+			key_cardText = "DM Document Title",
+			locator1 = "Card#STICKER");
+	}
+
 	@description = "This is a use case for LPS-79925."
 	@priority = "5"
 	test PublishDocumentFromRestrictedFolder {
