@@ -32,7 +32,7 @@ if (['local', 'prd'].some(val => val === FARO_ENV)) {
 		}
 	];
 
-	if (FARO_ENV === 'local') {
+	if (FARO_ENV === 'prd') {
 		scripts = [
 			...scripts,
 			{
@@ -45,16 +45,22 @@ if (['local', 'prd'].some(val => val === FARO_ENV)) {
 				})('71794a60-73d6-4a8a-78f8-e8d9e091f919')`
 			}
 		];
-	} else if (FARO_ENV === 'prd') {
+	} else if (FARO_ENV === 'local') {
 		scripts = [
 			...scripts,
-			{innerHTML: '(function(){window.pendo = {initialize: () => {}}})()'}
+			{
+				innerHTML:
+					'(function(){window.pendo = {identify: () => {}, initialize: () => {}, isReady: () => {}}})()'
+			}
 		];
 	}
 } else {
 	scripts = [
 		...scripts,
-		{innerHTML: '(function(){window.pendo = {initialize: () => {}}})()'},
+		{
+			innerHTML:
+				'(function(){window.pendo = {identify: () => {}, initialize: () => {}, isReady: () => {}}})()'
+		},
 		{
 			innerHTML:
 				"(function(){var analytics = window.analytics=window.analytics||[];analytics.methods=['trackSubmit','trackClick','trackLink','trackForm','pageview','identify','reset','group','track','ready','alias','debug','page','once','off','on','addSourceMiddleware','addIntegrationMiddleware','setAnonymousId','addDestinationMiddleware'];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)};return analytics;})()"
