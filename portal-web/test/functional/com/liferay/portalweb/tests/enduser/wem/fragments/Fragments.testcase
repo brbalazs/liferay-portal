@@ -145,4 +145,88 @@ definition {
 
 		AssertElementNotPresent(locator1 = "Button#SAVE_AS_DRAFT");
 	}
+
+	@description = "This is a test case for LPS-97451."
+	@priority = "5"
+	test ViewOrEditFragmenConfiguration {
+		Navigator.gotoNavNested(navNested = "Collection Name");
+
+		FragmentsAdmin.addFragment(fragmentName = "Fragment Name 1");
+
+		var htmlSnippet = '''<h1>texto</h1>''';
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#HTML_EDITOR",
+			value1 = "${htmlSnippet}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "FragmentEditor#HTML_EDITOR_CONTENT",
+			value1 = "${htmlSnippet}");
+
+		PortletEntry.publish();
+
+		FragmentsAdmin.addFragment(fragmentName = "Fragment Name 2");
+
+		var htmlSnippet = '''<lfr-widget-nav></lfr-widget-nav>''';
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#HTML_EDITOR",
+			value1 = "${htmlSnippet}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "FragmentEditor#HTML_EDITOR_CONTENT",
+			value1 = "${htmlSnippet}");
+
+		PortletEntry.publish();
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		ContentPages.addPage(pageName = "Test Content Page Name");
+
+		PageEditor.addFragment(
+			collectionName = "Collection Name",
+			fragmentName = "Fragment Name 1");
+
+		PageEditor.addFragment(
+			collectionName = "Collection Name",
+			fragmentName = "Fragment Name 2");
+
+		Navigator.gotoBack();
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Edit",
+			pageName = "Test Content Page Name");
+
+		MouseOver(
+			key_fragmentName = "Test Content Page Name",
+			locator1 = "Fragment#FRAGMENT_HEADER");
+
+		Click.clickNoMouseOver(
+			key_text = "Configure",
+			locator1 = "Button#ANY");
+
+		IFrame.selectModalFrame();
+
+		Select(
+			locator1 = "Select#DISPLAY_TEMPLATE",
+			value1 = "Split Button Dropdowns");
+
+		PortletEntry.save();
+
+		IFrame.closeFrame();
+
+		AssertElementPresent(
+			key_navTab = "Test Content Page Name",
+			locator1 = "ItemSelector#NAVIGATION_SPLIT_BUTTON_TAB");
+
+		Navigator.gotoBack();
+
+		Navigator.gotoSitePage(
+			pageName = "Test Content Page Name",
+			siteName = "Test Site Name");
+
+		AssertElementPresent(
+			key_navTab = "Test Content Page Name",
+			locator1 = "ItemSelector#NAVIGATION_SPLIT_BUTTON_TAB");
+	}
 }
