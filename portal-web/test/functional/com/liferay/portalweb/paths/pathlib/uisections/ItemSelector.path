@@ -37,6 +37,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>NAVIGATION_SPLIT_BUTTON_TAB</td>
+	<td>//ul[contains(@class,'split-button')]/li/a[contains(.,'${key_navTab}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SITES_NAVIGATION</td>
 	<td>//a[contains(.,'sites')]</td>
 	<td></td>
