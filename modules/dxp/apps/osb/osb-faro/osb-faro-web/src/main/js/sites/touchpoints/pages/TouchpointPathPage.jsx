@@ -1,6 +1,6 @@
 import BasePage from 'shared/components/base-page';
 import React, {useContext} from 'react';
-import Sankey from 'touchpoints/components/sankey/Sankey';
+import Sankey from 'sites/touchpoints/components/sankey/Sankey';
 import {PropTypes} from 'prop-types';
 
 /**

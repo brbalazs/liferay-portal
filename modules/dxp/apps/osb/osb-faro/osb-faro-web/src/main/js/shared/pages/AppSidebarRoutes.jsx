@@ -96,7 +96,7 @@ const ExperimentOverview = lazy(() =>
 
 const TouchpointRoutes = lazy(() =>
 	import(
-		/* webpackChunkName: "TouchpointRoutes" */ 'touchpoints/pages/TouchpointRoutes'
+		/* webpackChunkName: "TouchpointRoutes" */ 'sites/touchpoints/pages/TouchpointRoutes'
 	)
 );
 

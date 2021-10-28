@@ -17,7 +17,7 @@ import RecommendationQuery from 'settings/recommendations/queries/Recommendation
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
-import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
+import TouchpointPathQuery from 'sites/touchpoints/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import {AttributeTypes} from 'event-analysis/utils/types';
 import {EventTypes} from 'event-analysis/utils/types';

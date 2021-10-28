@@ -1,4 +1,4 @@
-import AssetsQuery from 'touchpoints/queries/AssetsQuery';
+import AssetsQuery from 'sites/touchpoints/queries/AssetsQuery';
 import HTMLBox from './HTMLBox';
 import React, {useState} from 'react';
 import {AssetNode, SankeyNode} from '../utils/types';
