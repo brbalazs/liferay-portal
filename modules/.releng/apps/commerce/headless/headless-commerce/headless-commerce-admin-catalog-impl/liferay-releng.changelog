@@ -282,3 +282,8 @@ b31cce09ada3695dd640a47c3c3b3de7715a251a^..38720f9959bceefb7139cd70da3b59d9ca5a2
 # Bundle Version 1.0.77
 #
 38720f9959bceefb7139cd70da3b59d9ca5a2501^..b7ea57b7cc9ae704a2ebc5b23eba33d6ab4078fd=LPS-137340 LPS-139820
+
+#
+# Bundle Version 1.0.78
+#
+b7ea57b7cc9ae704a2ebc5b23eba33d6ab4078fd^..fb99abc805cce9819faa3c37b4226371abd08cda=LPS-138282 LPS-141728
