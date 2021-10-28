@@ -41,14 +41,14 @@ definition {
 	test CheckSystemSettingsScopeIsCorrected {
 		property test.name.skip.portal.instance = "SystemSettings#CheckSystemSettingsScopeIsCorrected";
 
-		task ("Naviagte to system settings") {
+		task ("Naviagte to System Settings") {
 			ProductMenu.gotoPortlet(
 				category = "Configuration",
 				panel = "Control Panel",
 				portlet = "System Settings");
 		}
 
-		task ("Enable OpenSSO configuration") {
+		task ("Enable OpenSSO Configuration") {
 			SystemSettings.gotoConfiguration(
 				configurationCategory = "SSO",
 				configurationName = "OpenSSO",
@@ -59,14 +59,14 @@ definition {
 			SystemSettings.saveConfiguration();
 		}
 
-		task ("Naviagte to instance settings") {
+		task ("Naviagte to Instance Settings") {
 			ProductMenu.gotoPortlet(
 				category = "Configuration",
 				panel = "Control Panel",
 				portlet = "Instance Settings");
 		}
 
-		task ("Disable OpenSSO configuration") {
+		task ("Disable OpenSSO Configuration") {
 			PortalSettingsNavigator.gotoOpenSSO();
 
 			FormFields.disableCheckbox(fieldName = "enabled");
@@ -74,7 +74,7 @@ definition {
 			SystemSettings.saveConfiguration();
 		}
 
-		task ("Check system settings scope is corrected") {
+		task ("Check System Settings scope is corrected") {
 			ProductMenu.gotoPortlet(
 				category = "Configuration",
 				panel = "Control Panel",
