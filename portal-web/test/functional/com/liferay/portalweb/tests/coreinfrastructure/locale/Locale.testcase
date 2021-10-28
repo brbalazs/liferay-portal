@@ -411,11 +411,11 @@ definition {
 
 		task ("Assert Timezone is included with account lockout message.") {
 			AssertTextEquals.assertPartialText(
-				locator1 = "Message#ERROR_1",
+				locator1 = "Message#ERROR_DISMISSIBLE",
 				value1 = "This account is locked until");
 
 			AssertTextEquals.assertPartialText(
-				locator1 = "Message#ERROR_1",
+				locator1 = "Message#ERROR_DISMISSIBLE",
 				value1 = "CEST.");
 		}
 	}
