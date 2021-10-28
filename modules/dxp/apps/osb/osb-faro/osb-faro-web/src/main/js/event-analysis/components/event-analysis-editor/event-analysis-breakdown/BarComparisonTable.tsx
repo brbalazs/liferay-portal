@@ -21,7 +21,7 @@ interface IBarComparisonTableProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
-	event,
+	event: {displayName, name},
 	isComparingSegment,
 	items = []
 }) => (
@@ -33,9 +33,7 @@ const BarComparisonTable: React.FC<IBarComparisonTableProps> = ({
 						title={
 							!isComparingSegment
 								? Liferay.Language.get('event-name')
-								: event.displayName
-								? event.displayName
-								: event.name
+								: displayName || name
 						}
 					/>
 				</th>
