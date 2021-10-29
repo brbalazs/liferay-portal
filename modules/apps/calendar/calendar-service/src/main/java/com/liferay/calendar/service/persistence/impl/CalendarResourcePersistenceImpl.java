@@ -19,6 +19,7 @@ import com.liferay.calendar.model.CalendarResource;
 import com.liferay.calendar.model.impl.CalendarResourceImpl;
 import com.liferay.calendar.model.impl.CalendarResourceModelImpl;
 import com.liferay.calendar.service.persistence.CalendarResourcePersistence;
+import com.liferay.calendar.service.persistence.CalendarResourceUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -7518,14 +7519,34 @@ public class CalendarResourcePersistenceImpl
 				Long.class.getName(), String.class.getName(),
 				Boolean.class.getName()
 			});
+
+		_setCalendarResourceUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCalendarResourceUtilPersistence(null);
+
 		entityCache.removeCache(CalendarResourceImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCalendarResourceUtilPersistence(
+		CalendarResourcePersistence calendarResourcePersistence) {
+
+		try {
+			Field field = CalendarResourceUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, calendarResourcePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

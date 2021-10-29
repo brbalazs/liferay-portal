@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceOrderNote;
 import com.liferay.commerce.model.impl.CommerceOrderNoteImpl;
 import com.liferay.commerce.model.impl.CommerceOrderNoteModelImpl;
 import com.liferay.commerce.service.persistence.CommerceOrderNotePersistence;
+import com.liferay.commerce.service.persistence.CommerceOrderNoteUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -43,6 +44,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2371,14 +2373,34 @@ public class CommerceOrderNotePersistenceImpl
 			CommerceOrderNoteModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_ERC",
 			new String[] {Long.class.getName(), String.class.getName()});
+
+		_setCommerceOrderNoteUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceOrderNoteUtilPersistence(null);
+
 		entityCache.removeCache(CommerceOrderNoteImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceOrderNoteUtilPersistence(
+		CommerceOrderNotePersistence commerceOrderNotePersistence) {
+
+		try {
+			Field field = CommerceOrderNoteUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceOrderNotePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

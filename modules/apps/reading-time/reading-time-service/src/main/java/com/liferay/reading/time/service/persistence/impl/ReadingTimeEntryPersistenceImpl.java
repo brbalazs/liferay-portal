@@ -42,6 +42,7 @@ import com.liferay.reading.time.model.ReadingTimeEntry;
 import com.liferay.reading.time.model.impl.ReadingTimeEntryImpl;
 import com.liferay.reading.time.model.impl.ReadingTimeEntryModelImpl;
 import com.liferay.reading.time.service.persistence.ReadingTimeEntryPersistence;
+import com.liferay.reading.time.service.persistence.ReadingTimeEntryUtil;
 
 import java.io.Serializable;
 
@@ -2745,14 +2746,34 @@ public class ReadingTimeEntryPersistenceImpl
 			new String[] {
 				Long.class.getName(), Long.class.getName(), Long.class.getName()
 			});
+
+		_setReadingTimeEntryUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setReadingTimeEntryUtilPersistence(null);
+
 		entityCache.removeCache(ReadingTimeEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setReadingTimeEntryUtilPersistence(
+		ReadingTimeEntryPersistence readingTimeEntryPersistence) {
+
+		try {
+			Field field = ReadingTimeEntryUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, readingTimeEntryPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

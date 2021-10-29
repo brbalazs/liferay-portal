@@ -19,6 +19,7 @@ import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.model.impl.FaroNotificationImpl;
 import com.liferay.osb.faro.model.impl.FaroNotificationModelImpl;
 import com.liferay.osb.faro.service.persistence.FaroNotificationPersistence;
+import com.liferay.osb.faro.service.persistence.FaroNotificationUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -4723,14 +4724,34 @@ public class FaroNotificationPersistenceImpl
 				Long.class.getName(), Boolean.class.getName(),
 				String.class.getName(), String.class.getName()
 			});
+
+		_setFaroNotificationUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setFaroNotificationUtilPersistence(null);
+
 		entityCache.removeCache(FaroNotificationImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setFaroNotificationUtilPersistence(
+		FaroNotificationPersistence faroNotificationPersistence) {
+
+		try {
+			Field field = FaroNotificationUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, faroNotificationPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

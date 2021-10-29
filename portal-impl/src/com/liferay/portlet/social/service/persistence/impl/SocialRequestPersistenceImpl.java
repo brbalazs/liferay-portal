@@ -39,6 +39,7 @@ import com.liferay.portlet.social.model.impl.SocialRequestModelImpl;
 import com.liferay.social.kernel.exception.NoSuchRequestException;
 import com.liferay.social.kernel.model.SocialRequest;
 import com.liferay.social.kernel.service.persistence.SocialRequestPersistence;
+import com.liferay.social.kernel.service.persistence.SocialRequestUtil;
 
 import java.io.Serializable;
 
@@ -7743,14 +7744,34 @@ public class SocialRequestPersistenceImpl
 				Integer.class.getName(), Long.class.getName(),
 				Integer.class.getName()
 			});
+
+		_setSocialRequestUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSocialRequestUtilPersistence(null);
+
 		EntityCacheUtil.removeCache(SocialRequestImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSocialRequestUtilPersistence(
+		SocialRequestPersistence socialRequestPersistence) {
+
+		try {
+			Field field = SocialRequestUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, socialRequestPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	private static final String _SQL_SELECT_SOCIALREQUEST =

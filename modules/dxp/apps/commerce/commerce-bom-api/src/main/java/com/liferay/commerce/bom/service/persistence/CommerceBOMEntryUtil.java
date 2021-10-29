@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * The persistence utility for the commerce bom entry service. This utility wraps <code>com.liferay.commerce.bom.service.persistence.impl.CommerceBOMEntryPersistenceImpl</code> and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
  *
@@ -463,27 +459,9 @@ public class CommerceBOMEntryUtil {
 	}
 
 	public static CommerceBOMEntryPersistence getPersistence() {
-		return _serviceTracker.getService();
+		return _persistence;
 	}
 
-	private static ServiceTracker
-		<CommerceBOMEntryPersistence, CommerceBOMEntryPersistence>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceBOMEntryPersistence.class);
-
-		ServiceTracker<CommerceBOMEntryPersistence, CommerceBOMEntryPersistence>
-			serviceTracker =
-				new ServiceTracker
-					<CommerceBOMEntryPersistence, CommerceBOMEntryPersistence>(
-						bundle.getBundleContext(),
-						CommerceBOMEntryPersistence.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceBOMEntryPersistence _persistence;
 
 }

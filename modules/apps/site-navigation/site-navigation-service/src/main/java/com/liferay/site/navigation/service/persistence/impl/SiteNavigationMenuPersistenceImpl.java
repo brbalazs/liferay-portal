@@ -45,6 +45,7 @@ import com.liferay.site.navigation.model.SiteNavigationMenu;
 import com.liferay.site.navigation.model.impl.SiteNavigationMenuImpl;
 import com.liferay.site.navigation.model.impl.SiteNavigationMenuModelImpl;
 import com.liferay.site.navigation.service.persistence.SiteNavigationMenuPersistence;
+import com.liferay.site.navigation.service.persistence.SiteNavigationMenuUtil;
 
 import java.io.Serializable;
 
@@ -6756,14 +6757,34 @@ public class SiteNavigationMenuPersistenceImpl
 			SiteNavigationMenuModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_A",
 			new String[] {Long.class.getName(), Boolean.class.getName()});
+
+		_setSiteNavigationMenuUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSiteNavigationMenuUtilPersistence(null);
+
 		entityCache.removeCache(SiteNavigationMenuImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSiteNavigationMenuUtilPersistence(
+		SiteNavigationMenuPersistence siteNavigationMenuPersistence) {
+
+		try {
+			Field field = SiteNavigationMenuUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, siteNavigationMenuPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

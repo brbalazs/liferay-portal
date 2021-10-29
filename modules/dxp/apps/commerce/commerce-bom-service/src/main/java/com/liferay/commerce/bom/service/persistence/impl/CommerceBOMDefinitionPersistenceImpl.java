@@ -19,6 +19,7 @@ import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl;
 import com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionModelImpl;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMDefinitionPersistence;
+import com.liferay.commerce.bom.service.persistence.CommerceBOMDefinitionUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -44,6 +45,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1828,14 +1830,34 @@ public class CommerceBOMDefinitionPersistenceImpl
 			CommerceBOMDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByCommerceBOMFolderId", new String[] {Long.class.getName()});
+
+		_setCommerceBOMDefinitionUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceBOMDefinitionUtilPersistence(null);
+
 		entityCache.removeCache(CommerceBOMDefinitionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceBOMDefinitionUtilPersistence(
+		CommerceBOMDefinitionPersistence commerceBOMDefinitionPersistence) {
+
+		try {
+			Field field = CommerceBOMDefinitionUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceBOMDefinitionPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

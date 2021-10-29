@@ -19,6 +19,7 @@ import com.liferay.commerce.price.list.model.CommercePriceListChannelRel;
 import com.liferay.commerce.price.list.model.impl.CommercePriceListChannelRelImpl;
 import com.liferay.commerce.price.list.model.impl.CommercePriceListChannelRelModelImpl;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelPersistence;
+import com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -3095,15 +3096,37 @@ public class CommercePriceListChannelRelPersistenceImpl
 			CommercePriceListChannelRelModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_setCommercePriceListChannelRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommercePriceListChannelRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommercePriceListChannelRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommercePriceListChannelRelUtilPersistence(
+		CommercePriceListChannelRelPersistence
+			commercePriceListChannelRelPersistence) {
+
+		try {
+			Field field =
+				CommercePriceListChannelRelUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commercePriceListChannelRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

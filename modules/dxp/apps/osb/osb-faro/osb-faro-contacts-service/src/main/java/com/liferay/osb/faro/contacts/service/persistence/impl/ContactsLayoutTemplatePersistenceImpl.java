@@ -19,6 +19,7 @@ import com.liferay.osb.faro.contacts.model.ContactsLayoutTemplate;
 import com.liferay.osb.faro.contacts.model.impl.ContactsLayoutTemplateImpl;
 import com.liferay.osb.faro.contacts.model.impl.ContactsLayoutTemplateModelImpl;
 import com.liferay.osb.faro.contacts.service.persistence.ContactsLayoutTemplatePersistence;
+import com.liferay.osb.faro.contacts.service.persistence.ContactsLayoutTemplateUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2020,14 +2021,34 @@ public class ContactsLayoutTemplatePersistenceImpl
 			ContactsLayoutTemplateModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_T",
 			new String[] {Long.class.getName(), Integer.class.getName()});
+
+		_setContactsLayoutTemplateUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setContactsLayoutTemplateUtilPersistence(null);
+
 		entityCache.removeCache(ContactsLayoutTemplateImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setContactsLayoutTemplateUtilPersistence(
+		ContactsLayoutTemplatePersistence contactsLayoutTemplatePersistence) {
+
+		try {
+			Field field = ContactsLayoutTemplateUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, contactsLayoutTemplatePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

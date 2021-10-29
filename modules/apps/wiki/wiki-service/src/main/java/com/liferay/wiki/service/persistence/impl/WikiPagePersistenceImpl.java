@@ -51,6 +51,7 @@ import com.liferay.wiki.model.WikiPage;
 import com.liferay.wiki.model.impl.WikiPageImpl;
 import com.liferay.wiki.model.impl.WikiPageModelImpl;
 import com.liferay.wiki.service.persistence.WikiPagePersistence;
+import com.liferay.wiki.service.persistence.WikiPageUtil;
 
 import java.io.Serializable;
 
@@ -24634,14 +24635,33 @@ public class WikiPagePersistenceImpl
 				Boolean.class.getName(), String.class.getName(),
 				Integer.class.getName()
 			});
+
+		_setWikiPageUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setWikiPageUtilPersistence(null);
+
 		entityCache.removeCache(WikiPageImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setWikiPageUtilPersistence(
+		WikiPagePersistence wikiPagePersistence) {
+
+		try {
+			Field field = WikiPageUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, wikiPagePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

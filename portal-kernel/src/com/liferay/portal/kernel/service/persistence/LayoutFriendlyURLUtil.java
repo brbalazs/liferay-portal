@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.service.persistence;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.model.LayoutFriendlyURL;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -1866,15 +1865,9 @@ public class LayoutFriendlyURLUtil {
 	}
 
 	public static LayoutFriendlyURLPersistence getPersistence() {
-		if (_persistence == null) {
-			_persistence =
-				(LayoutFriendlyURLPersistence)PortalBeanLocatorUtil.locate(
-					LayoutFriendlyURLPersistence.class.getName());
-		}
-
 		return _persistence;
 	}
 
-	private static LayoutFriendlyURLPersistence _persistence;
+	private static volatile LayoutFriendlyURLPersistence _persistence;
 
 }

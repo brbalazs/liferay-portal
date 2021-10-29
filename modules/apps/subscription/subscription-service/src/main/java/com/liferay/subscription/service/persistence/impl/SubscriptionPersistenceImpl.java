@@ -41,9 +41,11 @@ import com.liferay.subscription.model.Subscription;
 import com.liferay.subscription.model.impl.SubscriptionImpl;
 import com.liferay.subscription.model.impl.SubscriptionModelImpl;
 import com.liferay.subscription.service.persistence.SubscriptionPersistence;
+import com.liferay.subscription.service.persistence.SubscriptionUtil;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.ArrayList;
@@ -5070,14 +5072,34 @@ public class SubscriptionPersistenceImpl
 				Long.class.getName(), Long.class.getName(),
 				Long.class.getName(), Long.class.getName()
 			});
+
+		_setSubscriptionUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSubscriptionUtilPersistence(null);
+
 		entityCache.removeCache(SubscriptionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSubscriptionUtilPersistence(
+		SubscriptionPersistence subscriptionPersistence) {
+
+		try {
+			Field field = SubscriptionUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, subscriptionPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

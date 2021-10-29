@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.model.impl.CommerceSubscriptionEntryImpl;
 import com.liferay.commerce.model.impl.CommerceSubscriptionEntryModelImpl;
 import com.liferay.commerce.service.persistence.CommerceSubscriptionEntryPersistence;
+import com.liferay.commerce.service.persistence.CommerceSubscriptionEntryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -6132,14 +6133,35 @@ public class CommerceSubscriptionEntryPersistenceImpl
 				String.class.getName(), Long.class.getName(),
 				Long.class.getName()
 			});
+
+		_setCommerceSubscriptionEntryUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceSubscriptionEntryUtilPersistence(null);
+
 		entityCache.removeCache(CommerceSubscriptionEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceSubscriptionEntryUtilPersistence(
+		CommerceSubscriptionEntryPersistence
+			commerceSubscriptionEntryPersistence) {
+
+		try {
+			Field field = CommerceSubscriptionEntryUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceSubscriptionEntryPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

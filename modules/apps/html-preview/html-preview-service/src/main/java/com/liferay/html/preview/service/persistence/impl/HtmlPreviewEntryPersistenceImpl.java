@@ -19,6 +19,7 @@ import com.liferay.html.preview.model.HtmlPreviewEntry;
 import com.liferay.html.preview.model.impl.HtmlPreviewEntryImpl;
 import com.liferay.html.preview.model.impl.HtmlPreviewEntryModelImpl;
 import com.liferay.html.preview.service.persistence.HtmlPreviewEntryPersistence;
+import com.liferay.html.preview.service.persistence.HtmlPreviewEntryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -43,6 +44,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1177,14 +1179,34 @@ public class HtmlPreviewEntryPersistenceImpl
 			new String[] {
 				Long.class.getName(), Long.class.getName(), Long.class.getName()
 			});
+
+		_setHtmlPreviewEntryUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setHtmlPreviewEntryUtilPersistence(null);
+
 		entityCache.removeCache(HtmlPreviewEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setHtmlPreviewEntryUtilPersistence(
+		HtmlPreviewEntryPersistence htmlPreviewEntryPersistence) {
+
+		try {
+			Field field = HtmlPreviewEntryUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, htmlPreviewEntryPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

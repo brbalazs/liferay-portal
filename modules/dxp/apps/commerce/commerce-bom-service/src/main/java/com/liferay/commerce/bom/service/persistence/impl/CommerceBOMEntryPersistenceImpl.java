@@ -19,6 +19,7 @@ import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl;
 import com.liferay.commerce.bom.model.impl.CommerceBOMEntryModelImpl;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMEntryPersistence;
+import com.liferay.commerce.bom.service.persistence.CommerceBOMEntryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -1444,14 +1445,34 @@ public class CommerceBOMEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByCommerceBOMDefinitionId",
 			new String[] {Long.class.getName()});
+
+		_setCommerceBOMEntryUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceBOMEntryUtilPersistence(null);
+
 		entityCache.removeCache(CommerceBOMEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceBOMEntryUtilPersistence(
+		CommerceBOMEntryPersistence commerceBOMEntryPersistence) {
+
+		try {
+			Field field = CommerceBOMEntryUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceBOMEntryPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

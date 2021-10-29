@@ -19,6 +19,7 @@ import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
 import com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl;
 import com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderApplicationRelPersistence;
+import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderApplicationRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2147,15 +2148,37 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByCommerceApplicationModelId",
 			new String[] {Long.class.getName()});
+
+		_setCommerceBOMFolderApplicationRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceBOMFolderApplicationRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceBOMFolderApplicationRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceBOMFolderApplicationRelUtilPersistence(
+		CommerceBOMFolderApplicationRelPersistence
+			commerceBOMFolderApplicationRelPersistence) {
+
+		try {
+			Field field =
+				CommerceBOMFolderApplicationRelUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceBOMFolderApplicationRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

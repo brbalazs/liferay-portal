@@ -19,6 +19,7 @@ import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
 import com.liferay.osb.faro.model.impl.FaroProjectEmailAddressDomainImpl;
 import com.liferay.osb.faro.model.impl.FaroProjectEmailAddressDomainModelImpl;
 import com.liferay.osb.faro.service.persistence.FaroProjectEmailAddressDomainPersistence;
+import com.liferay.osb.faro.service.persistence.FaroProjectEmailAddressDomainUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -39,6 +40,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1998,15 +2000,37 @@ public class FaroProjectEmailAddressDomainPersistenceImpl
 			FaroProjectEmailAddressDomainModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByFaroProjectId", new String[] {Long.class.getName()});
+
+		_setFaroProjectEmailAddressDomainUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setFaroProjectEmailAddressDomainUtilPersistence(null);
+
 		entityCache.removeCache(
 			FaroProjectEmailAddressDomainImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setFaroProjectEmailAddressDomainUtilPersistence(
+		FaroProjectEmailAddressDomainPersistence
+			faroProjectEmailAddressDomainPersistence) {
+
+		try {
+			Field field =
+				FaroProjectEmailAddressDomainUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, faroProjectEmailAddressDomainPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

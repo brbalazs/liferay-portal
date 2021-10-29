@@ -19,6 +19,7 @@ import com.liferay.commerce.account.model.CommerceAccountGroupCommerceAccountRel
 import com.liferay.commerce.account.model.impl.CommerceAccountGroupCommerceAccountRelImpl;
 import com.liferay.commerce.account.model.impl.CommerceAccountGroupCommerceAccountRelModelImpl;
 import com.liferay.commerce.account.service.persistence.CommerceAccountGroupCommerceAccountRelPersistence;
+import com.liferay.commerce.account.service.persistence.CommerceAccountGroupCommerceAccountRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2921,15 +2922,37 @@ public class CommerceAccountGroupCommerceAccountRelPersistenceImpl
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByC_ERC",
 			new String[] {Long.class.getName(), String.class.getName()});
+
+		_setCommerceAccountGroupCommerceAccountRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceAccountGroupCommerceAccountRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceAccountGroupCommerceAccountRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceAccountGroupCommerceAccountRelUtilPersistence(
+		CommerceAccountGroupCommerceAccountRelPersistence
+			commerceAccountGroupCommerceAccountRelPersistence) {
+
+		try {
+			Field field =
+				CommerceAccountGroupCommerceAccountRelUtil.class.
+					getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAccountGroupCommerceAccountRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

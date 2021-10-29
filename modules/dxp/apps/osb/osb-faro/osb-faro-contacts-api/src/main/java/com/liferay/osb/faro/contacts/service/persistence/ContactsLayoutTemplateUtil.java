@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * The persistence utility for the contacts layout template service. This utility wraps <code>com.liferay.osb.faro.contacts.service.persistence.impl.ContactsLayoutTemplatePersistenceImpl</code> and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
  *
@@ -655,29 +651,9 @@ public class ContactsLayoutTemplateUtil {
 	}
 
 	public static ContactsLayoutTemplatePersistence getPersistence() {
-		return _serviceTracker.getService();
+		return _persistence;
 	}
 
-	private static ServiceTracker
-		<ContactsLayoutTemplatePersistence, ContactsLayoutTemplatePersistence>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			ContactsLayoutTemplatePersistence.class);
-
-		ServiceTracker
-			<ContactsLayoutTemplatePersistence,
-			 ContactsLayoutTemplatePersistence> serviceTracker =
-				new ServiceTracker
-					<ContactsLayoutTemplatePersistence,
-					 ContactsLayoutTemplatePersistence>(
-						 bundle.getBundleContext(),
-						 ContactsLayoutTemplatePersistence.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile ContactsLayoutTemplatePersistence _persistence;
 
 }

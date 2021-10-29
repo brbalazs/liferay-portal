@@ -15,7 +15,6 @@
 package com.liferay.counter.kernel.service.persistence;
 
 import com.liferay.counter.kernel.model.Counter;
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -268,14 +267,9 @@ public class CounterUtil {
 	}
 
 	public static CounterPersistence getPersistence() {
-		if (_persistence == null) {
-			_persistence = (CounterPersistence)PortalBeanLocatorUtil.locate(
-				CounterPersistence.class.getName());
-		}
-
 		return _persistence;
 	}
 
-	private static CounterPersistence _persistence;
+	private static volatile CounterPersistence _persistence;
 
 }

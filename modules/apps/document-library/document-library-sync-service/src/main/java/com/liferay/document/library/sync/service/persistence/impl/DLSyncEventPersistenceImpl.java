@@ -19,6 +19,7 @@ import com.liferay.document.library.sync.model.DLSyncEvent;
 import com.liferay.document.library.sync.model.impl.DLSyncEventImpl;
 import com.liferay.document.library.sync.model.impl.DLSyncEventModelImpl;
 import com.liferay.document.library.sync.service.persistence.DLSyncEventPersistence;
+import com.liferay.document.library.sync.service.persistence.DLSyncEventUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -1569,14 +1570,34 @@ public class DLSyncEventPersistenceImpl
 			DLSyncEventModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTypePK",
 			new String[] {Long.class.getName()});
+
+		_setDLSyncEventUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setDLSyncEventUtilPersistence(null);
+
 		entityCache.removeCache(DLSyncEventImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setDLSyncEventUtilPersistence(
+		DLSyncEventPersistence dlSyncEventPersistence) {
+
+		try {
+			Field field = DLSyncEventUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, dlSyncEventPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

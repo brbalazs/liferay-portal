@@ -45,6 +45,7 @@ import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
 import com.liferay.portal.workflow.kaleo.forms.model.impl.KaleoProcessImpl;
 import com.liferay.portal.workflow.kaleo.forms.model.impl.KaleoProcessModelImpl;
 import com.liferay.portal.workflow.kaleo.forms.service.persistence.KaleoProcessPersistence;
+import com.liferay.portal.workflow.kaleo.forms.service.persistence.KaleoProcessUtil;
 
 import java.io.Serializable;
 
@@ -3588,14 +3589,34 @@ public class KaleoProcessPersistenceImpl
 			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDDLRecordSetId",
 			new String[] {Long.class.getName()});
+
+		_setKaleoProcessUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setKaleoProcessUtilPersistence(null);
+
 		entityCache.removeCache(KaleoProcessImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setKaleoProcessUtilPersistence(
+		KaleoProcessPersistence kaleoProcessPersistence) {
+
+		try {
+			Field field = KaleoProcessUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, kaleoProcessPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

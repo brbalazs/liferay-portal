@@ -43,6 +43,7 @@ import com.liferay.portlet.ratings.model.impl.RatingsEntryModelImpl;
 import com.liferay.ratings.kernel.exception.NoSuchEntryException;
 import com.liferay.ratings.kernel.model.RatingsEntry;
 import com.liferay.ratings.kernel.service.persistence.RatingsEntryPersistence;
+import com.liferay.ratings.kernel.service.persistence.RatingsEntryUtil;
 
 import java.io.Serializable;
 
@@ -4104,14 +4105,34 @@ public class RatingsEntryPersistenceImpl
 				Long.class.getName(), Long.class.getName(),
 				Double.class.getName()
 			});
+
+		_setRatingsEntryUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setRatingsEntryUtilPersistence(null);
+
 		EntityCacheUtil.removeCache(RatingsEntryImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setRatingsEntryUtilPersistence(
+		RatingsEntryPersistence ratingsEntryPersistence) {
+
+		try {
+			Field field = RatingsEntryUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, ratingsEntryPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	private static final String _SQL_SELECT_RATINGSENTRY =

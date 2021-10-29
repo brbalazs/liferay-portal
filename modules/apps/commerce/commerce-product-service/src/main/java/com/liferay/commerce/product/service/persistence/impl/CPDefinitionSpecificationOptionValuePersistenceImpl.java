@@ -19,6 +19,7 @@ import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.impl.CPDefinitionSpecificationOptionValueImpl;
 import com.liferay.commerce.product.model.impl.CPDefinitionSpecificationOptionValueModelImpl;
 import com.liferay.commerce.product.service.persistence.CPDefinitionSpecificationOptionValuePersistence;
+import com.liferay.commerce.product.service.persistence.CPDefinitionSpecificationOptionValueUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -6725,15 +6726,37 @@ public class CPDefinitionSpecificationOptionValuePersistenceImpl
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByC_COC",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_setCPDefinitionSpecificationOptionValueUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCPDefinitionSpecificationOptionValueUtilPersistence(null);
+
 		entityCache.removeCache(
 			CPDefinitionSpecificationOptionValueImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCPDefinitionSpecificationOptionValueUtilPersistence(
+		CPDefinitionSpecificationOptionValuePersistence
+			cpDefinitionSpecificationOptionValuePersistence) {
+
+		try {
+			Field field =
+				CPDefinitionSpecificationOptionValueUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, cpDefinitionSpecificationOptionValuePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

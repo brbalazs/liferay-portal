@@ -19,6 +19,7 @@ import com.liferay.mobile.device.rules.model.MDRRule;
 import com.liferay.mobile.device.rules.model.impl.MDRRuleImpl;
 import com.liferay.mobile.device.rules.model.impl.MDRRuleModelImpl;
 import com.liferay.mobile.device.rules.service.persistence.MDRRulePersistence;
+import com.liferay.mobile.device.rules.service.persistence.MDRRuleUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2926,14 +2927,33 @@ public class MDRRulePersistenceImpl
 			MDRRuleModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByRuleGroupId",
 			new String[] {Long.class.getName()});
+
+		_setMDRRuleUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setMDRRuleUtilPersistence(null);
+
 		entityCache.removeCache(MDRRuleImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setMDRRuleUtilPersistence(
+		MDRRulePersistence mdrRulePersistence) {
+
+		try {
+			Field field = MDRRuleUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, mdrRulePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

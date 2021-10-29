@@ -19,6 +19,7 @@ import com.liferay.osb.faro.contacts.model.ContactsCardTemplate;
 import com.liferay.osb.faro.contacts.model.impl.ContactsCardTemplateImpl;
 import com.liferay.osb.faro.contacts.model.impl.ContactsCardTemplateModelImpl;
 import com.liferay.osb.faro.contacts.service.persistence.ContactsCardTemplatePersistence;
+import com.liferay.osb.faro.contacts.service.persistence.ContactsCardTemplateUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -1403,14 +1404,34 @@ public class ContactsCardTemplatePersistenceImpl
 			ContactsCardTemplateModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
 			new String[] {Long.class.getName()});
+
+		_setContactsCardTemplateUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setContactsCardTemplateUtilPersistence(null);
+
 		entityCache.removeCache(ContactsCardTemplateImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setContactsCardTemplateUtilPersistence(
+		ContactsCardTemplatePersistence contactsCardTemplatePersistence) {
+
+		try {
+			Field field = ContactsCardTemplateUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, contactsCardTemplatePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

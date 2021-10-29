@@ -19,6 +19,7 @@ import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.model.impl.CommercePaymentMethodGroupRelImpl;
 import com.liferay.commerce.payment.model.impl.CommercePaymentMethodGroupRelModelImpl;
 import com.liferay.commerce.payment.service.persistence.CommercePaymentMethodGroupRelPersistence;
+import com.liferay.commerce.payment.service.persistence.CommercePaymentMethodGroupRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -3243,15 +3244,37 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 			CommercePaymentMethodGroupRelModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_A",
 			new String[] {Long.class.getName(), Boolean.class.getName()});
+
+		_setCommercePaymentMethodGroupRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommercePaymentMethodGroupRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommercePaymentMethodGroupRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommercePaymentMethodGroupRelUtilPersistence(
+		CommercePaymentMethodGroupRelPersistence
+			commercePaymentMethodGroupRelPersistence) {
+
+		try {
+			Field field =
+				CommercePaymentMethodGroupRelUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commercePaymentMethodGroupRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

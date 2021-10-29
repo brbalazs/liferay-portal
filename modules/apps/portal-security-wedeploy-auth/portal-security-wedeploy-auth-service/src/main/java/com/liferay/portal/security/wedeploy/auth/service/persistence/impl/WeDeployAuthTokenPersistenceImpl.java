@@ -40,6 +40,7 @@ import com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken;
 import com.liferay.portal.security.wedeploy.auth.model.impl.WeDeployAuthTokenImpl;
 import com.liferay.portal.security.wedeploy.auth.model.impl.WeDeployAuthTokenModelImpl;
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthTokenPersistence;
+import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthTokenUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
@@ -1588,14 +1589,34 @@ public class WeDeployAuthTokenPersistenceImpl
 				String.class.getName(), String.class.getName(),
 				Integer.class.getName()
 			});
+
+		_setWeDeployAuthTokenUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setWeDeployAuthTokenUtilPersistence(null);
+
 		entityCache.removeCache(WeDeployAuthTokenImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setWeDeployAuthTokenUtilPersistence(
+		WeDeployAuthTokenPersistence weDeployAuthTokenPersistence) {
+
+		try {
+			Field field = WeDeployAuthTokenUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, weDeployAuthTokenPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -19,6 +19,7 @@ import com.liferay.document.library.file.rank.model.DLFileRank;
 import com.liferay.document.library.file.rank.model.impl.DLFileRankImpl;
 import com.liferay.document.library.file.rank.model.impl.DLFileRankModelImpl;
 import com.liferay.document.library.file.rank.service.persistence.DLFileRankPersistence;
+import com.liferay.document.library.file.rank.service.persistence.DLFileRankUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -3506,14 +3507,33 @@ public class DLFileRankPersistenceImpl
 			new String[] {
 				Long.class.getName(), Long.class.getName(), Long.class.getName()
 			});
+
+		_setDLFileRankUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setDLFileRankUtilPersistence(null);
+
 		entityCache.removeCache(DLFileRankImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setDLFileRankUtilPersistence(
+		DLFileRankPersistence dlFileRankPersistence) {
+
+		try {
+			Field field = DLFileRankUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, dlFileRankPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.impl.CommerceRegionImpl;
 import com.liferay.commerce.model.impl.CommerceRegionModelImpl;
 import com.liferay.commerce.service.persistence.CommerceRegionPersistence;
+import com.liferay.commerce.service.persistence.CommerceRegionUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -3601,14 +3602,34 @@ public class CommerceRegionPersistenceImpl
 			CommerceRegionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_A",
 			new String[] {Long.class.getName(), Boolean.class.getName()});
+
+		_setCommerceRegionUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceRegionUtilPersistence(null);
+
 		entityCache.removeCache(CommerceRegionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceRegionUtilPersistence(
+		CommerceRegionPersistence commerceRegionPersistence) {
+
+		try {
+			Field field = CommerceRegionUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceRegionPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

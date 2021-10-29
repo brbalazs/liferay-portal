@@ -19,6 +19,7 @@ import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProces
 import com.liferay.commerce.data.integration.model.impl.CommerceDataIntegrationProcessLogImpl;
 import com.liferay.commerce.data.integration.model.impl.CommerceDataIntegrationProcessLogModelImpl;
 import com.liferay.commerce.data.integration.service.persistence.CommerceDataIntegrationProcessLogPersistence;
+import com.liferay.commerce.data.integration.service.persistence.CommerceDataIntegrationProcessLogUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2201,15 +2202,37 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 			CommerceDataIntegrationProcessLogModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S",
 			new String[] {Long.class.getName(), Integer.class.getName()});
+
+		_setCommerceDataIntegrationProcessLogUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceDataIntegrationProcessLogUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceDataIntegrationProcessLogImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceDataIntegrationProcessLogUtilPersistence(
+		CommerceDataIntegrationProcessLogPersistence
+			commerceDataIntegrationProcessLogPersistence) {
+
+		try {
+			Field field =
+				CommerceDataIntegrationProcessLogUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceDataIntegrationProcessLogPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

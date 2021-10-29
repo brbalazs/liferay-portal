@@ -20,6 +20,7 @@ import com.liferay.commerce.account.model.impl.CommerceAccountOrganizationRelImp
 import com.liferay.commerce.account.model.impl.CommerceAccountOrganizationRelModelImpl;
 import com.liferay.commerce.account.service.persistence.CommerceAccountOrganizationRelPK;
 import com.liferay.commerce.account.service.persistence.CommerceAccountOrganizationRelPersistence;
+import com.liferay.commerce.account.service.persistence.CommerceAccountOrganizationRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -44,6 +45,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1958,15 +1960,37 @@ public class CommerceAccountOrganizationRelPersistenceImpl
 			CommerceAccountOrganizationRelModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByOrganizationId", new String[] {Long.class.getName()});
+
+		_setCommerceAccountOrganizationRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceAccountOrganizationRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceAccountOrganizationRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceAccountOrganizationRelUtilPersistence(
+		CommerceAccountOrganizationRelPersistence
+			commerceAccountOrganizationRelPersistence) {
+
+		try {
+			Field field =
+				CommerceAccountOrganizationRelUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAccountOrganizationRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

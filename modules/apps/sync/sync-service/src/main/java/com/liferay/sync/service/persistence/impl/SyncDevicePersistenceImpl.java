@@ -43,6 +43,7 @@ import com.liferay.sync.model.SyncDevice;
 import com.liferay.sync.model.impl.SyncDeviceImpl;
 import com.liferay.sync.model.impl.SyncDeviceModelImpl;
 import com.liferay.sync.service.persistence.SyncDevicePersistence;
+import com.liferay.sync.service.persistence.SyncDeviceUtil;
 
 import java.io.Serializable;
 
@@ -3206,14 +3207,33 @@ public class SyncDevicePersistenceImpl
 			SyncDeviceModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC_U",
 			new String[] {Long.class.getName(), String.class.getName()});
+
+		_setSyncDeviceUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSyncDeviceUtilPersistence(null);
+
 		entityCache.removeCache(SyncDeviceImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSyncDeviceUtilPersistence(
+		SyncDevicePersistence syncDevicePersistence) {
+
+		try {
+			Field field = SyncDeviceUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, syncDevicePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

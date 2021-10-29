@@ -19,6 +19,7 @@ import com.liferay.asset.tag.stats.model.AssetTagStats;
 import com.liferay.asset.tag.stats.model.impl.AssetTagStatsImpl;
 import com.liferay.asset.tag.stats.model.impl.AssetTagStatsModelImpl;
 import com.liferay.asset.tag.stats.service.persistence.AssetTagStatsPersistence;
+import com.liferay.asset.tag.stats.service.persistence.AssetTagStatsUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -40,6 +41,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2189,14 +2191,34 @@ public class AssetTagStatsPersistenceImpl
 			AssetTagStatsModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByT_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_setAssetTagStatsUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setAssetTagStatsUtilPersistence(null);
+
 		entityCache.removeCache(AssetTagStatsImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setAssetTagStatsUtilPersistence(
+		AssetTagStatsPersistence assetTagStatsPersistence) {
+
+		try {
+			Field field = AssetTagStatsUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, assetTagStatsPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

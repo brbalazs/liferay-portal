@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * The persistence utility for the commerce account user rel service. This utility wraps <code>com.liferay.commerce.account.service.persistence.impl.CommerceAccountUserRelPersistenceImpl</code> and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
  *
@@ -662,29 +658,9 @@ public class CommerceAccountUserRelUtil {
 	}
 
 	public static CommerceAccountUserRelPersistence getPersistence() {
-		return _serviceTracker.getService();
+		return _persistence;
 	}
 
-	private static ServiceTracker
-		<CommerceAccountUserRelPersistence, CommerceAccountUserRelPersistence>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CommerceAccountUserRelPersistence.class);
-
-		ServiceTracker
-			<CommerceAccountUserRelPersistence,
-			 CommerceAccountUserRelPersistence> serviceTracker =
-				new ServiceTracker
-					<CommerceAccountUserRelPersistence,
-					 CommerceAccountUserRelPersistence>(
-						 bundle.getBundleContext(),
-						 CommerceAccountUserRelPersistence.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CommerceAccountUserRelPersistence _persistence;
 
 }

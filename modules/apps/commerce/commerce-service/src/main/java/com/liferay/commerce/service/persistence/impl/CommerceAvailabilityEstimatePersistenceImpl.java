@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceAvailabilityEstimate;
 import com.liferay.commerce.model.impl.CommerceAvailabilityEstimateImpl;
 import com.liferay.commerce.model.impl.CommerceAvailabilityEstimateModelImpl;
 import com.liferay.commerce.service.persistence.CommerceAvailabilityEstimatePersistence;
+import com.liferay.commerce.service.persistence.CommerceAvailabilityEstimateUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2757,15 +2758,37 @@ public class CommerceAvailabilityEstimatePersistenceImpl
 			CommerceAvailabilityEstimateModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByCompanyId", new String[] {Long.class.getName()});
+
+		_setCommerceAvailabilityEstimateUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceAvailabilityEstimateUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceAvailabilityEstimateImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceAvailabilityEstimateUtilPersistence(
+		CommerceAvailabilityEstimatePersistence
+			commerceAvailabilityEstimatePersistence) {
+
+		try {
+			Field field =
+				CommerceAvailabilityEstimateUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAvailabilityEstimatePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

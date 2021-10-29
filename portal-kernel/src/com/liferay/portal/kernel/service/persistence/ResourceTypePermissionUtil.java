@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.service.persistence;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.model.ResourceTypePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -750,15 +749,9 @@ public class ResourceTypePermissionUtil {
 	}
 
 	public static ResourceTypePermissionPersistence getPersistence() {
-		if (_persistence == null) {
-			_persistence =
-				(ResourceTypePermissionPersistence)PortalBeanLocatorUtil.locate(
-					ResourceTypePermissionPersistence.class.getName());
-		}
-
 		return _persistence;
 	}
 
-	private static ResourceTypePermissionPersistence _persistence;
+	private static volatile ResourceTypePermissionPersistence _persistence;
 
 }

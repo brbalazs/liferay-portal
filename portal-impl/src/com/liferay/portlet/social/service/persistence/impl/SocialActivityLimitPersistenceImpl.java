@@ -36,9 +36,11 @@ import com.liferay.portlet.social.model.impl.SocialActivityLimitModelImpl;
 import com.liferay.social.kernel.exception.NoSuchActivityLimitException;
 import com.liferay.social.kernel.model.SocialActivityLimit;
 import com.liferay.social.kernel.service.persistence.SocialActivityLimitPersistence;
+import com.liferay.social.kernel.service.persistence.SocialActivityLimitUtil;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -3000,14 +3002,34 @@ public class SocialActivityLimitPersistenceImpl
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), String.class.getName()
 			});
+
+		_setSocialActivityLimitUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSocialActivityLimitUtilPersistence(null);
+
 		EntityCacheUtil.removeCache(SocialActivityLimitImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSocialActivityLimitUtilPersistence(
+		SocialActivityLimitPersistence socialActivityLimitPersistence) {
+
+		try {
+			Field field = SocialActivityLimitUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, socialActivityLimitPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	private static final String _SQL_SELECT_SOCIALACTIVITYLIMIT =

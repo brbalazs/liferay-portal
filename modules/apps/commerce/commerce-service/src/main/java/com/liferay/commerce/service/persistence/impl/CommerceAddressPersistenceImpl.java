@@ -19,6 +19,7 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.impl.CommerceAddressImpl;
 import com.liferay.commerce.model.impl.CommerceAddressModelImpl;
 import com.liferay.commerce.service.persistence.CommerceAddressPersistence;
+import com.liferay.commerce.service.persistence.CommerceAddressUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -6385,14 +6386,34 @@ public class CommerceAddressPersistenceImpl
 			CommerceAddressModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_ERC",
 			new String[] {Long.class.getName(), String.class.getName()});
+
+		_setCommerceAddressUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceAddressUtilPersistence(null);
+
 		entityCache.removeCache(CommerceAddressImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceAddressUtilPersistence(
+		CommerceAddressPersistence commerceAddressPersistence) {
+
+		try {
+			Field field = CommerceAddressUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceAddressPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

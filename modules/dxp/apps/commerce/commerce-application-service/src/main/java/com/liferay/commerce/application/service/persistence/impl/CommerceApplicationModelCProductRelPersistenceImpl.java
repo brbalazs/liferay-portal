@@ -19,6 +19,7 @@ import com.liferay.commerce.application.model.CommerceApplicationModelCProductRe
 import com.liferay.commerce.application.model.impl.CommerceApplicationModelCProductRelImpl;
 import com.liferay.commerce.application.model.impl.CommerceApplicationModelCProductRelModelImpl;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelPersistence;
+import com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -2187,15 +2188,37 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByCProductId", new String[] {Long.class.getName()});
+
+		_setCommerceApplicationModelCProductRelUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceApplicationModelCProductRelUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceApplicationModelCProductRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceApplicationModelCProductRelUtilPersistence(
+		CommerceApplicationModelCProductRelPersistence
+			commerceApplicationModelCProductRelPersistence) {
+
+		try {
+			Field field =
+				CommerceApplicationModelCProductRelUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceApplicationModelCProductRelPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

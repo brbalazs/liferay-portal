@@ -44,6 +44,7 @@ import com.liferay.wiki.model.WikiNode;
 import com.liferay.wiki.model.impl.WikiNodeImpl;
 import com.liferay.wiki.model.impl.WikiNodeModelImpl;
 import com.liferay.wiki.service.persistence.WikiNodePersistence;
+import com.liferay.wiki.service.persistence.WikiNodeUtil;
 
 import java.io.Serializable;
 
@@ -5724,14 +5725,33 @@ public class WikiNodePersistenceImpl
 			WikiNodeModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S",
 			new String[] {Long.class.getName(), Integer.class.getName()});
+
+		_setWikiNodeUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setWikiNodeUtilPersistence(null);
+
 		entityCache.removeCache(WikiNodeImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setWikiNodeUtilPersistence(
+		WikiNodePersistence wikiNodePersistence) {
+
+		try {
+			Field field = WikiNodeUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, wikiNodePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

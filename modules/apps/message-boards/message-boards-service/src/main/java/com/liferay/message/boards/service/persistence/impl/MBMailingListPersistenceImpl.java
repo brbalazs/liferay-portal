@@ -19,6 +19,7 @@ import com.liferay.message.boards.model.MBMailingList;
 import com.liferay.message.boards.model.impl.MBMailingListImpl;
 import com.liferay.message.boards.model.impl.MBMailingListModelImpl;
 import com.liferay.message.boards.service.persistence.MBMailingListPersistence;
+import com.liferay.message.boards.service.persistence.MBMailingListUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -3239,14 +3240,34 @@ public class MBMailingListPersistenceImpl
 			MBMailingListModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_C",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_setMBMailingListUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setMBMailingListUtilPersistence(null);
+
 		entityCache.removeCache(MBMailingListImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setMBMailingListUtilPersistence(
+		MBMailingListPersistence mbMailingListPersistence) {
+
+		try {
+			Field field = MBMailingListUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, mbMailingListPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

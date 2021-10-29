@@ -19,6 +19,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryReplenishmentItem;
 import com.liferay.commerce.inventory.model.impl.CommerceInventoryReplenishmentItemImpl;
 import com.liferay.commerce.inventory.model.impl.CommerceInventoryReplenishmentItemModelImpl;
 import com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemPersistence;
+import com.liferay.commerce.inventory.service.persistence.CommerceInventoryReplenishmentItemUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -4221,15 +4222,37 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByS_AD",
 			new String[] {String.class.getName(), Date.class.getName()});
+
+		_setCommerceInventoryReplenishmentItemUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceInventoryReplenishmentItemUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceInventoryReplenishmentItemImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceInventoryReplenishmentItemUtilPersistence(
+		CommerceInventoryReplenishmentItemPersistence
+			commerceInventoryReplenishmentItemPersistence) {
+
+		try {
+			Field field =
+				CommerceInventoryReplenishmentItemUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceInventoryReplenishmentItemPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

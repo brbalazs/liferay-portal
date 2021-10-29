@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.service.persistence;
 
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.model.ResourceBlock;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -751,15 +750,9 @@ public class ResourceBlockUtil {
 	}
 
 	public static ResourceBlockPersistence getPersistence() {
-		if (_persistence == null) {
-			_persistence =
-				(ResourceBlockPersistence)PortalBeanLocatorUtil.locate(
-					ResourceBlockPersistence.class.getName());
-		}
-
 		return _persistence;
 	}
 
-	private static ResourceBlockPersistence _persistence;
+	private static volatile ResourceBlockPersistence _persistence;
 
 }

@@ -19,6 +19,7 @@ import com.liferay.marketplace.model.Module;
 import com.liferay.marketplace.model.impl.ModuleImpl;
 import com.liferay.marketplace.model.impl.ModuleModelImpl;
 import com.liferay.marketplace.service.persistence.ModulePersistence;
+import com.liferay.marketplace.service.persistence.ModuleUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -4493,14 +4494,33 @@ public class ModulePersistenceImpl
 				Long.class.getName(), String.class.getName(),
 				String.class.getName()
 			});
+
+		_setModuleUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setModuleUtilPersistence(null);
+
 		entityCache.removeCache(ModuleImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setModuleUtilPersistence(
+		ModulePersistence modulePersistence) {
+
+		try {
+			Field field = ModuleUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, modulePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

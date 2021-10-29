@@ -19,6 +19,7 @@ import com.liferay.polls.model.PollsVote;
 import com.liferay.polls.model.impl.PollsVoteImpl;
 import com.liferay.polls.model.impl.PollsVoteModelImpl;
 import com.liferay.polls.service.persistence.PollsVotePersistence;
+import com.liferay.polls.service.persistence.PollsVoteUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -4078,14 +4079,33 @@ public class PollsVotePersistenceImpl
 			PollsVoteModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByQ_U",
 			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_setPollsVoteUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setPollsVoteUtilPersistence(null);
+
 		entityCache.removeCache(PollsVoteImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setPollsVoteUtilPersistence(
+		PollsVotePersistence pollsVotePersistence) {
+
+		try {
+			Field field = PollsVoteUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, pollsVotePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

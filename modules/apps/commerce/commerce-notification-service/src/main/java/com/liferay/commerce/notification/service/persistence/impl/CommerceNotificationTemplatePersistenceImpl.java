@@ -19,6 +19,7 @@ import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.model.impl.CommerceNotificationTemplateImpl;
 import com.liferay.commerce.notification.model.impl.CommerceNotificationTemplateModelImpl;
 import com.liferay.commerce.notification.service.persistence.CommerceNotificationTemplatePersistence;
+import com.liferay.commerce.notification.service.persistence.CommerceNotificationTemplateUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -5693,15 +5694,37 @@ public class CommerceNotificationTemplatePersistenceImpl
 				Long.class.getName(), String.class.getName(),
 				Boolean.class.getName()
 			});
+
+		_setCommerceNotificationTemplateUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCommerceNotificationTemplateUtilPersistence(null);
+
 		entityCache.removeCache(
 			CommerceNotificationTemplateImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCommerceNotificationTemplateUtilPersistence(
+		CommerceNotificationTemplatePersistence
+			commerceNotificationTemplatePersistence) {
+
+		try {
+			Field field =
+				CommerceNotificationTemplateUtil.class.getDeclaredField(
+					"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, commerceNotificationTemplatePersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

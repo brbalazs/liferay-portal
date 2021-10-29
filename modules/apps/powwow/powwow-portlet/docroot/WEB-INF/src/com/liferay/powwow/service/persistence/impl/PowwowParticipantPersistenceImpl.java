@@ -40,6 +40,7 @@ import com.liferay.powwow.model.PowwowParticipant;
 import com.liferay.powwow.model.impl.PowwowParticipantImpl;
 import com.liferay.powwow.model.impl.PowwowParticipantModelImpl;
 import com.liferay.powwow.service.persistence.PowwowParticipantPersistence;
+import com.liferay.powwow.service.persistence.PowwowParticipantUtil;
 
 import java.io.Serializable;
 
@@ -2684,14 +2685,34 @@ public class PowwowParticipantPersistenceImpl
 			PowwowParticipantModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPMI_T",
 			new String[] {Long.class.getName(), Integer.class.getName()});
+
+		_setPowwowParticipantUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setPowwowParticipantUtilPersistence(null);
+
 		EntityCacheUtil.removeCache(PowwowParticipantImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setPowwowParticipantUtilPersistence(
+		PowwowParticipantPersistence powwowParticipantPersistence) {
+
+		try {
+			Field field = PowwowParticipantUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, powwowParticipantPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	private static final String _SQL_SELECT_POWWOWPARTICIPANT =

@@ -40,9 +40,11 @@ import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 import com.liferay.saml.persistence.model.impl.SamlSpAuthRequestImpl;
 import com.liferay.saml.persistence.model.impl.SamlSpAuthRequestModelImpl;
 import com.liferay.saml.persistence.service.persistence.SamlSpAuthRequestPersistence;
+import com.liferay.saml.persistence.service.persistence.SamlSpAuthRequestUtil;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Timestamp;
@@ -1769,14 +1771,34 @@ public class SamlSpAuthRequestPersistenceImpl
 			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SSARK",
 			new String[] {String.class.getName(), String.class.getName()});
+
+		_setSamlSpAuthRequestUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setSamlSpAuthRequestUtilPersistence(null);
+
 		entityCache.removeCache(SamlSpAuthRequestImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setSamlSpAuthRequestUtilPersistence(
+		SamlSpAuthRequestPersistence samlSpAuthRequestPersistence) {
+
+		try {
+			Field field = SamlSpAuthRequestUtil.class.getDeclaredField(
+				"_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, samlSpAuthRequestPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -17,6 +17,7 @@ package com.liferay.counter.service.persistence.impl;
 import com.liferay.counter.kernel.exception.NoSuchCounterException;
 import com.liferay.counter.kernel.model.Counter;
 import com.liferay.counter.kernel.service.persistence.CounterPersistence;
+import com.liferay.counter.kernel.service.persistence.CounterUtil;
 import com.liferay.counter.model.impl.CounterImpl;
 import com.liferay.counter.model.impl.CounterModelImpl;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
@@ -36,6 +37,8 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Field;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -757,14 +760,33 @@ public class CounterPersistenceImpl
 			CounterModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
+
+		_setCounterUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setCounterUtilPersistence(null);
+
 		EntityCacheUtil.removeCache(CounterImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setCounterUtilPersistence(
+		CounterPersistence counterPersistence) {
+
+		try {
+			Field field = CounterUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, counterPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	private static final String _SQL_SELECT_COUNTER =

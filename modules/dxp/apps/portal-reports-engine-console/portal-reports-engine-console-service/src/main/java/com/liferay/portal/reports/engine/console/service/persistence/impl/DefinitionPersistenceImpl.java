@@ -43,6 +43,7 @@ import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.model.impl.DefinitionImpl;
 import com.liferay.portal.reports.engine.console.model.impl.DefinitionModelImpl;
 import com.liferay.portal.reports.engine.console.service.persistence.DefinitionPersistence;
+import com.liferay.portal.reports.engine.console.service.persistence.DefinitionUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
@@ -3861,14 +3862,33 @@ public class DefinitionPersistenceImpl
 			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] {Long.class.getName()});
+
+		_setDefinitionUtilPersistence(this);
 	}
 
 	public void destroy() {
+		_setDefinitionUtilPersistence(null);
+
 		entityCache.removeCache(DefinitionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	private void _setDefinitionUtilPersistence(
+		DefinitionPersistence definitionPersistence) {
+
+		try {
+			Field field = DefinitionUtil.class.getDeclaredField("_persistence");
+
+			field.setAccessible(true);
+
+			field.set(null, definitionPersistence);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new RuntimeException(reflectiveOperationException);
+		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

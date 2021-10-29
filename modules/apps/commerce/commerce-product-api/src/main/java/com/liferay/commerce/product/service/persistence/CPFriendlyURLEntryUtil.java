@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 /**
  * The persistence utility for the cp friendly url entry service. This utility wraps <code>com.liferay.commerce.product.service.persistence.impl.CPFriendlyURLEntryPersistenceImpl</code> and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
  *
@@ -1821,29 +1817,9 @@ public class CPFriendlyURLEntryUtil {
 	}
 
 	public static CPFriendlyURLEntryPersistence getPersistence() {
-		return _serviceTracker.getService();
+		return _persistence;
 	}
 
-	private static ServiceTracker
-		<CPFriendlyURLEntryPersistence, CPFriendlyURLEntryPersistence>
-			_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(
-			CPFriendlyURLEntryPersistence.class);
-
-		ServiceTracker
-			<CPFriendlyURLEntryPersistence, CPFriendlyURLEntryPersistence>
-				serviceTracker =
-					new ServiceTracker
-						<CPFriendlyURLEntryPersistence,
-						 CPFriendlyURLEntryPersistence>(
-							 bundle.getBundleContext(),
-							 CPFriendlyURLEntryPersistence.class, null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CPFriendlyURLEntryPersistence _persistence;
 
 }
