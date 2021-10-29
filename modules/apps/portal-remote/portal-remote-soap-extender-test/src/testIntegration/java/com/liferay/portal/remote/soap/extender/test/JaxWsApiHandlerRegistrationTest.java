@@ -18,6 +18,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,6 +30,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class JaxWsApiHandlerRegistrationTest {
 
+	@Ignore
 	@Test
 	public void testHandlerIsRegistered() throws Exception {
 		URL url = new URL(_url, "/o/soap-test/greeterApi?wsdl");
