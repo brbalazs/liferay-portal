@@ -148,7 +148,7 @@ definition {
 
 	@description = "This is a test case for LPS-97451."
 	@priority = "5"
-	test ViewOrEditFragmenConfiguration {
+	test WidgetNavConfigurationEditsReflectedInViewMode {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
 		FragmentsAdmin.addFragment(fragmentName = "Fragment Name 1");
