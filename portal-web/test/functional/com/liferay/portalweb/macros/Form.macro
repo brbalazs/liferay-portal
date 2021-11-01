@@ -211,6 +211,20 @@ definition {
 			value1 = "${successPageDescription}");
 	}
 
+	macro editTitle {
+		AssertVisible(locator1 = "Form#ADD_FIELD");
+
+		AssertVisible(locator1 = "Form#NAME_FIELD");
+
+		AssertVisible(locator1 = "Form#DESCRIPTION_FIELD");
+
+		Click(locator1 = "Form#NAME_FIELD");
+
+		Type(
+			locator1 = "Form#NAME_FIELD",
+			value1 = "${formName}");
+	}
+
 	macro enableAutocompleteConfiguration {
 		FormFields.enableSwitcher(fieldName = "autocomplete");
 	}
