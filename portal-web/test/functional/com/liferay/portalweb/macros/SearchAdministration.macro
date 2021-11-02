@@ -32,7 +32,8 @@ definition {
 		var vendor = StringUtil.extractFirst("${alertInfo}", ",");
 
 		var searchEngineVendor = StringUtil.extractLast("${vendor}", "Vendor:");
-		var curl = "http://localhost:9200/_tasks";
+		var curl = "http://${portalHostname}:9200/_tasks";
+		var elasticsearchTasks = JSONCurlUtil.get("${curl}");
 
 		Panel.expandPanel(panel = "Index Actions");
 
