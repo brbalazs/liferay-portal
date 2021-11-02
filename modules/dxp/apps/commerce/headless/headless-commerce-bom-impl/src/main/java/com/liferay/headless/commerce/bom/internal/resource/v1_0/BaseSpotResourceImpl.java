@@ -100,7 +100,7 @@ public abstract class BaseSpotResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/commerce-bom/1.0/areas/{id}/spot/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/commerce-bom/1.0/areas/spot/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -118,7 +118,7 @@ public abstract class BaseSpotResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Spot")}
 	)
 	@javax.ws.rs.Consumes("application/json")
-	@javax.ws.rs.Path("/areas/{id}/spot/batch")
+	@javax.ws.rs.Path("/areas/spot/batch")
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces("application/json")
 	@Override
