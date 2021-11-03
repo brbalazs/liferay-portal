@@ -16,6 +16,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>FIELD_ADD_DUPLICATE</td>
+	<td>//div[contains(@class,'ddm-form-field')]//a[contains(@class,'ddm-form-field-repeatable-add-button')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>FIELD_ADD_SPECIFIC</td>
 	<td>//div[contains(@class,'form-field-container')][${key_repeatableFieldNumber}]//div[contains(@data-fieldname,'${key_fieldName}')]/../div[contains(@class,'form-field-repeatable-toolbar')]//a[contains(@class,'add-button')]</td>
 	<td></td>
@@ -263,6 +268,11 @@
 <tr>
 	<td>SELECT_FIELD_DATA_PROVIDER_LIST</td>
 	<td>//div[contains(@data-fieldname,'${key_fieldName}')]//div[contains(@class,'form-builder-select-field')]//li[contains(.,'${key_selectOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_INDEX</td>
+	<td>xpath=(//div[contains(@data-fieldname,'${key_fieldName}')]//div[contains(@class,'form-builder-select-field')]//div[contains(@class,'select-field-trigger')])[${key_index}]</td>
 	<td></td>
 </tr>
 <tr>
