@@ -691,6 +691,66 @@ definition {
 			fieldValue = "Text Field Value");
 	}
 
+	@description = "LPS-76307 - Verify that a Select From List Field can be set to repeatable"
+	@priority = "3"
+	test CanBeSetAsRepeatable {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName();
+
+		Form.editDescription();
+
+		Form.gotoAddField(fieldType = "Select from List");
+
+		Form.editFieldLabel(fieldValue = "SelectfromList");
+
+		for (var number : list "1,2,3") {
+			FormFields.editOptionsRow(
+				optionName = "Select${number}",
+				optionValue = "Select ${number}",
+				rowNumber = "${number}");
+		}
+
+		Form.gotoAdvancedTab();
+
+		FormFields.enableSwitcher(fieldName = "repeatable");
+
+		Form.closeSidebar();
+
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		Click(locator1 = "FormFields#FIELD_ADD_DUPLICATE");
+
+		FormFields.viewRepeatableSelectFromList(
+			fieldName = "SelectfromList",
+			index = "1");
+
+		FormFields.viewRepeatableSelectFromList(
+			fieldName = "SelectfromList",
+			index = "2");
+
+		FormFields.selectSelectOptionRepeatable(
+			fieldName = "SelectfromList",
+			index = "1",
+			selectOption = "Select 1");
+
+		FormFields.selectSelectOptionRepeatable(
+			fieldName = "SelectfromList",
+			index = "2",
+			selectOption = "Select 1");
+
+		FormPortlet.submitSuccessfully();
+	}
+
 	@description = "This is a use case for LPS-75116 and LPS-79101."
 	@priority = "4"
 	test ChangeFieldType {
