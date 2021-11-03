@@ -1269,6 +1269,10 @@ definition {
 			value1 = "${pageVariationName}");
 	}
 
+	macro viewPortletDefaultMessageInRemoteLive {
+		Alert.viewInfoMessageSpecific(infoMessage = "This application is not visible to users yet");
+	}
+
 	macro viewPublicationSummary {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Summary",
