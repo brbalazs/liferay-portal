@@ -1,5 +1,5 @@
 import AssetsListCard from '../components/AssetsListCard';
-import AssetsQuery from '../queries/AssetsQuery';
+import AssetsQuery from 'shared/queries/AssetsQuery';
 import BaseCard from 'cerebro-shared/components/base-card';
 import React from 'react';
 import {compose} from 'redux';

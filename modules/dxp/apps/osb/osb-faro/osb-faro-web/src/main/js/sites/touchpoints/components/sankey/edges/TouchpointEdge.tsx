@@ -1,4 +1,4 @@
-import AssetsQuery from 'sites/touchpoints/queries/AssetsQuery';
+import AssetsQuery from 'shared/queries/AssetsQuery';
 import Header from './Header';
 import React, {useState} from 'react';
 

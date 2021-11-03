@@ -5,7 +5,7 @@ import ParentTouchpointEdge from './edges/ParentTouchpointEdge';
 import Paths from './Paths';
 import React, {useEffect, useRef, useState} from 'react';
 import TouchpointEdge from './edges/TouchpointEdge';
-import TouchpointPathQuery from 'sites/touchpoints/queries/TouchpointPathQuery';
+import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
 import {AssetNode, Link, Node, SankeyNode} from './utils/types';
 import {
 	getAssetsHeight,

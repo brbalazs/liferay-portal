@@ -1,5 +1,5 @@
 import getFiltersMapper from 'cerebro-shared/hocs/mappers/filter';
-import TouchpointPathQuery from '../queries/TouchpointPathQuery';
+import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withFilterComponent} from 'shared/hoc/Filter';
 
