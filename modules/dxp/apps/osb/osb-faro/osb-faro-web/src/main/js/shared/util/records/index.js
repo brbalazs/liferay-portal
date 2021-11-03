@@ -1,10 +1,10 @@
-import FaroConstants from '../constants';
+// import FaroConstants from '../constants';
 import {INDIVIDUALS, PAGEVIEWS} from 'shared/util/subscriptions';
 import {List, Map, Record} from 'immutable';
 
-const {
-	pagination: {orderDefault}
-} = FaroConstants;
+// const {
+// 	pagination: {orderDefault}
+// } = FaroConstants;
 
 export {default as Account} from './Account';
 export {default as CustomValue} from './CustomValue';
@@ -12,6 +12,7 @@ export {default as DataSource} from './DataSource';
 export {default as DistributionTab} from './DistributionTab';
 export {default as Individual} from './Individual';
 export {default as User} from './User';
+export {default as OrderParams} from './OrderParams';
 export {default as Project} from './Project';
 export {default as Property} from './Property';
 export {default as PropertyGroup} from './PropertyGroup';
@@ -46,10 +47,10 @@ export const Metric = new Record({
 	status: 0
 });
 
-export const OrderParams = new Record({
-	field: '',
-	sortOrder: orderDefault
-});
+// export const OrderParams = new Record({
+// 	field: '',
+// 	sortOrder: orderDefault
+// });
 
 export const Plan = new Record({
 	addOns: new Map({
