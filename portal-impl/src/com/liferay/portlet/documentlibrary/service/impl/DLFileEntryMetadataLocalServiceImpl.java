@@ -202,6 +202,10 @@ public class DLFileEntryMetadataLocalServiceImpl
 				companyId, ddmStructure.getStructureId(), ddmFormValues,
 				serviceContext);
 
+			if (ddmStorageId == 0) {
+				throw new PortalException("ddmStorageId has the value of 0");
+			}
+
 			fileEntryMetadata.setDDMStorageId(ddmStorageId);
 
 			fileEntryMetadata.setDDMStructureId(ddmStructure.getStructureId());
