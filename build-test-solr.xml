@@ -27,7 +27,7 @@
 		</elseif>
 		<else>
 			<property name="solr.major.version" value="solr7" />
-			<property name="solr.version" value="7.5.0" />
+			<property name="solr.version" value="7.7.3" />
 		</else>
 	</if>
 
