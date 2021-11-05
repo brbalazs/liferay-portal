@@ -21,7 +21,6 @@ import com.liferay.expando.kernel.service.ExpandoValueLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.audit.AuditMessageFactoryUtil;
 import com.liferay.portal.kernel.audit.AuditRouterUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -320,8 +319,8 @@ public class TemplateContextHelper {
 
 					contextObjects.put("navItems", navItems);
 				}
-				catch (PortalException pe) {
-					_log.error(pe, pe);
+				catch (Exception exception) {
+					_log.error(exception, exception);
 				}
 			}
 
