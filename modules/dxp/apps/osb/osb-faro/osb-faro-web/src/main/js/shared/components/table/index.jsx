@@ -46,7 +46,6 @@ class Table extends React.Component {
 		items: [],
 		list: false,
 		loading: false,
-		nestedLevel: 0,
 		nowrap: true,
 		onRowDelete: noop,
 		onRowSave: noop,
@@ -71,13 +70,6 @@ class Table extends React.Component {
 		items: PropTypes.array,
 		list: PropTypes.bool,
 		loading: PropTypes.bool,
-		nestedLevel: PropTypes.number,
-		nestedTables: PropTypes.arrayOf(
-			PropTypes.shape({
-				accessor: PropTypes.string,
-				columns: PropTypes.arrayOf(COLUMN_SHAPE)
-			})
-		),
 		nowrap: PropTypes.bool,
 		onRowClick: PropTypes.func,
 		onRowDelete: PropTypes.func,
@@ -208,8 +200,6 @@ class Table extends React.Component {
 				items,
 				list,
 				loading,
-				nestedLevel,
-				nestedTables,
 				nowrap,
 				onRowClick,
 				onRowDelete,
@@ -234,10 +224,6 @@ class Table extends React.Component {
 			'table-nowrap': nowrap,
 			'table-row-no-bordered': !rowBordered
 		});
-
-		const directNestedTable = nestedTables
-			? nestedTables[nestedLevel]
-			: undefined;
 
 		const itemsSorted = internalSort ? this.sortItems(items) : items;
 
@@ -269,7 +255,6 @@ class Table extends React.Component {
 									<Row
 										className={className}
 										clickable={
-											!!directNestedTable ||
 											onRowClick ||
 											(showCheckbox &&
 												onSelectItemsChange)
@@ -277,7 +262,6 @@ class Table extends React.Component {
 										columns={columns}
 										data={item}
 										disabled={disabled}
-										expandable={!!directNestedTable}
 										items={items}
 										itemsSelected={
 											!selectedItemsIOMap.isEmpty()
@@ -286,8 +270,6 @@ class Table extends React.Component {
 											item,
 											rowIdentifier
 										)}
-										nestedLevel={nestedLevel}
-										nestedTables={nestedTables}
 										onClick={
 											disabled
 												? noop

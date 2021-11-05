@@ -1,24 +1,6 @@
 .table-root {
 	position: relative;
 
-	.row-nested {
-		> td,
-		td:only-child {
-			padding: 0 !important;
-
-			> .table-responsive > .table {
-				margin-bottom: 0;
-			}
-		}
-
-		.table-list {
-			td,
-			th {
-				border-radius: 0 !important;
-			}
-		}
-	}
-
 	.table-cell-secondary {
 		color: $secondary;
 
@@ -46,7 +28,7 @@
 	}
 
 	tbody > tr {
-		&:not(.row-nested):hover {
+		&:hover {
 			background: $primaryLighten45;
 
 			&.disabled td > a {
