@@ -902,8 +902,11 @@ definition {
 			webContentTitle = "WC WebContent Title");
 	}
 
+	@description = "LPS-86164 - Assert whether selecting time ends in JS error."
 	@priority = "3"
 	test AddWebContentExpirationDate {
+		property test.assert.javascript.errors = "true";
+		property test.assert.warning.exceptions = "true";
 		property testray.component.names = "Web Content Administration";
 
 		Navigator.openURL();
@@ -920,6 +923,22 @@ definition {
 			webContentTitle = "WC WebContent Title");
 
 		WebContent.addExpirationDateCP(expirationDate = "01/02/3000");
+
+		WebContent.editDisplayDate(displayDate = "01/01/2100");
+
+		Click(locator1 = "TextInput#DISPLAY_DATE_TIME");
+
+		AssertVisible(locator1 = "TextInput#DISPLAY_DATE_TIME_TIMEPICKER");
+
+		Click(locator1 = "TextInput#DISPLAY_DATE");
+
+		AssertNotVisible(locator1 = "TextInput#DISPLAY_DATE_TIME_TIMEPICKER");
+
+		Click(locator1 = "TextInput#DISPLAY_DATE_TIME");
+
+		Click(locator1 = "TextInput#DISPLAY_DATE_TIME_TIMEPICKER");
+
+		AssertNotVisible(locator1 = "TextInput#DISPLAY_DATE_TIME_TIMEPICKER");
 
 		PortletEntry.publish();
 
