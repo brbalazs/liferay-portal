@@ -2,9 +2,8 @@ import Button from 'shared/components/Button';
 import Cell from './Cell';
 import Checkbox from 'shared/components/Checkbox';
 import getCN from 'classnames';
-import HeaderCell from './HeaderCell';
 import Icon from 'shared/components/Icon';
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import Table from './index';
 import {get, isNil, noop} from 'lodash';
 import {StopClickPropagation} from './cell-components';
@@ -16,13 +15,12 @@ interface IRowProps {
 	data?: Object;
 	disabled?: boolean;
 	expandable?: boolean;
-	header?: boolean;
 	items?: Array<any>;
 	itemsSelected?: boolean;
 	nestedLevel: number;
 	nestedTables?: Array<any>;
 	onClick?: (data: any) => void;
-	renderInlineRowActions?: (params: any) => void;
+	renderInlineRowActions?: (params: any) => void; // Can we just remove this?  doesn't seem to be that useful... we can just use it in the columns
 	renderRowActions?: (params: any) => void;
 	rowIndex: number;
 	selected?: boolean;
@@ -35,7 +33,6 @@ const Row: React.FC<IRowProps> = ({
 	data = {},
 	disabled = false,
 	expandable,
-	header = false,
 	items = [],
 	itemsSelected = false,
 	nestedLevel,
@@ -45,8 +42,7 @@ const Row: React.FC<IRowProps> = ({
 	renderRowActions,
 	rowIndex,
 	selected = false,
-	showCheckbox = false,
-	...otherProps
+	showCheckbox = false
 }) => {
 	const [state, setState] = useState({
 		editing: false,
@@ -93,9 +89,7 @@ const Row: React.FC<IRowProps> = ({
 	const renderActionColumn = () => {
 		const {editing, edits} = state;
 
-		if (header) {
-			return <th />;
-		} else if (renderRowActions) {
+		if (renderRowActions) {
 			return (
 				<Cell className='row-actions' key='ROW_ACTIONS'>
 					<StopClickPropagation>
@@ -143,7 +137,7 @@ const Row: React.FC<IRowProps> = ({
 	return (
 		<>
 			<tr className={classes} onClick={handleExpand}>
-				{!header && showCheckbox && (
+				{showCheckbox && (
 					<Cell>
 						<Checkbox
 							checked={selected}
@@ -161,42 +155,10 @@ const Row: React.FC<IRowProps> = ({
 						className,
 						dataFormatter = val => val,
 						editable = false,
-						headProps = {},
-						label,
-						sortable,
 						title
 					} = column;
 
-					if (showCheckbox && i === 0 && header) {
-						return (
-							<Fragment key={i}>
-								<th />
-
-								<HeaderCell
-									{...otherProps}
-									accessor={accessor}
-									className={className}
-									sortable={sortable}
-									{...headProps}
-								>
-									{label}
-								</HeaderCell>
-							</Fragment>
-						);
-					} else if (header) {
-						return (
-							<HeaderCell
-								{...otherProps}
-								accessor={accessor}
-								className={className}
-								key={i}
-								sortable={sortable}
-								{...headProps}
-							>
-								{label}
-							</HeaderCell>
-						);
-					} else if (CellRenderer && editable) {
+					if (CellRenderer && editable) {
 						return (
 							<CellRenderer
 								{...cellRendererProps}
@@ -237,29 +199,24 @@ const Row: React.FC<IRowProps> = ({
 				{(renderRowActions || renderInlineRowActions) &&
 					renderActionColumn()}
 
-				{expandable &&
-					(header ? (
-						<th />
-					) : (
-						<Cell key='EXPAND_CARET'>
-							<Button
-								className='table-action-link'
-								display='unstyled'
-								onClick={handleExpand}
-							>
-								<Icon
-									symbol={
-										expanded
-											? 'caret-bottom'
-											: 'caret-right'
-									}
-								/>
-							</Button>
-						</Cell>
-					))}
+				{expandable && (
+					<Cell key='EXPAND_CARET'>
+						<Button
+							className='table-action-link'
+							display='unstyled'
+							onClick={handleExpand}
+						>
+							<Icon
+								symbol={
+									expanded ? 'caret-bottom' : 'caret-right'
+								}
+							/>
+						</Button>
+					</Cell>
+				)}
 			</tr>
 
-			{expandable && !header && expanded && (
+			{expandable && expanded && (
 				<tr className='row-nested'>
 					<td colSpan={columns.length + 1}>
 						<Table

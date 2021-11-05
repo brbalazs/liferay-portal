@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
+import HeaderRow from './HeaderRow';
 import React from 'react';
 import Row from './Row';
 import Spinner from 'shared/components/Spinner';
@@ -60,6 +61,7 @@ class Table extends React.Component {
 		checkDisabled: PropTypes.func,
 		columns: PropTypes.arrayOf(COLUMN_SHAPE).isRequired,
 		defaultSort: PropTypes.shape({
+			// TODO: Replace defaultSort with orderIOMap filled with OrderParam records. table will not handle state anymore
 			field: PropTypes.string,
 			sortOrder: PropTypes.string
 		}),
@@ -247,19 +249,16 @@ class Table extends React.Component {
 				)}
 			>
 				<table className={classes}>
-					<thead>
-						<Row
-							columns={columns}
-							expandable={!!directNestedTable}
-							header
-							headerLink={!internalSort && !onSortChange}
-							onSort={this.handleSort}
-							orderParams={orderParams}
-							renderInlineRowActions={renderInlineRowActions}
-							renderRowActions={renderRowActions}
-							showCheckbox={showCheckbox}
-						/>
-					</thead>
+					<HeaderRow
+						columns={columns}
+						headerLink={!internalSort && !onSortChange}
+						onSort={this.handleSort}
+						orderParams={orderParams}
+						showCheckbox={showCheckbox}
+						showInlineRowActions={
+							!!renderInlineRowActions || !!renderRowActions
+						}
+					/>
 
 					{!!itemsSorted.length && (
 						<tbody className={className}>
