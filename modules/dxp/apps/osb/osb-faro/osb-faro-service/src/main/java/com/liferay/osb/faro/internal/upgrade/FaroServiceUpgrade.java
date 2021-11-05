@@ -86,6 +86,10 @@ public class FaroServiceUpgrade implements UpgradeStepRegistrator {
 			"13.0.0", "14.0.0",
 			new com.liferay.osb.faro.internal.upgrade.v14_0_0.
 				UpgradeFaroChannel());
+		registry.register(
+			"14.0.0", "15.0.0",
+			new com.liferay.osb.faro.internal.upgrade.v15_0_0.
+				UpgradeFaroProject());
 	}
 
 }
