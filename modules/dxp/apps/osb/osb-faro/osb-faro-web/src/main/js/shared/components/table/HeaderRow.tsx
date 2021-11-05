@@ -31,7 +31,6 @@ const HeaderRow: React.FC<IHeaderRowProps> = ({
 
 				return (
 					<HeaderCell
-						accessor={accessor}
 						className={className}
 						headerLink={headerLink}
 						key={`${label}-${i}`}

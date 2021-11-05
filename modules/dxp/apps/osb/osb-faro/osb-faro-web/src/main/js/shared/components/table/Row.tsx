@@ -5,10 +5,21 @@ import React, {useState} from 'react';
 import {get, isNil, noop} from 'lodash';
 import {StopClickPropagation} from './cell-components';
 
+export type Column = {
+	accessor: string;
+	cellRenderer?: React.ReactNode;
+	cellRendererProps?: object;
+	className?: string;
+	dataFormatter: (data: object) => React.ReactNode;
+	label?: React.ReactNode;
+	sortable?: boolean;
+	title?: boolean;
+};
+
 interface IRowProps {
 	className?: string;
 	clickable?: boolean;
-	columns?: Array<any>;
+	columns: Column[];
 	data?: Object;
 	disabled?: boolean;
 	items?: Array<any>;
