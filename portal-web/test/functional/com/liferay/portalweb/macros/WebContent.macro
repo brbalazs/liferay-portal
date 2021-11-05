@@ -937,6 +937,20 @@ definition {
 		}
 	}
 
+	macro editDisplayDate {
+		Panel.expandPanel(panel = "Schedule");
+
+		Type.clickAtType(
+			locator1 = "TextInput#DISPLAY_DATE",
+			value1 = "${displayDate}");
+
+		if (isSet(displayTime)) {
+			Type.clickAtType(
+				locator1 = "TextInput#DISPLAY_DATE_TIME",
+				value1 = "${displayTime}");
+		}
+	}
+
 	macro editDisplayPage {
 		Panel.expandPanel(panel = "Display Page");
 
