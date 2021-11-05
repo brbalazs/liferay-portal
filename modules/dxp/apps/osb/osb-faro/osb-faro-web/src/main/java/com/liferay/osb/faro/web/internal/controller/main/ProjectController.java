@@ -682,6 +682,29 @@ public class ProjectController extends BaseFaroController {
 			faroProjectLocalService.updateFaroProject(faroProject));
 	}
 
+	protected OSBAccountEntry createOSBAccountEntry(boolean trial) {
+		return new OSBAccountEntry() {
+			{
+				OSBOfferingEntry osbOfferingEntry = new OSBOfferingEntry();
+
+				if (trial) {
+					osbOfferingEntry.setProductEntryId(
+						ProductConstants.BASIC_PRODUCT_ENTRY_ID);
+				}
+				else {
+					osbOfferingEntry.setProductEntryId(
+						ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID);
+				}
+
+				osbOfferingEntry.setQuantity(1);
+
+				osbOfferingEntry.setStartDate(new Date());
+
+				setOfferingEntries(Collections.singletonList(osbOfferingEntry));
+			}
+		};
+	}
+
 	private FaroProject _create(
 			String corpProjectUuid, String name,
 			List<String> emailAddressDomains, String friendlyURL,
@@ -755,29 +778,7 @@ public class ProjectController extends BaseFaroController {
 		_validateTimeZoneId(timeZoneId);
 
 		FaroSubscriptionDisplay faroSubscriptionDisplay =
-			new FaroSubscriptionDisplay(
-				new OSBAccountEntry() {
-					{
-						OSBOfferingEntry osbOfferingEntry =
-							new OSBOfferingEntry();
-
-						if (trial) {
-							osbOfferingEntry.setProductEntryId(
-								ProductConstants.BASIC_PRODUCT_ENTRY_ID);
-						}
-						else {
-							osbOfferingEntry.setProductEntryId(
-								ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID);
-						}
-
-						osbOfferingEntry.setQuantity(1);
-						
-						osbOfferingEntry.setStartDate(new Date());
-
-						setOfferingEntries(
-							Collections.singletonList(osbOfferingEntry));
-					}
-				});
+			new FaroSubscriptionDisplay(createOSBAccountEntry(trial));
 
 		FaroProject faroProject = null;
 
