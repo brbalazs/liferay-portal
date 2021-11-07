@@ -66,6 +66,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ANY_WITH_ARIA_LABEL</td>
+	<td>//button[@aria-label='${ariaLabel}']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ANY_DISABLED</td>
 	<td>//*[contains(@class,'disabled')]//*[contains(@class,'btn')][normalize-space(text())='${key_text}']</td>
 	<td></td>
