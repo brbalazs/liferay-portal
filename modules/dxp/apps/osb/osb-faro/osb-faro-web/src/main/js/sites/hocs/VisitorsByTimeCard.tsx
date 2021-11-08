@@ -9,7 +9,7 @@ import HeatmapChart from 'shared/components/HeatmapChart';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 import ReactDOMServer from 'react-dom/server';
-import VisitorsByTimeQuery from '../queries/VisitorsByTimeQuery';
+import VisitorsByTimeQuery from 'shared/queries/VisitorsByTimeQuery';
 import {compose} from 'shared/hoc';
 import {formatTimezoneOffset} from 'shared/util/time';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';

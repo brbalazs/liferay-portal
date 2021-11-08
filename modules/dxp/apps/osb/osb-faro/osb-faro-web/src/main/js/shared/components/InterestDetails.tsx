@@ -2,7 +2,7 @@ import Card from 'shared/components/Card';
 import getCN from 'classnames';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
-import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import URLConstants from 'shared/util/url-constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';

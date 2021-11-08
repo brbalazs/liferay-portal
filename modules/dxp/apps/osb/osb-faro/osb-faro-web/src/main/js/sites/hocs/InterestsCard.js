@@ -2,7 +2,7 @@ import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
-import InterestsQuery from 'sites/queries/InterestsQuery';
+import InterestsQuery from 'shared/queries/InterestsQuery';
 import React, {useContext} from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';

@@ -3,7 +3,7 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery, {
 	TOUCHPOINTS_QUERY_TEST
-} from 'sites/queries/TouchpointsQuery';
+} from 'shared/queries/TouchpointsQuery';
 import URLConstants from 'shared/util/url-constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';

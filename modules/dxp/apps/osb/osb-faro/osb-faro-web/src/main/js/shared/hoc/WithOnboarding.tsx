@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
+import SitesDashboardQuery from 'shared/queries/SitesDashboardQuery';
 import withCurrentUser from './WithCurrentUser';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';

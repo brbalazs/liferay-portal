@@ -14,11 +14,11 @@ import RecommendationActivitiesQuery from 'settings/recommendations/queries/Reco
 import RecommendationJobRunsQuery from 'settings/recommendations/queries/RecommendationJobRunsQuery';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
 import RecommendationQuery from 'settings/recommendations/queries/RecommendationQuery';
-import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
+import SitesDashboardQuery from 'shared/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
-import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import {AttributeTypes} from 'event-analysis/utils/types';
 import {EventTypes} from 'event-analysis/utils/types';
 import {

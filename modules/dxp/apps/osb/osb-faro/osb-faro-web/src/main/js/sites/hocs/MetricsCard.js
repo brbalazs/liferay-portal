@@ -1,6 +1,6 @@
 import getMetricsMapper from './mappers/metrics';
 import metrics from './metrics';
-import SiteMetricsQuery from '../queries/SiteMetricsQuery';
+import SiteMetricsQuery from 'shared/queries/SiteMetricsQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withMetricsCard} from 'cerebro-shared/hocs/MetricsCard';
 

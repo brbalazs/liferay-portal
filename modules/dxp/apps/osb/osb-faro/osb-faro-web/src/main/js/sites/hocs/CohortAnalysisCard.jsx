@@ -1,7 +1,7 @@
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import CohortAnalysis from 'sites/components/cohort-analysis';
-import CohortQuery from 'sites/queries/CohortQuery';
+import CohortQuery from 'shared/queries/CohortQuery';
 import Form from 'shared/components/form';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext, useState} from 'react';

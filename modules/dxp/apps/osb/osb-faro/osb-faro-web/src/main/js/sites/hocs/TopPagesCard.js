@@ -1,5 +1,5 @@
 import getTableMapper from './mappers/table';
-import SitesTopPagesQuery from '../queries/SitesTopPagesQuery';
+import SitesTopPagesQuery from 'shared/queries/SitesTopPagesQuery';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {NameCell} from 'shared/components/table/cell-components';

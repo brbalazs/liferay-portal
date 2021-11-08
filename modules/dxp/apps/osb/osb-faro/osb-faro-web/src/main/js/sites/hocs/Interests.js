@@ -1,7 +1,7 @@
 import Card from 'shared/components/Card';
 import Constants, {CompositionTypes} from 'shared/util/constants';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
-import InterestsQuery from 'sites/queries/InterestsQuery';
+import InterestsQuery from 'shared/queries/InterestsQuery';
 import React from 'react';
 import {compose} from 'redux';
 import {compositionListColumns} from 'shared/util/table-columns';
