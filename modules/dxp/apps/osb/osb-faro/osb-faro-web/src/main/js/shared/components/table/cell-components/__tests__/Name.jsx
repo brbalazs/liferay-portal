@@ -42,6 +42,19 @@ describe('Name', () => {
 		);
 	});
 
+	it('should render a link even if it has no asset title', () => {
+		const {container} = render(
+			<StaticRouter>
+				<FilledComponent data={{assetId: '123', name: 'foo'}} />
+			</StaticRouter>
+		);
+
+		expect(container.querySelector('a')).toHaveAttribute(
+			'href',
+			'/foo/undefined'
+		);
+	});
+
 	it('should render with secondary info', () => {
 		const {container} = render(
 			<StaticRouter>

@@ -681,7 +681,7 @@ export const metricsListColumns = {
 				<TextTruncate title={assetId} />
 			),
 			routeFn: ({data: {assetId, assetTitle, id}}) => {
-				if (assetId && assetTitle) {
+				if (assetId) {
 					return setUriQueryValues(
 						pickBy(rangeSelectors),
 						toRoute(route, {
@@ -689,7 +689,9 @@ export const metricsListColumns = {
 							channelId,
 							groupId,
 							...(id && {id}),
-							title: encodeURIComponent(assetTitle),
+							...(assetTitle && {
+								title: encodeURIComponent(assetTitle)
+							}),
 							touchpoint: 'Any'
 						})
 					);
