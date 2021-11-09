@@ -6,6 +6,7 @@
 		{
 			init: function(editor) {
 				var helpText = CKEDITOR.env.mac ? ' Option+0' : ' Alt+0';
+
 				if (editor.ui.addButton) {
 					editor.ui.addButton(
 						'A11YBtn',
