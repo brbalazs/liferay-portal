@@ -103,6 +103,13 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 			return content;
 		}
 
+		Thread currentThread = Thread.currentThread();
+
+		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+
+		currentThread.setContextClassLoader(
+			AntiSamySanitizerImpl.class.getClassLoader());
+
 		try {
 			AntiSamy antiSamy = new AntiSamy();
 
@@ -114,6 +121,9 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 			_log.error("Unable to sanitize input", e);
 
 			throw new SanitizerException(e);
+		}
+		finally {
+			currentThread.setContextClassLoader(contextClassLoader);
 		}
 	}
 
