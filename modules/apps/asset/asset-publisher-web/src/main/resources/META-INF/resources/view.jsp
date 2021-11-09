@@ -104,6 +104,7 @@ if (!assetPublisherDisplayContext.isPaginationTypeNone()) {
 <c:if test="<%= assetPublisherDisplayContext.isShowMetadataDescriptions() %>">
 	<liferay-asset:categorization-filter
 		assetType="content"
+		groupIds="<%= assetPublisherDisplayContext.getGroupIds() %>"
 		portletURL="<%= portletURL %>"
 	/>
 </c:if>
