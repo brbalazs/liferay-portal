@@ -75,9 +75,7 @@ const IndividualsDashboard = lazy(() =>
 /* Sites */
 
 const SitesDashboard = lazy(() =>
-	import(
-		/* webpackChunkName: "SitesDashboard" */ '../../sites/pages/dashboard'
-	)
+	import(/* webpackChunkName: "SitesDashboard" */ '../../sites/pages')
 );
 
 /* Experiments */
