@@ -44,11 +44,11 @@ definition {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Forms");
 
-		Navigator.gotoNavItem(navItem = "Data Providers");
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Data Providers");
 
 		FormsAdminNavigator.gotoAddDataProvider();
 
@@ -65,7 +65,7 @@ definition {
 		FormsAdmin.saveDataProvider();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Forms");
 
@@ -77,13 +77,13 @@ definition {
 
 		Form.gotoAddField(fieldType = "Text Field");
 
-		Form.editFieldLabelMetal(fieldValue = "Prefectures");
+		Form.editFieldLabel(fieldValue = "Prefectures");
 
 		Form.closeSidebar();
 
 		Form.gotoAddField(fieldType = "Text Field");
 
-		Form.editFieldLabelMetal(fieldValue = "Postal Code");
+		Form.editFieldLabel(fieldValue = "Postal Code");
 
 		FormFields.enableSwitcher(fieldName = "Required");
 
