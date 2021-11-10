@@ -32,6 +32,71 @@ definition {
 		}
 	}
 
+	@description = "LPS-89260 - Verify that rules are working for multiple selection fields"
+	@priority = "4"
+	test CanUseRuleOnMultipleSelectionField {
+		property test.name.skip.portal.instance = "FormRules#CanUseRuleOnMultipleSelectionField";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName();
+
+		Form.gotoAddField(fieldType = "Numeric");
+
+		Form.editFieldLabel(fieldValue = "student ID");
+
+		Form.closeSidebar();
+
+		Form.gotoAddField(fieldType = "Multiple Selection");
+
+		FormFields.editOptionsRow(
+			optionName = "student",
+			optionValue = "student",
+			rowNumber = "1");
+
+		FormFields.editOptionsRow(
+			optionName = "professional",
+			optionValue = "professional",
+			rowNumber = "2");
+
+		Form.closeSidebar();
+
+		FormsAdminNavigator.gotoRules();
+
+		FormRules.addRule();
+
+		FormRules.configureConditionOptions(
+			conditionField = "checkbox_multiple",
+			conditionOperator = "Is equal to",
+			conditionRowNumber = "1",
+			conditionValueField = "student",
+			conditionValueType = "Value");
+
+		FormRules.configureActionOptions(
+			action = "Enable",
+			actionRowNumber = "1",
+			actionTarget = "student ID");
+
+		FormRules.save();
+
+		FormsAdminNavigator.gotoFormBuilder();
+
+		Form.publishForm();
+
+		FormsAdminNavigator.openPublishURL();
+
+		FormFields.enableCheckbox(fieldName = "student");
+
+		FormFields.editTextWithBackspace(fieldName = "DDMFormPortlet");
+	}
+
 	@description = "LPS-102616 Configure data providers in both input and output fields in autofill rule"
 	@priority = "5"
 	test CanUtilizeDataProvidersInAutofillRule {
