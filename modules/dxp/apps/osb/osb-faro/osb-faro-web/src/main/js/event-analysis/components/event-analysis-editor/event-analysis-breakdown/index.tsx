@@ -8,7 +8,6 @@ import PercentOfCell from './PercentOfCell';
 import React, {useEffect, useRef, useState} from 'react';
 import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
-import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import WithEmptyState from './hoc/WithEmptyState';
 import {
 	Attributes,
@@ -30,6 +29,7 @@ import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
+import {useStatefulPagination} from 'shared/hooks';
 import {withPaginationBar} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
@@ -98,7 +98,8 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	rangeSelectors,
 	type
 }) => {
-	const {delta, page, setDelta, setPage} = useStatefulPagination();
+	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
+
 	const tableRef = useRef<HTMLDivElement>(null);
 
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
@@ -178,7 +179,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	}, [breakdownOrder.length]);
 
 	useEffect(() => {
-		setPage('1');
+		onPageChange(1);
 	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
 
 	const parseData = (
@@ -286,8 +287,8 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 								onSortChange={handleSort}
 								page={page}
 								paginationProps={{
-									onDeltaChange: setDelta,
-									onPageChange: setPage
+									onDeltaChange,
+									onPageChange
 								}}
 								rowIdentifier='index'
 								total={count}
@@ -311,7 +312,7 @@ const getColumns = ({
 	orderFields,
 	value
 }) => {
-	const columns = order.map((breakdownId, i) => {
+	const columns = order.map((breakdownId: string, i: number) => {
 		const {attributeId, type} = breakdowns[breakdownId];
 		const accessor = `breakdown${i}`;
 

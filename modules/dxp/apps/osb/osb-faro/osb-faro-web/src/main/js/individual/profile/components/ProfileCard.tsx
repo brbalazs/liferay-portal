@@ -18,7 +18,6 @@ import UserSessionQuery, {
 	UserSessionVariables
 } from 'shared/queries/UserSessionQuery';
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
-import useStatefulPagination from 'shared/hooks/useStatefulPagination';
 import {
 	FORMAT,
 	formatUTCDate,
@@ -40,6 +39,7 @@ import {isNil, omit} from 'lodash';
 import {RangeKeyTimeRanges, SessionEntityTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useRequest} from 'shared/hooks';
+import {useStatefulPagination} from 'shared/hooks';
 import {WrapSafeResults} from 'shared/hoc/util';
 
 interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
@@ -254,13 +254,9 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 
 	const statefulProps = {
 		...statefulPagination,
-		onOrderByFieldChange: statefulPagination.setOrderByFields,
-		onOrderByFieldsChange: statefulPagination.setOrderByFields,
 		onSearchValueChange: handleQuery,
-		paginationProps: {
-			onDeltaChange: statefulPagination.setDelta,
-			onPageChange: statefulPagination.setPage
-		},
+		onDeltaChange: statefulPagination.setDelta,
+		onPageChange: statefulPagination.setPage
 		toolbarProps: {
 			onFilterByChange: statefulPagination.setFilterBy,
 			onOrderByFieldChange: statefulPagination.setOrderByField,

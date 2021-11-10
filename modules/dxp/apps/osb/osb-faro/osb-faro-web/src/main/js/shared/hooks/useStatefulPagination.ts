@@ -1,20 +1,20 @@
 import Constants from 'shared/util/constants';
-import {Map} from 'immutable';
-import {NAME} from 'shared/util/pagination';
+import {Map, OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {useReducer} from 'react';
+
+const {
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
+} = Constants;
 
 export enum ActionType {
 	resetPage = 'resetPage',
 	setDelta = 'setDelta',
 	setFilterBy = 'setFilterBy',
-	setOrderBy = 'setOrderBy',
-	setOrderByField = 'setOrderByField',
-	setOrderByFields = 'setOrderByFields',
+	setOrderIOMap = 'setOrderIOMap',
 	setPage = 'setPage',
 	setQuery = 'setQuery'
 }
-
-type OrderByFields = Array<{fieldName: string; orderBy: string}>;
 
 type FilterBy = ReturnType<typeof Map>;
 
@@ -26,50 +26,27 @@ interface Action {
 interface State {
 	delta: number;
 	filterBy: FilterBy;
-	orderBy: string;
-	orderByField: string;
-	orderByFields: OrderByFields;
+	orderIOMap: OrderedMap<string, OrderParams>;
 	page: number;
 	query: string;
 }
 
-interface statefulPaginationResult extends State {
+interface StatefulPaginationResult extends State {
 	resetPage: () => void;
-	setDelta: (delta: string) => void;
-	setFilterBy: (filterBy: FilterBy) => void;
-	setOrderBy: () => void;
-	setOrderByField: (orderByField: string) => void;
-	setOrderByFields: (orderByFieldsParam: {
-		orderByFields: OrderByFields;
-		orderParams: {field: string; sortOrder: string};
-	}) => void;
-	setPage: (page: string) => void;
-	setQuery: (query: string) => void;
+	onDeltaChange: (delta: number) => void;
+	onFilterByChange: (filterBy: FilterBy) => void;
+	onOrderIOMapChange: (orderIOMap: OrderedMap<string, OrderParams>) => void;
+	onPageChange: (page: number) => void;
+	onQueryChange: (query: string) => void;
 }
 
-const {
-	pagination: {
-		cur: DEFAULT_PAGE,
-		delta: DEFAULT_DELTA,
-		orderAscending,
-		orderDefault,
-		orderDescending
-	}
-} = Constants;
-
-const DEFAULT_PAGINATION_PROPS = {
-	defaultDelta: DEFAULT_DELTA,
-	defaultFilterBy: Map(),
-	defaultOrderBy: orderDefault,
-	defaultOrderByField: NAME,
-	defaultOrderByFields: [
-		{
-			fieldName: NAME,
-			orderBy: orderDefault
-		}
-	],
-	defaultPage: DEFAULT_PAGE,
-	defaultQuery: ''
+// TODO: do we need default orderIOMap?
+const DEFAULT_INITIAL_PAGINATION_PROPS = {
+	initialDelta: DEFAULT_DELTA,
+	initialFilterBy: Map(),
+	initialOrderIOMap: null,
+	initialPage: DEFAULT_PAGE,
+	initialQuery: ''
 };
 
 const statefulPaginationReducer = (state: State, {payload, type}: Action) => {
@@ -91,24 +68,10 @@ const statefulPaginationReducer = (state: State, {payload, type}: Action) => {
 				filterBy: payload,
 				page: DEFAULT_PAGE
 			};
-		case 'setOrderBy':
+		case 'setOrderIOMap':
 			return {
 				...state,
-				orderBy: payload,
-				page: DEFAULT_PAGE
-			};
-		case 'setOrderByField':
-			return {
-				...state,
-				orderByField: payload,
-				page: DEFAULT_PAGE
-			};
-		case 'setOrderByFields':
-			return {
-				...state,
-				orderBy: payload.orderBy,
-				orderByField: payload.orderByField,
-				orderByFields: payload.orderByFields,
+				orderIOMap: payload,
 				page: DEFAULT_PAGE
 			};
 		case 'setQuery':
@@ -129,31 +92,27 @@ const statefulPaginationReducer = (state: State, {payload, type}: Action) => {
 
 export default function useStatefulPagination(
 	mapPropsFn = undefined,
-	defaultPaginationProps = {}
-): statefulPaginationResult {
+	initialPaginationProps = {}
+): StatefulPaginationResult {
 	const paginationProps = {
-		...DEFAULT_PAGINATION_PROPS,
-		...defaultPaginationProps
+		...DEFAULT_INITIAL_PAGINATION_PROPS,
+		...initialPaginationProps
 	};
 
 	const {
-		defaultDelta,
-		defaultFilterBy,
-		defaultOrderBy,
-		defaultOrderByField,
-		defaultOrderByFields,
-		defaultPage,
-		defaultQuery
+		initialDelta,
+		initialFilterBy,
+		initialOrderIOMap,
+		initialPage,
+		initialQuery
 	} = paginationProps;
 
 	const [state, setState] = useReducer(statefulPaginationReducer, {
-		delta: defaultDelta,
-		filterBy: defaultFilterBy,
-		orderBy: defaultOrderBy,
-		orderByField: defaultOrderByField,
-		orderByFields: defaultOrderByFields,
-		page: defaultPage,
-		query: defaultQuery
+		delta: initialDelta,
+		filterBy: initialFilterBy,
+		orderIOMap: initialOrderIOMap, // TODO: Double check to make sure this is ok
+		page: initialPage,
+		query: initialQuery
 	});
 
 	const resetPage = (): void => {
@@ -176,40 +135,10 @@ export default function useStatefulPagination(
 		});
 	};
 
-	const setOrderBy = (): void => {
-		const {orderBy} = state;
-
+	const setOrderIOMap = (orderIOMap: OrderedMap<string, OrderParams>) => {
 		setState({
-			payload:
-				orderBy === orderAscending ? orderDescending : orderAscending,
-			type: ActionType.setOrderBy
-		});
-	};
-
-	const setOrderByField = (orderByField): void => {
-		setState({
-			payload: orderByField,
-			type: ActionType.setOrderByField
-		});
-	};
-
-	const setOrderByFields = ({
-		orderByFields,
-		orderParams
-	}: {
-		orderByFields: OrderByFields;
-		orderParams: {
-			field: string;
-			sortOrder: string;
-		};
-	}): void => {
-		setState({
-			payload: {
-				orderBy: orderParams.sortOrder,
-				orderByField: orderParams.field,
-				orderByFields
-			},
-			type: ActionType.setOrderByFields
+			payload: orderIOMap,
+			type: ActionType.setOrderIOMap
 		});
 	};
 
@@ -231,13 +160,11 @@ export default function useStatefulPagination(
 
 	return {
 		...mappedProps,
-		resetPage,
-		setDelta,
-		setFilterBy,
-		setOrderBy,
-		setOrderByField,
-		setOrderByFields,
-		setPage,
-		setQuery
+		onDeltaChange: setDelta,
+		onFilterByChange: setFilterBy,
+		onOrderIOMapChange: setOrderIOMap,
+		onPageChange: setPage,
+		onQueryChange: setQuery,
+		resetPage
 	};
 }
