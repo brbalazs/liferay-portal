@@ -351,9 +351,7 @@ definition {
 	}
 
 	macro selectSelectOptionRepeatable {
-		var key_fieldName = "${fieldName}";
 		var key_selectOption = "${selectOption}";
-		var key_index = "${index}";
 
 		Click(
 			key_fieldName = "${fieldName}",
