@@ -35,46 +35,6 @@ definition {
 		}
 	}
 
-	@description = "This is a use case for LPS-89348."
-	@priority = "5"
-	test ADTWithWhitelistingScriptReturnsVoid {
-		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
-			groupName = "Test Site Name",
-			layoutName = "ADT Test Page",
-			widgetName = "Asset Publisher");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		var script = '''
-${jsonFactoryUtil.getLiferayJSONDeserializationWhitelist().register("fully.qualified.ClassName")}''';
-
-		ApplicationDisplayTemplates.addPGWithScript(
-			adtType = "Asset Publisher",
-			script = "${script}",
-			siteName = "Test Site Name");
-
-		Click(locator1 = "Icon#CLOSE");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		Portlet.gotoPortletOptions(
-			portletName = "Asset Publisher",
-			portletOption = "Configuration");
-
-		AssetPublisherPortlet.configureDisplayTemplatePG(displayTemplate = "Asset Publisher Test ADT");
-
-		Navigator.gotoSitePage(
-			pageName = "ADT Test Page",
-			siteName = "Test Site Name");
-
-		AssertTextPresent(value1 = "Denied access to method or field register of class com.liferay.portal.json.jabsorb.serializer.LiferayJSONDeserializationWhitelist");
-	}
-
 	@priority = "5"
 	test AddRSSADTViaPortletConfiguration {
 		property portal.acceptance = "true";
@@ -790,6 +750,46 @@ ${jsonFactoryUtil.getLiferayJSONDeserializationWhitelist().register("fully.quali
 			siteName = "Test Site Name");
 
 		WikiPage.viewCustomADTSocialPG(wikiPageContent = "Test Wiki Content");
+	}
+
+	@description = "This is a use case for LPS-89348."
+	@priority = "5"
+	test ADTWithWhitelistingScriptReturnsVoid {
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Test Site Name",
+			layoutName = "ADT Test Page",
+			widgetName = "Asset Publisher");
+
+		Navigator.gotoSitePage(
+			pageName = "ADT Test Page",
+			siteName = "Test Site Name");
+
+		var script = '''
+${jsonFactoryUtil.getLiferayJSONDeserializationWhitelist().register("fully.qualified.ClassName")}''';
+
+		ApplicationDisplayTemplates.addPGWithScript(
+			adtType = "Asset Publisher",
+			script = "${script}",
+			siteName = "Test Site Name");
+
+		Click(locator1 = "Icon#CLOSE");
+
+		Navigator.gotoSitePage(
+			pageName = "ADT Test Page",
+			siteName = "Test Site Name");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Asset Publisher",
+			portletOption = "Configuration");
+
+		AssetPublisherPortlet.configureDisplayTemplatePG(displayTemplate = "Asset Publisher Test ADT");
+
+		Navigator.gotoSitePage(
+			pageName = "ADT Test Page",
+			siteName = "Test Site Name");
+
+		AssertTextPresent(value1 = "Denied access to method or field register of class com.liferay.portal.json.jabsorb.serializer.LiferayJSONDeserializationWhitelist");
 	}
 
 	@priority = "4"
