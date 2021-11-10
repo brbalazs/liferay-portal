@@ -1,50 +1,47 @@
 import * as API from 'shared/api';
-import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
-import PropTypes from 'prop-types';
 import React from 'react';
 import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
 import Spinner from 'shared/components/Spinner';
 import {
 	ACTION_TYPES,
-	SelectionContext,
+	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
 import {
 	ACTIVITIES_COUNT,
-	buildOrderByFields,
+	createOrderIOMap,
+	getDefaultSortOrder,
 	JOB_TITLE,
 	LAST_ACTIVITY_DATE,
-	NAME,
-	paginationConfig,
-	paginationDefaults
+	NAME
 } from 'shared/util/pagination';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {EntityTypes, SegmentTypes} from 'shared/util/constants';
-import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
-import {isNil, noop} from 'lodash';
-import {OrderParams, User} from 'shared/util/records';
+import {isNil} from 'lodash';
+import {List} from 'immutable';
+import {OrderByDirections} from 'shared/util/constants';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
+import {Segment, User} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
+import {useQueryPagination, useRequest} from 'shared/hooks';
 
 const getIndividualsDataSource = ({
 	channelId,
 	delta,
 	groupId,
-	orderBy,
-	orderByField,
+	orderIOMap,
 	page,
 	query
 }) =>
@@ -52,10 +49,7 @@ const getIndividualsDataSource = ({
 		channelId,
 		delta,
 		groupId,
-		orderByFields: buildOrderByFields(
-			new OrderParams({field: orderByField, sortOrder: orderBy}),
-			INDIVIDUALS
-		),
+		orderIOMap,
 		page,
 		query
 	});
@@ -79,63 +73,37 @@ interface IKnownIndividualsProps
 	extends React.HTMLAttributes<HTMLDivElement>,
 		PropsFromRedux {
 	channelId: string;
-	currentUser: {
-		isAdmin: () => boolean;
-		isMember: () => boolean;
-		isOwner: () => boolean;
-	};
-	delta: string;
+	currentUser: User;
 	groupId: string;
-	orderBy?: string;
-	orderByField?: string;
-	page?: string;
-	query?: string;
 }
 
-interface IKnownIndividualsState {
-	dataSourceLoading: boolean;
-	dataSourceTotal: number;
-}
+const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
+	addAlert,
+	channelId,
+	close,
+	currentUser,
+	groupId,
+	open,
+	timeZoneId
+}) => {
+	const {selectionDispatch} = useSelectionContext();
 
-@hasRequest
-export class KnownIndividuals extends React.Component<
-	IKnownIndividualsProps,
-	IKnownIndividualsState
-> {
-	static contextType = SelectionContext;
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME, getDefaultSortOrder(NAME))
+	});
 
-	static defaultProps = {
-		...paginationDefaults,
-		orderByField: NAME
-	};
+	const {data: dataSourceData, loading: dataSourceLoading} = useRequest({
+		dataSourceFn: API.dataSource.search,
+		variables: {
+			delta: 1,
+			groupId // TODO: Maybe add a default sort here.
+		}
+	});
 
-	static propTypes = {
-		...paginationConfig,
-		addAlert: PropTypes.func.isRequired,
-		channelId: PropTypes.string,
-		close: PropTypes.func.isRequired,
-		currentUser: PropTypes.instanceOf(User).isRequired,
-		groupId: PropTypes.string.isRequired,
-		open: PropTypes.func.isRequired,
-		timeZoneId: PropTypes.string
-	};
-
-	state = {
-		dataSourceLoading: false,
-		dataSourceTotal: null
-	};
-
-	componentDidMount() {
-		this.fetchDataSources();
-	}
-
-	@autobind
-	addToSegment(selectedSegmentsList, idsArray) {
-		const {
-			context: {selectionDispatch},
-			props: {addAlert, groupId}
-		} = this;
-
+	const addToSegment = (
+		selectedSegmentsList: List<Segment>,
+		idsArray: string[]
+	) => {
 		const selectedSegmentId = selectedSegmentsList[0].id;
 
 		return API.individualSegment
@@ -157,7 +125,7 @@ export class KnownIndividuals extends React.Component<
 
 				selectionDispatch({type: ACTION_TYPES.clearAll});
 			})
-			.catch(error => {
+			.catch((error: Error) => {
 				addAlert({
 					alertType: Alert.Types.Error,
 					message: Liferay.Language.get(
@@ -167,86 +135,48 @@ export class KnownIndividuals extends React.Component<
 
 				return error;
 			});
-	}
+	};
 
-	@autoCancel
-	fetchDataSources() {
-		const {groupId} = this.props;
-
-		this.setState({
-			dataSourceLoading: true
-		});
-
-		return API.dataSource
-			.search({
-				delta: 1,
-				groupId
-			})
-			.then(({total}) => {
-				this.setState({
-					dataSourceLoading: false,
-					dataSourceTotal: total
-				});
-			})
-			.catch(noop);
-	}
-
-	@autobind
-	getStaticIndividualSegments({cur, delta, orderBy, query}) {
-		const {channelId, groupId} = this.props;
-
-		return API.individualSegment.search({
+	const getStaticIndividualSegments = ({delta, orderIOMap, page, query}) =>
+		API.individualSegment.search({
 			channelId,
 			delta,
 			groupId,
-			orderByFields: [
-				{
-					fieldName: NAME,
-					orderBy,
-					system: true
-				}
-			],
-			page: cur,
+			orderIOMap,
+			page,
 			query,
 			segmentType: SegmentTypes.Static
 		});
-	}
 
-	@autobind
-	handleAddIndividualsToSegmentModal(idsArray) {
-		const {close, groupId, open} = this.props;
+	const handleAddIndividualsToSegmentModal = (idsArray: string[]) => () =>
+		open(modalTypes.SELECT_ITEMS_MODAL, {
+			countLabel: Liferay.Language.get('x-segments'),
+			dataSourceFn: getStaticIndividualSegments,
+			entityType: EntityTypes.IndividualsSegment,
+			groupId,
+			initialOrderIOMap: createOrderIOMap(
+				NAME,
+				OrderByDirections.Ascending
+			),
+			noResultsIcon: 'ac-segment',
+			noResultsName: Liferay.Language.get('static-segments'),
+			onClose: close,
+			onSubmit: (selectedSegmentsList: List<Segment>) =>
+				addToSegment(selectedSegmentsList, idsArray),
+			selectMultiple: false,
+			submitMessage: Liferay.Language.get('add'),
+			title: Liferay.Language.get('add-to-static-segment')
+		});
 
-		return () =>
-			open(modalTypes.SELECT_ITEMS_MODAL, {
-				countLabel: Liferay.Language.get('x-segments'),
-				dataSourceFn: this.getStaticIndividualSegments,
-				entityType: EntityTypes.IndividualsSegment,
-				groupId,
-				noResultsIcon: 'ac-segment',
-				noResultsName: Liferay.Language.get('static-segments'),
-				onClose: close,
-				onSubmit: selectedSegmentsList =>
-					this.addToSegment(selectedSegmentsList, idsArray),
-				selectMultiple: false,
-				submitMessage: Liferay.Language.get('add'),
-				title: Liferay.Language.get('add-to-static-segment')
-			});
-	}
-
-	isDataSourceConnected() {
-		return this.state.dataSourceTotal > 0;
-	}
-
-	@autobind
-	renderNav(selectedItemsIOMap) {
-		if (this.isDataSourceConnected() && !selectedItemsIOMap.isEmpty()) {
+	const renderNav = selectedItemsIOMap => {
+		if (dataSourceData?.total > 0 && !selectedItemsIOMap.isEmpty()) {
 			return (
 				<Nav>
 					<Nav.Item key='PRIMARY_ACTION'>
 						<Button
 							className='nav-btn'
 							display='primary'
-							onClick={this.handleAddIndividualsToSegmentModal(
+							onClick={handleAddIndividualsToSegmentModal(
 								selectedItemsIOMap.keySeq().toArray()
 							)}
 						>
@@ -256,15 +186,9 @@ export class KnownIndividuals extends React.Component<
 				</Nav>
 			);
 		}
-	}
+	};
 
-	@autobind
-	renderNoResults(query, activeFilters) {
-		const {
-			props: {currentUser, groupId},
-			state: {dataSourceLoading, dataSourceTotal}
-		} = this;
-
+	const renderNoResults = (query: string, activeFilters: boolean) => {
 		const authorized = currentUser.isAdmin();
 
 		const createDataSourceButton = (
@@ -278,7 +202,7 @@ export class KnownIndividuals extends React.Component<
 			</Button>
 		);
 
-		if (dataSourceLoading || isNil(dataSourceTotal)) {
+		if (dataSourceLoading || isNil(dataSourceData?.total)) {
 			return (
 				<NoResultsDisplay>
 					<Spinner key='DATA_SOURCE_SPINNER' overlay />
@@ -292,7 +216,7 @@ export class KnownIndividuals extends React.Component<
 					)}
 				/>
 			);
-		} else if (!this.isDataSourceConnected()) {
+		} else if (dataSourceData?.total === 0) {
 			return (
 				<NoResultsDisplay
 					description={
@@ -331,84 +255,65 @@ export class KnownIndividuals extends React.Component<
 				</NoResultsDisplay>
 			);
 		}
-	}
+	};
 
-	render() {
-		const {
-			channelId,
-			currentUser,
-			delta,
-			groupId,
-			orderBy,
-			orderByField,
-			page,
-			query,
-			timeZoneId
-		} = this.props;
-
-		return (
-			<div className='individuals-dashboard-known-individuals-root'>
-				<div className='row'>
-					<div className='col-xl-12'>
-						<Card pageDisplay>
-							<SearchableTableWithStaged
-								columns={[
-									individualsListColumns.getNameEmail({
-										channelId,
-										groupId
-									}),
-									individualsListColumns.jobTitle,
-									individualsListColumns.activitiesCount,
-									individualsListColumns.getLastActivityDate(
-										timeZoneId
-									)
-								]}
-								currentUser={currentUser}
-								dataSourceFn={getIndividualsDataSource}
-								dataSourceParams={{channelId, groupId}}
-								delta={Number(delta)}
-								entityLabel={Liferay.Language.get(
-									'individuals'
-								)}
-								navRenderer={this.renderNav}
-								noResultsRenderer={this.renderNoResults}
-								orderBy={orderBy}
-								orderByField={orderByField}
-								orderByOptions={[
-									{
-										label: Liferay.Language.get('name'),
-										value: NAME
-									},
-									{
-										label: Liferay.Language.get(
-											'job-title'
-										),
-										value: JOB_TITLE
-									},
-									{
-										label: Liferay.Language.get(
-											'total-activities'
-										),
-										value: ACTIVITIES_COUNT
-									},
-									{
-										label: Liferay.Language.get(
-											'last-activity'
-										),
-										value: LAST_ACTIVITY_DATE
-									}
-								]}
-								page={Number(page)}
-								query={query}
-								showCheckbox
-							/>
-						</Card>
-					</div>{' '}
+	return (
+		<div className='individuals-dashboard-known-individuals-root'>
+			<div className='row'>
+				<div className='col-xl-12'>
+					<Card pageDisplay>
+						<SearchableTableWithStaged
+							columns={[
+								individualsListColumns.getNameEmail({
+									channelId,
+									groupId
+								}),
+								individualsListColumns.jobTitle,
+								individualsListColumns.activitiesCount,
+								individualsListColumns.getLastActivityDate(
+									timeZoneId
+								)
+							]}
+							currentUser={currentUser}
+							dataSourceFn={getIndividualsDataSource}
+							dataSourceParams={{channelId, groupId}}
+							delta={delta}
+							entityLabel={Liferay.Language.get('individuals')}
+							navRenderer={renderNav}
+							noResultsRenderer={renderNoResults}
+							orderByOptions={[
+								{
+									label: Liferay.Language.get('name'),
+									value: NAME
+								},
+								{
+									label: Liferay.Language.get('job-title'),
+									value: JOB_TITLE
+								},
+								{
+									label: Liferay.Language.get(
+										'total-activities'
+									),
+									value: ACTIVITIES_COUNT
+								},
+								{
+									label: Liferay.Language.get(
+										'last-activity'
+									),
+									value: LAST_ACTIVITY_DATE
+								}
+							]}
+							orderIOMap={orderIOMap}
+							page={page}
+							query={query}
+							showCheckbox
+						/>
+					</Card>
 				</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 export default compose<any>(
 	withCurrentUser,
