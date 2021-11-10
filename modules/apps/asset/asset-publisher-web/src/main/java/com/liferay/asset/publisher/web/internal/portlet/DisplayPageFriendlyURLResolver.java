@@ -58,6 +58,7 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
@@ -74,6 +75,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.portlet.WindowState;
@@ -488,12 +490,28 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 				urlTitle);
 
 		if (friendlyURLEntryLocalization != null) {
-			locale = LocaleUtil.fromLanguageId(
-				friendlyURLEntryLocalization.getLanguageId());
+			String languageId = LocaleUtil.toLanguageId(locale);
 
-			actualParams.put(
-				namespace + "languageId",
-				new String[] {friendlyURLEntryLocalization.getLanguageId()});
+			if (!Objects.equals(
+					friendlyURLEntryLocalization.getLanguageId(), languageId) &&
+				ArrayUtil.contains(
+					journalArticle.getAvailableLanguageIds(), languageId)) {
+
+				actualParams.put(
+					namespace + "languageId", new String[] {languageId});
+
+				locale = LocaleUtil.fromLanguageId(languageId);
+			}
+			else {
+				actualParams.put(
+					namespace + "languageId",
+					new String[] {
+						friendlyURLEntryLocalization.getLanguageId()
+					});
+
+				locale = LocaleUtil.fromLanguageId(
+					friendlyURLEntryLocalization.getLanguageId());
+			}
 		}
 
 		String queryString = _http.parameterMapToString(actualParams, false);
