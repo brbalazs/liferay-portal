@@ -15,8 +15,8 @@
 --%>
 
 <%
-List<CommerceChannel> commerceChannels = commerceDiscountDisplayContext.getCommerceChannels();
 long[] commerceChannelIds = commerceDiscountDisplayContext.getCommerceChannelRelCommerceChannelIds();
+List<CommerceChannel> commerceChannels = commerceDiscountDisplayContext.getCommerceChannels();
 %>
 
 <c:choose>

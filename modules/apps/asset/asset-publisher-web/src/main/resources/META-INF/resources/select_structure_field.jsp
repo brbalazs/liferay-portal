@@ -58,9 +58,9 @@ portletURL.setParameter("eventName", eventName);
 		>
 
 			<%
+			long ddmStructureId = field.getClassTypeId();
 			String label = field.getLabel();
 			String name = field.getName();
-			long ddmStructureId = field.getClassTypeId();
 			%>
 
 			<liferay-ui:search-container-column-text>

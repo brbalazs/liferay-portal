@@ -28,8 +28,8 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <liferay-theme:defineObjects />
 
 <%
-String title = (String)request.getAttribute("liferay-commerce:side-panel-content:title");
 String screenNavigatorKey = (String)request.getAttribute("liferay-commerce:side-panel-content:screenNavigatorKey");
 Object screenNavigatorModelBean = (Object)request.getAttribute("liferay-commerce:side-panel-content:screenNavigatorModelBean");
 PortletURL screenNavigatorPortletURL = (PortletURL)request.getAttribute("liferay-commerce:side-panel-content:screenNavigatorPortletURL");
+String title = (String)request.getAttribute("liferay-commerce:side-panel-content:title");
 %>

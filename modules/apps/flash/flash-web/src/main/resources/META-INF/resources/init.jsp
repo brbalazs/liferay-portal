@@ -40,7 +40,7 @@ page import="com.liferay.portal.kernel.util.Validator" %>
 <portlet:defineObjects />
 
 <%
-String movie = portletPreferences.getValue("movie", StringPool.BLANK);
 String flashAttributes = portletPreferences.getValue("flashAttributes", StringPool.BLANK);
 String flashVariables = portletPreferences.getValue("flashVariables", StringPool.BLANK);
+String movie = portletPreferences.getValue("movie", StringPool.BLANK);
 %>

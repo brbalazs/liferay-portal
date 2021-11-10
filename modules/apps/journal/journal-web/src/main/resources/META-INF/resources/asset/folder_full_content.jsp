@@ -23,8 +23,8 @@ JournalFolder folder = journalDisplayContext.getFolder();
 <c:if test="<%= folder != null %>">
 
 	<%
-	int foldersCount = JournalFolderServiceUtil.getFoldersCount(scopeGroupId, folder.getFolderId(), journalDisplayContext.getStatus());
 	int entriesCount = JournalArticleServiceUtil.getArticlesCount(scopeGroupId, folder.getFolderId(), journalDisplayContext.getStatus());
+	int foldersCount = JournalFolderServiceUtil.getFoldersCount(scopeGroupId, folder.getFolderId(), journalDisplayContext.getStatus());
 	%>
 
 	<aui:row>

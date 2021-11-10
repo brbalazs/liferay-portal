@@ -17,12 +17,12 @@
 <%@ include file="/init.jsp" %>
 
 <%
-long liveGroupId = ParamUtil.getLong(request, "liveGroupId");
-boolean privateLayout = ParamUtil.getBoolean(request, "privateLayout");
 String displayStyle = ParamUtil.getString(request, "displayStyle", "descriptive");
+long liveGroupId = ParamUtil.getLong(request, "liveGroupId");
 String navigation = ParamUtil.getString(request, "navigation", "all");
 String orderByCol = ParamUtil.getString(request, "orderByCol");
 String orderByType = ParamUtil.getString(request, "orderByType");
+boolean privateLayout = ParamUtil.getBoolean(request, "privateLayout");
 String searchContainerId = ParamUtil.getString(request, "searchContainerId");
 %>
 
