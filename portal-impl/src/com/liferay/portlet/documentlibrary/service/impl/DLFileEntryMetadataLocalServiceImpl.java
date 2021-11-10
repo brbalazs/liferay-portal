@@ -203,7 +203,8 @@ public class DLFileEntryMetadataLocalServiceImpl
 				serviceContext);
 
 			if (ddmStorageId == 0) {
-				throw new PortalException("ddmStorageId has the value of 0");
+				throw new PortalException(
+					"Dynamic data mapping storage ID is 0");
 			}
 
 			fileEntryMetadata.setDDMStorageId(ddmStorageId);
