@@ -910,6 +910,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['async-queue', 'aui-datatype', 'aui-scheduler', 'dd-plugin', 'liferay-calendar-message-util', 'liferay-calendar-recurrence-converter', 'liferay-calendar-recurrence-util', 'liferay-calendar-util', 'liferay-node', 'liferay-scheduler-event-recorder', 'liferay-scheduler-models', 'liferay-store', 'promise', 'resize-plugin']
+		requires: ['async-queue', 'aui-datatype', 'aui-scheduler', 'dd-plugin', 'liferay-calendar-a11y', 'liferay-calendar-message-util', 'liferay-calendar-recurrence-converter', 'liferay-calendar-recurrence-util', 'liferay-calendar-util', 'liferay-node', 'liferay-scheduler-event-recorder', 'liferay-scheduler-models', 'liferay-store', 'promise', 'resize-plugin']
 	}
 );
