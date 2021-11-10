@@ -23,6 +23,7 @@ import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
@@ -76,6 +77,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
@@ -265,19 +267,7 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
 
-		List<FaroProject> faroProjects =
-			_faroProjectLocalService.getFaroProjectsByUserId(getUserId());
-
-		Stream<FaroProject> stream = faroProjects.stream();
-
-		FaroProject faroProject = stream.filter(
-			FaroProject::isTrial
-		).findAny(
-		).orElse(
-			null
-		);
-
-		if (faroProject != null) {
+		if (!_isCreateTrialAllowed(serverLocation)) {
 			throw new FaroValidationException(
 				null,
 				getLocalizedMessage("this-user-already-owns-a-trial-project"));
@@ -1032,6 +1022,27 @@ public class ProjectController extends BaseFaroController {
 		finally {
 			_initializingGroupIds.remove(groupId);
 		}
+	}
+
+	private boolean _isCreateTrialAllowed(String serverLocation) {
+		if (Objects.equals(serverLocation, LCPProject.Cluster.SA_AC_STAGING)) {
+			return true;
+		}
+
+		List<FaroProject> faroProjects =
+			_faroProjectLocalService.getFaroProjectsByUserId(getUserId());
+
+		Stream<FaroProject> stream = faroProjects.stream();
+
+		Optional<FaroProject> faroProjectOptional = stream.filter(
+			FaroProject::isTrial
+		).findAny();
+
+		if (faroProjectOptional.isPresent()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
