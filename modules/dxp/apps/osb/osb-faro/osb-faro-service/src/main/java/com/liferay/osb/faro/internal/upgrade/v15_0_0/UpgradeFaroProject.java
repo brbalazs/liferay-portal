@@ -31,7 +31,7 @@ public class UpgradeFaroProject extends UpgradeProcess {
 	protected void doUpgrade() throws Exception {
 		try (PreparedStatement ps = connection.prepareStatement(
 				"select faroProjectId, createTime, subscription from " +
-					"OSBFARO_FAROPROJECT")) {
+					"OSBFaro_FaroProject")) {
 
 			try (Statement st = connection.createStatement();
 				ResultSet rs = ps.executeQuery()) {
@@ -53,7 +53,7 @@ public class UpgradeFaroProject extends UpgradeProcess {
 
 					st.addBatch(
 						String.format(
-							"update OSBFARO_FAROPROJECT set subscription = '" +
+							"update OSBFaro_FaroProject set subscription = '" +
 								"%s' where faroProjectId = %s",
 							subscriptionJSONObject.toString(),
 							rs.getLong("faroProjectId")));
