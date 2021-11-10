@@ -11,6 +11,7 @@ import {
 } from 'shared/context/unassignedSegments';
 import {
 	ACTIVITIES_COUNT,
+	getDefaultSortOrder,
 	INDIVIDUAL_COUNT,
 	NAME,
 	paginationDefaults,
@@ -22,7 +23,10 @@ import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser, withFilters} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {Link} from 'react-router-dom';
+import {OrderedMap, Set} from 'immutable';
+import {OrderParams, User} from 'shared/util/records';
 import {RootState} from 'shared/store';
 import {
 	Routes,
@@ -33,19 +37,17 @@ import {
 } from 'shared/util/router';
 import {segmentsListColumns} from 'shared/util/table-columns';
 import {SegmentStates, SegmentTypes} from 'shared/util/constants';
-import {Set} from 'immutable';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {User} from 'shared/util/records';
+import {useQueryPagination} from 'shared/hooks';
 
 interface FetchSegmentsParams {
 	channelId: string;
-	delta?: string | number;
+	delta?: number;
 	filterBy: Map<string, Set<string>>;
 	groupId: string;
-	orderBy: string;
-	orderByField: string;
-	page: string | number;
+	orderIOMap: OrderedMap<string, OrderParams>;
+	page: number;
 	query: string;
 }
 
@@ -55,8 +57,7 @@ function fetchSegments(params: FetchSegmentsParams): any {
 		delta,
 		filterBy,
 		groupId,
-		orderBy,
-		orderByField,
+		orderIOMap,
 		page,
 		query
 	} = params;
@@ -65,26 +66,25 @@ function fetchSegments(params: FetchSegmentsParams): any {
 
 	return API.individualSegment.search({
 		channelId,
-		delta: delta as number,
+		delta,
 		groupId,
-		orderByFields: [
-			{
-				fieldName: orderByField,
-				orderBy,
-				system: true
-			}
-		],
-		page: page as number,
+		orderIOMap,
+		page,
 		query,
 		state: stateFilterISet.first()
 	});
 }
 
-function fetchDisabledSegments(channelId: string, groupId: string): any {
+function fetchDisabledSegments(
+	channelId: string,
+	groupId: string,
+	orderIOMap: OrderedMap<string, OrderParams>
+): any {
 	return API.individualSegment.search({
 		channelId,
 		delta: 1,
 		groupId,
+		orderIOMap,
 		state: SegmentStates.Disabled
 	});
 }
@@ -107,14 +107,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IListProps extends PropsFromRedux {
 	channelId: string;
 	currentUser: User;
-	delta?: string | number;
 	filterBy?: Map<string, Set<string>>;
 	groupId: string;
 	history: any;
-	orderBy?: string;
-	orderByField?: string;
-	page?: string | number;
-	query?: string;
 }
 
 export const List: React.FC<IListProps> = ({
@@ -122,18 +117,21 @@ export const List: React.FC<IListProps> = ({
 	channelId,
 	close,
 	currentUser,
-	delta = paginationDefaults.delta,
 	filterBy = paginationDefaults.filterBy,
 	groupId,
 	history,
 	open,
-	orderBy = paginationDefaults.orderBy,
-	orderByField = NAME,
-	page = paginationDefaults.page,
-	query = paginationDefaults.query,
 	timeZoneId
 }) => {
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialDelta: paginationDefaults.delta,
+		initialOrderIOMap: createOrderIOMap(NAME, getDefaultSortOrder(NAME)),
+		initialPage: paginationDefaults.page,
+		initialQuery: paginationDefaults.query
+	});
+
 	const [alerts, setAlerts] = useState([]);
+
 	const _tableRef = useRef<any>();
 	const _disableSegmentsRequestRef = useRef<typeof Promise>();
 	const {
@@ -149,11 +147,13 @@ export const List: React.FC<IListProps> = ({
 	}, []);
 
 	const getDisabledSegmentsAlert = () =>
-		fetchDisabledSegments(channelId, groupId).then(({total}) => {
-			if (total) {
-				setAlerts(() => handleDisabledSegmentsAlert());
+		fetchDisabledSegments(channelId, groupId, orderIOMap).then(
+			({total}) => {
+				if (total) {
+					setAlerts(() => handleDisabledSegmentsAlert());
+				}
 			}
-		});
+		);
 
 	const getAlerts = () =>
 		[
@@ -272,8 +272,7 @@ export const List: React.FC<IListProps> = ({
 					.catch(() => {
 						addAlert({
 							alertType: Alert.Types.Error,
-							message: Liferay.Language.get('error'),
-							timeout: false
+							message: Liferay.Language.get('error')
 						});
 					}),
 			submitButtonDisplay: 'warning',
@@ -353,7 +352,7 @@ export const List: React.FC<IListProps> = ({
 			]}
 			currentUser={currentUser}
 			dataSourceFn={fetchSegments}
-			delta={Number(delta)}
+			delta={delta}
 			entityLabel={Liferay.Language.get('segments')}
 			filterBy={filterBy}
 			filterByOptions={[
@@ -381,8 +380,6 @@ export const List: React.FC<IListProps> = ({
 				),
 				title: Liferay.Language.get('no-segments-created')
 			}}
-			orderBy={orderBy}
-			orderByField={orderByField}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),
@@ -401,7 +398,8 @@ export const List: React.FC<IListProps> = ({
 					value: USER_NAME
 				}
 			]}
-			page={Number(page)}
+			orderIOMap={orderIOMap}
+			page={page}
 			pageActions={pageActions}
 			pageActionsLabel={pageActionsLabel}
 			query={query}

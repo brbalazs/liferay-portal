@@ -47,7 +47,10 @@ export default class BaseListPage extends React.Component {
 		columns: PropTypes.array.isRequired,
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		dataSourceFn: PropTypes.func.isRequired,
+		delta: PropTypes.number,
 		entityLabel: PropTypes.string,
+		filterBy: PropTypes.object,
+		filterByOptions: PropTypes.array,
 		groupId: PropTypes.string.isRequired,
 		hideNav: PropTypes.bool,
 		icon: PropTypes.string,
@@ -57,8 +60,12 @@ export default class BaseListPage extends React.Component {
 			title: PropTypes.string
 		}),
 		orderByOptions: PropTypes.array,
+		orderIOMap: PropTypes.object,
+		page: PropTypes.number,
 		pageActions: PropTypes.array,
 		pageActionsLabel: PropTypes.string,
+		query: PropTypes.string,
+		renderRowActions: PropTypes.func,
 		renderSelectedAction: PropTypes.func,
 		rowIdentifier: PropTypes.string,
 		showCheckbox: PropTypes.bool
@@ -208,22 +215,29 @@ export default class BaseListPage extends React.Component {
 
 	render() {
 		const {
-			alerts,
-			channelId,
-			className,
-			columns,
-			dataSourceFn,
-			entityLabel,
-			groupId,
-			orderByOptions,
-			pageActions,
-			pageActionsLabel,
-			rowIdentifier,
-			showCheckbox,
-			...otherProps
-		} = this.props;
-
-		const {selectedChannel} = this.context;
+			context: {selectedChannel},
+			props: {
+				alerts,
+				channelId,
+				className,
+				columns,
+				dataSourceFn,
+				delta,
+				entityLabel,
+				filterBy,
+				filterByOptions,
+				groupId,
+				orderByOptions,
+				orderIOMap,
+				page,
+				pageActions,
+				pageActionsLabel,
+				query,
+				rowIdentifier,
+				showCheckbox,
+				...otherProps
+			}
+		} = this;
 
 		return (
 			<BasePage className={className} documentTitle={entityLabel}>
@@ -262,10 +276,16 @@ export default class BaseListPage extends React.Component {
 								columns={columns}
 								dataSourceFn={dataSourceFn}
 								dataSourceParams={{channelId, groupId}}
+								delta={delta}
 								entityLabel={entityLabel}
+								filterBy={filterBy}
+								filterByOptions={filterByOptions}
 								navRenderer={this.renderNav}
 								noResultsRenderer={this.renderNoResults}
 								orderByOptions={orderByOptions}
+								orderIOMap={orderIOMap}
+								page={page}
+								query={query}
 								ref={this._tableRef}
 								rowIdentifier={rowIdentifier}
 								showCheckbox={showCheckbox}
