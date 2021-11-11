@@ -69,12 +69,15 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	timeZoneId
 }) => {
 	const {
+		delta,
+		onDeltaChange,
+		onPageChange,
+		onQueryChange,
+		page,
 		query,
-		resetPage,
-		setQuery,
-		...statefulPagination
+		resetPage
 	} = useStatefulPagination(mapPropsFn, {
-		defaultDelta: DEFAULT_SESSIONS_DELTA
+		initialDelta: DEFAULT_SESSIONS_DELTA
 	});
 	const {hasSelectedPoint, onPointSelect, selectedPoint} = useSelectedPoint();
 	const [searchValue, setSearchValue] = useState<string>('');
@@ -235,7 +238,8 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	};
 
 	const handleQuery = (query: string) => {
-		setQuery(query);
+		onQueryChange(query);
+
 		setSearchValue(query);
 	};
 
@@ -251,19 +255,6 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				interval,
 				'intervalInitDate'
 		  );
-
-	const statefulProps = {
-		...statefulPagination,
-		onSearchValueChange: handleQuery,
-		onDeltaChange: statefulPagination.setDelta,
-		onPageChange: statefulPagination.setPage
-		toolbarProps: {
-			onFilterByChange: statefulPagination.setFilterBy,
-			onOrderByFieldChange: statefulPagination.setOrderByField,
-			onOrderClick: statefulPagination.setOrderBy,
-			showSearch: false
-		}
-	};
 
 	return (
 		<WrapSafeResults
@@ -363,6 +354,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 					rangeKey,
 					rangeStart
 				}}
+				delta={delta}
 				initialExpanded={false}
 				noResultsRenderer={() => (
 					<EmptyStateDashboard
@@ -379,9 +371,14 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 						title={Liferay.Language.get('no-events-found')}
 					/>
 				)}
+				onDeltaChange={onDeltaChange}
+				onPageChange={onPageChange}
+				onQueryChange={onQueryChange}
+				onSearchValueChange={handleQuery}
+				page={page}
 				query={query}
+				showSearch={false}
 				timeZoneId={timeZoneId}
-				{...statefulProps}
 			/>
 		</WrapSafeResults>
 	);

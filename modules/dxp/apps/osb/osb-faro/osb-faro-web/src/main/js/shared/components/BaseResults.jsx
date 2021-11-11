@@ -30,6 +30,7 @@ export default class BaseResults extends React.Component {
 		query: '',
 		showCheckbox: false,
 		showPagination: true,
+		showSearch: true,
 		toolbarProps: {}
 	};
 
@@ -62,6 +63,7 @@ export default class BaseResults extends React.Component {
 		resultsRenderer: PropTypes.func.isRequired,
 		showCheckbox: PropTypes.bool,
 		showPagination: PropTypes.bool,
+		showSearch: PropTypes.bool,
 		toolbarProps: PropTypes.object
 	};
 
@@ -355,6 +357,7 @@ export default class BaseResults extends React.Component {
 				renderSubnav,
 				showCheckbox,
 				showPagination,
+				showSearch,
 				toolbarProps // TODO: No more toolbar PRops
 			},
 			state: {disableSearch, error, items, loading, searchValue, total}
@@ -393,6 +396,7 @@ export default class BaseResults extends React.Component {
 						!allChecked && !selectedItemsIOMap.isEmpty()
 					}
 					showCheckbox={showCheckbox}
+					showSearch={showSearch}
 					total={total}
 					{...toolbarProps}
 				>

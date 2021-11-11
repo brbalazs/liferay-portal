@@ -1,18 +1,16 @@
 import * as API from 'shared/api';
 import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
-import Constants, {EntityTypes} from 'shared/util/constants';
 import DetailsCard from '../components/DetailsCard';
 import IndividualProfileCard from '../hoc/ProfileCard';
 import InterestsCard from '../components/InterestsCard';
 import React from 'react';
 import {connect} from 'react-redux';
+import {createOrderIOMap, INDIVIDUAL_COUNT} from 'shared/util/pagination';
+import {EntityTypes, OrderByDirections} from 'shared/util/constants';
 import {Individual} from 'shared/util/records';
-import {INDIVIDUAL_COUNT} from 'shared/util/pagination';
 import {INDIVIDUALS} from 'shared/util/router';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {pagination} = Constants;
 
 const ITEMS_PER_CARD = 5;
 
@@ -23,13 +21,10 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 		contactsEntityType: EntityTypes.Individual,
 		delta: ITEMS_PER_CARD,
 		groupId,
-		orderByFields: [
-			{
-				fieldName: INDIVIDUAL_COUNT,
-				orderBy: pagination.orderDescending,
-				system: true
-			}
-		],
+		orderIOMap: createOrderIOMap(
+			INDIVIDUAL_COUNT,
+			OrderByDirections.Descending
+		),
 		query: searchValue
 	});
 }
