@@ -1,5 +1,5 @@
 import BaseCard from 'cerebro-shared/components/base-card';
-import ProfileCardWithData from 'contacts/individual/profile/components/ProfileCard';
+import ProfileCardWithData from '../components/ProfileCard';
 import React from 'react';
 import {Individual} from 'shared/util/records';
 

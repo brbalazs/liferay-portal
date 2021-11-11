@@ -1,4 +1,4 @@
-import ActivitiesChart from '../../../components/ActivitiesChart';
+import ActivitiesChart from 'contacts/components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import client from 'shared/apollo/client';

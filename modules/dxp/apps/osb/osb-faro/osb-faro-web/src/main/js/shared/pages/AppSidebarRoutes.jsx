@@ -63,12 +63,12 @@ const CreateEventAnalysis = lazy(() =>
 
 const IndividualProfileRoutes = lazy(() =>
 	import(
-		/* webpackChunkName: "IndividualProfileRoutes" */ '../../contacts/individual/profile/pages/ProfileRoutes'
+		/* webpackChunkName: "IndividualProfileRoutes" */ '../../individual/profile/pages/ProfileRoutes'
 	)
 );
 const IndividualsDashboard = lazy(() =>
 	import(
-		/* webpackChunkName: "IndividualsDashboard" */ '../../contacts/individual/dashboard/pages'
+		/* webpackChunkName: "IndividualsDashboard" */ '../../individual/dashboard/pages'
 	)
 );
 

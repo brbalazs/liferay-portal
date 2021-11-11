@@ -6,8 +6,8 @@ import EventAttributeDefinitionQuery, {
 import EventAttributeDefinitionsQuery from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import EventDefinitionQuery from 'event-analysis/queries/EventDefinitionQuery';
 import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
-import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
-import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
+import IndividualMetricsQuery from '../individual/dashboard/queries/IndividualMetricsQuery';
+import InterestsQuery from '../individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
 import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';

@@ -1,4 +1,4 @@
-import IndividualProfileCard from 'contacts/individual/profile/components/ProfileCard';
+import IndividualProfileCard from '../../individual/profile/components/ProfileCard';
 import React from 'react';
 import {Individual} from 'shared/util/records';
 import {mockIndividual} from 'test/data';

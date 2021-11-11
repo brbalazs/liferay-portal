@@ -1,9 +1,9 @@
 import * as API from 'shared/api';
 import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
 import Constants, {EntityTypes} from 'shared/util/constants';
-import DetailsCard from 'contacts/individual/profile/components/DetailsCard';
-import IndividualProfileCard from 'contacts/individual/profile/hoc/ProfileCard';
-import InterestsCard from 'contacts/individual/profile/components/InterestsCard';
+import DetailsCard from '../components/DetailsCard';
+import IndividualProfileCard from '../hoc/ProfileCard';
+import InterestsCard from '../components/InterestsCard';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Individual} from 'shared/util/records';
