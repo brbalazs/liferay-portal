@@ -65,10 +65,10 @@ describe('ConnectDXP', () => {
 		const select = container.querySelector('.select-root');
 
 		fireEvent.change(select, {
-			target: {value: 'dxp-71-fixpack-21'}
+			target: {value: 'dxp-71-fixpack-22'}
 		});
 
-		expect(queryByText('Download').href).toMatch(/7-1-fix-pack-21/);
+		expect(queryByText('Download').href).toMatch(/7-1-fix-pack-22/);
 	});
 
 	it('fires "setDxpConnected" when the token value changes', () => {
