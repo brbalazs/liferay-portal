@@ -126,6 +126,16 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
+	macro gotoEntryMenuItem {
+		Pause(locator1 = "3000");
+
+		Click.waitForMenuToggleJSClick(
+			key_webContentTitle = "${entry}",
+			locator1 = "WC#ENTRY_LIST_MENULIST_ICON");
+
+		MenuItem.clickNoError(menuItem = "${menuItem}");
+	}
+
 	macro gotoManageTemplatesViaStructures {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Manage Templates",
