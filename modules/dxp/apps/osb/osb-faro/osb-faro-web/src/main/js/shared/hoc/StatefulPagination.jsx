@@ -1,34 +1,19 @@
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
+import PropTypes from 'prop-types';
 import React from 'react';
-import {hasChanges} from 'shared/util/react';
 import {invoke, isFunction} from 'lodash';
 import {Map} from 'immutable';
-import {NAME} from 'shared/util/pagination';
-import {PropTypes} from 'prop-types';
 
 const {
-	pagination: {
-		cur: DEFAULT_PAGE,
-		delta: DEFAULT_DELTA,
-		orderAscending,
-		orderDefault,
-		orderDescending
-	}
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
 } = FaroConstants;
 
+// TODO: update "default" to "initial"
 const DEFAULT_PAGINATION_PROPS = {
 	defaultDelta: DEFAULT_DELTA,
 	defaultFilterBy: new Map(),
-	defaultOrderBy: orderDefault,
-	defaultOrderByField: NAME,
-	defaultOrderByFields: [
-		{
-			fieldName: NAME,
-			orderBy: orderDefault
-		}
-	],
 	defaultPage: DEFAULT_PAGE,
 	defaultQuery: ''
 };
@@ -62,19 +47,16 @@ export default function withStatefulPagination(
 			const {
 				defaultDelta,
 				defaultFilterBy,
-				defaultOrderBy,
-				defaultOrderByField,
-				defaultOrderByFields,
 				defaultPage,
 				defaultQuery
 			} = getDefaultProps(props);
 
+			const {initialOrderIOMap} = this.props;
+
 			this.state = {
 				delta: defaultDelta,
 				filterBy: defaultFilterBy,
-				orderBy: defaultOrderBy,
-				orderByField: defaultOrderByField,
-				orderByFields: defaultOrderByFields,
+				orderIOMap: initialOrderIOMap, // TODO: Figure out way to set default state for this. maybe initialOrderIOMap?
 				page: defaultPage,
 				query: defaultQuery
 			};
@@ -96,48 +78,11 @@ export default function withStatefulPagination(
 		}
 
 		@autobind
-		handleOrderByChange() {
-			const {orderBy} = this.state;
-
+		handleOrderIOMapChange(orderIOMap) {
 			this.setState({
-				orderBy:
-					orderBy === orderAscending
-						? orderDescending
-						: orderAscending,
+				orderIOMap,
 				page: DEFAULT_PAGE
 			});
-		}
-
-		@autobind
-		handleOrderByFieldChange(orderByField) {
-			this.setState({
-				orderByField,
-				page: DEFAULT_PAGE
-			});
-		}
-
-		@autobind
-		handleOrderByFieldsChange({orderByFields, orderParams}) {
-			if (
-				hasChanges(
-					this.state,
-					{
-						orderBy: orderParams.sortOrder,
-						orderByField: orderParams.field,
-						orderByFields
-					},
-					'orderBy',
-					'orderByField',
-					'orderByFields'
-				)
-			) {
-				this.setState({
-					orderBy: orderParams.sortOrder,
-					orderByField: orderParams.field,
-					orderByFields,
-					page: DEFAULT_PAGE
-				});
-			}
 		}
 
 		@autobind
@@ -172,15 +117,7 @@ export default function withStatefulPagination(
 		render() {
 			const {
 				props: {paginationProps, toolbarProps, ...otherProps},
-				state: {
-					delta,
-					filterBy,
-					orderBy,
-					orderByField,
-					orderByFields,
-					page,
-					query
-				}
+				state: {delta, filterBy, orderIOMap, page, query}
 			} = this;
 
 			const statefulProps = {
@@ -188,10 +125,9 @@ export default function withStatefulPagination(
 				filterBy,
 				onOrderByFieldChange: this.handleOrderByFieldsChange,
 				onOrderByFieldsChange: this.handleOrderByFieldsChange,
+				onOrderIOMapChange: this.handleOrderIOMapChange,
 				onSearchValueChange: this.handleQueryChange,
-				orderBy,
-				orderByField,
-				orderByFields,
+				orderIOMap,
 				page,
 				paginationProps: {
 					...paginationProps,
