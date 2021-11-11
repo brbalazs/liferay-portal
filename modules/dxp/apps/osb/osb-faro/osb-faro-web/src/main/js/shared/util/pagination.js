@@ -204,6 +204,6 @@ export const createOrderIOMap = (field, sortOrder) =>
 	OrderedMap({
 		[field]: new OrderParams({
 			field,
-			sortOrder
+			sortOrder: sortOrder || getDefaultSortOrder(field)
 		})
 	});
