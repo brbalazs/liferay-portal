@@ -1,16 +1,14 @@
 import autobind from 'autobind-decorator';
 import BaseResults from 'shared/components/BaseResults';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'shared/components/table';
-import {FAMILY_NAME, GIVEN_NAME} from 'shared/util/pagination';
 import {noop} from 'lodash';
-import {PropTypes} from 'prop-types';
 import {withStatefulPagination} from 'shared/hoc';
-const {orderDefault} = FaroConstants.pagination;
 
+// TODO: Do we need entityType for this component?
 class SearchableEntityTable extends React.Component {
 	static defaultProps = {
 		bordered: false,
@@ -25,14 +23,9 @@ class SearchableEntityTable extends React.Component {
 		bordered: PropTypes.bool,
 		checkDisabled: PropTypes.func,
 		columns: PropTypes.array,
-		defaultSort: PropTypes.shape({
-			field: PropTypes.string,
-			sortOrder: PropTypes.string
-		}),
-		entityType: PropTypes.string,
 		internalSort: PropTypes.bool,
 		nowrap: PropTypes.bool,
-		onOrderByFieldsChange: PropTypes.func,
+		orderIOMap: PropTypes.object,
 		overrideLoading: PropTypes.bool,
 		renderInlineRowActions: PropTypes.func,
 		renderRowActions: PropTypes.func,
@@ -65,13 +58,10 @@ class SearchableEntityTable extends React.Component {
 			bordered,
 			checkDisabled,
 			columns,
-			defaultSort,
-			entityType,
 			internalSort,
 			nowrap,
-			onOrderByFieldsChange,
-			orderBy,
-			orderByField,
+			onOrderIOMapChange,
+			orderIOMap,
 			overrideLoading,
 			renderInlineRowActions,
 			renderRowActions,
@@ -85,21 +75,15 @@ class SearchableEntityTable extends React.Component {
 				checkDisabled={checkDisabled}
 				className={className}
 				columns={columns}
-				defaultSort={
-					defaultSort || {
-						field: orderByField,
-						sortOrder: orderBy
-					}
-				}
-				entityType={entityType}
 				headingNowrap
 				internalSort={internalSort}
 				items={items}
 				list={bordered}
 				loading={loading || overrideLoading}
 				nowrap={nowrap}
+				onOrderIOMapChange={onOrderIOMapChange}
 				onSelectItemsChange={onSelectItemsChange}
-				onSortChange={onOrderByFieldsChange}
+				orderIOMap={orderIOMap}
 				renderInlineRowActions={renderInlineRowActions}
 				renderRowActions={renderRowActions}
 				rowBordered={rowBordered}
@@ -115,6 +99,14 @@ class SearchableEntityTable extends React.Component {
 			bordered,
 			checkDisabled,
 			className,
+			delta,
+			onDeltaChange,
+			onOrderIOMapChange,
+			onPageChange,
+			onQueryChange,
+			orderIOMap,
+			page,
+			query,
 			showCheckbox,
 			...otherProps
 		} = this.props;
@@ -130,6 +122,14 @@ class SearchableEntityTable extends React.Component {
 				)}
 				checkDisabled={checkDisabled}
 				className={classes}
+				delta={delta}
+				onDeltaChange={onDeltaChange}
+				onOrderIOMapChange={onOrderIOMapChange}
+				onPageChange={onPageChange}
+				onQueryChange={onQueryChange}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
 				ref={this._resultsRef}
 				resultsRenderer={this.renderTable}
 				showCheckbox={showCheckbox}
@@ -145,17 +145,7 @@ SearchableEntityTable.StatefulPagination = withStatefulPagination(
 SearchableEntityTable.IndividualStatefulPagination = withStatefulPagination(
 	SearchableEntityTable,
 	{
-		defaultDelta: 10,
-		defaultOrderByFields: [
-			{
-				fieldName: GIVEN_NAME,
-				orderBy: orderDefault
-			},
-			{
-				fieldName: FAMILY_NAME,
-				orderBy: orderDefault
-			}
-		]
+		defaultDelta: 10
 	}
 );
 
