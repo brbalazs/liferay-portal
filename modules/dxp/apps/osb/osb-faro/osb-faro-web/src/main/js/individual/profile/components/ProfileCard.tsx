@@ -47,8 +47,8 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	entity: Individual;
 	groupId: string;
 	interval: Interval;
-	onChangeInterval: (Interval) => void;
-	onRangeSelectorsChange: (RangeSelectors) => void;
+	onChangeInterval: (interval: Interval) => void;
+	onRangeSelectorsChange: (rangeSelectors: RangeSelectors) => void;
 	rangeSelectors: RangeSelectors;
 	tabId: string;
 	timeZoneId: string;

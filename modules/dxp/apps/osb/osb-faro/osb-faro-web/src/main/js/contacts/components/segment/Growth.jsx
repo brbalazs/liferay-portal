@@ -3,7 +3,6 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/chart-tooltip';
-import Constants, {RangeKeyTimeRanges} from 'shared/util/constants';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -31,27 +30,24 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
+import {compose} from 'redux';
 import {createDateKeysIMap} from 'shared/util/intervals';
 import {DATE_CHANGED, NAME} from 'shared/util/pagination';
 import {formatUTCDateFromUnix} from 'shared/util/date';
 import {formatXAxisDate, getIntervals} from 'shared/util/charts';
-import {get, isNil, omit} from 'lodash';
+import {get, isNil} from 'lodash';
 import {getNetChange} from 'shared/util/change';
 import {INDIVIDUALS} from 'shared/util/router';
+import {OrderByDirections, RangeKeyTimeRanges} from 'shared/util/constants';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
-import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
+import {useStatefulPagination} from 'shared/hooks';
+import {withSelectedPoint} from 'shared/hoc';
 
 const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const INTERVAL = 'D';
-
-const SearchableEntityTableHOC = withStatefulPagination(
-	SearchableEntityTable,
-	null,
-	props => omit(props, 'onSearchValueChange')
-);
-
-const {orderAscending, orderDescending} = Constants.pagination;
 
 const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
 	PropTypes.shape({
@@ -65,21 +61,21 @@ const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
 ).isRequired;
 
 function getAllMembers(data) {
-	const {channelId, delta, groupId, id, orderByFields, page, query} = data;
+	const {channelId, delta, groupId, id, orderIOMap, page, query} = data;
 
 	return API.individuals.search({
 		channelId,
 		delta,
 		groupId,
 		individualSegmentId: id,
-		orderByFields,
+		orderIOMap,
 		page,
 		query
 	});
 }
 
 function getMemberChanges(data) {
-	const {delta, groupId, id, modifiedDate, orderByFields, page, query} = data;
+	const {delta, groupId, id, modifiedDate, orderIOMap, page, query} = data;
 
 	return API.individualSegment.fetchMembershipChanges({
 		cur: page,
@@ -87,7 +83,7 @@ function getMemberChanges(data) {
 		endDate: modifiedDate,
 		groupId,
 		id,
-		orderByFields,
+		orderIOMap,
 		query,
 		startDate: modifiedDate
 	});
@@ -627,35 +623,27 @@ export class SelectedPointInfo extends React.Component {
 	}
 }
 
-export class SegmentGrowthWithList extends React.Component {
-	static propTypes = {
-		channelId: PropTypes.string,
-		data: CHANGES_AGGREGATION_SHAPE,
-		groupId: PropTypes.any.isRequired,
-		hasSelectedPoint: PropTypes.bool,
-		id: PropTypes.string.isRequired,
-		individualCounts: PropTypes.shape({
-			anonymousCount: PropTypes.number,
-			knownCount: PropTypes.number
-		}),
-		selectedPoint: PropTypes.number,
-		timeZoneId: PropTypes.string
-	};
-
-	@autobind
-	fetchMembers(params) {
-		const {hasSelectedPoint} = this.props;
-
+const SegmentGrowthWithList = ({
+	channelId,
+	className,
+	data,
+	groupId,
+	hasSelectedPoint,
+	id,
+	individualCounts,
+	onPointSelect,
+	selectedPoint,
+	timeZoneId
+}) => {
+	const fetchMembers = params => {
 		const fetchMembersFn = hasSelectedPoint
 			? getMemberChanges
 			: getAllMembers;
 
 		return fetchMembersFn(params);
-	}
+	};
 
-	getColumns() {
-		const {channelId, groupId, hasSelectedPoint, timeZoneId} = this.props;
-
+	const getColumns = () => {
 		if (hasSelectedPoint) {
 			return [
 				changesListColumns.getIndividualName({channelId, groupId}),
@@ -672,69 +660,66 @@ export class SegmentGrowthWithList extends React.Component {
 			individualsListColumns.accountNames,
 			individualsListColumns.getDateCreated(timeZoneId)
 		];
-	}
+	};
 
-	@autobind
-	handleClearSelection() {
-		const {onPointSelect} = this.props;
-
+	const handleClearSelection = () => {
 		onPointSelect({index: null});
-	}
+	};
 
-	render() {
-		const {
-			channelId,
-			className,
-			data,
-			groupId,
-			hasSelectedPoint,
-			id,
-			individualCounts,
-			onPointSelect,
-			selectedPoint
-		} = this.props;
+	const {modifiedDate} = get(data, selectedPoint, {});
 
-		const {modifiedDate} = get(data, selectedPoint, {});
+	const paginationParams = useStatefulPagination(null, {
+		initialDelta: 20,
+		initialOrderIOMap: hasSelectedPoint
+			? OrderedMap({
+					[DATE_CHANGED]: new OrderParams({
+						field: DATE_CHANGED,
+						sortOrder: OrderByDirections.Descending
+					})
+			  })
+			: OrderedMap({
+					[NAME]: new OrderParams({
+						field: NAME,
+						sortOrder: OrderByDirections.Ascending
+					})
+			  }),
+		initialPage: 0
+	});
 
-		return (
-			<Card.Body
-				className={getCN('segment-growth-root', className)}
-				noPadding
-			>
-				<div className='segment-growth-chart-container'>
-					<SegmentGrowthChart
-						alwaysShowSelectedTooltip
-						data={data}
-						hasSelectedPoint={hasSelectedPoint}
-						individualCounts={individualCounts}
-						onPointSelect={onPointSelect}
-						selectedPoint={selectedPoint}
-					/>
-				</div>
-
-				<SelectedPointInfo
+	// TODO: make it so I can pass the paginationParams as a prop as a whole to SearchableEntityTable.  This will require a rewrite of useStatefulPagination. We can also rewrite withStatefulPagination to use the useStatefulPagination hook... therefore we're consistent across the board with how things work.
+	return (
+		<Card.Body
+			className={getCN('segment-growth-root', className)}
+			noPadding
+		>
+			<div className='segment-growth-chart-container'>
+				<SegmentGrowthChart
+					alwaysShowSelectedTooltip
 					data={data}
 					hasSelectedPoint={hasSelectedPoint}
-					onClearSelection={this.handleClearSelection}
+					individualCounts={individualCounts}
+					onPointSelect={onPointSelect}
 					selectedPoint={selectedPoint}
 				/>
+			</div>
 
-				<SearchableEntityTableHOC
-					columns={this.getColumns()}
-					dataSourceFn={this.fetchMembers}
-					dataSourceParams={{channelId, groupId, id, modifiedDate}}
-					defaultSort={{
-						field: hasSelectedPoint ? DATE_CHANGED : NAME,
-						sortOrder: hasSelectedPoint
-							? orderDescending
-							: orderAscending
-					}}
-					entityType={hasSelectedPoint ? '' : INDIVIDUALS}
-					rowIdentifier='id'
-				/>
-			</Card.Body>
-		);
-	}
-}
+			<SelectedPointInfo
+				data={data}
+				hasSelectedPoint={hasSelectedPoint}
+				onClearSelection={handleClearSelection}
+				selectedPoint={selectedPoint}
+			/>
 
-export default withSelectedPoint(SegmentGrowthWithList);
+			<SearchableEntityTable
+				{...paginationParams}
+				columns={getColumns()}
+				dataSourceFn={fetchMembers}
+				dataSourceParams={{channelId, groupId, id, modifiedDate}}
+				entityType={INDIVIDUALS}
+				rowIdentifier='id'
+			/>
+		</Card.Body>
+	);
+};
+
+export default compose(withSelectedPoint)(SegmentGrowthWithList);
