@@ -10,7 +10,9 @@ export type Column = {
 	cellRenderer?: React.ReactNode;
 	cellRendererProps?: object;
 	className?: string;
-	dataFormatter: (data: object) => React.ReactNode;
+	dataFormatter?: (dataValue: any, data?: object) => React.ReactNode;
+	editable?: boolean;
+	headProps?: {[key: string]: any};
 	label?: React.ReactNode;
 	sortable?: boolean;
 	title?: boolean;
@@ -20,7 +22,7 @@ interface IRowProps {
 	className?: string;
 	clickable?: boolean;
 	columns: Column[];
-	data?: Object;
+	data?: object;
 	disabled?: boolean;
 	items?: Array<any>;
 	itemsSelected?: boolean;

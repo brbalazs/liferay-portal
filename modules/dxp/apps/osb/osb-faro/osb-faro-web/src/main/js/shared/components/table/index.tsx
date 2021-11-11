@@ -1,16 +1,11 @@
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import HeaderRow from './HeaderRow';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Row, {Column} from './Row';
 import Spinner from 'shared/components/Spinner';
-import {buildOrderByFields} from 'shared/util/pagination';
-import {get, isArray, noop, orderBy} from 'lodash';
-import {getDefaultSortOrder, invertOrder} from 'shared/util/pagination';
+import {get, isArray, noop} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
-
-const {orderDefault} = FaroConstants.pagination;
 
 export const getRowIdentifierValue = (item, rowIdentifier) => {
 	if (isArray(rowIdentifier)) {
@@ -26,30 +21,28 @@ export const getRowIdentifierValue = (item, rowIdentifier) => {
 
 interface ITableProps {
 	bordered?: boolean;
-	checkDisabled?: (item: object) => void;
+	checkDisabled?: (item: object) => boolean;
 	className?: string;
 	columns: Column[];
-	defaultSort: {
-		field: string;
-		sortOrder: string;
-	}; // TODO: Convert this over to orderIOMap;
-	entityType?: string; // TODO: table should not handle this.
+	// defaultSort?: {
+	// 	field: string;
+	// 	sortOrder: string;
+	// }; // TODO: Convert this over to orderIOMap;
+	enableMultiSort?: boolean;
 	headingNowrap?: boolean;
 	internalSort?: boolean;
-	items: object[];
+	items: {[key: string]: any}[];
 	list?: boolean;
 	loading?: boolean;
 	nowrap?: boolean;
+	orderIOMap?: OrderedMap<string, OrderParams>; // TODO: Maybe optional? we'll see
+	onOrderIOMapChange?: (orderIOMap: OrderedMap<string, OrderParams>) => void;
 	onRowClick?: (item: object) => void; // TODO: Maybe do something about this.
 	onRowDelete?: (item: object) => void;
 	onRowSave?: (item: object) => void;
-	onSelectItemsChange: (item: object) => void;
-	onSortChange: (params: {
-		orderByFields: string;
-		orderParams: OrderParams;
-	}) => void;
+	onSelectItemsChange?: (item: any) => void;
 	renderInlineRowActions?: (params: {
-		data: object;
+		data: {[key: string]: any};
 		editing: boolean;
 		edits: object;
 		items: object[];
@@ -66,63 +59,47 @@ interface ITableProps {
 	}) => React.ReactNode;
 	rowBordered?: boolean;
 	rowIdentifier: string | string[];
-	selectedItemsIOMap: OrderedMap<string, object>;
+	selectedItemsIOMap?: OrderedMap<string, object>;
 	showCheckbox?: boolean;
 }
 
 const Table: React.FC<ITableProps> = ({
 	bordered,
-	checkDisabled = noop,
+	checkDisabled = () => false,
 	className,
 	columns,
-	defaultSort,
-	entityType,
+	// defaultSort, // TODO: No more default because it's all handled by its parent
+	enableMultiSort = false,
 	headingNowrap = true,
-	internalSort = false,
+	internalSort = false, // TODO: maybe have internal sort in here still but base it off of the provided sort
 	items = [],
 	list = false,
 	loading = false,
 	nowrap = true,
+	onOrderIOMapChange,
 	onRowClick,
 	onRowDelete = noop,
 	onRowSave = noop,
 	onSelectItemsChange,
-	onSortChange,
+	orderIOMap = OrderedMap(),
 	renderInlineRowActions,
 	renderRowActions,
 	rowBordered = true,
 	rowIdentifier = 'id',
-	selectedItemsIOMap = new OrderedMap(),
+	selectedItemsIOMap = OrderedMap(),
 	showCheckbox = false
 }) => {
-	const [orderParams, setOrderParams] = useState(
-		new OrderParams({
-			sortOrder: orderDefault,
-			...defaultSort
-		})
-	);
-
-	useEffect(() => {
-		if (defaultSort) {
-			setOrderParams(
-				new OrderParams({
-					sortOrder: orderDefault,
-					...defaultSort
-				})
-			);
-		}
-	}, ['columns', 'defaultSort']);
-
-	useEffect(() => {
-		handleEmitOnSortChange();
-	}, [orderParams]);
-
-	const handleEmitOnSortChange = () => {
-		if (onSortChange) {
-			onSortChange({
-				orderByFields: buildOrderByFields(orderParams, entityType),
-				orderParams
-			});
+	const handleSortOrderChange = (orderParams: OrderParams) => {
+		if (onOrderIOMapChange) {
+			if (enableMultiSort) {
+				onOrderIOMapChange(
+					orderIOMap.set(orderParams.field, orderParams)
+				);
+			} else {
+				onOrderIOMapChange(
+					OrderedMap({[orderParams.field]: orderParams})
+				);
+			}
 		}
 	};
 
@@ -136,32 +113,32 @@ const Table: React.FC<ITableProps> = ({
 		}
 	};
 
-	const handleSort = field => {
-		const updatedOrderParams =
-			orderParams.field === field
-				? orderParams.update('sortOrder', order => invertOrder(order))
-				: new OrderParams({
-						field,
-						sortOrder: getDefaultSortOrder(field)
-				  });
+	// const handleSort = field => {
+	// 	const updatedOrderParams =
+	// 		orderParams.field === field
+	// 			? orderParams.update('sortOrder', order => invertOrder(order))
+	// 			: new OrderParams({
+	// 					field,
+	// 					sortOrder: getDefaultSortOrder(field)
+	// 			  });
 
-		setOrderParams(updatedOrderParams);
-	};
+	// 	setOrderParams(updatedOrderParams);
+	// };
 
-	const sortItems = items =>
-		orderBy(
-			items,
-			item => {
-				const fieldValue = item[orderParams.field];
+	// const sortItems = items =>
+	// 	orderBy(
+	// 		items,
+	// 		item => {
+	// 			const fieldValue = item[orderParams.field];
 
-				if (typeof fieldValue === 'string') {
-					return fieldValue.toLowerCase();
-				}
+	// 			if (typeof fieldValue === 'string') {
+	// 				return fieldValue.toLowerCase();
+	// 			}
 
-				return fieldValue;
-			},
-			orderParams.sortOrder
-		);
+	// 			return fieldValue;
+	// 		},
+	// 		orderParams.sortOrder
+	// 	);
 
 	const classes = getCN('table', 'table-autofit', 'table-hover', {
 		'show-quick-actions-on-hover': renderRowActions,
@@ -172,7 +149,7 @@ const Table: React.FC<ITableProps> = ({
 		'table-row-no-bordered': !rowBordered
 	});
 
-	const itemsSorted = internalSort ? sortItems(items) : items;
+	const itemsSorted = items; // internalSort ? sortItems(items) : items;
 
 	return (
 		<div
@@ -184,9 +161,9 @@ const Table: React.FC<ITableProps> = ({
 			<table className={classes}>
 				<HeaderRow
 					columns={columns}
-					headerLink={!internalSort && !onSortChange}
-					onSort={handleSort}
-					orderParams={orderParams}
+					headerLink={!internalSort && !onOrderIOMapChange}
+					onSortOrderChange={handleSortOrderChange}
+					orderIOMap={orderIOMap}
 					showCheckbox={showCheckbox}
 					showInlineRowActions={
 						!!renderInlineRowActions || !!renderRowActions
@@ -202,8 +179,8 @@ const Table: React.FC<ITableProps> = ({
 								<Row
 									className={className}
 									clickable={
-										onRowClick ||
-										(showCheckbox && onSelectItemsChange)
+										!!onRowClick ||
+										(showCheckbox && !!onSelectItemsChange)
 									}
 									columns={columns}
 									data={item}
