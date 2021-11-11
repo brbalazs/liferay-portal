@@ -1,10 +1,11 @@
 import FaroConstants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
-import {ACCOUNT_NAME} from 'shared/util/pagination';
+import {ACCOUNTS} from 'shared/util/router';
+import {buildOrderByFields} from 'shared/util/pagination';
 import {escapeSingleQuotes} from 'contacts/components/segment-editor/dynamic/utils/odata';
 
 const {
-	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDefault}
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
 } = FaroConstants;
 
 export function fetch({accountId, groupId}) {
@@ -37,16 +38,15 @@ export function search({
 	channelId = '',
 	delta = DEFAULT_DELTA,
 	groupId,
-	orderByFields = [
-		{
-			fieldName: ACCOUNT_NAME,
-			orderBy: orderDefault
-		}
-	],
+	orderIOMap,
 	page = DEFAULT_PAGE,
 	query = '',
 	...otherParams
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, ACCOUNTS);
+
 	return sendRequest({
 		data: {
 			channelId,

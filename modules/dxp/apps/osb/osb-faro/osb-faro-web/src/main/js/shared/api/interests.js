@@ -1,6 +1,16 @@
-import Constants, {TimeIntervals} from 'shared/util/constants';
+import Constants, {
+	OrderByDirections,
+	TimeIntervals
+} from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
-import {INDIVIDUAL_COUNT, NAME, SCORE} from 'shared/util/pagination';
+import {
+	buildOrderByFields,
+	createOrderIOMap,
+	INDIVIDUAL_COUNT,
+	INTERESTS,
+	NAME,
+	SCORE
+} from 'shared/util/pagination';
 
 const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending}
@@ -32,12 +42,14 @@ export function search(params) {
 		interval = DEFAULT_TIME_INTERVAL,
 		max = DEFAULT_MAX,
 		name,
-		orderByFields = [
-			{fieldName: SCORE, orderBy: orderDescending, system: true}
-		],
+		orderIOMap = createOrderIOMap(SCORE, OrderByDirections.Descending),
 		page = DEFAULT_PAGE,
 		query = ''
 	} = params;
+
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, INTERESTS);
 
 	return sendRequest({
 		data: {
@@ -74,12 +86,14 @@ export function searchKeywordAggregations(params) {
 		contactsEntityType,
 		delta = DEFAULT_DELTA,
 		groupId,
-		orderByFields = [
-			{fieldName: INDIVIDUAL_COUNT, orderBy: orderDescending}
-		],
+		orderIOMap = createOrderIOMap(INDIVIDUAL_COUNT),
 		page = DEFAULT_PAGE,
 		query = ''
 	} = params;
+
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
 
 	return sendRequest({
 		data: {

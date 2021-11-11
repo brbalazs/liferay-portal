@@ -1,10 +1,15 @@
 import Constants, {TimeIntervals} from 'shared/util/constants';
 import moment from 'moment';
 import sendRequest from 'shared/util/request';
-import {TITLE} from 'shared/util/pagination';
+import {
+	buildOrderByFields,
+	createOrderIOMap,
+	TITLE
+} from 'shared/util/pagination';
+import {PAGES} from 'shared/util/router';
 
 const {
-	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDescending}
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
 } = Constants;
 
 export const INTERVALS_MAP = {
@@ -23,12 +28,14 @@ export function search(params) {
 		interestName,
 		interval,
 		intervalInitDate,
-		orderByFields = [
-			{fieldName: TITLE, orderBy: orderDescending, system: true}
-		],
+		orderIOMap = createOrderIOMap(TITLE),
 		page = DEFAULT_PAGE,
 		query = ''
 	} = params;
+
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, PAGES);
 
 	return sendRequest({
 		data: {

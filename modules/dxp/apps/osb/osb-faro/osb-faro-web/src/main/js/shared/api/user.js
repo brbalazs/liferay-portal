@@ -1,4 +1,6 @@
 import sendRequest from 'shared/util/request';
+import {buildOrderByFields} from 'shared/util/pagination';
+import {USERS} from 'shared/util/router';
 import {UserStatuses} from 'shared/util/constants';
 
 function delete$({groupId, ids}) {
@@ -19,16 +21,20 @@ export function fetchCurrentUser({groupId}) {
 }
 
 export function fetchMany({
-	cur,
 	delta,
 	groupId,
-	orderByFields,
+	orderIOMap,
+	page,
 	query,
 	statuses = [UserStatuses.Approved, UserStatuses.Pending]
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, USERS);
+
 	return sendRequest({
 		data: {
-			cur,
+			cur: page,
 			delta,
 			orderByFields,
 			query,

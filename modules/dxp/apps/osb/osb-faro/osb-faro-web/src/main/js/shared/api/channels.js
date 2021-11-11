@@ -4,6 +4,7 @@ import {
 	getDefaultSortOrder,
 	NAME
 } from 'shared/util/pagination';
+import {USERS} from 'shared/util/router';
 
 export function clear({groupId, ids}) {
 	return sendRequest({
@@ -45,9 +46,13 @@ export function fetchAll({groupId}) {
 	});
 }
 
-export function search({groupId, ...data}) {
+export function search({groupId, orderIOMap, ...otherParams}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
-		data,
+		data: {...otherParams, orderByFields},
 		method: 'GET',
 		path: `main/${groupId}/channel`
 	});
@@ -61,9 +66,23 @@ export function fetch({channelId, groupId, ...data}) {
 	});
 }
 
-export function fetchUsers({channelId, groupId, ...data}) {
+export function fetchUsers({
+	channelId,
+	groupId,
+	orderIOMap,
+	page,
+	...otherParams
+}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, USERS);
+
 	return sendRequest({
-		data,
+		data: {
+			cur: page,
+			orderByFields,
+			...otherParams
+		},
 		method: 'GET',
 		path: `main/${groupId}/channel/${channelId}/users`
 	});

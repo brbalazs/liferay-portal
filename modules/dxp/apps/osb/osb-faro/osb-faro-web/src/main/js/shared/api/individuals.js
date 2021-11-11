@@ -1,13 +1,16 @@
-import FaroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
+import {
+	buildOrderByFields,
+	createOrderIOMap,
+	NAME
+} from 'shared/util/pagination';
 import {escapeSingleQuotes} from 'contacts/components/segment-editor/dynamic/utils/odata';
-import {FAMILY_NAME, GIVEN_NAME} from 'shared/util/pagination';
+import {INDIVIDUALS} from 'shared/util/router';
 
 const {
-	cur: DEFAULT_PAGE,
-	delta: DEFAULT_DELTA,
-	orderDefault
-} = FaroConstants.pagination;
+	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
+} = Constants;
 
 export function fetch({channelId, groupId, individualId}) {
 	return sendRequest({
@@ -25,16 +28,20 @@ export function fetchDetails({groupId, individualId}) {
 }
 
 export function fetchMembership({
-	cur,
 	delta,
 	groupId,
 	individualSegmentId,
-	orderByFields,
+	orderIOMap,
+	page,
 	query
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, INDIVIDUALS);
+
 	return sendRequest({
 		data: {
-			cur,
+			cur: page,
 			delta,
 			individualSegmentId,
 			orderByFields,
@@ -65,23 +72,19 @@ export function search(params) {
 		groupId,
 		individualSegmentId = '',
 		notIndividualSegmentId = '',
-		orderByFields = [
-			{
-				fieldName: GIVEN_NAME,
-				orderBy: orderDefault
-			},
-			{
-				fieldName: FAMILY_NAME,
-				orderBy: orderDefault
-			}
-		],
+		orderIOMap = createOrderIOMap(NAME),
 		page = DEFAULT_PAGE,
 		query = '',
 		...otherParams
 	} = params;
 
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, INDIVIDUALS);
+
 	return sendRequest({
 		data: {
+			...otherParams,
 			accountId,
 			channelId,
 			cur: page,
@@ -89,8 +92,7 @@ export function search(params) {
 			individualSegmentId,
 			notIndividualSegmentId,
 			orderByFields,
-			query,
-			...otherParams
+			query
 		},
 		method: 'POST',
 		path: `contacts/${groupId}/individual/search`

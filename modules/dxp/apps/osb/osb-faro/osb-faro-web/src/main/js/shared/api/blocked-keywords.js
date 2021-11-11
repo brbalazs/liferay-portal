@@ -1,4 +1,5 @@
 import sendRequest from 'shared/util/request';
+import {buildOrderByFields} from 'shared/util/pagination';
 
 function delete$({groupId, ids}) {
 	return sendRequest({
@@ -9,9 +10,18 @@ function delete$({groupId, ids}) {
 }
 export {delete$ as delete};
 
-export function fetch({groupId, ...data}) {
+export function search({delta, groupId, orderIOMap, page, query}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
-		data,
+		data: {
+			cur: page,
+			delta,
+			orderByFields,
+			query
+		},
 		method: 'GET',
 		path: `main/${groupId}/blocked_keywords`
 	});

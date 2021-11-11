@@ -1,7 +1,7 @@
 import sendRequest from 'shared/util/request';
 import {
 	buildOrderByFields,
-	getDefaultSortOrder,
+	createOrderIOMap,
 	NAME
 } from 'shared/util/pagination';
 import {get, pickBy} from 'lodash';
@@ -25,34 +25,38 @@ export function fetch({groupId, id}) {
 	});
 }
 
-/*
- * Search for Data Sources.
- * @param {number} cur - The page to return.
- * @param {number} delta - The amount of items to return per page.
- * @param {string} faroEntityId - The ID of the entity.
- * @param {string} groupId - The ID of the workspace.
- * @param {string} name - An exact match query.
- * @param {Array.<Object>} orderByFields - Array of objects to specify order of fields.
- * @param {string} query - The query.
- * @param {Array<string>} states - Array of states to filter by.
- * @returns {Promise}
- */
-export function search({groupId, ...data}) {
+export function search({
+	delta,
+	groupId,
+	orderIOMap = createOrderIOMap(NAME),
+	page,
+	query,
+	...otherParams
+}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
-		data,
+		data: {cur: page, delta, orderByFields, query, ...otherParams},
 		method: 'GET',
 		path: `contacts/${groupId}/data_source`
 	});
 }
 
-export function fetchChannels({channelIds, groupId}) {
+export function fetchChannels({
+	channelIds,
+	groupId,
+	orderIOMap = createOrderIOMap(NAME)
+}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
 		data: {
 			channelIds,
-			orderByFields: buildOrderByFields({
-				field: NAME,
-				sortOrder: getDefaultSortOrder(NAME)
-			})
+			orderByFields
 		},
 		method: 'GET',
 		path: `contacts/${groupId}/data_source/channels`

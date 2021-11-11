@@ -1,4 +1,5 @@
 import sendRequest from 'shared/util/request';
+import {buildOrderByFields} from 'shared/util/pagination';
 import {pickBy} from 'lodash';
 import {TimeIntervals} from 'shared/util/constants';
 
@@ -41,10 +42,14 @@ export function fetchGroup({
 	delta,
 	endDate,
 	groupId,
-	orderByFields,
+	orderIOMap,
 	query,
 	startDate
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
 		data: {
 			channelId,
@@ -67,14 +72,20 @@ export function searchAssets({
 	channelId = '',
 	eventId,
 	groupId,
+	orderIOMap,
 	...otherParams
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams);
+
 	return sendRequest({
 		data: {
+			...otherParams,
 			applicationId,
 			channelId,
 			eventId,
-			...otherParams
+			orderByFields
 		},
 		method: 'GET',
 		path: `contacts/${groupId}/activity/asset`

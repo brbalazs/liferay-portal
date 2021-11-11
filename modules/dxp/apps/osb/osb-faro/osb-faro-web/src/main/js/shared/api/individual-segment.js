@@ -1,6 +1,7 @@
 import Constants, {SegmentTypes, TimeIntervals} from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
-import {NAME} from 'shared/util/pagination';
+import {buildOrderByFields, NAME} from 'shared/util/pagination';
+import {INDIVIDUALS, SEGMENTS} from 'shared/util/router';
 
 const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA, orderDefault}
@@ -130,9 +131,29 @@ export function removeMemberships({groupId, id, individualIds}) {
 	});
 }
 
-export function fetchMembershipChanges({groupId, id, ...data}) {
+export function fetchMembershipChanges({
+	delta,
+	endDate,
+	groupId,
+	id,
+	orderIOMap,
+	query,
+	startDate
+}) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, INDIVIDUALS);
+
 	return sendRequest({
-		data,
+		data: {
+			delta,
+			endDate,
+			groupId,
+			id,
+			orderByFields,
+			query,
+			startDate
+		},
 		method: 'GET',
 		path: `contacts/${groupId}/individual_segment/${id}/memberships/changes`
 	});
@@ -159,17 +180,15 @@ export function fetchMembershipChangesAggregations({
 export function search({
 	delta = DEFAULT_DELTA,
 	groupId,
-	orderByFields = [
-		{
-			fieldName: NAME,
-			orderBy: orderDefault,
-			system: true
-		}
-	],
+	orderIOMap,
 	page = DEFAULT_PAGE,
 	query = '',
 	...otherParams
 }) {
+	const orderParams = orderIOMap.first();
+
+	const orderByFields = buildOrderByFields(orderParams, SEGMENTS);
+
 	return sendRequest({
 		data: {cur: page, delta, orderByFields, query, ...otherParams},
 		method: 'GET',

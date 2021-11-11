@@ -69,6 +69,7 @@ const TableWithData = withTableData(withData, {
 const Interests = ({history, router}) => {
 	const {selectedChannel} = useChannelContext();
 
+	// TODO: Create hook to get rangeSelectors or include it in queryPagination?;
 	const {
 		query: {delta, page}
 	} = router;
