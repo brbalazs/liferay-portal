@@ -1,7 +1,9 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {OrderByDirections} from 'shared/util/constants';
+import PropTypes from 'prop-types';
 import {ACCOUNTS, INDIVIDUALS, SEGMENTS, USERS} from 'shared/util/router';
-import {Map} from 'immutable';
-import {PropTypes} from 'prop-types';
+import {get, last} from 'lodash';
+import {Map, OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 
 const {
 	cur: defaultCur,
@@ -124,6 +126,9 @@ export const ACCESSOR_TO_FIELD_MAP = {
 	viewCount: UNIQUE_VISITS_COUNT
 };
 
+export const getFieldNameFromAccessor = (accessor = '') =>
+	get(ACCESSOR_TO_FIELD_MAP, [accessor], last(accessor.split('.')));
+
 const SYSTEM_FIELDS = [
 	ACTIVITIES_COUNT,
 	DATE_CHANGED,
@@ -143,13 +148,7 @@ export function buildOrderByFields({field, sortOrder}, entityType) {
 			createOrderByField(columnAccessor, sortOrder)
 		);
 	} else if (entityType === SEGMENTS && field === NAME) {
-		return [
-			{
-				fieldName: field,
-				orderBy: sortOrder,
-				system: true
-			}
-		];
+		return [createOrderByField(NAME, sortOrder, true)];
 	} else if (entityType === ACCOUNTS && field === NAME) {
 		return [createOrderByField(ACCOUNT_NAME, sortOrder)];
 	} else if (entityType === USERS && field === NAME) {
@@ -161,16 +160,25 @@ export function buildOrderByFields({field, sortOrder}, entityType) {
 	}
 }
 
-export function createOrderByField(field, sortOrder) {
+const ORDER_BY_DIRECTIONS_MAP = {
+	[OrderByDirections.Ascending]: orderAscending,
+	[OrderByDirections.Descending]: orderDescending
+};
+
+export function createOrderByField(field, sortOrder, system) {
+	const orderBy = ORDER_BY_DIRECTIONS_MAP[sortOrder] || sortOrder;
+
 	return {
 		fieldName: field,
-		orderBy: sortOrder,
-		system: SYSTEM_FIELDS.includes(field)
+		orderBy,
+		system: system || SYSTEM_FIELDS.includes(field)
 	};
 }
 
 export const getDefaultSortOrder = fieldName =>
-	INVERTED_SORT_FIELDS.includes(fieldName) ? orderDescending : orderAscending;
+	INVERTED_SORT_FIELDS.includes(fieldName)
+		? OrderByDirections.Descending
+		: OrderByDirections.Ascending;
 
 export const invertOrder = currentOrder => {
 	if (currentOrder) {
@@ -181,3 +189,21 @@ export const invertOrder = currentOrder => {
 		return orderDefault;
 	}
 };
+
+export const invertSortOrder = currentSortOrder => {
+	if (currentSortOrder) {
+		return currentSortOrder === OrderByDirections.Ascending
+			? OrderByDirections.Descending
+			: OrderByDirections.Ascending;
+	} else {
+		return OrderByDirections.Ascending;
+	}
+};
+
+export const createOrderIOMap = (field, sortOrder) =>
+	OrderedMap({
+		[field]: new OrderParams({
+			field,
+			sortOrder
+		})
+	});
