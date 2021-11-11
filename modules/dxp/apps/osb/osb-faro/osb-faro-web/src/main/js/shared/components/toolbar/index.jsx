@@ -1,25 +1,30 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Checkbox from 'shared/components/Checkbox';
-import faroConstants from 'shared/util/constants';
+import Constants, {OrderByDirections} from 'shared/util/constants';
 import FilterAndOrder from 'shared/components/FilterAndOrder';
 import FilterTags from './FilterTags';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import Nav from 'shared/components/Nav';
 import NavBar from 'shared/components/NavBar';
+import PropTypes from 'prop-types';
 import React from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import SubnavTbar from 'shared/components/SubnavTbar';
-import {getDefaultSortOrder} from 'shared/util/pagination';
+import {getDefaultSortOrder, invertSortOrder} from 'shared/util/pagination';
 import {getPluralMessage} from 'shared/util/lang';
-import {Map, Set} from 'immutable';
+import {Map, OrderedMap, Set} from 'immutable';
 import {noop} from 'lodash';
-import {PropTypes} from 'prop-types';
+import {OrderParams} from 'shared/util/records';
 import {setUriFilterValues, setUriQueryValues} from 'shared/util/router';
 import {withHistory} from 'shared/hoc';
 
-const {cur, orderAscending, orderDescending} = faroConstants.pagination;
+const {
+	cur: defaultPage,
+	orderAscending,
+	orderDescending
+} = Constants.pagination;
 
 /**
  * Get the filter label from filterOptions.
@@ -58,6 +63,7 @@ export default class Toolbar extends React.Component {
 		selectEntirePage: false,
 		selectEntirePageIndeterminate: false,
 		showCheckbox: true,
+		showFilterAndOrder: true,
 		showSearch: true,
 		total: 0
 	};
@@ -74,15 +80,15 @@ export default class Toolbar extends React.Component {
 		loading: PropTypes.bool,
 		maxLength: PropTypes.number,
 		onFilterByChange: PropTypes.func,
-		onOrderByFieldChange: PropTypes.func,
-		onOrderClick: PropTypes.func,
+		onOrderIOMapChange: PropTypes.func,
 		onSearchSubmit: PropTypes.func,
 		onSearchValueChange: PropTypes.func,
 		onSelectAll: PropTypes.func,
 		onSelectEntirePage: PropTypes.func,
-		order: PropTypes.oneOf([orderAscending, orderDescending]),
+		order: PropTypes.oneOf([orderAscending, orderDescending]), // TODO: Remove old orders
 		orderBy: PropTypes.string,
 		orderByOptions: PropTypes.array,
+		orderIOMap: PropTypes.object,
 		placeholder: PropTypes.string,
 		query: PropTypes.string,
 		renderViewSelectedToggle: PropTypes.func,
@@ -90,6 +96,7 @@ export default class Toolbar extends React.Component {
 		selectEntirePage: PropTypes.bool,
 		selectEntirePageIndeterminate: PropTypes.bool,
 		showCheckbox: PropTypes.bool,
+		showFilterAndOrder: PropTypes.bool,
 		showSearch: PropTypes.bool,
 		total: PropTypes.number
 	};
@@ -135,7 +142,7 @@ export default class Toolbar extends React.Component {
 			history.push(
 				setUriFilterValues(
 					emptyFilterBy,
-					setUriQueryValues({page: cur, query: ''})
+					setUriQueryValues({page: defaultPage, query: ''})
 				)
 			);
 		}
@@ -149,7 +156,10 @@ export default class Toolbar extends React.Component {
 			onFilterByChange(value);
 		} else {
 			history.push(
-				setUriFilterValues(value, setUriQueryValues({page: cur}))
+				setUriFilterValues(
+					value,
+					setUriQueryValues({page: defaultPage})
+				)
 			);
 		}
 	}
@@ -169,7 +179,7 @@ export default class Toolbar extends React.Component {
 				setUriQueryValues(
 					{
 						[field]: filterBy.get(field).delete(value).toArray(),
-						page: cur
+						page: defaultPage
 					},
 					window.location.href
 				)
@@ -178,18 +188,27 @@ export default class Toolbar extends React.Component {
 	}
 
 	@autobind
-	handleOrderByFieldChange(value) {
-		const {history, onOrderByFieldChange} = this.props;
+	handleOrderByFieldChange(field) {
+		const {history, onOrderIOMapChange} = this.props;
 
-		if (onOrderByFieldChange) {
-			onOrderByFieldChange(value);
+		const sortOrder = getDefaultSortOrder(field);
+
+		if (onOrderIOMapChange) {
+			onOrderIOMapChange(
+				OrderedMap({
+					[field]: new OrderParams({
+						field,
+						sortOrder
+					})
+				})
+			);
 		} else {
 			history.push(
 				setUriQueryValues(
 					{
-						orderBy: getDefaultSortOrder(value),
-						orderByField: value,
-						page: cur
+						field,
+						page: defaultPage,
+						sortOrder
 					},
 					window.location.href
 				)
@@ -205,7 +224,7 @@ export default class Toolbar extends React.Component {
 			? onSearchSubmit(query)
 			: history.push(
 					setUriQueryValues({
-						page: cur,
+						page: defaultPage,
 						query
 					})
 			  );
@@ -218,19 +237,12 @@ export default class Toolbar extends React.Component {
 			filterByOptions,
 			flatFilter,
 			itemsSelected,
-			onOrderClick,
+			onOrderIOMapChange,
 			onSelectAll,
-			order,
-			orderBy,
-			orderByOptions
+			orderByOptions,
+			orderIOMap,
+			showFilterAndOrder
 		} = this.props;
-
-		const ascending = order === orderAscending;
-
-		const uri = setUriQueryValues({
-			orderBy: ascending ? orderDescending : orderAscending,
-			page: cur
-		});
 
 		if (itemsSelected) {
 			return (
@@ -246,19 +258,33 @@ export default class Toolbar extends React.Component {
 					</Nav.Item>
 				)
 			);
-		} else if (filterByOptions.length || orderByOptions.length) {
+		} else if (showFilterAndOrder && orderIOMap) {
+			const {field, sortOrder} = orderIOMap.first();
+
+			const invertedSortOrder = invertSortOrder(sortOrder);
+
+			const ascending = sortOrder === OrderByDirections.Ascending;
+
+			const uri = setUriQueryValues({
+				field,
+				page: defaultPage,
+				sortOrder: invertedSortOrder
+			});
+
 			return (
 				<>
-					<FilterAndOrder
-						disabled={disabled}
-						filterBy={filterBy}
-						filterByOptions={filterByOptions}
-						flat={flatFilter}
-						onFilterByChange={this.handleFilterByChange}
-						onOrderByChange={this.handleOrderByFieldChange}
-						orderBy={orderBy}
-						orderByOptions={orderByOptions}
-					/>
+					{!!(filterByOptions.length || orderByOptions.length) && (
+						<FilterAndOrder
+							disabled={disabled}
+							filterBy={filterBy}
+							filterByOptions={filterByOptions}
+							flat={flatFilter}
+							onFilterByChange={this.handleFilterByChange}
+							onOrderFieldChange={this.handleOrderByFieldChange}
+							orderByOptions={orderByOptions}
+							orderField={field}
+						/>
+					)}
 
 					<Nav.Item>
 						<Button
@@ -266,8 +292,17 @@ export default class Toolbar extends React.Component {
 							className='nav-link nav-link-monospaced'
 							disabled={disabled}
 							display='unstyled'
-							href={onOrderClick ? '' : uri.toString()}
-							onClick={onOrderClick}
+							href={onOrderIOMapChange ? '' : uri.toString()}
+							onClick={() => {
+								if (onOrderIOMapChange) {
+									onOrderIOMapChange(
+										orderIOMap.setIn(
+											[field, 'sortOrder'],
+											invertedSortOrder
+										)
+									);
+								}
+							}}
 						>
 							<Icon
 								symbol={

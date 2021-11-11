@@ -140,8 +140,8 @@ interface IFilterAndOrderProps extends React.HTMLAttributes<HTMLElement> {
 	filterByOptions?: FilterOptionType[];
 	flat: boolean;
 	onFilterByChange?: (filterMap: Map<any, any>) => void;
-	onOrderByChange?: () => void;
-	orderBy: string;
+	onOrderFieldChange?: (field: string) => void;
+	orderField: string;
 	orderByOptions?: {label: string; value: string}[];
 }
 
@@ -152,8 +152,9 @@ class FilterAndOrder extends React.Component<IFilterAndOrderProps> {
 		filterByOptions: [],
 		flat: false,
 		onFilterByChange: noop,
-		onOrderByChange: noop,
-		orderByOptions: []
+		onOrderFieldChange: noop,
+		orderByOptions: [],
+		orderField: ''
 	};
 
 	_name = uniqueId('filterAndOrder');
@@ -199,9 +200,9 @@ class FilterAndOrder extends React.Component<IFilterAndOrderProps> {
 			filterBy,
 			filterByOptions,
 			flat,
-			onOrderByChange,
-			orderBy,
-			orderByOptions
+			onOrderFieldChange,
+			orderByOptions,
+			orderField
 		} = this.props;
 
 		const hasFilterBy = !!filterByOptions.length;
@@ -234,11 +235,11 @@ class FilterAndOrder extends React.Component<IFilterAndOrderProps> {
 
 				{orderByOptions.map(({label, value}) => (
 					<Item
-						active={value === orderBy}
+						active={value === orderField}
 						key={value}
 						label={label}
 						name={this._name}
-						onChange={onOrderByChange}
+						onChange={onOrderFieldChange}
 						type='radio'
 						value={value}
 					/>

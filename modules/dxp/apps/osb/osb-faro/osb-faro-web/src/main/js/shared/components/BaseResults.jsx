@@ -6,13 +6,13 @@ import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
 import PaginationBar from 'shared/components/PaginationBar';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Toolbar from 'shared/components/toolbar';
 import {ACTION_TYPES, SelectionContext} from 'shared/context/selection';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {hasChanges} from 'shared/util/react';
 import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
-import {PropTypes} from 'prop-types';
 
 @hasRequest
 export default class BaseResults extends React.Component {
@@ -47,11 +47,16 @@ export default class BaseResults extends React.Component {
 		noResultsIcon: PropTypes.string,
 		noResultsRenderer: PropTypes.func,
 		noResultsTitle: PropTypes.string,
-		onSearchValueChange: PropTypes.func,
+		onDeltaChange: PropTypes.func,
+		onOrderIOMapChange: PropTypes.func,
+		onPageChange: PropTypes.func,
+		onQueryChange: PropTypes.func, // This is the value for the query
+		onSearchValueChange: PropTypes.func, // This is when the value itself changes on typing
 		onSelectItemsChange: PropTypes.func,
-		orderByFields: PropTypes.array,
+		// orderByFields: PropTypes.array,
 		orderByOptions: PropTypes.array,
-		paginationProps: PropTypes.object,
+		orderIOMap: PropTypes.object,
+		paginationProps: PropTypes.object, // TODO: no more pagiantion props...we pass each one in individually
 		placeholder: PropTypes.string,
 		renderSubNav: PropTypes.func,
 		resultsRenderer: PropTypes.func.isRequired,
@@ -102,9 +107,10 @@ export default class BaseResults extends React.Component {
 				'dataSourceParams',
 				'delta',
 				'filterBy',
-				'orderBy',
-				'orderByField',
-				'orderByFields',
+				// 'orderBy',
+				// 'orderByField',
+				// 'orderByFields',
+				'orderIOMap',
 				'page'
 			)
 		) {
@@ -155,9 +161,7 @@ export default class BaseResults extends React.Component {
 				dataSourceParams,
 				delta,
 				filterBy,
-				orderBy,
-				orderByField,
-				orderByFields,
+				orderIOMap,
 				page,
 				showCheckbox
 			},
@@ -168,9 +172,10 @@ export default class BaseResults extends React.Component {
 			...dataSourceParams,
 			delta,
 			filterBy,
-			orderBy,
-			orderByField,
-			orderByFields,
+			orderIOMap,
+			// orderBy,
+			// orderByField,
+			// orderByFields,
 			page,
 			query
 		})
@@ -334,9 +339,15 @@ export default class BaseResults extends React.Component {
 				filterByOptions,
 				maxLength,
 				navRenderer,
-				orderBy,
-				orderByField,
+				onDeltaChange,
+				onFilterByChange,
+				onOrderIOMapChange,
+				onPageChange,
+				onQueryChange,
 				orderByOptions,
+				orderIOMap,
+				// orderBy,
+				// orderByField,
 				page,
 				paginationProps,
 				placeholder,
@@ -344,13 +355,14 @@ export default class BaseResults extends React.Component {
 				renderSubnav,
 				showCheckbox,
 				showPagination,
-				toolbarProps
+				toolbarProps // TODO: No more toolbar PRops
 			},
 			state: {disableSearch, error, items, loading, searchValue, total}
 		} = this;
 
 		const allChecked = this.allChecked();
 
+		// TODO: Update Toolbar to take an orderIOMap
 		return (
 			<div
 				className={getCN(
@@ -366,11 +378,13 @@ export default class BaseResults extends React.Component {
 					filterByOptions={filterByOptions}
 					loading={loading}
 					maxLength={maxLength}
+					onFilterByChange={onFilterByChange}
+					onOrderIOMapChange={onOrderIOMapChange}
+					onSearchSubmit={onQueryChange}
 					onSearchValueChange={this.handleSearchValueChange}
 					onSelectEntirePage={this.handleCheckAll}
-					order={orderBy}
-					orderBy={orderByField}
 					orderByOptions={orderByOptions}
+					orderIOMap={orderIOMap}
 					placeholder={placeholder}
 					query={query}
 					searchValue={searchValue}
@@ -396,6 +410,8 @@ export default class BaseResults extends React.Component {
 						{...paginationProps}
 						href={window.location.href}
 						key='PAGINATION_BAR'
+						onDeltaChange={onDeltaChange}
+						onPageChange={onPageChange}
 						page={parseInt(page)}
 						selectedDelta={parseInt(delta)}
 						totalItems={total}
