@@ -15,6 +15,7 @@ import {pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
+import {useQueryPagination} from 'shared/hooks';
 import {withHistory, withPaginationBar, withTableData} from 'shared/hoc';
 
 const {
@@ -68,12 +69,9 @@ const TableWithData = withTableData(withData, {
 
 const Interests = ({history, router}) => {
 	const {selectedChannel} = useChannelContext();
+	const {delta, page} = useQueryPagination({});
 
 	// TODO: Create hook to get rangeSelectors or include it in queryPagination?;
-	const {
-		query: {delta, page}
-	} = router;
-
 	const handleRangeKeyValueChange = ({rangeEnd, rangeKey, rangeStart}) =>
 		history.push(
 			setUriQueryValues(
@@ -86,6 +84,7 @@ const Interests = ({history, router}) => {
 			)
 		);
 
+	// TODO: Swap this out with the rangeSelector hook to simplify things
 	const rangeSelectors = getRangeSelectorsFromQuery(router.query);
 
 	return (
