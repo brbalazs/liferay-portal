@@ -27,6 +27,7 @@ export {default as withPermission, withAdminPermission} from './WithPermission';
 export {default as withProject} from './WithProject';
 export {default as withProjects} from './WithProjects';
 export {default as withQuery} from './WithQuery';
+export {default as withQueryPagination} from './WithQueryPagination';
 export {default as withRangeKey} from './WithRangeKey';
 export {default as withRecommendation} from './WithRecommendation';
 export {default as withRequest} from './WithRequest';
