@@ -45,3 +45,15 @@ app.artifacts-1.1.0=\
 app.change.log-1.1.0=LPS-90630 LPS-112407 LPS-121803 LPS-122113
 
 app.git.id-1.1.0=ec6bcb627e76981efeaa5c16cf29ec91bb540977
+
+#
+# Liferay App Version 1.1.1
+#
+
+app.artifacts-1.1.1=\
+	com.liferay.portal.search.solr7.api-1.0.22.jar,\
+	com.liferay.portal.search.solr7.impl-1.0.31.jar
+
+app.change.log-1.1.1=LPS-77699 LRQA-51488 LPS-134703 LPS-119129 LPS-105380 LPS-126520 ISOPS-151 LPS-105380 LPS-123318
+
+app.git.id-1.1.1=2543577f78ab0c2b9041dad4752acd80d63bb257
