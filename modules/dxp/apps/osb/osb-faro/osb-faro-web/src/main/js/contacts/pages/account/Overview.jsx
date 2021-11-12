@@ -1,24 +1,15 @@
 import * as API from 'shared/api';
 import ActivitiesCard from 'contacts/components/account/ActivitiesCard';
 import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
-import Constants, {EntityTypes} from 'shared/util/constants';
 import InfoCard from 'shared/components/InfoCard';
 import InterestsCard from 'contacts/hoc/account/InterestsCard';
 import KnownIndividualsCard from 'contacts/components/account/KnownIndividualsCard';
 import React from 'react';
-import {Account, OrderParams} from 'shared/util/records';
-import {
-	buildOrderByFields,
-	INDIVIDUAL_COUNT,
-	NAME
-} from 'shared/util/pagination';
-import {INDIVIDUALS} from 'shared/util/router';
+import {Account} from 'shared/util/records';
+import {createOrderIOMap, INDIVIDUAL_COUNT, NAME} from 'shared/util/pagination';
+import {EntityTypes} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {
-	pagination: {orderAscending, orderDescending}
-} = Constants;
 
 const ITEMS_PER_CARD = 5;
 
@@ -72,13 +63,7 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 		contactsEntityType: EntityTypes.Account,
 		delta: ITEMS_PER_CARD,
 		groupId,
-		orderByFields: [
-			{
-				fieldName: INDIVIDUAL_COUNT,
-				orderBy: orderDescending,
-				system: true
-			}
-		],
+		orderIOMap: createOrderIOMap(INDIVIDUAL_COUNT),
 		query: searchValue
 	});
 }
@@ -89,10 +74,7 @@ function fetchIndividuals({channelId, groupId, id}) {
 		channelId,
 		delta: ITEMS_PER_CARD,
 		groupId,
-		orderByFields: buildOrderByFields(
-			new OrderParams({field: NAME, sortOrder: orderAscending}),
-			INDIVIDUALS
-		)
+		orderIOMap: createOrderIOMap(NAME)
 	});
 }
 
