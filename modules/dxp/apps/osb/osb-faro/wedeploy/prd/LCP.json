@@ -6,7 +6,6 @@
 	],
 	"env": {
 		"FARO_URL": "https://analytics.liferay.com",
-		"HUBSPOT_ENABLED": "true",
 		"ISSUES_EMAIL_ADDRESS": "ac-issues-trial@liferay.com",
 		"LIFERAY_JAVA_OPTS": "-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true",
 		"OSB_API_TOKEN": "lwn8C5iAlUi2bvaqSm",

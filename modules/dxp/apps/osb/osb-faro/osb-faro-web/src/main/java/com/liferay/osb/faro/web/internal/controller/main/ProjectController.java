@@ -21,7 +21,6 @@ import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
-import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.Workspace;
@@ -193,12 +192,6 @@ public class ProjectController extends BaseFaroController {
 
 			return new ProjectDisplay(faroProject);
 		}
-
-		_hubSpotEngineClient.submitWorkspaceUserForm(
-			faroProject,
-			_faroUserLocalService.getFaroUser(
-				faroProject.getGroupId(), getUserId()),
-			true);
 
 		faroProject.setState(FaroProjectConstants.STATE_NOT_READY);
 
@@ -1192,9 +1185,6 @@ public class ProjectController extends BaseFaroController {
 
 	@Reference
 	private GroupLocalService _groupLocalService;
-
-	@Reference
-	private HubSpotEngineClient _hubSpotEngineClient;
 
 	@Reference(
 		policy = ReferencePolicy.DYNAMIC,
