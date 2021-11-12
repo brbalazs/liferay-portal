@@ -2,18 +2,16 @@ import Button from 'shared/components/Button';
 import Modal, {Size} from 'shared/components/modal';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
-import {noop, omit} from 'lodash';
-import {withStatefulPagination} from 'shared/hoc';
-
-const SearchableTable = withStatefulPagination(
-	SearchableEntityTable,
-	({defaultParams}) => ({defaultDelta: 10, ...defaultParams}),
-	(props: {[key: string]: any}) => omit(props, 'onSearchValueChange')
-);
+import {noop} from 'lodash';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
+import {useStatefulPagination} from 'shared/hooks';
 
 interface ISearchableEntitiesTableModalProps {
 	className: string;
 	defaultParams: {[key: string]: any};
+	initialDelta?: number;
+	initialOrderIOMap: OrderedMap<string, OrderParams>;
 	onClose: () => void;
 	size: Size;
 	title: string;
@@ -21,27 +19,51 @@ interface ISearchableEntitiesTableModalProps {
 
 const SearchableEntitiesTableModal: React.FC<ISearchableEntitiesTableModalProps> = ({
 	className,
-	defaultParams = {},
+	initialDelta = 10,
+	initialOrderIOMap,
 	onClose = noop,
 	size = 'xxl',
 	title = 'entities',
 	...otherProps
-}) => (
-	<Modal className={className} size={size}>
-		<Modal.Header onClose={onClose} title={title} />
+}) => {
+	const {
+		delta,
+		onDeltaChange,
+		onOrderIOMapChange,
+		onPageChange,
+		onQueryChange,
+		orderIOMap,
+		page,
+		query
+	} = useStatefulPagination(null, {
+		initialDelta,
+		initialOrderIOMap
+	});
 
-		<SearchableTable
-			{...otherProps}
-			defaultParams={defaultParams}
-			toolbarProps={{autoFocus: true}}
-		/>
+	return (
+		<Modal className={className} size={size}>
+			<Modal.Header onClose={onClose} title={title} />
 
-		<Modal.Footer>
-			<Button display='primary' onClick={onClose}>
-				{Liferay.Language.get('done')}
-			</Button>
-		</Modal.Footer>
-	</Modal>
-);
+			<SearchableEntityTable
+				{...otherProps}
+				autoFocusSearch
+				delta={delta}
+				onDeltaChange={onDeltaChange}
+				onOrderIOMapChange={onOrderIOMapChange}
+				onPageChange={onPageChange}
+				onQueryChange={onQueryChange}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+			/>
+
+			<Modal.Footer>
+				<Button display='primary' onClick={onClose}>
+					{Liferay.Language.get('done')}
+				</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+};
 
 export default SearchableEntitiesTableModal;

@@ -36,6 +36,7 @@ export default class BaseResults extends React.Component {
 
 	static propTypes = {
 		...paginationConfig,
+		autoFocusSearch: PropTypes.bool,
 		checkDisabled: PropTypes.func,
 		crossPageSelect: PropTypes.bool,
 		dataSourceFn: PropTypes.func.isRequired,
@@ -334,6 +335,7 @@ export default class BaseResults extends React.Component {
 		const {
 			context: {selectedItems: selectedItemsIOMap},
 			props: {
+				autoFocusSearch,
 				className,
 				crossPageSelect,
 				delta,
@@ -348,8 +350,6 @@ export default class BaseResults extends React.Component {
 				onQueryChange,
 				orderByOptions,
 				orderIOMap,
-				// orderBy,
-				// orderByField,
 				page,
 				paginationProps,
 				placeholder,
@@ -375,6 +375,7 @@ export default class BaseResults extends React.Component {
 			>
 				<Toolbar
 					alwaysShowSearch={crossPageSelect}
+					autoFocus={autoFocusSearch}
 					disabled={error}
 					disableSearch={disableSearch}
 					filterBy={filterBy}

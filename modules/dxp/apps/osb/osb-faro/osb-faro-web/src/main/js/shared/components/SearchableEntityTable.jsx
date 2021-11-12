@@ -11,6 +11,7 @@ import {withStatefulPagination} from 'shared/hoc';
 // TODO: Do we need entityType for this component?
 class SearchableEntityTable extends React.Component {
 	static defaultProps = {
+		autoFocusSearch: true,
 		bordered: false,
 		checkDisabled: noop,
 		internalSort: false,
@@ -20,13 +21,21 @@ class SearchableEntityTable extends React.Component {
 	};
 
 	static propTypes = {
+		autoFocusSearch: PropTypes.bool,
 		bordered: PropTypes.bool,
 		checkDisabled: PropTypes.func,
 		columns: PropTypes.array,
+		delta: PropTypes.number,
 		internalSort: PropTypes.bool,
 		nowrap: PropTypes.bool,
+		onDeltaChange: PropTypes.func,
+		onOrderIOMapChange: PropTypes.func,
+		onPageChange: PropTypes.func,
+		onQueryChange: PropTypes.func,
 		orderIOMap: PropTypes.object,
 		overrideLoading: PropTypes.bool,
+		page: PropTypes.number,
+		query: PropTypes.string,
 		renderInlineRowActions: PropTypes.func,
 		renderRowActions: PropTypes.func,
 		rowIdentifier: PropTypes.string,
@@ -96,6 +105,7 @@ class SearchableEntityTable extends React.Component {
 
 	render() {
 		const {
+			autoFocusSearch,
 			bordered,
 			checkDisabled,
 			className,
@@ -120,6 +130,7 @@ class SearchableEntityTable extends React.Component {
 					otherProps,
 					SearchableEntityTable.propTypes
 				)}
+				autoFocusSearch={autoFocusSearch}
 				checkDisabled={checkDisabled}
 				className={classes}
 				delta={delta}

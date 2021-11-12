@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import debounce from 'shared/util/debounce-decorator';
-import FaroConstants from 'shared/util/constants';
 import Form, {validateRequired} from 'shared/components/form';
 import Icon from 'shared/components/Icon';
 import InfoPopover from 'shared/components/InfoPopover';
@@ -12,8 +11,8 @@ import TitleEditor from 'shared/components/TitleEditor';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {Criteria} from './utils/types';
-import {FAMILY_NAME, GIVEN_NAME} from 'shared/util/pagination';
 import {hasChanges} from 'shared/util/react';
 import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
@@ -21,8 +20,6 @@ import {Modal} from 'shared/types';
 import {Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {validateSegmentInputs} from './utils/utils';
-
-const {orderDefault} = FaroConstants.pagination;
 
 interface IToolbarProps {
 	channelId: string;
@@ -124,20 +121,9 @@ export class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
 		open(modalTypes.SEARCHABLE_ENTITIES_TABLE_MODAL, {
 			columns: [individualsListColumns.name],
 			dataSourceFn: this.fetchMembers,
-			defaultParams: {
-				defaultOrderByFields: [
-					{
-						fieldName: GIVEN_NAME,
-						orderBy: orderDefault
-					},
-					{
-						fieldName: FAMILY_NAME,
-						orderBy: orderDefault
-					}
-				]
-			},
 			entityLabel: Liferay.Language.get('individuals'),
 			entityType: INDIVIDUALS,
+			initialOrderIOMap: createOrderIOMap(NAME),
 			onClose: close,
 			rowIdentifier: 'id',
 			size: 'lg',
