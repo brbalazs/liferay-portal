@@ -1,7 +1,8 @@
 import React from 'react';
-import {Map, Set} from 'immutable';
+import {Map, OrderedMap, Set} from 'immutable';
 import {Modal} from './Modal';
 import {OrderByDirections, RangeKeyTimeRanges} from 'shared/util/constants';
+import {OrderParams} from 'shared/util/records';
 
 export {Alert} from './Alert';
 export {Modal} from './Modal';
@@ -56,8 +57,7 @@ export interface IBasePageContext {
 export interface IPagination {
 	delta: number;
 	filterBy?: FilterByType;
-	orderBy: string;
-	orderByField: string;
+	orderIOMap: OrderedMap<string, OrderParams>;
 	page: number;
 	query: string;
 }
