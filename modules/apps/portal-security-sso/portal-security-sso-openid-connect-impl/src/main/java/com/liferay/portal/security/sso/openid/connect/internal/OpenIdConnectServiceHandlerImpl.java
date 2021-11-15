@@ -33,7 +33,10 @@ import com.liferay.portal.security.sso.openid.connect.OpenIdConnectServiceHandle
 import com.liferay.portal.security.sso.openid.connect.constants.OpenIdConnectConstants;
 import com.liferay.portal.security.sso.openid.connect.internal.provider.OpenIdConnectSessionProviderImpl;
 
+import com.nimbusds.jose.Algorithm;
+import com.nimbusds.jose.Header;
 import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jose.util.DefaultResourceRetriever;
 import com.nimbusds.jwt.JWT;
@@ -641,18 +644,21 @@ public class OpenIdConnectServiceHandlerImpl
 		throws OpenIdConnectServiceException.TokenException {
 
 		try {
-			OIDCClientMetadata oidcClientMetadata =
-				oidcClientInformation.getOIDCMetadata();
+			OIDCTokens oidcTokens = oidcTokenResponse.getOIDCTokens();
+
+			JWT idToken = oidcTokens.getIDToken();
+
+			Header header = idToken.getHeader();
+
+			Algorithm algorithm = header.getAlgorithm();
 
 			URI jwkSetURI = oidcProviderMetadata.getJWKSetURI();
 
 			IDTokenValidator idTokenValidator = new IDTokenValidator(
 				oidcProviderMetadata.getIssuer(), oidcClientInformation.getID(),
-				oidcClientMetadata.getIDTokenJWSAlg(), jwkSetURI.toURL(),
+				JWSAlgorithm.parse(algorithm.getName()), jwkSetURI.toURL(),
 				new DefaultResourceRetriever(
 					tokenConnectionTimeout, tokenConnectionTimeout));
-
-			OIDCTokens oidcTokens = oidcTokenResponse.getOIDCTokens();
 
 			return idTokenValidator.validate(oidcTokens.getIDToken(), nonce);
 		}
