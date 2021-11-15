@@ -522,7 +522,7 @@ definition {
 
 	@description = "This is a test for LPS-58698. Validate remote code execution can't privilege escalation in templates."
 	@priority = "5"
-	test ValidateRemoteCodeAndPrivilegeEscalation {
+	test ValidateTemplateRCEReturnsNoRuntimeClasses {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
