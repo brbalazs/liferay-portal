@@ -8,7 +8,6 @@ import Table from 'shared/components/table';
 import {noop} from 'lodash';
 import {withStatefulPagination} from 'shared/hoc';
 
-// TODO: Do we need entityType for this component?
 class SearchableEntityTable extends React.Component {
 	static defaultProps = {
 		autoFocusSearch: true,

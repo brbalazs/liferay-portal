@@ -1,17 +1,18 @@
 import BaseResults from 'shared/components/BaseResults';
 import ClayButton from '@clayui/button';
-import Constants from 'shared/util/constants';
 import React, {useEffect, useState} from 'react';
 import {ACTION_TYPES, useSelectionContext} from 'shared/context/selection';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {FilterByType, IPagination, Router} from 'shared/types';
 import {get, omit, pickBy} from 'lodash';
 import {getDisplayName} from 'shared/util/react';
 import {getSafeDisplayValue} from 'shared/util/util';
+import {OrderByDirections} from 'shared/util/constants';
 import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
+import {useStatefulPagination} from 'shared/hooks';
 import {withBaseResults, withStatefulPagination} from 'shared/hoc';
-
-const {orderAscending} = Constants.pagination;
 
 type SearchArgs = {
 	filterBy?: FilterByType;
@@ -42,20 +43,21 @@ export const defaultSearch: SearchFnType = ({items, query}) =>
  */
 export const defaultSort = (
 	items: OrderedMap<any, any>,
-	orderBy: string,
-	orderByField: string
+	orderIOMap: OrderedMap<string, OrderParams>
 ): OrderedMap<any, any> => {
+	const {field, sortOrder} = orderIOMap.first();
+
 	const sorted = items.sortBy(item => {
-		if (item[orderByField]) {
-			return item[orderByField];
-		} else if (get(item, ['properties', orderByField])) {
-			return item.properties[orderByField];
+		if (item[field]) {
+			return item[field];
+		} else if (get(item, ['properties', field])) {
+			return item.properties[field];
 		} else {
 			return item;
 		}
 	});
 
-	return orderBy === orderAscending
+	return sortOrder === OrderByDirections.Ascending
 		? (sorted as OrderedMap<any, any>)
 		: (sorted.reverse() as OrderedMap<any, any>);
 };
@@ -64,8 +66,7 @@ export const fetchLocalData = ({
 	delta,
 	items,
 	filterBy,
-	orderBy,
-	orderByField,
+	orderIOMap,
 	page,
 	query,
 	searchSelectedFn = defaultSearch
@@ -78,10 +79,9 @@ export const fetchLocalData = ({
 		query || filterBy
 			? defaultSort(
 					searchSelectedFn({filterBy, items, query}),
-					orderBy,
-					orderByField
+					orderIOMap
 			  )
-			: defaultSort(items, orderBy, orderByField);
+			: defaultSort(items, orderIOMap);
 
 	return {
 		empty: !result.size,
@@ -91,11 +91,7 @@ export const fetchLocalData = ({
 };
 
 export const withLocalData = () => WrappedComponent => props => {
-	const {
-		filterBy,
-		router: {query},
-		searchSelectedFn
-	} = props;
+	const {delta, filterBy, orderIOMap, page, query, searchSelectedFn} = props;
 
 	const {selectedItems} = useSelectionContext();
 
@@ -103,10 +99,13 @@ export const withLocalData = () => WrappedComponent => props => {
 		<WrappedComponent
 			{...props}
 			{...fetchLocalData({
+				delta,
 				filterBy,
+				orderIOMap,
+				page,
 				items: selectedItems,
-				searchSelectedFn,
-				...query
+				query,
+				searchSelectedFn
 			})}
 		/>
 	);
@@ -144,26 +143,22 @@ export const withSelection: (
 			);
 
 		const selectionProps = {
+			alwaysShowSearch: true,
+			onSelectEntirePage: checked => {
+				selectionDispatch({
+					payload: {
+						items: items.filter(item => !checkDisabled(item))
+					},
+					type: checked ? ACTION_TYPES.add : ACTION_TYPES.remove
+				});
+			},
+			selectEntirePage: allChecked,
+			selectEntirePageIndeterminate:
+				!allChecked && !selectedItems.isEmpty(),
 			onSelectItemsChange: item =>
 				selectionDispatch({payload: {item}, type: ACTION_TYPES.toggle}),
 			selectedItemsIOMap: selectedItems,
-			showCheckbox,
-			toolbarProps: {
-				...toolbarProps,
-				alwaysShowSearch: true,
-				onSelectEntirePage: checked => {
-					selectionDispatch({
-						payload: {
-							items: items.filter(item => !checkDisabled(item))
-						},
-						type: checked ? ACTION_TYPES.add : ACTION_TYPES.remove
-					});
-				},
-				selectEntirePage: allChecked,
-				selectEntirePageIndeterminate:
-					!allChecked && !selectedItems.isEmpty(),
-				showCheckbox
-			}
+			showCheckbox
 		};
 
 		return (
@@ -192,8 +187,10 @@ interface ICrossPageSelectProps {
 		query
 	}: SearchArgs) => OrderedMap<any, any>;
 	stagedProps: IPagination & {
-		onOrderByFieldsChange: () => void;
-		toolbarProps: object;
+		onOrderIOMapChange: (
+			orderIOMap: OrderedMap<string, OrderParams>
+		) => void;
+		toolbarProps: object; // TODO Remove this
 	};
 	toolbarProps: object;
 }
@@ -218,16 +215,42 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 	>(
 		(
 			{
+				delta,
 				filterBy,
+				onDeltaChange,
+				onFilterByChange,
+				onOrderIOMapChange,
+				onPageChange,
+				onQueryChange,
+				orderIOMap,
+				page,
+				query,
 				router,
 				searchSelectedFn,
-				stagedProps,
+				// stagedProps,
 				toolbarProps,
 				...otherProps
 			},
 			ref
 		) => {
-			const {selectedItems} = useSelectionContext();
+			const {selectedItems, selectionDispatch} = useSelectionContext();
+
+			const {
+				filterBy: stagedFilterBy,
+				onFilterByChange: onStagedFilterByChange,
+				onPageChange: onStagedPageChange,
+				onQueryChange: onStagedQueryChange,
+				page: stagedPage,
+				query: stagedQuery,
+				resetPage
+			} = useStatefulPagination({
+				initialDelta: delta,
+				initialFilterBy: filterBy,
+				initialOrderIOMap: orderIOMap,
+				initialPage: page,
+				initialQuery: query
+			});
+
 			const [showSelected, setShowSelected] = useState(false);
 
 			const {
@@ -260,9 +283,23 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 
 			const passThruProps = showSelected
 				? {
+						delta,
+						filterBy: stagedFilterBy,
+						onDeltaChange,
+
 						...otherProps,
 						...otherStagedProps,
 						filterBy: stagedFilterBy,
+						onFilterByChange: onStagedFilterByChange,
+						onPageChange: onStagedPageChange,
+						onOrderIOMapChange,
+						onQueryChange: onStagedQueryChange,
+						onFilterByChange: onStagedFilterByChange,
+						orderIOMap,
+						page: stagedPage,
+						query: stagedQuery,
+						selectedItems,
+						selectionDispatch,
 						toolbarProps: {
 							...stagedToolbarProps,
 							...renderLinkProp,
@@ -271,7 +308,18 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 				  }
 				: {
 						...otherProps,
+						delta,
 						filterBy,
+						onDeltaChange,
+						onFilterByChange,
+						onOrderIOMapChange,
+						onPageChange,
+						onQueryChange,
+						orderIOMap,
+						page,
+						query,
+						selectedItems,
+						selectionDispatch,
 						toolbarProps: {...toolbarProps, ...renderLinkProp}
 				  };
 
@@ -279,15 +327,6 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 				<TableWithLocalData
 					onSortChange={onOrderByFieldsChange}
 					ref={ref}
-					router={{
-						query: {
-							delta,
-							orderBy,
-							orderByField,
-							page,
-							query
-						}
-					}}
 					searchSelectedFn={searchSelectedFn}
 					{...passThruProps}
 				/>
@@ -297,20 +336,22 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 		}
 	);
 
-	return withStatefulPagination(
-		CrossPageSelect,
-		({
-			defaultOrderBy,
-			defaultOrderByField
-		}: {
-			defaultOrderBy: string;
-			defaultOrderByField: string;
-		}) => pickBy({defaultOrderBy, defaultOrderByField}),
-		(props, {toolbarProps}) => ({
-			stagedProps: omit(props, 'onSearchValueChange'),
-			toolbarProps
-		})
-	);
+	return CrossPageSelect;
+
+	// return withStatefulPagination(
+	// 	CrossPageSelect,
+	// 	({
+	// 		defaultOrderBy,
+	// 		defaultOrderByField
+	// 	}: {
+	// 		defaultOrderBy: string;
+	// 		defaultOrderByField: string;
+	// 	}) => pickBy({defaultOrderBy, defaultOrderByField}),
+	// 	(props, {toolbarProps}) => ({
+	// 		stagedProps: omit(props, 'onSearchValueChange'),
+	// 		toolbarProps
+	// 	})
+	// );
 };
 
 export const ViewSelectedToggle = ({

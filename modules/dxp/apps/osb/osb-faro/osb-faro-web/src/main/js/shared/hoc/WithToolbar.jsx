@@ -19,27 +19,31 @@ export default configs => WrappedComponent => {
 	class WithToolbarBar extends React.Component {
 		static defaultProps = {
 			disableSearch: false,
-			orderBy: paginationDefaults.orderBy,
-			orderByField: paginationDefaults.orderByField,
 			query: paginationDefaults.query,
 			rangeSelectors: {
 				rangeEnd: '',
 				rangeKey: RangeKeyTimeRanges.Last30Days,
 				rangeStart: ''
 			},
-			toolbarProps: {}
+			showCheckbox: false
 		};
 
 		static propTypes = {
+			alwaysShowSearch: PropTypes.bool,
 			disableSearch: PropTypes.bool,
 			history: PropTypes.object,
 			onRangeSelectorsChange: PropTypes.func,
 			onSearchValueChange: PropTypes.func,
-			orderBy: PropTypes.string,
-			orderByField: PropTypes.string,
+			onSelectEntirePage: PropTypes.func,
+			orderByOptions: PropTypes.array,
+			orderIOMap: PropTypes.object,
 			query: PropTypes.string,
 			rangeSelectors: PropTypes.object,
-			toolbarProps: PropTypes.object,
+			renderNav: PropTypes.func,
+			renderViewSelectedToggle: PropTypes.func,
+			selectEntirePage: PropTypes.bool,
+			selectEntirePageIndeterminate: PropTypes.bool,
+			showCheckbox: PropTypes.bool,
 			total: PropTypes.number
 		};
 
@@ -106,14 +110,21 @@ export default configs => WrappedComponent => {
 		render() {
 			const {
 				props: {
+					alwaysShowSearch,
 					disableSearch,
-					orderBy,
-					orderByField,
+					onOrderIOMapChange,
+					onQueryChange,
+					onSelectEntirePage,
+					orderByOptions,
+					orderIOMap,
 					query,
 					rangeSelectors,
 					renderNav,
+					renderViewSelectedToggle,
+					selectEntirePage,
+					selectEntirePageIndeterminate,
+					showCheckbox,
 					showDropdownRangeKey,
-					toolbarProps,
 					total
 				},
 				state: {searchValue}
@@ -122,20 +133,28 @@ export default configs => WrappedComponent => {
 			return (
 				<>
 					<Toolbar
+						alwaysShowSearch={alwaysShowSearch}
 						disableSearch={get(
 							configs,
 							'disableSearch',
 							disableSearch
 						)}
+						onOrderIOMapChange={onOrderIOMapChange}
+						onSearchSubmit={onQueryChange}
 						onSearchValueChange={this.handleSearchValueChange}
-						order={orderBy}
-						orderBy={orderByField}
+						onSelectEntirePage={onSelectEntirePage}
+						orderByOptions={orderByOptions}
+						orderIOMap={orderIOMap}
 						query={query}
+						renderViewSelectedToggle={renderViewSelectedToggle}
 						searchValue={searchValue}
-						showCheckbox={false}
+						selectEntirePage={selectEntirePage}
+						selectEntirePageIndeterminate={
+							selectEntirePageIndeterminate
+						}
+						showCheckbox={showCheckbox}
 						showSearch
 						total={total}
-						{...toolbarProps}
 					>
 						{get(
 							configs,
@@ -153,7 +172,7 @@ export default configs => WrappedComponent => {
 							/>
 						)}
 
-						{renderNav && renderNav()}
+						{renderNav && renderNav(this.props)}
 					</Toolbar>
 
 					<WrappedComponent {...this.props} />

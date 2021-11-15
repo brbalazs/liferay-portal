@@ -6,16 +6,21 @@ import {
 	ViewSelectedToggle,
 	withSelection
 } from './WithCrossPageSelect';
-import {IPagination} from 'shared/types';
-import {omit, pickBy} from 'lodash';
+import {FilterByType, IPagination} from 'shared/types';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {useSelectionContext} from 'shared/context/selection';
-import {withStatefulPagination} from 'shared/hoc';
+import {useStatefulPagination} from 'shared/hooks';
 
 interface ICrossPageSelectProps extends IPagination {
 	children: (val) => React.ReactElement;
+	onDeltaChange: (delta: number) => void;
+	onFilterByChange: (filterBy: FilterByType) => void;
+	onOrderIOMapChange: (orderIOMap: OrderedMap<string, OrderParams>) => void;
+	onPageChange: (page: number) => void;
+	onQueryChange: (query: string) => void;
 	searchSelectedFn: SearchFnType;
 	stagedProps: {[key: string]: any};
-	toolbarProps: {[key: string]: any};
 }
 
 /**
@@ -28,108 +33,125 @@ interface ICrossPageSelectProps extends IPagination {
 
 const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 	children,
+	delta,
 	filterBy,
+	onDeltaChange,
+	onFilterByChange,
+	onOrderIOMapChange,
+	onPageChange,
+	onQueryChange,
+	orderIOMap,
+	page,
+	query,
 	searchSelectedFn,
-	stagedProps,
-	toolbarProps,
+	showCheckbox,
+	toolbarProps, // TODO: remove toolbarProps
 	...otherProps
 }) => {
-	const {selectedItems, selectionDispatch} = useSelectionContext();
-	const [showSelected, setShowSelected] = useState(false);
+	console.log(toolbarProps);
 
 	const {
-		delta,
 		filterBy: stagedFilterBy,
-		onOrderByFieldsChange,
-		orderBy,
-		orderByField,
-		page,
-		query,
-		toolbarProps: stagedToolbarProps,
-		...otherStagedProps
-	} = stagedProps;
+		onFilterByChange: onStagedFilterByChange,
+		onPageChange: onStagedPageChange,
+		onQueryChange: onStagedQueryChange,
+		page: stagedPage,
+		query: stagedQuery
+	} = useStatefulPagination(null, {
+		initialDelta: delta,
+		initialOrderIOMap: orderIOMap
+	});
+	const {selectedItems, selectionDispatch} = useSelectionContext();
+	const [showSelected, setShowSelected] = useState(false);
 
 	useEffect(() => {
 		if (selectedItems.isEmpty() && showSelected) {
 			setShowSelected(false);
 		}
+
+		if (
+			stagedPage > 1 &&
+			selectedItems.size <= delta * stagedPage - delta
+		) {
+			onStagedPageChange(stagedPage - 1);
+		}
 	});
 
-	const renderLinkProp = {
-		renderViewSelectedToggle: () => (
-			<ViewSelectedToggle
-				onClick={() => setShowSelected(!showSelected)}
-				selectedItemsCount={selectedItems.size}
-				showSelected={showSelected}
-			/>
-		)
-	};
-
-	const passThruProps = showSelected
-		? {
-				...otherProps,
-				...otherStagedProps,
-				delta,
-				filterBy: stagedFilterBy,
-				orderBy,
-				orderByField,
-				page,
-				query,
-				selectedItems,
-				selectionDispatch,
-				toolbarProps: {
-					...stagedToolbarProps,
-					...renderLinkProp,
-					filterBy: stagedFilterBy
-				}
-		  }
-		: {
-				...otherProps,
-				filterBy,
-				selectedItems,
-				selectionDispatch,
-				toolbarProps: {...toolbarProps, ...renderLinkProp}
-		  };
+	const renderViewSelectedToggle = () => (
+		<ViewSelectedToggle
+			onClick={() => setShowSelected(!showSelected)}
+			selectedItemsCount={selectedItems.size}
+			showSelected={showSelected}
+		/>
+	);
 
 	const localData = fetchLocalData({
 		delta,
-		filterBy,
+		filterBy: stagedFilterBy,
 		items: selectedItems,
-		orderBy,
-		orderByField,
-		page,
-		query,
+		orderIOMap,
+		page: stagedPage,
+		query: stagedQuery,
 		searchSelectedFn
 	});
 
 	return showSelected ? (
 		<ListComponent
-			{...passThruProps}
+			{...otherProps}
+			delta={delta}
+			filterBy={stagedFilterBy}
+			onDeltaChange={onDeltaChange}
+			onFilterByChange={onStagedFilterByChange}
+			onOrderIOMapChange={onOrderIOMapChange}
+			onPageChange={onStagedPageChange}
+			onQueryChange={onStagedQueryChange}
+			orderIOMap={orderIOMap}
+			page={stagedPage}
+			query={stagedQuery}
+			renderViewSelectedToggle={renderViewSelectedToggle}
+			selectedItems={selectedItems}
+			selectionDispatch={selectionDispatch}
+			showCheckbox
 			{...localData}
-			onSortChange={onOrderByFieldsChange}
 		/>
 	) : (
-		children({...passThruProps})
+		children({
+			...otherProps,
+			delta,
+			filterBy,
+			onDeltaChange,
+			onFilterByChange,
+			onOrderIOMapChange,
+			onPageChange,
+			onQueryChange,
+			orderIOMap,
+			page,
+			query,
+			renderViewSelectedToggle,
+			selectedItems,
+			selectionDispatch,
+			showCheckbox
+		})
 	);
 };
 
-const DefaultComponent = withStatefulPagination(
-	CrossPageSelect,
-	({
-		defaultDelta,
-		defaultOrderBy,
-		defaultOrderByField
-	}: {
-		defaultDelta: string;
-		defaultOrderBy: string;
-		defaultOrderByField: string;
-	}) => pickBy({defaultDelta, defaultOrderBy, defaultOrderByField}),
-	(props, {paginationProps, toolbarProps}) => ({
-		paginationProps,
-		stagedProps: omit(props, 'onSearchValueChange'),
-		toolbarProps
-	}),
-	false
-);
+// const DefaultComponent = withStatefulPagination(
+// 	CrossPageSelect,
+// 	({
+// 		defaultDelta,
+// 		defaultOrderBy,
+// 		defaultOrderByField
+// 	}: {
+// 		defaultDelta: string;
+// 		defaultOrderBy: string;
+// 		defaultOrderByField: string;
+// 	}) => pickBy({defaultDelta, defaultOrderBy, defaultOrderByField}),
+// 	(props, {paginationProps, toolbarProps}) => ({
+// 		paginationProps,
+// 		stagedProps: omit(props, 'onSearchValueChange'),
+// 		toolbarProps
+// 	}),
+// 	false
+// );
 
-export default withSelection(DefaultComponent);
+export default withSelection(CrossPageSelect);

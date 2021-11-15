@@ -17,13 +17,24 @@ export default (options = {}) => WrappedComponent => {
 
 		static propTypes = {
 			delta: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+			onDeltaChange: PropTypes.func,
+			onPageChange: PropTypes.func,
 			page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 			paginationProps: PropTypes.object,
 			total: PropTypes.number
 		};
 
 		render() {
-			const {delta, page, paginationProps, total} = this.props;
+			const {
+				delta,
+				page,
+				onDeltaChange,
+				onPageChange,
+				paginationProps,
+				total
+			} = this.props;
+
+			console.log(paginationProps); // TODO: REmove me
 
 			return (
 				<>
@@ -31,11 +42,12 @@ export default (options = {}) => WrappedComponent => {
 
 					{!!total && (
 						<PaginationBar
-							{...paginationProps}
 							href={window.location.href}
 							key='PAGINATION_BAR'
-							page={parseInt(page)}
-							selectedDelta={parseInt(delta)}
+							onDeltaChange={onDeltaChange}
+							onPageChange={onPageChange}
+							page={page}
+							selectedDelta={delta}
 							totalItems={total}
 						/>
 					)}

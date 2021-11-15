@@ -1,12 +1,13 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
+import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
 import React from 'react';
-import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
 import Spinner from 'shared/components/Spinner';
 import {
 	ACTION_TYPES,
@@ -36,23 +37,6 @@ import {Routes, toRoute} from 'shared/util/router';
 import {Segment, User} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {useQueryPagination, useRequest} from 'shared/hooks';
-
-const getIndividualsDataSource = ({
-	channelId,
-	delta,
-	groupId,
-	orderIOMap,
-	page,
-	query
-}) =>
-	API.individuals.search({
-		channelId,
-		delta,
-		groupId,
-		orderIOMap,
-		page,
-		query
-	});
 
 const connector = connect(
 	(store: RootState, {groupId}: {groupId: string}) => ({
@@ -86,17 +70,17 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	open,
 	timeZoneId
 }) => {
-	const {selectionDispatch} = useSelectionContext();
+	const {selectedItems, selectionDispatch} = useSelectionContext();
 
-	const {delta, orderIOMap, page, query} = useQueryPagination({
-		initialOrderIOMap: createOrderIOMap(NAME, getDefaultSortOrder(NAME))
+	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME)
 	});
 
 	const {data: dataSourceData, loading: dataSourceLoading} = useRequest({
 		dataSourceFn: API.dataSource.search,
 		variables: {
 			delta: 1,
-			groupId // TODO: Maybe add a default sort here.
+			groupId
 		}
 	});
 
@@ -168,8 +152,8 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 			title: Liferay.Language.get('add-to-static-segment')
 		});
 
-	const renderNav = selectedItemsIOMap => {
-		if (dataSourceData?.total > 0 && !selectedItemsIOMap.isEmpty()) {
+	const renderNav = () => {
+		if (dataSourceData?.total > 0 && !selectedItems.isEmpty()) {
 			return (
 				<Nav>
 					<Nav.Item key='PRIMARY_ACTION'>
@@ -177,7 +161,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 							className='nav-btn'
 							display='primary'
 							onClick={handleAddIndividualsToSegmentModal(
-								selectedItemsIOMap.keySeq().toArray()
+								selectedItems.keySeq().toArray()
 							)}
 						>
 							{Liferay.Language.get('add-to-static-segment')}
@@ -188,7 +172,11 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 		}
 	};
 
-	const renderNoResults = (query: string, activeFilters: boolean) => {
+	const renderNoResults = () => {
+		const activeFilters: boolean = filterBy.some(values =>
+			values.some(Boolean)
+		);
+
 		const authorized = currentUser.isAdmin();
 
 		const createDataSourceButton = (
@@ -257,12 +245,24 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 		}
 	};
 
+	const {data, error, loading} = useRequest({
+		dataSourceFn: API.individuals.search,
+		variables: {
+			channelId,
+			delta,
+			groupId,
+			orderIOMap,
+			page,
+			query
+		}
+	});
+
 	return (
 		<div className='individuals-dashboard-known-individuals-root'>
 			<div className='row'>
 				<div className='col-xl-12'>
 					<Card pageDisplay>
-						<SearchableTableWithStaged
+						<CrossPageSelect
 							columns={[
 								individualsListColumns.getNameEmail({
 									channelId,
@@ -275,11 +275,11 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 								)
 							]}
 							currentUser={currentUser}
-							dataSourceFn={getIndividualsDataSource}
-							dataSourceParams={{channelId, groupId}}
 							delta={delta}
 							entityLabel={Liferay.Language.get('individuals')}
-							navRenderer={renderNav}
+							error={error}
+							items={data?.items}
+							loading={loading}
 							noResultsRenderer={renderNoResults}
 							orderByOptions={[
 								{
@@ -306,8 +306,12 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 							orderIOMap={orderIOMap}
 							page={page}
 							query={query}
+							renderNav={renderNav}
 							showCheckbox
-						/>
+							total={data?.total}
+						>
+							{props => <ListComponent {...props} />}
+						</CrossPageSelect>
 					</Card>
 				</div>
 			</div>

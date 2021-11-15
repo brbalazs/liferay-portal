@@ -45,16 +45,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	id,
 	timeZoneId
 }) => {
-	const {
-		delta,
-		onDeltaChange,
-		onOrderIOMapChange,
-		onPageChange,
-		onQueryChange,
-		orderIOMap,
-		page,
-		query
-	} = useQueryPagination({
+	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(NAME)
 	});
 
@@ -74,10 +65,6 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 				dataSourceParams={{channelId, groupId, id}}
 				delta={delta}
 				entityLabel={Liferay.Language.get('individuals')}
-				onDeltaChange={onDeltaChange}
-				onOrderIOMapChange={onOrderIOMapChange}
-				onPageChange={onPageChange}
-				onQueryChange={onQueryChange}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('name'),
