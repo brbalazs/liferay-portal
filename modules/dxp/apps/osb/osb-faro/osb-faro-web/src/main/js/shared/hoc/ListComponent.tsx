@@ -1,11 +1,12 @@
 import Table from 'shared/components/table';
 import {compose, withPaginationBar, withToolbar} from 'shared/hoc';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
-import {withError} from './util';
+import {withError, withLoading} from './util';
 
 const ListComponent = compose<any>(
 	withToolbar(),
 	withPaginationBar(),
+	withLoading(),
 	withError(),
 	withEmpty()
 )(Table);
