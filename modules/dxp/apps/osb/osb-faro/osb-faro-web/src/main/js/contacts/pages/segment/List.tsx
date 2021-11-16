@@ -21,9 +21,9 @@ import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {compose, withCurrentUser, withFilters} from 'shared/hoc';
+import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
-import {createOrderIOMap} from 'shared/util/pagination';
+import {createOrderIOMap, FilterByType} from 'shared/util/pagination';
 import {Link} from 'react-router-dom';
 import {OrderedMap, Set} from 'immutable';
 import {OrderParams, User} from 'shared/util/records';
@@ -44,7 +44,7 @@ import {useQueryPagination} from 'shared/hooks';
 interface FetchSegmentsParams {
 	channelId: string;
 	delta?: number;
-	filterBy: Map<string, Set<string>>;
+	filterBy: FilterByType;
 	groupId: string;
 	orderIOMap: OrderedMap<string, OrderParams>;
 	page: number;
@@ -62,7 +62,7 @@ function fetchSegments(params: FetchSegmentsParams): any {
 		query
 	} = params;
 
-	const stateFilterISet = filterBy.get('state') || Set();
+	const stateFilterISet = filterBy.get(SEGMENT_STATE) || Set();
 
 	return API.individualSegment.search({
 		channelId,
@@ -107,7 +107,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IListProps extends PropsFromRedux {
 	channelId: string;
 	currentUser: User;
-	filterBy?: Map<string, Set<string>>;
 	groupId: string;
 	history: any;
 }
@@ -117,13 +116,13 @@ export const List: React.FC<IListProps> = ({
 	channelId,
 	close,
 	currentUser,
-	filterBy = paginationDefaults.filterBy,
 	groupId,
 	history,
 	open,
 	timeZoneId
 }) => {
-	const {delta, orderIOMap, page, query} = useQueryPagination({
+	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
+		filterFields: [SEGMENT_STATE],
 		initialDelta: paginationDefaults.delta,
 		initialOrderIOMap: createOrderIOMap(NAME, getDefaultSortOrder(NAME)),
 		initialPage: paginationDefaults.page,
@@ -409,8 +408,4 @@ export const List: React.FC<IListProps> = ({
 	);
 };
 
-export default compose(
-	connector,
-	withCurrentUser,
-	withFilters({filterFields: [SEGMENT_STATE]})
-)(List);
+export default compose(connector, withCurrentUser)(List);
