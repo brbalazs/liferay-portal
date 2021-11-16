@@ -77,12 +77,12 @@ export const withLoading = (options = {}) => Component => ({
 	data,
 	fadeIn = true,
 	inline = false,
-	isPage = true,
+	pageDisplay = true,
 	loading,
 	...otherProps
 }) => {
 	if (loading) {
-		return get(options, 'isPage', isPage) ? (
+		return get(options, 'page', pageDisplay) ? (
 			<LoadingPage
 				className={className}
 				fadeIn={get(options, 'fadeIn', fadeIn)}
