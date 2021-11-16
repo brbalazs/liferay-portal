@@ -53,7 +53,7 @@ portletURL.setParameter("mvcPath", "/admin/view.jsp");
 	</c:if>
 
 	<aui:nav-bar-search>
-		<aui:form action="<%= portletURL.toString() %>" method="post" name="fm1">
+		<aui:form action="<%= portletURL %>" method="post" name="fm1">
 			<liferay-ui:search-form
 				page="/admin/search.jsp"
 				servletContext="<%= application %>"

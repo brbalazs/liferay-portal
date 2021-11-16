@@ -99,7 +99,7 @@ PortletURL portletURL = editUserGroupAssignmentsManagementToolbarDisplayContext.
 	viewTypeItems="<%= editUserGroupAssignmentsManagementToolbarDisplayContext.getViewTypeItems() %>"
 />
 
-<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= portletURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="userGroupId" type="hidden" value="<%= userGroup.getUserGroupId() %>" />
 	<aui:input name="deleteUserGroupIds" type="hidden" />

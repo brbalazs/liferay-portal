@@ -63,7 +63,7 @@ if (Validator.isNotNull(title)) {
 			PortletURL portletURL = journalDisplayContext.getPortletURL();
 			%>
 
-			<aui:form action="<%= portletURL.toString() %>" method="get" name="fm">
+			<aui:form action="<%= portletURL %>" method="get" name="fm">
 				<aui:input name="<%= ActionRequest.ACTION_NAME %>" type="hidden" />
 				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 				<aui:input name="groupId" type="hidden" value="<%= scopeGroupId %>" />

@@ -82,7 +82,7 @@ recordSearchContainer.setOrderByType(kaleoFormsViewRecordsDisplayContext.getOrde
 			<portlet:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcess.getKaleoProcessId()) %>" />
 		</portlet:renderURL>
 
-		<aui:form action="<%= searchURL.toString() %>" name="fm1">
+		<aui:form action="<%= searchURL %>" name="fm1">
 			<%@ include file="/admin/record_search.jspf" %>
 		</aui:form>
 	</aui:nav-bar-search>
@@ -116,7 +116,7 @@ recordSearchContainer.setOrderByType(kaleoFormsViewRecordsDisplayContext.getOrde
 </liferay-frontend:management-bar>
 
 <div class="container-fluid-1280" id="<portlet:namespace />formContainer">
-	<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+	<aui:form action="<%= portletURL %>" method="post" name="fm">
 		<aui:input name="ddlRecordIds" type="hidden" />
 
 		<liferay-ui:search-container

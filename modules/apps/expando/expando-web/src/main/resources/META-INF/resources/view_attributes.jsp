@@ -56,7 +56,7 @@ ExpandoDisplayContext expandoDisplayContext = new ExpandoDisplayContext(request)
 	showSearch="<%= false %>"
 />
 
-<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= portletURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
 	<aui:input name="columnIds" type="hidden" />
 

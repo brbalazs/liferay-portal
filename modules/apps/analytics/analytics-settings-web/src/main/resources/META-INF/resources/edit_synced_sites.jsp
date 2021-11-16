@@ -98,7 +98,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 			>
 				<liferay-frontend:management-bar-filters>
 					<li>
-						<aui:form action="<%= currentURL.toString() %>" name="searchFm">
+						<aui:form action="<%= currentURL %>" name="searchFm">
 							<liferay-ui:input-search
 								markupView="lexicon"
 								placeholder='<%= LanguageUtil.get(request, "search") %>'

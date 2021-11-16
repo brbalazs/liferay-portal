@@ -147,7 +147,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "price-lists"));
 			</c:if>
 
 			<div class="sidenav-content">
-				<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+				<aui:form action="<%= portletURL %>" method="post" name="fm">
 					<aui:input name="<%= Constants.CMD %>" type="hidden" />
 					<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 					<aui:input name="deleteCommerceTierPriceEntryIds" type="hidden" />

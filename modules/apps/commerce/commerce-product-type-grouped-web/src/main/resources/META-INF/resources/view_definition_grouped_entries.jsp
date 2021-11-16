@@ -116,7 +116,7 @@ renderResponse.setTitle(cpDefinition.getName(themeDisplay.getLanguageId()));
 		</c:if>
 
 		<div class="sidenav-content">
-			<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+			<aui:form action="<%= portletURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 				<aui:input name="<%= Constants.CMD %>" type="hidden" />
 				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 				<aui:input name="deleteCPDefinitionGroupedEntryIds" type="hidden" />

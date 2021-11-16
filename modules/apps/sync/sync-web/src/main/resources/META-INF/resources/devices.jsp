@@ -61,7 +61,7 @@ portletURL.setParameter("delta", String.valueOf(delta));
 			%>
 
 			<li>
-				<aui:form action="<%= searchURL.toString() %>" name="searchFm">
+				<aui:form action="<%= searchURL %>" name="searchFm">
 					<liferay-ui:input-search
 						markupView="lexicon"
 						placeholder='<%= LanguageUtil.get(request, "search") %>'

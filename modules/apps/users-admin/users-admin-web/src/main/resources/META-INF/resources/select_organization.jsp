@@ -51,7 +51,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "organizations"));
 	viewTypeItems="<%= selectOrganizationManagementToolbarDisplayContext.getViewTypeItems() %>"
 />
 
-<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="selectOrganizationFm">
+<aui:form action="<%= portletURL %>" cssClass="container-fluid-1280" method="post" name="selectOrganizationFm">
 	<liferay-ui:search-container
 		searchContainer="<%= searchContainer %>"
 		var="organizationSearchContainer"

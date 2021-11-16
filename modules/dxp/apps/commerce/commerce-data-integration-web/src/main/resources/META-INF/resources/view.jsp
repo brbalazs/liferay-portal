@@ -33,7 +33,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 <div id="<portlet:namespace />processesContainer">
 	<div class="closed container-fluid-1280" id="<portlet:namespace />infoPanelId">
 		<div class="container">
-			<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+			<aui:form action="<%= portletURL %>" method="post" name="fm">
 				<aui:input name="<%= Constants.CMD %>" type="hidden" />
 				<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
 				<aui:input name="deleteCDataIntegrationProcessIds" type="hidden" />

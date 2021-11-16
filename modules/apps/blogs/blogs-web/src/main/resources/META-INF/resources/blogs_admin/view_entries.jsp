@@ -75,7 +75,7 @@ String displayStyle = blogEntriesManagementToolbarDisplayContext.getDisplayStyle
 />
 
 <div class="container-fluid-1280 main-content-body">
-	<aui:form action="<%= portletURL.toString() %>" method="get" name="fm">
+	<aui:form action="<%= portletURL %>" method="get" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" />
 		<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
 		<aui:input name="deleteEntryIds" type="hidden" />

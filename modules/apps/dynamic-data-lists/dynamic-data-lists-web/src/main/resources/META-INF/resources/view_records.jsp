@@ -55,7 +55,7 @@ if (!ddlDisplayContext.isAdminPortlet()) {
 />
 
 <div class="container-fluid-1280 view-records-container" id="<portlet:namespace />formContainer">
-	<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+	<aui:form action="<%= portletURL %>" method="post" name="fm">
 		<aui:input name="recordIds" type="hidden" />
 
 		<liferay-ui:search-container

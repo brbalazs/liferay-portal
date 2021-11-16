@@ -34,7 +34,7 @@ portletURL.setParameter("sourceVersion", String.valueOf(sourceVersion));
 %>
 
 <div class="container-fluid-1280">
-	<aui:form action="<%= portletURL.toString() %>" method="post" name="selectVersionFm">
+	<aui:form action="<%= portletURL %>" method="post" name="selectVersionFm">
 		<liferay-ui:search-container
 			id="articleVersionSearchContainer"
 			iteratorURL="<%= portletURL %>"

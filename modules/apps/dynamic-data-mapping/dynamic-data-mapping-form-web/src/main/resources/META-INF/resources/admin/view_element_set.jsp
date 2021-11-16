@@ -27,7 +27,7 @@ FieldSetPermissionCheckerHelper fieldSetPermissionCheckerHelper = ddmFormAdminDi
 %>
 
 <div class="container-fluid-1280" id="<portlet:namespace />formContainer">
-	<aui:form action="<%= portletURL.toString() %>" method="post" name="searchContainerForm">
+	<aui:form action="<%= portletURL %>" method="post" name="searchContainerForm">
 		<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
 		<aui:input name="deleteStructureIds" type="hidden" />
 

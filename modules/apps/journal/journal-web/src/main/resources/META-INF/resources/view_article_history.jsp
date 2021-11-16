@@ -54,11 +54,7 @@ JournalArticle article = journalDisplayContext.getArticle();
 			viewTypeItems="<%= journalHistoryDisplayContext.getViewTypeItems() %>"
 		/>
 
-		<%
-		PortletURL portletURL = journalHistoryDisplayContext.getPortletURL();
-		%>
-
-		<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+		<aui:form action="<%= journalHistoryDisplayContext.getPortletURL() %>" cssClass="container-fluid-1280" method="post" name="fm">
 			<aui:input name="referringPortletResource" type="hidden" value="<%= journalHistoryDisplayContext.getReferringPortletResource() %>" />
 			<aui:input name="groupId" type="hidden" value="<%= String.valueOf(article.getGroupId()) %>" />
 

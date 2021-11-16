@@ -45,7 +45,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "form-entries"));
 />
 
 <div class="container-fluid-1280" id="<portlet:namespace />viewEntriesContainer">
-	<aui:form action="<%= portletURL.toString() %>" method="post" name="searchContainerForm">
+	<aui:form action="<%= portletURL %>" method="post" name="searchContainerForm">
 		<aui:input name="deleteFormInstanceRecordIds" type="hidden" />
 
 		<liferay-ui:search-container

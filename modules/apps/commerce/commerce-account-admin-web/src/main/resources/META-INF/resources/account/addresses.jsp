@@ -70,7 +70,7 @@ PortletURL portletURL = commerceAccountAddressAdminDisplayContext.getPortletURL(
 	</liferay-frontend:management-bar>
 
 	<div class="container-fluid-1280">
-		<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+		<aui:form action="<%= portletURL %>" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 			<aui:input name="deleteCommerceAddressIds" type="hidden" />

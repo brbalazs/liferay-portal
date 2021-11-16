@@ -142,7 +142,7 @@ publishTemplatesURL.setParameter("publishConfigurationButtons", "saved");
 					<portlet:param name="publishConfigurationButtons" value="saved" />
 				</liferay-portlet:renderURL>
 
-				<aui:form action="<%= searchURL.toString() %>" name="searchFm">
+				<aui:form action="<%= searchURL %>" name="searchFm">
 					<liferay-portlet:renderURLParams varImpl="searchURL" />
 					<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 
