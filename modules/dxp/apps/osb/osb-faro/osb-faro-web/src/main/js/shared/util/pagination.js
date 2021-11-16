@@ -23,6 +23,7 @@ export const COMMENTS_METRIC = 'commentsMetric';
 export const COMPLETION_TIME_METRIC = 'completionTimeMetric';
 export const COUNT = 'count';
 export const CREATE_DATE = 'createDate';
+export const CREATE_TIME = 'createTime';
 export const DATE_ADDED = 'dateAdded';
 export const DATE_CHANGED = 'dateChanged';
 export const DATE_CREATED = 'dateCreated';
@@ -74,6 +75,7 @@ const INVERTED_SORT_FIELDS = [
 	COMPLETION_TIME_METRIC,
 	COUNT,
 	CREATE_DATE,
+	CREATE_TIME,
 	DATE_ADDED,
 	DATE_CHANGED,
 	DATE_CREATED,

@@ -8,13 +8,13 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import Table from 'shared/components/table';
-import {ACTION_TYPES} from 'shared/context/selection';
+import {ACTION_TYPES, ActionTypes} from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {buildOrderByFields, NAME} from 'shared/util/pagination';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withPaginationBar, withToolbar} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {get} from 'lodash';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getPluralMessage} from 'shared/util/lang';
@@ -22,8 +22,8 @@ import {IPaginationUnsorted} from 'shared/types';
 import {OrderedMap} from 'immutable';
 import {RootState} from 'shared/store';
 import {SelectionProvider} from 'shared/context/selection';
+import {useQueryPagination, useRequest} from 'shared/hooks';
 import {User} from 'shared/util/records';
-import {useRequest} from 'shared/hooks';
 import {USERS} from 'shared/util/router';
 import {usersListColumns} from 'shared/util/table-columns';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
@@ -105,7 +105,9 @@ const UserList: React.FC<IUserListProps> = ({
 	timeZoneId,
 	...otherProps
 }) => {
-	const {delta = defaultDelta, page = defaultPage, query = ''} = otherProps;
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME)
+	});
 
 	const {data, error, loading, refetch} = useRequest({
 		dataSourceFn: API.channels.fetchUsers,
@@ -114,6 +116,7 @@ const UserList: React.FC<IUserListProps> = ({
 			cur: page,
 			delta,
 			groupId,
+			orderIOMap,
 			query
 		}
 	});
@@ -161,7 +164,7 @@ const UserList: React.FC<IUserListProps> = ({
 					})
 					.then(() => {
 						if (clearAll) {
-							clearAll({type: ACTION_TYPES.clearAll});
+							clearAll({type: ActionTypes.ClearAll});
 						}
 
 						refetch();
@@ -201,6 +204,7 @@ const UserList: React.FC<IUserListProps> = ({
 						});
 					});
 			},
+			showFilterAndOrder: false,
 			submitButtonDisplay: 'warning',
 			submitMessage: Liferay.Language.get('remove'),
 			title: Liferay.Language.get('remove-user'),
@@ -214,23 +218,18 @@ const UserList: React.FC<IUserListProps> = ({
 				usersListColumns.nameEmailAddress,
 				usersListColumns.getLastLoginDate(timeZoneId)
 			],
-			dataSourceFn: ({delta, orderBy, orderByField, page, query}) =>
+			dataSourceFn: ({delta, orderIOMap, page, query}) =>
 				API.channels.fetchUsers({
 					available: true,
 					channelId: id,
 					delta,
 					groupId,
-					orderByFields: buildOrderByFields(
-						{
-							field: orderByField,
-							sortOrder: orderBy
-						},
-						USERS
-					),
+					orderIOMap,
 					page,
 					query
 				}),
 			entityLabel: Liferay.Language.get('users'),
+			initialOrderIOMap: createOrderIOMap(NAME),
 			instruction: Liferay.Language.get(
 				'select-users-to-add-to-this-property.-users-must-be-previously-invited-to-workspace-to-add-to-a-property'
 			),
@@ -295,7 +294,6 @@ const UserList: React.FC<IUserListProps> = ({
 						});
 					});
 			},
-			orderByField: NAME,
 			requireSelection: true,
 			title: propertyName
 		});
@@ -329,9 +327,9 @@ const UserList: React.FC<IUserListProps> = ({
 		const sharedProps = {
 			columns: [usersListColumns.name, usersListColumns.emailAddress],
 			delta,
-			disableSearch: get(data, 'disableSearch'),
-			empty: get(data, 'total') === 0,
-			items: get(data, 'items', []),
+			disableSearch: data?.disableSearch,
+			empty: data?.total,
+			items: data?.items,
 			loading,
 			noResultsProps: query
 				? {
@@ -355,6 +353,7 @@ const UserList: React.FC<IUserListProps> = ({
 						spacer: true,
 						title: Liferay.Language.get('no-users-added')
 				  },
+			orderIOMap,
 			pageDisplay: true,
 			rowIdentifier: 'id',
 			total: get(data, 'total')
@@ -413,6 +412,7 @@ const UserList: React.FC<IUserListProps> = ({
 				</SelectionProvider>
 			);
 		} else {
+			// TODO: Can we just use shoCheckbox isntead of this?
 			return <ListComponent {...sharedProps} />;
 		}
 	};

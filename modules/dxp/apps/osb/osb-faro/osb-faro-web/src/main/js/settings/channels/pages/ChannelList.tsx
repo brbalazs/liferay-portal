@@ -1,36 +1,56 @@
 import * as API from 'shared/api';
-import autobind from 'autobind-decorator';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import EmptyState from 'shared/components/EmptyStateDashboard';
+import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
 import React from 'react';
-import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
 import TextTruncate from 'shared/components/TextTruncate';
 import {
 	ACTION_TYPES,
-	SelectionContext,
+	ActionTypes,
+	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
-import {autoCancel} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
+import {CREATE_TIME, createOrderIOMap} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {FormikActions} from 'formik';
 import {getPluralMessage, sub} from 'shared/util/lang';
 import {IPagination} from 'shared/types';
 import {Link} from 'react-router-dom';
-import {paginationDefaults} from 'shared/util/pagination';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {updateDefaultChannelId} from 'shared/actions/preferences';
+import {useQueryPagination, useRequest} from 'shared/hooks';
 import {User} from 'shared/util/records';
+
+type ChannelNameFn = (attrs: {
+	data: {id: string; name: string};
+	hrefFormatter: (data: object) => string;
+}) => React.ReactNode;
+
+type FormValues = {
+	name: string;
+};
+
+const ChannelName: ChannelNameFn = ({data, hrefFormatter}) => (
+	<td className='table-cell-expand' key={data.id}>
+		<div className='table-title text-truncate'>
+			<Link to={hrefFormatter(data)}>
+				<TextTruncate title={data.name} />
+			</Link>
+		</div>
+	</td>
+);
 
 const connector = connect(
 	(state: RootState, {groupId}: {groupId: string}) => ({
@@ -57,119 +77,48 @@ interface IChannelListProps extends IPagination, PropsFromRedux {
 	currentUser: User;
 	groupId: string;
 	history: {
-		push: (value: string) => void;
+		push: (href: string) => void;
 	};
 }
 
-type ChannelNameFn = (attrs: {
-	data: {id: string; name: string};
-	hrefFormatter: (data: object) => string;
-}) => React.ReactNode;
+const ChannelList: React.FC<IChannelListProps> = ({
+	addAlert,
+	close,
+	currentUser,
+	defaultChannelId,
+	groupId,
+	history,
+	open,
+	setBackURL,
+	timeZoneId,
+	updateDefaultChannelId
+}) => {
+	const {selectedItems, selectionDispatch} = useSelectionContext();
 
-type SelectedItems = {
-	keySeq: () => {
-		toArray: () => Array<string>;
-	};
-	first: () => {
-		name: string;
-	};
-	isEmpty: () => boolean;
-};
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(CREATE_TIME)
+	});
 
-type FormValues = {
-	name: string;
-};
-
-const ChannelName: ChannelNameFn = ({data, hrefFormatter}) => (
-	<td className='table-cell-expand' key={data.id}>
-		<div className='table-title text-truncate'>
-			<Link to={hrefFormatter(data)}>
-				<TextTruncate title={data.name} />
-			</Link>
-		</div>
-	</td>
-);
-
-const renderEmptyState: () => React.ReactNode = () => (
-	<EmptyState
-		className='no-results-root mt-0'
-		description={Liferay.Language.get(
-			'create-a-new-property-to-get-started'
-		)}
-		symbol='ac-satellite'
-		title={Liferay.Language.get('no-properties-found')}
-	/>
-);
-
-export class ChannelList extends React.Component<IChannelListProps> {
-	static contextType = SelectionContext;
-
-	static defaultProps = {
-		...paginationDefaults,
-		orderByField: 'createTime'
-	};
-
-	_tableRef: React.RefObject<any>;
-
-	constructor(props) {
-		super(props);
-
-		this._tableRef = React.createRef();
-	}
-
-	@autobind
-	getSiteURL({id}: {id: string}) {
-		const {groupId} = this.props;
-
-		return toRoute(Routes.SETTINGS_CHANNELS_VIEW, {
+	const {data, error, loading, refetch: refetchChannels} = useRequest({
+		dataSourceFn: API.channels.search,
+		variables: {
+			delta,
 			groupId,
-			id
-		});
-	}
+			orderIOMap,
+			page,
+			query
+		}
+	});
 
-	@autoCancel
-	fetchChannels({delta, groupId, orderBy, orderByField, page, query}) {
-		const {addAlert} = this.props;
-
-		return API.channels
-			.search({
-				cur: page,
-				delta,
-				groupId,
-				orderByFields: [
-					{
-						fieldName: orderByField,
-						orderBy
-					}
-				],
-				query
-			})
-			.catch(() =>
-				addAlert({
-					alertType: Alert.Types.Error,
-					message: Liferay.Language.get('error')
-				})
-			);
-	}
-
-	@autobind
-	handleAddChannel() {
-		const {close, open} = this.props;
-
+	const handleAddChannel = () => {
 		open(modalTypes.ADD_CHANNEL_MODAL, {
 			onCloseFn: close,
-			onSubmitFn: this.handleSubmit
+			onSubmitFn: handleSubmit
 		});
-	}
+	};
 
-	@autobind
-	handleClearData(selectedItems: SelectedItems) {
-		const {
-			context: {selectionDispatch},
-			props: {addAlert, close, groupId, open}
-		} = this;
-
-		const ids = selectedItems.keySeq().toArray();
+	const handleClearData = () => {
+		const ids: string[] = selectedItems.keySeq().toArray();
 
 		const message: string = getPluralMessage(
 			selectedItems.first().name,
@@ -227,9 +176,9 @@ export class ChannelList extends React.Component<IChannelListProps> {
 							) as string
 						});
 
-						selectionDispatch({type: ACTION_TYPES.clearAll});
+						selectionDispatch({type: ActionTypes.ClearAll});
 
-						this._tableRef.current.reload();
+						refetchChannels();
 
 						close();
 					})
@@ -247,24 +196,10 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					),
 			title: sub(Liferay.Language.get('clear-x-data?'), [message])
 		});
-	}
+	};
 
-	@autobind
-	handleDeleteChannel(selectedItems: SelectedItems) {
-		const {
-			context: {selectionDispatch},
-			props: {
-				addAlert,
-				close,
-				defaultChannelId,
-				groupId,
-				open,
-				setBackURL,
-				updateDefaultChannelId
-			}
-		} = this;
-
-		const ids = selectedItems.keySeq().toArray();
+	const handleDeleteChannel = () => {
+		const ids: string[] = selectedItems.keySeq().toArray();
 
 		const message: string = getPluralMessage(
 			selectedItems.first().name,
@@ -316,7 +251,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 
 						selectionDispatch({type: ACTION_TYPES.clearAll});
 
-						this._tableRef.current.reload();
+						refetchChannels();
 
 						close();
 					})
@@ -333,15 +268,12 @@ export class ChannelList extends React.Component<IChannelListProps> {
 						})
 					)
 		});
-	}
+	};
 
-	@autobind
-	handleSubmit(
+	const handleSubmit = (
 		{name}: FormValues,
 		{setFieldError, setSubmitting}: FormikActions<FormValues>
-	) {
-		const {addAlert, close, groupId, history} = this.props;
-
+	) => {
 		API.channels
 			.create({groupId, name: name.trim()})
 			.then(({id, name}) => {
@@ -368,11 +300,21 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					setFieldError(field, message);
 				}
 			});
-	}
+	};
 
-	@autobind
-	renderNav(checkedItemsISet: SelectedItems) {
-		if (checkedItemsISet.isEmpty()) {
+	const renderEmptyState = (): React.ReactNode => (
+		<EmptyState
+			className='no-results-root mt-0'
+			description={Liferay.Language.get(
+				'create-a-new-property-to-get-started'
+			)}
+			symbol='ac-satellite'
+			title={Liferay.Language.get('no-properties-found')}
+		/>
+	);
+
+	const renderNav = () => {
+		if (selectedItems.isEmpty()) {
 			return (
 				<Nav>
 					<Nav.Item>
@@ -380,7 +322,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 							className='nav-btn'
 							data-testid='addproperty-button'
 							display='primary'
-							onClick={this.handleAddChannel}
+							onClick={handleAddChannel}
 						>
 							{Liferay.Language.get('new-property')}
 						</Button>
@@ -393,7 +335,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					<Button
 						borderless
 						display='secondary'
-						onClick={() => this.handleClearData(checkedItemsISet)}
+						onClick={handleClearData}
 						outline
 					>
 						{Liferay.Language.get('clear-data')}
@@ -402,9 +344,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 					<Button
 						borderless
 						display='secondary'
-						onClick={() =>
-							this.handleDeleteChannel(checkedItemsISet)
-						}
+						onClick={handleDeleteChannel}
 						outline
 					>
 						{Liferay.Language.get('delete')}
@@ -412,99 +352,95 @@ export class ChannelList extends React.Component<IChannelListProps> {
 				</Nav>
 			);
 		}
-	}
+	};
 
-	render() {
-		const {
-			currentUser,
-			delta = paginationDefaults.delta,
-			groupId,
-			orderBy,
-			orderByField,
-			page = paginationDefaults.page,
-			query,
-			timeZoneId
-		} = this.props;
+	const authorized: boolean = currentUser.isAdmin();
 
-		const authorized: boolean = currentUser.isAdmin();
-
-		return (
-			<BasePage
-				groupId={groupId}
-				key='sitesListPage'
-				pageDescription={
-					<>
-						<div>
-							{Liferay.Language.get(
-								'analytics-cloud-allows-for-customized-user-access-settings-per-property-managed'
-							)}
-						</div>
-						<div>
-							{Liferay.Language.get(
-								'by-default-property-access-settings-will-be-set-to-all-users'
-							)}
-						</div>
-					</>
-				}
-				pageTitle={Liferay.Language.get('properties')}
-			>
-				<Card pageDisplay>
-					<SearchableTableWithStaged
-						columns={[
-							{
-								accessor: 'name',
-								cellRenderer: ChannelName,
-								cellRendererProps: {
-									hrefFormatter: this.getSiteURL
-								},
-								className: 'table-cell-expand',
-								label: Liferay.Language.get('property-name')
+	return (
+		<BasePage
+			groupId={groupId}
+			key='sitesListPage'
+			pageDescription={
+				<>
+					<div>
+						{Liferay.Language.get(
+							'analytics-cloud-allows-for-customized-user-access-settings-per-property-managed'
+						)}
+					</div>
+					<div>
+						{Liferay.Language.get(
+							'by-default-property-access-settings-will-be-set-to-all-users'
+						)}
+					</div>
+				</>
+			}
+			pageTitle={Liferay.Language.get('properties')}
+		>
+			<Card pageDisplay>
+				<CrossPageSelect
+					columns={[
+						{
+							accessor: 'name',
+							cellRenderer: ChannelName,
+							cellRendererProps: {
+								hrefFormatter: ({id}: {id: string}) =>
+									toRoute(Routes.SETTINGS_CHANNELS_VIEW, {
+										groupId,
+										id
+									})
 							},
-							{
-								accessor: 'id',
-								label: Liferay.Language.get('property-id'),
-								sortable: false
-							},
-							{
-								accessor: 'permissionType',
-								dataFormatter: value =>
-									value === 0
-										? Liferay.Language.get('all-users')
-										: Liferay.Language.get('select-users'),
-								label: Liferay.Language.get('access-setting'),
-								sortable: false
-							},
-							{
-								accessor: 'createTime',
-								dataFormatter: date =>
-									formatDateToTimeZone(
-										date,
-										'll',
-										timeZoneId
-									),
-								label: Liferay.Language.get('date-added')
-							}
-						]}
-						currentUser={currentUser}
-						dataSourceFn={this.fetchChannels}
-						dataSourceParams={{groupId}}
-						delta={Number(delta)}
-						entityLabel={Liferay.Language.get('properties')}
-						navRenderer={authorized ? this.renderNav : null}
-						noResultsRenderer={renderEmptyState}
-						orderBy={orderBy}
-						orderByField={orderByField}
-						page={Number(page)}
-						query={query}
-						ref={this._tableRef}
-						rowIdentifier='id'
-						showCheckbox={authorized}
-					/>
-				</Card>
-			</BasePage>
-		);
-	}
-}
+							className: 'table-cell-expand',
+							label: Liferay.Language.get('property-name')
+						},
+						{
+							accessor: 'id',
+							label: Liferay.Language.get('property-id'),
+							sortable: false
+						},
+						{
+							accessor: 'permissionType',
+							dataFormatter: value =>
+								value === 0
+									? Liferay.Language.get('all-users')
+									: Liferay.Language.get('select-users'),
+							label: Liferay.Language.get('access-setting'),
+							sortable: false
+						},
+						{
+							accessor: 'createTime',
+							dataFormatter: date =>
+								formatDateToTimeZone(date, 'll', timeZoneId),
+							label: Liferay.Language.get('date-added')
+						}
+					]}
+					currentUser={currentUser}
+					delta={delta}
+					entityLabel={Liferay.Language.get('properties')}
+					error={error}
+					items={data?.items}
+					loading={loading}
+					noResultsProps={{
+						icon: {
+							border: false,
+							size: 'xxxl',
+							symbol: 'ac-satellite'
+						}
+					}}
+					noResultsRenderer={renderEmptyState}
+					orderIOMap={orderIOMap}
+					page={page}
+					query={query}
+					renderNav={authorized ? renderNav : null}
+					rowIdentifier='id'
+					showCheckbox={authorized}
+					total={data?.total}
+				>
+					{props => <ListComponent {...props} />}
+				</CrossPageSelect>
+			</Card>
+		</BasePage>
+	);
+};
 
 export default compose(
 	connector,
