@@ -8,6 +8,13 @@ export const ACTION_TYPES: {[key: string]: ActionType} = {
 	toggle: 'toggle'
 };
 
+export enum ActionTypes {
+	Add = 'add',
+	ClearAll = 'clear-all',
+	Toggle = 'toggle',
+	Remove = 'remove'
+}
+
 type ActionType = 'add' | 'clear-all' | 'toggle' | 'remove';
 
 type Action = {
