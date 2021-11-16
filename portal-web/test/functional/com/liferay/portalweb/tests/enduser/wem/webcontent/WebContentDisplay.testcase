@@ -520,6 +520,59 @@ definition {
 		WebContent.viewPGViaWCD(webContentContent = "WC WebContent Content");
 	}
 
+	@description = "This is a test for LPS-64814. Validate remote code execution via untrusted Java Deserialization in templates cannot cause out of memory errors."
+	@ignore = "true"
+	@priority = "5"
+	test ValidateRemoteCodeViaTemplatesCannotCauseOutOfMemoryErrors {
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		NavItem.gotoStructures();
+
+		WebContentStructures.addCP(structureName = "WC Structure Name");
+
+		DynamicDataMapping.addField(
+			field = "Text",
+			fieldFieldLabel = "Text",
+			fieldName = "Text");
+
+		WebContentStructures.saveCP(structureName = "WC Structure Name");
+
+		NavItem.gotoTemplates();
+
+		var templateScript = '''
+${company.setKey("rO0ABXVyABNbTGphdmEubGFuZy5PYmplY3Q7kM5YnxBzKWwCAAB4cH////c=")}
+
+${company.getKeyObj()}
+''';
+		WebContentTemplates.addCP(
+			structureName = "WC Structure Name",
+			templateName = "WC Template Name",
+			templateScript = "${templateScript}");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContentNavigator.gotoAddWithStructureCP(structureName = "WC Structure Name");
+
+		WebContent.addWithStructureCP(webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Display Page",
+			siteName = "Test Site Name");
+
+		WebContentDisplayPortlet.selectWebContent(webContentTitle = "WC WebContent Title");
+
+		IFrame.closeFrame();
+
+		Portlet.viewTitle(portletName = "WC WebContent Title");
+
+		AssertConsoleTextNotPresent(value1 = "java.lang.OutOfMemoryError");
+	}
+
 	@description = "This is a test for LPS-58698. Validate remote code execution can't privilege escalation in templates."
 	@priority = "5"
 	test ValidateTemplateRCEReturnsNoRuntimeClasses {
