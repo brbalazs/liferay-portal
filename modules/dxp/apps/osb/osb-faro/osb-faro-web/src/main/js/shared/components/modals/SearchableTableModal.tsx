@@ -1,172 +1,164 @@
-import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
+import ListComponent from 'shared/hoc/ListComponent';
 import Modal from 'shared/components/modal';
-import omitDefinedProps from 'shared/util/omitDefinedProps';
-import React from 'react';
-import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
+import React, {useEffect} from 'react';
 import {
-	ACTION_TYPES,
-	SelectionContext,
+	ActionTypes,
+	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {noop, omit, pickBy} from 'lodash';
-import {PropTypes} from 'prop-types';
-import {withStatefulPagination} from 'shared/hoc';
+import {Column} from 'shared/components/table';
+import {FilterByType} from 'shared/types';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
+import {useRequest, useStatefulPagination} from 'shared/hooks';
 
-const SearchableTable = withStatefulPagination(
-	SearchableTableWithStaged,
-	({
-		delta: defaultDelta,
-		orderBy: defaultOrderBy,
-		orderByField: defaultOrderByField
-	}) =>
-		pickBy({
-			defaultDelta,
-			defaultOrderBy,
-			defaultOrderByField
-		}),
-	props => omit(props, 'onSearchValueChange')
-);
+interface ISearchableTableModalProps {
+	checkDisabled: (item: {[key: string]: any}) => boolean;
+	className: string;
+	columns: Column[];
+	dataSourceFn: (params: {[key: string]: any}) => Promise<any>;
+	dataSourceParams: {[key: string]: any};
+	entityLabel: string;
+	initialDelta: number;
+	initialFilterBy: FilterByType;
+	initialOrderIOMap: OrderedMap<string, OrderParams>;
+	initialPage: number;
+	initialQuery: string;
+	initialSelectedItems: {[key: string]: any}[];
+	instruction: string;
+	noResultsIcon: string;
+	onClose: () => void;
+	onSubmit: (
+		selectedItemsIOMap: OrderedMap<string, any>,
+		refetch: () => void
+	) => void;
+	orderByOptions: {label: string; value: string}[];
+	requireSelection?: boolean;
+	submitMessage: string;
+	title: string;
+}
 
-class SearchableTableModal extends React.Component {
-	static contextType = SelectionContext;
+const SearchableTableModal: React.FC<ISearchableTableModalProps> = ({
+	checkDisabled,
+	className,
+	columns,
+	dataSourceFn,
+	dataSourceParams,
+	entityLabel,
+	initialDelta = 10,
+	initialFilterBy,
+	initialOrderIOMap,
+	initialPage,
+	initialQuery,
+	initialSelectedItems,
+	instruction,
+	noResultsIcon,
+	onClose,
+	onSubmit,
+	orderByOptions,
+	requireSelection,
+	submitMessage,
+	title,
+	...otherProps
+}) => {
+	const {selectedItems, selectionDispatch} = useSelectionContext();
 
-	static defaultProps = {
-		checkDisabled: noop,
-		columns: [],
-		delta: 10,
-		instruction: '',
-		noResultsIcon: 'ac-individual',
-		onClose: noop,
-		onSubmit: noop,
-		orderByField: '',
-		orderByOptions: [],
-		requireSelection: true,
-		selectedItems: [],
-		submitMessage: Liferay.Language.get('submit'),
-		title: Liferay.Language.get('select-items')
-	};
+	const {
+		delta,
+		filterBy,
+		onDeltaChange,
+		onFilterByChange,
+		onOrderIOMapChange,
+		onPageChange,
+		onQueryChange,
+		orderIOMap,
+		page,
+		query
+	} = useStatefulPagination(null, {
+		initialDelta,
+		initialFilterBy,
+		initialOrderIOMap,
+		initialPage,
+		initialQuery
+	});
 
-	static propTypes = {
-		checkDisabled: PropTypes.func,
-		columns: PropTypes.array,
-		dataSourceFn: PropTypes.func.isRequired,
-		delta: PropTypes.number,
-		entityLabel: PropTypes.string,
-		instruction: PropTypes.string,
-		noResultsIcon: PropTypes.string,
-		onClose: PropTypes.func,
-		onSubmit: PropTypes.func,
-		orderByField: PropTypes.string,
-		orderByOptions: PropTypes.array,
-		requireSelection: PropTypes.bool,
-		selectedItems: PropTypes.array,
-		submitMessage: PropTypes.string,
-		title: PropTypes.string
-	};
-
-	constructor(props) {
-		super(props);
-
-		this._tableRef = React.createRef();
-	}
-
-	componentDidMount() {
-		const {
-			context: {selectionDispatch},
-			props: {selectedItems}
-		} = this;
-
-		if (selectedItems.length) {
+	useEffect(() => {
+		if (initialSelectedItems) {
 			selectionDispatch({
-				payload: {items: selectedItems},
-				type: ACTION_TYPES.add
+				payload: {items: initialSelectedItems},
+				type: ActionTypes.Add
 			});
 		}
-	}
+	}, []);
 
-	@autobind
-	handleSubmit() {
-		const {
-			context: {selectedItems: selectedItemsIOMap},
-			props: {onSubmit}
-		} = this;
+	const {data, error, loading, refetch} = useRequest({
+		dataSourceFn,
+		variables: {
+			...dataSourceParams,
+			delta,
+			filterBy,
+			orderIOMap,
+			page,
+			query
+		}
+	});
 
-		onSubmit(selectedItemsIOMap);
-	}
+	console.log('check for other props', otherProps);
 
-	reload() {
-		this._tableRef.current.reload();
-	}
+	return (
+		<Modal className={className} size='lg'>
+			<Modal.Header onClose={onClose} title={title} />
 
-	render() {
-		const {
-			context: {selectedItems: selectedItemsIOMap},
-			props: {
-				checkDisabled,
-				className,
-				columns,
-				dataSourceFn,
-				delta,
-				entityLabel,
-				instruction,
-				noResultsIcon,
-				onClose,
-				orderByField,
-				orderByOptions,
-				requireSelection,
-				selectedItems,
-				submitMessage,
-				title,
-				...otherProps
-			}
-		} = this;
+			<Modal.Body>
+				<div className='text-secondary'>{instruction}</div>
+			</Modal.Body>
 
-		return (
-			<Modal className={className} size='lg'>
-				<Modal.Header onClose={onClose} title={title} />
+			<CrossPageSelect
+				autoFocusSearch
+				checkDisabled={checkDisabled}
+				columns={columns}
+				dataSourceFn={dataSourceFn}
+				delta={delta}
+				entityLabel={entityLabel}
+				error={error}
+				items={data?.items}
+				loading={loading}
+				noResultsIcon={noResultsIcon}
+				onDeltaChange={onDeltaChange}
+				onFilterByChange={onFilterByChange}
+				onOrderIOMapChange={onOrderIOMapChange}
+				onPageChange={onPageChange}
+				onQueryChange={onQueryChange}
+				orderByOptions={orderByOptions}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				rowIdentifier='id'
+				selectedItems={selectedItems.map(({id}) => id)}
+				selectedItemsIOMap={selectedItems}
+				showCheckbox
+				total={data?.total}
+			>
+				{props => <ListComponent {...props} pageDisplay={false} />}
+			</CrossPageSelect>
 
-				<Modal.Body>
-					<div className='text-secondary'>{instruction}</div>
-				</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={onClose}>
+					{Liferay.Language.get('cancel')}
+				</Button>
 
-				<SearchableTable
-					{...omitDefinedProps(
-						otherProps,
-						SearchableTableModal.propTypes
-					)}
-					autoFocus
-					checkDisabled={checkDisabled}
-					columns={columns}
-					dataSourceFn={dataSourceFn}
-					delta={delta}
-					entityLabel={entityLabel}
-					noResultsIcon={noResultsIcon}
-					orderByField={orderByField}
-					orderByOptions={orderByOptions}
-					ref={this._tableRef}
-					rowIdentifier='id'
-					selectedItems={selectedItems.map(({id}) => id)}
-					selectedItemsIOMap={selectedItemsIOMap}
-					showCheckbox
-				/>
-
-				<Modal.Footer>
-					<Button onClick={onClose}>
-						{Liferay.Language.get('cancel')}
-					</Button>
-
-					<Button
-						disabled={requireSelection && !selectedItemsIOMap.size}
-						display='primary'
-						onClick={this.handleSubmit}
-					>
-						{submitMessage}
-					</Button>
-				</Modal.Footer>
-			</Modal>
-		);
-	}
-}
+				<Button
+					disabled={requireSelection && !selectedItems.size}
+					display='primary'
+					onClick={() => onSubmit(selectedItems, refetch)}
+				>
+					{submitMessage}
+				</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+};
 
 export default withSelectionProvider(SearchableTableModal);

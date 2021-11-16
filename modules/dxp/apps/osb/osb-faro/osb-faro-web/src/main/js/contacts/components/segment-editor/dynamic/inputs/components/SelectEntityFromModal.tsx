@@ -1,4 +1,3 @@
-import FaroConstants from 'shared/util/constants';
 import Form from 'shared/components/form';
 import getCN from 'classnames';
 import Input from 'shared/components/Input';
@@ -9,10 +8,7 @@ import {Columns} from 'shared/types';
 import {connect, ConnectedProps} from 'react-redux';
 import {detailsListColumns} from 'shared/util/table-columns';
 import {OrderedMap} from 'immutable';
-
-const {
-	pagination: {orderDescending}
-} = FaroConstants;
+import {OrderParams} from 'shared/util/records';
 
 const connector = connect(null, {close, open});
 
@@ -21,19 +17,16 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface ISelectEntityFromModalProps extends PropsFromRedux {
 	columns: Columns;
 	dataSourceFn?: (params: {[key: string]: any}) => typeof Promise;
-	delta?: number;
 	entity: {dataSourceName?: string; [key: string]: any};
 	error: boolean;
 	graphqlProps?: {[key: string]: any};
 	groupId?: string;
+	initialDelta?: number;
+	initialOrderIOMap: OrderedMap<string, OrderParams>;
 	noResultsIcon?: string;
 	noResultsProps?: {[key: string]: any};
 	onSubmit: (items: OrderedMap<string, object>) => void;
-	orderBy?: string;
-	orderByField?: string;
 	orderByOptions?: {label: string; value: any}[];
-	page?: number;
-	query?: string;
 	renderEntity: (entity: any) => React.ReactNode;
 	submitMessage?: string;
 	title: string;
@@ -43,14 +36,13 @@ const SelectEntityFromModal: React.FC<ISelectEntityFromModalProps> = ({
 	close,
 	columns,
 	dataSourceFn,
-	delta = 10,
 	entity,
 	error,
 	graphqlProps,
 	groupId,
+	initialDelta = 10,
+	initialOrderIOMap,
 	onSubmit,
-	orderBy = orderDescending,
-	orderByField,
 	open,
 	renderEntity,
 	submitMessage = Liferay.Language.get('add'),
@@ -73,17 +65,16 @@ const SelectEntityFromModal: React.FC<ISelectEntityFromModalProps> = ({
 					sortable: false
 				}
 			],
-			delta,
-			groupId,
+			dataSourceParams: {groupId},
+			initialDelta,
+			initialOrderIOMap,
+			initialSelectedItems: entity ? [entity] : undefined,
 			onClose: close,
 			onSubmit: (items: OrderedMap<string, object>) => {
 				onSubmit(items);
 
 				close();
 			},
-			orderBy,
-			orderByField,
-			selectedItems: entity ? [entity] : undefined,
 			submitMessage,
 			title,
 			...otherProps

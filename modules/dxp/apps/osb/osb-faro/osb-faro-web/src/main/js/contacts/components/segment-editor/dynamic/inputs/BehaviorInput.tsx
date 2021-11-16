@@ -12,7 +12,7 @@ import {
 } from '../utils/constants';
 import {activityAssetsListColumns} from 'shared/util/table-columns';
 import {AssetNames} from 'shared/util/constants';
-import {buildOrderByFields, COUNT} from 'shared/util/pagination';
+import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {Criterion, ISegmentEditorCustomInputBase} from '../utils/types';
 import {CustomValue} from 'shared/util/records';
 import {
@@ -120,7 +120,7 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 	}
 
 	@autobind
-	assetsDataFn({delta, orderBy, orderByField, page, query}) {
+	assetsDataFn({delta, orderIOMap, page, query}) {
 		const {
 			channelId,
 			groupId,
@@ -134,10 +134,7 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 			delta,
 			eventId: name,
 			groupId,
-			orderByFields: buildOrderByFields({
-				field: orderByField,
-				sortOrder: orderBy
-			}),
+			orderIOMap,
 			query
 		});
 	}
@@ -362,9 +359,9 @@ export class BehaviorInput extends React.Component<IBehaviorInputProps> {
 						entity={this.getAssetFromContext()}
 						error={touched.asset && !valid.asset}
 						groupId={groupId}
+						initialOrderIOMap={createOrderIOMap(COUNT)}
 						noResultsIcon='web-content'
 						onSubmit={this.handleAssetSelect}
-						orderByField={COUNT}
 						orderByOptions={[
 							{
 								label,
