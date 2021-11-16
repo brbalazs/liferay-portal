@@ -219,4 +219,5 @@ const Table: React.FC<ITableProps> = ({
 	);
 };
 
+export {Column};
 export default Table;
