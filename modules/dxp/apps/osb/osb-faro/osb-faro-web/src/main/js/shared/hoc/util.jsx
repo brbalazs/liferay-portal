@@ -48,11 +48,19 @@ export const withEmpty = (options = {}) => Component => ({
 	data,
 	error,
 	loading,
+	noResultsRenderer,
+	noResultsRendererProps,
 	total,
 	...props
 }) => {
 	if (((data && data.total === 0) || total === 0) && !loading && !error) {
-		return <NoResultsDisplay {...options} />;
+		if (noResultsRenderer) {
+			const NoResults = noResultsRenderer;
+
+			return <NoResults />;
+		}
+
+		return <NoResultsDisplay {...options} {...noResultsRendererProps} />;
 	}
 
 	return (
@@ -77,8 +85,8 @@ export const withLoading = (options = {}) => Component => ({
 	data,
 	fadeIn = true,
 	inline = false,
-	pageDisplay = true,
 	loading,
+	pageDisplay = true,
 	...otherProps
 }) => {
 	if (loading) {

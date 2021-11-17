@@ -40,6 +40,7 @@ const withEmpty = ({
 	entityLabel,
 	items,
 	noResultsProps,
+	noResultsRenderer,
 	query,
 	total,
 	...otherProps
@@ -52,6 +53,12 @@ const withEmpty = ({
 			/>
 		);
 	} else if (items && !items.length && !total) {
+		if (noResultsRenderer) {
+			const NoResults = noResultsRenderer;
+
+			return <NoResults />;
+		}
+
 		return (
 			<NoResultsDisplay
 				description={emptyDescription}
