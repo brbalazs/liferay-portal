@@ -1,19 +1,14 @@
-import Constants from 'shared/util/constants';
 import CustomSelectEntityInput from './components/CustomSelectEntityInput';
 import OrganizationsQuery from '../queries/OrganizationsQuery';
 import React, {useEffect} from 'react';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {EntityType} from '../context/referencedObjects';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
 } from '../mappers/dxp-entity-bag-mapper';
 import {ISegmentEditorCustomInputBase} from '../utils/types';
-import {NAME} from 'shared/util/pagination';
 import {organizationsListColumns} from 'shared/util/table-columns';
-
-const {
-	pagination: {orderAscending}
-} = Constants;
 
 interface IOrganizationSelectProps extends ISegmentEditorCustomInputBase {
 	touched: boolean;
@@ -52,8 +47,7 @@ const OrganizationSelectInput: React.FC<IOrganizationSelectProps> = ({
 				mapPropsToOptions,
 				mapResultToProps: getMapResultToProps('organizations')
 			}}
-			orderBy={orderAscending}
-			orderByField={NAME}
+			initialOrderIOMap={createOrderIOMap(NAME)}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),
