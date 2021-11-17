@@ -48,7 +48,7 @@ const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 	toolbarProps, // TODO: remove toolbarProps
 	...otherProps
 }) => {
-	console.log(toolbarProps);
+	console.log(toolbarProps); // TODO: REmove me
 
 	const {
 		filterBy: stagedFilterBy,

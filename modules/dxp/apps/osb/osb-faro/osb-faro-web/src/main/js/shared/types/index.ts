@@ -62,8 +62,7 @@ export interface IPagination {
 	query: string;
 }
 
-export interface IPaginationUnsorted
-	extends Omit<IPagination, 'orderBy' | 'orderByField'> {}
+export interface IPaginationUnsorted extends Omit<IPagination, 'orderIOMap'> {}
 
 export type RangeSelectors = {
 	rangeEnd: string;

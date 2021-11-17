@@ -10,8 +10,6 @@ import Sheet from 'shared/components/Sheet';
 import withBaseEdit from 'contacts/hoc/segment/WithBaseEdit';
 import {Changeset} from 'shared/util/records';
 import {get} from 'lodash';
-import {NAME} from 'shared/util/pagination';
-import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {Routes, SEGMENTS, toRoute} from 'shared/util/router';
 import {Segment} from 'shared/util/records';
@@ -19,20 +17,13 @@ import {SegmentTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 
 export class StaticSegmentEdit extends React.Component {
-	static defaultProps = {
-		...paginationDefaults,
-		orderByField: NAME
-	};
-
 	static propTypes = {
-		...paginationConfig,
 		channelId: PropTypes.string,
 		editing: PropTypes.bool.isRequired,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string,
 		onDelete: PropTypes.bool,
 		onSubmit: PropTypes.func,
-		orderByField: PropTypes.string,
 		segment: PropTypes.instanceOf(Segment)
 	};
 
@@ -193,20 +184,7 @@ export class StaticSegmentEdit extends React.Component {
 
 	render() {
 		const {
-			props: {
-				channelId,
-				delta,
-				editing,
-				filterBy,
-				groupId,
-				id,
-				onDelete,
-				orderBy,
-				orderByField,
-				page,
-				query,
-				segment
-			},
+			props: {channelId, editing, groupId, id, onDelete, segment},
 			state: {changeset}
 		} = this;
 
@@ -276,11 +254,9 @@ export class StaticSegmentEdit extends React.Component {
 										<SegmentEditStatic
 											changeset={changeset}
 											channelId={channelId}
-											delta={delta}
 											entityLabel={Liferay.Language.get(
 												'individuals'
 											)}
-											filterBy={filterBy}
 											groupId={groupId}
 											id={id}
 											membershipCount={
@@ -291,10 +267,6 @@ export class StaticSegmentEdit extends React.Component {
 											onChange={
 												this.handleStaticSegmentUpdate
 											}
-											orderBy={orderBy}
-											orderByField={orderByField}
-											page={page}
-											query={query}
 										/>
 										{/* eslint-enable react/jsx-handler-names */}
 									</div>

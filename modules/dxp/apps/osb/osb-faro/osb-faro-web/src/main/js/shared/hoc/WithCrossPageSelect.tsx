@@ -25,7 +25,7 @@ export type SearchFnType = ({items, query}: SearchArgs) => OrderedMap<any, any>;
 /**
  * Function for local search on items.
  */
-export const defaultSearch: SearchFnType = ({items, query}) =>
+export const defaultSearch: SearchFnType = ({items, query}: SearchArgs) =>
 	items.filter(
 		item =>
 			Object.values(get(item, 'properties', {})).some((value: any) =>
@@ -70,6 +70,18 @@ export const fetchLocalData = ({
 	page,
 	query,
 	searchSelectedFn = defaultSearch
+}: {
+	delta: number;
+	items: OrderedMap<any, any>;
+	filterBy?: FilterByType;
+	orderIOMap: OrderedMap<string, OrderParams>;
+	page: number;
+	query?: string;
+	searchSelectedFn?: ({
+		filterBy,
+		items,
+		query
+	}: SearchArgs) => OrderedMap<any, any>;
 }) => {
 	const start = (page - 1) * delta;
 
@@ -152,12 +164,12 @@ export const withSelection: (
 					type: checked ? ACTION_TYPES.add : ACTION_TYPES.remove
 				});
 			},
-			selectEntirePage: allChecked,
-			selectEntirePageIndeterminate:
-				!allChecked && !selectedItems.isEmpty(),
 			onSelectItemsChange: item =>
 				selectionDispatch({payload: {item}, type: ACTION_TYPES.toggle}),
 			selectedItemsIOMap: selectedItems,
+			selectEntirePage: allChecked,
+			selectEntirePageIndeterminate:
+				!allChecked && !selectedItems.isEmpty(),
 			showCheckbox
 		};
 
@@ -253,17 +265,17 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 
 			const [showSelected, setShowSelected] = useState(false);
 
-			const {
-				delta,
-				filterBy: stagedFilterBy,
-				onOrderByFieldsChange,
-				orderBy,
-				orderByField,
-				page,
-				query,
-				toolbarProps: stagedToolbarProps,
-				...otherStagedProps
-			} = stagedProps;
+			// const {
+			// 	delta,
+			// 	filterBy: stagedFilterBy,
+			// 	onOrderByFieldsChange,
+			// 	orderBy,
+			// 	orderByField,
+			// 	page,
+			// 	query,
+			// 	toolbarProps: stagedToolbarProps,
+			// 	...otherStagedProps
+			// } = stagedProps;
 
 			useEffect(() => {
 				if (selectedItems.isEmpty() && showSelected) {
@@ -283,18 +295,15 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 
 			const passThruProps = showSelected
 				? {
+						...otherProps,
+						...otherStagedProps,
 						delta,
 						filterBy: stagedFilterBy,
 						onDeltaChange,
-
-						...otherProps,
-						...otherStagedProps,
-						filterBy: stagedFilterBy,
 						onFilterByChange: onStagedFilterByChange,
-						onPageChange: onStagedPageChange,
 						onOrderIOMapChange,
+						onPageChange: onStagedPageChange,
 						onQueryChange: onStagedQueryChange,
-						onFilterByChange: onStagedFilterByChange,
 						orderIOMap,
 						page: stagedPage,
 						query: stagedQuery,
