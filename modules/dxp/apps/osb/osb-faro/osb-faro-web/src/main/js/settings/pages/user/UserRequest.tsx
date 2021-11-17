@@ -1,94 +1,55 @@
 import * as API from 'shared/api';
-import React, {useRef} from 'react';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
+import ListComponent from 'shared/hoc/ListComponent';
+import React from 'react';
 import RequestActionsRenderer from 'settings/components/user-list/RequestActionsRenderer';
-import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withAdminPermission} from 'shared/hoc';
-import {connect} from 'react-redux';
-import {
-	EMAIL_ADDRESS,
-	FIRST_NAME,
-	LAST_NAME,
-	NAME,
-	paginationDefaults
-} from 'shared/util/pagination';
+import {connect, ConnectedProps} from 'react-redux';
+import {createOrderIOMap, EMAIL_ADDRESS, NAME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
+import {useQueryPagination, useRequest} from 'shared/hooks';
 import {UserStatuses} from 'shared/util/constants';
 
-type UserRequestProps = {
-	close: () => void;
-	delta?: string;
+const connector = connect(null, {addAlert, close, open});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IUserRequestProps extends PropsFromRedux {
 	groupId: string;
 	onSetUserRequest: (userRequest: number) => void;
-	open: (modalType: string, options: object) => void;
-	orderBy?: string;
-	orderByField?: string;
-	page?: string;
-	query?: string;
-};
+}
 
-const getUsers = ({
-	delta,
-	groupId,
-	orderBy,
-	orderByField,
-	page,
-	query
-}: UserRequestProps) => {
-	const getOrderByFields = () =>
-		orderByField && orderByField !== 'name'
-			? [
-					{
-						fieldName: orderByField,
-						orderBy
-					}
-			  ]
-			: [
-					{
-						fieldName: FIRST_NAME,
-						orderBy
-					},
-					{
-						fieldName: LAST_NAME,
-						orderBy
-					}
-			  ];
-
-	return API.user.fetchMany({
-		cur: page,
-		delta,
-		groupId,
-		orderByFields: getOrderByFields(),
-		query,
-		statuses: [UserStatuses.Requested]
-	});
-};
-
-export const UserRequest: React.FC<UserRequestProps> = ({
+const UserRequest: React.FC<IUserRequestProps> = ({
 	close,
-	delta = paginationDefaults.delta,
 	groupId,
-	open,
 	onSetUserRequest,
-	orderBy = paginationDefaults.orderBy,
-	orderByField = paginationDefaults.orderByField,
-	page = paginationDefaults.page,
-	query = paginationDefaults.query
+	open
 }) => {
-	const tableRef = useRef<any>();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME)
+	});
 
-	const handleGetUsers = params =>
-		getUsers(params).then(data => {
-			onSetUserRequest(data.total);
+	const {data, error, loading, refetch} = useRequest({
+		dataSourceFn: params =>
+			API.user.fetchMany(params).then(data => {
+				onSetUserRequest(data.total);
 
-			return data;
-		});
+				return data;
+			}),
+		variables: {
+			delta,
+			groupId,
+			orderIOMap,
+			page,
+			query,
+			statuses: [UserStatuses.Requested]
+		}
+	});
 
-	const onAccept = response => {
-		const {emailAddress, id} = response;
-
+	const onAccept = ({emailAddress, id}) => {
 		open(modalTypes.CONFIRMATION_MODAL, {
 			message: sub(
 				Liferay.Language.get('are-you-sure-you-want-to-accept-x'),
@@ -106,7 +67,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 							message: Liferay.Language.get('user-added')
 						});
 
-						tableRef.current.reload();
+						refetch();
 					})
 					.catch(() => {
 						addAlert({
@@ -138,7 +99,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 							)
 						});
 
-						tableRef.current.reload();
+						refetch();
 					})
 					.catch(() => {
 						addAlert({
@@ -151,7 +112,7 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 	};
 
 	return (
-		<SearchableTableWithStaged
+		<CrossPageSelect
 			columns={[
 				{
 					accessor: 'name',
@@ -172,13 +133,14 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					className: 'text-right'
 				}
 			]}
-			dataSourceFn={handleGetUsers}
-			dataSourceParams={{groupId}}
-			delta={parseInt(delta as string)}
+			delta={delta}
+			emptyMessage={sub(Liferay.Language.get('there-are-no-x-found'), [
+				Liferay.Language.get('users')
+			])}
 			entityLabel={Liferay.Language.get('users')}
-			navRenderer={null}
-			orderBy={orderBy}
-			orderByField={orderByField}
+			error={error}
+			items={data?.items}
+			loading={loading}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),
@@ -189,15 +151,15 @@ export const UserRequest: React.FC<UserRequestProps> = ({
 					value: EMAIL_ADDRESS
 				}
 			]}
-			page={parseInt(page as string)}
+			orderIOMap={orderIOMap}
+			page={page}
 			query={query}
-			ref={tableRef}
 			showCheckbox={false}
-		/>
+			total={data?.total}
+		>
+			{props => <ListComponent {...props} />}
+		</CrossPageSelect>
 	);
 };
 
-export default compose<any>(
-	withAdminPermission,
-	connect(null, {addAlert, close, open})
-)(UserRequest);
+export default compose<any>(withAdminPermission, connector)(UserRequest);
