@@ -29,6 +29,7 @@ export default class BaseResults extends React.Component {
 		placeholder: Liferay.Language.get('search'),
 		query: '',
 		showCheckbox: false,
+		showFilterAndOrder: true,
 		showPagination: true,
 		showSearch: true,
 		toolbarProps: {}
@@ -63,6 +64,7 @@ export default class BaseResults extends React.Component {
 		renderSubNav: PropTypes.func,
 		resultsRenderer: PropTypes.func.isRequired,
 		showCheckbox: PropTypes.bool,
+		showFilterAndOrder: PropTypes.bool,
 		showPagination: PropTypes.bool,
 		showSearch: PropTypes.bool,
 		toolbarProps: PropTypes.object
@@ -356,12 +358,15 @@ export default class BaseResults extends React.Component {
 				query,
 				renderSubnav,
 				showCheckbox,
+				showFilterAndOrder,
 				showPagination,
 				showSearch,
 				toolbarProps // TODO: No more toolbar PRops
 			},
 			state: {disableSearch, error, items, loading, searchValue, total}
 		} = this;
+
+		console.log('remove me', toolbarProps);
 
 		const allChecked = this.allChecked();
 
@@ -384,7 +389,7 @@ export default class BaseResults extends React.Component {
 					maxLength={maxLength}
 					onFilterByChange={onFilterByChange}
 					onOrderIOMapChange={onOrderIOMapChange}
-					onSearchSubmit={onQueryChange}
+					onQueryChange={onQueryChange}
 					onSearchValueChange={this.handleSearchValueChange}
 					onSelectEntirePage={this.handleCheckAll}
 					orderByOptions={orderByOptions}
@@ -397,6 +402,7 @@ export default class BaseResults extends React.Component {
 						!allChecked && !selectedItemsIOMap.isEmpty()
 					}
 					showCheckbox={showCheckbox}
+					showFilterAndOrder={showFilterAndOrder}
 					showSearch={showSearch}
 					total={total}
 					{...toolbarProps}

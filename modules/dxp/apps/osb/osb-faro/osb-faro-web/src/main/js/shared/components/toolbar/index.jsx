@@ -81,7 +81,7 @@ export default class Toolbar extends React.Component {
 		maxLength: PropTypes.number,
 		onFilterByChange: PropTypes.func,
 		onOrderIOMapChange: PropTypes.func,
-		onSearchSubmit: PropTypes.func,
+		onQueryChange: PropTypes.func,
 		onSearchValueChange: PropTypes.func,
 		onSelectAll: PropTypes.func,
 		onSelectEntirePage: PropTypes.func,
@@ -123,19 +123,14 @@ export default class Toolbar extends React.Component {
 
 	@autobind
 	handleClearAllFilters() {
-		const {
-			filterBy,
-			history,
-			onFilterByChange,
-			onSearchSubmit
-		} = this.props;
+		const {filterBy, history, onFilterByChange, onQueryChange} = this.props;
 
 		const emptyFilterBy = filterBy.map(() => new Set([]));
 
 		this.props.onSearchValueChange('');
 
-		if (onSearchSubmit || onFilterByChange) {
-			onSearchSubmit && onSearchSubmit('');
+		if (onQueryChange || onFilterByChange) {
+			onQueryChange && onQueryChange('');
 
 			onFilterByChange && onFilterByChange(emptyFilterBy);
 		} else {
@@ -218,10 +213,10 @@ export default class Toolbar extends React.Component {
 
 	@autobind
 	handleSearchSubmit(query) {
-		const {history, onSearchSubmit} = this.props;
+		const {history, onQueryChange} = this.props;
 
-		onSearchSubmit
-			? onSearchSubmit(query)
+		onQueryChange
+			? onQueryChange(query)
 			: history.push(
 					setUriQueryValues({
 						page: defaultPage,

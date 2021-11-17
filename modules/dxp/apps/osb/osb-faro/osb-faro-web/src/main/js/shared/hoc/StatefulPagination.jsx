@@ -3,6 +3,7 @@ import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {invoke, isFunction} from 'lodash';
 import {Map} from 'immutable';
 
@@ -12,24 +13,25 @@ const {
 
 // TODO: update "default" to "initial"
 const DEFAULT_PAGINATION_PROPS = {
-	defaultDelta: DEFAULT_DELTA,
-	defaultFilterBy: new Map(),
-	defaultPage: DEFAULT_PAGE,
-	defaultQuery: ''
+	initialDelta: DEFAULT_DELTA,
+	initialFilterBy: new Map(),
+	initialOrderIOMap: createOrderIOMap(NAME),
+	initialPage: DEFAULT_PAGE,
+	initialQuery: ''
 };
 
 export default function withStatefulPagination(
 	WrappedComponent,
-	defaultPaginationProps,
+	initialPaginationProps,
 	mapPropsFn,
 	useRef = true
 ) {
-	const getDefaultProps = props => {
-		const defaultProps = isFunction(defaultPaginationProps)
-			? defaultPaginationProps(props)
-			: defaultPaginationProps;
+	const getInitialProps = props => {
+		const initialProps = isFunction(initialPaginationProps)
+			? initialPaginationProps(props)
+			: initialPaginationProps;
 
-		return {...DEFAULT_PAGINATION_PROPS, ...defaultProps};
+		return {...DEFAULT_PAGINATION_PROPS, ...initialProps};
 	};
 
 	class StatefulPagination extends React.Component {
@@ -45,20 +47,19 @@ export default function withStatefulPagination(
 			super(props);
 
 			const {
-				defaultDelta,
-				defaultFilterBy,
-				defaultPage,
-				defaultQuery
-			} = getDefaultProps(props);
-
-			const {initialOrderIOMap} = this.props;
+				initialDelta,
+				initialFilterBy,
+				initialOrderIOMap,
+				initialPage,
+				initialQuery
+			} = getInitialProps(props);
 
 			this.state = {
-				delta: defaultDelta,
-				filterBy: defaultFilterBy,
-				orderIOMap: initialOrderIOMap, // TODO: Figure out way to set default state for this. maybe initialOrderIOMap?
-				page: defaultPage,
-				query: defaultQuery
+				delta: initialDelta,
+				filterBy: initialFilterBy,
+				orderIOMap: initialOrderIOMap,
+				page: initialPage,
+				query: initialQuery
 			};
 
 			this._wrappedComponentRef = React.createRef();
@@ -120,28 +121,32 @@ export default function withStatefulPagination(
 				state: {delta, filterBy, orderIOMap, page, query}
 			} = this;
 
+			console.log('remove us', paginationProps, toolbarProps);
+
 			const statefulProps = {
 				delta,
 				filterBy,
-				onOrderByFieldChange: this.handleOrderByFieldsChange,
-				onOrderByFieldsChange: this.handleOrderByFieldsChange,
+				onDeltaChange: this.handleDeltaChange,
+				onFilterByChange: this.handleFilterByChange,
 				onOrderIOMapChange: this.handleOrderIOMapChange,
+				onPageChange: this.handlePageChange,
+				onQueryChange: this.handleQueryChange,
 				onSearchValueChange: this.handleQueryChange,
 				orderIOMap,
 				page,
-				paginationProps: {
-					...paginationProps,
-					onDeltaChange: this.handleDeltaChange,
-					onPageChange: this.handlePageChange
-				},
-				query,
-				toolbarProps: {
-					...toolbarProps,
-					onFilterByChange: this.handleFilterByChange,
-					onOrderByFieldChange: this.handleOrderByFieldChange,
-					onOrderClick: this.handleOrderByChange,
-					onSearchSubmit: this.handleQueryChange
-				}
+				// paginationProps: { // TODO: Get rid of paginationProps
+				// 	...paginationProps,
+				// 	onDeltaChange: this.handleDeltaChange,
+				// 	onPageChange: this.handlePageChange
+				// },
+				query
+				// toolbarProps: { // TODO: Get rid of toolbarProps
+				// 	...toolbarProps,
+				// 	onFilterByChange: this.handleFilterByChange,
+				// 	onOrderByFieldChange: this.handleOrderByFieldChange,
+				// 	onOrderClick: this.handleOrderByChange,
+				// 	onSearchSubmit: this.handleQueryChange
+				// }
 			};
 
 			const mappedStatefulProps = mapPropsFn

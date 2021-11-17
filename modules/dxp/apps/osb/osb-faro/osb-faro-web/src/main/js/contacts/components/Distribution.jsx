@@ -3,7 +3,6 @@ import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
-import Constants, {FieldContexts, FieldTypes} from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
@@ -48,6 +47,8 @@ import {
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
+import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {getBarColor} from 'shared/util/charts';
 import {getFinitePercent} from 'shared/util/numbers';
 import {hasChanges} from 'shared/util/react';
@@ -58,23 +59,10 @@ import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
-const {
-	pagination: {orderDefault}
-} = Constants;
-
 const SearchableEntityTableHOC = withStatefulPagination(
 	SearchableEntityTable,
 	{
-		defaultOrderByFields: [
-			{
-				fieldName: GIVEN_NAME,
-				orderBy: orderDefault
-			},
-			{
-				fieldName: FAMILY_NAME,
-				orderBy: orderDefault
-			}
-		]
+		initialOrderIOMap: createOrderIOMap(NAME)
 	},
 	props => omit(props, 'onSearchValueChange')
 );
@@ -240,7 +228,7 @@ export class Distribution extends React.Component {
 		delta,
 		fieldMappingSelected: {name: propertyName},
 		filter,
-		orderBy,
+		orderIOMap
 		page,
 		query
 	}) {
@@ -253,12 +241,7 @@ export class Distribution extends React.Component {
 				groupId,
 				includePropertyNames: [propertyName],
 				individualSegmentId: id,
-				orderByFields: [
-					{
-						fieldName: ACCOUNT_NAME,
-						orderBy
-					}
-				],
+				orderIOMap,
 				page,
 				query
 			})
@@ -354,7 +337,7 @@ export class Distribution extends React.Component {
 		delta,
 		fieldMappingSelected: {name: propertyName},
 		filter,
-		orderBy,
+		orderIOMap,
 		page,
 		query
 	}) {
@@ -367,16 +350,7 @@ export class Distribution extends React.Component {
 				groupId,
 				includePropertyNames: [propertyName],
 				individualSegmentId: id,
-				orderByFields: [
-					{
-						fieldName: GIVEN_NAME,
-						orderBy
-					},
-					{
-						fieldName: FAMILY_NAME,
-						orderBy
-					}
-				],
+				orderIOMap,
 				page,
 				query
 			})
@@ -538,12 +512,16 @@ export class Distribution extends React.Component {
 			props: {
 				channelId,
 				contextOptions,
+				delta,
 				error,
 				fieldDistributionIList,
 				groupId,
 				hasSelectedPoint,
 				knownIndividualCount,
 				loading,
+				orderIOMap,
+				page,
+				query,
 				selectedPoint
 			},
 			state: {
@@ -925,6 +903,11 @@ export class Distribution extends React.Component {
 								filter: this.getFilter(),
 								selectedPoint
 							}}
+							delta={delta}
+							orderIOmap={orderIOMap}
+							page={page}
+							query={query}
+							showFilterAndOrder={false}
 							rowIdentifier='id'
 						/>
 					</CollapsibleOverlay>
