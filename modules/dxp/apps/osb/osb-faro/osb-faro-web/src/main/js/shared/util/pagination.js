@@ -1,6 +1,12 @@
 import FaroConstants, {OrderByDirections} from 'shared/util/constants';
 import PropTypes from 'prop-types';
-import {ACCOUNTS, INDIVIDUALS, SEGMENTS, USERS} from 'shared/util/router';
+import {
+	ACCOUNTS,
+	INDIVIDUALS,
+	PAGES,
+	SEGMENTS,
+	USERS
+} from 'shared/util/router';
 import {get, last} from 'lodash';
 import {Map, OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
@@ -157,6 +163,8 @@ export function buildOrderByFields({field, sortOrder}, entityType) {
 		return [FIRST_NAME, LAST_NAME].map(columnAccessor =>
 			createOrderByField(columnAccessor, sortOrder)
 		);
+	} else if (entityType === PAGES && field === TITLE) {
+		return [createOrderByField(TITLE, sortOrder, true)];
 	} else {
 		return [createOrderByField(field, sortOrder)];
 	}

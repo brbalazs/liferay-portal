@@ -1,20 +1,15 @@
 import * as API from 'shared/api';
-import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import {
-	buildOrderByFields,
+	createOrderIOMap,
 	TITLE,
 	UNIQUE_VISITS_COUNT,
 	URL
 } from 'shared/util/pagination';
-import {PAGES} from 'shared/util/router';
 import {pagesListColumns} from 'shared/util/table-columns';
 import {Routes} from 'shared/util/router';
-
-const {
-	pagination: {orderAscending, orderDescending}
-} = FaroConstants;
+import {useQueryPagination} from 'shared/hooks';
 
 const PAGES_ORDER_BY_OPTIONS = [
 	{
@@ -27,84 +22,77 @@ const PAGES_ORDER_BY_OPTIONS = [
 	}
 ];
 
-function fetchPagesVisited({active, orderBy, orderByField, ...otherParams}) {
-	return API.pagesVisited.search({
-		...otherParams,
-		active,
-		orderByFields: buildOrderByFields(
-			{field: orderByField, sortOrder: orderBy},
-			PAGES
-		)
+const ActivePagesList = ({channelId, groupId, ...otherProps}) => {
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(UNIQUE_VISITS_COUNT)
 	});
-}
 
-const ActivePagesList = ({
-	channelId,
-	groupId,
-	orderBy = orderDescending,
-	orderByField = UNIQUE_VISITS_COUNT,
-	...otherProps
-}) => (
-	<SearchableEntityTable
-		columns={[
-			pagesListColumns.getTitleUrl({
-				channelId,
-				groupId,
-				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
-			}),
-			pagesListColumns.url,
-			pagesListColumns.viewCount
-		]}
-		orderBy={orderBy}
-		orderByField={orderByField}
-		orderByOptions={[
-			...PAGES_ORDER_BY_OPTIONS,
-			{
-				label: Liferay.Language.get('views'),
-				value: UNIQUE_VISITS_COUNT
-			}
-		]}
-		{...otherProps}
-	/>
-);
+	return (
+		<SearchableEntityTable
+			{...otherProps}
+			columns={[
+				pagesListColumns.getTitleUrl({
+					channelId,
+					groupId,
+					route: Routes.SITES_TOUCHPOINTS_OVERVIEW
+				}),
+				pagesListColumns.url,
+				pagesListColumns.viewCount
+			]}
+			delta={delta}
+			orderByOptions={[
+				...PAGES_ORDER_BY_OPTIONS,
+				{
+					label: Liferay.Language.get('views'),
+					value: UNIQUE_VISITS_COUNT
+				}
+			]}
+			orderIOMap={orderIOMap}
+			page={page}
+			query={query}
+		/>
+	);
+};
+const InactivePagesList = ({channelId, groupId, ...otherProps}) => {
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(URL)
+	});
 
-const InactivePagesList = ({
-	channelId,
-	groupId,
-	orderBy = orderAscending,
-	orderByField = URL,
-	...otherProps
-}) => (
-	<SearchableEntityTable
-		columns={[
-			pagesListColumns.getTitleUrl({
-				channelId,
-				groupId,
-				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
-			}),
-			pagesListColumns.url,
-			pagesListColumns.inactiveViewCount
-		]}
-		orderBy={orderBy}
-		orderByField={orderByField}
-		orderByOptions={PAGES_ORDER_BY_OPTIONS}
-		{...otherProps}
-	/>
-);
+	return (
+		<SearchableEntityTable
+			{...otherProps}
+			columns={[
+				pagesListColumns.getTitleUrl({
+					channelId,
+					groupId,
+					route: Routes.SITES_TOUCHPOINTS_OVERVIEW
+				}),
+				pagesListColumns.url,
+				pagesListColumns.inactiveViewCount
+			]}
+			delta={delta}
+			orderByOptions={PAGES_ORDER_BY_OPTIONS}
+			orderIOMap={orderIOMap}
+			page={page}
+			query={query}
+		/>
+	);
+};
 
 const InterestPagesList = ({dataSourceParams, ...otherProps}) => {
 	const {active} = dataSourceParams;
 
-	const sharedProps = {
-		dataSourceFn: fetchPagesVisited,
-		dataSourceParams,
-		entityLabel: Liferay.Language.get('pages'),
-		rowIdentifier: 'url'
-	};
-
 	const PagesListComponent = active ? ActivePagesList : InactivePagesList;
 
-	return <PagesListComponent {...otherProps} {...sharedProps} />;
+	return (
+		<PagesListComponent
+			{...otherProps}
+			dataSourceFn={API.pagesVisited.search}
+			dataSourceParams={dataSourceParams}
+			entityLabel={Liferay.Language.get('pages')}
+			rowIdentifier='url'
+		/>
+	);
 };
 
 export default InterestPagesList;

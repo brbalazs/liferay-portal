@@ -14,19 +14,16 @@ import {sub} from 'shared/util/lang';
 
 export default class InterestDetails extends React.Component {
 	static defaultProps = {
-		...omit(paginationDefaults, ['orderBy', 'orderByField']),
 		active: 'true'
 	};
 
 	static propTypes = {
-		...paginationConfig,
 		active: PropTypes.string,
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		individual: PropTypes.instanceOf(Individual).isRequired,
-		interestId: PropTypes.string.isRequired,
-		orderByField: PropTypes.string
+		interestId: PropTypes.string.isRequired
 	};
 
 	getNavigationItems() {
@@ -68,18 +65,7 @@ export default class InterestDetails extends React.Component {
 
 	render() {
 		const {
-			props: {
-				channelId,
-				delta,
-				filterBy,
-				groupId,
-				id,
-				interestId,
-				orderBy,
-				orderByField,
-				page,
-				query
-			}
+			props: {channelId, groupId, id, interestId}
 		} = this;
 
 		const interestName = decodeURIComponent(interestId);
@@ -143,13 +129,7 @@ export default class InterestDetails extends React.Component {
 							groupId,
 							interestName
 						}}
-						delta={Number(delta)}
-						filterBy={filterBy}
 						groupId={groupId}
-						orderBy={orderBy}
-						orderByField={orderByField}
-						page={Number(page)}
-						query={query}
 					/>
 				</Card>
 			</>
