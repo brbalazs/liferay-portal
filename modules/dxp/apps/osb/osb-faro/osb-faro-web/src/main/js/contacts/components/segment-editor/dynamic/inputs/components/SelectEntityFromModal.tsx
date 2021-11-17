@@ -6,6 +6,7 @@ import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {Columns} from 'shared/types';
 import {connect, ConnectedProps} from 'react-redux';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {detailsListColumns} from 'shared/util/table-columns';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
@@ -41,7 +42,7 @@ const SelectEntityFromModal: React.FC<ISelectEntityFromModalProps> = ({
 	graphqlProps,
 	groupId,
 	initialDelta = 10,
-	initialOrderIOMap,
+	initialOrderIOMap = createOrderIOMap(NAME),
 	onSubmit,
 	open,
 	renderEntity,

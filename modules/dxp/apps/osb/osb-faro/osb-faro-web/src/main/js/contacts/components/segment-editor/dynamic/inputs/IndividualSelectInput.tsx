@@ -1,8 +1,8 @@
-import Constants from 'shared/util/constants';
 import DXPUsersQuery from '../queries/DXPUsersQuery';
 import getDXPEntitiesQuery from '../queries/DXPEntitiesQuery';
 import React, {useEffect} from 'react';
 import SelectEntityInput from './components/SelectEntityInput';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {EntityType} from '../context/referencedObjects';
 import {
 	getMapResultToProps,
@@ -10,16 +10,11 @@ import {
 } from '../mappers/dxp-entity-bag-mapper';
 import {IPagination} from 'shared/types';
 import {ISegmentEditorInputBase} from '../utils/types';
-import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
 
 const QUERY_MAP = {
 	userId: DXPUsersQuery
 };
-
-const {
-	pagination: {orderAscending}
-} = Constants;
 
 export const ENTITY_MAP = {
 	groupIds: EntityType.Groups,
@@ -128,10 +123,9 @@ const IndividualSelectInput: React.FC<IIndividualSelectProps> = ({
 				mapPropsToOptions,
 				mapResultToProps: getMapResultToProps(graphqlEntityType)
 			}}
+			initialOrderIOMap={createOrderIOMap(NAME)}
 			onItemsChange={handleItemsChange}
 			onValidChange={onChange}
-			orderBy={orderAscending}
-			orderByField={NAME}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),

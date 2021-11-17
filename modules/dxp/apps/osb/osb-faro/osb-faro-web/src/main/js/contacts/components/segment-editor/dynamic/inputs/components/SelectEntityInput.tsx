@@ -11,6 +11,7 @@ import {
 import {get} from 'lodash';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {Map, OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 
 interface ISelectEntityInputProps {
 	columns: Columns;
@@ -20,6 +21,7 @@ interface ISelectEntityInputProps {
 	entityType: EntityType;
 	graphqlProps?: {[key: string]: any};
 	groupId?: string;
+	initialOrderIOMap?: OrderedMap<string, OrderParams>;
 	onItemsChange: (items: OrderedMap<string, any>) => void;
 	onValidChange: ({
 		touched,
@@ -28,8 +30,6 @@ interface ISelectEntityInputProps {
 		touched: boolean;
 		valid: boolean;
 	}) => void;
-	orderBy?: string;
-	orderByField?: string;
 	page?: number;
 	query?: string;
 	touched: boolean;
