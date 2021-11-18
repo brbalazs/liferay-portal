@@ -15,7 +15,14 @@ const withData = () =>
 	graphql(
 		CustomAssetsListQuery,
 		getMetricsMapper(result => ({
-			items: result.dashboards.dashboards,
+			items: result.dashboards.dashboards.map(dashboard => ({
+				...dashboard,
+				assetTitle:
+					dashboard.assetTitle ||
+					sub(Liferay.Language.get('untitled-asset-id-x'), [
+						dashboard.assetId
+					])
+			})),
 			total: result.dashboards.total
 		}))
 	);

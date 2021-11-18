@@ -688,11 +688,9 @@ export const metricsListColumns = {
 							assetId,
 							channelId,
 							groupId,
+							title: encodeURIComponent(assetTitle),
+							touchpoint: 'Any',
 							...(id && {id}),
-							...(assetTitle && {
-								title: encodeURIComponent(assetTitle)
-							}),
-							touchpoint: 'Any'
 						})
 					);
 				}
