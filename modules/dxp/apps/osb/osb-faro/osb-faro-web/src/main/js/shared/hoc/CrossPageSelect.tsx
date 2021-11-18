@@ -95,27 +95,29 @@ const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 		searchSelectedFn
 	});
 
-	return showSelected ? (
-		<ListComponent
-			{...otherProps}
-			delta={delta}
-			filterBy={stagedFilterBy}
-			onDeltaChange={onDeltaChange}
-			onFilterByChange={onStagedFilterByChange}
-			onOrderIOMapChange={onOrderIOMapChange}
-			onPageChange={onStagedPageChange}
-			onQueryChange={onStagedQueryChange}
-			orderIOMap={orderIOMap}
-			page={stagedPage}
-			query={stagedQuery}
-			renderViewSelectedToggle={renderViewSelectedToggle}
-			selectedItems={selectedItems}
-			selectionDispatch={selectionDispatch}
-			showCheckbox
-			{...localData}
-		/>
-	) : (
-		children({
+	if (showSelected) {
+		return (
+			<ListComponent
+				{...otherProps}
+				delta={delta}
+				filterBy={stagedFilterBy}
+				onDeltaChange={onDeltaChange}
+				onFilterByChange={onStagedFilterByChange}
+				onOrderIOMapChange={onOrderIOMapChange}
+				onPageChange={onStagedPageChange}
+				onQueryChange={onStagedQueryChange}
+				orderIOMap={orderIOMap}
+				page={stagedPage}
+				query={stagedQuery}
+				renderViewSelectedToggle={renderViewSelectedToggle}
+				selectedItems={selectedItems}
+				selectionDispatch={selectionDispatch}
+				showCheckbox
+				{...localData}
+			/>
+		);
+	} else {
+		const sharedProps = {
 			...otherProps,
 			delta,
 			filterBy,
@@ -131,8 +133,14 @@ const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 			selectedItems,
 			selectionDispatch,
 			showCheckbox
-		})
-	);
+		};
+
+		if (children) {
+			return children(sharedProps);
+		} else {
+			return <ListComponent {...sharedProps} />;
+		}
+	}
 };
 
 // const DefaultComponent = withStatefulPagination(
