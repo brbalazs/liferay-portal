@@ -234,7 +234,14 @@ public class ContentSetElement implements Serializable {
 
 			sb.append("\"content\": ");
 
-			sb.append(String.valueOf(content));
+			if (content instanceof String) {
+				sb.append("\"");
+				sb.append((String)content);
+				sb.append("\"");
+			}
+			else {
+				sb.append(content);
+			}
 		}
 
 		if (contentType != null) {
@@ -282,7 +289,14 @@ public class ContentSetElement implements Serializable {
 
 			sb.append("\"title_i18n\": ");
 
-			sb.append(String.valueOf(title_i18n));
+			if (title_i18n instanceof String) {
+				sb.append("\"");
+				sb.append((String)title_i18n);
+				sb.append("\"");
+			}
+			else {
+				sb.append(title_i18n);
+			}
 		}
 
 		sb.append("}");
