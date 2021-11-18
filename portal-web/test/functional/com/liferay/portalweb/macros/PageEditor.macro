@@ -15,6 +15,12 @@ definition {
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
+	macro clickConfigurableField {
+		Click(
+			key_fragmentName = "${fragmentName}",
+			locator1 = "Fragment#CONFIGURABLE_FIELD");
+	}
+
 	macro editFragmentImage {
 		MouseOver.mouseOverNotVisible(
 			key_fragmentName = "${fragmentName}",
