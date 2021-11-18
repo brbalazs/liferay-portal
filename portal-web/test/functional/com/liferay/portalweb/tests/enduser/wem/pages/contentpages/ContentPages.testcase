@@ -147,7 +147,7 @@ definition {
 			locator1 = "Fragment#FRAGMENT");
 	}
 
-	@description = "Edit an existing content page that has fragments. This testcase covers the bug found in LPS-85872."
+	@description = "Edit an existing content page that has fragments. This testcase covers the bug found in LPS-85872. LPS-76741 - Validate content page can be edited by Edit/View mode."
 	@priority = "5"
 	test EditContentPage {
 		property testray.component.names = "Training";
@@ -200,6 +200,28 @@ definition {
 			key_fragmentClass = "body",
 			key_position = "3",
 			locator1 = "Fragment#FRAGMENT");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Edit",
+			pageName = "Test Content Page Name");
+
+		AssertElementPresent(
+			key_tabName = "Available",
+			locator1 = "PageEditor#FRAGMENT_SIDEBAR_TAB");
+
+		Navigator.gotoBack();
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "View",
+			pageName = "Test Content Page Name");
+
+		ContentPages.gotoEdit();
+
+		AssertElementPresent(
+			key_tabName = "Available",
+			locator1 = "PageEditor#FRAGMENT_SIDEBAR_TAB");
 	}
 
 }
