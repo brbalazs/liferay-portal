@@ -1,0 +1,10 @@
+@default = "isConsoleTextPresent"
+definition {
+
+	function isConsoleTextPresent {
+		WaitForSPARefresh();
+
+		selenium.isConsoleTextPresent();
+	}
+
+}
