@@ -209,3 +209,14 @@ export const createOrderIOMap = (field, sortOrder) =>
 			sortOrder: sortOrder || getDefaultSortOrder(field)
 		})
 	});
+
+export const getSortFromOrderIOMap = orderIOMap => {
+	if (orderIOMap) {
+		const {field, sortOrder} = orderIOMap.first();
+
+		return {
+			column: field,
+			type: sortOrder
+		};
+	}
+};

@@ -7,7 +7,7 @@ const ListComponent = compose<any>(
 	withToolbar(),
 	withPaginationBar(),
 	withLoading(),
-	withError(),
+	withError({page: false}),
 	withEmpty()
 )(Table);
 

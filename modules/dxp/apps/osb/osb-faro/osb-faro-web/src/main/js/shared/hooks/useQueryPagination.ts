@@ -29,7 +29,13 @@ const useQueryPagination = ({
 	initialOrderIOMap, // TODO: should there be an initial here too with no values?
 	initialPage = defaultPage,
 	initialQuery = defaultQuery
-}: QueryPaginationParams) => {
+}: QueryPaginationParams): {
+	delta: number;
+	filterBy: FilterByType;
+	orderIOMap: OrderedMap<string, OrderParams>;
+	page: number;
+	query: string;
+} => {
 	const {
 		delta = initialDelta,
 		field,
@@ -73,7 +79,7 @@ const useQueryPagination = ({
 		filterBy,
 		orderIOMap,
 		page: parseInt(page as string),
-		query
+		query: query as string
 	};
 };
 

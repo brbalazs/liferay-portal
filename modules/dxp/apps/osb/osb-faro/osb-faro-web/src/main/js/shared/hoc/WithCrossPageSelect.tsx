@@ -255,7 +255,7 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 				page: stagedPage,
 				query: stagedQuery,
 				resetPage
-			} = useStatefulPagination({
+			} = useStatefulPagination(null, {
 				initialDelta: delta,
 				initialFilterBy: filterBy,
 				initialOrderIOMap: orderIOMap,

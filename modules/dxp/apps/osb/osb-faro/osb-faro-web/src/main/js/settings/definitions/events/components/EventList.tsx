@@ -1,5 +1,5 @@
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import EventDefinitionsQuery, {
 	EventDefinitionsData,
 	EventDefinitionsVariables,
@@ -16,32 +16,48 @@ import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
+import {
+	createOrderIOMap,
+	getSortFromOrderIOMap,
+	NAME
+} from 'shared/util/pagination';
 import {Event, EventTypes} from 'event-analysis/utils/types';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
-import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
+import {useQueryPagination} from 'shared/hooks';
+import {User} from 'shared/util/records';
 import {
 	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {withCrossPageSelect, withCurrentUser} from 'shared/hoc';
+import {withCurrentUser} from 'shared/hoc';
 
-const {
-	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
-} = Constants;
+const connector = connect(null, {addAlert, close, open});
 
-const withData = () => WrapperComponent => ({
-	delta = defaultDelta,
-	orderBy,
-	orderByField,
-	page = defaultPage,
-	query,
-	...otherProps
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IEventListProps extends PropsFromRedux {
+	currentUser: User;
+	groupId: string;
+}
+
+const EventList: React.FC<IEventListProps> = ({
+	addAlert,
+	close,
+	currentUser,
+	groupId,
+	open
 }) => {
+	const {selectedItems, selectionDispatch} = useSelectionContext();
+
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME)
+	});
+
 	const {data, error, loading, refetch} = useQuery<
 		EventDefinitionsData,
 		EventDefinitionsVariables
@@ -50,277 +66,252 @@ const withData = () => WrapperComponent => ({
 		variables: {
 			eventType: EventTypes.Default,
 			keyword: query,
-			page: Number(page) - 1,
+			page: page - 1,
 			size: delta,
-			sort: {
-				column: orderByField,
-				type: orderBy.toUpperCase()
+			sort: getSortFromOrderIOMap(orderIOMap)
+		}
+	});
+
+	const [hideEventDefinitions] = useMutation<
+		HideEventDefinitionsData,
+		HideEventDefinitionsVariables
+	>(HideEventDefinitions, {
+		onCompleted: ({
+			hideEventDefinitions
+		}: {
+			hideEventDefinitions: Event[];
+		}) => {
+			if (!selectedItems.isEmpty()) {
+				selectionDispatch({
+					payload: {
+						items: hideEventDefinitions
+					},
+					type: 'add'
+				});
 			}
 		}
 	});
 
+	const [unhideEventDefinitions] = useMutation<
+		UnhideEventDefinitionsData,
+		HideEventDefinitionsVariables
+	>(UnhideEventDefinitions, {
+		onCompleted: ({
+			unhideEventDefinitions
+		}: {
+			unhideEventDefinitions: Event[];
+		}) => {
+			if (!selectedItems.isEmpty()) {
+				selectionDispatch({
+					payload: {
+						items: unhideEventDefinitions
+					},
+					type: 'add'
+				});
+			}
+		}
+	});
+
+	const handleHideEvents = (events: Event[] = []) => {
+		const visibleEvents = events.filter(({hidden}) => !hidden);
+
+		const visibleEventsCount = visibleEvents.length;
+
+		open(modalTypes.CONFIRMATION_MODAL, {
+			message: (
+				<p className='text-secondary'>
+					{Liferay.Language.get(
+						'hiding-events-in-the-interface-may-require-reconfiguration-of-segments-and-other-analysis-using-this-event.-hidden-events-will-be-available-for-calculating-metrics'
+					)}
+				</p>
+			),
+			modalVariant: 'modal-warning',
+			onClose: close,
+			onSubmit: () => {
+				hideEventDefinitions({
+					variables: {
+						eventDefinitionIds: events.map(({id}) => id)
+					}
+				})
+					.then(() => {
+						addAlert({
+							alertType: Alert.Types.Success,
+							message:
+								visibleEventsCount > 1
+									? sub(
+											Liferay.Language.get(
+												'x-events-have-been-set-to-hide'
+											),
+											[visibleEventsCount]
+									  )
+									: sub(
+											Liferay.Language.get(
+												'x-set-to-hide'
+											),
+											[visibleEvents[0].displayName]
+									  )
+						});
+					})
+					.catch(() =>
+						addAlert({
+							alertType: Alert.Types.Error,
+							message: Liferay.Language.get(
+								'there-was-an-error-processing-your-request.-please-try-again'
+							),
+							timeout: false
+						})
+					);
+			},
+			submitButtonDisplay: 'warning',
+			submitMessage: Liferay.Language.get('hide'),
+			title:
+				visibleEventsCount > 1
+					? Liferay.Language.get('hide-events')
+					: sub(Liferay.Language.get('hide-x'), [
+							visibleEvents[0].displayName
+					  ]),
+			titleIcon: 'warning'
+		});
+	};
+
+	const handleUnhideEvents = (events: Event[] = []) => {
+		const hiddenEvents = events.filter(({hidden}) => hidden);
+
+		const hiddenEventsCount = hiddenEvents.length;
+
+		unhideEventDefinitions({
+			variables: {
+				eventDefinitionIds: events.map(({id}) => id)
+			}
+		})
+			.then(() => {
+				addAlert({
+					alertType: Alert.Types.Success,
+					message:
+						hiddenEventsCount > 1
+							? sub(
+									Liferay.Language.get(
+										'x-events-have-been-set-to-show'
+									),
+									[hiddenEventsCount]
+							  )
+							: sub(
+									Liferay.Language.get(
+										'x-has-been-set-to-show'
+									),
+									[hiddenEvents[0].displayName]
+							  )
+				});
+			})
+			.catch(() =>
+				addAlert({
+					alertType: Alert.Types.Error,
+					message: Liferay.Language.get(
+						'there-was-an-error-processing-your-request.-please-try-again'
+					),
+					timeout: false
+				})
+			);
+	};
+
+	const renderRowActions = ({data}: {data: Event}) => {
+		const {hidden} = data;
+
+		return (
+			<RowActions
+				quickActions={[
+					{
+						iconSymbol: hidden ? 'view' : 'ac-hidden',
+						label: hidden
+							? Liferay.Language.get('set-to-show')
+							: Liferay.Language.get('set-to-hide'),
+						onClick: () => {
+							const hideEventFn = hidden
+								? handleUnhideEvents
+								: handleHideEvents;
+
+							hideEventFn([data]);
+						}
+					}
+				]}
+			/>
+		);
+	};
+
+	const authorized = currentUser.isAdmin();
+
+	const hasUnhiddenEvent = (events: OrderedMap<string, Event>) =>
+		events.some(({hidden}) => !hidden);
+
 	return (
-		<WrapperComponent
-			{...otherProps}
+		<CrossPageSelect
+			columns={[
+				eventListColumns.getName({groupId}),
+				eventListColumns.displayName,
+				eventListColumns.description,
+				eventListColumns.hidden
+			]}
 			delta={delta}
+			emptyTitle={Liferay.Language.get('there-are-no-events-found')}
 			error={error}
 			items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
 			loading={loading}
 			noResultsProps={{
 				icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
 			}}
-			orderBy={orderBy}
-			orderByField={orderByField}
+			orderIOMap={orderIOMap}
 			page={page}
 			query={query}
 			refetch={refetch}
+			renderNav={
+				authorized && selectedItems.size
+					? () => (
+							<Nav>
+								<Nav.Item>
+									<Button
+										borderless
+										className='nav-btn'
+										display='outline-secondary'
+										icon={
+											hasUnhiddenEvent(selectedItems)
+												? 'ac-hidden'
+												: 'view'
+										}
+										iconAlignment='left'
+										onClick={() => {
+											const hideEventFn = hasUnhiddenEvent(
+												selectedItems
+											)
+												? handleHideEvents
+												: handleUnhideEvents;
+
+											hideEventFn(
+												selectedItems.toArray()
+											);
+										}}
+									>
+										{hasUnhiddenEvent(selectedItems)
+											? Liferay.Language.get('hide')
+											: Liferay.Language.get('show')}
+									</Button>
+								</Nav.Item>
+							</Nav>
+					  )
+					: null
+			}
+			renderRowActions={
+				authorized && !selectedItems.size ? renderRowActions : null
+			}
+			rowIdentifier='id'
+			showCheckbox={authorized}
+			showDropdownRangeKey={false}
 			total={get(data, ['eventDefinitions', 'total'], 0)}
 		/>
 	);
 };
 
-const EventList = withCrossPageSelect(withData, {
-	defaultOrderBy: orderDefault,
-	defaultOrderByField: NAME,
-	emptyTitle: Liferay.Language.get('there-are-no-events-found'),
-	getColumns: ({groupId}) => [
-		eventListColumns.getName({groupId}),
-		eventListColumns.displayName,
-		eventListColumns.description,
-		eventListColumns.hidden
-	],
-	rowIdentifier: 'id',
-	showDropdownRangeKey: false,
-	withQueryOptions: Component => ({
-		addAlert,
-		close,
-		currentUser,
-		open,
-		...otherProps
-	}) => {
-		const {selectedItems, selectionDispatch} = useSelectionContext();
-
-		const [hideEventDefinitions] = useMutation<
-			HideEventDefinitionsData,
-			HideEventDefinitionsVariables
-		>(HideEventDefinitions, {
-			onCompleted: ({
-				hideEventDefinitions
-			}: {
-				hideEventDefinitions: Event[];
-			}) => {
-				if (!selectedItems.isEmpty()) {
-					selectionDispatch({
-						payload: {
-							items: hideEventDefinitions
-						},
-						type: 'add'
-					});
-				}
-			}
-		});
-
-		const [unhideEventDefinitions] = useMutation<
-			UnhideEventDefinitionsData,
-			HideEventDefinitionsVariables
-		>(UnhideEventDefinitions, {
-			onCompleted: ({
-				unhideEventDefinitions
-			}: {
-				unhideEventDefinitions: Event[];
-			}) => {
-				if (!selectedItems.isEmpty()) {
-					selectionDispatch({
-						payload: {
-							items: unhideEventDefinitions
-						},
-						type: 'add'
-					});
-				}
-			}
-		});
-
-		const handleHideEvents = (events: Event[] = []) => {
-			const visibleEvents = events.filter(({hidden}) => !hidden);
-
-			const visibleEventsCount = visibleEvents.length;
-
-			open(modalTypes.CONFIRMATION_MODAL, {
-				message: (
-					<p className='text-secondary'>
-						{Liferay.Language.get(
-							'hiding-events-in-the-interface-may-require-reconfiguration-of-segments-and-other-analysis-using-this-event.-hidden-events-will-be-available-for-calculating-metrics'
-						)}
-					</p>
-				),
-				modalVariant: 'modal-warning',
-				onClose: close,
-				onSubmit: () => {
-					hideEventDefinitions({
-						variables: {
-							eventDefinitionIds: events.map(({id}) => id)
-						}
-					})
-						.then(() => {
-							addAlert({
-								alertType: Alert.Types.Success,
-								message:
-									visibleEventsCount > 1
-										? sub(
-												Liferay.Language.get(
-													'x-events-have-been-set-to-hide'
-												),
-												[visibleEventsCount]
-										  )
-										: sub(
-												Liferay.Language.get(
-													'x-set-to-hide'
-												),
-												[visibleEvents[0].displayName]
-										  )
-							});
-						})
-						.catch(() =>
-							addAlert({
-								alertType: Alert.Types.Error,
-								message: Liferay.Language.get(
-									'there-was-an-error-processing-your-request.-please-try-again'
-								),
-								timeout: false
-							})
-						);
-				},
-				submitButtonDisplay: 'warning',
-				submitMessage: Liferay.Language.get('hide'),
-				title:
-					visibleEventsCount > 1
-						? Liferay.Language.get('hide-events')
-						: sub(Liferay.Language.get('hide-x'), [
-								visibleEvents[0].displayName
-						  ]),
-				titleIcon: 'warning'
-			});
-		};
-
-		const handleUnhideEvents = (events: Event[] = []) => {
-			const hiddenEvents = events.filter(({hidden}) => hidden);
-
-			const hiddenEventsCount = hiddenEvents.length;
-
-			unhideEventDefinitions({
-				variables: {
-					eventDefinitionIds: events.map(({id}) => id)
-				}
-			})
-				.then(() => {
-					addAlert({
-						alertType: Alert.Types.Success,
-						message:
-							hiddenEventsCount > 1
-								? sub(
-										Liferay.Language.get(
-											'x-events-have-been-set-to-show'
-										),
-										[hiddenEventsCount]
-								  )
-								: sub(
-										Liferay.Language.get(
-											'x-has-been-set-to-show'
-										),
-										[hiddenEvents[0].displayName]
-								  )
-					});
-				})
-				.catch(() =>
-					addAlert({
-						alertType: Alert.Types.Error,
-						message: Liferay.Language.get(
-							'there-was-an-error-processing-your-request.-please-try-again'
-						),
-						timeout: false
-					})
-				);
-		};
-
-		const renderRowActions = ({data}: {data: Event}) => {
-			const {hidden} = data;
-
-			return (
-				<RowActions
-					quickActions={[
-						{
-							iconSymbol: hidden ? 'view' : 'ac-hidden',
-							label: hidden
-								? Liferay.Language.get('set-to-show')
-								: Liferay.Language.get('set-to-hide'),
-							onClick: () => {
-								const hideEventFn = hidden
-									? handleUnhideEvents
-									: handleHideEvents;
-
-								hideEventFn([data]);
-							}
-						}
-					]}
-				/>
-			);
-		};
-
-		const authorized = currentUser.isAdmin();
-
-		const hasUnhiddenEvent = (events: OrderedMap<string, Event>) =>
-			events.some(({hidden}) => !hidden);
-
-		return (
-			<Component
-				{...otherProps}
-				renderNav={
-					authorized && selectedItems.size
-						? () => (
-								<Nav>
-									<Nav.Item>
-										<Button
-											borderless
-											className='nav-btn'
-											display='outline-secondary'
-											icon={
-												hasUnhiddenEvent(selectedItems)
-													? 'ac-hidden'
-													: 'view'
-											}
-											iconAlignment='left'
-											onClick={() => {
-												const hideEventFn = hasUnhiddenEvent(
-													selectedItems
-												)
-													? handleHideEvents
-													: handleUnhideEvents;
-
-												hideEventFn(
-													selectedItems.toArray()
-												);
-											}}
-										>
-											{hasUnhiddenEvent(selectedItems)
-												? Liferay.Language.get('hide')
-												: Liferay.Language.get('show')}
-										</Button>
-									</Nav.Item>
-								</Nav>
-						  )
-						: null
-				}
-				renderRowActions={
-					authorized && !selectedItems.size ? renderRowActions : null
-				}
-				showCheckbox={authorized}
-			/>
-		);
-	}
-});
-
 export default compose<any>(
 	withSelectionProvider,
 	withCurrentUser,
-	connect(null, {addAlert, close, open})
+	connector
 )(EventList);

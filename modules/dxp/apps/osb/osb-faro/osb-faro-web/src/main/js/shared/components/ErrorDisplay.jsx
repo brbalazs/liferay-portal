@@ -25,6 +25,7 @@ export default class ErrorDisplay extends React.Component {
 			<NoResultsDisplay
 				className={getCN(
 					'error-display-root',
+					'flex-grow-1',
 					{'error-spacer': spacer},
 					className
 				)}

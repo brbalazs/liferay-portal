@@ -1,32 +1,14 @@
 import BasePage from 'settings/components/BasePage';
 import BlockListCard from '../components/BlockListCard';
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
-import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 
-const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
-	timeZoneId: store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'timeZoneId'
-	])
-}));
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-interface IBlockListProps extends PropsFromRedux {
+interface IBlockListProps {
 	groupId: string;
 }
 
-const BlockList: React.FC<IBlockListProps> = ({
-	groupId,
-	timeZoneId,
-	...otherProps
-}) => (
+const BlockList: React.FC<IBlockListProps> = ({groupId, ...otherProps}) => (
 	<BasePage
 		breadcrumbItems={[
 			getDefinitions({groupId}),
@@ -44,12 +26,8 @@ const BlockList: React.FC<IBlockListProps> = ({
 		)}
 		pageTitle={Liferay.Language.get('block-list')}
 	>
-		<BlockListCard
-			groupId={groupId}
-			timeZoneId={timeZoneId}
-			{...otherProps}
-		/>
+		<BlockListCard {...otherProps} groupId={groupId} />
 	</BasePage>
 );
 
-export default connector(BlockList);
+export default BlockList;
