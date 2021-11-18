@@ -57,6 +57,31 @@ public class UserPermissionTest {
 	}
 
 	@Test
+	public void testContainsPermissionsActionId() throws Exception {
+		_user = UserTestUtil.addUser();
+		_role = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
+
+		_userLocalService.addRoleUser(_role.getRoleId(), _user);
+
+		PermissionChecker permissionChecker = _permissionCheckerFactory.create(
+			_user);
+
+		Assert.assertFalse(
+			_userPermission.contains(
+				permissionChecker, _user.getUserId(), null,
+				ActionKeys.PERMISSIONS));
+
+		RoleTestUtil.addResourcePermission(
+			_role, User.class.getName(), ResourceConstants.SCOPE_COMPANY,
+			String.valueOf(_user.getCompanyId()), ActionKeys.PERMISSIONS);
+
+		Assert.assertTrue(
+			_userPermission.contains(
+				permissionChecker, _user.getUserId(), null,
+				ActionKeys.PERMISSIONS));
+	}
+
+	@Test
 	public void testContainsViewActionId() throws Exception {
 		_role = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
 
