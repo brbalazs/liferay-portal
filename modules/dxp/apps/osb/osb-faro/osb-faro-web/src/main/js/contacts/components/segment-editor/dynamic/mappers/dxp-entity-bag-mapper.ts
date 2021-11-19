@@ -1,10 +1,10 @@
+import {getSortFromOrderIOMap} from 'shared/util/pagination';
 import {IPagination} from 'shared/types';
 
 export const mapPropsToOptions = ({
 	channelId,
 	delta,
-	orderBy,
-	orderByField,
+	orderIOMap,
 	page,
 	query
 }: IPagination & {channelId: string}) => ({
@@ -12,10 +12,7 @@ export const mapPropsToOptions = ({
 		channelId,
 		keywords: query,
 		size: delta,
-		sort: {
-			column: orderByField,
-			type: orderBy.toUpperCase()
-		},
+		sort: getSortFromOrderIOMap(orderIOMap),
 		start: (page - 1) * delta
 	}
 });
