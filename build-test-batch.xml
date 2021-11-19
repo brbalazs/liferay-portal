@@ -1633,21 +1633,16 @@ app.server.type=@{app.server.type}]]></echo>
 									test.sql.zip.url="${test.sql.zip.url}"
 								/>
 
-								<gradle-execute dir="modules/core" task="deploy">
-									<arg value="--parallel" />
-									<arg value="-Dbuild.profile=portal-pre" />
-									<arg value="-Pforced.deploy.dir=${project.dir}/tmp/lib-pre" />
-								</gradle-execute>
+								<if>
+									<not>
+										<available file="${project.dir}/portal-test/portal-test.jar" />
+									</not>
+									<then>
+										<antcall target="compile" />
 
-								<ant dir="portal-kernel" inheritAll="false" target="install-portal-snapshot" />
-
-								<gradle-execute dir="${project.dir}/modules/apps/petra" task="deploy">
-									<arg value="--parallel" />
-									<arg value="-Dportal.build=true" />
-									<arg value="-Pforced.deploy.dir=${project.dir}/tmp/lib-pre" />
-								</gradle-execute>
-
-								<ant dir="portal-test" inheritAll="false" target="jar" />
+										<ant dir="portal-test" target="jar" />
+									</then>
+								</if>
 
 								<local name="artifact.version" />
 
