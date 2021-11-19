@@ -39,7 +39,7 @@ describe('InterestTopics', () => {
 	});
 
 	it('should render a page not found if puts a invalid page', () => {
-		API.blockedKeywords.fetch.mockReturnValueOnce(
+		API.blockedKeywords.search.mockReturnValueOnce(
 			Promise.resolve({items: [], total: 0})
 		);
 
@@ -59,7 +59,7 @@ describe('InterestTopics', () => {
 	});
 
 	it('should render with an empty state', () => {
-		API.blockedKeywords.fetch.mockReturnValueOnce(
+		API.blockedKeywords.search.mockReturnValueOnce(
 			Promise.resolve({items: [], total: 0})
 		);
 
@@ -71,7 +71,7 @@ describe('InterestTopics', () => {
 	});
 
 	it('should render with a message to add keywords if there are none', () => {
-		API.blockedKeywords.fetch.mockReturnValueOnce(
+		API.blockedKeywords.search.mockReturnValueOnce(
 			Promise.resolve({items: [], total: 0})
 		);
 
@@ -83,7 +83,7 @@ describe('InterestTopics', () => {
 	});
 
 	it('should render with a member-specific message to add keywords if there are none', () => {
-		API.blockedKeywords.fetch.mockReturnValueOnce(
+		API.blockedKeywords.search.mockReturnValueOnce(
 			Promise.resolve({items: [], total: 0})
 		);
 
