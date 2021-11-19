@@ -334,7 +334,7 @@ const WithCrossPageSelect = (withData, configs = {}) => {
 
 			return showSelected ? (
 				<TableWithLocalData
-					onSortChange={onOrderByFieldsChange}
+					onOrderIOMapChange={onOrderIOMapChange}
 					ref={ref}
 					searchSelectedFn={searchSelectedFn}
 					{...passThruProps}

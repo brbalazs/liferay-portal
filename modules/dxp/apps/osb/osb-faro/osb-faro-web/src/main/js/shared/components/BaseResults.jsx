@@ -56,7 +56,6 @@ export default class BaseResults extends React.Component {
 		onQueryChange: PropTypes.func, // This is the value for the query
 		onSearchValueChange: PropTypes.func, // This is when the value itself changes on typing
 		onSelectItemsChange: PropTypes.func,
-		// orderByFields: PropTypes.array,
 		orderByOptions: PropTypes.array,
 		orderIOMap: PropTypes.object,
 		paginationProps: PropTypes.object, // TODO: no more pagiantion props...we pass each one in individually
@@ -112,9 +111,6 @@ export default class BaseResults extends React.Component {
 				'dataSourceParams',
 				'delta',
 				'filterBy',
-				// 'orderBy',
-				// 'orderByField',
-				// 'orderByFields',
 				'orderIOMap',
 				'page'
 			)
@@ -178,9 +174,6 @@ export default class BaseResults extends React.Component {
 			delta,
 			filterBy,
 			orderIOMap,
-			// orderBy,
-			// orderByField,
-			// orderByFields,
 			page,
 			query
 		})
@@ -366,7 +359,7 @@ export default class BaseResults extends React.Component {
 			state: {disableSearch, error, items, loading, searchValue, total}
 		} = this;
 
-		console.log('remove me', toolbarProps);
+		console.log('remove me', toolbarProps, paginationProps);
 
 		const allChecked = this.allChecked();
 
@@ -405,7 +398,6 @@ export default class BaseResults extends React.Component {
 					showFilterAndOrder={showFilterAndOrder}
 					showSearch={showSearch}
 					total={total}
-					{...toolbarProps}
 				>
 					{navRenderer && navRenderer(selectedItemsIOMap, items)}
 				</Toolbar>
@@ -418,7 +410,6 @@ export default class BaseResults extends React.Component {
 
 				{showPagination && !!total && !!items.length && (
 					<PaginationBar
-						{...paginationProps}
 						href={window.location.href}
 						key='PAGINATION_BAR'
 						onDeltaChange={onDeltaChange}

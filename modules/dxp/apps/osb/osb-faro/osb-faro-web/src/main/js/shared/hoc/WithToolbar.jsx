@@ -113,6 +113,7 @@ export default configs => WrappedComponent => {
 				props: {
 					alwaysShowSearch,
 					disableSearch,
+					onFilterByChange,
 					onOrderIOMapChange,
 					onQueryChange,
 					onSelectEntirePage,
@@ -127,7 +128,8 @@ export default configs => WrappedComponent => {
 					showCheckbox,
 					showDropdownRangeKey,
 					showFilterAndOrder,
-					total
+					total,
+					...otherProps
 				},
 				state: {searchValue}
 			} = this;
@@ -135,14 +137,16 @@ export default configs => WrappedComponent => {
 			return (
 				<>
 					<Toolbar
+						{...otherProps}
 						alwaysShowSearch={alwaysShowSearch}
 						disableSearch={get(
 							configs,
 							'disableSearch',
 							disableSearch
 						)}
+						onFilterByChange={onFilterByChange} // TODO: Finish this
 						onOrderIOMapChange={onOrderIOMapChange}
-						onSearchSubmit={onQueryChange}
+						onQueryChange={onQueryChange}
 						onSearchValueChange={this.handleSearchValueChange}
 						onSelectEntirePage={onSelectEntirePage}
 						orderByOptions={orderByOptions}
