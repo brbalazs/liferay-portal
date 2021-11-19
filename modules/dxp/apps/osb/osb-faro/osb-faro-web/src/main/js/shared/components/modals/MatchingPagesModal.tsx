@@ -1,9 +1,13 @@
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
 import MetadataTag from 'settings/recommendations/components/MetadataTag';
 import Modal from 'shared/components/modal';
 import React from 'react';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
+import {
+	createOrderIOMap,
+	getSortFromOrderIOMap,
+	TITLE
+} from 'shared/util/pagination';
 import {
 	EXCLUDE,
 	Filter,
@@ -12,27 +16,24 @@ import {
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
 import {isArray, isString} from 'lodash';
+import {omit} from 'lodash';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {withBaseResults, withStatefulPagination} from 'shared/hoc';
-
-const {
-	pagination: {orderDescending}
-} = Constants;
 
 const withData = () =>
 	graphql(RecommendationPageAssetsQuery, {
 		options: ({
 			delta,
 			itemFilters,
-			orderBy,
-			orderByField,
+			orderIOMap,
 			page,
 			query,
 			useNegateValue
 		}: {
 			delta: number;
 			itemFilters: Filter[];
-			orderBy: string;
-			orderByField: string;
+			orderIOMap: OrderedMap<string, OrderParams>;
 			page: number;
 			query: string;
 			useNegateValue: boolean;
@@ -45,10 +46,7 @@ const withData = () =>
 					negate: useNegateValue ? name === EXCLUDE : false
 				})),
 				size: delta,
-				sort: {
-					column: orderByField,
-					type: orderBy.toUpperCase()
-				},
+				sort: getSortFromOrderIOMap(orderIOMap),
 				start: (page - 1) * delta
 			}
 		}),
@@ -87,15 +85,10 @@ const TableWithData = withStatefulPagination(
 		showDropdownRangeKey: false
 	}),
 	{
-		defaultDelta: 10,
-		defaultOrderBy: orderDescending,
-		defaultOrderByField: 'title'
+		initialDelta: 10,
+		initialOrderIOMap: createOrderIOMap(TITLE)
 	},
-	({onOrderByFieldChange, onSearchValueChange, ...otherProps}) => ({
-		onSearchSubmit: onSearchValueChange,
-		onSortChange: onOrderByFieldChange,
-		...otherProps
-	}),
+	props => omit(props, 'onSearchValueChange'),
 	false
 );
 
