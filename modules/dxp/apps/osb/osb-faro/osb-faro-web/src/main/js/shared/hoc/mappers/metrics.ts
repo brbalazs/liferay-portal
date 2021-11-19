@@ -57,8 +57,8 @@ export const getMapPropsToOptions: (
 		keywords: get(query, 'query', ''),
 		size: delta,
 		sort: {
-			column: get(query, 'orderByField', field),
-			type: get(query, 'orderBy', sortOrder).toUpperCase()
+			column: get(query, 'field', field),
+			type: get(query, 'sortOrder', sortOrder)
 		},
 		start: (page - 1) * delta,
 		terms: get(params, 'interestId')
