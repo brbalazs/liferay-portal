@@ -1,19 +1,16 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import ListGroup from 'shared/components/list-group';
 import React from 'react';
 import {compose, withEmpty, withRequest} from 'shared/hoc';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {Link} from 'react-router-dom';
-import {NAME} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-
-const {orderAscending} = FaroConstants.pagination;
 
 const ITEMS_PER_CARD = 6;
 
@@ -22,13 +19,8 @@ function fetchInterestData({groupId, id}) {
 		contactsEntityId: id,
 		delta: ITEMS_PER_CARD,
 		groupId,
-		orderByFields: [
-			{
-				fieldName: NAME,
-				orderBy: orderAscending,
-				system: true
-			}
-		]
+		orderIOMap: createOrderIOMap(NAME),
+		page: 1
 	});
 }
 

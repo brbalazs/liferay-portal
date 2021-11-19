@@ -158,6 +158,8 @@ export function buildOrderByFields({field, sortOrder}, entityType) {
 		return [FIRST_NAME, LAST_NAME].map(columnAccessor =>
 			createOrderByField(columnAccessor, sortOrder)
 		);
+	} else if (entityType === INTERESTS && field === NAME) {
+		return [createOrderByField(field, sortOrder, true)];
 	} else {
 		return [createOrderByField(field, sortOrder)];
 	}
