@@ -86,7 +86,6 @@ export default class Toolbar extends React.Component {
 		onSelectAll: PropTypes.func,
 		onSelectEntirePage: PropTypes.func,
 		order: PropTypes.oneOf([orderAscending, orderDescending]), // TODO: Remove old orders
-		orderBy: PropTypes.string,
 		orderByOptions: PropTypes.array,
 		orderIOMap: PropTypes.object,
 		placeholder: PropTypes.string,
@@ -183,7 +182,7 @@ export default class Toolbar extends React.Component {
 	}
 
 	@autobind
-	handleOrderByFieldChange(field) {
+	handleOrderFieldChange(field) {
 		const {history, onOrderIOMapChange} = this.props;
 
 		const sortOrder = getDefaultSortOrder(field);
@@ -275,7 +274,7 @@ export default class Toolbar extends React.Component {
 							filterByOptions={filterByOptions}
 							flat={flatFilter}
 							onFilterByChange={this.handleFilterByChange}
-							onOrderFieldChange={this.handleOrderByFieldChange}
+							onOrderFieldChange={this.handleOrderFieldChange}
 							orderByOptions={orderByOptions}
 							orderField={field}
 						/>

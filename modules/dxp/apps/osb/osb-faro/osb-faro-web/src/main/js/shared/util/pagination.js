@@ -37,6 +37,7 @@ export const EXIT_RATE_METRIC = 'exitRateMetric';
 export const FAMILY_NAME = 'familyName';
 export const FIRST_NAME = 'firstName';
 export const GIVEN_NAME = 'givenName';
+export const ID = 'id';
 export const INDIVIDUAL_COUNT = 'individualCount';
 export const INDIVIDUAL_EMAIL = 'individualEmail';
 export const INDIVIDUAL_NAME = 'individualName';

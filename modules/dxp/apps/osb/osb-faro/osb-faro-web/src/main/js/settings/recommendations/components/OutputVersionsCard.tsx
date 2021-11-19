@@ -10,6 +10,11 @@ import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
 import Table from 'shared/components/table';
 import {applyTimeZone} from 'shared/util/date';
 import {compose} from 'redux';
+import {
+	createOrderIOMap,
+	getSortFromOrderIOMap,
+	ID
+} from 'shared/util/pagination';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
@@ -18,6 +23,8 @@ import {
 	JOB_RUN_STATUSES_DISPLAY_MAP,
 	JOB_RUN_STATUSES_LABEL_MAP
 } from '../utils/utils';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {Router} from 'shared/types';
 import {sub} from 'shared/util/lang';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
@@ -58,24 +65,19 @@ const withData = () =>
 		options: ({
 			delta,
 			jobId,
-			orderBy,
-			orderByField,
+			orderIOMap,
 			page
 		}: {
 			delta: number;
 			jobId: string;
-			orderBy: string;
-			orderByField: string;
+			orderIOMap: OrderedMap<string, OrderParams>;
 			page: number;
 		}) => ({
 			fetchPolicy: 'no-cache',
 			variables: {
 				jobId,
 				size: delta,
-				sort: {
-					column: orderByField,
-					type: orderBy.toUpperCase()
-				},
+				sort: getSortFromOrderIOMap(orderIOMap),
 				start: (page - 1) * delta
 			}
 		}),
@@ -100,14 +102,9 @@ const TableWithData = compose(
 const OutputVersionsListWithData = withStatefulPagination(
 	TableWithData,
 	{
-		defaultDelta: 5,
-		defaultOrderBy: orderDescending,
-		defaultOrderByField: 'id'
+		initialDelta: 5,
+		initialOrderIOMap: createOrderIOMap(ID, OrderByDirections.Descending)
 	},
-	({onOrderByFieldChange, ...otherProps}) => ({
-		onSortChange: onOrderByFieldChange,
-		...otherProps
-	}),
 	false
 );
 
