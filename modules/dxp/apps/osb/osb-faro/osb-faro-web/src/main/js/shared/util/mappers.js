@@ -1,5 +1,50 @@
 import {getFilters} from 'shared/util/filter';
 import {getSafeRangeSelectors} from 'shared/util/util';
+import {isNil, reduce} from 'lodash';
+
+export const formatItem = item =>
+	reduce(
+		item,
+		(acc, val, key) => {
+			if (val && !isNil(val.value)) {
+				acc[key] = val.value;
+			} else {
+				acc[key] = val;
+			}
+
+			return acc;
+		},
+		{}
+	);
+
+export const mapListResultsToProps = (
+	{data, error, loading, refetch},
+	mapperFn = val => val
+) => {
+	if (data) {
+		const {items, total} = mapperFn(data);
+
+		const formattedItems = items && items.map(formatItem);
+
+		return {
+			empty: !items.length,
+			error,
+			items: formattedItems,
+			loading,
+			refetch,
+			total
+		};
+	}
+
+	return {
+		empty: true,
+		error,
+		items: [],
+		loading,
+		refetch,
+		total: 0
+	};
+};
 
 /**
  * Safe Result To Props

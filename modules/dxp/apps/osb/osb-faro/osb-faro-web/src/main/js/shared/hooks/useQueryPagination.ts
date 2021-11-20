@@ -1,6 +1,6 @@
 import useQueryParams from './useQueryParams';
 import {createOrderIOMap, paginationDefaults} from 'shared/util/pagination';
-import {FilterByType} from 'shared/types';
+import {FilterByType, Pagination} from 'shared/types';
 import {Map, OrderedMap, Set} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {pick} from 'lodash';
@@ -29,13 +29,7 @@ const useQueryPagination = ({
 	initialOrderIOMap, // TODO: should there be an initial here too with no values?
 	initialPage = defaultPage,
 	initialQuery = defaultQuery
-}: QueryPaginationParams): {
-	delta: number;
-	filterBy: FilterByType;
-	orderIOMap: OrderedMap<string, OrderParams>;
-	page: number;
-	query: string;
-} => {
+}: QueryPaginationParams): Pagination => {
 	const {
 		delta = initialDelta,
 		field,
@@ -74,6 +68,7 @@ const useQueryPagination = ({
 	if (filterFields) {
 		filterBy = getFilterByFromFields();
 	}
+
 	return {
 		delta: parseInt(delta as string),
 		filterBy,

@@ -1,7 +1,7 @@
 import FaroConstants, {OrderByDirections} from 'shared/util/constants';
 import PropTypes from 'prop-types';
 import {ACCOUNTS, INDIVIDUALS, SEGMENTS, USERS} from 'shared/util/router';
-import {get, last} from 'lodash';
+import {get} from 'lodash';
 import {Map, OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 
@@ -223,3 +223,15 @@ export const getSortFromOrderIOMap = orderIOMap => {
 		};
 	}
 };
+
+export const getGraphQLVariablesFromPagination = ({
+	delta,
+	orderIOMap,
+	page,
+	query
+}) => ({
+	keywords: query,
+	size: delta,
+	sort: getSortFromOrderIOMap(orderIOMap),
+	start: (page - 1) * delta
+});

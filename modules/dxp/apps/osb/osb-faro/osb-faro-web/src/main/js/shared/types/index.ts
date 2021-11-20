@@ -62,6 +62,21 @@ export interface IPagination {
 	query: string;
 }
 
+export type Pagination = {
+	delta: number;
+	filterBy?: FilterByType;
+	orderIOMap: OrderedMap<string, OrderParams>;
+	page: number;
+	query: string;
+};
+
+export type GraphQLPagination = {
+	keywords: string;
+	size: number;
+	sort: OrderParams;
+	start: number;
+};
+
 export interface IPaginationUnsorted extends Omit<IPagination, 'orderIOMap'> {}
 
 export type RangeSelectors = {

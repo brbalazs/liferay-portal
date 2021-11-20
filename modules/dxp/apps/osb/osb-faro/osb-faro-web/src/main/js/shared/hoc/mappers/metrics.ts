@@ -1,30 +1,15 @@
 import Constants from 'shared/util/constants';
-import {get, isEmpty, isNil, reduce} from 'lodash';
+import {formatItem, getVariables, safeResultToProps} from 'shared/util/mappers';
+import {get, isEmpty} from 'lodash';
 import {
 	getVariableDefinitions,
 	GQLQuery,
 	removeUnusedVariables
 } from 'shared/util/graphql';
-import {getVariables, safeResultToProps} from 'shared/util/mappers';
 
 const {
 	pagination: {cur: defaultPage, delta: defaultDelta}
 } = Constants;
-
-const formatItem = item =>
-	reduce(
-		item,
-		(acc, val, key) => {
-			if (val && !isNil(val.value)) {
-				acc[key] = val.value;
-			} else {
-				acc[key] = val;
-			}
-
-			return acc;
-		},
-		{}
-	);
 
 type GraphQLOptions = {variables: {[key: string]: any}};
 
@@ -58,7 +43,7 @@ export const getMapPropsToOptions: (
 		size: delta,
 		sort: {
 			column: get(query, 'field', field),
-			type: get(query, 'sortOrder', sortOrder)
+			type: get(query, 'sortOrder', sortOrder.toUpperCase())
 		},
 		start: (page - 1) * delta,
 		terms: get(params, 'interestId')
