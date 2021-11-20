@@ -44,6 +44,7 @@ export default configs => WrappedComponent => {
 			selectEntirePage: PropTypes.bool,
 			selectEntirePageIndeterminate: PropTypes.bool,
 			showCheckbox: PropTypes.bool,
+			showFilterAndOrder: PropTypes.bool,
 			total: PropTypes.number
 		};
 
@@ -125,6 +126,7 @@ export default configs => WrappedComponent => {
 					selectEntirePageIndeterminate,
 					showCheckbox,
 					showDropdownRangeKey,
+					showFilterAndOrder,
 					total
 				},
 				state: {searchValue}
@@ -153,6 +155,7 @@ export default configs => WrappedComponent => {
 							selectEntirePageIndeterminate
 						}
 						showCheckbox={showCheckbox}
+						showFilterAndOrder={showFilterAndOrder}
 						showSearch
 						total={total}
 					>

@@ -1,78 +1,89 @@
 import Card from 'shared/components/Card';
 import CustomAssetsListQuery from 'shared/queries/CustomAssetsListQuery';
-import getMetricsMapper from 'shared/hoc/mappers/metrics';
+import ListComponent from 'shared/hoc/ListComponent';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
+import {
+	createOrderIOMap,
+	getGraphQLVariablesFromPagination,
+	MODIFIED_DATE
+} from 'shared/util/pagination';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
-import {graphql} from '@apollo/react-hoc';
+import {mapListResultsToProps} from 'shared/util/mappers';
 import {metricsListColumns} from 'shared/util/table-columns';
-import {MODIFIED_DATE} from 'shared/util/pagination';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {withBaseResults} from 'shared/hoc';
+import {useParams} from 'react-router-dom';
+import {useQuery} from '@apollo/react-hooks';
+import {useQueryPagination} from 'shared/hooks';
 
-const withData = () =>
-	graphql(
-		CustomAssetsListQuery,
-		getMetricsMapper(result => ({
-			items: result.dashboards.dashboards.map(dashboard => ({
-				...dashboard,
-				assetTitle:
-					dashboard.assetTitle ||
-					sub(Liferay.Language.get('untitled-asset-id-x'), [
-						dashboard.assetId
-					])
-			})),
-			total: result.dashboards.total
-		}))
-	);
+const CustomAssetsListCard: React.FC<{timeZoneId: string}> = ({timeZoneId}) => {
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(MODIFIED_DATE)
+	});
 
-const TableWithData = withBaseResults(withData, {
-	defaultOrderByField: MODIFIED_DATE,
-	emptyDescription: sub(
-		Liferay.Language.get('empty-message-lists'),
-		[
-			<a
-				href={URLConstants.DocumentationLink}
-				key='DOCUMENTATION'
-				target='_blank'
-			>
-				{Liferay.Language.get('documentation').toLowerCase()}
-			</a>
-		],
-		false
-	),
-	emptyTitle: Liferay.Language.get('empty-title-assets'),
-	getColumns: ({
-		router: {
-			params: {channelId, groupId},
-			query
-		},
-		timeZoneId
-	}) => [
-		metricsListColumns.getTitleId({
+	const {channelId, groupId} = useParams();
+
+	const response = useQuery(CustomAssetsListQuery, {
+		variables: {
 			channelId,
-			groupId,
-			label: `${Liferay.Language.get('asset')} | ${Liferay.Language.get(
-				'id'
-			).toUpperCase()}`,
-			rangeSelectors: getRangeSelectorsFromQuery(query),
-			route: Routes.ASSETS_CUSTOM_DASHBOARD
-		}),
-		metricsListColumns.modifiedDate,
-		metricsListColumns.getCreateDate(timeZoneId)
-	],
-	rowIdentifier: 'id',
-	showDropdownRangeKey: false
-});
+			...getGraphQLVariablesFromPagination({
+				delta,
+				orderIOMap,
+				page,
+				query
+			})
+		}
+	});
 
-const CustomAssetsListCard = props => (
-	<Card className='custom-assets-root' pageDisplay>
-		<TableWithData
-			entityLabel={Liferay.Language.get('custom-assets')}
-			{...props}
-		/>
-	</Card>
-);
+	return (
+		<Card className='custom-assets-root' pageDisplay>
+			<ListComponent
+				{...mapListResultsToProps(response, result => ({
+					items: result.dashboards.dashboards,
+					total: result.dashboards.total
+				}))}
+				columns={[
+					metricsListColumns.getTitleId({
+						channelId,
+						groupId,
+						label: `${Liferay.Language.get(
+							'asset'
+						)} | ${Liferay.Language.get('id').toUpperCase()}`,
+						rangeSelectors: getRangeSelectorsFromQuery(query),
+						route: Routes.ASSETS_CUSTOM_DASHBOARD
+					}),
+					metricsListColumns.modifiedDate,
+					metricsListColumns.getCreateDate(timeZoneId)
+				]}
+				delta={delta}
+				entityLabel={Liferay.Language.get('custom-assets')}
+				noResultsProps={{
+					description: sub(
+						Liferay.Language.get('empty-message-lists'),
+						[
+							<a
+								href={URLConstants.DocumentationLink}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'documentation'
+								).toLowerCase()}
+							</a>
+						],
+						false
+					),
+					title: Liferay.Language.get('empty-title-assets')
+				}}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				rowIdentifier='id'
+				showFilterAndOrder={false}
+			/>
+		</Card>
+	);
+};
 
 export default CustomAssetsListCard;

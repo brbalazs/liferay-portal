@@ -4,7 +4,7 @@ import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withError, withLoading} from './util';
 
 const ListComponent = compose<any>(
-	withToolbar(),
+	withToolbar({legacyDropdownRangeKey: false}),
 	withPaginationBar(),
 	withLoading(),
 	withError({page: false}),
