@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 export {default as useDeepEqualEffect} from './useDeepEqualEffect';
 export {default as useQueryPagination} from './useQueryPagination';
 export {default as useQueryParams} from './useQueryParams';
+export {default as useQueryRangeSelectors} from './useQueryRangeSelectors';
 export {default as useRequest} from './useRequest';
 export {default as useStatefulPagination} from './useStatefulPagination';
 
