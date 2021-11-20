@@ -14,8 +14,6 @@ const defaultHOC = WrappedComponent => props => <WrappedComponent {...props} />;
 
 const withBaseResults = (withData, configs) => {
 	const {
-		defaultOrderBy,
-		defaultOrderByField,
 		disableSearch = false,
 		emptyDescription,
 		emptyPrimary = true,
@@ -24,6 +22,7 @@ const withBaseResults = (withData, configs) => {
 		legacyDropdownRangeKey = true,
 		rowIdentifier,
 		showDropdownRangeKey = true,
+		showFilterAndOrder = false,
 		withQueryOptions = defaultHOC,
 		withSelection = defaultHOC
 	} = configs;
@@ -38,7 +37,8 @@ const withBaseResults = (withData, configs) => {
 		withToolbar({
 			disableSearch,
 			legacyDropdownRangeKey,
-			showDropdownRangeKey
+			showDropdownRangeKey,
+			showFilterAndOrder
 		}),
 		withPaginationBar({defaultDelta}),
 		withLoading({alignCenter: true, page: false}),
@@ -56,38 +56,29 @@ const withBaseResults = (withData, configs) => {
 		render() {
 			const {
 				context: {filters},
-				props: {rangeSelectors, router, ...otherProps}
+				props: {
+					delta,
+					orderIOMap,
+					page,
+					query,
+					rangeSelectors,
+					router,
+					...otherProps
+				}
 			} = this;
-
-			const delta = router ? router.query.delta : otherProps.delta;
-			const orderBy =
-				(router ? router.query.orderBy : otherProps.orderBy) ||
-				defaultOrderBy ||
-				orderDescending;
-			const orderByField =
-				(router
-					? router.query.orderByField
-					: otherProps.orderByField) || defaultOrderByField;
-			const page = router ? router.query.page : otherProps.page;
-			const query = router ? router.query.query : otherProps.query;
 
 			return (
 				<div className='d-flex flex-column flex-grow-1 justify-content-between'>
 					<TableWithData
-						defaultSort={{
-							field: orderByField,
-							sortOrder: orderBy
-						}}
+						{...otherProps}
 						delta={delta}
 						filters={filters}
-						orderBy={orderBy}
-						orderByField={orderByField}
+						orderIOMap={orderIOMap}
 						page={page}
 						query={query}
 						rangeSelectors={rangeSelectors}
 						router={router}
 						rowIdentifier={rowIdentifier}
-						{...otherProps}
 					/>
 				</div>
 			);

@@ -155,7 +155,11 @@ export default configs => WrappedComponent => {
 							selectEntirePageIndeterminate
 						}
 						showCheckbox={showCheckbox}
-						showFilterAndOrder={showFilterAndOrder}
+						showFilterAndOrder={get(
+							configs,
+							'showFilterAndOrder',
+							showFilterAndOrder
+						)}
 						showSearch
 						total={total}
 					>

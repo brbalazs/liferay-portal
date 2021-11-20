@@ -1,15 +1,11 @@
-import Constants from 'shared/util/constants';
 import {formatItem, getVariables, safeResultToProps} from 'shared/util/mappers';
 import {get, isEmpty} from 'lodash';
+import {getSortFromOrderIOMap} from 'shared/util/pagination';
 import {
 	getVariableDefinitions,
 	GQLQuery,
 	removeUnusedVariables
 } from 'shared/util/graphql';
-
-const {
-	pagination: {cur: defaultPage, delta: defaultDelta}
-} = Constants;
 
 type GraphQLOptions = {variables: {[key: string]: any}};
 
@@ -20,14 +16,14 @@ export const getMapPropsToOptions: (
 	gqlQuery,
 	options = {}
 ) => ({
-	defaultSort: {field, sortOrder},
+	delta,
 	filters,
+	orderIOMap,
+	page,
+	query,
 	rangeSelectors,
-	router: {params, query}
+	router: {params, query: routerQuery}
 }) => {
-	const delta = parseInt(get(query, 'delta', defaultDelta));
-	const page = parseInt(get(query, 'page', defaultPage));
-
 	const {variables} = getVariables({
 		filters,
 		params,
@@ -35,16 +31,13 @@ export const getMapPropsToOptions: (
 	});
 
 	// LRAC-6976 POC TEMP
-	const useDB = get(query, 'useDB', null) === 'true';
+	const useDB = get(routerQuery, 'useDB', null) === 'true';
 
 	let unfilteredVariables: any = {
 		...variables,
-		keywords: get(query, 'query', ''),
+		keywords: query,
 		size: delta,
-		sort: {
-			column: get(query, 'field', field),
-			type: get(query, 'sortOrder', sortOrder.toUpperCase())
-		},
+		sort: getSortFromOrderIOMap(orderIOMap),
 		start: (page - 1) * delta,
 		terms: get(params, 'interestId')
 	};
