@@ -1,78 +1,69 @@
-import Constants from 'shared/util/constants';
 import EventAttributeDefinitionsQuery, {
 	EventAttributeDefinitionsData,
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import ListComponent from 'shared/hoc/ListComponent';
 import React from 'react';
 import {attributeListColumns} from 'shared/util/table-columns';
 import {AttributeTypes} from 'event-analysis/utils/types';
-import {get} from 'lodash';
-import {NAME} from 'shared/util/pagination';
+import {
+	createOrderIOMap,
+	getSortFromOrderIOMap,
+	NAME
+} from 'shared/util/pagination';
+import {mapListResultsToProps} from 'shared/util/mappers';
+import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
-import {withBaseResults} from 'shared/hoc';
+import {useQueryPagination} from 'shared/hooks';
 
-const {
-	pagination: {cur: defaultPage, delta: defaultDelta, orderDefault}
-} = Constants;
+const GlobalAttributeList: React.FC = () => {
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(NAME)
+	});
 
-const withData = () => WrapperComponent => ({
-	delta = defaultDelta,
-	orderBy,
-	orderByField,
-	page = defaultPage,
-	query,
-	...otherProps
-}) => {
-	const {data, error, loading, refetch} = useQuery<
+	const {channelId, groupId} = useParams();
+
+	const response = useQuery<
 		EventAttributeDefinitionsData,
 		EventAttributeDefinitionsVariables
 	>(EventAttributeDefinitionsQuery, {
 		variables: {
 			keyword: query,
-			page: Number(page) - 1,
+			page: page - 1,
 			size: delta,
-			sort: {
-				column: orderByField,
-				type: orderBy.toUpperCase()
-			},
+			sort: getSortFromOrderIOMap(orderIOMap),
 			type: AttributeTypes.Global
 		}
 	});
 
 	return (
-		<WrapperComponent
-			{...otherProps}
+		<ListComponent
+			{...mapListResultsToProps(response, result => ({
+				items:
+					result.eventAttributeDefinitions.eventAttributeDefinitions,
+				total: result.eventAttributeDefinitions.total
+			}))}
+			columns={[
+				attributeListColumns.getName({channelId, groupId}),
+				attributeListColumns.displayName,
+				attributeListColumns.description,
+				attributeListColumns.sampleValue,
+				attributeListColumns.dataType
+			]}
 			delta={delta}
 			entityLabel={Liferay.Language.get(
 				'global-attributes'
 			).toLowerCase()}
-			error={error}
-			items={get(
-				data,
-				['eventAttributeDefinitions', 'eventAttributeDefinitions'],
-				[]
-			)}
-			loading={loading}
+			noResultsProps={{
+				title: Liferay.Language.get('empty-title-pages')
+			}}
+			orderIOMap={orderIOMap}
 			page={page}
 			query={query}
-			refetch={refetch}
-			total={get(data, ['eventAttributeDefinitions', 'total'], 0)}
+			rowIdentifier='id'
+			showFilterAndOrder={false}
 		/>
 	);
 };
 
-const GlobalAttributeList = withBaseResults(withData, {
-	defaultOrderBy: orderDefault,
-	defaultOrderByField: NAME,
-	emptyTitle: Liferay.Language.get('empty-title-pages'),
-	getColumns: ({channelId, groupId}) => [
-		attributeListColumns.getName({channelId, groupId}),
-		attributeListColumns.displayName,
-		attributeListColumns.description,
-		attributeListColumns.sampleValue,
-		attributeListColumns.dataType
-	],
-	rowIdentifier: 'id',
-	showDropdownRangeKey: false
-});
 export default GlobalAttributeList;
