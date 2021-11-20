@@ -3,7 +3,7 @@ import HeaderRow from './HeaderRow';
 import React from 'react';
 import Row, {Column} from './Row';
 import Spinner from 'shared/components/Spinner';
-import {get, isArray, noop} from 'lodash';
+import {get, isArray, noop, orderBy} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 
@@ -24,10 +24,6 @@ interface ITableProps {
 	checkDisabled?: (item: object) => boolean;
 	className?: string;
 	columns: Column[];
-	// defaultSort?: {
-	// 	field: string;
-	// 	sortOrder: string;
-	// }; // TODO: Convert this over to orderIOMap;
 	enableMultiSort?: boolean;
 	headingNowrap?: boolean;
 	internalSort?: boolean;
@@ -68,10 +64,9 @@ const Table: React.FC<ITableProps> = ({
 	checkDisabled = () => false,
 	className,
 	columns,
-	// defaultSort, // TODO: No more default because it's all handled by its parent
 	enableMultiSort = false,
 	headingNowrap = true,
-	internalSort = false, // TODO: maybe have internal sort in here still but base it off of the provided sort
+	internalSort = false
 	items = [],
 	list = false,
 	loading = false,
@@ -113,32 +108,25 @@ const Table: React.FC<ITableProps> = ({
 		}
 	};
 
-	// const handleSort = field => {
-	// 	const updatedOrderParams =
-	// 		orderParams.field === field
-	// 			? orderParams.update('sortOrder', order => invertOrder(order))
-	// 			: new OrderParams({
-	// 					field,
-	// 					sortOrder: getDefaultSortOrder(field)
-	// 			  });
+	const sortItems = items => {
+		const orderParams = orderIOMap.first();
 
-	// 	setOrderParams(updatedOrderParams);
-	// };
+		const {field, sortOrder} = orderParams;
 
-	// const sortItems = items =>
-	// 	orderBy(
-	// 		items,
-	// 		item => {
-	// 			const fieldValue = item[orderParams.field];
+		return orderBy(
+			items,
+			item => {
+				const fieldValue = item[field];
 
-	// 			if (typeof fieldValue === 'string') {
-	// 				return fieldValue.toLowerCase();
-	// 			}
+				if (typeof fieldValue === 'string') {
+					return fieldValue.toLowerCase();
+				}
 
-	// 			return fieldValue;
-	// 		},
-	// 		orderParams.sortOrder
-	// 	);
+				return fieldValue;
+			},
+			sortOrder.toLowerCase()
+		);
+	};
 
 	const classes = getCN('table', 'table-autofit', 'table-hover', {
 		'show-quick-actions-on-hover': renderRowActions,
@@ -149,7 +137,7 @@ const Table: React.FC<ITableProps> = ({
 		'table-row-no-bordered': !rowBordered
 	});
 
-	const itemsSorted = items; // internalSort ? sortItems(items) : items;
+	const itemsSorted = internalSort ? sortItems(items) : items;
 
 	return (
 		<div

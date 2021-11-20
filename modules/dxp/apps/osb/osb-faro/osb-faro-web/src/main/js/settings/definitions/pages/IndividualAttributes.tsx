@@ -2,29 +2,25 @@ import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants from 'shared/util/constants';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
 import {applyTimeZone} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect, ConnectedProps} from 'react-redux';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {getDefinitions} from 'shared/util/breadcrumbs';
+import {omit} from 'lodash';
 import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 
-const {
-	pagination: {orderDefault}
-} = Constants;
-
-const SearchableEntityTableHOC = withStatefulPagination(SearchableEntityTable, {
-	defaultOrderByFields: [
-		{
-			fieldName: 'fieldName',
-			orderBy: orderDefault
-		}
-	]
-});
+const SearchableEntityTableHOC = withStatefulPagination(
+	SearchableEntityTable,
+	{
+		initialOrderIOMap: createOrderIOMap('fieldName')
+	},
+	props => omit(props, 'onSearchValueChange')
+);
 
 const connector = connect(
 	(store: RootState, {groupId}: {groupId: string}) => ({
@@ -126,6 +122,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 					dataSourceParams={{groupId}}
 					internalSort
 					rowIdentifier='fieldName'
+					showFilterAndOrder={false}
 					showPagination={false}
 				/>
 			</Card>
