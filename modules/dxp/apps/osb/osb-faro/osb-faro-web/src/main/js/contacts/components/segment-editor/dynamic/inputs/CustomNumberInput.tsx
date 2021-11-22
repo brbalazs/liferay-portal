@@ -117,7 +117,7 @@ export default class CustomNumberInput extends React.Component<ICustomNumberInpu
 		const valid = isValid(value);
 
 		if (valid) {
-			numberVal = parseFloat(value);
+			numberVal = value;
 		}
 
 		onChange({

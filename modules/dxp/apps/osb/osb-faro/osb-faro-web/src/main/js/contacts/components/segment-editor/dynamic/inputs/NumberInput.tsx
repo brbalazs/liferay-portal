@@ -49,7 +49,7 @@ export default class NumberInput extends React.Component<INumberInputProps> {
 		let numberVal: string | number = '';
 
 		if (isValid(value)) {
-			numberVal = parseFloat(value);
+			numberVal = value;
 		}
 
 		onChange({valid: isValid(numberVal), value: numberVal});

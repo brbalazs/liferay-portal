@@ -9,6 +9,8 @@ const SIZES = ['lg', 'sm'];
 const INSET_POSITIONS = ['after', 'before'];
 const APPEND_POSITIONS = ['append', 'prepend'];
 
+const NUMBER_MAX_LENGTH = 19;
+
 class InputText extends React.Component {
 	render() {
 		return (
@@ -177,7 +179,11 @@ class Input extends React.Component {
 				defaultChecked={checked}
 				ref={this._elementRef}
 				type={type}
-				value={value}
+				value={
+					type === 'number' && value
+						? String(value).slice(0, NUMBER_MAX_LENGTH)
+						: value
+				}
 			/>
 		);
 	}
