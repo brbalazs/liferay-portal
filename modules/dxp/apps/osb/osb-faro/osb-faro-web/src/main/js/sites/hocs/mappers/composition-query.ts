@@ -1,12 +1,6 @@
-import Constants from 'shared/util/constants';
 import {COMPOSITION_LABEL_MAP, sub} from 'shared/util/lang';
-import {get} from 'lodash';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {safeResultToProps} from 'shared/util/mappers';
-
-const {
-	pagination: {delta: defaultDelta}
-} = Constants;
 
 const getMapResultToProps = (compositionBagName: string) =>
 	safeResultToProps(
@@ -33,30 +27,29 @@ const getMapResultToProps = (compositionBagName: string) =>
 	);
 
 const mapPropsToOptions: object = ({
-	rangeSelectors,
-	router: {params, query}
-}) => {
-	const delta = parseInt(get(query, 'delta', defaultDelta));
-	const page = parseInt(get(query, 'page', 1));
-
-	return {
-		variables: {
-			channelId: get(params, 'channelId'),
-			size: delta,
-			start: (page - 1) * delta,
-			...getSafeRangeSelectors(rangeSelectors)
-		}
-	};
-};
+	channelId,
+	delta,
+	id,
+	page,
+	rangeSelectors
+}) => ({
+	variables: {
+		channelId,
+		id,
+		size: delta,
+		start: (page - 1) * delta,
+		...getSafeRangeSelectors(rangeSelectors)
+	}
+});
 
 const mapCardPropsToOptions: object = ({
 	activeTabId,
-	rangeSelectors,
-	router: {params}
+	channelId,
+	rangeSelectors
 }) => ({
 	variables: {
 		activeTabId,
-		channelId: get(params, 'channelId'),
+		channelId,
 		size: 5,
 		start: 0,
 		...getSafeRangeSelectors(rangeSelectors)

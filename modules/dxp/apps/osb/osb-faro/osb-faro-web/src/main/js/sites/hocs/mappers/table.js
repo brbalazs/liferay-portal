@@ -1,4 +1,4 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {OrderByDirections} from 'shared/util/constants';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 import {sub} from 'shared/util/lang';
 
@@ -44,8 +44,8 @@ const getTableMapper = getItems => {
 			variables: {
 				...variables,
 				sort: {
-					column: activeTabConfig.orderByField,
-					type: orderDescending.toUpperCase()
+					column: activeTabConfig.tabId,
+					type: OrderByDirections.Descending
 				}
 			}
 		};

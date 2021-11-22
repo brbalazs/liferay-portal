@@ -9,6 +9,7 @@ import {
 	mapCardPropsToOptions
 } from './mappers/composition-query';
 import {graphql} from '@apollo/react-hoc';
+import {useParams} from 'react-router-dom';
 import {withTableData} from 'shared/hoc';
 
 const withData = () =>
@@ -36,7 +37,7 @@ const TableWithData = withTableData(withData, {
 });
 
 const SearchTermsCard = props => {
-	const {router} = useContext(BasePage.Context);
+	const {channelId, id} = useParams();
 
 	return (
 		<CardWithRangeKey
@@ -46,10 +47,11 @@ const SearchTermsCard = props => {
 		>
 			{({rangeSelectors}) => (
 				<TableWithData
-					rangeSelectors={rangeSelectors}
-					router={router}
-					rowBordered={false}
 					{...props}
+					channelId={channelId}
+					id={id}
+					rangeSelectors={rangeSelectors}
+					rowBordered={false}
 				/>
 			)}
 		</CardWithRangeKey>
