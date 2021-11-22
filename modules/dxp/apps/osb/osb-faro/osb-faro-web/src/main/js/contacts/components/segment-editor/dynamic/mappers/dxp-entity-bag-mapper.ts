@@ -1,4 +1,4 @@
-import {getSortFromOrderIOMap} from 'shared/util/pagination';
+import {getGraphQLVariablesFromPagination} from 'shared/util/pagination';
 import {IPagination} from 'shared/types';
 
 export const mapPropsToOptions = ({
@@ -9,11 +9,13 @@ export const mapPropsToOptions = ({
 	query
 }: IPagination & {channelId: string}) => ({
 	variables: {
-		channelId,
-		keywords: query,
-		size: delta,
-		sort: getSortFromOrderIOMap(orderIOMap),
-		start: (page - 1) * delta
+		...getGraphQLVariablesFromPagination({
+			delta,
+			orderIOMap,
+			page,
+			query
+		}),
+		channelId
 	}
 });
 

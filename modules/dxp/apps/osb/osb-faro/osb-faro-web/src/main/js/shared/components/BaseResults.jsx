@@ -31,8 +31,7 @@ export default class BaseResults extends React.Component {
 		showCheckbox: false,
 		showFilterAndOrder: true,
 		showPagination: true,
-		showSearch: true,
-		toolbarProps: {}
+		showSearch: true
 	};
 
 	static propTypes = {
@@ -65,8 +64,7 @@ export default class BaseResults extends React.Component {
 		showCheckbox: PropTypes.bool,
 		showFilterAndOrder: PropTypes.bool,
 		showPagination: PropTypes.bool,
-		showSearch: PropTypes.bool,
-		toolbarProps: PropTypes.object
+		showSearch: PropTypes.bool
 	};
 
 	state = {
@@ -363,7 +361,6 @@ export default class BaseResults extends React.Component {
 
 		const allChecked = this.allChecked();
 
-		// TODO: Update Toolbar to take an orderIOMap
 		return (
 			<div
 				className={getCN(

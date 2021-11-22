@@ -14,12 +14,15 @@ import {noop, omit, pickBy} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {QueryHookOptions, useQuery} from '@apollo/react-hooks';
 import {safeResultToProps} from 'shared/util/mappers';
+import {useStatefulPagination} from 'shared/hooks';
 import {withStatefulPagination} from 'shared/hoc';
 
 interface ISearchableTableModalGraphQLProps extends IPagination {
 	className: string;
 	columns: Columns;
 	graphqlQuery: DocumentNode;
+	initialDelta?: number;
+	initialOrderIOMap: OrderedMap<string, OrderParams>;
 	instruction?: string;
 	mapPropsToOptions: (props: {[key: string]: any}) => QueryHookOptions;
 	mapResultToProps: (result: {
@@ -36,14 +39,13 @@ interface ISearchableTableModalGraphQLProps extends IPagination {
 const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> = ({
 	className,
 	columns,
-	delta = 10,
 	graphqlQuery,
+	initialDelta = 5,
+	initialOrderIOMap,
 	instruction = '',
 	mapPropsToOptions,
 	mapResultToProps,
 	onClose = noop,
-	orderBy,
-	orderByField,
 	onSubmit,
 	requireSelection = true,
 	selectedItems = [],
@@ -51,9 +53,20 @@ const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> =
 	title = Liferay.Language.get('select-items'),
 	...otherProps
 }) => {
+	const {
+		delta,
+		onDeltaChange,
+		onOrderIOMapChange,
+		onPageChange,
+		onQueryChange,
+		orderIOMap,
+		page,
+		query
+	} = useStatefulPagination(null, {initialDelta, initialOrderIOMap});
+
 	const {data, error, loading} = useQuery(
 		graphqlQuery,
-		mapPropsToOptions({delta, orderBy, orderByField, ...otherProps})
+		mapPropsToOptions({delta, orderIOMap, page, query, ...otherProps})
 	);
 
 	const {
@@ -86,24 +99,23 @@ const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> =
 			</Modal.Body>
 
 			<CrossPageSelect
+				{...otherProps}
 				autoFocus
 				columns={columns}
-				defaultDelta={delta}
-				defaultOrderBy={orderBy}
-				defaultOrderByField={orderByField}
-				defaultSort={{field: orderByField, sortOrder: orderBy}}
 				delta={delta}
 				empty={empty}
 				items={items}
 				loading={loading}
-				orderBy={orderBy}
-				orderByField={orderByField}
+				onDeltaChange={onDeltaChange}
+				onOrderIOMapChange={onOrderIOMapChange}
+				onPageChange={onPageChange}
+				onQueryChange={onQueryChange}
+				orderIOMap={orderIOMap}
+				page={page}
 				pageDisplay={false}
+				query={query}
 				total={total}
-				{...otherProps}
-			>
-				{props => <ListComponent {...props} />}
-			</CrossPageSelect>
+			/>
 
 			<Modal.Footer>
 				<Button onClick={onClose}>
@@ -122,23 +134,23 @@ const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> =
 	);
 };
 
-const WrappedComponent = withStatefulPagination(
-	SearchableTableModalGraphql,
-	({
-		delta: defaultDelta,
-		orderBy: defaultOrderBy,
-		orderByField: defaultOrderByField
-	}) =>
-		pickBy({
-			defaultDelta,
-			defaultOrderBy,
-			defaultOrderByField
-		}),
-	({onOrderByFieldsChange, ...otherStatefulProps}) => ({
-		onSortChange: onOrderByFieldsChange,
-		...omit(otherStatefulProps, 'onSearchValueChange')
-	}),
-	false
-);
+// const WrappedComponent = withStatefulPagination(
+// 	SearchableTableModalGraphql,
+// 	null,
+// 	({
+// 		delta: defaultDelta,
+// 		orderBy: defaultOrderBy,
+// 		orderByField: defaultOrderByField
+// 	}) =>
+// 		pickBy({
+// 			defaultDelta,
+// 			defaultOrderBy,
+// 			defaultOrderByField
+// 		}),
+// 	(props) => ({
+// 		omit(props, 'onSearchValueChange')
+// 	),
+// 	false
+// );
 
-export default withSelectionProvider(WrappedComponent);
+export default withSelectionProvider(SearchableTableModalGraphql);

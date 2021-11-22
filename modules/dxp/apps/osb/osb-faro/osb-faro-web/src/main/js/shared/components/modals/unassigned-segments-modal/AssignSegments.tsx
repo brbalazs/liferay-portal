@@ -8,10 +8,12 @@ import {
 	useUnassignedSegmentsContext
 } from 'shared/context/unassignedSegments';
 import {ClaySelectWithOption} from '@clayui/select';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {partition} from 'lodash';
 import {Segment} from 'shared/util/records';
 import {sequence} from 'shared/util/promise';
 import {useChannelContext} from 'shared/context/channel';
+import {useStatefulPagination} from 'shared/hooks';
 
 const DELETE_OPTION = {
 	label: Liferay.Language.get('delete'),
@@ -47,6 +49,10 @@ interface IAssignSegmentsProps {
 }
 
 const AssignSegments: React.FC<IAssignSegmentsProps> = ({groupId, onClose}) => {
+	const {onOrderIOMapChange, orderIOMap} = useStatefulPagination(null, {
+		initialOrderIOMap: createOrderIOMap(NAME)
+	});
+
 	const {channels} = useChannelContext();
 
 	const {
@@ -177,12 +183,10 @@ const AssignSegments: React.FC<IAssignSegmentsProps> = ({groupId, onClose}) => {
 								sortable: false
 							}
 						]}
-						defaultSort={{
-							field: 'name',
-							sortOrder: 'asc'
-						}}
 						internalSort
 						items={unassignedSegments}
+						onOrderIOMapChange={onOrderIOMapChange}
+						orderIOMap={orderIOMap}
 						rowIdentifier='id'
 					/>
 				</div>
