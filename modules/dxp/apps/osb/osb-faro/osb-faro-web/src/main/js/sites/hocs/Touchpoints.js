@@ -5,16 +5,22 @@ import TouchpointsQuery, {
 	TOUCHPOINTS_QUERY_TEST
 } from 'shared/queries/TouchpointsQuery';
 import URLConstants from 'shared/util/url-constants';
+import {
+	compose,
+	withBaseResults,
+	withQueryPagination,
+	withQueryRangeSelectors
+} from 'shared/hoc';
+import {createOrderIOMap, VISITORS_METRIC} from 'shared/util/pagination';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
 	metricsListColumns,
 	sitePagesListColumns
 } from 'shared/util/table-columns';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {VISITORS_METRIC} from 'shared/util/pagination';
-import {withBaseResults} from 'shared/hoc';
 
 // LRAC-6976 POC TEMP
 const withData = (useDB = false) => () =>
@@ -29,7 +35,6 @@ const withData = (useDB = false) => () =>
 // LRAC-6976 POC TEMP
 const getTableWithData = useDB => {
 	const TableWithData = withBaseResults(withData(useDB), {
-		defaultOrderByField: VISITORS_METRIC,
 		emptyDescription: sub(
 			Liferay.Language.get('empty-message-lists'),
 			[
@@ -77,19 +82,23 @@ const getTableWithData = useDB => {
 const TableWithDataNewDB = getTableWithData(true);
 const TableWithDataOldDB = getTableWithData();
 
-const Touchpoints = ({router}) => {
+// TODO: look intot he default range key
+const Touchpoints = ({router, ...otherProps}) => {
 	const TableWithData =
 		router.query.useDB === 'true' ? TableWithDataNewDB : TableWithDataOldDB;
 
 	return (
 		<Card className='site-touchpoints-root' pageDisplay>
 			<TableWithData
+				{...otherProps}
 				entityLabel={Liferay.Language.get('pages')}
-				rangeSelectors={getRangeSelectorsFromQuery(router.query)}
 				router={router}
 			/>
 		</Card>
 	);
 };
 
-export default Touchpoints;
+export default compose(
+	withQueryPagination({initialOrderIOMap: createOrderIOMap(VISITORS_METRIC)}),
+	withQueryRangeSelectors({rangeKey: RangeKeyTimeRanges.Last30Days})
+)(Touchpoints);
