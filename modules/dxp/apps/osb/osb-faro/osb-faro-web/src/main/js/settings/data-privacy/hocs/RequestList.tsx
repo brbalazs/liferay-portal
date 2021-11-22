@@ -1,6 +1,7 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants from 'shared/util/constants';
+import Constants, {OrderByDirections} from 'shared/util/constants';
+import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import DataControlRequest from '../queries/DataControlRequestMutation';
 import Label from 'shared/components/Label';
 import moment from 'moment';
@@ -12,19 +13,22 @@ import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {CREATE_DATE, createOrderIOMap} from 'shared/util/pagination';
-import {FilterByType} from 'shared/types';
+import {
+	CREATE_DATE,
+	createOrderIOMap,
+	getGraphQLVariablesFromPagination
+} from 'shared/util/pagination';
+import {FilterByType, FilterInputType} from 'shared/types';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GDPRRequestStatuses,
 	GDPRRequestTypes,
 	RangeKeyTimeRanges
 } from 'shared/util/constants';
+import {get} from 'lodash';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
-import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {getSafeDisplayValue} from 'shared/util/util';
-import {graphql} from '@apollo/react-hoc';
-import {mapPropsToOptions} from './mappers/request-list-query';
+import {mapListResultsToProps} from 'shared/util/mappers';
 import {OrderedMap, Set} from 'immutable';
 import {
 	PERIOD,
@@ -34,23 +38,18 @@ import {
 	toRoute,
 	TYPES
 } from 'shared/util/router';
-import {useMutation} from '@apollo/react-hooks';
-import {useQueryParams} from 'shared/hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination} from 'shared/hooks';
 import {User} from 'shared/util/records';
 import {
 	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {
-	withCrossPageSelect,
-	withFilters,
-	withHistory,
-	withQueryPagination,
-	withQueryRangeSelectors
-} from 'shared/hoc';
+import {withHistory} from 'shared/hoc';
 
 const {
-	pagination: {cur: defaultPage, orderDescending}
+	pagination: {cur: defaultPage}
 } = Constants;
 
 const DATE_FORMAT = 'MMM DD, YYYY';
@@ -187,40 +186,65 @@ export const searchSelectedFn = ({
 	return result;
 };
 
-const withData = () =>
-	graphql(RequestListQuery, {
-		options: (props: any) => ({
-			...mapPropsToOptions(props),
-			fetchPolicy: 'no-cache'
-		}),
-		props: getMapResultToProps(
-			({dataControlTasks: {dataControlTasks, total}}) => ({
-				items: dataControlTasks,
-				total
-			})
-		)
-	});
+const getFilterOptionType = (filterKey: string): FilterInputType =>
+	get(
+		FILTER_BY_OPTIONS.find(({key}: {key: string}) => key === filterKey),
+		'type',
+		'checkbox'
+	);
 
-const withQueryOptions = Component => ({
+interface IRequestListProps {
+	addAlert: Alert.AddAlert;
+	close: () => void;
+	currentUser: User;
+	history: {
+		push: (href: string) => void;
+	};
+	open: (modalType: string, options: object) => void;
+	timeZoneId: string;
+}
+
+const RequestList: React.FC<IRequestListProps> = ({
 	addAlert,
 	close,
 	currentUser,
 	history,
 	open,
-	refetch,
-	...otherProps
-}: IRequestListProps & {
-	delta: string;
-	groupId: string;
-	refetch: (options: {variables: {[key: string]: any}}) => Promise<any>;
+	timeZoneId
 }) => {
+	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
+		filterFields: [STATUSES, TYPES, PERIOD],
+		initialOrderIOMap: createOrderIOMap(CREATE_DATE)
+	});
+	const {groupId} = useParams();
+
 	const {selectedItems} = useSelectionContext();
+
+	const formattedFilterBy = filterBy
+		.filterNot(val => val.isEmpty())
+		.map((val, key) =>
+			getFilterOptionType(key) === 'radio' ? parseInt(val.first()) : val
+		)
+		.toJS();
+
+	const response = useQuery(RequestListQuery, {
+		fetchPolicy: 'no-cache',
+		variables: {
+			...formattedFilterBy,
+			...getGraphQLVariablesFromPagination({
+				delta,
+				orderIOMap,
+				page,
+				query
+			})
+		}
+	});
+
+	const {refetch} = response;
 
 	const [addDataControlTask] = useMutation(DataControlRequest);
 
-	const {delta, groupId} = otherProps;
-
-	const handleOpenNewRequestModal = () =>
+	const handleOpenNewRequestModal = () => {
 		open(modalTypes.NEW_REQUEST_MODAL, {
 			groupId,
 			onClose: close,
@@ -254,25 +278,13 @@ const withQueryOptions = Component => ({
 							)
 						});
 
-						refetch({
-							variables: {
-								keywords: '',
-								size: delta,
-								sort: {
-									column: CREATE_DATE,
-									type: orderDescending.toUpperCase()
-								},
-								start: 0
-							}
-						});
-
 						history.push(
 							setUriQueryValues(
 								{
+									field: CREATE_DATE,
 									keywords: '',
-									orderBy: orderDescending,
-									orderByField: CREATE_DATE,
-									page: defaultPage
+									page: defaultPage,
+									sortOrder: OrderByDirections.Descending
 								},
 								toRoute(
 									Routes.SETTINGS_DATA_PRIVACY_REQUEST_LOG,
@@ -282,6 +294,8 @@ const withQueryOptions = Component => ({
 								)
 							)
 						);
+
+						refetch();
 
 						close();
 					})
@@ -296,124 +310,76 @@ const withQueryOptions = Component => ({
 					);
 			}
 		});
-
-	return (
-		<Component
-			{...otherProps}
-			renderNav={() => (
-				<Nav>
-					<Nav.Item>
-						{selectedItems.size ? (
-							<Button
-								className='nav-btn'
-								display='primary'
-								download
-								externalLink
-								href={`/o/proxy/download/data-control-tasks?projectGroupId=${groupId}&filter=(id eq ${selectedItems
-									.map(({id}) => id)
-									.join(' or id eq ')})`}
-								onClick={() =>
-									analytics.track(
-										'Downloaded User Data Request'
-									)
-								}
-							>
-								{Liferay.Language.get('download-all')}
-							</Button>
-						) : (
-							<Button
-								className='nav-btn'
-								display='primary'
-								onClick={handleOpenNewRequestModal}
-							>
-								{Liferay.Language.get('create-request')}
-							</Button>
-						)}
-					</Nav.Item>
-				</Nav>
-			)}
-		/>
-	);
-};
-
-const RequestListWithData = withCrossPageSelect(withData, {
-	emptyTitle: getFormattedTitle(Liferay.Language.get('requests')),
-	getColumns: ({timeZoneId}) => [
-		{
-			accessor: 'batchId',
-			label: Liferay.Language.get('request-id'),
-			title: true
-		},
-		{
-			accessor: 'emailAddress',
-			className: 'table-cell-expand',
-			label: Liferay.Language.get('email')
-		},
-		{
-			accessor: 'type',
-			dataFormatter: (type: GDPRRequestTypes) =>
-				REQUEST_TYPE_LABEL_MAP[type],
-			label: Liferay.Language.get('request-type')
-		},
-		{
-			accessor: CREATE_DATE,
-			dataFormatter: (date: string) =>
-				formatDateToTimeZone(date, DATE_FORMAT, timeZoneId),
-			label: Liferay.Language.get('requested-date')
-		},
-		{
-			accessor: 'status',
-			cellRenderer: ({
-				data: {status}
-			}: {
-				data: {status: GDPRRequestStatuses};
-			}) => (
-				<td>
-					<Label
-						className='status'
-						display={REQUEST_STATUS_DISPLAY_MAP[status]}
-						size='lg'
-						uppercase
-					>
-						{REQUEST_STATUS_LABEL_MAP[status]}
-					</Label>
-				</td>
-			),
-			label: Liferay.Language.get('request-status')
-		}
-	],
-	page: false,
-	primary: true,
-	showDropdownRangeKey: false,
-	withQueryOptions
-});
-
-interface IRequestListProps {
-	addAlert: Alert.AddAlert;
-	close: () => void;
-	currentUser: User;
-	filterBy: FilterByType;
-	history: {
-		push: (href: string) => void;
 	};
-	open: (modalType: string, options: object) => void;
-	timeZoneId: string;
-}
-
-const RequestList: React.FC<IRequestListProps> = ({
-	filterBy,
-	...otherProps
-}) => {
-	const {groupId} = useQueryParams();
 
 	return (
 		<Card className='request-list-root' pageDisplay>
-			<RequestListWithData
-				{...otherProps}
+			<CrossPageSelect
+				{...mapListResultsToProps(
+					response,
+					({dataControlTasks: {dataControlTasks, total}}) => ({
+						items: dataControlTasks,
+						total
+					})
+				)}
 				checkDisabled={isDisabled}
+				columns={[
+					{
+						accessor: 'batchId',
+						label: Liferay.Language.get('request-id'),
+						title: true
+					},
+					{
+						accessor: 'emailAddress',
+						className: 'table-cell-expand',
+						label: Liferay.Language.get('email')
+					},
+					{
+						accessor: 'type',
+						dataFormatter: (type: GDPRRequestTypes) =>
+							REQUEST_TYPE_LABEL_MAP[type],
+						label: Liferay.Language.get('request-type')
+					},
+					{
+						accessor: CREATE_DATE,
+						dataFormatter: (date: string) =>
+							formatDateToTimeZone(date, DATE_FORMAT, timeZoneId),
+						label: Liferay.Language.get('requested-date')
+					},
+					{
+						accessor: 'status',
+						cellRenderer: ({
+							data: {status}
+						}: {
+							data: {status: GDPRRequestStatuses};
+						}) => (
+							<td>
+								<Label
+									className='status'
+									display={REQUEST_STATUS_DISPLAY_MAP[status]}
+									size='lg'
+									uppercase
+								>
+									{REQUEST_STATUS_LABEL_MAP[status]}
+								</Label>
+							</td>
+						),
+						label: Liferay.Language.get('request-status')
+					}
+				]}
+				delta={delta}
 				entityLabel={Liferay.Language.get('requests')}
 				filterBy={filterBy}
+				filterByOptions={FILTER_BY_OPTIONS}
+				flatFilter
 				groupId={groupId}
+				noResultsProps={{
+					title: getFormattedTitle(Liferay.Language.get('requests'))
+				}}
+				orderIOMap={orderIOMap}
+				page={page}
+				primary
+				query={query}
 				renderInlineRowActions={({
 					data: {id, status},
 					itemsSelected
@@ -451,12 +417,39 @@ const RequestList: React.FC<IRequestListProps> = ({
 						)
 					);
 				}}
+				renderNav={() => (
+					<Nav>
+						<Nav.Item>
+							{selectedItems.size ? (
+								<Button
+									className='nav-btn'
+									display='primary'
+									download
+									externalLink
+									href={`/o/proxy/download/data-control-tasks?projectGroupId=${groupId}&filter=(id eq ${selectedItems
+										.map(({id}) => id)
+										.join(' or id eq ')})`}
+									onClick={() =>
+										analytics.track(
+											'Downloaded User Data Request'
+										)
+									}
+								>
+									{Liferay.Language.get('download-all')}
+								</Button>
+							) : (
+								<Button
+									className='nav-btn'
+									display='primary'
+									onClick={handleOpenNewRequestModal}
+								>
+									{Liferay.Language.get('create-request')}
+								</Button>
+							)}
+						</Nav.Item>
+					</Nav>
+				)}
 				searchSelectedFn={searchSelectedFn}
-				toolbarProps={{
-					filterBy,
-					filterByOptions: FILTER_BY_OPTIONS,
-					flatFilter: true
-				}}
 			/>
 		</Card>
 	);
@@ -464,9 +457,6 @@ const RequestList: React.FC<IRequestListProps> = ({
 
 export default compose<any>(
 	withSelectionProvider,
-	withFilters({destructured: false, filterFields: [STATUSES, TYPES, PERIOD]}),
 	connect(null, {addAlert, close, open}),
-	withHistory,
-	withQueryPagination({initialOrderIOMap: createOrderIOMap(CREATE_DATE)}),
-	withQueryRangeSelectors({})
+	withHistory
 )(RequestList);
