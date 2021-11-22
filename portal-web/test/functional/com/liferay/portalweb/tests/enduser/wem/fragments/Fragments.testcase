@@ -62,6 +62,79 @@ definition {
 		Collection.viewNotPresent(collectionName = "Collection Name");
 	}
 
+	@description = "LPS-79349 - User can propagate the changes of fragment to page templates."
+	@priority = "3"
+	test PropagateChangesOfFragmentToPageTemplates {
+		Navigator.gotoNavNested(navNested = "Collection Name");
+
+		var htmlSnippet = '''<div>TEST</div>''';
+
+		JSONFragment.addSection(
+			collectionName = "Collection Name",
+			fragmentStatus = "Approved",
+			groupName = "Test Site Name",
+			html = "${htmlSnippet}",
+			name = "Test Fragment Name");
+
+		PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "test-site-name");
+
+		PageTemplatesAdmin.addCollection(collectionName = "Page Template Collection");
+
+		PageTemplatesAdmin.add(pageTemplateName = "Page Template Name");
+
+		PageEditor.addFragment(
+			collectionName = "Collection Name",
+			fragmentName = "Test Fragment Name");
+
+		PageEditor.viewAutoSaveMessage();
+
+		AssertTextEquals(
+			index = "1",
+			key_fragmentName = "Test Fragment Name",
+			locator1 = "Fragment#FRAGMENT_BODY",
+			value1 = "TEST");
+
+		PortletEntry.publish();
+
+		FragmentsAdmin.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+		Navigator.gotoNavNested(navNested = "Collection Name");
+
+		LexiconEntry.gotoEntryMenuItem(menuItem = "Edit", rowEntry = "Test Fragment Name");
+
+		var htmlSnippet = '''<div>EDITED</div>''';
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#HTML_EDITOR",
+			value1 = "${htmlSnippet}");
+
+		PortletEntry.publish();
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "View Usages",
+			rowEntry = "Test Fragment Name");
+
+		Click(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER");
+
+		Click.clickNoMouseOver(locator1 = "Button#PROPAGATE");
+
+		Alert.viewSuccessMessage();
+
+		PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "test-site-name");
+
+		Navigator.gotoNavNested(navNested = "Page Template Collection");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "Page Template Name");
+
+		AssertTextEquals(
+			index = "1",
+			key_fragmentName = "Test Fragment Name",
+			locator1 = "Fragment#FRAGMENT_BODY",
+			value1 = "EDITED");
+	}
+
 	@priority = "4"
 	test RenameFragment {
 		Navigator.gotoNavNested(navNested = "Collection Name");
