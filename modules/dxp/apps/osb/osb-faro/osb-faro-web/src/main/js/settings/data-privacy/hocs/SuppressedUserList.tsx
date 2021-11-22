@@ -6,8 +6,14 @@ import React from 'react';
 import SuppressedUsersListQuery from '../queries/SuppressedUsersListQuery';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Router} from 'shared/types';
+import {
+	compose,
+	withBaseResults,
+	withQueryPagination,
+	withQueryRangeSelectors
+} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
-import {CREATE_DATE} from 'shared/util/pagination';
+import {CREATE_DATE, createOrderIOMap} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
@@ -15,7 +21,6 @@ import {graphql} from '@apollo/react-hoc';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
-import {withBaseResults} from 'shared/hoc';
 
 const DATE_FORMAT = 'MMM DD, YYYY';
 
@@ -99,7 +104,6 @@ const withQueryOptions = Component => ({
 };
 
 const SuppressedListWithData = withBaseResults(withData, {
-	defaultOrderByField: CREATE_DATE,
 	emptyTitle: getFormattedTitle(Liferay.Language.get('suppressed-users')),
 	getColumns: ({timeZoneId}) => [
 		{
@@ -152,4 +156,8 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 	</Card>
 );
 
-export default connector(SuppressedUserList);
+export default compose(
+	connector,
+	withQueryPagination({initialOrderIOMap: createOrderIOMap(CREATE_DATE)}),
+	withQueryRangeSelectors({})
+)(SuppressedUserList);

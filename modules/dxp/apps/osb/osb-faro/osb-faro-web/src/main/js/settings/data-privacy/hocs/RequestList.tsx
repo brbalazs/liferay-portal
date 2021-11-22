@@ -12,8 +12,8 @@ import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {CREATE_DATE} from 'shared/util/pagination';
-import {FilterByType, Router} from 'shared/types';
+import {CREATE_DATE, createOrderIOMap} from 'shared/util/pagination';
+import {FilterByType} from 'shared/types';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GDPRRequestStatuses,
@@ -35,12 +35,19 @@ import {
 	TYPES
 } from 'shared/util/router';
 import {useMutation} from '@apollo/react-hooks';
+import {useQueryParams} from 'shared/hooks';
 import {User} from 'shared/util/records';
 import {
 	useSelectionContext,
 	withSelectionProvider
 } from 'shared/context/selection';
-import {withCrossPageSelect, withFilters, withHistory} from 'shared/hoc';
+import {
+	withCrossPageSelect,
+	withFilters,
+	withHistory,
+	withQueryPagination,
+	withQueryRangeSelectors
+} from 'shared/hoc';
 
 const {
 	pagination: {cur: defaultPage, orderDescending}
@@ -330,7 +337,6 @@ const withQueryOptions = Component => ({
 };
 
 const RequestListWithData = withCrossPageSelect(withData, {
-	defaultOrderByField: CREATE_DATE,
 	emptyTitle: getFormattedTitle(Liferay.Language.get('requests')),
 	getColumns: ({timeZoneId}) => [
 		{
@@ -388,29 +394,23 @@ interface IRequestListProps {
 	currentUser: User;
 	filterBy: FilterByType;
 	history: {
-		push: (string) => void;
+		push: (href: string) => void;
 	};
 	open: (modalType: string, options: object) => void;
-	router: Router;
 	timeZoneId: string;
 }
 
 const RequestList: React.FC<IRequestListProps> = ({
 	filterBy,
-	router,
 	...otherProps
 }) => {
-	const {
-		params: {groupId}
-	} = router;
+	const {groupId} = useQueryParams();
 
 	return (
 		<Card className='request-list-root' pageDisplay>
 			<RequestListWithData
 				{...otherProps}
 				checkDisabled={isDisabled}
-				defaultOrderBy={orderDescending}
-				defaultOrderByField={CREATE_DATE}
 				entityLabel={Liferay.Language.get('requests')}
 				filterBy={filterBy}
 				groupId={groupId}
@@ -451,7 +451,6 @@ const RequestList: React.FC<IRequestListProps> = ({
 						)
 					);
 				}}
-				router={router}
 				searchSelectedFn={searchSelectedFn}
 				toolbarProps={{
 					filterBy,
@@ -467,5 +466,7 @@ export default compose<any>(
 	withSelectionProvider,
 	withFilters({destructured: false, filterFields: [STATUSES, TYPES, PERIOD]}),
 	connect(null, {addAlert, close, open}),
-	withHistory
+	withHistory,
+	withQueryPagination({initialOrderIOMap: createOrderIOMap(CREATE_DATE)}),
+	withQueryRangeSelectors({})
 )(RequestList);
