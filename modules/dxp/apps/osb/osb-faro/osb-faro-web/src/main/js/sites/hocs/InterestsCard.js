@@ -1,9 +1,8 @@
-import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
 import InterestsQuery from 'shared/queries/InterestsQuery';
-import React, {useContext} from 'react';
+import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
 import {
@@ -12,6 +11,7 @@ import {
 } from './mappers/composition-query';
 import {graphql} from '@apollo/react-hoc';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
+import {useParams} from 'react-router-dom';
 import {withTableData} from 'shared/hoc';
 
 const withData = () =>
@@ -38,12 +38,8 @@ const TableWithData = withTableData(withData, {
 	rowIdentifier: 'name'
 });
 
-const InterestsCard = props => {
-	const {router} = useContext(BasePage.Context);
-
-	const {
-		params: {channelId, groupId}
-	} = router;
+const InterestsCard = () => {
+	const {channelId, groupId} = useParams();
 
 	return (
 		<CardWithRangeKey
@@ -54,10 +50,9 @@ const InterestsCard = props => {
 			{({rangeSelectors}) => (
 				<>
 					<TableWithData
+						channelId={channelId}
 						rangeSelectors={rangeSelectors}
-						router={router}
 						rowBordered={false}
-						{...props}
 					/>
 
 					<Card.Footer>

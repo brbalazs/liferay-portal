@@ -3,6 +3,7 @@ import getInterestsQuery from 'contacts/queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
+import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
@@ -10,6 +11,8 @@ import {
 import {graphql} from '@apollo/react-hoc';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination} from 'shared/hooks';
 import {withBaseResults} from 'shared/hoc';
 
 const withData = () =>
@@ -19,7 +22,6 @@ const withData = () =>
 	});
 
 const TableWithData = withBaseResults(withData, {
-	defaultOrderByField: 'count',
 	emptyPrimary: false,
 	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
 		Liferay.Language.get('interests')
@@ -58,14 +60,32 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const Interests = props => (
-	<Card pageDisplay>
-		<Card.Header className='align-items-center d-flex justify-content-between'>
-			<Card.Title>{Liferay.Language.get('interest-topics')}</Card.Title>
-		</Card.Header>
+const Interests = props => {
+	const {channelId, id} = useParams();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(COUNT)
+	});
 
-		<TableWithData {...props} rowBordered={false} />
-	</Card>
-);
+	return (
+		<Card pageDisplay>
+			<Card.Header className='align-items-center d-flex justify-content-between'>
+				<Card.Title>
+					{Liferay.Language.get('interest-topics')}
+				</Card.Title>
+			</Card.Header>
+
+			<TableWithData
+				{...props}
+				channelId={channelId}
+				delta={delta}
+				id={id}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				rowBordered={false}
+			/>
+		</Card>
+	);
+};
 
 export default Interests;

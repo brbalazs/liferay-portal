@@ -1,9 +1,9 @@
+import {} from 'shared/util/router';
 import BaseInterestDetails from '../BaseInterestDetails';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Account} from 'shared/util/records';
-import {ACCOUNTS} from 'shared/util/router';
-import {Routes} from 'shared/util/router';
+import {ACCOUNTS, INDIVIDUALS, Routes} from 'shared/util/router';
 
 export default class InterestDetails extends React.Component {
 	static propTypes = {
@@ -11,13 +11,14 @@ export default class InterestDetails extends React.Component {
 	};
 
 	render() {
-		const {account, ...otherProps} = this.props;
+		const {account, tabId = INDIVIDUALS, ...otherProps} = this.props;
 
 		return (
 			<BaseInterestDetails
 				{...otherProps}
 				entity={account}
 				interestDetailsRoute={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}
+				tabId={tabId}
 				type={ACCOUNTS}
 			/>
 		);

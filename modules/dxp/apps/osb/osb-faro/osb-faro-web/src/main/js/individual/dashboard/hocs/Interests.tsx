@@ -3,6 +3,7 @@ import Constants, {CompositionTypes} from 'shared/util/constants';
 import InterestsQuery from '../queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
@@ -10,11 +11,9 @@ import {
 import {graphql} from '@apollo/react-hoc';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination} from 'shared/hooks';
 import {withBaseResults} from 'shared/hoc';
-
-const {
-	pagination: {cur: defaultPage, delta: defaultDelta}
-} = Constants;
 
 const withData = () =>
 	graphql(InterestsQuery, {
@@ -23,18 +22,11 @@ const withData = () =>
 	});
 
 const TableWithData = withBaseResults(withData, {
-	defaultOrderByField: 'count',
 	emptyPrimary: false,
 	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
 		Liferay.Language.get('interests')
 	]),
-	getColumns: ({
-		maxCount,
-		router: {
-			params: {channelId, groupId}
-		},
-		totalCount
-	}) => [
+	getColumns: ({channelId, groupId, maxCount, totalCount}) => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
 			maxWidth: 200,
@@ -62,10 +54,11 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const Interests = ({router}) => {
-	const {
-		query: {delta = defaultDelta, page = defaultPage}
-	} = router;
+const Interests = () => {
+	const {channelId, groupId} = useParams();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(COUNT)
+	});
 
 	return (
 		<Card pageDisplay>
@@ -76,9 +69,12 @@ const Interests = ({router}) => {
 			</Card.Header>
 
 			<TableWithData
+				channelId={channelId}
 				delta={delta}
+				groupId={groupId}
+				orderIOMap={orderIOMap}
 				page={page}
-				router={router}
+				query={query}
 				rowBordered={false}
 			/>
 		</Card>

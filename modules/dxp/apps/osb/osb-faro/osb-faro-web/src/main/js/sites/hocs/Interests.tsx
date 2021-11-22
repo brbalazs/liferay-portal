@@ -5,17 +5,18 @@ import InterestsQuery from 'shared/queries/InterestsQuery';
 import React from 'react';
 import {compose} from 'redux';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
 } from './mappers/composition-query';
-import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
-import {useQueryPagination} from 'shared/hooks';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination, useQueryRangeSelectors} from 'shared/hooks';
 import {withHistory, withPaginationBar, withTableData} from 'shared/hoc';
 
 const {
@@ -33,11 +34,10 @@ const withData = () =>
 
 const TableWithData = withTableData(withData, {
 	getColumns: ({
+		channelId,
+		groupId,
 		maxCount,
 		rangeSelectors,
-		router: {
-			params: {channelId, groupId}
-		},
 		totalCount
 	}) => [
 		compositionListColumns.getName({
@@ -67,11 +67,14 @@ const TableWithData = withTableData(withData, {
 	rowIdentifier: 'name'
 });
 
-const Interests = ({history, router}) => {
+const Interests = ({history}) => {
 	const {selectedChannel} = useChannelContext();
-	const {delta, page} = useQueryPagination({});
+	const {channelId, groupId} = useParams();
+	const {delta, orderIOMap, page} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(COUNT)
+	});
+	const rangeSelectors = useQueryRangeSelectors();
 
-	// TODO: Create hook to get rangeSelectors or include it in queryPagination?;
 	const handleRangeKeyValueChange = ({rangeEnd, rangeKey, rangeStart}) =>
 		history.push(
 			setUriQueryValues(
@@ -83,9 +86,6 @@ const Interests = ({history, router}) => {
 				})
 			)
 		);
-
-	// TODO: Swap this out with the rangeSelector hook to simplify things
-	const rangeSelectors = getRangeSelectorsFromQuery(router.query);
 
 	return (
 		<Card className='sites-interests-root' pageDisplay>
@@ -106,10 +106,12 @@ const Interests = ({history, router}) => {
 			</Card.Header>
 
 			<TableWithData
+				channelId={channelId}
 				delta={delta}
+				groupId={groupId}
+				orderIOMap={orderIOMap}
 				page={page}
 				rangeSelectors={rangeSelectors}
-				router={router}
 				rowBordered={false}
 			/>
 		</Card>

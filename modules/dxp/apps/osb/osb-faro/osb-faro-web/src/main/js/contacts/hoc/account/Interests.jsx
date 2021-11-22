@@ -3,6 +3,7 @@ import getInterestsQuery from 'contacts/queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
+import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
@@ -10,6 +11,8 @@ import {
 import {graphql} from '@apollo/react-hoc';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination} from 'shared/hooks';
 import {withBaseResults} from 'shared/hoc';
 
 const withData = () =>
@@ -24,13 +27,7 @@ const TableWithData = withBaseResults(withData, {
 	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
 		Liferay.Language.get('interests')
 	]),
-	getColumns: ({
-		maxCount,
-		router: {
-			params: {channelId, groupId, id}
-		},
-		totalCount
-	}) => [
+	getColumns: ({channelId, groupId, id, maxCount, totalCount}) => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
 			routeFn: ({data: {name}}) =>
@@ -58,16 +55,34 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const Interests = props => (
-	<Card pageDisplay>
-		<Card.Header className='align-items-center d-flex justify-content-between'>
-			<Card.Title>
-				{Liferay.Language.get('account-interest-topics')}
-			</Card.Title>
-		</Card.Header>
+const Interests = props => {
+	console.log(props);
 
-		<TableWithData {...props} rowBordered={false} />
-	</Card>
-);
+	const {channelId, groupId, id} = useParams();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(COUNT)
+	});
+
+	return (
+		<Card pageDisplay>
+			<Card.Header className='align-items-center d-flex justify-content-between'>
+				<Card.Title>
+					{Liferay.Language.get('account-interest-topics')}
+				</Card.Title>
+			</Card.Header>
+
+			<TableWithData
+				channelId={channelId}
+				delta={delta}
+				groupId={groupId}
+				id={id}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				rowBordered={false}
+			/>
+		</Card>
+	);
+};
 
 export default Interests;

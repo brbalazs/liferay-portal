@@ -4,6 +4,7 @@ import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import URLConstants from 'shared/util/url-constants';
+import {createOrderIOMap, VISITORS_METRIC} from 'shared/util/pagination';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
@@ -13,7 +14,8 @@ import {
 import {RangeSelectors, Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {VISITORS_METRIC} from 'shared/util/pagination';
+import {useParams} from 'react-router-dom';
+import {useQueryPagination, useQueryRangeSelectors} from 'shared/hooks';
 import {withBaseResults, withRangeKey} from 'shared/hoc';
 
 const withData = () =>
@@ -32,7 +34,6 @@ interface ITableWithDataProps {
 
 const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 	withBaseResults(withData, {
-		defaultOrderByField: VISITORS_METRIC,
 		emptyDescription: sub(
 			Liferay.Language.get('empty-message-lists'),
 			[
@@ -47,29 +48,20 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 			false
 		),
 		emptyTitle: Liferay.Language.get('empty-title-pages'),
-		getColumns: ({
-			router: {
-				params: {channelId, groupId},
-				query
-			}
-		}) => {
-			const rangeSelectors = getRangeSelectorsFromQuery(query);
-
-			return [
-				sitePagesListColumns.getTitleUrl({
-					channelId,
-					groupId,
-					rangeSelectors,
-					route: Routes.SITES_TOUCHPOINTS_OVERVIEW
-				}),
-				metricsListColumns.visitorsMetric,
-				metricsListColumns.viewsMetric,
-				metricsListColumns.avgTimeOnPageMetric,
-				metricsListColumns.bounceRateMetric,
-				metricsListColumns.entrancesMetric,
-				metricsListColumns.exitRateMetric
-			];
-		},
+		getColumns: ({channelId, groupId, rangeSelectors}) => [
+			sitePagesListColumns.getTitleUrl({
+				channelId,
+				groupId,
+				rangeSelectors,
+				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
+			}),
+			metricsListColumns.visitorsMetric,
+			metricsListColumns.viewsMetric,
+			metricsListColumns.avgTimeOnPageMetric,
+			metricsListColumns.bounceRateMetric,
+			metricsListColumns.entrancesMetric,
+			metricsListColumns.exitRateMetric
+		],
 		legacyDropdownRangeKey: false,
 		rowIdentifier: 'assetId',
 		showDropdownRangeKey: true
@@ -85,10 +77,12 @@ const InterestDetails: React.FC<IInterestDetailsProps> = ({
 	className,
 	router
 }) => {
-	const {
-		params: {interestId},
-		query
-	} = router;
+	const {channelId, groupId, interestId} = useParams();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(VISITORS_METRIC)
+	});
+
+	const rangeSelectors = useQueryRangeSelectors();
 
 	return (
 		<Card className={getCN(className)} pageDisplay>
@@ -107,7 +101,14 @@ const InterestDetails: React.FC<IInterestDetailsProps> = ({
 			</Card.Header>
 
 			<TableWithData
-				rangeSelectors={getRangeSelectorsFromQuery(query)}
+				channelId={channelId}
+				delta={delta}
+				groupId={groupId}
+				interestId={interestId}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				rangeSelectors={rangeSelectors}
 				router={router}
 			/>
 		</Card>
