@@ -2,8 +2,14 @@ import Card from 'shared/components/Card';
 import getColumns from './columns';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
+import {
+	compose,
+	withBaseResults,
+	withQueryPagination,
+	withQueryRangeSelectors
+} from 'shared/hoc';
+import {createOrderIOMap, MODIFIED_DATE} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
-import {withBaseResults} from 'shared/hoc';
 
 const ExperimentListCard = props => {
 	const {experiments, timeZoneId, ...otherProps} = props;
@@ -13,7 +19,6 @@ const ExperimentListCard = props => {
 	);
 
 	const TableWithData = withBaseResults(withData, {
-		defaultOrderByField: 'modifiedDate',
 		emptyDescription: sub(
 			Liferay.Language.get('empty-message-lists'),
 			[
@@ -36,11 +41,14 @@ const ExperimentListCard = props => {
 	return (
 		<Card className='experiments-root' pageDisplay>
 			<TableWithData
-				entityLabel={Liferay.Language.get('tests')}
 				{...props}
+				entityLabel={Liferay.Language.get('tests')}
 			/>
 		</Card>
 	);
 };
 
-export default ExperimentListCard;
+export default compose(
+	withQueryPagination({initialOrderIOMap: createOrderIOMap(MODIFIED_DATE)}),
+	withQueryRangeSelectors({})
+)(ExperimentListCard);
