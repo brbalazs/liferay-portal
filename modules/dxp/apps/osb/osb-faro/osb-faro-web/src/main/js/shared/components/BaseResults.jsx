@@ -351,13 +351,10 @@ export default class BaseResults extends React.Component {
 				showCheckbox,
 				showFilterAndOrder,
 				showPagination,
-				showSearch,
-				toolbarProps // TODO: No more toolbar PRops
+				showSearch
 			},
 			state: {disableSearch, error, items, loading, searchValue, total}
 		} = this;
-
-		console.log('remove me', toolbarProps, paginationProps);
 
 		const allChecked = this.allChecked();
 

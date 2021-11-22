@@ -33,11 +33,11 @@ class WrappedComponent extends React.Component {
 	}
 
 	handleOrderByChange() {
-		this.props.toolbarProps.onOrderClick(orderDescending);
+		this.props.onOrderClick(orderDescending);
 	}
 
 	handleOrderByFieldChange() {
-		this.props.toolbarProps.onOrderByFieldChange(ORDER_BY_FIELD);
+		this.props.onOrderByFieldChange(ORDER_BY_FIELD);
 	}
 
 	handleOrderByFieldsChange() {

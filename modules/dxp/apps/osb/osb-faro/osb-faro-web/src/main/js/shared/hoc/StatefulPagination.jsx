@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
-import PropTypes from 'prop-types';
 import React from 'react';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {invoke, isFunction} from 'lodash';
@@ -35,14 +34,6 @@ export default function withStatefulPagination(
 	};
 
 	class StatefulPagination extends React.Component {
-		static defaultProps = {
-			toolbarProps: {}
-		};
-
-		static propTypes = {
-			toolbarProps: PropTypes.object
-		};
-
 		constructor(props) {
 			super(props);
 
@@ -117,11 +108,9 @@ export default function withStatefulPagination(
 
 		render() {
 			const {
-				props: {paginationProps, toolbarProps, ...otherProps},
+				props: {paginationProps, ...otherProps},
 				state: {delta, filterBy, orderIOMap, page, query}
 			} = this;
-
-			console.log('remove us', paginationProps, toolbarProps);
 
 			const statefulProps = {
 				delta,
@@ -134,19 +123,7 @@ export default function withStatefulPagination(
 				onSearchValueChange: this.handleQueryChange,
 				orderIOMap,
 				page,
-				// paginationProps: { // TODO: Get rid of paginationProps
-				// 	...paginationProps,
-				// 	onDeltaChange: this.handleDeltaChange,
-				// 	onPageChange: this.handlePageChange
-				// },
 				query
-				// toolbarProps: { // TODO: Get rid of toolbarProps
-				// 	...toolbarProps,
-				// 	onFilterByChange: this.handleFilterByChange,
-				// 	onOrderByFieldChange: this.handleOrderByFieldChange,
-				// 	onOrderClick: this.handleOrderByChange,
-				// 	onSearchSubmit: this.handleQueryChange
-				// }
 			};
 
 			const mappedStatefulProps = mapPropsFn

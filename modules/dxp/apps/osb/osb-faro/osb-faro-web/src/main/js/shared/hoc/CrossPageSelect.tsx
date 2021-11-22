@@ -232,11 +232,8 @@ const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 	query,
 	searchSelectedFn,
 	showCheckbox,
-	toolbarProps, // TODO: remove toolbarProps
 	...otherProps
 }) => {
-	console.log(toolbarProps); // TODO: REmove me
-
 	const {
 		filterBy: stagedFilterBy,
 		onFilterByChange: onStagedFilterByChange,
@@ -329,24 +326,5 @@ const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({
 		}
 	}
 };
-
-// const DefaultComponent = withStatefulPagination(
-// 	CrossPageSelect,
-// 	({
-// 		defaultDelta,
-// 		defaultOrderBy,
-// 		defaultOrderByField
-// 	}: {
-// 		defaultDelta: string;
-// 		defaultOrderBy: string;
-// 		defaultOrderByField: string;
-// 	}) => pickBy({defaultDelta, defaultOrderBy, defaultOrderByField}),
-// 	(props, {paginationProps, toolbarProps}) => ({
-// 		paginationProps,
-// 		stagedProps: omit(props, 'onSearchValueChange'),
-// 		toolbarProps
-// 	}),
-// 	false
-// );
 
 export default withSelection(CrossPageSelect);

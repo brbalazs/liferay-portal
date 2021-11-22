@@ -185,14 +185,12 @@ const mockData = new OrderedMap(mockItemArray.map(item => [item.id, item]));
 
 describe('WithSelection', () => {
 	const expectedArgs = {
+		onSelectEntirePage: expect.any(Function),
 		onSelectItemsChange: expect.any(Function),
 		selectedItemsIOMap: expect.any(OrderedMap),
-		showCheckbox: true,
-		toolbarProps: expect.objectContaining({
-			onSelectEntirePage: expect.any(Function),
-			selectEntirePage: false,
-			selectEntirePageIndeterminate: false
-		})
+		selectEntirePage: false,
+		selectEntirePageIndeterminate: false,
+		showCheckbox: true
 	};
 
 	afterEach(cleanup);
