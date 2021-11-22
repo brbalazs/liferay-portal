@@ -7,44 +7,37 @@ import RecommendationPageAssetsQuery from 'settings/recommendations/queries/Reco
 import StringMatchInput from 'settings/recommendations/components/StringMatchInput';
 import Table from 'shared/components/table';
 import {compose} from 'redux';
+import {
+	createOrderIOMap,
+	getSortFromOrderIOMap,
+	TITLE
+} from 'shared/util/pagination';
 import {EXCLUDE, INCLUDE} from 'settings/recommendations/utils/utils';
 import {isArray, isString} from 'lodash';
 import {useLazyQuery} from '@apollo/react-hooks';
-import {withEmpty, withPaginationBar, withStatefulPagination} from 'shared/hoc';
+import {useStatefulPagination} from 'shared/hooks';
+import {withEmpty, withPaginationBar} from 'shared/hoc';
 
 const {
-	pagination: {cur: defaultPage, orderDescending}
+	pagination: {cur: defaultPage}
 } = Constants;
 
 interface INewRuleModalProps {
-	delta: number;
-	groupId: string;
 	onClose: () => void;
-	onOrderByFieldChange: (orderParams: {
-		orderBy: string;
-		orderByField: string;
-	}) => void;
 	onSubmit: (value: {id: string; name: string; value: string}) => void;
-	orderBy: string;
-	orderByField: string;
-	page: number;
-	paginationProps: {
-		onDeltaChange: (delta: number) => void;
-		onPageChange: (page: number) => void;
-	};
-	query: string;
 }
 
-const NewRuleModal: React.FC<INewRuleModalProps> = ({
-	delta,
-	onClose,
-	onOrderByFieldChange,
-	onSubmit,
-	orderBy,
-	orderByField,
-	page,
-	paginationProps
-}) => {
+const NewRuleModal: React.FC<INewRuleModalProps> = ({onClose, onSubmit}) => {
+	const {
+		delta,
+		onDeltaChange,
+		onOrderIOMapChange,
+		onPageChange,
+		orderIOMap,
+		page
+	} = useStatefulPagination(null, {
+		initialOrderIOMap: createOrderIOMap(TITLE)
+	});
 	const [initialRender, setInitialRender] = useState(true);
 	const [metadata, setMetadata] = useState('');
 	const [stringMatch, setStringMatch] = useState('');
@@ -77,10 +70,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 					}
 				],
 				size: delta,
-				sort: {
-					column: orderByField,
-					type: orderBy.toUpperCase()
-				},
+				sort: getSortFromOrderIOMap(orderIOMap),
 				start: (page - 1) * delta
 			}
 		});
@@ -90,11 +80,9 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 		if (!initialRender) {
 			fetchPageAssets();
 		}
-	}, [delta, orderBy, orderByField, page]);
+	}, [delta, orderIOMap, page]);
 
 	const handleFindMatches = (): void => {
-		const {onPageChange} = paginationProps;
-
 		if (page !== defaultPage) {
 			onPageChange(defaultPage);
 		} else {
@@ -225,18 +213,14 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 									sortable: false
 								}
 							]}
-							defaultSort={{
-								field: 'title',
-								sortOrder: orderDescending
-							}}
 							delta={delta}
 							items={data ? data.pageAssets.pageAssets : []}
 							loading={loading}
-							onSortChange={onOrderByFieldChange}
-							orderBy={orderBy}
-							orderByField={orderByField}
+							onDeltaChange={onDeltaChange}
+							onOrderIOMapChange={onOrderIOMapChange}
+							onPageChange={onPageChange}
+							orderIOMap={orderIOMap}
 							page={page}
-							paginationProps={paginationProps}
 							total={data ? data.pageAssets.total : 0}
 						/>
 					</div>
@@ -266,13 +250,4 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	);
 };
 
-export default withStatefulPagination(
-	NewRuleModal,
-	{
-		defaultDelta: 5,
-		defaultOrderBy: orderDescending,
-		defaultOrderByField: 'title'
-	},
-	null,
-	false
-);
+export default NewRuleModal;
