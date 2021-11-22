@@ -2,14 +2,8 @@ import Card from 'shared/components/Card';
 import getColumns from './columns';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
-import {
-	compose,
-	withBaseResults,
-	withQueryPagination,
-	withQueryRangeSelectors
-} from 'shared/hoc';
-import {createOrderIOMap, MODIFIED_DATE} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
+import {withBaseResults} from 'shared/hoc';
 
 const ExperimentListCard = props => {
 	const {experiments, timeZoneId, ...otherProps} = props;
@@ -48,7 +42,4 @@ const ExperimentListCard = props => {
 	);
 };
 
-export default compose(
-	withQueryPagination({initialOrderIOMap: createOrderIOMap(MODIFIED_DATE)}),
-	withQueryRangeSelectors({})
-)(ExperimentListCard);
+export default ExperimentListCard;

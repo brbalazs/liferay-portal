@@ -5,17 +5,20 @@ import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
+import {
+	createOrderIOMap,
+	getGraphQLVariablesFromPagination,
+	MODIFIED_DATE
+} from 'shared/util/pagination';
 import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
 import {get} from 'lodash';
-import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
 import {IBasePageContext, Router} from 'shared/types';
 import {RootState} from 'shared/store';
 import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
+import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
-
-const DEFAULT_FIELD = 'modifiedDate';
-const DEFAULT_SORT_ORDER = 'DESC';
+import {useQueryPagination} from 'shared/hooks';
 
 const connector = connect(
 	(
@@ -55,21 +58,24 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 	router,
 	timeZoneId
 }) => {
-	const {channelId, groupId} = router.params;
-	const {query} = router.query;
-	const {variables} = getMapPropsToOptions(EXPERIMENT_LIST_QUERY)({
-		defaultSort: {
-			field: DEFAULT_FIELD,
-			sortOrder: DEFAULT_SORT_ORDER
-		},
-		router
+	const {channelId, groupId} = useParams();
+	const {delta, orderIOMap, page, query} = useQueryPagination({
+		initialOrderIOMap: createOrderIOMap(MODIFIED_DATE)
 	});
 
 	const {selectedChannel} = useChannelContext();
 
 	const {data = {}, error, loading} = useQuery(EXPERIMENT_LIST_QUERY, {
 		fetchPolicy: 'network-only',
-		variables
+		variables: {
+			...getGraphQLVariablesFromPagination({
+				delta,
+				orderIOMap,
+				page,
+				query
+			}),
+			channelId
+		}
 	});
 
 	return (
@@ -103,9 +109,12 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 							!!query ? (
 								<ExperimentListCard
 									{...get(data, 'experiments', {})}
+									delta={delta}
 									error={error}
 									loading={loading}
-									router={router}
+									orderIOMap={orderIOMap}
+									page={page}
+									query={query}
 									timeZoneId={timeZoneId}
 								/>
 							) : (

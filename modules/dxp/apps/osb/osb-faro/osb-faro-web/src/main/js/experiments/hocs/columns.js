@@ -47,6 +47,7 @@ export default timeZoneId => [
 		label: Liferay.Language.get('type')
 	},
 	{
+		accessor: 'createDate',
 		cellRenderer: DateCell,
 		cellRendererProps: {
 			dateFormatter: date => formatDateToTimeZone(date, 'll', timeZoneId),
@@ -56,6 +57,7 @@ export default timeZoneId => [
 		label: Liferay.Language.get('created')
 	},
 	{
+		accessor: 'modifiedDate',
 		cellRenderer: DateCell,
 		cellRendererProps: {
 			dateFormatter: modifiedDate => {
