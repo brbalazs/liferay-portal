@@ -36,6 +36,49 @@ definition {
 		}
 	}
 
+	@description = "This is a test for LPS-76817. Can namespace the CSS of a Web Fragment to avoid affecting the rest of the page."
+	@priority = "3"
+	test CanCheckTheNamespaceOfCSSInFragments {
+		Navigator.gotoNavNested(navNested = "Collection Name");
+
+		LexiconEntry.gotoEntryMenuItem(menuItem = "Edit", rowEntry = "Fragment Name");
+
+		var htmlSnippet = '''
+<div class="test">
+CSS
+</div>
+<div>
+NO CSS
+</div>
+		''';
+
+		var cssSnippet = '''
+.test
+{ font-size: 40px; }
+		''';
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#HTML_EDITOR",
+			value1 = "${htmlSnippet}"
+		);
+
+		Type.typeAceEditorNoError(
+			locator1 = "FragmentEditor#CSS_EDITOR",
+			value1 = "${cssSnippet}");
+
+		SelectFrame(locator1 = "FragmentEditor#PREVIEW_IFRAME");
+
+		AssertTextEquals(
+			locator1 = "//div[@class='test']",
+			value1 = "CSS");
+
+		AssertElementPresent(locator1 = "//div[@class='test']/parent::div/following-sibling::style");
+
+		SelectFrame.selectFrameTop();
+
+		PortletEntry.publish();
+	}
+
 	@priority = "5"
 	test DeleteFragment {
 		property portal.acceptance = "true";
