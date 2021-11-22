@@ -5,7 +5,7 @@ import Table from 'shared/components/table';
 import {Column} from 'shared/components/table';
 import {compose, withPaginationBar, withToolbar} from 'shared/hoc';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
-import {fetchLocalData} from 'shared/hoc/WithCrossPageSelect';
+import {fetchLocalData} from 'shared/hoc/CrossPageSelect';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
