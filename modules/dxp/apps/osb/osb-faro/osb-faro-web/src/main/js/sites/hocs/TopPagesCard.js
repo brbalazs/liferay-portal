@@ -1,5 +1,6 @@
 import getTableMapper from './mappers/table';
 import SitesTopPagesQuery from 'shared/queries/SitesTopPagesQuery';
+import {ENTRANCES_METRIC, EXIT_RATE_METRIC} from 'shared/util/pagination';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {NameCell} from 'shared/components/table/cell-components';
@@ -45,7 +46,6 @@ const Tabs = [
 				accessor: 'visitorsMetric.value'
 			}
 		],
-		orderByField: 'visitorsMetric',
 		rowIdentifier: ROW_IDENTIFIER,
 		tabId: 'visitorsMetric',
 		title: Liferay.Language.get('visited-pages')
@@ -59,9 +59,8 @@ const Tabs = [
 				accessor: 'entrancesMetric.value'
 			}
 		],
-		orderByField: 'entrancesMetric',
 		rowIdentifier: ROW_IDENTIFIER,
-		tabId: 'entryMetric',
+		tabId: ENTRANCES_METRIC,
 		title: Liferay.Language.get('entrance-pages')
 	},
 	{
@@ -73,9 +72,8 @@ const Tabs = [
 				accessor: 'exitRateMetric.value'
 			}
 		],
-		orderByField: 'exitRateMetric',
 		rowIdentifier: ROW_IDENTIFIER,
-		tabId: 'exitMetric',
+		tabId: EXIT_RATE_METRIC,
 		title: Liferay.Language.get('exit-pages')
 	}
 ];
