@@ -1,25 +1,16 @@
 import Constants from 'shared/util/constants';
 import React from 'react';
-import withCrossPageSelect, {
+import {cleanup, render} from '@testing-library/react';
+import {
 	defaultSearch,
 	defaultSort,
 	fetchLocalData,
 	ViewSelectedToggle,
 	withSelection
 } from '../WithCrossPageSelect';
-import {
-	cleanup,
-	fireEvent,
-	getByTestId as getByTestIdGlobal,
-	getByText as getByTextGlobal,
-	render
-} from '@testing-library/react';
 import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
 import {range} from 'lodash';
-import {selectAllAndToggle} from 'test/helpers';
-import {SelectionProvider} from 'shared/context/selection';
-import {StaticRouter} from 'react-router';
 
 const {
 	pagination: {orderAscending}
@@ -134,117 +125,6 @@ describe('WithSelection', () => {
 			}),
 			{}
 		);
-	});
-});
-
-describe('WithCrossPageSelect', () => {
-	const WrappedComponent = withCrossPageSelect(
-		() => Component => props => {
-			const mockData = {
-				items: mockItemArray,
-				total: mockItemArray.length
-			};
-
-			return <Component {...mockData} {...props} />;
-		},
-		{
-			defaultOrderByField: 'name',
-			getColumns: () => [{accessor: 'name', label: 'name'}],
-			showDropdownRangeKey: false
-		}
-	);
-
-	const DefaultComponent = props => (
-		<StaticRouter>
-			<SelectionProvider>
-				<WrappedComponent {...props} />
-			</SelectionProvider>
-		</StaticRouter>
-	);
-
-	afterEach(cleanup);
-
-	it('should render the server data list by default', () => {
-		const {container} = render(
-			<DefaultComponent router={{params: {}, query: {}}} />
-		);
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should render the selected list when the user presses the "view selected link"', () => {
-		const {container, getByTestId} = render(
-			<DefaultComponent router={{params: {}, query: {}}} />
-		);
-
-		const firstRowCheckbox = container.querySelector(
-			'.table > tbody:nth-of-type(1) > tr .custom-checkbox input'
-		);
-
-		fireEvent.click(firstRowCheckbox);
-
-		jest.runAllTimers();
-
-		fireEvent.click(getByTestId('view-selected'));
-
-		jest.runAllTimers();
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should be able to sort local data when a sort field is clicked', () => {
-		const {container, getByText} = render(
-			<DefaultComponent router={{params: {}, query: {}}} />
-		);
-
-		selectAllAndToggle(container);
-
-		fireEvent.click(getByText('name'));
-		jest.runAllTimers();
-
-		const tableRows = container.querySelectorAll('tbody > tr');
-
-		expect(tableRows.length).toBe(2);
-
-		expect(tableRows[0]).toHaveTextContent('tangerine');
-		expect(tableRows[1]).toHaveTextContent('strawberry');
-	});
-
-	it('should update local data displayed when a different pagination delta is chosen', () => {
-		const {container, getByText} = render(
-			<DefaultComponent router={{params: {}, query: {}}} />
-		);
-
-		selectAllAndToggle(container);
-
-		fireEvent.click(getByText('2 Items'));
-		const paginationOverlay = getByTestIdGlobal(document.body, 'overlay');
-
-		fireEvent.click(getByTextGlobal(paginationOverlay, '3'));
-
-		expect(getByText('apple')).toBeTruthy();
-		expect(getByText('banana')).toBeTruthy();
-		expect(getByText('grapefruit')).toBeTruthy();
-	});
-
-	it('it should search selected items when given a custom search function', () => {
-		const mockSearcFn = ({items}) =>
-			items.filter(({name}) => name === 'grapefruit');
-
-		const {container} = render(
-			<DefaultComponent
-				router={{params: {}, query: {}}}
-				searchSelectedFn={mockSearcFn}
-			/>
-		);
-
-		selectAllAndToggle(container);
-
-		const tableRows = container.querySelectorAll('tbody > tr');
-
-		expect(tableRows.length).toBe(1);
-
-		expect(tableRows[0]).toHaveTextContent('grapefruit');
 	});
 });
 

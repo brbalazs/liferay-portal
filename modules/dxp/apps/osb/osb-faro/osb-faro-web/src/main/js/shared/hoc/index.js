@@ -11,7 +11,6 @@ export {default as redirectIf} from './RedirectIf';
 export {default as withAccount} from './WithAccount';
 export {default as withAction} from './WithAction';
 export {default as withBaseResults} from './WithBaseResults';
-export {default as withCrossPageSelect} from './WithCrossPageSelect';
 export {default as withCurrentUser} from './WithCurrentUser';
 export {default as withDataSource} from './WithDataSource';
 export {default as withDefaultChannelId} from './WithDefaultChannelId';

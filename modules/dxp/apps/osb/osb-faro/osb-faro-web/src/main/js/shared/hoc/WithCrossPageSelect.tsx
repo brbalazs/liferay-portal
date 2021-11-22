@@ -1,18 +1,14 @@
-import BaseResults from 'shared/components/BaseResults';
 import ClayButton from '@clayui/button';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {ACTION_TYPES, useSelectionContext} from 'shared/context/selection';
-import {createOrderIOMap} from 'shared/util/pagination';
-import {FilterByType, IPagination, Router} from 'shared/types';
-import {get, omit, pickBy} from 'lodash';
+import {FilterByType} from 'shared/types';
+import {get} from 'lodash';
 import {getDisplayName} from 'shared/util/react';
 import {getSafeDisplayValue} from 'shared/util/util';
 import {OrderByDirections} from 'shared/util/constants';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
-import {useStatefulPagination} from 'shared/hooks';
-import {withBaseResults, withStatefulPagination} from 'shared/hoc';
 
 type SearchArgs = {
 	filterBy?: FilterByType;
@@ -126,7 +122,6 @@ export const withLocalData = () => WrappedComponent => props => {
 interface IwithSelectionProps {
 	checkDisabled?: (item?: object) => boolean;
 	items: {id: string}[];
-	toolbarProps?: object;
 	[key: string]: any;
 }
 
@@ -143,7 +138,6 @@ export const withSelection: (
 		checkDisabled = () => false,
 		items = [],
 		showCheckbox = true,
-		toolbarProps = {},
 		...otherProps
 	}) => {
 		const {selectedItems, selectionDispatch} = useSelectionContext();
@@ -190,179 +184,6 @@ export const withSelection: (
 	return WithSelection;
 };
 
-interface ICrossPageSelectProps {
-	filterBy?: FilterByType;
-	router: Router;
-	searchSelectedFn: ({
-		filterBy,
-		items,
-		query
-	}: SearchArgs) => OrderedMap<any, any>;
-	stagedProps: IPagination & {
-		onOrderIOMapChange: (
-			orderIOMap: OrderedMap<string, OrderParams>
-		) => void;
-		toolbarProps: object; // TODO Remove this
-	};
-	toolbarProps: object;
-}
-
-/**
- * WithCrossPageSelect
- */
-const WithCrossPageSelect = (withData, configs = {}) => {
-	const TableWithData = withBaseResults(withData, {
-		...configs,
-		withSelection
-	});
-
-	const TableWithLocalData = withBaseResults(withLocalData, {
-		...configs,
-		withSelection
-	});
-
-	const CrossPageSelect = React.forwardRef<
-		BaseResults,
-		ICrossPageSelectProps
-	>(
-		(
-			{
-				delta,
-				filterBy,
-				onDeltaChange,
-				onFilterByChange,
-				onOrderIOMapChange,
-				onPageChange,
-				onQueryChange,
-				orderIOMap,
-				page,
-				query,
-				router,
-				searchSelectedFn,
-				// stagedProps,
-				toolbarProps,
-				...otherProps
-			},
-			ref
-		) => {
-			const {selectedItems, selectionDispatch} = useSelectionContext();
-
-			const {
-				filterBy: stagedFilterBy,
-				onFilterByChange: onStagedFilterByChange,
-				onPageChange: onStagedPageChange,
-				onQueryChange: onStagedQueryChange,
-				page: stagedPage,
-				query: stagedQuery,
-				resetPage
-			} = useStatefulPagination(null, {
-				initialDelta: delta,
-				initialFilterBy: filterBy,
-				initialOrderIOMap: orderIOMap,
-				initialPage: page,
-				initialQuery: query
-			});
-
-			const [showSelected, setShowSelected] = useState(false);
-
-			// const {
-			// 	delta,
-			// 	filterBy: stagedFilterBy,
-			// 	onOrderByFieldsChange,
-			// 	orderBy,
-			// 	orderByField,
-			// 	page,
-			// 	query,
-			// 	toolbarProps: stagedToolbarProps,
-			// 	...otherStagedProps
-			// } = stagedProps;
-
-			useEffect(() => {
-				if (selectedItems.isEmpty() && showSelected) {
-					setShowSelected(false);
-				}
-			});
-
-			const renderLinkProp = {
-				renderViewSelectedToggle: () => (
-					<ViewSelectedToggle
-						onClick={() => setShowSelected(!showSelected)}
-						selectedItemsCount={selectedItems.size}
-						showSelected={showSelected}
-					/>
-				)
-			};
-
-			const passThruProps = showSelected
-				? {
-						...otherProps,
-						...otherStagedProps,
-						delta,
-						filterBy: stagedFilterBy,
-						onDeltaChange,
-						onFilterByChange: onStagedFilterByChange,
-						onOrderIOMapChange,
-						onPageChange: onStagedPageChange,
-						onQueryChange: onStagedQueryChange,
-						orderIOMap,
-						page: stagedPage,
-						query: stagedQuery,
-						selectedItems,
-						selectionDispatch,
-						toolbarProps: {
-							...stagedToolbarProps,
-							...renderLinkProp,
-							filterBy: stagedFilterBy
-						}
-				  }
-				: {
-						...otherProps,
-						delta,
-						filterBy,
-						onDeltaChange,
-						onFilterByChange,
-						onOrderIOMapChange,
-						onPageChange,
-						onQueryChange,
-						orderIOMap,
-						page,
-						query,
-						selectedItems,
-						selectionDispatch,
-						toolbarProps: {...toolbarProps, ...renderLinkProp}
-				  };
-
-			return showSelected ? (
-				<TableWithLocalData
-					onOrderIOMapChange={onOrderIOMapChange}
-					ref={ref}
-					searchSelectedFn={searchSelectedFn}
-					{...passThruProps}
-				/>
-			) : (
-				<TableWithData {...passThruProps} ref={ref} router={router} />
-			);
-		}
-	);
-
-	return CrossPageSelect;
-
-	// return withStatefulPagination(
-	// 	CrossPageSelect,
-	// 	({
-	// 		defaultOrderBy,
-	// 		defaultOrderByField
-	// 	}: {
-	// 		defaultOrderBy: string;
-	// 		defaultOrderByField: string;
-	// 	}) => pickBy({defaultOrderBy, defaultOrderByField}),
-	// 	(props, {toolbarProps}) => ({
-	// 		stagedProps: omit(props, 'onSearchValueChange'),
-	// 		toolbarProps
-	// 	})
-	// );
-};
-
 export const ViewSelectedToggle = ({
 	onClick,
 	selectedItemsCount,
@@ -383,5 +204,3 @@ export const ViewSelectedToggle = ({
 		</b>
 	</ClayButton>
 );
-
-export default WithCrossPageSelect;
