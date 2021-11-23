@@ -403,7 +403,8 @@ public class ProjectController extends BaseFaroController {
 	@GET
 	@Path("/corpProjectUuid/{corpProjectUuid}")
 	public ProjectDisplay get(
-		@PathParam("corpProjectUuid") String corpProjectUuid) {
+			@PathParam("corpProjectUuid") String corpProjectUuid)
+		throws Exception {
 
 		_validateCorpProjectUuid(corpProjectUuid);
 
@@ -1089,7 +1090,9 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
-	private void _validateCorpProjectUuid(String corpProjectUuid) {
+	private void _validateCorpProjectUuid(String corpProjectUuid)
+		throws Exception {
+
 		if (isOmniadmin()) {
 			return;
 		}
