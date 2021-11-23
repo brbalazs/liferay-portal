@@ -25,7 +25,6 @@ export default class BaseResults extends React.Component {
 		filterByOptions: [],
 		noResultsTitle: Liferay.Language.get('there-are-no-x-found'),
 		orderByOptions: [],
-		paginationProps: {},
 		placeholder: Liferay.Language.get('search'),
 		query: '',
 		showCheckbox: false,
@@ -57,7 +56,6 @@ export default class BaseResults extends React.Component {
 		onSelectItemsChange: PropTypes.func,
 		orderByOptions: PropTypes.array,
 		orderIOMap: PropTypes.object,
-		paginationProps: PropTypes.object, // TODO: no more pagiantion props...we pass each one in individually
 		placeholder: PropTypes.string,
 		renderSubNav: PropTypes.func,
 		resultsRenderer: PropTypes.func.isRequired,
@@ -344,7 +342,6 @@ export default class BaseResults extends React.Component {
 				orderByOptions,
 				orderIOMap,
 				page,
-				paginationProps,
 				placeholder,
 				query,
 				renderSubnav,

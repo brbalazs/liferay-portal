@@ -108,7 +108,7 @@ export default function withStatefulPagination(
 
 		render() {
 			const {
-				props: {paginationProps, ...otherProps},
+				props,
 				state: {delta, filterBy, orderIOMap, page, query}
 			} = this;
 
@@ -135,7 +135,7 @@ export default function withStatefulPagination(
 			return (
 				<WrappedComponent
 					{...omitDefinedProps(
-						otherProps,
+						...props,
 						StatefulPagination.propTypes
 					)}
 					{...mappedStatefulProps}

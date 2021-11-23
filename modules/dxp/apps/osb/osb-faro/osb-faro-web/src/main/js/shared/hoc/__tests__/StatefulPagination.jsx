@@ -1,7 +1,7 @@
 import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import withStatefulPagination from '../StatefulPagination';
-import {DATE_CREATED} from 'shared/util/pagination';
+import {createOrderIOMap, DATE_CREATED} from 'shared/util/pagination';
 import {Map, Set} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
@@ -20,24 +20,22 @@ const PAGE = 5;
 
 class WrappedComponent extends React.Component {
 	static propTypes = {
-		onQueryChange: PropTypes.func,
-		onSortChange: PropTypes.func,
-		paginationProps: PropTypes.shape({
-			onDeltaChange: PropTypes.func,
-			onPageChange: PropTypes.func
-		})
+		onDeltaChange: PropTypes.func,
+		onOrderIOMapChange: PropTypes.func,
+		onPageChange: PropTypes.func,
+		onQueryChange: PropTypes.func
 	};
 
 	handleDeltaChange() {
-		this.props.paginationProps.onDeltaChange(DELTA);
+		this.props.onDeltaChange(DELTA);
 	}
 
 	handleOrderByChange() {
 		this.props.onOrderClick(orderDescending);
 	}
 
-	handleOrderByFieldChange() {
-		this.props.onOrderByFieldChange(ORDER_BY_FIELD);
+	handleOrderIOMapChange(orderIOMap) {
+		this.props.onOrderIOMapChange(orderIOMap);
 	}
 
 	handleOrderByFieldsChange() {
@@ -50,19 +48,11 @@ class WrappedComponent extends React.Component {
 	}
 
 	handlePageChange() {
-		this.props.paginationProps.onPageChange(PAGE);
+		this.props.onPageChange(PAGE);
 	}
 
 	render() {
-		return (
-			<div
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
-				{this.props.val}
-			</div>
-		);
+		return <div>{this.props.val}</div>;
 	}
 }
 
@@ -126,53 +116,19 @@ describe('withStatefulPagination', () => {
 		);
 	});
 
-	it('should set orderByField value on handleOrderByChange', () => {
+	it('should set orderIOMap value on handleOrderIOMapChange', () => {
 		const component = shallow(<WrappedComponentWithStatefulPagination />);
 		expect(component.find(WrappedComponent).prop('orderBy')).toEqual(
 			orderAscending
 		);
-		component.instance().handleOrderByChange(orderDescending);
+		component
+			.instance()
+			.handleOrderIOMapChange(
+				createOrderIOMap(ORDER_BY_FIELD, orderDescending)
+			);
 		jest.runAllTimers();
 		expect(component.find(WrappedComponent).prop('orderBy')).toEqual(
 			orderDescending
-		);
-	});
-
-	it('should set page value to defaultPage on handleOrderByFieldsChange', () => {
-		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		component.instance().handlePageChange(PAGE);
-		expect(component.find(WrappedComponent).prop('page')).toEqual(PAGE);
-		component.instance().handleOrderByFieldsChange({
-			orderByFields: [],
-			orderParams: new OrderParams()
-		});
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('page')).toEqual(
-			DEFAULT_PAGE
-		);
-	});
-
-	it('should set page value to defaultPage on handleOrderByChange', () => {
-		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		component.instance().handlePageChange(PAGE);
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('page')).toEqual(PAGE);
-		component.instance().handleOrderByChange();
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('page')).toEqual(
-			DEFAULT_PAGE
-		);
-	});
-
-	it('should set page value to defaultPage on handleOrderByFieldChange', () => {
-		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		component.instance().handlePageChange(PAGE);
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('page')).toEqual(PAGE);
-		component.instance().handleOrderByFieldChange();
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('page')).toEqual(
-			DEFAULT_PAGE
 		);
 	});
 

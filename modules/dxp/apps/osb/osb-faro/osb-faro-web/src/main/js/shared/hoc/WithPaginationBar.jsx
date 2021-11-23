@@ -11,8 +11,7 @@ export default (options = {}) => WrappedComponent => {
 	class WithPaginationBar extends React.Component {
 		static defaultProps = {
 			delta: defaultDelta,
-			page: paginationDefaults.page,
-			paginationProps: {}
+			page: paginationDefaults.page
 		};
 
 		static propTypes = {
@@ -20,21 +19,19 @@ export default (options = {}) => WrappedComponent => {
 			onDeltaChange: PropTypes.func,
 			onPageChange: PropTypes.func,
 			page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-			paginationProps: PropTypes.object,
+			showDeltaDropdown: PropTypes.boolean,
 			total: PropTypes.number
 		};
 
 		render() {
 			const {
 				delta,
-				page,
 				onDeltaChange,
 				onPageChange,
-				paginationProps,
+				page,
+				showDeltaDropdown,
 				total
 			} = this.props;
-
-			console.log(paginationProps); // TODO: REmove me
 
 			return (
 				<>
@@ -48,6 +45,7 @@ export default (options = {}) => WrappedComponent => {
 							onPageChange={onPageChange}
 							page={page}
 							selectedDelta={delta}
+							showDeltaDropdown={showDeltaDropdown}
 							totalItems={total}
 						/>
 					)}
