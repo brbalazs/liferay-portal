@@ -20,6 +20,7 @@ const withData = () =>
 	});
 
 const TableWithData = withTableData(withData, {
+	emptyDescription: null,
 	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
 		Liferay.Language.get('interests')
 	]),

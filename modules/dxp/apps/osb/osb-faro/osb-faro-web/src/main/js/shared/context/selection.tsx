@@ -19,8 +19,8 @@ type ActionType = 'add' | 'clear-all' | 'toggle' | 'remove';
 
 type Action = {
 	payload?: {
-		item?: {id: string};
-		items?: {id: string}[];
+		item?: {[key: string]: any};
+		items?: {[key: string]: any}[];
 	};
 	type: ActionType;
 };

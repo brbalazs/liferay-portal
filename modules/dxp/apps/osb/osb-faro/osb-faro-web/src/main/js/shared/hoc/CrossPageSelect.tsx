@@ -111,9 +111,9 @@ export const withLocalData = () => WrappedComponent => props => {
 			{...fetchLocalData({
 				delta,
 				filterBy,
+				items: selectedItems,
 				orderIOMap,
 				page,
-				items: selectedItems,
 				query,
 				searchSelectedFn
 			})}
@@ -215,7 +215,7 @@ interface ICrossPageSelectProps extends IPagination {
 	onPageChange: (page: number) => void;
 	onQueryChange: (query: string) => void;
 	searchSelectedFn: SearchFnType;
-	stagedProps: {[key: string]: any};
+	showCheckbox?: boolean;
 }
 
 const CrossPageSelect: React.FC<ICrossPageSelectProps> = ({

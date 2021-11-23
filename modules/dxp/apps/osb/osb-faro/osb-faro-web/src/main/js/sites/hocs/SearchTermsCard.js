@@ -1,6 +1,5 @@
-import BasePage from 'shared/components/base-page';
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
-import React, {useContext} from 'react';
+import React from 'react';
 import SearchTermsQuery from 'shared/queries/SearchTermsQuery';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';

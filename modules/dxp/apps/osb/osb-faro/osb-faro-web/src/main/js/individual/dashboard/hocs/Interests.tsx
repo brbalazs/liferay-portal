@@ -1,8 +1,8 @@
 import Card from 'shared/components/Card';
-import Constants, {CompositionTypes} from 'shared/util/constants';
 import InterestsQuery from '../queries/InterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
+import {CompositionTypes} from 'shared/util/constants';
 import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,

@@ -286,6 +286,7 @@ export const compositionListColumns = {
  */
 export const definitionsListColumns = {
 	restrictAccess: authorized => ({
+		accessor: 'restricted',
 		cellRenderer: ({data: {restricted}}) => (
 			<td>
 				<div className='d-flex justify-content-center'>

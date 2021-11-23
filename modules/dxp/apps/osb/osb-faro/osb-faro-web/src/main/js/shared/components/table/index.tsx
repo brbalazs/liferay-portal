@@ -21,7 +21,7 @@ export const getRowIdentifierValue = (item, rowIdentifier) => {
 
 interface ITableProps {
 	bordered?: boolean;
-	checkDisabled?: (item: object) => boolean;
+	checkDisabled?: (item: {[key: string]: any}) => boolean;
 	className?: string;
 	columns: Column[];
 	enableMultiSort?: boolean;
@@ -33,10 +33,10 @@ interface ITableProps {
 	nowrap?: boolean;
 	orderIOMap?: OrderedMap<string, OrderParams>; // TODO: Maybe optional? we'll see
 	onOrderIOMapChange?: (orderIOMap: OrderedMap<string, OrderParams>) => void;
-	onRowClick?: (item: object) => void; // TODO: Maybe do something about this.
-	onRowDelete?: (item: object) => void;
-	onRowSave?: (item: object) => void;
-	onSelectItemsChange?: (item: any) => void;
+	onRowClick?: (item: {[key: string]: any}) => void; // TODO: Maybe do something about this.
+	onRowDelete?: (item: {[key: string]: any}) => void;
+	onRowSave?: (item: {[key: string]: any}) => void;
+	onSelectItemsChange?: (item: {[key: string]: any}) => void;
 	renderInlineRowActions?: (params: {
 		data: {[key: string]: any};
 		editing: boolean;
@@ -66,7 +66,7 @@ const Table: React.FC<ITableProps> = ({
 	columns,
 	enableMultiSort = false,
 	headingNowrap = true,
-	internalSort = false
+	internalSort = false,
 	items = [],
 	list = false,
 	loading = false,
@@ -124,7 +124,7 @@ const Table: React.FC<ITableProps> = ({
 
 				return fieldValue;
 			},
-			sortOrder.toLowerCase()
+			sortOrder.toLowerCase() as 'asc' | 'desc'
 		);
 	};
 
@@ -160,44 +160,51 @@ const Table: React.FC<ITableProps> = ({
 
 				{!!itemsSorted.length && (
 					<tbody className={className}>
-						{itemsSorted.map((item, rowIndex) => {
-							const disabled = checkDisabled(item);
+						{itemsSorted.map(
+							(item: {[key: string]: any}, rowIndex) => {
+								const disabled = checkDisabled(item);
 
-							return (
-								<Row
-									className={className}
-									clickable={
-										!!onRowClick ||
-										(showCheckbox && !!onSelectItemsChange)
-									}
-									columns={columns}
-									data={item}
-									disabled={disabled}
-									items={items}
-									itemsSelected={
-										!selectedItemsIOMap.isEmpty()
-									}
-									key={getRowIdentifierValue(
-										item,
-										rowIdentifier
-									)}
-									onClick={disabled ? noop : handleItemClick}
-									onRowDelete={onRowDelete}
-									onRowSave={onRowSave}
-									renderInlineRowActions={
-										renderInlineRowActions
-									}
-									renderRowActions={renderRowActions}
-									rowIndex={rowIndex}
-									selected={
-										onSelectItemsChange
-											? selectedItemsIOMap.has(item.id)
-											: null
-									}
-									showCheckbox={showCheckbox}
-								/>
-							);
-						})}
+								return (
+									<Row
+										className={className}
+										clickable={
+											!!onRowClick ||
+											(showCheckbox &&
+												!!onSelectItemsChange)
+										}
+										columns={columns}
+										data={item}
+										disabled={disabled}
+										items={items}
+										itemsSelected={
+											!selectedItemsIOMap.isEmpty()
+										}
+										key={getRowIdentifierValue(
+											item,
+											rowIdentifier
+										)}
+										onClick={
+											disabled ? noop : handleItemClick
+										}
+										onRowDelete={onRowDelete}
+										onRowSave={onRowSave}
+										renderInlineRowActions={
+											renderInlineRowActions
+										}
+										renderRowActions={renderRowActions}
+										rowIndex={rowIndex}
+										selected={
+											onSelectItemsChange
+												? selectedItemsIOMap.has(
+														item?.id
+												  )
+												: null
+										}
+										showCheckbox={showCheckbox}
+									/>
+								);
+							}
+						)}
 					</tbody>
 				)}
 			</table>

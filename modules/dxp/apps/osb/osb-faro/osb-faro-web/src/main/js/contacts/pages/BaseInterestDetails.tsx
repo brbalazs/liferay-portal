@@ -67,6 +67,7 @@ const IndividualsList: React.FC<IIndividualListProps> = ({
 
 interface IInterestDetailsListProp {
 	channelId: string;
+	className?: string;
 	dataSourceParams: {[key: string]: any};
 	groupId: string;
 	tabId: typeof tabIds[keyof typeof tabIds];
@@ -89,7 +90,7 @@ interface IBaseInterestDetailsProps extends IInterestDetailsListProp {
 	id: string;
 	interestDetailsRoute: string;
 	interestId: string;
-	type: ACCOUNTS | SEGMENTS;
+	type: typeof ACCOUNTS | typeof SEGMENTS;
 }
 
 const BaseInterestDetails: React.FC<IBaseInterestDetailsProps> = ({
@@ -154,7 +155,7 @@ const BaseInterestDetails: React.FC<IBaseInterestDetailsProps> = ({
 	const individualsEntityKey =
 		type === ACCOUNTS ? 'accountId' : 'individualSegmentId';
 
-	let dataSourceParams = {
+	let dataSourceParams: {[key: string]: any} = {
 		channelId,
 		contactsEntityId: id,
 		contactsEntityType: entity.type,

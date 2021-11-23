@@ -5,8 +5,6 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import {EntityTypes} from 'shared/util/constants';
 import {Individual} from 'shared/util/records';
-import {omit} from 'lodash';
-import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {setUriQueryValue} from 'shared/util/router';

@@ -97,7 +97,7 @@ const EventDetailsCard: React.FC<IEventDetailsCardProps> = ({
 				onSelectItemsChange={selectedAttribute =>
 					selectedAttributes.has(selectedAttribute.id)
 						? removeSelectedAttribute(selectedAttribute.id)
-						: addSelectedAttribute(selectedAttribute)
+						: addSelectedAttribute(selectedAttribute as Attribute)
 				}
 				rowIdentifier='id'
 				selectedItemsIOMap={selectedAttributes}

@@ -1,10 +1,6 @@
-import FaroConstants, {OrderByDirections} from 'shared/util/constants';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
+import {OrderByDirections} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
-
-const {
-	pagination: {orderDescending}
-} = FaroConstants;
 
 const getTableMapper = getItems => {
 	const mapResultToProps = safeResultToProps((result, _, {metricLabel}) => {

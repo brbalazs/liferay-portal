@@ -1,8 +1,4 @@
 import Card from 'shared/components/Card';
-import Constants, {
-	JobRunFrequencies,
-	JobRunStatuses
-} from 'shared/util/constants';
 import Label from 'shared/components/Label';
 import moment from 'moment';
 import React from 'react';
@@ -23,6 +19,11 @@ import {
 	JOB_RUN_STATUSES_DISPLAY_MAP,
 	JOB_RUN_STATUSES_LABEL_MAP
 } from '../utils/utils';
+import {
+	JobRunFrequencies,
+	JobRunStatuses,
+	OrderByDirections
+} from 'shared/util/constants';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {Router} from 'shared/types';
@@ -34,10 +35,6 @@ import {
 	withPaginationBar,
 	withStatefulPagination
 } from 'shared/hoc';
-
-const {
-	pagination: {orderDescending}
-} = Constants;
 
 const DATE_FORMAT = 'MMM DD, YYYY';
 

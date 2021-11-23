@@ -1,6 +1,5 @@
 import Button from 'shared/components/Button';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import ListComponent from 'shared/hoc/ListComponent';
 import Modal from 'shared/components/modal';
 import React, {useEffect} from 'react';
 import {
@@ -10,12 +9,12 @@ import {
 } from 'shared/context/selection';
 import {Columns, IPagination} from 'shared/types';
 import {DocumentNode} from 'graphql';
-import {noop, omit, pickBy} from 'lodash';
+import {noop} from 'lodash';
 import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {QueryHookOptions, useQuery} from '@apollo/react-hooks';
 import {safeResultToProps} from 'shared/util/mappers';
 import {useStatefulPagination} from 'shared/hooks';
-import {withStatefulPagination} from 'shared/hoc';
 
 interface ISearchableTableModalGraphQLProps extends IPagination {
 	className: string;

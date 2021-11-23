@@ -9,7 +9,6 @@ import NoResultsDisplay, {
 } from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import {
-	ACTION_TYPES,
 	ActionTypes,
 	useSelectionContext,
 	withSelectionProvider
@@ -216,7 +215,6 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 				</Nav>
 			);
 		} else {
-			console.log(selectedItems.keySeq().toArray());
 			return (
 				<Nav>
 					<Button
@@ -279,20 +277,16 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 		);
 	};
 
-	const renderInlineRowActions = ({data: {id}, itemsSelected}) => {
-		console.log(id, itemsSelected);
-
-		return (
-			<Button
-				borderless
-				disabled={itemsSelected}
-				icon='trash'
-				iconAlignment='left'
-				onClick={handleDeleteKeyword([id])}
-				size='sm'
-			/>
-		);
-	};
+	const renderInlineRowActions = ({data: {id}, itemsSelected}) => (
+		<Button
+			borderless
+			disabled={itemsSelected}
+			icon='trash'
+			iconAlignment='left'
+			onClick={handleDeleteKeyword([id])}
+			size='sm'
+		/>
+	);
 
 	const renderPageDescription = () => (
 		<>

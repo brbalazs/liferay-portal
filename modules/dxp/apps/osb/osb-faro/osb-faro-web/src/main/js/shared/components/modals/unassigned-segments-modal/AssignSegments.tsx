@@ -176,6 +176,7 @@ const AssignSegments: React.FC<IAssignSegmentsProps> = ({groupId, onClose}) => {
 								label: Liferay.Language.get('created-by')
 							},
 							{
+								accessor: 'selectChannel',
 								cellRenderer: ChannelSelect,
 								cellRendererProps: {
 									options: selectOptions

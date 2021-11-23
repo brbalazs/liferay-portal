@@ -34,7 +34,13 @@ const Overview: React.FC<IOverviewProps> = ({
 
 	useEffect(() => {
 		API.dataSource
-			.search({channelId, cur, delta: MAX_DELTA, groupId})
+			.search({
+				channelId,
+				delta: MAX_DELTA,
+				groupId,
+				page: cur,
+				query: ''
+			})
 			.then(({items}) => {
 				setDataSources(items.map(item => new DataSource(fromJS(item))));
 			});

@@ -25,7 +25,6 @@ import {debounce, get, isNil, omit} from 'lodash';
 import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
 import {getMaxEventValue, parseBreakdownData} from 'event-analysis/utils/utils';
 import {getSafeRangeSelectors} from 'shared/util/util';
-import {OrderByDirections} from 'shared/util/constants';
 import {OrderedMap} from 'immutable';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';

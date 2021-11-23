@@ -12,13 +12,6 @@ import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import Spinner from 'shared/components/Spinner';
 import {
-	ACCOUNT_NAME,
-	FAMILY_NAME,
-	GIVEN_NAME,
-	paginationConfig,
-	paginationDefaults
-} from 'shared/util/pagination';
-import {
 	accountsListColumns,
 	individualsListColumns
 } from 'shared/util/table-columns';
@@ -55,6 +48,7 @@ import {hasChanges} from 'shared/util/react';
 import {INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY} from 'shared/actions/distributions';
 import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
+import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -228,7 +222,7 @@ export class Distribution extends React.Component {
 		delta,
 		fieldMappingSelected: {name: propertyName},
 		filter,
-		orderIOMap
+		orderIOMap,
 		page,
 		query
 	}) {
@@ -907,8 +901,8 @@ export class Distribution extends React.Component {
 							orderIOmap={orderIOMap}
 							page={page}
 							query={query}
-							showFilterAndOrder={false}
 							rowIdentifier='id'
+							showFilterAndOrder={false}
 						/>
 					</CollapsibleOverlay>
 				)}

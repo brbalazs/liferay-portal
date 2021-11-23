@@ -26,6 +26,7 @@ const TableWithData: React.FC<ITableWithDataProps> = ({authorized}) => (
 	<Table
 		columns={[
 			{
+				accessor: 'name',
 				cellRenderer: NameCell,
 				label: Liferay.Language.get('attribute-name'),
 				sortable: false

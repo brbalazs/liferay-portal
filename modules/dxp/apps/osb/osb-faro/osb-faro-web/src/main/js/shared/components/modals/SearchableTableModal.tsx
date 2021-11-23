@@ -60,8 +60,7 @@ const SearchableTableModal: React.FC<ISearchableTableModalProps> = ({
 	orderByOptions,
 	requireSelection,
 	submitMessage,
-	title,
-	...otherProps
+	title
 }) => {
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
@@ -104,8 +103,6 @@ const SearchableTableModal: React.FC<ISearchableTableModalProps> = ({
 			query
 		}
 	});
-
-	console.log('check for other props', otherProps);
 
 	return (
 		<Modal className={className} size='lg'>

@@ -4,7 +4,7 @@ import getCN from 'classnames';
 import Modal from 'shared/components/modal';
 import Promise from 'metal-promise';
 import React, {useEffect, useState} from 'react';
-import Table from 'shared/components/table';
+import Table, {Column} from 'shared/components/table';
 import {
 	ACTION_TYPES,
 	useSelectionContext,
@@ -19,15 +19,7 @@ interface IBatchActionModalProps extends React.HTMLAttributes<HTMLDivElement> {
 		options: {label: string; value: string}[];
 		optionsLabel: string;
 	};
-	columns: {
-		accessor: string;
-		cellRenderer?: React.ReactNode;
-		className?: string;
-		dataFormatter?: () => React.ReactNode;
-		label: string;
-		sortable?: boolean;
-		title?: boolean;
-	}[];
+	columns: Column[];
 	editableAttr: string;
 	fitContent: boolean;
 	items: any[];

@@ -17,7 +17,6 @@ import {
 import {
 	ACTIVITIES_COUNT,
 	createOrderIOMap,
-	getDefaultSortOrder,
 	JOB_TITLE,
 	LAST_ACTIVITY_DATE,
 	NAME

@@ -1,15 +1,10 @@
 import Constants from 'shared/util/constants';
 import useStatefulPagination from '../useStatefulPagination';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {Map, Set} from 'immutable';
-import {OrderParams} from 'shared/util/records';
 import {renderHook} from '@testing-library/react-hooks';
 
-const {
-	cur: DEFAULT_PAGE,
-	delta: DEFAULT_DELTA,
-	orderAscending,
-	orderDescending
-} = Constants.pagination;
+const {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA} = Constants.pagination;
 
 describe('useStatefulPagination', () => {
 	it('should return default values', () => {

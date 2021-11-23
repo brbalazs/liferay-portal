@@ -1,16 +1,10 @@
 import DocumentsAndMediaListCard from '../hocs/DocumentsAndMediaListCard';
 import React from 'react';
 
-interface IDocumentsAndMediaListPageProps {
-	router: object;
-}
-
-const DocumentsAndMediaListPage: React.FC<IDocumentsAndMediaListPageProps> = ({
-	router
-}) => (
+const DocumentsAndMediaListPage: React.FC = () => (
 	<div className='row'>
 		<div className='col-sm-12'>
-			<DocumentsAndMediaListCard router={router} />
+			<DocumentsAndMediaListCard />
 		</div>
 	</div>
 );

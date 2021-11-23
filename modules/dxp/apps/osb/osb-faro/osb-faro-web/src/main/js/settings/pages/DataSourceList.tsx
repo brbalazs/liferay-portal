@@ -71,7 +71,9 @@ export const DataSourceName: React.FC<IDataSourceNameProps> = ({
 }) => (
 	<td className='table-cell-expand'>
 		<div className='table-title'>
-			{disableRow(data) ? (
+			{disableRow(
+				data as {[key: string]: any; state: DataSourceStates}
+			) ? (
 				<span className='text-truncate'>{data.name}</span>
 			) : (
 				<Link className='text-truncate' to={hrefFormatter(data)}>

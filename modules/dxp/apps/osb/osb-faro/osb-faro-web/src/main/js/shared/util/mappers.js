@@ -17,6 +17,14 @@ export const formatItem = item =>
 		{}
 	);
 
+/**
+ * mapListResultsToProps
+ * @param {object} response
+ * @param {object} response.data
+ * @param {ApolloError=} response.error
+ * @param {boolean} response.loading
+ * @param {function} response.refetch
+ */
 export const mapListResultsToProps = (
 	{data, error, loading, refetch},
 	mapperFn = val => val

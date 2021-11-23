@@ -166,10 +166,7 @@ const ActivitiesChartTimeline: React.FC<IActivitiesChartTimelineProps> = ({
 
 					<div className='details'>
 						{getActivityLabel(
-							(hasSelectedPoint
-								? totalElements
-								: count
-							).toLocaleString()
+							hasSelectedPoint ? totalElements : count
 						)}
 					</div>
 				</div>

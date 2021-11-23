@@ -40,9 +40,12 @@ interface ISelectEntityInputProps {
 
 const SelectEntityInput: React.FC<ISelectEntityInputProps> = ({
 	className,
+	columns,
+	dataSourceFn,
 	displayValue,
 	entityLabel,
 	entityType,
+	initialOrderIOMap,
 	onItemsChange,
 	onValidChange,
 	operatorRenderer: OperatorDropdown,
@@ -107,8 +110,11 @@ const SelectEntityInput: React.FC<ISelectEntityInputProps> = ({
 
 				<SelectEntityFromModal
 					{...otherProps}
+					columns={columns}
+					dataSourceFn={dataSourceFn}
 					entity={reference && reference.toJS()}
 					error={touched && !valid}
+					initialOrderIOMap={initialOrderIOMap}
 					noResultsProps={{
 						spacer: true,
 						title: getFormattedTitle(entityLabel)

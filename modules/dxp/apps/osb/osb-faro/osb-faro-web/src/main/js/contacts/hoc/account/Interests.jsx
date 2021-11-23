@@ -55,9 +55,7 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const Interests = props => {
-	console.log(props);
-
+const Interests = () => {
 	const {channelId, groupId, id} = useParams();
 	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(COUNT)

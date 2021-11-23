@@ -82,11 +82,8 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 	groupId,
 	history,
 	open,
-	timeZoneId,
-	...otherProps
+	timeZoneId
 }: IRecommendationListProps) => {
-	console.log(otherProps);
-
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
 	const {delta, orderIOMap, page, query} = useQueryPagination({

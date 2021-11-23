@@ -5,12 +5,13 @@ import React from 'react';
 import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import URLConstants from 'shared/util/url-constants';
 import {createOrderIOMap, VISITORS_METRIC} from 'shared/util/pagination';
-import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {
 	metricsListColumns,
 	sitePagesListColumns
 } from 'shared/util/table-columns';
+import {OrderedMap} from 'immutable';
+import {OrderParams} from 'shared/util/records';
 import {RangeSelectors, Router} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -28,6 +29,13 @@ const withData = () =>
 	);
 
 interface ITableWithDataProps {
+	channelId: string;
+	delta: number;
+	groupId: string;
+	interestId: string;
+	orderIOMap: OrderedMap<string, OrderParams>;
+	page: number;
+	query: string;
 	rangeSelectors: RangeSelectors;
 	router: Router;
 }

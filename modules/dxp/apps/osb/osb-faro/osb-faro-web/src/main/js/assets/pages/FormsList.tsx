@@ -1,14 +1,10 @@
 import FormsListCard from '../hocs/FormsListCard';
 import React from 'react';
 
-interface IFormsListPageProps {
-	router: any;
-}
-
-const FormsListPage: React.FC<IFormsListPageProps> = ({router}) => (
+const FormsListPage: React.FC = () => (
 	<div className='row'>
 		<div className='col-sm-12'>
-			<FormsListCard router={router} />
+			<FormsListCard />
 		</div>
 	</div>
 );

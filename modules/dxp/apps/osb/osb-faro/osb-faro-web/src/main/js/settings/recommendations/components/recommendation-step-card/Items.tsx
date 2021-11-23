@@ -202,7 +202,11 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 												onClick={() => {
 													arrayHelpers.remove(
 														items.findIndex(
-															itemData =>
+															(itemData: {
+																[
+																	key: string
+																]: any;
+															}) =>
 																itemData.id ===
 																data.id
 														)

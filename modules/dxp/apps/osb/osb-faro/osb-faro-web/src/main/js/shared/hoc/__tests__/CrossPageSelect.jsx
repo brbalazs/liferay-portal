@@ -137,7 +137,9 @@ describe('defaultSearch', () => {
 
 describe('defaultSort', () => {
 	it('should return the results of a sort on the given items', () => {
-		expect(defaultSort(mockData, createOrderIOMap(NAME)).toArray()).toEqual([
+		expect(
+			defaultSort(mockData, createOrderIOMap(NAME)).toArray()
+		).toEqual([
 			mockItemArray[1],
 			mockItemArray[2],
 			mockItemArray[3],
@@ -160,7 +162,7 @@ describe('fetchLocalData', () => {
 			fetchLocalData({
 				delta: 5,
 				items: mockData,
-				orderIOMap: createOrderIOMap(NAME)
+				orderIOMap: createOrderIOMap(NAME),
 				page: 1,
 				query: ''
 			})

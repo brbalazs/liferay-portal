@@ -7,7 +7,7 @@ import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withLoading} from 'shared/hoc/util';
 
 const {
-	pagination: {delta: defaultDelta, orderDescending}
+	pagination: {delta: defaultDelta}
 } = FaroConstants;
 
 const defaultHOC = WrappedComponent => props => <WrappedComponent {...props} />;

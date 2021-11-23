@@ -161,10 +161,11 @@ export function isDataSourceValid(state) {
 export function validateUniqueName({groupId, value}) {
 	return API.dataSource
 		.search({
-			cur: 1,
 			delta: 1,
 			groupId,
-			name: value
+			name: value,
+			page: 1,
+			query: ''
 		})
 		.then(result => {
 			let error = '';

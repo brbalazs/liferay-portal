@@ -51,6 +51,7 @@ const withQueryOptions = Component => ({
 
 	return (
 		<Component
+			{...otherProps}
 			renderInlineRowActions={({
 				data: {dataControlTaskStatus, emailAddress}
 			}) =>
@@ -98,7 +99,6 @@ const withQueryOptions = Component => ({
 					</ClayButton>
 				)
 			}
-			{...otherProps}
 		/>
 	);
 };
@@ -147,16 +147,16 @@ interface ISuppressedUserListProps extends PropsFromRedux {
 const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 	<Card className='suppressed-user-list-root' pageDisplay>
 		<SuppressedListWithData
+			{...props}
 			checkDisabled={({dataControlTaskStatus}) =>
 				dataControlTaskStatus === GDPRRequestStatuses.Pending
 			}
 			entityLabel={Liferay.Language.get('suppressed-users')}
-			{...props}
 		/>
 	</Card>
 );
 
-export default compose(
+export default compose<any>(
 	connector,
 	withQueryPagination({initialOrderIOMap: createOrderIOMap(CREATE_DATE)}),
 	withQueryRangeSelectors({})

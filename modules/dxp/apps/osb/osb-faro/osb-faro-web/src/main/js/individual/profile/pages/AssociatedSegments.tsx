@@ -8,16 +8,30 @@ import {
 	NAME
 } from 'shared/util/pagination';
 import {EntityTypes} from 'shared/util/constants';
+import {RootState} from 'shared/store';
 import {useQueryPagination} from 'shared/hooks';
 
-const fetchAssociatedSegments = ({id, ...otherParams}) =>
+const fetchAssociatedSegments = ({
+	delta,
+	groupId,
+	id,
+	orderIOMap,
+	page,
+	query,
+	...otherParams
+}) =>
 	API.individualSegment.search({
-		...otherParams,
 		contactsEntityId: id,
-		contactsEntityType: EntityTypes.Individual
+		contactsEntityType: EntityTypes.Individual,
+		delta,
+		groupId,
+		orderIOMap,
+		page,
+		query,
+		...otherParams
 	});
 
-const connector = connect((store, {groupId}) => ({
+const connector = connect((store: RootState, {groupId}: {groupId: string}) => ({
 	timeZoneId: store.getIn([
 		'projects',
 		groupId,

@@ -55,6 +55,7 @@ const Interests: React.FC<IInterestsProps> = ({channelId, groupId, id}) => {
 						channelId,
 						groupId,
 						id,
+						maxWidth: null,
 						routeFn: ({data: {name}}) =>
 							name &&
 							toRoute(

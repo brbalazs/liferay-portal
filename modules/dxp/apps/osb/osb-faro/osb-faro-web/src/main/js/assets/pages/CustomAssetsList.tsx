@@ -26,17 +26,15 @@ const connector = connect(
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface ICustomAssetsListPageProps extends PropsFromRedux {
-	router: object;
 	timeZoneId: string;
 }
 
 const CustomAssetsListPage: React.FC<ICustomAssetsListPageProps> = ({
-	router,
 	timeZoneId
 }) => (
 	<div className='row'>
 		<div className='col-sm-12'>
-			<CustomAssetsListCard router={router} timeZoneId={timeZoneId} />
+			<CustomAssetsListCard timeZoneId={timeZoneId} />
 		</div>
 	</div>
 );

@@ -7,8 +7,8 @@ import {StopClickPropagation} from './cell-components';
 
 export type Column = {
 	accessor: string;
-	cellRenderer?: React.ReactNode;
-	cellRendererProps?: object;
+	cellRenderer?: (params: {[key: string]: any}) => React.ReactElement;
+	cellRendererProps?: {[key: string]: any};
 	className?: string;
 	dataFormatter?: (dataValue: any, data?: object) => React.ReactNode;
 	editable?: boolean;
@@ -22,11 +22,13 @@ interface IRowProps {
 	className?: string;
 	clickable?: boolean;
 	columns: Column[];
-	data?: object;
+	data?: {[key: string]: any};
 	disabled?: boolean;
 	items?: Array<any>;
 	itemsSelected?: boolean;
 	onClick?: (data: any) => void;
+	onRowDelete: (data: any) => void;
+	onRowSave: (data: any) => void;
 	renderInlineRowActions?: (params: any) => void; // Can we just remove this?  doesn't seem to be that useful... we can just use it in the columns
 	renderRowActions?: (params: any) => void;
 	rowIndex: number;

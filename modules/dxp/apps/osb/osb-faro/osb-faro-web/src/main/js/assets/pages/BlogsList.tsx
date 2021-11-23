@@ -1,14 +1,10 @@
 import BlogsListCard from '../hocs/BlogsListCard';
 import React from 'react';
 
-interface IBlogsListPageProps {
-	router: object;
-}
-
-const BlogsListPage: React.FC<IBlogsListPageProps> = ({router}) => (
+const BlogsListPage: React.FC = () => (
 	<div className='row'>
 		<div className='col-sm-12'>
-			<BlogsListCard router={router} />
+			<BlogsListCard />
 		</div>
 	</div>
 );

@@ -6,12 +6,7 @@ import {Map, Set} from 'immutable';
 import {PropTypes} from 'prop-types';
 import {shallow} from 'enzyme';
 
-const {
-	cur: DEFAULT_PAGE,
-	delta: DEFAULT_DELTA,
-	orderAscending,
-	orderDescending
-} = FaroConstants.pagination;
+const {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA} = FaroConstants.pagination;
 
 const DELTA = 10;
 const ORDER_BY_FIELD = 'test';
@@ -83,9 +78,7 @@ describe('withStatefulPagination', () => {
 		).toEqual('ASC');
 		component
 			.instance()
-			.handleOrderIOMapChange(
-				createOrderIOMap(ORDER_BY_FIELD, orderDescending)
-			);
+			.handleOrderIOMapChange(createOrderIOMap(ORDER_BY_FIELD, 'DESC'));
 		jest.runAllTimers();
 		expect(
 			component.find(WrappedComponent).prop('orderIOMap').first()

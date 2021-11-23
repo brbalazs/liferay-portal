@@ -33,12 +33,14 @@ const UserRequest: React.FC<IUserRequestProps> = ({
 	});
 
 	const {data, error, loading, refetch} = useRequest({
-		dataSourceFn: params =>
-			API.user.fetchMany(params).then(data => {
-				onSetUserRequest(data.total);
+		dataSourceFn: ({delta, groupId, orderIOMap, page, query, statuses}) =>
+			API.user
+				.fetchMany({delta, groupId, orderIOMap, page, query, statuses})
+				.then(data => {
+					onSetUserRequest(data.total);
 
-				return data;
-			}),
+					return data;
+				}),
 		variables: {
 			delta,
 			groupId,

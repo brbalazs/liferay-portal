@@ -1,6 +1,5 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import Icon from 'shared/components/Icon';
@@ -8,7 +7,7 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import Table from 'shared/components/table';
-import {ACTION_TYPES, ActionTypes} from 'shared/context/selection';
+import {ActionTypes} from 'shared/context/selection';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -24,7 +23,6 @@ import {RootState} from 'shared/store';
 import {SelectionProvider} from 'shared/context/selection';
 import {useQueryPagination, useRequest} from 'shared/hooks';
 import {User} from 'shared/util/records';
-import {USERS} from 'shared/util/router';
 import {usersListColumns} from 'shared/util/table-columns';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
 
@@ -33,10 +31,6 @@ const ListComponent = compose<any>(
 	withPaginationBar(),
 	withEmpty()
 )(Table);
-
-const {
-	pagination: {cur: defaultPage, delta: defaultDelta}
-} = Constants;
 
 const UserListNav: React.FC<{
 	onAddUser: () => void;

@@ -10,7 +10,7 @@ import {segmentsListColumns} from 'shared/util/table-columns';
 
 interface IAssociatedSegmentsListProps {
 	channelId: string;
-	className: string;
+	className?: string;
 	dataSourceFn: (params: {[key: string]: any}) => void;
 	delta: number;
 	groupId: string;

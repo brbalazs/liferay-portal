@@ -30,7 +30,7 @@ export function search({
 	groupId,
 	orderIOMap = createOrderIOMap(NAME),
 	page,
-	query,
+	query = '',
 	...otherParams
 }) {
 	const orderParams = orderIOMap.first();

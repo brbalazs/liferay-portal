@@ -33,6 +33,8 @@ const withData = () =>
 	);
 
 const TableWithData = withTableData(withData, {
+	emptyDescription: null,
+	emptyTitle: null,
 	getColumns: ({
 		channelId,
 		groupId,
@@ -42,6 +44,7 @@ const TableWithData = withTableData(withData, {
 	}) => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
+			maxWidth: null,
 			routeFn: ({data: {name}}) =>
 				name &&
 				setUriQueryValues(

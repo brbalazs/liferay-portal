@@ -1,4 +1,5 @@
 import Constants from 'shared/util/constants';
+import {FilterByType} from 'shared/types';
 import {Map, OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {useReducer} from 'react';
@@ -16,8 +17,6 @@ export enum ActionType {
 	setQuery = 'setQuery'
 }
 
-type FilterBy = ReturnType<typeof Map>;
-
 interface Action {
 	payload?: any;
 	type: ActionType;
@@ -25,7 +24,7 @@ interface Action {
 
 interface State {
 	delta: number;
-	filterBy: FilterBy;
+	filterBy: FilterByType;
 	orderIOMap: OrderedMap<string, OrderParams>;
 	page: number;
 	query: string;
@@ -34,7 +33,7 @@ interface State {
 interface StatefulPaginationResult extends State {
 	resetPage: () => void;
 	onDeltaChange: (delta: number) => void;
-	onFilterByChange: (filterBy: FilterBy) => void;
+	onFilterByChange: (filterBy: FilterByType) => void;
 	onOrderIOMapChange: (orderIOMap: OrderedMap<string, OrderParams>) => void;
 	onPageChange: (page: number) => void;
 	onQueryChange: (query: string) => void;
