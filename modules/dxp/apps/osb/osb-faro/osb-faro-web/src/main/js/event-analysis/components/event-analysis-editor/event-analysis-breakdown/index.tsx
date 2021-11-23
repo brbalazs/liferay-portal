@@ -26,6 +26,7 @@ import {EditBreakdown, withAttributesConsumer} from '../context/attributes';
 import {getMaxEventValue, parseBreakdownData} from 'event-analysis/utils/utils';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {OrderByDirections} from 'shared/util/constants';
+import {OrderedMap} from 'immutable';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
@@ -100,6 +101,17 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 }) => {
 	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
 
+	const orderIOMap = OrderedMap(
+		breakdownOrder.map((breakdownId, i) => {
+			const {sortType} = breakdowns[breakdownId];
+
+			return [
+				`breakdown${i}`,
+				{field: `breakdown${i}`, sortOrder: sortType}
+			];
+		})
+	);
+
 	const tableRef = useRef<HTMLDivElement>(null);
 
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
@@ -124,7 +136,6 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		}
 	);
 
-	const [orderFields, setOrderFields] = useState({});
 	const [maxBreakdownLength, setMaxBreakdownLength] = useState<number>();
 
 	const getBreakdownColumnMaxCharLength = (
@@ -217,7 +228,6 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			highestValue,
 			maxBreakdownLength,
 			order: breakdownOrder,
-			orderFields,
 			value: data.value
 		});
 
@@ -229,7 +239,9 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		};
 	};
 
-	const handleSort = ({orderParams: {field, sortOrder}}) => {
+	const handleSort = orderIOMap => {
+		const {field, sortOrder} = orderIOMap.first();
+
 		const breakdown = getBreakdownByAccessor(
 			field,
 			breakdownOrder,
@@ -242,18 +254,10 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			attribute,
 			breakdown: {
 				...breakdown,
-				sortType:
-					sortOrder === 'asc'
-						? OrderByDirections.Ascending
-						: OrderByDirections.Descending
+				sortType: sortOrder
 			},
 			id: breakdown.id
 		});
-
-		setOrderFields(orderFields => ({
-			...orderFields,
-			[field]: sortOrder
-		}));
 	};
 
 	return (
@@ -282,14 +286,13 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 								bordered
 								columns={columns}
 								delta={delta}
-								internalSort
 								items={items}
+								onDeltaChange={onDeltaChange}
+								onOrderIOMapChange={handleSort}
+								onPageChange={onPageChange}
 								onSortChange={handleSort}
+								orderIOMap={orderIOMap}
 								page={page}
-								paginationProps={{
-									onDeltaChange,
-									onPageChange
-								}}
 								rowIdentifier='index'
 								total={count}
 							/>
@@ -309,11 +312,11 @@ const getColumns = ({
 	highestValue,
 	maxBreakdownLength,
 	order,
-	orderFields,
 	value
 }) => {
 	const columns = order.map((breakdownId: string, i: number) => {
-		const {attributeId, type} = breakdowns[breakdownId];
+		const {attributeId, sortType} = breakdowns[breakdownId];
+
 		const accessor = `breakdown${i}`;
 
 		return {
@@ -360,11 +363,12 @@ const getColumns = ({
 				);
 			},
 			headProps: {
-				order: orderFields[accessor]
+				order: sortType
 			},
 			label: (
 				<div>
-					<span className='breakdown-category'>{type}</span>
+					{/* TODO: Enable when multiple types available <span className='breakdown-category'>{attributeType}</span>*/}
+
 					{attributes[attributeId].displayName}
 				</div>
 			)
