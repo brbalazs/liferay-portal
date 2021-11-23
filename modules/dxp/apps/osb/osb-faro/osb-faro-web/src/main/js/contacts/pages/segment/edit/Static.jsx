@@ -30,6 +30,7 @@ export class StaticSegmentEdit extends React.Component {
 		editing: PropTypes.bool.isRequired,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string,
+		onDelete: PropTypes.bool,
 		onSubmit: PropTypes.func,
 		orderByField: PropTypes.string,
 		segment: PropTypes.instanceOf(Segment)
@@ -131,11 +132,12 @@ export class StaticSegmentEdit extends React.Component {
 		this.props.onSubmit(form, this._formRef, this.createStaticSegment);
 	}
 
-	hasNavigationWarning(isSubmitting) {
+	hasNavigationWarning(isSubmitting, onDelete) {
 		const {changeset} = this.state;
 
 		return (
 			!isSubmitting &&
+			!onDelete &&
 			(!changeset.get('added').isEmpty() ||
 				!changeset.get('removed').isEmpty())
 		);
@@ -198,6 +200,7 @@ export class StaticSegmentEdit extends React.Component {
 				filterBy,
 				groupId,
 				id,
+				onDelete,
 				orderBy,
 				orderByField,
 				page,
@@ -220,7 +223,10 @@ export class StaticSegmentEdit extends React.Component {
 					<Form.Form onSubmit={handleSubmit}>
 						<Sheet className='d-flex flex-column' pageDisplay>
 							<NavigationWarning
-								when={this.hasNavigationWarning(isSubmitting)}
+								when={this.hasNavigationWarning(
+									isSubmitting,
+									onDelete
+								)}
 							/>
 							<Sheet.Header divider>
 								<h2 className='segment-form-title'>
