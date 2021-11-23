@@ -819,4 +819,16 @@ definition {
 
 		Pause(locator1 = "1000");
 	}
+
+	macro removeAllNodeAssignments {
+		DoubleClick(locator1 = "KaleoDesignerEditWorkflow#SETTINGS_ASSIGNMENTS");
+
+		while (IsElementPresent(locator1 = "KaleoDesignerEditWorkflow#ROLE_REMOVE_ICON")) {
+			Click(locator1 = "KaleoDesignerEditWorkflow#ROLE_REMOVE_ICON");
+		}
+
+		AssertClick(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+		}
 }
