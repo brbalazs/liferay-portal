@@ -14,39 +14,53 @@
 
 package com.liferay.osb.faro.provisioning.client.internal;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import com.liferay.osb.faro.provisioning.client.BaseProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
+import com.liferay.osb.faro.provisioning.client.constants.KoroneikiConstants;
+import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
+import com.liferay.osb.faro.provisioning.client.exception.NoSuchCorpProjectException;
+import com.liferay.osb.faro.provisioning.client.exception.NoSuchRoleException;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
-import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.osb.faro.provisioning.client.util.KoroneikiHttpUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
+ * @author Marcos Martins
  * @author Matthew Kong
  */
 @Component(immediate = true, service = ProvisioningClient.class)
-public class ProvisioningClientImpl
-	extends BaseProvisioningClient implements ProvisioningClient {
+public class ProvisioningClientImpl implements ProvisioningClient {
 
 	@Override
 	public void addCorpProjectUsers(String corpProjectUuid, String[] userUuids)
 		throws Exception {
 
-		Map<String, String> parameterMap = new HashMap<>();
+		ContactRole contactRole = KoroneikiHttpUtil.fetchContactRole(
+			KoroneikiConstants.CONTACT_ROLE_NAME_MEMBER,
+			ContactRole.Type.ACCOUNT_CUSTOMER);
 
-		parameterMap.put("corpProjectUuid", corpProjectUuid);
-		parameterMap.put(
-			"userUuids", ArrayUtil.toString(userUuids, StringPool.BLANK));
+		if (contactRole == null) {
+			throw new NoSuchRoleException();
+		}
 
-		post("corpproject/add-corp-project-users", parameterMap);
+		Account account = _getCorpProjectAccount(corpProjectUuid);
+
+		for (String userUuid : userUuids) {
+			KoroneikiHttpUtil.assignAccountContactRole(
+				account.getKey(), contactRole.getKey(), userUuid);
+		}
 	}
 
 	@Override
@@ -54,14 +68,19 @@ public class ProvisioningClientImpl
 			String corpProjectUuid, String[] userUuids, String roleName)
 		throws Exception {
 
-		Map<String, String> parameterMap = new HashMap<>();
+		ContactRole contactRole = KoroneikiHttpUtil.fetchContactRole(
+			roleName, ContactRole.Type.ACCOUNT_CUSTOMER);
 
-		parameterMap.put("corpProjectUuid", corpProjectUuid);
-		parameterMap.put("roleName", roleName);
-		parameterMap.put(
-			"userUuids", ArrayUtil.toString(userUuids, StringPool.BLANK));
+		if (contactRole == null) {
+			throw new NoSuchRoleException();
+		}
 
-		post("corpproject/add-user-corp-project-roles", parameterMap);
+		Account account = _getCorpProjectAccount(corpProjectUuid);
+
+		for (String userUuid : userUuids) {
+			KoroneikiHttpUtil.assignAccountContactRole(
+				account.getKey(), contactRole.getKey(), userUuid);
+		}
 	}
 
 	@Override
@@ -69,51 +88,86 @@ public class ProvisioningClientImpl
 			String corpProjectUuid, String[] userUuids, String roleName)
 		throws Exception {
 
-		Map<String, String> parameterMap = new HashMap<>();
+		ContactRole contactRole = KoroneikiHttpUtil.fetchContactRole(
+			roleName, ContactRole.Type.ACCOUNT_CUSTOMER);
 
-		parameterMap.put("corpProjectUuid", corpProjectUuid);
-		parameterMap.put("roleName", roleName);
-		parameterMap.put(
-			"userUuids", ArrayUtil.toString(userUuids, StringPool.BLANK));
+		if (contactRole == null) {
+			throw new NoSuchRoleException();
+		}
 
-		post("corpproject/delete-user-corp-project-roles", parameterMap);
+		Account account = _getCorpProjectAccount(corpProjectUuid);
+
+		for (String userUuid : userUuids) {
+			KoroneikiHttpUtil.unassignAccountContactRole(
+				account.getKey(), contactRole.getKey(), userUuid);
+		}
 	}
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-		String userUuid, Long[] productEntryIds) {
+			String userUuid, Long[] productEntryIds)
+		throws Exception {
 
-		Map<String, String> parameterMap = new HashMap<>();
+		List<OSBAccountEntry> osbAccountEntries = new ArrayList<>();
 
-		parameterMap.put(
-			"productEntryIds",
-			ArrayUtil.toString(productEntryIds, StringPool.BLANK));
-		parameterMap.put("userUuid", userUuid);
+		StringBundler sb = new StringBundler(5);
 
-		List<OSBAccountEntry> osbAccountEntries = get(
-			"accountentry/get-account-entries",
-			new TypeReference<List<OSBAccountEntry>>() {
-			},
-			parameterMap);
+		sb.append("contactUuids/any(s:s eq '");
+		sb.append(userUuid);
+		sb.append("') and productKeys/any(s:s eq '");
 
-		if (osbAccountEntries != null) {
-			return osbAccountEntries;
+		List<String> productKeys = new ArrayList<>();
+
+		for (long productEntryId : productEntryIds) {
+			String productName = ProductConstants.getProductName(
+				productEntryId);
+
+			if (Validator.isNull(productName)) {
+				continue;
+			}
+
+			Product product = KoroneikiHttpUtil.fetchProduct(productName);
+
+			if (product == null) {
+				continue;
+			}
+
+			productKeys.add(product.getKey());
 		}
 
-		return Collections.emptyList();
+		sb.append(StringUtil.merge(productKeys, "' or s eq '"));
+		sb.append("')");
+
+		int page = 1;
+
+		while (true) {
+			List<Account> accounts = KoroneikiHttpUtil.searchAccounts(
+				sb.toString(), page, 500);
+
+			if (ListUtil.isEmpty(accounts)) {
+				break;
+			}
+
+			Stream<Account> stream = accounts.stream();
+
+			osbAccountEntries.addAll(
+				stream.map(
+					OSBAccountEntry::new
+				).collect(
+					Collectors.toList()
+				));
+
+			page++;
+		}
+
+		return osbAccountEntries;
 	}
 
 	@Override
-	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid) {
-		Map<String, String> parameterMap = new HashMap<>();
+	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid)
+		throws Exception {
 
-		parameterMap.put("corpProjectUuid", corpProjectUuid);
-
-		return get(
-			"accountentry/get-corp-project-account-entry",
-			new TypeReference<OSBAccountEntry>() {
-			},
-			parameterMap);
+		return new OSBAccountEntry(_getCorpProjectAccount(corpProjectUuid));
 	}
 
 	@Override
@@ -121,13 +175,55 @@ public class ProvisioningClientImpl
 			String corpProjectUuid, String[] userUuids)
 		throws Exception {
 
-		Map<String, String> parameterMap = new HashMap<>();
+		Account account = _getCorpProjectAccount(corpProjectUuid);
 
-		parameterMap.put("corpProjectUuid", corpProjectUuid);
-		parameterMap.put(
-			"userUuids", ArrayUtil.toString(userUuids, StringPool.BLANK));
+		for (String userUuid : userUuids) {
+			int page = 1;
 
-		post("corpproject/unset-corp-project-users", parameterMap);
+			while (true) {
+				List<ContactRole> contactRoles =
+					KoroneikiHttpUtil.getAccountContactRoles(
+						account.getKey(), userUuid, page, 500);
+
+				if (ListUtil.isEmpty(contactRoles)) {
+					break;
+				}
+
+				for (ContactRole contactRole : contactRoles) {
+					KoroneikiHttpUtil.unassignAccountContactRole(
+						account.getKey(), contactRole.getKey(), userUuid);
+				}
+
+				page++;
+			}
+		}
+	}
+
+	private Account _getCorpProjectAccount(String corpProjectUuid)
+		throws Exception {
+
+		Account account = null;
+
+		if (StringUtil.startsWith(
+				corpProjectUuid, KoroneikiConstants.ACCOUNT_KEY_PREFIX)) {
+
+			account = KoroneikiHttpUtil.fetchAccount(corpProjectUuid);
+		}
+		else {
+			List<Account> accounts = KoroneikiHttpUtil.getAccounts(
+				KoroneikiConstants.DOMAIN_WEB, corpProjectUuid,
+				KoroneikiConstants.ENTITY_NAME_CORP_PROJECT, 1, 1);
+
+			if (ListUtil.isNotEmpty(accounts)) {
+				account = accounts.get(0);
+			}
+		}
+
+		if (account == null) {
+			throw new NoSuchCorpProjectException();
+		}
+
+		return account;
 	}
 
 }

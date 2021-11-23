@@ -18,14 +18,13 @@ import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
+import com.liferay.osb.faro.provisioning.client.util.KoroneikiHttpUtil;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -35,9 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -90,7 +87,8 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-		String userUuid, Long[] productEntryIds) {
+			String userUuid, Long[] productEntryIds)
+		throws Exception {
 
 		if (Validator.isNotNull(_MOCK_OSB_ACCOUNT_ENTRY)) {
 			return Collections.singletonList(_mockOSBAccountEntry);
@@ -110,7 +108,9 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 	}
 
 	@Override
-	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid) {
+	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid)
+		throws Exception {
+
 		if (corpProjectUuid.equals(_MOCK_PROJECT_ID)) {
 			return _mockOSBAccountEntry;
 		}
@@ -137,33 +137,19 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			StandardCharsets.UTF_8);
 	}
 
-	protected Http.Options getOptions(String emailAddress) {
-		Http.Options options = new Http.Options();
-
-		options.setHeaders(_headers);
-
-		String url = http.addParameter(
-			_OSB_GET_USER_URL, "companyId", _OSB_DEFAULT_COMPANY_ID);
-
-		url = http.addParameter(
-			url, "emailAddress", emailAddress.concat(".broken"));
-
-		options.setLocation(url);
-
-		return options;
-	}
-
 	protected String getRemoteUserUuid(String userUuid) {
 		try {
 			User user = _userLocalService.getUserByUuidAndCompanyId(
 				userUuid, _portal.getDefaultCompanyId());
 
-			String response = http.URLtoString(
-				getOptions(user.getEmailAddress()));
+			Contact contact = KoroneikiHttpUtil.fetchtContact(
+				user.getEmailAddress());
 
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(response);
+			if (contact != null) {
+				return contact.getUuid();
+			}
 
-			return jsonObject.getString("uuid");
+			return userUuid;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -178,27 +164,10 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 	private static final String _MOCK_PROJECT_ID = System.getenv(
 		"MOCK_PROJECT_ID");
 
-	private static final long _OSB_DEFAULT_COMPANY_ID = 1;
-
-	private static final String _OSB_GET_USER_URL =
-		System.getenv("OSB_API_URL") +
-			"/api/secure/jsonws/user/get-user-by-email-address";
-
 	private static final String _PROJECT_ID = System.getenv("FARO_PROJECT_ID");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		MockProvisioningClientImpl.class);
-
-	private static final Map<String, String> _headers =
-		new HashMap<String, String>() {
-			{
-				put(
-					"Authorization",
-					"Basic " +
-						encodeAuthorizationFields(
-							"matthew.kong@liferay.com.broken", "test"));
-			}
-		};
 
 	private static final OSBAccountEntry _mockOSBAccountEntry =
 		new OSBAccountEntry() {

@@ -14,7 +14,6 @@
 
 package com.liferay.osb.faro.mock.provisioning.client.internal;
 
-import com.liferay.osb.faro.provisioning.client.BaseProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 
@@ -26,7 +25,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Matthew Kong
  */
 public abstract class BaseMockProvisioningClientImpl
-	extends BaseProvisioningClient implements ProvisioningClient {
+	implements ProvisioningClient {
 
 	@Override
 	public void addCorpProjectUsers(String corpProjectUuid, String[] userUuids)
@@ -55,14 +54,17 @@ public abstract class BaseMockProvisioningClientImpl
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-		String userUuid, Long[] productEntryIds) {
+			String userUuid, Long[] productEntryIds)
+		throws Exception {
 
 		return provisioningClient.getOSBAccountEntries(
 			userUuid, productEntryIds);
 	}
 
 	@Override
-	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid) {
+	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid)
+		throws Exception {
+
 		return provisioningClient.getOSBAccountEntry(corpProjectUuid);
 	}
 
