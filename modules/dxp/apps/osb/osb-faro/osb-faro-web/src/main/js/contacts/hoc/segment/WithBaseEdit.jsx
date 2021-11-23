@@ -32,6 +32,10 @@ export default WrappedComponent => {
 			type: PropTypes.oneOf([SegmentTypes.Dynamic, SegmentTypes.Static])
 		};
 
+		state = {
+			onDelete: false
+		};
+
 		componentDidMount() {
 			this._startDate = Date.now();
 		}
@@ -66,8 +70,10 @@ export default WrappedComponent => {
 				),
 				modalVariant: 'modal-warning',
 				onClose: close,
-				onSubmit: () =>
-					API.individualSegment
+				onSubmit: () => {
+					this.setState({onDelete: true});
+
+					return API.individualSegment
 						.delete({
 							groupId,
 							id
@@ -94,7 +100,10 @@ export default WrappedComponent => {
 								message: Liferay.Language.get('error'),
 								timeout: false
 							});
-						}),
+
+							this.setState({onDelete: false});
+						});
+				},
 				submitButtonDisplay: 'warning',
 				submitMessage: Liferay.Language.get('delete'),
 				title: Liferay.Language.get('warning'),
@@ -217,6 +226,8 @@ export default WrappedComponent => {
 				...otherProps
 			} = this.props;
 
+			const {onDelete} = this.state;
+
 			const {selectedChannel} = this.context;
 
 			const editing = !!id;
@@ -304,6 +315,7 @@ export default WrappedComponent => {
 							editing={editing}
 							groupId={groupId}
 							id={id}
+							onDelete={onDelete}
 							onSubmit={this.handleSubmit}
 							segment={segment}
 						/>
