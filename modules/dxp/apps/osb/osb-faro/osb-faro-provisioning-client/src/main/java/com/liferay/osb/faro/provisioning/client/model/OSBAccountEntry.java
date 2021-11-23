@@ -14,8 +14,16 @@
 
 package com.liferay.osb.faro.provisioning.client.model;
 
+import com.liferay.osb.faro.provisioning.client.constants.KoroneikiConstants;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Matthew Kong
@@ -23,6 +31,37 @@ import java.util.List;
 public class OSBAccountEntry {
 
 	public OSBAccountEntry() {
+	}
+
+	public OSBAccountEntry(Account account) {
+		_corpEntryName = account.getParentAccountKey();
+		_corpProjectUuid = account.getKey();
+
+		ExternalLink[] externalLinks = account.getExternalLinks();
+
+		if (!ArrayUtil.isEmpty(externalLinks)) {
+			for (ExternalLink externalLink : externalLinks) {
+				if (StringUtil.equals(
+						externalLink.getDomain(),
+						KoroneikiConstants.DOMAIN_DOSSIERA) &&
+					StringUtil.equals(
+						externalLink.getEntityId(),
+						KoroneikiConstants.ENTITY_NAME_ACCOUNT)) {
+
+					_dossieraAccountKey = externalLink.getEntityId();
+				}
+			}
+		}
+
+		_name = account.getName();
+
+		_offeringEntries = Stream.of(
+			account.getProductPurchases()
+		).map(
+			OSBOfferingEntry::new
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	public long getAccountEntryId() {

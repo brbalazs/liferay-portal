@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.provisioning.client.model;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+
 import java.util.Date;
 
 /**
@@ -22,6 +24,24 @@ import java.util.Date;
 public class OSBOfferingEntry {
 
 	public OSBOfferingEntry() {
+	}
+
+	public OSBOfferingEntry(ProductPurchase productPurchase) {
+		_offeringEntryId = Long.valueOf(productPurchase.getKey());
+
+		_productEntryId = Long.valueOf(productPurchase.getProductKey());
+
+		_quantity = productPurchase.getQuantity();
+
+		_startDate = productPurchase.getStartDate();
+
+		ProductPurchase.Status status = productPurchase.getStatus();
+
+		if (status.equals(ProductPurchase.Status.APPROVED)) {
+			_status = 1;
+		}
+
+		_supportEndDate = productPurchase.getEndDate();
 	}
 
 	public long getAccountEntryId() {
