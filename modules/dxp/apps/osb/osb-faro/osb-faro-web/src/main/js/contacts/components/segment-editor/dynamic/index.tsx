@@ -79,6 +79,7 @@ interface ISegmentEditorProps {
 	channelId: string;
 	groupId: string;
 	id?: string;
+	onDelete: boolean;
 	onSubmit: (
 		form: FormValues,
 		ref: React.Ref<Formik>,
@@ -147,6 +148,7 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 				channelId,
 				groupId,
 				id,
+				onDelete,
 				propertyGroupsIList,
 				segment: {
 					criteriaString,
@@ -198,7 +200,11 @@ class SegmentEditor extends React.Component<ISegmentEditorProps> {
 									onSubmit={handleSubmit}
 								>
 									<NavigationWarning
-										when={hasChanges && !isSubmitting}
+										when={
+											hasChanges &&
+											!isSubmitting &&
+											!onDelete
+										}
 									/>
 
 									<Toolbar
