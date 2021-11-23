@@ -130,9 +130,7 @@ exports[`IndividualAttributes should render 1`] = `
               class="table table-autofit table-hover table-heading-nowrap table-nowrap"
             >
               <thead>
-                <tr
-                  class=""
-                >
+                <tr>
                   <th
                     class="table-head-title table-cell-expand"
                   >
@@ -144,6 +142,18 @@ exports[`IndividualAttributes should render 1`] = `
                         class="text-truncate"
                       >
                         Attribute
+                      </span>
+                      <span
+                        class="inline-item inline-item-after"
+                      >
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
+                          />
+                        </svg>
                       </span>
                     </button>
                   </th>

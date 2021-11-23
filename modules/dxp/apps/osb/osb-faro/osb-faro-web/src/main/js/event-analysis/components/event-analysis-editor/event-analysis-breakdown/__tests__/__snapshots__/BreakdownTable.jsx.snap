@@ -12,9 +12,7 @@ exports[`BreakdownTable render 1`] = `
         class="table table-autofit table-hover table-bordered table-heading-nowrap table-nowrap"
       >
         <thead>
-          <tr
-            class=""
-          >
+          <tr>
             <th
               class="table-head-title"
             >
@@ -26,11 +24,20 @@ exports[`BreakdownTable render 1`] = `
                   class="text-truncate"
                 >
                   <div>
-                    <span
-                      class="breakdown-category"
-                    />
                     Boolean Name
                   </div>
+                </span>
+                <span
+                  class="inline-item inline-item-after"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
+                    />
+                  </svg>
                 </span>
               </button>
             </th>

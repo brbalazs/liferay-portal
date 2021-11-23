@@ -22,9 +22,7 @@ exports[`InterestsCard renders 1`] = `
         class="table table-autofit table-hover table-heading-nowrap table-nowrap table-row-no-bordered"
       >
         <thead>
-          <tr
-            class=""
-          >
+          <tr>
             <th
               class="table-head-title"
             >

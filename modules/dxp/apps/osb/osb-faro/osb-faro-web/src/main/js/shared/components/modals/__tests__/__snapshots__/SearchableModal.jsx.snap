@@ -32,15 +32,17 @@ exports[`SearchableModal should render 1`] = `
           </svg>
         </button>
       </div>
-      <div>
+      <div
+        class="toolbar-root"
+      >
         <nav
-          class="navbar navbar-root navbar-light"
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
         >
           <div
             class="container-fluid"
           >
             <ul
-              class="nav-root navbar-nav"
+              class="nav-root front-nav navbar-nav"
               role="tablist"
             >
               <li
@@ -48,7 +50,7 @@ exports[`SearchableModal should render 1`] = `
                 role="presentation"
               >
                 <button
-                  class="button-root btn btn-unstyled nav-link nav-link-monospaced"
+                  class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
                   type="button"
                 >
                   <svg
@@ -66,7 +68,7 @@ exports[`SearchableModal should render 1`] = `
               class="navbar-form navbar-form-autofit"
             >
               <div
-                class="input-group"
+                class="input-group search"
               >
                 <div
                   class="input-group-item"
@@ -85,11 +87,11 @@ exports[`SearchableModal should render 1`] = `
                       type="button"
                     >
                       <svg
-                        class="icon-root lexicon-icon lexicon-icon-search"
+                        class="icon-root lexicon-icon lexicon-icon-times"
                         viewBox=""
                       >
                         <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                         />
                       </svg>
                     </button>
@@ -99,28 +101,31 @@ exports[`SearchableModal should render 1`] = `
             </div>
           </div>
         </nav>
-        <div
-          class="scroll-container"
-        >
+      </div>
+      <div
+        class="modal-info-bar-root"
+      >
+        3 Items
+      </div>
+      <div
+        class="scroll-container"
+      >
+        <div>
           <div
-            class="modal-info-bar-root"
+            class="load-more-container"
           >
-            3 Items
-          </div>
-          <div>
-            <div
-              class="load-more-container"
+            <button
+              class="button-root btn btn-secondary"
+              type="button"
             >
-              <button
-                class="button-root btn btn-secondary"
-                type="button"
-              >
-                Load More
-              </button>
-            </div>
+              Load More
+            </button>
           </div>
         </div>
       </div>
+      <div
+        class="modal-footer"
+      />
     </div>
   </div>
 </div>

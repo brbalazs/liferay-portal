@@ -72,14 +72,14 @@ exports[`Interests should render 1`] = `
               >
                 <a
                   class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
-                  href="/?orderBy=desc&page=1"
+                  href="/?field=count&page=1&sortOrder=ASC"
                 >
                   <svg
-                    class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                    class="icon-root lexicon-icon lexicon-icon-order-arrow-descending"
                     viewBox=""
                   >
                     <use
-                      xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-descending"
                     />
                   </svg>
                 </a>
@@ -130,32 +130,18 @@ exports[`Interests should render 1`] = `
           class="table table-autofit table-hover table-heading-nowrap table-nowrap"
         >
           <thead>
-            <tr
-              class=""
-            >
+            <tr>
               <th
                 class="table-head-title"
               >
                 <a
                   class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                  href="/?orderBy=desc&orderByField=name&page=1"
+                  href="/?field=name&page=1&sortOrder=ASC"
                 >
                   <span
                     class="text-truncate"
                   >
                     Interest
-                  </span>
-                  <span
-                    class="inline-item inline-item-after"
-                  >
-                    <svg
-                      class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
-                      viewBox=""
-                    >
-                      <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
-                      />
-                    </svg>
                   </span>
                 </a>
               </th>
@@ -184,7 +170,7 @@ exports[`Interests should render 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/contacts/individuals/known-individuals/test/interests/Bar0"
+                        href="/workspace/23/123/contacts/individuals/known-individuals/test/interests/Bar0"
                       >
                         Bar0
                       </a>

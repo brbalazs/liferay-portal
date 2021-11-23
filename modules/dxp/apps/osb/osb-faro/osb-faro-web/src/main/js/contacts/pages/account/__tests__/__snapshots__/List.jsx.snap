@@ -25,7 +25,7 @@ exports[`List should render 1`] = `
             >
               <a
                 class="breadcrumb-link breadcrumb-text-truncate"
-                href="/workspace/23/sites"
+                href="/workspace/23/123/sites"
               >
                 Home
               </a>
@@ -129,7 +129,7 @@ exports[`List should render 1`] = `
                       >
                         <a
                           class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
-                          href="/?orderBy=desc&page=1"
+                          href="/?field=name&page=1&sortOrder=DESC"
                         >
                           <svg
                             class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
@@ -187,15 +187,13 @@ exports[`List should render 1`] = `
                   class="table table-autofit table-hover table-heading-nowrap table-nowrap"
                 >
                   <thead>
-                    <tr
-                      class=""
-                    >
+                    <tr>
                       <th
                         class="table-head-title table-cell-expand"
                       >
                         <a
                           class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                          href="/?orderBy=desc&orderByField=name&page=1"
+                          href="/?field=name&page=1&sortOrder=DESC"
                         >
                           <span
                             class="text-truncate"
@@ -221,7 +219,7 @@ exports[`List should render 1`] = `
                       >
                         <a
                           class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                          href="/?orderBy=asc&orderByField=accountType&page=1"
+                          href="/?field=accountType&page=1&sortOrder=ASC"
                         >
                           <span
                             class="text-truncate"
@@ -235,7 +233,7 @@ exports[`List should render 1`] = `
                       >
                         <a
                           class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                          href="/?orderBy=desc&orderByField=individualCount&page=1"
+                          href="/?field=individualCount&page=1&sortOrder=DESC"
                         >
                           <span
                             class="text-truncate"
@@ -249,7 +247,7 @@ exports[`List should render 1`] = `
                       >
                         <a
                           class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                          href="/?orderBy=desc&orderByField=activitiesCount&page=1"
+                          href="/?field=activitiesCount&page=1&sortOrder=DESC"
                         >
                           <span
                             class="text-truncate"
@@ -278,7 +276,7 @@ exports[`List should render 1`] = `
                             >
                               <a
                                 class="text-truncate"
-                                href="/workspace/23/contacts/accounts/0"
+                                href="/workspace/23/123/contacts/accounts/0"
                               >
                                 account0
                               </a>

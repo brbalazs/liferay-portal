@@ -8,7 +8,7 @@ Object {
     "rangeKey": 30,
     "rangeStart": null,
     "sort": Object {
-      "column": "fooFieldName",
+      "column": "fooTabId",
       "type": "DESC",
     },
     "title": "",

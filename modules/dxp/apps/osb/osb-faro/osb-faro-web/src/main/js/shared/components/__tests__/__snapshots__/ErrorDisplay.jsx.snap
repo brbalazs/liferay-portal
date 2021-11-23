@@ -3,7 +3,7 @@
 exports[`ErrorDisplay should render 1`] = `
 <div>
   <div
-    class="error-display-root no-results-root flex-grow-1"
+    class="error-display-root flex-grow-1 no-results-root flex-grow-1"
   >
     <div
       class="no-results-content"

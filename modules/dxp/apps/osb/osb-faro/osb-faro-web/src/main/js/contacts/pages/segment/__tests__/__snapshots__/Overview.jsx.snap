@@ -73,7 +73,7 @@ exports[`SegmentOverview should render 1`] = `
           </h5>
         </div>
         <div
-          class="error-display-root error-spacer no-results-root flex-grow-1"
+          class="error-display-root flex-grow-1 error-spacer no-results-root flex-grow-1"
         >
           <div
             class="no-results-content"

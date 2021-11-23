@@ -46,9 +46,20 @@ exports[`TableTabs render 1`] = `
           class="table table-autofit table-hover table-heading-nowrap table-nowrap"
         >
           <thead>
-            <tr
-              class=""
-            />
+            <tr>
+              <th
+                class="table-head-title"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?field=test&page=1&sortOrder=ASC"
+                >
+                  <span
+                    class="text-truncate"
+                  />
+                </a>
+              </th>
+            </tr>
           </thead>
         </table>
       </div>

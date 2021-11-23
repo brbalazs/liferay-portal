@@ -99,15 +99,13 @@ exports[`SuppressedUsers should render 1`] = `
               class="table table-autofit table-hover table-heading-nowrap table-nowrap"
             >
               <thead>
-                <tr
-                  class=""
-                >
+                <tr>
                   <th
                     class="table-head-title table-cell-expand"
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?orderBy=asc&orderByField=emailAddress&page=1"
+                      href="/?field=emailAddress&page=1&sortOrder=ASC"
                     >
                       <span
                         class="text-truncate"
@@ -121,7 +119,7 @@ exports[`SuppressedUsers should render 1`] = `
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?orderBy=asc&orderByField=dataControlTaskBatchId&page=1"
+                      href="/?field=dataControlTaskBatchId&page=1&sortOrder=ASC"
                     >
                       <span
                         class="text-truncate"
@@ -135,7 +133,7 @@ exports[`SuppressedUsers should render 1`] = `
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?orderBy=asc&orderByField=dataControlTaskCreateDate&page=1"
+                      href="/?field=dataControlTaskCreateDate&page=1&sortOrder=ASC"
                     >
                       <span
                         class="text-truncate"
@@ -149,7 +147,7 @@ exports[`SuppressedUsers should render 1`] = `
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?orderBy=asc&orderByField=createDate&page=1"
+                      href="/?field=createDate&page=1&sortOrder=ASC"
                     >
                       <span
                         class="text-truncate"

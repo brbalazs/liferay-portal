@@ -12,9 +12,7 @@ exports[`VariantTableCard should render 1`] = `
         class="table table-autofit table-hover"
       >
         <thead>
-          <tr
-            class=""
-          >
+          <tr>
             <th
               class="table-head-title"
             >

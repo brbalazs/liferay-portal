@@ -21,6 +21,7 @@ exports[`AssociatedSegmentsList should render 1`] = `
     </div>
   </Header>
   <SearchableEntityTable
+    autoFocusSearch={true}
     bordered={false}
     checkDisabled={[Function]}
     columns={
@@ -65,13 +66,9 @@ exports[`AssociatedSegmentsList should render 1`] = `
         "id": "test",
       }
     }
-    delta={2}
     entityLabel="Associated Segments"
-    filterBy={Immutable.Map {}}
     internalSort={false}
     nowrap={true}
-    orderBy="asc"
-    orderByField="name"
     orderByOptions={
       Array [
         Object {
@@ -89,8 +86,6 @@ exports[`AssociatedSegmentsList should render 1`] = `
       ]
     }
     overrideLoading={false}
-    page={1}
-    query=""
     rowIdentifier="id"
     showCheckbox={false}
   />

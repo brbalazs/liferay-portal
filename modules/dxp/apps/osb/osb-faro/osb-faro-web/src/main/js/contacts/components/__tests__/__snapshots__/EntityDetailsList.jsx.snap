@@ -44,7 +44,26 @@ exports[`EntityDetailsList should render 1`] = `
               <ul
                 class="nav-root front-nav navbar-nav"
                 role="tablist"
-              />
+              >
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <button
+                    class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                      />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
               <div
                 class="navbar-form navbar-form-autofit"
               >
@@ -120,9 +139,7 @@ exports[`EntityDetailsList should render 1`] = `
             class="table table-autofit table-hover table-heading-nowrap"
           >
             <thead>
-              <tr
-                class=""
-              >
+              <tr>
                 <th
                   class="table-head-title table-cell-expand"
                 >
@@ -252,7 +269,26 @@ exports[`EntityDetailsList should render with items 1`] = `
               <ul
                 class="nav-root front-nav navbar-nav"
                 role="tablist"
-              />
+              >
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <button
+                    class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                      />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
               <div
                 class="navbar-form navbar-form-autofit"
               >
@@ -328,9 +364,7 @@ exports[`EntityDetailsList should render with items 1`] = `
             class="table table-autofit table-hover table-heading-nowrap"
           >
             <thead>
-              <tr
-                class=""
-              >
+              <tr>
                 <th
                   class="table-head-title table-cell-expand"
                 >

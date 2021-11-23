@@ -35,6 +35,24 @@ exports[`CrossPageSelect should render the selected list when the user presses t
               </label>
             </div>
           </li>
+          <li
+            class="nav-item"
+            role="presentation"
+          >
+            <a
+              class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+              href="/?field=name&page=1&sortOrder=DESC"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                />
+              </svg>
+            </a>
+          </li>
         </ul>
         <div
           class="navbar-form navbar-form-autofit"
@@ -110,16 +128,14 @@ exports[`CrossPageSelect should render the selected list when the user presses t
       class="table table-autofit table-hover table-heading-nowrap table-nowrap"
     >
       <thead>
-        <tr
-          class=""
-        >
+        <tr>
           <th />
           <th
             class="table-head-title"
           >
-            <button
+            <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
-              type="button"
+              href="/?field=name&page=1&sortOrder=DESC"
             >
               <span
                 class="text-truncate"
@@ -138,7 +154,7 @@ exports[`CrossPageSelect should render the selected list when the user presses t
                   />
                 </svg>
               </span>
-            </button>
+            </a>
           </th>
         </tr>
       </thead>
@@ -298,6 +314,24 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
               </label>
             </div>
           </li>
+          <li
+            class="nav-item"
+            role="presentation"
+          >
+            <a
+              class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+              href="/?field=name&page=1&sortOrder=DESC"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
+                />
+              </svg>
+            </a>
+          </li>
         </ul>
         <div
           class="navbar-form navbar-form-autofit"
@@ -344,16 +378,14 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
       class="table table-autofit table-hover table-heading-nowrap table-nowrap"
     >
       <thead>
-        <tr
-          class=""
-        >
+        <tr>
           <th />
           <th
             class="table-head-title"
           >
             <a
               class="button-root btn btn-unstyled inline-item text-truncate-inline"
-              href="/?orderBy=desc&orderByField=name&page=1"
+              href="/?field=name&page=1&sortOrder=DESC"
             >
               <span
                 class="text-truncate"
@@ -626,5 +658,33 @@ exports[`CrossPageSelect should render the server data list by default 1`] = `
       </ul>
     </div>
   </nav>
+</div>
+`;
+
+exports[`ViewSelectedToggle should render with the "return to list" message 1`] = `
+<div>
+  <button
+    class="btn btn-sm btn-link"
+    data-testid="view-selected"
+    type="button"
+  >
+    <b>
+      Return to List
+    </b>
+  </button>
+</div>
+`;
+
+exports[`ViewSelectedToggle should render with the "view selected" message 1`] = `
+<div>
+  <button
+    class="btn btn-sm btn-link"
+    data-testid="view-selected"
+    type="button"
+  >
+    <b>
+      View Selected ()
+    </b>
+  </button>
 </div>
 `;

@@ -121,7 +121,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
-                data-testid="entryMetric"
+                data-testid="entrancesMetric"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -137,7 +137,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
-                data-testid="exitMetric"
+                data-testid="exitRateMetric"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -159,9 +159,7 @@ exports[`Sites Dashboard Overview render 1`] = `
                 class="table table-autofit table-hover table-heading-nowrap table-nowrap"
               >
                 <thead>
-                  <tr
-                    class=""
-                  >
+                  <tr>
                     <th
                       class="table-head-title table-cell-expand"
                     >
@@ -191,7 +189,7 @@ exports[`Sites Dashboard Overview render 1`] = `
           >
             <a
               class="button-root btn btn-link btn-sm"
-              href="/workspace/123/456/sites/pages?rangeKey=30"
+              href="/workspace/23/123123/sites/pages?rangeKey=30"
             >
               View Pages
               <span
@@ -294,15 +292,13 @@ exports[`Sites Dashboard Overview render 1`] = `
                 class="table table-autofit table-hover table-heading-nowrap table-nowrap"
               >
                 <thead>
-                  <tr
-                    class=""
-                  >
+                  <tr>
                     <th
                       class="table-head-title"
                     >
                       <a
                         class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                        href="/?orderBy=asc&orderByField=name&page=1"
+                        href="/?field=name&page=1&sortOrder=ASC"
                       >
                         <span
                           class="text-truncate"
@@ -403,9 +399,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               class="table table-autofit table-hover table-heading-nowrap table-nowrap table-row-no-bordered"
             >
               <thead>
-                <tr
-                  class=""
-                >
+                <tr>
                   <th
                     class="table-head-title table-cell-expand"
                   >
@@ -458,9 +452,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               class="table table-autofit table-hover table-heading-nowrap table-nowrap table-row-no-bordered"
             >
               <thead>
-                <tr
-                  class=""
-                >
+                <tr>
                   <th
                     class="table-head-title table-cell-expand"
                   >
@@ -487,7 +479,7 @@ exports[`Sites Dashboard Overview render 1`] = `
           >
             <a
               class="button-root btn btn-link btn-sm"
-              href="/workspace/2000/123/sites/interests?rangeEnd=null&rangeKey=30&rangeStart=null"
+              href="/workspace/23/123123/sites/interests?rangeEnd=null&rangeKey=30&rangeStart=null"
             >
               All Interests
               <span

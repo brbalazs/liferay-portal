@@ -29,7 +29,7 @@ exports[`VisitorsByTimeCard render 1`] = `
       class="card-body"
     >
       <div
-        class="error-display-root error-spacer no-results-root flex-grow-1"
+        class="error-display-root flex-grow-1 error-spacer no-results-root flex-grow-1"
       >
         <div
           class="no-results-content"
