@@ -35,7 +35,8 @@ definition {
 			layoutName = "alloy-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -127,7 +128,8 @@ definition {
 			layoutName = "bootsfaces-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -223,7 +225,8 @@ definition {
 			layoutName = "butterfaces-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -319,7 +322,8 @@ definition {
 			layoutName = "jsf-events");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -376,7 +380,8 @@ definition {
 			layoutName = "jsf-prp");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -433,7 +438,8 @@ definition {
 			layoutName = "jsf-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -525,7 +531,8 @@ definition {
 			layoutName = "jsf-cdi-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -617,7 +624,8 @@ definition {
 			layoutName = "jsf-pdf");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -644,7 +652,8 @@ definition {
 			layoutName = "jsf flows");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -729,7 +738,8 @@ definition {
 			layoutName = "jsf-html5-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -821,7 +831,8 @@ definition {
 			layoutName = "jsf-jsp-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -905,7 +916,8 @@ definition {
 			layoutName = "jsf-spring-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -997,7 +1009,8 @@ definition {
 			layoutName = "primefaces-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
@@ -1096,7 +1109,8 @@ definition {
 			layoutName = "richfaces-applicant");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(

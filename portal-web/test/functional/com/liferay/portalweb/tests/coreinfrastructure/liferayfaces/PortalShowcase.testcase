@@ -16,7 +16,8 @@ definition {
 			layoutName = "Portal Showcase");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
+			panel = "Site Administration",
 			portlet = "Pages");
 
 		SitePages.configurePage(
