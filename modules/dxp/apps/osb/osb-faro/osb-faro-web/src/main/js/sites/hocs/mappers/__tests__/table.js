@@ -21,7 +21,7 @@ describe('TableMapper', () => {
 			activeTabId: mockTabId,
 			rangeKey: '30',
 			router: {params: {channelId: 123}},
-			tabConfig: [{orderByField: 'fooFieldName', tabId: mockTabId}]
+			tabConfig: [{tabId: mockTabId}]
 		};
 
 		expect(mapper.options(mockProps)).toMatchSnapshot();

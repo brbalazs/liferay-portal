@@ -2,6 +2,7 @@ import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queri
 import React from 'react';
 import SearchableTableModalGraphql from '../SearchableTableModalGraphql';
 import {cleanup, render} from '@testing-library/react';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
@@ -28,8 +29,7 @@ const defaultProps = {
 	mapPropsToOptions,
 	mapResultToProps: getMapResultToProps('organizations'),
 	onClose: noop,
-	orderBy: 'asc',
-	orderByField: 'name',
+	orderIOMap: createOrderIOMap('name'),
 	page: 1
 };
 

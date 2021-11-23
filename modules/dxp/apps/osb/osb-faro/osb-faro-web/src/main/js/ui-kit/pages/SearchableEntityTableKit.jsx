@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {mockIndividual} from 'test/data';
 import {noop, times} from 'lodash';
 
@@ -48,11 +49,7 @@ class SearchableEntityTableKit extends React.Component {
 
 	render() {
 		return (
-			<div
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
+			<div>
 				<h3>{'SearchableEntityTable'}</h3>
 
 				<SearchableEntityTable
@@ -60,7 +57,7 @@ class SearchableEntityTableKit extends React.Component {
 					columns={COLUMNS}
 					dataSourceFn={this.fetchData}
 					groupId='23'
-					orderByField='name'
+					orderIOMap={createOrderIOMap('name')}
 					rowIdentifier='id'
 				/>
 
@@ -71,7 +68,7 @@ class SearchableEntityTableKit extends React.Component {
 					columns={COLUMNS}
 					dataSourceFn={this.fetchData}
 					groupId='23'
-					orderByField='name'
+					orderIOMap={createOrderIOMap('name')}
 					rowIdentifier='id'
 					showCheckbox
 				/>

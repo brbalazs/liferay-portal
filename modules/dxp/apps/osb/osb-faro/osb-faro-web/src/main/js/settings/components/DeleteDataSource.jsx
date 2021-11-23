@@ -54,12 +54,12 @@ function getEntityApi(entityType) {
 function getDataSourceFn(entityType) {
 	const entityApi = getEntityApi(entityType);
 
-	return ({dataSourceId, delta, groupId, orderByFields, page, query}) =>
+	return ({dataSourceId, delta, groupId, orderIOMap, page, query}) =>
 		entityApi({
 			dataSourceId,
 			delta,
 			groupId,
-			orderByFields,
+			orderIOMap,
 			page,
 			query
 		});

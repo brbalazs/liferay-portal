@@ -39,11 +39,11 @@ const mockProps = {
 		},
 		query: {
 			delta: '5',
-			orderBy: orderDescending,
-			orderByField: 'bounceRateMetric',
+			field: 'bounceRateMetric',
 			page: '2',
 			query: 'Test Test',
-			rangeKey: '90'
+			rangeKey: '90',
+			sortOrder: orderDescending
 		}
 	}
 };
@@ -58,7 +58,7 @@ describe('metrics', () => {
 
 			const {
 				params: {channelId, interestId, title, touchpoint},
-				query: {delta, orderByField, query, rangeKey}
+				query: {delta, field, query, rangeKey}
 			} = mockProps.router;
 
 			expect(mapper.options(mockProps)).toEqual(
@@ -68,7 +68,7 @@ describe('metrics', () => {
 						keywords: query,
 						size: parseInt(delta),
 						sort: {
-							column: orderByField,
+							column: field,
 							type: 'DESC'
 						},
 						start: 5,

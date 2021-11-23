@@ -31,7 +31,7 @@ describe('HeaderCell', () => {
 
 		expect(container.querySelector('.button-root')).toHaveAttribute(
 			'href',
-			'/?orderBy=asc&orderByField&page=1'
+			'/?sortOrer=ASC&field&page=1'
 		);
 	});
 });

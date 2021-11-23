@@ -13,12 +13,7 @@ describe('NewRuleModal', () => {
 		const {container} = render(
 			<MockedProvider mocks={[mockRecommendationPageAssetsReq([])]}>
 				<Provider store={mockStore()}>
-					<NewRuleModal
-						delta={5}
-						orderBy='desc'
-						orderByField='title'
-						page={0}
-					/>
+					<NewRuleModal />
 				</Provider>
 			</MockedProvider>
 		);

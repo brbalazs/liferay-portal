@@ -112,13 +112,13 @@ export type Router = {
 		type?: string;
 	};
 	query: {
-		orderby?: 'asc' | 'desc';
-		orderByField?: string;
+		field?: string;
 		page?: string;
 		query?: string;
 		rangeEnd?: string;
 		rangeKey?: RangeKeyTimeRanges;
 		rangeStart?: string;
+		sortOrder?: OrderByDirections;
 		state?: string;
 	};
 };

@@ -134,23 +134,4 @@ const SearchableTableModalGraphql: React.FC<ISearchableTableModalGraphQLProps> =
 	);
 };
 
-// const WrappedComponent = withStatefulPagination(
-// 	SearchableTableModalGraphql,
-// 	null,
-// 	({
-// 		delta: defaultDelta,
-// 		orderBy: defaultOrderBy,
-// 		orderByField: defaultOrderByField
-// 	}) =>
-// 		pickBy({
-// 			defaultDelta,
-// 			defaultOrderBy,
-// 			defaultOrderByField
-// 		}),
-// 	(props) => ({
-// 		omit(props, 'onSearchValueChange')
-// 	),
-// 	false
-// );
-
 export default withSelectionProvider(SearchableTableModalGraphql);

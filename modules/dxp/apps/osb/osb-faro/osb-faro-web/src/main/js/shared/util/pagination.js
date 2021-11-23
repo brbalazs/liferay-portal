@@ -103,8 +103,6 @@ const INVERTED_SORT_FIELDS = [
 export const paginationDefaults = {
 	delta: defaultDelta,
 	filterBy: new Map(),
-	orderBy: orderDefault,
-	orderByField: '',
 	page: defaultCur,
 	query: ''
 };
@@ -112,8 +110,7 @@ export const paginationDefaults = {
 export const paginationConfig = {
 	delta: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	filterBy: PropTypes.instanceOf(Map),
-	orderBy: PropTypes.string,
-	orderByField: PropTypes.string,
+	orderIOMap: PropTypes.instanceOf(OrderedMap),
 	page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	query: PropTypes.string
 };

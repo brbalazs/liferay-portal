@@ -1,3 +1,4 @@
+import {createOrderIOMap} from 'shared/util/pagination';
 import {getMapResultToProps, mapPropsToOptions} from '../dxp-entity-bag-mapper';
 
 describe('DXPEntityBag Mapper', () => {
@@ -6,8 +7,7 @@ describe('DXPEntityBag Mapper', () => {
 			mapPropsToOptions({
 				channelId: '123',
 				delta: 10,
-				orderBy: 'ASC',
-				orderByField: 'name',
+				orderIOMap: createOrderIOMap('name', 'ASC'),
 				page: 1,
 				query: ''
 			})

@@ -17,30 +17,7 @@ describe('useStatefulPagination', () => {
 
 		jest.runAllTimers();
 
-		expect(result.current).toMatchInlineSnapshot(`
-		Object {
-		  "delta": 2,
-		  "filterBy": Immutable.Map {},
-		  "orderBy": "asc",
-		  "orderByField": "name",
-		  "orderByFields": Array [
-		    Object {
-		      "fieldName": "name",
-		      "orderBy": "asc",
-		    },
-		  ],
-		  "page": 1,
-		  "query": "",
-		  "resetPage": [Function],
-		  "setDelta": [Function],
-		  "setFilterBy": [Function],
-		  "setOrderBy": [Function],
-		  "setOrderByField": [Function],
-		  "setOrderByFields": [Function],
-		  "setPage": [Function],
-		  "setQuery": [Function],
-		}
-	`);
+		expect(result.current).toMatchSnapshot();
 	});
 
 	it('should set delta value on setDelta and reset page', () => {
@@ -81,64 +58,26 @@ describe('useStatefulPagination', () => {
 		expect(result.current.page).toBe(DEFAULT_PAGE);
 	});
 
-	it('should set orderByFields value on setOrderByFields and page be reseted', () => {
-		const {result} = renderHook(() => useStatefulPagination());
+	it('should set orderIOMap value on onOrderIOMapChange and page be reseted', () => {
+		const {result} = renderHook(() =>
+			useStatefulPagination({initialOrderIOMap: createOrderIOMap('name')})
+		);
 		const newPage = 2;
 
 		jest.runAllTimers();
-		expect(result.current.orderByFields.length).toBe(1);
+		expect(result.current.orderIOMap.size).toBe(1);
 
 		result.current.setPage(newPage);
 
 		jest.runAllTimers();
 		expect(result.current.page).toBe(newPage);
 
-		result.current.setOrderByFields({
-			orderByFields: [{}, {}],
-			orderParams: new OrderParams()
-		});
+		result.current.onOrderIOMapChange(
+			createOrderIOMap('dateModified', 'ASC')
+		);
 
 		jest.runAllTimers();
-		expect(result.current.orderByFields.length).toBe(2);
-		expect(result.current.page).toBe(DEFAULT_PAGE);
-	});
-
-	it('should set orderByField value on setOrderByField and page be reseted', () => {
-		const {result} = renderHook(() => useStatefulPagination());
-		const newOrderByField = 'test';
-		const newPage = 2;
-
-		jest.runAllTimers();
-		expect(result.current.orderByField).toBe('name');
-
-		result.current.setPage(newPage);
-
-		jest.runAllTimers();
-		expect(result.current.page).toBe(newPage);
-
-		result.current.setOrderByField(newOrderByField);
-
-		jest.runAllTimers();
-		expect(result.current.orderByField).toBe(newOrderByField);
-		expect(result.current.page).toBe(DEFAULT_PAGE);
-	});
-
-	it('should set orderBy value on setOrderBy and page be reseted', () => {
-		const {result} = renderHook(() => useStatefulPagination());
-		const newPage = 2;
-
-		jest.runAllTimers();
-		expect(result.current.orderBy).toBe(orderAscending);
-
-		result.current.setPage(newPage);
-
-		jest.runAllTimers();
-		expect(result.current.page).toBe(newPage);
-
-		result.current.setOrderBy(orderDescending);
-
-		jest.runAllTimers();
-		expect(result.current.orderBy).toBe(orderDescending);
+		expect(result.current.orderIOMap.size).toBe(2);
 		expect(result.current.page).toBe(DEFAULT_PAGE);
 	});
 

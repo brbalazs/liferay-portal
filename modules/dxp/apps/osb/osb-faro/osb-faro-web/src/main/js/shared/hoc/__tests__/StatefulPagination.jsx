@@ -3,7 +3,6 @@ import React from 'react';
 import withStatefulPagination from '../StatefulPagination';
 import {createOrderIOMap, DATE_CREATED} from 'shared/util/pagination';
 import {Map, Set} from 'immutable';
-import {OrderParams} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {shallow} from 'enzyme';
 
@@ -30,21 +29,8 @@ class WrappedComponent extends React.Component {
 		this.props.onDeltaChange(DELTA);
 	}
 
-	handleOrderByChange() {
-		this.props.onOrderClick(orderDescending);
-	}
-
 	handleOrderIOMapChange(orderIOMap) {
 		this.props.onOrderIOMapChange(orderIOMap);
-	}
-
-	handleOrderByFieldsChange() {
-		this.props.onOrderByFieldsChange({
-			orderByFields: [
-				{columnAccessor: 'foo', desc: true},
-				{columnAccessor: 'bar', desc: true}
-			]
-		});
 	}
 
 	handlePageChange() {
@@ -89,47 +75,22 @@ describe('withStatefulPagination', () => {
 		expect(component.find(WrappedComponent).prop('page')).toEqual(PAGE);
 	});
 
-	it('should set orderByFields value on handleOrderByFieldsChange', () => {
-		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		expect(
-			component.find(WrappedComponent).prop('orderByFields').length
-		).toEqual(1);
-		component.instance().handleOrderByFieldsChange({
-			orderByFields: [{}, {}],
-			orderParams: new OrderParams()
-		});
-		jest.runAllTimers();
-		expect(
-			component.find(WrappedComponent).prop('orderByFields').length
-		).toEqual(2);
-	});
-
-	it('should set orderByField value on handleOrderByFieldChange', () => {
-		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		expect(component.find(WrappedComponent).prop('orderByField')).toEqual(
-			'name'
-		);
-		component.instance().handleOrderByFieldChange(ORDER_BY_FIELD);
-		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('orderByField')).toEqual(
-			ORDER_BY_FIELD
-		);
-	});
-
 	it('should set orderIOMap value on handleOrderIOMapChange', () => {
 		const component = shallow(<WrappedComponentWithStatefulPagination />);
-		expect(component.find(WrappedComponent).prop('orderBy')).toEqual(
-			orderAscending
-		);
+		expect(
+			component.find(WrappedComponent).prop('orderIOMap').first()
+				.sortOrder
+		).toEqual('ASC');
 		component
 			.instance()
 			.handleOrderIOMapChange(
 				createOrderIOMap(ORDER_BY_FIELD, orderDescending)
 			);
 		jest.runAllTimers();
-		expect(component.find(WrappedComponent).prop('orderBy')).toEqual(
-			orderDescending
-		);
+		expect(
+			component.find(WrappedComponent).prop('orderIOMap').first()
+				.sortOrder
+		).toEqual('DESC');
 	});
 
 	it('should reset the page state on resetPage', () => {
@@ -180,33 +141,19 @@ describe('withStatefulPagination', () => {
 			filterBy: new Map({
 				biz: new Set(['buz'])
 			}),
-			orderBy: orderDescending,
-			orderByField: DATE_CREATED,
-			orderByFields: [
-				{fieldName: DATE_CREATED, orderBy: orderDescending}
-			],
+			orderIOMap: createOrderIOMap(DATE_CREATED),
 			page: 3,
 			query: 'foo'
 		};
 
 		const WrapedComponentWithDefaultParamsFn = withStatefulPagination(
 			WrappedComponent,
-			({
-				delta,
-				filterBy,
-				orderBy,
-				orderByField,
-				orderByFields,
-				page,
-				query
-			}) => ({
-				defaultDelta: delta,
-				defaultFilterBy: filterBy,
-				defaultOrderBy: orderBy,
-				defaultOrderByField: orderByField,
-				defaultOrderByFields: orderByFields,
-				defaultPage: page,
-				defaultQuery: query
+			({delta, filterBy, orderIOMap, page, query}) => ({
+				initialDelta: delta,
+				initialFilterBy: filterBy,
+				initialOrderIOMap: orderIOMap,
+				initialPage: page,
+				initialQuery: query
 			})
 		);
 
@@ -223,15 +170,10 @@ describe('withStatefulPagination', () => {
 				.prop('filterBy')
 				.isSubset(defaultParams.filterBy)
 		).toBe(true);
-		expect(component.find('WrappedComponent').prop('orderBy')).toEqual(
-			defaultParams.orderBy
-		);
-		expect(component.find('WrappedComponent').prop('orderByField')).toEqual(
-			defaultParams.orderByField
-		);
 		expect(
-			component.find('WrappedComponent').prop('orderByFields')
-		).toEqual(defaultParams.orderByFields);
+			component.find('WrappedComponent').prop('orderIOMap').first()
+				.sortOrder
+		).toEqual(defaultParams.orderIOMap.first().sortOrder);
 		expect(component.find('WrappedComponent').prop('page')).toEqual(
 			defaultParams.page
 		);

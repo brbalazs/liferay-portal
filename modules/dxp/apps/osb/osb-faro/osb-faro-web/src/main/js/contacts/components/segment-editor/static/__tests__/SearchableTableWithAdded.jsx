@@ -1,17 +1,11 @@
-import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {MemoryRouter} from 'react-router';
 import {mockIndividual} from 'test/data';
-import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
 import {SearchableTableWithAdded} from '../SearchableTableWithAdded';
 import {times} from 'lodash';
-
-const {
-	pagination: {cur, delta: defaultDelta, orderAscending}
-} = FaroConstants;
 
 const COLUMNS = [
 	{
@@ -41,13 +35,7 @@ const defaultProps = {
 			total: INDIVIDUALS.length
 		}),
 	rowIdentifier: 'id',
-	showStaged: true,
-	stagedProps: {
-		delta: defaultDelta,
-		orderBy: orderAscending,
-		orderByField: NAME,
-		page: cur
-	}
+	showStaged: true
 };
 
 const DefaultComponent = props => (

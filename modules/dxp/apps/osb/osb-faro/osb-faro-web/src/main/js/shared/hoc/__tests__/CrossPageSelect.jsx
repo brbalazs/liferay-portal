@@ -1,4 +1,3 @@
-import Constants from 'shared/util/constants';
 import CrossPageSelect, {
 	defaultSearch,
 	defaultSort,
@@ -15,16 +14,12 @@ import {
 	getByText as getByTextGlobal,
 	render
 } from '@testing-library/react';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {inputSearchText, selectAllAndToggle} from 'test/helpers';
-import {NAME} from 'shared/util/pagination';
 import {OrderedMap} from 'immutable';
 import {range} from 'lodash';
 import {SelectionProvider} from 'shared/context/selection';
 import {StaticRouter} from 'react-router';
-
-const {
-	pagination: {orderAscending}
-} = Constants;
 
 jest.unmock('react-dom');
 
@@ -39,10 +34,8 @@ const mockItemArray = [
 
 const defaultProps = {
 	columns: [{accessor: 'name', label: 'name'}],
-	defaultOrderBy: 'asc',
-	defaultOrderByField: 'name',
-	defaultSort: {field: 'name', sortOrder: 'asc'},
 	items: mockItemArray,
+	orderIOMap: createOrderIOMap('name'),
 	total: mockItemArray.length
 };
 
@@ -144,7 +137,7 @@ describe('defaultSearch', () => {
 
 describe('defaultSort', () => {
 	it('should return the results of a sort on the given items', () => {
-		expect(defaultSort(mockData, orderAscending, NAME).toArray()).toEqual([
+		expect(defaultSort(mockData, createOrderIOMap(NAME)).toArray()).toEqual([
 			mockItemArray[1],
 			mockItemArray[2],
 			mockItemArray[3],
@@ -167,8 +160,7 @@ describe('fetchLocalData', () => {
 			fetchLocalData({
 				delta: 5,
 				items: mockData,
-				orderBy: orderAscending,
-				orderByField: NAME,
+				orderIOMap: createOrderIOMap(NAME)
 				page: 1,
 				query: ''
 			})
