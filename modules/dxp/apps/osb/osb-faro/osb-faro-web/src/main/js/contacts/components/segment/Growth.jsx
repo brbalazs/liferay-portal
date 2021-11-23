@@ -686,7 +686,6 @@ const SegmentGrowthWithList = ({
 		initialPage: 0
 	});
 
-	// TODO: make it so I can pass the paginationParams as a prop as a whole to SearchableEntityTable.  This will require a rewrite of useStatefulPagination. We can also rewrite withStatefulPagination to use the useStatefulPagination hook... therefore we're consistent across the board with how things work.
 	return (
 		<Card.Body
 			className={getCN('segment-growth-root', className)}

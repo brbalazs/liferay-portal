@@ -144,7 +144,7 @@ export default configs => WrappedComponent => {
 							'disableSearch',
 							disableSearch
 						)}
-						onFilterByChange={onFilterByChange} // TODO: Finish this
+						onFilterByChange={onFilterByChange}
 						onOrderIOMapChange={onOrderIOMapChange}
 						onQueryChange={onQueryChange}
 						onSearchValueChange={this.handleSearchValueChange}

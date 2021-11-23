@@ -39,7 +39,6 @@ interface StatefulPaginationResult extends State {
 	onQueryChange: (query: string) => void;
 }
 
-// TODO: do we need default orderIOMap?
 const DEFAULT_INITIAL_PAGINATION_PROPS = {
 	initialDelta: DEFAULT_DELTA,
 	initialFilterBy: Map(),
@@ -109,7 +108,7 @@ export default function useStatefulPagination(
 	const [state, setState] = useReducer(statefulPaginationReducer, {
 		delta: initialDelta,
 		filterBy: initialFilterBy,
-		orderIOMap: initialOrderIOMap, // TODO: Double check to make sure this is ok
+		orderIOMap: initialOrderIOMap,
 		page: initialPage,
 		query: initialQuery
 	});

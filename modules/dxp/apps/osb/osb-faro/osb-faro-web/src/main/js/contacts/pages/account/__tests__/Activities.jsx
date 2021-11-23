@@ -5,25 +5,32 @@ import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {Account} from 'shared/util/records';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
 const DefaultComponent = props => (
-	<StaticRouter>
-		<Provider store={mockStore()}>
-			<Activities
-				account={data.getImmutableMock(Account, data.mockAccount)}
-				channelId='123123'
-				groupId='23'
-				interval='D'
-				rangeSelectors={{rangeKey: 30}}
-				{...props}
-			/>
-		</Provider>
-	</StaticRouter>
+	<MemoryRouter
+		initialEntries={[
+			'/workspace/23/321321/contacts/accounts/321321/activities'
+		]}
+	>
+		<Route path={Routes.CONTACTS_ACCOUNT_ACTIVITIES}>
+			<Provider store={mockStore()}>
+				<Activities
+					account={data.getImmutableMock(Account, data.mockAccount)}
+					channelId='123123'
+					groupId='23'
+					interval='D'
+					rangeSelectors={{rangeKey: 30}}
+					{...props}
+				/>
+			</Provider>
+		</Route>
+	</MemoryRouter>
 );
 
 describe('Activities', () => {
@@ -42,6 +49,6 @@ describe('Activities', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('An unexpected error occurred.')).toBeTruthy();
+		expect(getByText('Page Not Found')).toBeTruthy();
 	});
 });

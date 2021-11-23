@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RoleRenderer from '../../components/user-list/RoleRenderer';
@@ -363,9 +362,7 @@ const UserList: React.FC<IUserListProps> = ({
 			renderNav={authorized ? renderNav : null}
 			showCheckbox={authorized}
 			total={data?.total}
-		>
-			{props => <ListComponent {...props} />}
-		</CrossPageSelect>
+		/>
 	);
 };
 

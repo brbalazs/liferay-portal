@@ -19,7 +19,7 @@ export default (options = {}) => WrappedComponent => {
 			onDeltaChange: PropTypes.func,
 			onPageChange: PropTypes.func,
 			page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-			showDeltaDropdown: PropTypes.boolean,
+			showDeltaDropdown: PropTypes.bool,
 			total: PropTypes.number
 		};
 

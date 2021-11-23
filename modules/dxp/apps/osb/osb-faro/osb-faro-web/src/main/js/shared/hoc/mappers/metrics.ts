@@ -18,6 +18,7 @@ export const getMapPropsToOptions: (
 ) => ({
 	delta,
 	filters,
+	interestId,
 	orderIOMap,
 	page,
 	query,
@@ -39,7 +40,7 @@ export const getMapPropsToOptions: (
 		size: delta,
 		sort: getSortFromOrderIOMap(orderIOMap),
 		start: (page - 1) * delta,
-		terms: get(params, 'interestId')
+		terms: interestId
 	};
 
 	// LRAC-6976 POC TEMP

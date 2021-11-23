@@ -1,33 +1,39 @@
 import * as data from 'test/data';
 import React from 'react';
-import {render} from '@testing-library/react';
-import {
+import SegmentGrowthWithList, {
 	SegmentGrowthChart,
-	SegmentGrowthWithList,
 	SelectedPointInfo
 } from '../Growth';
-import {StaticRouter} from 'react-router';
+import {MemoryRouter, Route} from 'react-router-dom';
+import {render} from '@testing-library/react';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
 describe('SegmentGrowthWithList', () => {
 	it('should render', () => {
 		const {container} = render(
-			<StaticRouter>
-				<SegmentGrowthWithList
-					channelId='123'
-					data={[
-						{
-							added: 1,
-							modifiedDate: data.getTimestamp(),
-							removed: 3
-						}
-					]}
-					groupId='23'
-					id='3'
-					onPointSelect={jest.fn()}
-				/>
-			</StaticRouter>
+			<MemoryRouter
+				initialEntries={[
+					'/workspace/23/123123/contacts/segments/321321/membership'
+				]}
+			>
+				<Route path={Routes.CONTACTS_SEGMENT_MEMBERSHIP}>
+					<SegmentGrowthWithList
+						channelId='123'
+						data={[
+							{
+								added: 1,
+								modifiedDate: data.getTimestamp(),
+								removed: 3
+							}
+						]}
+						groupId='23'
+						id='3'
+						onPointSelect={jest.fn()}
+					/>
+				</Route>
+			</MemoryRouter>
 		);
 
 		jest.runAllTimers();

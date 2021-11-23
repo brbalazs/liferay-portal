@@ -12,8 +12,13 @@ import {Map} from 'immutable';
 import {pick, some} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {sub} from 'shared/util/lang';
+import {withStatefulPagination} from 'shared/hoc';
 
 const DETAIL_QUERY_OPTIONS = ['dataSourceName', 'name', 'sourceName', 'value'];
+
+const SearchableEntityTableStateful = withStatefulPagination(
+	SearchableEntityTable
+);
 
 export default class EntityDetailsList extends React.Component {
 	static defaultProps = {
@@ -155,7 +160,7 @@ export default class EntityDetailsList extends React.Component {
 				</Card.Header>
 
 				<Card.Body noPadding>
-					<SearchableEntityTable.StatefulPagination
+					<SearchableEntityTableStateful
 						columns={this.getColumns()}
 						dataSourceFn={this.filterDetails}
 						dataSourceParams={{hideBlanks}}

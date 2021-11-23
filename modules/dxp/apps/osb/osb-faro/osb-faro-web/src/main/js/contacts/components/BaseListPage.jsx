@@ -65,7 +65,6 @@ export default class BaseListPage extends React.Component {
 		pageActions: PropTypes.array,
 		pageActionsLabel: PropTypes.string,
 		query: PropTypes.string,
-		renderRowActions: PropTypes.func,
 		renderSelectedAction: PropTypes.func,
 		rowIdentifier: PropTypes.string,
 		showCheckbox: PropTypes.bool
@@ -96,9 +95,9 @@ export default class BaseListPage extends React.Component {
 
 		return API.dataSource
 			.search({
-				cur: pagination.cur,
 				delta: 1,
-				groupId
+				groupId,
+				page: pagination.cur
 			})
 			.then(({total}) => {
 				this.setState({

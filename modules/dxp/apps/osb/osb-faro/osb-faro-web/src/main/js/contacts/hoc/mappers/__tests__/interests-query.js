@@ -1,20 +1,13 @@
+import {createOrderIOMap} from 'shared/util/pagination';
 import {mapCardPropsToOptions, mapPropsToOptions} from '../interests-query';
 
 const mockProps = {
-	defaultSort: {
-		field: 'default Test',
-		sortOrder: 'DESC'
-	},
-	router: {
-		params: {
-			id: '123123'
-		},
-		query: {
-			delta: '5',
-			page: '2',
-			query: 'test query'
-		}
-	}
+	channelId: '321321',
+	delta: 5,
+	id: '123123',
+	orderIOMap: createOrderIOMap('default Test', 'DESC'),
+	page: 2,
+	query: 'test query'
 };
 
 describe('Interests Query Mapper', () => {
@@ -41,24 +34,19 @@ describe('Interests Query Mapper', () => {
 
 	describe('mapPropsToOptions', () => {
 		it('should map interests list query props to options', () => {
-			const {
-				defaultSort: {field, sortOrder},
-				router: {
-					params: {id},
-					query: {delta, query}
-				}
-			} = mockProps;
+			const {delta, id, query} = mockProps;
 
 			expect(mapPropsToOptions(mockProps)).toEqual(
 				expect.objectContaining({
 					variables: {
 						active: true,
+						channelId: '321321',
 						id,
 						keywords: query,
-						size: parseInt(delta),
+						size: delta,
 						sort: {
-							column: field,
-							type: sortOrder
+							column: 'default Test',
+							type: 'DESC'
 						},
 						start: 5
 					}

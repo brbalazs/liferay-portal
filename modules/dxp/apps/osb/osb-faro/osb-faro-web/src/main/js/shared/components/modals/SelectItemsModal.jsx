@@ -14,14 +14,13 @@ import {Set} from 'immutable';
 
 export class ItemComponent extends React.Component {
 	render() {
+		const {
+			className,
+			item: {name}
+		} = this.props;
 		return (
-			<ListGroup.ItemField
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-				expand
-			>
-				{this.props.item.name}
+			<ListGroup.ItemField className={className} expand>
+				{name}
 			</ListGroup.ItemField>
 		);
 	}

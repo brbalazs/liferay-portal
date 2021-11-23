@@ -1,11 +1,12 @@
 import Promise from 'metal-promise';
 import React from 'react';
+import SearchableTableWithAdded from '../SearchableTableWithAdded';
 import {cleanup, render} from '@testing-library/react';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {MemoryRouter} from 'react-router';
 import {mockIndividual} from 'test/data';
+import {noop, times} from 'lodash';
 import {OrderedMap} from 'immutable';
-import {SearchableTableWithAdded} from '../SearchableTableWithAdded';
-import {times} from 'lodash';
 
 const COLUMNS = [
 	{
@@ -34,7 +35,10 @@ const defaultProps = {
 			items: INDIVIDUALS,
 			total: INDIVIDUALS.length
 		}),
+	onSelectEntirePage: noop,
+	orderIOMap: createOrderIOMap('name'),
 	rowIdentifier: 'id',
+	selectedItemsIOMap: new OrderedMap(),
 	showStaged: true
 };
 
@@ -64,23 +68,10 @@ describe('SearchableTableWithAdded', () => {
 	});
 
 	it('should show the staged table if showStaged is true', () => {
-		const {container} = render(<DefaultComponent {...defaultProps} />);
+		const {container} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
-	});
-
-	it('should show the staged table with a query', () => {
-		const {container} = render(
-			<DefaultComponent
-				{...defaultProps}
-				stagedProps={{...defaultProps.stagedProps, query: 'fooQuery'}}
-			/>
-		);
-
-		jest.runAllTimers();
-
-		expect(container).toBeTruthy();
 	});
 });

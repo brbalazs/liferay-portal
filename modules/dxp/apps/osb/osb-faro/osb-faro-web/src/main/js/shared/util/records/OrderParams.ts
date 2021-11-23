@@ -13,7 +13,7 @@ export default class OrderParams
 	})
 	implements IOrderParams {
 	field: string;
-	sortOrder: OrderByDirections; // TODO: Need to make sure using this doesn't break everything
+	sortOrder: OrderByDirections;
 
 	constructor(props = {}) {
 		super(props);

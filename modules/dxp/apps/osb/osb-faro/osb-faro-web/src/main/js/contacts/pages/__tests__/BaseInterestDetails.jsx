@@ -26,6 +26,7 @@ describe('BaseInterestDetails', () => {
 						Routes.CONTACTS_SEGMENT_INTEREST_DETAILS
 					}
 					interestId='1'
+					tabId='individuals'
 					type={SEGMENTS}
 				/>
 			</StaticRouter>

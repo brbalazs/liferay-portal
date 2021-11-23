@@ -89,8 +89,8 @@ const SearchableTableWithAdded: React.FC<ISearchableTableWithAddedProps> = ({
 	addedItemsIOMap,
 	className,
 	columns,
-	delta,
-	entityLabel,
+	delta = 20,
+	entityLabel = Liferay.Language.get('items'),
 	items,
 	onDeltaChange,
 	onOrderIOMapChange,
@@ -118,7 +118,7 @@ const SearchableTableWithAdded: React.FC<ISearchableTableWithAddedProps> = ({
 		page: stagedPage,
 		query: stagedQuery
 	} = useStatefulPagination(null, {
-		initialOrderIOMap: createOrderIOMap(NAME) // TODO: Should this be by first seen?
+		initialOrderIOMap: createOrderIOMap(NAME)
 	});
 
 	const stagedData = fetchLocalData({

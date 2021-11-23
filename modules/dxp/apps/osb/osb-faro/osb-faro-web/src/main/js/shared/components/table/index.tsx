@@ -1,11 +1,12 @@
 import getCN from 'classnames';
 import HeaderRow from './HeaderRow';
 import React from 'react';
-import Row, {Column} from './Row';
+import Row from './Row';
 import Spinner from 'shared/components/Spinner';
 import {get, isArray, noop, orderBy} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
+import type {Column} from './Row';
 
 export const getRowIdentifierValue = (item, rowIdentifier) => {
 	if (isArray(rowIdentifier)) {
@@ -31,9 +32,9 @@ interface ITableProps {
 	list?: boolean;
 	loading?: boolean;
 	nowrap?: boolean;
-	orderIOMap?: OrderedMap<string, OrderParams>; // TODO: Maybe optional? we'll see
+	orderIOMap?: OrderedMap<string, OrderParams>;
 	onOrderIOMapChange?: (orderIOMap: OrderedMap<string, OrderParams>) => void;
-	onRowClick?: (item: {[key: string]: any}) => void; // TODO: Maybe do something about this.
+	onRowClick?: (item: {[key: string]: any}) => void;
 	onRowDelete?: (item: {[key: string]: any}) => void;
 	onRowSave?: (item: {[key: string]: any}) => void;
 	onSelectItemsChange?: (item: {[key: string]: any}) => void;

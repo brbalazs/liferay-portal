@@ -2,15 +2,16 @@ import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {render} from '@testing-library/react';
-import {StaticRouter} from 'react-router-dom';
+import {Routes} from 'shared/util/router';
 import {withTableTabs} from '../TableTabs';
 
 jest.unmock('react-dom');
 
 const TableTabsWrappedComponent = withTableTabs(
 	() => C => props => <C {...props} />,
-	[{getColumns: jest.fn()}]
+	[{getColumns: () => [{accessor: 'test'}]}]
 );
 
 const MOCK_CONTEXT = {
@@ -29,9 +30,15 @@ const MOCK_CONTEXT = {
 const WrappedComponent = props => (
 	<ApolloProvider client={client}>
 		<BasePage.Context.Provider value={MOCK_CONTEXT}>
-			<StaticRouter>
-				<TableTabsWrappedComponent {...props} />
-			</StaticRouter>
+			<MemoryRouter
+				initialEntries={[
+					'/workspace/23/settings/definitions/events/custom?delta=1'
+				]}
+			>
+				<Route path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}>
+					<TableTabsWrappedComponent {...props} />
+				</Route>
+			</MemoryRouter>
 		</BasePage.Context.Provider>
 	</ApolloProvider>
 );

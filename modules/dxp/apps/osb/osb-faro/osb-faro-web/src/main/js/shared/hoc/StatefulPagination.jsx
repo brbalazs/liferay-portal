@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
-import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {invoke, isFunction} from 'lodash';
@@ -10,7 +9,6 @@ const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
 } = FaroConstants;
 
-// TODO: update "default" to "initial"
 const DEFAULT_PAGINATION_PROPS = {
 	initialDelta: DEFAULT_DELTA,
 	initialFilterBy: new Map(),
@@ -34,7 +32,7 @@ export default function withStatefulPagination(
 	};
 
 	class StatefulPagination extends React.Component {
-		constructor(props) {
+		constructor(props = {}) {
 			super(props);
 
 			const {
@@ -134,10 +132,7 @@ export default function withStatefulPagination(
 
 			return (
 				<WrappedComponent
-					{...omitDefinedProps(
-						...props,
-						StatefulPagination.propTypes
-					)}
+					{...props}
 					{...mappedStatefulProps}
 					{...ref}
 				/>

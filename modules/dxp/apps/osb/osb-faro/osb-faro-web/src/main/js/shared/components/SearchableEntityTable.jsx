@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Table from 'shared/components/table';
 import {noop} from 'lodash';
-import {withStatefulPagination} from 'shared/hoc';
 
 class SearchableEntityTable extends React.Component {
 	static defaultProps = {
@@ -123,6 +122,7 @@ class SearchableEntityTable extends React.Component {
 		const classes = getCN('searchable-table-root', className, {
 			'searchable-table-borderless': !bordered
 		});
+
 		return (
 			<BaseResults
 				{...omitDefinedProps(
@@ -147,16 +147,5 @@ class SearchableEntityTable extends React.Component {
 		);
 	}
 }
-
-SearchableEntityTable.StatefulPagination = withStatefulPagination(
-	SearchableEntityTable
-);
-
-SearchableEntityTable.IndividualStatefulPagination = withStatefulPagination(
-	SearchableEntityTable,
-	{
-		defaultDelta: 10
-	}
-);
 
 export default SearchableEntityTable;

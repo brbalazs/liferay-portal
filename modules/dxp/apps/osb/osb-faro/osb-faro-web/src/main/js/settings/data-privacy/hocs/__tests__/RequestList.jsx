@@ -10,15 +10,16 @@ import {
 } from '@testing-library/react';
 import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
 import {Map, Set} from 'immutable';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {mockDataControlTaskBag} from 'test/graphql-data';
 import {MockedProvider} from '@apollo/react-testing';
 import {Provider} from 'react-redux';
+import {Routes} from 'shared/util/router';
 import {
 	selectAllAndToggle,
 	selectFilterDropdownItem,
 	waitForLoading
 } from 'test/helpers';
-import {StaticRouter} from 'react-router-dom';
 
 const mockItems = [
 	{
@@ -113,9 +114,15 @@ const defaultProps = {
 const DefaultComponent = props => (
 	<MockedProvider mocks={[mockRequestListReq()]}>
 		<Provider store={mockStore()}>
-			<StaticRouter>
-				<RequestList.default {...defaultProps} {...props} />
-			</StaticRouter>
+			<MemoryRouter
+				initialEntries={[
+					'/workspace/23/settings/data-privacy/request-log/?delta=10'
+				]}
+			>
+				<Route path={Routes.SETTINGS_DATA_PRIVACY_REQUEST_LOG}>
+					<RequestList.default {...defaultProps} {...props} />
+				</Route>
+			</MemoryRouter>
 		</Provider>
 	</MockedProvider>
 );

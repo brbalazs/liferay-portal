@@ -21,12 +21,11 @@ type QueryPaginationParams = {
 	initialQuery?: string;
 };
 
-// TODO: Need to set the defaults for this.
 const useQueryPagination = ({
 	filterFields,
 	initialDelta = defaultDelta,
 	initialFilterBy = defaultFilterBy,
-	initialOrderIOMap, // TODO: should there be an initial here too with no values?
+	initialOrderIOMap,
 	initialPage = defaultPage,
 	initialQuery = defaultQuery
 }: QueryPaginationParams): Pagination => {
@@ -54,8 +53,6 @@ const useQueryPagination = ({
 			}, {})
 		);
 	};
-
-	// TODO: rangeKey should prob be in here too? or a separate hook? prob separate?
 
 	let orderIOMap = initialOrderIOMap;
 

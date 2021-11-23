@@ -272,6 +272,7 @@ export function mockBlockedCustomEventDefinitionsReq(
 		request: {
 			query: BlockedCustomEventDefinitionsQuery,
 			variables: {
+				keyword: '',
 				page: 0,
 				size: items.length,
 				sort: {
@@ -518,6 +519,7 @@ export function mockEventAttributeDefinitionsReq(items, mockVariables = {}) {
 		request: {
 			query: EventAttributeDefinitionsQuery,
 			variables: {
+				keyword: '',
 				page: 0,
 				size: items.length,
 				sort: {
@@ -565,6 +567,7 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 			query: EventDefinitionsQuery,
 			variables: {
 				eventType: EventTypes.Default,
+				keyword: '',
 				page: 0,
 				size: items.length,
 				sort: {

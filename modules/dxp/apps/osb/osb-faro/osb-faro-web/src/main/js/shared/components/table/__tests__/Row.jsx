@@ -56,12 +56,4 @@ describe('Row', () => {
 
 		expect(getByText('-')).toBeTruthy();
 	});
-
-	it('should render with the header', () => {
-		const {container} = render(
-			<Row columns={COLUMNS} data={INDIVIDUAL} header />
-		);
-
-		expect(container.querySelector('.table-head-title')).toBeTruthy();
-	});
 });

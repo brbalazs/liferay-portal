@@ -18,7 +18,7 @@ import {useQueryPagination} from 'shared/hooks';
 export const TOTAL_DAYS = 90;
 
 interface IContributionsCellProps {
-	className: string;
+	className?: string;
 	data: {relatedPagesCount: number};
 }
 

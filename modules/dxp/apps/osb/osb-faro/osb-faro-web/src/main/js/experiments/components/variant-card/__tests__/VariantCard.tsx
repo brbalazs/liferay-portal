@@ -8,14 +8,15 @@ import {
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import {ExperimentResolver as Experiment} from 'shared/apollo/resolvers';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {
 	mockExperimentReq,
 	mockExperimentVariantsHistogramReq
 } from 'test/graphql-data';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
+import {Routes} from 'shared/util/router';
 import {StateProvider} from 'experiments/state';
-import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 jest.useRealTimers();
@@ -26,8 +27,8 @@ const MOCK_CONTEXT = {
 	filters: {},
 	router: {
 		params: {
-			channelId: '456',
-			groupId: '2000',
+			channelId: '123123',
+			groupId: '23',
 			id: '123'
 		},
 		query: {
@@ -41,21 +42,25 @@ describe('VariantCard', () => {
 
 	it('should render', async () => {
 		const {container} = render(
-			<StaticRouter>
-				<MockedProvider
-					mocks={[
-						mockExperimentReq(),
-						mockExperimentVariantsHistogramReq()
-					]}
-					resolvers={{Experiment}}
-				>
-					<BasePage.Context.Provider value={MOCK_CONTEXT}>
-						<StateProvider>
-							<VariantCard label='test' />
-						</StateProvider>
-					</BasePage.Context.Provider>
-				</MockedProvider>
-			</StaticRouter>
+			<MemoryRouter
+				initialEntries={['/workspace/23/123123/tests/overview/123']}
+			>
+				<Route path={Routes.TESTS_OVERVIEW}>
+					<MockedProvider
+						mocks={[
+							mockExperimentReq(),
+							mockExperimentVariantsHistogramReq()
+						]}
+						resolvers={{Experiment}}
+					>
+						<BasePage.Context.Provider value={MOCK_CONTEXT}>
+							<StateProvider>
+								<VariantCard label='test' />
+							</StateProvider>
+						</BasePage.Context.Provider>
+					</MockedProvider>
+				</Route>
+			</MemoryRouter>
 		);
 
 		await waitForElementToBeRemoved(() =>
@@ -67,21 +72,25 @@ describe('VariantCard', () => {
 
 	it('should render a Per day chart', async () => {
 		const {container, getAllByText} = render(
-			<StaticRouter>
-				<MockedProvider
-					mocks={[
-						mockExperimentReq(),
-						mockExperimentVariantsHistogramReq()
-					]}
-					resolvers={{Experiment}}
-				>
-					<BasePage.Context.Provider value={MOCK_CONTEXT}>
-						<StateProvider>
-							<VariantCard label='test' />
-						</StateProvider>
-					</BasePage.Context.Provider>
-				</MockedProvider>
-			</StaticRouter>
+			<MemoryRouter
+				initialEntries={['/workspace/23/123123/tests/overview/321321']}
+			>
+				<Route path={Routes.TESTS_OVERVIEW}>
+					<MockedProvider
+						mocks={[
+							mockExperimentReq(),
+							mockExperimentVariantsHistogramReq()
+						]}
+						resolvers={{Experiment}}
+					>
+						<BasePage.Context.Provider value={MOCK_CONTEXT}>
+							<StateProvider>
+								<VariantCard label='test' />
+							</StateProvider>
+						</BasePage.Context.Provider>
+					</MockedProvider>
+				</Route>
+			</MemoryRouter>
 		);
 
 		await waitForElementToBeRemoved(() =>

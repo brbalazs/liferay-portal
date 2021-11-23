@@ -345,6 +345,7 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 					items={data?.items}
 					loading={loading}
 					maxLength={900}
+					noResultsProps={{icon: {symbol: 'star-o'}}}
 					noResultsRenderer={renderNoResults}
 					orderIOMap={orderIOMap}
 					page={page}

@@ -18,7 +18,7 @@ import {ProjectStates, UserRoleNames} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {shallow} from 'enzyme';
 
-function toRD(data) {
+export function toRD(data) {
 	return new RemoteData({data, loading: false});
 }
 

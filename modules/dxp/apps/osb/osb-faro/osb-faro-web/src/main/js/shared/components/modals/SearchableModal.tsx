@@ -26,6 +26,8 @@ interface ISearchableModalProps {
 	noResultsTitle: string;
 	onChange: (items: any[]) => void;
 	onClose: () => void;
+	showSortButton?: boolean;
+	showToolbar?: boolean;
 	title?: string;
 }
 
@@ -44,6 +46,8 @@ const SearchableModal: React.FC<ISearchableModalProps> = ({
 	noResultsTitle,
 	onChange,
 	onClose,
+	showSortButton = true,
+	showToolbar = true,
 	title = Liferay.Language.get('see-all'),
 	...otherProps
 }) => {
@@ -130,16 +134,19 @@ const SearchableModal: React.FC<ISearchableModalProps> = ({
 		>
 			<Modal.Header onClose={onClose} title={title} />
 
-			<Toolbar
-				alwaysShowSearch
-				autoFocus
-				onOrderIOMapChange={onOrderIOMapChange}
-				onSearchSubmit={onQueryChange}
-				onSearchValueChange={setSearchValue}
-				orderIOMap={orderIOMap}
-				searchValue={searchValue}
-				showCheckbox={false}
-			/>
+			{showToolbar && (
+				<Toolbar
+					alwaysShowSearch
+					autoFocus
+					onOrderIOMapChange={onOrderIOMapChange}
+					onSearchSubmit={onQueryChange}
+					onSearchValueChange={setSearchValue}
+					orderIOMap={orderIOMap}
+					searchValue={searchValue}
+					showCheckbox={false}
+					showFilterAndOrder={showSortButton}
+				/>
+			)}
 
 			{!!data?.total && (
 				<ModalInfoBar>{sub(countLabel, [data?.total])}</ModalInfoBar>

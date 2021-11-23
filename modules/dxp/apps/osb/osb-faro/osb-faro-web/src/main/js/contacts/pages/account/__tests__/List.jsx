@@ -1,11 +1,10 @@
-import * as data from 'test/data';
+import List from '../List';
 import mockStore from 'test/mock-store';
 import React from 'react';
-import {List} from '../List';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
-import {StaticRouter} from 'react-router';
-import {User} from 'shared/util/records';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -13,12 +12,13 @@ describe('List', () => {
 	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
-				<StaticRouter>
-					<List
-						currentUser={data.getImmutableMock(User, data.mockUser)}
-						groupId='23'
-					/>
-				</StaticRouter>
+				<MemoryRouter
+					initialEntries={['/workspace/23/123/contacts/accounts']}
+				>
+					<Route path={Routes.CONTACTS_LIST_ACCOUNT}>
+						<List channelId='123' groupId='23' />
+					</Route>
+				</MemoryRouter>
 			</Provider>
 		);
 

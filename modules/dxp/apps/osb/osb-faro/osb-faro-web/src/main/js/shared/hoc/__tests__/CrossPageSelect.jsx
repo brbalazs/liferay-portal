@@ -5,21 +5,15 @@ import CrossPageSelect, {
 	ViewSelectedToggle,
 	withSelection
 } from '../CrossPageSelect';
-import ListComponent from 'shared/hoc/ListComponent';
 import React from 'react';
-import {
-	cleanup,
-	fireEvent,
-	getByTestId as getByTestIdGlobal,
-	getByText as getByTextGlobal,
-	render
-} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {inputSearchText, selectAllAndToggle} from 'test/helpers';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {OrderedMap} from 'immutable';
 import {range} from 'lodash';
+import {Routes} from 'shared/util/router';
 import {SelectionProvider} from 'shared/context/selection';
-import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
@@ -34,19 +28,25 @@ const mockItemArray = [
 
 const defaultProps = {
 	columns: [{accessor: 'name', label: 'name'}],
+	delta: 2,
+	empty: false,
+	error: false,
 	items: mockItemArray,
+	loading: false,
 	orderIOMap: createOrderIOMap('name'),
 	total: mockItemArray.length
 };
 
 const DefaultComponent = props => (
-	<StaticRouter>
-		<SelectionProvider>
-			<CrossPageSelect {...defaultProps} {...props}>
-				{childProps => <ListComponent {...childProps} />}
-			</CrossPageSelect>
-		</SelectionProvider>
-	</StaticRouter>
+	<MemoryRouter
+		initialEntries={['/workspace/23/settings/definitions/events/custom']}
+	>
+		<Route path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}>
+			<SelectionProvider>
+				<CrossPageSelect {...defaultProps} {...props} />
+			</SelectionProvider>
+		</Route>
+	</MemoryRouter>
 );
 
 describe('CrossPageSelect', () => {
@@ -77,12 +77,11 @@ describe('CrossPageSelect', () => {
 	});
 
 	it('should be able to sort local data when a sort field is clicked', () => {
-		const {container, getByText} = render(<DefaultComponent />);
+		const {container} = render(
+			<DefaultComponent orderIOMap={createOrderIOMap('name', 'DESC')} />
+		);
 
 		selectAllAndToggle(container);
-
-		fireEvent.click(getByText('name'));
-		jest.runAllTimers();
 
 		const tableRows = container.querySelectorAll('tbody > tr');
 
@@ -93,14 +92,9 @@ describe('CrossPageSelect', () => {
 	});
 
 	it('should update local data displayed when a different pagination delta is chosen', () => {
-		const {container, getByText} = render(<DefaultComponent />);
+		const {container, getByText} = render(<DefaultComponent delta={3} />);
 
 		selectAllAndToggle(container);
-
-		fireEvent.click(getByText('2 Items'));
-		const paginationOverlay = getByTestIdGlobal(document.body, 'overlay');
-
-		fireEvent.click(getByTextGlobal(paginationOverlay, '3'));
 
 		expect(getByText('apple')).toBeTruthy();
 		expect(getByText('banana')).toBeTruthy();

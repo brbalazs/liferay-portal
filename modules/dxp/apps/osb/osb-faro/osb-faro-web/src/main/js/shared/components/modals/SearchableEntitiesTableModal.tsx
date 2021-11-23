@@ -2,6 +2,7 @@ import Button from 'shared/components/Button';
 import Modal, {Size} from 'shared/components/modal';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {noop} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
@@ -20,7 +21,7 @@ interface ISearchableEntitiesTableModalProps {
 const SearchableEntitiesTableModal: React.FC<ISearchableEntitiesTableModalProps> = ({
 	className,
 	initialDelta = 10,
-	initialOrderIOMap,
+	initialOrderIOMap = createOrderIOMap(NAME),
 	onClose = noop,
 	size = 'xxl',
 	title = 'entities',

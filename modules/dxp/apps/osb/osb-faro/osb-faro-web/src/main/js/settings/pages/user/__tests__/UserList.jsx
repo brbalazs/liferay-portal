@@ -1,11 +1,12 @@
 import * as data from 'test/data';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import UserList from '../UserList';
 import {cleanup, render} from '@testing-library/react';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 import {User} from 'shared/util/records';
-import {UserList} from '../UserList';
 import {UserRoleNames} from 'shared/util/constants';
 
 jest.unmock('react-dom');
@@ -17,9 +18,11 @@ const defaultProps = {
 
 const DefaultComponent = props => (
 	<Provider store={mockStore()}>
-		<StaticRouter>
-			<UserList {...defaultProps} {...props} />
-		</StaticRouter>
+		<MemoryRouter initialEntries={['/workspace/23/settings/users']}>
+			<Route path={Routes.SETTINGS_USERS}>
+				<UserList {...defaultProps} {...props} />
+			</Route>
+		</MemoryRouter>
 	</Provider>
 );
 

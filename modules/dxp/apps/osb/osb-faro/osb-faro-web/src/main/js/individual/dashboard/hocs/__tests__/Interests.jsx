@@ -1,27 +1,39 @@
 import Interests from '../Interests';
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import {cleanup, render} from '@testing-library/react';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockIndividualInterestsReq} from 'test/graphql-data';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
 describe('Interests', () => {
-	afterEach(cleanup);
-
-	it('renders', () => {
+	it('renders', async () => {
 		const {container} = render(
-			<MockedProvider mocks={[mockIndividualInterestsReq()]}>
-				<BrowserRouter>
-					<Interests
-						router={{
-							params: {groupId: '123'},
-							query: {delta: '5', page: '1'}
-						}}
-					/>
-				</BrowserRouter>
+			<MockedProvider
+				mocks={[
+					mockIndividualInterestsReq(defaultVars => ({
+						...defaultVars,
+						channelId: '123',
+						size: 2
+					}))
+				]}
+			>
+				<MemoryRouter
+					initialEntries={[
+						'/workspace/23/123/contacts/individuals/interests?delta=2&page=1&field=count&sortOrder=DESC'
+					]}
+				>
+					<Route path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}>
+						<Interests />
+					</Route>
+				</MemoryRouter>
 			</MockedProvider>
+		);
+
+		await waitForElementToBeRemoved(
+			container.querySelector('.spinner-root')
 		);
 
 		jest.runAllTimers();

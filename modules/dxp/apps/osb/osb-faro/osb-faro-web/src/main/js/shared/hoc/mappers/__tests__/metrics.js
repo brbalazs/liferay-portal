@@ -1,10 +1,6 @@
-import FaroConstants from 'shared/util/constants';
 import getMetricsMapper from '../metrics';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {getSafeRangeSelectors} from 'shared/util/util';
-
-const {
-	pagination: {orderDescending}
-} = FaroConstants;
 
 const mockData = {
 	pages: {
@@ -25,10 +21,12 @@ const mockData = {
 };
 
 const mockProps = {
-	defaultSort: {
-		field: 'bounceRateMetric',
-		sortOrder: orderDescending
-	},
+	channelId: '321',
+	delta: 5,
+	interestId: 'Testing Wiki',
+	orderIOMap: createOrderIOMap('bounceRateMetric', 'DESC'),
+	page: 2,
+	query: 'Test Test',
 	rangeSelectors: {rangeKey: '90'},
 	router: {
 		params: {
@@ -43,9 +41,11 @@ const mockProps = {
 			page: '2',
 			query: 'Test Test',
 			rangeKey: '90',
-			sortOrder: orderDescending
+			sortOrder: 'DESC'
 		}
-	}
+	},
+	title: 'test test',
+	touchpoint: 'test.com/test'
 };
 
 describe('metrics', () => {
@@ -57,19 +57,27 @@ describe('metrics', () => {
 			}));
 
 			const {
-				params: {channelId, interestId, title, touchpoint},
-				query: {delta, field, query, rangeKey}
-			} = mockProps.router;
+				channelId,
+				delta,
+				interestId,
+				query,
+				rangeSelectors: {rangeKey},
+				router: {
+					query: {field, sortOrder}
+				},
+				title,
+				touchpoint
+			} = mockProps;
 
 			expect(mapper.options(mockProps)).toEqual(
 				expect.objectContaining({
 					variables: {
 						channelId,
 						keywords: query,
-						size: parseInt(delta),
+						size: delta,
 						sort: {
 							column: field,
-							type: 'DESC'
+							type: sortOrder
 						},
 						start: 5,
 						terms: interestId,

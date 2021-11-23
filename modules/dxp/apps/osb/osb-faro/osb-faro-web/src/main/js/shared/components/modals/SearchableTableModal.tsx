@@ -1,6 +1,5 @@
 import Button from 'shared/components/Button';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import ListComponent from 'shared/hoc/ListComponent';
 import Modal from 'shared/components/modal';
 import React, {useEffect} from 'react';
 import {
@@ -58,9 +57,9 @@ const SearchableTableModal: React.FC<ISearchableTableModalProps> = ({
 	onClose,
 	onSubmit,
 	orderByOptions,
-	requireSelection,
-	submitMessage,
-	title
+	requireSelection = true,
+	submitMessage = Liferay.Language.get('submit'),
+	title = Liferay.Language.get('select-items')
 }) => {
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
@@ -131,15 +130,14 @@ const SearchableTableModal: React.FC<ISearchableTableModalProps> = ({
 				orderByOptions={orderByOptions}
 				orderIOMap={orderIOMap}
 				page={page}
+				pageDisplay={false}
 				query={query}
 				rowIdentifier='id'
 				selectedItems={selectedItems.map(({id}) => id)}
 				selectedItemsIOMap={selectedItems}
 				showCheckbox
 				total={data?.total}
-			>
-				{props => <ListComponent {...props} pageDisplay={false} />}
-			</CrossPageSelect>
+			/>
 
 			<Modal.Footer>
 				<Button onClick={onClose}>

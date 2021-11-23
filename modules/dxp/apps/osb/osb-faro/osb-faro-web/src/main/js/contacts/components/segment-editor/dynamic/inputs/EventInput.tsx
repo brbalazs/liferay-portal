@@ -77,6 +77,7 @@ const EventInput: React.FC<IEventInputProps> = ({
 	>(EventAttributeDefinitionsQuery, {
 		variables: {
 			eventDefinitionId,
+			keyword: '',
 			page: 0,
 			size: 25,
 			sort: {

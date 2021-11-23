@@ -1,5 +1,6 @@
 import React from 'react';
 import withBaseResults from '../WithBaseResults';
+import {createOrderIOMap} from 'shared/util/pagination';
 import {shallow} from 'enzyme';
 
 describe('WithBaseResults', () => {
@@ -8,12 +9,15 @@ describe('WithBaseResults', () => {
 			<WrappedComponent {...val} />
 		);
 		const WrappedComponent = withBaseResults(MockComponent, {
-			defaultOrderByField: 'Test'
+			initialOrderIOMap: createOrderIOMap('name')
 		});
 
 		const component = shallow(
 			<WrappedComponent
-				router={{params: {groupId: '123'}, query: {delta: 10, page: 1}}}
+				delta={10}
+				orderIOMap={createOrderIOMap('name')}
+				page={1}
+				query=''
 			/>
 		);
 

@@ -1,6 +1,6 @@
 import * as data from 'test/data';
+import ActivitiesChartTimeline from '../ActivitiesChartTimeline';
 import React from 'react';
-import {ActivitiesChartTimeline} from '../ActivitiesChartTimeline';
 import {EntityTypes} from 'shared/util/constants';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';

@@ -1,4 +1,4 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {OrderByDirections} from 'shared/util/constants';
 import {
 	ACCOUNT_NAME,
 	ACTIVITIES_COUNT,
@@ -122,12 +122,14 @@ describe('pagination', () => {
 	describe('getDefaultSortOrder', () => {
 		it('should return orderDescending for a fieldName in the INVERTED_SORT_FIELDS array', () => {
 			expect(getDefaultSortOrder(ACTIVITIES_COUNT)).toEqual(
-				orderDescending
+				OrderByDirections.Descending
 			);
 		});
 
 		it('should return orderAscending for a fieldName NOT in the INVERTED_SORT_FIELDS array', () => {
-			expect(getDefaultSortOrder(ACCOUNT_NAME)).toEqual(orderAscending);
+			expect(getDefaultSortOrder(ACCOUNT_NAME)).toEqual(
+				OrderByDirections.Ascending
+			);
 		});
 	});
 });

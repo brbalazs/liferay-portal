@@ -4,11 +4,12 @@ import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {mockBlockedCustomEventDefinitionsReq} from 'test/graphql-data';
 import {MockedProvider} from '@apollo/react-testing';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
@@ -17,17 +18,29 @@ describe('BlockListCard', () => {
 	const WrappedComponent = props => (
 		<ApolloProvider client={client}>
 			<Provider store={mockStore()}>
-				<StaticRouter>
-					<MockedProvider
-						mocks={[
-							mockBlockedCustomEventDefinitionsReq([
-								data.mockBlockedCustomEventDefinition(0)
-							])
-						]}
-					>
-						<BlockListCard delta={1} groupId='23' {...props} />
-					</MockedProvider>
-				</StaticRouter>
+				<MemoryRouter
+					initialEntries={[
+						'/workspace/23/settings/definitions/events/block-list'
+					]}
+				>
+					<Route path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}>
+						<MockedProvider
+							mocks={[
+								mockBlockedCustomEventDefinitionsReq(
+									[
+										data.mockBlockedCustomEventDefinition(
+											0
+										),
+										data.mockBlockedCustomEventDefinition(1)
+									],
+									{keyword: '', size: 2}
+								)
+							]}
+						>
+							<BlockListCard groupId='23' {...props} />
+						</MockedProvider>
+					</Route>
+				</MemoryRouter>
 			</Provider>
 		</ApolloProvider>
 	);

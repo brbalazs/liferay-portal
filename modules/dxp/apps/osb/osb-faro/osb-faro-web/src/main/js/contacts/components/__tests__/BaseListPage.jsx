@@ -11,10 +11,12 @@ import {
 	waitForElement,
 	waitForElementToBeRemoved
 } from '@testing-library/react';
+import {createOrderIOMap} from 'shared/util/pagination';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {mockChannelContext} from 'test/mock-channel-context';
 import {noop, times} from 'lodash';
 import {Provider} from 'react-redux';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 import {User} from 'shared/util/records';
 import {UserRoleNames} from 'shared/util/constants';
 
@@ -45,16 +47,21 @@ const defaultProps = {
 		Promise.resolve({items: ACCOUNTS, total: TOTAL})
 	),
 	entityLabel: 'Accounts',
-	groupId: '23'
+	groupId: '23',
+	orderIOMap: createOrderIOMap('name')
 };
 
 const WrappedComponent = props => (
 	<Provider store={mockStore()}>
-		<StaticRouter>
-			<ChannelContext.Provider value={mockChannelContext()}>
-				<BaseListPage {...defaultProps} {...props} />
-			</ChannelContext.Provider>
-		</StaticRouter>
+		<MemoryRouter
+			initialEntries={['/workspace/23/123123/contacts/segments']}
+		>
+			<Route path={Routes.CONTACTS_LIST_SEGMENT}>
+				<ChannelContext.Provider value={mockChannelContext()}>
+					<BaseListPage {...defaultProps} {...props} />
+				</ChannelContext.Provider>
+			</Route>
+		</MemoryRouter>
 	</Provider>
 );
 

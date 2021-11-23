@@ -1,9 +1,10 @@
 import InterestDetails from '../InterestDetails';
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
 import {cleanup, render} from '@testing-library/react';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockTouchpointsReq} from 'test/graphql-data';
+import {Routes} from 'shared/util/router';
 import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
@@ -39,32 +40,27 @@ const mockItems = [
 ];
 
 const defaultProps = {
-	rangeSelectors: {
-		rangeEnd: null,
-		rangeKey: '30',
-		rangeStart: null
-	},
 	router: {
 		params: {
 			channelId: '321321',
 			groupId: '23',
+			id: '321',
 			interestId: 'test'
-		},
-		query: {
-			delta: '5',
-			page: '1',
-			rangeEnd: null,
-			rangeKey: '30',
-			rangeStart: null
 		}
 	}
 };
 
-const DefaultComponent = props => (
-	<MockedProvider mocks={[mockTouchpointsReq(mockItems)]}>
-		<BrowserRouter>
-			<InterestDetails {...defaultProps} {...props} />
-		</BrowserRouter>
+const DefaultComponent = () => (
+	<MockedProvider mocks={[mockTouchpointsReq(mockItems, {size: 2})]}>
+		<MemoryRouter
+			initialEntries={[
+				'/workspace/23/321321/contacts/accounts/123123/interests/test'
+			]}
+		>
+			<Route path={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}>
+				<InterestDetails {...defaultProps} />
+			</Route>
+		</MemoryRouter>
 	</MockedProvider>
 );
 

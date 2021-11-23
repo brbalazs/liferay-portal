@@ -3,23 +3,29 @@ import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {AttributeFilterSection} from '../AttributeFilterSection';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
 describe('AttributeFilterSection', () => {
 	const WrappedComponent = props => (
-		<ApolloProvider client={client}>
-			<Provider store={mockStore()}>
-				<AttributeFilterSection
-					attributes={[]}
-					filterOrder={[]}
-					filters={[]}
-					{...props}
-				/>
-			</Provider>
-		</ApolloProvider>
+		<MemoryRouter initialEntries={['/workspace/23/event-analysis']}>
+			<Route path={Routes.EVENT_ANALYSIS}>
+				<ApolloProvider client={client}>
+					<Provider store={mockStore()}>
+						<AttributeFilterSection
+							attributes={[]}
+							filterOrder={[]}
+							filters={[]}
+							{...props}
+						/>
+					</Provider>
+				</ApolloProvider>
+			</Route>
+		</MemoryRouter>
 	);
 
 	it('renders', () => {

@@ -1,9 +1,10 @@
 import * as data from 'test/data';
 import EntityDetailsList from '../EntityDetailsList';
 import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 import {fromJS, Map} from 'immutable';
-import {StaticRouter} from 'react-router';
+import {MemoryRouter, Route} from 'react-router-dom';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -13,18 +14,23 @@ const defaultProps = {
 };
 
 const DefaultComponent = props => (
-	<StaticRouter>
-		<EntityDetailsList {...defaultProps} {...props} />
-	</StaticRouter>
+	<MemoryRouter
+		initialEntries={[
+			'/workspace/23/321321/contacts/accounts/123123/interests/test'
+		]}
+	>
+		<Route path={Routes.CONTACTS_ACCOUNT_INTEREST_DETAILS}>
+			<EntityDetailsList {...defaultProps} {...props} />
+		</Route>
+	</MemoryRouter>
 );
 
 describe('EntityDetailsList', () => {
-	afterEach(cleanup);
-
 	it('should render', () => {
 		const {container} = render(
 			<DefaultComponent demographicsIMap={new Map()} />
 		);
+
 		expect(container).toMatchSnapshot();
 	});
 

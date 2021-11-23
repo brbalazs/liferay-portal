@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
 	getFormattedTitle
@@ -308,9 +307,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 							renderNav={renderNav}
 							showCheckbox
 							total={data?.total}
-						>
-							{props => <ListComponent {...props} />}
-						</CrossPageSelect>
+						/>
 					</Card>
 				</div>
 			</div>

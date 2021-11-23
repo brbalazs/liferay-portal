@@ -1,55 +1,63 @@
+import * as API from 'shared/api';
 import * as data from 'test/data';
-import mockStore from 'test/mock-store';
+import ChannelList from '../ChannelList';
+import mockStore, {mockStoreData} from 'test/mock-store';
 import React from 'react';
-import {ChannelList} from '../ChannelList';
-import {cleanup, fireEvent, render} from '@testing-library/react';
-import {noop} from 'lodash';
+import {cleanup, render} from '@testing-library/react';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {StaticRouter} from 'react-router';
-import {User} from 'shared/util/records';
+import {RemoteData} from 'shared/util/records';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
 const defaultProps = {
-	addAlert: noop,
-	close: noop,
-	currentUser: new User(data.mockUser()),
-	groupId: '23',
-	open: noop
+	groupId: '23'
 };
-
-const DefaultComponent = props => (
-	<Provider store={mockStore()}>
-		<StaticRouter>
-			<ChannelList {...defaultProps} {...props} />
-		</StaticRouter>
-	</Provider>
-);
 
 describe('Channels List', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
-		const {container} = render(<DefaultComponent />);
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<MemoryRouter
+					initialEntries={['/workspace/23/settings/properties']}
+				>
+					<Route path={Routes.SETTINGS_CHANNELS}>
+						<ChannelList {...defaultProps} />
+					</Route>
+				</MemoryRouter>
+			</Provider>
+		);
 
 		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should run open function after click on add property button', () => {
-		const spy = jest.fn();
-
-		const {getByTestId} = render(<DefaultComponent open={spy} />);
-
-		fireEvent.click(getByTestId('addproperty-button'));
-
-		expect(spy).toBeCalled();
-	});
-
 	it('should not render add button if user is not an admin', () => {
+		API.user.fetchCurrentUser.mockReturnValueOnce(
+			Promise.resolve(data.mockMemberUser('24'))
+		);
+
 		const {queryByText} = render(
-			<DefaultComponent currentUser={new User(data.mockMemberUser())} />
+			<Provider
+				store={mockStore(
+					mockStoreData.setIn(
+						['currentUser'],
+						new RemoteData({data: '24', loading: false})
+					)
+				)}
+			>
+				<MemoryRouter
+					initialEntries={['/workspace/23/settings/properties']}
+				>
+					<Route path={Routes.SETTINGS_CHANNELS}>
+						<ChannelList {...defaultProps} />
+					</Route>
+				</MemoryRouter>
+			</Provider>
 		);
 
 		expect(queryByText('New Property')).toBeNull();

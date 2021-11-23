@@ -7,10 +7,11 @@ import {
 	getMapResultToProps,
 	mapPropsToOptions
 } from 'contacts/components/segment-editor/dynamic/mappers/dxp-entity-bag-mapper';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockOrganizationsListReq} from 'test/graphql-data';
 import {noop} from 'lodash';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -23,22 +24,23 @@ const COLUMNS = [
 
 const defaultProps = {
 	columns: COLUMNS,
-	delta: 5,
 	graphqlQuery: OrganizationsQuery,
 	groupId: '23',
+	initialDelta: 5,
+	initialOrderIOMap: createOrderIOMap('name'),
 	mapPropsToOptions,
 	mapResultToProps: getMapResultToProps('organizations'),
-	onClose: noop,
-	orderIOMap: createOrderIOMap('name'),
-	page: 1
+	onClose: noop
 };
 
 const DefaultComponent = props => (
-	<StaticRouter>
-		<MockedProvider mocks={[mockOrganizationsListReq()]}>
-			<SearchableTableModalGraphql {...defaultProps} {...props} />
-		</MockedProvider>
-	</StaticRouter>
+	<MemoryRouter initialEntries={['/workspace/23/settings/data-source']}>
+		<Route path={Routes.SETTINGS_DATA_SOURCE_LIST}>
+			<MockedProvider mocks={[mockOrganizationsListReq()]}>
+				<SearchableTableModalGraphql {...defaultProps} {...props} />
+			</MockedProvider>
+		</Route>
+	</MemoryRouter>
 );
 
 describe('SearchableTableModalGraphql', () => {

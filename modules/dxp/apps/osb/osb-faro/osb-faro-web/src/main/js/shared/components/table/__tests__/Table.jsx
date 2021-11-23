@@ -20,52 +20,6 @@ const COLUMNS = [
 	}
 ];
 
-const INDIVIDUALS_EUROPE_ARCHITECT = times(5, i =>
-	mockIndividual(i, {
-		country: 'Europe',
-		jobTitle: 'Architect'
-	})
-);
-
-const INDIVIDUALS_EUROPE_WRITER = times(5, i =>
-	mockIndividual(i, {
-		country: 'Europe',
-		jobTitle: 'Writer'
-	})
-);
-
-const GROUPS = [
-	{
-		jobTitles: [
-			{
-				individuals: INDIVIDUALS,
-				total: 5,
-				value: 'Developer'
-			}
-		],
-		total: '5',
-		totalSalary: '250000',
-		value: 'USA'
-	},
-	{
-		jobTitles: [
-			{
-				individuals: INDIVIDUALS_EUROPE_ARCHITECT,
-				total: 5,
-				value: 'Architect'
-			},
-			{
-				individuals: INDIVIDUALS_EUROPE_WRITER,
-				total: 5,
-				value: 'Writer'
-			}
-		],
-		total: '10',
-		totalSalary: '500000',
-		value: 'Europe'
-	}
-];
-
 describe('Table', () => {
 	it('should render', () => {
 		const {container} = render(
@@ -134,56 +88,6 @@ describe('Table', () => {
 		);
 
 		expect(container.querySelector('.table-nowrap')).toBeTruthy();
-	});
-
-	it('should render with nested tables', () => {
-		const {container} = render(
-			<StaticRouter>
-				<Table
-					columns={COLUMNS}
-					defaultSort={{
-						field: 'name',
-						sortOrder: 'desc'
-					}}
-					items={GROUPS}
-					nestedTables={[
-						{
-							accessor: 'jobTitles',
-							columns: [
-								{
-									accessor: 'value',
-									label: 'Job Title'
-								},
-								{
-									accessor: 'total',
-									label: 'Individual Count'
-								}
-							],
-							rowIdentifier: 'value'
-						},
-						{
-							accessor: 'individuals',
-							columns: [
-								{
-									accessor: 'name',
-									label: 'Name'
-								},
-								{
-									accessor: 'properties.salary',
-									label: 'Salary'
-								}
-							],
-							rowIdentifier: 'id'
-						}
-					]}
-					rowIdentifier='id'
-				/>
-			</StaticRouter>
-		);
-
-		expect(
-			container.querySelector('.table-action-link').firstChild
-		).toHaveClass('lexicon-icon-caret-right');
 	});
 
 	it('should render with a loading spinner', () => {

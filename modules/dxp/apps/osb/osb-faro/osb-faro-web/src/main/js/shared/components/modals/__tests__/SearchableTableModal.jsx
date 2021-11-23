@@ -3,8 +3,10 @@ import Promise from 'metal-promise';
 import React from 'react';
 import SearchableTableModal from '../SearchableTableModal';
 import {cleanup, render} from '@testing-library/react';
+import {createOrderIOMap} from 'shared/util/pagination';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {noop} from 'lodash';
-import {StaticRouter} from 'react-router';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -24,13 +26,17 @@ const defaultProps = {
 	columns: COLUMNS,
 	dataSourceFn: () => Promise.resolve(),
 	groupId: '23',
+	initialDelta: 5,
+	initialOrderIOMap: createOrderIOMap('name'),
 	onClose: noop
 };
 
 const DefaultComponent = props => (
-	<StaticRouter>
-		<SearchableTableModal {...defaultProps} {...props} />
-	</StaticRouter>
+	<MemoryRouter initialEntries={['/workspace/23/settings/data-source']}>
+		<Route path={Routes.SETTINGS_DATA_SOURCE_LIST}>
+			<SearchableTableModal {...defaultProps} {...props} />
+		</Route>
+	</MemoryRouter>
 );
 
 describe('SearchableTableModal', () => {
@@ -39,11 +45,15 @@ describe('SearchableTableModal', () => {
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a custom title', () => {
 		const {container} = render(<DefaultComponent title='Custom Title' />);
+
+		jest.runAllTimers();
 
 		expect(container.querySelector('.modal-title')).toHaveTextContent(
 			'Custom Title'
@@ -54,6 +64,8 @@ describe('SearchableTableModal', () => {
 		const {container} = render(
 			<DefaultComponent submitMessage='Custom Submit Message' />
 		);
+
+		jest.runAllTimers();
 
 		expect(container.querySelector('.btn-primary')).toHaveTextContent(
 			'Custom Submit Message'
@@ -68,7 +80,7 @@ describe('SearchableTableModal', () => {
 						data.mockSearch(data.mockSegment, 1, {id: 'foo'})
 					)
 				}
-				selectedItems={[{id: 'foo', name: 'fooSegmentName'}]}
+				initialSelectedItems={[{id: 'foo', name: 'fooSegmentName'}]}
 				submitMessage='Custom Submit Message'
 			/>
 		);

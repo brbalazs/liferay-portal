@@ -1,7 +1,6 @@
 import React from 'react';
 import {useQueryPagination} from 'shared/hooks';
 
-// TODO: Maybe call this with Query pagination?
 const withQueryPagination = initialParams => WrappedComponent => (
 	props: any
 ) => {

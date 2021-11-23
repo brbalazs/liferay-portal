@@ -5,6 +5,8 @@ import {
 	mapPropsToOptions
 } from '../composition-query';
 
+const channelId = '321';
+
 const mockData = {
 	siteInterests: {
 		compositions: [{foo: 'bar'}],
@@ -15,15 +17,13 @@ const mockData = {
 };
 
 const mockProps = {
+	channelId,
+	delta: 5,
+	page: 2,
 	rangeSelectors: {
-		rangeKey: '90'
-	},
-	router: {
-		query: {
-			delta: '5',
-			page: '2',
-			rangeKey: '90'
-		}
+		rangeEnd: null,
+		rangeKey: '90',
+		rangeStart: null
 	}
 };
 
@@ -52,15 +52,15 @@ describe('Composition Query Mapper', () => {
 
 			expect(
 				mapCardPropsToOptions({
+					channelId,
 					rangeSelectors: {
 						rangeKey
-					},
-					router: {params: {channelId}}
+					}
 				})
 			).toEqual(
 				expect.objectContaining({
 					variables: {
-						activeTabId: undefined,
+						activeTabId: null,
 						channelId,
 						rangeEnd: null,
 						rangeKey: parseInt(rangeKey),
@@ -76,16 +76,15 @@ describe('Composition Query Mapper', () => {
 	describe('mapPropsToOptions', () => {
 		it('should map interests list query props to options', () => {
 			const {
-				query: {delta, rangeKey}
-			} = mockProps.router;
+				delta,
+				rangeSelectors: {rangeKey}
+			} = mockProps;
 
 			expect(mapPropsToOptions(mockProps)).toEqual(
 				expect.objectContaining({
 					variables: {
-						channelId: undefined,
-						rangeEnd: null,
+						channelId,
 						rangeKey: parseInt(rangeKey),
-						rangeStart: null,
 						size: parseInt(delta),
 						start: 5
 					}
