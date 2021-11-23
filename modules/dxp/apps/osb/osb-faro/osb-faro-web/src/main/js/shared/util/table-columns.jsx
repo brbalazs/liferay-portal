@@ -690,7 +690,7 @@ export const metricsListColumns = {
 							groupId,
 							title: encodeURIComponent(assetTitle),
 							touchpoint: 'Any',
-							...(id && {id}),
+							...(id && {id})
 						})
 					);
 				}
