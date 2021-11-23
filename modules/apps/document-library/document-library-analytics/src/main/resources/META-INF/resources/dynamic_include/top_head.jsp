@@ -52,6 +52,8 @@
 					var groupId = match[1];
 					var fileEntryUUID = match[4];
 
+					event.preventDefault();
+
 					fetch(
 						'<%= PortalUtil.getPortalURL(request) %><%= Portal.PATH_MODULE %><%= DocumentLibraryAnalyticsConstants.PATH_RESOLVE_FILE_ENTRY %>?groupId=' + encodeURIComponent(groupId) + '&uuid=' + encodeURIComponent(fileEntryUUID),
 						{
@@ -61,6 +63,8 @@
 					).then(function(response) {
 						return response.json();
 					}).then(function(response) {
+						location.replace(event.target.href);
+
 						Analytics.send(
 							'documentDownloaded',
 							'Document',
