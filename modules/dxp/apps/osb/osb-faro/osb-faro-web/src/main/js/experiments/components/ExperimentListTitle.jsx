@@ -1,8 +1,7 @@
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
-import Popover from 'shared/components/Popover';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import TextTruncate from 'shared/components/TextTruncate';
 import {getUrl} from 'shared/util/urls';
 import {isEllipisActive} from 'shared/util/util';
 import {Link} from 'react-router-dom';
@@ -20,10 +19,6 @@ class ExperimentListTitle extends React.Component {
 		id: PropTypes.string,
 		title: PropTypes.string,
 		touchpoint: PropTypes.string
-	};
-
-	state = {
-		showPopover: false
 	};
 
 	constructor(props) {
@@ -75,7 +70,6 @@ class ExperimentListTitle extends React.Component {
 	 */
 	render() {
 		const {title, touchpoint} = this.props;
-		const {showPopover} = this.state;
 		const url = this.getUrl();
 
 		return (
@@ -88,22 +82,10 @@ class ExperimentListTitle extends React.Component {
 					onMouseOver={this.handleMouseOver}
 					to={url}
 				>
-					<h5
-						className='mb-1 text-truncate'
-						ref={this._touchpointRef}
-					>
+					<TextTruncate title={title || touchpoint}>
 						{title || '-'}
-					</h5>
+					</TextTruncate>
 				</Link>
-
-				{ReactDOM.createPortal(
-					<Popover
-						alignElement={this._touchpointRef.current}
-						title={title || touchpoint}
-						visible={showPopover}
-					/>,
-					document.querySelector('body.dxp')
-				)}
 			</td>
 		);
 	}
