@@ -62,11 +62,14 @@ public class ContentSetElementSerDes {
 
 			sb.append("\"content\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(contentSetElement.getContent()));
-
-			sb.append("\"");
+			if (contentSetElement.getContent() instanceof String) {
+				sb.append("\"");
+				sb.append((String)contentSetElement.getContent());
+				sb.append("\"");
+			}
+			else {
+				sb.append(contentSetElement.getContent());
+			}
 		}
 
 		if (contentSetElement.getContentType() != null) {
@@ -114,11 +117,14 @@ public class ContentSetElementSerDes {
 
 			sb.append("\"title_i18n\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(contentSetElement.getTitle_i18n()));
-
-			sb.append("\"");
+			if (contentSetElement.getTitle_i18n() instanceof String) {
+				sb.append("\"");
+				sb.append((String)contentSetElement.getTitle_i18n());
+				sb.append("\"");
+			}
+			else {
+				sb.append(contentSetElement.getTitle_i18n());
+			}
 		}
 
 		sb.append("}");
