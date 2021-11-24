@@ -1,6 +1,7 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import EventAnalysisEditor from '../components/event-analysis-editor';
+import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import React from 'react';
 
 type RouterParams = {
@@ -41,6 +42,10 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 				title={Liferay.Language.get('events')}
 			/>
 		</BasePage.Header>
+
+		<BasePage.SubHeader className='event-analysis-toolbar'>
+			<EventAnalysisToolbar />
+		</BasePage.SubHeader>
 
 		<BasePage.Body>
 			<EventAnalysisEditor channelId={channelId} />
