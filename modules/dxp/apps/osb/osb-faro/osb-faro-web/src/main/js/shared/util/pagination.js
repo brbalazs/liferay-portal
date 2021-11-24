@@ -9,7 +9,6 @@ const {
 	cur: defaultCur,
 	delta: defaultDelta,
 	orderAscending,
-	orderDefault,
 	orderDescending
 } = FaroConstants.pagination;
 
@@ -181,16 +180,6 @@ export const getDefaultSortOrder = fieldName =>
 	INVERTED_SORT_FIELDS.includes(fieldName)
 		? OrderByDirections.Descending
 		: OrderByDirections.Ascending;
-
-export const invertOrder = currentOrder => {
-	if (currentOrder) {
-		return currentOrder === orderAscending
-			? orderDescending
-			: orderAscending;
-	} else {
-		return orderDefault;
-	}
-};
 
 export const invertSortOrder = currentSortOrder => {
 	if (currentSortOrder) {
