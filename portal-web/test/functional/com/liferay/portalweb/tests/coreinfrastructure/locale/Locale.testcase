@@ -435,7 +435,7 @@ definition {
 
 		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
-		PortalSettings.configureTimeZone(timeZone = "(UTC +02:00) Central European Summer Time");
+		PortalSettings.configureTimeZone(timeZone = "(UTC +02:00) Israel Standard Time");
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -473,7 +473,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "CEST.");
+				value1 = "IST.");
 		}
 	}
 
