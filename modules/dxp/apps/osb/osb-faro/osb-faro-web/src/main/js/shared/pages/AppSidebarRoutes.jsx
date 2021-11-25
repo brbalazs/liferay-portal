@@ -55,6 +55,12 @@ const CreateEventAnalysis = lazy(() =>
 	)
 );
 
+const EventAnalysis = lazy(() =>
+	import(
+		/* webpackChunkName: "EventAnalysis" */ '../../event-analysis/pages/EventAnalysis'
+	)
+);
+
 /* Individuals */
 
 const IndividualProfileRoutes = lazy(() =>
@@ -195,6 +201,12 @@ const ROUTES = [
 		destructured: false,
 		exact: false,
 		path: Routes.SITES_TOUCHPOINTS_ROUTES
+	},
+	{
+		data: EventAnalysis,
+		destructured: false,
+		exact: true,
+		path: Routes.EVENT_ANALYSIS
 	},
 	{
 		data: CreateEventAnalysis,
