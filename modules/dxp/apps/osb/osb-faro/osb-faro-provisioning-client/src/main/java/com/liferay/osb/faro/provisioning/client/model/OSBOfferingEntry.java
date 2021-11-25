@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.provisioning.client.model;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.Date;
 
@@ -27,9 +28,9 @@ public class OSBOfferingEntry {
 	}
 
 	public OSBOfferingEntry(ProductPurchase productPurchase) {
-		_offeringEntryId = Long.valueOf(productPurchase.getKey());
+		_offeringEntryId = GetterUtil.getLong(productPurchase.getKey());
 
-		_productEntryId = Long.valueOf(productPurchase.getProductKey());
+		_productEntryId = GetterUtil.getLong(productPurchase.getProductKey());
 
 		_quantity = productPurchase.getQuantity();
 
