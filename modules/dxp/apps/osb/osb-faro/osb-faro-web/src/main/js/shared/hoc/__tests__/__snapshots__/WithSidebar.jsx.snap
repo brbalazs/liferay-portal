@@ -153,7 +153,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
             >
               <a
                 class="button-root btn btn-link link"
-                href="/workspace/23/1/event-analysis/create"
+                href="/workspace/23/1/event-analysis"
               >
                 <span
                   class="link-content-wrapper"

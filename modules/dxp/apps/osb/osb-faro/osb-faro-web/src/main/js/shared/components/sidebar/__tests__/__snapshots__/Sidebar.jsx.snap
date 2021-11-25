@@ -134,7 +134,7 @@ exports[`Sidebar should render 1`] = `
           >
             <a
               class="button-root btn btn-link link"
-              href="/workspace/23/123/event-analysis/create"
+              href="/workspace/23/123/event-analysis"
             >
               <span
                 class="link-content-wrapper"
