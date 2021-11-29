@@ -95,7 +95,7 @@ public class DXPGroup {
 		return _treePath;
 	}
 
-	public int getType() {
+	public String getType() {
 		return _type;
 	}
 
@@ -211,7 +211,7 @@ public class DXPGroup {
 		_treePath = treePath;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		_type = type;
 	}
 
@@ -242,7 +242,7 @@ public class DXPGroup {
 	private long _remoteStagingGroupCount;
 	private boolean _site;
 	private String _treePath;
-	private int _type;
+	private String _type;
 	private String _uuid;
 
 }
