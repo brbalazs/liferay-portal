@@ -164,9 +164,8 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 							project?.ownerEmailAddress ||
 							currentUser.emailAddress,
 						serverLocation:
-							project?.serverLocation || FARO_ENV === 'uat'
-								? UAT
-								: US,
+							project?.serverLocation ||
+							(FARO_ENV === 'uat' ? UAT : US),
 						timeZoneId:
 							project?.getIn(['timeZone', 'timeZoneId']) ||
 							DEFAULT_TIME_ZONE
