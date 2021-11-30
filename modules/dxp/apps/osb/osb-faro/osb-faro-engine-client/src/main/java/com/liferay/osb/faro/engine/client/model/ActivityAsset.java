@@ -30,6 +30,10 @@ public class ActivityAsset {
 		return _dataSourceAssetPK;
 	}
 
+	public String getDataSourceName() {
+		return _dataSourceName;
+	}
+
 	public String getId() {
 		return _id;
 	}
@@ -46,6 +50,10 @@ public class ActivityAsset {
 		_dataSourceAssetPK = dataSourceAssetPK;
 	}
 
+	public void setDataSourceName(String dataSourceName) {
+		_dataSourceName = dataSourceName;
+	}
+
 	public void setId(String id) {
 		_id = id;
 	}
@@ -56,6 +64,7 @@ public class ActivityAsset {
 
 	private long _count;
 	private String _dataSourceAssetPK;
+	private String _dataSourceName;
 	private String _id;
 	private String _name;
 
