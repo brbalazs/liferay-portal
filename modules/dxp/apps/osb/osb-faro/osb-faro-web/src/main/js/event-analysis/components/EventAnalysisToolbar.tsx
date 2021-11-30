@@ -1,5 +1,4 @@
 import Button from 'shared/components/Button';
-
 import Form from 'shared/components/form';
 import React from 'react';
 import TitleEditor from 'shared/components/TitleEditor';
@@ -11,9 +10,10 @@ const EventAnalysisToolbar: React.FC<
 		initialValues={{
 			name: ''
 		}}
+		// TODO: LRAC-9841 Create query to add new event analysis
 		onSubmit={() => {}}
 	>
-		<>
+		<div className='event-analysis-toolbar-root'>
 			<div className='event-analysis-toolbar-left-content'>
 				<TitleEditor
 					name='name'
@@ -28,14 +28,16 @@ const EventAnalysisToolbar: React.FC<
 							{Liferay.Language.get('save-analysis')}
 						</Button>
 					</Button.GroupItem>
+
 					<Button.GroupItem>
+						{/* TODO: return to list when click cancel */}
 						<Button size='sm'>
 							{Liferay.Language.get('cancel')}
 						</Button>
 					</Button.GroupItem>
 				</Button.Group>
 			</div>
-		</>
+		</div>
 	</Form>
 );
 

@@ -43,7 +43,7 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 			/>
 		</BasePage.Header>
 
-		<BasePage.SubHeader className='event-analysis-toolbar'>
+		<BasePage.SubHeader>
 			<EventAnalysisToolbar />
 		</BasePage.SubHeader>
 
