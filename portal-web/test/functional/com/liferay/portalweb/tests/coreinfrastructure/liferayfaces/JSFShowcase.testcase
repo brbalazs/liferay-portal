@@ -1418,11 +1418,11 @@ definition {
 		JSFShowcase.validateRequiredCheckbox();
 
 		JSFShowcase.select(
-			oneMenuName = "Select,Powerful Integration",
+			oneMenuName = "Powerful Integration",
 			textValue = "3");
 
 		JSFShowcase.select(
-			oneMenuName = "Select,Compatible",
+			oneMenuName = "Compatible",
 			textValue = "1");
 
 		AssertElementNotPresent(
