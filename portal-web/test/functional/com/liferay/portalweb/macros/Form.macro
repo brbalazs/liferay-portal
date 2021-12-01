@@ -260,7 +260,7 @@ definition {
 
 		var key_fieldType = "${fieldType}";
 
-		DragAndDrop(
+		DragAndDrop.dragAndDropWithMouseMove(
 			locator1 = "Form#ADD_FIELD_TYPE",
 			locator2 = "Form#ADD_FIELD_POSITION",
 			value1 = "${fieldType}");

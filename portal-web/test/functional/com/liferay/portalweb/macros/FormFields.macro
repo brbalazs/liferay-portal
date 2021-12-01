@@ -227,7 +227,7 @@ definition {
 	}
 
 	macro moveGridOptionsRow {
-		DragAndDrop(
+		DragAndDrop.dragAndDropWithMouseMove(
 			key_gridField = "${gridField}",
 			key_rowNumber1 = "${rowNumberStart}",
 			key_rowNumber2 = "${rowNumberEnd}",
@@ -242,7 +242,7 @@ definition {
 
 		Click(locator1 = "FormFields#OPTIONS_DRAG_ICON_1");
 
-		DragAndDrop.dragAndDropToObject(
+		DragAndDrop.dragAndDropWithMouseMove(
 			locator1 = "FormFields#OPTIONS_DRAG_ICON_1",
 			locator2 = "FormFields#OPTIONS_DRAG_ICON_2",
 			value1 = "");
