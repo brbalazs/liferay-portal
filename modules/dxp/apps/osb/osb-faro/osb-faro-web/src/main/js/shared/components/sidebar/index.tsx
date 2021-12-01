@@ -32,30 +32,31 @@ const Sidebar: React.FC<ISidebarProps> = ({
 	onToggle
 }) => {
 	const getSidebarSections = () => {
-		const items = [
-			{
-				icon: 'ac-page',
-				label: Liferay.Language.get('sites'),
-				route: Routes.SITES,
-				url: toRoute(Routes.SITES, {channelId, groupId})
-			},
-			{
-				icon: 'ac-assets',
-				label: Liferay.Language.get('assets'),
-				route: Routes.ASSETS,
-				url: toRoute(Routes.ASSETS, {channelId, groupId})
-			}
-		];
+		// TODO: LRAC-9959 Remove condition after when deleting feature flag
+		const eventAnalysisRoute = DEVELOPER_MODE
+			? Routes.EVENT_ANALYSIS
+			: Routes.EVENT_ANALYSIS_CREATE;
 
 		return [
 			{
 				items: [
-					...items,
+					{
+						icon: 'ac-page',
+						label: Liferay.Language.get('sites'),
+						route: Routes.SITES,
+						url: toRoute(Routes.SITES, {channelId, groupId})
+					},
+					{
+						icon: 'ac-assets',
+						label: Liferay.Language.get('assets'),
+						route: Routes.ASSETS,
+						url: toRoute(Routes.ASSETS, {channelId, groupId})
+					},
 					{
 						icon: 'ac-event-analysis',
 						label: Liferay.Language.get('events'),
-						route: Routes.EVENT_ANALYSIS,
-						url: toRoute(Routes.EVENT_ANALYSIS, {
+						route: eventAnalysisRoute,
+						url: toRoute(eventAnalysisRoute, {
 							channelId,
 							groupId
 						})
