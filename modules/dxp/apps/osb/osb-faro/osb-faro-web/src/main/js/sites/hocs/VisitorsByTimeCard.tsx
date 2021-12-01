@@ -11,7 +11,6 @@ import React, {useContext} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import VisitorsByTimeQuery from 'shared/queries/VisitorsByTimeQuery';
 import {compose} from 'shared/hoc';
-import {formatTimezoneOffset} from 'shared/util/time';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {IBasePageContext} from 'shared/types';
@@ -101,9 +100,6 @@ const VisitorsByTimeCard: React.FC<IVisitorsByTimeCardProps> = ({
 						renderTooltip={renderTooltip}
 						router={router}
 						rowAxisFormatter={formatHour}
-						timezone={formatTimezoneOffset(
-							new Date().getTimezoneOffset() / 60
-						)}
 					/>
 				</Card.Body>
 			)}

@@ -21,12 +21,10 @@ const mapPropsToOptions: object = ({
 	rangeSelectors,
 	router: {
 		params: {channelId}
-	},
-	timezone
+	}
 }) => ({
 	variables: {
 		channelId,
-		timezone,
 		...getSafeRangeSelectors(rangeSelectors)
 	}
 });
