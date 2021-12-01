@@ -47,20 +47,6 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = DDMFormRuleConverter.class)
 public class DDMFormRuleConverter {
 
-	public List<DDMFormRule> convert(
-		List<com.liferay.dynamic.data.mapping.model.DDMFormRule> ddmFormRules) {
-
-		List<DDMFormRule> convertedDDMFormRules = new ArrayList<>();
-
-		for (com.liferay.dynamic.data.mapping.model.DDMFormRule ddmFormRule :
-				ddmFormRules) {
-
-			convertedDDMFormRules.add(convertRule(ddmFormRule));
-		}
-
-		return convertedDDMFormRules;
-	}
-
 	public List<com.liferay.dynamic.data.mapping.model.DDMFormRule> convert(
 		List<DDMFormRule> ddmFormRules,
 		DDMFormRuleSerializerContext ddmFormRuleSerializerContext) {
@@ -73,6 +59,20 @@ public class DDMFormRuleConverter {
 					formRule, ddmFormRuleSerializerContext));
 
 		return convertedFormRulesStream.collect(Collectors.toList());
+	}
+
+	public List<DDMFormRule> convert(
+		List<com.liferay.dynamic.data.mapping.model.DDMFormRule> ddmFormRules) {
+
+		List<DDMFormRule> convertedDDMFormRules = new ArrayList<>();
+
+		for (com.liferay.dynamic.data.mapping.model.DDMFormRule ddmFormRule :
+				ddmFormRules) {
+
+			convertedDDMFormRules.add(convertRule(ddmFormRule));
+		}
+
+		return convertedDDMFormRules;
 	}
 
 	protected DDMFormRuleAction convertAction(String actionExpressionString) {
@@ -176,18 +176,6 @@ public class DDMFormRuleConverter {
 		return sb.toString();
 	}
 
-	protected DDMFormRule convertRule(
-		com.liferay.dynamic.data.mapping.model.DDMFormRule ddmFormRule) {
-
-		DDMFormRule convertedDDMFormRule = new DDMFormRule();
-
-		setDDMFormRuleConditions(
-			convertedDDMFormRule, ddmFormRule.getCondition());
-		setDDMFormRuleActions(convertedDDMFormRule, ddmFormRule.getActions());
-
-		return convertedDDMFormRule;
-	}
-
 	protected com.liferay.dynamic.data.mapping.model.DDMFormRule convertRule(
 		DDMFormRule ddmFormRule,
 		DDMFormRuleSerializerContext ddmFormRuleSerializerContext) {
@@ -207,6 +195,18 @@ public class DDMFormRuleConverter {
 
 		return new com.liferay.dynamic.data.mapping.model.DDMFormRule(
 			condition, actions);
+	}
+
+	protected DDMFormRule convertRule(
+		com.liferay.dynamic.data.mapping.model.DDMFormRule ddmFormRule) {
+
+		DDMFormRule convertedDDMFormRule = new DDMFormRule();
+
+		setDDMFormRuleConditions(
+			convertedDDMFormRule, ddmFormRule.getCondition());
+		setDDMFormRuleActions(convertedDDMFormRule, ddmFormRule.getActions());
+
+		return convertedDDMFormRule;
 	}
 
 	protected String createCondition(
