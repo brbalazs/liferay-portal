@@ -1435,26 +1435,26 @@ definition {
 
 		JSFShowcase.submitImmediate(
 			immediate = "true",
-			oneMenuName = "Compatible",
 			messageImmediate1 = "APPLY_REQUEST_VALUES",
+			oneMenuName = "Compatible",
 			textResult = "1");
 
 		JSFShowcase.submitImmediate(
 			immediate = "false",
-			oneMenuName = "Compatible",
 			messageImmediate2 = "PROCESS_VALIDATIONS",
+			oneMenuName = "Compatible",
 			textResult = "1");
 
 		JSFShowcase.submitImmediate(
 			immediate = "true",
-			oneMenuName = "Powerful Integration",
 			messageImmediate1 = "APPLY_REQUEST_VALUES",
+			oneMenuName = "Powerful Integration",
 			textResult = "3");
 
 		JSFShowcase.submitImmediate(
 			immediate = "false",
-			oneMenuName = "Powerful Integration",
 			messageImmediate2 = "PROCESS_VALIDATIONS",
+			oneMenuName = "Powerful Integration",
 			textResult = "3");
 
 		AssertElementNotPresent(
