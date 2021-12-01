@@ -12,8 +12,9 @@ ENV FARO_DEFAULT_WE_DEPLOY_KEY=osbasah.lfr.cloud \
 	JAVA_OPTS=-Djava.rmi.server.hostname="localhost -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" \
 	LABEL_BUILD_DATE=${LABEL_BUILD_DATE} \
 	LABEL_VCS_REF=${LABEL_VCS_REF} \
-	OSB_API_TOKEN=lwn8C5iAlUi2bvaqSm \
-	OSB_API_URL=https://web-uat.liferay.com \
+	OSB_API_PORT=443 \
+	OSB_API_PROTOCOL=https \
+	OSB_API_URL=webserver-lrkoroneiki-uat.lfr.cloud \
 	OSB_ASAH_BACKEND_URL=http://osbasahbackend:8080 \
 	OSB_ASAH_PUBLISHER_URL=http://osbasahpublisher:8080
 
