@@ -47,6 +47,13 @@ public class HeapUtil {
 		return _PROCESS_ID;
 	}
 
+	public static <O, E> Future<Map.Entry<O, E>> heapDump(
+		boolean live, boolean binary, String file,
+		OutputProcessor<O, E> outputProcessor) {
+
+		return heapDump(_PROCESS_ID, live, binary, file, outputProcessor);
+	}
+
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link #heapDump(boolean,
 	 *             boolean, String, OutputProcessor)}
@@ -61,10 +68,41 @@ public class HeapUtil {
 	}
 
 	public static <O, E> Future<Map.Entry<O, E>> heapDump(
-		boolean live, boolean binary, String file,
+		int processId, boolean live, boolean binary, String file,
 		OutputProcessor<O, E> outputProcessor) {
 
-		return heapDump(_PROCESS_ID, live, binary, file, outputProcessor);
+		if (!_SUPPORTED) {
+			throw new IllegalStateException(
+				HeapUtil.class.getName() + " does not support the current JVM");
+		}
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("-dump:");
+
+		if (live) {
+			sb.append("live,");
+		}
+
+		if (binary) {
+			sb.append("format=b,");
+		}
+
+		sb.append("file=");
+		sb.append(file);
+
+		List<String> arguments = new ArrayList<>();
+
+		arguments.add("jmap");
+		arguments.add(sb.toString());
+		arguments.add(String.valueOf(processId));
+
+		try {
+			return ProcessUtil.execute(outputProcessor, arguments);
+		}
+		catch (Exception e) {
+			throw new RuntimeException("Unable to perform heap dump", e);
+		}
 	}
 
 	/**
@@ -119,44 +157,6 @@ public class HeapUtil {
 			}
 
 		};
-	}
-
-	public static <O, E> Future<Map.Entry<O, E>> heapDump(
-		int processId, boolean live, boolean binary, String file,
-		OutputProcessor<O, E> outputProcessor) {
-
-		if (!_SUPPORTED) {
-			throw new IllegalStateException(
-				HeapUtil.class.getName() + " does not support the current JVM");
-		}
-
-		StringBundler sb = new StringBundler(5);
-
-		sb.append("-dump:");
-
-		if (live) {
-			sb.append("live,");
-		}
-
-		if (binary) {
-			sb.append("format=b,");
-		}
-
-		sb.append("file=");
-		sb.append(file);
-
-		List<String> arguments = new ArrayList<>();
-
-		arguments.add("jmap");
-		arguments.add(sb.toString());
-		arguments.add(String.valueOf(processId));
-
-		try {
-			return ProcessUtil.execute(outputProcessor, arguments);
-		}
-		catch (Exception e) {
-			throw new RuntimeException("Unable to perform heap dump", e);
-		}
 	}
 
 	public static boolean isSupported() {
