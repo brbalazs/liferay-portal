@@ -2,15 +2,10 @@ import {COHORT_HEATMAP_FRAGMENT} from 'shared/queries/fragments';
 import {gql} from 'apollo-boost';
 
 export default gql`
-	query CohortHeatMap(
-		$channelId: String
-		$interval: String!
-		$timeZone: String!
-	) {
+	query CohortHeatMap($channelId: String, $interval: String!) {
 		site(
 			channelId: $channelId
 			includePrevious: false
-			timeZoneId: $timeZone
 			interval: $interval
 		) {
 			anonymousVisitorsMetric {

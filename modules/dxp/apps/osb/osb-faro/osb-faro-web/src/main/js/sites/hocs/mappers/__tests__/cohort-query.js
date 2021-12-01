@@ -24,8 +24,7 @@ describe('Cohort Query Mapper', () => {
 				expect.objectContaining({
 					variables: {
 						channelId,
-						interval,
-						timeZone: expect.any(String)
+						interval
 					}
 				})
 			);

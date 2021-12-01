@@ -1,4 +1,3 @@
-import {formatTimezoneOffset} from 'shared/util/time';
 import {safeResultToProps} from 'shared/util/mappers';
 
 const mapResultToProps: object = safeResultToProps(
@@ -27,8 +26,7 @@ const mapResultToProps: object = safeResultToProps(
 const mapPropsToOptions: object = ({channelId, interval}) => ({
 	variables: {
 		channelId,
-		interval,
-		timeZone: formatTimezoneOffset(new Date().getTimezoneOffset() / 60)
+		interval
 	}
 });
 
