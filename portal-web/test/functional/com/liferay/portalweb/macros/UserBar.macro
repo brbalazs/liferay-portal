@@ -6,7 +6,7 @@ definition {
 	macro gotoDashboard {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(locator1 = "ProductMenu#PANEL_EXPANDED", key_category = "${key_category}")) {
+		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -28,7 +28,7 @@ definition {
 	macro gotoMyAccount {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(locator1 = "ProductMenu#PANEL_EXPANDED", key_category = "${key_category}")) {
+		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -48,7 +48,7 @@ definition {
 	macro gotoMyOrganizations {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(locator1 = "ProductMenu#PANEL_EXPANDED", key_category = "${key_category}")) {
+		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -68,7 +68,7 @@ definition {
 	macro gotoProfile {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(locator1 = "ProductMenu#PANEL_EXPANDED", key_category = "${key_category}")) {
+		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -86,7 +86,7 @@ definition {
 
 	macro signOut {
 		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
-			if (IsElementNotPresent(locator1 = "ProductMenu#PANEL_EXPANDED", key_category = "${key_category}")) {
+			if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 			}
 

@@ -276,7 +276,7 @@ definition {
 
 		SitePages.addPublicPage(pageName = "Page Name");
 
-		Navigator.openSpecificURL(url = "${portalURL}/web/usersn/page-name?p_p_id=com_liferay_portal_settings_web_portlet_PortalSettingsPortlet&amp;p_p_state=maximized");
+		Navigator.openSpecificURL(url = "${portalURL}/web/usersn/page-name?p_p_id=com_liferay_portal_settings_web_portlet_PortalSettingsPortlet&p_p_state=maximized");
 
 		AssertTextEquals(
 			locator1 = "Message#ERROR",

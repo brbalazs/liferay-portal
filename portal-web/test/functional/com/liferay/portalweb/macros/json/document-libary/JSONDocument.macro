@@ -10,8 +10,8 @@ definition {
 			Variables.assertDefined(parameterList = "${folderName},${groupName}");
 
 			var folderId = JSONDocumentAPI._getFolderIdByFolderName(
-				name = "${folderName}",
-				groupName = "${groupName}");
+				groupName = "${groupName}",
+				name = "${folderName}");
 		}
 		else {
 			var folderId = "0";
@@ -47,7 +47,9 @@ definition {
 			var site = "true";
 		}
 
-		var repositoryId = JSONGroupAPI._getGroupIdByName(groupName = "${groupName}", site = "${site}");
+		var repositoryId = JSONGroupAPI._getGroupIdByName(
+			groupName = "${groupName}",
+			site = "${site}");
 
 		if (!(isSet(parentFolderId))) {
 			var parentFolderId = "0";
@@ -79,7 +81,9 @@ definition {
 			var site = "true";
 		}
 
-		var groupId = JSONGroupAPI._getGroupIdByName(groupName = "${groupName}", site = "${site}");
+		var groupId = JSONGroupAPI._getGroupIdByName(
+			groupName = "${groupName}",
+			site = "${site}");
 
 		if (!(isSet(folderId))) {
 			var folderId = "0";

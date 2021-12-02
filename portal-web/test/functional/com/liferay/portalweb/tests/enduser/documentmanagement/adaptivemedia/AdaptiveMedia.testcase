@@ -80,7 +80,7 @@ definition {
 			portlet = "Adaptive Media");
 
 		AdaptiveMedia.addImageResolution(
-			description = "1234567890!@#$%^&amp;*()~`",
+			description = "1234567890!@#$%^&*()~`",
 			imageName = "abcdefghijklmnopqrstuvwxyz",
 			maxHeight = "25",
 			maxWidth = "25");
@@ -90,17 +90,17 @@ definition {
 			imageNameEdit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
 		AdaptiveMedia.addImageResolution(
-			imageName = "1234567890!@#$%^&amp;*()~`",
+			imageName = "1234567890!@#$%^&*()~`",
 			maxHeight = "75",
 			maxWidth = "75");
 
 		AdaptiveMedia.editImageResolution(
-			imageName = "1234567890!@#$%^&amp;*()~`",
-			imageNameEdit = "[]\{}|:&quot;;&apos;,./&gt;&lt;?");
+			imageName = "1234567890!@#$%^&*()~`",
+			imageNameEdit = "[]\{}|:&quot;;',./><?");
 
 		AdaptiveMedia.gotoImageVariantEntry(imageName = "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-		AdaptiveMedia.viewImageVariantDescription(description = "1234567890!@#$%^&amp;*()~`");
+		AdaptiveMedia.viewImageVariantDescription(description = "1234567890!@#$%^&*()~`");
 	}
 
 	@description = "This will be ignored until LPS-118257 is fixed."

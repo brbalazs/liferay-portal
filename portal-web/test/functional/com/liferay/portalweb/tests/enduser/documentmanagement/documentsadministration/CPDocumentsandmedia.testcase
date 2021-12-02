@@ -329,7 +329,6 @@ definition {
 				dmDocumentSize = "268B",
 				dmDocumentTitle = "DM Document Title");
 		}
-
 		else {
 			DMDocument.viewCP(
 				dmDocumentSize = "259B",

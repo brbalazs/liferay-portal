@@ -9,7 +9,7 @@ definition {
 			echo("PASSED");
 		}
 		else {
-			TestUtils.fail(message = "FAILED: expected &apos;${expected}&apos;, actual was &apos;${actual}&apos;");
+			TestUtils.fail(message = "FAILED: expected '${expected}', actual was '${actual}'");
 		}
 	}
 
@@ -22,7 +22,7 @@ definition {
 			echo("PASSED");
 		}
 		else {
-			TestUtils.fail(message = "FAILED: &apos;${expected}&apos; equals &apos;${actual}&apos;");
+			TestUtils.fail(message = "FAILED: '${expected}' equals '${actual}'");
 		}
 	}
 

@@ -147,7 +147,7 @@ definition {
 			var fieldName = StringUtil.replace("${fieldValue}", " ", "");
 		}
 
-		if ((isSet(localeAdvanced)) && (isSet(localeBasic))) {
+		if (isSet(localeAdvanced) && isSet(localeBasic)) {
 			var key_localeAdvanced = "${localeAdvanced}";
 			var key_localeBasic = "${localeBasic}";
 
@@ -267,6 +267,7 @@ definition {
 
 		if (isSet(localeBasic)) {
 			var key_localeBasic = "${localeBasic}";
+
 			AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB_LOCALE");
 		}
 		else {

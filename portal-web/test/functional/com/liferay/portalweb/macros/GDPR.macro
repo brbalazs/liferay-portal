@@ -94,7 +94,7 @@ definition {
 			key_lastName = "${userLastName}",
 			locator1 = "DataErasure#HEADER");
 
-		if (IsElementNotPresent(locator1 = "Button#ANY_DISABLED", key_text = "Delete Personal Site")) {
+		if (IsElementNotPresent(key_text = "Delete Personal Site", locator1 = "Button#ANY_DISABLED")) {
 			Button.clickNoError(button = "Delete Personal Site");
 
 			AssertConfirm(value1 = "Are you sure you want to delete the user's personal site?");

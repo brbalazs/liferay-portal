@@ -70,8 +70,7 @@ definition {
 		var segmentCategoryId = JSONCategory.getCategoryId(
 			categoryName = "Male Users",
 			groupName = "Site Name",
-			vocabularyName = "User Segment"
-		);
+			vocabularyName = "User Segment");
 
 		var webContentserviceContext = '''{"assetCategoryIds": ["${segmentCategoryId}"]}''';
 

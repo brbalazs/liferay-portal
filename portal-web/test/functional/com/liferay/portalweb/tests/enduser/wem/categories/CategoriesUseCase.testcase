@@ -301,11 +301,11 @@ definition {
 
 		Category.viewPath(
 			categoryName = "Category Name",
-			path = "Topic &gt; Category Name");
+			path = "Topic > Category Name");
 
 		Category.viewPath(
 			categoryName = "Subcategory Name",
-			path = "Topic &gt; Category Name &gt; Subcategory Name");
+			path = "Topic > Category Name > Subcategory Name");
 	}
 
 	@priority = "3"
@@ -1312,11 +1312,11 @@ definition {
 
 		Category.viewPath(
 			categoryName = "Category Name",
-			path = "Topic &gt; Category Name");
+			path = "Topic > Category Name");
 
 		Category.viewPath(
 			categoryName = "Subcategory Name",
-			path = "Topic &gt; Category Name &gt; Subcategory Name");
+			path = "Topic > Category Name > Subcategory Name");
 	}
 
 	@priority = "3"

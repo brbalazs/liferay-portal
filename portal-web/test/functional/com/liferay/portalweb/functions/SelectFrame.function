@@ -9,9 +9,7 @@ definition {
 
 			selenium.selectFrame();
 
-			selenium.waitForElementNotPresent(
-				"//div[contains(@class,'overlaymask') and not(contains(@class,'hidden'))]//div[contains(@class,'loadingmask-message')]"
-			);
+			selenium.waitForElementNotPresent("//div[contains(@class,'overlaymask') and not(contains(@class,'hidden'))]//div[contains(@class,'loadingmask-message')]");
 
 			selenium.assertJavaScriptErrors();
 

@@ -29,7 +29,7 @@ definition {
 	}
 
 	macro disableCheckbox {
-		if (IsChecked(locator1 = "FormFields#CHECKBOX", key_fieldName = "${fieldName}")) {
+		if (IsChecked(key_fieldName = "${fieldName}", locator1 = "FormFields#CHECKBOX")) {
 			Click(
 				key_fieldName = "${fieldName}",
 				locator1 = "FormFields#CHECKBOX_LABEL");
@@ -203,7 +203,7 @@ definition {
 	}
 
 	macro enableCheckbox {
-		if (IsNotChecked.isNotCheckedNotVisible(locator1 = "FormFields#CHECKBOX", key_fieldName = "${fieldName}")) {
+		if (IsNotChecked.isNotCheckedNotVisible(key_fieldName = "${fieldName}", locator1 = "FormFields#CHECKBOX")) {
 			Click(
 				key_fieldName = "${fieldName}",
 				locator1 = "FormFields#CHECKBOX_LABEL");

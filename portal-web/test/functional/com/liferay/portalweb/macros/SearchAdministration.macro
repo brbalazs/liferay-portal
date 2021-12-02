@@ -4,7 +4,6 @@ definition {
 		WaitForSPARefresh();
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
-
 		var searchEngineVendor = RegexUtil.replace("${alertInfo}", "Vendor: (.*?),", "1");
 		var searchClientVersion = RegexUtil.replace("${alertInfo}", "Client Version: (.*?),", "1");
 		var searchServerVersion = RegexUtil.replace("${alertInfo}", "Nodes:.*\((.*)\)", "1");
@@ -28,9 +27,7 @@ definition {
 			value1 = "Search");
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
-
 		var vendor = StringUtil.extractFirst("${alertInfo}", ",");
-
 		var searchEngineVendor = StringUtil.extractLast("${vendor}", "Vendor:");
 		var portalHostname = PropsUtil.get("portal.hostname");
 		var curl = "http://${portalHostname}:9200/_tasks";
@@ -50,14 +47,14 @@ definition {
 
 			var elasticsearchTasks = JSONCurlUtil.get("${curl}");
 
-			while ((!(contains("${elasticsearchTasks}", "indices:data/write/bulk"))) && ("${reindexStartTime}" != "10")) {
+			while (!(contains("${elasticsearchTasks}", "indices:data/write/bulk")) && ("${reindexStartTime}" != "10")) {
 				Pause.pauseNoSPARefresh(locator1 = "1000");
 
 				var reindexStartTime = ${reindexStartTime} + 1;
 
 				echo("Current Elasticsearch Tasks:");
 
-				elasticsearchTasks = JSONCurlUtil.get("${curl}");
+				var elasticsearchTasks = JSONCurlUtil.get("${curl}");
 			}
 
 			if ("${reindexStartTime}" == "10") {
@@ -74,18 +71,18 @@ definition {
 
 				echo("Current Elasticsearch Tasks:");
 
-				elasticsearchTasks = JSONCurlUtil.get("${curl}");
+				var elasticsearchTasks = JSONCurlUtil.get("${curl}");
 			}
 		}
 		else if (contains("${searchEngineVendor}", "Solr")) {
-			while (IsElementPresent(locator1 = "ControlMenu#RELOAD_TOOLTIP")&& ("${reindexElapsedTime}" != "120")) {
+			while ((IsElementPresent(locator1 = "ControlMenu#RELOAD_TOOLTIP")) && ("${reindexElapsedTime}" != "120")) {
 				Pause.pauseNoSPARefresh(locator1 = "5000");
 
 				var reindexElapsedTime = ${reindexElapsedTime} + 5;
 			}
 		}
 
-		while (IsElementNotPresent(locator1 = "Button#EXECUTE_ACTION", key_actionsDescription = "${actionsDescription}")) {
+		while (IsElementNotPresent(key_actionsDescription = "${actionsDescription}", locator1 = "Button#EXECUTE_ACTION")) {
 			Pause(locator1 = "3000");
 		}
 

@@ -1610,7 +1610,7 @@ definition {
 			key_webContentTitle = "WC Folder Name 1",
 			locator1 = "WC#ENTRY_LIST_TITLE");
 
-		key_webContentTitle = "Web Content Title 2";
+		var key_webContentTitle = "Web Content Title 2";
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "WC#ENTRY_LIST_TITLE_ON_LIVE",
@@ -4739,6 +4739,7 @@ definition {
 		SearchPortlets.searchWidget(searchTerm = "test");
 
 		var currentURL = Navigator.getCurrentURL();
+
 		var keywordsParameterName = StringUtil.extractLast("${currentURL}", "?");
 		var keywordsParameter = StringUtil.extractFirst("${keywordsParameterName}", "=");
 

@@ -1780,7 +1780,7 @@ definition {
 
 		Role.viewPermissionCP(
 			permissionDefinitionValue = "View Site Administration Menu",
-			permissionNavigationValue = "Site Settings &gt; Site");
+			permissionNavigationValue = "Site Settings > Site");
 	}
 
 	@priority = "4"

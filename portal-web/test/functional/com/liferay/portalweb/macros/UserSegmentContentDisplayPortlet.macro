@@ -202,7 +202,7 @@ definition {
 
 				var key_previewEntry = "${previewEntry}";
 
-				if ((isSet(entryContentText)) && ("${previewEntry}" != "default")) {
+				if (isSet(entryContentText) && ("${previewEntry}" != "default")) {
 					AssertTextEquals(
 						locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
 						value1 = "${entryContentText}");

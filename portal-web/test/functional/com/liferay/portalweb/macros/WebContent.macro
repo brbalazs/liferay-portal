@@ -300,6 +300,7 @@ definition {
 		Panel.expandPanel(panel = "Small Image");
 
 		Click.clickAt(locator1 = "WCEditWebContent#USE_SMALL_IMAGE_CHECKBOX");
+
 		Click(locator1 = "WCEditWebContent#SMALL_IMAGE_URL");
 
 		Type(

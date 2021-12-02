@@ -203,15 +203,15 @@ definition {
 
 		Blogs.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "&amp; &lt; &gt; &quot; Escape Characters Entry");
+			entryTitle = "& < > &quot; Escape Characters Entry");
 
 		BlogsNavigator.gotoEntryPG(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "&amp; &lt; &gt; &quot; Escape Characters Entry");
+			entryTitle = "& < > &quot; Escape Characters Entry");
 
 		BlogsEntry.viewEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "&amp; &lt; &gt; &quot; Escape Characters Entry");
+			entryTitle = "& < > &quot; Escape Characters Entry");
 	}
 
 	@priority = "4"

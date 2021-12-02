@@ -463,9 +463,11 @@ definition {
 		FormFields.viewTextLabel(
 			fieldLabel = "Checkbox",
 			fieldName = "Checkbox");
+
 		FormFields.viewTextLabel(
 			fieldLabel = "Radio",
 			fieldName = "Radio");
+
 		FormFields.viewTextLabel(
 			fieldLabel = "Label",
 			fieldName = "Label");
@@ -2238,9 +2240,7 @@ definition {
 
 		FormsAdminNavigator.gotoPublishCopyURLLink();
 
-		var publishedFormPublicURL = Form.getPublishedFormPublicURL(
-			publishedFormPublicURL = "${publishedFormPublicURL}"
-		);
+		var publishedFormPublicURL = Form.getPublishedFormPublicURL(publishedFormPublicURL = "${publishedFormPublicURL}");
 
 		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
 
@@ -2461,7 +2461,7 @@ definition {
 			rowNumberEnd = "2",
 			rowNumberStart = "3");
 
-		if (IsTextNotEqual(locator1 = "FormFields#OPTIONS_OPTION_VALUE_FIELD", value1 = "Checkbox 4", key_rowNumber = "2")) {
+		if (IsTextNotEqual(key_rowNumber = "2", locator1 = "FormFields#OPTIONS_OPTION_VALUE_FIELD", value1 = "Checkbox 4")) {
 			FormFields.moveOptionsRow(
 				rowNumberEnd = "2",
 				rowNumberStart = "3");
@@ -3125,9 +3125,7 @@ definition {
 
 		FormsAdminNavigator.gotoPublishCopyURLLink();
 
-		var publishedFormPublicURL = Form.getPublishedFormPublicURL(
-			publishedFormPublicURL = "${publishedFormPublicURL}"
-		);
+		var publishedFormPublicURL = Form.getPublishedFormPublicURL(publishedFormPublicURL = "${publishedFormPublicURL}");
 
 		Form.save();
 
@@ -3485,7 +3483,7 @@ definition {
 
 		FormFields.editValidation(
 			validationArgument = "Does not contain",
-			validationErrorMessage = "Text must contain &apos;&apos;Test&apos;&apos;",
+			validationErrorMessage = "Text must contain ''Test''",
 			validationInput = "Test");
 
 		Form.closeSidebar();
@@ -3520,7 +3518,7 @@ definition {
 			fieldName = "Text",
 			fieldValue = "Text Field Value");
 
-		FormPortlet.submitWithValidationError(validationErrorMessage = "Text must contain &apos;&apos;Test&apos;&apos;");
+		FormPortlet.submitWithValidationError(validationErrorMessage = "Text must contain ''Test''");
 
 		FormFields.editText(
 			fieldName = "Text",
