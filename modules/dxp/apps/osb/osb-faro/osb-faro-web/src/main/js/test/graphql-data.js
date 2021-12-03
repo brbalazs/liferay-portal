@@ -1,4 +1,5 @@
 import BlockedCustomEventDefinitionsQuery from 'settings/definitions/events/queries/BlockedCustomEventDefinitionsQuery';
+import EventAnalysisListQuery from 'event-analysis/queries/EventAnalysisListQuery';
 import EventAnalysisResultQuery from 'event-analysis/queries/EventAnalysisResultQuery';
 import EventAttributeDefinitionQuery, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
@@ -619,6 +620,46 @@ export function mockEventAnalysisResultQueryReq(
 					page: 0,
 					previousValue: 1234,
 					value: 5033
+				}
+			}
+		}
+	};
+}
+
+export function mockEventAnalysisListQueryReq() {
+	const eventAnalysis = [
+		{
+			__typename: 'EventAnalysisItem',
+			dateCreated: 1637760252857,
+			dateModified: 1637760252857,
+			id: 1632225992,
+			title: 'Read Article in the last 7 days',
+			userName: 'Douglas Wade'
+		}
+	];
+
+	return {
+		request: {
+			fetchPolicy: 'network-only',
+			query: EventAnalysisListQuery,
+			variables: {
+				channelId: '456',
+				keywords: '',
+				page: 0,
+				size: 20,
+				sort: {
+					column: 'name',
+					type: 'DESC'
+				},
+				start: 0
+			}
+		},
+		result: {
+			data: {
+				eventAnalysisList: {
+					__typename: 'eventAnalysisList',
+					eventAnalysis,
+					total: eventAnalysis.length
 				}
 			}
 		}
