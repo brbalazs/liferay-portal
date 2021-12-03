@@ -1,5 +1,6 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
+import EventAnalysisListCard from '../hocs/EventAnalysisListCard';
 import React from 'react';
 import {Routes, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
@@ -40,7 +41,10 @@ const EventAnalysis: React.FC = () => {
 					</BasePage.Header.Section>
 				</BasePage.Row>
 			</BasePage.Header>
-			{/* TODO: LRAC-9831 Add event analysis list table */}
+
+			<BasePage.Body>
+				<EventAnalysisListCard />
+			</BasePage.Body>
 		</BasePage>
 	);
 };

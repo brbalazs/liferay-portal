@@ -188,7 +188,8 @@ export const Routes = buildRoutes({
 							EVENT_ANALYSIS: {
 								path: '/event-analysis',
 								routes: {
-									EVENT_ANALYSIS_CREATE: '/create'
+									EVENT_ANALYSIS_CREATE: '/create',
+									EVENT_ANALYSIS_EDIT: '/:id'
 								}
 							},
 							SITES: {
