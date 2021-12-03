@@ -2,7 +2,7 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
-import React from 'react';
+import React, {useState} from 'react';
 
 type RouterParams = {
 	channelId: string;
@@ -23,34 +23,40 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 	router: {
 		params: {channelId, groupId}
 	}
-}) => (
-	<BasePage
-		className='create-event-analysis-root'
-		documentTitle={Liferay.Language.get('events')}
-	>
-		<BasePage.Header
-			breadcrumbs={[
-				breadcrumbs.getHome({
-					channelId,
-					groupId,
-					label: Liferay.Language.get('home')
-				})
-			]}
-			groupId={groupId}
+}) => {
+	const [eventAnalysisName, setEventAnalysisName] = useState<string>('');
+
+	return (
+		<BasePage
+			className='create-event-analysis-root'
+			documentTitle={Liferay.Language.get('events')}
 		>
-			<BasePage.Header.TitleSection
-				title={Liferay.Language.get('events')}
-			/>
-		</BasePage.Header>
+			<BasePage.Header
+				breadcrumbs={[
+					breadcrumbs.getHome({
+						channelId,
+						groupId,
+						label: Liferay.Language.get('home')
+					})
+				]}
+				groupId={groupId}
+			>
+				<BasePage.Header.TitleSection
+					title={Liferay.Language.get('events')}
+				/>
+			</BasePage.Header>
 
-		<BasePage.SubHeader>
-			<EventAnalysisToolbar />
-		</BasePage.SubHeader>
+					<EventAnalysisToolbar
+						name={eventAnalysisName}
+						onSubmit={({name}) => setEventAnalysisName(name)}
+					/>
 
-		<BasePage.Body>
-			<EventAnalysisEditor channelId={channelId} />
-		</BasePage.Body>
-	</BasePage>
-);
+			{/* TODO: LRAC-9841 Create onSubmit on EventAnalysisEditor to save it */}
+			<BasePage.Body>
+				<EventAnalysisEditor channelId={channelId} />
+			</BasePage.Body>
+		</BasePage>
+	);
+};
 
 export default CreateEventAnalysis;
