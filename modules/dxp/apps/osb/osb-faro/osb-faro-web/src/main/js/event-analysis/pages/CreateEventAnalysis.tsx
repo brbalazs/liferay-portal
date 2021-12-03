@@ -3,6 +3,7 @@ import BasePage from 'shared/components/base-page';
 import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import React, {useState} from 'react';
+import {DEVELOPER_MODE} from 'shared/util/constants';
 
 type RouterParams = {
 	channelId: string;
@@ -46,10 +47,15 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 				/>
 			</BasePage.Header>
 
+			{/* TODO: LRAC-9959 Remove condition after deleting feature flag */}
+			{DEVELOPER_MODE && (
+				<BasePage.SubHeader>
 					<EventAnalysisToolbar
 						name={eventAnalysisName}
 						onSubmit={({name}) => setEventAnalysisName(name)}
 					/>
+				</BasePage.SubHeader>
+			)}
 
 			{/* TODO: LRAC-9841 Create onSubmit on EventAnalysisEditor to save it */}
 			<BasePage.Body>
