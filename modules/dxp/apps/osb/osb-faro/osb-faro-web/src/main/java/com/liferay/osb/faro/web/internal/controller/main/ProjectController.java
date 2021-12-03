@@ -30,6 +30,7 @@ import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
 import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
+import com.liferay.osb.faro.provisioning.client.constants.CorpProjectConstants;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
@@ -192,6 +193,16 @@ public class ProjectController extends BaseFaroController {
 
 			return new ProjectDisplay(faroProject);
 		}
+
+		User user = getUser();
+
+		_provisioningClient.addCorpProjectUsers(
+			faroProject.getCorpProjectUuid(),
+			new String[] {user.getUserUuid()});
+
+		_provisioningClient.addUserCorpProjectRoles(
+			faroProject.getCorpProjectUuid(), new String[] {user.getUserUuid()},
+			CorpProjectConstants.ROLE_OWNER);
 
 		faroProject.setState(FaroProjectConstants.STATE_NOT_READY);
 
