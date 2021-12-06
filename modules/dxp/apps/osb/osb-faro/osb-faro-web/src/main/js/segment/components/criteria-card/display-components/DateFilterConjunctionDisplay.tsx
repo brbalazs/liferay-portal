@@ -1,15 +1,15 @@
 import React from 'react';
-import {Criterion} from 'contacts/components/segment-editor/dynamic/utils/types';
+import {Criterion} from 'segment/segment-editor/dynamic/utils/types';
 import {
 	EVER,
 	FunctionalOperators,
 	INPUT_DATE_FORMAT,
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {formatUTCDate} from 'shared/util/date';
-import {getInitialConjunction} from 'contacts/components/segment-editor/dynamic/inputs/components/DateFilterConjunctionInput';
-import {getTimePeriodLabel} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+import {getInitialConjunction} from 'segment/segment-editor/dynamic/inputs/components/DateFilterConjunctionInput';
+import {getTimePeriodLabel} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {sub} from 'shared/util/lang';
 
 const formatDate = (date: string): string =>

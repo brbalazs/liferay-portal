@@ -1,9 +1,9 @@
-import CompositionCard from 'contacts/components/segment/CompositionCard';
-import CriteriaCard from 'contacts/components/segment/criteria-card';
+import CompositionCard from 'segment/components/CompositionCard';
+import CriteriaCard from 'segment/components/criteria-card';
 import DistributionCard from 'contacts/hoc/segment/DistributionCard';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React, {useCallback, useEffect, useRef} from 'react';
-import SegmentProfileCard from 'contacts/components/segment/ProfileCard';
+import SegmentProfileCard from 'segment/components/ProfileCard';
 import {connect, ConnectedProps} from 'react-redux';
 import {debounce} from 'lodash';
 import {GROWTH} from 'shared/util/router';

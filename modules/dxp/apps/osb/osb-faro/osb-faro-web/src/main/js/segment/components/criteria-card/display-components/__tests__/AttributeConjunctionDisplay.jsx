@@ -6,8 +6,8 @@ import {
 	FunctionalOperators,
 	NotOperators,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
-import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/utils/constants';
+import {ReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {render} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import {CustomValue} from 'shared/util/records';
-import {getPropertyValue} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+import {getPropertyValue} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {IDisplayComponentProps} from '../types';
-import {INTEREST_BOOLEAN_OPTIONS} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {INTEREST_BOOLEAN_OPTIONS} from 'segment/segment-editor/dynamic/utils/constants';
 import {maybeFormatValue} from '../utils';
 
 const InterestDisplay: React.FC<IDisplayComponentProps> = ({

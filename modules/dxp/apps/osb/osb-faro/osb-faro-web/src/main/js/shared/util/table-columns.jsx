@@ -5,7 +5,7 @@ import InfoPopover from 'shared/components/InfoPopover';
 import Label from 'shared/components/Label';
 import moment from 'moment';
 import React from 'react';
-import SegmentSticker from 'contacts/components/segment/SegmentSticker';
+import SegmentSticker from 'segment/components/SegmentSticker';
 import TextTruncate from 'shared/components/TextTruncate';
 import {
 	AccountNames,

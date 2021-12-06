@@ -1,7 +1,7 @@
 import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import sendRequest from 'shared/util/request';
-import {escapeSingleQuotes} from 'contacts/components/segment-editor/dynamic/utils/odata';
+import {escapeSingleQuotes} from 'segment/segment-editor/dynamic/utils/odata';
 import {RESTParams} from 'shared/types';
 
 const {cur: defaultCur, delta: defaultDelta} = FaroConstants.pagination;

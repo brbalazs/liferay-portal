@@ -4,15 +4,15 @@ import React from 'react';
 import ReferencedEntityDisplay from './ReferencedEntityDisplay';
 import {ASSET_TYPE_LANG_MAP} from 'shared/util/lang';
 import {CustomValue} from 'shared/util/records';
-import {EntityType} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {EntityType} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {
 	getFilterCriterionIMap,
 	getPropertyValue
-} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {getOperatorLabel, maybeFormatToKnownType} from '../utils';
 import {IDisplayComponentProps} from '../types';
 import {Map} from 'immutable';
-import {parseActivityKey} from 'contacts/components/segment-editor/dynamic/utils/utils';
+import {parseActivityKey} from 'segment/segment-editor/dynamic/utils/utils';
 
 const BehaviorDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,

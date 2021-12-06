@@ -22,7 +22,7 @@ import {AttributeTypes} from 'event-analysis/utils/types';
 import {
 	Conjunctions,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {fromJS, List, Map} from 'immutable';
 import {getISODate} from 'shared/util/date';
 import {isArray, range, times} from 'lodash';

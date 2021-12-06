@@ -1,14 +1,14 @@
 import React from 'react';
 import ReferencedEntityDisplay from './ReferencedEntityDisplay';
-import {ENTITY_MAP} from 'contacts/components/segment-editor/dynamic/inputs/IndividualSelectInput';
+import {ENTITY_MAP} from 'segment/segment-editor/dynamic/inputs/IndividualSelectInput';
 import {
 	getOperatorLabel,
 	maybeFormatToKnownType,
 	maybeFormatValue
 } from '../utils';
 import {IDisplayComponentProps} from '../types';
-import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {isOfKnownType} from 'segment/segment-editor/dynamic/utils/utils';
+import {PropertyTypes} from 'segment/segment-editor/dynamic/utils/constants';
 
 const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,

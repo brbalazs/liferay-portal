@@ -23,19 +23,15 @@ const NoPropertiesAvailable = lazy(() =>
 
 /* Segments */
 const SegmentsList = lazy(() =>
-	import(
-		/* webpackChunkName: "SegmentsList" */ '../../contacts/pages/segment/List'
-	)
+	import(/* webpackChunkName: "SegmentsList" */ '../../segment/pages/List')
 );
 const SegmentProfileRoutes = lazy(() =>
 	import(
-		/* webpackChunkName: "SegmentProfileRoutes" */ '../../contacts/pages/segment/ProfileRoutes'
+		/* webpackChunkName: "SegmentProfileRoutes" */ '../../segment/pages/ProfileRoutes'
 	)
 );
 const SegmentEdit = lazy(() =>
-	import(
-		/* webpackChunkName: "SegmentEdit" */ '../../contacts/pages/segment/Edit'
-	)
+	import(/* webpackChunkName: "SegmentEdit" */ '../../segment/pages/Edit')
 );
 
 /* Accounts */

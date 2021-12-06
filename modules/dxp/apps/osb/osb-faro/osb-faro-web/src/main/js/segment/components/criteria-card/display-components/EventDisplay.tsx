@@ -2,7 +2,7 @@ import AttributeConjunctionDisplay from './AttributeConjunctionDisplay';
 import DateFilterConjunctionDisplay from './DateFilterConjunctionDisplay';
 import OccurenceConjunctionDisplay from './OccurenceConjunctionDisplay';
 import React from 'react';
-import {getFilterCriterionIMap} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+import {getFilterCriterionIMap} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {getOperatorLabel, maybeFormatToKnownType} from '../utils';
 import {IDisplayComponentProps} from '../types';
 import {Map} from 'immutable';

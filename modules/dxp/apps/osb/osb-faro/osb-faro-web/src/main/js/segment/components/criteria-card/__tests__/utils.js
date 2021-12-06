@@ -6,7 +6,7 @@ import {
 	isUnknown,
 	PropertyTypes,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 
 const {ActivitiesFilterByCount} = CustomFunctionOperators;
 

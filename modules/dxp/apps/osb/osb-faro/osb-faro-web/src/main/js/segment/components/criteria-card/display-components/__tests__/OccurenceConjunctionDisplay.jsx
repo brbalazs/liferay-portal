@@ -1,6 +1,6 @@
 import OccurenceConjunctionDisplay from '../OccurenceConjunctionDisplay';
 import React from 'react';
-import {RelationalOperators} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {RelationalOperators} from 'segment/segment-editor/dynamic/utils/constants';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');

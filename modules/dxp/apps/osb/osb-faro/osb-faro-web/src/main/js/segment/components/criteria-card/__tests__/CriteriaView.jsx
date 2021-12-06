@@ -3,7 +3,7 @@ import CriteriaView from '../CriteriaView';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
-import {withReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {withReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 jest.unmock('react-dom');
 

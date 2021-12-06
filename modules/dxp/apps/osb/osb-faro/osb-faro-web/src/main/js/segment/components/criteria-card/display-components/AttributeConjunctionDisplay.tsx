@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import {BOOLEAN_LABELS_MAP} from 'event-analysis/utils/utils';
-import {Criterion} from 'contacts/components/segment-editor/dynamic/utils/types';
+import {Criterion} from 'segment/segment-editor/dynamic/utils/types';
 import {DataTypes} from 'event-analysis/utils/types';
 import {
 	EntityType,
 	ReferencedObjectsContext
-} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {formatTime} from 'shared/util/time';
 import {formatUTCDate} from 'shared/util/date';
-import {FunctionalOperators} from 'contacts/components/segment-editor/dynamic/utils/constants';
-import {getOperatorOptions} from 'contacts/components/segment-editor/dynamic/inputs/components/attribute-conjunction-input/utils';
+import {FunctionalOperators} from 'segment/segment-editor/dynamic/utils/constants';
+import {getOperatorOptions} from 'segment/segment-editor/dynamic/inputs/components/attribute-conjunction-input/utils';
 
 interface IAttributeConjunctionDisplayProps {
 	conjunctionCriterion: Criterion;

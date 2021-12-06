@@ -1,8 +1,8 @@
 import DisplayComponent from './display-components';
 import React, {Fragment} from 'react';
-import {Criteria} from 'contacts/components/segment-editor/dynamic/utils/types';
-import {findPropertyByCriterion} from 'contacts/components/segment-editor/dynamic/utils/utils';
-import {ReferencedObjectsContext} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {Criteria} from 'segment/segment-editor/dynamic/utils/types';
+import {findPropertyByCriterion} from 'segment/segment-editor/dynamic/utils/utils';
+import {ReferencedObjectsContext} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 interface ICriteriaViewProps extends React.HTMLAttributes<HTMLDivElement> {
 	criteria: Criteria;

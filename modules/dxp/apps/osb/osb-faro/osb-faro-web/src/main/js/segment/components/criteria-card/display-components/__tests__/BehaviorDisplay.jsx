@@ -7,10 +7,10 @@ import {
 	PropertyTypes,
 	RelationalOperators,
 	TimeSpans
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property, Segment} from 'shared/util/records';
-import {withReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {withReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 jest.unmock('react-dom');
 

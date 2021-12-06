@@ -1,4 +1,4 @@
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {PropertyTypes} from 'segment/segment-editor/dynamic/utils/constants';
 import {Record} from 'immutable';
 
 interface IProperty {

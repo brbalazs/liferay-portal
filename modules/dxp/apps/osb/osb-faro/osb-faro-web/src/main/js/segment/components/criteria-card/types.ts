@@ -1,4 +1,4 @@
-import {Criterion} from 'contacts/components/segment-editor/dynamic/utils/types';
+import {Criterion} from 'segment/segment-editor/dynamic/utils/types';
 import {Map} from 'immutable';
 import {Property} from 'shared/util/records';
 

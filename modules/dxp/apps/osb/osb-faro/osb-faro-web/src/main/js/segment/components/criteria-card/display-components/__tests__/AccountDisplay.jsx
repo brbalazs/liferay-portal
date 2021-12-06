@@ -5,7 +5,7 @@ import {
 	CustomFunctionOperators,
 	PropertyTypes,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
 import {render} from '@testing-library/react';

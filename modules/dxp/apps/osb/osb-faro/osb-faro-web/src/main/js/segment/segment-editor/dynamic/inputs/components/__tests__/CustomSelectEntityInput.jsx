@@ -7,7 +7,7 @@ import {createCustomValueMap} from '../../../utils/custom-inputs';
 import {
 	EntityType,
 	ReferencedObjectsProvider
-} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {Property, Segment} from 'shared/util/records';
 import {Provider} from 'react-redux';
 

@@ -5,7 +5,7 @@ import {cleanup, render} from '@testing-library/react';
 import {
 	EntityType,
 	ReferencedObjectsProvider
-} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {Segment} from 'shared/util/records';
 
 jest.unmock('react-dom');

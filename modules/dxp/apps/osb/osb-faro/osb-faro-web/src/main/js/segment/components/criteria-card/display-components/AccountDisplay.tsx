@@ -3,14 +3,14 @@ import {CustomValue} from 'shared/util/records';
 import {
 	getOperator,
 	getPropertyValue
-} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {
 	getOperatorLabel,
 	maybeFormatToKnownType,
 	maybeFormatValue
 } from '../utils';
 import {IDisplayComponentProps} from '../types';
-import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
+import {isOfKnownType} from 'segment/segment-editor/dynamic/utils/utils';
 
 const AccountDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,

@@ -1,7 +1,7 @@
 import * as API from 'shared/api';
 import Card from 'shared/components/Card';
 import React from 'react';
-import SegmentGrowthWithList from 'contacts/components/segment/Growth';
+import SegmentGrowthWithList from 'segment/components/Growth';
 import {connect} from 'react-redux';
 import {mapGrowthHistory} from 'shared/hoc/mappers/segment';
 import {PropTypes} from 'prop-types';

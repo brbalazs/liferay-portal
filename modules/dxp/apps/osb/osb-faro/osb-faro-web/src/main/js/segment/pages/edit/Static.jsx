@@ -5,7 +5,7 @@ import Form, {validateRequired} from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import Promise from 'metal-promise';
 import React from 'react';
-import SegmentEditStatic from 'contacts/components/segment-editor/static/SegmentEditStatic';
+import SegmentEditStatic from 'segment/segment-editor/static/SegmentEditStatic';
 import Sheet from 'shared/components/Sheet';
 import withBaseEdit from 'contacts/hoc/segment/WithBaseEdit';
 import {Changeset} from 'shared/util/records';

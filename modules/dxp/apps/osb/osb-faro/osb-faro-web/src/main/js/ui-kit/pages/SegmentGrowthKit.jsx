@@ -1,4 +1,4 @@
-import Growth from 'contacts/components/segment/Growth';
+import Growth from 'segment/components/Growth';
 import React from 'react';
 import {mockSegment} from 'test/data';
 import {Segment} from 'shared/util/records';

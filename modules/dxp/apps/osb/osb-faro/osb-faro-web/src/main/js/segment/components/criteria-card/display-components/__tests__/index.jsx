@@ -3,7 +3,7 @@ import DisplayComponent from '../index';
 import React from 'react';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
-import {RelationalOperators} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {RelationalOperators} from 'segment/segment-editor/dynamic/utils/constants';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');

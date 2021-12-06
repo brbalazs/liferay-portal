@@ -7,7 +7,7 @@ import {
 	PropertyTypes,
 	RelationalOperators,
 	TimeSpans
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
 

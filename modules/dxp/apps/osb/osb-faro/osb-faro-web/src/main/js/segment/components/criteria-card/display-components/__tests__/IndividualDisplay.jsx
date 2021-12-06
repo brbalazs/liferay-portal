@@ -6,8 +6,8 @@ import {Property, Segment} from 'shared/util/records';
 import {
 	PropertyTypes,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
-import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/utils/constants';
+import {ReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 jest.unmock('react-dom');
 

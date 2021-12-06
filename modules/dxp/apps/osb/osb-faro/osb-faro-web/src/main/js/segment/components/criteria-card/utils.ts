@@ -10,7 +10,7 @@ import {
 	PropertyTypes,
 	RelationalOperators,
 	SUPPORTED_OPERATORS_MAP
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 
 export function getOperatorLabel(
 	operatorKey: string,

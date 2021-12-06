@@ -5,7 +5,7 @@ import {
 	FunctionalOperators,
 	RelationalOperators,
 	TimeSpans
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 
 jest.unmock('react-dom');
 

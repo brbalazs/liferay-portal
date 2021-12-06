@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {
 	buildQueryString,
 	translateQueryToCriteria
-} from 'contacts/components/segment-editor/dynamic/utils/odata';
+} from 'segment/segment-editor/dynamic/utils/odata';
 
 export default () => {
 	const [code, setCode] = useState(

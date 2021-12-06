@@ -2,7 +2,7 @@ import FaroConstants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
 import {ACCOUNTS} from 'shared/util/router';
 import {buildOrderByFields} from 'shared/util/pagination';
-import {escapeSingleQuotes} from 'contacts/components/segment-editor/dynamic/utils/odata';
+import {escapeSingleQuotes} from 'segment/segment-editor/dynamic/utils/odata';
 
 const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}

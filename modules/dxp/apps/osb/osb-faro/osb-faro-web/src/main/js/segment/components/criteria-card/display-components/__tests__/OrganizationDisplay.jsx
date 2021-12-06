@@ -2,16 +2,16 @@ import * as data from 'test/data';
 import OrganizationDisplay from '../OrganizationDisplay';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
-import {createCustomValueMap} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+import {createCustomValueMap} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {
 	CustomFunctionOperators,
 	FunctionalOperators,
 	isKnown,
 	PropertyTypes,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {Property, Segment} from 'shared/util/records';
-import {ReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {ReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 jest.unmock('react-dom');
 

@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import {Segment} from 'shared/util/records';
 import {SegmentStates} from 'shared/util/constants';
 
-jest.mock('contacts/components/segment-editor/dynamic/criteria-sidebar/index');
+jest.mock('segment/segment-editor/dynamic/criteria-sidebar/index');
 
 jest.unmock('react-dom');
 

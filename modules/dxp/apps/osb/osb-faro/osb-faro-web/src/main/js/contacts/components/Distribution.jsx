@@ -37,7 +37,7 @@ import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
 	Conjunctions,
 	RelationalOperators
-} from 'contacts/components/segment-editor/dynamic/utils/constants';
+} from 'segment/segment-editor/dynamic/utils/constants';
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';

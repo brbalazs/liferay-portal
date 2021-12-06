@@ -6,16 +6,16 @@ import {
 	getIndexFromPropertyName,
 	getOperator,
 	getPropertyValue
-} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {
 	getOperatorLabel,
 	maybeFormatToKnownType,
 	maybeFormatValue
 } from '../utils';
 import {IDisplayComponentProps} from '../types';
-import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
+import {isOfKnownType} from 'segment/segment-editor/dynamic/utils/utils';
 import {Map} from 'immutable';
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {PropertyTypes} from 'segment/segment-editor/dynamic/utils/constants';
 
 const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,

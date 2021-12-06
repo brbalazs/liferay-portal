@@ -1,18 +1,18 @@
 import React from 'react';
 import ReferencedEntityDisplay from './ReferencedEntityDisplay';
-import {EntityType} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {EntityType} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {
 	getOperator,
 	getPropertyValue
-} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
+} from 'segment/segment-editor/dynamic/utils/custom-inputs';
 import {
 	getOperatorLabel,
 	maybeFormatToKnownType,
 	maybeFormatValue
 } from '../utils';
 import {ICustomDisplayComponentProps} from '../types';
-import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/utils';
-import {PropertyTypes} from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {isOfKnownType} from 'segment/segment-editor/dynamic/utils/utils';
+import {PropertyTypes} from 'segment/segment-editor/dynamic/utils/constants';
 
 const OrganizationDisplay: React.FC<ICustomDisplayComponentProps> = ({
 	criterion,

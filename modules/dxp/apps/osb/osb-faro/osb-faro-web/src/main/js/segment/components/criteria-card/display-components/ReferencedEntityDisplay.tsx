@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {
 	EntityType,
 	ReferencedObjectsContext
-} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+} from 'segment/segment-editor/dynamic/context/referencedObjects';
 import {sub} from 'shared/util/lang';
 
 const ReferencedEntity: React.FC<{

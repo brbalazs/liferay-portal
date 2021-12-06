@@ -6,8 +6,8 @@ import getCN from 'classnames';
 import Label from 'shared/components/Label';
 import React from 'react';
 import {Segment} from 'shared/util/records';
-import {translateQueryToCriteria} from 'contacts/components/segment-editor/dynamic/utils/odata';
-import {withReferencedObjectsProvider} from 'contacts/components/segment-editor/dynamic/context/referencedObjects';
+import {translateQueryToCriteria} from 'segment/segment-editor/dynamic/utils/odata';
+import {withReferencedObjectsProvider} from 'segment/segment-editor/dynamic/context/referencedObjects';
 
 const HEADER_MARGIN = 16;
 

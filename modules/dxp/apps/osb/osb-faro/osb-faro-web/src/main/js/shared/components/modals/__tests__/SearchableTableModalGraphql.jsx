@@ -1,4 +1,4 @@
-import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
+import OrganizationsQuery from 'segment/segment-editor/dynamic/queries/OrganizationsQuery';
 import React from 'react';
 import SearchableTableModalGraphql from '../SearchableTableModalGraphql';
 import {cleanup, render} from '@testing-library/react';
@@ -6,7 +6,7 @@ import {createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
 	mapPropsToOptions
-} from 'contacts/components/segment-editor/dynamic/mappers/dxp-entity-bag-mapper';
+} from 'segment/segment-editor/dynamic/mappers/dxp-entity-bag-mapper';
 import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockOrganizationsListReq} from 'test/graphql-data';

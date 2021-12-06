@@ -1,4 +1,4 @@
-import BaseInterestDetails from '../BaseInterestDetails';
+import BaseInterestDetails from 'contacts/pages/BaseInterestDetails';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Routes} from 'shared/util/router';
