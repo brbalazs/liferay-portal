@@ -86,6 +86,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	const activityResponse = useQuery<EventMetricsData, EventMetricsVariables>(
 		EventMetricQuery,
 		{
+			fetchPolicy: 'network-only',
 			variables: {
 				channelId,
 				entityId,
@@ -144,6 +145,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	const sessionsResponse = useQuery<UserSessionData, UserSessionVariables>(
 		UserSessionQuery,
 		{
+			fetchPolicy: 'network-only',
 			variables: {
 				...getDateRange(rangeSelectors),
 				channelId,
