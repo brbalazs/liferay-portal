@@ -157,26 +157,4 @@ describe('time', () => {
 			}
 		);
 	});
-
-	describe('formatTimezoneOffset', () => {
-		it.each`
-			offset    | retVal
-			${0}      | ${'+00:00'}
-			${-7}     | ${'+07:00'}
-			${-10.25} | ${'+10:15'}
-			${-10.5}  | ${'+10:30'}
-			${-10.75} | ${'+10:45'}
-			${7}      | ${'-07:00'}
-			${10.25}  | ${'-10:15'}
-			${10.5}   | ${'-10:30'}
-			${10.75}  | ${'-10:45'}
-			${12}     | ${'-12:00'}
-			${-12}    | ${'+12:00'}
-		`(
-			'return $retVal when formatting $offset to GMT format',
-			({offset, retVal}) => {
-				expect(time.formatTimezoneOffset(offset)).toBe(retVal);
-			}
-		);
-	});
 });

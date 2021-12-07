@@ -80,22 +80,6 @@ export function getLargestNaturalUnit(
 	return unit;
 }
 
-export function formatTimezoneOffset(offset: number): string {
-	const sign = Math.sign(offset) > 0 ? '-' : '+';
-
-	const fractionalMinutes = Math.abs(offset % 1);
-
-	const hourFormatted = `${sign}${String(
-		Math.abs(Math.trunc(offset))
-	).padStart(2, '0')}`;
-
-	if (fractionalMinutes) {
-		return `${hourFormatted}:${60 * fractionalMinutes}`;
-	}
-
-	return `${hourFormatted}:00`;
-}
-
 export function getUnitLabel(unit: number): string {
 	return UNIT_LABELS[unit];
 }
