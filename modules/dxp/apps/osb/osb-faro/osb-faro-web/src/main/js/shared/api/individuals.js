@@ -5,8 +5,8 @@ import {
 	createOrderIOMap,
 	NAME
 } from 'shared/util/pagination';
-import {INDIVIDUALS} from 'shared/util/router';
 import {escapeSingleQuotes} from 'segment/segment-editor/dynamic/utils/odata';
+import {INDIVIDUALS} from 'shared/util/router';
 
 const {
 	pagination: {cur: DEFAULT_PAGE, delta: DEFAULT_DELTA}
