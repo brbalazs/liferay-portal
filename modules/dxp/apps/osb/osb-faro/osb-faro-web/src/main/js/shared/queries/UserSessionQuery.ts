@@ -1,5 +1,5 @@
 import {gql} from 'apollo-boost';
-import {RangeKeyTimeRanges, SessionEntityTypes} from 'shared/util/constants';
+import {SessionEntityTypes} from 'shared/util/constants';
 
 export interface UserSessionEvent {
 	canonicalUrl: string;
@@ -41,7 +41,7 @@ export interface UserSessionVariables {
 	keywords?: string;
 	page: number;
 	rangeEnd?: string;
-	rangeKey?: RangeKeyTimeRanges;
+	rangeKey?: number;
 	rangeStart?: string;
 	size: number;
 }

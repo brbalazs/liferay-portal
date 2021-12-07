@@ -1,7 +1,6 @@
 import ActivitiesChart from 'contacts/components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import client from 'shared/apollo/client';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import EventMetricQuery, {
@@ -10,14 +9,15 @@ import EventMetricQuery, {
 } from 'shared/queries/EventMetricQuery';
 import IntervalSelector from 'shared/components/IntervalSelector';
 import moment from 'moment';
-import React, {useCallback, useState} from 'react';
-import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
+import React, {useState} from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import UserSessionQuery, {
 	UserSessionData,
 	UserSessionVariables
 } from 'shared/queries/UserSessionQuery';
 import useSelectedPoint from 'shared/hooks/useSelectedPoint';
+import VerticalTimeline from 'shared/components/VerticalTimeline';
+import {compose, withPaginationBar} from 'shared/hoc';
 import {
 	FORMAT,
 	formatUTCDate,
@@ -25,27 +25,32 @@ import {
 	getDateRangeLabelFromDate,
 	getEndDate
 } from 'shared/util/date';
-import {
-	formatSessions,
-	getActivityLabel,
-	VerticalTimelineHeader,
-	VerticalTimelineSession
-} from 'shared/util/activities';
+import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {Individual} from 'shared/util/records';
 import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
-import {isNil, omit} from 'lodash';
-import {RangeKeyTimeRanges, SessionEntityTypes} from 'shared/util/constants';
+import {isNil} from 'lodash';
+import {mapListResultsToProps} from 'shared/util/mappers';
+import {SessionEntityTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
-import {useRequest} from 'shared/hooks';
+import {useQuery} from '@apollo/react-hooks';
 import {useStatefulPagination} from 'shared/hooks';
-import {WrapSafeResults} from 'shared/hoc/util';
+import {withEmpty} from 'cerebro-shared/hocs/utils';
+import {withError, withLoading, WrapSafeResults} from 'shared/hoc/util';
+
+const DEFAULT_SESSIONS_DELTA = 50;
+
+const PaginatedVerticalTimeline = compose<any>(
+	withPaginationBar(),
+	withLoading(),
+	withError({page: false}),
+	withEmpty()
+)(VerticalTimeline);
 
 interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
 	entity: Individual;
-	groupId: string;
 	interval: Interval;
 	onChangeInterval: (interval: Interval) => void;
 	onRangeSelectorsChange: (rangeSelectors: RangeSelectors) => void;
@@ -54,14 +59,9 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	timeZoneId: string;
 }
 
-const mapPropsFn = props => omit(props, 'onSearchValueChange');
-
-const DEFAULT_SESSIONS_DELTA = 50;
-
 const ProfileCard: React.FC<IProfileCardProps> = ({
 	channelId,
 	entity: {id: entityId},
-	groupId,
 	interval,
 	onChangeInterval,
 	onRangeSelectorsChange,
@@ -76,76 +76,53 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		page,
 		query,
 		resetPage
-	} = useStatefulPagination(mapPropsFn, {
+	} = useStatefulPagination(null, {
 		initialDelta: DEFAULT_SESSIONS_DELTA
 	});
+
 	const {hasSelectedPoint, onPointSelect, selectedPoint} = useSelectedPoint();
 	const [searchValue, setSearchValue] = useState<string>('');
 
-	const getHistory = ({
-		channelId,
-		contactsEntityId,
-		contactsEntityType,
-		interval,
-		query,
-		rangeEnd,
-		rangeKey,
-		rangeStart
-	}): Promise<{
-		activityCount: number;
-		activityHistory: {
-			intervalInitDate: number;
-			totalEvents: number;
-			totalSessions: number;
-		}[];
-	}> =>
-		client
-			.query<EventMetricsData, EventMetricsVariables>({
-				query: EventMetricQuery,
-				variables: {
-					channelId,
-					entityId: contactsEntityId,
-					entityType: contactsEntityType,
-					interval,
-					keywords: query,
-					rangeEnd,
-					rangeKey,
-					rangeStart
-				}
-			})
-			.then(({data: {eventMetric}}) => ({
-				activityCount: eventMetric.totalEventsMetric?.value,
-				activityHistory: eventMetric.totalEventsMetric.histogram.metrics?.map(
-					({key, value}, index) => ({
-						intervalInitDate: moment.utc(key).valueOf(),
-						totalEvents: value,
-						totalSessions:
-							eventMetric.totalSessionsMetric.histogram.metrics?.[
-								index
-							].value
-					})
-				)
-			}));
-
-	const {data: activityData, error, loading, refetch} = useRequest({
-		dataSourceFn: getHistory,
-		variables: {
-			channelId,
-			contactsEntityId: entityId,
-			contactsEntityType: SessionEntityTypes.Individual,
-			interval,
-			query,
-			...getSafeRangeSelectors(rangeSelectors)
+	const activityResponse = useQuery<EventMetricsData, EventMetricsVariables>(
+		EventMetricQuery,
+		{
+			variables: {
+				channelId,
+				entityId,
+				entityType: SessionEntityTypes.Individual,
+				interval,
+				keywords: query,
+				...getSafeRangeSelectors(rangeSelectors)
+			}
 		}
-	});
+	);
+
+	const {
+		error,
+		items: activityHistory,
+		loading,
+		refetch,
+		total: activityTotal
+	} = mapListResultsToProps(activityResponse, ({eventMetric}) => ({
+		items: eventMetric.totalEventsMetric.histogram.metrics?.map(
+			({key, value}, index: number) => ({
+				intervalInitDate: moment.utc(key).valueOf(),
+				totalEvents: value,
+				totalSessions:
+					eventMetric?.totalSessionsMetric?.histogram?.metrics?.[
+						index
+					].value
+			})
+		),
+		total: eventMetric.totalEventsMetric?.value
+	}));
 
 	const getDateRange = ({
 		rangeEnd,
 		rangeKey,
 		rangeStart
 	}: RangeSelectors): SafeRangeSelectors => {
-		const {intervalInitDate} =
-			activityData?.activityHistory[selectedPoint] || {};
+		const {intervalInitDate} = activityHistory[selectedPoint] || {};
 		const endDate = getEndDate(intervalInitDate, interval);
 
 		const hasSelectedDate = !isNil(endDate) && !isNil(intervalInitDate);
@@ -164,57 +141,19 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		);
 	};
 
-	const {rangeEnd, rangeKey, rangeStart} = getDateRange(rangeSelectors);
-
-	const getSessions = useCallback(
-		({
-			channelId,
-			contactsEntityId,
-			delta,
-			page,
-			query,
-			rangeEnd,
-			rangeKey,
-			rangeStart
-		}: {
-			channelId: string;
-			contactsEntityId: string;
-			delta: number;
-			page: number;
-			query: string;
-			rangeEnd: string;
-			rangeKey: RangeKeyTimeRanges;
-			rangeStart: string;
-		}): Promise<{
-			items: (VerticalTimelineHeader | VerticalTimelineSession)[];
-			total: number;
-		}> =>
-			client
-				.query<UserSessionData, UserSessionVariables>({
-					query: UserSessionQuery,
-					variables: {
-						channelId,
-						entityId: contactsEntityId,
-						entityType: SessionEntityTypes.Individual,
-						keywords: query,
-						page: page - 1,
-						rangeEnd,
-						rangeKey,
-						rangeStart,
-						size: delta
-					}
-				})
-				.then(
-					({
-						data: {
-							eventsByUserSessions: {totalEvents, userSessions}
-						}
-					}) => ({
-						items: formatSessions(userSessions),
-						total: totalEvents
-					})
-				),
-		[query, rangeEnd, rangeKey, rangeStart]
+	const sessionsResponse = useQuery<UserSessionData, UserSessionVariables>(
+		UserSessionQuery,
+		{
+			variables: {
+				...getDateRange(rangeSelectors),
+				channelId,
+				entityId,
+				entityType: SessionEntityTypes.Individual,
+				keywords: query,
+				page: page - 1,
+				size: delta
+			}
+		}
 	);
 
 	const handleChangeCustomRange = (rangeSelectors: RangeSelectors) => {
@@ -246,15 +185,11 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	const selected = hasSelectedPoint || selectedPoint;
 
 	const {intervalInitDate, totalEvents = 0} =
-		activityData?.activityHistory[selectedPoint] || {};
+		activityHistory[selectedPoint] || {};
 
 	const date = selected
 		? getDateRangeLabelFromDate(intervalInitDate, interval)
-		: getDateRangeLabel(
-				activityData?.activityHistory,
-				interval,
-				'intervalInitDate'
-		  );
+		: getDateRangeLabel(activityHistory, interval, 'intervalInitDate');
 
 	return (
 		<WrapSafeResults
@@ -297,7 +232,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 					<ActivitiesChart
 						alwaysShowSelectedTooltip
 						hasSelectedPoint={hasSelectedPoint}
-						history={activityData?.activityHistory}
+						history={activityHistory}
 						interval={interval}
 						onPointSelect={handleChartSelect}
 						rangeSelectors={rangeSelectors}
@@ -307,7 +242,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 					<div className='selected-info'>
 						<div className='activities-date d-flex align-items-baseline'>
 							<h4>
-								{activityData?.activityHistory?.length
+								{activityHistory?.length
 									? sub(
 											Liferay.Language.get(
 												'individuals-events-x'
@@ -336,7 +271,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 							{getActivityLabel(
 								(selected
 									? totalEvents
-									: activityData?.activityCount
+									: activityTotal
 								)?.toLocaleString()
 							)}
 						</div>
@@ -344,16 +279,14 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				</div>
 			</Card.Body>
 
-			<SearchableVerticalTimeline
-				dataSourceFn={getSessions}
-				dataSourceParams={{
-					channelId,
-					contactsEntityId: entityId,
-					groupId,
-					rangeEnd,
-					rangeKey,
-					rangeStart
-				}}
+			<PaginatedVerticalTimeline
+				{...mapListResultsToProps(
+					sessionsResponse,
+					({eventsByUserSessions: {totalEvents, userSessions}}) => ({
+						items: formatSessions(userSessions),
+						total: totalEvents
+					})
+				)}
 				delta={delta}
 				initialExpanded={false}
 				noResultsRenderer={() => (
@@ -373,11 +306,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				)}
 				onDeltaChange={onDeltaChange}
 				onPageChange={onPageChange}
-				onQueryChange={onQueryChange}
-				onSearchValueChange={handleQuery}
 				page={page}
-				query={query}
-				showSearch={false}
 				timeZoneId={timeZoneId}
 			/>
 		</WrapSafeResults>
