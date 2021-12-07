@@ -155,10 +155,11 @@ definition {
 	macro editTemplateStatusCP {
 		SiteTemplates.gotoSettingsCP(siteTemplateName = "${siteTemplateName}");
 
-		if (isSet(siteTemplateActiveEdit)) {
-			if ("${siteTemplateActiveEdit}" == "No") {
-				Uncheck.uncheckHiddenToggleSwitch(locator1 = "ToggleSwitch#ACTIVE");
-			}
+		if ("${siteTemplateActiveEdit}" == "No") {
+			Uncheck.uncheckHiddenToggleSwitch(locator1 = "ToggleSwitch#ACTIVE");
+		}
+		else {
+			Check.checkHiddenToggleSwitch(locator1 = "ToggleSwitch#ACTIVE");
 		}
 
 		Button.clickSave();
