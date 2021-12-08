@@ -1390,7 +1390,7 @@ definition {
 		Portlet.viewTitle(portletName = "testportlet");
 	}
 
-	@description = "This is a use case for LPS-82208."
+	@description = "This is a use case for LPS-82208 and LPS-89641."
 	@priority = "5"
 	test CannotDeleteStructureWithUsage {
 		JSONGroup.addGroup(groupName = "Test Site Name");
@@ -1428,6 +1428,20 @@ definition {
 		WebContentStructures.viewCP(
 			structureDescription = "WC Structure Description",
 			structureName = "WC Structure Name");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Copy",
+			rowEntry = "WC Structure Name");
+
+		PortletEntry.inputName(name = "WC Structure Name Copy");
+
+		AssertClick(
+			locator1 = "Button#COPY",
+			value1 = "Copy");
+
+		LexiconEntry.viewEntryName(rowEntry = "WC Structure Name");
+
+		LexiconEntry.viewEntryName(rowEntry = "WC Structure Name Copy");
 	}
 
 	@priority = "4"
