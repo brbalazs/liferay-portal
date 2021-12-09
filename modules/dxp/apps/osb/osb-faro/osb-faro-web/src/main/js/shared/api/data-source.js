@@ -63,6 +63,14 @@ export function fetchChannels({
 	});
 }
 
+export function fetchDataSourceId({groupId, token}) {
+	return sendRequest({
+		data: {token},
+		method: 'POST',
+		path: `contacts/${groupId}/data_source/data_source_id`
+	});
+}
+
 export function fetchDeletePreview({groupId, id}) {
 	return sendRequest({
 		method: 'GET',
