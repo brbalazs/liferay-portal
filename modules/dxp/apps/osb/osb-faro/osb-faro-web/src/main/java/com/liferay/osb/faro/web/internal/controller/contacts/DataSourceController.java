@@ -74,6 +74,8 @@ import com.liferay.osb.faro.web.internal.util.StreamUtil;
 import com.liferay.osb.faro.web.internal.util.TokenManager;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -397,6 +399,29 @@ public class DataSourceController extends BaseFaroController {
 			groupId,
 			contactsEngineClient.getDataSource(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId), id));
+	}
+
+	@Path("/data_source_id")
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
+	public String getDataSourceId(
+			@Context UriInfo uriInfo, @PathParam("groupId") long groupId,
+			@FormParam("token") String token)
+		throws Exception {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			new String(Base64.decode(token)));
+
+		String dataSourceId = _tokenManager.getDataSourceId(
+			jsonObject.getString("token"));
+
+		FaroProject faroProject =
+			faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
+		_tokenManager.clearToken(dataSourceId, faroProject.getFaroProjectId());
+
+		return dataSourceId;
 	}
 
 	@GET
