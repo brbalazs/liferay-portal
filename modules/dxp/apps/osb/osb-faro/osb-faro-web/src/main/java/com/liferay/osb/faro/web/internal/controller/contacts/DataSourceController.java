@@ -172,15 +172,17 @@ public class DataSourceController extends BaseFaroController {
 				dataSource.getId(), FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
 				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL,
 				FieldMappingConstants.getLiferayFieldMappingMaps());
+
+			_tokenManager.setDataSourceId(dataSource.getId(), token);
 		}
 		else {
 			dataSource = contactsEngineClient.patchDataSource(
 				faroProject, dataSourceId, new TokenCredentials(), getUserId(),
 				null, portalURL, new LiferayProvider(), null,
 				DataSource.Status.ACTIVE.toString());
-		}
 
-		_tokenManager.clearToken(token);
+			_tokenManager.clearToken(token);
+		}
 
 		Map<String, Object> properties = new HashMap<>();
 
