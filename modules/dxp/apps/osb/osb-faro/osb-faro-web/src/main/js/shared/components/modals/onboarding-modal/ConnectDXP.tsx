@@ -146,6 +146,17 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						// if it's an upgrade from oauth to token, we need to fetch the DataSource
 						if (dataSourceId) {
 							fetchDataSource({groupId, id: dataSourceId});
+						} else {
+							API.dataSource
+								.fetchDataSourceId({groupId, token: prevToken})
+								.then(newDataSourceId => {
+									if (newDataSourceId) {
+										fetchDataSource({
+											groupId,
+											id: newDataSourceId
+										});
+									}
+								});
 						}
 
 						getDataSources();
