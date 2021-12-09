@@ -76,18 +76,22 @@ const EventAnalysisListCard: React.FC = () => {
 		}
 	};
 
-	const renderRowActions = () => (
-		<RowActions
-			quickActions={[
-				{
-					iconSymbol: 'trash',
-					label: Liferay.Language.get('delete'),
-					// TODO: LRAC-9837 Add GraphQL mutation to delete event analysis
-					onClick: noop
-				}
-			]}
-		/>
-	);
+	const renderRowActions = () => {
+		if (selectedItems.isEmpty()) {
+			// TODO: LRAC-9837 Add GraphQL mutation to delete event analysis
+			return (
+				<RowActions
+					quickActions={[
+						{
+							iconSymbol: 'trash',
+							label: Liferay.Language.get('delete'),
+							onClick: noop
+						}
+					]}
+				/>
+			);
+		}
+	};
 
 	return (
 		<Card className='event-analysis-list-root' pageDisplay>
