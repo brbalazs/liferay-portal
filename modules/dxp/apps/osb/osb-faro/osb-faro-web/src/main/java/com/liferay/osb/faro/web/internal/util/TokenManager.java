@@ -81,6 +81,18 @@ public class TokenManager {
 			});
 	}
 
+	public void setDataSourceId(String dataSourceId, String token) {
+		if (!_tokens.containsValue(token)) {
+			return;
+		}
+
+		Long faroProjectId = getFaroProjectId(token);
+
+		clearToken(token);
+
+		_tokens.put(_getKey(dataSourceId, faroProjectId), token);
+	}
+
 	private String _getKey(String dataSourceId, long faroProjectId) {
 		return dataSourceId + StringPool.POUND + faroProjectId;
 	}
