@@ -411,7 +411,7 @@ public class DataSourceController extends BaseFaroController {
 		throws Exception {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			new String(Base64.decode(token)));
+			new String(Base64.decode(token), StandardCharsets.UTF_8));
 
 		String dataSourceId = _tokenManager.getDataSourceId(
 			jsonObject.getString("token"));
