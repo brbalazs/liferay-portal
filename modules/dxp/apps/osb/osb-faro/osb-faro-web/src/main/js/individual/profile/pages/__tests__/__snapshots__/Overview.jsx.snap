@@ -120,7 +120,7 @@ exports[`IndividualOverview should render 1`] = `
                 class="activities-date d-flex align-items-baseline"
               >
                 <h4>
-                  Individual's Events - August 3, 2021 - August 7, 2021
+                  Individual's Events - December 9, 2021 - December 10, 2021
                 </h4>
               </div>
               <div
@@ -128,44 +128,107 @@ exports[`IndividualOverview should render 1`] = `
               >
                 Events: 
                 <b>
-                  2,208
+                  0
                 </b>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="base-results-root d-flex flex-column flex-grow-1"
+          class="toolbar-root"
+        />
+        <div
+          class="vertical-timeline-root"
         >
-          <div
-            class="toolbar-root"
-          />
-          <div
-            class="vertical-timeline-root"
+          <ul
+            class="timeline timeline-center"
           >
-            <ul
-              class="timeline timeline-center"
+            <li
+              class="timeline-item header"
             >
-              <li
-                class="timeline-item header"
+              <div
+                class="timeline-panel"
               >
                 <div
-                  class="timeline-panel"
+                  class="timeline-panel-body"
                 >
                   <div
-                    class="timeline-panel-body"
+                    class="timeline-panel-body-content"
                   >
                     <div
-                      class="timeline-panel-body-content"
+                      class="timeline-panel-body-content-text"
+                    >
+                      <span
+                        class="title"
+                      >
+                        Dec 6, 2021
+                      </span>
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
+                        />
+                      </svg>
+                      <span
+                        class="item-count"
+                      >
+                        1
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li
+              class="timeline-item"
+            >
+              <div
+                class="timeline-panel"
+              >
+                <div
+                  class="timeline-panel-body"
+                >
+                  <div
+                    class="timeline-line"
+                  />
+                  <div
+                    class="timeline-increment"
+                  >
+                    <div
+                      class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+                    />
+                    <div
+                      class="timeline-item-label timeline-time-label label-root"
+                    >
+                      <span>
+                        5:01pm
+                      </span>
+                       - 
+                      <span>
+                        6:02pm
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="timeline-panel-body-content selectable"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="timeline-panel-body-content-text header"
+                    >
+                      <span
+                        class="title"
+                      />
+                    </div>
+                    <div
+                      class="timeline-panel-body-content-details"
                     >
                       <div
-                        class="timeline-panel-body-content-text"
+                        class="icon-group"
                       >
-                        <span
-                          class="title"
-                        >
-                          Aug 25, 2021
-                        </span>
                         <svg
                           class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
                           viewBox=""
@@ -177,1450 +240,26 @@ exports[`IndividualOverview should render 1`] = `
                         <span
                           class="item-count"
                         >
-                          12
+                          1
                         </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          8:00pm
-                        </span>
-                         - 
-                        <span>
-                          in progress
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
                         <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
+                          class="device-icon"
+                          data-tooltip="true"
+                          data-tooltip-align="bottom"
+                          title="Desktop
+Chrome"
                         >
                           <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
+                            class="icon-root lexicon-icon lexicon-icon-ac-display mainLighten28-color"
                             viewBox=""
                           >
                             <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-display"
                             />
                           </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Desktop
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-ac-display mainLighten28-color"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-display"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          12:00am
-                        </span>
-                         - 
-                        <span>
-                          8:00pm
                         </span>
                       </div>
                     </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
-                        <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
-                            />
-                          </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Mobile
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait mainLighten28-color"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#mobile-portrait"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          12:00am
-                        </span>
-                         - 
-                        <span>
-                          8:00pm
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
-                        <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
-                            />
-                          </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Tablet
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-ac-tablet-landscape mainLighten28-color"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-tablet-landscape"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          12:00am
-                        </span>
-                         - 
-                        <span>
-                          8:00pm
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
-                        <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
-                            />
-                          </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Mobile
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-mobile-portrait mainLighten28-color"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#mobile-portrait"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          12:00am
-                        </span>
-                         - 
-                        <span>
-                          8:00pm
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
-                        <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
-                            />
-                          </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Unknown Device
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-devices mainLighten65-color"
-                              id="anyIcon"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#devices"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="timeline-item"
-              >
-                <div
-                  class="timeline-panel"
-                >
-                  <div
-                    class="timeline-panel-body"
-                  >
-                    <div
-                      class="timeline-line"
-                    />
-                    <div
-                      class="timeline-increment"
-                    >
-                      <div
-                        class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                      />
-                      <div
-                        class="timeline-item-label timeline-time-label label-root"
-                      >
-                        <span>
-                          12:00am
-                        </span>
-                         - 
-                        <span>
-                          8:00pm
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class="timeline-panel-body-content selectable"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <div
-                        class="timeline-panel-body-content-text header"
-                      >
-                        <span
-                          class="title"
-                        />
-                      </div>
-                      <div
-                        class="timeline-panel-body-content-details"
-                      >
-                        <div
-                          class="icon-group"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-ac-event-icon event-icon"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-event-icon"
-                            />
-                          </svg>
-                          <span
-                            class="item-count"
-                          >
-                            2
-                          </span>
-                          <span
-                            class="device-icon"
-                            data-tooltip="true"
-                            data-tooltip-align="bottom"
-                            title="Unknown Device
-Firefox"
-                          >
-                            <svg
-                              class="icon-root lexicon-icon lexicon-icon-devices mainLighten65-color"
-                              id="anyIcon"
-                              viewBox=""
-                            >
-                              <use
-                                xlink:href="/o/osb-faro-web/dist/sprite.svg#devices"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    class="vertical-timeline-root"
-                  >
-                    <ul
-                      class="timeline timeline-center timeline-nested"
-                    >
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    pageViewed
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="timeline-item"
-                      >
-                        <div
-                          class="timeline-panel"
-                        >
-                          <div
-                            class="timeline-panel-body"
-                          >
-                            <div
-                              class="timeline-line"
-                            />
-                            <div
-                              class="timeline-increment"
-                            >
-                              <div
-                                class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
-                              />
-                              <div
-                                class="timeline-item-label timeline-time-label label-root"
-                              >
-                                8:17pm
-                              </div>
-                            </div>
-                            <div
-                              class="timeline-panel-body-content selectable"
-                              role="button"
-                              tabindex="0"
-                            >
-                              <div
-                                class="timeline-panel-body-content-text"
-                              >
-                                <span
-                                  class="title"
-                                >
-                                  <span
-                                    class="text-truncate"
-                                    data-tooltip="false"
-                                    title=""
-                                  >
-                                    tabBlurred
-                                  </span>
-                                </span>
-                                <span
-                                  class="description"
-                                >
-                                  Home - Liferay DXP
-                                </span>
-                                <span
-                                  class="text-truncate subtitle"
-                                  data-tooltip="false"
-                                  title=""
-                                >
-                                  http://localhost:8089/home
-                                </span>
-                              </div>
-                              <svg
-                                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                                viewBox=""
-                              >
-                                <use
-                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <nav
-            class="navbar navbar-root pagination-bar-root"
-          >
-            <div
-              class="container-fluid"
-            >
-              <div
-                aria-haspopup="true"
-                class="dropdown dropdown-root pagination-items-per-page"
-              >
-                <button
-                  class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
-                  type="button"
-                >
-                  <span
-                    class="text-truncate"
-                  >
-                    50 Items
-                  </span>
-                  
-                  <span
-                    class="caret-root"
-                  >
                     <svg
                       class="icon-root lexicon-icon lexicon-icon-caret-bottom"
                       viewBox=""
@@ -1629,67 +268,228 @@ Firefox"
                         xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                       />
                     </svg>
-                  </span>
-                </button>
-              </div>
-              <div
-                class="pagination-results"
-              >
-                Showing 1 to 4 of 4 entries.
-              </div>
-              <ul
-                class="pagination pagination-root"
-              >
-                <li
-                  class="page-item disabled"
+                  </div>
+                </div>
+                <div
+                  class="vertical-timeline-root"
                 >
-                  <button
-                    class="button-root btn btn-unstyled page-link"
-                    disabled=""
-                    type="button"
+                  <ul
+                    class="timeline timeline-center timeline-nested"
                   >
-                    <svg
-                      class="icon-root lexicon-icon lexicon-icon-angle-left"
-                      viewBox=""
+                    <li
+                      class="timeline-item"
                     >
-                      <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
-                      />
-                    </svg>
-                  </button>
-                </li>
-                <li
-                  class="page-item active"
-                >
-                  <button
-                    class="button-root btn btn-unstyled page-link"
-                    type="button"
-                  >
-                    1
-                  </button>
-                </li>
-                <li
-                  class="page-item disabled"
-                >
-                  <button
-                    class="button-root btn btn-unstyled page-link"
-                    disabled=""
-                    type="button"
-                  >
-                    <svg
-                      class="icon-root lexicon-icon lexicon-icon-angle-right"
-                      viewBox=""
-                    >
-                      <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
-                      />
-                    </svg>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </nav>
+                      <div
+                        class="timeline-panel"
+                      >
+                        <div
+                          class="timeline-panel-body"
+                        >
+                          <div
+                            class="timeline-line"
+                          />
+                          <div
+                            class="timeline-increment"
+                          >
+                            <div
+                              class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+                            />
+                            <div
+                              class="timeline-item-label timeline-time-label label-root"
+                            >
+                              5:28pm
+                            </div>
+                          </div>
+                          <div
+                            class="timeline-panel-body-content selectable"
+                            role="button"
+                            tabindex="0"
+                          >
+                            <div
+                              class="timeline-panel-body-content-text"
+                            >
+                              <span
+                                class="title"
+                              >
+                                <span
+                                  class="text-truncate"
+                                  data-tooltip="false"
+                                  title=""
+                                >
+                                  tabBlurred
+                                </span>
+                              </span>
+                              <span
+                                class="description"
+                              >
+                                Home - Liferay DXP
+                              </span>
+                              <span
+                                class="text-truncate subtitle"
+                                data-tooltip="false"
+                                title=""
+                              >
+                                http://localhost:8080
+                              </span>
+                            </div>
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
+        <nav
+          class="navbar navbar-root pagination-bar-root"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              aria-haspopup="true"
+              class="dropdown dropdown-root pagination-items-per-page"
+            >
+              <button
+                class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+                type="button"
+              >
+                <span
+                  class="text-truncate"
+                >
+                  50 Items
+                </span>
+                
+                <span
+                  class="caret-root"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <div
+              class="pagination-results"
+            >
+              Showing 1 to 50 of 14,314 entries.
+            </div>
+            <ul
+              class="pagination pagination-root"
+            >
+              <li
+                class="page-item disabled"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-angle-left"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
+                    />
+                  </svg>
+                </button>
+              </li>
+              <li
+                class="page-item active"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  type="button"
+                >
+                  1
+                </button>
+              </li>
+              <li
+                class="page-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  type="button"
+                >
+                  2
+                </button>
+              </li>
+              <li
+                class="page-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  type="button"
+                >
+                  3
+                </button>
+              </li>
+              <li
+                class="page-item"
+              >
+                <div
+                  aria-haspopup="true"
+                  class="dropdown dropdown-root"
+                >
+                  <button
+                    class="button-root btn btn-link dropdown-toggle page-link"
+                    type="button"
+                  >
+                    <span
+                      class="text-truncate"
+                    >
+                      ...
+                    </span>
+                    
+                  </button>
+                </div>
+              </li>
+              <li
+                class="page-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  type="button"
+                >
+                  287
+                </button>
+              </li>
+              <li
+                class="page-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled page-link"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-angle-right"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </div>
     <div
