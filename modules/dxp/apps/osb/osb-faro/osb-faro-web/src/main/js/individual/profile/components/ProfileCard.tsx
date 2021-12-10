@@ -11,6 +11,7 @@ import IntervalSelector from 'shared/components/IntervalSelector';
 import moment from 'moment';
 import React, {useState} from 'react';
 import SearchInput from 'shared/components/SearchInput';
+import Toolbar from 'shared/components/toolbar';
 import UserSessionQuery, {
 	UserSessionData,
 	UserSessionVariables
@@ -158,6 +159,14 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		}
 	);
 
+	const sessionsMappedResults = mapListResultsToProps(
+		sessionsResponse,
+		({eventsByUserSessions: {totalEvents, userSessions}}) => ({
+			items: formatSessions(userSessions),
+			total: totalEvents
+		})
+	);
+
 	const handleChangeCustomRange = (rangeSelectors: RangeSelectors) => {
 		onRangeSelectorsChange(rangeSelectors);
 		onPointSelect(null);
@@ -180,7 +189,6 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 
 	const handleQuery = (query: string) => {
 		onQueryChange(query);
-
 		setSearchValue(query);
 	};
 
@@ -281,14 +289,18 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				</div>
 			</Card.Body>
 
+			<Toolbar
+				onQueryChange={onQueryChange}
+				onSearchValueChange={handleQuery}
+				query={query}
+				searchValue={searchValue}
+				showCheckbox={false}
+				showSearch={false}
+				total={sessionsMappedResults.total}
+			/>
+
 			<PaginatedVerticalTimeline
-				{...mapListResultsToProps(
-					sessionsResponse,
-					({eventsByUserSessions: {totalEvents, userSessions}}) => ({
-						items: formatSessions(userSessions),
-						total: totalEvents
-					})
-				)}
+				{...sessionsMappedResults}
 				delta={delta}
 				initialExpanded={false}
 				noResultsRenderer={() => (
