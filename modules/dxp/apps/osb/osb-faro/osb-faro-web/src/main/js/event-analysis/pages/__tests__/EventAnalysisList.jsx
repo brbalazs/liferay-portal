@@ -1,6 +1,8 @@
-import EventAnalysis from '../EventAnalysis';
+import client from 'shared/apollo/client';
+import EventAnalysisList from '../EventAnalysisList';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-components';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
@@ -16,11 +18,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const WrappedComponent = () => (
-	<Provider store={mockStore()}>
-		<StaticRouter>
-			<EventAnalysis />
-		</StaticRouter>
-	</Provider>
+	<ApolloProvider client={client}>
+		<Provider store={mockStore()}>
+			<StaticRouter>
+				<EventAnalysisList />
+			</StaticRouter>
+		</Provider>
+	</ApolloProvider>
 );
 
 describe('Event Analysis', () => {
