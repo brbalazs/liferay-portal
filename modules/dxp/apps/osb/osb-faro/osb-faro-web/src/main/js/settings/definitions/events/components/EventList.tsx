@@ -214,31 +214,33 @@ const EventList: React.FC<IEventListProps> = ({
 			);
 	};
 
+	const authorized = currentUser.isAdmin();
+
 	const renderRowActions = ({data}: {data: Event}) => {
 		const {hidden} = data;
 
-		return (
-			<RowActions
-				quickActions={[
-					{
-						iconSymbol: hidden ? 'view' : 'ac-hidden',
-						label: hidden
-							? Liferay.Language.get('set-to-show')
-							: Liferay.Language.get('set-to-hide'),
-						onClick: () => {
-							const hideEventFn = hidden
-								? handleUnhideEvents
-								: handleHideEvents;
+		if (authorized && !selectedItems.size) {
+			return (
+				<RowActions
+					quickActions={[
+						{
+							iconSymbol: hidden ? 'view' : 'ac-hidden',
+							label: hidden
+								? Liferay.Language.get('set-to-show')
+								: Liferay.Language.get('set-to-hide'),
+							onClick: () => {
+								const hideEventFn = hidden
+									? handleUnhideEvents
+									: handleHideEvents;
 
-							hideEventFn([data]);
+								hideEventFn([data]);
+							}
 						}
-					}
-				]}
-			/>
-		);
+					]}
+				/>
+			);
+		}
 	};
-
-	const authorized = currentUser.isAdmin();
 
 	const hasUnhiddenEvent = (events: OrderedMap<string, Event>) =>
 		events.some(({hidden}) => !hidden);
@@ -299,9 +301,7 @@ const EventList: React.FC<IEventListProps> = ({
 					  )
 					: null
 			}
-			renderRowActions={
-				authorized && !selectedItems.size ? renderRowActions : null
-			}
+			renderRowActions={renderRowActions}
 			rowIdentifier='id'
 			showCheckbox={authorized}
 			showDropdownRangeKey={false}
