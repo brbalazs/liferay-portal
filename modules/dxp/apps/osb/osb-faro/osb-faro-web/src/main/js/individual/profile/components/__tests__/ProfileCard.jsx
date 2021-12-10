@@ -1,5 +1,4 @@
 import * as API from 'shared/api';
-import client from 'shared/apollo/client';
 import IndividualProfileCard from '../ProfileCard';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -9,45 +8,52 @@ import {
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import {Individual} from 'shared/util/records';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
-import {mockEventMetrics, mockIndividual, mockSessions} from 'test/data';
-import {mockTimeRangeReq} from 'test/graphql-data';
-import {StaticRouter} from 'react-router';
+import {
+	mockEventMetrics,
+	mockSessions,
+	mockTimeRangeReq
+} from 'test/graphql-data';
+import {mockIndividual} from 'test/data';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
-jest.mock('shared/apollo/client', () => ({
-	query: jest.fn()
-}));
-
-const DefaultComponent = props => (
-	<MockedProvider mocks={[mockTimeRangeReq()]}>
-		<StaticRouter>
-			<IndividualProfileCard
-				channelId='123123'
-				entity={new Individual(mockIndividual())}
-				groupId='23'
-				interval='D'
-				rangeSelectors={{rangeKey: 30}}
-				{...props}
-			/>
-		</StaticRouter>
-	</MockedProvider>
+const DefaultComponent = ({children}) => (
+	<MemoryRouter
+		initialEntries={[
+			'/workspace/23/123123/contacts/individuals/known-individuals/4423123123'
+		]}
+	>
+		<Route path={Routes.CONTACTS_INDIVIDUAL}>{children}</Route>
+	</MemoryRouter>
 );
 
 const inputValue = 'add to cart';
+const searchKeyword = {keywords: inputValue};
 
 describe('IndividualProfileCard', () => {
 	it('should render', async () => {
-		client.query
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValueOnce({
-				data: mockSessions()
-			});
-
-		const {container} = render(<DefaultComponent />);
+		const {container} = render(
+			<DefaultComponent>
+				<MockedProvider
+					mocks={[
+						mockEventMetrics(),
+						mockTimeRangeReq(),
+						mockSessions()
+					]}
+				>
+					<IndividualProfileCard
+						channelId='123123'
+						entity={new Individual(mockIndividual())}
+						groupId='23'
+						interval='D'
+						rangeSelectors={{rangeKey: 30}}
+					/>
+				</MockedProvider>
+			</DefaultComponent>
+		);
 
 		jest.runAllTimers();
 
@@ -59,28 +65,36 @@ describe('IndividualProfileCard', () => {
 	});
 
 	it('should clear search input when clear button is clicked', async () => {
-		client.query
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValueOnce({
-				data: mockSessions()
-			})
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValueOnce({
-				data: mockSessions()
-			})
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValue({
-				data: mockSessions()
-			});
-
 		const {container, getByPlaceholderText, getByText} = render(
-			<DefaultComponent />
+			<DefaultComponent>
+				<MockedProvider
+					mocks={[
+						mockEventMetrics(),
+						mockTimeRangeReq(),
+						mockSessions(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockEventMetrics(searchKeyword),
+						mockSessions(searchKeyword),
+						mockEventMetrics(searchKeyword),
+						mockSessions(searchKeyword),
+						mockEventMetrics(searchKeyword),
+						mockSessions(searchKeyword)
+					]}
+				>
+					<IndividualProfileCard
+						channelId='123123'
+						entity={new Individual(mockIndividual())}
+						groupId='23'
+						interval='D'
+						rangeSelectors={{rangeKey: 30}}
+					/>
+				</MockedProvider>
+			</DefaultComponent>
 		);
 
 		jest.runAllTimers();
@@ -100,10 +114,6 @@ describe('IndividualProfileCard', () => {
 		});
 
 		jest.runAllTimers();
-
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
 
 		expect(getByPlaceholderText('Search')).toHaveValue(inputValue);
 
@@ -111,35 +121,44 @@ describe('IndividualProfileCard', () => {
 
 		jest.runAllTimers();
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
-
 		expect(getByPlaceholderText('Search')).toHaveValue('');
 	});
 
 	it('should clear search input when X clear button is clicked', async () => {
-		client.query
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValueOnce({
-				data: mockSessions()
-			})
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValueOnce({
-				data: mockSessions()
-			})
-			.mockResolvedValueOnce({
-				data: mockEventMetrics()
-			})
-			.mockResolvedValue({
-				data: mockSessions()
-			});
-
-		const {container, getByPlaceholderText} = render(<DefaultComponent />);
+		const {container, getByPlaceholderText} = render(
+			<DefaultComponent>
+				<MockedProvider
+					mocks={[
+						mockEventMetrics(),
+						mockTimeRangeReq(),
+						mockSessions(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockTimeRangeReq(),
+						mockEventMetrics(),
+						mockSessions(),
+						mockTimeRangeReq(),
+						mockEventMetrics(searchKeyword),
+						mockTimeRangeReq(),
+						mockSessions(searchKeyword),
+						mockEventMetrics(searchKeyword),
+						mockSessions(searchKeyword),
+						mockEventMetrics(searchKeyword),
+						mockSessions(searchKeyword)
+					]}
+				>
+					<IndividualProfileCard
+						channelId='123123'
+						entity={new Individual(mockIndividual())}
+						groupId='23'
+						interval='D'
+						rangeSelectors={{rangeKey: 30}}
+					/>
+				</MockedProvider>
+			</DefaultComponent>
+		);
 
 		jest.runAllTimers();
 
@@ -159,19 +178,11 @@ describe('IndividualProfileCard', () => {
 
 		jest.runAllTimers();
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
-
 		expect(getByPlaceholderText('Search')).toHaveValue(inputValue);
 
 		fireEvent.click(container.querySelector('.lexicon-icon-times'));
 
 		jest.runAllTimers();
-
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
 
 		expect(getByPlaceholderText('Search')).toHaveValue('');
 	});
@@ -187,7 +198,21 @@ describe('IndividualProfileCard', () => {
 	});
 
 	it('should render w/ loading', () => {
-		const {container} = render(<DefaultComponent />);
+		const {container} = render(
+			<DefaultComponent>
+				<MockedProvider mocks={[]}>
+					<IndividualProfileCard
+						channelId='123123'
+						entity={new Individual(mockIndividual())}
+						groupId='23'
+						interval='D'
+						rangeSelectors={{rangeKey: 30}}
+					/>
+				</MockedProvider>
+			</DefaultComponent>
+		);
+
+		jest.runAllTimers();
 
 		expect(container.querySelector('.spinner-root')).toBeTruthy();
 	});
