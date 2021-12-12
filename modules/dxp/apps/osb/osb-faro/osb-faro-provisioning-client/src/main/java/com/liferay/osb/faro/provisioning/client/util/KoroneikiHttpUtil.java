@@ -149,6 +149,11 @@ public class KoroneikiHttpUtil {
 		return Collections.emptyList();
 	}
 
+	public static Contact postContact(Contact contact) throws Exception {
+		return _contactResource.postContact(
+			StringPool.BLANK, StringPool.BLANK, contact);
+	}
+
 	public static List<Account> searchAccounts(
 			String filter, int page, int size)
 		throws Exception {
