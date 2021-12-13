@@ -22,6 +22,7 @@ import {
 import {getPluralMessage, sub} from 'shared/util/lang';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {mapListResultsToProps} from 'shared/util/mappers';
+import {Modal} from 'shared/types';
 import {NameCell} from 'shared/components/table/cell-components';
 import {noop} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
