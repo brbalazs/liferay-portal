@@ -22,10 +22,14 @@ import com.liferay.osb.faro.provisioning.client.exception.NoSuchRoleException;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.util.KoroneikiHttpUtil;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -35,6 +39,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marcos Martins
@@ -58,8 +63,29 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 		Account account = _getCorpProjectAccount(corpProjectUuid);
 
 		for (String userUuid : userUuids) {
+			User user = _userLocalService.fetchUserByUuidAndCompanyId(
+				userUuid, _portal.getDefaultCompanyId());
+
+			if (user == null) {
+				continue;
+			}
+
+			Contact contact = KoroneikiHttpUtil.fetchtContact(
+				user.getEmailAddress());
+
+			if (contact == null) {
+				contact = new Contact();
+
+				contact.setEmailAddress(user.getEmailAddress());
+				contact.setFirstName(user.getFirstName());
+				contact.setLastName(user.getLastName());
+				contact.setUuid(userUuid);
+
+				contact = KoroneikiHttpUtil.postContact(contact);
+			}
+
 			KoroneikiHttpUtil.assignAccountContactRole(
-				account.getKey(), contactRole.getKey(), userUuid);
+				account.getKey(), contactRole.getKey(), contact.getUuid());
 		}
 	}
 
@@ -225,5 +251,11 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 
 		return account;
 	}
+
+	@Reference
+	private Portal _portal;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
