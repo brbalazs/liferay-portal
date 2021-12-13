@@ -9,7 +9,9 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
+import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'shared/hoc';
+import {connect, ConnectedProps} from 'react-redux';
 import {CreatedByCell} from 'shared/components/table/cell-components';
 import {
 	createOrderIOMap,
@@ -17,13 +19,12 @@ import {
 	NAME,
 	USER_NAME
 } from 'shared/util/pagination';
+import {getPluralMessage, sub} from 'shared/util/lang';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {NameCell} from 'shared/components/table/cell-components';
 import {noop} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
-
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 import {useQueryPagination, useQueryRangeSelectors} from 'shared/hooks';
@@ -32,7 +33,11 @@ import {
 	withSelectionProvider
 } from 'shared/context/selection';
 
-const EventAnalysisListCard: React.FC = () => {
+const connector = connect(null, {close, open});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const EventAnalysisListCard: React.FC<PropsFromRedux> = ({close, open}) => {
 	const {selectedItems} = useSelectionContext();
 
 	const {delta, orderIOMap, page, query} = useQueryPagination({
@@ -58,9 +63,50 @@ const EventAnalysisListCard: React.FC = () => {
 		}
 	});
 
+	const handleDeleteEventAnalysis = ids => {
+		open(modalTypes.CONFIRMATION_MODAL, {
+			message: (
+				<div>
+					<h4 className='text-secondary'>
+						{getPluralMessage(
+							Liferay.Language.get(
+								'are-you-sure-you-want-to-delete-this-analysis'
+							),
+							Liferay.Language.get(
+								'are-you-sure-you-want-to-delete-these-analyses'
+							),
+							ids.length
+						)}
+					</h4>
+
+					<p>
+						{getPluralMessage(
+							Liferay.Language.get(
+								'you-will-lose-all-data-related-to-this-analysis.-you-will-not-be-able-to-undo-this-operation'
+							),
+							Liferay.Language.get(
+								'you-will-lose-all-data-related-to-these-analyses.-you-will-not-be-able-to-undo-this-operation'
+							),
+							ids.length
+						)}
+					</p>
+				</div>
+			),
+			modalVariant: 'modal-warning',
+			onClose: close,
+			// TODO: LRAC-9837 Add GraphQL mutation to delete event analysis
+			onSubmit: noop,
+			submitButtonDisplay: 'warning',
+			submitMessage: Liferay.Language.get('delete'),
+			title: Liferay.Language.get('deleting-analysis'),
+			titleIcon: 'warning-full'
+		});
+	};
+
 	const renderNav = () => {
 		if (!selectedItems.isEmpty()) {
-			// TODO: LRAC-9837 Add GraphQL mutation to delete event analysis
+			const ids = selectedItems.keySeq().toArray();
+
 			return (
 				<Nav>
 					<Button
@@ -68,7 +114,7 @@ const EventAnalysisListCard: React.FC = () => {
 						display='secondary'
 						icon='trash'
 						iconAlignment='left'
-						onClick={noop}
+						onClick={() => handleDeleteEventAnalysis(ids)}
 						outline
 					/>
 				</Nav>
@@ -76,7 +122,7 @@ const EventAnalysisListCard: React.FC = () => {
 		}
 	};
 
-	const renderRowActions = () => {
+	const renderRowActions = ({data: {id}}) => {
 		if (selectedItems.isEmpty()) {
 			// TODO: LRAC-9837 Add GraphQL mutation to delete event analysis
 			return (
@@ -85,7 +131,7 @@ const EventAnalysisListCard: React.FC = () => {
 						{
 							iconSymbol: 'trash',
 							label: Liferay.Language.get('delete'),
-							onClick: noop
+							onClick: () => handleDeleteEventAnalysis([id])
 						}
 					]}
 				/>
@@ -173,4 +219,4 @@ const EventAnalysisListCard: React.FC = () => {
 	);
 };
 
-export default compose(withSelectionProvider)(EventAnalysisListCard);
+export default compose(withSelectionProvider, connector)(EventAnalysisListCard);
