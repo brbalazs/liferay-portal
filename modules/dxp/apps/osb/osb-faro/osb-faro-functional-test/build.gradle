@@ -1,3 +1,11 @@
+configurations.all {
+	resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+		if (details.requested.group == 'org.apache.logging.log4j') {
+			details.useVersion '2.15.0'
+		}
+	}
+}
+
 copyTestModules {
 	enabled = false
 }
