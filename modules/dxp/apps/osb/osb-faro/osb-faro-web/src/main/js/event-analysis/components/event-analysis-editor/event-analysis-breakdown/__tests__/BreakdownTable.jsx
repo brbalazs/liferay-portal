@@ -5,7 +5,7 @@ import {
 	withAttributesProvider
 } from '../../context/attributes';
 import {MockedProvider} from '@apollo/react-testing';
-import {mockEventAnalysisQueryReq} from 'test/graphql-data';
+import {mockEventAnalysisResultQueryReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 import {waitForTable} from 'test/helpers';
@@ -78,7 +78,7 @@ describe('BreakdownTable', () => {
 			<AttributesContext.Provider value={initialAttributes}>
 				<MockedProvider
 					mocks={[
-						mockEventAnalysisQueryReq(breakdownItems, {
+						mockEventAnalysisResultQueryReq(breakdownItems, {
 							eventAnalysisBreakdowns: Object.values(
 								initialAttributes.breakdowns
 							),
@@ -119,7 +119,7 @@ describe('BreakdownTable', () => {
 			<StaticRouter>
 				<MockedProvider
 					mocks={[
-						mockEventAnalysisQueryReq(breakdownItems, {
+						mockEventAnalysisResultQueryReq(breakdownItems, {
 							eventAnalysisBreakdowns: [],
 							eventAnalysisFilters: []
 						})

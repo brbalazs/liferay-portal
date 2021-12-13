@@ -1,8 +1,8 @@
 import BarComparisonCell from './BarComparisonCell';
-import EventAnalysisQuery, {
+import EventAnalysisResultQuery, {
 	EventAnalysisData,
 	EventAnalysisVariables
-} from 'event-analysis/queries/EventAnalysisQuery';
+} from 'event-analysis/queries/EventAnalysisResultQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
 import React, {useEffect, useRef, useState} from 'react';
@@ -114,7 +114,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	const tableRef = useRef<HTMLDivElement>(null);
 
 	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
-		EventAnalysisQuery,
+		EventAnalysisResultQuery,
 		{
 			fetchPolicy: 'network-only',
 			variables: {
@@ -261,9 +261,13 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 	return (
 		<SafeResults {...result} page={false} pageDisplay={false}>
-			{({eventAnalysis}: {eventAnalysis: EventAnalysisData}) => {
+			{({
+				eventAnalysisResult
+			}: {
+				eventAnalysisResult: EventAnalysisData;
+			}) => {
 				const {columns, count, highestValue, items} = parseData(
-					eventAnalysis
+					eventAnalysisResult
 				);
 
 				return (

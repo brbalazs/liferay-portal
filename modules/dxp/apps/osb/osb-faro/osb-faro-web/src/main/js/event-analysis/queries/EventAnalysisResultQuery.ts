@@ -54,12 +54,12 @@ const BREAKDOWN_FRAGMENT_RECURSIVE = gql`
 `;
 
 export default gql`
-	query EventAnalysis(
+	query EventAnalysisResult(
 		$analysisType: AnalysisType!
 		$channelId: String!
 		$compareToPrevious: Boolean!
-		$eventAnalysisBreakdowns: [EventAnalysisBreakdown]
-		$eventAnalysisFilters: [EventAnalysisFilter]
+		$eventAnalysisBreakdowns: [EventAnalysisBreakdownInput]
+		$eventAnalysisFilters: [EventAnalysisFilterInput]
 		$eventDefinitionId: String!
 		$page: Int!
 		$rangeEnd: String
@@ -67,7 +67,7 @@ export default gql`
 		$rangeStart: String
 		$size: Int!
 	) {
-		eventAnalysis(
+		eventAnalysisResult(
 			analysisType: $analysisType
 			channelId: $channelId
 			compareToPrevious: $compareToPrevious

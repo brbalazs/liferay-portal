@@ -1,5 +1,5 @@
 import BlockedCustomEventDefinitionsQuery from 'settings/definitions/events/queries/BlockedCustomEventDefinitionsQuery';
-import EventAnalysisQuery from 'event-analysis/queries/EventAnalysisQuery';
+import EventAnalysisResultQuery from 'event-analysis/queries/EventAnalysisResultQuery';
 import EventAttributeDefinitionQuery, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
@@ -589,11 +589,14 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 	};
 }
 
-export function mockEventAnalysisQueryReq(breakdownItems, mockVariables = {}) {
+export function mockEventAnalysisResultQueryReq(
+	breakdownItems,
+	mockVariables = {}
+) {
 	return {
 		request: {
 			fetchPolicy: 'network-only',
-			query: EventAnalysisQuery,
+			query: EventAnalysisResultQuery,
 			variables: {
 				analysisType: 'TOTAL',
 				channelId: '123',
@@ -609,7 +612,7 @@ export function mockEventAnalysisQueryReq(breakdownItems, mockVariables = {}) {
 		},
 		result: {
 			data: {
-				eventAnalysis: {
+				eventAnalysisResult: {
 					__typename: 'EventAnalysis',
 					breakdownItems,
 					count: 1,
