@@ -18,11 +18,7 @@ import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
-import com.liferay.osb.faro.provisioning.client.util.KoroneikiHttpUtil;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Portal;
@@ -60,10 +56,6 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			return;
 		}
 
-		for (int i = 0; i < userUuids.length; i++) {
-			userUuids[i] = getRemoteUserUuid(userUuids[i]);
-		}
-
 		super.addCorpProjectUsers(corpProjectUuid, userUuids);
 	}
 
@@ -76,10 +68,6 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			corpProjectUuid.equals(_MOCK_PROJECT_ID)) {
 
 			return;
-		}
-
-		for (int i = 0; i < userUuids.length; i++) {
-			userUuids[i] = getRemoteUserUuid(userUuids[i]);
 		}
 
 		super.addUserCorpProjectRoles(corpProjectUuid, userUuids, roleName);
@@ -103,8 +91,7 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			return Collections.emptyList();
 		}
 
-		return super.getOSBAccountEntries(
-			getRemoteUserUuid(userUuid), productEntryIds);
+		return super.getOSBAccountEntries(userUuid, productEntryIds);
 	}
 
 	@Override
@@ -137,27 +124,6 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			StandardCharsets.UTF_8);
 	}
 
-	protected String getRemoteUserUuid(String userUuid) {
-		try {
-			User user = _userLocalService.getUserByUuidAndCompanyId(
-				userUuid, _portal.getDefaultCompanyId());
-
-			Contact contact = KoroneikiHttpUtil.fetchtContact(
-				user.getEmailAddress());
-
-			if (contact != null) {
-				return contact.getUuid();
-			}
-
-			return userUuid;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			return userUuid;
-		}
-	}
-
 	private static final String _MOCK_OSB_ACCOUNT_ENTRY = System.getenv(
 		"FARO_MOCK_OSB_ACCOUNT_ENTRY");
 
@@ -165,9 +131,6 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 		"MOCK_PROJECT_ID");
 
 	private static final String _PROJECT_ID = System.getenv("FARO_PROJECT_ID");
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		MockProvisioningClientImpl.class);
 
 	private static final OSBAccountEntry _mockOSBAccountEntry =
 		new OSBAccountEntry() {
