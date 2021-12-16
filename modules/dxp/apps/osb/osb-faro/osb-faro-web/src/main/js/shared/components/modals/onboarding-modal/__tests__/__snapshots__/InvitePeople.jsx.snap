@@ -40,9 +40,27 @@ exports[`InvitePeople renders 1`] = `
       <div
         class="add-emails"
       >
-        <div>
-          Enter the email addresses of the people you would like to invite.
-        </div>
+        <label
+          class="form-control-label label-root"
+        >
+          <span
+            class="content-container"
+          >
+            Add Other Members
+            <span
+              class="info-popover-root ml-2"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-question-circle-full"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
+                />
+              </svg>
+            </span>
+          </span>
+        </label>
         <div
           class="input-group"
         >
@@ -68,7 +86,7 @@ exports[`InvitePeople renders 1`] = `
         <div
           class="secondary-info"
         >
-          You can set each user's role under User Management in settings.
+          Enter email addresses, separated by commas.
         </div>
       </div>
     </div>

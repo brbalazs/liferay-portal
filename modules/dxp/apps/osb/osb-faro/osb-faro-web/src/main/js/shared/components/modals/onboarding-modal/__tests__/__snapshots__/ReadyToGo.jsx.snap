@@ -37,16 +37,32 @@ exports[`ReadyToGo renders 1`] = `
       >
         You are Ready to Go
       </span>
-      <span
-        class="description"
+      <div
+        class="d-flex description flex-column text-center"
       >
-        Your workspace is all set up! We recommend adding people data in the future to enrich profile data and know your audience better.
-      </span>
+        <h4
+          class="pb-3"
+        >
+          Your workspace is all set up!
+        </h4>
+        <h4
+          class="pb-3"
+        >
+          Tracking will start immediately, however it may take some time for data to appear in your workspace.
+        </h4>
+        <h4>
+          Make sure to set your time period to last 24 hours to see if your data is coming in correctly.
+        </h4>
+      </div>
+    </div>
+    <div
+      class="modal-footer d-flex justify-content-end"
+    >
       <button
         class="button-root btn btn-primary"
         type="button"
       >
-        Get Started
+        Next
       </button>
     </div>
   </div>

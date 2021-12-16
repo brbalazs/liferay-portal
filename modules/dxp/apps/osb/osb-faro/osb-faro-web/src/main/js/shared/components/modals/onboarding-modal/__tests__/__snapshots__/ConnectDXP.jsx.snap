@@ -97,9 +97,15 @@ exports[`ConnectDXP renders 1`] = `
         </div>
       </div>
       <div
-        class="w-100 ml-6 mt-1"
+        class="documentation-link-text w-100 ml-6 mt-1"
       >
-        Copy this token to your DXP instance.
+        <a
+          href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html"
+          target="_blank"
+        >
+          Click here
+        </a>
+         to learn how to connect Liferay DXP to Analytics Cloud
       </div>
       <div
         class="fix-pack-container"
@@ -115,9 +121,7 @@ exports[`ConnectDXP renders 1`] = `
             >
               DXP Fix Pack Requirements
               <span
-                class="ml-2"
-                data-tooltip="true"
-                title="Minimum Fix Pack Version Required for Full Compatibility"
+                class="info-popover-root ml-2"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-question-circle-full"
