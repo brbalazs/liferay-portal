@@ -362,11 +362,16 @@ active price list that applies to the current context in the following order:
 
 1. **Accounts and Channels**: the price list is associated to specific accounts
    in specific channels.
+
 2. **Accounts**: the price list is associated to specific accounts.
+
 3. **Account Groups and Channels**: the price list is associated to specific
    account groups in specific channels.
+
 4. **Account Groups**: the price list is associated to specific account groups.
+
 5. **Channels**: the price list is associated to a specific channel.
+
 6. **Unqualified**: the price list is not associated to any specific account,
    account group or channel.
 
@@ -405,13 +410,21 @@ The price lists indexer has been set to support filter search and be permission
 aware.
 
 All service and finder methods used in the user interface to retrieve:
+
 1. **Price Entries**
+
 2. **Price Lists**
+
 3. **Price List Accounts**
+
 4. **Price List Account Groups**
+
 5. **Price List Account Channels**
+
 6. **Price List Discounts**
+
 7. **Price Modifiers**
+
 8. **Tier Price Entries**
 are permission-aware. (i.e. in `CommercePriceListService` method
 `getCommercePriceListsCount(long, int)`)
@@ -421,12 +434,16 @@ price lists have been moved under the menu **Pricing** in the Define Permissions
 tab for the selected role.
 
 In `CommerceTierPriceEntryService` methods:
+
 1. `fetchCommerceTierPriceEntries(long, int, int)`
+
 2. `getCommerceTierPriceEntriesCountByCompanyId(long)`
 have been deprecated and no replacement is provided.
 
 In `CommercePriceModifierService` methods:
+
 1. `getCommercePriceModifiers(long, String)`
+
 2. `getCommercePriceModifiersCount()`
 have been deprecated and no replacement is provided.
 
@@ -442,14 +459,20 @@ lists and set the correct permissions.
 All references to
 `CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS` should be updated and
 permissions should be checked according to the following rules:
+
 1. `ADD_COMMERCE_PRICE_LIST`: when permission to add a new price list is required
+
 2. `DELETE/PERMISSIONS/UPDATE/VIEW`: when permission to delete, modify
 permissions, update or view a specific price list or related entities is required.
 
 All calls to unsecure methods:
+
 1. `com.liferay.commerce.price.list.service.impl.CommerceTierPriceEntryService#fetchCommerceTierPriceEntries(long, int, int)`
+
 2. `com.liferay.commerce.price.list.service.impl.CommerceTierPriceEntryService#getCommerceTierPriceEntriesCountByCompanyId(long)`
+
 3. `com.liferay.commerce.pricing.service.impl.CommercePriceModifierService#getCommercePriceModifiers(long, String)`
+
 4. `com.liferay.commerce.pricing.service.impl.CommercePriceModifierService#getCommercePriceModifiersCount()`
 need to be replaced with permission aware custom finder methods.
 
