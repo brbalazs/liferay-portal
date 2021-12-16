@@ -3,6 +3,11 @@
 		color: $mainLighten28;
 	}
 
+	.description {
+		color: $mainLighten28;
+		margin-top: 32px;
+	}
+
 	.connect-dxp {
 		.analytics-to-dxp-container {
 			align-items: center;
@@ -62,6 +67,12 @@
 			border: unset;
 			border-radius: 4px;
 			color: $success;
+		}
+
+		.modal-body {
+			.documentation-link-text {
+				color: $mainLighten28;
+			}
 		}
 
 		.modal-footer > div {
@@ -174,9 +185,17 @@
 				width: 490px;
 			}
 
+			label {
+				font-size: $fontSizeLarge;
+			}
+
 			.secondary-info {
 				color: $mainLighten28;
 			}
+		}
+
+		.description {
+			margin-top: 64px;
 		}
 	}
 
@@ -209,10 +228,6 @@
 			margin-bottom: 6px;
 			padding: 222px 214px 0px;
 			width: 428px;
-		}
-
-		.description {
-			margin: 50px 0 30px;
 		}
 	}
 

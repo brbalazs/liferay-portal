@@ -5,6 +5,7 @@ import CopyButton from 'shared/components/CopyButton';
 import DataSourceQuery from 'shared/queries/DataSourceQuery';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
+import InfoPopover from 'shared/components/InfoPopover';
 import Input from 'shared/components/Input';
 import Label from 'shared/components/form/Label';
 import Modal from 'shared/components/modal';
@@ -17,9 +18,10 @@ import {connect} from 'react-redux';
 import {CredentialTypes, DataSourceTypes} from 'shared/util/constants';
 import {DataSource} from 'shared/util/records';
 import {fetchDataSource} from 'shared/actions/data-sources';
-import {get, noop} from 'lodash';
+import {get, noop, upperFirst} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
 import {Routes, toRoute} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
@@ -95,10 +97,13 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 		}
 	});
 
+	const [tokenCopied, setTokenCopied] = useState(false);
 	const [token, setToken] = useState('');
 	const [dxpVersion, setDxpVersion] = useState<string>('dxp-70-fixpack-98');
 
 	const _inputRef = useRef<any>();
+
+	const copyButtonClassName = getCN({'input-success': tokenCopied});
 
 	const getNavHref = () => {
 		const id = get(data, ['dataSources', 0, 'id'], null);
@@ -234,7 +239,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 					<Input.GroupItem position='prepend'>
 						<Input
 							className={getCN('text-truncate', {
-								'input-success': dxpConnected
+								'input-success': dxpConnected || tokenCopied
 							})}
 							inset='after'
 							onChange={noop}
@@ -244,10 +249,16 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						/>
 
 						{!dxpConnected && (
-							<Input.Inset position='after'>
+							<Input.Inset
+								className={copyButtonClassName}
+								position='after'
+							>
 								<CopyButton
+									className={copyButtonClassName}
 									display='light'
 									onClick={() => {
+										setTokenCopied(true);
+
 										analytics.track(
 											'Clicked Copy Token Button - TEST',
 											null,
@@ -276,9 +287,25 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 					</div>
 				) : (
 					<>
-						<div className='w-100 ml-6 mt-1'>
-							{Liferay.Language.get(
-								'copy-this-token-to-your-dxp-instance'
+						<div className='documentation-link-text w-100 ml-6 mt-1'>
+							{sub(
+								Liferay.Language.get(
+									'x-to-learn-how-to-connect-liferay-dxp-to-analytics-cloud'
+								),
+								[
+									<a
+										href={URLConstants.HelpConnectDxp}
+										key='helpConnectDxpText'
+										target='_blank'
+									>
+										{upperFirst(
+											Liferay.Language.get(
+												'click-here'
+											).toLowerCase()
+										)}
+									</a>
+								],
+								false
 							)}
 						</div>
 
@@ -288,15 +315,16 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 									{Liferay.Language.get(
 										'dxp-fix-pack-requirements'
 									)}
-									<span
+
+									<InfoPopover
 										className='ml-2'
-										data-tooltip
-										title={Liferay.Language.get(
-											'minimum-fix-pack-version-required-for-full-compatibility'
+										content={Liferay.Language.get(
+											'minimum-fix-pack-version-required-for-full-functionality'
 										)}
-									>
-										<Icon symbol='question-circle-full' />
-									</span>
+										popOverAttr={{
+											className: 'popover-background-dark'
+										}}
+									/>
 								</Label>
 								<Select
 									className='mt-1'

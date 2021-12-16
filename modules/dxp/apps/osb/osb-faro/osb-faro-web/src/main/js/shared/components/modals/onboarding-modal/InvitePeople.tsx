@@ -1,9 +1,10 @@
 import * as API from 'shared/api';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
-import Icon from 'shared/components/Icon';
+import InfoPopover from 'shared/components/InfoPopover';
 import Input from 'shared/components/Input';
 import InputList from 'shared/components/InputList';
+import Label from 'shared/components/form/Label';
 import Modal from 'shared/components/modal';
 import React, {useState} from 'react';
 import {addAlert} from 'shared/actions/alerts';
@@ -87,29 +88,34 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 				<div className='ac-invite' />
 
 				<span className='title d-flex justify-content-center'>
-					{Liferay.Language.get('invite-people-to-workspace')}
+					{sent
+						? Liferay.Language.get('your-invite-was-sent')
+						: Liferay.Language.get('invite-people-to-workspace')}
 				</span>
 
 				{sent ? (
-					<div className='success-info d-flex align-items-center'>
-						<div>
-							<Icon
-								className='success-invert'
-								symbol='check-circle-full'
-							/>
-						</div>
-
-						<span className='success-message'>
-							{Liferay.Language.get('invites-sent')}
-						</span>
+					<div className='description text-center'>
+						<h4>
+							{Liferay.Language.get(
+								'you-can-see-the-new-members-invitation-status-and-role-permisions-under-user-management-in-settings'
+							)}
+						</h4>
 					</div>
 				) : (
 					<div className='add-emails'>
-						<div>
-							{Liferay.Language.get(
-								'enter-the-email-addresses-of-the-people-you-would-like-to-invite'
-							)}
-						</div>
+						<Label>
+							{Liferay.Language.get('add-other-members')}
+
+							<InfoPopover
+								className='ml-2'
+								content={Liferay.Language.get(
+									'each-users-role-can-be-set-under-user-management-in-settings'
+								)}
+								popOverAttr={{
+									className: 'popover-background-dark'
+								}}
+							/>
+						</Label>
 
 						<Input.Group>
 							<Input.GroupItem>
@@ -132,7 +138,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 
 						<div className='secondary-info'>
 							{Liferay.Language.get(
-								'you-can-set-each-users-role-under-user-management-in-settings'
+								'enter-email-addresses-separeted-by-commas'
 							)}
 						</div>
 					</div>
