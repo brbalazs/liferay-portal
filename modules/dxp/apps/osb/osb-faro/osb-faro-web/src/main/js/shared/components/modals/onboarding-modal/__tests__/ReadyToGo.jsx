@@ -19,7 +19,7 @@ describe('ReadyToGo', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('calls onClose when "Get Started" is clicked', () => {
+	it('calls onClose when "Next" is clicked', () => {
 		const spy = jest.fn();
 
 		const {queryByText} = render(
@@ -30,7 +30,7 @@ describe('ReadyToGo', () => {
 
 		expect(spy).not.toBeCalled();
 
-		fireEvent.click(queryByText('Get Started'));
+		fireEvent.click(queryByText('Next'));
 
 		expect(spy).toBeCalled();
 	});

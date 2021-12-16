@@ -7,6 +7,9 @@ import {Provider} from 'react-redux';
 
 jest.unmock('react-dom');
 
+const inviteSentMessage =
+	'You can see the new members invitation status and role permisions under user management in settings.';
+
 describe('InvitePeople', () => {
 	afterEach(cleanup);
 
@@ -27,7 +30,7 @@ describe('InvitePeople', () => {
 			</Provider>
 		);
 
-		expect(queryByText('Invites Sent')).toBeNull();
+		expect(queryByText(inviteSentMessage)).toBeNull();
 
 		fireEvent.change(queryByPlaceholderText('Enter Email Address'), {
 			target: {
@@ -39,7 +42,7 @@ describe('InvitePeople', () => {
 
 		jest.runAllTimers();
 
-		expect(queryByText('Invites Sent')).not.toBeNull();
+		expect(queryByText(inviteSentMessage)).not.toBeNull();
 		expect(queryByText('Next')).not.toBeNull();
 	});
 
@@ -54,7 +57,7 @@ describe('InvitePeople', () => {
 			</Provider>
 		);
 
-		expect(queryByText('Invites Sent')).toBeNull();
+		expect(queryByText(inviteSentMessage)).toBeNull();
 
 		fireEvent.change(queryByPlaceholderText('Enter Email Address'), {
 			target: {
@@ -66,7 +69,7 @@ describe('InvitePeople', () => {
 
 		jest.runAllTimers();
 
-		expect(queryByText('Invites Sent')).not.toBeNull();
+		expect(queryByText(inviteSentMessage)).not.toBeNull();
 		expect(queryByText('Done')).not.toBeNull();
 	});
 });
