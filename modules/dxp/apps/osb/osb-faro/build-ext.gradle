@@ -33,6 +33,7 @@ def dockerContainerId = "faro"
 def dockerImageId = "liferay/com-liferay-osb-faro"
 
 ext.faroEnvironmentName = System.getenv().get("FARO_ENVIRONMENT_NAME") ?: project.property("com.liferay.osb.faro.environment.name")
+ext.faroImageTag = project.hasProperty("docker.image.tag") ? project.getProperty("docker.image.tag") : "latest"
 
 allprojects {
 	apply plugin: "pmd"
@@ -50,7 +51,7 @@ allprojects {
 
 appDocker {
 	imageName dockerImageId
-	imageTags = [faroEnvironmentName.equals("prd") ? "prd-" + new Date().format("yyyyMMdd") : "latest"]
+	imageTags = [faroEnvironmentName.equals("prd") ? "prd-" + new Date().format("yyyyMMdd") : faroImageTag]
 	inputDir "osb-faro-docker/" + faroEnvironmentName
 
 	onlyIf {
