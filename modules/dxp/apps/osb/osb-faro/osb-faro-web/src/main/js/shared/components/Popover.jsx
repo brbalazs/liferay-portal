@@ -13,6 +13,7 @@ const CLASSNAME = 'analytics-popover';
 class Popover extends React.Component {
 	static propTypes = {
 		alignElement: PropTypes.object,
+		className: PropTypes.string,
 		content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 		isDescription: PropTypes.bool,
 		title: PropTypes.string,
@@ -67,13 +68,17 @@ class Popover extends React.Component {
 	 * Lifecycle Render - ReactJS
 	 */
 	render() {
-		const {content, isDescription, title, visible} = this.props;
+		const {className, content, isDescription, title, visible} = this.props;
 		const {position, width} = this.state;
 		const withoutContent = !content || content === title;
-		const classes = getCN(CLASSNAME, {
-			'no-content': withoutContent,
-			'popover-large': width > 600
-		});
+		const classes = getCN(
+			CLASSNAME,
+			{
+				'no-content': withoutContent,
+				'popover-large': width > 600
+			},
+			className
+		);
 
 		return (
 			<PopoverBase

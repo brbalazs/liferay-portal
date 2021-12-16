@@ -6,12 +6,14 @@ import ReactDOM from 'react-dom';
 
 interface IInfoPopoverProps extends React.HTMLAttributes<HTMLElement> {
 	content?: React.ReactText;
+	popOverAttr?: {className: string};
 	title?: string;
 }
 
 const InfoPopover: React.FC<IInfoPopoverProps> = ({
 	className,
 	content,
+	popOverAttr,
 	title
 }) => {
 	const _iconSpanRef = useRef();
@@ -37,6 +39,7 @@ const InfoPopover: React.FC<IInfoPopoverProps> = ({
 					content={content}
 					title={title}
 					visible={showPopover}
+					{...popOverAttr}
 				/>,
 				document.querySelector('body.dxp')
 			)}
