@@ -1,5 +1,6 @@
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 
 require('dotenv').config();
 
@@ -25,5 +26,10 @@ module.exports = merge(common.config, {
 	},
 	output: {
 		chunkFilename: '[name].[chunkhash:8].js'
-	}
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			FARO_DEV_MODE: true
+		})
+	]
 });

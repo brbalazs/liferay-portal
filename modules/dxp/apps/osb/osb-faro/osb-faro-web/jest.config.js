@@ -19,7 +19,8 @@ module.exports = {
 	},
 	globals: {
 		CEREBRO_PATHS_GEOMAP_KEY: '',
-		FARO_ENV: '',
+		FARO_DEV_MODE: false,
+		FARO_ENV: 'local',
 		faroConstants: {
 			activityActions: {
 				comments: 3,

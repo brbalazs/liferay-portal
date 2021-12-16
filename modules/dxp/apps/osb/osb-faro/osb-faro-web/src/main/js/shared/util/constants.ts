@@ -1,6 +1,6 @@
 import {Align} from 'metal-position';
 
-export const DEVELOPER_MODE = FARO_ENV === 'asah-local' || FARO_ENV === 'local';
+export const DEVELOPER_MODE = FARO_DEV_MODE;
 
 export const PROD_MODE = FARO_ENV === 'prd';
 
