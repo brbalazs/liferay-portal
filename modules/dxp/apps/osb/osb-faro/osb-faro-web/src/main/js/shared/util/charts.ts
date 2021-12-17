@@ -286,18 +286,20 @@ export const getDateTitle = (
 	dates: [number, number?],
 	rangeKey: RangeKeyTimeRanges,
 	interval: Interval
-) => {
+): string => {
 	if (!dates) {
 		return '';
 	}
 
 	const [startDate, endDate] = dates;
 
-	const title = `${formatTooltipDate(startDate, rangeKey)}`;
+	if (isMonthlyRangeKey(rangeKey) && interval === INTERVAL_KEY_MAP.week) {
+		return dateRangeFormatter(startDate, endDate, true);
+	} else if (interval === INTERVAL_KEY_MAP.month) {
+		return moment(startDate).format('YYYY MMM');
+	}
 
-	return isMonthlyRangeKey(rangeKey) && interval === INTERVAL_KEY_MAP.week
-		? `${dateRangeFormatter(startDate, endDate, true)}`
-		: title;
+	return formatTooltipDate(startDate, rangeKey);
 };
 
 /**
