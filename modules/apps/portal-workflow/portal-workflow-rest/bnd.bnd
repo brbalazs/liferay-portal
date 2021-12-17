@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Workflow REST
 Bundle-SymbolicName: com.liferay.portal.workflow.rest
-Bundle-Version: 1.0.11
+Bundle-Version: 1.0.12
 Liferay-Configuration-Path: /configuration
 Provide-Capability:\
 	liferay.resource.bundle;\
