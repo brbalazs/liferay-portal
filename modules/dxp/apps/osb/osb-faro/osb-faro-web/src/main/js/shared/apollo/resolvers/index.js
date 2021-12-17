@@ -1,4 +1,4 @@
-import EventAnalysisResolver from './EventAnalysisResolver';
+import EventAnalysisListResolver from './EventAnalysisListResolver';
 import ExperimentResolver from './ExperimentResolver';
 
-export {ExperimentResolver, EventAnalysisResolver};
+export {EventAnalysisListResolver, ExperimentResolver};

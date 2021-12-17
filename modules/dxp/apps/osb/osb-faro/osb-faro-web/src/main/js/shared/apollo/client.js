@@ -2,7 +2,7 @@ import cache from './cache';
 import Uri from 'metal-uri';
 import {ApolloClient} from 'apollo-client';
 import {
-	EventAnalysisResolver,
+	EventAnalysisListResolver,
 	ExperimentResolver as Experiment
 } from './resolvers';
 import {get} from 'lodash';
@@ -59,7 +59,11 @@ const client = new ApolloClient({
 	]),
 	resolvers: {
 		Experiment,
-		Query: EventAnalysisResolver
+		Query: {
+			eventAnalysisList(_, params) {
+				return EventAnalysisListResolver(params);
+			}
+		}
 	}
 });
 
