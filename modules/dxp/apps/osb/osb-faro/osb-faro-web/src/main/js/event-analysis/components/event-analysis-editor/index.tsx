@@ -4,13 +4,10 @@ import CardTabs, {CardTabSizes} from 'shared/components/CardTabs';
 import Checkbox from 'shared/components/Checkbox';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
-import React, {useState} from 'react';
+import React from 'react';
 import {CalculationTypes, Event} from 'event-analysis/utils/types';
 import {compose} from 'redux';
-import {
-	withAttributesConsumer,
-	withAttributesProvider
-} from './context/attributes';
+import {withAttributesConsumer} from './context/attributes';
 import {withRangeKey} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
@@ -18,76 +15,81 @@ interface IEventAnalysisEditorProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
 	channelId: string;
+	compareToPrevious: boolean;
+	event: Event;
+	onCompareToPreviousChange: (compareToPrevious: boolean) => void;
+	onEventChange: (event: Event) => void;
+	onTypeChange: (type: CalculationTypes) => void;
+	type: CalculationTypes;
 }
 
 const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 	channelId,
+	compareToPrevious,
+	event,
+	onCompareToPreviousChange,
+	onEventChange,
 	onRangeSelectorsChange,
-	rangeSelectors
-}) => {
-	const [compareToPrevious, setCompareToPrevious] = useState(false);
-	const [event, setEvent] = useState<Event>(null);
-	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
+	onTypeChange,
+	rangeSelectors,
+	type
+}) => (
+	<Card className='event-analysis-editor-root'>
+		<EventAnalysisBuilder event={event} onEventChange={onEventChange} />
 
-	return (
-		<Card className='event-analysis-editor-root'>
-			<EventAnalysisBuilder event={event} onEventChange={setEvent} />
+		<div className='options-container d-flex justify-content-between'>
+			<CardTabs
+				activeTabId={type}
+				className='type-selector'
+				size={CardTabSizes.Small}
+				tabs={[
+					{
+						onClick: () => onTypeChange(CalculationTypes.Total),
+						tabId: CalculationTypes.Total,
+						title: Liferay.Language.get('total')
+					},
+					{
+						onClick: () => onTypeChange(CalculationTypes.Unique),
+						tabId: CalculationTypes.Unique,
+						title: Liferay.Language.get('unique')
+					},
+					{
+						onClick: () => onTypeChange(CalculationTypes.Average),
+						tabId: CalculationTypes.Average,
+						title: Liferay.Language.get('average')
+					}
+				]}
+			/>
 
-			<div className='options-container d-flex justify-content-between'>
-				<CardTabs
-					activeTabId={type}
-					className='type-selector'
-					size={CardTabSizes.Small}
-					tabs={[
-						{
-							onClick: () => setType(CalculationTypes.Total),
-							tabId: CalculationTypes.Total,
-							title: Liferay.Language.get('total')
-						},
-						{
-							onClick: () => setType(CalculationTypes.Unique),
-							tabId: CalculationTypes.Unique,
-							title: Liferay.Language.get('unique')
-						},
-						{
-							onClick: () => setType(CalculationTypes.Average),
-							tabId: CalculationTypes.Average,
-							title: Liferay.Language.get('average')
-						}
-					]}
+			<div className='d-flex align-items-center'>
+				<Checkbox
+					checked={compareToPrevious}
+					className='compare-to-previous-checkbox mb-0 mr-4'
+					label={Liferay.Language.get('compare-to-previous')}
+					onChange={event =>
+						onCompareToPreviousChange(event.currentTarget.checked)
+					}
 				/>
 
-				<div className='d-flex align-items-center'>
-					<Checkbox
-						checked={compareToPrevious}
-						className='compare-to-previous-checkbox mb-0 mr-4'
-						label={Liferay.Language.get('compare-to-previous')}
-						onChange={event =>
-							setCompareToPrevious(event.currentTarget.checked)
-						}
-					/>
-
-					<DropdownRangeKey
-						legacy={false}
-						onChange={onRangeSelectorsChange}
-						rangeSelectors={rangeSelectors}
-					/>
-				</div>
+				<DropdownRangeKey
+					legacy={false}
+					onChange={onRangeSelectorsChange}
+					rangeSelectors={rangeSelectors}
+				/>
 			</div>
+		</div>
 
-			<BreakdownTable
-				channelId={channelId}
-				compareToPrevious={compareToPrevious}
-				event={event}
-				rangeSelectors={rangeSelectors}
-				type={type}
-			/>
-		</Card>
-	);
-};
+		<BreakdownTable
+			channelId={channelId}
+			compareToPrevious={compareToPrevious}
+			event={event}
+			rangeSelectors={rangeSelectors}
+			type={type}
+		/>
+	</Card>
+);
 
 export default compose<any>(
 	withRangeKey,
-	withAttributesProvider,
 	withAttributesConsumer
 )(EventAnalysisEditor);

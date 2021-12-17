@@ -1,7 +1,7 @@
 import BarComparisonCell from './BarComparisonCell';
 import EventAnalysisResultQuery, {
-	EventAnalysisData,
-	EventAnalysisVariables
+	EventAnalysisResultData,
+	EventAnalysisResultVariables
 } from 'event-analysis/queries/EventAnalysisResultQuery';
 import getCN from 'classnames';
 import PercentOfCell from './PercentOfCell';
@@ -113,27 +113,27 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 
 	const tableRef = useRef<HTMLDivElement>(null);
 
-	const result = useQuery<EventAnalysisData, EventAnalysisVariables>(
-		EventAnalysisResultQuery,
-		{
-			fetchPolicy: 'network-only',
-			variables: {
-				analysisType: type,
-				channelId,
-				compareToPrevious,
-				eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
-					omit(breakdowns[breakdownId], 'id')
-				),
-				eventAnalysisFilters: filterOrder.map(filterId =>
-					omit(filters[filterId], 'id')
-				),
-				eventDefinitionId: event.id,
-				page: page - 1,
-				size: delta,
-				...getSafeRangeSelectors(rangeSelectors)
-			}
+	const result = useQuery<
+		EventAnalysisResultData,
+		EventAnalysisResultVariables
+	>(EventAnalysisResultQuery, {
+		fetchPolicy: 'network-only',
+		variables: {
+			analysisType: type,
+			channelId,
+			compareToPrevious,
+			eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
+				omit(breakdowns[breakdownId], 'id')
+			),
+			eventAnalysisFilters: filterOrder.map(filterId =>
+				omit(filters[filterId], 'id')
+			),
+			eventDefinitionId: event.id,
+			page: page - 1,
+			size: delta,
+			...getSafeRangeSelectors(rangeSelectors)
 		}
-	);
+	});
 
 	const [maxBreakdownLength, setMaxBreakdownLength] = useState<number>();
 
@@ -264,7 +264,7 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			{({
 				eventAnalysisResult
 			}: {
-				eventAnalysisResult: EventAnalysisData;
+				eventAnalysisResult: EventAnalysisResultData;
 			}) => {
 				const {columns, count, highestValue, items} = parseData(
 					eventAnalysisResult

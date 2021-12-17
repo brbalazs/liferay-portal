@@ -6,14 +6,14 @@ import {
 } from '../utils/types';
 import {gql} from 'apollo-boost';
 
-export interface EventAnalysisData {
+export interface EventAnalysisResultData {
 	count: number;
 	page: number;
 	value: number;
 	breakdownItems: BreakdownDataItem[];
 }
 
-export interface EventAnalysisVariables {
+export interface EventAnalysisResultVariables {
 	analysisType: CalculationTypes;
 	channelId: string;
 	compareToPrevious: boolean;
