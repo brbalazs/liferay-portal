@@ -84,23 +84,15 @@ export const dateRangeFormatter = (
  * @param {string} rangeKey
  */
 export const formatTooltipDate = (date, rangeKey) => {
-	let formatter;
-
 	if (
 		rangeKey === RangeKeyTimeRanges.Last24Hours ||
 		rangeKey === RangeKeyTimeRanges.Yesterday
 	) {
 		// display hours for Last 24 hours and yesterday
-		formatter = d3.utcFormat('%b %-d, %-I %p');
-	} else if (rangeKey === RangeKeyTimeRanges.Last90Days) {
-		// display date, month and year for Last 90 days
-		formatter = d3.utcFormat('%Y %b\u00A0%-d');
-	} else {
-		// display date, month and year
-		formatter = d3.utcFormat('%Y %b %-d');
+		return moment.utc(date).format('MMM D, h A');
 	}
 
-	return formatter(date);
+	return moment.utc(date).format('YYYY MMM D');
 };
 
 export const formatXAxisDate = (

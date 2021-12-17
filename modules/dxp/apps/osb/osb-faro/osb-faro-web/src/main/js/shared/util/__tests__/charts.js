@@ -82,7 +82,7 @@ describe('formatTooltipDate', () => {
 			RangeKeyTimeRanges.Last90Days
 		);
 
-		expect(formatedDate).toEqual('2018 May\u00A09');
+		expect(formatedDate).toEqual('2018 May 9');
 	});
 
 	it('should return the formated date and month', () => {
