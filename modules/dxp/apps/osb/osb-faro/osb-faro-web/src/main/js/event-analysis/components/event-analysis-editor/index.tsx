@@ -6,21 +6,18 @@ import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
 import React from 'react';
 import {CalculationTypes, Event} from 'event-analysis/utils/types';
-import {compose} from 'redux';
-import {withAttributesConsumer} from './context/attributes';
-import {withRangeKey} from 'shared/hoc';
-import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
+import {RangeSelectors} from 'shared/types';
 
-interface IEventAnalysisEditorProps
-	extends WithRangeKeyProps,
-		React.HTMLAttributes<HTMLElement> {
+interface IEventAnalysisEditorProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
 	compareToPrevious: boolean;
 	event: Event;
 	onCompareToPreviousChange: (compareToPrevious: boolean) => void;
 	onEventChange: (event: Event) => void;
+	onRangeSelectorsChange: (rangeSelectors: RangeSelectors) => void;
 	onTypeChange: (type: CalculationTypes) => void;
 	type: CalculationTypes;
+	rangeSelectors: RangeSelectors;
 }
 
 const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
@@ -89,7 +86,4 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 	</Card>
 );
 
-export default compose<any>(
-	withRangeKey,
-	withAttributesConsumer
-)(EventAnalysisEditor);
+export default EventAnalysisEditor;

@@ -2,23 +2,14 @@ import EventAnalysisQuery, {
 	EventAnalysisData,
 	EventAnalysisVariables
 } from '../queries/EventAnalysisQuery';
-import {
-	Attribute,
-	Attributes,
-	Breakdown,
-	Breakdowns,
-	Event,
-	Filter,
-	Filters
-} from 'event-analysis/utils/types';
+import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
 import {AttributesState} from '../components/event-analysis-editor/context/attributes';
+import {RangeSelectors} from 'shared/types';
 import {useMemo} from 'react';
 import {useQuery} from '@apollo/react-hooks';
 
-type NormalizeItems<T> = (array: T[]) => {[key: string]: T};
-
-const normalizeItems: NormalizeItems<Filter | Breakdown | Attribute> = data =>
-	data.reduce((acc, item) => {
+function normalizeItems<T>(data: T[]): {[key: string]: T} {
+	return data.reduce((acc, item) => {
 		// @ts-ignore property __typename is coming from GraphQL
 		delete item.__typename;
 
@@ -27,6 +18,7 @@ const normalizeItems: NormalizeItems<Filter | Breakdown | Attribute> = data =>
 			[item['id']]: item
 		};
 	}, {});
+}
 
 function getItems<T>(items: T[], key: string): Array<T & {id: string}> {
 	return items.map(item => ({
@@ -43,6 +35,7 @@ type UseEventAnalysisData = (
 	event: Event;
 	loading: boolean;
 	name: string;
+	rangeSelectors: RangeSelectors;
 };
 
 const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
@@ -62,8 +55,10 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 					compareToPrevious,
 					eventAnalysisBreakdowns,
 					eventAnalysisFilters,
-					eventAnalysisId,
 					name,
+					rangeEnd,
+					rangeKey,
+					rangeStart,
 					referencedObjects: {
 						eventAttributeDefinitions,
 						eventDefinition
@@ -79,18 +74,22 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 
 			return {
 				attributesState: {
-					attributes: normalizeItems(
+					attributes: normalizeItems<Attribute>(
 						eventAttributeDefinitions
-					) as Attributes,
+					),
 					breakdownOrder: breakdowns.map(({id}) => id),
-					breakdowns: normalizeItems(breakdowns) as Breakdowns,
+					breakdowns: normalizeItems<Breakdown>(breakdowns),
 					filterOrder: filters.map(({id}) => id),
-					filters: normalizeItems(filters) as Filters
+					filters: normalizeItems<Filter>(filters)
 				},
 				compareToPrevious,
 				event: eventDefinition,
-				eventAnalysisId,
-				name
+				name,
+				rangeSelectors: {
+					rangeEnd,
+					rangeKey,
+					rangeStart
+				}
 			};
 		}
 	}, [data]);

@@ -6,7 +6,7 @@ import {
 } from 'event-analysis/queries/EventAnalysisMutation';
 import {useMutation} from '@apollo/react-hooks';
 
-const useSaveEventAnalysis = (eventAnalysisId: string) => {
+const useSaveEventAnalysis = (eventAnalysisId: string | null) => {
 	const Mutation = eventAnalysisId
 		? UpdateEventAnalysisMutation
 		: CreateEventAnalysisMutation;

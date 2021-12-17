@@ -10,7 +10,7 @@ import useEventAnalysisData from 'event-analysis/hooks/useEventAnalysisData';
 import useSaveEventAnalysis from 'event-analysis/hooks/useSaveEventAnalysis';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert} from 'shared/types';
+import {Alert, RangeSelectors} from 'shared/types';
 import {
 	AttributesContext,
 	AttributesProvider
@@ -51,7 +51,7 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	eventAnalysisId = null,
 	name: initialName = '',
 	open,
-	rangeSelectors
+	rangeSelectors: initialRangeSelectors
 }) => {
 	const history = useHistory();
 	const {channelId, groupId} = useParams();
@@ -59,6 +59,9 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 		initialCompareToPrevious
 	);
 	const [event, setEvent] = useState<Event>(initialEvent);
+	const [rangeSelectors, setRangeSelectors] = useState<RangeSelectors>(
+		initialRangeSelectors
+	);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
 	const {breakdownOrder, breakdowns, filterOrder, filters} = useContext(
@@ -175,7 +178,9 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 										setCompareToPrevious
 									}
 									onEventChange={setEvent}
+									onRangeSelectorsChange={setRangeSelectors}
 									onTypeChange={setType}
+									rangeSelectors={rangeSelectors}
 									type={type}
 								/>
 							</BasePage.Body>
