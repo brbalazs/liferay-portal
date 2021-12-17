@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Export Import Changeset API
 Bundle-SymbolicName: com.liferay.exportimport.changeset.api
-Bundle-Version: 1.0.10
+Bundle-Version: 1.0.11
 Export-Package:\
 	com.liferay.exportimport.changeset,\
 	com.liferay.exportimport.changeset.constants,\
