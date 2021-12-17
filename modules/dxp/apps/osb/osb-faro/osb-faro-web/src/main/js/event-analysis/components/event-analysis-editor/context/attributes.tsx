@@ -56,7 +56,7 @@ export type EditFilter = (params: {
 export type MoveBreakdown = (params: {from: number; to: number}) => void;
 export type MoveFilter = (params: {from: number; to: number}) => void;
 
-type AttributesState = {
+export type AttributesState = {
 	attributes: {[key: string]: Attribute};
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
@@ -336,11 +336,17 @@ const defaultState = {
 	filters: {}
 };
 
-const AttributesProvider = ({children}: {children: React.ReactNode}) => {
+export const AttributesProvider = ({
+	children,
+	initialState
+}: {
+	children: React.ReactNode;
+	initialState?: AttributesState;
+}) => {
 	const [
 		{attributes, breakdownOrder, breakdowns, filterOrder, filters},
 		attributesDispatch
-	] = useReducer(attributesReducer, defaultState);
+	] = useReducer(attributesReducer, initialState || defaultState);
 
 	const contextValue: {
 		addBreakdown: AddBreakdown;
