@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Push Notifications Service
 Bundle-SymbolicName: com.liferay.push.notifications.service
-Bundle-Version: 2.0.39
+Bundle-Version: 2.0.40
 Import-Package:\
 	com.liferay.petra.string.*;version="[1.0.0,99.0.0)",\
 	com.liferay.portal.kernel.dao.db.*;version="[7.0.0,99.0.0)",\
