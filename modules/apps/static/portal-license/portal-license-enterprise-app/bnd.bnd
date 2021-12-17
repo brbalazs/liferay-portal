@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal License Enterprise App
 Bundle-SymbolicName: com.liferay.portal.license.enterprise.app
-Bundle-Version: 1.0.13
+Bundle-Version: 1.0.14
 Import-Package:\
 	com.liferay.portal.kernel.cluster; version="[7.0.0,99.0.0)",\
 	com.liferay.portal.kernel.license.messaging; version="[1.0.0,99.0.0)",\
