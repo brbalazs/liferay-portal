@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Frontend Taglib Soy
 Bundle-SymbolicName: com.liferay.frontend.taglib.soy
-Bundle-Version: 2.3.1
+Bundle-Version: 2.3.2
 Export-Package: com.liferay.frontend.taglib.soy.servlet.taglib
 Provide-Capability:\
 	osgi.extender;\
