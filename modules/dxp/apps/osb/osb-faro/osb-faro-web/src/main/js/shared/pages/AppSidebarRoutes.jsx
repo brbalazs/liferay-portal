@@ -49,9 +49,9 @@ const AccountProfileRoutes = lazy(() =>
 
 /* Event Analysis */
 
-const CreateEventAnalysis = lazy(() =>
+const EventAnalysis = lazy(() =>
 	import(
-		/* webpackChunkName: "CreateEventAnalysis" */ '../../event-analysis/pages/CreateEventAnalysis'
+		/* webpackChunkName: "EventAnalysis" */ '../../event-analysis/pages/EventAnalysis'
 	)
 );
 
@@ -209,10 +209,16 @@ const ROUTES = [
 		path: Routes.EVENT_ANALYSIS
 	},
 	{
-		data: CreateEventAnalysis,
+		data: EventAnalysis,
 		destructured: false,
 		exact: true,
 		path: Routes.EVENT_ANALYSIS_CREATE
+	},
+	{
+		data: EventAnalysis,
+		destructured: false,
+		exact: true,
+		path: Routes.EVENT_ANALYSIS_EDIT
 	},
 	{
 		data: ExperimentsList,
