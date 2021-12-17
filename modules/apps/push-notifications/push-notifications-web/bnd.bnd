@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Push Notifications Web
 Bundle-SymbolicName: com.liferay.push.notifications.web
-Bundle-Version: 2.0.26
+Bundle-Version: 2.0.27
 Import-Package:\
 	com.liferay.application.list.*;version="[1.0.0,99.0.0)",\
 	com.liferay.exportimport.kernel.lar.*;version="[1.0.0,99.0.0)",\
