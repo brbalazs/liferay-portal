@@ -187,15 +187,12 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	);
 };
 
-const EditEventAnalysis: React.FC<IEventAnalysisProps> = ({
-	eventAnalysisId,
-	...otherProps
-}) => {
+const EditEventAnalysis: React.FC<IEventAnalysisProps> = props => {
 	const {
 		attributesState,
 		loading,
 		...eventAnalysisData
-	} = useEventAnalysisData(eventAnalysisId);
+	} = useEventAnalysisData(props.eventAnalysisId);
 
 	if (loading) {
 		return <Spinner alignCenter key='LOADING_DISPLAY' />;
@@ -203,7 +200,7 @@ const EditEventAnalysis: React.FC<IEventAnalysisProps> = ({
 
 	return (
 		<AttributesProvider initialState={attributesState}>
-			<EventAnalysis {...otherProps} {...eventAnalysisData} />
+			<EventAnalysis {...props} {...eventAnalysisData} />
 		</AttributesProvider>
 	);
 };
