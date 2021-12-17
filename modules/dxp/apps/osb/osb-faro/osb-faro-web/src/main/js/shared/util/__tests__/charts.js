@@ -139,6 +139,16 @@ describe('getDateTitle', () => {
 			)
 		).toEqual('2019 Jan 1 - 14');
 	});
+
+	it('should return year and month when interval its set to month', () => {
+		expect(
+			getDateTitle(
+				[getDate('2019-01-01')],
+				RangeKeyTimeRanges.Last30Days,
+				INTERVAL_KEY_MAP.month
+			)
+		).toEqual('2019 Jan');
+	});
 });
 
 describe('getIntervals', () => {
