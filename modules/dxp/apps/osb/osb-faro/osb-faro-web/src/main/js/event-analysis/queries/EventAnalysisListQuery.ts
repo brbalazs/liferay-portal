@@ -2,29 +2,23 @@ import {gql} from 'apollo-boost';
 import {Sort} from 'shared/types';
 
 type EventAnalysis = {
-	dateCreated: number;
-	dateModified: number;
+	modifiedDate: number;
 	id: number;
-	title: string;
+	name: string;
 	userName: string;
 };
 
 export interface EventAnalysisListData {
-	count: number;
-	eventAnalysis: EventAnalysis[];
-	page: number;
-	value: number;
+	total: number;
+	eventAnalyses: EventAnalysis[];
 }
 
 export interface EventAnalysisListVariables {
 	channelId: string;
-	keywords: string;
-	rangeEnd: string;
-	rangeKey: number;
-	rangeStart: string;
+	keyword: string;
+	page: number;
 	size: number;
 	sort: Sort;
-	start: number;
 }
 
 /**
@@ -34,27 +28,26 @@ export interface EventAnalysisListVariables {
 
 export default gql`
 	query EventAnalysisList(
-		$channelId: String
-		$keywords: String
+		$channelId: String!
+		$keyword: String
 		$page: Int!
 		$size: Int!
 		$sort: Sort!
-		$start: Int!
 	) {
-		eventAnalysisList(
+		eventAnalyses(
 			channelId: $channelId
-			keywords: $keywords
+			keyword: $keyword
 			page: $page
 			size: $size
 			sort: $sort
-			start: $start
-		) @client {
-			eventAnalysis {
-				dateCreated
-				dateModified
-				id
-				name: title
-				userName
+		) {
+			eventAnalyses {
+				... on EventAnalysis {
+					userName: createdByUserName
+					id
+					modifiedDate
+					name
+				}
 			}
 			total
 		}

@@ -26,7 +26,6 @@ import {
 	USER_NAME
 } from 'shared/util/pagination';
 import {getPluralMessage, sub} from 'shared/util/lang';
-import {getSafeRangeSelectors} from 'shared/util/util';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {NameCell} from 'shared/components/table/cell-components';
 import {Routes, toRoute} from 'shared/util/router';
@@ -56,19 +55,23 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 	const {channelId, groupId} = useParams();
 	const rangeSelectors = useQueryRangeSelectors();
 
+	const {keywords, size, sort} = getGraphQLVariablesFromPagination({
+		delta,
+		orderIOMap,
+		page,
+		query
+	});
+
 	const response = useQuery<
 		EventAnalysisListData,
 		EventAnalysisListVariables
 	>(EventAnalysisListQuery, {
 		variables: {
 			channelId,
-			...getGraphQLVariablesFromPagination({
-				delta,
-				orderIOMap,
-				page,
-				query
-			}),
-			...getSafeRangeSelectors(rangeSelectors)
+			keyword: keywords,
+			page: page - 1,
+			size,
+			sort
 		}
 	});
 
@@ -186,8 +189,8 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 		<Card className='event-analysis-list-root' pageDisplay>
 			<CrossPageSelect
 				{...mapListResultsToProps(response, result => ({
-					items: result.eventAnalysisList.eventAnalysis,
-					total: result.eventAnalysisList.total
+					items: result.eventAnalyses.eventAnalyses,
+					total: result.eventAnalyses.total
 				}))}
 				columns={[
 					{
