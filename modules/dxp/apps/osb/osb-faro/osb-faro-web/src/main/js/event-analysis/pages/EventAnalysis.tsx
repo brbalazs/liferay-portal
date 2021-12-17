@@ -111,11 +111,18 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 						groupId
 					})
 				);
+
+				addAlert({
+					alertType: Alert.Types.Success,
+					message: Liferay.Language.get(
+						'the-analysis-was-saved-successfully'
+					)
+				});
 			})
-			.catch(() => {
+			.catch(({message}) => {
 				addAlert({
 					alertType: Alert.Types.Error,
-					message: Liferay.Language.get('error')
+					message
 				});
 
 				setSubmitting(false);
