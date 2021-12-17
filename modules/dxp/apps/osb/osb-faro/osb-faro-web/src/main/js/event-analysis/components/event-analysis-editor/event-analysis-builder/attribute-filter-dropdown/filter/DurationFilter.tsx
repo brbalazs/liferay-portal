@@ -52,7 +52,13 @@ const DurationFilter: React.FC<IFilterProps> = ({
 			}}
 		>
 			{({handleSubmit, isValid}) => (
-				<Form.Form onSubmit={handleSubmit}>
+				<Form.Form
+					onSubmit={event => {
+						event.stopPropagation();
+
+						handleSubmit(event);
+					}}
+				>
 					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>

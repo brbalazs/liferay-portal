@@ -35,7 +35,13 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 			}}
 		>
 			{({handleSubmit}) => (
-				<Form.Form onSubmit={handleSubmit}>
+				<Form.Form
+					onSubmit={event => {
+						event.stopPropagation();
+
+						handleSubmit(event);
+					}}
+				>
 					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>
