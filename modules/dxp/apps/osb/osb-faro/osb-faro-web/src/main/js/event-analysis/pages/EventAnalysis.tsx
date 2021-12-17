@@ -139,12 +139,10 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 			onSubmit={handleSubmit}
 			ref={_formRef}
 		>
-			{({handleSubmit, isSubmitting}) => {
-				// TODO: Implement isValid logic
-				const isValid = true;
-
+			{({handleSubmit, isSubmitting, values: {name}}) => {
 				// TODO: Implement hasChanges logic
 				const hasChanges = true;
+				const isValid = !!name && !!event?.id;
 
 				return (
 					<Form.Form onSubmit={handleSubmit}>
