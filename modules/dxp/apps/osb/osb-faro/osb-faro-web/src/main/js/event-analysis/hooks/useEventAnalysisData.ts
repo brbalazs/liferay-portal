@@ -2,6 +2,7 @@ import EventAnalysisQuery, {
 	EventAnalysisData,
 	EventAnalysisVariables
 } from '../queries/EventAnalysisQuery';
+import {ApolloError} from 'apollo-client';
 import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
 import {AttributesState} from '../components/event-analysis-editor/context/attributes';
 import {RangeSelectors} from 'shared/types';
@@ -32,6 +33,7 @@ type UseEventAnalysisData = (
 ) => {
 	attributesState: AttributesState;
 	compareToPrevious: boolean;
+	error: ApolloError;
 	event: Event;
 	loading: boolean;
 	name: string;
@@ -39,14 +41,14 @@ type UseEventAnalysisData = (
 };
 
 const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
-	const {data, loading} = useQuery<EventAnalysisData, EventAnalysisVariables>(
-		EventAnalysisQuery,
-		{
-			variables: {
-				eventAnalysisId
-			}
+	const {data, error, loading} = useQuery<
+		EventAnalysisData,
+		EventAnalysisVariables
+	>(EventAnalysisQuery, {
+		variables: {
+			eventAnalysisId
 		}
-	);
+	});
 
 	const eventAnalysisData = useMemo(() => {
 		if (data) {
@@ -95,6 +97,7 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 	}, [data]);
 
 	return {
+		error,
 		...eventAnalysisData,
 		loading
 	};

@@ -1,5 +1,6 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
+import ErrorPage from 'shared/pages/ErrorPage';
 import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import Form from 'shared/components/form';
@@ -200,12 +201,31 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 const EditEventAnalysis: React.FC<IEventAnalysisProps> = props => {
 	const {
 		attributesState,
+		error,
 		loading,
 		...eventAnalysisData
 	} = useEventAnalysisData(props.eventAnalysisId);
 
+	const {channelId, groupId} = useParams();
+
 	if (loading) {
 		return <Spinner alignCenter key='LOADING_DISPLAY' />;
+	}
+
+	if (error) {
+		return (
+			<ErrorPage
+				href={toRoute(Routes.EVENT_ANALYSIS, {
+					channelId,
+					groupId
+				})}
+				linkLabel={Liferay.Language.get('go-to-event-analysis')}
+				message={Liferay.Language.get(
+					'the-analysis-you-are-looking-for-does-not-exist'
+				)}
+				subtitle={Liferay.Language.get('analysis-not-found')}
+			/>
+		);
 	}
 
 	return (
