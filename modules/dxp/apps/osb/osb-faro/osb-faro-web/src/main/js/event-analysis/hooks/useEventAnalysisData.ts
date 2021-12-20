@@ -5,6 +5,7 @@ import EventAnalysisQuery, {
 import {ApolloError} from 'apollo-client';
 import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
 import {AttributesState} from '../components/event-analysis-editor/context/attributes';
+import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
 import {useMemo} from 'react';
 import {useQuery} from '@apollo/react-hooks';
@@ -26,6 +27,21 @@ function getItems<T>(items: T[], key: string): Array<T & {id: string}> {
 		...item,
 		id: `${key}-${Date.now()}-${item['attributeId']}`
 	}));
+}
+
+function normalizeRangeSelectors(
+	rangeSelectors: RangeSelectors
+): RangeSelectors {
+	const {rangeEnd, rangeStart} = rangeSelectors;
+
+	if (rangeEnd && rangeStart) {
+		return {
+			...rangeSelectors,
+			rangeKey: RangeKeyTimeRanges.CustomRange
+		};
+	}
+
+	return rangeSelectors;
 }
 
 type UseEventAnalysisData = (
@@ -87,11 +103,11 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 				compareToPrevious,
 				event: eventDefinition,
 				name,
-				rangeSelectors: {
+				rangeSelectors: normalizeRangeSelectors({
 					rangeEnd,
 					rangeKey,
 					rangeStart
-				}
+				})
 			};
 		}
 	}, [data]);

@@ -5,7 +5,7 @@ import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import Form from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
-import React, {useContext, useRef, useState} from 'react';
+import React, {useCallback, useContext, useMemo, useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import useEventAnalysisData from 'event-analysis/hooks/useEventAnalysisData';
 import useSaveEventAnalysis from 'event-analysis/hooks/useSaveEventAnalysis';
@@ -16,13 +16,18 @@ import {
 	AttributesContext,
 	AttributesProvider
 } from '../components/event-analysis-editor/context/attributes';
-import {CalculationTypes, Event} from 'event-analysis/utils/types';
+import {
+	Breakdowns,
+	CalculationTypes,
+	Event,
+	Filters
+} from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withRangeKey} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {DEVELOPER_MODE} from 'shared/util/constants';
-import {Formik} from 'formik';
 import {getSafeRangeSelectors} from 'shared/util/util';
+import {hasChanges} from 'shared/util/react';
 import {Modal} from 'shared/types';
 import {omit} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
@@ -30,32 +35,50 @@ import {useHistory, useParams} from 'react-router-dom';
 import {User} from 'shared/util/records';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
+function hasChangesFn<T>(prev: T = null, next: T = null, ...keys: string[]) {
+	const emptyPrev = !prev || !Object.keys(prev).length;
+	const emptyNext = !next || !Object.keys(next).length;
+
+	if (emptyPrev && emptyNext) {
+		return false;
+	} else if ((emptyPrev && !emptyNext) || (!emptyPrev && emptyNext)) {
+		return true;
+	}
+
+	return hasChanges<T>(prev, next, ...keys);
+}
+
 interface IEventAnalysisProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
-	compareToPrevious?: boolean;
-	event?: Event;
-	name?: string;
-	currentUser: User;
-	open: Modal.open;
-	close: Modal.close;
 	addAlert: Alert.AddAlert;
+	breakdowns?: Breakdowns;
+	close: Modal.close;
+	compareToPrevious?: boolean;
+	currentUser: User;
+	event?: Event;
 	eventAnalysisId?: string;
+	filters?: Filters;
+	name?: string;
+	open: Modal.open;
 }
 
 export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	addAlert,
+	breakdowns: initialBreakdowns,
 	close,
 	compareToPrevious: initialCompareToPrevious = false,
 	currentUser,
 	event: initialEvent = null,
 	eventAnalysisId = null,
+	filters: initialFilters,
 	name: initialName = '',
 	open,
 	rangeSelectors: initialRangeSelectors
 }) => {
 	const history = useHistory();
 	const {channelId, groupId} = useParams();
+
 	const [compareToPrevious, setCompareToPrevious] = useState<boolean>(
 		initialCompareToPrevious
 	);
@@ -63,19 +86,16 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	const [rangeSelectors, setRangeSelectors] = useState<RangeSelectors>(
 		initialRangeSelectors
 	);
+	const [submitted, setSubmitted] = useState<boolean>(false);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
 	const {breakdownOrder, breakdowns, filterOrder, filters} = useContext(
 		AttributesContext
 	);
 
-	const _formRef = useRef<Formik>();
-
 	const saveEventAnalysis = useSaveEventAnalysis(eventAnalysisId);
 
-	const handleSubmit = ({name}) => {
-		const {setSubmitting} = _formRef.current.getFormikActions();
-
+	const handleSubmit = ({name}, {setSubmitting}) => {
 		open(
 			modalTypes.LOADING_MODAL,
 			{
@@ -103,6 +123,7 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 		})
 			.then(() => {
 				setSubmitting(false);
+				setSubmitted(true);
 
 				close();
 
@@ -121,16 +142,54 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 				});
 			})
 			.catch(({message}) => {
+				setSubmitting(false);
+				setSubmitted(false);
+
 				addAlert({
 					alertType: Alert.Types.Error,
 					message
 				});
 
-				setSubmitting(false);
-
 				close();
 			});
 	};
+
+	const breakdownsChanged: boolean = useMemo(
+		() => hasChangesFn<Breakdowns>(initialBreakdowns, breakdowns, 'id'),
+		[initialBreakdowns, breakdowns]
+	);
+
+	const compareToPreviousChanged: boolean = useMemo(
+		() => initialCompareToPrevious !== compareToPrevious,
+		[initialCompareToPrevious, compareToPrevious]
+	);
+
+	const eventChanged: boolean = useMemo(
+		() => hasChangesFn<Event>(initialEvent, event, 'id'),
+		[initialEvent, event]
+	);
+
+	const filtersChanged: boolean = useMemo(
+		() => hasChangesFn<Filters>(initialFilters, filters, 'id'),
+		[initialFilters, filters]
+	);
+
+	const nameChanged: (name: string) => boolean = useCallback(
+		name => initialName !== name,
+		[initialName]
+	);
+
+	const rangeSelectorsChanged: boolean = useMemo(
+		() =>
+			hasChangesFn<RangeSelectors>(
+				initialRangeSelectors,
+				rangeSelectors,
+				'rangeStart',
+				'rangeKey',
+				'rangeEnd'
+			),
+		[initialRangeSelectors, rangeSelectors]
+	);
 
 	return (
 		<Form
@@ -138,16 +197,21 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 				name: initialName
 			}}
 			onSubmit={handleSubmit}
-			ref={_formRef}
 		>
 			{({handleSubmit, isSubmitting, values: {name}}) => {
-				// TODO: Implement hasChanges logic
-				const hasChanges = true;
-				const isValid = !!name && !!event?.id;
+				const hasChanges =
+					breakdownsChanged ||
+					compareToPreviousChanged ||
+					eventChanged ||
+					filtersChanged ||
+					nameChanged(name) ||
+					rangeSelectorsChanged;
 
 				return (
 					<Form.Form onSubmit={handleSubmit}>
-						<NavigationWarning when={hasChanges && !isSubmitting} />
+						<NavigationWarning
+							when={!submitted && hasChanges && !isSubmitting}
+						/>
 
 						<BasePage
 							className='create-event-analysis-root'
@@ -171,7 +235,14 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 							{/* TODO: LRAC-9959 Remove condition after deleting feature flag */}
 							{DEVELOPER_MODE && (
 								<BasePage.SubHeader>
-									<EventAnalysisToolbar isValid={isValid} />
+									<EventAnalysisToolbar
+										isValid={
+											!!name &&
+											!!event?.id &&
+											hasChanges &&
+											!isSubmitting
+										}
+									/>
 								</BasePage.SubHeader>
 							)}
 
@@ -230,7 +301,11 @@ const EditEventAnalysis: React.FC<IEventAnalysisProps> = props => {
 
 	return (
 		<AttributesProvider initialState={attributesState}>
-			<EventAnalysis {...props} {...eventAnalysisData} />
+			<EventAnalysis
+				{...props}
+				{...attributesState}
+				{...eventAnalysisData}
+			/>
 		</AttributesProvider>
 	);
 };

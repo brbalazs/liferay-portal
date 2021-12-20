@@ -6,9 +6,9 @@ export const getDisplayName = WrappedComponent =>
 /**
  * Compare previous state or props object by provided keys to detect changes.
  */
-export function hasChanges(
-	prev: object,
-	next: object,
+export function hasChanges<T>(
+	prev: T | object,
+	next: T | object,
 	...keys: string[]
 ): boolean {
 	for (const key of keys) {
