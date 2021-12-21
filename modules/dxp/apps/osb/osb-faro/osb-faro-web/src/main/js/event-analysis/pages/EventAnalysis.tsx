@@ -100,7 +100,9 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 			modalTypes.LOADING_MODAL,
 			{
 				message: Liferay.Language.get('this-will-only-take-a-moment'),
-				title: Liferay.Language.get('updating')
+				title: eventAnalysisId
+					? Liferay.Language.get('creating')
+					: Liferay.Language.get('updating')
 			},
 			{closeOnBlur: false}
 		);
