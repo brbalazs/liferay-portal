@@ -70,7 +70,7 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 				continue;
 			}
 
-			Contact contact = KoroneikiHttpUtil.fetchtContact(
+			Contact contact = KoroneikiHttpUtil.fetchContact(
 				user.getEmailAddress());
 
 			if (contact == null) {

@@ -74,6 +74,18 @@ public class KoroneikiHttpUtil {
 		return null;
 	}
 
+	public static Contact fetchContact(String emailAddress) throws Exception {
+		HttpInvoker.HttpResponse httpResponse =
+			_contactResource.getContactByEmailAddresEmailAddressHttpResponse(
+				emailAddress);
+
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			return ContactSerDes.toDTO(httpResponse.getContent());
+		}
+
+		return null;
+	}
+
 	public static ContactRole fetchContactRole(
 			String name, ContactRole.Type type)
 		throws Exception {
@@ -98,18 +110,6 @@ public class KoroneikiHttpUtil {
 
 		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
 			return ProductSerDes.toDTO(httpResponse.getContent());
-		}
-
-		return null;
-	}
-
-	public static Contact fetchtContact(String emailAddress) throws Exception {
-		HttpInvoker.HttpResponse httpResponse =
-			_contactResource.getContactByEmailAddresEmailAddressHttpResponse(
-				emailAddress);
-
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
-			return ContactSerDes.toDTO(httpResponse.getContent());
 		}
 
 		return null;
