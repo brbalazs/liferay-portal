@@ -338,7 +338,7 @@ const defaultState = {
 
 export const AttributesProvider = ({
 	children,
-	initialState
+	initialState = defaultState
 }: {
 	children: React.ReactNode;
 	initialState?: AttributesState;
@@ -346,7 +346,7 @@ export const AttributesProvider = ({
 	const [
 		{attributes, breakdownOrder, breakdowns, filterOrder, filters},
 		attributesDispatch
-	] = useReducer(attributesReducer, initialState || defaultState);
+	] = useReducer(attributesReducer, initialState);
 
 	const contextValue: {
 		addBreakdown: AddBreakdown;
