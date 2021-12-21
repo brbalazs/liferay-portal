@@ -10,14 +10,22 @@ import {RangeSelectors} from 'shared/types';
 import {useMemo} from 'react';
 import {useQuery} from '@apollo/react-hooks';
 
-function normalizeItems<T>(data: T[]): {[key: string]: T} {
+interface BreakdownWithId extends Breakdown {
+	id: string;
+}
+
+interface FilterWithId extends Filter {
+	id: string;
+}
+
+function normalizeItems<T extends {id: string}>(data: T[]): {[key: string]: T} {
 	return data.reduce((acc, item) => {
 		// @ts-ignore property __typename is coming from GraphQL
 		delete item.__typename;
 
 		return {
 			...acc,
-			[item['id']]: item
+			[item.id]: item
 		};
 	}, {});
 }
@@ -84,11 +92,14 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 				}
 			} = data;
 
-			const breakdowns = getItems<Breakdown>(
+			const breakdowns: BreakdownWithId[] = getItems<Breakdown>(
 				eventAnalysisBreakdowns,
 				'breakdown'
 			);
-			const filters = getItems<Filter>(eventAnalysisFilters, 'filter');
+			const filters: FilterWithId[] = getItems<Filter>(
+				eventAnalysisFilters,
+				'filter'
+			);
 
 			return {
 				attributesState: {
@@ -96,9 +107,9 @@ const useEventAnalysisData: UseEventAnalysisData = eventAnalysisId => {
 						eventAttributeDefinitions
 					),
 					breakdownOrder: breakdowns.map(({id}) => id),
-					breakdowns: normalizeItems<Breakdown>(breakdowns),
+					breakdowns: normalizeItems<BreakdownWithId>(breakdowns),
 					filterOrder: filters.map(({id}) => id),
-					filters: normalizeItems<Filter>(filters)
+					filters: normalizeItems<FilterWithId>(filters)
 				},
 				compareToPrevious,
 				event: eventDefinition,
