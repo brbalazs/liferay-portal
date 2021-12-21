@@ -19,7 +19,7 @@ const EventAnalysisToolbar: React.FC<IEventAnalysisToolbarProps> = ({
 			<div className='event-analysis-toolbar-left-content'>
 				<TitleEditor
 					name='name'
-					placeholder={Liferay.Language.get('unnamed-report')}
+					placeholder={Liferay.Language.get('unnamed-analysis')}
 				/>
 			</div>
 
