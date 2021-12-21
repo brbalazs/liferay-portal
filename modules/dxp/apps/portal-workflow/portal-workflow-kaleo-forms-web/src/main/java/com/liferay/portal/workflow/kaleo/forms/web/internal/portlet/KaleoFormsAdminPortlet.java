@@ -63,6 +63,8 @@ import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -106,7 +108,7 @@ import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionVersionLocalServ
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -855,26 +857,25 @@ public class KaleoFormsAdminPortlet extends MVCPortlet {
 	 *
 	 * @param  resourceRequest the resource request
 	 * @param  resourceResponse the resource response
-	 * @throws Exception if an exception occurred
 	 */
 	protected void saveInPortletSession(
-			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
-		throws Exception {
+		ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 
-		Enumeration<String> enumeration = resourceRequest.getParameterNames();
+		Map<String, String[]> parameterMap = resourceRequest.getParameterMap();
 
-		while (enumeration.hasMoreElements()) {
-			String name = enumeration.nextElement();
+		PortletSession portletSession = resourceRequest.getPortletSession();
 
-			if (name.equals("doAsUserId")) {
+		for (String parameterName :
+				ListUtil.concat(
+					_getLocalizedParameterNames(), _parameterNames)) {
+
+			if (!parameterMap.containsKey(parameterName)) {
 				continue;
 			}
 
-			PortletSession portletSession = resourceRequest.getPortletSession();
-
-			String value = ParamUtil.getString(resourceRequest, name);
-
-			portletSession.setAttribute(name, value);
+			portletSession.setAttribute(
+				parameterName,
+				ParamUtil.getString(resourceRequest, parameterName));
 		}
 	}
 
@@ -1212,14 +1213,34 @@ public class KaleoFormsAdminPortlet extends MVCPortlet {
 
 	protected StorageEngine storageEngine;
 
+	private List<String> _getLocalizedParameterNames() {
+		List<String> localizedParameters = new ArrayList<>();
+
+		for (Locale availableLocale : LanguageUtil.getAvailableLocales()) {
+			localizedParameters.add(
+				"description" + LocaleUtil.toLanguageId(availableLocale));
+			localizedParameters.add(
+				"name" + LocaleUtil.toLanguageId(availableLocale));
+		}
+
+		return localizedParameters;
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		KaleoFormsAdminPortlet.class);
 
+	private static final List<String> _parameterNames = Arrays.asList(
+		"backURL", "ddmStructureId", "ddmStructureName", "ddmTemplateId",
+		"historyKey", "kaleoProcessId", "kaleoTaskFormPairsData", "mvcPath",
+		"redirect", "translatedLanguagesDescription", "translatedLanguagesName",
+		"workflowDefinition");
 	private static final TransactionConfig _transactionConfig =
 		TransactionConfig.Factory.create(
 			Propagation.REQUIRES_NEW, new Class<?>[] {Exception.class});
 
+	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;
+
 	private DDLExporterFactory _ddlExporterFactory;
 	private DDLRecordLocalService _ddlRecordLocalService;
 	private DDLRecordService _ddlRecordService;
