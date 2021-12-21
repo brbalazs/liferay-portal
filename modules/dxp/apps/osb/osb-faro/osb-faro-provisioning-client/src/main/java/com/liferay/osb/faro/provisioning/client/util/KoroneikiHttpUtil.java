@@ -67,11 +67,11 @@ public class KoroneikiHttpUtil {
 		HttpInvoker.HttpResponse httpResponse =
 			_accountResource.getAccountHttpResponse(accountKey);
 
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
-			return null;
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			return AccountSerDes.toDTO(httpResponse.getContent());
 		}
 
-		return AccountSerDes.toDTO(httpResponse.getContent());
+		return null;
 	}
 
 	public static ContactRole fetchContactRole(
@@ -84,11 +84,11 @@ public class KoroneikiHttpUtil {
 				HttpUtil.encodePath(
 					KoroneikiConstants.translateContactRoleName(name)));
 
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
-			return null;
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			return ContactRoleSerDes.toDTO(httpResponse.getContent());
 		}
 
-		return ContactRoleSerDes.toDTO(httpResponse.getContent());
+		return null;
 	}
 
 	public static Product fetchProduct(String productName) throws Exception {
@@ -96,11 +96,11 @@ public class KoroneikiHttpUtil {
 			_productResource.getProductByNameProductNameHttpResponse(
 				HttpUtil.encodePath(productName));
 
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
-			return null;
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			return ProductSerDes.toDTO(httpResponse.getContent());
 		}
 
-		return ProductSerDes.toDTO(httpResponse.getContent());
+		return null;
 	}
 
 	public static Contact fetchtContact(String emailAddress) throws Exception {
@@ -108,11 +108,11 @@ public class KoroneikiHttpUtil {
 			_contactResource.getContactByEmailAddresEmailAddressHttpResponse(
 				emailAddress);
 
-		if (httpResponse.getStatusCode() == HttpServletResponse.SC_NOT_FOUND) {
-			return null;
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			return ContactSerDes.toDTO(httpResponse.getContent());
 		}
 
-		return ContactSerDes.toDTO(httpResponse.getContent());
+		return null;
 	}
 
 	public static List<ContactRole> getAccountContactRoles(
