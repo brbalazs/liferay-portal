@@ -2,7 +2,7 @@ import Button from 'shared/components/Button';
 import React from 'react';
 import TitleEditor from 'shared/components/TitleEditor';
 import {Routes, toRoute} from 'shared/util/router';
-import {useHistory, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 interface IEventAnalysisToolbarProps extends React.HTMLAttributes<HTMLElement> {
 	isValid: boolean;
@@ -11,7 +11,6 @@ interface IEventAnalysisToolbarProps extends React.HTMLAttributes<HTMLElement> {
 const EventAnalysisToolbar: React.FC<IEventAnalysisToolbarProps> = ({
 	isValid
 }) => {
-	const history = useHistory();
 	const {channelId, groupId} = useParams();
 
 	return (
@@ -38,14 +37,10 @@ const EventAnalysisToolbar: React.FC<IEventAnalysisToolbarProps> = ({
 
 					<Button.GroupItem>
 						<Button
-							onClick={() =>
-								history.push(
-									toRoute(Routes.EVENT_ANALYSIS, {
-										channelId,
-										groupId
-									})
-								)
-							}
+							href={toRoute(Routes.EVENT_ANALYSIS, {
+								channelId,
+								groupId
+							})}
 							size='sm'
 						>
 							{Liferay.Language.get('cancel')}
