@@ -745,15 +745,12 @@ public class ProjectController extends BaseFaroController {
 					groupFriendlyURLException.getType()));
 		}
 
-		String weDeployKey = null;
-
 		if (corpProjectUuid.equals(_PROJECT_ID)) {
-			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
+			faroProject.setWeDeployKey(_DEFAULT_WE_DEPLOY_KEY);
 		}
-		else {
-			weDeployKey =
-				contactsEngineClient.addProject(faroProject) + ".lfr.cloud";
-		}
+
+		String weDeployKey =
+			contactsEngineClient.addProject(faroProject) + ".lfr.cloud";
 
 		faroProject.setWeDeployKey(weDeployKey);
 
