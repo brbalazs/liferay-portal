@@ -151,7 +151,7 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
 	return (
 		<AttributesProvider initialState={attributesState}>
-			<BaseEventAnalysisPage {...otherData} />
+			<BaseEventAnalysisPage {...attributesState} {...otherData} />
 		</AttributesProvider>
 	);
 };
