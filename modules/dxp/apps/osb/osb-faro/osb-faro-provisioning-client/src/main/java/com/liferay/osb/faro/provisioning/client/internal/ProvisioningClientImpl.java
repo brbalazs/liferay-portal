@@ -70,19 +70,7 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 				continue;
 			}
 
-			Contact contact = KoroneikiHttpUtil.fetchContact(
-				user.getEmailAddress());
-
-			if (contact == null) {
-				contact = new Contact();
-
-				contact.setEmailAddress(user.getEmailAddress());
-				contact.setFirstName(user.getFirstName());
-				contact.setLastName(user.getLastName());
-				contact.setUuid(userUuid);
-
-				contact = KoroneikiHttpUtil.postContact(contact);
-			}
+			Contact contact = _getContact(user);
 
 			KoroneikiHttpUtil.assignAccountContactRole(
 				account.getKey(), contactRole.getKey(), contact.getUuid());
@@ -104,8 +92,17 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 		Account account = _getCorpProjectAccount(corpProjectUuid);
 
 		for (String userUuid : userUuids) {
+			User user = _userLocalService.fetchUserByUuidAndCompanyId(
+				userUuid, _portal.getDefaultCompanyId());
+
+			if (user == null) {
+				continue;
+			}
+
+			Contact contact = _getContact(user);
+
 			KoroneikiHttpUtil.assignAccountContactRole(
-				account.getKey(), contactRole.getKey(), userUuid);
+				account.getKey(), contactRole.getKey(), contact.getUuid());
 		}
 	}
 
@@ -223,6 +220,24 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 				page++;
 			}
 		}
+	}
+
+	private Contact _getContact(User user) throws Exception {
+		Contact contact = KoroneikiHttpUtil.fetchContact(
+			user.getEmailAddress());
+
+		if (contact == null) {
+			contact = new Contact();
+
+			contact.setEmailAddress(user.getEmailAddress());
+			contact.setFirstName(user.getFirstName());
+			contact.setLastName(user.getLastName());
+			contact.setUuid(user.getUuid());
+
+			contact = KoroneikiHttpUtil.postContact(contact);
+		}
+
+		return contact;
 	}
 
 	private Account _getCorpProjectAccount(String corpProjectUuid)
