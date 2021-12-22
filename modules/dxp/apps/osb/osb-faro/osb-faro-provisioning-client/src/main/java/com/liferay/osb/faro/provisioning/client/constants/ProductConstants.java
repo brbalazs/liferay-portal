@@ -23,57 +23,58 @@ import java.util.Set;
  */
 public class ProductConstants {
 
-	public static final long BASIC_PRODUCT_ENTRY_ID = 110520630;
+	public static final String BASIC_PRODUCT_ENTRY_ID = "KOR-36421";
 
 	public static final String BASIC_PRODUCT_NAME =
 		"Liferay Analytics Cloud Basic";
 
-	public static final long BUSINESS_CONTACTS_PRODUCT_ENTRY_ID = 110520673;
+	public static final String BUSINESS_CONTACTS_PRODUCT_ENTRY_ID = "KOR-36431";
 
 	public static final String BUSINESS_CONTACTS_PRODUCT_NAME =
 		"Liferay Analytics Cloud Business Contacts";
 
-	public static final long BUSINESS_PRODUCT_ENTRY_ID = 110520636;
+	public static final String BUSINESS_PRODUCT_ENTRY_ID = "KOR-36425";
 
 	public static final String BUSINESS_PRODUCT_NAME =
 		"Liferay Analytics Cloud Business";
 
-	public static final long BUSINESS_TRACKED_PAGES_PRODUCT_ENTRY_ID =
-		110520683;
+	public static final String BUSINESS_TRACKED_PAGES_PRODUCT_ENTRY_ID =
+		"KOR-36434";
 
 	public static final String BUSINESS_TRACKED_PAGES_PRODUCT_NAME =
 		"Liferay Analytics Cloud Business Tracked Pages";
 
-	public static final long ENTERPRISE_CONTACTS_PRODUCT_ENTRY_ID = 110520692;
+	public static final String ENTERPRISE_CONTACTS_PRODUCT_ENTRY_ID =
+		"KOR-36437";
 
 	public static final String ENTERPRISE_CONTACTS_PRODUCT_NAME =
 		"Liferay Analytics Cloud Enterprise Contacts";
 
-	public static final long ENTERPRISE_PRODUCT_ENTRY_ID = 110520665;
+	public static final String ENTERPRISE_PRODUCT_ENTRY_ID = "KOR-36428";
 
 	public static final String ENTERPRISE_PRODUCT_NAME =
 		"Liferay Analytics Cloud Enterprise";
 
-	public static final long ENTERPRISE_TRACKED_PAGES_PRODUCT_ENTRY_ID =
-		110520700;
+	public static final String ENTERPRISE_TRACKED_PAGES_PRODUCT_ENTRY_ID =
+		"KOR-36440";
 
 	public static final String ENTERPRISE_TRACKED_PAGES_PRODUCT_NAME =
 		"Liferay Analytics Cloud Enterprise Tracked Pages";
 
 	public static final int OSB_OFFERING_ENTRY_STATUS_ACTIVE = 1;
 
-	public static Long[] getProductEntryIds() {
-		Set<Long> keys = _productNames.keySet();
+	public static String[] getProductEntryIds() {
+		Set<String> keys = _productNames.keySet();
 
-		return keys.toArray(new Long[0]);
+		return keys.toArray(new String[0]);
 	}
 
-	public static String getProductName(long productEntryId) {
+	public static String getProductName(String productEntryId) {
 		return _productNames.get(productEntryId);
 	}
 
-	private static final Map<Long, String> _productNames =
-		new HashMap<Long, String>() {
+	private static final Map<String, String> _productNames =
+		new HashMap<String, String>() {
 			{
 				put(BASIC_PRODUCT_ENTRY_ID, BASIC_PRODUCT_NAME);
 				put(
