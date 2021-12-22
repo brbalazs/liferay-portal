@@ -38,6 +38,8 @@ import com.liferay.dynamic.data.mapping.util.DDMDisplayRegistry;
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesMerger;
 import com.liferay.dynamic.data.mapping.util.FieldsToDDMFormValuesConverter;
 import com.liferay.petra.string.CharPool;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -69,7 +71,6 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -170,7 +171,7 @@ public class KaleoFormsAdminPortlet extends MVCPortlet {
 		_parameterNames = ListUtil.fromArray(
 			"backURL", "ddmStructureId", "ddmStructureName", "ddmTemplateId",
 			"historyKey", "kaleoProcessId", "kaleoTaskFormPairsData", "mvcPath",
-			"redirect", "translatedLanguagesDescription",
+			"redirect", "tabs1", "translatedLanguagesDescription",
 			"translatedLanguagesName", "workflowDefinition");
 
 		for (Locale availableLocale : LanguageUtil.getAvailableLocales()) {
@@ -887,6 +888,19 @@ public class KaleoFormsAdminPortlet extends MVCPortlet {
 			portletSession.setAttribute(
 				parameterName,
 				ParamUtil.getString(resourceRequest, parameterName));
+		}
+
+		if (parameterMap.containsKey("kaleoProcessLinkDDMTemplateId")) {
+			portletSession.setAttribute(
+				StringBundler.concat(
+					ParamUtil.getString(
+						resourceRequest, "kaleoProcessLinkDDMStructureId"),
+					ParamUtil.getString(
+						resourceRequest, "kaleoProcessLinkWorkflowDefinition"),
+					ParamUtil.getString(
+						resourceRequest, "kaleoProcessLinkWorkflowTaskName")),
+				ParamUtil.getString(
+					resourceRequest, "kaleoProcessLinkDDMTemplateId"));
 		}
 	}
 
