@@ -208,11 +208,14 @@ public class FaroSubscriptionDisplay {
 		OSBOfferingEntry baseOSBOfferingEntry = null;
 
 		for (OSBOfferingEntry osbOfferingEntry : osbOfferingEntries) {
-			if ((osbOfferingEntry.getProductEntryId() !=
+			if (!StringUtil.equals(
+					osbOfferingEntry.getProductEntryId(),
 					ProductConstants.BASIC_PRODUCT_ENTRY_ID) &&
-				(osbOfferingEntry.getProductEntryId() !=
+				!StringUtil.equals(
+					osbOfferingEntry.getProductEntryId(),
 					ProductConstants.BUSINESS_PRODUCT_ENTRY_ID) &&
-				(osbOfferingEntry.getProductEntryId() !=
+				!StringUtil.equals(
+					osbOfferingEntry.getProductEntryId(),
 					ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID)) {
 
 				continue;
