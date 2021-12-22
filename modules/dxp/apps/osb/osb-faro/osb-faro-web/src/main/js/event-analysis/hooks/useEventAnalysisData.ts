@@ -1,10 +1,11 @@
-import EventAnalysisQuery, {
-	EventAnalysisData,
-	EventAnalysisVariables
-} from '../queries/EventAnalysisQuery';
 import {ApolloError} from 'apollo-client';
 import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
 import {AttributesState} from '../components/event-analysis-editor/context/attributes';
+import {
+	EventAnalysisData,
+	EventAnalysisQuery,
+	EventAnalysisVariables
+} from '../queries/EventAnalysisQuery';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
 import {useMemo} from 'react';

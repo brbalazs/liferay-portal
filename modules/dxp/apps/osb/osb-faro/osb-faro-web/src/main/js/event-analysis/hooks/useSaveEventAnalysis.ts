@@ -3,7 +3,7 @@ import {
 	EventAnalysisMutationData,
 	EventAnalysisMutationVariables,
 	UpdateEventAnalysisMutation
-} from 'event-analysis/queries/EventAnalysisMutation';
+} from 'event-analysis/queries/EventAnalysisQuery';
 import {useMutation} from '@apollo/react-hooks';
 
 const useSaveEventAnalysis = (eventAnalysisId: string | null) => {
