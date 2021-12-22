@@ -33,15 +33,15 @@ public class FaroSubscriptionConstants {
 
 	public static final int STATUS_OK = 0;
 
-	public static FaroSubscriptionPlan getFaroSubscriptionPlan(
-		long productEntryId) {
+	public static FaroSubscriptionPlan getFaroSubscriptionPlan(String name) {
+		return _faroSubscriptionPlans.get(name);
+	}
+
+	public static FaroSubscriptionPlan getFaroSubscriptionPlanByProductEntryId(
+		String productEntryId) {
 
 		return getFaroSubscriptionPlan(
 			ProductConstants.getProductName(productEntryId));
-	}
-
-	public static FaroSubscriptionPlan getFaroSubscriptionPlan(String name) {
-		return _faroSubscriptionPlans.get(name);
 	}
 
 	public static Map<String, FaroSubscriptionPlan> getFaroSubscriptionPlans() {

@@ -66,7 +66,7 @@ public class FaroSubscriptionDisplay {
 		_startDate = baseOSBOfferingEntry.getStartDate();
 
 		FaroSubscriptionPlan baseFaroSubscriptionPlan =
-			FaroSubscriptionConstants.getFaroSubscriptionPlan(
+			FaroSubscriptionConstants.getFaroSubscriptionPlanByProductEntryId(
 				baseOSBOfferingEntry.getProductEntryId());
 
 		_individualsLimit = baseFaroSubscriptionPlan.getIndividualsLimit();
@@ -76,8 +76,9 @@ public class FaroSubscriptionDisplay {
 				osbAccountEntry.getOfferingEntries()) {
 
 			FaroSubscriptionPlan faroSubscriptionPlan =
-				FaroSubscriptionConstants.getFaroSubscriptionPlan(
-					osbOfferingEntry.getProductEntryId());
+				FaroSubscriptionConstants.
+					getFaroSubscriptionPlanByProductEntryId(
+						osbOfferingEntry.getProductEntryId());
 
 			if ((faroSubscriptionPlan != null) &&
 				StringUtil.equals(
