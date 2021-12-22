@@ -75,7 +75,7 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-			String userUuid, Long[] productEntryIds)
+			String userUuid, String[] productEntryIds)
 		throws Exception {
 
 		if (Validator.isNotNull(_MOCK_OSB_ACCOUNT_ENTRY)) {

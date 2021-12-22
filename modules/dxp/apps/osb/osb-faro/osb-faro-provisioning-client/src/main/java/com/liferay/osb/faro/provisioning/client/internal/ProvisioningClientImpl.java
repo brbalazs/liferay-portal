@@ -128,7 +128,7 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-			String userUuid, Long[] productEntryIds)
+			String userUuid, String[] productEntryIds)
 		throws Exception {
 
 		List<OSBAccountEntry> osbAccountEntries = new ArrayList<>();
@@ -141,7 +141,7 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 
 		List<String> productKeys = new ArrayList<>();
 
-		for (long productEntryId : productEntryIds) {
+		for (String productEntryId : productEntryIds) {
 			String productName = ProductConstants.getProductName(
 				productEntryId);
 

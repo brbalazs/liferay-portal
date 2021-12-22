@@ -54,7 +54,7 @@ public abstract class BaseMockProvisioningClientImpl
 
 	@Override
 	public List<OSBAccountEntry> getOSBAccountEntries(
-			String userUuid, Long[] productEntryIds)
+			String userUuid, String[] productEntryIds)
 		throws Exception {
 
 		return provisioningClient.getOSBAccountEntries(

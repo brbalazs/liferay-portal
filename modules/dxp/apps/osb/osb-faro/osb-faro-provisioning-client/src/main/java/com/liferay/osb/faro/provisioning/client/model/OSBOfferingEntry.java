@@ -15,7 +15,6 @@
 package com.liferay.osb.faro.provisioning.client.model;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
-import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.Date;
 
@@ -28,9 +27,9 @@ public class OSBOfferingEntry {
 	}
 
 	public OSBOfferingEntry(ProductPurchase productPurchase) {
-		_offeringEntryId = GetterUtil.getLong(productPurchase.getKey());
+		_offeringEntryId = productPurchase.getKey();
 
-		_productEntryId = GetterUtil.getLong(productPurchase.getProductKey());
+		_productEntryId = productPurchase.getProductKey();
 
 		_quantity = productPurchase.getQuantity();
 
@@ -77,7 +76,7 @@ public class OSBOfferingEntry {
 		return new Date(_modifiedDate.getTime());
 	}
 
-	public long getOfferingEntryId() {
+	public String getOfferingEntryId() {
 		return _offeringEntryId;
 	}
 
@@ -97,7 +96,7 @@ public class OSBOfferingEntry {
 		return _productDescription;
 	}
 
-	public long getProductEntryId() {
+	public String getProductEntryId() {
 		return _productEntryId;
 	}
 
@@ -193,7 +192,7 @@ public class OSBOfferingEntry {
 		}
 	}
 
-	public void setOfferingEntryId(long offeringEntryId) {
+	public void setOfferingEntryId(String offeringEntryId) {
 		_offeringEntryId = offeringEntryId;
 	}
 
@@ -213,7 +212,7 @@ public class OSBOfferingEntry {
 		_productDescription = productDescription;
 	}
 
-	public void setProductEntryId(long productEntryId) {
+	public void setProductEntryId(String productEntryId) {
 		_productEntryId = productEntryId;
 	}
 
@@ -276,12 +275,12 @@ public class OSBOfferingEntry {
 	private long _maxConcurrentUsers;
 	private long _maxUsers;
 	private Date _modifiedDate;
-	private long _offeringEntryId;
+	private String _offeringEntryId;
 	private long _orderEntryId;
 	private String _platform;
 	private String _platformVersion;
 	private String _productDescription;
-	private long _productEntryId;
+	private String _productEntryId;
 	private int _quantity;
 	private int _sizing;
 	private Date _startDate;

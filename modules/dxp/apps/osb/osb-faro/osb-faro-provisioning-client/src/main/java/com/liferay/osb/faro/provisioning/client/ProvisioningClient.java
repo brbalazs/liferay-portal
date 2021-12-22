@@ -35,7 +35,7 @@ public interface ProvisioningClient {
 		throws Exception;
 
 	public List<OSBAccountEntry> getOSBAccountEntries(
-			String userUuid, Long[] productEntryIds)
+			String userUuid, String[] productEntryIds)
 		throws Exception;
 
 	public OSBAccountEntry getOSBAccountEntry(String corpProjectUuid)
