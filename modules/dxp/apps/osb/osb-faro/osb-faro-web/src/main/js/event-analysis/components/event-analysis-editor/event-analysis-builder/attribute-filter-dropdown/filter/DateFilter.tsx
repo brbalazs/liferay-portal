@@ -63,13 +63,7 @@ const DateFilter: React.FC<IFilterProps> = ({
 			}}
 		>
 			{({handleSubmit, isValid, values: {operator}}) => (
-				<Form.Form
-					onSubmit={event => {
-						event.stopPropagation();
-
-						handleSubmit(event);
-					}}
-				>
+				<Form.Form onSubmit={handleSubmit}>
 					<div className='options-body'>
 						<Form.Group autoFit>
 							<Form.GroupItem>

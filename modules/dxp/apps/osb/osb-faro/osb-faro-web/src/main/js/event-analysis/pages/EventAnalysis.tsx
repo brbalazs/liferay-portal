@@ -194,48 +194,52 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	);
 
 	return (
-		<Form
-			initialValues={{
-				name: initialName
-			}}
-			onSubmit={handleSubmit}
+		<BasePage
+			className='create-event-analysis-root'
+			documentTitle={Liferay.Language.get('events')}
 		>
-			{({handleSubmit, isSubmitting, values: {name}}) => {
-				const hasChanges =
-					breakdownsChanged ||
-					compareToPreviousChanged ||
-					eventChanged ||
-					filtersChanged ||
-					nameChanged(name) ||
-					rangeSelectorsChanged;
+			<BasePage.Header
+				breadcrumbs={[
+					breadcrumbs.getHome({
+						channelId,
+						groupId,
+						label: Liferay.Language.get('home')
+					})
+				]}
+				groupId={groupId}
+			>
+				<BasePage.Header.TitleSection
+					title={Liferay.Language.get('events')}
+				/>
+			</BasePage.Header>
 
-				return (
-					<Form.Form onSubmit={handleSubmit}>
-						<NavigationWarning
-							when={!submitted && hasChanges && !isSubmitting}
-						/>
+			{/* TODO: LRAC-9959 Remove condition after deleting feature flag */}
+			{DEVELOPER_MODE && (
+				<Form
+					initialValues={{
+						name: initialName
+					}}
+					onSubmit={handleSubmit}
+				>
+					{({handleSubmit, isSubmitting, values: {name}}) => {
+						const hasChanges =
+							breakdownsChanged ||
+							compareToPreviousChanged ||
+							eventChanged ||
+							filtersChanged ||
+							nameChanged(name) ||
+							rangeSelectorsChanged;
 
-						<BasePage
-							className='create-event-analysis-root'
-							documentTitle={Liferay.Language.get('events')}
-						>
-							<BasePage.Header
-								breadcrumbs={[
-									breadcrumbs.getHome({
-										channelId,
-										groupId,
-										label: Liferay.Language.get('home')
-									})
-								]}
-								groupId={groupId}
-							>
-								<BasePage.Header.TitleSection
-									title={Liferay.Language.get('events')}
+						return (
+							<Form.Form onSubmit={handleSubmit}>
+								<NavigationWarning
+									when={
+										!submitted &&
+										hasChanges &&
+										!isSubmitting
+									}
 								/>
-							</BasePage.Header>
 
-							{/* TODO: LRAC-9959 Remove condition after deleting feature flag */}
-							{DEVELOPER_MODE && (
 								<BasePage.SubHeader>
 									<EventAnalysisToolbar
 										isValid={
@@ -246,28 +250,26 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 										}
 									/>
 								</BasePage.SubHeader>
-							)}
+							</Form.Form>
+						);
+					}}
+				</Form>
+			)}
 
-							<BasePage.Body>
-								<EventAnalysisEditor
-									channelId={channelId}
-									compareToPrevious={compareToPrevious}
-									event={event}
-									onCompareToPreviousChange={
-										setCompareToPrevious
-									}
-									onEventChange={setEvent}
-									onRangeSelectorsChange={setRangeSelectors}
-									onTypeChange={setType}
-									rangeSelectors={rangeSelectors}
-									type={type}
-								/>
-							</BasePage.Body>
-						</BasePage>
-					</Form.Form>
-				);
-			}}
-		</Form>
+			<BasePage.Body>
+				<EventAnalysisEditor
+					channelId={channelId}
+					compareToPrevious={compareToPrevious}
+					event={event}
+					onCompareToPreviousChange={setCompareToPrevious}
+					onEventChange={setEvent}
+					onRangeSelectorsChange={setRangeSelectors}
+					onTypeChange={setType}
+					rangeSelectors={rangeSelectors}
+					type={type}
+				/>
+			</BasePage.Body>
+		</BasePage>
 	);
 };
 
