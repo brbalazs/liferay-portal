@@ -38,8 +38,7 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 @Component(
 	immediate = true,
 	property = {
-		"after-filter=URL Rewrite Filter", "dispatcher=FORWARD",
-		"dispatcher=REQUEST", "servlet-context-name=",
+		"dispatcher=FORWARD", "dispatcher=REQUEST", "servlet-context-name=",
 		"servlet-filter-name=Blocked Countries Filter", "url-pattern=/*"
 	},
 	service = Filter.class
@@ -68,7 +67,9 @@ public class BlockedCountriesServletFilter extends BaseFilter {
 			return;
 		}
 
-		filterChain.doFilter(httpServletRequest, httpServletResponse);
+		processFilter(
+			BlockedCountriesServletFilter.class.getName(), httpServletRequest,
+			httpServletResponse, filterChain);
 	}
 
 	private boolean _isBlockedCountry(String ipAddress) {
