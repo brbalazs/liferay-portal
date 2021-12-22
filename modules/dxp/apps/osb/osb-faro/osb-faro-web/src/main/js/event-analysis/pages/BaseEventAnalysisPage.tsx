@@ -1,21 +1,15 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
-import ErrorPage from 'shared/pages/ErrorPage';
 import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import Form from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import React, {useCallback, useContext, useMemo, useState} from 'react';
-import Spinner from 'shared/components/Spinner';
-import useEventAnalysisData from 'event-analysis/hooks/useEventAnalysisData';
 import useSaveEventAnalysis from 'event-analysis/hooks/useSaveEventAnalysis';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
-import {
-	AttributesContext,
-	AttributesProvider
-} from '../components/event-analysis-editor/context/attributes';
+import {AttributesContext} from '../components/event-analysis-editor/context/attributes';
 import {
 	Breakdowns,
 	CalculationTypes,
@@ -57,27 +51,25 @@ interface IEventAnalysisProps
 	compareToPrevious?: boolean;
 	currentUser: User;
 	event?: Event;
-	eventAnalysisId?: string;
 	filters?: Filters;
 	name?: string;
 	open: Modal.open;
 }
 
-export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
+const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	addAlert,
 	breakdowns: initialBreakdowns,
 	close,
 	compareToPrevious: initialCompareToPrevious = false,
 	currentUser,
 	event: initialEvent = null,
-	eventAnalysisId = null,
 	filters: initialFilters,
 	name: initialName = '',
 	open,
 	rangeSelectors: initialRangeSelectors
 }) => {
 	const history = useHistory();
-	const {channelId, groupId} = useParams();
+	const {channelId, groupId, id: eventAnalysisId = null} = useParams();
 
 	const [compareToPrevious, setCompareToPrevious] = useState<boolean>(
 		initialCompareToPrevious
@@ -273,63 +265,6 @@ export const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	);
 };
 
-const EditEventAnalysis: React.FC<IEventAnalysisProps> = props => {
-	const {
-		attributesState,
-		error,
-		loading,
-		...eventAnalysisData
-	} = useEventAnalysisData(props.eventAnalysisId);
-
-	const {channelId, groupId} = useParams();
-
-	if (loading) {
-		return <Spinner alignCenter key='LOADING_DISPLAY' />;
-	}
-
-	if (error) {
-		return (
-			<ErrorPage
-				href={toRoute(Routes.EVENT_ANALYSIS, {
-					channelId,
-					groupId
-				})}
-				linkLabel={Liferay.Language.get('go-to-event-analysis')}
-				message={Liferay.Language.get(
-					'the-analysis-you-are-looking-for-does-not-exist'
-				)}
-				subtitle={Liferay.Language.get('analysis-not-found')}
-			/>
-		);
-	}
-
-	return (
-		<AttributesProvider initialState={attributesState}>
-			<EventAnalysis
-				{...props}
-				{...attributesState}
-				{...eventAnalysisData}
-			/>
-		</AttributesProvider>
-	);
-};
-
-const EventAnalysisWrapper: React.FC<IEventAnalysisProps> = props => {
-	const {id: eventAnalysisId} = useParams();
-
-	if (eventAnalysisId) {
-		return (
-			<EditEventAnalysis {...props} eventAnalysisId={eventAnalysisId} />
-		);
-	}
-
-	return (
-		<AttributesProvider>
-			<EventAnalysis {...props} />
-		</AttributesProvider>
-	);
-};
-
 export default compose(
 	connect(null, {
 		addAlert,
@@ -338,4 +273,4 @@ export default compose(
 	}),
 	withCurrentUser,
 	withRangeKey
-)(EventAnalysisWrapper);
+)(EventAnalysis);
