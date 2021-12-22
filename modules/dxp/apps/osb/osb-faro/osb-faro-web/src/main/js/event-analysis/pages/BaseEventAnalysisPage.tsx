@@ -5,7 +5,6 @@ import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import Form from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import React, {useCallback, useContext, useMemo, useState} from 'react';
-import useSaveEventAnalysis from 'event-analysis/hooks/useSaveEventAnalysis';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
@@ -19,6 +18,12 @@ import {
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withRangeKey} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {
+	CreateEventAnalysisMutation,
+	EventAnalysisMutationData,
+	EventAnalysisMutationVariables,
+	UpdateEventAnalysisMutation
+} from 'event-analysis/queries/EventAnalysisQuery';
 import {DEVELOPER_MODE} from 'shared/util/constants';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {hasChanges} from 'shared/util/react';
@@ -26,6 +31,7 @@ import {Modal} from 'shared/types';
 import {omit} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {useHistory, useParams} from 'react-router-dom';
+import {useMutation} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
@@ -85,7 +91,14 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 		AttributesContext
 	);
 
-	const saveEventAnalysis = useSaveEventAnalysis(eventAnalysisId);
+	const Mutation = eventAnalysisId
+		? UpdateEventAnalysisMutation
+		: CreateEventAnalysisMutation;
+
+	const [saveEventAnalysis] = useMutation<
+		EventAnalysisMutationData,
+		EventAnalysisMutationVariables
+	>(Mutation);
 
 	const handleSubmit = ({name}, {setSubmitting}) => {
 		open(
@@ -100,20 +113,23 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 		);
 
 		saveEventAnalysis({
-			analysisType: type,
-			channelId,
-			compareToPrevious,
-			eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
-				omit(breakdowns[breakdownId], 'id')
-			),
-			eventAnalysisFilters: filterOrder.map(filterId =>
-				omit(filters[filterId], 'id')
-			),
-			eventDefinitionId: event.id,
-			name,
-			userId: currentUser.id,
-			userName: currentUser.name,
-			...getSafeRangeSelectors(rangeSelectors)
+			variables: {
+				analysisType: type,
+				channelId,
+				compareToPrevious,
+				eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
+					omit(breakdowns[breakdownId], 'id')
+				),
+				eventAnalysisFilters: filterOrder.map(filterId =>
+					omit(filters[filterId], 'id')
+				),
+				eventAnalysisId,
+				eventDefinitionId: event.id,
+				name,
+				userId: currentUser.id,
+				userName: currentUser.name,
+				...getSafeRangeSelectors(rangeSelectors)
+			}
 		})
 			.then(() => {
 				setSubmitting(false);
