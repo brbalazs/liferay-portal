@@ -94,6 +94,20 @@ definition {
 		}
 	}
 
+	macro getServerVersion {
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		WaitForSPARefresh();
+
+		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
+		var serverVersion = RegexUtil.replace("${alertInfo}", "Nodes:.*\((.*)\)", "1");
+
+		return "${serverVersion}";
+	}
+
 	macro viewActiveConnectionsError {
 		if (IsTextEqual.isPartialText(locator1 = "Message#ERROR", value1 = "are available")) {
 			AssertTextEquals.assertPartialText(
