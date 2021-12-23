@@ -262,6 +262,11 @@ class GeoLocation extends React.Component {
 	renderList() {
 		const {data} = this.props;
 
+		const getLocationName = location =>
+			location.toLowerCase() === OTHERS
+				? Liferay.Language.get('others')
+				: GeoMapLangKey[location];
+
 		return (
 			<table className={`${CLASSNAME}-table`}>
 				<tbody>
@@ -298,9 +303,8 @@ class GeoLocation extends React.Component {
 									<td
 										className={`text-left font-weight-semibold ${otherClass}`}
 									>
-										{value.name.toLowerCase() === OTHERS
-											? Liferay.Language.get('others')
-											: GeoMapLangKey[value.name]}
+										{getLocationName(value.name) ||
+											value.name}
 									</td>
 
 									<td className={`text-right ${otherClass}`}>
