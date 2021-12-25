@@ -92,7 +92,9 @@ definition {
 
 	macro generateFacetCheckedURL {
 		if (!(isSet(searchURL))) {
-			var searchURL = SearchPortlets.getSearchTermURL(searchPage = "${searchPage}", searchTerm = "${searchTerm}");
+			var searchURL = SearchPortlets.getSearchTermURL(
+				searchPage = "${searchPage}",
+				searchTerm = "${searchTerm}");
 		}
 
 		if ("${facetClass}" == "type") {
