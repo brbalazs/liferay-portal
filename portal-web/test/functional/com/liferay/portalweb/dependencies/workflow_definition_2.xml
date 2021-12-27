@@ -11,7 +11,14 @@
 	<state>
 		<name>created</name>
 		<metadata>
-			<![CDATA[{"xy":[36,51]}]]>
+			<![CDATA[
+				{
+					"xy": [
+						36,
+						51
+					]
+				}
+			]]>
 		</metadata>
 		<actions>
 			<notification>
@@ -38,7 +45,14 @@
 	<state>
 		<name>approved</name>
 		<metadata>
-			<![CDATA[{"xy":[380,51]}]]>
+			<![CDATA[
+				{
+					"xy": [
+						380,
+						51
+					]
+				}
+			]]>
 		</metadata>
 		<actions>
 			<action>
@@ -57,7 +71,24 @@
 	<task>
 		<name>update</name>
 		<metadata>
-			<![CDATA[{"transitions":{"resubmit":{"bendpoints":[[303,140]]}},"xy":[328,199]}]]>
+			<![CDATA[
+				{
+					"transitions": {
+						"resubmit": {
+							"bendpoints": [
+								[
+									303,
+									140
+								]
+							]
+						}
+					},
+					"xy": [
+						328,
+						199
+					]
+				}
+			]]>
 		</metadata>
 		<actions>
 			<action>
@@ -96,7 +127,14 @@
 	<task>
 		<name>review</name>
 		<metadata>
-			<![CDATA[{"xy":[168,36]}]]>
+			<![CDATA[
+				{
+					"xy": [
+						168,
+						36
+					]
+				}
+			]]>
 		</metadata>
 		<actions>
 			<notification>
