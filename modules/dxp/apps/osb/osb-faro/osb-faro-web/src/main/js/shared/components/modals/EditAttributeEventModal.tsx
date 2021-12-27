@@ -212,7 +212,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 														validate={sequence([
 															validateRequired,
 															validateMaxLength(
-																50
+																255
 															),
 															validateDisplayName
 														])}
