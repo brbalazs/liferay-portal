@@ -11,9 +11,9 @@ import React, {useState} from 'react';
 import {Align} from '@clayui/drop-down';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {DISPLAY_NAME} from 'shared/util/pagination';
 import {Event, EventTypes} from 'event-analysis/utils/types';
 import {Modal} from 'shared/types';
-import {NAME} from 'shared/util/pagination';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -52,7 +52,7 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 				page: 0,
 				size: 200,
 				sort: {
-					column: NAME,
+					column: DISPLAY_NAME,
 					type: orderDefault.toUpperCase()
 				}
 			}
