@@ -24,7 +24,7 @@ public class DXPUser {
 	}
 
 	public String getName() {
-		return _firstName + " " + _lastName;
+		return _name;
 	}
 
 	public String getOsbAsahDataSourceId() {
@@ -35,16 +35,12 @@ public class DXPUser {
 		return _userId;
 	}
 
-	public void setFirstName(String firstName) {
-		_firstName = firstName;
-	}
-
 	public void setId(String id) {
 		_id = id;
 	}
 
-	public void setLastName(String lastName) {
-		_lastName = lastName;
+	public void setName(String name) {
+		_name = name;
 	}
 
 	public void setOsbAsahDataSourceId(String osbAsahDataSourceId) {
@@ -55,9 +51,8 @@ public class DXPUser {
 		_userId = userId;
 	}
 
-	private String _firstName;
 	private String _id;
-	private String _lastName;
+	private String _name;
 	private String _osbAsahDataSourceId;
 	private long _userId;
 
