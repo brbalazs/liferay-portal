@@ -3,7 +3,6 @@ import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.util.ClassLoaderPool;
 import java.lang.reflect.Constructor;
 
-
 try {
 	ClassLoader testModuleClassLoader = ClassLoaderPool.getClassLoader("com.liferay.cluster.test.module_2.0.0");
 
