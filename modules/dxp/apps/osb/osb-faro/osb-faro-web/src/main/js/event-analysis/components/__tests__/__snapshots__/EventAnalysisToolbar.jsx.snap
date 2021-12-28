@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventAnalysisToolbar should render 1`] = `
+<div>
+  <div
+    class="event-analysis-toolbar-root"
+  >
+    <div
+      class="event-analysis-toolbar-left-content"
+    >
+      <div
+        class="title-editor-root"
+      >
+        <input
+          class="title-input hide"
+          name="name"
+          placeholder="Unnamed Analysis"
+          required=""
+          type="text"
+          value=""
+        />
+        <div
+          class="title-display placeholder-display"
+        >
+          <span
+            class="title-value"
+            role="button"
+            tabindex="0"
+          >
+            Unnamed Analysis
+          </span>
+          <button
+            aria-label="Edit"
+            class="button-root btn btn-outline-unstyled btn-outline-borderless btn-sm"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-pencil"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#pencil"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="event-analysis-toolbar-right-content"
+    >
+      <div
+        class="btn-group"
+        role="group"
+      >
+        <div
+          class="btn-group-item"
+        >
+          <button
+            class="button-root btn btn-primary btn-sm"
+            type="submit"
+          >
+            Save Analysis
+          </button>
+        </div>
+        <div
+          class="btn-group-item"
+        >
+          <a
+            class="button-root btn btn-secondary btn-sm"
+            href="/workspace/123/456/event-analysis"
+          >
+            Cancel
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
