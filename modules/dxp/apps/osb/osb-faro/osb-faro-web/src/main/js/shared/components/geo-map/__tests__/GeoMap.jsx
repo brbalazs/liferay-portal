@@ -68,6 +68,29 @@ describe('GeoMapCard', () => {
 		expect(getByText(/There are no views/)).toBeTruthy();
 	});
 
+	it('should render component when working on Local Network', () => {
+		const dataWithLocalNetwork = [
+			{
+				group: 'Local Network',
+				id: 'Local Network',
+				name: 'Local Network',
+				total: 1,
+				value: '100'
+			},
+			...data
+		];
+
+		const {getByText} = render(
+			<GeoLocation
+				{...props}
+				countries={dataWithLocalNetwork}
+				data={dataWithLocalNetwork}
+			/>
+		);
+
+		expect(getByText('Local Network')).toBeTruthy();
+	});
+
 	it('should highlight the list item when mouse over', () => {
 		const {container} = render(<GeoLocation {...props} />);
 
