@@ -4,9 +4,11 @@ import EventDropdown from '../EventDropdown';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {DISPLAY_NAME} from 'shared/util/pagination';
 import {fireEvent, render, waitForElement} from '@testing-library/react';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventDefinitionsReq} from 'test/graphql-data';
+import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
 
@@ -28,7 +30,11 @@ describe('EventDropdown', () => {
 								eventType: 'ALL',
 								hidden: false,
 								keyword: '',
-								size: 200
+								size: 200,
+								sort: {
+									column: DISPLAY_NAME,
+									type: OrderByDirections.Ascending
+								}
 							}
 						)
 					]}
