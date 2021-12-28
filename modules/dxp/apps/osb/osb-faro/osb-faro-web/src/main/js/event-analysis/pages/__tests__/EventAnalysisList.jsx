@@ -4,7 +4,7 @@ import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {Provider} from 'react-redux';
-import {render} from '@testing-library/react';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
@@ -28,8 +28,12 @@ const WrappedComponent = () => (
 );
 
 describe('Event Analysis', () => {
-	it('should render', () => {
+	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		expect(container).toMatchSnapshot();
 	});
