@@ -1,5 +1,4 @@
 import BlockedCustomEventDefinitionsQuery from 'settings/definitions/events/queries/BlockedCustomEventDefinitionsQuery';
-import EventAnalysisListQuery from 'event-analysis/queries/EventAnalysisListQuery';
 import EventAnalysisResultQuery from 'event-analysis/queries/EventAnalysisResultQuery';
 import EventAttributeDefinitionQuery, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
@@ -23,6 +22,7 @@ import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import UserSessionQuery from 'shared/queries/UserSessionQuery';
 import {AttributeTypes} from 'event-analysis/utils/types';
+import {EventAnalysisListQuery} from 'event-analysis/queries/EventAnalysisQuery';
 import {EventTypes} from 'event-analysis/utils/types';
 import {
 	EXPERIMENT_QUERY,

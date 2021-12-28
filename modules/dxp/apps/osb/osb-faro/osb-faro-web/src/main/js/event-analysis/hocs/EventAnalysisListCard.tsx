@@ -1,14 +1,6 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import DeleteEventAnalysisMutation, {
-	DeleteEventAnalysisData,
-	DeleteEventAnalysisVariables
-} from '../queries/DeleteEventAnalysisMutation';
-import EventAnalysisListQuery, {
-	EventAnalysisListData,
-	EventAnalysisListVariables
-} from '../queries/EventAnalysisListQuery';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
@@ -25,6 +17,14 @@ import {
 	NAME,
 	USER_NAME
 } from 'shared/util/pagination';
+import {
+	DeleteEventAnalysisData,
+	DeleteEventAnalysisMutation,
+	DeleteEventAnalysisVariables,
+	EventAnalysisListData,
+	EventAnalysisListQuery,
+	EventAnalysisListVariables
+} from '../queries/EventAnalysisQuery';
 import {getPluralMessage, sub} from 'shared/util/lang';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {NameCell} from 'shared/components/table/cell-components';
@@ -68,7 +68,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 	>(EventAnalysisListQuery, {
 		variables: {
 			channelId,
-			keyword: keywords,
+			keywords,
 			page: page - 1,
 			size,
 			sort
@@ -83,64 +83,68 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 	const handleDeleteEventAnalysis = (eventAnalysisIds: Array<string>) => {
 		const {refetch} = response;
 
-		open(modalTypes.CONFIRMATION_MODAL, {
-			message: (
-				<div>
-					<h4 className='text-secondary'>
-						{getPluralMessage(
-							Liferay.Language.get(
-								'are-you-sure-you-want-to-delete-this-analysis'
-							),
-							Liferay.Language.get(
-								'are-you-sure-you-want-to-delete-these-analyses'
-							),
-							eventAnalysisIds.length
-						)}
-					</h4>
+		const message = (
+			<div>
+				<h4 className='text-secondary'>
+					{getPluralMessage(
+						Liferay.Language.get(
+							'are-you-sure-you-want-to-delete-this-analysis'
+						),
+						Liferay.Language.get(
+							'are-you-sure-you-want-to-delete-these-analyses'
+						),
+						eventAnalysisIds.length
+					)}
+				</h4>
 
-					<p>
-						{getPluralMessage(
-							Liferay.Language.get(
-								'you-will-lose-all-data-related-to-this-analysis.-you-will-not-be-able-to-undo-this-operation'
-							),
-							Liferay.Language.get(
-								'you-will-lose-all-data-related-to-these-analyses.-you-will-not-be-able-to-undo-this-operation'
-							),
-							eventAnalysisIds.length
-						)}
-					</p>
-				</div>
-			),
+				<p>
+					{getPluralMessage(
+						Liferay.Language.get(
+							'you-will-lose-all-data-related-to-this-analysis.-you-will-not-be-able-to-undo-this-operation'
+						),
+						Liferay.Language.get(
+							'you-will-lose-all-data-related-to-these-analyses.-you-will-not-be-able-to-undo-this-operation'
+						),
+						eventAnalysisIds.length
+					)}
+				</p>
+			</div>
+		);
+
+		const onSubmit = () => {
+			deleteEventAnalysis({
+				variables: {
+					eventAnalysisIds
+				}
+			})
+				.then(() => {
+					addAlert({
+						alertType: Alert.Types.Success,
+						message: Liferay.Language.get(
+							'the-segment-has-been-deleted'
+						)
+					});
+
+					selectionDispatch({
+						type: 'clear-all'
+					});
+
+					refetch();
+				})
+				.catch(() => {
+					addAlert({
+						alertType: Alert.Types.Error,
+						message: Liferay.Language.get('error'),
+						timeout: false
+					});
+				});
+		};
+
+		open(modalTypes.CONFIRMATION_MODAL, {
+			message,
 			modalVariant: 'modal-warning',
 			onClose: close,
-			onSubmit: () => {
-				deleteEventAnalysis({
-					variables: {
-						eventAnalysisIds
-					}
-				})
-					.then(() => {
-						addAlert({
-							alertType: Alert.Types.Success,
-							message: Liferay.Language.get(
-								'the-segment-has-been-deleted'
-							)
-						});
-
-						selectionDispatch({
-							type: 'clear-all'
-						});
-
-						refetch();
-					})
-					.catch(() => {
-						addAlert({
-							alertType: Alert.Types.Error,
-							message: Liferay.Language.get('error'),
-							timeout: false
-						});
-					});
-			},
+			onSubmit,
 			submitButtonDisplay: 'warning',
 			submitMessage: Liferay.Language.get('delete'),
 			title: Liferay.Language.get('deleting-analysis'),

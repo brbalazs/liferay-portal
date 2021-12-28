@@ -15,7 +15,7 @@ export interface EventAnalysisListData {
 
 export interface EventAnalysisListVariables {
 	channelId: string;
-	keyword: string;
+	keywords: string;
 	page: number;
 	size: number;
 	sort: Sort;
@@ -26,17 +26,17 @@ export interface EventAnalysisListVariables {
  * and remove @client directive
  */
 
-export default gql`
+export const EventAnalysisListQuery = gql`
 	query EventAnalysisList(
 		$channelId: String!
-		$keyword: String
+		$keywords: String
 		$page: Int!
 		$size: Int!
 		$sort: Sort!
 	) {
 		eventAnalyses(
 			channelId: $channelId
-			keyword: $keyword
+			keywords: $keywords
 			page: $page
 			size: $size
 			sort: $sort
@@ -51,5 +51,19 @@ export default gql`
 			}
 			total
 		}
+	}
+`;
+
+export interface DeleteEventAnalysisData {
+	null;
+}
+
+export interface DeleteEventAnalysisVariables {
+	eventAnalysisIds: Array<string>;
+}
+
+export const DeleteEventAnalysisMutation = gql`
+	mutation DeleteEventAnalysisMutation($eventAnalysisIds: [String]!) {
+		deleteEventAnalyses(eventAnalysisIds: $eventAnalysisIds)
 	}
 `;
