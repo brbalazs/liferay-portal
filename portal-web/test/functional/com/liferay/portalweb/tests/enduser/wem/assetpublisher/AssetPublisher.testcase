@@ -283,6 +283,35 @@ definition {
 		Portlet.viewSpecificPG(portletName = "Asset Publisher Custom");
 	}
 
+	@description = "LPS-96038 - Global Categories do not appear as filters in Asset Publisher Configuration."
+	@priority = "4"
+	test ConfigureAPPortletDisplaysGlobalCategoriesAsFilters {
+		JSONGroup.addGroup(groupName = "Test Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Asset Publisher Page");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Asset Publisher Page",
+			widgetName = "Asset Publisher");
+
+		Category.openCategoriesAdmin(siteURLKey = "global");
+
+		Category.addCP(
+			categoryName = "Category Name",
+			vocabularyName = "Topic");
+
+		Navigator.gotoSitePage(
+			pageName = "Asset Publisher Page",
+			siteName = "Test Site Name");
+
+		AssetPublisherPortlet.configureCategoriesFilterPG(
+			categoryName = "Category Name",
+			portletName = "Asset Publisher");
+	}
+
 	@priority = "4"
 	test ConfigureAPPortletDisplaytemplateWithBookmarks {
 		property portal.release = "false";
