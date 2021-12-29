@@ -105,7 +105,7 @@ exports[`ConnectDXP renders 1`] = `
         >
           Click here
         </a>
-         to learn how to connect Liferay DXP to Analytics Cloud
+         to learn how to connect Liferay DXP to Analytics Cloud.
       </div>
       <div
         class="fix-pack-container"

@@ -43,7 +43,7 @@ exports[`ReadyToGo renders 1`] = `
         <h4
           class="pb-3"
         >
-          Your workspace is all set up!
+          Your workspace is all set up.
         </h4>
         <h4
           class="pb-3"
