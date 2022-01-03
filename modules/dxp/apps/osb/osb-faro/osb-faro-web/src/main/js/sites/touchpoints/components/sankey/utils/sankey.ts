@@ -172,10 +172,10 @@ export const getSankeyData = (
 		{
 			directAccessMetric: directAccessMetric.value,
 			indirectAccessMetric: indirectAccessMetric.value,
-			name: title,
+			name: decodeURIComponent(title),
 			total: viewsMetric.value,
 			url: touchpoint,
-			wrappedText: getWrappedText(title)
+			wrappedText: getWrappedText(decodeURIComponent(title))
 		}
 	];
 
