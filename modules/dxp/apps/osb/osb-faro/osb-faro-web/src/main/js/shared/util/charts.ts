@@ -296,7 +296,7 @@ export const getDateTitle = (
 	if (isMonthlyRangeKey(rangeKey) && interval === INTERVAL_KEY_MAP.week) {
 		return dateRangeFormatter(startDate, endDate, true);
 	} else if (interval === INTERVAL_KEY_MAP.month) {
-		return moment(startDate).format('YYYY MMM');
+		return moment.utc(startDate).format('YYYY MMM');
 	}
 
 	return formatTooltipDate(startDate, rangeKey);
