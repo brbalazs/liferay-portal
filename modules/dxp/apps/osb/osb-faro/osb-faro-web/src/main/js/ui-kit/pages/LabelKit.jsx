@@ -12,21 +12,21 @@ class LabelKit extends React.Component {
 				}
 			>
 				<Row>
-					{Label.DISPLAYS.map((display, index) => (
+					{Object.values(Label.Displays).map((display, index) => (
 						<Item key={index}>
 							<Label display={display}>{'Label'}</Label>
 						</Item>
 					))}
 				</Row>
 				<Row>
-					{Label.DISPLAYS.map((display, index) => (
+					{Object.values(Label.Displays).map((display, index) => (
 						<Item key={index}>
 							<Label display={display}>{'Label'}</Label>
 						</Item>
 					))}
 				</Row>
 				<Row>
-					{Label.SIZES.map((size, index) => (
+					{Object.values(Label.Sizes).map((size, index) => (
 						<Item key={index}>
 							<Label size={size}>{'Label'}</Label>
 						</Item>

@@ -2,6 +2,10 @@
 	&.label-dismissible {
 		.close {
 			height: auto;
+
+			.icon-root {
+				font-size: 8px;
+			}
 		}
 	}
 
