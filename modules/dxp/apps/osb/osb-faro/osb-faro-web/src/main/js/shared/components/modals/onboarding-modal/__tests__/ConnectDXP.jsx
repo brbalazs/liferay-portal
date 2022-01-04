@@ -38,7 +38,11 @@ describe('ConnectDXP', () => {
 		);
 
 		expect(queryByText('Back')).toBeNull();
-		expect(queryByText('Connected')).not.toBeNull();
+		expect(
+			queryByText('Your Dxp Instance Is Connected to Analytics Cloud')
+		).toBeInTheDocument();
+		expect(queryByText('Sites')).toBeInTheDocument();
+		expect(queryByText('Contacts')).toBeInTheDocument();
 	});
 
 	it('renders Download button', () => {
