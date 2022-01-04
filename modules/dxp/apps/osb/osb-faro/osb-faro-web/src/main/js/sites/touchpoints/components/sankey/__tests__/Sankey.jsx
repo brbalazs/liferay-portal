@@ -84,7 +84,7 @@ const defaultProps = {
 		params: {
 			channelId: '123',
 			groupId: '456',
-			title: ASSET_TITLE,
+			title: encodeURIComponent(ASSET_TITLE),
 			touchpoint: ASSET_URL
 		}
 	},
