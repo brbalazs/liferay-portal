@@ -122,3 +122,8 @@ bdf0156726ece96037088d7acb2cb016b87f1f3e^..1745e2b95290f177771677f4372e7bfc8d123
 # Bundle Version 2.0.34
 #
 5fd6d815caeaab7b80fcb465ca8fd214a4b54807^..2d05dcd7c27be8abca6ef50bcdfc3d0bbcf2f5fc=LPS-77699
+
+#
+# Bundle Version 2.0.36
+#
+2d05dcd7c27be8abca6ef50bcdfc3d0bbcf2f5fc^..fb99d78d1a87d27e76a3d80385d60f89742274bd=LRQA-51488
