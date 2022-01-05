@@ -56,6 +56,43 @@ definition {
 		}
 	}
 
+	@description = "This is a test for LPS-81244. The web content can be assigned to the default display page."
+	@priority = "4"
+	test AddWebContentAssignedToDefaultDisplayPage {
+		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
+
+		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Webcontent Content",
+			webContentTitle = "Webcontent Title");
+
+		PortletEntry.publish();
+
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Test Page Name");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Test Page Name",
+			widgetName = "Asset Publisher");
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page Name",
+			siteName = "Test Site Name");
+
+		AssetPublisherPortlet.configureAssetLinkBehaviorPG(assetLinkBehavior = "View in Context");
+
+		AssetPublisherPortlet.clickAssetTitle(assetTitle = "Webcontent Title");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Asset Display Page");
+	}
+
 	@description = "When a display page is marked as default, associated assets will be displayed through the display page by default without need for additional configuration."
 	@priority = "5"
 	test ViewDisplayPageMarkedAsDefault {
