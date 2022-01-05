@@ -159,7 +159,7 @@ public class KoroneikiHttpUtil {
 		throws Exception {
 
 		Page<Account> accounts = _accountResource.getAccountsPage(
-			filter, null, Pagination.of(page, size), null);
+			null, filter, Pagination.of(page, size), null);
 
 		if ((accounts != null) && (accounts.getItems() != null)) {
 			return new ArrayList<>(accounts.getItems());
