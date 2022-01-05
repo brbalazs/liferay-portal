@@ -26,6 +26,12 @@ definition {
 		SiteSelector.viewSite(site = "${siteName}");
 	}
 
+	macro clickAssetTitle {
+		Click(
+			key_assetTitle = "${assetTitle}",
+			locator1 = "AP#ASSET_ABSTRACT_TITLE");
+	}
+
 	macro configureAddSiteScopes {
 		AssetPublisherPortlet.gotoConfigurationPG();
 
