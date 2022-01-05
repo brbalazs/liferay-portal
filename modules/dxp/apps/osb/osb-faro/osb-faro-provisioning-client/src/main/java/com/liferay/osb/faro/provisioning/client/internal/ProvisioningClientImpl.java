@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -131,12 +132,23 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 			String userUuid, String[] productEntryIds)
 		throws Exception {
 
-		List<OSBAccountEntry> osbAccountEntries = new ArrayList<>();
-
 		StringBundler sb = new StringBundler(5);
 
 		sb.append("contactUuids/any(s:s eq '");
-		sb.append(userUuid);
+
+		User user = _userLocalService.fetchUserByUuidAndCompanyId(
+			userUuid, _portal.getDefaultCompanyId());
+
+		if (user == null) {
+			return Collections.emptyList();
+		}
+
+		List<OSBAccountEntry> osbAccountEntries = new ArrayList<>();
+
+		Contact contact = _getContact(user);
+
+		sb.append(contact.getUuid());
+
 		sb.append("') and productKeys/any(s:s eq '");
 
 		List<String> productKeys = new ArrayList<>();
