@@ -161,15 +161,13 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 		sb.append(StringUtil.merge(productKeys, "' or s eq '"));
 		sb.append("')");
 
+		int totalCount = KoroneikiHttpUtil.getAccountsCount(sb.toString());
+
 		int page = 1;
 
-		while (true) {
+		while (osbAccountEntries.size() < totalCount) {
 			List<Account> accounts = KoroneikiHttpUtil.searchAccounts(
 				sb.toString(), page, 500);
-
-			if (ListUtil.isEmpty(accounts)) {
-				break;
-			}
 
 			Stream<Account> stream = accounts.stream();
 
