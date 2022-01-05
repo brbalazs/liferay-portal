@@ -377,6 +377,64 @@ definition {
 		}
 	}
 
+	macro configureScheduleTime {
+		Click(locator1 = "StagingPublishToLive#DATE_SCHEDULE_RADIO");
+
+		if (isSet(scheduleTitleName)) {
+			Type(
+				locator1 = "StagingPublishToLive#DATE_SCHEDULE_TITLE_FIELD",
+				value1 = "${scheduleTitleName}");
+		}
+
+		var displayDateHour = selenium.getAttribute("//input[contains(@id,'schedulerStartDateHour')]@value");
+		var displayDateHourLength = StringUtil.length("${displayDateHour}");
+
+		if ("${displayDateHourLength}" == "1") {
+			var displayDateHour = "0${displayDateHour}";
+		}
+
+		var displayDateAMPM = selenium.getAttribute("//input[contains(@id,'schedulerStartDateAmPm')]@value");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "0", "AM");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "1", "PM");
+		var displayDateMinute = selenium.getAttribute("//input[contains(@id,'schedulerStartDateMinute')]@value");
+		var displayDateMinuteFuture = ${displayDateMinute} + 3;
+		var displayDateMinuteFutureLength = StringUtil.length("${displayDateMinuteFuture}");
+
+		if ("${displayDateMinuteFutureLength}" == "1") {
+			var displayDateMinuteFuture = "0${displayDateMinuteFuture}";
+		}
+
+		var displayDate = "${displayDateHour}:${displayDateMinuteFuture} ${displayDateAMPM}";
+
+		Type(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_TIME_INPUT",
+			value1 = "${displayDate}");
+
+		if (isSet(endByDate)) {
+			Check(locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_END_BY_RADIO");
+
+			var endByDateDay = selenium.getAttribute("//input[contains(@id,'schedulerEndDateDay')]@value");
+
+			if ("${endByDateDayLength}" == "1") {
+				var endByDateDay = "0${endByDateDay}";
+			}
+
+			var endByDateMonth = selenium.getAttribute("//input[contains(@id,'schedulerEndDateMonth')]@value");
+
+			if ("${endByDateMonthLength}" == "1") {
+				var endByDateMonth = "0${endByDateMonth}";
+			}
+
+			var endByDateYear = selenium.getAttribute("//input[contains(@id,'schedulerEndDateYear')]@value");
+			var endByDateYearFuture = ${endByDateYear} + 5;
+			var endByDay = "${endByDateMonth}/${endByDateDay}/${endByDateYearFuture}";
+
+			Type(
+				locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_INPUT",
+				value1 = "${endByDay}");
+		}
+	}
+
 	macro copyFromLive {
 		Portlet.gotoPortletOptions(
 			portletName = "${portletName}",
@@ -555,6 +613,19 @@ definition {
 		PortletEntry.inputDescription(description = "${publishTemplateDescriptionEdit}");
 	}
 
+	macro editPublishTemplateRemoteSiteID {
+		Panel.expandPanel(panel = "Remote Live Connection Settings");
+
+		var siteID = JSONGroupAPI._getGroupIdByName(
+			groupName = "${groupName}",
+			portalURL = "http://localhost:${remotePort}",
+			site = "true");
+
+		Type(
+			locator1 = "SiteSettingsStaging#REMOTE_STAGING_SITE_ID",
+			value1 = "${siteID}");
+	}
+
 	macro editSitePageVariationPG {
 		Staging.navigateToSitePageVariation();
 
@@ -710,7 +781,19 @@ definition {
 	}
 
 	macro publishCustomPublication {
-		Staging.addCustomPublication();
+		Staging.addCustomPublication(
+			headerTitle = "${headerTitle}",
+			publishTemplateName = "${publishTemplateName}");
+
+		if (isSet(scheduleProcess)) {
+			Staging.configureScheduleTime();
+		}
+
+		if (isSet(editPublishTemplateName)) {
+			Type(
+				locator1 = "TextInput#NAME",
+				value1 = "${editPublishTemplateName}");
+		}
 
 		if ("${rangeAll}" == "true") {
 			Click(locator1 = "Radio#CHOOSE_CONTENT_ALL_CHANGE");
@@ -722,6 +805,11 @@ definition {
 			AssertClickNoError(
 				locator1 = "Staging#STAGING_PUBLISH_TO_REMOTE_LIVE_BUTTON",
 				value1 = "Publish to Remote Live");
+		}
+		else if (isSet(scheduleProcess)) {
+			AssertClick(
+				locator1 = "StagingPublishToLive#ADD_EVENT_BUTTON",
+				value1 = "Add Event");
 		}
 		else {
 			AssertClickNoError(
@@ -735,6 +823,9 @@ definition {
 			AssertTextEquals(
 				locator1 = "Staging#PROCESS_RESULT",
 				value1 = "FAILED");
+		}
+		else if (isSet(scheduleProcess)) {
+			Alert.viewSuccessMessage();
 		}
 		else {
 			AssertTextEquals(
@@ -1361,6 +1452,12 @@ definition {
 			value1 = "${contentInformation}");
 
 		IFrame.closeFrame();
+	}
+
+	macro viewPublishTask {
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#PROCESS_TITLE",
+			value1 = "${publicationTitle}");
 	}
 
 	macro viewPublishTemplate {
