@@ -3,7 +3,7 @@ import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
 import InfoPopover from 'shared/components/InfoPopover';
 import Input from 'shared/components/Input';
-import InputList from 'shared/components/InputList';
+import InputList, {Display} from 'shared/components/InputList';
 import Label from 'shared/components/form/Label';
 import Modal from 'shared/components/modal';
 import React, {useState} from 'react';
@@ -71,7 +71,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 					addAlert({
 						alertType: Alert.Types.Error,
 						message: Liferay.Language.get(
-							'there-was-a-problem-sending-your-invites.-please-try-again'
+							'unable-to-send-request.-please-try-again-later'
 						),
 						timeout: false
 					});
@@ -120,6 +120,10 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 						<Input.Group>
 							<Input.GroupItem>
 								<InputList
+									errorAttr={{
+										className: 'has-warning',
+										icon: {display: Display.Warning}
+									}}
 									errorMessage={Liferay.Language.get(
 										'please-enter-a-valid-email-address'
 									)}
@@ -138,7 +142,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 
 						<div className='secondary-info'>
 							{Liferay.Language.get(
-								'enter-email-addresses-separeted-by-commas'
+								'enter-email-addresses-separated-by-spaces-or-commas'
 							)}
 						</div>
 					</div>
