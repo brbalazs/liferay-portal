@@ -31,6 +31,8 @@ import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactRoleSerDe
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.HttpUtil;
 
 import java.util.ArrayList;
@@ -147,6 +149,21 @@ public class KoroneikiHttpUtil {
 		}
 
 		return Collections.emptyList();
+	}
+
+	public static int getAccountsCount(String filter) throws Exception {
+		HttpInvoker.HttpResponse httpResponse =
+			_accountResource.getAccountsPageHttpResponse(
+				null, filter, null, null);
+
+		if (httpResponse.getStatusCode() == HttpServletResponse.SC_OK) {
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+				httpResponse.getContent());
+
+			return jsonObject.getInt("totalCount");
+		}
+
+		return 0;
 	}
 
 	public static Contact postContact(Contact contact) throws Exception {
