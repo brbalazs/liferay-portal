@@ -5,6 +5,7 @@ import InputList from '../InputList';
 import Label from './Label';
 import React, {useEffect, useState} from 'react';
 import {FieldProps} from 'formik';
+import {IInputListProps as IInputListComponentProps} from 'shared/components/InputList';
 import {isEmpty} from 'lodash';
 
 interface IInputListProps
@@ -33,7 +34,9 @@ interface IInputListProps
 	validationFn: (string) => boolean;
 }
 
-const renderInput = ({contentAfter, inset, text, ...props}) => {
+const renderInput: React.FC<
+	{contentAfter; inset; text} & IInputListComponentProps
+> = ({contentAfter, inset, text, ...props}) => {
 	if (!isEmpty(text)) {
 		if (text.position === 'prepend') {
 			return (
@@ -107,7 +110,7 @@ const FormInputList: React.FC<IInputListProps> = ({
 	const isTouched = touched[name];
 
 	const [items, onItemsChange] = useState(value || []);
-	const [inputValue, onInputChange] = useState();
+	const [inputValue, onInputChange] = useState<string>();
 
 	useEffect(() => {
 		setFieldValue(name, items);
@@ -152,7 +155,6 @@ const FormInputList: React.FC<IInputListProps> = ({
 			<div className='input-group'>
 				{renderInput({
 					contentAfter,
-					errorMessage: null,
 					inputValue,
 					inset,
 					items,
@@ -165,6 +167,7 @@ const FormInputList: React.FC<IInputListProps> = ({
 					...otherProps
 				})}
 			</div>
+
 			{showHelpBlock && <HelpBlock name={name} />}
 		</div>
 	);

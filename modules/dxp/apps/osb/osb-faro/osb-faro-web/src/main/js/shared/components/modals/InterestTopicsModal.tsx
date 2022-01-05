@@ -50,7 +50,6 @@ const InterestTopicsModal: React.FC<IInterestTopicsModalProps> = ({
 			<Modal.Body>
 				<Input.Group>
 					<InputList
-						autoFocus
 						errorMessage={Liferay.Language.get(
 							'please-enter-a-valid-keyword'
 						)}

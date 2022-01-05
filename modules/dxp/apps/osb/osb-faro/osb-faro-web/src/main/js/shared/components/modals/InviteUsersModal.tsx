@@ -59,7 +59,6 @@ const InviteUsersModal: React.FC<IInviteUsersModalProps> = ({
 
 				<Input.Group>
 					<InputList
-						autoFocus
 						errorMessage={Liferay.Language.get(
 							'please-enter-a-valid-email-address'
 						)}

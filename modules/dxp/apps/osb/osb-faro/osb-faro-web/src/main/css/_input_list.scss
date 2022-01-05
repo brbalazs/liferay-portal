@@ -7,9 +7,16 @@
 		}
 	}
 
+	.form-feedback-group {
+		.form-feedback-indicator {
+			font-size: 16px;
+			margin-right: 8px;
+		}
+	}
+
 	.close {
-		margin-bottom: .125rem;
-		margin-top: .125rem;
+		margin-bottom: 0.125rem;
+		margin-top: 0.125rem;
 		padding-left: 0;
 		padding-right: 0;
 	}
