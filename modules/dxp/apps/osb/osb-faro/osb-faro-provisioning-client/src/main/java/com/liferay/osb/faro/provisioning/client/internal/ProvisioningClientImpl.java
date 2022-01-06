@@ -154,8 +154,7 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 		List<String> productKeys = new ArrayList<>();
 
 		for (String productEntryId : productEntryIds) {
-			String productName = ProductConstants.getProductName(
-				productEntryId);
+			String productName = _getProductName(productEntryId);
 
 			if (Validator.isNull(productName)) {
 				continue;
@@ -275,6 +274,16 @@ public class ProvisioningClientImpl implements ProvisioningClient {
 		}
 
 		return account;
+	}
+
+	private String _getProductName(String productEntryId) {
+		String productName = ProductConstants.getProductName(productEntryId);
+
+		if (productName != null) {
+			return StringUtil.removeSubstring(productName, "Liferay ");
+		}
+
+		return null;
 	}
 
 	@Reference
