@@ -39,7 +39,7 @@ exports[`InterestTopicsModal should render 1`] = `
           class="input-group"
         >
           <div
-            class="input-group-item input-list-root focus"
+            class="input-group-item input-list-root"
           >
             <div
               class="form-control form-control-tag-group"

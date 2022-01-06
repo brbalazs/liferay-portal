@@ -86,7 +86,7 @@ exports[`InvitePeople renders 1`] = `
         <div
           class="secondary-info"
         >
-          Enter email addresses, separated by commas.
+          Enter email addresses, separated by spaces or commas.
         </div>
       </div>
     </div>
