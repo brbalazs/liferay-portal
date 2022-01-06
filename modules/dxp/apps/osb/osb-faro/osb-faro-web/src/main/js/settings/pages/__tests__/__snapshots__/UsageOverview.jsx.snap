@@ -1,443 +1,549 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UsageOverview should render 1`] = `
-<Connect(SettingsBasePage)
-  backURL="/workspace/23/settings/data-source/add"
-  className="usage-overview-page-root"
-  groupId="23"
-  key="UsageOverview"
-  pageTitle="Current Usage Limits"
->
+<div>
   <div
-    className="row"
+    class="settings-base-page-root usage-overview-page-root"
   >
     <div
-      className="col-xl-8"
+      class="embedded-alert-list-root notification-alert-list-root"
+    />
+    <div
+      class="maintenance-alert-root"
+    />
+    <div
+      class="content-header"
     >
       <div
-        className="text-secondary"
+        class="header-text"
       >
-        <p>
-          <b>
-            Plans are limited by the total amount of individuals and page views.
-          </b>
-        </p>
-        <p>
-          When either limit is exceeded, the current plan will either have to be upgraded or add-ons will have to be purchased to accommodate the overage.
-        </p>
-      </div>
-      <Card>
-        <Body>
-          <UsageMetric
-            currentPlan={
-              Immutable.Record {
-                "addOns": Immutable.Map {
-                  "individuals": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Contacts",
-                    "quantity": 2,
-                  },
-                  "pageViews": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                    "quantity": 1,
-                  },
-                },
-                "endDate": 1531263666366,
-                "metrics": Immutable.Map {
-                  "individuals": Immutable.Record {
-                    "count": 2057,
-                    "limit": 105000,
-                    "status": 0,
-                  },
-                  "pageViews": Immutable.Record {
-                    "count": 100023,
-                    "limit": 7000000,
-                    "status": 0,
-                  },
-                },
-                "name": "Liferay Analytics Cloud Enterprise",
-                "startDate": 1531090866366,
-              }
-            }
-            metricType="individuals"
-            planType="enterprise"
-            timeZoneId="UTC"
-          />
-          <UsageMetric
-            currentPlan={
-              Immutable.Record {
-                "addOns": Immutable.Map {
-                  "individuals": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Contacts",
-                    "quantity": 2,
-                  },
-                  "pageViews": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                    "quantity": 1,
-                  },
-                },
-                "endDate": 1531263666366,
-                "metrics": Immutable.Map {
-                  "individuals": Immutable.Record {
-                    "count": 2057,
-                    "limit": 105000,
-                    "status": 0,
-                  },
-                  "pageViews": Immutable.Record {
-                    "count": 100023,
-                    "limit": 7000000,
-                    "status": 0,
-                  },
-                },
-                "name": "Liferay Analytics Cloud Enterprise",
-                "startDate": 1531090866366,
-              }
-            }
-            metricType="pageViews"
-            planType="enterprise"
-            timeZoneId="UTC"
-          />
-        </Body>
-      </Card>
-    </div>
-    <div
-      className="col-xl-4 plans"
-    >
-      <div>
-        <h4>
-          Plans
-        </h4>
         <div
-          className="text-secondary"
+          class="d-flex"
         >
-          <p>
-            Balance pricing and value. Higher tiers offer more flexibility through cheaper add-ons and higher limits.
-          </p>
+          <h3
+            class="title-text text-truncate"
+          >
+            <span
+              class="text-truncate"
+              data-tooltip="false"
+              title=""
+            >
+              Current Usage Limits
+            </span>
+          </h3>
         </div>
-        <PlansList
-          currentPlanName="Liferay Analytics Cloud Enterprise"
-          plans={
-            Array [
-              Object {
-                "baseSubscriptionPlan": null,
-                "limits": Object {
-                  "individuals": 100000,
-                  "pageViews": 60000000,
-                },
-                "name": "Liferay Analytics Cloud Enterprise",
-                "price": 20000,
-              },
-            ]
-          }
-        />
       </div>
-      <div>
-        <h4>
-          Add-ons
-        </h4>
-        <div
-          className="text-secondary"
-        >
-          <p>
-            Tailor limits to business needs. Incrementally increase individual or page view limits as needed without committing to a new plan.
-          </p>
-        </div>
-        <AddOnsList
-          active={true}
-          currentPlan={
-            Immutable.Record {
-              "addOns": Immutable.Map {
-                "individuals": Immutable.Map {
-                  "name": "Liferay Analytics Cloud Enterprise Contacts",
-                  "quantity": 2,
-                },
-                "pageViews": Immutable.Map {
-                  "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                  "quantity": 1,
-                },
-              },
-              "endDate": 1531263666366,
-              "metrics": Immutable.Map {
-                "individuals": Immutable.Record {
-                  "count": 2057,
-                  "limit": 105000,
-                  "status": 0,
-                },
-                "pageViews": Immutable.Record {
-                  "count": 100023,
-                  "limit": 7000000,
-                  "status": 0,
-                },
-              },
-              "name": "Liferay Analytics Cloud Enterprise",
-              "startDate": 1531090866366,
-            }
-          }
-          planType="enterprise"
-        />
-      </div>
-    </div>
-  </div>
-</Connect(SettingsBasePage)>
-`;
-
-exports[`UsageOverview should render with a member-specific message overage warning if a metric is approaching plan limit and the user is a member role 1`] = `
-<Alert
-  iconSymbol="exclamation-full"
-  key="pageViews"
-  title="Usage Limit Approaching"
-  type="warning"
->
-  The current plan can only support another 
-  <b
-    key="pageViews"
-  >
-    6,899,977
-  </b>
-   
-  page views
-  . Please contact your site administrator to upgrade the plan.
-</Alert>
-`;
-
-exports[`UsageOverview should render with an approaching limit warning if a metric is approaching plan limit 1`] = `
-<Alert
-  iconSymbol="exclamation-full"
-  key="pageViews"
-  title="Usage Limit Approaching"
-  type="warning"
->
-  The current plan can only support another 
-  <b
-    key="pageViews"
-  >
-    7,000,000
-  </b>
-   
-  page views
-  . Please contact a sales representative to upgrade the plan.
-</Alert>
-`;
-
-exports[`UsageOverview should render with an overage warning if a metric has exceeded the plan limit 1`] = `
-<Alert
-  iconSymbol="exclamation-full"
-  key="individuals"
-  title="Usage Limit Exceeded"
-  type="danger"
->
-  The current plan's 
-  <b
-    key="individuals"
-  >
-    individuals
-  </b>
-   limit has been exceeded. Please contact a sales representative at the earliest convenience.
-</Alert>
-`;
-
-exports[`UsageOverview should use default addons for basic plans 1`] = `
-<Connect(SettingsBasePage)
-  backURL="/workspace/23/settings/data-source/add"
-  className="usage-overview-page-root"
-  groupId="23"
-  key="UsageOverview"
-  pageTitle="Current Usage Limits"
->
-  <div
-    className="row"
-  >
-    <div
-      className="col-xl-8"
-    >
       <div
-        className="text-secondary"
-      >
-        <p>
-          <b>
-            Plans are limited by the total amount of individuals and page views.
-          </b>
-        </p>
-        <p>
-          When either limit is exceeded, the current plan will either have to be upgraded or add-ons will have to be purchased to accommodate the overage.
-        </p>
-      </div>
-      <Card>
-        <Body>
-          <UsageMetric
-            currentPlan={
-              Immutable.Record {
-                "addOns": Immutable.Map {
-                  "individuals": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Contacts",
-                    "quantity": 2,
-                  },
-                  "pageViews": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                    "quantity": 1,
-                  },
-                },
-                "endDate": 1531263666366,
-                "metrics": Immutable.Map {
-                  "individuals": Immutable.Record {
-                    "count": 2057,
-                    "limit": 105000,
-                    "status": 0,
-                  },
-                  "pageViews": Immutable.Record {
-                    "count": 100023,
-                    "limit": 7000000,
-                    "status": 0,
-                  },
-                },
-                "name": "Liferay Analytics Cloud Basic",
-                "startDate": 1531090866366,
-              }
-            }
-            metricType="individuals"
-            planType="basic"
-            timeZoneId="UTC"
-          />
-          <UsageMetric
-            currentPlan={
-              Immutable.Record {
-                "addOns": Immutable.Map {
-                  "individuals": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Contacts",
-                    "quantity": 2,
-                  },
-                  "pageViews": Immutable.Map {
-                    "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                    "quantity": 1,
-                  },
-                },
-                "endDate": 1531263666366,
-                "metrics": Immutable.Map {
-                  "individuals": Immutable.Record {
-                    "count": 2057,
-                    "limit": 105000,
-                    "status": 0,
-                  },
-                  "pageViews": Immutable.Record {
-                    "count": 100023,
-                    "limit": 7000000,
-                    "status": 0,
-                  },
-                },
-                "name": "Liferay Analytics Cloud Basic",
-                "startDate": 1531090866366,
-              }
-            }
-            metricType="pageViews"
-            planType="basic"
-            timeZoneId="UTC"
-          />
-        </Body>
-      </Card>
+        class="page-actions-container"
+      />
     </div>
-    <div
-      className="col-xl-4 plans"
-    >
-      <div>
-        <h4>
-          Plans
-        </h4>
+    <div>
+      <div
+        class="row"
+      >
         <div
-          className="text-secondary"
+          class="col-xl-8"
         >
-          <p>
-            Balance pricing and value. Higher tiers offer more flexibility through cheaper add-ons and higher limits.
-          </p>
-        </div>
-        <PlansList
-          currentPlanName="Liferay Analytics Cloud Basic"
-          plans={
-            Array [
-              Object {
-                "baseSubscriptionPlan": null,
-                "limits": Object {
-                  "individuals": 100000,
-                  "pageViews": 60000000,
-                },
-                "name": "Liferay Analytics Cloud Enterprise",
-                "price": 20000,
-              },
-              Object {
-                "baseSubscriptionPlan": null,
-                "limits": Object {
-                  "individuals": 10000,
-                  "pageViews": 5000000,
-                },
-                "name": "Liferay Analytics Cloud Business",
-                "price": 7500,
-              },
-              Object {
-                "baseSubscriptionPlan": null,
-                "limits": Object {
-                  "individuals": 1000,
-                  "pageViews": 300000,
-                },
-                "name": "Liferay Analytics Cloud Basic",
-                "price": 0,
-              },
-            ]
-          }
-        />
-      </div>
-      <div>
-        <h4>
-          Add-ons
-        </h4>
-        <div
-          className="text-secondary"
-        >
-          <p>
-            Tailor limits to business needs. Incrementally increase individual or page view limits as needed without committing to a new plan.
-          </p>
-        </div>
-        <div
-          className="text-secondary"
-        >
-          <strong>
+          <div
+            class="text-secondary"
+          >
             <p>
-              Add-ons are not available on the Basic plan. To increase usage limits, please contact a sales representative.
+              <b>
+                Plans are limited by the total amount of individuals and page views.
+              </b>
             </p>
-          </strong>
+            <p>
+              When either limit is exceeded, the current plan will either have to be upgraded or add-ons will have to be purchased to accommodate the overage.
+            </p>
+          </div>
+          <div
+            class="card card-root"
+          >
+            <div
+              class="card-body"
+            >
+              <div
+                class="overview-usage-metric-root"
+              >
+                <h3
+                  class="metric-name"
+                >
+                  Individuals
+                </h3>
+                <div
+                  class="metric-breakdown"
+                >
+                  <div
+                    class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-ac-individual"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="metric-breakdown-content"
+                  >
+                    <div>
+                      <span>
+                        <span
+                          class="metric-current"
+                        >
+                          2,057
+                        </span>
+                         of 
+                        <span
+                          class="metric-limit"
+                        >
+                          105,000
+                        </span>
+                      </span>
+                      <span
+                        class="text-secondary usage-since-label semibold"
+                      >
+                        2% since July 8, 2018
+                      </span>
+                    </div>
+                    <div
+                      class="text-muted small semibold"
+                    >
+                      Enterprise Plan 95,000 + 5,000 Add-On (2x)
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="metric-bar-root"
+                >
+                  <div
+                    class="bar bar-primary bar-default"
+                    style="width: 2%;"
+                  />
+                </div>
+                <div
+                  class="metric-definition text-secondary"
+                >
+                  Contacts with a known email address that are synced to Analytics Cloud.
+                </div>
+              </div>
+              <div
+                class="overview-usage-metric-root"
+              >
+                <h3
+                  class="metric-name"
+                >
+                  Page Views
+                </h3>
+                <div
+                  class="metric-breakdown"
+                >
+                  <div
+                    class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-page-views"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="metric-breakdown-content"
+                  >
+                    <div>
+                      <span>
+                        <span
+                          class="metric-current"
+                        >
+                          100,023
+                        </span>
+                         of 
+                        <span
+                          class="metric-limit"
+                        >
+                          7,000,000
+                        </span>
+                      </span>
+                      <span
+                        class="text-secondary usage-since-label semibold"
+                      >
+                        1% since July 8, 2018
+                      </span>
+                    </div>
+                    <div
+                      class="text-muted small semibold"
+                    >
+                      Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="metric-bar-root"
+                >
+                  <div
+                    class="bar bar-primary bar-default"
+                    style="width: 1%;"
+                  />
+                </div>
+                <div
+                  class="metric-definition text-secondary"
+                >
+                  Non-unique visits to any of the pages synced to Analytics Cloud.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <AddOnsList
-          active={false}
-          currentPlan={
-            Immutable.Record {
-              "addOns": Immutable.Map {
-                "individuals": Immutable.Map {
-                  "name": "Liferay Analytics Cloud Enterprise Contacts",
-                  "quantity": 2,
-                },
-                "pageViews": Immutable.Map {
-                  "name": "Liferay Analytics Cloud Enterprise Tracked Pages",
-                  "quantity": 1,
-                },
-              },
-              "endDate": 1531263666366,
-              "metrics": Immutable.Map {
-                "individuals": Immutable.Record {
-                  "count": 2057,
-                  "limit": 105000,
-                  "status": 0,
-                },
-                "pageViews": Immutable.Record {
-                  "count": 100023,
-                  "limit": 7000000,
-                  "status": 0,
-                },
-              },
-              "name": "Liferay Analytics Cloud Basic",
-              "startDate": 1531090866366,
-            }
-          }
-          planType="basic"
-        />
+        <div
+          class="col-xl-4 plans"
+        >
+          <div>
+            <h4>
+              Plans
+            </h4>
+            <div
+              class="text-secondary"
+            >
+              <p>
+                Balance pricing and value. Higher tiers offer more flexibility through cheaper add-ons and higher limits.
+              </p>
+            </div>
+            <div
+              class="plans-list-root"
+            >
+              <div
+                class="panel-root"
+              >
+                <div
+                  class="panel-header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="trigger"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-angle-up"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-up"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="panel-title"
+                  >
+                    <div
+                      class="plan-title"
+                    >
+                      <div
+                        class="plan-name"
+                      >
+                        Enterprise
+                      </div>
+                      <div
+                        class="label label-root label-primary label-lg label-uppercase"
+                      >
+                        <span
+                          class="label-item"
+                        >
+                          Current Plan
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="panel-body"
+                >
+                  <div
+                    class="plan-breakdown small"
+                  >
+                    <div
+                      class="limits"
+                    >
+                      <ul>
+                        <li>
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-ac-individual"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
+                            />
+                          </svg>
+                          <span
+                            class="limit-amount semibold"
+                          >
+                            100,000
+                          </span>
+                          <span
+                            class="text-secondary"
+                          >
+                            Individuals
+                          </span>
+                        </li>
+                        <li>
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-page-views"
+                            />
+                          </svg>
+                          <span
+                            class="limit-amount semibold"
+                          >
+                            60,000,000
+                          </span>
+                          <span
+                            class="text-secondary"
+                          >
+                            Page Views
+                          </span>
+                        </li>
+                        <li>
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-ac-users"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-users"
+                            />
+                          </svg>
+                          <span
+                            class="limit-amount semibold"
+                          >
+                            Unlimited
+                          </span>
+                          <span
+                            class="text-secondary"
+                          >
+                            Users
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="addons"
+                    >
+                      <p
+                        class="text-secondary semibold addon-list-header"
+                      >
+                        Add-ons
+                      </p>
+                      <ul>
+                        <li
+                          class="extra-small"
+                        >
+                          <span
+                            class="limit-amount semibold"
+                          >
+                            5,000
+                          </span>
+                          <span
+                            class="text-secondary"
+                          >
+                            <b
+                              class="addon-name"
+                            >
+                              Individuals
+                            </b>
+                             for 
+                            500
+                             USD
+                          </span>
+                        </li>
+                        <li
+                          class="extra-small"
+                        >
+                          <span
+                            class="limit-amount semibold"
+                          >
+                            5,000,000
+                          </span>
+                          <span
+                            class="text-secondary"
+                          >
+                            <b
+                              class="addon-name"
+                            >
+                              Page Views
+                            </b>
+                             for 
+                            250
+                             USD
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>
+              Add-ons
+            </h4>
+            <div
+              class="text-secondary"
+            >
+              <p>
+                Tailor limits to business needs. Incrementally increase individual or page view limits as needed without committing to a new plan.
+              </p>
+            </div>
+            <div
+              class="addons-list-root"
+            >
+              <div
+                class="panel-root"
+              >
+                <div
+                  class="panel-body"
+                >
+                  <div
+                    class="plan-title"
+                  >
+                    <div
+                      class="plan-name"
+                    >
+                      <span>
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-ac-individual"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
+                          />
+                        </svg>
+                        <span
+                          class="limit-amount semibold"
+                        >
+                          <b
+                            class="text-secondary"
+                          >
+                            +
+                          </b>
+                          5,000
+                        </span>
+                        <span
+                          class="text-secondary"
+                        >
+                          <b
+                            class="details-label"
+                          >
+                            Individuals
+                          </b>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="label label-root label-primary label-lg label-uppercase"
+                    >
+                      <span
+                        class="label-item"
+                      >
+                        2X
+                      </span>
+                    </div>
+                    <div
+                      class="annual-price"
+                    >
+                      <div>
+                        <strong>
+                          500 USD
+                        </strong>
+                        <span
+                          class="text-secondary small"
+                        >
+                           / year
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="panel-root"
+              >
+                <div
+                  class="panel-body"
+                >
+                  <div
+                    class="plan-title"
+                  >
+                    <div
+                      class="plan-name"
+                    >
+                      <span>
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-page-views"
+                          />
+                        </svg>
+                        <span
+                          class="limit-amount semibold"
+                        >
+                          <b
+                            class="text-secondary"
+                          >
+                            +
+                          </b>
+                          5,000,000
+                        </span>
+                        <span
+                          class="text-secondary"
+                        >
+                          <b
+                            class="details-label"
+                          >
+                            Page Views
+                          </b>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="label label-root label-primary label-lg label-uppercase"
+                    >
+                      <span
+                        class="label-item"
+                      >
+                        1X
+                      </span>
+                    </div>
+                    <div
+                      class="annual-price"
+                    >
+                      <div>
+                        <strong>
+                          250 USD
+                        </strong>
+                        <span
+                          class="text-secondary small"
+                        >
+                           / year
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</Connect(SettingsBasePage)>
+</div>
 `;
