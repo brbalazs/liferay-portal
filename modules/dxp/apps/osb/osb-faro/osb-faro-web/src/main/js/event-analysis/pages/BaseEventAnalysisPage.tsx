@@ -8,6 +8,7 @@ import React, {useCallback, useContext, useMemo, useState} from 'react';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
+import {ApolloError} from 'apollo-client';
 import {AttributesContext} from '../components/event-analysis-editor/context/attributes';
 import {
 	Breakdowns,
@@ -26,6 +27,7 @@ import {
 } from 'event-analysis/queries/EventAnalysisQuery';
 import {DEVELOPER_MODE} from 'shared/util/constants';
 import {getSafeRangeSelectors} from 'shared/util/util';
+import {GraphQLError} from 'graphql';
 import {hasChanges} from 'shared/util/react';
 import {Modal} from 'shared/types';
 import {omit} from 'lodash';
@@ -34,6 +36,28 @@ import {useHistory, useParams} from 'react-router-dom';
 import {useMutation} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
+
+enum MessageKeys {
+	NameCannotBeBlank = 'name-cannot-be-blank',
+	NameIsAlreadyUsed = 'name-is-already-used'
+}
+
+interface Error extends ApolloError {
+	graphQLErrors: ReadonlyArray<
+		GraphQLError & {
+			messageKey: keyof MessageKeys;
+		}
+	>;
+}
+
+const ERRORS = {
+	[MessageKeys.NameCannotBeBlank]: Liferay.Language.get(
+		'name-cannot-be-blank'
+	),
+	[MessageKeys.NameIsAlreadyUsed]: Liferay.Language.get(
+		'name-is-already-used'
+	)
+};
 
 function hasChangesFn<T>(prev: T = null, next: T = null, ...keys: string[]) {
 	const emptyPrev = !prev || !Object.keys(prev).length;
@@ -151,13 +175,14 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 					)
 				});
 			})
-			.catch(({message}) => {
+			.catch(({graphQLErrors}: Error) => {
 				setSubmitting(false);
 				setSubmitted(false);
 
 				addAlert({
 					alertType: Alert.Types.Error,
-					message
+					message: ERRORS[graphQLErrors[0].messageKey],
+					timeout: false
 				});
 
 				close();
