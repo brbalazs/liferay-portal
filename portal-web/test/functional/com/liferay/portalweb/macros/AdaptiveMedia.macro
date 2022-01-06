@@ -143,7 +143,7 @@ definition {
 
 		MenuItem.click(menuItem = "Edit");
 
-		if (!(contains("${imageNameEdit}", "{imageNameEdit}"))) {
+		if (isSet(imageNameEdit)) {
 			PortletEntry.inputName(name = "${imageNameEdit}");
 		}
 
@@ -161,7 +161,7 @@ definition {
 			AssertNotEditable(locator1 = "Radio#CUSTOM_URL");
 		}
 		else {
-			if (!(contains("${maxHeightEdit}", "{maxHeightEdit}"))) {
+			if (isSet(maxHeightEdit)) {
 				Click(locator1 = "TextInput#MAX_HEIGHT");
 
 				var count = "0";
@@ -179,7 +179,7 @@ definition {
 					value1 = "${maxHeightEdit}");
 			}
 
-			if (!(contains("${maxWidthEdit}", "{maxWidthEdit}"))) {
+			if (isSet(maxWidthEdit)) {
 				Click(locator1 = "TextInput#MAX_WIDTH");
 
 				var count = "0";
@@ -197,7 +197,7 @@ definition {
 					value1 = "${maxWidthEdit}");
 			}
 
-			if (!(contains("${imageIDEdit}", "{imageIDEdit}"))) {
+			if (isSet(imageIDEdit)) {
 				Click(locator1 = "Radio#CUSTOM_URL");
 
 				Type(

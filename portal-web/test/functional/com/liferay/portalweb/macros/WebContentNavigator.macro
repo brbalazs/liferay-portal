@@ -1,7 +1,7 @@
 definition {
 
 	macro _openDescriptiveMenulistCP {
-		if (!(contains("${webContentTitleEscapeCharacter}", "{webContentTitleEscapeCharacter}"))) {
+		if (isSet(webContentTitleEscapeCharacter)) {
 			var key_webContentTitle = "${webContentTitleEscapeCharacter}";
 		}
 		else {
@@ -38,7 +38,7 @@ definition {
 	macro gotoAddPGViaWCD {
 		Click.clickNoWaitForVisible(locator1 = "WCD#ADD_WEB_CONTENT");
 
-		if (!(contains("${structureName}", "{structureName}"))) {
+		if (isSet(structureName)) {
 			var structureName = "${structureName}";
 		}
 		else {

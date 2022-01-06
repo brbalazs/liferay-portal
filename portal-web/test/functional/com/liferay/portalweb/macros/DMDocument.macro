@@ -803,17 +803,17 @@ definition {
 	}
 
 	macro editCmd {
-		if (!(contains("${dmDocumentFileEdit}", "{dmDocumentFileEdit}"))) {
+		if (isSet(dmDocumentFileEdit)) {
 			UploadCommonFile(
 				locator1 = "TextInput#FILE",
 				value1 = "${dmDocumentFileEdit}");
 		}
 
-		if (!(contains("${dmDocumentTitleEdit}", "{dmDocumentTitleEdit}"))) {
+		if (isSet(dmDocumentTitleEdit)) {
 			PortletEntry.inputTitle(title = "${dmDocumentTitleEdit}");
 		}
 
-		if (!(contains("${dmDocumentDescriptionEdit}", "{dmDocumentDescriptionEdit}"))) {
+		if (isSet(dmDocumentDescriptionEdit)) {
 			PortletEntry.inputDescription(description = "${dmDocumentDescriptionEdit}");
 		}
 	}
@@ -836,23 +836,23 @@ definition {
 				value1 = "Edit");
 		}
 
-		if (!(contains("${dmDocumentFileEdit}", "{dmDocumentFileEdit}"))) {
+		if (isSet(dmDocumentFileEdit)) {
 			UploadCommonFile(
 				locator1 = "TextInput#FILE",
 				value1 = "${dmDocumentFileEdit}");
 		}
 
-		if (!(contains("${dmDocumentTitleEdit}", "{dmDocumentTitleEdit}"))) {
+		if (isSet(dmDocumentTitleEdit)) {
 			Type(
 				locator1 = "TextInput#TITLE",
 				value1 = "${dmDocumentTitleEdit}");
 		}
 
-		if (!(contains("${dmDocumentDescriptionEdit}", "{dmDocumentDescriptionEdit}"))) {
+		if (isSet(dmDocumentDescriptionEdit)) {
 			PortletEntry.inputDescription(description = "${dmDocumentDescriptionEdit}");
 		}
 
-		if (!(contains("${dmDocumentTagName}", "{dmDocumentTagName}"))) {
+		if (isSet(dmDocumentTagName)) {
 			Panel.expandPanel(panel = "Categorization");
 
 			Type(
@@ -860,7 +860,7 @@ definition {
 				value1 = "${dmDocumentTagName}");
 		}
 
-		if (!(contains("${revision}", "{revision}"))) {
+		if (isSet(revision)) {
 			if ("${revision}" == "Major") {
 				Click(locator1 = "DocumentsAndMediaEditDocument#MAJOR_REVISION_BUTTON");
 			}
@@ -936,7 +936,7 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		if (!(contains("${dmDocumentTitleEdit}", "{dmDocumentTitleEdit}"))) {
+		if (isSet(dmDocumentTitleEdit)) {
 			Type(
 				locator1 = "TextInput#TITLE",
 				value1 = "${dmDocumentTitleEdit}");
@@ -1421,7 +1421,7 @@ definition {
 
 		Click(locator1 = "Icon#INFO");
 
-		if (isSet(dmDocumentSize) && !(contains("${dmDocumentSize}", "{dmDocumentSize}"))) {
+		if (isSet(dmDocumentSize) && isSet(dmDocumentSize)) {
 			var key_dmDocumentSize = "${dmDocumentSize}";
 
 			AssertVisible(locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_SIZE");
@@ -1528,7 +1528,7 @@ definition {
 	}
 
 	macro viewDocumentAuthorCmdPG {
-		if (!(contains("${dmDocumentAuthor}", "{dmDocumentAuthor}"))) {
+		if (isSet(dmDocumentAuthor)) {
 			AssertTextEquals(
 				locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_UPLOADED_BY",
 				value1 = "${dmDocumentAuthor}");
@@ -1696,7 +1696,7 @@ definition {
 	macro viewDocumentVersionNumberCmdPG {
 		Click(locator1 = "Button#INFO");
 
-		if (!(contains("${dmDocumentVersionNumber}", "{dmDocumentVersionNumber}"))) {
+		if (isSet(dmDocumentVersionNumber)) {
 			AssertTextEquals(
 				locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_VERSION",
 				value1 = "VERSION ${dmDocumentVersionNumber}");

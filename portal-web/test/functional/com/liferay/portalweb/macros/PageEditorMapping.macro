@@ -32,10 +32,10 @@ definition {
 
 		Button.clickSelect();
 
-		if (contains("${assetType}", "{assetType}")) {
+		if (!(isSet(assetType))) {
 			var assetType = "Web Content Article";
 
-			if (contains("${subType}", "{subType}")) {
+			if (!(isSet(subType))) {
 				var subType = "Basic Web Content";
 			}
 		}
