@@ -66,6 +66,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 		EventAnalysisListData,
 		EventAnalysisListVariables
 	>(EventAnalysisListQuery, {
+		fetchPolicy: 'network-only',
 		variables: {
 			channelId,
 			keywords,
