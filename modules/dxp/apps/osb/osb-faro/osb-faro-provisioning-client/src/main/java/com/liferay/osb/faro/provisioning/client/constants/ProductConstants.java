@@ -25,40 +25,41 @@ public class ProductConstants {
 
 	public static final String BASIC_PRODUCT_ENTRY_ID = "KOR-36421";
 
-	public static final String BASIC_PRODUCT_NAME = "Analytics Cloud Basic";
+	public static final String BASIC_PRODUCT_NAME =
+		"Liferay Analytics Cloud Basic";
 
 	public static final String BUSINESS_CONTACTS_PRODUCT_ENTRY_ID = "KOR-36431";
 
 	public static final String BUSINESS_CONTACTS_PRODUCT_NAME =
-		"Analytics Cloud Business Contacts";
+		"Liferay Analytics Cloud Business Contacts";
 
 	public static final String BUSINESS_PRODUCT_ENTRY_ID = "KOR-36425";
 
 	public static final String BUSINESS_PRODUCT_NAME =
-		"Analytics Cloud Business";
+		"Liferay Analytics Cloud Business";
 
 	public static final String BUSINESS_TRACKED_PAGES_PRODUCT_ENTRY_ID =
 		"KOR-36434";
 
 	public static final String BUSINESS_TRACKED_PAGES_PRODUCT_NAME =
-		"Analytics Cloud Business Tracked Pages";
+		"Liferay Analytics Cloud Business Tracked Pages";
 
 	public static final String ENTERPRISE_CONTACTS_PRODUCT_ENTRY_ID =
 		"KOR-36437";
 
 	public static final String ENTERPRISE_CONTACTS_PRODUCT_NAME =
-		"Analytics Cloud Enterprise Contacts";
+		"Liferay Analytics Cloud Enterprise Contacts";
 
 	public static final String ENTERPRISE_PRODUCT_ENTRY_ID = "KOR-36428";
 
 	public static final String ENTERPRISE_PRODUCT_NAME =
-		"Analytics Cloud Enterprise";
+		"Liferay Analytics Cloud Enterprise";
 
 	public static final String ENTERPRISE_TRACKED_PAGES_PRODUCT_ENTRY_ID =
 		"KOR-36440";
 
 	public static final String ENTERPRISE_TRACKED_PAGES_PRODUCT_NAME =
-		"Analytics Cloud Enterprise Tracked Pages";
+		"Liferay Analytics Cloud Enterprise Tracked Pages";
 
 	public static final int OSB_OFFERING_ENTRY_STATUS_ACTIVE = 1;
 
