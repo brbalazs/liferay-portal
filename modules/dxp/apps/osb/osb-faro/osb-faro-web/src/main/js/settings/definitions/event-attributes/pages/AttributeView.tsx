@@ -16,6 +16,7 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DateCell} from 'shared/components/table/cell-components';
 import {getDefinitions, getEventAttributes} from 'shared/util/breadcrumbs';
+import {getSafeDisplayValue} from 'shared/util/util';
 import {HasModal, Modal} from 'shared/types';
 import {SafeResults} from 'shared/hoc/util';
 import {sub} from 'shared/util/lang';
@@ -133,6 +134,14 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 							columns={[
 								{
 									accessor: 'value',
+									cellRenderer: ({
+										className,
+										data: {value}
+									}) => (
+										<td className={className}>
+											{getSafeDisplayValue(value)}
+										</td>
+									),
 									className:
 										'table-cell-expand-small text-truncate',
 									label: Liferay.Language.get(

@@ -16,7 +16,7 @@ import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
-const RenderWithRouter = ({children}) => (
+const RenderWithRouter = ({children, recentValue}) => (
 	<MemoryRouter
 		initialEntries={[
 			'/workspace/23/settings/definitions/event-attributes/0'
@@ -35,7 +35,8 @@ const RenderWithRouter = ({children}) => (
 											lastSeenDate: getISODate(
 												data.getTimestamp()
 											),
-											value: 'RecentValue'
+											value: 'RecentValue',
+											...recentValue
 										}
 									]
 								}),
@@ -76,5 +77,17 @@ describe('AttributeView', () => {
 		jest.runAllTimers();
 
 		expect(getByText('Sample Raw Data')).toBeTruthy();
+	});
+
+	it('should render table with empty data if there is no column accessor value', () => {
+		const {getByText} = render(
+			<RenderWithRouter recentValue={{value: ''}}>
+				<AttributeView attributeId='0' groupId='23' />
+			</RenderWithRouter>
+		);
+
+		jest.runAllTimers();
+
+		expect(getByText('-')).toBeTruthy();
 	});
 });
