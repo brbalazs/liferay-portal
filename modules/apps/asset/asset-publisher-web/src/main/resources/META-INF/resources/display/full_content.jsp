@@ -55,7 +55,7 @@ String title = assetRenderer.getTitle(LocaleUtil.fromLanguageId(languageId));
 
 boolean print = ((Boolean)request.getAttribute("view.jsp-print")).booleanValue();
 boolean viewInContext = ((Boolean)request.getAttribute("view.jsp-viewInContext")).booleanValue();
-boolean viewSingleAsset = ParamUtil.get(request, "viewSingleAsset", false);
+boolean viewSingleAsset = ParamUtil.getBoolean(request, "viewSingleAsset");
 boolean workflowEnabled = WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(assetEntry.getCompanyId(), assetEntry.getGroupId(), assetEntry.getClassName());
 
 assetPublisherDisplayContext.setLayoutAssetEntry(assetEntry);
