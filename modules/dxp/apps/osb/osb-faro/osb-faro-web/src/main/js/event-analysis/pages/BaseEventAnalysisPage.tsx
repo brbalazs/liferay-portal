@@ -51,12 +51,18 @@ interface Error extends ApolloError {
 }
 
 const ERRORS = {
-	[MessageKeys.NameCannotBeBlank]: Liferay.Language.get(
-		'name-cannot-be-blank'
-	),
-	[MessageKeys.NameIsAlreadyUsed]: Liferay.Language.get(
-		'name-is-already-used'
-	)
+	[MessageKeys.NameCannotBeBlank]: {
+		alertType: Alert.Types.Error,
+		message: Liferay.Language.get(
+			'name-cannot-be-blank'
+		)
+	},
+	[MessageKeys.NameIsAlreadyUsed]: {
+		alertType: Alert.Types.Warning,
+		message: Liferay.Language.get(
+			'this-analysis-name-is-currently-in-use.-please-try-a-different-one'
+		)
+	}
 };
 
 function hasChangesFn<T>(prev: T = null, next: T = null, ...keys: string[]) {
@@ -135,7 +141,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 			},
 			{closeOnBlur: false}
 		);
-
+		
 		saveEventAnalysis({
 			variables: {
 				analysisType: type,
@@ -150,7 +156,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 				eventAnalysisId,
 				eventDefinitionId: event.id,
 				name,
-				userId: currentUser.id,
+				userId: currentUser.userId,
 				userName: currentUser.name,
 				...getSafeRangeSelectors(rangeSelectors)
 			}
@@ -179,13 +185,15 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 				setSubmitting(false);
 				setSubmitted(false);
 
+				close();
+
+				const {alertType, message} = ERRORS[graphQLErrors[0].messageKey];
+
 				addAlert({
-					alertType: Alert.Types.Error,
-					message: ERRORS[graphQLErrors[0].messageKey],
+					alertType,
+					message,
 					timeout: false
 				});
-
-				close();
 			});
 	};
 
