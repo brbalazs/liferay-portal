@@ -336,12 +336,13 @@ const defaultState = {
 	filters: {}
 };
 
-export const AttributesProvider = ({
+interface IAttributesProviderProps extends React.HTMLAttributes<HTMLElement> {
+	initialState?: AttributesState;
+}
+
+export const AttributesProvider: React.FC<IAttributesProviderProps> = ({
 	children,
 	initialState = defaultState
-}: {
-	children: React.ReactNode;
-	initialState?: AttributesState;
 }) => {
 	const [
 		{attributes, breakdownOrder, breakdowns, filterOrder, filters},
