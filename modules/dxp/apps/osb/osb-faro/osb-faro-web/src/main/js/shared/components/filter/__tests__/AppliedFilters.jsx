@@ -1,6 +1,8 @@
 import AppliedFilters from '../AppliedFilters';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const filters = {
 	Devices: ['Desktop'],
@@ -9,40 +11,25 @@ const filters = {
 
 describe('AppliedFilters', () => {
 	it('should render', () => {
-		jest.useFakeTimers();
+		const {container} = render(<AppliedFilters filters={filters} />);
 
-		const component = shallow(<AppliedFilters filters={filters} />);
-
-		jest.runAllTimers();
-
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with no filters applied', () => {
-		jest.useFakeTimers();
+		const {queryByText} = render(<AppliedFilters />);
 
-		const component = shallow(<AppliedFilters />);
-
-		jest.runAllTimers();
-
-		expect(component).toMatchSnapshot();
+		expect(queryByText('Brazil')).not.toBeInTheDocument();
 	});
 
 	it('should deactivate the filter when clicking on btn close label', () => {
 		const spy = jest.fn();
 
-		jest.useFakeTimers();
-
-		const component = shallow(
+		const {container} = render(
 			<AppliedFilters filters={filters} onChange={spy} />
 		);
 
-		component.instance().handleRemoveFilter({
-			category: 'Location',
-			label: 'Brazil'
-		});
-
-		jest.runAllTimers();
+		fireEvent.click(container.querySelectorAll('button')[1]);
 
 		expect(spy).toBeCalledWith({Devices: ['Desktop'], Location: []});
 	});
@@ -50,15 +37,11 @@ describe('AppliedFilters', () => {
 	it('should deactivate all filters when clicking on "Clear Filter"', () => {
 		const spy = jest.fn();
 
-		jest.useFakeTimers();
-
-		const component = shallow(
+		const {getByText} = render(
 			<AppliedFilters filters={filters} onChange={spy} />
 		);
 
-		component.instance().handleRemoveAllFilters();
-
-		jest.runAllTimers();
+		fireEvent.click(getByText('Clear Filter'));
 
 		expect(spy).toBeCalled();
 	});
