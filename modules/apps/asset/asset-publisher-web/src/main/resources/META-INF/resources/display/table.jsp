@@ -40,7 +40,7 @@ PortletURL editPortletURL = assetRenderer.getURLEdit(liferayPortletRequest, life
 
 boolean viewInContext = ((Boolean)request.getAttribute("view.jsp-viewInContext")).booleanValue();
 
-String viewURL = assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext);
+String viewURL = HttpUtil.addParameter(assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext), liferayPortletResponse.getNamespace() + "viewSingleAsset", true);
 
 request.setAttribute("view.jsp-showIconLabel", false);
 %>

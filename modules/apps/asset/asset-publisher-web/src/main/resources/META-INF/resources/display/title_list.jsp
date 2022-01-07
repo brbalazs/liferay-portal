@@ -43,7 +43,7 @@ boolean viewInContext = ((Boolean)request.getAttribute("view.jsp-viewInContext")
 <li class="h3 <%= assetRendererFactory.getType() %>">
 	<span class="asset-anchor lfr-asset-anchor" id="<%= assetEntry.getEntryId() %>"></span>
 
-	<aui:a href="<%= assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext) %>">
+	<aui:a href='<%= HttpUtil.addParameter(assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext), liferayPortletResponse.getNamespace() + "viewSingleAsset", true) %>'>
 		<%= HtmlUtil.escape(title) %>
 	</aui:a>
 
