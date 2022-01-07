@@ -53,9 +53,7 @@ interface Error extends ApolloError {
 const ERRORS = {
 	[MessageKeys.NameCannotBeBlank]: {
 		alertType: Alert.Types.Error,
-		message: Liferay.Language.get(
-			'name-cannot-be-blank'
-		)
+		message: Liferay.Language.get('name-cannot-be-blank')
 	},
 	[MessageKeys.NameIsAlreadyUsed]: {
 		alertType: Alert.Types.Warning,
@@ -141,7 +139,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 			},
 			{closeOnBlur: false}
 		);
-		
+
 		saveEventAnalysis({
 			variables: {
 				analysisType: type,
@@ -187,7 +185,9 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 
 				close();
 
-				const {alertType, message} = ERRORS[graphQLErrors[0].messageKey];
+				const {alertType, message} = ERRORS[
+					graphQLErrors[0].messageKey
+				];
 
 				addAlert({
 					alertType,
