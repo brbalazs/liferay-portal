@@ -35,6 +35,9 @@ import com.liferay.portal.kernel.model.LayoutFriendlyURL;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.VirtualLayoutConstants;
 import com.liferay.portal.kernel.portlet.LayoutFriendlyURLSeparatorComposite;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutFriendlyURLLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
@@ -42,6 +45,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.kernel.servlet.InactiveRequestHandler;
 import com.liferay.portal.kernel.servlet.PortalMessages;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -157,6 +161,16 @@ public class FriendlyURLServlet extends HttpServlet {
 					StringBundler.concat(
 						"{groupId=", group.getGroupId(), ", privateLayout=",
 						_private, ", friendlyURL=", layoutFriendlyURL, "}"));
+			}
+
+			PermissionChecker permissionChecker =
+				PermissionCheckerFactoryUtil.create(
+					_getUser(httpServletRequest));
+
+			if (!LayoutPermissionUtil.contains(
+					permissionChecker, layout, ActionKeys.VIEW)) {
+
+				throw new NoSuchLayoutException();
 			}
 
 			defaultLayout = layout;
@@ -546,7 +560,8 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		if (!LanguageUtil.isAvailableLocale(layout.getGroupId(), locale)) {
 			return LocaleUtil.fromLanguageId(
-				(String)httpServletRequest.getAttribute(WebKeys.I18N_LANGUAGE_ID));
+				(String)httpServletRequest.getAttribute(
+					WebKeys.I18N_LANGUAGE_ID));
 		}
 
 		Locale groupLocale = locale;
@@ -678,6 +693,19 @@ public class FriendlyURLServlet extends HttpServlet {
 		}
 
 		return group;
+	}
+
+	private User _getUser(HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		User user = portal.getUser(httpServletRequest);
+
+		if (user == null) {
+			user = userLocalService.getDefaultUser(
+				portal.getCompanyId(httpServletRequest));
+		}
+
+		return user;
 	}
 
 	private boolean _isAssetDisplayPage(Layout layout) {
