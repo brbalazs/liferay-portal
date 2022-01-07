@@ -414,9 +414,9 @@ const FixPackSelect: FC<React.HTMLAttributes<HTMLElement>> = () => {
 							content={Liferay.Language.get(
 								'minimum-fix-pack-version-required-for-full-functionality'
 							)}
-							popOverAttr={{
-								className: 'popover-background-dark'
-							}}
+							title={Liferay.Language.get(
+								'dxp-fix-pack-requirements'
+							)}
 						/>
 					</Label>
 					<Select

@@ -111,9 +111,9 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 								content={Liferay.Language.get(
 									'each-users-role-can-be-set-under-user-management-in-settings'
 								)}
-								popOverAttr={{
-									className: 'popover-background-dark'
-								}}
+								title={Liferay.Language.get(
+									'member-permissions'
+								)}
 							/>
 						</Label>
 
