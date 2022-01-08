@@ -51,11 +51,16 @@ public class DataSourceDisplay implements FaroEntityDisplay {
 
 		_dateCreated = dataSource.getDateCreated();
 
-		if (dataSource.getDetails() != null) {
-			DataSource.Details details = dataSource.getDetails();
+		if (dataSource.getContactsSyncDetails() != null) {
+			DataSource.Details details = dataSource.getContactsSyncDetails();
 
-			_contactsSelected = details.isContactsSelected();
-			_sitesSelected = details.isSitesSelected();
+			_contactsSelected = details.isSelected();
+		}
+
+		if (dataSource.getSitesSyncDetails() != null) {
+			DataSource.Details details = dataSource.getSitesSyncDetails();
+
+			_sitesSelected = details.isSelected();
 		}
 
 		_disabled = false;

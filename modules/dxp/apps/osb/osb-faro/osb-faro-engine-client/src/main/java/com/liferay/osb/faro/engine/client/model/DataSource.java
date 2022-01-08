@@ -32,6 +32,10 @@ public class DataSource {
 		return _author;
 	}
 
+	public Details getContactsSyncDetails() {
+		return _contactsSyncDetails;
+	}
+
 	public Credentials getCredentials() {
 		return _credentials;
 	}
@@ -56,10 +60,6 @@ public class DataSource {
 		return _description;
 	}
 
-	public Details getDetails() {
-		return _details;
-	}
-
 	public String getFaroBackendSecuritySignature() {
 		return _faroBackendSecuritySignature;
 	}
@@ -78,6 +78,10 @@ public class DataSource {
 
 	public Provider getProvider() {
 		return _provider;
+	}
+
+	public Details getSitesSyncDetails() {
+		return _sitesSyncDetails;
 	}
 
 	public String getState() {
@@ -108,6 +112,10 @@ public class DataSource {
 		_author = author;
 	}
 
+	public void setContactsSyncDetails(Details contactsSyncDetails) {
+		_contactsSyncDetails = contactsSyncDetails;
+	}
+
 	public void setCredentials(Credentials credentials) {
 		_credentials = credentials;
 	}
@@ -126,10 +134,6 @@ public class DataSource {
 
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	public void setDetails(Details details) {
-		_details = details;
 	}
 
 	public void setFaroBackendSecuritySignature(
@@ -152,6 +156,10 @@ public class DataSource {
 
 	public void setProvider(Provider provider) {
 		_provider = provider;
+	}
+
+	public void setSitesSyncDetails(Details sitesSyncDetails) {
+		_sitesSyncDetails = sitesSyncDetails;
 	}
 
 	public void setState(String state) {
@@ -208,24 +216,15 @@ public class DataSource {
 		public Details() {
 		}
 
-		public Boolean isContactsSelected() {
-			return _contactsSelected;
+		public Boolean isSelected() {
+			return _selected;
 		}
 
-		public Boolean isSitesSelected() {
-			return _sitesSelected;
+		public void setSelected(Boolean selected) {
+			_selected = selected;
 		}
 
-		public void setContactsSelected(Boolean contactsSelected) {
-			_contactsSelected = contactsSelected;
-		}
-
-		public void setSitesSelected(Boolean sitesSelected) {
-			_sitesSelected = sitesSelected;
-		}
-
-		private Boolean _contactsSelected;
-		private Boolean _sitesSelected;
+		private Boolean _selected;
 
 	}
 
@@ -243,16 +242,17 @@ public class DataSource {
 
 	private String _about;
 	private Author _author;
+	private Details _contactsSyncDetails;
 	private Credentials _credentials;
 	private Date _dateCreated;
 	private Date _dateModified;
 	private String _description;
-	private Details _details;
 	private String _faroBackendSecuritySignature;
 	private String _id;
 	private ConfigChange _lastConfigChange;
 	private String _name;
 	private Provider _provider;
+	private Details _sitesSyncDetails;
 	private String _state;
 	private String _status;
 	private Event _subjectOf;
