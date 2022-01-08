@@ -63,7 +63,15 @@ class Tooltip extends React.Component {
 	}
 
 	componentDidUpdate() {
-		this.alignOverlay();
+		const {target} = this.props;
+
+		if (!target) return;
+
+		const {x, y} = target.getBoundingClientRect();
+
+		if (!!x && !!y) {
+			this.alignOverlay();
+		}
 	}
 
 	componentWillUnmount() {
