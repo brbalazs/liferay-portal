@@ -13,7 +13,6 @@ import {
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
-import {useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -60,7 +59,6 @@ interface FilterWithId extends Filter {
 }
 
 type FormattedData = {
-	attributesState: AttributesState;
 	compareToPrevious: boolean;
 	event: Event;
 	name: string;
@@ -77,55 +75,6 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 			eventAnalysisId
 		}
 	});
-
-	const formattedData = useMemo<FormattedData>(() => {
-		if (data) {
-			const {
-				eventAnalysis: {
-					compareToPrevious,
-					eventAnalysisBreakdowns,
-					eventAnalysisFilters,
-					name,
-					rangeEnd,
-					rangeKey,
-					rangeStart,
-					referencedObjects: {
-						eventAttributeDefinitions,
-						eventDefinition
-					}
-				}
-			} = data;
-
-			const breakdowns: BreakdownWithId[] = getItems<Breakdown>(
-				eventAnalysisBreakdowns,
-				'breakdown'
-			);
-			const filters: FilterWithId[] = getItems<Filter>(
-				eventAnalysisFilters,
-				'filter'
-			);
-
-			return {
-				attributesState: {
-					attributes: normalizeItems<Attribute>(
-						eventAttributeDefinitions
-					),
-					breakdownOrder: breakdowns.map(({id}) => id),
-					breakdowns: normalizeItems<BreakdownWithId>(breakdowns),
-					filterOrder: filters.map(({id}) => id),
-					filters: normalizeItems<FilterWithId>(filters)
-				},
-				compareToPrevious,
-				event: eventDefinition,
-				name,
-				rangeSelectors: normalizeRangeSelectors({
-					rangeEnd,
-					rangeKey,
-					rangeStart
-				})
-			};
-		}
-	}, [data]);
 
 	if (loading) {
 		return <Spinner alignCenter key='LOADING_DISPLAY' />;
@@ -147,11 +96,50 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		);
 	}
 
-	const {attributesState, ...otherData} = formattedData;
+	const {
+		eventAnalysis: {
+			compareToPrevious,
+			eventAnalysisBreakdowns,
+			eventAnalysisFilters,
+			name,
+			rangeEnd,
+			rangeKey,
+			rangeStart,
+			referencedObjects: {eventAttributeDefinitions, eventDefinition}
+		}
+	} = data;
+
+	const breakdowns: BreakdownWithId[] = getItems<Breakdown>(
+		eventAnalysisBreakdowns,
+		'breakdown'
+	);
+	const filters: FilterWithId[] = getItems<Filter>(
+		eventAnalysisFilters,
+		'filter'
+	);
+
+	const attributesState: AttributesState = {
+		attributes: normalizeItems<Attribute>(eventAttributeDefinitions),
+		breakdownOrder: breakdowns.map(({id}) => id),
+		breakdowns: normalizeItems<BreakdownWithId>(breakdowns),
+		filterOrder: filters.map(({id}) => id),
+		filters: normalizeItems<FilterWithId>(filters)
+	};
+
+	const formattedData: FormattedData = {
+		compareToPrevious,
+		event: eventDefinition,
+		name,
+		rangeSelectors: normalizeRangeSelectors({
+			rangeEnd,
+			rangeKey,
+			rangeStart
+		})
+	};
 
 	return (
 		<AttributesProvider initialState={attributesState}>
-			<BaseEventAnalysisPage {...attributesState} {...otherData} />
+			<BaseEventAnalysisPage {...attributesState} {...formattedData} />
 		</AttributesProvider>
 	);
 };
