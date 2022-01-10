@@ -6606,7 +6606,7 @@ public class PortalImpl implements Portal {
 	@Override
 	public boolean isForwardedSecure(HttpServletRequest httpServletRequest) {
 		if (PropsValues.WEB_SERVER_FORWARDED_PROTOCOL_ENABLED) {
-			String forwardedProtocol = request.getHeader(
+			String forwardedProtocol = httpServletRequest.getHeader(
 				PropsValues.WEB_SERVER_FORWARDED_PROTOCOL_HEADER);
 
 			if (Validator.isNotNull(forwardedProtocol) &&
@@ -6616,7 +6616,7 @@ public class PortalImpl implements Portal {
 			}
 		}
 
-		return request.isSecure();
+		return httpServletRequest.isSecure();
 	}
 
 	@Override
