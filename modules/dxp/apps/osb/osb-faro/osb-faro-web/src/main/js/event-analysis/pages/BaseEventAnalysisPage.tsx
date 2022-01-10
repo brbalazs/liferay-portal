@@ -237,7 +237,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 	return (
 		<BasePage
 			className='create-event-analysis-root'
-			documentTitle={Liferay.Language.get('events')}
+			documentTitle={Liferay.Language.get('event-analysis')}
 		>
 			<BasePage.Header
 				breadcrumbs={[
@@ -250,7 +250,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
-					title={Liferay.Language.get('events')}
+					title={Liferay.Language.get('event-analysis')}
 				/>
 			</BasePage.Header>
 
