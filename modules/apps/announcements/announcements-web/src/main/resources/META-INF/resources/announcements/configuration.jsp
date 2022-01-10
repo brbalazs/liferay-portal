@@ -111,6 +111,10 @@ announcementsPortletInstanceConfiguration = ParameterMapUtil.setParameterMap(Ann
 								List<KeyValuePair> rightList = new ArrayList<KeyValuePair>();
 
 								for (Group curGroup : groups) {
+									if (!curGroup.isSite()) {
+										continue;
+									}
+
 									KeyValuePair tempKeyValuePair = new KeyValuePair(String.valueOf(curGroup.getGroupId()), curGroup.getDescriptiveName(locale));
 
 									if (!leftList.contains(tempKeyValuePair)) {
