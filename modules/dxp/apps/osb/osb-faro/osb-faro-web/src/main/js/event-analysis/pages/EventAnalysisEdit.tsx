@@ -16,9 +16,10 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 
-function normalizeItems<T extends {id: string}>(data: T[]): {[key: string]: T} {
+function normalizeItems<T extends {id: string; __typename: string}>(
+	data: T[]
+): {[key: string]: T} {
 	return data.reduce((acc, item) => {
-		// @ts-ignore property __typename is coming from GraphQL
 		delete item.__typename;
 
 		return {
