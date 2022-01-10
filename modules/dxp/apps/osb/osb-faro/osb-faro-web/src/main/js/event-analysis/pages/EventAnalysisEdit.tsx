@@ -74,6 +74,7 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		EventAnalysisData,
 		EventAnalysisVariables
 	>(EventAnalysisQuery, {
+		fetchPolicy: 'network-only',
 		variables: {
 			eventAnalysisId
 		}
