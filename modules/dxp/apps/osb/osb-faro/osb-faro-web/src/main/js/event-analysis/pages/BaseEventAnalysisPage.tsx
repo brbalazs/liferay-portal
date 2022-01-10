@@ -217,11 +217,6 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 		[initialFilters, filters]
 	);
 
-	const nameChanged: (name: string) => boolean = useCallback(
-		name => initialName !== name,
-		[initialName]
-	);
-
 	const rangeSelectorsChanged: boolean = useMemo(
 		() =>
 			hasChangesFn<RangeSelectors>(
@@ -262,13 +257,13 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 					}}
 					onSubmit={handleSubmit}
 				>
-					{({handleSubmit, isSubmitting, values: {name}}) => {
+					{({dirty, handleSubmit, isSubmitting, values: {name}}) => {
 						const hasChanges =
 							breakdownsChanged ||
+							dirty ||
 							compareToPreviousChanged ||
 							eventChanged ||
 							filtersChanged ||
-							nameChanged(name) ||
 							rangeSelectorsChanged;
 
 						return (
