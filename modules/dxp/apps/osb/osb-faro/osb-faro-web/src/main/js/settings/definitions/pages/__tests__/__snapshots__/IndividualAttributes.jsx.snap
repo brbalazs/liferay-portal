@@ -204,7 +204,7 @@ exports[`IndividualAttributes should render 1`] = `
                   <td
                     class="pr-5"
                   >
-                    3 years ago
+                    4 years ago
                   </td>
                 </tr>
                 <tr
@@ -232,7 +232,7 @@ exports[`IndividualAttributes should render 1`] = `
                   <td
                     class="pr-5"
                   >
-                    3 years ago
+                    4 years ago
                   </td>
                 </tr>
                 <tr
@@ -260,7 +260,7 @@ exports[`IndividualAttributes should render 1`] = `
                   <td
                     class="pr-5"
                   >
-                    3 years ago
+                    4 years ago
                   </td>
                 </tr>
                 <tr
@@ -288,7 +288,7 @@ exports[`IndividualAttributes should render 1`] = `
                   <td
                     class="pr-5"
                   >
-                    3 years ago
+                    4 years ago
                   </td>
                 </tr>
                 <tr
@@ -316,7 +316,7 @@ exports[`IndividualAttributes should render 1`] = `
                   <td
                     class="pr-5"
                   >
-                    3 years ago
+                    4 years ago
                   </td>
                 </tr>
               </tbody>
