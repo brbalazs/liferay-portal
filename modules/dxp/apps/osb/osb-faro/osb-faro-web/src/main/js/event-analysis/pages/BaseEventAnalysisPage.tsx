@@ -4,7 +4,7 @@ import EventAnalysisEditor from '../components/event-analysis-editor';
 import EventAnalysisToolbar from '../components/EventAnalysisToolbar';
 import Form from 'shared/components/form';
 import NavigationWarning from 'shared/components/NavigationWarning';
-import React, {useCallback, useContext, useMemo, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
@@ -18,7 +18,7 @@ import {
 } from 'event-analysis/utils/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withRangeKey} from 'shared/hoc';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {
 	CreateEventAnalysisMutation,
 	EventAnalysisMutationData,
@@ -29,7 +29,6 @@ import {DEVELOPER_MODE} from 'shared/util/constants';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
 import {hasChanges} from 'shared/util/react';
-import {Modal} from 'shared/types';
 import {omit} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {useHistory, useParams} from 'react-router-dom';
@@ -76,21 +75,27 @@ function hasChangesFn<T>(prev: T = null, next: T = null, ...keys: string[]) {
 	return hasChanges<T>(prev, next, ...keys);
 }
 
-interface IEventAnalysisProps
+const connector = connect(null, {
+	addAlert,
+	close,
+	open
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IBaseEventAnalysisPageProps
 	extends WithRangeKeyProps,
+		PropsFromRedux,
 		React.HTMLAttributes<HTMLElement> {
-	addAlert: Alert.AddAlert;
 	breakdowns?: Breakdowns;
-	close: Modal.close;
 	compareToPrevious?: boolean;
 	currentUser: User;
 	event?: Event;
 	filters?: Filters;
 	name?: string;
-	open: Modal.open;
 }
 
-const EventAnalysis: React.FC<IEventAnalysisProps> = ({
+const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	addAlert,
 	breakdowns: initialBreakdowns,
 	close,
@@ -310,11 +315,7 @@ const EventAnalysis: React.FC<IEventAnalysisProps> = ({
 };
 
 export default compose(
-	connect(null, {
-		addAlert,
-		close,
-		open
-	}),
+	connector,
 	withCurrentUser,
 	withRangeKey
-)(EventAnalysis);
+)(BaseEventAnalysisPage);
