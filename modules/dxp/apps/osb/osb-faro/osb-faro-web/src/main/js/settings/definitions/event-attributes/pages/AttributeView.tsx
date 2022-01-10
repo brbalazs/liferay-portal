@@ -134,16 +134,10 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 							columns={[
 								{
 									accessor: 'value',
-									cellRenderer: ({
-										className,
-										data: {value}
-									}) => (
-										<td className={className}>
-											{getSafeDisplayValue(value)}
-										</td>
-									),
 									className:
 										'table-cell-expand-small text-truncate',
+									dataFormatter: value =>
+										getSafeDisplayValue(value),
 									label: Liferay.Language.get(
 										'sample-raw-data'
 									),
