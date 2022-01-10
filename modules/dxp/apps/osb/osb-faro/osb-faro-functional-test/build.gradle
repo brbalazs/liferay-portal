@@ -12,7 +12,7 @@ copyTestModules {
 
 dependencies {
 	testIntegrationCompile group: "com.github.cukespace", name: "cukespace-core", version: "1.6.3"
-	testIntegrationCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "2.0.0"
+	testIntegrationCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "2.1.0"
 	testIntegrationCompile group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
 	testIntegrationCompile group: "com.liferay", name: "com.liferay.poshi.runner", version: "1.0.273"
 	testIntegrationCompile group: "com.liferay", name: "net.jsourcerer.webdriver.JSErrorCollector", version: "0.6"
