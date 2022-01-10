@@ -38,7 +38,7 @@ function getItems<T>(items: T[], key: string): Array<T & {id: string}> {
 function normalizeRangeSelectors(
 	rangeSelectors: RangeSelectors
 ): RangeSelectors {
-	const {rangeEnd, rangeStart} = rangeSelectors;
+	const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
 
 	if (rangeEnd && rangeStart) {
 		return {
@@ -47,7 +47,10 @@ function normalizeRangeSelectors(
 		};
 	}
 
-	return rangeSelectors;
+	return {
+		...rangeSelectors,
+		rangeKey: String(rangeKey) as RangeKeyTimeRanges
+	};
 }
 
 interface BreakdownWithId extends Breakdown {
