@@ -8,6 +8,7 @@ import {
 	getSafeRangeSelectors,
 	isBlank,
 	isEllipisActive,
+	normalizeRangeSelectors,
 	truncateText
 } from '../util';
 
@@ -186,6 +187,21 @@ describe('util', () => {
 			({rangeEnd, rangeKey, rangeStart, results}) => {
 				expect(
 					getSafeRangeSelectors({rangeEnd, rangeKey, rangeStart})
+				).toMatchObject(results);
+			}
+		);
+	});
+
+	describe('normalizeRangeSelectors', () => {
+		it.each`
+			rangeEnd        | rangeKey | rangeStart      | results
+			${null}         | ${30}    | ${null}         | ${{rangeEnd: null, rangeKey: '30', rangeStart: null}}
+			${'2020-04-04'} | ${null}  | ${'2020-04-01'} | ${{rangeEnd: '2020-04-04', rangeKey: 'CUSTOM', rangeStart: '2020-04-01'}}
+		`(
+			'should convert $rangeEnd, $rangeKey, & $rangeStart to $results',
+			({rangeEnd, rangeKey, rangeStart, results}) => {
+				expect(
+					normalizeRangeSelectors({rangeEnd, rangeKey, rangeStart})
 				).toMatchObject(results);
 			}
 		);
