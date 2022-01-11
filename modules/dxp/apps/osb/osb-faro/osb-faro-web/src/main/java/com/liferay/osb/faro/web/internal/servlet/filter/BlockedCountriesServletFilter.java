@@ -67,9 +67,7 @@ public class BlockedCountriesServletFilter extends BaseFilter {
 			return;
 		}
 
-		processFilter(
-			BlockedCountriesServletFilter.class.getName(), httpServletRequest,
-			httpServletResponse, filterChain);
+		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
 	private boolean _isBlockedCountry(String ipAddress) {
