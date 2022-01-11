@@ -26,6 +26,7 @@ import {
 	UpdateEventAnalysisMutation
 } from 'event-analysis/queries/EventAnalysisQuery';
 import {DEVELOPER_MODE} from 'shared/util/constants';
+import {difference} from 'shared/util/array';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
 import {hasChanges} from 'shared/util/react';
@@ -62,17 +63,20 @@ const ERRORS = {
 	}
 };
 
-function hasChangesFn<T>(prev: T = null, next: T = null, ...keys: string[]) {
-	const emptyPrev = !prev || !Object.keys(prev).length;
-	const emptyNext = !next || !Object.keys(next).length;
+function hasChangesFn<T>(
+	prev: T | object = {},
+	next: T | object = {}
+): boolean {
+	const initialAttributeIds = Object.values(prev).map(
+		({attributeId}) => attributeId
+	);
+	const attributeIds = Object.values(next).map(
+		({attributeId}) => attributeId
+	);
 
-	if (emptyPrev && emptyNext) {
-		return false;
-	} else if ((emptyPrev && !emptyNext) || (!emptyPrev && emptyNext)) {
-		return true;
-	}
+	const arrDifference = difference<string>(initialAttributeIds, attributeIds);
 
-	return hasChanges<T>(prev, next, ...keys);
+	return !!arrDifference.length;
 }
 
 const connector = connect(null, {
@@ -203,7 +207,7 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	};
 
 	const breakdownsChanged: boolean = useMemo(
-		() => hasChangesFn<Breakdowns>(initialBreakdowns, breakdowns, 'id'),
+		() => hasChangesFn<Breakdowns>(initialBreakdowns, breakdowns),
 		[initialBreakdowns, breakdowns]
 	);
 
@@ -213,18 +217,18 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	);
 
 	const eventChanged: boolean = useMemo(
-		() => hasChangesFn<Event>(initialEvent, event, 'id'),
+		() => hasChanges<Event>(initialEvent || {}, event || {}, 'id'),
 		[initialEvent, event]
 	);
 
 	const filtersChanged: boolean = useMemo(
-		() => hasChangesFn<Filters>(initialFilters, filters, 'id'),
+		() => hasChangesFn<Filters>(initialFilters, filters),
 		[initialFilters, filters]
 	);
 
 	const rangeSelectorsChanged: boolean = useMemo(
 		() =>
-			hasChangesFn<RangeSelectors>(
+			hasChanges<RangeSelectors>(
 				initialRangeSelectors,
 				rangeSelectors,
 				'rangeStart',
