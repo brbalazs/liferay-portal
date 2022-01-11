@@ -6,25 +6,23 @@ import {
 	Filter
 } from 'event-analysis/utils/types';
 import {gql} from 'apollo-boost';
-import {RangeKeyTimeRanges} from 'shared/util/constants';
-import {Sort} from 'shared/types';
+import {RawRangeSelectors, Sort} from 'shared/types';
+
+interface EventAnalysis extends RawRangeSelectors {
+	compareToPrevious: boolean;
+	eventAnalysisBreakdowns: Breakdown[];
+	eventAnalysisFilters: Filter[];
+	eventAnalysisId: number;
+	eventDefinitionId: number;
+	name: string;
+	referencedObjects: {
+		eventDefinition: Event;
+		eventAttributeDefinitions: Attribute[];
+	};
+}
 
 export interface EventAnalysisData {
-	eventAnalysis: {
-		compareToPrevious: boolean;
-		eventAnalysisBreakdowns: Breakdown[];
-		eventAnalysisFilters: Filter[];
-		eventAnalysisId: number;
-		eventDefinitionId: number;
-		name: string;
-		rangeEnd: string;
-		rangeKey: RangeKeyTimeRanges;
-		rangeStart: string;
-		referencedObjects: {
-			eventDefinition: Event;
-			eventAttributeDefinitions: Attribute[];
-		};
-	};
+	eventAnalysis: EventAnalysis;
 }
 
 export interface EventAnalysisListData {
@@ -57,7 +55,7 @@ export interface EventAnalysisListVariables {
 	sort: Sort;
 }
 
-export interface EventAnalysisMutationVariables {
+export interface EventAnalysisMutationVariables extends RawRangeSelectors {
 	analysisType: CalculationTypes;
 	channelId: string;
 	compareToPrevious: boolean;
@@ -65,9 +63,6 @@ export interface EventAnalysisMutationVariables {
 	eventAnalysisFilters?: Filter[];
 	eventDefinitionId: string;
 	name: string;
-	rangeEnd?: string | null;
-	rangeKey?: number | null;
-	rangeStart?: string | null;
 	userId: string;
 	userName: string;
 	eventAnalysisId?: string | null;

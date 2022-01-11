@@ -85,6 +85,12 @@ export type RangeSelectors = {
 	rangeStart: string;
 };
 
+export type RawRangeSelectors = {
+	rangeEnd: string | null;
+	rangeKey: number;
+	rangeStart: string | null;
+};
+
 export type SafeRangeSelectors = {
 	rangeEnd: string;
 	rangeKey: number | null;

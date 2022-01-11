@@ -5,7 +5,11 @@ import {
 	RangeKeyTimeRanges
 } from 'shared/util/constants';
 import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
-import {RangeSelectors, SafeRangeSelectors} from 'shared/types';
+import {
+	RangeSelectors,
+	RawRangeSelectors,
+	SafeRangeSelectors
+} from 'shared/types';
 
 /**
  * Check if the value is blank.
@@ -42,6 +46,29 @@ export const getSafeRangeSelectors = (
 		rangeEnd: rangeEnd || null,
 		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
 		rangeStart: rangeStart || null
+	};
+};
+
+/**
+ * Normalize RangeSelectors
+ * @param {RawRangeSelectors}
+ * @returns {RangeSelectors}
+ */
+export const normalizeRangeSelectors = (
+	rangeSelectors: RawRangeSelectors
+): RangeSelectors => {
+	const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
+
+	if (rangeEnd && rangeStart) {
+		return {
+			...rangeSelectors,
+			rangeKey: RangeKeyTimeRanges.CustomRange
+		};
+	}
+
+	return {
+		...rangeSelectors,
+		rangeKey: String(rangeKey) as RangeKeyTimeRanges
 	};
 };
 

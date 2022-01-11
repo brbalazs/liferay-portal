@@ -10,7 +10,7 @@ import {
 	EventAnalysisQuery,
 	EventAnalysisVariables
 } from '../queries/EventAnalysisQuery';
-import {RangeKeyTimeRanges} from 'shared/util/constants';
+import {normalizeRangeSelectors} from 'shared/util/util';
 import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
@@ -34,24 +34,6 @@ function getItems<T>(items: T[], key: string): Array<T & {id: string}> {
 		...item,
 		id: `${key}-${Date.now()}-${item['attributeId']}`
 	}));
-}
-
-function normalizeRangeSelectors(
-	rangeSelectors: RangeSelectors
-): RangeSelectors {
-	const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
-
-	if (rangeEnd && rangeStart) {
-		return {
-			...rangeSelectors,
-			rangeKey: RangeKeyTimeRanges.CustomRange
-		};
-	}
-
-	return {
-		...rangeSelectors,
-		rangeKey: String(rangeKey) as RangeKeyTimeRanges
-	};
 }
 
 interface BreakdownWithId extends Breakdown {
