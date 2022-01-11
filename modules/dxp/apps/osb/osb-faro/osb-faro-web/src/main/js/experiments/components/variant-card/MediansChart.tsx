@@ -6,6 +6,7 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext} from 'react';
 import {EXPERIMENT_QUERY} from 'experiments/queries/ExperimentQuery';
 import {SafeResults} from 'shared/hoc/util';
+import {Sizes} from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
 
 const MediansChart = () => {
@@ -31,7 +32,7 @@ const MediansChart = () => {
 						)}
 						icon={{
 							border: false,
-							size: 'xl',
+							size: Sizes.XLarge,
 							symbol: 'ac-chart'
 						}}
 						title={Liferay.Language.get(

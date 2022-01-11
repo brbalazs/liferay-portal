@@ -370,6 +370,15 @@ export enum SegmentTypes {
 	Static = 'STATIC'
 }
 
+export enum Sizes {
+	Small = 'sm',
+	Medium = 'md',
+	Large = 'lg',
+	XLarge = 'xl',
+	XXLarge = 'xxl',
+	XXXLarge = 'xxxl'
+}
+
 export enum SubscriptionStatuses {
 	Approaching = 1,
 	Ok = 0,

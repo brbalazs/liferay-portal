@@ -14,6 +14,7 @@ import {
 	EXPERIMENT_SESSION_VARIANTS_HISTOGRAM_QUERY
 } from 'experiments/queries/ExperimentQuery';
 import {SafeResults} from 'shared/hoc/util';
+import {Sizes} from 'shared/util/constants';
 import {useFakeLoading} from 'shared/hooks';
 import {useQuery} from '@apollo/react-hooks';
 import {useStateValue} from 'experiments/state';
@@ -126,7 +127,7 @@ const SessionCard: React.FC<ISessionCardProps> = ({label}) => {
 										)}
 										icon={{
 											border: false,
-											size: 'xl',
+											size: Sizes.XLarge,
 											symbol: 'ac-chart'
 										}}
 										title={Liferay.Language.get(

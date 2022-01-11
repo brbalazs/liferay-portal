@@ -1,6 +1,7 @@
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 
 const CLASSNAME = 'no-results';
@@ -8,7 +9,7 @@ const CLASSNAME = 'no-results';
 interface INoResultsDisplayProps extends React.HTMLAttributes<HTMLElement> {
 	description?: string | React.ReactNode;
 	icon?: {
-		size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
+		size?: Sizes;
 		symbol: string;
 		border?: boolean;
 	};
@@ -36,7 +37,11 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 			<div className={getCN(`${CLASSNAME}-content`, {spacer})}>
 				{icon &&
 					(() => {
-						const {border = true, size = 'xxl', symbol} = icon;
+						const {
+							border = true,
+							size = Sizes.XXLarge,
+							symbol
+						} = icon;
 						const classes = getCN(`${CLASSNAME}-icon`, {
 							[`${CLASSNAME}-icon-border`]: border
 						});
