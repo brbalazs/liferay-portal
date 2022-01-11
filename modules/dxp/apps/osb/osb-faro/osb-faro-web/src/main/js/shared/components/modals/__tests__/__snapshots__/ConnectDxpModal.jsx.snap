@@ -41,11 +41,11 @@ exports[`ConnectDXPModal renders 1`] = `
             class="analytics-to-dxp-container"
           >
             <svg
-              class="icon-root lexicon-icon lexicon-icon-ac-logo icon-size-xl"
+              class="icon-root lexicon-icon lexicon-icon-dxp-icon icon-size-xl"
               viewBox=""
             >
               <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#dxp-icon"
               />
             </svg>
             <svg
@@ -57,19 +57,24 @@ exports[`ConnectDXPModal renders 1`] = `
               />
             </svg>
             <svg
-              class="icon-root lexicon-icon lexicon-icon-dxp-icon-grayscale icon-size-xl"
+              class="icon-root lexicon-icon lexicon-icon-ac-logo-grayscale icon-size-xl"
               viewBox=""
             >
               <use
-                xlink:href="/o/osb-faro-web/dist/sprite.svg#dxp-icon-grayscale"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo-grayscale"
               />
             </svg>
           </div>
           <span
-            class="title d-flex justify-content-center"
+            class="title connect-to-dxp d-flex justify-content-center"
           >
-            Connect Your DXP Instance
+            Connect Your DXP Analytics
           </span>
+          <div
+            class="w-100 ml-6 mt-1 token-info"
+          >
+            Copy this token to your DXP instance.
+          </div>
           <div
             class="input-group"
           >
@@ -77,16 +82,16 @@ exports[`ConnectDXPModal renders 1`] = `
               class="input-group-item input-group-prepend"
             >
               <input
-                class="input-root form-control text-truncate input-group-inset input-group-inset-after"
+                class="input-root form-control text-truncate token-input input-group-inset input-group-inset-after"
                 type="text"
                 value=""
               />
               <div
-                class="input-group-inset-item input-group-inset-item-after"
+                class="input-group-inset-item copy-button input-group-inset-item-after"
               >
                 <button
                   aria-label="Click to Copy"
-                  class="button-root btn btn-light"
+                  class="button-root btn btn-light copy-button"
                   data-clipboard-text=""
                   data-tooltip-response="Copied"
                   title="Click to Copy"
@@ -105,7 +110,7 @@ exports[`ConnectDXPModal renders 1`] = `
             </div>
           </div>
           <div
-            class="documentation-link-text w-100 ml-6 mt-1"
+            class="secondary-description w-100 ml-6 mt-1"
           >
             <a
               href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html"

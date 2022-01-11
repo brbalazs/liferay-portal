@@ -25,7 +25,7 @@ exports[`FilterTags should render a list of tags 1`] = `
             type="button"
           >
             <svg
-              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              class="icon-root lexicon-icon lexicon-icon-times"
               viewBox=""
             >
               <use
@@ -60,7 +60,7 @@ exports[`FilterTags should render a list of tags 1`] = `
             type="button"
           >
             <svg
-              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              class="icon-root lexicon-icon lexicon-icon-times"
               viewBox=""
             >
               <use
@@ -95,7 +95,7 @@ exports[`FilterTags should render a list of tags 1`] = `
             type="button"
           >
             <svg
-              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              class="icon-root lexicon-icon lexicon-icon-times"
               viewBox=""
             >
               <use
