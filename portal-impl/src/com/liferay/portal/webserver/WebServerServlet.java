@@ -1137,8 +1137,7 @@ public class WebServerServlet extends HttpServlet {
 		}
 
 		if (converted && (contentLength == 0)) {
-			throw new NoSuchFileException(
-				"The converted file was not correctly created");
+			throw new NoSuchFileException("The converted file is empty");
 		}
 
 		FlashMagicBytesUtil.Result flashMagicBytesUtilResult =
