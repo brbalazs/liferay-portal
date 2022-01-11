@@ -105,9 +105,11 @@ export const EventAnalysisQuery = gql`
 				eventAttributeDefinitions {
 					dataType
 					description
-					type
+					displayName
 					id
 					name
+					sampleValue
+					type
 				}
 				eventDefinition {
 					description
