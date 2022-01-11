@@ -40,10 +40,12 @@
 	}
 
 	&-title {
+		font-size: $fontSizeLarge;
 		margin-bottom: 16px;
 	}
 
 	&-description {
+		color: $mainLighten28;
 		font-size: $fontSizeSmall;
 	}
 
