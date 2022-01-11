@@ -60,4 +60,21 @@ describe('array utils', () => {
 			).toEqual(expect.arrayContaining([1, 4, 5, 6, 3]));
 		});
 	});
+
+	describe('difference', () => {
+		it('should return the difference between two arrays of numbers', () => {
+			expect(
+				ArrayUtils.difference([1, 2, 3, 4, 5], [3, 4, 5, 6])
+			).toEqual(expect.arrayContaining([1, 2, 6]));
+		});
+
+		it('should return the difference between two array of string', () => {
+			expect(
+				ArrayUtils.difference(
+					['banana', 'coconut', 'lime', 'melon'],
+					['banana', 'coconut', 'apple']
+				)
+			).toEqual(expect.arrayContaining(['lime', 'melon', 'apple']));
+		});
+	});
 });
