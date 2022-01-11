@@ -26,7 +26,7 @@ import {
 	UpdateEventAnalysisMutation
 } from 'event-analysis/queries/EventAnalysisQuery';
 import {DEVELOPER_MODE} from 'shared/util/constants';
-import {difference} from 'shared/util/array';
+import {getDifferences} from 'shared/util/array';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
 import {hasChanges} from 'shared/util/react';
@@ -74,9 +74,12 @@ function hasChangesFn<T>(
 		({attributeId}) => attributeId
 	);
 
-	const arrDifference = difference<string>(initialAttributeIds, attributeIds);
+	const differences = getDifferences<string>(
+		initialAttributeIds,
+		attributeIds
+	);
 
-	return !!arrDifference.length;
+	return !!differences.length;
 }
 
 const connector = connect(null, {

@@ -76,7 +76,7 @@ export const replaceWithMultipleAtIndex = (
  * not in arr2 and vice-versa.
  * @returns {Array}
  */
-export function difference<T>(arr1: T[], arr2: T[]): T[] {
+export function getDifferences<T>(arr1: T[], arr2: T[]): T[] {
 	const x = arr1.filter(x => !arr2.includes(x));
 	const y = arr2.filter(x => !arr1.includes(x));
 
