@@ -27,7 +27,7 @@ jobs:
                 test ${TRAVIS_EVENT_TYPE} = "push" &&
                 test ${TRAVIS_REPO_SLUG} = "liferay/com-liferay-osb-faro-private" &&
                 ./gradlew packageRunCoveralls --no-daemon && ./gradlew pushAppDockerImage -Pdocker.image.tag=master --no-daemon
-              - test ${TRAVIS_BRANCH} != "7.1.x" &&
+              - test ${TRAVIS_BRANCH} = "3.0.x" &&
                 test ${TRAVIS_EVENT_TYPE} = "push" &&
                 test ${TRAVIS_REPO_SLUG} = "liferay/com-liferay-osb-faro-private" &&
                 ./gradlew packageRunCoveralls --no-daemon && ./gradlew pushAppDockerImage -Pdocker.image.tag=release --no-daemon
