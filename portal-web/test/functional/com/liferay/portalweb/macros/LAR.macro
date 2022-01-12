@@ -568,6 +568,16 @@ definition {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_exportimport_web_portlet_ImportPortlet");
 	}
 
+	macro relaunchCurrentAndPreviousProcess {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Relaunch",
+			rowEntry = "${larFileName}");
+
+		AssertTextEquals(
+			locator1 = "SitePagesExport#CURRENT_AND_PREVIOUS_STATUS",
+			value1 = "Successful");
+	}
+
 	macro saveExportTemplateCP {
 		Button.clickSave();
 
