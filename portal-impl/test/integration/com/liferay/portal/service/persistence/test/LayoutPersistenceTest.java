@@ -467,10 +467,10 @@ public class LayoutPersistenceTest {
 			"groupId", true, "companyId", true, "userId", true, "userName",
 			true, "createDate", true, "modifiedDate", true, "privateLayout",
 			true, "layoutId", true, "parentLayoutId", true, "name", true,
-			"title", true, "keywords", true, "robots", true, "type", true,
-			"hidden", true, "friendlyURL", true, "iconImageId", true, "themeId",
-			true, "colorSchemeId", true, "priority", true,
-			"layoutPrototypeUuid", true, "layoutPrototypeLinkEnabled", true,
+			"keywords", true, "robots", true, "type", true, "hidden", true,
+			"friendlyURL", true, "iconImageId", true, "themeId", true,
+			"colorSchemeId", true, "priority", true, "layoutPrototypeUuid",
+			true, "layoutPrototypeLinkEnabled", true,
 			"sourcePrototypeLayoutUuid", true, "lastPublishDate", true);
 	}
 

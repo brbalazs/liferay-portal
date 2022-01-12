@@ -557,7 +557,7 @@ create table Layout (
 	layoutId LONG,
 	parentLayoutId LONG,
 	name STRING null,
-	title STRING null,
+	title TEXT null,
 	description TEXT null,
 	keywords STRING null,
 	robots STRING null,
