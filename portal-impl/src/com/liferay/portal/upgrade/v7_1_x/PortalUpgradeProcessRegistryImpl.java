@@ -63,6 +63,8 @@ public class PortalUpgradeProcessRegistryImpl
 
 		upgradeProcesses.put(
 			new Version(2, 0, 9), new UpgradeLayoutDescription());
+
+		upgradeProcesses.put(new Version(2, 0, 10), new UpgradeLayoutTitle());
 	}
 
 }
