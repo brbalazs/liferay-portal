@@ -53,6 +53,8 @@ public class ContactsActivator {
 			"authVerifierProperties",
 			new String[] {
 				"auth.verifier.BasicAuthHeaderAuthVerifier.urls.includes=*",
+				"auth.verifier.PortalSessionAuthVerifier.check.csrf.token=" +
+					"false",
 				"auth.verifier.PortalSessionAuthVerifier.urls.includes=*"
 			});
 		properties.put("contextPath", _CONTEXT_PATH);
