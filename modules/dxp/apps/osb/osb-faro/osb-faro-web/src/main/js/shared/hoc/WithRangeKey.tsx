@@ -16,14 +16,15 @@ const withRangeKey = <P extends WithRangeKeyProps>(
 		rangeStart: null
 	};
 
-	return props => {
-		const [rangeSelectors, setRangeSelectors] = useState(
-			props?.rangeSelectors || defaultRangeSelectors
-		);
+	return ({rangeSelectors: initialRangeSelectors, ...otherProps}) => {
+		const [rangeSelectors, setRangeSelectors] = useState({
+			...defaultRangeSelectors,
+			...initialRangeSelectors
+		});
 
 		return (
 			<WrappedComponent
-				{...(props as P)}
+				{...(otherProps as P)}
 				onRangeSelectorsChange={useCallback(
 					newVal => setRangeSelectors(newVal),
 					[]
