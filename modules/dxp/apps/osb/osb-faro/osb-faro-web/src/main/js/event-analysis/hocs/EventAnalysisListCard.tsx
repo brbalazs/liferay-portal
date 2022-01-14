@@ -10,12 +10,13 @@ import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
-import {CreatedByCell} from 'shared/components/table/cell-components';
 import {
+	CREATED_BY_USER_NAME,
 	createOrderIOMap,
 	getGraphQLVariablesFromPagination,
 	NAME
 } from 'shared/util/pagination';
+import {CreatedByCell} from 'shared/components/table/cell-components';
 import {
 	DeleteEventAnalysisData,
 	DeleteEventAnalysisMutation,
@@ -212,7 +213,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 						label: Liferay.Language.get('name')
 					},
 					{
-						accessor: 'createdByUserName',
+						accessor: CREATED_BY_USER_NAME,
 						cellRenderer: CreatedByCell,
 						label: Liferay.Language.get('created-by')
 					}
@@ -252,7 +253,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 					},
 					{
 						label: Liferay.Language.get('created-by'),
-						value: 'createdByUserName'
+						value: CREATED_BY_USER_NAME
 					}
 				]}
 				orderIOMap={orderIOMap}
