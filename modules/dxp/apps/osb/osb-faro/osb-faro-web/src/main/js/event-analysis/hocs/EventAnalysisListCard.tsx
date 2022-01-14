@@ -14,8 +14,7 @@ import {CreatedByCell} from 'shared/components/table/cell-components';
 import {
 	createOrderIOMap,
 	getGraphQLVariablesFromPagination,
-	NAME,
-	USER_NAME
+	NAME
 } from 'shared/util/pagination';
 import {
 	DeleteEventAnalysisData,
@@ -199,7 +198,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 				}))}
 				columns={[
 					{
-						accessor: 'name',
+						accessor: NAME,
 						cellRenderer: NameCell,
 						cellRendererProps: {
 							routeFn: ({data: {id}}) =>
@@ -213,7 +212,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 						label: Liferay.Language.get('name')
 					},
 					{
-						accessor: 'userName',
+						accessor: 'createdByUserName',
 						cellRenderer: CreatedByCell,
 						label: Liferay.Language.get('created-by')
 					}
@@ -253,7 +252,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 					},
 					{
 						label: Liferay.Language.get('created-by'),
-						value: USER_NAME
+						value: 'createdByUserName'
 					}
 				]}
 				orderIOMap={orderIOMap}
