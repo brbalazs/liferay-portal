@@ -40,6 +40,7 @@ import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.DataSourceField;
 import com.liferay.osb.faro.engine.client.model.DataSourceProgress;
 import com.liferay.osb.faro.engine.client.model.Distribution;
+import com.liferay.osb.faro.engine.client.model.EntityModelPagedModel;
 import com.liferay.osb.faro.engine.client.model.Event;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
@@ -52,12 +53,11 @@ import com.liferay.osb.faro.engine.client.model.IndividualSegmentMembershipChang
 import com.liferay.osb.faro.engine.client.model.IndividualTransformation;
 import com.liferay.osb.faro.engine.client.model.Interest;
 import com.liferay.osb.faro.engine.client.model.PageVisited;
-import com.liferay.osb.faro.engine.client.model.PagedResources;
+import com.liferay.osb.faro.engine.client.model.PagedModel;
 import com.liferay.osb.faro.engine.client.model.Provider;
 import com.liferay.osb.faro.engine.client.model.Rels;
-import com.liferay.osb.faro.engine.client.model.ResourcePagedResources;
 import com.liferay.osb.faro.engine.client.model.Results;
-import com.liferay.osb.faro.engine.client.model.StringPagedResources;
+import com.liferay.osb.faro.engine.client.model.StringPagedModel;
 import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
 import com.liferay.osb.faro.engine.client.model.provider.SalesforceProvider;
@@ -571,14 +571,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("id", accountId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualSegment> pagedModel = get(
 			faroProject, Rels.ACCOUNTS_INDIVIDUAL_SEGMENTS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualSegment>>() {
+				<EntityModelPagedModel<IndividualSegment>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -618,13 +618,13 @@ public class ContactsEngineClientImpl
 			type = Rels.ACCOUNTS;
 		}
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Account> pagedModel = get(
 			faroProject, type,
-			new ParameterizedTypeReference<ResourcePagedResources<Account>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Account>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -642,14 +642,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("individualSegmentId", individualSegmentId);
 		uriVariables.put("numberOfBins", numberOfBins);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Distribution> pagedModel = get(
 			faroProject, Rels.ACCOUNTS_DISTRIBUTION,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Distribution>>() {
+				<EntityModelPagedModel<Distribution>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -680,13 +680,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Activity> pagedModel = get(
 			faroProject, Rels.ACTIVITIES,
-			new ParameterizedTypeReference<ResourcePagedResources<Activity>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Activity>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -761,14 +761,14 @@ public class ContactsEngineClientImpl
 			uriVariables.put("rangeStart", rangeStart);
 		}
 
-		PagedResources pagedResources = get(
+		PagedModel<?, ActivityAggregation> pagedModel = get(
 			faroProject, Rels.ACTIVITIES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<ActivityAggregation>>() {
+				<EntityModelPagedModel<ActivityAggregation>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -793,14 +793,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, ActivityAsset> pagedModel = get(
 			faroProject, Rels.ACTIVITY_ASSETS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<ActivityAsset>>() {
+				<EntityModelPagedModel<ActivityAsset>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -839,14 +839,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, ActivityGroup> pagedModel = get(
 			faroProject, Rels.ACTIVITY_GROUPS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<ActivityGroup>>() {
+				<EntityModelPagedModel<ActivityGroup>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -891,13 +891,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Asset> pagedModel = get(
 			faroProject, Rels.ASSETS,
-			new ParameterizedTypeReference<ResourcePagedResources<Asset>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Asset>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -916,14 +916,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DataSource> pagedModel = get(
 			faroProject, Rels.DATA_SOURCES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DataSource>>() {
+				<EntityModelPagedModel<DataSource>>() {
 			},
 			uriVariables);
 
-		Results<DataSource> results = pagedResources.getResults();
+		Results<DataSource> results = pagedModel.getResults();
 
 		List<DataSource> dataSources = results.getItems();
 
@@ -951,14 +951,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("keyword", query);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, BlockedKeyword> pagedModel = get(
 			faroProject, Rels.BLOCKED_KEYWORDS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<BlockedKeyword>>() {
+				<EntityModelPagedModel<BlockedKeyword>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -977,13 +977,13 @@ public class ContactsEngineClientImpl
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Channel> pagedModel = get(
 			faroProject, Rels.CHANNELS,
-			new ParameterizedTypeReference<ResourcePagedResources<Channel>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Channel>>() {
 			},
 			getUriVariables(faroProject, cur, delta, orderByFields));
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1010,13 +1010,13 @@ public class ContactsEngineClientImpl
 			return Collections.emptyList();
 		}
 
-		PagedResources pagedResources = post(
+		PagedModel<?, DXPGroup> pagedModel = post(
 			faroProject, Rels.DATA_SOURCE_DXP_GROUPS, groupIds,
-			new ParameterizedTypeReference<ResourcePagedResources<DXPGroup>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<DXPGroup>>() {
 			},
 			getUriVariables(faroProject, id));
 
-		Results<DXPGroup> results = pagedResources.getResults();
+		Results<DXPGroup> results = pagedModel.getResults();
 
 		return results.getItems();
 	}
@@ -1041,13 +1041,13 @@ public class ContactsEngineClientImpl
 		uriVariables.put("parentGroupId", parentGroupId);
 		uriVariables.put("site", site);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DXPGroup> pagedModel = get(
 			faroProject, Rels.DATA_SOURCE_DXP_GROUPS,
-			new ParameterizedTypeReference<ResourcePagedResources<DXPGroup>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<DXPGroup>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1058,14 +1058,14 @@ public class ContactsEngineClientImpl
 			return Collections.emptyList();
 		}
 
-		PagedResources pagedResources = post(
+		PagedModel<?, DXPOrganization> pagedModel = post(
 			faroProject, Rels.DATA_SOURCE_DXP_ORGANIZATIONS, organizationIds,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DXPOrganization>>() {
+				<EntityModelPagedModel<DXPOrganization>>() {
 			},
 			getUriVariables(faroProject, id));
 
-		Results<DXPOrganization> results = pagedResources.getResults();
+		Results<DXPOrganization> results = pagedModel.getResults();
 
 		return results.getItems();
 	}
@@ -1089,14 +1089,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("parentOrganizationId", parentOrganizationId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DXPOrganization> pagedModel = get(
 			faroProject, Rels.DATA_SOURCE_DXP_ORGANIZATIONS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DXPOrganization>>() {
+				<EntityModelPagedModel<DXPOrganization>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1124,14 +1124,14 @@ public class ContactsEngineClientImpl
 			return Collections.emptyList();
 		}
 
-		PagedResources pagedResources = post(
+		PagedModel<?, DXPUserGroup> pagedModel = post(
 			faroProject, Rels.DATA_SOURCE_DXP_USER_GROUPS, userGroupIds,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DXPUserGroup>>() {
+				<EntityModelPagedModel<DXPUserGroup>>() {
 			},
 			getUriVariables(faroProject, id));
 
-		Results<DXPUserGroup> results = pagedResources.getResults();
+		Results<DXPUserGroup> results = pagedModel.getResults();
 
 		return results.getItems();
 	}
@@ -1149,14 +1149,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("id", id);
 		uriVariables.put("name", getName(name));
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DXPUserGroup> pagedModel = get(
 			faroProject, Rels.DATA_SOURCE_DXP_USER_GROUPS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DXPUserGroup>>() {
+				<EntityModelPagedModel<DXPUserGroup>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1218,14 +1218,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DataSource> pagedModel = get(
 			faroProject, Rels.DATA_SOURCES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DataSource>>() {
+				<EntityModelPagedModel<DataSource>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1262,14 +1262,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DataSource> pagedModel = get(
 			faroProject, Rels.DATA_SOURCES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DataSource>>() {
+				<EntityModelPagedModel<DataSource>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1329,14 +1329,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, FieldMapping> pagedModel = get(
 			faroProject, Rels.FIELD_MAPPINGS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<FieldMapping>>() {
+				<EntityModelPagedModel<FieldMapping>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1366,14 +1366,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, FieldMapping> pagedModel = get(
 			faroProject, Rels.FIELD_MAPPINGS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<FieldMapping>>() {
+				<EntityModelPagedModel<FieldMapping>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1398,14 +1398,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, FieldMapping> pagedModel = get(
 			faroProject, Rels.FIELD_MAPPINGS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<FieldMapping>>() {
+				<EntityModelPagedModel<FieldMapping>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1455,13 +1455,13 @@ public class ContactsEngineClientImpl
 		FaroProject faroProject, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Field> pagedModel = get(
 			faroProject, Rels.FIELDS,
-			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Field>>() {
 			},
 			getUriVariables(faroProject, cur, delta, orderByFields));
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1481,13 +1481,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Field> pagedModel = get(
 			faroProject, Rels.FIELDS,
-			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Field>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1520,13 +1520,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Field> pagedModel = get(
 			faroProject, Rels.FIELDS,
-			new ParameterizedTypeReference<ResourcePagedResources<Field>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Field>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1606,14 +1606,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualTransformation> pagedModel = get(
 			faroProject, type,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualTransformation>>() {
+				<EntityModelPagedModel<IndividualTransformation>>() {
 			},
 			uriVariables);
 
-		Results<IndividualTransformation> results = pagedResources.getResults();
+		Results<IndividualTransformation> results = pagedModel.getResults();
 
 		List<IndividualTransformation> individualTransformations =
 			results.getItems();
@@ -1660,14 +1660,14 @@ public class ContactsEngineClientImpl
 			uriVariables.put("name", name);
 		}
 
-		PagedResources pagedResources = get(
+		PagedModel<?, FieldMapping> pagedModel = get(
 			faroProject, Rels.DEFINITIONS_INDIVIDUAL_ATTRIBUTES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<FieldMapping>>() {
+				<EntityModelPagedModel<FieldMapping>>() {
 			},
 			uriVariables);
 
-		Results<FieldMapping> results = pagedResources.getResults();
+		Results<FieldMapping> results = pagedModel.getResults();
 
 		return results.getItems();
 	}
@@ -1697,14 +1697,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("id", individualId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualSegment> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_INDIVIDUAL_SEGMENTS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualSegment>>() {
+				<EntityModelPagedModel<IndividualSegment>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1720,14 +1720,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("filter", filterBuilder.build());
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Individual>>() {
+				<EntityModelPagedModel<Individual>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1747,14 +1747,14 @@ public class ContactsEngineClientImpl
 				dataSourceId));
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Individual>>() {
+				<EntityModelPagedModel<Individual>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1801,14 +1801,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Individual>>() {
+				<EntityModelPagedModel<Individual>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1834,14 +1834,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("id", individualSegmentId);
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Individual>>() {
+				<EntityModelPagedModel<Individual>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1865,14 +1865,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("id", individualSegmentId);
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Individual>>() {
+				<EntityModelPagedModel<Individual>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1900,14 +1900,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("numberOfBins", numberOfBins);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Distribution> pagedModel = get(
 			faroProject, Rels.INDIVIDUALS_DISTRIBUTION,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<Distribution>>() {
+				<EntityModelPagedModel<Distribution>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -1966,15 +1966,16 @@ public class ContactsEngineClientImpl
 			uriVariables.put("includeToday", false);
 		}
 
-		PagedResources pagedResources = get(
-			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP_CHANGES,
-			new ParameterizedTypeReference
-				<ResourcePagedResources
-					<IndividualSegmentMembershipChangeAggregation>>() {
-			},
-			uriVariables);
+		PagedModel<?, IndividualSegmentMembershipChangeAggregation> pagedModel =
+			get(
+				faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP_CHANGES,
+				new ParameterizedTypeReference
+					<EntityModelPagedModel
+						<IndividualSegmentMembershipChangeAggregation>>() {
+				},
+				uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2006,14 +2007,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("id", individualSegmentId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualSegmentMembershipChange> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIP_CHANGES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualSegmentMembershipChange>>() {
+				<EntityModelPagedModel<IndividualSegmentMembershipChange>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2027,14 +2028,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("id", individualSegmentId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualSegmentMembership> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENT_MEMBERSHIPS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualSegmentMembership>>() {
+				<EntityModelPagedModel<IndividualSegmentMembership>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2044,7 +2045,7 @@ public class ContactsEngineClientImpl
 		String state, String status, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
-		PagedResources pagedResources = null;
+		PagedModel<?, IndividualSegment> pagedModel = null;
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, orderByFields,
@@ -2079,23 +2080,23 @@ public class ContactsEngineClientImpl
 		if (Validator.isNotNull(dataSourceId)) {
 			uriVariables.put("dataSourceId", dataSourceId);
 
-			pagedResources = get(
+			pagedModel = get(
 				faroProject, Rels.PREVIEW_DISABLED_SEGMENTS,
 				new ParameterizedTypeReference
-					<ResourcePagedResources<IndividualSegment>>() {
+					<EntityModelPagedModel<IndividualSegment>>() {
 				},
 				uriVariables);
 		}
 		else {
-			pagedResources = get(
+			pagedModel = get(
 				faroProject, Rels.INDIVIDUAL_SEGMENTS,
 				new ParameterizedTypeReference
-					<ResourcePagedResources<IndividualSegment>>() {
+					<EntityModelPagedModel<IndividualSegment>>() {
 				},
 				uriVariables);
 		}
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2130,14 +2131,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("id", individualSegmentId);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualTransformation> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENT_INDIVIDUALS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualTransformation>>() {
+				<EntityModelPagedModel<IndividualTransformation>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2149,13 +2150,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("name", query);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, String> pagedModel = get(
 			faroProject, Rels.INTEREST_KEYWORDS,
-			new ParameterizedTypeReference<StringPagedResources>() {
+			new ParameterizedTypeReference<StringPagedModel>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2190,13 +2191,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, Interest> pagedModel = get(
 			faroProject, Rels.INTERESTS,
-			new ParameterizedTypeReference<ResourcePagedResources<Interest>>() {
+			new ParameterizedTypeReference<EntityModelPagedModel<Interest>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2246,14 +2247,14 @@ public class ContactsEngineClientImpl
 		uriVariables.put("ownerType", ownerType);
 		uriVariables.put("visitedPages", visitedPages);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, PageVisited> pagedModel = get(
 			faroProject, Rels.PAGES_VISITED,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<PageVisited>>() {
+				<EntityModelPagedModel<PageVisited>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2281,13 +2282,13 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("value", query);
 
-		PagedResources pagedResources = get(
+		PagedModel<?, String> pagedModel = get(
 			faroProject, Rels.SESSION_VALUES,
-			new ParameterizedTypeReference<StringPagedResources>() {
+			new ParameterizedTypeReference<StringPagedModel>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2346,14 +2347,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, IndividualSegment> pagedModel = get(
 			faroProject, Rels.INDIVIDUAL_SEGMENTS,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<IndividualSegment>>() {
+				<EntityModelPagedModel<IndividualSegment>>() {
 			},
 			uriVariables);
 
-		return pagedResources.getResults();
+		return pagedModel.getResults();
 	}
 
 	@Override
@@ -2503,14 +2504,14 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		PagedResources pagedResources = get(
+		PagedModel<?, DataSource> pagedModel = get(
 			faroProject, Rels.DATA_SOURCES,
 			new ParameterizedTypeReference
-				<ResourcePagedResources<DataSource>>() {
+				<EntityModelPagedModel<DataSource>>() {
 			},
 			uriVariables);
 
-		Results<DataSource> results = pagedResources.getResults();
+		Results<DataSource> results = pagedModel.getResults();
 
 		for (DataSource dataSource : results.getItems()) {
 			dataSource.setWorkspaceURL(

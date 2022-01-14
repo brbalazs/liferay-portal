@@ -195,7 +195,8 @@ public class IndividualSegmentDisplay implements FaroEntityDisplay {
 
 	private <T, R> void _addReferencedObject(
 		Map<String, Object> referencedObjects, Function<T, String> keyMapper,
-		Function<T, R> valueMapper, String name, TypeReference typeReference) {
+		Function<T, R> valueMapper, String name,
+		TypeReference<List<T>> typeReference) {
 
 		List<T> objects = JSONUtil.convertValue(
 			referencedObjects.get(name), typeReference);

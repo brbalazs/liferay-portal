@@ -14,33 +14,14 @@
 
 package com.liferay.osb.faro.engine.client.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * @author Shinn Lok
+ * @author Matthew Kong
  */
-public abstract class PagedResources<T, R>
-	extends org.springframework.hateoas.PagedResources<T> {
+public class StringPagedModel extends PagedModel<String, String> {
 
-	public Results<R> getResults() {
-		Results<R> results = new Results<>();
-
-		List<R> items = new ArrayList<>();
-
-		for (T content : getContent()) {
-			items.add(processContent(content));
-		}
-
-		results.setItems(items);
-
-		PageMetadata pageMetadata = getMetadata();
-
-		results.setTotal((int)pageMetadata.getTotalElements());
-
-		return results;
+	@Override
+	public String processContent(String content) {
+		return content;
 	}
-
-	public abstract R processContent(T content);
 
 }

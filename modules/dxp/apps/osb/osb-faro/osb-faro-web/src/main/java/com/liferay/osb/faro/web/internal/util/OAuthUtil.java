@@ -43,9 +43,8 @@ public class OAuthUtil {
 
 		OAuth1Credentials oAuth1Credentials = new OAuth1Credentials();
 
-		ServiceBuilder serviceBuilder = new ServiceBuilder();
+		ServiceBuilder serviceBuilder = new ServiceBuilder(oAuthConsumerKey);
 
-		serviceBuilder.apiKey(oAuthConsumerKey);
 		serviceBuilder.apiSecret(oAuthConsumerSecret);
 		serviceBuilder.callback(oAuthCallbackURL);
 		serviceBuilder.userAgent("LiferayAnalyticsCloud");
@@ -82,9 +81,8 @@ public class OAuthUtil {
 
 		OAuth1Credentials oAuth1Credentials = new OAuth1Credentials();
 
-		ServiceBuilder serviceBuilder = new ServiceBuilder();
+		ServiceBuilder serviceBuilder = new ServiceBuilder(oAuthConsumerKey);
 
-		serviceBuilder.apiKey(oAuthConsumerKey);
 		serviceBuilder.apiSecret(oAuthConsumerSecret);
 		serviceBuilder.userAgent("LiferayAnalyticsCloud");
 
@@ -111,9 +109,8 @@ public class OAuthUtil {
 
 		OAuth2Credentials oAuth2Credentials = new OAuth2Credentials();
 
-		ServiceBuilder serviceBuilder = new ServiceBuilder();
+		ServiceBuilder serviceBuilder = new ServiceBuilder(oAuthClientId);
 
-		serviceBuilder.apiKey(oAuthClientId);
 		serviceBuilder.apiSecret(oAuthClientSecret);
 		serviceBuilder.callback(oAuthCallbackURL);
 		serviceBuilder.userAgent("LiferayAnalyticsCloud");
@@ -142,9 +139,8 @@ public class OAuthUtil {
 		String baseURL, String oAuthConsumerKey, String oAuthConsumerSecret,
 		String oAuthCallbackURL) {
 
-		ServiceBuilder serviceBuilder = new ServiceBuilder();
+		ServiceBuilder serviceBuilder = new ServiceBuilder(oAuthConsumerKey);
 
-		serviceBuilder.apiKey(oAuthConsumerKey);
 		serviceBuilder.apiSecret(oAuthConsumerSecret);
 		serviceBuilder.callback(oAuthCallbackURL);
 		serviceBuilder.userAgent("LiferayAnalyticsCloud");
@@ -209,6 +205,11 @@ public class OAuthUtil {
 		@Override
 		public SignatureService getSignatureService() {
 			return _plainTextSignatureService;
+		}
+
+		@Override
+		protected String getAuthorizationBaseUrl() {
+			return _baseURL.concat(_AUTHORIZATION_URL_PATH);
 		}
 
 		private static final String _ACCESS_TOKEN_URL_PATH =

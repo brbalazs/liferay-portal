@@ -14,16 +14,16 @@
 
 package com.liferay.osb.faro.engine.client.model;
 
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
 
 /**
  * @author Matthew Kong
  */
-public class ResourcePagedResources<T> extends PagedResources<Resource<T>, T> {
+public class EntityModelPagedModel<T> extends PagedModel<EntityModel<T>, T> {
 
 	@Override
-	public T processContent(Resource<T> resource) {
-		return resource.getContent();
+	public T processContent(EntityModel<T> entityModel) {
+		return entityModel.getContent();
 	}
 
 }

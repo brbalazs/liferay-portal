@@ -14,7 +14,7 @@
 
 package com.liferay.osb.faro.engine.client.constants;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author André Miranda

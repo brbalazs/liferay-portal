@@ -65,8 +65,7 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 		ClassLoader classLoader = getClass().getClassLoader();
 
 		try (InputStream inputStream = classLoader.getResourceAsStream(
-				"com/liferay/osb/faro/dependencies" +
-					"/elasticsearch-snapshot.zip")) {
+				"/elasticsearch-snapshot-1.0.0.zip")) {
 
 			Path tempDirectoryPath = Files.createTempDirectory("temp");
 

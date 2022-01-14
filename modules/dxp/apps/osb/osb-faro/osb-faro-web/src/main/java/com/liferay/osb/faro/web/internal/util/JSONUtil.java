@@ -51,7 +51,7 @@ public class JSONUtil {
 	}
 
 	public static <T> T convertValue(
-		Object object, TypeReference typeReference) {
+		Object object, TypeReference<T> typeReference) {
 
 		return _objectMapper.convertValue(object, typeReference);
 	}
@@ -76,7 +76,8 @@ public class JSONUtil {
 		return _objectMapper.readValue(content, valueType);
 	}
 
-	public static <T> T readValue(String content, TypeReference typeReference)
+	public static <T> T readValue(
+			String content, TypeReference<T> typeReference)
 		throws Exception {
 
 		return _objectMapper.readValue(content, typeReference);

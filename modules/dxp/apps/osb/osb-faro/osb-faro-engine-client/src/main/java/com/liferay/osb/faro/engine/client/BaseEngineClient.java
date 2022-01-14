@@ -53,6 +53,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -61,10 +62,10 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.hal.Jackson2HalModule;
+import org.springframework.hateoas.mediatype.hal.Jackson2HalModule;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -426,9 +427,9 @@ public abstract class BaseEngineClient {
 
 		RestTemplate restTemplate = getRestTemplate(faroProject);
 
-		ResponseEntity<Resource<?>> responseEntity = restTemplate.exchange(
+		ResponseEntity<EntityModel<?>> responseEntity = restTemplate.exchange(
 			engineURL, HttpMethod.GET, null,
-			new ParameterizedTypeReference<Resource<?>>() {
+			new ParameterizedTypeReference<EntityModel<?>>() {
 			},
 			getUriVariables(faroProject));
 
@@ -436,20 +437,22 @@ public abstract class BaseEngineClient {
 			throw new IllegalStateException("Invalid url: " + engineURL);
 		}
 
-		Resource<?> resource = responseEntity.getBody();
+		EntityModel<?> resource = responseEntity.getBody();
 
 		if (resource == null) {
 			return null;
 		}
 
-		Link link = resource.getLink(type);
+		Optional<Link> link = resource.getLink(type);
 
-		if (link == null) {
+		if (!link.isPresent()) {
 			throw new IllegalStateException(
 				"URL does not exist for type: " + type);
 		}
 
-		String href = link.getHref();
+		String href = link.map(
+			Link::getHref
+		).get();
 
 		_urlPaths.put(
 			type,
@@ -663,7 +666,7 @@ public abstract class BaseEngineClient {
 
 	protected static final ObjectMapper objectMapper = new ObjectMapper() {
 		{
-			addMixIn(Resource.class, ResourceMixin.class);
+			addMixIn(EntityModel.class, ResourceMixin.class);
 			configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			registerModule(new Jackson2HalModule());
 		}
