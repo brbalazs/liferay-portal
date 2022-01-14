@@ -25,7 +25,6 @@ import {
 	EventAnalysisMutationVariables,
 	UpdateEventAnalysisMutation
 } from 'event-analysis/queries/EventAnalysisQuery';
-import {DEVELOPER_MODE} from 'shared/util/constants';
 import {getDifferences} from 'shared/util/array';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
@@ -261,48 +260,41 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 				/>
 			</BasePage.Header>
 
-			{/* TODO: LRAC-9959 Remove condition after deleting feature flag */}
-			{DEVELOPER_MODE && (
-				<Form
-					initialValues={{
-						name: initialName
-					}}
-					onSubmit={handleSubmit}
-				>
-					{({dirty, handleSubmit, isSubmitting, values: {name}}) => {
-						const hasChanges =
-							breakdownsChanged ||
-							dirty ||
-							compareToPreviousChanged ||
-							eventChanged ||
-							filtersChanged ||
-							rangeSelectorsChanged;
+			<Form
+				initialValues={{
+					name: initialName
+				}}
+				onSubmit={handleSubmit}
+			>
+				{({dirty, handleSubmit, isSubmitting, values: {name}}) => {
+					const hasChanges =
+						breakdownsChanged ||
+						dirty ||
+						compareToPreviousChanged ||
+						eventChanged ||
+						filtersChanged ||
+						rangeSelectorsChanged;
 
-						return (
-							<Form.Form onSubmit={handleSubmit}>
-								<NavigationWarning
-									when={
-										!submitted &&
+					return (
+						<Form.Form onSubmit={handleSubmit}>
+							<NavigationWarning
+								when={!submitted && hasChanges && !isSubmitting}
+							/>
+
+							<BasePage.SubHeader>
+								<EventAnalysisToolbar
+									isValid={
+										!!name &&
+										!!event?.id &&
 										hasChanges &&
 										!isSubmitting
 									}
 								/>
-
-								<BasePage.SubHeader>
-									<EventAnalysisToolbar
-										isValid={
-											!!name &&
-											!!event?.id &&
-											hasChanges &&
-											!isSubmitting
-										}
-									/>
-								</BasePage.SubHeader>
-							</Form.Form>
-						);
-					}}
-				</Form>
-			)}
+							</BasePage.SubHeader>
+						</Form.Form>
+					);
+				}}
+			</Form>
 
 			<BasePage.Body>
 				<EventAnalysisEditor
