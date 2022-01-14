@@ -1,33 +1,11 @@
 dependencies {
-	compileInclude group: "com.eclipsesource.minimal-json", name: "minimal-json", version: "0.9.4"
-	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.10"
-	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-core", version: "2.9.10"
-	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.9.10.8"
-	compileInclude group: "com.github.javafaker", name: "javafaker", version: "1.0.0"
-	compileInclude group: "com.github.mifmif", name: "generex", version: "1.0.2"
-	compileInclude group: "com.github.wnameless", name: "json-flattener", version: "0.4.1"
-	compileInclude group: "commons-codec", name: "commons-codec", version: "1.11"
-	compileInclude group: "dk.brics.automaton", name: "automaton", version: "1.11.2"
-	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.5"
-	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.27"
+	compileInclude group: "com.github.javafaker", name: "javafaker", version: "1.0.2"
+	compileInclude group: "commons-codec", name: "commons-codec", version: "1.15"
 	compileInclude group: "user-agent-utils", name: "user-agent-utils", version: "1.2.3"
 
 	compileOnly ext: "zip", group: "com.liferay.osb.faro", name: "elasticsearch-snapshot", version: "1.0.0"
-	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
-	compileOnly group: "com.liferay", name: "com.liferay.osgi.util", version: "4.1.5"
-	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.1.7"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.97.4"
-	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
-	compileOnly group: "org.osgi", name: "org.osgi.core", version: "5.0.0"
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-api")
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-contacts-api")
 	compileOnly project(":dxp:apps:osb:osb-faro:osb-faro-engine-client")
-}
-
-processResources {
-	into("com/liferay/osb/faro/dependencies") {
-		from configurations.compileOnly
-		include "**/elasticsearch-snapshot-1.0.0.zip"
-		rename 'elasticsearch-snapshot-1.0.0.zip', "elasticsearch-snapshot.zip"
-	}
 }
