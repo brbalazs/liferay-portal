@@ -7,6 +7,7 @@ import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {pickBy} from 'lodash';
 import {setUriQueryValues} from 'shared/util/router';
 import {Tab, default as Tabs} from 'shared/components/TableTabs';
+import {useParams} from 'react-router-dom';
 
 interface ITableTabsCardProps extends React.HTMLAttributes<HTMLElement> {
 	footerHref?: string;
@@ -40,6 +41,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 		metricLabel
 	}: ITableTabsCardProps) => {
 		const {router} = useContext(BasePage.Context);
+		const {channelId} = useParams();
 
 		const [activeTabId, setActiveTab] = useState(tabConfig[0].tabId);
 		const handleActiveTabChanged = useCallback(
@@ -57,6 +59,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 					<>
 						<ComponentWithData
 							activeTabId={activeTabId}
+							channelId={channelId}
 							filters={{}}
 							metricLabel={metricLabel}
 							onActiveTabChange={handleActiveTabChanged}
