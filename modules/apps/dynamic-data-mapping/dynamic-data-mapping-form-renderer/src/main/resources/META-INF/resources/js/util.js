@@ -136,6 +136,20 @@ AUI.add(
 				return VALIDATIONS[selectedType];
 			},
 
+			getFieldNameFromExpression: function(expression) {
+				var validations = A.Array.flatten(A.Object.values(VALIDATIONS));
+
+				for (var i = 0; i < validations.length; i++) {
+					var matches = validations[i].regex.exec(expression);
+
+					if (matches) {
+						return matches[1];
+					}
+				}
+
+				return null;
+			},
+
 			searchFieldsByKey: function(haystack, needle, searchKey) {
 				var queue = new A.Queue(haystack);
 

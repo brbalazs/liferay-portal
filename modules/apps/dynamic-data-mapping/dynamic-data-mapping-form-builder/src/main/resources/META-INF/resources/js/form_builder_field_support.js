@@ -205,6 +205,15 @@ AUI.add(
 						else if (settingsFormFieldContext.type === 'options') {
 							settings[fieldName] = settingsFormFieldContext.value[locale] || settingsFormFieldContext.value[defaultLocale];
 						}
+						else if (settingsFormFieldContext.type === 'validation') {
+							var fieldNameFromExpression = Renderer.Util.getFieldNameFromExpression(settingsFormFieldContext.value.expression);
+
+							if (fieldNameFromExpression) {
+								settingsFormFieldContext.value.expression = settingsFormFieldContext.value.expression.replace(fieldNameFromExpression, settings.name);
+							}
+
+							settings[fieldName] = settingsFormFieldContext.value;
+						}
 						else {
 							settings[fieldName] = settingsFormFieldContext.value;
 						}
