@@ -36,7 +36,9 @@ public abstract class PagedModel<T, R>
 
 		PageMetadata pageMetadata = getMetadata();
 
-		results.setTotal((int)pageMetadata.getTotalElements());
+		if (pageMetadata != null) {
+			results.setTotal((int)pageMetadata.getTotalElements());
+		}
 
 		return results;
 	}

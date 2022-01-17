@@ -32,6 +32,10 @@ import com.liferay.osb.faro.engine.client.model.credentials.OAuth2Credentials;
 import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
 import com.liferay.portal.kernel.util.HttpUtil;
 
+import java.io.IOException;
+
+import java.util.concurrent.ExecutionException;
+
 /**
  * @author Shinn Lok
  */
@@ -67,7 +71,9 @@ public class OAuthUtil {
 
 			return oAuth1Credentials;
 		}
-		catch (Exception exception) {
+		catch (ExecutionException | InterruptedException | IOException
+					exception) {
+
 			return getOAuth2Credentials(
 				serviceBuilder, new LiferayApi20(baseURL), oAuthConsumerKey,
 				oAuthConsumerSecret);
