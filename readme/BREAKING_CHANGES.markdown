@@ -672,7 +672,7 @@ To take advantage of new features in Portlet 3.0, you must rebuild portlet proje
 
         <portlet-app version="3.0">
 
-2. Add the following property in your portlet's `@Component` tag:
+1. Add the following property in your portlet's `@Component` tag:
 
     ```java
     @Component(

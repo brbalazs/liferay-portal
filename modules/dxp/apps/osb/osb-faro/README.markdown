@@ -12,21 +12,21 @@ make sure "Expose daemon on tcp://localhost:2375 without TLS" on the "General" p
 
 1. Start Docker.
 
-2. Create the docker image: `./gradlew createDocker` (You only need to do this once).
+1. Create the docker image: `./gradlew createDocker` (You only need to do this once).
 
-3. Start the image: `./gradlew startDocker`.
+1. Start the image: `./gradlew startDocker`.
 
 #### Redeploying Faro Apps
 
 1. Navigate to root directory of `com-liferay-osb-faro-private`.
 
-2. Run `./gradlew deploy`.
+1. Run `./gradlew deploy`.
 
 #### Running Frontend Development Server
 
 1. Run `./gradlew packageRunStart`.
 
-2. Then open [http://localhost:3000](http://localhost:3000).
+1. Then open [http://localhost:3000](http://localhost:3000).
 
 #### Frontend Architecture
 
