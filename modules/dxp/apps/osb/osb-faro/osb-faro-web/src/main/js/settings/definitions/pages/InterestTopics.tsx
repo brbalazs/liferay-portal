@@ -8,6 +8,7 @@ import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ActionTypes,
 	useSelectionContext,
@@ -24,6 +25,7 @@ import {getDefinitions} from 'shared/util/breadcrumbs';
 import {partition} from 'lodash';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {useQueryPagination, useRequest} from 'shared/hooks';
@@ -237,8 +239,22 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 		const authorized = currentUser.isAdmin();
 
 		const connectMessage = authorized
-			? Liferay.Language.get(
-					'click-the-button-below-to-add-the-first-keywords'
+			? sub(
+					Liferay.Language.get(
+						'add-a-keyword-to-be-blocked,-or-access-our-documentation-to-x'
+					),
+					[
+						<a
+							href={URLConstants.InterestTopicsDocumentation}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'learn-more-about-interest-topics-fragment'
+							).toLowerCase()}
+						</a>
+					],
+					false
 			  )
 			: Liferay.Language.get(
 					'please-contact-your-site-administrator-to-add-keywords'
@@ -263,17 +279,14 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 		) : (
 			<NoResultsDisplay
 				description={connectMessage}
+				icon={{
+					border: false,
+					size: Sizes.XXXLarge,
+					symbol: 'ac-satellite'
+				}}
 				primary
-				title={Liferay.Language.get(
-					'you-have-not-added-keywords-to-the-blocklist-yet'
-				)}
-			>
-				{authorized && (
-					<Button display='secondary' onClick={handleInsertModal}>
-						{Liferay.Language.get('add-keyword')}
-					</Button>
-				)}
-			</NoResultsDisplay>
+				title={Liferay.Language.get('no-keywords-found')}
+			/>
 		);
 	};
 

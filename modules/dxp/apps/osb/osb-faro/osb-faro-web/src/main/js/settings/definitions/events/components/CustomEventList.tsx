@@ -1,5 +1,6 @@
 import Button from 'shared/components/Button';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import EventDefinitionsQuery, {
 	EventDefinitionsData,
 	EventDefinitionsVariables,
@@ -12,6 +13,7 @@ import EventDefinitionsQuery, {
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
+import URLConstants from 'shared/util/url-constants';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {
@@ -374,9 +376,35 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 			error={error}
 			items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
 			loading={loading}
-			noResultsProps={{
-				icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
-			}}
+			noResultsRenderer={() => (
+				<EmptyStateDashboard
+					description={
+						<p className='mb-1'>
+							{sub(
+								Liferay.Language.get(
+									'create-some-custom-events-to-get-started,-or-access-our-documentation-to-x'
+								),
+								[
+									<a
+										href={
+											URLConstants.CustomEventsDocumentation
+										}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
+										{Liferay.Language.get(
+											'learn-how-to-add-custom-events-on-your-site-fragment'
+										).toLowerCase()}
+									</a>
+								],
+								false
+							)}
+						</p>
+					}
+					symbol='ac-satellite'
+					title={Liferay.Language.get('no-custom-events-found')}
+				/>
+			)}
 			orderIOMap={orderIOMap}
 			page={page}
 			query={query}

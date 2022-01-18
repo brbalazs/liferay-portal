@@ -3,11 +3,13 @@ import Card from 'shared/components/Card';
 import Constants, {OrderByDirections} from 'shared/util/constants';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import DataControlRequest from '../queries/DataControlRequestMutation';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import Label from 'shared/components/Label';
 import moment from 'moment';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RequestListQuery from '../queries/RequestListQuery';
+import URLConstants from 'shared/util/url-constants';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -26,7 +28,6 @@ import {
 	RangeKeyTimeRanges
 } from 'shared/util/constants';
 import {get} from 'lodash';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getSafeDisplayValue} from 'shared/util/util';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {OrderedMap, Set} from 'immutable';
@@ -38,6 +39,7 @@ import {
 	toRoute,
 	TYPES
 } from 'shared/util/router';
+import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useParams} from 'react-router-dom';
 import {useQueryPagination} from 'shared/hooks';
@@ -373,9 +375,35 @@ const RequestList: React.FC<IRequestListProps> = ({
 				filterByOptions={FILTER_BY_OPTIONS}
 				flatFilter
 				groupId={groupId}
-				noResultsProps={{
-					title: getFormattedTitle(Liferay.Language.get('requests'))
-				}}
+				noResultsRenderer={() => (
+					<EmptyStateDashboard
+						description={
+							<p className='mb-1'>
+								{sub(
+									Liferay.Language.get(
+										'create-a-request-to-get-started,-or-x'
+									),
+									[
+										<a
+											href={
+												URLConstants.RequestLogDocumentation
+											}
+											key='DOCUMENTATION'
+											target='_blank'
+										>
+											{Liferay.Language.get(
+												'access-our-documentation-to-learn-more-fragment'
+											).toLowerCase()}
+										</a>
+									],
+									false
+								)}
+							</p>
+						}
+						symbol='ac-satellite'
+						title={Liferay.Language.get('no-requests-found')}
+					/>
+				)}
 				orderIOMap={orderIOMap}
 				page={page}
 				primary

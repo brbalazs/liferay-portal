@@ -2,8 +2,10 @@ import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import URLConstants from 'shared/util/url-constants';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
 import {applyTimeZone} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
@@ -12,6 +14,7 @@ import {createOrderIOMap} from 'shared/util/pagination';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 import {omit} from 'lodash';
 import {RootState} from 'shared/store';
+import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const SearchableEntityTableHOC = withStatefulPagination(
@@ -121,6 +124,53 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 					dataSourceFn={API.definitions.searchIndividualAttributes}
 					dataSourceParams={{groupId}}
 					internalSort
+					noResultsRenderer={() => (
+						<EmptyStateDashboard
+							description={
+								<>
+									<p className='mb-4'>
+										{sub(
+											Liferay.Language.get(
+												'connect-a-data-source-with-people-data,-or-x'
+											),
+											[
+												<a
+													href={
+														URLConstants.DataSourceConnection
+													}
+													key='DOCUMENTATION'
+													target='_blank'
+												>
+													{Liferay.Language.get(
+														'access-our-documentation-to-learn-more-fragment'
+													).toLowerCase()}
+												</a>
+											],
+											false
+										)}
+									</p>
+
+									<Button
+										display='primary'
+										href={toRoute(
+											Routes.SETTINGS_ADD_DATA_SOURCE,
+											{
+												groupId
+											}
+										)}
+									>
+										{Liferay.Language.get(
+											'connect-data-source'
+										)}
+									</Button>
+								</>
+							}
+							symbol='ac-satellite'
+							title={Liferay.Language.get(
+								'no-individuals-sycned-from-data-sources'
+							)}
+						/>
+					)}
 					rowIdentifier='fieldName'
 					showFilterAndOrder={false}
 					showPagination={false}

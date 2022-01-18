@@ -104,18 +104,18 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 									<p className='mb-1'>
 										{sub(
 											Liferay.Language.get(
-												'visit-our-x-to-learn-how-to-add-custom-events-on-your-site'
+												'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events,-or-access-our-documentation-to-x'
 											),
 											[
 												<a
 													href={
-														URLConstants.DocumentationLink
+														URLConstants.EventAttributesDocumentation
 													}
 													key='DOCUMENTATION'
 													target='_blank'
 												>
 													{Liferay.Language.get(
-														'documentation'
+														'learn-more-about-event-tracking-fragment'
 													).toLowerCase()}
 												</a>
 											],
@@ -124,7 +124,9 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 									</p>
 								}
 								symbol='ac-satellite'
-								title={Liferay.Language.get('no-sample-data')}
+								title={Liferay.Language.get(
+									'no-sample-data-found'
+								)}
 							/>
 						</Card>
 					)}

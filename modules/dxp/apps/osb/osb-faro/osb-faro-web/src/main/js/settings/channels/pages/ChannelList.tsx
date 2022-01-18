@@ -8,6 +8,7 @@ import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ACTION_TYPES,
 	ActionTypes,
@@ -305,8 +306,20 @@ const ChannelList: React.FC<IChannelListProps> = ({
 	const renderEmptyState = (): React.ReactNode => (
 		<EmptyState
 			className='no-results-root mt-0'
-			description={Liferay.Language.get(
-				'create-a-new-property-to-get-started'
+			description={sub(
+				Liferay.Language.get('create-a-property-to-get-started,-or-x'),
+				[
+					<a
+						href={URLConstants.CreateProperty}
+						key='dataSourceConnectionText'
+						target='_blank'
+					>
+						{Liferay.Language.get(
+							'access-our-documentation-to-learn-more-fragment'
+						).toLowerCase()}
+					</a>
+				],
+				false
 			)}
 			symbol='ac-satellite'
 			title={Liferay.Language.get('no-properties-found')}

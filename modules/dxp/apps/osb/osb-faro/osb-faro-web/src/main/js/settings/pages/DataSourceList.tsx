@@ -11,6 +11,7 @@ import NoResultsDisplay, {
 	getFormattedTitle
 } from 'shared/components/NoResultsDisplay';
 import React, {useEffect, useState} from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {
@@ -23,7 +24,8 @@ import {DataSource, User} from 'shared/util/records';
 import {
 	DataSourceStates,
 	DataSourceStatuses,
-	DataSourceTypes
+	DataSourceTypes,
+	Sizes
 } from 'shared/util/constants';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {fromJS} from 'immutable';
@@ -265,8 +267,22 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 		const authorized = currentUser.isAdmin();
 
 		const connectMessage = authorized
-			? Liferay.Language.get(
-					'please-connect-people-data-sources-to-start-using-analytics-cloud'
+			? sub(
+					Liferay.Language.get(
+						'add-a-data-source-to-get-started,-or-x'
+					),
+					[
+						<a
+							href={URLConstants.DataSourceConnection}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'access-our-documentation-to-learn-more-fragment'
+							).toLowerCase()}
+						</a>
+					],
+					false
 			  )
 			: Liferay.Language.get(
 					'please-contact-your-workspace-administrator-to-add-data-sources'
@@ -285,20 +301,14 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 			return (
 				<NoResultsDisplay
 					description={connectMessage}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
 					primary
 					title={Liferay.Language.get('no-data-sources-connected')}
-				>
-					{authorized && (
-						<Button
-							display='primary'
-							href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
-								groupId
-							})}
-						>
-							{Liferay.Language.get('connect-data-source')}
-						</Button>
-					)}
-				</NoResultsDisplay>
+				/>
 			);
 		}
 	};
