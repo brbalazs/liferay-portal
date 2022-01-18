@@ -332,7 +332,7 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 							label: Liferay.Language.get('name')
 						},
 						{
-							accessor: 'provider.type',
+							accessor: 'providerType',
 							dataFormatter: typeFormatter,
 							label: Liferay.Language.get('source')
 						},
@@ -347,7 +347,7 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 							sortable: false
 						},
 						{
-							accessor: 'dateCreated',
+							accessor: 'createDate',
 							dataFormatter: date =>
 								dateFormatter(date, timeZoneId),
 							label: Liferay.Language.get('date-added')
