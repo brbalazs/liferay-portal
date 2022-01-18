@@ -14,8 +14,8 @@ import React, {useEffect, useState} from 'react';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {
+	CREATE_DATE,
 	createOrderIOMap,
-	DATE_CREATED,
 	NAME,
 	PROVIDER_TYPE
 } from 'shared/util/pagination';
@@ -376,7 +376,7 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 						},
 						{
 							label: Liferay.Language.get('date-added'),
-							value: DATE_CREATED
+							value: CREATE_DATE
 						}
 					]}
 					orderIOMap={orderIOMap}

@@ -19,13 +19,13 @@ import URLConstants from 'shared/util/url-constants';
 import {ActionType, useChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {CREATE_DATE} from 'shared/util/pagination';
 import {
 	CredentialTypes,
 	DataSourceTypes,
 	OrderByDirections
 } from 'shared/util/constants';
 import {DataSource} from 'shared/util/records';
-import {DATE_CREATED} from 'shared/util/pagination';
 import {fetchDataSource} from 'shared/actions/data-sources';
 import {get, noop, upperFirst} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
@@ -124,7 +124,7 @@ const ConnectDXP: React.FC<IConnectDXPWrapperProps & IConnectDXPProps> = ({
 				credentialsType: CredentialTypes.Token,
 				size: 1,
 				sort: {
-					column: DATE_CREATED,
+					column: CREATE_DATE,
 					type: OrderByDirections.Descending
 				},
 				type: DataSourceTypes.Liferay
@@ -268,7 +268,7 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 				credentialsType: CredentialTypes.Token,
 				size: 1,
 				sort: {
-					column: DATE_CREATED,
+					column: CREATE_DATE,
 					type: OrderByDirections.Descending
 				},
 				type: DataSourceTypes.Liferay
