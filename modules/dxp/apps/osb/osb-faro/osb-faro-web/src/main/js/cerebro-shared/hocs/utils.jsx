@@ -45,7 +45,11 @@ const withEmpty = ({
 	total,
 	...otherProps
 }) => {
-	if (items && !items.length && (!!total || !!query)) {
+	if (items && !items.length && (!!total || !!query) && !noResultsRenderer) {
+		if (noResultsProps) {
+			return <NoResultsDisplay {...noResultsProps} title={entityLabel} />;
+		}
+
 		return (
 			<NoResultsDisplay
 				{...noResultsProps}

@@ -359,7 +359,7 @@ export default class Toolbar extends React.Component {
 									<Checkbox
 										checked={selectEntirePage}
 										data-testid='select-all-checkbox'
-										disabled={disabled || loading}
+										disabled={disabled || loading || !total}
 										indeterminate={
 											selectEntirePageIndeterminate
 										}
