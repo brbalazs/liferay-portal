@@ -163,14 +163,16 @@ public class FriendlyURLServlet extends HttpServlet {
 						_private, ", friendlyURL=", layoutFriendlyURL, "}"));
 			}
 
-			PermissionChecker permissionChecker =
-				PermissionCheckerFactoryUtil.create(
-					_getUser(httpServletRequest));
+			if (layout != null) {
+				PermissionChecker permissionChecker =
+					PermissionCheckerFactoryUtil.create(
+						_getUser(httpServletRequest));
 
-			if (!LayoutPermissionUtil.contains(
-					permissionChecker, layout, ActionKeys.VIEW)) {
+				if (!LayoutPermissionUtil.contains(
+						permissionChecker, layout, ActionKeys.VIEW)) {
 
-				throw new NoSuchLayoutException();
+					throw new NoSuchLayoutException();
+				}
 			}
 
 			defaultLayout = layout;
