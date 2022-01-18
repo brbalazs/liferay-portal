@@ -24,6 +24,7 @@ import com.liferay.exportimport.constants.ExportImportPortletKeys;
 import com.liferay.exportimport.kernel.configuration.ExportImportConfigurationConstants;
 import com.liferay.exportimport.kernel.configuration.ExportImportConfigurationParameterMapFactory;
 import com.liferay.exportimport.kernel.configuration.ExportImportConfigurationSettingsMapFactory;
+import com.liferay.exportimport.kernel.lar.ExportImportClassedModelUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportHelper;
 import com.liferay.exportimport.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.exportimport.kernel.model.ExportImportConfiguration;
@@ -230,7 +231,7 @@ public class ExportImportChangesetMVCActionCommandImpl
 
 			if (stagedModel != null) {
 				long classNameId = _classNameLocalService.getClassNameId(
-					stagedModel.getModelClassName());
+					ExportImportClassedModelUtil.getClassName(stagedModel));
 
 				parameterMap.put(
 					"classNameId", new String[] {String.valueOf(classNameId)});
