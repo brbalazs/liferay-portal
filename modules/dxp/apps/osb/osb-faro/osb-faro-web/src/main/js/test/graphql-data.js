@@ -621,18 +621,7 @@ export function mockEventAnalysisResultReq(
 	};
 }
 
-export function mockEventAnalysisListQueryReq() {
-	const eventAnalysis = [
-		{
-			__typename: 'EventAnalysisItem',
-			dateCreated: 1637760252857,
-			dateModified: 1637760252857,
-			id: 1632225992,
-			title: 'Read Article in the last 7 days',
-			userName: 'Douglas Wade'
-		}
-	];
-
+export function mockEventAnalysisListReq(items) {
 	return {
 		request: {
 			fetchPolicy: 'network-only',
@@ -641,20 +630,19 @@ export function mockEventAnalysisListQueryReq() {
 				channelId: '456',
 				keywords: '',
 				page: 0,
-				size: 20,
+				size: 2,
 				sort: {
 					column: 'name',
-					type: 'DESC'
-				},
-				start: 0
+					type: OrderByDirections.Ascending
+				}
 			}
 		},
 		result: {
 			data: {
-				eventAnalysisList: {
-					__typename: 'eventAnalysisList',
-					eventAnalysis,
-					total: eventAnalysis.length
+				eventAnalyses: {
+					__typename: 'EventAnalysisBag',
+					eventAnalyses: items,
+					total: items.length
 				}
 			}
 		}

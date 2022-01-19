@@ -1,10 +1,19 @@
+import 'test/mock-modal';
+
 import client from 'shared/apollo/client';
 import EventAnalysisList from '../EventAnalysisList';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {
+	fireEvent,
+	render,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockEventAnalysisListReq} from 'test/graphql-data';
+import {open} from 'shared/actions/modals';
 import {Provider} from 'react-redux';
-import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
@@ -17,19 +26,40 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
-const WrappedComponent = () => (
-	<ApolloProvider client={client}>
-		<Provider store={mockStore()}>
-			<StaticRouter>
-				<EventAnalysisList />
-			</StaticRouter>
-		</Provider>
-	</ApolloProvider>
+const eventAnalysis = [
+	{
+		__typename: 'EventAnalysis',
+		dateModified: '2022-01-10T19:49:28.589Z',
+		id: '1',
+		name: 'My first event analysis',
+		userName: 'Test Test'
+	},
+	{
+		__typename: 'EventAnalysis',
+		dateModified: '2022-01-11T19:49:28.589Z',
+		id: '1',
+		name: 'My second event analysis',
+		userName: 'Test Test'
+	}
+];
+
+const WrappedComponent = ({eventAnalyses}) => (
+	<Provider store={mockStore()}>
+		<ApolloProvider client={client}>
+			<MockedProvider mocks={[mockEventAnalysisListReq(eventAnalyses)]}>
+				<StaticRouter>
+					<EventAnalysisList />
+				</StaticRouter>
+			</MockedProvider>
+		</ApolloProvider>
+	</Provider>
 );
 
-describe('Event Analysis', () => {
+describe('Event Analysis List', () => {
 	it('should render', async () => {
-		const {container} = render(<WrappedComponent />);
+		const {container} = render(
+			<WrappedComponent eventAnalyses={eventAnalysis} />
+		);
 
 		await waitForElementToBeRemoved(() =>
 			container.querySelector('.spinner-root')
@@ -38,9 +68,56 @@ describe('Event Analysis', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render the button of Create Analysis', () => {
-		const {getByText} = render(<WrappedComponent />);
+	it('should render empty state', async () => {
+		const {container} = render(<WrappedComponent eventAnalyses={[]} />);
 
-		expect(getByText('Create Analysis')).toBeInTheDocument();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		const noResults = container.querySelector('.no-results-root');
+
+		expect(noResults).toBeTruthy();
+		expect(noResults).toMatchSnapshot();
+	});
+
+	it('should open modal to delete the event analysis when clicking on trash button', async () => {
+		const {container} = render(
+			<WrappedComponent eventAnalyses={eventAnalysis} />
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		const deleteButton = container.querySelector(
+			'table tbody tr button[title="Delete"]'
+		);
+
+		fireEvent.click(deleteButton);
+
+		expect(open).toBeCalled();
+	});
+
+	it('should render a trash icon when item is checked', async () => {
+		const {container, getByTestId} = render(
+			<WrappedComponent eventAnalyses={eventAnalysis} />
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		const managementBar = container.querySelector('.management-bar');
+
+		expect(managementBar.querySelector('.lexicon-icon-trash')).toBeFalsy();
+
+		const selectAllCheckbox = getByTestId('select-all-checkbox');
+
+		fireEvent.click(selectAllCheckbox);
+
+		jest.runAllTimers();
+
+		expect(managementBar.querySelector('.lexicon-icon-trash')).toBeTruthy();
 	});
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Event Analysis should render 1`] = `
+exports[`Event Analysis List should render 1`] = `
 <div>
   <div
     class="index-root"
@@ -238,7 +238,7 @@ exports[`Event Analysis should render 1`] = `
                   >
                     <a
                       class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                      href="/?field=author%2Fname&page=1&sortOrder=ASC"
+                      href="/?field=createdByUserName&page=1&sortOrder=ASC"
                     >
                       <span
                         class="text-truncate"
@@ -284,9 +284,9 @@ exports[`Event Analysis should render 1`] = `
                         >
                           <a
                             class="text-truncate"
-                            href="/workspace/123/456/event-analysis/1632225992"
+                            href="/workspace/123/456/event-analysis/1"
                           >
-                            Read Article in the last 7 days
+                            My first event analysis
                           </a>
                         </div>
                       </div>
@@ -294,13 +294,13 @@ exports[`Event Analysis should render 1`] = `
                   </td>
                   <td>
                     <b>
-                      Douglas Wade
+                      Test Test
                     </b>
                     <div
                       class="text-secondary"
                     >
                       <em>
-                        Last Edited: 11/24/21
+                        Last Edited: 1/10/22
                       </em>
                     </div>
                   </td>
@@ -365,9 +365,9 @@ exports[`Event Analysis should render 1`] = `
                         >
                           <a
                             class="text-truncate"
-                            href="/workspace/123/456/event-analysis/3150787645"
+                            href="/workspace/123/456/event-analysis/1"
                           >
-                            Purchased Products in the last 30 days
+                            My first event analysis
                           </a>
                         </div>
                       </div>
@@ -375,94 +375,13 @@ exports[`Event Analysis should render 1`] = `
                   </td>
                   <td>
                     <b>
-                      Cordelia Cobb
+                      Test Test
                     </b>
                     <div
                       class="text-secondary"
                     >
                       <em>
-                        Last Edited: 11/24/21
-                      </em>
-                    </div>
-                  </td>
-                  <td
-                    class="row-actions"
-                  >
-                    <span>
-                      <div
-                        class="quick-action-menu"
-                      >
-                        <button
-                          alt="Delete"
-                          aria-label="Delete"
-                          class="button-root btn btn-unstyled component-action quick-action-item"
-                          data-tooltip="true"
-                          title="Delete"
-                          type="button"
-                        >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-trash"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="/o/osb-faro-web/dist/sprite.svg#trash"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </span>
-                  </td>
-                </tr>
-                <tr
-                  class="clickable"
-                >
-                  <td>
-                    <div
-                      class="custom-control custom-checkbox"
-                    >
-                      <label>
-                        <input
-                          class="custom-control-input"
-                          type="checkbox"
-                          value="false"
-                        />
-                        <span
-                          class="custom-control-label"
-                        />
-                      </label>
-                    </div>
-                  </td>
-                  <td
-                    class="name-cell-root table-cell-expand"
-                  >
-                    <div
-                      class="content-container"
-                    >
-                      <div
-                        class="text-truncate"
-                      >
-                        <div
-                          class="table-title text-truncate"
-                        >
-                          <a
-                            class="text-truncate"
-                            href="/workspace/123/456/event-analysis/1110599645"
-                          >
-                            Viewed and Downloaded Articles
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <b>
-                      Nicholas Yates
-                    </b>
-                    <div
-                      class="text-secondary"
-                    >
-                      <em>
-                        Last Edited: 11/24/21
+                        Last Edited: 1/10/22
                       </em>
                     </div>
                   </td>
@@ -534,7 +453,7 @@ exports[`Event Analysis should render 1`] = `
               <div
                 class="pagination-results"
               >
-                Showing 1 to 2 of 3 entries.
+                Showing 1 to 2 of 2 entries.
               </div>
               <ul
                 class="pagination pagination-root"
@@ -566,21 +485,10 @@ exports[`Event Analysis should render 1`] = `
                   </a>
                 </li>
                 <li
-                  class="page-item"
+                  class="page-item disabled"
                 >
                   <a
-                    class="button-root btn btn-unstyled page-link"
-                    href="/?page=2"
-                  >
-                    2
-                  </a>
-                </li>
-                <li
-                  class="page-item"
-                >
-                  <a
-                    class="button-root btn btn-unstyled page-link"
-                    href="/?page=2"
+                    class="button-root btn btn-unstyled page-link link-disabled"
                   >
                     <svg
                       class="icon-root lexicon-icon lexicon-icon-angle-right"
@@ -598,6 +506,46 @@ exports[`Event Analysis should render 1`] = `
         </div>
       </span>
     </div>
+  </div>
+</div>
+`;
+
+exports[`Event Analysis List should render empty state 1`] = `
+<div
+  class="no-results-root flex-grow-1"
+>
+  <div
+    class="no-results-content"
+  >
+    <div
+      class="no-results-icon"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
+        />
+      </svg>
+    </div>
+    <h4
+      class="no-results-title"
+    >
+      No analysis found
+    </h4>
+    <p
+      class="no-results-description"
+    >
+      Create an analysis to get started or access our 
+      <a
+        href="https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/events/events-analysis.html"
+        target="_blank"
+      >
+        documentation
+      </a>
+       to learn more.
+    </p>
   </div>
 </div>
 `;
