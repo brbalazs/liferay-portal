@@ -23,8 +23,8 @@ Immutable.Map {
     "2": Immutable.Record {
       "data": Immutable.Record {
         "contactsSelected": false,
+        "createDate": 0,
         "credentials": Immutable.Map {},
-        "dateCreated": 0,
         "disabled": false,
         "event": null,
         "fileName": null,

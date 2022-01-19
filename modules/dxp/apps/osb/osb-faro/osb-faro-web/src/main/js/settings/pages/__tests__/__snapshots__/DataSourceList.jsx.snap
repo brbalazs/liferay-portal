@@ -203,7 +203,7 @@ exports[`DataSourceList should render 1`] = `
                 >
                   <a
                     class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?field=provider.type&page=1&sortOrder=ASC"
+                    href="/?field=providerType&page=1&sortOrder=ASC"
                   >
                     <span
                       class="text-truncate"
@@ -227,7 +227,7 @@ exports[`DataSourceList should render 1`] = `
                 >
                   <a
                     class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    href="/?field=dateCreated&page=1&sortOrder=DESC"
+                    href="/?field=createDate&page=1&sortOrder=DESC"
                   >
                     <span
                       class="text-truncate"
