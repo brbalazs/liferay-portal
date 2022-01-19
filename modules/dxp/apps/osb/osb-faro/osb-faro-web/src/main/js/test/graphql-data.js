@@ -22,7 +22,10 @@ import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import UserSessionQuery from 'shared/queries/UserSessionQuery';
 import {AttributeTypes} from 'event-analysis/utils/types';
-import {EventAnalysisListQuery} from 'event-analysis/queries/EventAnalysisQuery';
+import {
+	EventAnalysisListQuery,
+	EventAnalysisQuery
+} from 'event-analysis/queries/EventAnalysisQuery';
 import {EventTypes} from 'event-analysis/utils/types';
 import {
 	EXPERIMENT_QUERY,
@@ -587,6 +590,23 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 					eventDefinitions: items,
 					total: items.length
 				}
+			}
+		}
+	};
+}
+
+export function mockEventAnalysisReq(eventAnalysis, mockVariables = {}) {
+	return {
+		request: {
+			query: EventAnalysisQuery,
+			variables: {
+				eventAnalysisId: '1',
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				eventAnalysis
 			}
 		}
 	};
