@@ -46,7 +46,7 @@ exports[`Event Analysis Create should render 1`] = `
                 data-tooltip="false"
                 title=""
               >
-                Events
+                Event Analysis
               </span>
             </h1>
           </span>
@@ -56,6 +56,93 @@ exports[`Event Analysis Create should render 1`] = `
         class="embedded-alert-list-root notification-alert-list-root"
       />
     </header>
+    <form
+      class="form-root"
+    >
+      <div
+        class="sub-header-root"
+      >
+        <div
+          class="row-root align-items-center d-flex justify-content-between header-container"
+        >
+          <div
+            class="event-analysis-toolbar-root"
+          >
+            <div
+              class="event-analysis-toolbar-left-content"
+            >
+              <div
+                class="title-editor-root"
+              >
+                <input
+                  class="title-input hide"
+                  name="name"
+                  placeholder="Unnamed Analysis"
+                  required=""
+                  type="text"
+                  value=""
+                />
+                <div
+                  class="title-display placeholder-display"
+                >
+                  <span
+                    class="title-value"
+                    role="button"
+                    tabindex="0"
+                  >
+                    Unnamed Analysis
+                  </span>
+                  <button
+                    aria-label="Edit"
+                    class="button-root btn btn-outline-unstyled btn-outline-borderless btn-sm"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-pencil"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#pencil"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="event-analysis-toolbar-right-content"
+            >
+              <div
+                class="btn-group"
+                role="group"
+              >
+                <div
+                  class="btn-group-item"
+                >
+                  <button
+                    class="button-root btn btn-primary btn-sm"
+                    disabled=""
+                    type="submit"
+                  >
+                    Save Analysis
+                  </button>
+                </div>
+                <div
+                  class="btn-group-item"
+                >
+                  <a
+                    class="button-root btn btn-secondary btn-sm"
+                    href="/workspace/123/456/event-analysis"
+                  >
+                    Cancel
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <div
       class="body-root page-container"
     >
@@ -199,17 +286,22 @@ exports[`Event Analysis Create should render 1`] = `
                 </label>
               </div>
               <div
-                class="no-results-root flex-grow-1"
+                class="dropdown dropdown-range-key-root"
               >
-                <div
-                  class="no-results-content"
+                <button
+                  class="dropdown-toggle btn btn-outline-borderless btn-sm btn-outline-secondary"
+                  type="button"
                 >
-                  <h4
-                    class="no-results-title"
+                  Last 30 days
+                  <svg
+                    class="lexicon-icon lexicon-icon-caret-bottom ml-2"
+                    role="presentation"
                   >
-                    Sorry, an error occurred.
-                  </h4>
-                </div>
+                    <use
+                      xlink:href="#caret-bottom"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>

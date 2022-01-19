@@ -1,12 +1,23 @@
+import * as data from 'test/data';
 import client from 'shared/apollo/client';
 import EventAnalysisCreate from '../EventAnalysisCreate';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {BrowserRouter} from 'react-router-dom';
+import {
+	cleanup,
+	fireEvent,
+	render,
+	waitForElement,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
+import {DISPLAY_NAME} from 'shared/util/pagination';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockEventDefinitionsReq, mockTimeRangeReq} from 'test/graphql-data';
+import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
-import {render, waitForElementToBeRemoved} from '@testing-library/react';
-import {StaticRouter} from 'react-router-dom';
-
+import {range} from 'lodash';
 jest.unmock('react-dom');
 
 jest.mock('react-router-dom', () => ({
@@ -17,22 +28,150 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
+const WrappedComponent = () => (
+	<Provider store={mockStore()}>
+		<ApolloProvider client={client}>
+			<MockedProvider
+				mocks={[
+					mockTimeRangeReq(),
+					mockEventDefinitionsReq(
+						range(10).map(i =>
+							data.mockEventDefinition(i, {
+								__typename: 'EventDefinition'
+							})
+						),
+						{
+							eventType: 'ALL',
+							hidden: false,
+							keyword: '',
+							size: 200,
+							sort: {
+								column: DISPLAY_NAME,
+								type: OrderByDirections.Ascending
+							}
+						}
+					)
+				]}
+			>
+				<BrowserRouter>
+					<EventAnalysisCreate />
+				</BrowserRouter>
+			</MockedProvider>
+		</ApolloProvider>
+	</Provider>
+);
+
 describe('Event Analysis Create', () => {
+	afterEach(cleanup);
+
 	it('should render', async () => {
-		const {container} = render(
-			<StaticRouter>
-				<ApolloProvider client={client}>
-					<Provider store={mockStore()}>
-						<EventAnalysisCreate />
-					</Provider>
-				</ApolloProvider>
-			</StaticRouter>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		await waitForElementToBeRemoved(() =>
 			container.querySelector('.spinner-root')
 		);
 
 		expect(container).toMatchSnapshot();
+	});
+
+	it('should render empty state', async () => {
+		const {container, getByPlaceholderText, getByText} = render(
+			<WrappedComponent />
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getByPlaceholderText('Unnamed Analysis')).toBeTruthy();
+		expect(getByText('Add an event to analyze.')).toBeTruthy();
+		expect(
+			container.querySelector('.dropdown-range-key-root button')
+				.textContent
+		).toEqual('Last 30 days');
+		expect(container.querySelector('.event-list').textContent).toBe('');
+		expect(
+			container.querySelector(
+				'.attribute-breakdown-section-root .attribute-container'
+			)
+		).toBeFalsy();
+		expect(
+			container.querySelector(
+				'.attribute-filter-section-root .attribute-container'
+			)
+		).toBeFalsy();
+		expect(
+			container.querySelector('.compare-to-previous-checkbox input')
+				.checked
+		).toBeFalsy();
+	});
+
+	it('should render disabled button to save event analysis', async () => {
+		const {container, getByText} = render(<WrappedComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getByText('Save Analysis')).toBeDisabled();
+	});
+
+	it('should enable the save button when there is at least one name and one event added', async () => {
+		const {container, getByText} = render(<WrappedComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		const inputName = container.querySelector('input.title-input');
+
+		fireEvent.change(inputName, {
+			target: {
+				value: 'My First Event Analysis'
+			}
+		});
+
+		expect(getByText('My First Event Analysis')).toBeTruthy();
+
+		expect(getByText('Save Analysis')).toBeDisabled();
+
+		const addEventButton = container.querySelector('.add-event-button');
+
+		fireEvent.click(addEventButton);
+
+		jest.runAllTimers();
+
+		const dropdown = document.querySelector(
+			'.base-dropdown-menu-root.show'
+		);
+
+		await waitForElement(() => dropdown);
+
+		const assetClickedButton = document.querySelector(
+			'.base-dropdown-list > li button'
+		);
+
+		fireEvent.click(assetClickedButton);
+
+		jest.runAllTimers();
+
+		expect(getByText('Save Analysis')).toBeEnabled();
+	});
+
+	it('should back to the event analysis list when click to cancel', () => {
+		const {getByText} = render(<WrappedComponent />);
+
+		const eventAnalysisListRoute = '/workspace/123/456/event-analysis';
+
+		expect(getByText('Cancel')).toHaveAttribute(
+			'href',
+			eventAnalysisListRoute
+		);
+
+		expect(window.location.pathname).not.toBe(eventAnalysisListRoute);
+
+		fireEvent.click(getByText('Cancel'));
+
+		expect(window.location.pathname).toBe(eventAnalysisListRoute);
 	});
 });
