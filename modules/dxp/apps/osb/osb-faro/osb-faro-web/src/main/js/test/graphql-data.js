@@ -592,8 +592,8 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 	};
 }
 
-export function mockEventAnalysisResultQueryReq(
-	breakdownItems,
+export function mockEventAnalysisResultReq(
+	eventAnalysisResult,
 	mockVariables = {}
 ) {
 	return {
@@ -615,14 +615,7 @@ export function mockEventAnalysisResultQueryReq(
 		},
 		result: {
 			data: {
-				eventAnalysisResult: {
-					__typename: 'EventAnalysis',
-					breakdownItems,
-					count: 1,
-					page: 0,
-					previousValue: 1234,
-					value: 5033
-				}
+				eventAnalysisResult
 			}
 		}
 	};
