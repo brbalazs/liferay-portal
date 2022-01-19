@@ -97,7 +97,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 					<div className='description text-center'>
 						<h4>
 							{Liferay.Language.get(
-								'you-can-see-the-new-members-invitation-status-and-role-permisions-under-user-management-in-settings'
+								'you-can-see-the-new-members-invitation-status-and-role-permissions-under-user-management-in-settings'
 							)}
 						</h4>
 					</div>
