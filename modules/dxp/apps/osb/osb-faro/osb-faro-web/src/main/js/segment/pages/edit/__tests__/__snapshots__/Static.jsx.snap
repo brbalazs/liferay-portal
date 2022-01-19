@@ -96,6 +96,7 @@ exports[`StaticSegmentEdit should render 1`] = `
                             <input
                               class="custom-control-input"
                               data-testid="select-all-checkbox"
+                              disabled=""
                               type="checkbox"
                               value="false"
                             />

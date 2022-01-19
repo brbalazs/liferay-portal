@@ -415,10 +415,22 @@ exports[`InterestTopics should render with a member-specific message to add keyw
   <div
     class="no-results-content"
   >
+    <div
+      class="no-results-icon"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
+        />
+      </svg>
+    </div>
     <h4
       class="no-results-title"
     >
-      You have not added keywords to the blocklist yet.
+      No Keywords Found
     </h4>
     <p
       class="no-results-description"
@@ -436,22 +448,35 @@ exports[`InterestTopics should render with a message to add keywords if there ar
   <div
     class="no-results-content"
   >
+    <div
+      class="no-results-icon"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
+        />
+      </svg>
+    </div>
     <h4
       class="no-results-title"
     >
-      You have not added keywords to the blocklist yet.
+      No Keywords Found
     </h4>
     <p
       class="no-results-description"
     >
-      Click the button below to add the first keywords.
+      Add a keyword to be blocked, or access our documentation to 
+      <a
+        href="https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/definitions/managing-interest-topics.html"
+        target="_blank"
+      >
+        learn more about interest topics
+      </a>
+      .
     </p>
-    <button
-      class="button-root btn btn-secondary"
-      type="button"
-    >
-      Add Keyword
-    </button>
   </div>
 </div>
 `;

@@ -529,6 +529,18 @@ exports[`DataSourceList should render with a member-specific message to connect 
   <div
     class="no-results-content"
   >
+    <div
+      class="no-results-icon"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
+        />
+      </svg>
+    </div>
     <h4
       class="no-results-title"
     >
@@ -550,6 +562,18 @@ exports[`DataSourceList should render with a message to connect datasources if t
   <div
     class="no-results-content"
   >
+    <div
+      class="no-results-icon"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
+        />
+      </svg>
+    </div>
     <h4
       class="no-results-title"
     >
@@ -558,14 +582,15 @@ exports[`DataSourceList should render with a message to connect datasources if t
     <p
       class="no-results-description"
     >
-      Please connect people data sources to start using Analytics Cloud.
+      Add a data source to get started, or 
+      <a
+        href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html"
+        target="_blank"
+      >
+        access our documentation to learn more
+      </a>
+      .
     </p>
-    <a
-      class="button-root btn btn-primary"
-      href="/workspace/23/settings/data-source/add"
-    >
-      Connect Data Source
-    </a>
   </div>
 </div>
 `;
