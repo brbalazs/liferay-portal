@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 jest.unmock('react-dom');
 
 const inviteSentMessage =
-	'You can see the new members invitation status and role permisions under user management in settings.';
+	'You can see the new members invitation status and role permissions under user management in settings.';
 
 describe('InvitePeople', () => {
 	afterEach(cleanup);
