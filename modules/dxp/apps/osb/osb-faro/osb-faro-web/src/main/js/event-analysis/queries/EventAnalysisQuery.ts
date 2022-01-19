@@ -28,8 +28,8 @@ export interface EventAnalysisData {
 export interface EventAnalysisListData {
 	total: number;
 	eventAnalyses: {
-		modifiedDate: number;
 		id: number;
+		modifiedDate: number;
 		name: string;
 		userName: string;
 	}[];
@@ -49,7 +49,7 @@ export interface DeleteEventAnalysisData {
 
 export interface EventAnalysisListVariables {
 	channelId: string;
-	keywords: string;
+	keywords?: string;
 	page: number;
 	size: number;
 	sort: Sort;
@@ -137,10 +137,10 @@ export const EventAnalysisListQuery = gql`
 		) {
 			eventAnalyses {
 				... on EventAnalysis {
-					userName: createdByUserName
+					dateModified: modifiedDate
 					id
-					modifiedDate
 					name
+					userName: createdByUserName
 				}
 			}
 			total
