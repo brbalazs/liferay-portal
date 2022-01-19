@@ -343,7 +343,7 @@ export function mockNewCriteriaNested() {
 
 export function mockCSVDataSource(seed = 1, data = {}) {
 	return {
-		dateCreated: getTimestamp(-2),
+		createDate: getTimestamp(-2),
 		disabled: false,
 		event: null,
 		fileName: null,
@@ -364,10 +364,10 @@ export function mockCSVDataSource(seed = 1, data = {}) {
 
 export function mockLiferayDataSource(seed = 1, data = {}) {
 	return {
+		createDate: getTimestamp(-2),
 		credentials: {
 			login: `LiferayUser${seed}`
 		},
-		dateCreated: getTimestamp(-2),
 		disabled: false,
 		event: null,
 		fileName: null,
@@ -442,12 +442,12 @@ export function mockProgress(data) {
 
 export function mockSalesforceDataSource(seed = 1, data = {}) {
 	return {
+		createDate: getTimestamp(-2),
 		credentials: {
 			oAuthClientId: `oAuthMockClientId-${seed}`,
 			oAuthClientSecret: `oAuthMockClientSecret-${seed}`,
 			type: CredentialTypes.OAuth2
 		},
-		dateCreated: getTimestamp(-2),
 		disabled: false,
 		event: null,
 		fileName: null,
