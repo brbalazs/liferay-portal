@@ -1,8 +1,8 @@
 import {Map, Record} from 'immutable';
 
 interface IDataSource {
+	createDate?: number;
 	credentials?: Map<string, any>;
-	dateCreated?: number;
 	disabled?: boolean;
 	event?: string;
 	fileName?: string;
@@ -20,8 +20,8 @@ interface IDataSource {
 export default class DataSource
 	extends Record({
 		contactsSelected: false,
+		createDate: 0,
 		credentials: Map(),
-		dateCreated: 0,
 		disabled: false,
 		event: null,
 		fileName: null,
@@ -38,8 +38,8 @@ export default class DataSource
 	})
 	implements IDataSource {
 	contactsSelected: boolean;
+	createDate?: number;
 	credentials?: Map<string, any>;
-	dateCreated?: number;
 	disabled?: boolean;
 	event?: string;
 	fileName?: string;
