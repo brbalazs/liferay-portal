@@ -36,24 +36,16 @@ public class DataSource {
 		return _contactsSyncDetails;
 	}
 
+	public Date getCreateDate() {
+		if (_createDate == null) {
+			return null;
+		}
+
+		return new Date(_createDate.getTime());
+	}
+
 	public Credentials getCredentials() {
 		return _credentials;
-	}
-
-	public Date getDateCreated() {
-		if (_dateCreated == null) {
-			return null;
-		}
-
-		return new Date(_dateCreated.getTime());
-	}
-
-	public Date getDateModified() {
-		if (_dateModified == null) {
-			return null;
-		}
-
-		return new Date(_dateModified.getTime());
 	}
 
 	public String getDescription() {
@@ -70,6 +62,14 @@ public class DataSource {
 
 	public ConfigChange getLastConfigChange() {
 		return _lastConfigChange;
+	}
+
+	public Date getModifiedDate() {
+		if (_modifiedDate == null) {
+			return null;
+		}
+
+		return new Date(_modifiedDate.getTime());
 	}
 
 	public String getName() {
@@ -116,20 +116,14 @@ public class DataSource {
 		_contactsSyncDetails = contactsSyncDetails;
 	}
 
+	public void setCreateDate(Date createDate) {
+		if (createDate != null) {
+			_createDate = new Date(createDate.getTime());
+		}
+	}
+
 	public void setCredentials(Credentials credentials) {
 		_credentials = credentials;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		if (dateCreated != null) {
-			_dateCreated = new Date(dateCreated.getTime());
-		}
-	}
-
-	public void setDateModified(Date dateModified) {
-		if (dateModified != null) {
-			_dateModified = new Date(dateModified.getTime());
-		}
 	}
 
 	public void setDescription(String description) {
@@ -148,6 +142,12 @@ public class DataSource {
 
 	public void setLastConfigChange(ConfigChange lastConfigChange) {
 		_lastConfigChange = lastConfigChange;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		if (modifiedDate != null) {
+			_modifiedDate = new Date(modifiedDate.getTime());
+		}
 	}
 
 	public void setName(String name) {
@@ -243,13 +243,13 @@ public class DataSource {
 	private String _about;
 	private Author _author;
 	private Details _contactsSyncDetails;
+	private Date _createDate;
 	private Credentials _credentials;
-	private Date _dateCreated;
-	private Date _dateModified;
 	private String _description;
 	private String _faroBackendSecuritySignature;
 	private String _id;
 	private ConfigChange _lastConfigChange;
+	private Date _modifiedDate;
 	private String _name;
 	private Provider _provider;
 	private Details _sitesSyncDetails;

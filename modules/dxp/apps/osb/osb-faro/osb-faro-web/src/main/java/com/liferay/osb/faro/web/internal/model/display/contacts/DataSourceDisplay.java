@@ -49,7 +49,7 @@ public class DataSourceDisplay implements FaroEntityDisplay {
 			_credentials.clearPasswords();
 		}
 
-		_dateCreated = dataSource.getDateCreated();
+		_createDate = dataSource.getCreateDate();
 
 		if (dataSource.getContactsSyncDetails() != null) {
 			DataSource.Details details = dataSource.getContactsSyncDetails();
@@ -126,8 +126,8 @@ public class DataSourceDisplay implements FaroEntityDisplay {
 	}
 
 	private Boolean _contactsSelected;
+	private Date _createDate;
 	private Credentials _credentials;
-	private Date _dateCreated;
 	private boolean _disabled;
 	private Event _event;
 	private String _fileName;
