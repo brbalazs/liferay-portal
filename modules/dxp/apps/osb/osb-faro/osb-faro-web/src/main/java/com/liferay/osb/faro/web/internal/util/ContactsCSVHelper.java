@@ -49,6 +49,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
@@ -72,12 +73,20 @@ public class ContactsCSVHelper {
 			File file)
 		throws Exception {
 
+		CharsetDetector charsetDetector = new CharsetDetector();
+
+		Charset charset = charsetDetector.detect(file);
+
+		if (charset == null) {
+			charset = StandardCharsets.UTF_8;
+		}
+
 		File tempFile = FileUtil.createTempFile();
 
 		tempFile.deleteOnExit();
 
 		try (Reader reader = new InputStreamReader(
-				new FileInputStream(file), StandardCharsets.UTF_8);
+				new FileInputStream(file), charset);
 			UnsyncBufferedReader unsyncBufferedReader =
 				new UnsyncBufferedReader(reader);
 			Writer writer = new OutputStreamWriter(
