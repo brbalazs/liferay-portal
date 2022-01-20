@@ -17,6 +17,7 @@ import {
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import {DISPLAY_NAME} from 'shared/util/pagination';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {
 	mockEventAnalysisReq,
@@ -27,7 +28,7 @@ import {
 import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
-import {StaticRouter} from 'react-router-dom';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -160,9 +161,13 @@ const WrappedComponent = () => (
 					)
 				]}
 			>
-				<StaticRouter>
-					<EventAnalysisEdit />
-				</StaticRouter>
+				<MemoryRouter
+					initialEntries={['/workspace/123/456/event-analysis/1']}
+				>
+					<Route path={Routes.EVENT_ANALYSIS_EDIT}>
+						<EventAnalysisEdit />
+					</Route>
+				</MemoryRouter>
 			</MockedProvider>
 		</ApolloProvider>
 	</Provider>

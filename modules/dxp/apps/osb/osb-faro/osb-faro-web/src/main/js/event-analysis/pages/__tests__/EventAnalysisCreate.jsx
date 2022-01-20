@@ -4,7 +4,6 @@ import EventAnalysisCreate from '../EventAnalysisCreate';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
-import {BrowserRouter} from 'react-router-dom';
 import {
 	cleanup,
 	fireEvent,
@@ -13,11 +12,14 @@ import {
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import {DISPLAY_NAME} from 'shared/util/pagination';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventDefinitionsReq, mockTimeRangeReq} from 'test/graphql-data';
 import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
+import {Routes} from 'shared/util/router';
+
 jest.unmock('react-dom');
 
 jest.mock('react-router-dom', () => ({
@@ -53,9 +55,15 @@ const WrappedComponent = () => (
 					)
 				]}
 			>
-				<BrowserRouter>
-					<EventAnalysisCreate />
-				</BrowserRouter>
+				<MemoryRouter
+					initialEntries={[
+						'/workspace/123/456/event-analysis/create'
+					]}
+				>
+					<Route path={Routes.EVENT_ANALYSIS_CREATE}>
+						<EventAnalysisCreate />
+					</Route>
+				</MemoryRouter>
 			</MockedProvider>
 		</ApolloProvider>
 	</Provider>
@@ -158,20 +166,12 @@ describe('Event Analysis Create', () => {
 		expect(getByText('Save Analysis')).toBeEnabled();
 	});
 
-	it('should back to the event analysis list when click to cancel', () => {
+	it('should contain a link to return to the event analysis list on the cancel button', () => {
 		const {getByText} = render(<WrappedComponent />);
-
-		const eventAnalysisListRoute = '/workspace/123/456/event-analysis';
 
 		expect(getByText('Cancel')).toHaveAttribute(
 			'href',
-			eventAnalysisListRoute
+			'/workspace/123/456/event-analysis'
 		);
-
-		expect(window.location.pathname).not.toBe(eventAnalysisListRoute);
-
-		fireEvent.click(getByText('Cancel'));
-
-		expect(window.location.pathname).toBe(eventAnalysisListRoute);
 	});
 });

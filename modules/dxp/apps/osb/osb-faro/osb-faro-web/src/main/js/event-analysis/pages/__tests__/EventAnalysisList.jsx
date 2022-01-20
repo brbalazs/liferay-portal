@@ -10,11 +10,12 @@ import {
 	render,
 	waitForElementToBeRemoved
 } from '@testing-library/react';
+import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventAnalysisListReq} from 'test/graphql-data';
 import {open} from 'shared/actions/modals';
 import {Provider} from 'react-redux';
-import {StaticRouter} from 'react-router-dom';
+import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
 
@@ -47,9 +48,13 @@ const WrappedComponent = ({eventAnalyses}) => (
 	<Provider store={mockStore()}>
 		<ApolloProvider client={client}>
 			<MockedProvider mocks={[mockEventAnalysisListReq(eventAnalyses)]}>
-				<StaticRouter>
-					<EventAnalysisList />
-				</StaticRouter>
+				<MemoryRouter
+					initialEntries={['/workspace/123/456/event-analysis']}
+				>
+					<Route path={Routes.EVENT_ANALYSIS}>
+						<EventAnalysisList />
+					</Route>
+				</MemoryRouter>
 			</MockedProvider>
 		</ApolloProvider>
 	</Provider>
