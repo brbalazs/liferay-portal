@@ -25,10 +25,9 @@ import {
 	EventAnalysisMutationVariables,
 	UpdateEventAnalysisMutation
 } from 'event-analysis/queries/EventAnalysisQuery';
-import {getDifferences} from 'shared/util/array';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
-import {hasChanges} from 'shared/util/react';
+import {HasChanges, hasChanges} from 'shared/util/react';
 import {omit} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {useHistory, useParams} from 'react-router-dom';
@@ -62,24 +61,26 @@ const ERRORS = {
 	}
 };
 
-function hasChangesFn<T>(
-	prev: T | object = {},
-	next: T | object = {}
-): boolean {
-	const initialAttributeIds = Object.values(prev).map(
-		({attributeId}) => attributeId
-	);
-	const attributeIds = Object.values(next).map(
-		({attributeId}) => attributeId
-	);
+const hasChangesFn: HasChanges = (prev, next, ...keys) => {
+	const prevArr = Object.values(prev);
+	const nextArr = Object.values(next);
 
-	const differences = getDifferences<string>(
-		initialAttributeIds,
-		attributeIds
-	);
+	if (prevArr.length !== nextArr.length) {
+		return true;
+	}
 
-	return !!differences.length;
-}
+	return !!prevArr.find(prevItem => {
+		const nextItem = nextArr.find(
+			({attributeId}) => attributeId === prevItem.attributeId
+		);
+
+		if (!nextItem) {
+			return true;
+		}
+
+		return hasChanges(prevItem, nextItem, ...keys);
+	});
+};
 
 const connector = connect(null, {
 	addAlert,
@@ -209,7 +210,17 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	};
 
 	const breakdownsChanged: boolean = useMemo(
-		() => hasChangesFn<Breakdowns>(initialBreakdowns, breakdowns),
+		() =>
+			hasChangesFn<Breakdowns>(
+				initialBreakdowns,
+				breakdowns,
+				'attributeId',
+				'attributeType',
+				'binSize',
+				'dataType',
+				'dateGrouping',
+				'sortType'
+			),
 		[initialBreakdowns, breakdowns]
 	);
 
@@ -224,7 +235,16 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	);
 
 	const filtersChanged: boolean = useMemo(
-		() => hasChangesFn<Filters>(initialFilters, filters),
+		() =>
+			hasChangesFn<Filters>(
+				initialFilters,
+				filters,
+				'attributeId',
+				'attributeType',
+				'dataType',
+				'operator',
+				'values'
+			),
 		[initialFilters, filters]
 	);
 
