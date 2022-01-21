@@ -13,6 +13,7 @@ import {
 import {normalizeRangeSelectors} from 'shared/util/util';
 import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
+import {uniqueId} from 'lodash';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -29,10 +30,13 @@ function normalizeItems<T extends {id: string; __typename?: string}>(
 	}, {});
 }
 
-function getItems<T>(items: T[], key: string): Array<T & {id: string}> {
+function getItemsWithUniqueId<T>(
+	items: T[],
+	key: string
+): Array<T & {id: string}> {
 	return items.map(item => ({
 		...item,
-		id: `${key}-${Date.now()}-${item['attributeId']}`
+		id: uniqueId(key)
 	}));
 }
 
@@ -96,11 +100,11 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		}
 	} = data;
 
-	const breakdowns: BreakdownWithId[] = getItems<Breakdown>(
+	const breakdowns: BreakdownWithId[] = getItemsWithUniqueId<Breakdown>(
 		eventAnalysisBreakdowns,
 		'breakdown'
 	);
-	const filters: FilterWithId[] = getItems<Filter>(
+	const filters: FilterWithId[] = getItemsWithUniqueId<Filter>(
 		eventAnalysisFilters,
 		'filter'
 	);
