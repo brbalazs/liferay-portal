@@ -158,7 +158,7 @@ AUI.add(
 							instance.one('.back-url-link').on('click', A.bind('_onBack', instance)),
 							instance.one('#save').on('click', A.bind('_onSaveButtonClick', instance)),
 							Liferay.on('destroyPortlet', A.bind('_onDestroyPortlet', instance)),
-							instance.get('ruleBuilder').on('*:saveRule', A.bind('_autosave', instance, true))
+							instance.get('ruleBuilder').on('*:saveRule', A.bind('_autosave', instance))
 						);
 
 						if (instance._isFormView()) {
@@ -177,7 +177,7 @@ AUI.add(
 							var autosaveInterval = Liferay.DDM.FormSettings.autosaveInterval;
 
 							if (autosaveInterval > 0) {
-								instance._intervalId = setInterval(A.bind('_autosave', instance, true), autosaveInterval * MINUTE);
+								instance._intervalId = setInterval(A.bind('_autosave', instance), autosaveInterval * MINUTE);
 							}
 						}
 					},
@@ -520,7 +520,7 @@ AUI.add(
 					_afterAutosave: function(event) {
 						var instance = this;
 
-						instance._updateAutosaveBar(event.saveAsDraft, event.modifiedDate);
+						instance._updateAutosaveBar(event.modifiedDate);
 
 						var ruleBuilder = A.one('.lfr-ddm-add-rule');
 
@@ -566,7 +566,7 @@ AUI.add(
 						instance.disableNameEditor();
 					},
 
-					_autosave: function(saveAsDraft, callback) {
+					_autosave: function(callback) {
 						var instance = this;
 
 						callback = A.Lang.isFunction(callback) ? callback : EMPTY_FN;
@@ -580,7 +580,7 @@ AUI.add(
 								var editForm = instance.get('editForm');
 
 								var formData = instance._getFormData(
-									A.IO.stringify(editForm.form), saveAsDraft
+									A.IO.stringify(editForm.form)
 								);
 
 								A.io.request(
@@ -597,7 +597,6 @@ AUI.add(
 												instance.fire(
 													'autosave',
 													{
-														saveAsDraft: saveAsDraft,
 														modifiedDate: responseData.modifiedDate
 													}
 												);
@@ -700,7 +699,7 @@ AUI.add(
 						return window[instance.ns('descriptionEditor')];
 					},
 
-					_getFormData: function(formString, saveAsDraft) {
+					_getFormData: function(formString) {
 						var instance = this;
 
 						var formObject = A.QueryString.parse(formString);
@@ -709,11 +708,7 @@ AUI.add(
 
 						formObject[instance.ns('name')] = JSON.stringify(state.name);
 
-						if (instance._isFormView()) {
-							formObject[instance.ns('published')] = JSON.stringify(instance.get('published'));
-						}
-
-						formObject[instance.ns('saveAsDraft')] = saveAsDraft;
+						formObject[instance.ns('saveAsDraft')] = true;
 
 						formString = A.QueryString.stringify(formObject);
 
@@ -883,7 +878,6 @@ AUI.add(
 						var instance = this;
 
 						instance._autosave(
-							true,
 							function() {
 								var previewURL = instance._createPreviewURL();
 
@@ -1100,20 +1094,11 @@ AUI.add(
 						instance._setName(name);
 					},
 
-					_updateAutosaveBar: function(savedAsDraft, modifiedDate) {
+					_updateAutosaveBar: function(modifiedDate) {
 						var instance = this;
 
-						var message = '';
-
-						if (savedAsDraft) {
-							message = Liferay.Language.get('draft-x');
-						}
-						else {
-							message = Liferay.Language.get('saved-x');
-						}
-
 						var autosaveMessage = A.Lang.sub(
-							message,
+							Liferay.Language.get('draft-x'),
 							[
 								modifiedDate
 							]
