@@ -101,9 +101,9 @@ public class CommerceSearchResource {
 		try {
 			Layout layout = _layoutLocalService.getLayout(plid);
 
-			themeDisplay.setScopeGroupId(layout.getGroupId());
 			themeDisplay.setLayout(layout);
 			themeDisplay.setLayoutSet(layout.getLayoutSet());
+			themeDisplay.setScopeGroupId(layout.getGroupId());
 
 			CommerceAccount commerceAccount =
 				_commerceAccountHelper.getCurrentCommerceAccount(

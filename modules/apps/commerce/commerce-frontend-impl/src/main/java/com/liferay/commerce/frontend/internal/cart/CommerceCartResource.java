@@ -176,8 +176,8 @@ public class CommerceCartResource {
 				(ThemeDisplay)httpServletRequest.getAttribute(
 					WebKeys.THEME_DISPLAY);
 
-			themeDisplay.setScopeGroupId(groupId);
 			themeDisplay.setLanguageId(languageId);
+			themeDisplay.setScopeGroupId(groupId);
 
 			CommerceOrder commerceOrder =
 				_commerceOrderService.fetchCommerceOrder(orderId);
