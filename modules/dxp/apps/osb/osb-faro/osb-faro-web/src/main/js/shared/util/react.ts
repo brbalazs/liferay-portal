@@ -3,7 +3,7 @@ import {isEqual} from 'lodash';
 export const getDisplayName = WrappedComponent =>
 	WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-export type HasChanges = <T>(
+type HasChanges = <T>(
 	prev: T | object,
 	next: T | object,
 	...keys: string[]

@@ -27,7 +27,7 @@ import {
 } from 'event-analysis/queries/EventAnalysisQuery';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {GraphQLError} from 'graphql';
-import {HasChanges, hasChanges} from 'shared/util/react';
+import {hasChanges} from 'shared/util/react';
 import {omit} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {useHistory, useParams} from 'react-router-dom';
@@ -61,25 +61,24 @@ const ERRORS = {
 	}
 };
 
-const hasChangesFn: HasChanges = (prev, next, ...keys) => {
+const hasChangesFn: typeof hasChanges = (prev, next, ...keys) => {
 	const prevArr = Object.values(prev);
 	const nextArr = Object.values(next);
 
-	if (prevArr.length !== nextArr.length) {
-		return true;
-	}
+	return (
+		prevArr.length !== nextArr.length ||
+		!!prevArr.find(prevItem => {
+			const nextItem = nextArr.find(
+				({attributeId}) => attributeId === prevItem.attributeId
+			);
 
-	return !!prevArr.find(prevItem => {
-		const nextItem = nextArr.find(
-			({attributeId}) => attributeId === prevItem.attributeId
-		);
+			if (!nextItem) {
+				return true;
+			}
 
-		if (!nextItem) {
-			return true;
-		}
-
-		return hasChanges(prevItem, nextItem, ...keys);
-	});
+			return hasChanges(prevItem, nextItem, ...keys);
+		})
+	);
 };
 
 const connector = connect(null, {
