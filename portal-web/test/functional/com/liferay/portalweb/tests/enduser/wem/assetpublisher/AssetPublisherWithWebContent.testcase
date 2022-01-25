@@ -515,6 +515,65 @@ definition {
 			webContentTitle = "WC Webcontent Title");
 	}
 
+	@description = "LPS-103624 - URLs are not well formed when changing language in classic Display Pages."
+	@ignore = "true"
+	@priority = "4"
+	test ViewInContextTranslatedWCWithFriendlyURL {
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Guest",
+			layoutName = "Asset Publisher Page",
+			widgetName = "Language Selector");
+
+		AssetPublisherPortlet.configureAssetLinkBehaviorPG(assetLinkBehavior = "View in Context");
+
+		AssetPublisherPortlet.configureDisplaySettings(displaySettings = "Set as the Default Asset Publisher for This Page");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "guest");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent English Content",
+			webContentTitle = "WC WebContent English Title");
+
+		WebContent.editFriendlyURL(webContentFriendlyURL = "webcontentenglish");
+
+		PortletEntry.changeLocale(locale = "de-DE");
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent German Content",
+			webContentTitle = "WC WebContent German Title");
+
+		WebContent.editFriendlyURL(webContentFriendlyURL = "webcontentgerman");
+
+		WebContent.editDisplayPage(
+			pageName = "Asset Publisher Page",
+			pageType = "Public Pages");
+
+		Navigator.gotoPage(pageName = "Asset Publisher Page");
+
+		AssetPublisherPortlet.viewAssetDetailsPG(
+			assetContent = "WC WebContent English Content",
+			assetTitle = "WC WebContent English Title");
+
+		AssertLocation.assertPartialLocation(value1 = "-/webcontentenglish");
+
+		LanguagePortlet.selectLanguagePG(
+			locale = "de-DE",
+			textIcon = "Deutsch-Deutschland");
+
+		AssertTextEquals(
+			locator1 = "APAsset#ASSET_TITLE_HEADER",
+			value1 = "WC WebContent German Title");
+
+		AssertTextEquals.assertPartialText(
+			key_assetContent = "WC WebContent German Content",
+			locator1 = "APAsset#ASSET_VIEW_CONTENT",
+			value1 = "WC WebContent German Content");
+
+		AssertLocation.assertPartialLocation(value1 = "-/webcontentgerman");
+	}
+
 	@description = "This is a use case for LPS-49853."
 	@priority = "5"
 	test ViewWebContentViaAPAsGuestWithViewPermission {
