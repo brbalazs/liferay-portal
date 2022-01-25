@@ -1,6 +1,6 @@
-*    @marcellustavares
 *.java    @marcellustavares @matthewkong
-osb-faro-web/src/main/css/**/*    @gabrielpramos @interaminense @JhonattasFerreira @kienD @marcellustavares
-osb-faro-web/src/main/js/**/*    @gabrielpramos @interaminense @JhonattasFerreira @kienD @marcellustavares
-package.json    @gabrielpramos @interaminense @JhonattasFerreira @kienD @marcellustavares
-yarn.lock    @gabrielpramos @interaminense @JhonattasFerreira @kienD @marcellustavares
+Language*.properties    @kienD
+osb-faro-web/src/main/css/**/*    @gabrielpramos @interaminense @JhonattasFerreira @kienD
+osb-faro-web/src/main/js/**/*    @gabrielpramos @interaminense @JhonattasFerreira @kienD
+package.json    @gabrielpramos @interaminense @JhonattasFerreira @kienD
+yarn.lock    @gabrielpramos @interaminense @JhonattasFerreira @kienD
