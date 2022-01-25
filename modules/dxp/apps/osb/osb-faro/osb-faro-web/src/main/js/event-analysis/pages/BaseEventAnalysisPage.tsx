@@ -61,7 +61,7 @@ const ERRORS = {
 	}
 };
 
-const hasChangesFn: typeof hasChanges = (prev, next, ...keys) => {
+const hasChangesFn: typeof hasChanges = (prev = {}, next = {}, ...keys) => {
 	const prevArr = Object.values(prev);
 	const nextArr = Object.values(next);
 
