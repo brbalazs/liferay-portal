@@ -5,11 +5,6 @@ import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {
-	AttributeTypes,
-	DataTypes,
-	EventTypes
-} from 'event-analysis/utils/types';
-import {
 	cleanup,
 	fireEvent,
 	render,
@@ -17,6 +12,7 @@ import {
 	waitForElementToBeRemoved
 } from '@testing-library/react';
 import {DISPLAY_NAME} from 'shared/util/pagination';
+import {EventTypes} from 'event-analysis/utils/types';
 import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
 import {
@@ -41,96 +37,13 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
-const eventAnalysis = {
-	__typename: 'EventAnalysis',
-	analysisType: 'TOTAL',
-	channelId: '123',
-	compareToPrevious: true,
-	eventAnalysisBreakdowns: [
-		{
-			__typename: 'EventAnalysisBreakdown',
-			attributeId: '9',
-			attributeType: 'EVENT',
-			dataType: DataTypes.String,
-			sortType: OrderByDirections.Descending
-		},
-		{
-			__typename: 'EventAnalysisBreakdown',
-			attributeId: '11',
-			attributeType: 'EVENT',
-			dataType: DataTypes.String,
-			sortType: OrderByDirections.Descending
-		}
-	],
-	eventAnalysisFilters: [
-		{
-			__typename: 'EventAnalysisFilter',
-			attributeId: '26',
-			attributeType: 'EVENT',
-			dataType: DataTypes.String,
-			operator: 'contains',
-			values: ['page title']
-		}
-	],
-	eventDefinitionId: '1',
-	name: 'My First Event Analysis',
-	rangeEnd: null,
-	rangeKey: 90,
-	rangeStart: null,
-	referencedObjects: {
-		__typename: 'EventAnalysisReferencedObject',
-		eventAttributeDefinitions: [
-			{
-				__typename: 'EventAttributeDefinition',
-				dataType: DataTypes.String,
-				description: null,
-				displayName: 'assetId',
-				id: '9',
-				name: 'assetId',
-				sampleValue: null,
-				type: AttributeTypes.Local
-			},
-			{
-				__typename: 'EventAttributeDefinition',
-				dataType: DataTypes.String,
-				description: null,
-				displayName: 'category',
-				id: '11',
-				name: 'category',
-				sampleValue: null,
-				type: AttributeTypes.Local
-			},
-			{
-				__typename: 'EventAttributeDefinition',
-				dataType: DataTypes.String,
-				description: null,
-				displayName: 'pageTitle',
-				id: '26',
-				name: 'pageTitle',
-				sampleValue: null,
-				type: AttributeTypes.Global
-			}
-		],
-		eventDefinition: {
-			__typename: 'EventDefinition',
-			description: null,
-			hidden: false,
-			id: '1',
-			name: 'assetClicked',
-			type: EventTypes.Default
-		}
-	}
-};
-
 const WrappedComponent = () => (
 	<Provider store={mockStore()}>
 		<ApolloProvider client={client}>
 			<MockedProvider
 				mocks={[
 					mockTimeRangeReq(),
-					mockEventAnalysisReq(eventAnalysis, {
-						eventAnalysisId: '1'
-					}),
+					mockEventAnalysisReq(),
 					mockEventAttributeDefinitionsReq(
 						range(10).map(i =>
 							data.mockEventAttributeDefinition(i, {

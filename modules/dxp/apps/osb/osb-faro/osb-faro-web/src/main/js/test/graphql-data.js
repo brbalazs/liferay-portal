@@ -21,7 +21,11 @@ import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'shared/queries/TouchpointsQuery';
 import UserSessionQuery from 'shared/queries/UserSessionQuery';
-import {AttributeTypes} from 'event-analysis/utils/types';
+import {
+	AttributeTypes,
+	DataTypes,
+	DateGroupings
+} from 'event-analysis/utils/types';
 import {
 	EventAnalysisListQuery,
 	EventAnalysisQuery
@@ -595,18 +599,100 @@ export function mockEventDefinitionsReq(items, mockVariables = {}) {
 	};
 }
 
-export function mockEventAnalysisReq(eventAnalysis, mockVariables = {}) {
+export function mockEventAnalysisReq() {
 	return {
 		request: {
 			query: EventAnalysisQuery,
 			variables: {
-				eventAnalysisId: '1',
-				...mockVariables
+				eventAnalysisId: '1'
 			}
 		},
 		result: {
 			data: {
-				eventAnalysis
+				eventAnalysis: {
+					__typename: 'EventAnalysis',
+					analysisType: 'TOTAL',
+					channelId: '123',
+					compareToPrevious: true,
+					eventAnalysisBreakdowns: [
+						{
+							__typename: 'EventAnalysisBreakdown',
+							attributeId: '9',
+							attributeType: 'EVENT',
+							binSize: 1,
+							dataType: DataTypes.String,
+							dateGrouping: DateGroupings.Day,
+							sortType: OrderByDirections.Descending
+						},
+						{
+							__typename: 'EventAnalysisBreakdown',
+							attributeId: '11',
+							attributeType: 'EVENT',
+							binSize: 1,
+							dataType: DataTypes.String,
+							dateGrouping: DateGroupings.Day,
+							sortType: OrderByDirections.Descending
+						}
+					],
+					eventAnalysisFilters: [
+						{
+							__typename: 'EventAnalysisFilter',
+							attributeId: '26',
+							attributeType: 'EVENT',
+							dataType: DataTypes.String,
+							operator: 'contains',
+							values: ['page title']
+						}
+					],
+					eventDefinitionId: '1',
+					name: 'My First Event Analysis',
+					rangeEnd: null,
+					rangeKey: 90,
+					rangeStart: null,
+					referencedObjects: {
+						__typename: 'EventAnalysisReferencedObject',
+						eventAttributeDefinitions: [
+							{
+								__typename: 'EventAttributeDefinition',
+								dataType: DataTypes.String,
+								description: null,
+								displayName: 'assetId',
+								id: '9',
+								name: 'assetId',
+								sampleValue: null,
+								type: AttributeTypes.Local
+							},
+							{
+								__typename: 'EventAttributeDefinition',
+								dataType: DataTypes.String,
+								description: null,
+								displayName: 'category',
+								id: '11',
+								name: 'category',
+								sampleValue: null,
+								type: AttributeTypes.Local
+							},
+							{
+								__typename: 'EventAttributeDefinition',
+								dataType: DataTypes.String,
+								description: null,
+								displayName: 'pageTitle',
+								id: '26',
+								name: 'pageTitle',
+								sampleValue: null,
+								type: AttributeTypes.Global
+							}
+						],
+						eventDefinition: {
+							__typename: 'EventDefinition',
+							description: null,
+							hidden: false,
+							id: '1',
+							name: 'assetClicked',
+							type: EventTypes.Default
+						}
+					}
+				}
 			}
 		}
 	};
