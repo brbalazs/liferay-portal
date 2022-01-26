@@ -275,7 +275,6 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 			}
 		}
 	);
-
 	const timeoutId = setTimeout(() => getDataSources(), TIMEOUT_INTERVAL);
 
 	const getLabelProps = (selected: boolean) =>
@@ -294,7 +293,12 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 		contactsSyncDetails.selected
 	);
 
-	useEffect(() => clearTimeout(timeoutId), []);
+	useEffect(
+		() => () => {
+			clearTimeout(timeoutId);
+		},
+		[]
+	);
 
 	return (
 		<div className='success-info w-100'>
