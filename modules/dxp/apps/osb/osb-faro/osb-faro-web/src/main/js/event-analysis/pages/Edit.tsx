@@ -3,10 +3,9 @@ import ErrorPage from 'shared/pages/ErrorPage';
 import React, {useMemo} from 'react';
 import Spinner from 'shared/components/Spinner';
 import {Attribute, Breakdown, Filter} from 'event-analysis/utils/types';
-import {
-	AttributesProvider,
-	AttributesState
-} from '../components/event-analysis-editor/context/attributes';
+import {AttributesProvider} from '../components/event-analysis-editor/context/attributes';
+import {AttributesState} from '../components/event-analysis-editor/context/attributes';
+import {deletePropertyFromObject} from 'shared/util/object';
 import {
 	EventAnalysisData,
 	EventAnalysisQuery,
@@ -21,14 +20,13 @@ import {useQuery} from '@apollo/react-hooks';
 function normalizeItems<T extends {id: string; __typename?: string}>(
 	data: T[]
 ): {[key: string]: T} {
-	return data.reduce((acc, item) => {
-		delete item.__typename;
-
-		return {
+	return data.reduce(
+		(acc, item) => ({
 			...acc,
-			[item.id]: item
-		};
-	}, {});
+			[item.id]: deletePropertyFromObject('__typename', item)
+		}),
+		{}
+	);
 }
 
 function getItemsWithUniqueId<T>(
