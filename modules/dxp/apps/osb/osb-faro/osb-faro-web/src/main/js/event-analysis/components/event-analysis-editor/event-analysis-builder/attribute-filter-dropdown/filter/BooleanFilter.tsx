@@ -30,7 +30,7 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Boolean,
 					operator,
-					values: [value === 'true']
+					values: [value]
 				});
 			}}
 		>
