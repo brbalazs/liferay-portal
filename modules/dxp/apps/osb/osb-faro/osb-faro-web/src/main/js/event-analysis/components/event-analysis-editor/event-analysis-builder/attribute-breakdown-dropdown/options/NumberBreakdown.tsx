@@ -39,7 +39,7 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 					createNumberBreakdown({
 						attributeId,
 						attributeType: attributeOwnerType,
-						binSize
+						binSize: Number(binSize)
 					})
 				);
 			}}
