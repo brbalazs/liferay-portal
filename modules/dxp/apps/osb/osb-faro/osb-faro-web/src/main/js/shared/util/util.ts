@@ -67,8 +67,9 @@ export const normalizeRangeSelectors = (
 	}
 
 	return {
-		...rangeSelectors,
-		rangeKey: String(rangeKey) as RangeKeyTimeRanges
+		rangeEnd: '',
+		rangeKey: String(rangeKey) as RangeKeyTimeRanges,
+		rangeStart: ''
 	};
 };
 
