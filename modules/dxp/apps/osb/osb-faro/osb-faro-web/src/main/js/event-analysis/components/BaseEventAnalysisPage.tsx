@@ -9,10 +9,7 @@ import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
 import {ApolloError} from 'apollo-client';
-import {
-	AttributesContext,
-	withAttributesConsumer
-} from '../components/event-analysis-editor/context/attributes';
+import {AttributesContext} from '../components/event-analysis-editor/context/attributes';
 import {
 	Breakdowns,
 	CalculationTypes,
@@ -288,6 +285,5 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 export default compose<any>(
 	connector,
 	withCurrentUser,
-	withRangeKey,
-	withAttributesConsumer
+	withRangeKey
 )(BaseEventAnalysisPage);
