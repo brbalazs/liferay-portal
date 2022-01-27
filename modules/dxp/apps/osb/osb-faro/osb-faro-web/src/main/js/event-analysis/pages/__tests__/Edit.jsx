@@ -1,6 +1,6 @@
 import * as data from 'test/data';
 import client from 'shared/apollo/client';
-import EventAnalysisEdit from '../EventAnalysisEdit';
+import EventAnalysisEdit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';

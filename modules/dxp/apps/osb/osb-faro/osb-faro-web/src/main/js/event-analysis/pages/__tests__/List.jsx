@@ -1,7 +1,7 @@
 import 'test/mock-modal';
 
 import client from 'shared/apollo/client';
-import EventAnalysisList from '../EventAnalysisList';
+import EventAnalysisList from '../List';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';

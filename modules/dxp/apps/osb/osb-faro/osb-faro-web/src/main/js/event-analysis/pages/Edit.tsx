@@ -1,4 +1,4 @@
-import BaseEventAnalysisPage from './BaseEventAnalysisPage';
+import BaseEventAnalysisPage from '../components/BaseEventAnalysisPage';
 import ErrorPage from 'shared/pages/ErrorPage';
 import React, {useMemo} from 'react';
 import Spinner from 'shared/components/Spinner';
@@ -49,7 +49,7 @@ interface FilterWithId extends Filter {
 	id: string;
 }
 
-const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+const Edit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	const {channelId, groupId, id: eventAnalysisId} = useParams();
 	const {data, error, loading} = useQuery<
 		EventAnalysisData,
@@ -144,4 +144,4 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	);
 };
 
-export default EventAnalysisEdit;
+export default Edit;

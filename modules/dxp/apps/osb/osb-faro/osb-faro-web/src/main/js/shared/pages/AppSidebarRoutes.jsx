@@ -51,19 +51,19 @@ const AccountProfileRoutes = lazy(() =>
 
 const EventAnalysisCreate = lazy(() =>
 	import(
-		/* webpackChunkName: "EventAnalysisCreate" */ '../../event-analysis/pages/EventAnalysisCreate'
+		/* webpackChunkName: "EventAnalysisCreate" */ '../../event-analysis/pages/Create'
 	)
 );
 
 const EventAnalysisEdit = lazy(() =>
 	import(
-		/* webpackChunkName: "EventAnalysisEdit" */ '../../event-analysis/pages/EventAnalysisEdit'
+		/* webpackChunkName: "EventAnalysisEdit" */ '../../event-analysis/pages/Edit'
 	)
 );
 
 const EventAnalysisList = lazy(() =>
 	import(
-		/* webpackChunkName: "EventAnalysisList" */ '../../event-analysis/pages/EventAnalysisList'
+		/* webpackChunkName: "EventAnalysisList" */ '../../event-analysis/pages/List'
 	)
 );
 

@@ -5,7 +5,7 @@ import React from 'react';
 import {Routes, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
 
-const EventAnalysisList: React.FC = () => {
+const List: React.FC = () => {
 	const {channelId, groupId} = useParams();
 
 	const pageAction = [
@@ -49,4 +49,4 @@ const EventAnalysisList: React.FC = () => {
 	);
 };
 
-export default EventAnalysisList;
+export default List;
