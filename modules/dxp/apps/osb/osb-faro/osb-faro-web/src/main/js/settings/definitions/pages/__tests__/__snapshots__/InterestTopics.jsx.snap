@@ -468,14 +468,14 @@ exports[`InterestTopics should render with a message to add keywords if there ar
     <p
       class="no-results-description"
     >
-      Add a keyword to be blocked, or access our documentation to 
+      Add a keyword to be blocked.
       <a
+        class="pl-1"
         href="https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/definitions/managing-interest-topics.html"
         target="_blank"
       >
-        learn more about interest topics
+        Learn more about interest topics.
       </a>
-      .
     </p>
   </div>
 </div>
