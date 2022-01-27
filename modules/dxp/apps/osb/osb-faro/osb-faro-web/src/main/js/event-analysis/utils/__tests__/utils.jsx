@@ -138,7 +138,9 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
+				binSize: null,
 				dataType: DataTypes.Boolean,
+				dateGrouping: null,
 				sortType: 'DESC'
 			});
 		});
@@ -157,6 +159,7 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
+				binSize: null,
 				dataType: DataTypes.Date,
 				dateGrouping: DateGroupings.Month,
 				sortType: 'DESC'
@@ -179,6 +182,7 @@ describe('utils', () => {
 				attributeType,
 				binSize: 60000,
 				dataType: DataTypes.Duration,
+				dateGrouping: null,
 				sortType: 'DESC'
 			});
 		});
@@ -199,6 +203,7 @@ describe('utils', () => {
 				attributeType,
 				binSize: 10,
 				dataType: DataTypes.Number,
+				dateGrouping: null,
 				sortType: 'DESC'
 			});
 		});
@@ -217,7 +222,9 @@ describe('utils', () => {
 			).toEqual({
 				attributeId,
 				attributeType,
+				binSize: null,
 				dataType: DataTypes.String,
+				dateGrouping: null,
 				sortType: 'DESC'
 			});
 		});

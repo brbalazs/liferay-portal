@@ -360,9 +360,21 @@ export const AttributesProvider: React.FC<IAttributesProviderProps> = ({
 	] = useReducer(attributesReducer, initialState);
 
 	const {
+		breakdownOrder: initialBreakdownOrder,
 		breakdowns: initialBreakdowns,
+		filterOrder: initialFilterOrder,
 		filters: initialFilters
 	} = initialState;
+
+	const breakdownOrderChanged: boolean = useMemo(
+		() => hasOrderChanged(initialBreakdownOrder, breakdownOrder),
+		[initialBreakdownOrder, breakdownOrder]
+	);
+
+	const filterOrderChanged: boolean = useMemo(
+		() => hasOrderChanged(initialFilterOrder, filterOrder),
+		[initialFilterOrder, filterOrder]
+	);
 
 	const breakdownsChanged: boolean = useMemo(
 		() => !isEqual(initialBreakdowns, breakdowns),
@@ -404,7 +416,11 @@ export const AttributesProvider: React.FC<IAttributesProviderProps> = ({
 		attributes,
 		breakdownOrder,
 		breakdowns,
-		changed: breakdownsChanged || filtersChanged,
+		changed:
+			breakdownOrderChanged ||
+			filterOrderChanged ||
+			breakdownsChanged ||
+			filtersChanged,
 		deleteAllAttributes: () =>
 			attributesDispatch({
 				payload: {},

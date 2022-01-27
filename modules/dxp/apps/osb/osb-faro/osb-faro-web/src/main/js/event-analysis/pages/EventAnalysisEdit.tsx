@@ -92,7 +92,10 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
 			return attributesState;
 		}
-	}, [data]);
+	}, [
+		data?.eventAnalysis?.eventAnalysisBreakdowns,
+		data?.eventAnalysis?.eventAnalysisFilters
+	]);
 
 	if (loading) {
 		return <Spinner alignCenter key='LOADING_DISPLAY' />;

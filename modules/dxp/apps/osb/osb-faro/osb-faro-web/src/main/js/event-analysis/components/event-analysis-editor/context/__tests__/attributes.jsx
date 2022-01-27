@@ -6,6 +6,7 @@ import {
 	withAttributesConsumer,
 	withAttributesProvider
 } from '../attributes';
+import {isBoolean} from 'lodash';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
@@ -666,6 +667,7 @@ describe('attributes', () => {
 				attributes,
 				breakdownOrder,
 				breakdowns,
+				changed,
 				deleteAllAttributes,
 				deleteBreakdown,
 				deleteFilter,
@@ -681,6 +683,7 @@ describe('attributes', () => {
 					addFilter &&
 					attributes &&
 					breakdowns &&
+					isBoolean(changed) &&
 					deleteAllAttributes &&
 					deleteBreakdown &&
 					deleteFilter &&

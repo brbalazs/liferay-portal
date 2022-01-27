@@ -110,7 +110,7 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	const {
 		breakdownOrder,
 		breakdowns,
-		changed: attributeContextChanged,
+		changed: attributesContextChanged,
 		filterOrder,
 		filters
 	} = useContext(AttributesContext);
@@ -241,7 +241,7 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 			>
 				{({dirty, handleSubmit, isSubmitting, values: {name}}) => {
 					const hasChanges =
-						attributeContextChanged ||
+						attributesContextChanged ||
 						dirty ||
 						compareToPreviousChanged ||
 						eventChanged ||
