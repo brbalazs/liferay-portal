@@ -26,7 +26,7 @@ const DurationFilter: React.FC<IFilterProps> = ({
 
 			return {
 				operator,
-				value: formatTime(value as number)
+				value: formatTime(Number(value))
 			};
 		}
 
@@ -47,7 +47,11 @@ const DurationFilter: React.FC<IFilterProps> = ({
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Duration,
 					operator,
-					values: [getMillisecondsFromTime(value.replace(/_/g, '0'))]
+					values: [
+						String(
+							getMillisecondsFromTime(value.replace(/_/g, '0'))
+						)
+					]
 				});
 			}}
 		>

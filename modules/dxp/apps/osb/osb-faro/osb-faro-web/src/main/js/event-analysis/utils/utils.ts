@@ -165,7 +165,7 @@ const getDurationDisplay = (
 	attribute: Attribute,
 	{operator, attributeType, values: [value]}: Filter
 ): [string, string] => {
-	const duration = formatTime(value as number);
+	const duration = formatTime(Number(value));
 
 	return [
 		getBreakdownDisplay(attribute, attributeType).join(' | '),
