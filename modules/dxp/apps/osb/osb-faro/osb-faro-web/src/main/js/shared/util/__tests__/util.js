@@ -195,7 +195,7 @@ describe('util', () => {
 	describe('normalizeRangeSelectors', () => {
 		it.each`
 			rangeEnd        | rangeKey | rangeStart      | results
-			${null}         | ${30}    | ${null}         | ${{rangeEnd: null, rangeKey: '30', rangeStart: null}}
+			${null}         | ${30}    | ${null}         | ${{rangeEnd: '', rangeKey: '30', rangeStart: ''}}
 			${'2020-04-04'} | ${null}  | ${'2020-04-01'} | ${{rangeEnd: '2020-04-04', rangeKey: 'CUSTOM', rangeStart: '2020-04-01'}}
 		`(
 			'should convert $rangeEnd, $rangeKey, & $rangeStart to $results',
