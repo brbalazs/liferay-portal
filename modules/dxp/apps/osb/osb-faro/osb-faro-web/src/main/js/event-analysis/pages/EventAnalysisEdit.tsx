@@ -3,8 +3,10 @@ import ErrorPage from 'shared/pages/ErrorPage';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
-import {AttributesProvider} from '../components/event-analysis-editor/context/attributes';
-import {AttributesState} from '../components/event-analysis-editor/context/attributes';
+import {
+	AttributesProvider,
+	AttributesState
+} from '../components/event-analysis-editor/context/attributes';
 import {
 	EventAnalysisData,
 	EventAnalysisQuery,
@@ -130,7 +132,7 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
 	return (
 		<AttributesProvider initialState={attributesState}>
-			<BaseEventAnalysisPage {...attributesState} {...formattedData} />
+			<BaseEventAnalysisPage {...formattedData} />
 		</AttributesProvider>
 	);
 };
