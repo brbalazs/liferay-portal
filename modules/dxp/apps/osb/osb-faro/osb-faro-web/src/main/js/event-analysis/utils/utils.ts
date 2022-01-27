@@ -224,7 +224,9 @@ export const createBooleanBreakdown = ({
 }): Breakdown => ({
 	attributeId,
 	attributeType,
+	binSize: null,
 	dataType: DataTypes.Boolean,
+	dateGrouping: null,
 	sortType: OrderByDirections.Descending
 });
 
@@ -235,6 +237,7 @@ export const createDateBreakdown = ({
 }): Breakdown => ({
 	attributeId,
 	attributeType,
+	binSize: null,
 	dataType: DataTypes.Date,
 	dateGrouping,
 	sortType: OrderByDirections.Descending
@@ -249,6 +252,7 @@ export const createDurationBreakdown = ({
 	attributeType,
 	binSize,
 	dataType: DataTypes.Duration,
+	dateGrouping: null,
 	sortType: OrderByDirections.Descending
 });
 
@@ -261,6 +265,7 @@ export const createNumberBreakdown = ({
 	attributeType,
 	binSize,
 	dataType: DataTypes.Number,
+	dateGrouping: null,
 	sortType: OrderByDirections.Descending
 });
 
@@ -270,7 +275,9 @@ export const createStringBreakdown = ({
 }): Breakdown => ({
 	attributeId,
 	attributeType,
+	binSize: null,
 	dataType: DataTypes.String,
+	dateGrouping: null,
 	sortType: OrderByDirections.Descending
 });
 

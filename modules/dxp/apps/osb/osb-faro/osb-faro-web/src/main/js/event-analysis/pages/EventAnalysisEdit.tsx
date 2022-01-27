@@ -1,8 +1,8 @@
 import BaseEventAnalysisPage from './BaseEventAnalysisPage';
 import ErrorPage from 'shared/pages/ErrorPage';
-import React from 'react';
+import React, {useMemo} from 'react';
 import Spinner from 'shared/components/Spinner';
-import {Attribute, Breakdown, Event, Filter} from 'event-analysis/utils/types';
+import {Attribute, Breakdown, Filter} from 'event-analysis/utils/types';
 import {
 	AttributesProvider,
 	AttributesState
@@ -13,7 +13,6 @@ import {
 	EventAnalysisVariables
 } from '../queries/EventAnalysisQuery';
 import {normalizeRangeSelectors} from 'shared/util/util';
-import {RangeSelectors} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {uniqueId} from 'lodash';
 import {useParams} from 'react-router-dom';
@@ -50,13 +49,6 @@ interface FilterWithId extends Filter {
 	id: string;
 }
 
-type FormattedData = {
-	compareToPrevious: boolean;
-	event: Event;
-	name: string;
-	rangeSelectors: RangeSelectors;
-};
-
 const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	const {channelId, groupId, id: eventAnalysisId} = useParams();
 	const {data, error, loading} = useQuery<
@@ -68,6 +60,39 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 			eventAnalysisId
 		}
 	});
+
+	const initialState = useMemo(() => {
+		if (data) {
+			const {
+				eventAnalysis: {
+					eventAnalysisBreakdowns,
+					eventAnalysisFilters,
+					referencedObjects: {eventAttributeDefinitions}
+				}
+			} = data;
+
+			const breakdowns: BreakdownWithId[] = getItemsWithUniqueId<Breakdown>(
+				eventAnalysisBreakdowns,
+				'breakdown'
+			);
+			const filters: FilterWithId[] = getItemsWithUniqueId<Filter>(
+				eventAnalysisFilters,
+				'filter'
+			);
+
+			const attributesState: AttributesState = {
+				attributes: normalizeItems<Attribute>(
+					eventAttributeDefinitions
+				),
+				breakdownOrder: breakdowns.map(({id}) => id),
+				breakdowns: normalizeItems<BreakdownWithId>(breakdowns),
+				filterOrder: filters.map(({id}) => id),
+				filters: normalizeItems<FilterWithId>(filters)
+			};
+
+			return attributesState;
+		}
+	}, [data]);
 
 	if (loading) {
 		return <Spinner alignCenter key='LOADING_DISPLAY' />;
@@ -92,47 +117,26 @@ const EventAnalysisEdit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	const {
 		eventAnalysis: {
 			compareToPrevious,
-			eventAnalysisBreakdowns,
-			eventAnalysisFilters,
 			name,
 			rangeEnd,
 			rangeKey,
 			rangeStart,
-			referencedObjects: {eventAttributeDefinitions, eventDefinition}
+			referencedObjects: {eventDefinition}
 		}
 	} = data;
 
-	const breakdowns: BreakdownWithId[] = getItemsWithUniqueId<Breakdown>(
-		eventAnalysisBreakdowns,
-		'breakdown'
-	);
-	const filters: FilterWithId[] = getItemsWithUniqueId<Filter>(
-		eventAnalysisFilters,
-		'filter'
-	);
-
-	const attributesState: AttributesState = {
-		attributes: normalizeItems<Attribute>(eventAttributeDefinitions),
-		breakdownOrder: breakdowns.map(({id}) => id),
-		breakdowns: normalizeItems<BreakdownWithId>(breakdowns),
-		filterOrder: filters.map(({id}) => id),
-		filters: normalizeItems<FilterWithId>(filters)
-	};
-
-	const formattedData: FormattedData = {
-		compareToPrevious,
-		event: eventDefinition,
-		name,
-		rangeSelectors: normalizeRangeSelectors({
-			rangeEnd,
-			rangeKey,
-			rangeStart
-		})
-	};
-
 	return (
-		<AttributesProvider initialState={attributesState}>
-			<BaseEventAnalysisPage {...formattedData} />
+		<AttributesProvider initialState={initialState}>
+			<BaseEventAnalysisPage
+				compareToPrevious={compareToPrevious}
+				event={eventDefinition}
+				name={name}
+				rangeSelectors={normalizeRangeSelectors({
+					rangeEnd,
+					rangeKey,
+					rangeStart
+				})}
+			/>
 		</AttributesProvider>
 	);
 };

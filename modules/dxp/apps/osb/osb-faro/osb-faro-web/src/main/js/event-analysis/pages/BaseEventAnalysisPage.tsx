@@ -9,7 +9,10 @@ import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, RangeSelectors} from 'shared/types';
 import {ApolloError} from 'apollo-client';
-import {AttributesContext} from '../components/event-analysis-editor/context/attributes';
+import {
+	AttributesContext,
+	withAttributesConsumer
+} from '../components/event-analysis-editor/context/attributes';
 import {
 	Breakdowns,
 	CalculationTypes,
@@ -61,26 +64,6 @@ const ERRORS = {
 	}
 };
 
-const hasChangesFn: typeof hasChanges = (prev = {}, next = {}, ...keys) => {
-	const prevArr = Object.values(prev);
-	const nextArr = Object.values(next);
-
-	return (
-		prevArr.length !== nextArr.length ||
-		!!prevArr.find(prevItem => {
-			const nextItem = nextArr.find(
-				({attributeId}) => attributeId === prevItem.attributeId
-			);
-
-			if (!nextItem) {
-				return true;
-			}
-
-			return hasChanges(prevItem, nextItem, ...keys);
-		})
-	);
-};
-
 const connector = connect(null, {
 	addAlert,
 	close,
@@ -103,12 +86,10 @@ interface IBaseEventAnalysisPageProps
 
 const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	addAlert,
-	breakdowns: initialBreakdowns,
 	close,
 	compareToPrevious: initialCompareToPrevious = false,
 	currentUser,
 	event: initialEvent = null,
-	filters: initialFilters,
 	name: initialName = '',
 	open,
 	rangeSelectors: initialRangeSelectors
@@ -126,9 +107,13 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	const [submitted, setSubmitted] = useState<boolean>(false);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
-	const {breakdownOrder, breakdowns, filterOrder, filters} = useContext(
-		AttributesContext
-	);
+	const {
+		breakdownOrder,
+		breakdowns,
+		changed: attributeContextChanged,
+		filterOrder,
+		filters
+	} = useContext(AttributesContext);
 
 	const Mutation = eventAnalysisId
 		? UpdateEventAnalysisMutation
@@ -208,43 +193,12 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 			});
 	};
 
-	const breakdownsChanged: boolean = useMemo(
-		() =>
-			hasChangesFn<Breakdowns>(
-				initialBreakdowns,
-				breakdowns,
-				'attributeId',
-				'attributeType',
-				'binSize',
-				'dataType',
-				'dateGrouping',
-				'sortType'
-			),
-		[initialBreakdowns, breakdowns]
-	);
-
-	const compareToPreviousChanged: boolean = useMemo(
-		() => initialCompareToPrevious !== compareToPrevious,
-		[initialCompareToPrevious, compareToPrevious]
-	);
+	const compareToPreviousChanged: boolean =
+		initialCompareToPrevious !== compareToPrevious;
 
 	const eventChanged: boolean = useMemo(
 		() => hasChanges<Event>(initialEvent || {}, event || {}, 'id'),
 		[initialEvent, event]
-	);
-
-	const filtersChanged: boolean = useMemo(
-		() =>
-			hasChangesFn<Filters>(
-				initialFilters,
-				filters,
-				'attributeId',
-				'attributeType',
-				'dataType',
-				'operator',
-				'values'
-			),
-		[initialFilters, filters]
 	);
 
 	const rangeSelectorsChanged: boolean = useMemo(
@@ -287,11 +241,10 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 			>
 				{({dirty, handleSubmit, isSubmitting, values: {name}}) => {
 					const hasChanges =
-						breakdownsChanged ||
+						attributeContextChanged ||
 						dirty ||
 						compareToPreviousChanged ||
 						eventChanged ||
-						filtersChanged ||
 						rangeSelectorsChanged;
 
 					return (
@@ -332,8 +285,9 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	);
 };
 
-export default compose(
+export default compose<any>(
 	connector,
 	withCurrentUser,
-	withRangeKey
+	withRangeKey,
+	withAttributesConsumer
 )(BaseEventAnalysisPage);

@@ -75,9 +75,9 @@ export type BlockedCustomEvent = {
 export type Breakdown = {
 	attributeId: string;
 	attributeType: AttributeOwnerTypes;
-	binSize?: number;
+	binSize: number;
 	dataType: DataTypes;
-	dateGrouping?: DateGroupings;
+	dateGrouping: DateGroupings;
 	id?: string;
 	sortType: OrderByDirections;
 };

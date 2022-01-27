@@ -1,10 +1,18 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useMemo, useReducer} from 'react';
 import {Attribute, Breakdown, Filter} from 'event-analysis/utils/types';
 import {deletePropertyFromObject} from 'shared/util/object';
+import {isEqual} from 'lodash';
 import {moveItem} from 'shared/util/array';
 
 type Breakdowns = {[key: string]: Breakdown};
 type Filters = {[key: string]: Filter};
+
+export const hasOrderChanged = (
+	initialOrder: string[],
+	order: string[]
+): boolean =>
+	initialOrder.length !== order.length ||
+	!order.every((id, i) => id === initialOrder[i]);
 
 export const isAttributeInUse = (
 	attributeId: string,
@@ -68,6 +76,7 @@ export const AttributesContext = createContext<
 	AttributesState & {
 		addBreakdown?: AddBreakdown;
 		addFilter?: AddFilter;
+		changed: boolean;
 		deleteAllAttributes?: DeleteAllAttributes;
 		deleteBreakdown?: DeleteBreakdown;
 		deleteFilter?: DeleteFilter;
@@ -80,6 +89,7 @@ export const AttributesContext = createContext<
 	attributes: {},
 	breakdownOrder: [],
 	breakdowns: {},
+	changed: false,
 	filterOrder: [],
 	filters: {}
 });
@@ -349,12 +359,28 @@ export const AttributesProvider: React.FC<IAttributesProviderProps> = ({
 		attributesDispatch
 	] = useReducer(attributesReducer, initialState);
 
+	const {
+		breakdowns: initialBreakdowns,
+		filters: initialFilters
+	} = initialState;
+
+	const breakdownsChanged: boolean = useMemo(
+		() => !isEqual(initialBreakdowns, breakdowns),
+		[initialBreakdowns, breakdowns]
+	);
+
+	const filtersChanged: boolean = useMemo(
+		() => !isEqual(initialFilters, filters),
+		[initialFilters, filters]
+	);
+
 	const contextValue: {
 		addBreakdown: AddBreakdown;
 		addFilter: AddFilter;
 		attributes: {[key: string]: Attribute};
 		breakdownOrder: string[];
 		breakdowns: Breakdowns;
+		changed: boolean;
 		deleteAllAttributes: DeleteAllAttributes;
 		deleteBreakdown: DeleteBreakdown;
 		deleteFilter: DeleteFilter;
@@ -378,6 +404,7 @@ export const AttributesProvider: React.FC<IAttributesProviderProps> = ({
 		attributes,
 		breakdownOrder,
 		breakdowns,
+		changed: breakdownsChanged || filtersChanged,
 		deleteAllAttributes: () =>
 			attributesDispatch({
 				payload: {},
