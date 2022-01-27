@@ -100,7 +100,7 @@ export type Filter = {
 	dataType: DataTypes;
 	id?: string;
 	operator: Operators;
-	values: (boolean | string | number)[];
+	values: string[];
 };
 
 export type Filters = {[key: string]: Filter};
