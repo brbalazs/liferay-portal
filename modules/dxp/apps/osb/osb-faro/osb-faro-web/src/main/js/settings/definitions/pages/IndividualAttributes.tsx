@@ -129,25 +129,22 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 							description={
 								<>
 									<p className='mb-4'>
-										{sub(
-											Liferay.Language.get(
-												'connect-a-data-source-with-people-data,-or-x'
-											),
-											[
-												<a
-													href={
-														URLConstants.DataSourceConnection
-													}
-													key='DOCUMENTATION'
-													target='_blank'
-												>
-													{Liferay.Language.get(
-														'access-our-documentation-to-learn-more-fragment'
-													).toLowerCase()}
-												</a>
-											],
-											false
+										{Liferay.Language.get(
+											'connect-a-data-source-with-people-data'
 										)}
+
+										<a
+											className='pl-1'
+											href={
+												URLConstants.DataSourceConnection
+											}
+											key='DOCUMENTATION'
+											target='_blank'
+										>
+											{Liferay.Language.get(
+												'access-our-documentation-to-learn-more'
+											)}
+										</a>
 									</p>
 
 									<Button

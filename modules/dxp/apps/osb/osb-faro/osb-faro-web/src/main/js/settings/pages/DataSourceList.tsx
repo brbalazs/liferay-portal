@@ -266,27 +266,26 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 	const renderNoResults = () => {
 		const authorized = currentUser.isAdmin();
 
-		const connectMessage = authorized
-			? sub(
-					Liferay.Language.get(
-						'add-a-data-source-to-get-started,-or-x'
-					),
-					[
-						<a
-							href={URLConstants.DataSourceConnection}
-							key='DOCUMENTATION'
-							target='_blank'
-						>
-							{Liferay.Language.get(
-								'access-our-documentation-to-learn-more-fragment'
-							).toLowerCase()}
-						</a>
-					],
-					false
-			  )
-			: Liferay.Language.get(
-					'please-contact-your-workspace-administrator-to-add-data-sources'
-			  );
+		const connectMessage = authorized ? (
+			<>
+				{Liferay.Language.get('add-a-data-source-to-get-started')}
+
+				<a
+					className='pl-1'
+					href={URLConstants.DataSourceConnection}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get(
+						'access-our-documentation-to-learn-more'
+					)}
+				</a>
+			</>
+		) : (
+			Liferay.Language.get(
+				'please-contact-your-workspace-administrator-to-add-data-sources'
+			)
+		);
 
 		if (query) {
 			return (

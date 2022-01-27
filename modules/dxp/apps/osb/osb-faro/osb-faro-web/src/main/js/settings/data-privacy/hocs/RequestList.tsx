@@ -39,7 +39,6 @@ import {
 	toRoute,
 	TYPES
 } from 'shared/util/router';
-import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useParams} from 'react-router-dom';
 import {useQueryPagination} from 'shared/hooks';
@@ -379,25 +378,20 @@ const RequestList: React.FC<IRequestListProps> = ({
 					<EmptyStateDashboard
 						description={
 							<p className='mb-1'>
-								{sub(
-									Liferay.Language.get(
-										'create-a-request-to-get-started,-or-x'
-									),
-									[
-										<a
-											href={
-												URLConstants.RequestLogDocumentation
-											}
-											key='DOCUMENTATION'
-											target='_blank'
-										>
-											{Liferay.Language.get(
-												'access-our-documentation-to-learn-more-fragment'
-											).toLowerCase()}
-										</a>
-									],
-									false
+								{Liferay.Language.get(
+									'create-a-request-to-get-started'
 								)}
+
+								<a
+									className='pl-1'
+									href={URLConstants.RequestLogDocumentation}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'access-our-documentation-to-learn-more'
+									)}
+								</a>
 							</p>
 						}
 						symbol='ac-satellite'

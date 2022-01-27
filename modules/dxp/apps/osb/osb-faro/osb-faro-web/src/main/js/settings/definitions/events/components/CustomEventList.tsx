@@ -380,25 +380,20 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 				<EmptyStateDashboard
 					description={
 						<p className='mb-1'>
-							{sub(
-								Liferay.Language.get(
-									'create-some-custom-events-to-get-started,-or-access-our-documentation-to-x'
-								),
-								[
-									<a
-										href={
-											URLConstants.CustomEventsDocumentation
-										}
-										key='DOCUMENTATION'
-										target='_blank'
-									>
-										{Liferay.Language.get(
-											'learn-how-to-add-custom-events-on-your-site-fragment'
-										).toLowerCase()}
-									</a>
-								],
-								false
+							{Liferay.Language.get(
+								'create-some-custom-events-to-get-started'
 							)}
+
+							<a
+								className='pl-1'
+								href={URLConstants.CustomEventsDocumentation}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'learn-how-to-add-custom-events-on-your-site'
+								)}
+							</a>
 						</p>
 					}
 					symbol='ac-satellite'

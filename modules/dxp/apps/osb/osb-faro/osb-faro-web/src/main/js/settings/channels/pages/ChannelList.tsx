@@ -306,21 +306,22 @@ const ChannelList: React.FC<IChannelListProps> = ({
 	const renderEmptyState = (): React.ReactNode => (
 		<EmptyState
 			className='no-results-root mt-0'
-			description={sub(
-				Liferay.Language.get('create-a-property-to-get-started,-or-x'),
-				[
+			description={
+				<>
+					{Liferay.Language.get('create-a-property-to-get-started')}
+
 					<a
+						className='pl-1'
 						href={URLConstants.CreateProperty}
 						key='dataSourceConnectionText'
 						target='_blank'
 					>
 						{Liferay.Language.get(
-							'access-our-documentation-to-learn-more-fragment'
-						).toLowerCase()}
+							'access-our-documentation-to-learn-more'
+						)}
 					</a>
-				],
-				false
-			)}
+				</>
+			}
 			symbol='ac-satellite'
 			title={Liferay.Language.get('no-properties-found')}
 		/>

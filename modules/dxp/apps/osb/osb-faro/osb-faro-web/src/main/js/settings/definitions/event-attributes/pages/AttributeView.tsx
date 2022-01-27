@@ -19,7 +19,6 @@ import {getDefinitions, getEventAttributes} from 'shared/util/breadcrumbs';
 import {getSafeDisplayValue} from 'shared/util/util';
 import {HasModal, Modal} from 'shared/types';
 import {SafeResults} from 'shared/hoc/util';
-import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
 
 interface IAttributeViewProps
@@ -102,25 +101,22 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 							<EmptyStateDashboard
 								description={
 									<p className='mb-1'>
-										{sub(
-											Liferay.Language.get(
-												'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events,-or-access-our-documentation-to-x'
-											),
-											[
-												<a
-													href={
-														URLConstants.EventAttributesDocumentation
-													}
-													key='DOCUMENTATION'
-													target='_blank'
-												>
-													{Liferay.Language.get(
-														'learn-more-about-event-tracking-fragment'
-													).toLowerCase()}
-												</a>
-											],
-											false
+										{Liferay.Language.get(
+											'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events'
 										)}
+
+										<a
+											className='pl-1'
+											href={
+												URLConstants.EventAttributesDocumentation
+											}
+											key='DOCUMENTATION'
+											target='_blank'
+										>
+											{Liferay.Language.get(
+												'learn-more-about-event-tracking'
+											)}
+										</a>
 									</p>
 								}
 								symbol='ac-satellite'
