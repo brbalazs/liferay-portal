@@ -125,7 +125,7 @@ public class LCPProject {
 		@Deprecated
 		SA("ac-southamerica", "southamerica-east1-c1"),
 		SA_AC("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
-		SA_AC_STAGING("ac-staging", "southamerica-east1-staging-ac1-c2"),
+		UAT("ac-asahuat", "us-west1-ac-uat-c1"),
 		/** @deprecated After multitenancy is fully deployed eliminate US_AC but use its value */
 		@Deprecated
 		US("ac-us", "us-west1-c1"), US_AC("ac-uswest1", "us-west1-ac4-c1"),
@@ -158,8 +158,8 @@ public class LCPProject {
 				return Cluster.SA_AC;
 			}
 
-			if (StringUtil.equals(value, Cluster.SA_AC_STAGING._value)) {
-				return Cluster.SA_AC_STAGING;
+			if (StringUtil.equals(value, Cluster.UAT._value)) {
+				return Cluster.UAT;
 			}
 
 			if (StringUtil.equals(value, Cluster.US._value)) {

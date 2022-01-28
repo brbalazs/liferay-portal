@@ -1028,7 +1028,7 @@ public class ProjectController extends BaseFaroController {
 
 	private boolean _isCreateTrialAllowed(String serverLocation) {
 		if (StringUtil.equals(
-				serverLocation, LCPProject.Cluster.SA_AC_STAGING.toString())) {
+				serverLocation, LCPProject.Cluster.UAT.toString())) {
 
 			return true;
 		}

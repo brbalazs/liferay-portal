@@ -34,7 +34,7 @@ public class LCPProjectConstants {
 				put("EU", LCPProject.Cluster.EU_AC.toString());
 				put("EU2", LCPProject.Cluster.EU2_AC.toString());
 				put("SA", LCPProject.Cluster.SA_AC.toString());
-				put("UAT", LCPProject.Cluster.SA_AC_STAGING.toString());
+				put("UAT", LCPProject.Cluster.UAT.toString());
 				put("US", LCPProject.Cluster.US_AC.toString());
 			}
 		};
