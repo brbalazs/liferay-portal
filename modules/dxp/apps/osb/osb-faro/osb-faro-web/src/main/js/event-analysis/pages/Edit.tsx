@@ -61,7 +61,7 @@ const Edit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		}
 	});
 
-	const initialState = useMemo(() => {
+	const initialAttributesState = useMemo(() => {
 		if (data) {
 			const {
 				eventAnalysis: {
@@ -129,7 +129,7 @@ const Edit: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	} = data;
 
 	return (
-		<AttributesProvider initialState={initialState}>
+		<AttributesProvider initialState={initialAttributesState}>
 			<BaseEventAnalysisPage
 				compareToPrevious={compareToPrevious}
 				event={eventDefinition}
