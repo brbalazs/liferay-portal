@@ -8,9 +8,13 @@ export interface DataSourceData {
 	};
 }
 
-export interface DataSourceSyncData {
+export interface DataSource {
 	contactsSyncDetails: {selected: boolean};
 	sitesSyncDetails: {selected: boolean};
+}
+
+export interface DataSourceSyncData {
+	dataSources: DataSource[];
 }
 
 export default gql`

@@ -3,6 +3,7 @@ import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
 import CopyButton from 'shared/components/CopyButton';
 import DataSourceQuery, {
+	DataSource,
 	DataSourceData,
 	DataSourceSyncData
 } from 'shared/queries/DataSourceQuery';
@@ -25,7 +26,6 @@ import {
 	DataSourceTypes,
 	OrderByDirections
 } from 'shared/util/constants';
-import {DataSource} from 'shared/util/records';
 import {fetchDataSource} from 'shared/actions/data-sources';
 import {get, noop, upperFirst} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
@@ -260,6 +260,11 @@ const ConnectDXP: React.FC<IConnectDXPWrapperProps & IConnectDXPProps> = ({
 };
 
 const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
+	const [dataSource, setDataSources] = useState<DataSource>({
+		contactsSyncDetails: {selected: false},
+		sitesSyncDetails: {selected: false}
+	});
+
 	const [getDataSources, {data}] = useLazyQuery<DataSourceSyncData>(
 		DataSourceQuery,
 		{
@@ -275,6 +280,7 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 			}
 		}
 	);
+
 	const timeoutId = setTimeout(() => getDataSources(), TIMEOUT_INTERVAL);
 
 	const getLabelProps = (selected: boolean) =>
@@ -282,16 +288,19 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 			? DATA_SOURCE_STATUSES.CONFIGURED
 			: DATA_SOURCE_STATUSES.UNCONFIGURED;
 
-	const {
-		contactsSyncDetails = {selected: false},
-		sitesSyncDetails = {selected: false}
-	} = data || {};
-	const {display: sitesDisplay, label: sitesLabel} = getLabelProps(
-		sitesSyncDetails.selected
-	);
 	const {display: contactsDisplay, label: contactslabel} = getLabelProps(
-		contactsSyncDetails.selected
+		dataSource?.contactsSyncDetails?.selected
 	);
+
+	const {display: sitesDisplay, label: sitesLabel} = getLabelProps(
+		dataSource?.sitesSyncDetails?.selected
+	);
+
+	useEffect(() => {
+		if (data) {
+			setDataSources(data.dataSources[0]);
+		}
+	}, [data]);
 
 	useEffect(
 		() => () => {
