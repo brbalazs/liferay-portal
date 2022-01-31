@@ -2,7 +2,11 @@
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	margin-top: 64px;
+	margin: 156px 0px;
+
+	&.autofit {
+		margin: auto;
+	}
 
 	.secondary-info {
 		color: $secondary;
