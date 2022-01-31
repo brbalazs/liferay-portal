@@ -10,6 +10,7 @@ import BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
@@ -378,7 +379,6 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 					eventListColumns.hidden
 				]}
 				delta={delta}
-				emptyTitle={Liferay.Language.get('no-blocked-events-to-report')}
 				error={error}
 				items={get(
 					data,
@@ -389,9 +389,32 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 					[]
 				)}
 				loading={loading}
-				noResultsProps={{
-					icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
-				}}
+				noResultsRenderer={() => (
+					<EmptyStateDashboard
+						autoFit
+						description={
+							<p className='mb-1'>
+								{Liferay.Language.get(
+									'first-add-an-event-to-get-it-blocked'
+								)}
+								<a
+									className='pl-1'
+									href={
+										URLConstants.DefinitionsForEventsDocumentation
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'access-our-documentation-to-learn-how-to-manage-custom-events'
+									)}
+								</a>
+							</p>
+						}
+						symbol='ac-satellite'
+						title={Liferay.Language.get('no-blocked-events-found')}
+					/>
+				)}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}

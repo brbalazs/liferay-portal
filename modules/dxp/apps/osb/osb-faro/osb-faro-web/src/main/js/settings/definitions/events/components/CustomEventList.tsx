@@ -378,6 +378,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 			loading={loading}
 			noResultsRenderer={() => (
 				<EmptyStateDashboard
+					autoFit
 					description={
 						<p className='mb-1'>
 							{Liferay.Language.get(
