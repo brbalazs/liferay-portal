@@ -54,4 +54,92 @@ describe('BlockListCard', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render when the state is empty', async () => {
+		const WrappedComponentEmptyState = props => (
+			<ApolloProvider client={client}>
+				<Provider store={mockStore()}>
+					<MemoryRouter
+						initialEntries={[
+							'/workspace/23/settings/definitions/events/block-list'
+						]}
+					>
+						<Route
+							path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}
+						>
+							<MockedProvider
+								mocks={[
+									mockBlockedCustomEventDefinitionsReq([], {
+										keyword: '',
+										size: 2
+									})
+								]}
+							>
+								<BlockListCard groupId='23' {...props} />
+							</MockedProvider>
+						</Route>
+					</MemoryRouter>
+				</Provider>
+			</ApolloProvider>
+		);
+
+		const {container, getByText} = render(<WrappedComponentEmptyState />);
+
+		await waitForLoading(container);
+
+		jest.runAllTimers();
+
+		expect(getByText('No Blocked Events Found')).toBeInTheDocument();
+
+		expect(
+			getByText('First, add an event to get it blocked.')
+		).toBeInTheDocument();
+
+		expect(
+			getByText(
+				'Access our documentation to learn how to manage custom events.'
+			)
+		).toBeInTheDocument();
+	});
+
+	it('should render when the state is empty and with the autofit class', async () => {
+		const WrappedComponentEmptyState = props => (
+			<ApolloProvider client={client}>
+				<Provider store={mockStore()}>
+					<MemoryRouter
+						initialEntries={[
+							'/workspace/23/settings/definitions/events/block-list'
+						]}
+					>
+						<Route
+							path={Routes.SETTINGS_DEFINITIONS_EVENTS_BLOCK_LIST}
+						>
+							<MockedProvider
+								mocks={[
+									mockBlockedCustomEventDefinitionsReq([], {
+										keyword: '',
+										size: 2
+									})
+								]}
+							>
+								<BlockListCard groupId='23' {...props} />
+							</MockedProvider>
+						</Route>
+					</MemoryRouter>
+				</Provider>
+			</ApolloProvider>
+		);
+
+		const {container} = render(<WrappedComponentEmptyState />);
+
+		await waitForLoading(container);
+
+		jest.runAllTimers();
+
+		const emptyStateDiv = document.querySelector(
+			'div .empty-state-dashboard-root'
+		);
+
+		expect(emptyStateDiv).toHaveClass('autofit');
+	});
 });
