@@ -4,6 +4,7 @@ enum URLConstants {
 	CreateProperty = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/scoping-sites-and-individuals-using-properties.html#creating-a-property',
 	CustomEventsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/events/tracking-events.html',
 	DataSourceConnection = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html',
+	DefinitionsForEventsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/definitions/definitions-for-events.html',
 	DocumentationAdminLink = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace_settings.html',
 	DocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/',
 	DownloadDXP70FixPack98 = 'https://customer.liferay.com/downloads/-/download/liferay-dxp-7-0-fix-pack-98',
