@@ -113,49 +113,22 @@ public class LCPProject {
 
 	public enum Cluster {
 
-		/** @deprecated After multitenancy is fully deployed eliminate EU_AC but use its value */
-		@Deprecated
-		EU("ac-europe", "europe-west2-c1"),
-		EU_AC("ac-europewest2", "europe-west2-ac2-c1"),
-		/** @deprecated After multitenancy is fully deployed eliminate EU2_AC but use its value */
-		@Deprecated
-		EU2("ac-europe2", "europe-west3-c1"),
-		EU2_AC("ac-europewest3", "europe-west3-ac3-c1"),
-		/** @deprecated After multitenancy is fully deployed eliminate SA_AC but use its value */
-		@Deprecated
-		SA("ac-southamerica", "southamerica-east1-c1"),
-		SA_AC("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
+		EU2("ac-europewest2", "europe-west2-ac2-c1"),
+		EU3("ac-europewest3", "europe-west3-ac3-c1"),
+		SA("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
 		UAT("ac-asahuat", "us-west1-ac-uat-c1"),
-		/** @deprecated After multitenancy is fully deployed eliminate US_AC but use its value */
-		@Deprecated
-		US("ac-us", "us-west1-c1"), US_AC("ac-uswest1", "us-west1-ac4-c1"),
+		US("ac-uswest1", "us-west1-ac4-c1"),
 		US_LRDCOM(
 			"ac-uswest1asah652a6babdba143d086a19db542781bc2",
 			"us-west1-ac4-c1-2");
 
 		public static Cluster fromString(String value) {
-			if (StringUtil.equals(value, Cluster.EU._value)) {
-				return Cluster.EU;
-			}
-
-			if (StringUtil.equals(value, Cluster.EU_AC._value)) {
-				return Cluster.EU_AC;
-			}
-
 			if (StringUtil.equals(value, Cluster.EU2._value)) {
 				return Cluster.EU2;
 			}
 
-			if (StringUtil.equals(value, Cluster.EU2_AC._value)) {
-				return Cluster.EU2_AC;
-			}
-
 			if (StringUtil.equals(value, Cluster.SA._value)) {
 				return Cluster.SA;
-			}
-
-			if (StringUtil.equals(value, Cluster.SA_AC._value)) {
-				return Cluster.SA_AC;
 			}
 
 			if (StringUtil.equals(value, Cluster.UAT._value)) {
@@ -164,10 +137,6 @@ public class LCPProject {
 
 			if (StringUtil.equals(value, Cluster.US._value)) {
 				return Cluster.US;
-			}
-
-			if (StringUtil.equals(value, Cluster.US_AC._value)) {
-				return Cluster.US_AC;
 			}
 
 			if (StringUtil.equals(value, Cluster.US_LRDCOM._value)) {
