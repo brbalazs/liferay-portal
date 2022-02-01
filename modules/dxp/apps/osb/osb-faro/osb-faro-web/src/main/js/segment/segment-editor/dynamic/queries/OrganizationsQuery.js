@@ -13,7 +13,7 @@ export default gql`
 			sort: $sort
 			start: $start
 		) {
-			dxpEntities {
+			dxpEntities: organizations {
 				id
 				name
 				... on Organization {
