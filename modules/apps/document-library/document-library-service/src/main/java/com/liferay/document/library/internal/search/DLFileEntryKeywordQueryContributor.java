@@ -17,10 +17,15 @@ package com.liferay.document.library.internal.search;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Localization;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.query.QueryHelper;
 import com.liferay.portal.search.spi.model.query.contributor.KeywordQueryContributor;
 import com.liferay.portal.search.spi.model.query.contributor.helper.KeywordQueryContributorHelper;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -62,6 +67,21 @@ public class DLFileEntryKeywordQueryContributor
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "path", false);
 		queryHelper.addSearchLocalizedTerm(
 			booleanQuery, searchContext, Field.CONTENT, false);
+
+		Locale siteDefaultLocale = LocaleUtil.getSiteDefault();
+
+		if (siteDefaultLocale != searchContext.getLocale()) {
+			queryHelper.addSearchTerm(
+				booleanQuery, searchContext,
+				getLocalizedName(Field.CONTENT, siteDefaultLocale), false);
+		}
+	}
+
+	protected String getLocalizedName(String name, Locale locale) {
+		Localization localization = LocalizationUtil.getLocalization();
+
+		return localization.getLocalizedName(
+			name, LocaleUtil.toLanguageId(locale));
 	}
 
 	@Reference
