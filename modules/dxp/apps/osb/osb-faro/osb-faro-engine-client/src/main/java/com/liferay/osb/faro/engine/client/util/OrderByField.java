@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.engine.client.util;
 
+import com.liferay.portal.kernel.util.StringUtil;
+
 import java.io.Serializable;
 
 /**
@@ -26,12 +28,12 @@ public class OrderByField implements Serializable {
 
 	public OrderByField(String fieldName, String orderBy) {
 		_fieldName = fieldName;
-		_orderBy = orderBy;
+		_orderBy = OrderBy.valueOf(StringUtil.toLowerCase(orderBy));
 	}
 
 	public OrderByField(String fieldName, String orderBy, boolean system) {
 		_fieldName = fieldName;
-		_orderBy = orderBy;
+		_orderBy = OrderBy.valueOf(StringUtil.toLowerCase(orderBy));
 		_system = system;
 	}
 
@@ -39,7 +41,7 @@ public class OrderByField implements Serializable {
 		return _fieldName;
 	}
 
-	public String getOrderBy() {
+	public OrderBy getOrderBy() {
 		return _orderBy;
 	}
 
@@ -47,8 +49,14 @@ public class OrderByField implements Serializable {
 		return _system;
 	}
 
+	public enum OrderBy {
+
+		asc, desc
+
+	}
+
 	private String _fieldName;
-	private String _orderBy;
+	private OrderBy _orderBy;
 	private boolean _system;
 
 }
