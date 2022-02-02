@@ -1,3 +1,9 @@
+.no-results-root {
+	&.sites-dashboard {
+		height: 70vh;
+	}
+}
+
 .sites-dashboard-root {
 	.site-selector {
 		align-items: center;

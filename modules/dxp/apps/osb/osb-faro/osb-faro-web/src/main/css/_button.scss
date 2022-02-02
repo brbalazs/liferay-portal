@@ -11,6 +11,10 @@
 		cursor: not-allowed;
 		opacity: 0.26;
 	}
+
+	&.btn-primary.link-disabled {
+		color: $white;
+	}
 }
 
 .btn {
@@ -24,8 +28,7 @@
 		}
 
 		&:not(:disabled) {
-			&:active
-			&:focus,
+			&:active, &:focus,
 			&:hover {
 				color: $main;
 			}
