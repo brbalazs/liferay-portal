@@ -6,13 +6,16 @@ import {sub} from 'shared/util/lang';
 
 const CLASSNAME = 'no-results';
 
-interface INoResultsDisplayProps extends React.HTMLAttributes<HTMLElement> {
+export interface IconProps {
+	border?: boolean;
+	size?: Sizes;
+	symbol: string;
+}
+export interface INoResultsDisplayProps
+	extends React.HTMLAttributes<HTMLElement> {
+	children?: React.ReactElement;
 	description?: string | React.ReactNode;
-	icon?: {
-		size?: Sizes;
-		symbol: string;
-		border?: boolean;
-	};
+	icon?: IconProps;
 	primary?: boolean;
 	spacer?: boolean;
 	title?: string;

@@ -2,7 +2,8 @@ import Alert, {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import getCN from 'classnames';
 import React from 'react';
 
-interface IEmbeddedAlertListProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface IEmbeddedAlertListProps
+	extends React.HTMLAttributes<HTMLDivElement> {
 	alerts: {
 		alertType?: AlertTypes;
 		customComponent?: typeof Alert;
