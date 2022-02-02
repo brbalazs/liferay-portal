@@ -56,12 +56,14 @@ interface Action extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 interface IPageActionsProps {
 	actions?: Action[];
 	actionsDisplayLimit?: number;
+	disabled?: boolean;
 	label?: string;
 }
 
 const PageActions: React.FC<IPageActionsProps> = ({
 	actions = [],
 	actionsDisplayLimit = 1,
+	disabled = false,
 	label = ''
 }) => {
 	const triggerDisplayProps = label.length
@@ -86,6 +88,7 @@ const PageActions: React.FC<IPageActionsProps> = ({
 					buttonProps={{
 						display: label.length ? 'primary' : 'unstyled'
 					}}
+					disabled={disabled}
 					showCaret={false}
 				>
 					{actions.map(({label, ...props}) => (

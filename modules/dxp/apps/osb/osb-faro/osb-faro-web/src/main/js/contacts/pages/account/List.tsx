@@ -1,6 +1,6 @@
 import * as API from 'shared/api';
 import BaseListPage from 'contacts/components/BaseListPage';
-import React from 'react';
+import React, {FC} from 'react';
 import {
 	ACCOUNT_TYPE,
 	ACTIVITIES_COUNT,
@@ -10,11 +10,12 @@ import {
 	NAME
 } from 'shared/util/pagination';
 import {accountsListColumns} from 'shared/util/table-columns';
+import {FetchSegmentsParams} from 'segment/pages/List';
 import {useQueryPagination} from 'shared/hooks';
 import {User} from 'shared/util/records';
 import {withCurrentUser} from 'shared/hoc';
 
-const getAccountsDataSource = ({
+const getAccountsDataSource: FC<FetchSegmentsParams> = ({
 	channelId,
 	delta,
 	groupId,
@@ -57,13 +58,14 @@ const List: React.FC<IListProps> = ({
 	return (
 		<BaseListPage
 			{...otherProps}
-			channelId={channelId}
 			columns={columns}
 			currentUser={currentUser}
 			dataSourceFn={getAccountsDataSource}
 			delta={delta}
+			emptyStateTitle={Liferay.Language.get(
+				'no-accounts-synced-from-data-sources'
+			)}
 			entityLabel={Liferay.Language.get('accounts')}
-			groupId={groupId}
 			hideNav
 			icon='suitcase'
 			noResultsConfig={{

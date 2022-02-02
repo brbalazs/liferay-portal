@@ -18,7 +18,7 @@ import {
 	USER_NAME
 } from 'shared/util/pagination';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, FilterByType} from 'shared/types';
+import {Alert, FilterByType, FilterOptionType} from 'shared/types';
 import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
@@ -41,7 +41,7 @@ import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useQueryPagination} from 'shared/hooks';
 
-interface FetchSegmentsParams {
+export interface FetchSegmentsParams {
 	channelId: string;
 	delta?: number;
 	filterBy: FilterByType;
@@ -131,7 +131,6 @@ export const List: React.FC<IListProps> = ({
 
 	const [alerts, setAlerts] = useState([]);
 
-	const _tableRef = useRef<any>();
 	const _disableSegmentsRequestRef = useRef<typeof Promise>();
 	const {
 		showUnassignedAlert,
@@ -264,8 +263,6 @@ export const List: React.FC<IListProps> = ({
 									Number(page) - 1
 								)
 							);
-						} else {
-							_tableRef.current.reload();
 						}
 					})
 					.catch(() => {
@@ -341,7 +338,6 @@ export const List: React.FC<IListProps> = ({
 	return (
 		<BaseListPage
 			alerts={getAlerts()}
-			channelId={channelId}
 			className='segment-list-root'
 			columns={[
 				segmentsListColumns.getName({channelId, groupId}),
@@ -352,20 +348,26 @@ export const List: React.FC<IListProps> = ({
 			currentUser={currentUser}
 			dataSourceFn={fetchSegments}
 			delta={delta}
+			emptyStateTitle={Liferay.Language.get(
+				'no-segments-synced-from-data-sources'
+			)}
 			entityLabel={Liferay.Language.get('segments')}
 			filterBy={filterBy}
-			filterByOptions={[
-				{
-					key: SEGMENT_STATE,
-					values: [
-						{
-							label: Liferay.Language.get('disabled-segments'),
-							value: SegmentStates.Disabled
-						}
-					]
-				}
-			]}
-			groupId={groupId}
+			filterByOptions={
+				[
+					{
+						key: SEGMENT_STATE,
+						values: [
+							{
+								label: Liferay.Language.get(
+									'disabled-segments'
+								),
+								value: SegmentStates.Disabled
+							}
+						]
+					}
+				] as FilterOptionType[]
+			}
 			hideNav
 			noResultsConfig={{
 				content: (
@@ -402,7 +404,6 @@ export const List: React.FC<IListProps> = ({
 			pageActions={pageActions}
 			pageActionsLabel={pageActionsLabel}
 			query={query}
-			ref={_tableRef}
 			renderRowActions={renderRowActions}
 		/>
 	);
