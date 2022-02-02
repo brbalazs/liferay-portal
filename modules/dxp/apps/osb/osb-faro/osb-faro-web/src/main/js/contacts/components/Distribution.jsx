@@ -553,7 +553,7 @@ export class Distribution extends React.Component {
 
 		return (
 			<>
-				<BasePage.Body>
+				<BasePage.Body pageContainer={false}>
 					<Card>
 						<Card.Header>
 							<Card.Title>

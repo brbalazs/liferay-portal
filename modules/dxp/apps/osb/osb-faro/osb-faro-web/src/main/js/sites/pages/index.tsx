@@ -5,9 +5,12 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
+import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
+import URLConstants from 'shared/util/url-constants';
 import {Routes} from 'shared/util/router';
-import {Switch} from 'react-router-dom';
+import {Switch, useParams} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
+import {useDataSource} from 'shared/hooks/useDataSource';
 
 const InterestDetails = lazy(
 	() =>
@@ -62,7 +65,8 @@ interface IDashboardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
-	const {channelId, groupId} = router.params;
+	const {channelId, groupId} = useParams();
+	const dataSourceStates = useDataSource();
 	const {selectedChannel} = useChannelContext();
 
 	const selectedChannelName = selectedChannel && selectedChannel.name;
@@ -105,40 +109,71 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 			>
 				<BasePage.Body>
 					<Suspense fallback={<Loading />}>
-						<Switch>
-							<BundleRouter
-								data={InterestDetails}
-								destructured={false}
-								exact
-								path={Routes.SITES_INTEREST_DETAILS}
+						<StatesRenderer {...dataSourceStates}>
+							<StatesRenderer.Empty
+								className='sites-dashboard bg-white mt-4 py-5'
+								description={
+									<>
+										{Liferay.Language.get(
+											'connect-a-data-source-with-sites-data'
+										)}
+
+										<a
+											className='pl-1'
+											href={
+												URLConstants.DataSourceConnection
+											}
+											key='DOCUMENTATION'
+											target='_blank'
+										>
+											{Liferay.Language.get(
+												'access-our-documentation-to-learn-more'
+											)}
+										</a>
+									</>
+								}
+								title={Liferay.Language.get(
+									'no-sites-synced-from-data-sources'
+								)}
 							/>
 
-							<BundleRouter
-								data={Interests}
-								destructured={false}
-								exact
-								path={Routes.SITES_INTERESTS}
-							/>
+							<StatesRenderer.Success>
+								<Switch>
+									<BundleRouter
+										data={InterestDetails}
+										destructured={false}
+										exact
+										path={Routes.SITES_INTEREST_DETAILS}
+									/>
 
-							<BundleRouter
-								data={Touchpoints}
-								destructured={false}
-								exact
-								path={Routes.SITES_TOUCHPOINTS}
-							/>
+									<BundleRouter
+										data={Interests}
+										destructured={false}
+										exact
+										path={Routes.SITES_INTERESTS}
+									/>
 
-							<BundleRouter
-								componentProps={{
-									channelName: selectedChannelName
-								}}
-								data={Overview}
-								destructured={false}
-								exact
-								path={Routes.SITES}
-							/>
+									<BundleRouter
+										data={Touchpoints}
+										destructured={false}
+										exact
+										path={Routes.SITES_TOUCHPOINTS}
+									/>
 
-							<RouteNotFound />
-						</Switch>
+									<BundleRouter
+										componentProps={{
+											channelName: selectedChannelName
+										}}
+										data={Overview}
+										destructured={false}
+										exact
+										path={Routes.SITES}
+									/>
+
+									<RouteNotFound />
+								</Switch>
+							</StatesRenderer.Success>
+						</StatesRenderer>
 					</Suspense>
 				</BasePage.Body>
 			</BasePage.Context.Provider>
