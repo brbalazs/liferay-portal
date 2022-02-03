@@ -120,6 +120,7 @@ public class PortalImplEscapeRedirectTest {
 			// Invalid URLs
 
 			Assert.assertNull(_portalImpl.escapeRedirect("//www.google.com"));
+			Assert.assertNull(_portalImpl.escapeRedirect("//www.google.com/"));
 			Assert.assertNull(_portalImpl.escapeRedirect("https:google.com"));
 			Assert.assertNull(_portalImpl.escapeRedirect(":@liferay.com"));
 			Assert.assertNull(_portalImpl.escapeRedirect("http:/web"));
