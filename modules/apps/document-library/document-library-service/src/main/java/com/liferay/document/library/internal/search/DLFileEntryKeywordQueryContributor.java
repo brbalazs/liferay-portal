@@ -14,9 +14,13 @@
 
 package com.liferay.document.library.internal.search;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.ParseException;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -71,9 +75,31 @@ public class DLFileEntryKeywordQueryContributor
 		Locale siteDefaultLocale = LocaleUtil.getSiteDefault();
 
 		if (siteDefaultLocale != searchContext.getLocale()) {
-			queryHelper.addSearchTerm(
-				booleanQuery, searchContext,
-				getLocalizedName(Field.CONTENT, siteDefaultLocale), false);
+			try {
+				BooleanQuery query = new BooleanQueryImpl();
+
+				BooleanQuery isDLFileEntryQuery = new BooleanQueryImpl();
+
+				isDLFileEntryQuery.addTerm(
+					"entryClassName",
+					"com.liferay.document.library.kernel.model.DLFileEntry",
+					false);
+
+				query.add(isDLFileEntryQuery, BooleanClauseOccur.MUST);
+
+				BooleanQuery siteDefaultLocaleQuery = new BooleanQueryImpl();
+
+				queryHelper.addSearchTerm(
+					siteDefaultLocaleQuery, searchContext,
+					getLocalizedName(Field.CONTENT, siteDefaultLocale), false);
+
+				query.add(siteDefaultLocaleQuery, BooleanClauseOccur.MUST);
+
+				booleanQuery.add(query, BooleanClauseOccur.SHOULD);
+			}
+			catch (ParseException parseException) {
+				throw new SystemException(parseException);
+			}
 		}
 	}
 
