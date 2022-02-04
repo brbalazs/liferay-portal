@@ -1,5 +1,5 @@
-import * as API from 'shared/api';
 import * as data from 'test/data';
+import * as useDataSource from 'shared/hooks/useDataSource';
 import BaseListPage from '../BaseListPage';
 import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
@@ -14,15 +14,11 @@ import {
 import {createOrderIOMap} from 'shared/util/pagination';
 import {MemoryRouter, Route} from 'react-router-dom';
 import {mockChannelContext} from 'test/mock-channel-context';
-import {noop, times} from 'lodash';
+import {mockEmptyState, mockSuccessState} from 'test/__mocks__/mock-objects';
 import {Provider} from 'react-redux';
 import {Routes} from 'shared/util/router';
+import {times} from 'lodash';
 import {User} from 'shared/util/records';
-import {UserRoleNames} from 'shared/util/constants';
-
-const MEMBER_USER = new User(
-	data.mockUser(24, {roleName: UserRoleNames.Member})
-);
 
 const TOTAL = 5;
 
@@ -30,7 +26,7 @@ const ACCOUNTS = times(TOTAL, i => data.mockAccount(i));
 
 const USER = new User(data.mockUser());
 
-const defaultProps = {
+const defaultProps = (empty = false) => ({
 	channelId: '123123',
 	columns: [
 		{
@@ -44,21 +40,31 @@ const defaultProps = {
 	],
 	currentUser: USER,
 	dataSourceFn: jest.fn(() =>
-		Promise.resolve({items: ACCOUNTS, total: TOTAL})
+		Promise.resolve(
+			empty ? {items: [], total: 0} : {items: ACCOUNTS, total: TOTAL}
+		)
 	),
 	entityLabel: 'Accounts',
 	groupId: '23',
+	noResultsConfig: {
+		description: 'There is no account data from existing data sources.',
+		title: 'No account data available.'
+	},
 	orderIOMap: createOrderIOMap('name')
-};
+});
 
-const WrappedComponent = props => (
+const WrappedComponent = ({alerts, empty, query}) => (
 	<Provider store={mockStore()}>
 		<MemoryRouter
 			initialEntries={['/workspace/23/123123/contacts/segments']}
 		>
 			<Route path={Routes.CONTACTS_LIST_SEGMENT}>
 				<ChannelContext.Provider value={mockChannelContext()}>
-					<BaseListPage {...defaultProps} {...props} />
+					<BaseListPage
+						alerts={alerts}
+						{...defaultProps(empty)}
+						query={query}
+					/>
 				</ChannelContext.Provider>
 			</Route>
 		</MemoryRouter>
@@ -68,8 +74,11 @@ const WrappedComponent = props => (
 jest.unmock('react-dom');
 jest.useRealTimers();
 
+const mockUseDataSource = useDataSource;
+
 describe('BaseListPage', () => {
 	afterEach(cleanup);
+	mockUseDataSource.useDataSource = jest.fn(() => mockSuccessState);
 
 	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
@@ -81,88 +90,76 @@ describe('BaseListPage', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with an empty query state', async () => {
-		const {findByText} = render(
-			<WrappedComponent
-				dataSourceFn={jest.fn(() =>
-					Promise.resolve({items: [], total: 0})
-				)}
-				query='non-existent datasource'
-			/>
+	it('should load accounts', async () => {
+		const {container, getByText} = render(<WrappedComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
 		);
 
-		const noResult = await waitForElement(() =>
-			findByText('non-existent datasource')
-		);
-
-		expect(noResult.parentNode).toMatchSnapshot();
+		expect(container.querySelectorAll('.table-head-title')).toHaveLength(2);
+		expect(container.querySelector('tbody').children).toHaveLength(5);
+		expect(getByText('account0')).toBeInTheDocument();
+		expect(getByText('Showing 1 to 2 of 5 entries.')).toBeInTheDocument();
 	});
 
-	it('should render with a no results display if there are no results and active filters', async () => {
-		const {findByText} = render(
-			<WrappedComponent
-				dataSourceFn={jest.fn(() =>
-					Promise.resolve({items: [], total: 0})
-				)}
-				query='non-existent datasource'
-			/>
+	it('should render "No Account" empty state with no query', async () => {
+		const {container, getByText} = render(<WrappedComponent empty />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
 		);
 
-		const noResult = await waitForElement(() =>
-			findByText('There are no Accounts found.')
-		);
-
-		expect(noResult).toBeInTheDocument();
+		expect(
+			getByText('There is no account data from existing data sources.')
+		).toBeInTheDocument();
+		expect(getByText('No account data available.')).toBeInTheDocument();
 	});
 
-	it('should render with a message to connect datasources', async () => {
-		API.dataSource.search.mockReturnValueOnce(
-			Promise.resolve(data.mockSearch(noop, 0))
-		);
-
+	it('should render "No Account" empty state with query', async () => {
 		const {container, getByText} = render(
-			<WrappedComponent
-				dataSourceFn={jest.fn(() =>
-					Promise.resolve({items: [], total: 0})
-				)}
-			/>
+			<WrappedComponent empty query='test' />
 		);
 
-		await waitForElement(() => getByText('No Data Sources Connected'));
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
-		expect(container).toMatchSnapshot();
+		expect(container.querySelector('.tbar-nav').children).toHaveLength(2);
+
+		expect(
+			container.querySelectorAll('.tbar-section.text-truncate')[0]
+		).toHaveTextContent('0 Results for "test"');
+		expect(
+			container.querySelectorAll('.tbar-section.text-truncate')[1]
+		).toHaveTextContent('Clear');
+
+		expect(getByText('There are no Accounts found.')).toBeInTheDocument();
 	});
 
-	it('should render with a member-specific message to connect datasources', async () => {
-		API.dataSource.search.mockReturnValueOnce(
-			Promise.resolve(data.mockSearch(noop, 0))
-		);
-
-		const {container, getByText} = render(
-			<WrappedComponent
-				currentUser={MEMBER_USER}
-				dataSourceFn={jest.fn(() =>
-					Promise.resolve({items: [], total: 0})
-				)}
-			/>
-		);
-
-		await waitForElement(() => getByText('No Data Sources Connected'));
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should render with an embedded alert', async () => {
-		API.dataSource.search.mockReturnValueOnce(
-			Promise.resolve(data.mockSearch(noop, 0))
-		);
-
-		const {getByRole} = render(
+	it('should render with alerts', async () => {
+		const {getByRole, getByText} = render(
 			<WrappedComponent alerts={[{message: 'foo alert'}]} />
 		);
 
-		const alertElement = await waitForElement(() => getByRole('alert'));
+		await waitForElement(() => getByRole('alert'));
 
-		expect(alertElement).toMatchSnapshot();
+		expect(getByText('foo alert')).toBeInTheDocument();
+	});
+});
+
+describe('BaseListPage with no Data Source', () => {
+	it('should render EmptyState', () => {
+		mockUseDataSource.useDataSource = jest.fn(() => mockEmptyState);
+
+		const {getByText} = render(<WrappedComponent />);
+
+		expect(getByText('No Data Sources Connected')).toBeInTheDocument();
+		expect(
+			getByText('Connect a data source to get started.')
+		).toBeInTheDocument();
+		expect(
+			getByText('Access our documentation to learn more.')
+		).toBeInTheDocument();
 	});
 });

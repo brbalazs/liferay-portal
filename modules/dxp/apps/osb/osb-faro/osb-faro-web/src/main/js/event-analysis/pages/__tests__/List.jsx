@@ -1,5 +1,6 @@
 import 'test/mock-modal';
 
+import * as useDataSource from 'shared/hooks/useDataSource';
 import client from 'shared/apollo/client';
 import EventAnalysisList from '../List';
 import mockStore from 'test/mock-store';
@@ -12,6 +13,7 @@ import {
 } from '@testing-library/react';
 import {MemoryRouter, Route} from 'react-router-dom';
 import {MockedProvider} from '@apollo/react-testing';
+import {mockEmptyState, mockSuccessState} from 'test/__mocks__/mock-objects';
 import {mockEventAnalysisListReq} from 'test/graphql-data';
 import {open} from 'shared/actions/modals';
 import {Provider} from 'react-redux';
@@ -59,9 +61,12 @@ const WrappedComponent = ({eventAnalyses}) => (
 		</ApolloProvider>
 	</Provider>
 );
+const mockUseDataSource = useDataSource;
 
 describe('Event Analysis List', () => {
 	it('should render', async () => {
+		mockUseDataSource.useDataSource = jest.fn(() => mockSuccessState);
+
 		const {container} = render(
 			<WrappedComponent eventAnalyses={eventAnalysis} />
 		);
@@ -82,8 +87,12 @@ describe('Event Analysis List', () => {
 
 		const noResults = container.querySelector('.no-results-root');
 
-		expect(noResults).toBeTruthy();
-		expect(noResults).toMatchSnapshot();
+		expect(noResults).toBeInTheDocument();
+		expect(
+			container.querySelector('.no-results-description')
+		).toHaveTextContent(
+			'Create an analysis to get started or access our documentation to learn more.'
+		);
 	});
 
 	it('should open modal to delete the event analysis when clicking on trash button', async () => {
@@ -124,5 +133,25 @@ describe('Event Analysis List', () => {
 		jest.runAllTimers();
 
 		expect(managementBar.querySelector('.lexicon-icon-trash')).toBeTruthy();
+	});
+});
+
+describe('EventAnalysisList with no Data Source', () => {
+	it('should render EmptyState', () => {
+		mockUseDataSource.useDataSource = jest.fn(() => mockEmptyState);
+
+		const {getByText} = render(
+			<WrappedComponent eventAnalyses={eventAnalysis} />
+		);
+
+		expect(
+			getByText('No Event Analysis Synced from Data Sources')
+		).toBeInTheDocument();
+		expect(
+			getByText('Connect a data source with events data.')
+		).toBeInTheDocument();
+		expect(
+			getByText('Access our documentation to learn more.')
+		).toBeInTheDocument();
 	});
 });
