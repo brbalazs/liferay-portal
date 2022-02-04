@@ -122,6 +122,19 @@ public class MockContactsEngineClientImpl
 	}
 
 	@Override
+	public long getIndividualsCount(
+		FaroProject faroProject, String accountId, String channelId,
+		String dataSourceId, String individualSegmentId,
+		String notIndividualSegmentId, String interestName, String filter,
+		String query, List<String> fields, boolean includeAnonymousUsers) {
+
+		return contactsEngineClient.getIndividualsCount(
+			faroProject, accountId, channelId, dataSourceId,
+			individualSegmentId, notIndividualSegmentId, interestName, filter,
+			query, fields, includeAnonymousUsers);
+	}
+
+	@Override
 	public Results<Individual> getSimilarIndividuals(
 		FaroProject faroProject, String individualId, String query,
 		List<String> fields, int cur, int delta,

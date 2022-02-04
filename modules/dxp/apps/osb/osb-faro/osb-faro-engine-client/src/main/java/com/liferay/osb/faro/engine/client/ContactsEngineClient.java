@@ -369,6 +369,12 @@ public interface ContactsEngineClient {
 		String query, List<String> fields, boolean includeAnonymousUsers,
 		int cur, int delta, List<OrderByField> orderByFields);
 
+	public long getIndividualsCount(
+		FaroProject faroProject, String accountId, String channelId,
+		String dataSourceId, String individualSegmentId,
+		String notIndividualSegmentId, String interestName, String filter,
+		String query, List<String> fields, boolean includeAnonymousUsers);
+
 	public Results<Distribution> getIndividualsDistribution(
 		FaroProject faroProject, String channelId, String fieldMappingId,
 		String filter, String individualSegmentId, int count, int numberOfBins,

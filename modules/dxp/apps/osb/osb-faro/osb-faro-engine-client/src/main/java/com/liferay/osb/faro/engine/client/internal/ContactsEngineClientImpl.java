@@ -102,8 +102,10 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
@@ -1873,6 +1875,56 @@ public class ContactsEngineClientImpl
 			uriVariables);
 
 		return pagedModel.getResults();
+	}
+
+	@Override
+	public long getIndividualsCount(
+		FaroProject faroProject, String accountId, String channelId,
+		String dataSourceId, String individualSegmentId,
+		String notIndividualSegmentId, String interestName, String filter,
+		String query, List<String> fields, boolean includeAnonymousUsers) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		if (Validator.isNotNull(channelId)) {
+			uriVariables.put("channelId", channelId);
+		}
+
+		uriVariables.put("expand", "account-names");
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(
+			"accountId", FilterConstants.COMPARISON_OPERATOR_EQUALS, accountId);
+		filterBuilder.addFilter(
+			"channelIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			channelId);
+		filterBuilder.addFilter(
+			"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			dataSourceId);
+		filterBuilder.addFilter(
+			"individualSegmentIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			individualSegmentId);
+		filterBuilder.addFilter(
+			"individualSegmentIds",
+			FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS,
+			notIndividualSegmentId);
+		filterBuilder.addInterestFilter(interestName, true);
+		filterBuilder.addFilter(filter);
+		filterBuilder.addSearchFilter(
+			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<Long> responseEntity = restTemplate.exchange(
+			getTemplatedURL(faroProject, Rels.INDIVIDUALS), HttpMethod.GET,
+			HttpEntity.EMPTY, Long.class, uriVariables);
+
+		return responseEntity.getBody();
 	}
 
 	@Override
