@@ -12,7 +12,7 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
         class="col-xl-12"
       >
         <div
-          class="body-root page-container"
+          class="body-root"
         >
           <span
             class="children-wrapper"

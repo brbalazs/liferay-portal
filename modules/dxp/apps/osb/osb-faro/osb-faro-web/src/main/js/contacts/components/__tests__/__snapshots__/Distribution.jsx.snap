@@ -3,7 +3,7 @@
 exports[`SegmentDistribution should render 1`] = `
 <div>
   <div
-    class="body-root page-container"
+    class="body-root"
   >
     <span
       class="children-wrapper"
