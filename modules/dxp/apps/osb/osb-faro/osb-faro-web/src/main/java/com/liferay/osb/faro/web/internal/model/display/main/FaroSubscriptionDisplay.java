@@ -17,8 +17,6 @@ package com.liferay.osb.faro.web.internal.model.display.main;
 import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
-import com.liferay.osb.faro.engine.client.model.Individual;
-import com.liferay.osb.faro.engine.client.model.Results;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
@@ -141,8 +139,9 @@ public class FaroSubscriptionDisplay {
 			return;
 		}
 
-		_individualsCount = contactsEngineClient.getIndividualsCount(faroProject, null, null, null, null, null, null, null, null, null,
-				false);
+		_individualsCount = contactsEngineClient.getIndividualsCount(
+			faroProject, null, null, null, null, null, null, null, null, null,
+			false);
 
 		_individualsStatus = getStatus(_individualsCount, _individualsLimit);
 
