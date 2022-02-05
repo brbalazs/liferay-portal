@@ -1924,7 +1924,11 @@ public class ContactsEngineClientImpl
 			getTemplatedURL(faroProject, Rels.INDIVIDUALS), HttpMethod.GET,
 			HttpEntity.EMPTY, Long.class, uriVariables);
 
-		return responseEntity.getBody();
+		return Optional.ofNullable(
+			responseEntity.getBody()
+		).orElse(
+			0L
+		);
 	}
 
 	@Override
