@@ -29,31 +29,29 @@ import org.mozilla.universalchardet.UniversalDetector;
 public class CharsetDetector {
 
 	public Charset detect(File file) throws IOException {
-		UniversalDetector detector = new UniversalDetector();
+		UniversalDetector universalDetector = new UniversalDetector();
 
 		try (InputStream fileInputStream = new FileInputStream(file)) {
 			byte[] bytes = new byte[4096];
-			int bytesLength;
+			int length = 0;
 
-			while (((bytesLength = fileInputStream.read(bytes)) > 0) &&
-				   !detector.isDone()) {
+			while (((length = fileInputStream.read(bytes)) > 0) &&
+				   !universalDetector.isDone()) {
 
-				detector.handleData(bytes, 0, bytesLength);
+				universalDetector.handleData(bytes, 0, length);
 			}
 
-			detector.dataEnd();
-
-			String charsetString = detector.getDetectedCharset();
+			universalDetector.dataEnd();
 
 			try {
-				return Charset.forName(charsetString);
+				return Charset.forName(universalDetector.getDetectedCharset());
 			}
 			catch (IllegalArgumentException illegalArgumentException) {
 				return null;
 			}
 		}
 		finally {
-			detector.reset();
+			universalDetector.reset();
 		}
 	}
 
