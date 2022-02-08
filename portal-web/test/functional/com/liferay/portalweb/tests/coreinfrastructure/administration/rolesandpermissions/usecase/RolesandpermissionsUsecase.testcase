@@ -1836,6 +1836,15 @@ definition {
 			siteName = "${siteName}",
 			userScreenName = "usersn");
 
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			userEmailAddress = "userea@liferay.com",
+			userScreenName = "usersn");
+
 		Portlet.addPG(portletName = "Currency Converter");
 
 		PermissionsInline.gotoConfigurationPG(portletName = "Currency Converter");
