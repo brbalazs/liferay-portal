@@ -1004,6 +1004,8 @@ definition {
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
+		Portlet.addPG(portletName = "Documents and Media");
+
 		User.logoutPG(nodePort = "8080");
 
 		User.loginPG(
@@ -1061,6 +1063,8 @@ definition {
 		Navigator.gotoSpecificURLPage(
 			pageName = "Documents and Media Page",
 			url = "http://localhost:10080");
+
+		DMDocument.enableActionsMenuOnPortlet();
 
 		DMDocument.addPG(
 			dmDocumentDescription = "DM Document Description",
