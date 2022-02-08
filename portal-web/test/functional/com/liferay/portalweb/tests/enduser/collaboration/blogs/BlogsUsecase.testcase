@@ -76,6 +76,7 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
+	@description = "LPS-110117 - Image editing toolbar does not display anymore after adding a link to the image."
 	@priority = "4"
 	test AddBlogsEntryWithInlineImage {
 		Navigator.openURL();
@@ -91,6 +92,7 @@ definition {
 
 		BlogsEntry.addContentWithInlineImage(
 			entryContent = "Blogs Entry Content",
+			entryInlineImageURL = "www.liferay.com",
 			navTab = "Upload Image",
 			uploadFileName = "Document_1.jpg");
 
