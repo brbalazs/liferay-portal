@@ -140,8 +140,7 @@ public class FaroSubscriptionDisplay {
 		}
 
 		_individualsCount = contactsEngineClient.getIndividualsCount(
-			faroProject, null, null, null, null, null, null, null, null, null,
-			false);
+			faroProject, false);
 
 		_individualsStatus = getStatus(_individualsCount, _individualsLimit);
 

@@ -123,15 +123,10 @@ public class MockContactsEngineClientImpl
 
 	@Override
 	public long getIndividualsCount(
-		FaroProject faroProject, String accountId, String channelId,
-		String dataSourceId, String individualSegmentId,
-		String notIndividualSegmentId, String interestName, String filter,
-		String query, List<String> fields, boolean includeAnonymousUsers) {
+		FaroProject faroProject, boolean includeAnonymousUsers) {
 
 		return contactsEngineClient.getIndividualsCount(
-			faroProject, accountId, channelId, dataSourceId,
-			individualSegmentId, notIndividualSegmentId, interestName, filter,
-			query, fields, includeAnonymousUsers);
+			faroProject, includeAnonymousUsers);
 	}
 
 	@Override
