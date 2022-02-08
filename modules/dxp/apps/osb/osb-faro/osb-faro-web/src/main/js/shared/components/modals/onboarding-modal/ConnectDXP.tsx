@@ -31,6 +31,7 @@ import {get, noop, upperFirst} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {useInterval} from 'shared/hooks/useInterval';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withHistory} from 'shared/hoc';
 
@@ -242,9 +243,15 @@ const ConnectDXP: React.FC<IConnectDXPWrapperProps & IConnectDXPProps> = ({
 						: Liferay.Language.get('connect-your-dxp-analytics')}
 				</span>
 
-				{!dxpConnected && <TokenInput token={token} />}
+				{!dxpConnected && (
+					<>
+						<TokenInput token={token} />
 
-				{dxpConnected ? <DxpSyncTable /> : <FixPackSelect />}
+						<FixPackSelect />
+					</>
+				)}
+
+				{dxpConnected && <DxpSyncTable />}
 			</Modal.Body>
 
 			<Footer
@@ -264,7 +271,6 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 		contactsSyncDetails: {selected: false},
 		sitesSyncDetails: {selected: false}
 	});
-
 	const [getDataSources, {data}] = useLazyQuery<DataSourceSyncData>(
 		DataSourceQuery,
 		{
@@ -280,8 +286,7 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 			}
 		}
 	);
-
-	const timeoutId = setTimeout(() => getDataSources(), TIMEOUT_INTERVAL);
+	useInterval<void>(getDataSources, TIMEOUT_INTERVAL);
 
 	const getLabelProps = (selected: boolean) =>
 		selected
@@ -301,13 +306,6 @@ const DxpSyncTable: FC<React.HTMLAttributes<HTMLElement>> = () => {
 			setDataSources(data.dataSources[0]);
 		}
 	}, [data]);
-
-	useEffect(
-		() => () => {
-			clearTimeout(timeoutId);
-		},
-		[]
-	);
 
 	return (
 		<div className='success-info w-100'>
