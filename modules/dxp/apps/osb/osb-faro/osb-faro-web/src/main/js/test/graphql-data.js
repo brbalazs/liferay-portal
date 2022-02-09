@@ -622,6 +622,8 @@ export function mockEventAnalysisReq() {
 							binSize: 1,
 							dataType: DataTypes.String,
 							dateGrouping: DateGroupings.Day,
+							description: null,
+							displayName: 'assetId',
 							sortType: OrderByDirections.Descending
 						},
 						{
@@ -631,6 +633,8 @@ export function mockEventAnalysisReq() {
 							binSize: 1,
 							dataType: DataTypes.String,
 							dateGrouping: DateGroupings.Day,
+							description: null,
+							displayName: 'category',
 							sortType: OrderByDirections.Descending
 						}
 					],
@@ -640,6 +644,8 @@ export function mockEventAnalysisReq() {
 							attributeId: '26',
 							attributeType: 'EVENT',
 							dataType: DataTypes.String,
+							description: null,
+							displayName: 'pageTitle',
 							operator: 'contains',
 							values: ['page title']
 						}
