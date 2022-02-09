@@ -16,6 +16,8 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 	attributeId,
 	attributeOwnerType,
 	breakdown,
+	description,
+	displayName,
 	onSubmit
 }) => {
 	const getInitialValues = () => {
@@ -46,7 +48,9 @@ const DurationBreakdown: React.FC<IBreakdownProps> = ({
 						attributeType: attributeOwnerType,
 						binSize: getMillisecondsFromTime(
 							binSize.replace(/_/g, '0') as string
-						)
+						),
+						description,
+						displayName
 					})
 				);
 			}}

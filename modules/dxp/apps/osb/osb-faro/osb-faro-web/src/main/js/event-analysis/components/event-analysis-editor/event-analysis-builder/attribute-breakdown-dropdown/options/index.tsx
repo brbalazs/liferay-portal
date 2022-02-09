@@ -45,7 +45,13 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 	onAttributeChange,
 	onEditClick
 }) => {
-	const {dataType, displayName, id: attributeId, name} = attribute;
+	const {
+		dataType,
+		description,
+		displayName,
+		id: attributeId,
+		name
+	} = attribute;
 
 	const breakdown = breakdowns[breakdownId];
 
@@ -78,6 +84,8 @@ const BreakdownOptions: React.FC<IBreakdownOptionsProps> = ({
 				breakdown={
 					breakdown?.attributeId === attributeId ? breakdown : null
 				}
+				description={description}
+				displayName={displayName}
 				onSubmit={newBreakdown => {
 					if (breakdownId) {
 						editBreakdown({

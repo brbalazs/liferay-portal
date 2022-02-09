@@ -12,6 +12,8 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 	attributeId,
 	attributeOwnerType,
 	breakdown,
+	description,
+	displayName,
 	onSubmit
 }) => {
 	const getInitialValues = () => {
@@ -38,7 +40,9 @@ const DateBreakdown: React.FC<IBreakdownProps> = ({
 					createDateBreakdown({
 						attributeId,
 						attributeType: attributeOwnerType,
-						dateGrouping
+						dateGrouping,
+						description,
+						displayName
 					})
 				);
 			}}

@@ -24,14 +24,25 @@ const AttributeFilterChip: React.FC<{
 }) => {
 	const [label, value] = getFilterDisplay(attribute, filter);
 
+	const {dataType, description, displayName} = filter;
+
+	const newAttribute = {
+		...attribute,
+		dataType,
+		description,
+		displayName
+	};
+
 	return (
 		<AttributeFilterDropdown
-			attribute={attribute}
+			attribute={newAttribute}
 			eventId={eventId}
 			filter={filter}
 			trigger={
 				<AttributeChip
-					dataType={filter.dataType}
+					dataType={dataType}
+					description={description}
+					displayName={displayName}
 					draggable={false}
 					dragType={DragTypes.AttributeFilterChip}
 					id={filter.id}

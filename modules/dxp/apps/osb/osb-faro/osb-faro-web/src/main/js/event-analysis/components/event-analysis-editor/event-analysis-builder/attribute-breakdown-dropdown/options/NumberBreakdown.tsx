@@ -15,6 +15,8 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 	attributeId,
 	attributeOwnerType,
 	breakdown,
+	description,
+	displayName,
 	onSubmit
 }) => {
 	const getInitialValues = () => {
@@ -39,7 +41,9 @@ const NumberBreakdown: React.FC<IBreakdownProps> = ({
 					createNumberBreakdown({
 						attributeId,
 						attributeType: attributeOwnerType,
-						binSize: Number(binSize)
+						binSize: Number(binSize),
+						description,
+						displayName
 					})
 				);
 			}}

@@ -28,6 +28,8 @@ interface IAttributeChipProps {
 	dataType: DataTypes;
 	draggable?: boolean;
 	dragType: DragTypes;
+	description?: string;
+	displayName: string;
 	id: string;
 	index: number;
 	label: string;

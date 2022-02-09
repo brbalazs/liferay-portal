@@ -14,6 +14,8 @@ import {sequence} from 'shared/util/promise';
 const NumberFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
+	description,
+	displayName,
 	filter,
 	onSubmit
 }) => {
@@ -49,6 +51,8 @@ const NumberFilter: React.FC<IFilterProps> = ({
 					attributeId,
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Number,
+					description,
+					displayName,
 					operator,
 					values
 				});

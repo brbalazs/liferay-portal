@@ -5,7 +5,7 @@ import {Attribute, Breakdown} from 'event-analysis/utils/types';
 import {DeleteBreakdown, EditBreakdown} from '../context/attributes';
 import {getBreakdownDisplay} from 'event-analysis/utils/utils';
 
-const AttributeFilterChipWrapper: React.FC<{
+const AttributeBreakdownChip: React.FC<{
 	attribute: Attribute;
 	breakdown: Breakdown;
 	disabledIds: string[];
@@ -31,16 +31,27 @@ const AttributeFilterChipWrapper: React.FC<{
 		breakdown.attributeType
 	);
 
+	const {dataType, description, displayName} = breakdown;
+
+	const newAttribute = {
+		...attribute,
+		dataType,
+		description,
+		displayName
+	};
+
 	return (
 		<AttributeBreakdownDropdown
-			attribute={attribute}
+			attribute={newAttribute}
 			breakdown={breakdown}
 			disabledIds={disabledIds}
 			eventId={eventId}
 			onAttributeSelect={onEditSubmit}
 			trigger={
 				<AttributeChip
-					dataType={breakdown.dataType}
+					dataType={dataType}
+					description={description}
+					displayName={displayName}
 					dragType={DragTypes.AttributeBreakdownChip}
 					id={breakdown.id}
 					index={index}
@@ -54,4 +65,5 @@ const AttributeFilterChipWrapper: React.FC<{
 		/>
 	);
 };
-export default AttributeFilterChipWrapper;
+
+export default AttributeBreakdownChip;

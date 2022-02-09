@@ -14,6 +14,8 @@ const DURATION_MASK = [/\d/, /\d/, ':', /[0-6]/, /\d/, ':', /[0-6]/, /\d/];
 const DurationFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
+	description,
+	displayName,
 	filter,
 	onSubmit
 }) => {
@@ -46,6 +48,8 @@ const DurationFilter: React.FC<IFilterProps> = ({
 					attributeId,
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Duration,
+					description,
+					displayName,
 					operator,
 					values: [
 						String(

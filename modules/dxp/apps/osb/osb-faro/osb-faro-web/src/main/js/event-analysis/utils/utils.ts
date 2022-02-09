@@ -220,64 +220,84 @@ export const isAttribute = (item: Attribute | Event): boolean =>
 
 export const createBooleanBreakdown = ({
 	attributeId,
-	attributeType
+	attributeType,
+	description,
+	displayName
 }): Breakdown => ({
 	attributeId,
 	attributeType,
 	binSize: null,
 	dataType: DataTypes.Boolean,
 	dateGrouping: null,
+	description,
+	displayName,
 	sortType: OrderByDirections.Descending
 });
 
 export const createDateBreakdown = ({
 	attributeId,
+	attributeType,
 	dateGrouping = DEFAULT_DATE_GROUPING,
-	attributeType
+	description,
+	displayName
 }): Breakdown => ({
 	attributeId,
 	attributeType,
 	binSize: null,
 	dataType: DataTypes.Date,
 	dateGrouping,
+	description,
+	displayName,
 	sortType: OrderByDirections.Descending
 });
 
 export const createDurationBreakdown = ({
 	attributeId,
 	attributeType,
-	binSize = DEFAULT_DURATION_BIN
+	binSize = DEFAULT_DURATION_BIN,
+	description,
+	displayName
 }): Breakdown => ({
 	attributeId,
 	attributeType,
 	binSize,
 	dataType: DataTypes.Duration,
 	dateGrouping: null,
+	description,
+	displayName,
 	sortType: OrderByDirections.Descending
 });
 
 export const createNumberBreakdown = ({
 	attributeId,
 	attributeType,
-	binSize = DEFAULT_NUMBER_BIN
+	binSize = DEFAULT_NUMBER_BIN,
+	description,
+	displayName
 }): Breakdown => ({
 	attributeId,
 	attributeType,
 	binSize,
 	dataType: DataTypes.Number,
 	dateGrouping: null,
+	description,
+	displayName,
 	sortType: OrderByDirections.Descending
 });
 
 export const createStringBreakdown = ({
 	attributeId,
-	attributeType
+	attributeType,
+	description,
+	displayName
 }): Breakdown => ({
 	attributeId,
 	attributeType,
 	binSize: null,
 	dataType: DataTypes.String,
 	dateGrouping: null,
+	description,
+	displayName,
 	sortType: OrderByDirections.Descending
 });
 

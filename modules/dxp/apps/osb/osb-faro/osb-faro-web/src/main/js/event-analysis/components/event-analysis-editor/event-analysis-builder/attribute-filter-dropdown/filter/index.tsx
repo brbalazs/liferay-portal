@@ -49,7 +49,13 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 	onAttributeChange,
 	onEditClick
 }) => {
-	const {dataType, displayName, id: attributeId, name} = attribute;
+	const {
+		dataType,
+		description,
+		displayName,
+		id: attributeId,
+		name
+	} = attribute;
 
 	const FilterBody = FILTERS_MAP[dataType];
 
@@ -79,6 +85,8 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 			<FilterBody
 				attributeId={attributeId}
 				attributeOwnerType={attributeOwnerType}
+				description={description}
+				displayName={displayName}
 				filter={filter?.attributeId === attributeId ? filter : null}
 				onSubmit={newFilter => {
 					if (filterId) {

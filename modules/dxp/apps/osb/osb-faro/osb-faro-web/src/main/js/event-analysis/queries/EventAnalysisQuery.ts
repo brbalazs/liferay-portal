@@ -84,12 +84,16 @@ export const EventAnalysisQuery = gql`
 				binSize
 				dataType
 				dateGrouping
+				description
+				displayName
 				sortType
 			}
 			eventAnalysisFilters {
 				attributeId
 				attributeType
 				dataType
+				description
+				displayName
 				operator
 				values
 			}

@@ -78,6 +78,8 @@ export type Breakdown = {
 	binSize: number;
 	dataType: DataTypes;
 	dateGrouping: DateGroupings;
+	description?: string;
+	displayName: string;
 	id?: string;
 	sortType: OrderByDirections;
 };
@@ -98,6 +100,8 @@ export type Filter = {
 	attributeId: string;
 	attributeType: AttributeOwnerTypes;
 	dataType: DataTypes;
+	description?: string;
+	displayName: string;
 	id?: string;
 	operator: Operators;
 	values: string[];
@@ -109,12 +113,16 @@ export interface IBreakdownProps {
 	attributeId: string;
 	attributeOwnerType: AttributeOwnerTypes;
 	breakdown?: Breakdown;
+	description?: string;
+	displayName: string;
 	onSubmit: (breakdown: Breakdown) => void;
 }
 
 export interface IFilterProps {
 	attributeId: string;
 	attributeOwnerType: AttributeOwnerTypes;
+	description?: string;
+	displayName: string;
 	filter?: Filter;
 	onSubmit: (filter: Filter) => void;
 }

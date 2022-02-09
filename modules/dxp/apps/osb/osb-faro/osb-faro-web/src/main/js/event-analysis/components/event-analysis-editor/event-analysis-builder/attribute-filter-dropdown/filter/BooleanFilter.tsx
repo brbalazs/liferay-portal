@@ -7,6 +7,8 @@ import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
 const BooleanFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
+	description,
+	displayName,
 	filter,
 	onSubmit
 }) => {
@@ -29,6 +31,8 @@ const BooleanFilter: React.FC<IFilterProps> = ({
 					attributeId,
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Boolean,
+					description,
+					displayName,
 					operator,
 					values: [value]
 				});

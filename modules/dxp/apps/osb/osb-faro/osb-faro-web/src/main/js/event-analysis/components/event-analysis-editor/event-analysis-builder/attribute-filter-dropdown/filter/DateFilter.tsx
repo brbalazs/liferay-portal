@@ -13,6 +13,8 @@ import {
 const DateFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
+	description,
+	displayName,
 	filter,
 	onSubmit
 }) => {
@@ -57,6 +59,8 @@ const DateFilter: React.FC<IFilterProps> = ({
 					attributeId,
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.Date,
+					description,
+					displayName,
 					operator,
 					values: dateValue
 				});

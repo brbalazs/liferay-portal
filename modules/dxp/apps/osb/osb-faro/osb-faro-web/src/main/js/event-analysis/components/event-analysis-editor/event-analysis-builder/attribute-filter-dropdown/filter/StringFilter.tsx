@@ -10,6 +10,8 @@ import {
 const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
+	description,
+	displayName,
 	filter,
 	onSubmit
 }) => {
@@ -32,6 +34,8 @@ const StringFilter: React.FC<IFilterProps> = ({
 					attributeId,
 					attributeType: attributeOwnerType,
 					dataType: DataTypes.String,
+					description,
+					displayName,
 					operator,
 					values: [value]
 				});
