@@ -34,10 +34,12 @@ export enum ActionTypes {
 	MoveFilter = 'MOVE_FILTER'
 }
 
-export type AddBreakdown = (params: {
+export type AddBreakdownParams = {
 	attribute: Attribute;
 	breakdown: Breakdown;
-}) => void;
+};
+
+export type AddBreakdown = (params: AddBreakdownParams) => void;
 
 export type AddFilter = (params: {
 	attribute: Attribute;
@@ -49,11 +51,11 @@ export type DeleteAllAttributes = () => void;
 export type DeleteBreakdown = (params: {id: string}) => void;
 export type DeleteFilter = (params: {id: string}) => void;
 
-export type EditBreakdown = (params: {
-	attribute: Attribute;
-	breakdown: Breakdown;
-	id: string;
-}) => void;
+export type EditBreakdown = (
+	params: AddBreakdownParams & {
+		id: string;
+	}
+) => void;
 
 export type EditFilter = (params: {
 	attribute: Attribute;

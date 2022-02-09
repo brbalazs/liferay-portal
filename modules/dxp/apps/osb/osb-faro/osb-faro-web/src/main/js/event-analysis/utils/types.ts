@@ -60,6 +60,7 @@ export type Attribute = {
 		value: string;
 	}[];
 	sampleValue?: string;
+	type: AttributeTypes;
 };
 
 export type Attributes = {[key: string]: Attribute};
