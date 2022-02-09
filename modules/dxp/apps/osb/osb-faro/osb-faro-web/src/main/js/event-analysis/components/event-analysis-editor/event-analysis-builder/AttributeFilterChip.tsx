@@ -26,7 +26,7 @@ const AttributeFilterChip: React.FC<{
 
 	const {dataType, description, displayName} = filter;
 
-	const newAttribute = {
+	const modifiedAttribute = {
 		...attribute,
 		dataType,
 		description,
@@ -35,7 +35,7 @@ const AttributeFilterChip: React.FC<{
 
 	return (
 		<AttributeFilterDropdown
-			attribute={newAttribute}
+			attribute={modifiedAttribute}
 			eventId={eventId}
 			filter={filter}
 			trigger={

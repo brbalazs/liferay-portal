@@ -33,7 +33,7 @@ const AttributeBreakdownChip: React.FC<{
 
 	const {dataType, description, displayName} = breakdown;
 
-	const newAttribute = {
+	const modifiedAttribute = {
 		...attribute,
 		dataType,
 		description,
@@ -42,7 +42,7 @@ const AttributeBreakdownChip: React.FC<{
 
 	return (
 		<AttributeBreakdownDropdown
-			attribute={newAttribute}
+			attribute={modifiedAttribute}
 			breakdown={breakdown}
 			disabledIds={disabledIds}
 			eventId={eventId}

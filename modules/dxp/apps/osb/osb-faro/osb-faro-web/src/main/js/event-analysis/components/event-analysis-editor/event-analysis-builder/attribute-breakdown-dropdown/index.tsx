@@ -140,7 +140,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 											eventAttributeDefinitions: Attribute[];
 										};
 									}) => {
-										const newEventAttributeDefinitions = attribute
+										const modifieldEventAttributeDefinitions = attribute
 											? eventAttributeDefinitions.map(
 													eventAttributeDefinition => {
 														if (
@@ -160,7 +160,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 												activeId={attributeId}
 												disabledIds={disabledIds}
 												items={
-													newEventAttributeDefinitions
+													modifieldEventAttributeDefinitions
 												}
 												onEditClick={(
 													attribute: Attribute
