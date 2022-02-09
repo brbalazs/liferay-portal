@@ -132,37 +132,58 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 										eventAttributeDefinitions: {
 											eventAttributeDefinitions: Attribute[];
 										};
-									}) => (
-										<BaseDropdown.SearchableList
-											activeId={attributeId}
-											disabledIds={disabledIds}
-											items={eventAttributeDefinitions}
-											onEditClick={(
-												attribute: Attribute
-											) => {
-												open(
-													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-													{
-														id: attribute.id,
-														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-														onCancel: close,
-														query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
-														showTypecast: true
-													}
-												);
+									}) => {
+										const newEventAttributeDefinitions = attribute
+											? eventAttributeDefinitions.map(
+													eventAttributeDefinition => {
+														if (
+															attribute.id ===
+															eventAttributeDefinition.id
+														) {
+															return attribute;
+														}
 
-												setActive(false);
-											}}
-											onItemClick={(
-												attribute: Attribute
-											) => {
-												setSelectedAttribute(attribute);
-											}}
-											onQueryChange={setQuery}
-											query={query}
-											uneditableIds={uneditableIds}
-										/>
-									)}
+														return eventAttributeDefinition;
+													}
+											  )
+											: eventAttributeDefinitions;
+
+										return (
+											<BaseDropdown.SearchableList
+												activeId={attributeId}
+												disabledIds={disabledIds}
+												items={
+													newEventAttributeDefinitions
+												}
+												onEditClick={(
+													attribute: Attribute
+												) => {
+													open(
+														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+														{
+															id: attribute.id,
+															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+															onCancel: close,
+															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
+															showTypecast: true
+														}
+													);
+
+													setActive(false);
+												}}
+												onItemClick={(
+													attribute: Attribute
+												) => {
+													setSelectedAttribute(
+														attribute
+													);
+												}}
+												onQueryChange={setQuery}
+												query={query}
+												uneditableIds={uneditableIds}
+											/>
+										);
+									}}
 								</SafeResults>
 							</div>
 						</CSSTransition>

@@ -139,58 +139,85 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 										eventAttributeDefinitions: {
 											eventAttributeDefinitions: Attribute[];
 										};
-									}) => (
-										<BaseDropdown.SearchableList
-											activeId={attributeId}
-											disabledIds={disabledIds}
-											items={eventAttributeDefinitions}
-											onEditClick={(
-												attribute: Attribute
-											) => {
-												open(
-													modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
-													{
-														id: attribute.id,
-														mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-														onCancel: close,
-														query: EventAttributeDefinitionQuery,
-														showTypecast: true
+									}) => {
+										const newEventAttributeDefinitions = attribute
+											? eventAttributeDefinitions.map(
+													eventAttributeDefinition => {
+														if (
+															attribute.id ===
+															eventAttributeDefinition.id
+														) {
+															return attribute;
+														}
+
+														return eventAttributeDefinition;
 													}
-												);
+											  )
+											: eventAttributeDefinitions;
 
-												setActive(false);
-											}}
-											onItemClick={(
-												attribute: Attribute
-											) => {
-												const {
-													dataType,
-													id: newAttributeId
-												} = attribute;
+										return (
+											<BaseDropdown.SearchableList
+												activeId={attributeId}
+												disabledIds={disabledIds}
+												items={
+													newEventAttributeDefinitions
+												}
+												onEditClick={(
+													attribute: Attribute
+												) => {
+													open(
+														modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL,
+														{
+															id: attribute.id,
+															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
+															onCancel: close,
+															query: EventAttributeDefinitionQuery,
+															showTypecast: true
+														}
+													);
 
-												const breakdownFn =
-													BREAKDOWN_FNS_MAP[dataType];
+													setActive(false);
+												}}
+												onItemClick={(
+													attribute: Attribute
+												) => {
+													const {
+														dataType,
+														description,
+														displayName,
+														id: newAttributeId
+													} = attribute;
 
-												onAttributeSelect({
-													attribute,
-													breakdown: breakdownFn({
-														attributeId: newAttributeId,
-														attributeType: attributeOwnerType
-													}),
-													id: breakdownId
-												});
+													const breakdownFn =
+														BREAKDOWN_FNS_MAP[
+															dataType
+														];
 
-												setActive(false);
-											}}
-											onItemOptionsClick={
-												setSelectedAttribute
-											}
-											onQueryChange={setQuery}
-											query={query}
-											showOptionsCondition={hasOptions}
-											uneditableIds={uneditableIds}
-										/>
-									)}
+													onAttributeSelect({
+														attribute,
+														breakdown: breakdownFn({
+															attributeId: newAttributeId,
+															attributeType: attributeOwnerType,
+															description,
+															displayName
+														}),
+														id: breakdownId
+													});
+
+													setActive(false);
+												}}
+												onItemOptionsClick={
+													setSelectedAttribute
+												}
+												onQueryChange={setQuery}
+												query={query}
+												showOptionsCondition={
+													hasOptions
+												}
+												uneditableIds={uneditableIds}
+											/>
+										);
+									}}
 								</SafeResults>
 							</div>
 						</CSSTransition>
