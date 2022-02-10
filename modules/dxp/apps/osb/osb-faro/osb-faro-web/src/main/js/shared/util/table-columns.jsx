@@ -689,8 +689,10 @@ export const metricsListColumns = {
 							assetId,
 							channelId,
 							groupId,
-							title: encodeURIComponent(assetTitle),
 							touchpoint: 'Any',
+							...(assetTitle && {
+								title: encodeURIComponent(assetTitle)
+							}),
 							...(id && {id})
 						})
 					);
@@ -800,8 +802,10 @@ export const sitePagesListColumns = {
 					toRoute(route, {
 						channelId,
 						groupId,
-						title: encodeURIComponent(assetTitle),
-						touchpoint: encodeURIComponent(assetId)
+						touchpoint: encodeURIComponent(assetId),
+						...(assetTitle && {
+							title: encodeURIComponent(assetTitle)
+						})
 					})
 				)
 		},
