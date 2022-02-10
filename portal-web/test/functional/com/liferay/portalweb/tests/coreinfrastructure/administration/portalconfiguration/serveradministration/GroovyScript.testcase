@@ -1,0 +1,42 @@
+@component-name = "portal-server-administration"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Server Administration";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ExecuteSimpleScript {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "GroovyScript#ExecuteSimpleScript";
+
+		ServerAdministration.openServerAdmin();
+
+		var script = '''
+			out.println("Test groovy script");
+		''';
+
+		ServerAdministration.executeScript(
+			language = "Groovy",
+			script = "${script}");
+
+		AssertTextEquals(
+			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
+			value1 = "Test groovy script");
+	}
+
+}
