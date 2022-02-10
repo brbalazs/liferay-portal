@@ -19,6 +19,32 @@ definition {
 		}
 	}
 
+	@priority = "3"
+	test ExecuteScriptWithEmbeddedHTML {
+		property test.name.skip.portal.instance = "GroovyScript#ExecuteScriptWithEmbeddedHTML";
+
+		ServerAdministration.openServerAdmin();
+
+		var script = '''
+			out.println(
+			"""
+				<div class="embedded-html-test">
+					Test Embedded HTML
+				</div>
+			""");
+		''';
+
+		ServerAdministration.executeScript(
+			language = "Groovy",
+			script = "${script}");
+
+		var outputContent = '''<div class="embedded-html-test"> Test Embedded HTML </div>''';
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
+			value1 = "${outputContent}");
+	}
+
 	@priority = "5"
 	test ExecuteScriptWithLiferayClasses {
 		property portal.acceptance = "true";
