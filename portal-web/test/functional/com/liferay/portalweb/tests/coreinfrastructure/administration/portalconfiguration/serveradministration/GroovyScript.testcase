@@ -48,6 +48,31 @@ definition {
 			value1 = "Test Fragment Collection Name");
 	}
 
+	@priority = "4"
+	test ExecuteScriptWithPredefinedVariables {
+		property test.name.skip.portal.instance = "GroovyScript#ExecuteScriptWithPredefinedVariables";
+
+		ServerAdministration.openServerAdmin();
+
+		var script = '''
+			import com.liferay.portal.kernel.util.PortalUtil;
+
+			company = PortalUtil.getCompany(actionRequest);
+
+			out.println("Current company: ${company.getName()}");
+		''';
+
+		ServerAdministration.executeScript(
+			language = "Groovy",
+			script = "${script}");
+
+		var siteName = TestCase.getSiteName();
+
+		AssertTextEquals(
+			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
+			value1 = "Current company: ${siteName}");
+	}
+
 	@priority = "5"
 	test ExecuteSimpleScript {
 		property portal.acceptance = "true";
