@@ -136,6 +136,11 @@ public class RoleResourceTest extends BaseRoleResourceTestCase {
 	}
 
 	@Override
+	protected Role testGetRolesPage_addRole(Role role) throws Exception {
+		return _addRole(role);
+	}
+
+	@Override
 	protected Role testGraphQLRole_addRole() throws Exception {
 		return testGetRole_addRole();
 	}
