@@ -225,8 +225,8 @@ module.exports = {
 				user: 'user'
 			},
 			projectLocations: {
-				EU: 'LONDON, ENGLAND',
-				EU2: 'FRANKFURT, GERMANY',
+				EU2: 'LONDON, ENGLAND',
+				EU3: 'FRANKFURT, GERMANY',
 				SA: 'SÃO PAULO, BRAZIL',
 				US: 'OREGON, USA'
 			},
