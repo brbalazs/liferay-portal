@@ -127,6 +127,10 @@ public class LCPProject {
 				return Cluster.EU2;
 			}
 
+			if (StringUtil.equals(value, Cluster.EU3._value)) {
+				return Cluster.EU3;
+			}
+
 			if (StringUtil.equals(value, Cluster.SA._value)) {
 				return Cluster.SA;
 			}
