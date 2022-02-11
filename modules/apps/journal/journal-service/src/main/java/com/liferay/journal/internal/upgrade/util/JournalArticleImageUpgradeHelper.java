@@ -71,6 +71,32 @@ public class JournalArticleImageUpgradeHelper {
 		return StringPool.BLANK;
 	}
 
+	public FileEntry getFileEntryFromData(String data) {
+		FileEntry fileEntry = null;
+
+		try {
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(data);
+
+			long groupId = GetterUtil.getLong(jsonObject.get("groupId"));
+			String uuid = GetterUtil.getString(jsonObject.get("uuid"));
+
+			fileEntry = _dlAppLocalService.getFileEntryByUuidAndGroupId(
+				uuid, groupId);
+		}
+		catch (PortalException portalException) {
+			String message = "Unable to get file entry from data " + data;
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(message, portalException);
+			}
+			else if (_log.isWarnEnabled()) {
+				_log.warn(message);
+			}
+		}
+
+		return fileEntry;
+	}
+
 	public FileEntry getFileEntryFromURL(String url) {
 		FileEntry fileEntry = null;
 
