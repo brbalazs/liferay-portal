@@ -122,7 +122,7 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 					addAlert({
 						alertType: Alert.Types.Success,
 						message: Liferay.Language.get(
-							'the-segment-has-been-deleted'
+							'the-analysis-has-been-deleted'
 						)
 					});
 
