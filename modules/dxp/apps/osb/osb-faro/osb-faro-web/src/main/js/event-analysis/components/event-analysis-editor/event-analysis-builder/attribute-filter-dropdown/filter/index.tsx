@@ -15,6 +15,7 @@ import {
 	Attribute,
 	AttributeOwnerTypes,
 	DataTypes,
+	Filter,
 	Filters
 } from 'event-analysis/utils/types';
 
@@ -54,12 +55,39 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 		description,
 		displayName,
 		id: attributeId,
-		name
+		name,
+		type
 	} = attribute;
 
 	const FilterBody = FILTERS_MAP[dataType];
 
 	const filter = filters[filterId];
+
+	const onSubmit = (newFilter: Filter) => {
+		if (filterId) {
+			editFilter({
+				attribute,
+				filter: newFilter,
+				id: filterId
+			});
+		} else {
+			addFilter({
+				attribute,
+				filter: newFilter
+			});
+		}
+
+		onAttributeChange(null);
+
+		onActiveChange(false);
+
+		const {attributeType} = newFilter;
+		analytics.track('Event Analysis Editor - Selected a Filter', {
+			attributeName: displayName || name,
+			attributeType,
+			type
+		});
+	};
 
 	return (
 		<div className='attribute-options'>
@@ -88,24 +116,7 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 				description={description}
 				displayName={displayName}
 				filter={filter?.attributeId === attributeId ? filter : null}
-				onSubmit={newFilter => {
-					if (filterId) {
-						editFilter({
-							attribute,
-							filter: newFilter,
-							id: filterId
-						});
-					} else {
-						addFilter({
-							attribute,
-							filter: newFilter
-						});
-					}
-
-					onAttributeChange(null);
-
-					onActiveChange(false);
-				}}
+				onSubmit={onSubmit}
 			/>
 		</div>
 	);

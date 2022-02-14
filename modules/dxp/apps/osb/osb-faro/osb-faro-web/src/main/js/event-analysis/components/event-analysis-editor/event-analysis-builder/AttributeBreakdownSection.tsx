@@ -5,6 +5,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import React from 'react';
 import {
 	AddBreakdown,
+	AddBreakdownParams,
 	DeleteBreakdown,
 	EditBreakdown,
 	MoveBreakdown,
@@ -44,6 +45,23 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 
 	const uneditableIds = Object.keys(attributes);
 
+	const onAttributeSelect: AddBreakdown | EditBreakdown = (
+		params: AddBreakdownParams
+	) => {
+		addBreakdown(params);
+
+		const {
+			attribute: {displayName, name, type},
+			breakdown: {attributeType}
+		} = params;
+
+		analytics.track('Event Analysis Editor - Selected a Breakdown', {
+			attributeName: displayName || name,
+			attributeType,
+			type
+		});
+	};
+
 	return (
 		<div className='attribute-breakdown-section-root d-flex align-items-center'>
 			<div className='section-header'>
@@ -78,7 +96,7 @@ export const AttributeBreakdownSection: React.FC<IAttributeBreakdownSectionProps
 							alignmentPosition={Align.LeftTop}
 							disabledIds={disabledIds}
 							eventId={eventId}
-							onAttributeSelect={addBreakdown}
+							onAttributeSelect={onAttributeSelect}
 							trigger={
 								<Button
 									borderless

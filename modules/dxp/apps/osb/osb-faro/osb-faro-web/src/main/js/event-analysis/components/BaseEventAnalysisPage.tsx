@@ -61,6 +61,8 @@ const ERRORS = {
 	}
 };
 
+const PAGE_NAME = 'Event Analysis Editor';
+
 const connector = connect(null, {
 	addAlert,
 	close,
@@ -210,6 +212,41 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 		[initialRangeSelectors, rangeSelectors]
 	);
 
+	const onCompareToPreviousChange = (compareToPrevious: boolean) => {
+		setCompareToPrevious(compareToPrevious);
+
+		analytics.track(`${PAGE_NAME} - Compared to Previous`);
+	};
+
+	const onEventChange = (event: Event) => {
+		setEvent(event);
+
+		const {displayName, name, type} = event;
+		analytics.track(`${PAGE_NAME} - Selected an Event`, {
+			name: displayName || name,
+			type
+		});
+	};
+
+	const onRangeSelectorsChange = (rangeSelectors: RangeSelectors) => {
+		setRangeSelectors(rangeSelectors);
+
+		const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;
+		analytics.track(`${PAGE_NAME} - Changed Event Time Period`, {
+			dateEnd: rangeEnd,
+			dateStart: rangeStart,
+			rangeKey
+		});
+	};
+
+	const onTypeChange = (type: CalculationTypes) => {
+		setType(type);
+
+		analytics.track(`${PAGE_NAME} - Changed Calculation Type`, {
+			type
+		});
+	};
+
 	return (
 		<BasePage
 			className='create-event-analysis-root'
@@ -270,10 +307,10 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 					channelId={channelId}
 					compareToPrevious={compareToPrevious}
 					event={event}
-					onCompareToPreviousChange={setCompareToPrevious}
-					onEventChange={setEvent}
-					onRangeSelectorsChange={setRangeSelectors}
-					onTypeChange={setType}
+					onCompareToPreviousChange={onCompareToPreviousChange}
+					onEventChange={onEventChange}
+					onRangeSelectorsChange={onRangeSelectorsChange}
+					onTypeChange={onTypeChange}
 					rangeSelectors={rangeSelectors}
 					type={type}
 				/>
