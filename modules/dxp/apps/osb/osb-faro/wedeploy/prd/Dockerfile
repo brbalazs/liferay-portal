@@ -1,11 +1,7 @@
 FROM liferay/dxp:7.1.10-dxp-26
 
-RUN mkdir -p ${LIFERAY_HOME}/tomcat/lib/org/apache/catalina/util && \
-    echo "server.info=" > ${LIFERAY_HOME}/tomcat/lib/org/apache/catalina/util/ServerInfo.properties
-
-ADD . /docker-init.d
-
-RUN rm \
-	"${LIFERAY_HOME}/osgi/marketplace/Liferay Foundation - Liferay Plugin for OAuth 2.0 - API.lpkg" \
-	"${LIFERAY_HOME}/osgi/marketplace/Liferay Foundation - Liferay Plugin for OAuth 2.0 - Impl.lpkg" \
-	"${LIFERAY_HOME}/osgi/marketplace/Liferay Foundation - Liferay Plugin for OAuth 2.0 - SPI.lpkg"
+COPY --chown=liferay:liferay configs /home/liferay/configs
+COPY --chown=liferay:liferay deploy /mnt/liferay/deploy
+COPY --chown=liferay:liferay license /mnt/liferay/deploy
+COPY --chown=liferay:liferay resources /home/liferay/resources
+COPY --chown=liferay:liferay 100_liferay_image_setup.sh /usr/local/liferay/scripts/pre-configure/100_liferay_image_setup.sh
