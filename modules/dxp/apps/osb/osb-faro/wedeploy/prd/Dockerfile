@@ -1,4 +1,4 @@
-FROM liferaycloud/liferay-dxp:7.1.10-ga1-fp18-3.0.29
+FROM liferay/dxp:7.1.10-dxp-26
 
 RUN mkdir -p ${LIFERAY_HOME}/tomcat/lib/org/apache/catalina/util && \
     echo "server.info=" > ${LIFERAY_HOME}/tomcat/lib/org/apache/catalina/util/ServerInfo.properties
