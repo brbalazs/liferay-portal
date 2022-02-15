@@ -3,16 +3,28 @@
 	"dependencies": [
 		"liferay"
 	],
+	"environments": {
+		"dev": {
+			"loadBalancer": {
+				"cdn": false,
+				"targetPort": 80
+			}
+		},
+		"infra": {
+			"deploy": false
+		}
+	},
 	"id": "webserver",
-	"image": "liferaycloud/nginx:1.16.1-4.0.4",
+	"image": "liferaycloud/nginx:1.20.1-4.1.4",
+	"kind": "Deployment",
 	"livenessProbe": {
-		"failureThreshold": 20,
+		"failureThreshold": 3,
 		"httpGet": {
 			"path": "/nginx_status",
 			"port": 80
 		},
-		"initialDelaySeconds": 360,
-		"timeoutSeconds": 10
+		"initialDelaySeconds": 30,
+		"timeoutSeconds": 60
 	},
 	"loadBalancer": {
 		"cdn": true,
@@ -20,18 +32,12 @@
 	},
 	"memory": 512,
 	"readinessProbe": {
-		"failureThreshold": 20,
+		"failureThreshold": 3,
 		"httpGet": {
 			"path": "/nginx_status",
 			"port": 80
 		},
-		"initialDelaySeconds": 360,
+		"initialDelaySeconds": 10,
 		"timeoutSeconds": 10
-	},
-	"strategy": {
-		"type": "RollingUpdate"
-	},
-	"volumes": {
-		"data": "/data"
 	}
 }
