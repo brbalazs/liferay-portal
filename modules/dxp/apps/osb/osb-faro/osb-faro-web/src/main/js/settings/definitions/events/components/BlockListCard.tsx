@@ -395,7 +395,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 						description={
 							<p className='mb-1'>
 								{Liferay.Language.get(
-									'first-add-an-event-to-get-it-blocked'
+									'to-block-events,-select-one-from-the-events-table'
 								)}
 								<a
 									className='pl-1'
@@ -412,7 +412,9 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 							</p>
 						}
 						symbol='ac-satellite'
-						title={Liferay.Language.get('no-blocked-events-found')}
+						title={Liferay.Language.get(
+							'there-are-no-events-blocked'
+						)}
 					/>
 				)}
 				orderIOMap={orderIOMap}
