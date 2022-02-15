@@ -89,10 +89,10 @@ describe('BlockListCard', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('No Blocked Events Found')).toBeInTheDocument();
+		expect(getByText('There Are No Events Blocked')).toBeInTheDocument();
 
 		expect(
-			getByText('First, add an event to get it blocked.')
+			getByText("To block events, select one from the Events' table.")
 		).toBeInTheDocument();
 
 		expect(
