@@ -1,0 +1,67 @@
+@component-name = "portal-bundle-blacklist"
+definition {
+
+	property osgi.module.configuration.file.names = "com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config";
+	property osgi.module.configurations = "blacklistBundleSymbolicNames=";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Bundle Blacklist";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test BlacklistModuleLPKG {
+		property osgi.app.includes = "gogo-shell";
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "BundleBlacklist#BlacklistModuleLPKG";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Gogo Shell");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Module Container",
+			configurationName = "Bundle Blacklist",
+			configurationScope = "System Scope");
+
+		var testRunEnvironment = PropsUtil.get("test.run.environment");
+
+		if ("${testRunEnvironment}" == "EE") {
+			var symbolicName = "Liferay Foundation - Liferay Gogo Shell - Impl";
+			var consoleText = "STOPPED Liferay Foundation - Liferay Gogo Shell - Impl";
+		}
+		else {
+			var symbolicName = "Liferay CE Foundation - Liferay CE Gogo Shell - Impl";
+			var consoleText = "STOPPED Liferay CE Foundation - Liferay CE Gogo Shell - Impl";
+		}
+
+		BundleBlacklist.blacklistModuleAndComponentConfiguration(
+			label = "Blacklist Bundle Symbolic Names",
+			symbolicName = "${symbolicName}");
+
+		BundleBlacklist.viewProductMenuBlacklistedModule(
+			category = "Configuration",
+			consoleText = "${consoleText}",
+			panel = "Control Panel",
+			portlet = "Gogo Shell");
+	}
+
+}
