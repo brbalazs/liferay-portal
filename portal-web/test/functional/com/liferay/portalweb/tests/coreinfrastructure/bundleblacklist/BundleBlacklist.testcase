@@ -105,4 +105,33 @@ definition {
 			value1 = "Classic Theme");
 	}
 
+	@priority = "5"
+	test ExportBundleBlacklistConfig {
+		property test.name.skip.portal.instance = "BundleBlacklist#ExportBundleBlacklistConfig";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Module Container",
+			configurationName = "Bundle Blacklist",
+			configurationScope = "System Scope");
+
+		BundleBlacklist.blacklistModuleAndComponentConfiguration(
+			label = "Blacklist Bundle Symbolic Names",
+			symbolicName = "com.liferay.gogo.shell.web");
+
+		SystemSettings.exportConfiguration();
+
+		var tempFileDirectory = selenium.getOutputDirName();
+
+		OSGiConfig.deployOSGiConfigFile(
+			OSGiConfigFileBaseDir = "${tempFileDirectory}",
+			OSGiConfigFileName = "com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config");
+
+		AssertConsoleTextNotPresent(value1 = "Reinstalling bundle com.liferay.gogo.shell.web");
+	}
+
 }
