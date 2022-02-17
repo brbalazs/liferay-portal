@@ -441,7 +441,6 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed."
-	@ignore = "true"
 	@priority = "4"
 	test ViewPageRSS {
 		Navigator.openURL();

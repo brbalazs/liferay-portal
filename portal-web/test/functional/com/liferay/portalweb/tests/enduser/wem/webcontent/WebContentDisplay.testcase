@@ -579,7 +579,6 @@ ${httpUtil.URLtoString(request.getAttribute("CTX").getResource(".").toURI().crea
 	}
 
 	@description = "This is a test for LPS-64814. Validate remote code execution via untrusted Java Deserialization in templates cannot cause out of memory errors."
-	@ignore = "true"
 	@priority = "5"
 	test ValidateRemoteCodeViaTemplatesCannotCauseOutOfMemoryErrors {
 		ProductMenu.gotoPortlet(

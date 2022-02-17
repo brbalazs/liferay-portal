@@ -635,7 +635,6 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed."
-	@ignore = "true"
 	@priority = "4"
 	test ViewMessageBoardsRSS {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");

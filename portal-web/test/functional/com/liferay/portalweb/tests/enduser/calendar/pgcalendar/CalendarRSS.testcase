@@ -63,7 +63,6 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@ignore = "true"
 	@priority = "3"
 	test DeleteEventAndViewFeed {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
@@ -102,7 +101,6 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@ignore = "true"
 	@priority = "3"
 	test DisableFeedForSiteCalendar {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
@@ -142,7 +140,6 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@ignore = "true"
 	@priority = "5"
 	test ViewSiteCalendarFeed {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
