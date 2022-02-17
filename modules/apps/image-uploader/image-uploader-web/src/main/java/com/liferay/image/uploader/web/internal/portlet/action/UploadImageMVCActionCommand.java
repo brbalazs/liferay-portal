@@ -253,7 +253,9 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 				 e instanceof ImageTypeException ||
 				 e instanceof NoSuchFileException ||
 				 e instanceof UploadException ||
-				 e instanceof UploadRequestSizeException) {
+				 e instanceof UploadRequestSizeException ||
+				 e.getCause() instanceof ImageTypeException ||
+				 e.getCause() instanceof UploadRequestSizeException) {
 
 			if (cmd.equals(Constants.ADD_TEMP)) {
 				hideDefaultErrorMessage(actionRequest);
@@ -288,7 +290,7 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 						TextFormatter.formatStorageSize(
 							maxFileSize, themeDisplay.getLocale()));
 				}
-				else if (e instanceof ImageTypeException) {
+				else if (e instanceof ImageTypeException || e.getCause() instanceof ImageTypeException) {
 					errorMessage = themeDisplay.translate(
 						"please-enter-a-file-with-a-valid-file-type");
 				}
@@ -299,7 +301,7 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 						"an-unexpected-error-occurred-while-uploading-your-" +
 							"file");
 				}
-				else if (e instanceof UploadRequestSizeException) {
+				else if (e instanceof UploadRequestSizeException || e.getCause() instanceof UploadRequestSizeException) {
 					errorMessage = themeDisplay.translate(
 						"request-is-larger-than-x-and-could-not-be-processed",
 						TextFormatter.formatStorageSize(
