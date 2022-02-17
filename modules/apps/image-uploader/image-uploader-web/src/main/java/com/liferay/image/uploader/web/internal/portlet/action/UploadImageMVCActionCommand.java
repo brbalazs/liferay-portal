@@ -100,7 +100,7 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 			UserFileUploadsConfiguration.class, properties);
 	}
 
-	protected FileEntry addTempImageFileEntry(PortletRequest portletRequest)
+	protected FileEntry addTempImageFileEntry(PortletRequest portletRequest, Long maxFileSize)
 		throws Exception {
 
 		UploadPortletRequest uploadPortletRequest =
@@ -114,6 +114,10 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 		String fileName = uploadPortletRequest.getFileName("fileName");
 
 		File file = uploadPortletRequest.getFile("fileName");
+
+		if (file.length() > maxFileSize) {
+			throw new UploadRequestSizeException();
+		}
 
 		String mimeType = MimeTypesUtil.getContentType(file, fileName);
 
@@ -172,7 +176,7 @@ public class UploadImageMVCActionCommand extends BaseMVCActionCommand {
 			}
 			else if (cmd.equals(Constants.ADD_TEMP)) {
 				FileEntry tempImageFileEntry = addTempImageFileEntry(
-					actionRequest);
+					actionRequest, maxFileSize);
 
 				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
