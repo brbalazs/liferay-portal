@@ -84,6 +84,43 @@ definition {
 		MenuItem.viewNotPresent(menuItem = "Delete");
 	}
 
+	macro assertCanonicalURL {
+		var HTML = '''<link data-senna-track="temporary" href="''';
+
+		var HTML2 = '''" rel="canonical">''';
+
+		if (isSet(pageName)) {
+			var pageNameURL = StringUtil.lowerCase("${pageName}");
+			var pageNameURL = StringUtil.replace("${pageNameURL}", " ", "-");
+			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
+			var hrefURLNoPageName = StringUtil.replace("${hrefURL}", "/${pageNameURL}", "");
+			var hrefURLNoPortalURL = StringUtil.replace("${hrefURLNoPageName}", "${portalURL}", "");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}/${pageNameURL}${HTML2}", "");
+			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/web/guest/${pageNameURL}${HTML2}", "");
+		}
+		else if (isSet(locale)) {
+			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
+			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}/${locale}", "");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}/${locale}${HTML2}", "");
+			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/${locale}/web/guest${HTML2}", "");
+		}
+		else {
+			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
+			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}", "");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}${HTML2}", "");
+			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/web/guest${HTML2}", "");
+		}
+
+		echo("${hrefURL}");
+
+		if ("${hrefURLNoPortalURL}" == "/web/guest") {
+			AssertHTMLSourceTextPresent(value1 = "${pageSourceAlternate}");
+		}
+		else {
+			AssertHTMLSourceTextPresent(value1 = "${pageSource}");
+		}
+	}
+
 	macro assertNodePortPG {
 		var key_nodePort = "${nodePort}";
 
