@@ -9,6 +9,13 @@ import {wrapInTestContext} from 'react-dnd-test-utils';
 
 jest.unmock('react-dom');
 
+jest.mock('react-router-dom', () => ({
+	...jest.requireActual('react-router-dom'),
+	useParams: () => ({
+		channelId: '456'
+	})
+}));
+
 describe('AttributeFilterChip', () => {
 	const AttributeFilterChipContext = wrapInTestContext(AttributeFilterChip);
 

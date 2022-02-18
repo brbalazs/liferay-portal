@@ -65,13 +65,35 @@ exports[`StringFilter should render 1`] = `
           <div
             class=""
           >
-            <input
-              class="input-root form-control"
-              id="value"
-              name="value"
-              type="text"
-              value=""
-            />
+            <div
+              aria-haspopup="true"
+              class="input-group base-select-input-root select-input-root"
+            >
+              <div
+                class="input-group-item"
+              >
+                <input
+                  autocomplete="off"
+                  class="input-root form-control input-group-inset input-group-inset-after"
+                  name="value"
+                  placeholder=""
+                  type="text"
+                  value=""
+                />
+                <div
+                  class="input-group-inset-item input-group-inset-item-after"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
