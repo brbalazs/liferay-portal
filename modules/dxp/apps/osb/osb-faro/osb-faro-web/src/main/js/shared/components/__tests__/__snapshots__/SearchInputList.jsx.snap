@@ -16,7 +16,7 @@ exports[`SearchInputList should render 1`] = `
           class="input-group-item"
         >
           <input
-            autocomplete="nope"
+            autocomplete="off"
             class="input-root form-control input-group-inset input-group-inset-after form-control-sm"
             placeholder=""
             type="text"

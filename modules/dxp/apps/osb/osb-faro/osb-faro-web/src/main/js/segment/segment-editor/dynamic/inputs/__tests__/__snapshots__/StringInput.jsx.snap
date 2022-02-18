@@ -28,7 +28,7 @@ exports[`StringInput should render 1`] = `
             class="input-group-item"
           >
             <input
-              autocomplete="nope"
+              autocomplete="off"
               class="input-root form-control input-group-inset input-group-inset-after"
               placeholder=""
               type="text"
@@ -84,7 +84,7 @@ exports[`StringInput should render with data 1`] = `
             class="input-group-item"
           >
             <input
-              autocomplete="nope"
+              autocomplete="off"
               class="input-root form-control input-group-inset input-group-inset-after"
               placeholder=""
               type="text"

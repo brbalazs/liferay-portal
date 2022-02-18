@@ -69,7 +69,7 @@ exports[`SessionInput should render 1`] = `
                 class="input-group-item"
               >
                 <input
-                  autocomplete="nope"
+                  autocomplete="off"
                   class="input-root form-control input-group-inset input-group-inset-after"
                   placeholder=""
                   type="text"
@@ -248,7 +248,7 @@ exports[`SessionInput should render with "ever" 1`] = `
                 class="input-group-item"
               >
                 <input
-                  autocomplete="nope"
+                  autocomplete="off"
                   class="input-root form-control input-group-inset input-group-inset-after"
                   placeholder=""
                   type="text"
