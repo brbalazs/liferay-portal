@@ -1,3 +1,4 @@
+import AutocompleteInput from './AutocompleteInput';
 import Checkbox from './Checkbox';
 import DateInput from './DateInput';
 import DateRangeInput from './DateRangeInput';
@@ -73,6 +74,7 @@ export const withField = FormComponent =>
 	});
 
 export default Object.assign(Formik, {
+	AutocompleteInput: withField(AutocompleteInput),
 	Checkbox: withField(Checkbox),
 	DateInput: withField(DateInput),
 	DateRangeInput: withField(DateRangeInput),

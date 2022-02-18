@@ -23,5 +23,4 @@ const AutocompleteInput: React.FC<IAutocompleteProps> = ({
 		onSelect={onChange}
 	/>
 );
-
 export default AutocompleteInput;

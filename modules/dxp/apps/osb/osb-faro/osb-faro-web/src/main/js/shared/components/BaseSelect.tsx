@@ -8,9 +8,23 @@ import React, {useEffect, useImperativeHandle, useRef, useState} from 'react';
 import Spinner from './Spinner';
 import {ARROW_DOWN, ARROW_UP, ENTER} from '../util/key-constants';
 import {identity, noop} from 'lodash';
+import {useDebounce} from 'shared/hooks';
+import {useQuery} from '@apollo/react-hooks';
 import {useRequest} from 'shared/hooks';
 
+const DEBOUNCE_DELAY = 250;
 const SELECT_KEYS = [ARROW_DOWN, ARROW_UP, ENTER];
+
+type GraphqlQuery = {
+	mapResultsToProps: (data: any) => TMappedData;
+	variables: object;
+	query: string;
+};
+
+type TMappedData = {
+	data: string[];
+	total: number;
+};
 
 interface IItemProps extends React.HTMLAttributes<HTMLLIElement> {
 	active?: boolean;
@@ -43,11 +57,13 @@ interface IBaseSelectProps extends React.HTMLAttributes<HTMLInputElement> {
 	alwaysFetchOnFocus?: boolean;
 	className?: string;
 	containerClass?: string;
-	dataSourceFn: (value: string | number) => Promise<any>;
+	dataSourceFn?: (value: string | number) => Promise<any>;
 	disabled?: boolean;
 	emptyInputOnInactive?: boolean;
+	inputName?: string;
 	focusOnInit?: boolean;
 	forwardedRef?: React.Ref<any>;
+	graphqlQuery?: GraphqlQuery;
 	id?: string;
 	inputSize?: string;
 	inputValue?: string | React.ReactText;
@@ -67,8 +83,10 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 	dataSourceFn,
 	disabled = false,
 	emptyInputOnInactive = false,
+	inputName,
 	focusOnInit = false,
 	forwardedRef,
+	graphqlQuery,
 	id,
 	inputSize,
 	inputValue = '',
@@ -96,18 +114,45 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 
 	const _inputRef = useRef<any>();
 
-	const {data: items = [], loading, refetch} = useRequest({
-		dataSourceFn: ({value}) => dataSourceFn(value),
-		debounceDelay: 250,
-		initialState: {
-			data: [],
-			error: false,
-			loading: false
-		},
-		resetStateIfSkipingRequest: true,
-		skipRequest: !active,
-		variables: {value: inputValue}
-	});
+	let response;
+
+	if (graphqlQuery) {
+		const {
+			mapResultsToProps = value => value,
+			query,
+			variables
+		} = graphqlQuery;
+		const debouncedInputValue = useDebounce(inputValue, DEBOUNCE_DELAY);
+
+		response = useQuery(query, {
+			fetchPolicy: 'network-only',
+			skip: !active,
+			variables: {
+				...variables,
+				keywords: debouncedInputValue
+			}
+		});
+
+		response = {
+			...response,
+			...mapResultsToProps(response.data)
+		};
+	} else {
+		response = useRequest({
+			dataSourceFn: ({value}) => dataSourceFn(value),
+			debounceDelay: DEBOUNCE_DELAY,
+			initialState: {
+				data: [],
+				error: false,
+				loading: false
+			},
+			resetStateIfSkipingRequest: true,
+			skipRequest: !active,
+			variables: {value: inputValue}
+		});
+	}
+
+	const {data: items = [], loading, refetch} = response;
 
 	useEffect(() => {
 		if (focusOnInit) {
@@ -182,6 +227,7 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 			alignment='bottomLeft'
 			containerClass={getCN('base-select-container', containerClass)}
 			onOutsideClick={handleOutsideClick}
+			usePortal={false}
 		>
 			<Input.Group
 				className={getCN(
@@ -193,10 +239,11 @@ const BaseSelect: React.FC<IBaseSelectProps> = ({
 			>
 				<Input.GroupItem>
 					<Input
-						autoComplete='nope'
+						autoComplete='off'
 						disabled={disabled}
 						id={id}
 						inset='after'
+						name={inputName}
 						onBlur={handleBlur}
 						onChange={(
 							event: React.ChangeEvent<HTMLInputElement>
