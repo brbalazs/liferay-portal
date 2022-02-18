@@ -1,4 +1,5 @@
 import Button from 'shared/components/Button';
+import EventAttributeValuesQuery from 'event-analysis/queries/EventAttributeValuesQuery';
 import Form, {validateRequired} from 'shared/components/form';
 import React from 'react';
 import {DataTypes, IFilterProps, Operators} from 'event-analysis/utils/types';
@@ -6,12 +7,24 @@ import {
 	STRING_OPERATOR_LABELS_MAP,
 	STRING_OPTIONS
 } from 'event-analysis/utils/utils';
+import {useParams} from 'react-router-dom';
+import {useStatefulPagination} from 'shared/hooks';
+
+type EventAttributeValuesData = {
+	eventAttributeValues: EventAttributeValues;
+};
+
+type EventAttributeValues = {
+	eventAttributeValues: string[];
+	total: number;
+};
 
 const StringFilter: React.FC<IFilterProps> = ({
 	attributeId,
 	attributeOwnerType,
 	description,
 	displayName,
+	eventId,
 	filter,
 	onSubmit
 }) => {
@@ -24,6 +37,10 @@ const StringFilter: React.FC<IFilterProps> = ({
 
 		return {operator: Operators.Contains, value: ''};
 	};
+
+	const {channelId} = useParams();
+
+	const {delta, page} = useStatefulPagination();
 
 	return (
 		<Form
@@ -41,7 +58,12 @@ const StringFilter: React.FC<IFilterProps> = ({
 				});
 			}}
 		>
-			{({handleSubmit, isValid}) => (
+			{({
+				handleSubmit,
+				isValid,
+				setValues,
+				values: {value, ...otherFields}
+			}) => (
 				<Form.Form onSubmit={handleSubmit}>
 					<div className='options-body'>
 						<Form.Group autoFit>
@@ -64,11 +86,45 @@ const StringFilter: React.FC<IFilterProps> = ({
 
 						<Form.Group autoFit>
 							<Form.GroupItem>
-								<Form.Input
+								<Form.AutocompleteInput
+									graphqlQuery={{
+										mapResultsToProps: (
+											data: EventAttributeValuesData
+										) => {
+											if (data) {
+												return {
+													data:
+														data
+															.eventAttributeValues
+															.eventAttributeValues,
+													total:
+														data
+															.eventAttributeValues
+															.total
+												};
+											}
+
+											return {
+												data: [],
+												total: 0
+											};
+										},
+										query: EventAttributeValuesQuery,
+										variables: {
+											channelId,
+											eventAttributeDefinitionId: attributeId,
+											eventDefinitionId: eventId,
+											size: delta,
+											start: (page - 1) * delta
+										}
+									}}
 									name='value'
+									onChange={(value: string) =>
+										setValues({value, ...otherFields})
+									}
 									required
-									type='text'
 									validate={validateRequired}
+									value={value}
 								/>
 							</Form.GroupItem>
 						</Form.Group>
