@@ -32,6 +32,7 @@ interface IFilterOptionsProps extends React.HTMLAttributes<HTMLDivElement> {
 	attribute: Attribute;
 	attributeOwnerType: AttributeOwnerTypes;
 	editFilter: EditFilter;
+	eventId: string;
 	filterId?: string;
 	filters: Filters;
 	onActiveChange: (active: boolean) => void;
@@ -44,6 +45,7 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 	attribute,
 	attributeOwnerType,
 	editFilter,
+	eventId,
 	filterId,
 	filters,
 	onActiveChange,
@@ -115,6 +117,7 @@ const FilterOptions: React.FC<IFilterOptionsProps> = ({
 				attributeOwnerType={attributeOwnerType}
 				description={description}
 				displayName={displayName}
+				eventId={eventId}
 				filter={filter?.attributeId === attributeId ? filter : null}
 				onSubmit={onSubmit}
 			/>

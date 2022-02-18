@@ -124,6 +124,7 @@ export interface IFilterProps {
 	attributeOwnerType: AttributeOwnerTypes;
 	description?: string;
 	displayName: string;
+	eventId?: string;
 	filter?: Filter;
 	onSubmit: (filter: Filter) => void;
 }

@@ -198,6 +198,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 								<FilterOptions
 									attribute={selectedAttribute}
 									attributeOwnerType={attributeOwnerType}
+									eventId={eventId}
 									filterId={filterId}
 									onActiveChange={setActive}
 									onAttributeChange={params => {
