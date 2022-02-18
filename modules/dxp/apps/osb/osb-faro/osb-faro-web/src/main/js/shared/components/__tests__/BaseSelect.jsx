@@ -1,14 +1,45 @@
 import BaseSelect, {Item} from '../BaseSelect';
+import client from 'shared/apollo/client';
+import EventAttributeValuesQuery from 'event-analysis/queries/EventAttributeValuesQuery';
+import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-components';
 import {
 	fireEvent,
 	render,
 	waitForElementToBeRemoved
 } from '@testing-library/react';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockEventAttributeValues} from 'test/graphql-data';
 import {noop} from 'lodash';
+import {Provider} from 'react-redux';
 
 jest.unmock('react-dom');
+
+const MOCK_APOLLO_QUERY = {
+	mapResultsToProps: data => {
+		if (data) {
+			return {
+				data: data.eventAttributeValues.eventAttributeValues,
+				total: data.eventAttributeValues.total
+			};
+		}
+
+		return {
+			data: [],
+			total: 0
+		};
+	},
+	query: EventAttributeValuesQuery,
+	variables: {
+		channelId: '123',
+		eventAttributeDefinitionId: '456',
+		eventDefinitionId: '789',
+		size: 100,
+		start: 0
+	}
+};
 
 describe('BaseSelect', () => {
 	it('should render', () => {
@@ -182,6 +213,46 @@ describe('BaseSelect', () => {
 			).toEqual('foo');
 		});
 	});
+
+	it('should render with Graphql', () => {
+		const {container} = render(
+			<ApolloProvider client={client}>
+				<Provider store={mockStore()}>
+					<MockedProvider mocks={[mockEventAttributeValues()]}>
+						<BaseSelect
+							graphqlQuery={MOCK_APOLLO_QUERY}
+							itemRenderer={jest.fn()}
+						/>
+					</MockedProvider>
+				</Provider>
+			</ApolloProvider>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render w/ selectedItem with Graphql', () => {
+		const {container} = render(
+			<ApolloProvider client={client}>
+				<Provider store={mockStore()}>
+					<MockedProvider mocks={[mockEventAttributeValues()]}>
+						<BaseSelect
+							graphqlQuery={MOCK_APOLLO_QUERY}
+							itemRenderer={({name}) => name}
+							onFocus={noop}
+							selectedItem={{name: 'test1'}}
+						/>
+					</MockedProvider>
+				</Provider>
+			</ApolloProvider>
+		);
+
+		jest.runAllTimers();
+
+		expect(
+			container.querySelector('.selected-item-container').innerHTML
+		).toEqual('test1');
+	});
 });
 
 describe('Item', () => {
@@ -189,10 +260,8 @@ describe('Item', () => {
 		const {container} = render(
 			<Item item={{name: 'test'}} itemRenderer={({name}) => name} />
 		);
-
 		expect(container).toMatchSnapshot();
 	});
-
 	it('should select an item', () => {
 		const {container, getByText} = render(
 			<Item
@@ -201,10 +270,8 @@ describe('Item', () => {
 				onSelect={noop}
 			/>
 		);
-
 		fireEvent.click(getByText('test'));
 		jest.runAllTimers();
-
 		expect(container).toMatchSnapshot();
 	});
 });
