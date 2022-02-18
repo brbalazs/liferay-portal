@@ -4,6 +4,7 @@ import EventAttributeDefinitionQuery, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
 import EventAttributeDefinitionsQuery from 'event-analysis/queries/EventAttributeDefinitionsQuery';
+import EventAttributeValuesQuery from 'event-analysis/queries/EventAttributeValuesQuery';
 import EventDefinitionQuery from 'event-analysis/queries/EventDefinitionQuery';
 import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import EventMetricQuery from 'shared/queries/EventMetricQuery';
@@ -938,6 +939,30 @@ export function mockSuppressedUsersListReq(items, mockVariables = {}) {
 					__typename: 'SuppressionBag',
 					suppressions: items,
 					total: items.length
+				}
+			}
+		}
+	};
+}
+
+export function mockEventAttributeValues() {
+	return {
+		request: {
+			query: EventAttributeValuesQuery,
+			variables: {
+				channelId: '123',
+				eventAttributeDefinitionId: '456',
+				eventDefinitionId: '789',
+				keywords: '',
+				size: 100,
+				start: 0
+			}
+		},
+		result: {
+			data: {
+				eventAttributeValues: {
+					eventAttributeValues: ['test1', 'test2'],
+					total: 2
 				}
 			}
 		}
