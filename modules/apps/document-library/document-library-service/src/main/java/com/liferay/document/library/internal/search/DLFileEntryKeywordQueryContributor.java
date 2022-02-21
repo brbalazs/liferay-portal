@@ -76,32 +76,32 @@ public class DLFileEntryKeywordQueryContributor
 		Locale siteDefaultLocale = LocaleUtil.getSiteDefault();
 
 		if (siteDefaultLocale != searchContext.getLocale()) {
-			try {
-				BooleanQuery query = new BooleanQueryImpl();
+			BooleanQuery siteDefaultLocaleQuery = new BooleanQueryImpl();
 
-				BooleanQuery isDLFileEntryQuery = new BooleanQueryImpl();
+			Query addSearchTermResult = queryHelper.addSearchTerm(
+				siteDefaultLocaleQuery, searchContext,
+				getLocalizedName(Field.CONTENT, siteDefaultLocale), false);
 
-				isDLFileEntryQuery.addTerm(
-					"entryClassName",
-					"com.liferay.document.library.kernel.model.DLFileEntry",
-					false);
+			if (addSearchTermResult != null) {
+				try {
+					BooleanQuery query = new BooleanQueryImpl();
 
-				query.add(isDLFileEntryQuery, BooleanClauseOccur.MUST);
-
-				BooleanQuery siteDefaultLocaleQuery = new BooleanQueryImpl();
-
-				Query addSearchTermResult = queryHelper.addSearchTerm(
-					siteDefaultLocaleQuery, searchContext,
-					getLocalizedName(Field.CONTENT, siteDefaultLocale), false);
-
-				if (addSearchTermResult != null) {
 					query.add(siteDefaultLocaleQuery, BooleanClauseOccur.MUST);
+
+					BooleanQuery isDLFileEntryQuery = new BooleanQueryImpl();
+
+					isDLFileEntryQuery.addTerm(
+						"entryClassName",
+						"com.liferay.document.library.kernel.model.DLFileEntry",
+						false);
+
+					query.add(isDLFileEntryQuery, BooleanClauseOccur.MUST);
 
 					booleanQuery.add(query, BooleanClauseOccur.SHOULD);
 				}
-			}
-			catch (ParseException parseException) {
-				throw new SystemException(parseException);
+				catch (ParseException parseException) {
+					throw new SystemException(parseException);
+				}
 			}
 		}
 	}
