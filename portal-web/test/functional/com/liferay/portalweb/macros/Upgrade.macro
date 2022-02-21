@@ -169,13 +169,7 @@ definition {
 			suborgName = "Sub-organization1"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations"
-		);
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "user2@liferay.com",
 			userFirstName = "user2",
 			userLastName = "user2",
