@@ -1634,12 +1634,12 @@ definition {
 
 			if ("${count}" == "${maximumFailure}") {
 				AssertTextEquals.assertPartialText(
-					locator1 = "Message#ERROR_1",
+					locator1 = "Message#ERROR_DISMISSIBLE",
 					value1 = "This account is locked. Please contact an administrator to have this account unlocked.");
 			}
 			else {
 				AssertTextEquals.assertPartialText(
-					locator1 = "Message#ERROR_1",
+					locator1 = "Message#ERROR_DISMISSIBLE",
 					value1 = "Authentication failed. Please try again.");
 			}
 		}
