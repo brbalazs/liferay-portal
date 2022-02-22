@@ -57,7 +57,12 @@ import org.osgi.service.component.annotations.Reference;
 public abstract class DemoCreatorService {
 
 	public void createDemo() throws Exception {
-		faroProject = createFaroProject();
+		faroProject = faroProjectLocalService.fetchFaroProjectByCorpProjectUuid(
+			_PROJECT_ID);
+
+		if (faroProject == null) {
+			faroProject = createFaroProject();
+		}
 
 		try {
 			createUsers(faroProject);
