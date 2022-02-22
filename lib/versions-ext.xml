@@ -1918,7 +1918,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/jackson-annotations.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.3.LIFERAY-PATCHED-1</version>
 				<project-name>Jackson Annotations</project-name>
 				<project-url>https://github.com/FasterXML/jackson-annotations</project-url>
 				<licenses>
@@ -1930,7 +1930,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/jackson-core.jar</file-name>
-				<version>2.10.3</version>
+				<version>2.10.3.LIFERAY-PATCHED-1</version>
 				<project-name>Jackson Core</project-name>
 				<project-url>https://github.com/FasterXML/jackson-core</project-url>
 				<licenses>
