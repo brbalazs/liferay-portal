@@ -95,15 +95,19 @@ MBBreadcrumbUtil.addPortletBreadcrumbEntries(message, request, renderResponse);
 	}
 
 	function <portlet:namespace />hideReplyMessage(messageId) {
-		AUI.$('#<portlet:namespace />addReplyToMessage' + messageId).addClass(
-			'hide'
-		);
+		var addQuickReplyContainer = AUI.$('#<portlet:namespace />addReplyToMessage' + messageId);
+
+		addQuickReplyContainer.addClass('hide');
 
 		var editorName = '<portlet:namespace />replyMessageBody' + messageId;
 
 		if (window[editorName]) {
 			window[editorName].dispose();
 		}
+
+		var alloyEditorContainer = addQuickReplyContainer.find('.alloy-editor-container');
+
+		alloyEditorContainer.find( '.alloy-editor-placeholder, .alloy-editor-icon, .yui3-widget, .yui3-aclist-aria' ).remove();
 	}
 
 	<c:if test="<%= thread.getRootMessageId() != message.getMessageId() %>">
