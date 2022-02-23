@@ -100,7 +100,13 @@ const AnalysisDropdown: React.FC<IAnalysisDropdownProps> = ({
 										{
 											id: event.id,
 											mutation: UPDATE_EVENT_DEFINITION,
-											onCancel: close,
+											onClose: (save: boolean) => {
+												if (save) {
+													result.refetch();
+												}
+
+												close();
+											},
 											query: EVENT_DEFINITION_QUERY
 										}
 									);

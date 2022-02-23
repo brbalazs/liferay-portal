@@ -1,4 +1,3 @@
-import * as Types from 'shared/types';
 import Button from 'shared/components/Button';
 import client from 'shared/apollo/client';
 import Form, {
@@ -25,6 +24,7 @@ import {
 	EventDefinitionVariables,
 	UpdateEventDefinitionVariables
 } from 'event-analysis/queries/EventDefinitionQuery';
+import {Modal as ModalType} from 'shared/types/Modal';
 import {SafeResults} from 'shared/hoc/util';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
@@ -45,7 +45,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IEditAttributeEventModalProps extends PropsFromRedux {
 	id: string;
 	mutation: DocumentNode;
-	onCancel: Types.Modal.close;
+	onClose: (save: boolean) => ModalType.actionTypes;
 	query: DocumentNode;
 	showTypecast?: boolean;
 }
@@ -54,7 +54,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 	addAlert,
 	id,
 	mutation,
-	onCancel,
+	onClose,
 	query,
 	showTypecast
 }) => {
@@ -135,7 +135,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 					return (
 						<>
 							<Modal.Header
-								onClose={() => onCancel()}
+								onClose={() => onClose(false)}
 								title={
 									displayName
 										? `${name} - ${displayName}`
@@ -183,7 +183,7 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 
 											setSubmitting(false);
 
-											onCancel();
+											onClose(true);
 										})
 										.catch(() => {
 											addAlert({
@@ -283,7 +283,9 @@ const EditAttributeEventModal: React.FC<IEditAttributeEventModalProps> = ({
 										</Modal.Body>
 
 										<Modal.Footer>
-											<Button onClick={() => onCancel()}>
+											<Button
+												onClick={() => onClose(false)}
+											>
 												{Liferay.Language.get('cancel')}
 											</Button>
 
