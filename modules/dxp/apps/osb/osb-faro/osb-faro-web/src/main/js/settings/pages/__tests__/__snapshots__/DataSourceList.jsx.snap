@@ -582,14 +582,18 @@ exports[`DataSourceList should render with a message to connect datasources if t
     <p
       class="no-results-description"
     >
-      Add a data source to get started.
-      <a
-        class="pl-1"
-        href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html"
-        target="_blank"
+      <p
+        class="d-flex flex-column"
       >
-        Access our documentation to learn more.
-      </a>
+        Add a data source to get started.
+        <a
+          class="pl-1"
+          href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html"
+          target="_blank"
+        >
+          Access our documentation to learn more.
+        </a>
+      </p>
     </p>
   </div>
 </div>
