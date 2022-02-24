@@ -1,9 +1,11 @@
 import Card from 'shared/components/Card';
 import ClayButton from '@clayui/button';
 import DataControlRequest from '../queries/DataControlRequestMutation';
+import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import React from 'react';
 import SuppressedUsersListQuery from '../queries/SuppressedUsersListQuery';
+import URLConstants from 'shared/util/url-constants';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Router} from 'shared/types';
 import {
@@ -16,7 +18,6 @@ import {connect, ConnectedProps} from 'react-redux';
 import {CREATE_DATE, createOrderIOMap} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
 import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
@@ -104,7 +105,6 @@ const withQueryOptions = Component => ({
 };
 
 const SuppressedListWithData = withBaseResults(withData, {
-	emptyTitle: getFormattedTitle(Liferay.Language.get('suppressed-users')),
 	getColumns: ({timeZoneId}) => [
 		{
 			accessor: 'emailAddress',
@@ -152,6 +152,30 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 				dataControlTaskStatus === GDPRRequestStatuses.Pending
 			}
 			entityLabel={Liferay.Language.get('suppressed-users')}
+			noResultsRenderer={() => (
+				<EmptyStateDashboard
+					description={
+						<p className='mb-1 d-flex flex-column'>
+							{Liferay.Language.get(
+								'to-suppress-an-user,-go-to-data-control-&-privacy-under-settings-and-create-a-new-request-on-the-request-log'
+							)}
+
+							<a
+								className='pl-1'
+								href={URLConstants.SuppressedUsersDocumentation}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'access-our-documentation-to-learn-more'
+								)}
+							</a>
+						</p>
+					}
+					symbol='ac-satellite'
+					title={Liferay.Language.get('no-suppressed-users-found')}
+				/>
+			)}
 		/>
 	</Card>
 );
