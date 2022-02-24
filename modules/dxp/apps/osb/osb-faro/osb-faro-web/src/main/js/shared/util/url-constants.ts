@@ -19,6 +19,7 @@ enum URLConstants {
 	RequestLogDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/data-control-and-privacy.html',
 	SalesforceAddDocumentation = 'https://developer.salesforce.com/page/Connected_Apps',
 	SalesforceLogin = 'https://login.salesforce.com',
+	SuppressedUsersDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/data-control-and-privacy.html',
 	TermsAndConditions = 'https://web.liferay.com/legal/doc/SSA/AC/1001810',
 	TicketPageLink = 'https://help.liferay.com/hc/requests/new'
 }
