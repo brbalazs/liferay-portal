@@ -376,8 +376,9 @@ const RequestList: React.FC<IRequestListProps> = ({
 				groupId={groupId}
 				noResultsRenderer={() => (
 					<EmptyStateDashboard
+						autoFit
 						description={
-							<p className='mb-1'>
+							<p className='mb-1 d-flex flex-column'>
 								{Liferay.Language.get(
 									'create-a-request-to-get-started'
 								)}

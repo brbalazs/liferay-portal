@@ -380,7 +380,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 				<EmptyStateDashboard
 					autoFit
 					description={
-						<p className='mb-1'>
+						<p className='mb-1 d-flex flex-column'>
 							{Liferay.Language.get(
 								'create-some-custom-events-to-get-started'
 							)}

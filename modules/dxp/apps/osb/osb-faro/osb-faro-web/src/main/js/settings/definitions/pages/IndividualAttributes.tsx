@@ -128,7 +128,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 						<EmptyStateDashboard
 							description={
 								<>
-									<p className='mb-4'>
+									<p className='mb-4 d-flex flex-column'>
 										{Liferay.Language.get(
 											'connect-a-data-source-with-people-data'
 										)}

@@ -305,9 +305,10 @@ const ChannelList: React.FC<IChannelListProps> = ({
 
 	const renderEmptyState = (): React.ReactNode => (
 		<EmptyState
+			autoFit
 			className='no-results-root mt-0'
 			description={
-				<>
+				<p className='d-flex flex-column'>
 					{Liferay.Language.get('create-a-property-to-get-started')}
 
 					<a
@@ -320,7 +321,7 @@ const ChannelList: React.FC<IChannelListProps> = ({
 							'access-our-documentation-to-learn-more'
 						)}
 					</a>
-				</>
+				</p>
 			}
 			symbol='ac-satellite'
 			title={Liferay.Language.get('no-properties-found')}
