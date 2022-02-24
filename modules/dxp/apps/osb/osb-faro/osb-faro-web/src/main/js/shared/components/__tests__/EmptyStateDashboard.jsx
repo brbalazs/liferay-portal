@@ -41,4 +41,16 @@ describe('EmptyStateDashboard', () => {
 		).toBeTruthy();
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render a EmptyStateDashboard component with autofit class', () => {
+		const {container} = render(
+			<WrappedComponent autoFit symbol='ac-satellite' />
+		);
+
+		const emptyStateDiv = container.querySelector(
+			'div .empty-state-dashboard-root'
+		);
+
+		expect(emptyStateDiv).toHaveClass('autofit');
+	});
 });
