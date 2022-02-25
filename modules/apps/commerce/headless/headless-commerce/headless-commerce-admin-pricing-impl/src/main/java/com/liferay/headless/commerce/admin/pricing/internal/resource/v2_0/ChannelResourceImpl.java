@@ -24,8 +24,6 @@ import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -44,7 +42,7 @@ public class ChannelResourceImpl
 	@NestedField(parentClass = DiscountChannel.class, value = "channel")
 	@Override
 	public Channel getDiscountIdChannel(
-			@NestedFieldId(value = "channelId") @NotNull Long id)
+			@NestedFieldId(value = "channelId") Long id)
 		throws Exception {
 
 		return _channelDTOConverter.toDTO(
@@ -55,7 +53,7 @@ public class ChannelResourceImpl
 	@NestedField(parentClass = PriceListChannel.class, value = "channel")
 	@Override
 	public Channel getPriceListIdChannel(
-			@NestedFieldId(value = "channelId") @NotNull Long id)
+			@NestedFieldId(value = "channelId") Long id)
 		throws Exception {
 
 		return _channelDTOConverter.toDTO(

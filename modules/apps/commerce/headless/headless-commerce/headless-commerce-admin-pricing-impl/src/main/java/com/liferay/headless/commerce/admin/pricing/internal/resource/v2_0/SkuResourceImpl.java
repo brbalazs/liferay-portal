@@ -23,8 +23,6 @@ import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -42,8 +40,7 @@ public class SkuResourceImpl
 
 	@NestedField(parentClass = PriceEntry.class, value = "sku")
 	@Override
-	public Sku getPriceEntryIdSku(
-			@NestedFieldId(value = "skuId") @NotNull Long id)
+	public Sku getPriceEntryIdSku(@NestedFieldId(value = "skuId") Long id)
 		throws Exception {
 
 		return _skuDTOConverter.toDTO(

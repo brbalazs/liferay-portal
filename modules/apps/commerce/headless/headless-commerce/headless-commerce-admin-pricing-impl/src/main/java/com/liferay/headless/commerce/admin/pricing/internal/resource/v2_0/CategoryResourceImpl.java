@@ -24,8 +24,6 @@ import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -44,7 +42,7 @@ public class CategoryResourceImpl
 	@NestedField(parentClass = DiscountCategory.class, value = "category")
 	@Override
 	public Category getDiscountIdCategoryPage(
-			@NestedFieldId(value = "categoryId") @NotNull Long id)
+			@NestedFieldId(value = "categoryId") Long id)
 		throws Exception {
 
 		return _categoryDTOConverter.toDTO(
@@ -55,7 +53,7 @@ public class CategoryResourceImpl
 	@NestedField(parentClass = PriceModifierCategory.class, value = "category")
 	@Override
 	public Category getPriceModifierIdCategory(
-			@NestedFieldId(value = "categoryId") @NotNull Long id)
+			@NestedFieldId(value = "categoryId") Long id)
 		throws Exception {
 
 		return _categoryDTOConverter.toDTO(

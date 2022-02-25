@@ -49,8 +49,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -66,7 +64,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Override
 	public Product getChannelProduct(
-			@NotNull Long channelId, @NotNull Long productId, Long accountId)
+			Long channelId, Long productId, Long accountId)
 		throws Exception {
 
 		CommerceChannel commerceChannel =
@@ -89,7 +87,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Override
 	public Page<Product> getChannelProductsPage(
-			@NotNull Long channelId, Long accountId, Filter filter,
+			Long channelId, Long accountId, Filter filter,
 			Pagination pagination, Sort[] sorts)
 		throws Exception {
 

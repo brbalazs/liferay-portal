@@ -24,8 +24,6 @@ import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -46,7 +44,7 @@ public class AccountGroupResourceImpl
 	)
 	@Override
 	public AccountGroup getDiscountIdAccountGroup(
-			@NestedFieldId(value = "accountGroupId") @NotNull Long id)
+			@NestedFieldId(value = "accountGroupId") Long id)
 		throws Exception {
 
 		return _accountGroupDTOConverter.toDTO(
@@ -59,7 +57,7 @@ public class AccountGroupResourceImpl
 	)
 	@Override
 	public AccountGroup getPriceListIdAccountGroup(
-			@NestedFieldId(value = "accountGroupId") @NotNull Long id)
+			@NestedFieldId(value = "accountGroupId") Long id)
 		throws Exception {
 
 		return _accountGroupDTOConverter.toDTO(
