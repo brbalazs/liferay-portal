@@ -14,10 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.controller.api;
 
-import com.liferay.oauth2.provider.scope.RequiresScope;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.util.FaroThreadLocal;
-import com.liferay.osb.faro.web.internal.application.ApiApplication;
 import com.liferay.osb.faro.web.internal.context.GroupInfo;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.portal.kernel.log.Log;
@@ -53,7 +51,6 @@ public class ReportController extends BaseFaroController {
 
 	@GET
 	@Path("/export/{type}")
-	@RequiresScope(ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING)
 	public Object get(
 			@Context GroupInfo groupInfo, @PathParam("type") String type)
 		throws Exception {
@@ -103,7 +100,6 @@ public class ReportController extends BaseFaroController {
 
 	@GET
 	@Path("{any:(?!/export.*).*}")
-	@RequiresScope(ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING)
 	public Map<Object, Object> get(
 			@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
 		throws Exception {

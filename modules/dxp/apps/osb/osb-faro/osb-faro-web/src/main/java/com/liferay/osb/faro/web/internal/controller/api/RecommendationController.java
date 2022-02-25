@@ -14,9 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.controller.api;
 
-import com.liferay.oauth2.provider.scope.RequiresScope;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.osb.faro.web.internal.application.ApiApplication;
 import com.liferay.osb.faro.web.internal.context.GroupInfo;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
@@ -47,7 +45,6 @@ public class RecommendationController extends BaseFaroController {
 
 	@GET
 	@Path("{any:.*}")
-	@RequiresScope(ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING)
 	public Map<?, ?> get(@Context GroupInfo groupInfo, @Context UriInfo uriInfo)
 		throws Exception {
 
@@ -64,7 +61,6 @@ public class RecommendationController extends BaseFaroController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{any:.*}")
 	@POST
-	@RequiresScope(ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING)
 	public Map<?, ?> post(
 			@Context GroupInfo groupInfo, String requestBody,
 			@Context UriInfo uriInfo)
