@@ -16,14 +16,7 @@ package com.liferay.osb.faro.web.internal.context;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.oauth2.provider.model.OAuth2Authorization;
-import com.liferay.oauth2.provider.service.OAuth2AuthorizationService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.exception.PortalException;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
+import com.liferay.oauth2.provider.service.OAuth2AuthorizationLocalService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,44 +48,26 @@ public class GroupInfoContextProvider implements ContextProvider<GroupInfo> {
 		}
 
 		try {
-			OAuth2Authorization userOAuth2Authorization =
-				_getUserOAuth2AuthorizationsByAccessToken(
-					authorization.substring(7));
+			OAuth2Authorization oAuth2Authorization =
+				_oAuth2AuthorizationLocalService.
+					getOAuth2AuthorizationByAccessTokenContent(
+						authorization.substring(7));
 
 			ExpandoBridge expandoBridge =
-				userOAuth2Authorization.getExpandoBridge();
+				oAuth2Authorization.getExpandoBridge();
 
 			return new GroupInfo(
 				(long)expandoBridge.getAttribute("groupId", false));
 		}
-		catch (PortalException portalException) {
-			throw new IllegalStateException(portalException);
+		catch (Exception exception) {
+			throw new IllegalStateException(
+				"Unable to fetch the OAuth2Authorization with access token " +
+					authorization.substring(7),
+				exception);
 		}
 	}
 
-	private OAuth2Authorization _getUserOAuth2AuthorizationsByAccessToken(
-			String accessToken)
-		throws PortalException {
-
-		List<OAuth2Authorization> userOAuth2Authorizations =
-			_oAuth2AuthorizationService.getUserOAuth2Authorizations(
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-
-		Stream<OAuth2Authorization> stream = userOAuth2Authorizations.stream();
-
-		Optional<OAuth2Authorization> oAuth2AuthorizationOptional =
-			stream.filter(
-				oAuth2Authorization -> Objects.equals(
-					oAuth2Authorization.getAccessTokenContent(), accessToken)
-			).findFirst();
-
-		return oAuth2AuthorizationOptional.orElseThrow(
-			() -> new IllegalStateException(
-				"Unable to fetch the OAuth2Authorization with access token " +
-					accessToken));
-	}
-
 	@Reference
-	private OAuth2AuthorizationService _oAuth2AuthorizationService;
+	private OAuth2AuthorizationLocalService _oAuth2AuthorizationLocalService;
 
 }
