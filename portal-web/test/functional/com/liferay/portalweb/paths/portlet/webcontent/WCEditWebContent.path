@@ -122,6 +122,11 @@
 	<td>//span[contains(@id,'displayPageNameInput')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>DEFAULT_LANGUAGE</td>
+	<td>//div[contains(@class,'default-language') and text()='Default Language: ${defaultLanguage}.']</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
