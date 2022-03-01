@@ -18,7 +18,7 @@
 
 <%
 String currentImageURL = ParamUtil.getString(request, "currentLogoURL");
-long maxFileSize = ParamUtil.getLong(request, "maxFileSize");
+long maxFileSize = UploadImageUtil.getMaxFileSize(renderRequest);
 String randomNamespace = ParamUtil.getString(request, "randomNamespace");
 String tempImageFileName = ParamUtil.getString(request, "tempImageFileName");
 %>
