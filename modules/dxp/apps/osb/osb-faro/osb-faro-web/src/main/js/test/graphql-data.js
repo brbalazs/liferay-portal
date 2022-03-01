@@ -42,8 +42,7 @@ import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
 import {NAME} from 'shared/util/pagination';
-import {OrderByDirections} from 'shared/util/constants';
-import {RangeKeyTimeRanges} from 'shared/util/constants';
+import {OrderByDirections, RangeKeyTimeRanges} from 'shared/util/constants';
 
 const METRIC_TYPENAME_MAP = {
 	histogram: 'HistogramMetric',

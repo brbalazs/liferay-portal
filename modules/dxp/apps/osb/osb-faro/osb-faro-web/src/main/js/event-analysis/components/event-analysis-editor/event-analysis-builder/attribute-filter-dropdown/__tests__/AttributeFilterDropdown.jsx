@@ -4,9 +4,11 @@ import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
+import {DISPLAY_NAME} from 'shared/util/pagination';
 import {fireEvent, render, waitForElement} from '@testing-library/react';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockEventAttributeDefinitionsReq} from 'test/graphql-data';
+import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
 
@@ -24,7 +26,14 @@ describe('AttributeFilterDropdown', () => {
 									__typename: 'EventAttributeDefinition'
 								})
 							),
-							{keyword: '', size: 200}
+							{
+								keyword: '',
+								size: 200,
+								sort: {
+									column: DISPLAY_NAME,
+									type: OrderByDirections.Ascending
+								}
+							}
 						)
 					]}
 				>

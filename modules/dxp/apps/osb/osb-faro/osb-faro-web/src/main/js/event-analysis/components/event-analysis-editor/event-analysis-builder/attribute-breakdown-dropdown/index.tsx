@@ -21,7 +21,7 @@ import {BREAKDOWN_FNS_MAP} from 'event-analysis/utils/utils';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect, ConnectedProps} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {NAME} from 'shared/util/pagination';
+import {DISPLAY_NAME} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
@@ -73,7 +73,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 			page: 0,
 			size: 200,
 			sort: {
-				column: NAME,
+				column: DISPLAY_NAME,
 				type: OrderByDirections.Ascending
 			},
 			type: AttributeTypes.All
@@ -89,6 +89,14 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 		);
 
 	const showOptions = selectedAttribute && hasOptions(selectedAttribute);
+
+	const onClose = (save: boolean) => {
+		if (save) {
+			result.refetch();
+		}
+
+		close();
+	};
 
 	return (
 		<BaseDropdown
@@ -170,7 +178,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 														{
 															id: attribute.id,
 															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
+															onClose,
 															query: EventAttributeDefinitionQuery,
 															showTypecast: true
 														}
@@ -252,7 +260,7 @@ const AttributeBreakdownDropdown: React.FC<IAttributeBreakdownDropdownProps> = (
 															id:
 																selectedAttribute.id,
 															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
+															onClose,
 															query: EventAttributeDefinitionQuery,
 															showTypecast: true
 														}

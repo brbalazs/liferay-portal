@@ -19,7 +19,7 @@ import {
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect, ConnectedProps} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {NAME} from 'shared/util/pagination';
+import {DISPLAY_NAME} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
@@ -69,7 +69,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 			page: 0,
 			size: 200,
 			sort: {
-				column: NAME,
+				column: DISPLAY_NAME,
 				type: OrderByDirections.Ascending
 			},
 			type: AttributeTypes.All
@@ -78,6 +78,14 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 
 	const attributeId = attribute ? attribute.id : null;
 	const filterId = filter ? filter.id : null;
+
+	const onClose = (save: boolean) => {
+		if (save) {
+			result.refetch();
+		}
+
+		close();
+	};
 
 	return (
 		<BaseDropdown
@@ -163,7 +171,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 														{
 															id: attribute.id,
 															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
+															onClose,
 															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 															showTypecast: true
 														}
@@ -219,7 +227,7 @@ const AttributeFilterDropdown: React.FC<IAttributeFilterDropdownProps> = ({
 															id:
 																selectedAttribute.id,
 															mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-															onCancel: close,
+															onClose,
 															query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 															showTypecast: true
 														}

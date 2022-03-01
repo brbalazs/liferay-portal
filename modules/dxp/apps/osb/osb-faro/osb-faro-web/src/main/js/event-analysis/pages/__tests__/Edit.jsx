@@ -52,7 +52,11 @@ const WrappedComponent = () => (
 						),
 						{
 							eventDefinitionId: '1',
-							size: 200
+							size: 200,
+							sort: {
+								column: DISPLAY_NAME,
+								type: OrderByDirections.Ascending
+							}
 						}
 					),
 					mockEventDefinitionsReq(
