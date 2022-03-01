@@ -50,7 +50,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 				open(modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL, {
 					id: attributeId,
 					mutation: UPDATE_EVENT_ATTRIBUTE_DEFINITION,
-					onCancel: close,
+					onClose: close,
 					query: EVENT_ATTRIBUTE_DEFINITION_QUERY,
 					showTypecast: true
 				})

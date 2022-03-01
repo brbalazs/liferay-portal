@@ -36,7 +36,7 @@ const View: React.FC<IViewProps> = ({close, eventId, groupId, open}) => {
 				open(modalTypes.EDIT_ATTRIBUTE_EVENT_MODAL, {
 					id: eventId,
 					mutation: UPDATE_EVENT_DEFINITION,
-					onCancel: close,
+					onClose: close,
 					query: EVENT_DEFINITION_QUERY
 				})
 		}
