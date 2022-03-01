@@ -221,11 +221,14 @@ const BaseEventAnalysisPage: React.FC<IBaseEventAnalysisPageProps> = ({
 	const onEventChange = (event: Event) => {
 		setEvent(event);
 
-		const {displayName, name, type} = event;
-		analytics.track(`${PAGE_NAME} - Selected an Event`, {
-			name: displayName || name,
-			type
-		});
+		if (event) {
+			const {displayName, name, type} = event;
+
+			analytics.track(`${PAGE_NAME} - Selected an Event`, {
+				name: displayName || name,
+				type
+			});
+		}
 	};
 
 	const onRangeSelectorsChange = (rangeSelectors: RangeSelectors) => {
