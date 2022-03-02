@@ -76,7 +76,7 @@ public class BlogsContentEditorConfigContributor
 		sb.append(getAllowedContentLists());
 		sb.append(" p[*](*){text-align}; ");
 		sb.append(getAllowedContentTable());
-		sb.append(" video[*](*);");
+		sb.append(" source[*](*); video[*](*);");
 
 		jsonObject.put("allowedContent", sb.toString());
 
