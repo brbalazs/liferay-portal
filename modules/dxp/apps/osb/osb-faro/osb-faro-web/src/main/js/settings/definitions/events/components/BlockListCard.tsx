@@ -393,7 +393,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 					<EmptyStateDashboard
 						autoFit
 						description={
-							<p className='mb-1'>
+							<p className='mb-1 d-flex flex-column'>
 								{Liferay.Language.get(
 									'to-block-events,-select-one-from-the-events-table'
 								)}
