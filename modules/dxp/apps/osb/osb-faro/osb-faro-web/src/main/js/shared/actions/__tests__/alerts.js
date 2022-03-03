@@ -21,6 +21,18 @@ describe('alerts', () => {
 
 			expect(typeof action).toBe('function');
 		});
+
+		it('should return a defult id', () => {
+			const action = addAlert({alertType, timeout});
+
+			expect(action.payload.id).toBe('3');
+		});
+
+		it('should allow for a custom id', () => {
+			const action = addAlert({alertType, id: 'customId', timeout});
+
+			expect(action.payload.id).toBe('customId');
+		});
 	});
 
 	describe('updateAlert', () => {

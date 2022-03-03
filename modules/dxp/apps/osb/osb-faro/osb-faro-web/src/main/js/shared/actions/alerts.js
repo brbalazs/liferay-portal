@@ -24,9 +24,12 @@ function removeAfterDelay(action, timeout) {
 	};
 }
 
-export function addAlert({alertType, message, timeout = true}) {
-	const id = uniqueId();
-
+export function addAlert({
+	alertType,
+	message,
+	id = uniqueId(),
+	timeout = true
+}) {
 	const action = {
 		payload: {
 			alertType,
