@@ -14,7 +14,7 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
-import {addAlert} from 'shared/actions/alerts';
+import {addAlert, removeAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {
 	BlockCustomEventDefinitions,
@@ -32,6 +32,7 @@ import {
 import {Event, EventTypes} from 'event-analysis/utils/types';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
+import {LIMIT_REACHED_ALERT_ID} from './constants';
 import {OrderedMap} from 'immutable';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -44,7 +45,7 @@ import {
 } from 'shared/context/selection';
 import {withCurrentUser} from 'shared/hoc';
 
-const connector = connect(null, {addAlert, close, open});
+const connector = connect(null, {addAlert, close, open, removeAlert});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -60,7 +61,8 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 	currentUser,
 	groupId,
 	history,
-	open
+	open,
+	removeAlert
 }) => {
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
@@ -201,6 +203,8 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 											[events[0].displayName]
 									  )
 						});
+
+						removeAlert(LIMIT_REACHED_ALERT_ID);
 					})
 					.catch(() =>
 						addAlert({

@@ -15,7 +15,7 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
-import {addAlert} from 'shared/actions/alerts';
+import {addAlert, removeAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {
 	BlockCustomEventDefinitionsData,
@@ -33,6 +33,7 @@ import {
 } from 'shared/util/pagination';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
+import {LIMIT_REACHED_ALERT_ID} from './constants';
 import {OrderedMap} from 'immutable';
 import {RootState} from 'shared/store';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
@@ -58,7 +59,7 @@ const connector = connect(
 			'timeZoneId'
 		])
 	}),
-	{addAlert, close, open}
+	{addAlert, close, open, removeAlert}
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -77,6 +78,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 	groupId,
 	history,
 	open,
+	removeAlert,
 	timeZoneId
 }) => {
 	const {selectedItems, selectionDispatch} = useSelectionContext();
@@ -301,6 +303,8 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 									[events[0].name]
 							  )
 				});
+
+				removeAlert(LIMIT_REACHED_ALERT_ID);
 			})
 			.catch(err => {
 				let message = Liferay.Language.get(
@@ -327,6 +331,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 
 				addAlert({
 					alertType: Alert.Types.Error,
+					id: LIMIT_REACHED_ALERT_ID,
 					message,
 					timeout: false
 				});
