@@ -100,7 +100,7 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 						<Card>
 							<EmptyStateDashboard
 								description={
-									<p className='mb-1 d-flex flex-column'>
+									<p className='d-flex flex-column mb-1'>
 										{Liferay.Language.get(
 											'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events'
 										)}

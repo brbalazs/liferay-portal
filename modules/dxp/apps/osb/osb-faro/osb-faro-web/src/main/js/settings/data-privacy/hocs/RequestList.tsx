@@ -378,7 +378,7 @@ const RequestList: React.FC<IRequestListProps> = ({
 					<EmptyStateDashboard
 						autoFit
 						description={
-							<p className='mb-1 d-flex flex-column'>
+							<p className='d-flex flex-column mb-1'>
 								{Liferay.Language.get(
 									'create-a-request-to-get-started'
 								)}

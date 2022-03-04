@@ -155,7 +155,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 			noResultsRenderer={() => (
 				<EmptyStateDashboard
 					description={
-						<p className='mb-1 d-flex flex-column'>
+						<p className='d-flex flex-column mb-1'>
 							{Liferay.Language.get(
 								'to-suppress-an-user,-go-to-data-control-&-privacy-under-settings-and-create-a-new-request-on-the-request-log'
 							)}
