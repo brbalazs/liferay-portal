@@ -211,4 +211,36 @@ definition {
 		User.loginUserPG();
 	}
 
+	@description = "This is a test for LPS-76717. The user could view warning message in preview window when no available navigation in site."
+	test ViewWarningMessageInPreviewWindowWhenNoNavigationAvailable {
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Navigation Test Page");
+
+		Navigator.gotoPage(pageName = "Navigation Test Page");
+
+		Portlet.addPG(portletName = "Navigation Menu");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Navigation Menu",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#DIALOG");
+
+		NavigationMenusWidget.selectNavigation(menuType = "Primary Navigation");
+
+		AssertTextPresent(value1 = "There is no Primary Navigation available for the current site.");
+
+		NavigationMenusWidget.selectNavigation(menuType = "Secondary Navigation");
+
+		AssertTextPresent(value1 = "There is no Secondary Navigation available for the current site.");
+
+		NavigationMenusWidget.selectNavigation(menuType = "Social Navigation");
+
+		AssertTextPresent(value1 = "There is no Social Navigation available for the current site.");
+	}
+
 }
