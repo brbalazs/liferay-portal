@@ -5911,23 +5911,6 @@ public class UserGroupPersistenceImpl
 					}
 				}
 				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
-
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {
-									companyId, externalReferenceCode
-								};
-							}
-
-							_log.warn(
-								"UserGroupPersistenceImpl.fetchByC_ERC(long, String, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
 					UserGroup userGroup = list.get(0);
 
 					result = userGroup;
@@ -6394,6 +6377,11 @@ public class UserGroupPersistenceImpl
 		}
 
 		UserGroupModelImpl userGroupModelImpl = (UserGroupModelImpl)userGroup;
+
+		if (Validator.isNull(userGroup.getExternalReferenceCode())) {
+			userGroup.setExternalReferenceCode(
+				String.valueOf(userGroup.getPrimaryKey()));
+		}
 
 		if (Validator.isNull(userGroup.getUuid())) {
 			String uuid = PortalUUIDUtil.generate();
