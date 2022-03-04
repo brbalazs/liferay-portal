@@ -13,8 +13,6 @@ import {connect, ConnectedProps} from 'react-redux';
 import {UserRoleNames} from 'shared/util/constants';
 import {validateEmail} from 'shared/util/email-validators';
 
-const TIMEOUT_INTERVAL = 1500;
-
 const connector = connect(null, {addAlert});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -62,10 +60,6 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 						},
 						{ip: '0'}
 					);
-
-					if (dxpConnected) {
-						setTimeout(onNext, TIMEOUT_INTERVAL);
-					}
 				})
 				.catch(() => {
 					addAlert({
