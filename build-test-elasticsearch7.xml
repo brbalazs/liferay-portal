@@ -88,6 +88,7 @@
 			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
 cluster.name: LiferayElasticsearchClusterTwo
 http.port: 9202
+ingest.geoip.downloader.enabled: false
 transport.port: 9500-9600</echo>
 		</sequential>
 	</macrodef>
@@ -101,7 +102,8 @@ transport.port: 9500-9600</echo>
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchCluster</echo>
+cluster.name: LiferayElasticsearchCluster
+ingest.geoip.downloader.enabled: false</echo>
 		</sequential>
 	</macrodef>
 
