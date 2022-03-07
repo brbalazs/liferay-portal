@@ -283,7 +283,7 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 	>
 		<liferay-ui:icon
 			message="print"
-			url='<%= "javascript:window.print();" %>'
+			url="javascript:window.print();"
 		/>
 
 		<c:if test="<%= commerceOrderContentDisplayContext.hasModelPermission(commerceOrder, ActionKeys.DELETE) %>">

@@ -77,7 +77,7 @@ recordSearchContainer.setOrderByType(kaleoFormsViewRecordsDisplayContext.getOrde
 
 	<aui:nav-bar-search searchContainer="<%= recordSearchContainer %>">
 		<portlet:renderURL copyCurrentRenderParameters="<%= false %>" var="searchURL">
-			<portlet:param name="mvcPath" value='<%= "/admin/view_kaleo_process.jsp" %>' />
+			<portlet:param name="mvcPath" value="/admin/view_kaleo_process.jsp" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
 			<portlet:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcess.getKaleoProcessId()) %>" />
 		</portlet:renderURL>

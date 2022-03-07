@@ -387,7 +387,7 @@ request.setAttribute("view.jsp-viewCategory", Boolean.TRUE.toString());
 					%>
 
 					<c:if test="<%= categoryEntriesSearchContainer.getTotal() > 0 %>">
-						<liferay-util:include page='<%= "/message_boards/view_category_entries.jsp" %>' servletContext="<%= application %>" />
+						<liferay-util:include page="/message_boards/view_category_entries.jsp" servletContext="<%= application %>" />
 					</c:if>
 
 					<%
@@ -405,7 +405,7 @@ request.setAttribute("view.jsp-viewCategory", Boolean.TRUE.toString());
 					%>
 
 					<c:if test="<%= threadEntriesSearchContainer.getTotal() > 0 %>">
-						<liferay-util:include page='<%= "/message_boards/view_thread_entries.jsp" %>' servletContext="<%= application %>" />
+						<liferay-util:include page="/message_boards/view_thread_entries.jsp" servletContext="<%= application %>" />
 					</c:if>
 
 					<c:if test="<%= (categoryEntriesSearchContainer.getTotal() <= 0) && (threadEntriesSearchContainer.getTotal() <= 0) %>">
@@ -517,7 +517,7 @@ request.setAttribute("view.jsp-viewCategory", Boolean.TRUE.toString());
 					request.setAttribute("view.jsp-threadEntriesSearchContainer", threadEntriesSearchContainer);
 					%>
 
-					<liferay-util:include page='<%= "/message_boards/view_thread_entries.jsp" %>' servletContext="<%= application %>" />
+					<liferay-util:include page="/message_boards/view_thread_entries.jsp" servletContext="<%= application %>" />
 
 					<%
 					String pageSubtitle = null;

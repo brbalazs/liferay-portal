@@ -53,7 +53,7 @@ FragmentCollection fragmentCollection = fragmentDisplayContext.getFragmentCollec
 	<c:if test="<%= FragmentPermission.contains(permissionChecker, scopeGroupId, FragmentActionKeys.MANAGE_FRAGMENT_ENTRIES) %>">
 		<liferay-ui:icon
 			message="import"
-			onClick='<%= "openImportCollectionView();" %>'
+			onClick="openImportCollectionView();"
 			url="javascript:;"
 		/>
 
