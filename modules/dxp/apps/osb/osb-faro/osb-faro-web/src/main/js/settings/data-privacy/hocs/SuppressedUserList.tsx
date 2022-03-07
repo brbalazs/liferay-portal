@@ -157,7 +157,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 					description={
 						<p className='d-flex flex-column mb-1'>
 							{Liferay.Language.get(
-								'to-suppress-an-user,-go-to-data-control-&-privacy-under-settings-and-create-a-new-request-on-the-request-log'
+								'to-suppress-a-user,-go-to-data-control-&-privacy-under-settings-and-create-a-new-request-on-the-request-log'
 							)}
 
 							<a
