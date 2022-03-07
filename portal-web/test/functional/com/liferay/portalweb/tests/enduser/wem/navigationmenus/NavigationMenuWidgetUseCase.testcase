@@ -212,23 +212,40 @@ definition {
 	}
 
 	@description = "This is a test for LPS-76717. The user could view warning message in preview window when no available navigation in site."
+	@priority = "3"
 	test ViewWarningMessageInPreviewWindowWhenNoNavigationAvailable {
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONGroup.addGroup(groupName = "Test Site Name");
 
-		SitePages.addPublicPage(pageName = "Navigation Test Page");
+		JSONFragment.addFragmentCollection(
+			groupName = "Test Site Name",
+			name = "Collection Name");
 
-		Navigator.gotoPage(pageName = "Navigation Test Page");
+		var htmlSnippet = '''<lfr-widget-nav />''';
 
-		Portlet.addPG(portletName = "Navigation Menu");
+		JSONFragment.addSection(
+			collectionName = "Collection Name",
+			fragmentStatus = "Approved",
+			groupName = "Test Site Name",
+			html = "${htmlSnippet}",
+			name = "Test Fragment Name");
 
-		Portlet.gotoPortletOptions(
-			portletName = "Navigation Menu",
-			portletOption = "Configuration");
+		PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "test-site-name");
 
-		SelectFrame(locator1 = "IFrame#DIALOG");
+		PageTemplatesAdmin.addCollection(collectionName = "Page Template Collection");
+
+		PageTemplatesAdmin.add(pageTemplateName = "Page Template Name");
+
+		PageEditor.addFragment(
+			collectionName = "Collection Name",
+			fragmentName = "Test Fragment Name");
+
+		PageEditor.clickConfigurableField(fragmentName = "Test Fragment Name");
+
+		Click.clickNoMouseOver(
+			key_text = "Configure",
+			locator1 = "Button#ANY");
+
+		IFrame.selectModalFrame();
 
 		NavigationMenusWidget.selectNavigation(menuType = "Primary Navigation");
 
