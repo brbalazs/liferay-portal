@@ -48,7 +48,6 @@ String tempImageFileName = ParamUtil.getString(request, "tempImageFileName");
 	<c:otherwise>
 		<portlet:actionURL name="/image_uploader/view" var="uploadImageURL">
 			<portlet:param name="mvcRenderCommandName" value="/image_uploader/view" />
-			<portlet:param name="maxFileSize" value="<%= String.valueOf(maxFileSize) %>" />
 		</portlet:actionURL>
 
 		<aui:form action="<%= uploadImageURL %>" enctype="multipart/form-data" method="post" name="fm">
@@ -137,7 +136,6 @@ String tempImageFileName = ParamUtil.getString(request, "tempImageFileName");
 			<portlet:actionURL name="/image_uploader/view" var="addTempImageURL">
 				<portlet:param name="mvcRenderCommandName" value="/image_uploader/view" />
 				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD_TEMP %>" />
-				<portlet:param name="maxFileSize" value="<%= String.valueOf(maxFileSize) %>" />
 			</portlet:actionURL>
 
 			var imageUploadedInput = A.one('#<portlet:namespace />imageUploaded');
