@@ -1,10 +1,9 @@
 import * as API from 'shared/api';
-import {createOrderIOMap} from 'shared/util/pagination';
 import {DataSourceStatuses, DataSourceTypes} from 'shared/util/constants';
 import {IStatesRendererContextProps} from 'shared/components/states-renderer/StatesRenderer';
-import {NAME} from 'shared/util/pagination';
+import {Pagination} from 'shared/types';
 import {useParams} from 'react-router-dom';
-import {useQueryPagination, useRequest} from 'shared/hooks';
+import {useRequest} from 'shared/hooks';
 
 interface IDataSourceProps {
 	contactsSelected: boolean;
@@ -19,21 +18,23 @@ interface IUseDataSourceProps extends IStatesRendererContextProps {
 	items: IDataSourceProps[];
 }
 
-export const useDataSource: () => IStatesRendererContextProps &
-	IUseDataSourceProps = () => {
+export const useDataSource: (
+	queryParams?: Pagination
+) => IStatesRendererContextProps & IUseDataSourceProps = (
+	queryParams = {
+		delta: 1,
+		orderIOMap: undefined,
+		page: 1,
+		query: ''
+	}
+) => {
 	const {groupId} = useParams();
-	const {delta, orderIOMap, page, query} = useQueryPagination({
-		initialOrderIOMap: createOrderIOMap(NAME)
-	});
 
 	const {data = {items: []}, error, loading} = useRequest({
 		dataSourceFn: API.dataSource.search,
 		variables: {
-			delta,
 			groupId,
-			orderIOMap,
-			page,
-			query
+			...queryParams
 		}
 	});
 
