@@ -14,10 +14,6 @@
 
 package com.liferay.taglib.ui;
 
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.upload.UploadServletRequestConfigurationHelperUtil;
 import com.liferay.taglib.util.IncludeTag;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +43,10 @@ public class LogoSelectorTag extends IncludeTag {
 		_logoDisplaySelector = logoDisplaySelector;
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), with no direct replacement
+	 */
+	@Deprecated
 	public void setMaxFileSize(long maxFileSize) {
 		_maxFileSize = maxFileSize;
 	}
@@ -97,26 +97,6 @@ public class LogoSelectorTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-ui:logo-selector:logoDisplaySelector",
 			_logoDisplaySelector);
-
-		if (_maxFileSize == 0) {
-			try {
-				_maxFileSize =
-					UploadServletRequestConfigurationHelperUtil.getMaxSize();
-			}
-			catch (SystemException se) {
-
-				// LPS-52675
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(se, se);
-				}
-			}
-		}
-
-		request.setAttribute(
-			"liferay-ui:logo-selector:maxFileSize",
-			String.valueOf(_maxFileSize));
-
 		request.setAttribute(
 			"liferay-ui:logo-selector:showBackground",
 			String.valueOf(_showBackground));
@@ -129,9 +109,6 @@ public class LogoSelectorTag extends IncludeTag {
 
 	private static final String _PAGE =
 		"/html/taglib/ui/logo_selector/page.jsp";
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		LogoSelectorTag.class);
 
 	private String _currentLogoURL;
 	private boolean _defaultLogo;

@@ -24,7 +24,6 @@ boolean defaultLogo = GetterUtil.getBoolean((String)request.getAttribute("lifera
 String defaultLogoURL = (String)request.getAttribute("liferay-ui:logo-selector:defaultLogoURL");
 String editLogoFn = GetterUtil.getString((String)request.getAttribute("liferay-ui:logo-selector:editLogoFn"));
 String logoDisplaySelector = (String)request.getAttribute("liferay-ui:logo-selector:logoDisplaySelector");
-long maxFileSize = GetterUtil.getLong((String)request.getAttribute("liferay-ui:logo-selector:maxFileSize"));
 boolean showBackground = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:logo-selector:showBackground"));
 boolean showButtons = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:logo-selector:showButtons"));
 String tempImageFileName = (String)request.getAttribute("liferay-ui:logo-selector:tempImageFileName");
@@ -82,7 +81,6 @@ else {
 		<liferay-portlet:renderURL portletName="<%= PortletKeys.IMAGE_UPLOADER %>" var="uploadImageURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 			<liferay-portlet:param name="mvcRenderCommandName" value="/image_uploader/view" />
 			<liferay-portlet:param name="currentLogoURL" value="<%= currentLogoURL %>" />
-			<liferay-portlet:param name="maxFileSize" value="<%= String.valueOf(maxFileSize) %>" />
 			<liferay-portlet:param name="randomNamespace" value="<%= randomNamespace %>" />
 			<liferay-portlet:param name="tempImageFileName" value="<%= tempImageFileName %>" />
 		</liferay-portlet:renderURL>
