@@ -11,13 +11,13 @@ import {useDataSource} from '../useDataSource';
 
 jest.unmock('react-dom');
 
-const WrapperComponent = () => (
+const WrapperComponent = props => (
 	<BrowserRouter>
-		<MockComponent />
+		<MockComponent {...props} />
 	</BrowserRouter>
 );
-const MockComponent = () => {
-	const {empty, error, items, loading} = useDataSource();
+const MockComponent = queryParams => {
+	const {empty, error, items, loading} = useDataSource(queryParams);
 
 	return (
 		<>
@@ -77,6 +77,28 @@ describe('useDataSource', () => {
 			Promise.resolve(data.mockSearch(data.mockLiferayDataSource, 1))
 		);
 		const {container, getByText} = render(<WrapperComponent />);
+
+		await waitForElementToBeRemoved(() => getByText('loading'));
+
+		const itemsSelector = container.querySelector('#items');
+
+		expect(itemsSelector.children).toHaveLength(1);
+		expect(getByText('item')).toBeInTheDocument();
+	});
+
+	it('should render success when queryPagination true', async () => {
+		API.dataSource.search.mockReturnValueOnce(
+			Promise.resolve(data.mockSearch(data.mockLiferayDataSource, 1))
+		);
+		const {container, getByText} = render(
+			<WrapperComponent
+				queryParams={{
+					delta: 1,
+					page: 1,
+					query: ''
+				}}
+			/>
+		);
 
 		await waitForElementToBeRemoved(() => getByText('loading'));
 
