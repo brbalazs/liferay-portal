@@ -100,9 +100,9 @@
 		<liferay-ui:message key="ends" />: <%= dateFormatLongDate.format(endTimeJCalendar.getTime()) + ", " + dateFormatTime.format(endTimeJCalendar.getTime()) %>
 
 		<%
-		java.util.Calendar now = CalendarFactoryUtil.getCalendar(timeZone);
+		java.util.Calendar nowJCalendar = CalendarFactoryUtil.getCalendar(timeZone);
 
-		CalendarBooking nextCalendarBooking = RecurrenceUtil.getCalendarBookingInstance(calendarBooking, RecurrenceUtil.getIndexOfInstance(calendarBooking.getRecurrence(), startTimeJCalendar.getTimeInMillis(), now.getTimeInMillis()));
+		CalendarBooking nextCalendarBooking = RecurrenceUtil.getCalendarBookingInstance(calendarBooking, RecurrenceUtil.getIndexOfInstance(calendarBooking.getRecurrence(), startTimeJCalendar.getTimeInMillis(), nowJCalendar.getTimeInMillis()));
 		%>
 
 		<c:if test="<%= nextCalendarBooking != null %>">
