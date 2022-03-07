@@ -182,7 +182,7 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 											)}
 
 											<a
-												className='pl-1'
+												className='d-block pl-1'
 												href={
 													URLConstants.DataSourceConnection
 												}

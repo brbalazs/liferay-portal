@@ -115,7 +115,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 									)}
 
 									<a
-										className='pl-1'
+										className='d-block pl-1'
 										href={URLConstants.DataSourceConnection}
 										key='DOCUMENTATION'
 										target='_blank'

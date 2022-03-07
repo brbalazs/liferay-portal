@@ -114,7 +114,7 @@ const Assets: React.FC<{className: string; router: Router}> = ({
 										)}
 
 										<a
-											className='pl-1'
+											className='d-block pl-1'
 											href={
 												URLConstants.DataSourceConnection
 											}

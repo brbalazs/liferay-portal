@@ -119,7 +119,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 										)}
 
 										<a
-											className='pl-1'
+											className='d-block pl-1'
 											href={
 												URLConstants.DataSourceConnection
 											}
