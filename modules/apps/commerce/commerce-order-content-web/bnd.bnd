@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Order Content Web
 Bundle-SymbolicName: com.liferay.commerce.order.content.web
-Bundle-Version: 1.0.64
+Bundle-Version: 1.0.65
 Import-Package:\
 	com.liferay.frontend.taglib.clay.servlet.taglib.util;version="[1.0.0,99.0.0)",\
 	\
