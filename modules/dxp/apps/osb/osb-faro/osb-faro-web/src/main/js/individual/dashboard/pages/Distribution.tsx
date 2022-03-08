@@ -25,7 +25,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IIndividualsDistributionProps extends PropsFromRedux {
 	currentUser: User;
 	knownIndividualCount: number | null;
-	router: object;
 }
 
 export const IndividualsDistribution: React.FC<IIndividualsDistributionProps> = ({

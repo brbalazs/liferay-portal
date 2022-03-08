@@ -9,6 +9,13 @@ import {Provider} from 'react-redux';
 
 jest.unmock('react-dom');
 
+jest.mock('react-router-dom', () => ({
+	...jest.requireActual('react-router-dom'),
+	useParams: () => ({
+		groupId: '123'
+	})
+}));
+
 describe('Individuals Dashboard', () => {
 	afterEach(cleanup);
 
@@ -17,7 +24,7 @@ describe('Individuals Dashboard', () => {
 			<Provider store={mockStore()}>
 				<BrowserRouter>
 					<ChannelContext.Provider value={mockChannelContext()}>
-						<Dashboard router={{params: {groupId: '123'}}} />
+						<Dashboard />
 					</ChannelContext.Provider>
 				</BrowserRouter>
 			</Provider>

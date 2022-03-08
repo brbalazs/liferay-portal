@@ -144,11 +144,9 @@ describe('EventAnalysisList with no Data Source', () => {
 			<WrappedComponent eventAnalyses={eventAnalysis} />
 		);
 
+		expect(getByText('No Data Sources Connected')).toBeInTheDocument();
 		expect(
-			getByText('No Event Analysis Synced from Data Sources')
-		).toBeInTheDocument();
-		expect(
-			getByText('Connect a data source with events data.')
+			getByText('Connect a data source to get started.')
 		).toBeInTheDocument();
 		expect(
 			getByText('Access our documentation to learn more.')

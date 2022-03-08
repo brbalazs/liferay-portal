@@ -37,6 +37,7 @@ import {Routes, toRoute} from 'shared/util/router';
 import {Segment, User} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
 import {useDataSource} from 'shared/hooks/useDataSource';
+import {useParams} from 'react-router-dom';
 import {useQueryPagination, useRequest} from 'shared/hooks';
 
 const connector = connect(
@@ -57,20 +58,17 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IKnownIndividualsProps
 	extends React.HTMLAttributes<HTMLDivElement>,
 		PropsFromRedux {
-	channelId: string;
 	currentUser: User;
-	groupId: string;
 }
 
 const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	addAlert,
-	channelId,
 	close,
 	currentUser,
-	groupId,
 	open,
 	timeZoneId
 }) => {
+	const {channelId, groupId} = useParams();
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
 	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
