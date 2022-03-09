@@ -107,19 +107,19 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 		}
 	};
 
-	const renderNoResults = (query, activeFilters) => {
-		const createDataSourceButton = (
-			<Button
-				display='primary'
-				href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
-					channelId,
-					groupId
-				})}
-			>
-				{Liferay.Language.get('connect-data-source')}
-			</Button>
-		);
+	const ConnectDataSourceButton = () => (
+		<Button
+			display='primary'
+			href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
+				channelId,
+				groupId
+			})}
+		>
+			{Liferay.Language.get('connect-data-source')}
+		</Button>
+	);
 
+	const renderNoResults = (query, activeFilters) => {
 		if (query || activeFilters) {
 			return (
 				<NoResultsDisplay
@@ -135,7 +135,7 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 					title={get(noResultsConfig, 'title')}
 				>
 					{get(noResultsConfig, 'content') ||
-						(authorized && createDataSourceButton)}
+						(authorized && <ConnectDataSourceButton />)}
 				</NoResultsDisplay>
 			);
 		}
@@ -193,6 +193,8 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 													'access-our-documentation-to-learn-more'
 												)}
 											</a>
+
+											<ConnectDataSourceButton />
 										</>
 									) : (
 										Liferay.Language.get(
