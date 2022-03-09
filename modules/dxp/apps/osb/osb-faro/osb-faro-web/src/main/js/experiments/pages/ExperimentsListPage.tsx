@@ -1,11 +1,13 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
+import Button from 'shared/components/Button';
 import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import URLConstants from 'shared/util/url-constants';
+import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {
 	createOrderIOMap,
@@ -16,12 +18,14 @@ import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
 import {get} from 'lodash';
 import {IBasePageContext, Router} from 'shared/types';
 import {RootState} from 'shared/store';
+import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
 import {useDataSource} from 'shared/hooks/useDataSource';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 import {useQueryPagination} from 'shared/hooks';
+import {User} from 'shared/util/records';
 
 const connector = connect(
 	(
@@ -45,6 +49,7 @@ const connector = connect(
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 interface IExperimentsListPage extends IBasePageContext, PropsFromRedux {
+	currentUser: User;
 	router: {
 		params: {
 			channelId: string;
@@ -58,6 +63,7 @@ interface IExperimentsListPage extends IBasePageContext, PropsFromRedux {
 }
 
 const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
+	currentUser,
 	router,
 	timeZoneId
 }) => {
@@ -80,6 +86,8 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 			channelId
 		}
 	});
+
+	const authorized = currentUser.isAdmin();
 
 	return (
 		<BasePage documentTitle={Liferay.Language.get('tests')}>
@@ -107,15 +115,15 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 				<BasePage.Body>
 					<StatesRenderer {...dataSourceStates}>
 						<StatesRenderer.Empty
-							className='sites-dashboard bg-white mt-4 py-5'
+							className='bg-white mt-4 py-5 rounded sites-dashboard'
 							description={
 								<>
 									{Liferay.Language.get(
-										'connect-a-data-source-with-individuals-data'
+										'connect-a-data-source-with-sites-data'
 									)}
 
 									<a
-										className='d-block pl-1'
+										className='d-block mb-3'
 										href={URLConstants.DataSourceConnection}
 										key='DOCUMENTATION'
 										target='_blank'
@@ -124,10 +132,26 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 											'access-our-documentation-to-learn-more'
 										)}
 									</a>
+
+									{authorized && (
+										<Button
+											display='primary'
+											href={toRoute(
+												Routes.SETTINGS_ADD_DATA_SOURCE,
+												{
+													groupId
+												}
+											)}
+										>
+											{Liferay.Language.get(
+												'connect-data-source'
+											)}
+										</Button>
+									)}
 								</>
 							}
 							title={Liferay.Language.get(
-								'no-tests-synced-from-data-source'
+								'no-sites-synced-from-data-sources'
 							)}
 						/>
 
@@ -189,4 +213,4 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 	);
 };
 
-export default connector(ExperimentsListPage);
+export default compose<any>(withCurrentUser, connector)(ExperimentsListPage);

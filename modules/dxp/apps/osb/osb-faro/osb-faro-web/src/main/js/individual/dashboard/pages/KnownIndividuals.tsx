@@ -8,6 +8,8 @@ import NoResultsDisplay, {
 } from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
+import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ACTION_TYPES,
 	useSelectionContext,
@@ -34,6 +36,7 @@ import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {Segment, User} from 'shared/util/records';
 import {sub} from 'shared/util/lang';
+import {useDataSource} from 'shared/hooks/useDataSource';
 import {useQueryPagination, useRequest} from 'shared/hooks';
 
 const connector = connect(
@@ -81,6 +84,10 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 			groupId
 		}
 	});
+
+	const dataSourceStates = useDataSource();
+
+	const authorized = currentUser.isAdmin();
 
 	const addToSegment = (
 		selectedSegmentsList: List<Segment>,
@@ -175,8 +182,6 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 			values.some(Boolean)
 		);
 
-		const authorized = currentUser.isAdmin();
-
 		const createDataSourceButton = (
 			<Button
 				display='primary'
@@ -234,7 +239,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 					}
 					primary
 					title={Liferay.Language.get(
-						'no-individuals-sycned-from-data-sources'
+						'no-sites-sycned-from-data-sources'
 					)}
 				>
 					{authorized && createDataSourceButton}
@@ -256,62 +261,104 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	});
 
 	return (
-		<div className='individuals-dashboard-known-individuals-root'>
-			<div className='row'>
-				<div className='col-xl-12'>
-					<Card pageDisplay>
-						<CrossPageSelect
-							columns={[
-								individualsListColumns.getNameEmail({
-									channelId,
+		<StatesRenderer {...dataSourceStates}>
+			<StatesRenderer.Empty
+				className='bg-white mt-4 py-5 rounded sites-dashboard'
+				description={
+					<>
+						{Liferay.Language.get(
+							'connect-a-data-source-to-get-started'
+						)}
+
+						<a
+							className='d-block mb-3'
+							href={URLConstants.DataSourceConnection}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'access-our-documentation-to-learn-more'
+							)}
+						</a>
+
+						{authorized && (
+							<Button
+								display='primary'
+								href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
 									groupId
-								}),
-								individualsListColumns.jobTitle,
-								individualsListColumns.activitiesCount,
-								individualsListColumns.getLastActivityDate(
-									timeZoneId
-								)
-							]}
-							currentUser={currentUser}
-							delta={delta}
-							entityLabel={Liferay.Language.get('individuals')}
-							error={error}
-							items={data?.items}
-							loading={loading}
-							noResultsRenderer={renderNoResults}
-							orderByOptions={[
-								{
-									label: Liferay.Language.get('name'),
-									value: NAME
-								},
-								{
-									label: Liferay.Language.get('job-title'),
-									value: JOB_TITLE
-								},
-								{
-									label: Liferay.Language.get(
-										'total-activities'
-									),
-									value: ACTIVITIES_COUNT
-								},
-								{
-									label: Liferay.Language.get(
-										'last-activity'
-									),
-									value: LAST_ACTIVITY_DATE
-								}
-							]}
-							orderIOMap={orderIOMap}
-							page={page}
-							query={query}
-							renderNav={renderNav}
-							showCheckbox
-							total={data?.total}
-						/>
-					</Card>
+								})}
+							>
+								{Liferay.Language.get('connect-data-source')}
+							</Button>
+						)}
+					</>
+				}
+				title={Liferay.Language.get('no-data-sources-connected')}
+			/>
+
+			<StatesRenderer.Success>
+				<div className='individuals-dashboard-known-individuals-root'>
+					<div className='row'>
+						<div className='col-xl-12'>
+							<Card pageDisplay>
+								<CrossPageSelect
+									columns={[
+										individualsListColumns.getNameEmail({
+											channelId,
+											groupId
+										}),
+										individualsListColumns.jobTitle,
+										individualsListColumns.activitiesCount,
+										individualsListColumns.getLastActivityDate(
+											timeZoneId
+										)
+									]}
+									currentUser={currentUser}
+									delta={delta}
+									entityLabel={Liferay.Language.get(
+										'individuals'
+									)}
+									error={error}
+									items={data?.items}
+									loading={loading}
+									noResultsRenderer={renderNoResults}
+									orderByOptions={[
+										{
+											label: Liferay.Language.get('name'),
+											value: NAME
+										},
+										{
+											label: Liferay.Language.get(
+												'job-title'
+											),
+											value: JOB_TITLE
+										},
+										{
+											label: Liferay.Language.get(
+												'total-activities'
+											),
+											value: ACTIVITIES_COUNT
+										},
+										{
+											label: Liferay.Language.get(
+												'last-activity'
+											),
+											value: LAST_ACTIVITY_DATE
+										}
+									]}
+									orderIOMap={orderIOMap}
+									page={page}
+									query={query}
+									renderNav={renderNav}
+									showCheckbox
+									total={data?.total}
+								/>
+							</Card>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</StatesRenderer.Success>
+		</StatesRenderer>
 	);
 };
 

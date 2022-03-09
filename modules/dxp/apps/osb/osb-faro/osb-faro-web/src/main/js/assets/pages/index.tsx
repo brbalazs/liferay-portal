@@ -1,16 +1,19 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import BundleRouter from 'route-middleware/BundleRouter';
+import Button from 'shared/components/Button';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import URLConstants from 'shared/util/url-constants';
 import {Router} from 'shared/types';
-import {Routes} from 'shared/util/router';
+import {Routes, toRoute} from 'shared/util/router';
 import {Switch, useParams} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 import {useDataSource} from 'shared/hooks/useDataSource';
+import {User} from 'shared/util/records';
+import {withCurrentUser} from 'shared/hoc';
 
 const BlogsList = lazy(
 	() => import(/* webpackChunkName: "BlogsList" */ './BlogsList')
@@ -63,13 +66,17 @@ const NAV_ITEMS = [
 	}
 ];
 
-const Assets: React.FC<{className: string; router: Router}> = ({
-	className,
-	router
-}) => {
+interface IAssetsProps extends React.HTMLAttributes<HTMLElement> {
+	currentUser: User;
+	router: Router;
+}
+
+const Assets: React.FC<IAssetsProps> = ({className, currentUser, router}) => {
 	const {channelId, groupId} = useParams();
 	const dataSourceStates = useDataSource();
 	const {selectedChannel} = useChannelContext();
+
+	const authorized = currentUser.isAdmin();
 
 	return (
 		<BasePage
@@ -106,15 +113,15 @@ const Assets: React.FC<{className: string; router: Router}> = ({
 					<Suspense fallback={<Loading />}>
 						<StatesRenderer {...dataSourceStates}>
 							<StatesRenderer.Empty
-								className='sites-dashboard bg-white mt-4 py-5'
+								className='bg-white mt-4 py-5 rounded sites-dashboard'
 								description={
 									<>
 										{Liferay.Language.get(
-											'connect-a-data-source-with-assets-data'
+											'connect-a-data-source-with-sites-data'
 										)}
 
 										<a
-											className='d-block pl-1'
+											className='d-block mb-3'
 											href={
 												URLConstants.DataSourceConnection
 											}
@@ -125,10 +132,26 @@ const Assets: React.FC<{className: string; router: Router}> = ({
 												'access-our-documentation-to-learn-more'
 											)}
 										</a>
+
+										{authorized && (
+											<Button
+												display='primary'
+												href={toRoute(
+													Routes.SETTINGS_ADD_DATA_SOURCE,
+													{
+														groupId
+													}
+												)}
+											>
+												{Liferay.Language.get(
+													'connect-data-source'
+												)}
+											</Button>
+										)}
 									</>
 								}
 								title={Liferay.Language.get(
-									'no-assets-synced-from-data-sources'
+									'no-sites-synced-from-data-sources'
 								)}
 							/>
 
@@ -180,4 +203,4 @@ const Assets: React.FC<{className: string; router: Router}> = ({
 	);
 };
 
-export default Assets;
+export default withCurrentUser(Assets);

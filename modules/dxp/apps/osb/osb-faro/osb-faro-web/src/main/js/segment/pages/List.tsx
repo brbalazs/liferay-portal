@@ -348,9 +348,7 @@ export const List: React.FC<IListProps> = ({
 			currentUser={currentUser}
 			dataSourceFn={fetchSegments}
 			delta={delta}
-			emptyStateTitle={Liferay.Language.get(
-				'no-segments-synced-from-data-sources'
-			)}
+			emptyStateTitle={Liferay.Language.get('no-data-sources-connected')}
 			entityLabel={Liferay.Language.get('segments')}
 			filterBy={filterBy}
 			filterByOptions={

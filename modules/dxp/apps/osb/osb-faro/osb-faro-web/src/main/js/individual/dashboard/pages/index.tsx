@@ -4,12 +4,9 @@ import BundleRouter from 'route-middleware/BundleRouter';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
-import URLConstants from 'shared/util/url-constants';
 import {Routes} from 'shared/util/router';
-import {Switch} from 'react-router-dom';
+import {Switch, useParams} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
-import {useDataSource} from 'shared/hooks/useDataSource';
 
 const Distribution = lazy(
 	() =>
@@ -69,23 +66,9 @@ const NAV_ITEMS = [
 	}
 ];
 
-interface IDashboardProps extends React.HTMLAttributes<HTMLDivElement> {
-	router: {
-		params: {
-			channelId: string;
-			groupId: string;
-		};
-		query: object;
-	};
-}
-
-const Dashboard: React.FC<IDashboardProps> = ({
-	router: {
-		params: {channelId, groupId}
-	}
-}) => {
+const Dashboard: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 	const {selectedChannel} = useChannelContext();
-	const dataSourceStates = useDataSource();
+	const {channelId, groupId} = useParams();
 
 	return (
 		<BasePage
@@ -114,76 +97,41 @@ const Dashboard: React.FC<IDashboardProps> = ({
 
 			<BasePage.Body>
 				<Suspense fallback={<Loading />}>
-					<StatesRenderer {...dataSourceStates}>
-						<StatesRenderer.Empty
-							className='sites-dashboard bg-white mt-4 py-5'
-							description={
-								<>
-									{Liferay.Language.get(
-										'connect-a-data-source-with-individuals-data'
-									)}
-
-									<a
-										className='d-block pl-1'
-										href={URLConstants.DataSourceConnection}
-										key='DOCUMENTATION'
-										target='_blank'
-									>
-										{Liferay.Language.get(
-											'access-our-documentation-to-learn-more'
-										)}
-									</a>
-								</>
-							}
-							title={Liferay.Language.get(
-								'no-individuals-sycned-from-data-sources'
-							)}
+					<Switch>
+						<BundleRouter
+							data={Overview}
+							destructured={false}
+							exact
+							path={Routes.CONTACTS_INDIVIDUALS}
 						/>
 
-						<StatesRenderer.Success>
-							<Switch>
-								<BundleRouter
-									data={Overview}
-									destructured={false}
-									exact
-									path={Routes.CONTACTS_INDIVIDUALS}
-								/>
+						<BundleRouter
+							data={KnownIndividuals}
+							path={Routes.CONTACTS_INDIVIDUALS_KNOWN_INDIVIDUALS}
+						/>
 
-								<BundleRouter
-									data={KnownIndividuals}
-									path={
-										Routes.CONTACTS_INDIVIDUALS_KNOWN_INDIVIDUALS
-									}
-								/>
+						<BundleRouter
+							data={Distribution}
+							exact
+							path={Routes.CONTACTS_INDIVIDUALS_DISTRIBUTION}
+						/>
 
-								<BundleRouter
-									data={Distribution}
-									exact
-									path={
-										Routes.CONTACTS_INDIVIDUALS_DISTRIBUTION
-									}
-								/>
+						<BundleRouter
+							data={InterestDetails}
+							destructured={false}
+							exact
+							path={Routes.CONTACTS_INDIVIDUALS_INTEREST_DETAILS}
+						/>
 
-								<BundleRouter
-									data={InterestDetails}
-									destructured={false}
-									exact
-									path={
-										Routes.CONTACTS_INDIVIDUALS_INTEREST_DETAILS
-									}
-								/>
+						<BundleRouter
+							data={Interests}
+							destructured={false}
+							exact
+							path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}
+						/>
 
-								<BundleRouter
-									data={Interests}
-									destructured={false}
-									exact
-									path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}
-								/>
-
-								<RouteNotFound />
-							</Switch>
-						</StatesRenderer.Success>
-					</StatesRenderer>
+						<RouteNotFound />
+					</Switch>
 				</Suspense>
 			</BasePage.Body>
 		</BasePage>

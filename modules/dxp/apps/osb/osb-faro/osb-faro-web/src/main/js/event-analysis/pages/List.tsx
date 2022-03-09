@@ -1,5 +1,6 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
+import Button from 'shared/components/Button';
 import EventAnalysisListCard from '../hocs/EventAnalysisListCard';
 import React from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
@@ -7,8 +8,14 @@ import URLConstants from 'shared/util/url-constants';
 import {Routes, toRoute} from 'shared/util/router';
 import {useDataSource} from 'shared/hooks/useDataSource';
 import {useParams} from 'react-router-dom';
+import {User} from 'shared/util/records';
+import {withCurrentUser} from 'shared/hoc';
 
-const List: React.FC = () => {
+interface IListProps extends React.HTMLAttributes<HTMLElement> {
+	currentUser: User;
+}
+
+const List: React.FC<IListProps> = ({currentUser}) => {
 	const {channelId, groupId} = useParams();
 
 	const dataSourceStates = useDataSource();
@@ -25,6 +32,8 @@ const List: React.FC = () => {
 			label: Liferay.Language.get('create-analysis')
 		}
 	];
+
+	const authorized = currentUser.isAdmin();
 
 	return (
 		<BasePage documentTitle={Liferay.Language.get('event-analysis')}>
@@ -52,15 +61,15 @@ const List: React.FC = () => {
 			<BasePage.Body>
 				<StatesRenderer {...dataSourceStates}>
 					<StatesRenderer.Empty
-						className='sites-dashboard bg-white mt-4 py-5'
+						className='bg-white mt-4 py-5 rounded sites-dashboard'
 						description={
 							<>
 								{Liferay.Language.get(
-									'connect-a-data-source-with-events-data'
+									'connect-a-data-source-to-get-started'
 								)}
 
 								<a
-									className='d-block pl-1'
+									className='d-block mb-3'
 									href={URLConstants.DataSourceConnection}
 									key='DOCUMENTATION'
 									target='_blank'
@@ -69,10 +78,26 @@ const List: React.FC = () => {
 										'access-our-documentation-to-learn-more'
 									)}
 								</a>
+
+								{authorized && (
+									<Button
+										display='primary'
+										href={toRoute(
+											Routes.SETTINGS_ADD_DATA_SOURCE,
+											{
+												groupId
+											}
+										)}
+									>
+										{Liferay.Language.get(
+											'connect-data-source'
+										)}
+									</Button>
+								)}
 							</>
 						}
 						title={Liferay.Language.get(
-							'no-event-analysis-synced-from-data-sources'
+							'no-data-sources-connected'
 						)}
 					/>
 
@@ -85,4 +110,4 @@ const List: React.FC = () => {
 	);
 };
 
-export default List;
+export default withCurrentUser(List);

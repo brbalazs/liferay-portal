@@ -9,6 +9,7 @@ import URLConstants from 'shared/util/url-constants';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
 import {applyTimeZone} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
+import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {createOrderIOMap} from 'shared/util/pagination';
 import {getDefinitions} from 'shared/util/breadcrumbs';
@@ -16,6 +17,7 @@ import {omit} from 'lodash';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {User} from 'shared/util/records';
 
 const SearchableEntityTableHOC = withStatefulPagination(
 	SearchableEntityTable,
@@ -43,11 +45,13 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface IIndividualAttributesProps
 	extends PropsFromRedux,
 		React.HTMLAttributes<HTMLElement> {
+	currentUser: User;
 	groupId: string;
 }
 
 const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 	close,
+	currentUser,
 	groupId,
 	open,
 	timeZoneId
@@ -59,6 +63,8 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 			onClose: close
 		});
 	};
+
+	const authorized = currentUser.isAdmin();
 
 	const FieldNameCell = ({data: {dataSources, fieldName}}) => (
 		<td className='table-cell-expand'>
@@ -128,43 +134,41 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 						<EmptyStateDashboard
 							description={
 								<>
-									<p className='d-flex flex-column mb-4'>
-										{Liferay.Language.get(
-											'connect-a-data-source-with-people-data'
-										)}
+									{Liferay.Language.get(
+										'connect-a-data-source-with-sites-data'
+									)}
 
-										<a
-											className='pl-1'
-											href={
-												URLConstants.DataSourceConnection
-											}
-											key='DOCUMENTATION'
-											target='_blank'
-										>
-											{Liferay.Language.get(
-												'access-our-documentation-to-learn-more'
-											)}
-										</a>
-									</p>
-
-									<Button
-										display='primary'
-										href={toRoute(
-											Routes.SETTINGS_ADD_DATA_SOURCE,
-											{
-												groupId
-											}
-										)}
+									<a
+										className='d-block mb-3'
+										href={URLConstants.DataSourceConnection}
+										key='DOCUMENTATION'
+										target='_blank'
 									>
 										{Liferay.Language.get(
-											'connect-data-source'
+											'access-our-documentation-to-learn-more'
 										)}
-									</Button>
+									</a>
+
+									{authorized && (
+										<Button
+											display='primary'
+											href={toRoute(
+												Routes.SETTINGS_ADD_DATA_SOURCE,
+												{
+													groupId
+												}
+											)}
+										>
+											{Liferay.Language.get(
+												'connect-data-source'
+											)}
+										</Button>
+									)}
 								</>
 							}
 							symbol='ac-satellite'
 							title={Liferay.Language.get(
-								'no-individuals-sycned-from-data-sources'
+								'no-sites-synced-from-data-sources'
 							)}
 						/>
 					)}
@@ -177,4 +181,4 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 	);
 };
 
-export default connector(IndividualAttributes);
+export default compose<any>(withCurrentUser, connector)(IndividualAttributes);

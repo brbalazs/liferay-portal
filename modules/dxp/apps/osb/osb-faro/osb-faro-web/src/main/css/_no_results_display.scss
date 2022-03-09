@@ -40,7 +40,9 @@
 	}
 
 	&-title {
+		color: $main;
 		font-size: $fontSizeLarge;
+		font-weight: $fontWeightSemiBold;
 		margin-bottom: 16px;
 	}
 
