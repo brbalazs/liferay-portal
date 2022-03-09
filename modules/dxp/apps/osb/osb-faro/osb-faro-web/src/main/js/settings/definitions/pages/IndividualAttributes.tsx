@@ -168,7 +168,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 							}
 							symbol='ac-satellite'
 							title={Liferay.Language.get(
-								'no-sites-synced-from-data-sources'
+								'no-individuals-synced-from-data-sources'
 							)}
 						/>
 					)}
