@@ -237,7 +237,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 					}
 					primary
 					title={Liferay.Language.get(
-						'no-sites-sycned-from-data-sources'
+						'no-sites-synced-from-data-sources'
 					)}
 				>
 					{authorized && createDataSourceButton}
