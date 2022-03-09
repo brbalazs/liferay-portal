@@ -3,7 +3,7 @@ import React from 'react';
 import TooltipTemplate from './TooltipTemplate';
 import {Alignments, Column, Weights} from './types';
 
-interface IChartTooltipProps extends React.HTMLAttributes<HTMLElement> {
+export interface IChartTooltipProps extends React.HTMLAttributes<HTMLElement> {
 	header?: {
 		className?: string;
 		columns: Column[];

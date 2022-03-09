@@ -36,65 +36,69 @@ export const TrendItem: React.FC<ITrendItemProps> = ({
 				{info && <InfoPopover {...info} />}
 			</div>
 
-			<div className='d-flex align-items-center flex-grow-1'>
-				<Chart
-					area={{linearGradient: true}}
-					axisX={{
-						show: false
-					}}
-					axisY={{
-						show: false
-					}}
-					chartType='area'
-					data={[
-						{
-							color: change < 0 ? CHART_RED : CHART_BLUE,
-							data,
-							id
-						}
-					]}
-					dataId={`${id}Data`}
-					grid={{x: {show: false}, y: {show: false}}}
-					height={40}
-					id={id}
-					interaction={{enabled: false}}
-					tooltip={{show: false}}
-				/>
+			<div className='d-flex align-items-center flex-grow-1 justify-content-center'>
+				{!!total && (
+					<Chart
+						area={{linearGradient: true}}
+						axisX={{
+							show: false
+						}}
+						axisY={{
+							show: false
+						}}
+						chartType='area'
+						data={[
+							{
+								color: change < 0 ? CHART_RED : CHART_BLUE,
+								data,
+								id
+							}
+						]}
+						dataId={`${id}Data`}
+						grid={{x: {show: false}, y: {show: false}}}
+						height={40}
+						id={id}
+						interaction={{enabled: false}}
+						tooltip={{show: false}}
+					/>
+				)}
 
 				<div className='total'>{total.toLocaleString()}</div>
 			</div>
 
-			<div className='change description'>
-				{sub(
-					Liferay.Language.get('x-vs-previous-30-days'),
-					[
-						<span
-							className={getCN({
-								decrease: change < 0 && finiteChange,
-								increase: change > 0 && finiteChange
-							})}
-							key='CHANGE'
-						>
-							{finiteChange && !!change && (
-								<Icon
-									symbol={
-										change > 0
-											? 'caret-top'
-											: 'caret-bottom'
-									}
-								/>
-							)}
+			{!!total && (
+				<div className='change description'>
+					{sub(
+						Liferay.Language.get('x-vs-previous-30-days'),
+						[
+							<span
+								className={getCN({
+									decrease: change < 0 && finiteChange,
+									increase: change > 0 && finiteChange
+								})}
+								key='CHANGE'
+							>
+								{finiteChange && !!change && (
+									<Icon
+										symbol={
+											change > 0
+												? 'caret-top'
+												: 'caret-bottom'
+										}
+									/>
+								)}
 
-							<b>
-								{finiteChange
-									? `${formatChange(change)}%`
-									: '--'}
-							</b>
-						</span>
-					],
-					false
-				)}
-			</div>
+								<b>
+									{finiteChange
+										? `${formatChange(change)}%`
+										: '--'}
+								</b>
+							</span>
+						],
+						false
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

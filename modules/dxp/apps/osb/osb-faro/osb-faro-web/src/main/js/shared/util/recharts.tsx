@@ -1,6 +1,12 @@
-import ChartTooltip from 'shared/components/chart-tooltip';
-import React from 'react';
+import ChartTooltip, {
+	Alignments,
+	IChartTooltipProps,
+	Weights
+} from 'shared/components/chart-tooltip';
+import getCN from 'classnames';
+import React, {FC} from 'react';
 import {Text} from 'recharts';
+import {Column} from 'shared/components/chart-tooltip/types';
 
 const AXIS_LABEL_OFFSET = 20;
 const TEXT_PADDING = 4;
@@ -34,10 +40,23 @@ export const BAR_COLORS = {
 	}
 };
 
-export const getTextWidth = (text, font = '14px Source Sans Pro') => {
+interface IChartTooltip {
+	columns: Column[];
+	rows: {
+		className?: string;
+		label: string;
+		value: string;
+	}[];
+	title: string;
+}
+
+export const getTextWidth: (text: any, font?: string) => number = (
+	text,
+	font = '14px Source Sans Pro'
+) => {
 	const canvas =
-		getTextWidth.canvas ||
-		(getTextWidth.canvas = document.createElement('canvas'));
+		(getTextWidth as any).canvas ||
+		((getTextWidth as any).canvas = document.createElement('canvas'));
 	const context = canvas.getContext('2d');
 	context.font = font;
 	const metrics = context.measureText(text);
@@ -65,21 +84,28 @@ export const getAxisTickText = (axis = 'x', formatter = val => val) => ({
 	</Text>
 );
 
-export const getChartTooltip = ({dateTitle, rows, title}) => (
-	<div className='bb-tooltip-container' style={{position: 'static'}}>
+export const getChartTooltip: FC<
+	{
+		dateTitle?: string;
+	} & IChartTooltip
+> = ({dateTitle, rows, title}) => (
+	<div
+		className='bb-tooltip-container'
+		style={{backgroundColor: '#272833', position: 'static'}}
+	>
 		<ChartTooltip
 			header={[
 				{
 					columns: [
 						{
 							label: title,
-							weight: 'semibold',
+							weight: Weights.Semibold,
 							width: 150
 						},
 						{
-							align: 'right',
+							align: Alignments.Right,
 							label: dateTitle,
-							weight: 'semibold',
+							weight: Weights.Semibold,
 							width: 55
 						}
 					]
@@ -100,6 +126,14 @@ export const getChartTooltip = ({dateTitle, rows, title}) => (
 				]
 			}))}
 		/>
+	</div>
+);
+
+export const getChartCustomTooltip: FC<
+	{className: string; style: React.CSSProperties} & IChartTooltipProps
+> = ({className, header, rows, style, title}) => (
+	<div className={getCN(className, 'bb-tooltip-container')} style={style}>
+		<ChartTooltip header={title && header} rows={rows} />
 	</div>
 );
 
