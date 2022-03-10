@@ -1,6 +1,8 @@
 import React from 'react';
 import {autoCancel, autoCancelWith, hasRequest} from '../request-decorator';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('request-decorator', () => {
 	describe('autoCancel', () => {
@@ -11,22 +13,24 @@ describe('request-decorator', () => {
 
 			class TestAutoCancel extends React.Component {
 				@autoCancel
-				foo() {
+				handleClick() {
 					return {cancel};
 				}
 
 				render() {
-					return null;
+					return (
+						<button onClick={this.handleClick}>{'click me'}</button>
+					);
 				}
 			}
 
-			const testAutoCancel = shallow(<TestAutoCancel />);
+			const {getByText} = render(<TestAutoCancel />);
 
-			testAutoCancel.instance().foo();
+			fireEvent.click(getByText('click me'));
 
 			expect(cancel).not.toBeCalled();
 
-			testAutoCancel.instance().foo();
+			fireEvent.click(getByText('click me'));
 
 			expect(cancel).toBeCalled();
 		});
@@ -38,22 +42,24 @@ describe('request-decorator', () => {
 
 			class TestAutoCancel extends React.Component {
 				@autoCancelWith(false)
-				foo() {
+				handleClick() {
 					return {cancel};
 				}
 
 				render() {
-					return null;
+					return (
+						<button onClick={this.handleClick}>{'click me'}</button>
+					);
 				}
 			}
 
-			const testAutoCancel = shallow(<TestAutoCancel />);
+			const {getByText} = render(<TestAutoCancel />);
 
-			testAutoCancel.instance().foo();
+			fireEvent.click(getByText('click me'));
 
 			expect(cancel).not.toBeCalled();
 
-			testAutoCancel.instance().foo();
+			fireEvent.click(getByText('click me'));
 
 			expect(cancel).not.toBeCalled();
 		});
@@ -68,22 +74,24 @@ describe('request-decorator', () => {
 			@hasRequest
 			class TestAutoCancel extends React.Component {
 				@autoCancel
-				foo() {
+				handleClick() {
 					return {cancel};
 				}
 
 				render() {
-					return null;
+					return (
+						<button onClick={this.handleClick}>{'click me'}</button>
+					);
 				}
 			}
 
-			const testAutoCancel = shallow(<TestAutoCancel />);
+			const {getByText, unmount} = render(<TestAutoCancel />);
 
-			testAutoCancel.instance().foo();
+			fireEvent.click(getByText('click me'));
 
 			expect(cancel).not.toBeCalled();
 
-			testAutoCancel.unmount();
+			unmount();
 
 			expect(cancel).toBeCalled();
 		});
