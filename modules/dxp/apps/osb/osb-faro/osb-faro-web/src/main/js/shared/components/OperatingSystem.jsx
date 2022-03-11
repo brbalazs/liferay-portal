@@ -165,6 +165,7 @@ class OperatingSystem extends React.Component {
 						<XAxis
 							axisLine={{stroke: AXIS.borderStroke}}
 							dataKey='label'
+							interval='preserveStart'
 							padding={{left: 20, right: 20}}
 							tick={getAxisTickText('x')}
 							tickLine={false}

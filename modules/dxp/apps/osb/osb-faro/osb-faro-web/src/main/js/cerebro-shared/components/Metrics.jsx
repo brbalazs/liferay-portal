@@ -308,6 +308,7 @@ export default class MainMetrics extends React.Component {
 							stroke: AXIS.borderStroke
 						}}
 						dataKey='date'
+						interval='preserveStart'
 						stroke={AXIS.gridStroke}
 						tick={getAxisTickText('x', int =>
 							formatXAxisDate(

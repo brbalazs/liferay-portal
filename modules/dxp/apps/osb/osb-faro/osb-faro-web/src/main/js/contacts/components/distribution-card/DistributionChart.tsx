@@ -229,6 +229,7 @@ class DistributionChart extends React.Component<
 												stroke: AXIS.borderStroke
 											}}
 											dataKey={CHART_DATA_ID}
+											interval='preserveStart'
 											orientation='top'
 											scale='linear'
 											tickLine={false}

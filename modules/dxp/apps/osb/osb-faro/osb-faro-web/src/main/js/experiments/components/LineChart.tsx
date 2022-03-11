@@ -113,6 +113,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 						allowDuplicatedCategory={false}
 						axisLine={{stroke: AXIS.borderStroke}}
 						dataKey='key'
+						interval='preserveStart'
 						tickFormatter={date =>
 							d3.utcFormat('%b %-d')(getDate(date))
 						}
@@ -124,6 +125,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 					<XAxis
 						axisLine={{stroke: AXIS.borderStroke}}
 						dataKey='key'
+						interval='preserveStart'
 						orientation='top'
 						stroke={AXIS.gridStroke}
 						tick={false}

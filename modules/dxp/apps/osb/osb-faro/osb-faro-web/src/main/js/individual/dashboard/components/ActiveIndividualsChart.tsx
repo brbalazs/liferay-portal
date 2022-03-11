@@ -110,6 +110,7 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 					axisLine={{stroke: AXIS.borderStroke}}
 					dataKey='intervalInitDate'
 					domain={['dataMin', 'dataMax']}
+					interval='preserveStart'
 					padding={{left: 20, right: 20}}
 					tick={getAxisTickText('x', value =>
 						formatXAxisDate(

@@ -339,6 +339,7 @@ export class SegmentGrowthChart extends React.Component {
 						axisLine={{stroke: AXIS.borderStroke}}
 						dataKey='modifiedDate'
 						domain={['dataMin', 'dataMax']}
+						interval='preserveStart'
 						padding={{left: 20, right: 20}}
 						tick={getAxisTickText('x', value =>
 							formatXAxisDate(
