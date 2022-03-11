@@ -12,10 +12,10 @@ import {
 	getIntervals,
 	getMetricFormatter
 } from 'shared/util/charts';
-import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
 import {toRounded} from 'shared/util/numbers';
+import {toUnix} from 'shared/util/date';
 
 const {
 	martell: CHART_GREEN,
@@ -58,9 +58,9 @@ export const convertHistogramKeysToDate = ({
 	valueKey,
 	...otherParams
 }) => ({
-	key: getDate(key),
-	previousValueKey: previousValueKey.split('/').map(getDate),
-	valueKey: valueKey.split('/').map(getDate),
+	key: toUnix(key),
+	previousValueKey: previousValueKey.split('/').map(toUnix),
+	valueKey: valueKey.split('/').map(toUnix),
 	...otherParams
 });
 

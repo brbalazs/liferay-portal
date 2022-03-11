@@ -13,8 +13,8 @@ import {
 	getStatsColor,
 	Icons
 } from '../metrics';
-import {getDate} from 'shared/util/date';
 import {Map} from 'immutable';
+import {toUnix} from 'shared/util/date';
 
 const {stark: CHART_BLUE, starkL2: CHART_BLUE_L2} = CHART_COLOR_NAMES;
 
@@ -37,8 +37,8 @@ describe('getMetricsData', () => {
 	it('should return the chart items', () => {
 		const rangeKey = 30;
 		const keyDate = '2018-07-16T00:00';
-		const valueKeyDate = '2018-07-16T00:00';
-		const previousValueKeyDate = '2018-07-15T00:00';
+		const valueKeyDate = '1531699200000';
+		const previousValueKeyDate = '1531612800000';
 		const metrics = [
 			{
 				name: 'comments',
@@ -105,10 +105,10 @@ describe('getMetricsData', () => {
 		const metricsData = getMetricsData(result, metrics, {rangeKey});
 
 		const dateKeysIMap = new Map([
-			[getDate(keyDate), [getDate(valueKeyDate)]]
+			[toUnix(keyDate), [toUnix(valueKeyDate)]]
 		]);
 		const prevDateKeysIMap = new Map([
-			[getDate(keyDate), [getDate(previousValueKeyDate)]]
+			[toUnix(keyDate), [toUnix(previousValueKeyDate)]]
 		]);
 
 		metricsData.forEach(metricData => {
@@ -142,12 +142,12 @@ describe('getMetricsData', () => {
 						id: 'data_previous',
 						name: 'Previous Period'
 					},
-					{data: [getDate(keyDate)], id: 'x'}
+					{data: [toUnix(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
 				intervals: getIntervals(
 					rangeKey,
-					[getDate(keyDate)],
+					[toUnix(keyDate)],
 					'D',
 					dateKeysIMap
 				),
@@ -179,12 +179,12 @@ describe('getMetricsData', () => {
 						id: 'data_previous',
 						name: 'Previous Period'
 					},
-					{data: [getDate(keyDate)], id: 'x'}
+					{data: [toUnix(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
 				intervals: getIntervals(
 					rangeKey,
-					[getDate(keyDate)],
+					[toUnix(keyDate)],
 					'D',
 					dateKeysIMap
 				),
