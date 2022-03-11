@@ -28,11 +28,11 @@ import {
 } from 'recharts';
 import {find, get, last} from 'lodash';
 import {formatXAxisDate} from 'shared/util/charts';
-import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
 import {Map} from 'immutable';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {toInt} from 'shared/util/numbers';
+import {toUnix} from 'shared/util/date';
 
 const CLASSNAME = 'analytics-metrics';
 export const CHART_DATA_ID_1 = 'data_1';
@@ -69,9 +69,7 @@ const getPreviousValueFromCompositeData = (
 	const data = get(compositeData, dataName);
 
 	if (data) {
-		return data.find(
-			val => getDate(val.key).toString() === dateKey.toString()
-		).previousValue;
+		return data.find(val => toUnix(val.key) === dateKey).previousValue;
 	}
 };
 
@@ -309,12 +307,9 @@ export default class MainMetrics extends React.Component {
 						axisLine={{
 							stroke: AXIS.borderStroke
 						}}
-						dataKey='dateString'
+						dataKey='date'
 						stroke={AXIS.gridStroke}
-						tick={getAxisTickText('x')}
-						tickLine={false}
-						tickMargin={12}
-						ticks={intervals.map(int =>
+						tick={getAxisTickText('x', int =>
 							formatXAxisDate(
 								int,
 								rangeSelectors.rangeKey,
@@ -322,13 +317,16 @@ export default class MainMetrics extends React.Component {
 								dateKeysIMap
 							)
 						)}
+						tickLine={false}
+						tickMargin={12}
+						ticks={intervals}
 					/>
 
 					<XAxis
 						axisLine={{
 							stroke: AXIS.borderStroke
 						}}
-						dataKey='dateString'
+						dataKey='date'
 						orientation='top'
 						stroke={AXIS.gridStroke}
 						tick={false}
