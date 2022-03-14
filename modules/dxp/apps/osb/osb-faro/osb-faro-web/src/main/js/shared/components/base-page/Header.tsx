@@ -3,7 +3,9 @@ import Button from 'shared/components/Button';
 import Dropdown from 'shared/components/Dropdown';
 import getCN from 'classnames';
 import Nav from 'shared/components/Nav';
-import NotificationAlertList from '../NotificationAlertList';
+import NotificationAlertList, {
+	useNotificationStates
+} from '../NotificationAlertList';
 import React from 'react';
 import Row from './Row';
 import TextTruncate from 'shared/components/TextTruncate';
@@ -148,21 +150,29 @@ const Header: React.FC<IHeaderProps> & {
 	PageActions: typeof PageActions;
 	Section: typeof Section;
 	TitleSection: typeof TitleSection;
-} = ({breadcrumbs, children, groupId}) => (
-	<header className='header-root'>
-		<div className='header-container'>
-			{breadcrumbs && (
-				<Row>
-					<Breadcrumbs items={breadcrumbs} />
-				</Row>
-			)}
+} = ({breadcrumbs, children, groupId}) => {
+	const notificationStates = useNotificationStates(groupId);
 
-			{children}
-		</div>
+	return (
+		<header className='header-root'>
+			<div className='header-container'>
+				{breadcrumbs && (
+					<Row>
+						<Breadcrumbs items={breadcrumbs} />
+					</Row>
+				)}
 
-		<NotificationAlertList groupId={groupId} stripe />
-	</header>
-);
+				{children}
+			</div>
+
+			<NotificationAlertList
+				{...notificationStates}
+				groupId={groupId}
+				stripe
+			/>
+		</header>
+	);
+};
 
 Header.NavBar = NavBar;
 Header.PageActions = PageActions;

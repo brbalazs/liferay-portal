@@ -11,6 +11,9 @@ import EventDefinitionsQuery, {
 	UnhideEventDefinitionsData
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import Nav from 'shared/components/Nav';
+import NotificationAlertList, {
+	useNotificationStates
+} from 'shared/components/NotificationAlertList';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
@@ -33,6 +36,7 @@ import {Event, EventTypes} from 'event-analysis/utils/types';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
 import {LIMIT_REACHED_ALERT_ID} from './constants';
+import {NotificationSubtypes} from 'shared/util/records/Notification';
 import {OrderedMap} from 'immutable';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -129,6 +133,8 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 		}
 	});
 
+	const notificationStates = useNotificationStates(groupId);
+
 	const handleBlockEvents = (events: Event[] = []) => {
 		const eventsCount = events.length;
 
@@ -205,6 +211,8 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 						});
 
 						removeAlert(LIMIT_REACHED_ALERT_ID);
+
+						notificationStates.refetch();
 					})
 					.catch(() =>
 						addAlert({
@@ -365,108 +373,122 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 		events.some(({hidden}) => !hidden);
 
 	return (
-		<CrossPageSelect
-			columns={[
-				eventListColumns.getName({groupId}),
-				eventListColumns.displayName,
-				eventListColumns.description,
-				eventListColumns.hidden
-			]}
-			delta={delta}
-			emptyDescription={Liferay.Language.get(
-				'visit-our-documentation-to-learn-how-to-add-custom-events-on-your-site'
-			)}
-			emptyTitle={Liferay.Language.get('create-some-custom-events')}
-			error={error}
-			items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
-			loading={loading}
-			noResultsRenderer={() => (
-				<EmptyStateDashboard
-					autoFit
-					description={
-						<p className='d-flex flex-column mb-1'>
-							{Liferay.Language.get(
-								'create-some-custom-events-to-get-started'
-							)}
-
-							<a
-								className='pl-1'
-								href={URLConstants.CustomEventsDocumentation}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
-								{Liferay.Language.get(
-									'learn-how-to-add-custom-events-on-your-site'
-								)}
-							</a>
-						</p>
-					}
-					symbol='ac-satellite'
-					title={Liferay.Language.get('no-custom-events-found')}
+		<>
+			<div className='mx-4'>
+				<NotificationAlertList
+					{...notificationStates}
+					groupId={groupId}
+					subtypes={[NotificationSubtypes.BlockedEventsLimit]}
 				/>
-			)}
-			orderIOMap={orderIOMap}
-			page={page}
-			query={query}
-			refetch={refetch}
-			renderNav={
-				authorized && selectedItems.size
-					? () => (
-							<Nav>
-								<Nav.Item>
-									<Button
-										borderless
-										className='nav-btn'
-										display='outline-secondary'
-										icon='ac-block'
-										iconAlignment='left'
-										onClick={() => {
-											handleBlockEvents(
-												selectedItems.toArray()
-											);
-										}}
-									>
-										{Liferay.Language.get('block-events')}
-									</Button>
+			</div>
 
-									<Button
-										borderless
-										className='nav-btn'
-										display='outline-secondary'
-										icon={
-											hasUnhiddenEvent(selectedItems)
-												? 'ac-hidden'
-												: 'view'
-										}
-										iconAlignment='left'
-										onClick={() => {
-											const hideEventFn = hasUnhiddenEvent(
-												selectedItems
-											)
-												? handleHideEvents
-												: handleUnhideEvents;
+			<CrossPageSelect
+				columns={[
+					eventListColumns.getName({groupId}),
+					eventListColumns.displayName,
+					eventListColumns.description,
+					eventListColumns.hidden
+				]}
+				delta={delta}
+				emptyDescription={Liferay.Language.get(
+					'visit-our-documentation-to-learn-how-to-add-custom-events-on-your-site'
+				)}
+				emptyTitle={Liferay.Language.get('create-some-custom-events')}
+				error={error}
+				items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
+				loading={loading}
+				noResultsRenderer={() => (
+					<EmptyStateDashboard
+						autoFit
+						description={
+							<p className='d-flex flex-column mb-1'>
+								{Liferay.Language.get(
+									'create-some-custom-events-to-get-started'
+								)}
 
-											hideEventFn(
-												selectedItems.toArray()
-											);
-										}}
-									>
-										{hasUnhiddenEvent(selectedItems)
-											? Liferay.Language.get('hide')
-											: Liferay.Language.get('show')}
-									</Button>
-								</Nav.Item>
-							</Nav>
-					  )
-					: null
-			}
-			renderRowActions={
-				authorized && !selectedItems.size ? renderRowActions : null
-			}
-			rowIdentifier='id'
-			showCheckbox={authorized}
-			total={get(data, ['eventDefinitions', 'total'], 0)}
-		/>
+								<a
+									className='pl-1'
+									href={
+										URLConstants.CustomEventsDocumentation
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-how-to-add-custom-events-on-your-site'
+									)}
+								</a>
+							</p>
+						}
+						symbol='ac-satellite'
+						title={Liferay.Language.get('no-custom-events-found')}
+					/>
+				)}
+				orderIOMap={orderIOMap}
+				page={page}
+				query={query}
+				refetch={refetch}
+				renderNav={
+					authorized && selectedItems.size
+						? () => (
+								<Nav>
+									<Nav.Item>
+										<Button
+											borderless
+											className='nav-btn'
+											display='outline-secondary'
+											icon='ac-block'
+											iconAlignment='left'
+											onClick={() => {
+												handleBlockEvents(
+													selectedItems.toArray()
+												);
+											}}
+										>
+											{Liferay.Language.get(
+												'block-events'
+											)}
+										</Button>
+
+										<Button
+											borderless
+											className='nav-btn'
+											display='outline-secondary'
+											icon={
+												hasUnhiddenEvent(selectedItems)
+													? 'ac-hidden'
+													: 'view'
+											}
+											iconAlignment='left'
+											onClick={() => {
+												const hideEventFn = hasUnhiddenEvent(
+													selectedItems
+												)
+													? handleHideEvents
+													: handleUnhideEvents;
+
+												hideEventFn(
+													selectedItems.toArray()
+												);
+											}}
+										>
+											{hasUnhiddenEvent(selectedItems)
+												? Liferay.Language.get('hide')
+												: Liferay.Language.get('show')}
+										</Button>
+									</Nav.Item>
+								</Nav>
+						  )
+						: null
+				}
+				renderRowActions={
+					authorized && !selectedItems.size ? renderRowActions : null
+				}
+				rowIdentifier='id'
+				showCheckbox={authorized}
+				total={get(data, ['eventDefinitions', 'total'], 0)}
+			/>
+		</>
 	);
 };
 

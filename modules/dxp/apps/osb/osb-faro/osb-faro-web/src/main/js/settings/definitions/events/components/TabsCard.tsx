@@ -3,10 +3,8 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Loading from 'shared/pages/Loading';
 import Nav from 'shared/components/Nav';
-import NotificationAlertList from 'shared/components/NotificationAlertList';
 import React, {lazy, Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
-import {NotificationSubtypes} from 'shared/util/records/Notification';
 import {Switch} from 'react-router';
 
 const CustomEventList = lazy(
@@ -74,15 +72,6 @@ const TabsCard: React.FC<ITabsCardProps> = ({groupId}) => {
 					</div>
 				)}
 			</div>
-
-			{customEventTab && (
-				<div className='mx-4'>
-					<NotificationAlertList
-						groupId={groupId}
-						subtypes={[NotificationSubtypes.BlockedEventsLimit]}
-					/>
-				</div>
-			)}
 
 			<Suspense fallback={<Loading />}>
 				<Switch>
