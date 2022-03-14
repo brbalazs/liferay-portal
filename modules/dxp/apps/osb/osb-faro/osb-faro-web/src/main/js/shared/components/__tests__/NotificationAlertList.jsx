@@ -11,6 +11,13 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
+const defaultProps = {
+	data: range(1).map(i => data.mockNotification(i)),
+	groupId: '23',
+	loading: false,
+	refetch: () => {}
+};
+
 describe('NotificationAlertList', () => {
 	API.notifications.fetchNotifications.mockReturnValue(
 		Promise.resolve(range(1).map(i => data.mockNotification(i)))
@@ -20,7 +27,7 @@ describe('NotificationAlertList', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<NotificationAlertList groupId='23' />
+					<NotificationAlertList {...defaultProps} />
 				</StaticRouter>
 			</Provider>
 		);
@@ -34,7 +41,7 @@ describe('NotificationAlertList', () => {
 		const {container, queryByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<NotificationAlertList groupId='23' />
+					<NotificationAlertList {...defaultProps} />
 				</StaticRouter>
 			</Provider>
 		);

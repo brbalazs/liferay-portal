@@ -13,11 +13,26 @@ import {
 import {Routes, toRoute} from 'shared/util/router';
 import {useRequest} from 'shared/hooks';
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface INotificationAlertListProps extends PropsFromRedux {
+	data: {
+		id: string;
+		modifiedTime: string;
+		subtype: NotificationSubtypes;
+	}[];
+	groupId: string;
+	loading?: boolean;
+	refetch?: () => void;
+	stripe?: boolean;
+	subtypes?: NotificationSubtypes[];
+}
+
 type NotificationStrategyParams = {
 	groupId: string;
 	modifiedTime?: number;
 	notificationId: string;
-	onClose;
+	onClose: (id: string) => void;
 	stripe?: boolean;
 };
 
@@ -84,21 +99,8 @@ const notificationStrategies = new Map<string, Function>([
 
 const connector = connect(null, {addAlert});
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-interface INotificationAlertListProps extends PropsFromRedux {
-	groupId: string;
-	stripe?: boolean;
-	subtypes?: NotificationSubtypes[];
-}
-
-const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
-	addAlert,
-	groupId,
-	stripe = false,
-	subtypes = [NotificationSubtypes.TimeZoneChanged]
-}) => {
-	const {data, loading, refetch} = useRequest({
+export const useNotificationStates = (groupId: string) => {
+	const response = useRequest({
 		dataSourceFn: API.notifications.fetchNotifications,
 		variables: {
 			groupId,
@@ -106,43 +108,55 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 		}
 	});
 
+	return response;
+};
+
+const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
+	addAlert,
+	data = [],
+	groupId,
+	loading,
+	refetch,
+	stripe = false,
+	subtypes = [NotificationSubtypes.TimeZoneChanged]
+}) => {
+	if (loading || !data.length) return null;
+
 	const removeNotification = (notificationId: string) => {
 		API.notifications
 			.readNotification(groupId, notificationId)
 			.then(refetch)
 			.catch(() => {
-				addAlert({
-					alertType: Alert.Types.Error,
-					message: Liferay.Language.get(
-						'there-was-an-error-processing-your-request.-please-try-again'
-					),
-					timeout: false
-				});
+				addAlert &&
+					addAlert({
+						alertType: Alert.Types.Error,
+						message: Liferay.Language.get(
+							'there-was-an-error-processing-your-request.-please-try-again'
+						),
+						timeout: false
+					});
 			});
 	};
 
-	const notifications =
-		loading || !data
-			? []
-			: data
-					.filter(({subtype}) => subtypes.includes(subtype))
-					.map(({id, modifiedTime, subtype}) => {
-						const transformer = notificationStrategies.get(subtype);
+	const filterSubtypes = ({subtype}) => subtypes.includes(subtype);
 
-						if (transformer) {
-							return transformer({
-								groupId,
-								modifiedTime,
-								notificationId: id,
-								onClose: removeNotification,
-								stripe
-							});
-						}
-					});
+	const transformData = ({id, modifiedTime, subtype}) => {
+		const transformer = notificationStrategies.get(subtype);
+
+		if (transformer) {
+			return transformer({
+				groupId,
+				modifiedTime,
+				notificationId: id,
+				onClose: removeNotification,
+				stripe
+			});
+		}
+	};
 
 	return (
 		<EmbeddedAlertList
-			alerts={notifications}
+			alerts={data.filter(filterSubtypes).map(transformData)}
 			className='notification-alert-list-root'
 		/>
 	);
