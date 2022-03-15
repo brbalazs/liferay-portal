@@ -1,5 +1,6 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
+import * as NotificationAlertList from 'shared/components/NotificationAlertList';
 import DataSourceList, {
 	DataSourceName,
 	disableRow,
@@ -16,6 +17,8 @@ import {RemoteData} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 
 jest.unmock('react-dom');
+
+const mockNotificationAlertList = NotificationAlertList;
 
 const defaultProps = {
 	groupId: '23'
@@ -60,6 +63,12 @@ describe('DataSourceList', () => {
 
 		cleanup();
 	});
+
+	mockNotificationAlertList.useNotificationStates = jest.fn(() => ({
+		data: [{}],
+		loading: false,
+		refetch: () => {}
+	}));
 
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
