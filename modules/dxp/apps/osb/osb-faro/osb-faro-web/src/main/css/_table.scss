@@ -84,6 +84,13 @@
 	}
 
 	.table {
+		& tbody th,
+		& tbody td,
+		& tfoot td,
+		& tfoot th {
+			background-color: transparent;
+		}
+
 		&.table-row-no-bordered {
 			thead th,
 			td {
@@ -111,24 +118,18 @@
 		}
 
 		.table {
-			background-color: $secondaryHover;
-
 			td:first-child,
 			th:first-child {
 				padding-left: 32px;
 			}
 
 			.table {
-				background-color: $lightBackground;
-
 				td:first-child,
 				th:first-child {
 					padding-left: 64px;
 				}
 
 				.table {
-					background-color: $secondaryHover;
-
 					td:first-child,
 					th:first-child {
 						padding-left: 96px;
