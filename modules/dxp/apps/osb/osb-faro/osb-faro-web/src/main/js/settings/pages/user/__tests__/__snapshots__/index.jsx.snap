@@ -6,9 +6,6 @@ exports[`UserRoutes should render 1`] = `
     class="settings-base-page-root user-list-page-root"
   >
     <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
-    <div
       class="maintenance-alert-root"
     />
     <div

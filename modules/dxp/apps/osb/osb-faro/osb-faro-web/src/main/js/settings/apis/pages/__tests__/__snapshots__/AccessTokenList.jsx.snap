@@ -6,9 +6,6 @@ exports[`AccessTokenList should render 1`] = `
     class="settings-base-page-root access-token-list-root"
   >
     <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
-    <div
       class="maintenance-alert-root"
     />
     <div

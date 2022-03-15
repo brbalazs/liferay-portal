@@ -121,9 +121,6 @@ exports[`Individuals Dashboard renders 1`] = `
           </li>
         </ul>
       </div>
-      <div
-        class="embedded-alert-list-root notification-alert-list-root"
-      />
     </header>
     <div
       class="body-root page-container"

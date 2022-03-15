@@ -158,9 +158,6 @@ exports[`BasePage.Header renders Header 1`] = `
     >
       Test Test
     </div>
-    <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
   </header>
 </div>
 `;
@@ -202,9 +199,6 @@ exports[`BasePage.Header renders Header w/ Breadcrumbs 1`] = `
       </div>
       Test Test
     </div>
-    <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
   </header>
 </div>
 `;

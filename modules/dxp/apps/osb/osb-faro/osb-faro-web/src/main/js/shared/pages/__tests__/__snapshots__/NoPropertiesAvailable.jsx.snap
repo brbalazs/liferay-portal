@@ -41,9 +41,6 @@ exports[`NoPropertiesAvailable should render 1`] = `
           </span>
         </div>
       </div>
-      <div
-        class="embedded-alert-list-root notification-alert-list-root"
-      />
     </header>
     <div
       class="body-root page-container"

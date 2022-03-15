@@ -59,9 +59,6 @@ exports[`List should render 1`] = `
           />
         </div>
       </div>
-      <div
-        class="embedded-alert-list-root notification-alert-list-root"
-      />
     </header>
     <div
       class="body-root page-container"

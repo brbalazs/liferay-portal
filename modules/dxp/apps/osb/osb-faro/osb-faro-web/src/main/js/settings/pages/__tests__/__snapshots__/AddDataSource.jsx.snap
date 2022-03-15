@@ -6,9 +6,6 @@ exports[`AddDataSource should render 1`] = `
     class="settings-base-page-root add-data-source-root"
   >
     <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
-    <div
       class="maintenance-alert-root"
     />
     <ol

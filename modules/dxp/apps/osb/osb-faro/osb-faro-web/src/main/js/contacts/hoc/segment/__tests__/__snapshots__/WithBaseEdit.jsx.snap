@@ -113,9 +113,6 @@ exports[`WithBaseEdit should render the wrapped component 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="embedded-alert-list-root notification-alert-list-root"
-    />
   </header>
   <div
     class="body-root"
