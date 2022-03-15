@@ -27,6 +27,7 @@ export default class ActivitiesCard extends React.Component {
 
 	state = {
 		activityChange: 0,
+		activityCount: 0,
 		error: false,
 		history: [],
 		hoverIndex: -1,
@@ -78,10 +79,12 @@ export default class ActivitiesCard extends React.Component {
 			.then(
 				({
 					activityAggregations: activityHistory,
-					change: activityChange
+					change: activityChange,
+					count: activityCount
 				}) => {
 					this.setState({
 						activityChange: getSafeChange(activityChange),
+						activityCount,
 						history: activityHistory,
 						loading: false
 					});
@@ -96,10 +99,7 @@ export default class ActivitiesCard extends React.Component {
 
 	renderChart() {
 		const {
-			props: {
-				account: {activitiesCount}
-			},
-			state: {activityChange, error, history, loading}
+			state: {activityChange, activityCount, error, history, loading}
 		} = this;
 
 		if (loading) {
@@ -118,7 +118,7 @@ export default class ActivitiesCard extends React.Component {
 					<ChangeLegend
 						items={buildLegendItems({
 							activityChange,
-							activityCount: activitiesCount
+							activityCount
 						})}
 					/>
 
