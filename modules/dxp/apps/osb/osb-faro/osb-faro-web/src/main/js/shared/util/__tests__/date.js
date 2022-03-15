@@ -152,10 +152,11 @@ describe('date', () => {
 
 	describe('toUnix', () => {
 		it.each`
-			date            | expected
-			${'2016-01-01'} | ${1451606400000}
-			${''}           | ${null}
-			${'abc'}        | ${null}
+			date                         | expected
+			${'2016-01-01'}              | ${1451606400000}
+			${'2016-01-01T12:12:05.400'} | ${1451650325400}
+			${''}                        | ${null}
+			${'abc'}                     | ${null}
 		`('should convert $date to $expected', ({date, expected}) => {
 			expect(toUnix(date)).toBe(expected);
 		});

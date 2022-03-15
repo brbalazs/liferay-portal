@@ -161,5 +161,5 @@ export const getTotalDaysToDate = createDate => {
 };
 
 export function toUnix(stringOrMoment) {
-	return moment.utc(stringOrMoment, FORMAT).valueOf() || null;
+	return moment.utc(stringOrMoment).valueOf() || null;
 }
