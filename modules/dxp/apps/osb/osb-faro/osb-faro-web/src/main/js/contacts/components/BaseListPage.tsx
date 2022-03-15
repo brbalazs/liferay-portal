@@ -37,6 +37,7 @@ interface IBaseListPageProps {
 	entityLabel?: string;
 	filterBy?: object;
 	filterByOptions?: FilterOptionType[];
+	forwardedRef?: React.Ref<any>;
 	hideNav?: boolean;
 	icon?: string;
 	noResultsConfig?: {
@@ -68,6 +69,7 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 	entityLabel,
 	filterBy,
 	filterByOptions,
+	forwardedRef,
 	hideNav = false,
 	icon,
 	noResultsConfig,
@@ -89,7 +91,6 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 }) => {
 	const {selectedChannel} = useChannelContext();
 	const {channelId, groupId} = useParams();
-	const _tableRef = React.createRef<SearchableEntityTable>();
 	const authorized = currentUser.isAdmin();
 
 	const dataSourceStates = useDataSource();
@@ -221,7 +222,7 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 									orderIOMap={orderIOMap}
 									page={page}
 									query={query}
-									ref={_tableRef}
+									ref={forwardedRef}
 									rowIdentifier={rowIdentifier}
 									showCheckbox={showCheckbox}
 								/>
@@ -234,4 +235,10 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 	);
 };
 
-export default BaseListPage;
+export default React.forwardRef<HTMLDivElement, IBaseListPageProps>(
+	(props, ref) => (
+		<BaseListPage {...props} forwardedRef={ref}>
+			{props.children}
+		</BaseListPage>
+	)
+);

@@ -5,6 +5,7 @@ import ClayButton from '@clayui/button';
 import Promise from 'metal-promise';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import RowActions from 'shared/components/RowActions';
+import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import {
 	ActionType,
 	UnassignedSegmentsContext
@@ -121,6 +122,8 @@ export const List: React.FC<IListProps> = ({
 	open,
 	timeZoneId
 }) => {
+	const _tableRef = useRef<HTMLDivElement & SearchableEntityTable>();
+
 	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
 		filterFields: [SEGMENT_STATE],
 		initialDelta: paginationDefaults.delta,
@@ -248,6 +251,8 @@ export const List: React.FC<IListProps> = ({
 						id
 					})
 					.then(() => {
+						_tableRef?.current?.reload();
+
 						addAlert({
 							alertType: Alert.Types.Success,
 							message: Liferay.Language.get(
@@ -402,6 +407,7 @@ export const List: React.FC<IListProps> = ({
 			pageActions={pageActions}
 			pageActionsLabel={pageActionsLabel}
 			query={query}
+			ref={_tableRef}
 			renderRowActions={renderRowActions}
 		/>
 	);
