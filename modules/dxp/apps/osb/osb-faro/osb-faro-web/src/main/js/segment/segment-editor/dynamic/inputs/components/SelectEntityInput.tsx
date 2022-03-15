@@ -8,7 +8,6 @@ import {
 	EntityType,
 	ReferencedObjectsContext
 } from '../../context/referencedObjects';
-import {get} from 'lodash';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {Map, OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
@@ -120,16 +119,34 @@ const SelectEntityInput: React.FC<ISelectEntityInputProps> = ({
 						title: getFormattedTitle(entityLabel)
 					}}
 					onSubmit={handleEntitySelect}
-					renderEntity={entity =>
-						get(entity, 'name') && (
-							<div>
-								<span>{entity.name}</span>
-								<span className='text-secondary ml-1'>
-									{get(entity, 'dataSourceName')}
-								</span>
-							</div>
-						)
-					}
+					renderEntity={entity => {
+						if (entity && entity?.name) {
+							const {dataSourceName, name} = entity;
+
+							return (
+								<div
+									className='asset-display-root'
+									title={dataSourceName}
+								>
+									<div className='asset-name text-truncate'>
+										{name}
+									</div>
+
+									{!!dataSourceName && (
+										<div
+											data-tooltip
+											data-tooltip-align='top'
+											title={dataSourceName}
+										>
+											<div className='asset-url text-secondary text-truncate'>
+												{dataSourceName}
+											</div>
+										</div>
+									)}
+								</div>
+							);
+						}
+					}}
 					title={property.label}
 				/>
 			</Form.Group>
