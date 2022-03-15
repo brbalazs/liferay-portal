@@ -39,7 +39,7 @@ exports[`AccountOverview should render 1`] = `
                 <span
                   class="title"
                 >
-                  Total Activity Count: 100
+                  Total Activity Count: 123
                 </span>
               </div>
               <div
