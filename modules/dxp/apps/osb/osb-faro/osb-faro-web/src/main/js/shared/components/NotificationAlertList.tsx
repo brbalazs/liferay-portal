@@ -99,7 +99,7 @@ const notificationStrategies = new Map<string, Function>([
 
 const connector = connect(null, {addAlert});
 
-export const useNotificationStates = (groupId: string) => {
+export const useNotificationsAPI = (groupId: string) => {
 	const response = useRequest({
 		dataSourceFn: API.notifications.fetchNotifications,
 		variables: {

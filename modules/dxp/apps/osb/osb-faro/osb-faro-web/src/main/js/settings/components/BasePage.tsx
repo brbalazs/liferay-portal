@@ -3,7 +3,7 @@ import DocumentTitle from 'shared/components/DocumentTitle';
 import getCN from 'classnames';
 import MaintenanceAlert from 'shared/components/MaintenanceAlert';
 import NotificationAlertList, {
-	useNotificationStates
+	useNotificationsAPI
 } from 'shared/components/NotificationAlertList';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
@@ -40,7 +40,7 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 	subTitle,
 	passedChildren
 }) => {
-	const notificationStates = useNotificationStates(groupId);
+	const notificationResponse = useNotificationsAPI(groupId);
 
 	return (
 		<div className={getCN('settings-base-page-root', className)}>
@@ -50,7 +50,10 @@ const SettingsBasePage: React.FC<ISettingsBasePageProps> = ({
 				)}`}
 			/>
 
-			<NotificationAlertList {...notificationStates} groupId={groupId} />
+			<NotificationAlertList
+				{...notificationResponse}
+				groupId={groupId}
+			/>
 
 			<MaintenanceAlert />
 

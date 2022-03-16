@@ -12,7 +12,7 @@ import EventDefinitionsQuery, {
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import Nav from 'shared/components/Nav';
 import NotificationAlertList, {
-	useNotificationStates
+	useNotificationsAPI
 } from 'shared/components/NotificationAlertList';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
@@ -133,7 +133,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 		}
 	});
 
-	const notificationStates = useNotificationStates(groupId);
+	const notificationResponse = useNotificationsAPI(groupId);
 
 	const handleBlockEvents = (events: Event[] = []) => {
 		const eventsCount = events.length;
@@ -212,7 +212,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 
 						removeAlert(LIMIT_REACHED_ALERT_ID);
 
-						notificationStates.refetch();
+						notificationResponse.refetch();
 					})
 					.catch(() =>
 						addAlert({
@@ -376,7 +376,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 		<>
 			<div className='mx-4'>
 				<NotificationAlertList
-					{...notificationStates}
+					{...notificationResponse}
 					groupId={groupId}
 					subtypes={[NotificationSubtypes.BlockedEventsLimit]}
 				/>

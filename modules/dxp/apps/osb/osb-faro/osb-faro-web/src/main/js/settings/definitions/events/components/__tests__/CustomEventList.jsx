@@ -79,7 +79,7 @@ describe('CustomEventList', () => {
 	});
 
 	it('should render alert notification', async () => {
-		mockNotificationAlertList.useNotificationStates = jest.fn(() => ({
+		mockNotificationAlertList.useNotificationsAPI = jest.fn(() => ({
 			data: range(1).map(i =>
 				data.mockNotification(i, {
 					subtype: NotificationSubtypes.BlockedEventsLimit

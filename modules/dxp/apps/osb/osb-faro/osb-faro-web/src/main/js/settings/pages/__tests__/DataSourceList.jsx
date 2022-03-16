@@ -64,7 +64,7 @@ describe('DataSourceList', () => {
 		cleanup();
 	});
 
-	mockNotificationAlertList.useNotificationStates = jest.fn(() => ({
+	mockNotificationAlertList.useNotificationsAPI = jest.fn(() => ({
 		data: [{}],
 		loading: false,
 		refetch: () => {}

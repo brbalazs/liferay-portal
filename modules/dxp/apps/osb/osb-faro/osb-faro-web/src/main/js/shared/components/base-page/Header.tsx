@@ -4,7 +4,7 @@ import Dropdown from 'shared/components/Dropdown';
 import getCN from 'classnames';
 import Nav from 'shared/components/Nav';
 import NotificationAlertList, {
-	useNotificationStates
+	useNotificationsAPI
 } from '../NotificationAlertList';
 import React from 'react';
 import Row from './Row';
@@ -151,7 +151,7 @@ const Header: React.FC<IHeaderProps> & {
 	Section: typeof Section;
 	TitleSection: typeof TitleSection;
 } = ({breadcrumbs, children, groupId}) => {
-	const notificationStates = useNotificationStates(groupId);
+	const notificationResponse = useNotificationsAPI(groupId);
 
 	return (
 		<header className='header-root'>
@@ -166,7 +166,7 @@ const Header: React.FC<IHeaderProps> & {
 			</div>
 
 			<NotificationAlertList
-				{...notificationStates}
+				{...notificationResponse}
 				groupId={groupId}
 				stripe
 			/>
