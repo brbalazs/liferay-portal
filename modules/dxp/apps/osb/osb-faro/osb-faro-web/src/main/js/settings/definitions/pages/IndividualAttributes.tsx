@@ -135,7 +135,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 							description={
 								<>
 									{Liferay.Language.get(
-										'connect-a-data-source-with-sites-data'
+										'connect-a-data-source-with-people-data'
 									)}
 
 									<a
