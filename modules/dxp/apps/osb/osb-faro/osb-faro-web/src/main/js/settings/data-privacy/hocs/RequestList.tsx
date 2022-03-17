@@ -1,12 +1,12 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants, {OrderByDirections} from 'shared/util/constants';
+import Constants, {OrderByDirections, Sizes} from 'shared/util/constants';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import DataControlRequest from '../queries/DataControlRequestMutation';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import Label from 'shared/components/Label';
 import moment from 'moment';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import RequestListQuery from '../queries/RequestListQuery';
 import URLConstants from 'shared/util/url-constants';
@@ -375,16 +375,15 @@ const RequestList: React.FC<IRequestListProps> = ({
 				flatFilter
 				groupId={groupId}
 				noResultsRenderer={() => (
-					<EmptyStateDashboard
-						autoFit
+					<NoResultsDisplay
 						description={
-							<p className='d-flex flex-column mb-1'>
+							<>
 								{Liferay.Language.get(
 									'create-a-request-to-get-started'
 								)}
 
 								<a
-									className='pl-1'
+									className='d-block mb-3'
 									href={URLConstants.RequestLogDocumentation}
 									key='DOCUMENTATION'
 									target='_blank'
@@ -393,9 +392,13 @@ const RequestList: React.FC<IRequestListProps> = ({
 										'access-our-documentation-to-learn-more'
 									)}
 								</a>
-							</p>
+							</>
 						}
-						symbol='ac-satellite'
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
 						title={Liferay.Language.get('no-requests-found')}
 					/>
 				)}

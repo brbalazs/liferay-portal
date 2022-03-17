@@ -1,6 +1,5 @@
 import Button from 'shared/components/Button';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import EventDefinitionsQuery, {
 	EventDefinitionsData,
 	EventDefinitionsVariables,
@@ -11,6 +10,7 @@ import EventDefinitionsQuery, {
 	UnhideEventDefinitionsData
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import NotificationAlertList, {
 	useNotificationsAPI
 } from 'shared/components/NotificationAlertList';
@@ -39,6 +39,7 @@ import {LIMIT_REACHED_ALERT_ID} from './constants';
 import {NotificationSubtypes} from 'shared/util/records/Notification';
 import {OrderedMap} from 'immutable';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useQueryPagination} from 'shared/hooks';
@@ -398,16 +399,15 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 				items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
 				loading={loading}
 				noResultsRenderer={() => (
-					<EmptyStateDashboard
-						autoFit
+					<NoResultsDisplay
 						description={
-							<p className='d-flex flex-column mb-1'>
+							<>
 								{Liferay.Language.get(
 									'create-some-custom-events-to-get-started'
 								)}
 
 								<a
-									className='pl-1'
+									className='d-block mb-3'
 									href={
 										URLConstants.CustomEventsDocumentation
 									}
@@ -418,9 +418,13 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 										'learn-how-to-add-custom-events-on-your-site'
 									)}
 								</a>
-							</p>
+							</>
 						}
-						symbol='ac-satellite'
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
 						title={Liferay.Language.get('no-custom-events-found')}
 					/>
 				)}

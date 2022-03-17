@@ -113,7 +113,6 @@ const Assets: React.FC<IAssetsProps> = ({className, currentUser, router}) => {
 					<Suspense fallback={<Loading />}>
 						<StatesRenderer {...dataSourceStates}>
 							<StatesRenderer.Empty
-								className='bg-white mt-4 py-5 rounded sites-dashboard'
 								description={
 									<>
 										{Liferay.Language.get(
@@ -150,6 +149,7 @@ const Assets: React.FC<IAssetsProps> = ({className, currentUser, router}) => {
 										)}
 									</>
 								}
+								displayCard
 								title={Liferay.Language.get(
 									'no-sites-synced-from-data-sources'
 								)}

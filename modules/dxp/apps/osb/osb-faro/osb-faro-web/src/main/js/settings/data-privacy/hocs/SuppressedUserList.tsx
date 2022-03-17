@@ -1,8 +1,8 @@
 import Card from 'shared/components/Card';
 import ClayButton from '@clayui/button';
 import DataControlRequest from '../queries/DataControlRequestMutation';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SuppressedUsersListQuery from '../queries/SuppressedUsersListQuery';
 import URLConstants from 'shared/util/url-constants';
@@ -17,7 +17,11 @@ import {
 import {connect, ConnectedProps} from 'react-redux';
 import {CREATE_DATE, createOrderIOMap} from 'shared/util/pagination';
 import {formatDateToTimeZone} from 'shared/util/date';
-import {GDPRRequestStatuses, GDPRRequestTypes} from 'shared/util/constants';
+import {
+	GDPRRequestStatuses,
+	GDPRRequestTypes,
+	Sizes
+} from 'shared/util/constants';
 import {graphql} from '@apollo/react-hoc';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
@@ -153,15 +157,15 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 			}
 			entityLabel={Liferay.Language.get('suppressed-users')}
 			noResultsRenderer={() => (
-				<EmptyStateDashboard
+				<NoResultsDisplay
 					description={
-						<p className='d-flex flex-column mb-1'>
+						<>
 							{Liferay.Language.get(
 								'to-suppress-a-user,-go-to-data-control-&-privacy-under-settings-and-create-a-new-request-on-the-request-log'
 							)}
 
 							<a
-								className='pl-1'
+								className='d-block mb-3'
 								href={URLConstants.SuppressedUsersDocumentation}
 								key='DOCUMENTATION'
 								target='_blank'
@@ -170,9 +174,13 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 									'access-our-documentation-to-learn-more'
 								)}
 							</a>
-						</p>
+						</>
 					}
-					symbol='ac-satellite'
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
 					title={Liferay.Language.get('no-suppressed-users-found')}
 				/>
 			)}

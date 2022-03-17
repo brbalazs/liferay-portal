@@ -1,8 +1,8 @@
 import * as API from 'shared/api';
 import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
-import Constants from 'shared/util/constants';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
+import Constants, {Sizes} from 'shared/util/constants';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
@@ -44,6 +44,10 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 				'you-have-not-been-added-to-any-properties.-please-contact-your-analytics-cloud-administrator'
 		  );
 
+	const title = admin
+		? Liferay.Language.get('first-connect-your-dxp-sites')
+		: Liferay.Language.get('no-properties-found');
+
 	return (
 		<BasePage
 			className='no-properties-available-root'
@@ -57,51 +61,63 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 			</BasePage.Header>
 
 			<BasePage.Body>
-				<EmptyStateDashboard
-					description={description}
-					symbol={admin ? 'ac-no-sites' : 'ac-satellite'}
-					title={
-						admin
-							? Liferay.Language.get(
-									'first-connect-your-dxp-sites'
-							  )
-							: Liferay.Language.get('no-properties-found')
-					}
-				>
-					{admin && (
-						<Button
-							display='primary'
-							href={
-								dataSources
-									? toRoute(Routes.SETTINGS_CHANNELS, {
-											groupId
-									  })
-									: null
-							}
-							onClick={
-								dataSources
-									? () =>
-											setBackURL(
-												toRoute(
-													Routes.WORKSPACE_WITH_ID,
+				<NoResultsDisplay
+					description={
+						<>
+							{description}
+
+							{admin && (
+								<Button
+									className='mt-3'
+									display='primary'
+									href={
+										dataSources
+											? toRoute(
+													Routes.SETTINGS_CHANNELS,
 													{
 														groupId
 													}
-												)
-											)
-									: () =>
-											open(modalTypes.ONBOARDING_MODAL, {
-												groupId,
-												onClose: close
-											})
-							}
-						>
-							{dataSources
-								? Liferay.Language.get('create-property')
-								: Liferay.Language.get('start')}
-						</Button>
-					)}
-				</EmptyStateDashboard>
+											  )
+											: null
+									}
+									onClick={
+										dataSources
+											? () =>
+													setBackURL(
+														toRoute(
+															Routes.WORKSPACE_WITH_ID,
+															{
+																groupId
+															}
+														)
+													)
+											: () =>
+													open(
+														modalTypes.ONBOARDING_MODAL,
+														{
+															groupId,
+															onClose: close
+														}
+													)
+									}
+								>
+									{dataSources
+										? Liferay.Language.get(
+												'create-property'
+										  )
+										: Liferay.Language.get('start')}
+								</Button>
+							)}
+						</>
+					}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: admin ? 'ac-no-sites' : 'ac-satellite'
+					}}
+					spacer
+					title={title}
+				/>
 			</BasePage.Body>
 		</BasePage>
 	);

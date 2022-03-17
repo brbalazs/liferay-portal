@@ -239,18 +239,18 @@ const InterestTopics: React.FC<IInterestTopicsProps> = ({
 		const authorized = currentUser.isAdmin();
 
 		const connectMessage = authorized ? (
-			<p className='d-flex flex-column'>
+			<>
 				{Liferay.Language.get('add-a-keyword-to-be-blocked')}
 
 				<a
-					className='pl-1'
+					className='d-block mb-3'
 					href={URLConstants.InterestTopicsDocumentation}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
 					{Liferay.Language.get('learn-more-about-interest-topics')}
 				</a>
-			</p>
+			</>
 		) : (
 			Liferay.Language.get(
 				'please-contact-your-site-administrator-to-add-keywords'

@@ -267,11 +267,11 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 		const authorized = currentUser.isAdmin();
 
 		const connectMessage = authorized ? (
-			<p className='d-flex flex-column'>
+			<>
 				{Liferay.Language.get('add-a-data-source-to-get-started')}
 
 				<a
-					className='pl-1'
+					className='d-block mb-3'
 					href={URLConstants.DataSourceConnection}
 					key='DOCUMENTATION'
 					target='_blank'
@@ -280,7 +280,7 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 						'access-our-documentation-to-learn-more'
 					)}
 				</a>
-			</p>
+			</>
 		) : (
 			Liferay.Language.get(
 				'please-contact-your-workspace-administrator-to-add-data-sources'

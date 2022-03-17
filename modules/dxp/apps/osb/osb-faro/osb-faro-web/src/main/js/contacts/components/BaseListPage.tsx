@@ -174,7 +174,6 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 					<Card.Body noPadding>
 						<StatesRenderer {...dataSourceStates}>
 							<StatesRenderer.Empty
-								className='sites-dashboard bg-white mt-4 py-5'
 								description={
 									authorized ? (
 										<>
@@ -203,6 +202,7 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 										)
 									)
 								}
+								displayCard
 								title={emptyStateTitle}
 							/>
 

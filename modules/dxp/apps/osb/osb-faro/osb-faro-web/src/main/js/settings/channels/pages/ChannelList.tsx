@@ -3,9 +3,9 @@ import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import EmptyState from 'shared/components/EmptyStateDashboard';
 import ListComponent from 'shared/hoc/ListComponent';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
 import URLConstants from 'shared/util/url-constants';
@@ -29,6 +29,7 @@ import {Link} from 'react-router-dom';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
+import {Sizes} from 'shared/util/constants';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {updateDefaultChannelId} from 'shared/actions/preferences';
 import {useQueryPagination, useRequest} from 'shared/hooks';
@@ -303,27 +304,29 @@ const ChannelList: React.FC<IChannelListProps> = ({
 			});
 	};
 
-	const renderEmptyState = (): React.ReactNode => (
-		<EmptyState
-			autoFit
-			className='no-results-root mt-0'
+	const renderEmptyState = () => (
+		<NoResultsDisplay
 			description={
-				<p className='d-flex flex-column'>
+				<>
 					{Liferay.Language.get('create-a-property-to-get-started')}
 
 					<a
-						className='pl-1'
+						className='d-block mb-3'
 						href={URLConstants.CreateProperty}
-						key='dataSourceConnectionText'
+						key='DOCUMENTATION'
 						target='_blank'
 					>
 						{Liferay.Language.get(
 							'access-our-documentation-to-learn-more'
 						)}
 					</a>
-				</p>
+				</>
 			}
-			symbol='ac-satellite'
+			icon={{
+				border: false,
+				size: Sizes.XXXLarge,
+				symbol: 'ac-satellite'
+			}}
 			title={Liferay.Language.get('no-properties-found')}
 		/>
 	);

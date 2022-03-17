@@ -4,7 +4,6 @@ import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants from 'shared/util/constants';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import Form, {
 	validateMaxLength,
 	validateMinLength,
@@ -14,6 +13,7 @@ import HelpBlock from 'shared/components/form/HelpBlock';
 import RadioGroup from 'shared/components/RadioGroup';
 import React, {useEffect, useState} from 'react';
 import SitesSyncedStripe from '../components/SitesSyncedStripe';
+import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import TitleEditor from 'shared/components/TitleEditor';
 import UserList from '../components/UserList';
 import {addAlert} from 'shared/actions/alerts';
@@ -439,23 +439,30 @@ const View: React.FC<IViewProps> = ({
 				</Card.Body>
 
 				<Card.Body noPadding>
-					{permissionType === channelPermissionTypes.allUsers ? (
-						<EmptyStateDashboard
+					<StatesRenderer
+						empty={
+							permissionType === channelPermissionTypes.allUsers
+						}
+					>
+						<StatesRenderer.Empty
 							description={Liferay.Language.get(
 								'all-users-from-this-workspace-have-access-to-this-property'
 							)}
-							symbol='ac-no-sites'
+							icon={{
+								symbol: 'ac-no-sites'
+							}}
 							title={Liferay.Language.get('all-aboard')}
 						/>
-					) : (
-						<UserList
-							authorized={currentUser.isAdmin()}
-							groupId={groupId}
-							id={channel.id}
-							propertyName={channel.name}
-							{...otherProps}
-						/>
-					)}
+						<StatesRenderer.Success>
+							<UserList
+								authorized={currentUser.isAdmin()}
+								groupId={groupId}
+								id={channel.id}
+								propertyName={channel.name}
+								{...otherProps}
+							/>
+						</StatesRenderer.Success>
+					</StatesRenderer>
 				</Card.Body>
 			</Card>
 		</BasePage>

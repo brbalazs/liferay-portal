@@ -2,13 +2,13 @@ import ActivitiesChart from 'contacts/components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import EventMetricQuery, {
 	EventMetricsData,
 	EventMetricsVariables
 } from 'shared/queries/EventMetricQuery';
 import IntervalSelector from 'shared/components/IntervalSelector';
 import moment from 'moment';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useState} from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import Toolbar from 'shared/components/toolbar';
@@ -33,7 +33,7 @@ import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {isNil} from 'lodash';
 import {mapListResultsToProps} from 'shared/util/mappers';
-import {SessionEntityTypes} from 'shared/util/constants';
+import {SessionEntityTypes, Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
 import {useStatefulPagination} from 'shared/hooks';
@@ -304,17 +304,16 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				delta={delta}
 				initialExpanded={false}
 				noResultsRenderer={() => (
-					<EmptyStateDashboard
-						description={
-							<>
-								<p className='mb-1'>
-									{Liferay.Language.get(
-										'try-a-different-date-range-or-search-term'
-									)}
-								</p>
-							</>
-						}
-						symbol='ac-satellite'
+					<NoResultsDisplay
+						description={Liferay.Language.get(
+							'try-a-different-date-range-or-search-term'
+						)}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						spacer
 						title={Liferay.Language.get('no-events-found')}
 					/>
 				)}

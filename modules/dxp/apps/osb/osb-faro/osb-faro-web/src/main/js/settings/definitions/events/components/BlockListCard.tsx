@@ -10,8 +10,8 @@ import BLOCKED_CUSTOM_EVENT_DEFINITIONS_QUERY, {
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
@@ -37,6 +37,7 @@ import {LIMIT_REACHED_ALERT_ID} from './constants';
 import {OrderedMap} from 'immutable';
 import {RootState} from 'shared/store';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useQueryPagination} from 'shared/hooks';
@@ -395,15 +396,15 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 				)}
 				loading={loading}
 				noResultsRenderer={() => (
-					<EmptyStateDashboard
-						autoFit
+					<NoResultsDisplay
 						description={
-							<p className='d-flex flex-column mb-1'>
+							<>
 								{Liferay.Language.get(
 									'to-block-events,-select-one-from-the-events-table'
 								)}
+
 								<a
-									className='pl-1'
+									className='d-block mb-3'
 									href={
 										URLConstants.DefinitionsForEventsDocumentation
 									}
@@ -414,9 +415,13 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 										'access-our-documentation-to-learn-how-to-manage-custom-events'
 									)}
 								</a>
-							</p>
+							</>
 						}
-						symbol='ac-satellite'
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
 						title={Liferay.Language.get(
 							'there-are-no-events-blocked'
 						)}

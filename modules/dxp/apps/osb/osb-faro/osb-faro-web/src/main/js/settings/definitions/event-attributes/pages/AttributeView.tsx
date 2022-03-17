@@ -1,6 +1,4 @@
 import BasePage from 'settings/components/BasePage';
-import Card from 'shared/components/Card';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
 	EVENT_ATTRIBUTE_DEFINITION_WITH_RECENT_VALUES_QUERY,
 	EventAttributeDefinitionData,
@@ -9,6 +7,7 @@ import EVENT_ATTRIBUTE_DEFINITION_QUERY, {
 } from 'event-analysis/queries/EventAttributeDefinitionQuery';
 import Label from 'shared/components/Label';
 import React from 'react';
+import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import Table from 'shared/components/table';
 import URLConstants from 'shared/util/url-constants';
 import {Attribute} from 'event-analysis/utils/types';
@@ -96,69 +95,68 @@ const AttributeView: React.FC<IAttributeViewProps> = ({
 					pageTitle={name}
 					subTitle={displayName}
 				>
-					{!recentValues.length && (
-						<Card>
-							<EmptyStateDashboard
-								description={
-									<p className='d-flex flex-column mb-1'>
+					<StatesRenderer empty={!recentValues.length}>
+						<StatesRenderer.Empty
+							className='bg-white rounded'
+							description={
+								<>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events'
+									)}
+
+									<a
+										className='d-block mb-3'
+										href={
+											URLConstants.EventAttributesDocumentation
+										}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
 										{Liferay.Language.get(
-											'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-events'
+											'learn-more-about-event-tracking'
 										)}
-
-										<a
-											className='pl-1'
-											href={
-												URLConstants.EventAttributesDocumentation
-											}
-											key='DOCUMENTATION'
-											target='_blank'
-										>
-											{Liferay.Language.get(
-												'learn-more-about-event-tracking'
-											)}
-										</a>
-									</p>
-								}
-								symbol='ac-satellite'
-								title={Liferay.Language.get(
-									'no-sample-data-found'
-								)}
-							/>
-						</Card>
-					)}
-
-					{!!recentValues.length && (
-						<Table
-							columns={[
-								{
-									accessor: 'value',
-									className:
-										'table-cell-expand-small text-truncate',
-									dataFormatter: value =>
-										getSafeDisplayValue(value),
-									label: Liferay.Language.get(
-										'sample-raw-data'
-									),
-									sortable: false
-								},
-								{
-									accessor: 'lastSeenDate',
-									cellRenderer: ({data}) => (
-										<DateCell
-											className='table-column-text-end'
-											data={data}
-											datePath='lastSeenDate'
-										/>
-									),
-									className: 'table-column-text-end',
-									label: Liferay.Language.get('last-seen'),
-									sortable: false
-								}
-							]}
-							items={recentValues}
-							rowIdentifier='value'
+									</a>
+								</>
+							}
+							spacer
+							title={Liferay.Language.get('no-sample-data-found')}
 						/>
-					)}
+
+						<StatesRenderer.Success>
+							<Table
+								columns={[
+									{
+										accessor: 'value',
+										className:
+											'table-cell-expand-small text-truncate',
+										dataFormatter: value =>
+											getSafeDisplayValue(value),
+										label: Liferay.Language.get(
+											'sample-raw-data'
+										),
+										sortable: false
+									},
+									{
+										accessor: 'lastSeenDate',
+										cellRenderer: ({data}) => (
+											<DateCell
+												className='table-column-text-end'
+												data={data}
+												datePath='lastSeenDate'
+											/>
+										),
+										className: 'table-column-text-end',
+										label: Liferay.Language.get(
+											'last-seen'
+										),
+										sortable: false
+									}
+								]}
+								items={recentValues}
+								rowIdentifier='value'
+							/>
+						</StatesRenderer.Success>
+					</StatesRenderer>
 				</BasePage>
 			)}
 		</SafeResults>

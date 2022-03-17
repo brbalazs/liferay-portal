@@ -261,7 +261,6 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	return (
 		<StatesRenderer {...dataSourceStates}>
 			<StatesRenderer.Empty
-				className='bg-white mt-4 py-5 rounded sites-dashboard'
 				description={
 					<>
 						{Liferay.Language.get(
@@ -291,6 +290,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 						)}
 					</>
 				}
+				displayCard
 				title={Liferay.Language.get('no-data-sources-connected')}
 			/>
 

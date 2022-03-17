@@ -2,7 +2,7 @@ import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import URLConstants from 'shared/util/url-constants';
@@ -16,6 +16,7 @@ import {getDefinitions} from 'shared/util/breadcrumbs';
 import {omit} from 'lodash';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {User} from 'shared/util/records';
 
@@ -131,7 +132,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 					dataSourceParams={{groupId}}
 					internalSort
 					noResultsRenderer={() => (
-						<EmptyStateDashboard
+						<NoResultsDisplay
 							description={
 								<>
 									{Liferay.Language.get(
@@ -166,7 +167,12 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 									)}
 								</>
 							}
-							symbol='ac-satellite'
+							icon={{
+								border: false,
+								size: Sizes.XXXLarge,
+								symbol: 'ac-satellite'
+							}}
+							spacer
 							title={Liferay.Language.get(
 								'no-individuals-synced-from-data-sources'
 							)}
