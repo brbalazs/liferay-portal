@@ -9,6 +9,13 @@
 		position: relative;
 		text-align: center;
 
+		&.display-card {
+			background-color: $white;
+			border-radius: 4px;
+			height: 70vh;
+			margin-top: 24px;
+		}
+
 		.dropdown-root {
 			.dropdown-toggle {
 				text-align: center;
@@ -48,7 +55,7 @@
 
 	&-description {
 		color: $mainLighten28;
-		font-size: $fontSizeSmall;
+		font-size: $fontSizeMedium;
 	}
 
 	&-description,

@@ -1,6 +1,6 @@
+import getCN from 'classnames';
 import Loading, {ILoadingProps} from 'shared/pages/Loading';
 import NoResultsDisplay, {
-	IconProps,
 	INoResultsDisplayProps
 } from 'shared/components/NoResultsDisplay';
 import React, {createContext, FC, useContext} from 'react';
@@ -13,22 +13,25 @@ export interface IStatesRendererContextProps
 	loading?: boolean;
 }
 
-interface IStatesRendererChildren {
-	Empty?: FC<INoResultsDisplayProps>;
-	Error?: FC<React.HTMLAttributes<HTMLElement>>;
-	Loading?: FC<ILoadingProps & {children?: React.ReactElement}>;
-	Success?: FC<React.HTMLAttributes<HTMLElement>>;
-}
-
 interface ISwitcherComponent {
 	show?: boolean;
 }
 
-const ICON_PROPS: IconProps = {
-	border: false,
-	size: Sizes.XXXLarge,
-	symbol: 'ac-satellite'
-};
+interface IEmptyStateProps extends INoResultsDisplayProps, ISwitcherComponent {
+	displayCard?: boolean;
+}
+
+interface IErrorStateProps
+	extends React.HTMLAttributes<HTMLElement>,
+		ISwitcherComponent {}
+
+interface ILoadingStateProps extends ILoadingProps, ISwitcherComponent {
+	children?: React.ReactElement;
+}
+
+interface ISuccessStateProps
+	extends React.HTMLAttributes<HTMLElement>,
+		ISwitcherComponent {}
 
 const StatesRendererContext = createContext<IStatesRendererContextProps>({
 	empty: false,
@@ -36,9 +39,11 @@ const StatesRendererContext = createContext<IStatesRendererContextProps>({
 	loading: false
 });
 
-const EmptyState: FC<INoResultsDisplayProps & ISwitcherComponent> = ({
+const EmptyState: FC<IEmptyStateProps> = ({
 	children,
 	description,
+	displayCard = false,
+	icon,
 	show = true,
 	title,
 	...otherProps
@@ -52,8 +57,16 @@ const EmptyState: FC<INoResultsDisplayProps & ISwitcherComponent> = ({
 		show &&
 		(children || (
 			<NoResultsDisplay
+				className={getCN({
+					'display-card': displayCard
+				})}
 				description={description}
-				icon={ICON_PROPS}
+				icon={{
+					border: false,
+					size: Sizes.XXXLarge,
+					symbol: 'ac-satellite',
+					...icon
+				}}
 				title={title}
 				{...otherProps}
 			/>
@@ -61,17 +74,17 @@ const EmptyState: FC<INoResultsDisplayProps & ISwitcherComponent> = ({
 	);
 };
 
-const ErrorState: FC<
-	React.HTMLAttributes<HTMLElement> & ISwitcherComponent
-> = ({children, show = true}) => {
+const ErrorState: FC<IErrorStateProps> = ({children, show = true}) => {
 	const {empty, error, loading} = useContext(StatesRendererContext);
 
 	return !empty && error && !loading && show && <>{children}</>;
 };
 
-const LoadingState: FC<
-	ILoadingProps & {children?: React.ReactElement} & ISwitcherComponent
-> = ({children, show = true, ...otherProps}) => {
+const LoadingState: FC<ILoadingStateProps> = ({
+	children,
+	show = true,
+	...otherProps
+}) => {
 	const {empty, error, loading} = useContext(StatesRendererContext);
 
 	return (
@@ -83,16 +96,18 @@ const LoadingState: FC<
 	);
 };
 
-const StatesRenderer: FC<IStatesRendererContextProps> &
-	IStatesRendererChildren = ({children, empty, error, loading}) => (
+const StatesRenderer: FC<IStatesRendererContextProps> & {
+	Empty?: FC<IEmptyStateProps>;
+	Error?: FC<IErrorStateProps>;
+	Loading?: FC<ILoadingStateProps>;
+	Success?: FC<ISuccessStateProps>;
+} = ({children, empty, error, loading}) => (
 	<StatesRendererContext.Provider value={{empty, error, loading}}>
 		{children}
 	</StatesRendererContext.Provider>
 );
 
-const SuccessState: FC<
-	React.HTMLAttributes<HTMLElement> & ISwitcherComponent
-> = ({children, show = true}) => {
+const SuccessState: FC<ISuccessStateProps> = ({children, show = true}) => {
 	const {empty, error, loading} = useContext(StatesRendererContext);
 
 	return !empty && !error && !loading && show && <>{children}</>;
