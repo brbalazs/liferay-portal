@@ -136,10 +136,13 @@ describe('BlockListCard', () => {
 
 		jest.runAllTimers();
 
-		const emptyStateDiv = document.querySelector(
-			'div .empty-state-dashboard-root'
+		expect(
+			container.querySelector('.no-results-title').textContent
+		).toEqual('There are no events blocked.');
+		expect(
+			container.querySelector('.no-results-description').textContent
+		).toEqual(
+			"To block events, select one from the events' table.Access our documentation to learn how to manage custom events."
 		);
-
-		expect(emptyStateDiv).toHaveClass('autofit');
 	});
 });

@@ -565,7 +565,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
 exports[`Individuals Dashboard Individuals Interests renders with data source empty state 1`] = `
 <div>
   <div
-    class="bg-white mt-4 py-5 rounded sites-dashboard no-results-root flex-grow-1"
+    class="no-results-root flex-grow-1 display-card"
   >
     <div
       class="no-results-content"

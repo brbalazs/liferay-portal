@@ -59,7 +59,7 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 			<div className={getCN('no-results-content', {spacer})}>
 				{icon && <NoResultsDisplayIcon {...icon} />}
 
-				<h4 className='no-results-title'>{title}</h4>
+				{title && <h4 className='no-results-title'>{title}</h4>}
 
 				{description && (
 					<p className='no-results-description'>{description}</p>
@@ -71,9 +71,9 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 	);
 };
 
-type getFormattedTitleType = (name?: string, title?: string) => string;
+type GetFormattedTitle = (name?: string, title?: string) => string;
 
-export const getFormattedTitle: getFormattedTitleType = (
+export const getFormattedTitle: GetFormattedTitle = (
 	name = Liferay.Language.get('items').toLowerCase(),
 	title = Liferay.Language.get('there-are-no-x-found')
 ) => sub(title, [name]) as string;

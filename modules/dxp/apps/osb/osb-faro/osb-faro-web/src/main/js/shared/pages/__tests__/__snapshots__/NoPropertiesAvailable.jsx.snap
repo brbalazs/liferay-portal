@@ -49,32 +49,40 @@ exports[`NoPropertiesAvailable should render 1`] = `
         class="children-wrapper"
       >
         <div
-          class="empty-state-dashboard-root"
+          class="no-results-root flex-grow-1"
         >
-          <svg
-            class="icon-root lexicon-icon lexicon-icon-ac-no-sites icon-size-xxxl"
-            viewBox=""
+          <div
+            class="no-results-content spacer"
           >
-            <use
-              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-no-sites"
-            />
-          </svg>
-          <span
-            class="title"
-          >
-            First, Connect Your DXP Sites
-          </span>
-          <span
-            class="secondary-info"
-          >
-            To get your workspace set up, you will need to connect your DXP instance and add sites to a property.
-          </span>
-          <button
-            class="button-root btn btn-primary"
-            type="button"
-          >
-            Start
-          </button>
+            <div
+              class="no-results-icon"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-ac-no-sites icon-size-xxxl"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-no-sites"
+                />
+              </svg>
+            </div>
+            <h4
+              class="no-results-title"
+            >
+              First, Connect Your DXP Sites
+            </h4>
+            <p
+              class="no-results-description"
+            >
+              To get your workspace set up, you will need to connect your DXP instance and add sites to a property.
+              <button
+                class="button-root btn btn-primary mt-3"
+                type="button"
+              >
+                Start
+              </button>
+            </p>
+          </div>
         </div>
       </span>
     </div>
