@@ -4,22 +4,41 @@ import React from 'react';
 import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 
-const CLASSNAME = 'no-results';
-
-export interface IconProps {
+interface IIconProps {
 	border?: boolean;
 	size?: Sizes;
 	symbol: string;
 }
+
 export interface INoResultsDisplayProps
 	extends React.HTMLAttributes<HTMLElement> {
 	children?: React.ReactElement;
 	description?: string | React.ReactNode;
-	icon?: IconProps;
+	icon?: IIconProps;
 	primary?: boolean;
 	spacer?: boolean;
 	title?: string;
 }
+
+interface INoResultsDisplayIcon
+	extends React.HTMLAttributes<HTMLDivElement>,
+		IIconProps {}
+
+const NoResultsDisplayIcon: React.FC<INoResultsDisplayIcon> = ({
+	border = true,
+	size = Sizes.XXLarge,
+	symbol
+}) => {
+	const classes = getCN('no-results-icon', {
+		'no-results-icon-border': border
+	});
+
+	return (
+		<div className={classes}>
+			<Icon size={size} symbol={symbol} />
+		</div>
+	);
+};
 
 const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 	children,
@@ -28,38 +47,22 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 	icon,
 	primary = false,
 	spacer = false,
-	title = getFormattedTitle(undefined, undefined),
+	title = getFormattedTitle(),
 	...otherProps
 }) => {
-	const classes = getCN(className, `${CLASSNAME}-root flex-grow-1`, {
+	const classes = getCN(className, 'no-results-root flex-grow-1', {
 		'no-results-primary': primary
 	});
 
 	return (
 		<div {...otherProps} className={classes}>
-			<div className={getCN(`${CLASSNAME}-content`, {spacer})}>
-				{icon &&
-					(() => {
-						const {
-							border = true,
-							size = Sizes.XXLarge,
-							symbol
-						} = icon;
-						const classes = getCN(`${CLASSNAME}-icon`, {
-							[`${CLASSNAME}-icon-border`]: border
-						});
+			<div className={getCN('no-results-content', {spacer})}>
+				{icon && <NoResultsDisplayIcon {...icon} />}
 
-						return (
-							<div className={classes}>
-								<Icon size={size} symbol={symbol} />
-							</div>
-						);
-					})()}
-
-				{title && <h4 className={`${CLASSNAME}-title`}>{title}</h4>}
+				<h4 className='no-results-title'>{title}</h4>
 
 				{description && (
-					<p className={`${CLASSNAME}-description`}>{description}</p>
+					<p className='no-results-description'>{description}</p>
 				)}
 
 				{children}
