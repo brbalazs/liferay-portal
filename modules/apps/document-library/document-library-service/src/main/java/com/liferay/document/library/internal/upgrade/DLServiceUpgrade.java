@@ -35,7 +35,7 @@ public class DLServiceUpgrade implements UpgradeStepRegistrator {
 
 	@Override
 	public void register(Registry registry) {
-		registry.register("0.0.0", "1.0.0", new DummyUpgradeStep());
+		registry.register("0.0.0", "1.1.0", new DummyUpgradeStep());
 
 		registry.register("0.0.1", "1.0.0", new UpgradeDocumentLibrary(_store));
 
