@@ -8,8 +8,8 @@ import EventAttributeValuesQuery from 'event-analysis/queries/EventAttributeValu
 import EventDefinitionQuery from 'event-analysis/queries/EventDefinitionQuery';
 import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import EventMetricQuery from 'shared/queries/EventMetricQuery';
-import IndividualMetricsQuery from 'individual/dashboard/queries/IndividualMetricsQuery';
-import InterestsQuery from 'individual/dashboard/queries/InterestsQuery';
+import IndividualMetricsQuery from 'shared/queries/IndividualMetricsQuery';
+import IndividualInterestsQuery from 'shared/queries/IndividualInterestsQuery';
 import OrganizationsQuery from 'segment/segment-editor/dynamic/queries/OrganizationsQuery';
 import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';
@@ -27,6 +27,7 @@ import {
 	DataTypes,
 	DateGroupings
 } from 'event-analysis/utils/types';
+import {COUNT, NAME} from 'shared/util/pagination';
 import {
 	EventAnalysisListQuery,
 	EventAnalysisQuery
@@ -41,7 +42,6 @@ import {
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
-import {NAME} from 'shared/util/pagination';
 import {OrderByDirections, RangeKeyTimeRanges} from 'shared/util/constants';
 
 const METRIC_TYPENAME_MAP = {
@@ -353,16 +353,19 @@ export function mockDataSourcesReq(dataSources = [], variables = {type: null}) {
 export function mockIndividualInterestsReq(getVariables) {
 	const defaultVariables = {
 		active: true,
-		id: undefined,
-		keywords: '',
+		channelId: '123',
+		id: '123',
 		size: 5,
-		sort: {column: 'count', type: 'DESC'},
+		sort: {
+			column: COUNT,
+			type: OrderByDirections.Descending
+		},
 		start: 0
 	};
 
 	return {
 		request: {
-			query: InterestsQuery,
+			query: IndividualInterestsQuery,
 			variables: getVariables
 				? getVariables(defaultVariables)
 				: defaultVariables

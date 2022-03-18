@@ -30,4 +30,24 @@ describe('InterestsCard', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('renders with empty data', () => {
+		const {container} = render(
+			<MockedProvider
+				mocks={[
+					mockIndividualInterestsReq(variables =>
+						omit(variables, 'keywords')
+					)
+				]}
+			>
+				<BrowserRouter>
+					<InterestsCard groupId='123' />
+				</BrowserRouter>
+			</MockedProvider>
+		);
+
+		jest.runAllTimers();
+
+		console.log(container.innerHTML);
+	});
 });
