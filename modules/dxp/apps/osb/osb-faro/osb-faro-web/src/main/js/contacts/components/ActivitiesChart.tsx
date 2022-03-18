@@ -3,6 +3,7 @@ import React, {useRef, useState} from 'react';
 import {
 	ANIMATION_DURATION,
 	AXIS,
+	ChartTooltipRow,
 	getAxisTickText,
 	getChartTooltip,
 	getYAxisWidth
@@ -86,11 +87,7 @@ const ActivitiesChart: React.FC<
 				history[selectedPoint]
 			);
 
-			const rows: Array<{
-				className?: string;
-				label: string;
-				value?: string;
-			}> = [
+			const rows: ChartTooltipRow[] = [
 				{
 					label: Liferay.Language.get('events'),
 					value: totalEvents.toLocaleString()

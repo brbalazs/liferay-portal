@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import InterestsQuery from '../queries/InterestsQuery';
+import IndividualInterestsQuery from 'shared/queries/IndividualInterestsQuery';
 import React from 'react';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
@@ -16,7 +16,7 @@ import {useQueryPagination} from 'shared/hooks';
 import {withBaseResults} from 'shared/hoc';
 
 const withData = () =>
-	graphql(InterestsQuery, {
+	graphql(IndividualInterestsQuery, {
 		options: mapPropsToOptions,
 		props: getMapResultToProps(CompositionTypes.IndividualInterests)
 	});

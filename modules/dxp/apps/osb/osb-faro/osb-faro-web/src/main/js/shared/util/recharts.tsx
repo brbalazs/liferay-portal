@@ -5,8 +5,8 @@ import ChartTooltip, {
 } from 'shared/components/chart-tooltip';
 import getCN from 'classnames';
 import React, {FC} from 'react';
-import {Text} from 'recharts';
 import {Column} from 'shared/components/chart-tooltip/types';
+import {Text} from 'recharts';
 
 const AXIS_LABEL_OFFSET = 20;
 const TEXT_PADDING = 4;
@@ -40,13 +40,15 @@ export const BAR_COLORS = {
 	}
 };
 
+export interface ChartTooltipRow {
+	className?: string;
+	label: string;
+	value?: string;
+}
+
 interface IChartTooltip {
-	columns: Column[];
-	rows: {
-		className?: string;
-		label: string;
-		value: string;
-	}[];
+	columns?: Column[];
+	rows: ChartTooltipRow[];
 	title: string;
 }
 
@@ -123,7 +125,7 @@ export const getChartTooltip: FC<
 						label: value,
 						weight: 'semibold'
 					}
-				]
+				] as Column[]
 			}))}
 		/>
 	</div>

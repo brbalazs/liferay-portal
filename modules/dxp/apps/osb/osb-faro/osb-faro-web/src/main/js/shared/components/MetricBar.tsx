@@ -19,7 +19,7 @@ export enum Sizes {
 interface IMetricBarProps extends React.HTMLAttributes<HTMLElement> {
 	barClassName?: string;
 	barStyle?: {[key: string]: string};
-	display: Displays;
+	display?: Displays;
 	percent: number;
 	size: Sizes;
 }

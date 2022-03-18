@@ -262,6 +262,7 @@ export const compositionListColumns = {
 		title: true
 	}),
 	getRelativeMetricBar: ({
+		empty = false,
 		label,
 		maxCount,
 		showName = false,
@@ -271,6 +272,7 @@ export const compositionListColumns = {
 		accessor: 'count',
 		cellRenderer: RelativeMetricBarCell,
 		cellRendererProps: {
+			empty,
 			maxCount,
 			showName,
 			totalCount

@@ -1,9 +1,9 @@
 import ActiveIndividualsChart from '../components/ActiveIndividualsChart';
 import Card from 'shared/components/Card';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
+import IndividualSiteMetricsQuery from 'shared/queries/IndividualSiteMetricsQuery';
 import IntervalSelector from 'shared/components/IntervalSelector';
 import React, {useCallback} from 'react';
-import SiteMetricsQuery from '../queries/SiteMetricsQuery';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {Interval} from 'shared/types';
@@ -17,7 +17,7 @@ import {withError} from 'shared/hoc';
 import {withInterval, withRangeKey} from 'shared/hoc';
 
 const ChartWithData = compose<any>(
-	graphql(SiteMetricsQuery, {
+	graphql(IndividualSiteMetricsQuery, {
 		options: mapPropsToOptions,
 		props: mapResultToProps
 	}),
