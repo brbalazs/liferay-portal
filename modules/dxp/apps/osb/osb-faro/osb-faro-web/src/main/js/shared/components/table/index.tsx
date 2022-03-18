@@ -25,6 +25,7 @@ interface ITableProps {
 	checkDisabled?: (item: {[key: string]: any}) => boolean;
 	className?: string;
 	columns: Column[];
+	empty?: boolean;
 	enableMultiSort?: boolean;
 	headingNowrap?: boolean;
 	internalSort?: boolean;
@@ -65,6 +66,7 @@ const Table: React.FC<ITableProps> = ({
 	checkDisabled = () => false,
 	className,
 	columns,
+	empty = false,
 	enableMultiSort = false,
 	headingNowrap = true,
 	internalSort = false,
@@ -180,10 +182,14 @@ const Table: React.FC<ITableProps> = ({
 										itemsSelected={
 											!selectedItemsIOMap.isEmpty()
 										}
-										key={getRowIdentifierValue(
-											item,
-											rowIdentifier
-										)}
+										key={
+											empty
+												? `empty${rowIndex}`
+												: getRowIdentifierValue(
+														item,
+														rowIdentifier
+												  )
+										}
 										onClick={
 											disabled ? noop : handleItemClick
 										}

@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import IndividualMetricsQuery from '../queries/IndividualMetricsQuery';
+import IndividualMetricsQuery from 'shared/queries/IndividualMetricsQuery';
 import React from 'react';
 import TypeTrend from '../components/TypeTrend';
 import {compose} from 'redux';

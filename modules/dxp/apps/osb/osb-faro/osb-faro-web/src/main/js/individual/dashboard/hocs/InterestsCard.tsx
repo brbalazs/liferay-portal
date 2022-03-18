@@ -1,30 +1,57 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import InterestsQuery from '../queries/InterestsQuery';
+import ErrorDisplay from 'shared/components/ErrorDisplay';
+import IndividualInterestsQuery, {
+	IIndividualInterestsData,
+	IIndividualInterestsVariables
+} from 'shared/queries/IndividualInterestsQuery';
 import React from 'react';
+import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
+import Table, {Column} from 'shared/components/table';
 import {compositionListColumns} from 'shared/util/table-columns';
-import {CompositionTypes} from 'shared/util/constants';
-import {
-	getMapResultToProps,
-	mapCardPropsToOptions
-} from 'contacts/hoc/mappers/interests-query';
-import {graphql} from '@apollo/react-hoc';
+import {COUNT} from 'shared/util/pagination';
+import {OrderByDirections} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
-import {withTableData} from 'shared/hoc';
+import {useQuery} from '@apollo/react-hooks';
 
-const withData = () =>
-	graphql(InterestsQuery, {
-		options: mapCardPropsToOptions,
-		props: getMapResultToProps(CompositionTypes.IndividualInterests)
-	});
+interface IInterestsCardProps {
+	channelId: string;
+	groupId: string;
+}
 
-const TableWithData = withTableData(withData, {
-	emptyDescription: null,
-	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
-		Liferay.Language.get('interests')
-	]),
-	getColumns: ({channelId, groupId, maxCount, totalCount}) => [
+const EMPTY_STATE_DATA = new Array(6).fill({count: 0, name: ''});
+
+const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => {
+	const {
+		data = {
+			individualInterests: {compositions: [], maxCount: 0, totalCount: 0}
+		},
+		error,
+		loading
+	} = useQuery<IIndividualInterestsData, IIndividualInterestsVariables>(
+		IndividualInterestsQuery,
+		{
+			variables: {
+				active: true,
+				channelId,
+				id: groupId,
+				size: 5,
+				sort: {
+					column: COUNT,
+					type: OrderByDirections.Descending
+				},
+				start: 0
+			}
+		}
+	);
+
+	const {
+		individualInterests: {compositions: items, maxCount, totalCount}
+	} = data;
+
+	console.log(error);
+
+	const getColumn: () => Column[] = () => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
 			maxWidth: 200,
@@ -46,44 +73,79 @@ const TableWithData = withTableData(withData, {
 			metricName: Liferay.Language.get('total-individuals'),
 			totalCount
 		})
-	],
-	rowIdentifier: 'name'
-});
+	];
 
-interface IInterestsCardProps {
-	channelId: string;
-	groupId: string;
-}
+	const getEmptyColumns: () => Column[] = () => [
+		compositionListColumns.getName({
+			label: Liferay.Language.get('topic'),
+			maxWidth: 200,
+			sortable: false
+		}),
+		compositionListColumns.getRelativeMetricBar({
+			empty: true,
+			label: Liferay.Language.get('total-individuals'),
+			maxCount: 1,
+			totalCount: 1
+		}),
+		compositionListColumns.getPercentOf({
+			metricName: Liferay.Language.get('total-individuals'),
+			totalCount: 1
+		})
+	];
 
-const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => (
-	<Card className='interests-card-root' minHeight={536}>
-		<Card.Header>
-			<Card.Title>
-				{Liferay.Language.get('top-interests-as-of-today')}
-			</Card.Title>
-		</Card.Header>
+	return (
+		<Card className='interests-card-root' minHeight={536}>
+			<Card.Header>
+				<Card.Title>
+					{Liferay.Language.get('top-interests-as-of-today')}
+				</Card.Title>
+			</Card.Header>
 
-		<TableWithData
-			channelId={channelId}
-			groupId={groupId}
-			rowBordered={false}
-		/>
-
-		<Card.Footer>
-			<Button
-				display='link'
-				href={toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
-					channelId,
-					groupId
-				})}
-				icon='angle-right'
-				iconAlignment='right'
-				size='sm'
+			<StatesRenderer
+				empty={!items.length}
+				error={!!error}
+				loading={loading}
 			>
-				{Liferay.Language.get('view-all-interests')}
-			</Button>
-		</Card.Footer>
-	</Card>
-);
+				<StatesRenderer.Empty>
+					<Table
+						columns={getEmptyColumns()}
+						empty
+						items={EMPTY_STATE_DATA}
+						rowBordered={false}
+						rowIdentifier='name'
+					/>
+				</StatesRenderer.Empty>
+
+				<StatesRenderer.Error>
+					<ErrorDisplay spacer />
+				</StatesRenderer.Error>
+
+				<StatesRenderer.Success>
+					<Table
+						columns={getColumn()}
+						items={items}
+						rowBordered={false}
+						rowIdentifier='name'
+					/>
+				</StatesRenderer.Success>
+			</StatesRenderer>
+
+			<Card.Footer>
+				<Button
+					display='link'
+					href={toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
+						channelId,
+						groupId
+					})}
+					icon='angle-right'
+					iconAlignment='right'
+					size='sm'
+				>
+					{Liferay.Language.get('view-all-interests')}
+				</Button>
+			</Card.Footer>
+		</Card>
+	);
+};
 
 export default InterestsCard;
