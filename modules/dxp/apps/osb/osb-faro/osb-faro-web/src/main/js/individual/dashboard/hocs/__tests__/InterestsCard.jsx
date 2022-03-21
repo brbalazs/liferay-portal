@@ -16,23 +16,26 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
+const WrappedComponent = ({data}) => (
+	<MockedProvider
+		mocks={[
+			mockIndividualInterestsReq(
+				variables => omit(variables, 'keywords'),
+				data && {data}
+			)
+		]}
+	>
+		<BrowserRouter>
+			<InterestsCard />
+		</BrowserRouter>
+	</MockedProvider>
+);
+
 describe('InterestsCard', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = render(
-			<MockedProvider
-				mocks={[
-					mockIndividualInterestsReq(variables =>
-						omit(variables, 'keywords')
-					)
-				]}
-			>
-				<BrowserRouter>
-					<InterestsCard groupId='123' />
-				</BrowserRouter>
-			</MockedProvider>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		jest.runAllTimers();
 
@@ -40,22 +43,10 @@ describe('InterestsCard', () => {
 	});
 
 	it('renders with empty data', () => {
-		const {container} = render(
-			<MockedProvider
-				mocks={[
-					mockIndividualInterestsReq(variables =>
-						omit(variables, 'keywords')
-					)
-				]}
-			>
-				<BrowserRouter>
-					<InterestsCard groupId='123' />
-				</BrowserRouter>
-			</MockedProvider>
-		);
+		const {container} = render(<WrappedComponent data={[]} />);
 
 		jest.runAllTimers();
 
-		console.log(container.innerHTML);
+		expect(container).toMatchSnapshot();
 	});
 });

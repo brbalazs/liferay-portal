@@ -350,10 +350,10 @@ export function mockDataSourcesReq(dataSources = [], variables = {type: null}) {
 	};
 }
 
-export function mockIndividualInterestsReq(getVariables) {
+export function mockIndividualInterestsReq(getVariables, result) {
 	const defaultVariables = {
 		active: true,
-		channelId: '123',
+		channelId: '456',
 		id: '123',
 		size: 5,
 		sort: {
@@ -395,7 +395,8 @@ export function mockIndividualInterestsReq(getVariables) {
 				maxCount: 2,
 				total: 5,
 				totalCount: 3
-			})
+			}),
+			...result
 		}
 	};
 }

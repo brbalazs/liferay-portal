@@ -15,14 +15,15 @@ describe('Interests', () => {
 				mocks={[
 					mockIndividualInterestsReq(defaultVars => ({
 						...defaultVars,
-						channelId: '123',
+						id: undefined,
+						keywords: '',
 						size: 2
 					}))
 				]}
 			>
 				<MemoryRouter
 					initialEntries={[
-						'/workspace/23/123/contacts/individuals/interests?delta=2&page=1&field=count&sortOrder=DESC'
+						'/workspace/123/456/contacts/individuals/interests'
 					]}
 				>
 					<Route path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}>
