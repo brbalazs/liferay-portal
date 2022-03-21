@@ -7,6 +7,13 @@ import {mockIndividualMetricsReq} from 'test/graphql-data';
 
 jest.unmock('react-dom');
 
+jest.mock('react-router-dom', () => ({
+	...jest.requireActual('react-router-dom'),
+	useParams: () => ({
+		channelId: '123123'
+	})
+}));
+
 ReactDOM.createPortal = jest.fn();
 
 describe('TypeTrendCard', () => {

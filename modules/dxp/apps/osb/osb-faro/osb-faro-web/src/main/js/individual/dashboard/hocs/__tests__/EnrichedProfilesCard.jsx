@@ -16,11 +16,18 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
+jest.mock('react-router-dom', () => ({
+	...jest.requireActual('react-router-dom'),
+	useParams: () => ({
+		groupId: '23'
+	})
+}));
+
 ReactDOM.createPortal = jest.fn();
 
 const DefaultComponent = props => (
 	<StaticRouter>
-		<EnrichedProfilesCard groupId='23' {...props} />
+		<EnrichedProfilesCard {...props} />
 	</StaticRouter>
 );
 

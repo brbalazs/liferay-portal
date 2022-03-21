@@ -8,6 +8,14 @@ import {omit} from 'lodash';
 
 jest.unmock('react-dom');
 
+jest.mock('react-router-dom', () => ({
+	...jest.requireActual('react-router-dom'),
+	useParams: () => ({
+		channelId: '456',
+		groupId: '123'
+	})
+}));
+
 describe('InterestsCard', () => {
 	afterEach(cleanup);
 
