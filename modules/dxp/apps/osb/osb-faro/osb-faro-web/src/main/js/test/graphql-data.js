@@ -8,8 +8,8 @@ import EventAttributeValuesQuery from 'event-analysis/queries/EventAttributeValu
 import EventDefinitionQuery from 'event-analysis/queries/EventDefinitionQuery';
 import EventDefinitionsQuery from 'event-analysis/queries/EventDefinitionsQuery';
 import EventMetricQuery from 'shared/queries/EventMetricQuery';
-import IndividualMetricsQuery from 'shared/queries/IndividualMetricsQuery';
 import IndividualInterestsQuery from 'shared/queries/IndividualInterestsQuery';
+import IndividualMetricsQuery from 'shared/queries/IndividualMetricsQuery';
 import OrganizationsQuery from 'segment/segment-editor/dynamic/queries/OrganizationsQuery';
 import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';

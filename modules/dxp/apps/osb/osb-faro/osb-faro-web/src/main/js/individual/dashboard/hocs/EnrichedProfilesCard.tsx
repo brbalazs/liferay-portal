@@ -7,6 +7,7 @@ import React from 'react';
 import {DataSource} from 'shared/util/records';
 import {isFinite} from 'lodash';
 import {sub} from 'shared/util/lang';
+import {useParams} from 'react-router-dom';
 import {validContactsConfig} from 'shared/util/data-sources';
 import {withRequest} from 'shared/hoc';
 
@@ -54,17 +55,14 @@ const renderInfoPopover = () => (
 	/>
 );
 
-interface IEnrichedProfilesCardProps {
-	channelId: string;
+interface IEnrichedProfilesCardProps extends React.HTMLAttributes<HTMLElement> {
 	dataSources: DataSource[];
-	groupId: string;
 }
 
 const EnrichedProfilesCard: React.FC<IEnrichedProfilesCardProps> = ({
-	channelId,
-	dataSources,
-	groupId
+	dataSources
 }) => {
+	const {channelId, groupId} = useParams();
 	const contactsConfigured =
 		!dataSources || dataSources.some(validContactsConfig);
 

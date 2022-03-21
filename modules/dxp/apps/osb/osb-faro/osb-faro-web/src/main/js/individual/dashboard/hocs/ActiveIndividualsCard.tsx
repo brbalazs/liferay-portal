@@ -13,6 +13,7 @@ import {
 	mapResultToProps
 } from '../hocs/mappers/site-metrics-query';
 import {RangeSelectors} from 'shared/types';
+import {useParams} from 'react-router-dom';
 import {withError} from 'shared/hoc';
 import {withInterval, withRangeKey} from 'shared/hoc';
 
@@ -24,8 +25,8 @@ const ChartWithData = compose<any>(
 	withError({page: false})
 )(ActiveIndividualsChart);
 
-interface IActiveIndividualsCardProps {
-	channelId: string;
+interface IActiveIndividualsCardProps
+	extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
 	loading: Boolean;
 	onChangeInterval: (val: any) => void;
@@ -33,18 +34,16 @@ interface IActiveIndividualsCardProps {
 	rangeSelectors: RangeSelectors;
 }
 
-const ActiveIndividualsCard = compose<any>(
-	withInterval,
-	withRangeKey
-)(
-	({
-		channelId,
-		interval,
-		loading,
-		onChangeInterval,
-		onRangeSelectorsChange,
-		rangeSelectors
-	}: IActiveIndividualsCardProps) => (
+const ActiveIndividualsCard: React.FC<IActiveIndividualsCardProps> = ({
+	interval,
+	loading,
+	onChangeInterval,
+	onRangeSelectorsChange,
+	rangeSelectors
+}) => {
+	const {channelId} = useParams();
+
+	return (
 		<Card minHeight={536}>
 			<Card.Header className='align-items-center d-flex justify-content-between'>
 				<Card.Title>
@@ -86,7 +85,7 @@ const ActiveIndividualsCard = compose<any>(
 				/>
 			</Card.Body>
 		</Card>
-	)
-);
+	);
+};
 
-export default ActiveIndividualsCard;
+export default compose<any>(withInterval, withRangeKey)(ActiveIndividualsCard);

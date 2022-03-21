@@ -12,16 +12,13 @@ import {compositionListColumns} from 'shared/util/table-columns';
 import {COUNT} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
+import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
-
-interface IInterestsCardProps {
-	channelId: string;
-	groupId: string;
-}
 
 const EMPTY_STATE_DATA = new Array(6).fill({count: 0, name: ''});
 
-const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => {
+const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
+	const {channelId, groupId} = useParams();
 	const {
 		data = {
 			individualInterests: {compositions: [], maxCount: 0, totalCount: 0}
@@ -48,8 +45,6 @@ const InterestsCard: React.FC<IInterestsCardProps> = ({channelId, groupId}) => {
 	const {
 		individualInterests: {compositions: items, maxCount, totalCount}
 	} = data;
-
-	console.log(error);
 
 	const getColumn: () => Column[] = () => [
 		compositionListColumns.getName({

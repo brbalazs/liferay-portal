@@ -88,15 +88,11 @@ const Overview: React.FC<IOverviewProps> = ({currentUser}) => {
 				<div className='individuals-dashboard-overview-root overview-root'>
 					<div className='row'>
 						<div className='col-xl-8'>
-							<TypeTrendCard channelId={channelId} />
+							<TypeTrendCard />
 						</div>
 
 						<div className='col-xl-4'>
-							<EnrichedProfilesCard
-								channelId={channelId}
-								dataSources={dataSources}
-								groupId={groupId}
-							/>
+							<EnrichedProfilesCard dataSources={dataSources} />
 						</div>
 					</div>
 
@@ -108,18 +104,13 @@ const Overview: React.FC<IOverviewProps> = ({currentUser}) => {
 
 					<div className='row'>
 						<div className='col-xl-12'>
-							<InterestsCard
-								channelId={channelId}
-								groupId={groupId}
-							/>
+							<InterestsCard />
 						</div>
 					</div>
 
 					<div className='row'>
 						<div className='col-xl-12'>
 							<DistributionCard
-								channelId={channelId}
-								groupId={groupId}
 								showAddDataSource={
 									!!dataSources && !dataSources.length
 								}
