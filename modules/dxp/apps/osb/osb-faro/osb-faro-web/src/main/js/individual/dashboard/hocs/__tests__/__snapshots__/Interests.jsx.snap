@@ -142,7 +142,7 @@ exports[`Interests renders 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/123/contacts/individuals/interests/cutting-edge platforms"
+                        href="/workspace/123/456/contacts/individuals/interests/cutting-edge platforms"
                       >
                         cutting-edge platforms
                       </a>
@@ -204,7 +204,7 @@ exports[`Interests renders 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/123/contacts/individuals/interests/mesh"
+                        href="/workspace/123/456/contacts/individuals/interests/mesh"
                       >
                         mesh
                       </a>
@@ -266,7 +266,7 @@ exports[`Interests renders 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/123/contacts/individuals/interests/mesh synergistic schemas"
+                        href="/workspace/123/456/contacts/individuals/interests/mesh synergistic schemas"
                       >
                         mesh synergistic schemas
                       </a>
@@ -328,7 +328,7 @@ exports[`Interests renders 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/123/contacts/individuals/interests/synergistic schemas"
+                        href="/workspace/123/456/contacts/individuals/interests/synergistic schemas"
                       >
                         synergistic schemas
                       </a>
@@ -390,7 +390,7 @@ exports[`Interests renders 1`] = `
                     >
                       <a
                         class="text-truncate"
-                        href="/workspace/23/123/contacts/individuals/interests/rich e-commerce"
+                        href="/workspace/123/456/contacts/individuals/interests/rich e-commerce"
                       >
                         rich e-commerce
                       </a>

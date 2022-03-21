@@ -23,7 +23,7 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
 <div>
   <div
     class="bb-tooltip-container"
-    style="position: static;"
+    style="background-color: rgb(39, 40, 51); position: static;"
   >
     <table
       class="analytics-tooltip-chart"
