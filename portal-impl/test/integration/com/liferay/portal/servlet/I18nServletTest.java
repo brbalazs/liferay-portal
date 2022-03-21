@@ -5,18 +5,21 @@
 
 package com.liferay.portal.servlet;
 
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -25,6 +28,8 @@ import com.liferay.portal.util.PropsValues;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -36,6 +41,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
  * @author Juan González
@@ -223,6 +229,45 @@ public class I18nServletTest {
 
 		testIsNotDefaultOrFirstLocale(_group, LocaleUtil.US);
 		testIsNotDefaultOrFirstI18nData(_group, LocaleUtil.US, LocaleUtil.UK);
+	}
+
+	@Test
+	public void testResponseIsForwardedToLocalized404PageIfGroupNotFound()
+		throws Exception {
+
+		String layoutFriendlyUrlPageNotFound = "/web/guest/page-404";
+
+		ReflectionTestUtil.setFieldValue(
+			PropsValues.class, "LAYOUT_FRIENDLY_URL_PAGE_NOT_FOUND",
+			layoutFriendlyUrlPageNotFound);
+
+		String expectedI18nErrorPath =
+			StringPool.SLASH + LocaleUtil.SPAIN.getLanguage();
+
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.setServletPath(expectedI18nErrorPath);
+
+		mockHttpServletRequest.setAttribute(
+			WebKeys.COMPANY_ID, _group.getCompanyId());
+
+		mockHttpServletRequest.setPathInfo(
+			StringBundler.concat(
+				PropsValues.LAYOUT_FRIENDLY_URL_PRIVATE_USER_SERVLET_MAPPING,
+				"/nonexistingfriendlyurl", RandomTestUtil.randomString()));
+
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_i18nServlet.service(mockHttpServletRequest, mockHttpServletResponse);
+
+		Assert.assertEquals(
+			expectedI18nErrorPath + layoutFriendlyUrlPageNotFound,
+			mockHttpServletResponse.getForwardedUrl());
+		Assert.assertEquals(
+			HttpServletResponse.SC_NOT_FOUND,
+			mockHttpServletResponse.getStatus());
 	}
 
 	protected I18nServlet.I18nData getI18nData(Locale locale)
