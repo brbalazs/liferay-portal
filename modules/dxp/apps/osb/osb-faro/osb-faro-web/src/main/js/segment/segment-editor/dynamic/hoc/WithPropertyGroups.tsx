@@ -32,15 +32,8 @@ import {withRequest} from 'shared/hoc';
 
 const MAX_DELTA = 500;
 
-const fetchPropertyGroups = ({
-	channelId,
-	groupId
-}: {
-	channelId: string;
-	groupId: string;
-}): Promise<any> =>
+const fetchPropertyGroups = ({groupId}: {groupId: string}): Promise<any> =>
 	Promise.all([
-		API.channels.fetch({channelId, groupId}),
 		API.fieldMappings.search({
 			context: FieldContexts.Demographics,
 			delta: MAX_DELTA,
@@ -89,7 +82,6 @@ const fetchPropertyGroups = ({
 	]);
 
 const mapResultToProps = ([
-	currentChannel,
 	individualDemographicsMappings,
 	individualCustomMappings,
 	accountMappings,
@@ -100,8 +92,6 @@ const mapResultToProps = ([
 	eventProperties,
 	webBehaviors
 ]) => {
-	const {tokenAuth} = currentChannel;
-
 	const individualDemographicProperties = individualDemographicsMappings.items.map(
 		convertFieldMappingToIndividualProperty
 	);
@@ -109,27 +99,21 @@ const mapResultToProps = ([
 	let individualSubgroupsIList = List([
 		new PropertySubgroup({
 			properties: List(
-				tokenAuth
-					? individualDemographicProperties.concat(
-							INDIVIDUAL_PROPERTIES
-					  )
-					: individualDemographicProperties
+				individualDemographicProperties.concat(INDIVIDUAL_PROPERTIES)
 			)
 		})
 	]);
 
-	if (tokenAuth) {
-		individualSubgroupsIList = individualSubgroupsIList.push(
-			new PropertySubgroup({
-				label: Liferay.Language.get('dxp-custom-fields'),
-				properties: List(
-					individualCustomMappings.items.map(
-						convertFieldMappingToIndividualProperty
-					)
+	individualSubgroupsIList = individualSubgroupsIList.push(
+		new PropertySubgroup({
+			label: Liferay.Language.get('dxp-custom-fields'),
+			properties: List(
+				individualCustomMappings.items.map(
+					convertFieldMappingToIndividualProperty
 				)
-			})
-		);
-	}
+			)
+		})
+	);
 
 	const organizationPropertyGroup = new PropertyGroup({
 		label: sub(Liferay.Language.get('x-attributes'), [
@@ -220,9 +204,7 @@ const mapResultToProps = ([
 	]);
 
 	return {
-		propertyGroupsIList: tokenAuth
-			? propertyGroupsIList.push(organizationPropertyGroup)
-			: propertyGroupsIList
+		propertyGroupsIList: propertyGroupsIList.push(organizationPropertyGroup)
 	};
 };
 
