@@ -84,13 +84,11 @@ class AppliedFilters extends React.Component {
 				{subItems.map((label, index) => (
 					<Label
 						closeable
-						data={{
-							category,
-							label
-						}}
 						key={`${index}_subItems`}
 						label={getDeviceLabel(label) || label}
-						onRemove={this.handleRemoveFilter}
+						onRemove={() =>
+							this.handleRemoveFilter({category, label})
+						}
 						size='lg'
 					/>
 				))}
