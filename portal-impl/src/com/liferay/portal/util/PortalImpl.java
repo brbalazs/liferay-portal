@@ -7107,16 +7107,14 @@ public class PortalImpl implements Portal {
 				PropsValues.SITES_FRIENDLY_URL_PAGE_NOT_FOUND)) {
 
 			redirect = _get18nErrorRedirect(
-				request,
-				PropsValues.SITES_FRIENDLY_URL_PAGE_NOT_FOUND);
+				request, PropsValues.SITES_FRIENDLY_URL_PAGE_NOT_FOUND);
 		}
 		else if ((e instanceof NoSuchLayoutException) &&
 				 Validator.isNotNull(
 					 PropsValues.LAYOUT_FRIENDLY_URL_PAGE_NOT_FOUND)) {
 
 			redirect = _get18nErrorRedirect(
-				request,
-				PropsValues.LAYOUT_FRIENDLY_URL_PAGE_NOT_FOUND);
+				request, PropsValues.LAYOUT_FRIENDLY_URL_PAGE_NOT_FOUND);
 		}
 		else if (PropsValues.LAYOUT_SHOW_HTTP_STATUS) {
 			DynamicServletRequest dynamicRequest = new DynamicServletRequest(

@@ -180,8 +180,7 @@ public class I18nServlet extends HttpServlet {
 					PortalInstances.getCompanyId(request), friendlyURL);
 
 				if (siteGroup == null) {
-					request.setAttribute(
-						WebKeys.I18N_ERROR_PATH, i18nPath);
+					request.setAttribute(WebKeys.I18N_ERROR_PATH, i18nPath);
 
 					return null;
 				}
