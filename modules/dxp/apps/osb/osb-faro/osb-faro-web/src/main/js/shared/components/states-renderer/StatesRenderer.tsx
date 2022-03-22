@@ -1,4 +1,3 @@
-import getCN from 'classnames';
 import Loading, {ILoadingProps} from 'shared/pages/Loading';
 import NoResultsDisplay, {
 	INoResultsDisplayProps
@@ -42,7 +41,7 @@ const StatesRendererContext = createContext<IStatesRendererContextProps>({
 const EmptyState: FC<IEmptyStateProps> = ({
 	children,
 	description,
-	displayCard = false,
+	displayCard,
 	icon,
 	show = true,
 	title,
@@ -57,10 +56,8 @@ const EmptyState: FC<IEmptyStateProps> = ({
 		show &&
 		(children || (
 			<NoResultsDisplay
-				className={getCN({
-					'display-card': displayCard
-				})}
 				description={description}
+				displayCard={displayCard}
 				icon={{
 					border: false,
 					size: Sizes.XXXLarge,

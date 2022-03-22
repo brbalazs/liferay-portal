@@ -14,6 +14,7 @@ export interface INoResultsDisplayProps
 	extends React.HTMLAttributes<HTMLElement> {
 	children?: React.ReactElement;
 	description?: string | React.ReactNode;
+	displayCard?: boolean;
 	icon?: IIconProps;
 	primary?: boolean;
 	spacer?: boolean;
@@ -44,6 +45,7 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 	children,
 	className,
 	description,
+	displayCard = false,
 	icon,
 	primary = false,
 	spacer = false,
@@ -51,6 +53,7 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 	...otherProps
 }) => {
 	const classes = getCN(className, 'no-results-root flex-grow-1', {
+		'display-card': displayCard,
 		'no-results-primary': primary
 	});
 
