@@ -72,10 +72,10 @@ export const ViewContainer: React.FC<Omit<IViewProps, 'channel'>> = ({
 		>
 			{(channel: Channel) => (
 				<View
+					{...otherProps}
 					channel={channel}
 					groupId={groupId}
 					id={id}
-					{...otherProps}
 				/>
 			)}
 		</SafeResults>
@@ -455,11 +455,11 @@ const View: React.FC<IViewProps> = ({
 						/>
 						<StatesRenderer.Success>
 							<UserList
+								{...otherProps}
 								authorized={currentUser.isAdmin()}
 								groupId={groupId}
 								id={channel.id}
 								propertyName={channel.name}
-								{...otherProps}
 							/>
 						</StatesRenderer.Success>
 					</StatesRenderer>
