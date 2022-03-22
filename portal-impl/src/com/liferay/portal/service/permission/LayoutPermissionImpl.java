@@ -581,8 +581,6 @@ public class LayoutPermissionImpl
 
 					return true;
 				}
-
-				return false;
 			}
 			catch (PortalException | RuntimeException e) {
 				throw e;
