@@ -98,7 +98,7 @@ const Overview: React.FC<IOverviewProps> = ({currentUser}) => {
 
 					<div className='row'>
 						<div className='col-xl-12'>
-							<ActiveIndividualsCard channelId={channelId} />
+							<ActiveIndividualsCard />
 						</div>
 					</div>
 
