@@ -18,8 +18,8 @@ import {
 import {
 	ANIMATION_DURATION,
 	AXIS,
-	getChartTooltip,
-	getTextWidth
+	getTextWidth,
+	RechartsTooltip
 } from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
@@ -702,25 +702,26 @@ export class Distribution extends React.Component {
 														payload
 													}) => {
 														if (active && payload) {
-															const data =
-																payload[0]
-																	.payload;
-
-															return getChartTooltip(
-																{
-																	rows: [
-																		{
-																			label:
-																				payload[0]
-																					.name,
-																			value:
-																				data.count
-																		}
-																	],
-																	title: data.values.join(
-																		' - '
-																	)
+															const {
+																name,
+																payload: {
+																	count,
+																	values
 																}
+															} = payload[0];
+
+															return (
+																<RechartsTooltip
+																	rows={[
+																		{
+																			label: name,
+																			value: count
+																		}
+																	]}
+																	title={values.join(
+																		' - '
+																	)}
+																/>
 															);
 														}
 

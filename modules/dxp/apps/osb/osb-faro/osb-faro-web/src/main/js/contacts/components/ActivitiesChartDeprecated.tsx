@@ -3,8 +3,8 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getChartTooltip,
-	getYAxisWidth
+	getYAxisWidth,
+	RechartsTooltip
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -83,20 +83,22 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				history[selectedPoint]
 			);
 
-			return getChartTooltip({
-				dateTitle: getDateTitle(
-					dateKeysIMap.get(intervalInitDate),
-					rangeSelectors.rangeKey,
-					interval
-				),
-				rows: [
-					{
-						label: Liferay.Language.get('activities'),
-						value: totalElements.toLocaleString()
-					}
-				],
-				title: Liferay.Language.get('activities')
-			});
+			return (
+				<RechartsTooltip
+					dateTitle={getDateTitle(
+						dateKeysIMap.get(intervalInitDate),
+						rangeSelectors.rangeKey,
+						interval
+					)}
+					rows={[
+						{
+							label: Liferay.Language.get('activities'),
+							value: totalElements.toLocaleString()
+						}
+					]}
+					title={Liferay.Language.get('activities')}
+				/>
+			);
 		}
 	};
 

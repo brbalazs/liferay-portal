@@ -1,29 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Recharts Util getAxisTickText should render when returned function is called 1`] = `
-<div>
-  <text
-    class="recharts-text"
-    style="fill: #6B6C7E; font: Symbol\\" 14px 14px; font-size: 0.75rem;"
-    text-anchor="middle"
-    x="12"
-    y="12"
-  >
-    <tspan
-      dy="0em"
-      x="12"
-    >
-      4
-    </tspan>
-  </text>
-</div>
-`;
-
-exports[`Recharts Util getChartTooltip should render 1`] = `
+exports[`Recharts Util RechartsTooltip should render 1`] = `
 <div>
   <div
     class="bb-tooltip-container"
-    style="background-color: rgb(39, 40, 51); position: static;"
+    style="position: static;"
   >
     <table
       class="analytics-tooltip-chart"
@@ -78,6 +59,25 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
       </tbody>
     </table>
   </div>
+</div>
+`;
+
+exports[`Recharts Util getAxisTickText should render when returned function is called 1`] = `
+<div>
+  <text
+    class="recharts-text"
+    style="fill: #6B6C7E; font: Symbol\\" 14px 14px; font-size: 0.75rem;"
+    text-anchor="middle"
+    x="12"
+    y="12"
+  >
+    <tspan
+      dy="0em"
+      x="12"
+    >
+      4
+    </tspan>
+  </text>
 </div>
 `;
 

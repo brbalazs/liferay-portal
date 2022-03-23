@@ -5,8 +5,8 @@ import {
 	AXIS,
 	ChartTooltipRow,
 	getAxisTickText,
-	getChartTooltip,
-	getYAxisWidth
+	getYAxisWidth,
+	RechartsTooltip
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -107,15 +107,17 @@ const ActivitiesChart: React.FC<
 				});
 			}
 
-			return getChartTooltip({
-				dateTitle: '',
-				rows,
-				title: getDateTitle(
-					dateKeysIMap.get(intervalInitDate),
-					rangeSelectors.rangeKey,
-					interval
-				)
-			});
+			return (
+				<RechartsTooltip
+					dateTitle=''
+					rows={rows}
+					title={getDateTitle(
+						dateKeysIMap.get(intervalInitDate),
+						rangeSelectors.rangeKey,
+						interval
+					)}
+				/>
+			);
 		}
 	};
 

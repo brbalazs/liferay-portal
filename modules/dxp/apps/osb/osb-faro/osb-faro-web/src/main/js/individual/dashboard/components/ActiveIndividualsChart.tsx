@@ -4,9 +4,9 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getChartTooltip,
 	getYAxisLabel,
-	getYAxisWidth
+	getYAxisWidth,
+	RechartsTooltip
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -68,28 +68,30 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				visitors
 			} = get(payload, [0, 'payload'], {});
 
-			return getChartTooltip({
-				dateTitle: getDateTitle(
-					dateKeysIMap.get(intervalInitDate),
-					rangeSelectors.rangeKey,
-					interval
-				),
-				rows: [
-					{
-						label: Liferay.Language.get('anonymous'),
-						value: toThousands(anonymousVisitors)
-					},
-					{
-						label: Liferay.Language.get('known'),
-						value: toThousands(knownVisitors)
-					},
-					{
-						label: Liferay.Language.get('total'),
-						value: toThousands(visitors)
-					}
-				],
-				title: Liferay.Language.get('active-individuals')
-			});
+			return (
+				<RechartsTooltip
+					dateTitle={getDateTitle(
+						dateKeysIMap.get(intervalInitDate),
+						rangeSelectors.rangeKey,
+						interval
+					)}
+					rows={[
+						{
+							label: Liferay.Language.get('anonymous'),
+							value: toThousands(anonymousVisitors)
+						},
+						{
+							label: Liferay.Language.get('known'),
+							value: toThousands(knownVisitors)
+						},
+						{
+							label: Liferay.Language.get('total'),
+							value: toThousands(visitors)
+						}
+					]}
+					title={Liferay.Language.get('active-individuals')}
+				/>
+			);
 		}
 	};
 
