@@ -587,7 +587,7 @@ exports[`Individuals Dashboard Individuals Interests renders with data source em
       >
         No Sites Synced from Data Sources
       </h4>
-      <p
+      <div
         class="no-results-description"
       >
         Connect a data source with sites data.
@@ -604,7 +604,7 @@ exports[`Individuals Dashboard Individuals Interests renders with data source em
         >
           Connect Data Source
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </div>

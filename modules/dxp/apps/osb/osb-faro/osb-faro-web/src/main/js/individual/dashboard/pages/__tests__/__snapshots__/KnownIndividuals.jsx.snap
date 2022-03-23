@@ -395,7 +395,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders with data source em
       >
         No Data Sources Connected
       </h4>
-      <p
+      <div
         class="no-results-description"
       >
         Connect a data source to get started.
@@ -412,7 +412,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders with data source em
         >
           Connect Data Source
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </div>

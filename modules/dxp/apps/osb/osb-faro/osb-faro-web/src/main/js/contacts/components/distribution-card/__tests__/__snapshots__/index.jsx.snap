@@ -306,11 +306,11 @@ exports[`DistributionCard renders w/ showAddDataSource 1`] = `
           class="no-results-content"
         >
           
-          <p
+          <div
             class="no-results-description"
           >
             Convert and enrich anonymous individuals to known individuals with attributes from another data source.
-          </p>
+          </div>
           <a
             class="button-root btn btn-primary"
             href="/workspace/123/settings/data-source/add"

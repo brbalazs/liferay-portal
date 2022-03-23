@@ -546,11 +546,11 @@ exports[`DataSourceList should render with a member-specific message to connect 
     >
       No Data Sources Connected
     </h4>
-    <p
+    <div
       class="no-results-description"
     >
       Please contact your workspace administrator to add data sources.
-    </p>
+    </div>
   </div>
 </div>
 `;
@@ -579,7 +579,7 @@ exports[`DataSourceList should render with a message to connect datasources if t
     >
       No Data Sources Connected
     </h4>
-    <p
+    <div
       class="no-results-description"
     >
       Add a data source to get started.
@@ -590,7 +590,7 @@ exports[`DataSourceList should render with a message to connect datasources if t
       >
         Access our documentation to learn more.
       </a>
-    </p>
+    </div>
   </div>
 </div>
 `;

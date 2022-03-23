@@ -429,11 +429,11 @@ exports[`InterestTopics should render with a member-specific message to add keyw
     >
       No Keywords Found
     </h4>
-    <p
+    <div
       class="no-results-description"
     >
       Please contact your site administrator to add keywords.
-    </p>
+    </div>
   </div>
 </div>
 `;
@@ -462,7 +462,7 @@ exports[`InterestTopics should render with a message to add keywords if there ar
     >
       No Keywords Found
     </h4>
-    <p
+    <div
       class="no-results-description"
     >
       Add a keyword to be blocked.
@@ -473,7 +473,7 @@ exports[`InterestTopics should render with a message to add keywords if there ar
       >
         Learn more about interest topics.
       </a>
-    </p>
+    </div>
   </div>
 </div>
 `;

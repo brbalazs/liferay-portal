@@ -155,7 +155,7 @@ exports[`Individuals Dashboard Distribution renders with data source empty state
       >
         No Data Sources Connected
       </h4>
-      <p
+      <div
         class="no-results-description"
       >
         Connect a data source to get started.
@@ -172,7 +172,7 @@ exports[`Individuals Dashboard Distribution renders with data source empty state
         >
           Connect Data Source
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </div>

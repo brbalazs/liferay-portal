@@ -65,7 +65,7 @@ const NoResultsDisplay: React.FC<INoResultsDisplayProps> = ({
 				{title && <h4 className='no-results-title'>{title}</h4>}
 
 				{description && (
-					<p className='no-results-description'>{description}</p>
+					<div className='no-results-description'>{description}</div>
 				)}
 
 				{children}

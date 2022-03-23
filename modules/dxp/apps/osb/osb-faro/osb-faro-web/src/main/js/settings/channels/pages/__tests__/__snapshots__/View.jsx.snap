@@ -203,11 +203,11 @@ exports[`View Channel should render 1`] = `
               >
                 All Aboard!
               </h4>
-              <p
+              <div
                 class="no-results-description"
               >
                 All users from this workspace have access to this property.
-              </p>
+              </div>
             </div>
           </div>
         </div>
