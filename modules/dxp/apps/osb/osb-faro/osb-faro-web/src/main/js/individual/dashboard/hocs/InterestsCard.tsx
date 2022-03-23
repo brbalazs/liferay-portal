@@ -46,7 +46,7 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		individualInterests: {compositions: items, maxCount, totalCount}
 	} = data;
 
-	const getColumn: () => Column[] = () => [
+	const columns: Column[] = [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
 			maxWidth: 200,
@@ -70,7 +70,7 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		})
 	];
 
-	const getEmptyColumns: () => Column[] = () => [
+	const emptyColumns: Column[] = [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
 			maxWidth: 200,
@@ -103,7 +103,7 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 			>
 				<StatesRenderer.Empty>
 					<Table
-						columns={getEmptyColumns()}
+						columns={emptyColumns}
 						empty
 						items={EMPTY_STATE_DATA}
 						rowBordered={false}
@@ -117,7 +117,7 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 
 				<StatesRenderer.Success>
 					<Table
-						columns={getColumn()}
+						columns={columns}
 						items={items}
 						rowBordered={false}
 						rowIdentifier='name'
