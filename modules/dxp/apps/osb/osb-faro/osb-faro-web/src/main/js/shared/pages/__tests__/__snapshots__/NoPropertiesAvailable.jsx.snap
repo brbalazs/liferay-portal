@@ -22,7 +22,7 @@ exports[`NoPropertiesAvailable should render 1`] = `
           />
         </div>
         <div
-          class="header-section title-section text-secondary"
+          class="header-section title-section"
         >
           <span
             class="align-items-center d-flex"
@@ -49,7 +49,7 @@ exports[`NoPropertiesAvailable should render 1`] = `
         class="children-wrapper"
       >
         <div
-          class="no-results-root flex-grow-1"
+          class="no-results-root flex-grow-1 display-card"
         >
           <div
             class="no-results-content spacer"
@@ -58,30 +58,32 @@ exports[`NoPropertiesAvailable should render 1`] = `
               class="no-results-icon"
             >
               <svg
-                class="icon-root lexicon-icon lexicon-icon-ac-no-sites icon-size-xxxl"
+                class="icon-root lexicon-icon lexicon-icon-ac-satellite icon-size-xxxl"
                 viewBox=""
               >
                 <use
-                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-no-sites"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
                 />
               </svg>
             </div>
             <h4
               class="no-results-title"
             >
-              First, Connect Your DXP Sites
+              You're Almost There
             </h4>
-            <p
+            <div
               class="no-results-description"
             >
-              To get your workspace set up, you will need to connect your DXP instance and add sites to a property.
+              <p>
+                First complete the onboarding to get your workspace set up.
+              </p>
               <button
-                class="button-root btn btn-primary mt-3"
+                class="button-root btn btn-primary"
                 type="button"
               >
                 Start
               </button>
-            </p>
+            </div>
           </div>
         </div>
       </span>

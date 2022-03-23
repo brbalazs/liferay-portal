@@ -38,14 +38,14 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 
 	const description = admin
 		? Liferay.Language.get(
-				'to-get-your-workspace-set-up,-youll-need-to-connect-your-dxp-instance-and-add-sites-to-a-property'
+				'first-complete-the-onboarding-to-get-your-workspace-set-up'
 		  )
 		: Liferay.Language.get(
 				'you-have-not-been-added-to-any-properties.-please-contact-your-analytics-cloud-administrator'
 		  );
 
 	const title = admin
-		? Liferay.Language.get('first-connect-your-dxp-sites')
+		? Liferay.Language.get('youre-almost-there')
 		: Liferay.Language.get('no-properties-found');
 
 	return (
@@ -55,7 +55,6 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 		>
 			<BasePage.Header breadcrumbs={[]} groupId={groupId}>
 				<BasePage.Header.TitleSection
-					className='text-secondary'
 					title={Liferay.Language.get('no-properties-available')}
 				/>
 			</BasePage.Header>
@@ -64,11 +63,10 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 				<NoResultsDisplay
 					description={
 						<>
-							{description}
+							<p>{description}</p>
 
 							{admin && (
 								<Button
-									className='mt-3'
 									display='primary'
 									href={
 										dataSources
@@ -110,10 +108,11 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 							)}
 						</>
 					}
+					displayCard
 					icon={{
 						border: false,
 						size: Sizes.XXXLarge,
-						symbol: admin ? 'ac-no-sites' : 'ac-satellite'
+						symbol: 'ac-satellite'
 					}}
 					spacer
 					title={title}
