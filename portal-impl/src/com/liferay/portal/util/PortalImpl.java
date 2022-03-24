@@ -242,6 +242,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
 import java.sql.Connection;
@@ -939,6 +941,12 @@ public class PortalImpl implements Portal {
 	public String escapeRedirect(String url) {
 		if (Validator.isNull(url)) {
 			return url;
+		}
+
+		URI uri = _getURI(url);
+
+		if (uri == null) {
+			return null;
 		}
 
 		if (!uri.isAbsolute()) {
@@ -9174,6 +9182,15 @@ public class PortalImpl implements Portal {
 		}
 
 		return group;
+	}
+
+	private URI _getURI(String uriString) {
+		try {
+			return new URI(uriString);
+		}
+		catch (URISyntaxException uriSyntaxException) {
+			return null;
+		}
 	}
 
 	private boolean _isSameHostName(
