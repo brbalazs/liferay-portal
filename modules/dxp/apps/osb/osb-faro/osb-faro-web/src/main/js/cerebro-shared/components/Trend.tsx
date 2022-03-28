@@ -1,34 +1,19 @@
 import Icon from 'shared/components/Icon';
-import PropTypes from 'prop-types';
 import React from 'react';
+
+interface ITrendProps extends React.HTMLAttributes<HTMLDivElement> {
+	color: string;
+	icon?: string;
+	label: string;
+}
 
 const CLASSNAME = 'analytics-trend';
 
-const Trend = ({color, icon, label}) => (
+const Trend: React.FC<ITrendProps> = ({color, icon, label}) => (
 	<div className={CLASSNAME} style={{color}}>
 		{icon && <Icon symbol={icon} />}
 		<span className={`${CLASSNAME}-percent mb-0`}>{label}</span>
 	</div>
 );
-
-Trend.propTypes = {
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	color: PropTypes.string,
-
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	icon: PropTypes.string,
-
-	/**
-	 * @type {string}
-	 * @default undefined
-	 */
-	label: PropTypes.string
-};
 
 export default Trend;
