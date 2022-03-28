@@ -1,5 +1,5 @@
 import React from 'react';
-import Trend from 'cerebro-shared/components/Trend';
+import Trend from 'shared/components/Trend';
 import {Colors} from 'shared/util/charts';
 
 const GREEN_COLOR = Colors.positive;

@@ -1,6 +1,6 @@
 import MetricValue from 'cerebro-shared/components/MetricValue';
 import React from 'react';
-import Trend from 'cerebro-shared/components/Trend';
+import Trend from 'shared/components/Trend';
 import {getMetricFormatter, MetricValueType} from 'shared/util/charts';
 import {getStatsColor} from 'shared/util/metrics';
 import {toRounded} from 'shared/util/numbers';

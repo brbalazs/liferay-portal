@@ -6,7 +6,7 @@ import getCN from 'classnames';
 import MetricValue from 'cerebro-shared/components/MetricValue';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Trend from 'cerebro-shared/components/Trend';
+import Trend from 'shared/components/Trend';
 import {
 	ANIMATION_DURATION,
 	AXIS,
