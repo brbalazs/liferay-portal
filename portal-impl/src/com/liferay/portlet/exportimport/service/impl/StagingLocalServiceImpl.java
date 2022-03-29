@@ -728,11 +728,6 @@ public class StagingLocalServiceImpl extends StagingLocalServiceBaseImpl {
 		try {
 			GroupServiceHttp.disableStaging(httpPrincipal, remoteGroupId);
 		}
-		catch (NoSuchGroupException nsge) {
-			if (_log.isWarnEnabled()) {
-				_log.warn("Remote live group was already deleted", nsge);
-			}
-		}
 		catch (PrincipalException pe) {
 
 			// LPS-52675
@@ -775,6 +770,24 @@ public class StagingLocalServiceImpl extends StagingLocalServiceBaseImpl {
 				ree.setURL(remoteURL);
 
 				throw ree;
+			}
+
+			if (_log.isWarnEnabled()) {
+				_log.warn("Forcibly disable remote staging");
+			}
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception);
+			}
+
+			if (!forceDisable) {
+				RemoteExportException remoteExportException =
+					new RemoteExportException(RemoteExportException.NO_GROUP);
+
+				remoteExportException.setGroupId(remoteGroupId);
+
+				throw remoteExportException;
 			}
 
 			if (_log.isWarnEnabled()) {
