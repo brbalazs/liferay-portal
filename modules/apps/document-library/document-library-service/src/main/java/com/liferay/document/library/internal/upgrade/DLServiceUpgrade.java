@@ -21,7 +21,6 @@ import com.liferay.document.library.internal.upgrade.v1_0_2.UpgradeDLFileShortcu
 import com.liferay.document.library.internal.upgrade.v1_1_0.UpgradeSchema;
 import com.liferay.document.library.kernel.store.Store;
 import com.liferay.portal.configuration.upgrade.PrefsPropsToConfigurationUpgradeHelper;
-import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import org.osgi.service.component.annotations.Component;
@@ -35,8 +34,6 @@ public class DLServiceUpgrade implements UpgradeStepRegistrator {
 
 	@Override
 	public void register(Registry registry) {
-		registry.register("0.0.0", "1.0.0", new DummyUpgradeStep());
-
 		registry.register("0.0.1", "1.0.0", new UpgradeDocumentLibrary(_store));
 
 		registry.register("1.0.0", "1.0.1", new UpgradeDLFileShortcut());
