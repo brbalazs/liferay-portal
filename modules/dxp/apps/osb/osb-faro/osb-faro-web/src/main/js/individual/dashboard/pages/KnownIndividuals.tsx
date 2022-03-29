@@ -27,7 +27,7 @@ import {Alert} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
-import {EntityTypes, SegmentTypes} from 'shared/util/constants';
+import {EntityTypes, SegmentTypes, Sizes} from 'shared/util/constants';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {isNil} from 'lodash';
 import {List} from 'immutable';
@@ -227,17 +227,37 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 			return (
 				<NoResultsDisplay
 					description={
-						authorized
-							? Liferay.Language.get(
-									'please-connect-a-data-source-with-people-data.-if-this-problem-persists-visit-the-documentation-for-connecting-data-sources'
-							  )
-							: Liferay.Language.get(
-									'please-contact-your-site-administrator-to-add-a-data-source-with-people-data'
-							  )
+						authorized ? (
+							<>
+								{Liferay.Language.get(
+									'connect-a-data-source-with-people-data'
+								)}
+
+								<a
+									className='d-block mb-3'
+									href={URLConstants.DataSourceConnection}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'access-our-documentation-to-learn-more'
+									)}
+								</a>
+							</>
+						) : (
+							Liferay.Language.get(
+								'please-contact-your-site-administrator-to-add-a-data-source-with-people-data'
+							)
+						)
 					}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
 					primary
 					title={Liferay.Language.get(
-						'no-sites-synced-from-data-sources'
+						'no-individuals-synced-from-data-sources'
 					)}
 				>
 					{authorized && createDataSourceButton}

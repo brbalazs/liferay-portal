@@ -10,7 +10,6 @@ import {
 } from 'contacts/hoc/mappers/interests-query';
 import {graphql} from '@apollo/react-hoc';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
 import {useParams} from 'react-router-dom';
 import {useQueryPagination} from 'shared/hooks';
 import {withBaseResults} from 'shared/hoc';
@@ -22,10 +21,6 @@ const withData = () =>
 	});
 
 const TableWithData = withBaseResults(withData, {
-	emptyPrimary: false,
-	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
-		Liferay.Language.get('interests')
-	]),
 	getColumns: ({channelId, groupId, maxCount, totalCount}) => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
@@ -54,7 +49,11 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const Interests = () => {
+interface IInterestsProps extends React.HTMLAttributes<HTMLElement> {
+	noResultsRenderer: () => React.ReactElement;
+}
+
+const Interests: React.FC<IInterestsProps> = ({noResultsRenderer}) => {
 	const {channelId, groupId} = useParams();
 	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(COUNT)
@@ -72,6 +71,7 @@ const Interests = () => {
 				channelId={channelId}
 				delta={delta}
 				groupId={groupId}
+				noResultsRenderer={noResultsRenderer}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}

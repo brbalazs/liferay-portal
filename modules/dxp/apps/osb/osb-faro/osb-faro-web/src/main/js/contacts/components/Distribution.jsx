@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
+import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
@@ -11,6 +12,7 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import Spinner from 'shared/components/Spinner';
+import URLConstants from 'shared/util/url-constants';
 import {
 	accountsListColumns,
 	individualsListColumns
@@ -33,7 +35,12 @@ import {
 	YAxis
 } from 'recharts';
 import {ClaySelectWithOption} from '@clayui/select';
-import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
+import {
+	compose,
+	withCurrentUser,
+	withSelectedPoint,
+	withStatefulPagination
+} from 'shared/hoc';
 import {
 	Conjunctions,
 	RelationalOperators
@@ -41,7 +48,7 @@ import {
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
-import {FieldContexts, FieldTypes} from 'shared/util/constants';
+import {FieldContexts, FieldTypes, Sizes} from 'shared/util/constants';
 import {getBarColor} from 'shared/util/charts';
 import {getFinitePercent} from 'shared/util/numbers';
 import {hasChanges} from 'shared/util/react';
@@ -50,6 +57,7 @@ import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
 import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
+import {Routes, toRoute} from 'shared/util/router';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
@@ -506,6 +514,7 @@ export class Distribution extends React.Component {
 			props: {
 				channelId,
 				contextOptions,
+				currentUser,
 				delta,
 				error,
 				fieldDistributionIList,
@@ -526,6 +535,8 @@ export class Distribution extends React.Component {
 				showIndividualsPreview
 			}
 		} = this;
+
+		const authorized = currentUser.isAdmin();
 
 		const numberOfBins = this.getNumberOfBins();
 
@@ -674,7 +685,50 @@ export class Distribution extends React.Component {
 								<div className='chart-container'>
 									{!fieldDistributionsCount && (
 										<NoResultsDisplay
-											icon={{symbol: 'document'}}
+											description={
+												<>
+													{Liferay.Language.get(
+														'connect-a-data-source-with-people-data'
+													)}
+
+													<a
+														className='d-block mb-3'
+														href={
+															URLConstants.DataSourceConnection
+														}
+														key='DOCUMENTATION'
+														target='_blank'
+													>
+														{Liferay.Language.get(
+															'access-our-documentation-to-learn-more'
+														)}
+													</a>
+
+													{authorized && (
+														<Button
+															display='primary'
+															href={toRoute(
+																Routes.SETTINGS_ADD_DATA_SOURCE,
+																{
+																	groupId
+																}
+															)}
+														>
+															{Liferay.Language.get(
+																'connect-data-source'
+															)}
+														</Button>
+													)}
+												</>
+											}
+											icon={{
+												border: false,
+												size: Sizes.XXXLarge,
+												symbol: 'ac-satellite'
+											}}
+											title={Liferay.Language.get(
+												'no-individuals-synced-from-data-sources'
+											)}
 										/>
 									)}
 
@@ -914,6 +968,7 @@ export class Distribution extends React.Component {
 }
 
 export default compose(
+	withCurrentUser,
 	withSelectedPoint,
 	connect(
 		(
