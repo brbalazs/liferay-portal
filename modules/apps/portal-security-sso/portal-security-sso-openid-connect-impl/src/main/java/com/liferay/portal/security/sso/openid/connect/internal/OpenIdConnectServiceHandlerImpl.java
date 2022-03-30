@@ -653,7 +653,7 @@ public class OpenIdConnectServiceHandlerImpl
 
 			Algorithm algorithm = header.getAlgorithm();
 
-			URI jwkSetURI = oidcProviderMetadata.getJWKSetURI();
+			URI uri = oidcProviderMetadata.getJWKSetURI();
 
 			String name = algorithm.getName();
 
@@ -665,7 +665,7 @@ public class OpenIdConnectServiceHandlerImpl
 				if (Objects.equals(jwsAlgorithm.getName(), name)) {
 					IDTokenValidator idTokenValidator = new IDTokenValidator(
 						oidcProviderMetadata.getIssuer(), clientID,
-						JWSAlgorithm.parse(name), jwkSetURI.toURL(),
+						JWSAlgorithm.parse(name), uri.toURL(),
 						new DefaultResourceRetriever(
 							tokenConnectionTimeout, tokenConnectionTimeout));
 
