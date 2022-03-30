@@ -1177,13 +1177,6 @@ public class LayoutsAdminDisplayContext {
 		return true;
 	}
 
-	private static boolean _hasPrivateLayoutsExceptControlPanel(Group group) {
-		List<Layout> privateLayouts = LayoutServiceUtil.getLayouts(
-			group.getGroupId(), true);
-
-		return !privateLayouts.isEmpty();
-	}
-
 	private JSONObject _getActionURLsJSONObject(Layout layout)
 		throws Exception {
 
@@ -1393,9 +1386,7 @@ public class LayoutsAdminDisplayContext {
 
 		Layout selLayout = getSelLayout();
 
-		if (LayoutLocalServiceUtil.hasLayouts(getSelGroup(), false) &&
-			isShowPublicPages()) {
-
+		if (_hasLayouts(getSelGroupId(), false) && isShowPublicPages()) {
 			boolean active = !isPrivateLayout();
 
 			if (selLayout != null) {
@@ -1405,7 +1396,7 @@ public class LayoutsAdminDisplayContext {
 			firstColumnJSONArray.put(_getFirstColumn(false, active));
 		}
 
-		if (_hasPrivateLayoutsExceptControlPanel(getSelGroup())) {
+		if (_hasLayouts(getSelGroupId(), true)) {
 			boolean active = isPrivateLayout();
 
 			if (selLayout != null) {
@@ -1516,6 +1507,25 @@ public class LayoutsAdminDisplayContext {
 		}
 
 		return LanguageUtil.get(_request, title);
+	}
+
+	private boolean _hasLayouts(long groupId, boolean privateLayout) {
+		int layoutsCount = LayoutServiceUtil.getLayoutsCount(
+			groupId, privateLayout,
+			new String[] {
+				LayoutAdminConstants.LAYOUT_TYPE_CONTENT,
+				LayoutConstants.TYPE_EMBEDDED,
+				LayoutConstants.TYPE_LINK_TO_LAYOUT,
+				LayoutConstants.TYPE_FULL_PAGE_APPLICATION,
+				LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET,
+				LayoutConstants.TYPE_URL
+			});
+
+		if (layoutsCount > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean _isActive(long plid) throws PortalException {
