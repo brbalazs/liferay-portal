@@ -1,50 +1,19 @@
 import getCN from 'classnames';
+import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import {PropTypes} from 'prop-types';
 
 const CLASSNAME = 'metric-value';
 
-/**
- * Metric Value
- * @class
- */
-class MetricValue extends React.Component {
-	static defaultProps = {
-		type: 'number'
-	};
-
-	static propTypes = {
-		/**
-		 * @type {string}
-		 * @default number
-		 */
-		type: PropTypes.oneOf(['number', 'percentage', 'time', 'ratings']),
-
-		/**
-		 * @type {string}
-		 * @default undefined
-		 */
-		value: PropTypes.string.isRequired
-	};
-
-	/**
-	 * Get Regex Type
-	 * @param {string} type
-	 */
-	getRegexType(type) {
+const MetricValue = ({className, type, value}) => {
+	const getRegexType = type => {
 		if (type === 'ratings') {
 			return /([/][0-9]+)/g;
 		} else {
 			return /([a-zA-Z%])+/g;
 		}
-	}
+	};
 
-	/**
-	 * Format Metric Value
-	 * @param {string} value
-	 * @param {object} regex
-	 */
-	formatValue(value, regex) {
+	const formatValue = (value, regex) => {
 		const items = value.split(' ');
 
 		return items.map((item, i) => {
@@ -58,20 +27,33 @@ class MetricValue extends React.Component {
 				</Fragment>
 			);
 		});
-	}
+	};
+
+	return (
+		<div className={getCN(CLASSNAME, className)}>
+			{formatValue(value, getRegexType(type))}
+		</div>
+	);
+};
+
+MetricValue.defaultProps = {
+	type: 'number'
+};
+
+MetricValue.propTypes = {
+	className: PropTypes.string,
 
 	/**
-	 * Lifecycle Render - ReactJS
+	 * @type {string}
+	 * @default number
 	 */
-	render() {
-		const {className, type, value} = this.props;
+	type: PropTypes.oneOf(['number', 'percentage', 'time', 'ratings']),
 
-		return (
-			<div className={getCN(CLASSNAME, className)}>
-				{this.formatValue(value, this.getRegexType(type))}
-			</div>
-		);
-	}
-}
+	/**
+	 * @type {string}
+	 * @default undefined
+	 */
+	value: PropTypes.string.isRequired
+};
 
 export default MetricValue;
