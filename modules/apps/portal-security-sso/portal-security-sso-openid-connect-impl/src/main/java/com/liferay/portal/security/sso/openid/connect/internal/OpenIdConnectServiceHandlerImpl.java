@@ -88,6 +88,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -654,13 +655,29 @@ public class OpenIdConnectServiceHandlerImpl
 
 			URI jwkSetURI = oidcProviderMetadata.getJWKSetURI();
 
-			IDTokenValidator idTokenValidator = new IDTokenValidator(
-				oidcProviderMetadata.getIssuer(), oidcClientInformation.getID(),
-				JWSAlgorithm.parse(algorithm.getName()), jwkSetURI.toURL(),
-				new DefaultResourceRetriever(
-					tokenConnectionTimeout, tokenConnectionTimeout));
+			String name = algorithm.getName();
 
-			return idTokenValidator.validate(oidcTokens.getIDToken(), nonce);
+			ClientID clientID = oidcClientInformation.getID();
+
+			for (JWSAlgorithm jwsAlgorithm :
+				oidcProviderMetadata.getIDTokenJWSAlgs()) {
+
+				if (Objects.equals(jwsAlgorithm.getName(), name)) {
+					IDTokenValidator idTokenValidator = new IDTokenValidator(
+						oidcProviderMetadata.getIssuer(), clientID,
+						JWSAlgorithm.parse(name), jwkSetURI.toURL(),
+						new DefaultResourceRetriever(
+							tokenConnectionTimeout, tokenConnectionTimeout));
+
+					return idTokenValidator.validate(idToken, nonce);
+				}
+			}
+
+			throw new OpenIdConnectServiceException.TokenException(
+				StringBundler.concat(
+					"Signing algorithm ", name,
+					" rejected by OpenId Connect client: ",
+					clientID.getValue()));
 		}
 		catch (BadJOSEException | JOSEException exception) {
 			throw new OpenIdConnectServiceException.TokenException(
