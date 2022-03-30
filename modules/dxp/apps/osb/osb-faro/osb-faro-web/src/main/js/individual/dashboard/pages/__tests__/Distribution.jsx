@@ -21,7 +21,8 @@ jest.mock('react-router-dom', () => ({
 const mockUseDataSource = useDataSource;
 
 const defaultProps = {
-	currentUser: new User(data.mockUser())
+	currentUser: new User(data.mockUser()),
+	groupId: '123'
 };
 
 const WrappedComponent = () => (

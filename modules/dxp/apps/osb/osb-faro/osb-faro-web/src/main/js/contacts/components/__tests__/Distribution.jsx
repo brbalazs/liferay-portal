@@ -1,11 +1,14 @@
+import * as data from 'test/data';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {CONTEXT_OPTIONS, Distribution} from '../Distribution';
 import {List} from 'immutable';
+import {User} from 'shared/util/records';
 
 jest.unmock('react-dom');
 
 const defaultProps = {
+	currentUser: new User(data.mockUser()),
 	distributionsKey: 'test',
 	fieldDistributionIList: new List(),
 	fieldMappingId: 'test',
