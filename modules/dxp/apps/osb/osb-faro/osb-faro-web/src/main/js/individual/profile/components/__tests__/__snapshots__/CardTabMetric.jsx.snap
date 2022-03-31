@@ -12,9 +12,7 @@ exports[`CardTabMetric should render 1`] = `
         10
         <span
           class="metric-value-letter"
-        >
-           
-        </span>
+        />
       </div>
     </span>
     <div
@@ -53,7 +51,6 @@ exports[`CardTabMetric should render in a give format type 1`] = `
           class="metric-value-letter"
         >
           /10
-           
         </span>
       </div>
     </span>

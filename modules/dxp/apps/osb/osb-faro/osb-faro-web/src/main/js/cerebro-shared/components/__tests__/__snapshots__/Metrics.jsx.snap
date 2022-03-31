@@ -32,9 +32,7 @@ exports[`Metrics should render 1`] = `
                   123123
                   <span
                     class="metric-value-letter"
-                  >
-                     
-                  </span>
+                  />
                 </div>
               </span>
               <div
@@ -85,7 +83,6 @@ exports[`Metrics should render 1`] = `
                     class="metric-value-letter"
                   >
                     k
-                     
                   </span>
                 </div>
               </span>
@@ -128,7 +125,6 @@ exports[`Metrics should render 1`] = `
                     class="metric-value-letter"
                   >
                     k
-                     
                   </span>
                 </div>
               </span>
