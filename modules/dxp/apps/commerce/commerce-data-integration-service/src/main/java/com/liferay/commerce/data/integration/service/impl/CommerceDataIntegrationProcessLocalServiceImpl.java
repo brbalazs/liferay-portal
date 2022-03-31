@@ -111,7 +111,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 		resourceLocalService.deleteResource(
 			commerceDataIntegrationProcess, ResourceConstants.SCOPE_INDIVIDUAL);
 
-		//Trigger
+		// Trigger
 
 		_commerceDataIntegrationProcessTriggerHelper.deleteScheduledTask(
 			commerceDataIntegrationProcess.
@@ -227,7 +227,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 			commerceDataIntegrationProcessPersistence.update(
 				commerceDataIntegrationProcess);
 
-		//Trigger
+		// Trigger
 
 		if (active) {
 			_commerceDataIntegrationProcessTriggerHelper.addScheduledTask(
