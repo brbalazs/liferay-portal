@@ -38,6 +38,14 @@ import org.hibernate.engine.SessionFactoryImplementor;
  */
 public class SessionFactoryImpl implements SessionFactory {
 
+	public void afterPropertiesSet() {
+		if (_sessionFactoryClassLoader != null) {
+			return;
+		}
+
+		setSessionFactoryClassLoader(getDefaultSessionFactoryClassLoader());
+	}
+
 	@Override
 	public void closeSession(Session session) throws ORMException {
 		if ((session != null) &&
@@ -116,6 +124,10 @@ public class SessionFactoryImpl implements SessionFactory {
 		SessionFactoryImplementor sessionFactoryImplementor) {
 
 		_sessionFactoryImplementor = sessionFactoryImplementor;
+	}
+
+	protected ClassLoader getDefaultSessionFactoryClassLoader() {
+		return PortalClassLoaderUtil.getClassLoader();
 	}
 
 	protected Map<String, Class<?>> getPreloadClassLoaderClasses() {
