@@ -6,7 +6,6 @@ import WorkspaceNotFound from 'shared/pages/WorkspaceNotFound';
 import WorkspacesErrorDisplay from 'shared/components/workspaces/ErrorDisplay';
 import {compose} from 'redux';
 import {fetchProject} from '../actions/projects';
-import {LocalStorageMechanism, Storage} from 'metal-storage';
 import {ProjectStates} from 'shared/util/constants';
 
 /**
@@ -24,28 +23,14 @@ export default compose(
 		}
 	),
 	WrappedComponent => ({className, groupId, project, ...otherProps}) => {
-		const {faroSubscription} = project;
-		const storage = new Storage(new LocalStorageMechanism());
-		const currentSubscriptions = storage.get('subscriptions') || {};
-
-		storage.set('activeWorkspaceId', Number(groupId));
-		storage.set('subscriptions', {
-			...currentSubscriptions,
-			[groupId]: faroSubscription.get('name')
-		});
-
-		if (window.setStatus && window.$zopim && window.$zopim.livechat) {
-			window.setStatus();
-		}
-
 		switch (project.state) {
 			case ProjectStates.Ready:
 			case ProjectStates.Scheduled:
 				return (
 					<WrappedComponent
+						{...otherProps}
 						className={className}
 						groupId={groupId}
-						{...otherProps}
 					/>
 				);
 

@@ -8,7 +8,6 @@ import UserDropdown from 'shared/components/user-dropdown';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {Align} from '@clayui/drop-down';
 import {LANGUAGES} from 'shared/util/constants';
-import {LocalStorageMechanism, Storage} from 'metal-storage';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 
@@ -30,18 +29,6 @@ export class WorkspacesBasePage extends React.Component {
 		]),
 		title: PropTypes.string
 	};
-
-	constructor(props) {
-		super(props);
-
-		const storage = new Storage(new LocalStorageMechanism());
-
-		storage.remove('activeWorkspaceId');
-
-		if (window.setStatus && window.$zopim && window.$zopim.livechat) {
-			window.setStatus();
-		}
-	}
 
 	getUserMenuItems() {
 		const {
