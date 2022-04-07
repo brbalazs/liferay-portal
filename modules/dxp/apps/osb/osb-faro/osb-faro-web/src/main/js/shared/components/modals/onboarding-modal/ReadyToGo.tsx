@@ -14,7 +14,7 @@ const ReadyToGo: React.FC<IReadyToGoProps> = ({onClose}) => (
 			<div className='ac-ready-to-use' />
 
 			<span className='title d-flex justify-content-center'>
-				{Liferay.Language.get('youre-ready-to-go')}
+				{Liferay.Language.get('you-are-ready-to-go')}
 			</span>
 
 			<div className='d-flex description flex-column text-center'>

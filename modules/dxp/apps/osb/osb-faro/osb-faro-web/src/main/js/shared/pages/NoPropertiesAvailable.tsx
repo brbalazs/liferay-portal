@@ -45,7 +45,7 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 		  );
 
 	const title = admin
-		? Liferay.Language.get('youre-almost-there')
+		? Liferay.Language.get('you-are-almost-there')
 		: Liferay.Language.get('no-properties-found');
 
 	return (
