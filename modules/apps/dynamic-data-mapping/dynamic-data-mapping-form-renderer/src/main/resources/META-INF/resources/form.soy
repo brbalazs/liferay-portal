@@ -151,11 +151,18 @@
  * Prints the form fields required message warning.
  */
 {template .required_warning_message}
-	{@param requiredFieldsWarningMessageHTML: html}
+	{@param pathThemeImages: string}
+	{@param requiredFieldsWarningMessage: string}
 	{@param showRequiredFieldsWarning: bool}
 
 	{if $showRequiredFieldsWarning}
-		{$requiredFieldsWarningMessageHTML}
+		<p aria-hidden="true" class="h5 required-warning text-secondary">
+			<svg aria-hidden="true" class="lexicon-icon lexicon-icon-asterisk reference-mark">
+				<use xlink:href="{$pathThemeImages}/lexicon/icons.svg#asterisk" />
+		   </svg>
+
+		   &nbsp;{$requiredFieldsWarningMessage}
+		</p>
 	{/if}
 {/template}
 
@@ -170,8 +177,9 @@
 		showRequiredFieldsWarning: bool,
 		rows: list<[columns: list<[size: int, fields: list<?>]>]>
 	]>}
+	{@param pathThemeImages: string}
 	{@param portletNamespace: string}
-	{@param requiredFieldsWarningMessageHTML: html}
+	{@param requiredFieldsWarningMessage: string}
 	{@param showSubmitButton: bool}
 	{@param strings: [previous: string, next: string]}
 	{@param submitLabel: string}
@@ -209,8 +217,9 @@
 						{/if}
 
 						{call .required_warning_message data="all"}
+							{param pathThemeImages: $pathThemeImages /}
+							{param requiredFieldsWarningMessage: $requiredFieldsWarningMessage /}
 							{param showRequiredFieldsWarning: $page.showRequiredFieldsWarning /}
-							{param requiredFieldsWarningMessageHTML: $requiredFieldsWarningMessageHTML /}
 						{/call}
 
 						{call .form_rows data="all"}
@@ -248,7 +257,8 @@
 		showRequiredFieldsWarning: bool,
 		rows: list<[columns: list<[size: int, fields: list<?>]>]>
 	]>}
-	{@param requiredFieldsWarningMessageHTML: html}
+	{@param pathThemeImages: string}
+	{@param requiredFieldsWarningMessage: string}
 	{@param showSubmitButton: bool}
 	{@param strings: [previous: string, next: string]}
 	{@param submitLabel: string}
@@ -267,8 +277,9 @@
 						{/if}
 
 						{call .required_warning_message data="all"}
+							{param pathThemeImages: $pathThemeImages /}
+							{param requiredFieldsWarningMessage: $requiredFieldsWarningMessage /}
 							{param showRequiredFieldsWarning: $page.showRequiredFieldsWarning /}
-							{param requiredFieldsWarningMessageHTML: $requiredFieldsWarningMessageHTML /}
 						{/call}
 
 						{call .form_rows data="all"}
@@ -318,14 +329,16 @@
 		showRequiredFieldsWarning: bool,
 		rows: list<[columns: list<[size: int, fields: list<?>]>]>
 	]>}
-	{@param requiredFieldsWarningMessageHTML: html}
+	{@param pathThemeImages: string}
+	{@param requiredFieldsWarningMessage: string}
 
 	<div class="lfr-ddm-form-container" id="{$containerId}">
 		<div class="lfr-ddm-form-fields">
 			{foreach $page in $pages}
 				{call .required_warning_message data="all"}
+					{param pathThemeImages: $pathThemeImages /}
+					{param requiredFieldsWarningMessage: $requiredFieldsWarningMessage /}
 					{param showRequiredFieldsWarning: $page.showRequiredFieldsWarning /}
-					{param requiredFieldsWarningMessageHTML: $requiredFieldsWarningMessageHTML /}
 				{/call}
 
 				{call .form_rows data="all"}
@@ -347,7 +360,8 @@
 		showRequiredFieldsWarning: bool,
 		rows: list<[columns: list<[size: int, fields: list<?>]>]>
 	]>}
-	{@param requiredFieldsWarningMessageHTML: html}
+	{@param pathThemeImages: string}
+	{@param requiredFieldsWarningMessage: string}
 
 	<div class="lfr-ddm-form-container" id="{$containerId}">
 		<div class="lfr-ddm-form-tabs navbar-default">
@@ -363,8 +377,9 @@
 				{foreach $page in $pages}
 					<div class="lfr-ddm-form-page tab-pane {if isFirst($page)}active{/if}">
 						{call .required_warning_message data="all"}
+							{param pathThemeImages: $pathThemeImages /}
+							{param requiredFieldsWarningMessage: $requiredFieldsWarningMessage /}
 							{param showRequiredFieldsWarning: $page.showRequiredFieldsWarning /}
-							{param requiredFieldsWarningMessageHTML: $requiredFieldsWarningMessageHTML /}
 						{/call}
 
 						{call .form_rows data="all"}

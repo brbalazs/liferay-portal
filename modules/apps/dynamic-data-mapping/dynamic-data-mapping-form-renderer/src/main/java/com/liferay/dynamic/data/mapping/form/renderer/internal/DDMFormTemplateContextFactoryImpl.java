@@ -25,7 +25,6 @@ import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.model.DDMFormRule;
 import com.liferay.dynamic.data.mapping.service.DDMDataProviderInstanceService;
 import com.liferay.dynamic.data.mapping.util.DDM;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -53,7 +52,6 @@ import java.util.stream.Stream;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -146,6 +144,10 @@ public class DDMFormTemplateContextFactoryImpl
 		templateContext.put("pages", pages);
 
 		templateContext.put(
+			"pathThemeImages",
+			DDMFormTemplateContextFactoryUtil.getPathThemeImages(
+				ddmFormRenderingContext.getHttpServletRequest()));
+		templateContext.put(
 			"portletNamespace", ddmFormRenderingContext.getPortletNamespace());
 		templateContext.put("readOnly", ddmFormRenderingContext.isReadOnly());
 
@@ -158,11 +160,8 @@ public class DDMFormTemplateContextFactoryImpl
 		ResourceBundle resourceBundle = getResourceBundle(locale);
 
 		templateContext.put(
-			"requiredFieldsWarningMessageHTML",
-			_soyHTMLSanitizer.sanitize(
-				getRequiredFieldsWarningMessageHTML(
-					resourceBundle,
-					ddmFormRenderingContext.getHttpServletRequest())));
+			"requiredFieldsWarningMessage",
+			LanguageUtil.get(resourceBundle, "indicates-required-fields"));
 
 		templateContext.put("rules", toObjectList(ddmForm.getDDMFormRules()));
 		templateContext.put(
@@ -225,37 +224,6 @@ public class DDMFormTemplateContextFactoryImpl
 		ddmFormPagesTemplateContextFactory.setJSONFactory(_jsonFactory);
 
 		return ddmFormPagesTemplateContextFactory.create();
-	}
-
-	protected String getRequiredFieldsWarningMessageHTML(
-		ResourceBundle resourceBundle, HttpServletRequest httpServletRequest) {
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append("<p aria-hidden=\"true\" ");
-		sb.append("class=\"h5 required-warning text-secondary\">");
-		sb.append(
-			LanguageUtil.format(
-				resourceBundle, "all-fields-marked-with-x-are-required",
-				getRequiredMarkTagHTML(httpServletRequest), false));
-		sb.append("</p>");
-
-		return sb.toString();
-	}
-
-	protected String getRequiredMarkTagHTML(
-		HttpServletRequest httpServletRequest) {
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append("<svg aria-hidden=\"true\" class=\"lexicon-icon ");
-		sb.append("lexicon-icon-asterisk reference-mark\"><use xlink:href=\"");
-		sb.append(
-			DDMFormTemplateContextFactoryUtil.getPathThemeImages(
-				httpServletRequest));
-		sb.append("/lexicon/icons.svg#asterisk\" /></svg>");
-
-		return sb.toString();
 	}
 
 	protected ResourceBundle getResourceBundle(Locale locale) {

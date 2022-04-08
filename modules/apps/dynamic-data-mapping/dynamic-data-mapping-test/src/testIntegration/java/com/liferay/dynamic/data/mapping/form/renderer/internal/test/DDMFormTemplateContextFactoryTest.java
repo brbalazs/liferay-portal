@@ -20,7 +20,6 @@ import com.liferay.dynamic.data.mapping.form.renderer.DDMFormTemplateContextFact
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -30,8 +29,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-
-import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -173,43 +170,6 @@ public class DDMFormTemplateContextFactoryTest {
 				ddmForm, ddmFormRenderingContext);
 
 		Assert.assertTrue((boolean)templateContext.get("readOnly"));
-	}
-
-	@Test
-	public void testRequiredFieldsWarningHTML() throws Exception {
-		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
-
-		DDMFormRenderingContext ddmFormRenderingContext =
-			new DDMFormRenderingContext();
-
-		ddmFormRenderingContext.setLocale(LocaleUtil.US);
-		ddmFormRenderingContext.setHttpServletRequest(_request);
-		ddmFormRenderingContext.setReadOnly(true);
-
-		Map<String, Object> templateContext =
-			_ddmFormTemplateContextFactory.create(
-				ddmForm, ddmFormRenderingContext);
-
-		Object sanitizedContent = templateContext.get(
-			"requiredFieldsWarningMessageHTML");
-
-		Class<?> clazz = sanitizedContent.getClass();
-
-		Method method = clazz.getMethod("getContent");
-
-		method.setAccessible(true);
-
-		String value = (String)method.invoke(sanitizedContent);
-
-		StringBundler sb = new StringBundler(3);
-
-		sb.append("<p aria-hidden=\"true\" ");
-		sb.append("class=\"h5 required-warning text-secondary\">");
-		sb.append("All fields marked with ");
-
-		Assert.assertTrue(value, value.startsWith(sb.toString()));
-
-		Assert.assertTrue(value, value.endsWith(" are required.</p>"));
 	}
 
 	@Test
