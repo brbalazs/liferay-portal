@@ -399,11 +399,11 @@ public class LayoutSiteNavigationMenuItemType
 			_itemSelector);
 
 		request.setAttribute(
-			SiteNavigationWebKeys.SITE_NAVIGATION_MENU_ITEM,
-			siteNavigationMenuItem);
-		request.setAttribute(
 			SiteNavigationMenuItemTypeLayoutWebKeys.SET_CUSTOM_NAME,
 			_isUseCustomName(siteNavigationMenuItem));
+		request.setAttribute(
+			SiteNavigationWebKeys.SITE_NAVIGATION_MENU_ITEM,
+			siteNavigationMenuItem);
 		request.setAttribute(
 			WebKeys.SEL_LAYOUT, _fetchLayout(siteNavigationMenuItem));
 		request.setAttribute(
