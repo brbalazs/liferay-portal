@@ -31,6 +31,7 @@ public class LCPProjectConstants {
 	private static final Map<String, String> _locations =
 		new HashMap<String, String>() {
 			{
+				put("DEV", LCPProject.Cluster.DEV.toString());
 				put("EU2", LCPProject.Cluster.EU2.toString());
 				put("EU3", LCPProject.Cluster.EU3.toString());
 				put("SA", LCPProject.Cluster.SA.toString());

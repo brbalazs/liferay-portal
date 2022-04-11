@@ -113,6 +113,7 @@ public class LCPProject {
 
 	public enum Cluster {
 
+		DEV("ac-asahdev", "us-west1-ac-uat-c1-2"),
 		EU2("ac-europewest2", "europe-west2-ac2-c1"),
 		EU3("ac-europewest3", "europe-west3-ac3-c1"),
 		SA("ac-southamericaeast1", "southamerica-east1-ac1-c1"),
@@ -123,6 +124,10 @@ public class LCPProject {
 			"us-west1-ac4-c1-2");
 
 		public static Cluster fromString(String value) {
+			if (StringUtil.equals(value, Cluster.DEV._value)) {
+				return Cluster.DEV;
+			}
+
 			if (StringUtil.equals(value, Cluster.EU2._value)) {
 				return Cluster.EU2;
 			}
