@@ -1,91 +1,43 @@
 import _ from 'lodash';
 import AppliedFilters from 'shared/components/filter/AppliedFilters';
-import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import dom from 'metal-dom';
 import DropdownMenu from 'cerebro-shared/components/DropdownMenu';
-import React from 'react';
-import {hasChanges} from 'shared/util/react';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
+import React, {useEffect, useRef, useState} from 'react';
 
 const CLASSNAME = 'analytics-filter';
 
-/**
- * Filter
- * @class
- */
-class Filter extends React.Component {
-	static defaultProps = {
-		items: []
-	};
+const Filter = ({items: initialItems = [], onChange}) => {
+	const [selectedItems, setSelectedItems] = useState([]);
+	const [showDropdown, setShowDropdown] = useState(false);
 
-	static propTypes = {
-		items: PropTypes.array,
-		onChange: PropTypes.func.isRequired
-	};
+	const [items, setItems] = useState(initialItems);
 
-	state = {
-		selectedItems: {},
-		showDropdown: false
-	};
+	const elementRef = useRef(null);
 
-	/**
-	 * Lifecycle Constructor - ReactJS
-	 */
-	constructor(props) {
-		super(props);
+	useEffect(() => {
+		const documentClickHandler = dom.on(document, 'click', handleDocClick);
 
-		this._elementRef = React.createRef();
-	}
+		return () => {
+			if (documentClickHandler) {
+				documentClickHandler.removeListener();
+			}
+		};
+	}, []);
 
-	/**
-	 * Lifecycle Component Did Mount - ReactJS
-	 */
-	componentDidMount() {
-		this._documentClickHandler = dom.on(
-			document,
-			'click',
-			this.handleDocClick
-		);
-	}
+	useEffect(() => {
+		setItems(getCheckedItems(initialItems));
+	}, [initialItems]);
 
-	/**
-	 * Lifecycle UNSAFE Component Will Receive Props - ReactJS
-	 * @param {object} nextProps
-	 */
-	componentDidUpdate(prevProps) {
-		if (
-			hasChanges(prevProps, this.props, 'items') &&
-			Object.keys(this.props).indexOf('items') > -1
-		) {
-			this.setState({
-				items: this.getCheckedItems(this.props.items)
-			});
-		}
-	}
-
-	/**
-	 * Lifecycle Component Will Unmount - ReactJS
-	 */
-	componentWillUnmount() {
-		if (this._documentClickHandler) {
-			this._documentClickHandler.removeListener();
-		}
-	}
-
-	/**
-	 * Get items with checked statuses
-	 */
-	getCheckedItems(parentItems) {
-		const {selectedItems} = this.state;
-
-		return parentItems.map(item => {
+	const getCheckedItems = parentItems =>
+		parentItems.map(item => {
 			const categoryItems = selectedItems[item.category];
 
 			let items = null;
 
 			if (item.items) {
-				items = this.getCheckedItems(item.items);
+				items = getCheckedItems(item.items);
 			}
 
 			if (categoryItems && categoryItems.indexOf(item.label) > -1) {
@@ -98,30 +50,12 @@ class Filter extends React.Component {
 
 			return {...item, items};
 		});
-	}
 
-	/**
-	 * Update Radio Items
-	 * @param {object} param0
-	 */
-	updateRadioItems({category, label}) {
-		const {selectedItems} = this.state;
+	const updateRadioItems = ({category, label}) => {
+		handleUpdateFilters({...selectedItems, [category]: [label]});
+	};
 
-		this.setState(
-			{
-				selectedItems: {...selectedItems, [category]: [label]}
-			},
-			this.handleClickApplyFilter
-		);
-	}
-
-	/**
-	 * Update Checkbox Items
-	 * @param {object} param0
-	 */
-	updateCheckboxItems({category, checked, label}) {
-		const {selectedItems} = this.state;
-
+	const updateCheckboxItems = ({category, checked, label}) => {
 		const categoryItems = selectedItems[category] || [];
 
 		if (checked) {
@@ -132,65 +66,23 @@ class Filter extends React.Component {
 
 		selectedItems[category] = categoryItems;
 
-		this.setState(
-			{
-				selectedItems
-			},
-			this.handleClickApplyFilter
-		);
-	}
+		handleUpdateFilters({...selectedItems});
+	};
 
-	/**
-	 * Has Subitems
-	 * @param {array} parentItems
-	 */
-	hasSubItems(parentItems) {
-		return parentItems.some(
-			({items, label}) =>
-				(items && this.hasSubItems(items)) || (!items && label)
-		);
-	}
-
-	/**
-	 * Handle Change Dropdown Item
-	 * @param {object} param0
-	 */
-	@autobind
-	handleChangeDropdownItem({dropdownItem}) {
+	const handleChangeDropdownItem = ({dropdownItem}) => {
 		if (dropdownItem.inputType == 'radio') {
-			this.updateRadioItems(dropdownItem);
+			updateRadioItems(dropdownItem);
 		} else if (dropdownItem.inputType == 'checkbox') {
-			this.updateCheckboxItems(dropdownItem);
+			updateCheckboxItems(dropdownItem);
 		}
-	}
+	};
 
-	/**
-	 * Handle Click Toggle Dropdown
-	 */
-	@autobind
-	handleClickToggleDropdown() {
-		this.setState({
-			showDropdown: !this.state.showDropdown
-		});
-	}
+	const handleClickToggleDropdown = () => {
+		setShowDropdown(!showDropdown);
+	};
 
-	/**
-	 * Handle Click Apply Filter
-	 */
-	@autobind
-	handleClickApplyFilter() {
-		const {onChange} = this.props;
-
-		onChange(this.state.selectedItems);
-	}
-
-	/**
-	 * Handle Document Click
-	 * @param {object} event
-	 */
-	@autobind
-	handleDocClick({target}) {
-		const dropdown = this._elementRef.current.querySelector(
+	const handleDocClick = ({target}) => {
+		const dropdown = elementRef.current.querySelector(
 			'.analytics-dropdown'
 		);
 		const dropdownMenu = Object.assign(
@@ -204,64 +96,53 @@ class Filter extends React.Component {
 		)
 			return;
 
-		this.setState({
-			showDropdown: false
-		});
-	}
+		setShowDropdown(false);
+	};
 
-	/**
-	 * Handle Update Filters
-	 * @param {object} param0
-	 */
-	@autobind
-	handleUpdateFilters(appliedFilters) {
-		const {onChange} = this.props;
+	const handleUpdateFilters = selectedItems => {
+		onChange(selectedItems);
 
-		onChange(appliedFilters);
+		setSelectedItems(selectedItems);
+	};
 
-		this.setState({
-			selectedItems: appliedFilters
-		});
-	}
-
-	/**
-	 * Lifecycle Render - ReactJS
-	 */
-	render() {
-		const {items} = this.props;
-
-		const {selectedItems, showDropdown} = this.state;
-
-		return (
-			<div className={CLASSNAME} ref={this._elementRef}>
-				<div className='analytics-dropdown dropdown btn-group border-0'>
-					<Button
-						aria-label='Dropdown Filter'
-						className='dropdown-toggle btn-outline-borderless'
-						display='secondary'
-						icon='caret-bottom'
-						iconAlignment='right'
-						onClick={this.handleClickToggleDropdown}
-						size='sm'
-					>
-						{Liferay.Language.get('filter')}
-					</Button>
-				</div>
-
-				<DropdownMenu
-					items={this.getCheckedItems(items)}
-					onSelectItemsChange={this.handleChangeDropdownItem}
-					show={showDropdown}
-				/>
-
-				<AppliedFilters
-					filters={selectedItems}
-					onChange={this.handleUpdateFilters}
-				/>
+	return (
+		<div className={CLASSNAME} ref={elementRef}>
+			<div className='analytics-dropdown dropdown btn-group border-0'>
+				<Button
+					aria-label='Dropdown Filter'
+					className='dropdown-toggle btn-outline-borderless'
+					display='secondary'
+					icon='caret-bottom'
+					iconAlignment='right'
+					onClick={handleClickToggleDropdown}
+					size='sm'
+				>
+					{Liferay.Language.get('filter')}
+				</Button>
 			</div>
-		);
-	}
-}
+
+			<DropdownMenu
+				items={getCheckedItems(items)}
+				onSelectItemsChange={handleChangeDropdownItem}
+				show={showDropdown}
+			/>
+
+			<AppliedFilters
+				filters={selectedItems}
+				onChange={handleUpdateFilters}
+			/>
+		</div>
+	);
+};
+
+Filter.defaultProps = {
+	items: []
+};
+
+Filter.propTypes = {
+	items: PropTypes.array,
+	onChange: PropTypes.func.isRequired
+};
 
 export {Filter};
 export default Filter;
