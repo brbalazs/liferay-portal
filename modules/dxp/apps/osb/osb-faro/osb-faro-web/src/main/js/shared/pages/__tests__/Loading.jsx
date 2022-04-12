@@ -10,4 +10,14 @@ describe('Loading', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render a classname to align loading in the center of the card', () => {
+		const {container} = render(<Loading displayCard />);
+
+		expect(
+			container
+				.querySelector('.loading-root')
+				.classList.contains('display-card')
+		).toBeTruthy();
+	});
 });

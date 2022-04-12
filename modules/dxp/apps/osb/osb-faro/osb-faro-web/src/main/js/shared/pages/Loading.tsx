@@ -4,10 +4,19 @@ import Spinner from '../components/Spinner';
 
 export interface ILoadingProps extends React.HTMLAttributes<HTMLDivElement> {
 	fadeIn?: boolean;
+	displayCard?: boolean;
 }
 
-const Loading: FC<ILoadingProps> = ({className, fadeIn = true}) => (
-	<div className={getCN('loading-root', className)}>
+const Loading: FC<ILoadingProps> = ({
+	className,
+	displayCard = false,
+	fadeIn = true
+}) => (
+	<div
+		className={getCN('loading-root', className, {
+			'display-card': displayCard
+		})}
+	>
 		<Spinner fadeIn={fadeIn} />
 	</div>
 );
