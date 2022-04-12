@@ -3,6 +3,7 @@ import NoResultsDisplay, {
 	INoResultsDisplayProps
 } from 'shared/components/NoResultsDisplay';
 import React, {createContext, FC, useContext} from 'react';
+import {ApolloError} from 'apollo-client';
 import {Sizes} from 'shared/util/constants';
 
 export interface IStatesRendererContextProps
@@ -18,11 +19,14 @@ interface ISwitcherComponent {
 
 interface IEmptyStateProps extends INoResultsDisplayProps, ISwitcherComponent {
 	displayCard?: boolean;
+	showIcon?: boolean;
 }
 
 interface IErrorStateProps
 	extends React.HTMLAttributes<HTMLElement>,
-		ISwitcherComponent {}
+		ISwitcherComponent {
+	apolloError?: ApolloError;
+}
 
 interface ILoadingStateProps extends ILoadingProps, ISwitcherComponent {
 	children?: React.ReactElement;
@@ -44,6 +48,7 @@ const EmptyState: FC<IEmptyStateProps> = ({
 	displayCard,
 	icon,
 	show = true,
+	showIcon = true,
 	title,
 	...otherProps
 }) => {
@@ -58,23 +63,33 @@ const EmptyState: FC<IEmptyStateProps> = ({
 			<NoResultsDisplay
 				description={description}
 				displayCard={displayCard}
-				icon={{
-					border: false,
-					size: Sizes.XXXLarge,
-					symbol: 'ac-satellite',
-					...icon
-				}}
 				title={title}
+				{...(showIcon && {
+					icon: {
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite',
+						...icon
+					}
+				})}
 				{...otherProps}
 			/>
 		))
 	);
 };
 
-const ErrorState: FC<IErrorStateProps> = ({children, show = true}) => {
-	const {empty, error, loading} = useContext(StatesRendererContext);
+const ErrorState: FC<IErrorStateProps> = ({
+	apolloError,
+	children,
+	show = true
+}) => {
+	const {error} = useContext(StatesRendererContext);
 
-	return !empty && error && !loading && show && <>{children}</>;
+	if (apolloError) {
+		console.error(apolloError); // eslint-disable-line no-console
+	}
+
+	return !!error && show && <>{children}</>;
 };
 
 const LoadingState: FC<ILoadingStateProps> = ({
