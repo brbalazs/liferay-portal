@@ -350,6 +350,104 @@ export function mockDataSourcesReq(dataSources = [], variables = {type: null}) {
 	};
 }
 
+export function mockAcquisitionsReq() {
+	return {
+		request: {
+			query: AcquisitionsQuery,
+			variables: {
+				activeTabId: 'CHANNEL',
+				channelId: '123',
+				rangeEnd: null,
+				rangeKey: 30,
+				rangeStart: null,
+				size: 5,
+				start: 0
+			}
+		},
+		result: {
+			data: {
+				acquisitions: {
+					__typename: 'CompositionBag',
+					compositions: [
+						{
+							__typename: 'Composition',
+							count: 2686,
+							name: 'direct'
+						}
+					],
+					maxCount: 2686,
+					total: 1,
+					totalCount: 2686
+				}
+			}
+		}
+	};
+}
+
+export function mockSitesTopPagesReq() {
+	return {
+		request: {
+			query: SitesTopPagesQuery,
+			variables: {
+				channelId: '123',
+				rangeEnd: null,
+				rangeKey: 30,
+				rangeStart: null,
+				size: 5,
+				sort: {
+					column: 'visitorsMetric',
+					type: 'DESC'
+				},
+				start: 0
+			}
+		},
+		result: {
+			data: {
+				pages: {
+					__typename: 'AssetMetricBag',
+					assetMetrics: [
+						{
+							__typename: 'PageMetric',
+							assetId: '123',
+							assetTitle: 'My asset A',
+							entrancesMetric: {
+								__typename: 'Metric',
+								value: 10
+							},
+							exitRateMetric: {
+								__typename: 'Metric',
+								value: 15
+							},
+							visitorsMetric: {
+								__typename: 'Metric',
+								value: 20
+							}
+						},
+						{
+							__typename: 'assetMetric',
+							assetId: '456',
+							assetTitle: 'My asset B',
+							entrancesMetric: {
+								__typename: 'Metric',
+								value: 10
+							},
+							exitRateMetric: {
+								__typename: 'Metric',
+								value: 15
+							},
+							visitorsMetric: {
+								__typename: 'Metric',
+								value: 20
+							}
+						}
+					],
+					total: 2
+				}
+			}
+		}
+	};
+}
+
 export function mockIndividualInterestsReq(getVariables, result) {
 	const defaultVariables = {
 		active: true,

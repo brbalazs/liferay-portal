@@ -6,7 +6,7 @@ import LocationsCard from 'sites/hocs/LocationsCard';
 import React, {FC} from 'react';
 import SearchTermsCard from 'sites/hocs/SearchTermsCard';
 import SiteMetricsCard from 'sites/hocs/MetricsCard';
-import TopPagesCard from 'sites/hocs/TopPagesCard';
+import TopPagesCard from 'sites/components/TopPagesCard';
 import VisitorsByTimeCard from 'sites/hocs/VisitorsByTimeCard';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -14,7 +14,6 @@ import {useParams} from 'react-router-dom';
 
 interface IOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
 	channelName: string;
-	router: {query: object};
 }
 
 const Overview: FC<IOverviewProps> = ({channelName}) => {
@@ -37,14 +36,16 @@ const Overview: FC<IOverviewProps> = ({channelName}) => {
 			<div className='row'>
 				<div className='col-xl-6'>
 					<TopPagesCard
-						footerHref={toRoute(Routes.SITES_TOUCHPOINTS, {
-							channelId,
-							groupId
-						})}
-						footerLabel={Liferay.Language.get('view-pages')}
+						className='top-pages-card-root table-tabs-root'
+						footer={{
+							href: toRoute(Routes.SITES_TOUCHPOINTS, {
+								channelId,
+								groupId
+							}),
+							label: Liferay.Language.get('view-pages')
+						}}
 						label={Liferay.Language.get('top-pages')}
 						legacyDropdownRangeKey={false}
-						metricLabel={Liferay.Language.get('pages')}
 					/>
 				</div>
 
