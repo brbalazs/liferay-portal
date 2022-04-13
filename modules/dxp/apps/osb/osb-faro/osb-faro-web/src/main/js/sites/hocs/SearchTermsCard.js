@@ -1,6 +1,7 @@
 import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
 import React from 'react';
 import SearchTermsQuery from 'shared/queries/SearchTermsQuery';
+import URLConstants from 'shared/util/url-constants';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
 import {
@@ -18,6 +19,26 @@ const withData = () =>
 	});
 
 const TableWithData = withTableData(withData, {
+	emptyDescription: (
+		<>
+			<span className='mr-1'>
+				{Liferay.Language.get(
+					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+				)}
+			</span>
+
+			<a
+				href={URLConstants.SitesDashboardSearchTermsAndInterests}
+				key='DOCUMENTATION'
+				target='_blank'
+			>
+				{Liferay.Language.get('learn-more-about-search-terms')}
+			</a>
+		</>
+	),
+	emptyTitle: Liferay.Language.get(
+		'there-are-no-search-terms-on-the-selected-period'
+	),
 	getColumns: ({maxCount, totalCount}) => [
 		compositionListColumns.getRelativeMetricBar({
 			label: `${Liferay.Language.get(

@@ -21,6 +21,7 @@ enum URLConstants {
 	SalesforceLogin = 'https://login.salesforce.com',
 	SitesDashboardAcquisitions = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#acquisitions',
 	SitesDashboardTopPages = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#top-pages',
+	SitesDashboardSearchTermsAndInterests = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#search-terms-and-interests',
 	SuppressedUsersDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/data-control-and-privacy.html',
 	TermsAndConditions = 'https://web.liferay.com/legal/doc/SSA/AC/1001810',
 	TicketPageLink = 'https://help.liferay.com/hc/requests/new'

@@ -1,8 +1,8 @@
-import {COMPOSITION_LABEL_MAP, sub} from 'shared/util/lang';
+import {CompositionTypes} from 'shared/util/constants';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {safeResultToProps} from 'shared/util/mappers';
 
-const getMapResultToProps = (compositionBagName: string) =>
+const getMapResultToProps = (compositionBagName: CompositionTypes) =>
 	safeResultToProps(
 		({
 			[compositionBagName]: {compositions, maxCount, total, totalCount}
@@ -15,10 +15,6 @@ const getMapResultToProps = (compositionBagName: string) =>
 			};
 		}) => ({
 			empty: !total,
-			emptyMessage: sub(Liferay.Language.get('empty-message-metric'), [
-				COMPOSITION_LABEL_MAP[compositionBagName] ||
-					Liferay.Language.get('items')
-			]),
 			items: compositions,
 			maxCount,
 			total,
