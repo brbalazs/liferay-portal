@@ -1,3 +1,4 @@
+import AcquisitionsQuery from 'shared/queries/AcquisitionsQuery';
 import BlockedCustomEventDefinitionsQuery from 'settings/definitions/events/queries/BlockedCustomEventDefinitionsQuery';
 import EventAnalysisResultQuery from 'event-analysis/queries/EventAnalysisResultQuery';
 import EventAttributeDefinitionQuery, {
@@ -17,6 +18,7 @@ import RecommendationJobRunsQuery from 'settings/recommendations/queries/Recomme
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
 import RecommendationQuery from 'settings/recommendations/queries/RecommendationQuery';
 import SitesDashboardQuery from 'shared/queries/SitesDashboardQuery';
+import SitesTopPagesQuery from 'shared/queries/SitesTopPagesQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointPathQuery from 'shared/queries/TouchpointPathQuery';

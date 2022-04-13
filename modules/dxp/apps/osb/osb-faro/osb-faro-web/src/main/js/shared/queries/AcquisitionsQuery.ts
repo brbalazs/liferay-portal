@@ -1,5 +1,27 @@
 import {COMPOSITION_FRAGMENT} from 'shared/queries/fragments';
 import {gql} from 'apollo-boost';
+import {SafeRangeSelectors} from 'shared/types';
+
+export interface AcquisitionsQueryData {
+	acquisitions: {
+		acquisitions: {
+			compositions: {
+				count: number;
+				name: string;
+			};
+			maxCount: number;
+			total: number;
+			totalCount: number;
+		};
+	};
+}
+
+export interface AcquisitionsQueryVariables extends SafeRangeSelectors {
+	activeTabId: string;
+	channelId?: string;
+	size: number;
+	start: number;
+}
 
 export default gql`
 	query Acquisitions(

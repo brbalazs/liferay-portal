@@ -1,4 +1,4 @@
-import AcquisitionsCard from 'sites/hocs/AcquisitionsCard';
+import AcquisitionsCard from 'sites/components/AcquisitionsCard';
 import CohortAnalysisCard from 'sites/hocs/CohortAnalysisCard';
 import DevicesCard from 'sites/hocs/DevicesCard';
 import InterestsCard from 'sites/hocs/InterestsCard';
@@ -8,6 +8,7 @@ import SearchTermsCard from 'sites/hocs/SearchTermsCard';
 import SiteMetricsCard from 'sites/hocs/MetricsCard';
 import TopPagesCard from 'sites/components/TopPagesCard';
 import VisitorsByTimeCard from 'sites/hocs/VisitorsByTimeCard';
+import {CompositionTypes} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useParams} from 'react-router-dom';
@@ -52,6 +53,7 @@ const Overview: FC<IOverviewProps> = ({channelName}) => {
 				<div className='col-xl-6'>
 					<AcquisitionsCard
 						className='acquisitions-card-root table-tabs-root'
+						compositionBagName={CompositionTypes.Acquisitions}
 						label={Liferay.Language.get('acquisitions')}
 						legacyDropdownRangeKey={false}
 					/>
