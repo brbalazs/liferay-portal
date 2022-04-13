@@ -9,9 +9,9 @@ import HeatmapChart from 'shared/components/HeatmapChart';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 import ReactDOMServer from 'react-dom/server';
+import URLConstants from 'shared/util/url-constants';
 import VisitorsByTimeQuery from 'shared/queries/VisitorsByTimeQuery';
 import {compose} from 'shared/hoc';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {IBasePageContext} from 'shared/types';
 import {
@@ -70,7 +70,30 @@ const HeatmapChartWithData = compose<any>(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError({page: false}),
-	withEmpty({title: getFormattedTitle(Liferay.Language.get('visits'))})
+	withEmpty({
+		description: (
+			<>
+				<span className='mr-1'>
+					{Liferay.Language.get(
+						'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+					)}
+				</span>
+
+				<a
+					href={URLConstants.SitesDashboardVisitorsByDayAndTime}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get(
+						'learn-more-about-visitors-by-day-and-time'
+					)}
+				</a>
+			</>
+		),
+		title: Liferay.Language.get(
+			'there-are-no-visitors-on-the-selected-period'
+		)
+	})
 )(HeatmapChart);
 
 interface IVisitorsByTimeCardProps {

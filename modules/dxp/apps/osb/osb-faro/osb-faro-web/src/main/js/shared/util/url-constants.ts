@@ -22,6 +22,9 @@ enum URLConstants {
 	SitesDashboardAcquisitions = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#acquisitions',
 	SitesDashboardTopPages = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#top-pages',
 	SitesDashboardSearchTermsAndInterests = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#search-terms-and-interests',
+	SitesDashboardSessionsByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#sessions-by-location',
+	SitesDashboardSessionsByTechnology = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#session-technology',
+	SitesDashboardVisitorsByDayAndTime = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#visitors-by-day-and-time',
 	SuppressedUsersDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/data-control-and-privacy.html',
 	TermsAndConditions = 'https://web.liferay.com/legal/doc/SSA/AC/1001810',
 	TicketPageLink = 'https://help.liferay.com/hc/requests/new'
