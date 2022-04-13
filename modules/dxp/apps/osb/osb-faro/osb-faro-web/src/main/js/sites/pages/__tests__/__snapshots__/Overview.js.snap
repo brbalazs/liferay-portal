@@ -79,7 +79,7 @@ exports[`Sites Dashboard Overview render 1`] = `
         class="col-xl-6"
       >
         <div
-          class="card card-root table-tabs-root"
+          class="card card-root top-pages-card-root table-tabs-root"
         >
           <div
             class="card-header align-items-center d-flex justify-content-between"
@@ -98,7 +98,7 @@ exports[`Sites Dashboard Overview render 1`] = `
             </div>
           </div>
           <div
-            class="w-100 d-flex flex-column flex-grow-1"
+            class="card-body w-100 d-flex flex-column flex-grow-1 no-padding"
           >
             <ul
               class="card-tabs-root"
@@ -152,37 +152,6 @@ exports[`Sites Dashboard Overview render 1`] = `
                 </button>
               </li>
             </ul>
-            <div
-              class="table-responsive table-root flex-grow-1 flex-grow-1 table-hover"
-            >
-              <table
-                class="table table-autofit table-hover table-heading-nowrap table-nowrap"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      class="table-head-title table-cell-expand"
-                    >
-                      Page Title
-			|
-			Canonical URL
-                    </th>
-                    <th
-                      class="table-head-title table-column-text-end"
-                    >
-                      Unique Visitors
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-              <div
-                class="spinner-root spinner-overlay"
-              >
-                <span
-                  class="loading-animation loading-animation-dotted"
-                />
-              </div>
-            </div>
           </div>
           <div
             class="card-footer"
@@ -231,7 +200,7 @@ exports[`Sites Dashboard Overview render 1`] = `
             </div>
           </div>
           <div
-            class="w-100 d-flex flex-column flex-grow-1"
+            class="card-body w-100 d-flex flex-column flex-grow-1 no-padding"
           >
             <ul
               class="card-tabs-root"
@@ -285,49 +254,6 @@ exports[`Sites Dashboard Overview render 1`] = `
                 </button>
               </li>
             </ul>
-            <div
-              class="table-responsive table-root flex-grow-1 flex-grow-1 table-hover"
-            >
-              <table
-                class="table table-autofit table-hover table-heading-nowrap table-nowrap"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      class="table-head-title"
-                    >
-                      <a
-                        class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                        href="/?field=name&page=1&sortOrder=ASC"
-                      >
-                        <span
-                          class="text-truncate"
-                        >
-                          Channel
-                        </span>
-                      </a>
-                    </th>
-                    <th
-                      class="table-head-title table-cell-expand"
-                    >
-                      Sessions
-                    </th>
-                    <th
-                      class="table-head-title table-column-text-end"
-                    >
-                      % of Sessions
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-              <div
-                class="spinner-root spinner-overlay"
-              >
-                <span
-                  class="loading-animation loading-animation-dotted"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -533,11 +459,15 @@ exports[`Sites Dashboard Overview render 1`] = `
             class="card-body"
           >
             <div
-              class="spinner-root spinner-center"
+              class="loading-root"
             >
-              <span
-                class="loading-animation loading-animation-dotted"
-              />
+              <div
+                class="spinner-root spinner-fade-in"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
             </div>
           </div>
         </div>
