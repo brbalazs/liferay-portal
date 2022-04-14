@@ -33,6 +33,7 @@ const withError = () => Component => ({error, errorMessage, ...props}) => {
 
 const withEmpty = ({
 	emptyDescription,
+	emptyIcon,
 	emptyTitle,
 	primary
 } = {}) => Component => ({
@@ -66,6 +67,7 @@ const withEmpty = ({
 		return (
 			<NoResultsDisplay
 				description={emptyDescription}
+				icon={emptyIcon}
 				primary={primary}
 				title={
 					emptyTitle ||
