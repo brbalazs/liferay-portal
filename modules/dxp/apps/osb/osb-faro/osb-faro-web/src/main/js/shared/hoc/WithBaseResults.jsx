@@ -16,6 +16,7 @@ const withBaseResults = (withData, configs) => {
 	const {
 		disableSearch = false,
 		emptyDescription,
+		emptyIcon,
 		emptyPrimary = true,
 		emptyTitle,
 		getColumns,
@@ -45,6 +46,7 @@ const withBaseResults = (withData, configs) => {
 		withError({page: false}),
 		withEmpty({
 			emptyDescription,
+			emptyIcon,
 			emptyTitle,
 			primary: emptyPrimary
 		})

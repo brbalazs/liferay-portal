@@ -20,7 +20,7 @@ import {
 } from 'shared/util/table-columns';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {Routes} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
+import {Sizes} from 'shared/util/constants';
 
 // LRAC-6976 POC TEMP
 const withData = (useDB = false) => () =>
@@ -35,20 +35,29 @@ const withData = (useDB = false) => () =>
 // LRAC-6976 POC TEMP
 const getTableWithData = useDB => {
 	const TableWithData = withBaseResults(withData(useDB), {
-		emptyDescription: sub(
-			Liferay.Language.get('empty-message-lists'),
-			[
+		emptyDescription: (
+			<>
+				<span className='mr-1'>
+					{Liferay.Language.get(
+						'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources,-or-you-can-try-a-different-date-range'
+					)}
+				</span>
+
 				<a
-					href={URLConstants.DocumentationLink}
+					href={URLConstants.SitesDashboardPages}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
-					{Liferay.Language.get('documentation').toLowerCase()}
+					{Liferay.Language.get('learn-more-about-pages')}
 				</a>
-			],
-			false
+			</>
 		),
-		emptyTitle: Liferay.Language.get('empty-title-pages'),
+		emptyIcon: {
+			border: false,
+			size: Sizes.XXXLarge,
+			symbol: 'ac-satellite'
+		},
+		emptyTitle: Liferay.Language.get('there-are-no-pages-found'),
 		getColumns: ({
 			router: {
 				params: {channelId, groupId},

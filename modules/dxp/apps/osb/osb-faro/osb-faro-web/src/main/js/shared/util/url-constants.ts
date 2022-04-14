@@ -20,6 +20,7 @@ enum URLConstants {
 	SalesforceAddDocumentation = 'https://developer.salesforce.com/page/Connected_Apps',
 	SalesforceLogin = 'https://login.salesforce.com',
 	SitesDashboardAcquisitions = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#acquisitions',
+	SitesDashboardPages = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/pages/pages.html',
 	SitesDashboardTopPages = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#top-pages',
 	SitesDashboardSearchTermsAndInterests = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#search-terms-and-interests',
 	SitesDashboardSessionsByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#sessions-by-location',
