@@ -19,7 +19,6 @@ import {sub} from 'shared/util/lang';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-operating-system-chart';
-const EMPTY_DATA = [{data: [{views: 0}], label: ''}];
 const MIN_VALUE = '< 0.1%';
 
 /**
@@ -35,7 +34,6 @@ class OperatingSystem extends React.Component {
 
 	static propTypes = {
 		devices: PropTypes.array,
-		empty: PropTypes.bool,
 		height: PropTypes.number,
 		metricLabel: PropTypes.string
 	};
@@ -50,77 +48,55 @@ class OperatingSystem extends React.Component {
 
 	@autobind
 	renderTooltip({active, payload}) {
-		const {empty, metricLabel} = this.props;
+		const {metricLabel} = this.props;
 
-		if (active) {
-			let header = null;
+		if (active && payload && !!payload.length) {
+			const {
+				payload: {label, percentageOfTotal, totalViews}
+			} = payload[0];
 
-			let rows = [
+			const header = [
 				{
 					columns: [
 						{
-							className: 'pt-0',
-							label: sub(
-								Liferay.Language.get('empty-message-metric'),
-								[metricLabel.toLowerCase()]
-							)
+							label
+						},
+						{
+							align: 'right',
+							label: `${toThousands(totalViews)} ${metricLabel}`
+						},
+						{
+							align: 'right',
+							label: `${toRounded(toRounded(percentageOfTotal))}%`
 						}
 					]
 				}
 			];
 
-			if (!empty) {
-				const {
-					payload: {label, percentageOfTotal, totalViews}
-				} = payload[0];
+			const rows = payload.map(({color, payload: {data}}, i) => {
+				const {percentage, type, views} = data[i];
 
-				header = [
-					{
-						columns: [
-							{
-								label
-							},
-							{
-								align: 'right',
-								label: `${toThousands(
-									totalViews
-								)} ${metricLabel}`
-							},
-							{
-								align: 'right',
-								label: `${toRounded(
-									toRounded(percentageOfTotal)
-								)}%`
-							}
-						]
-					}
-				];
-
-				rows = payload.map(({color, payload: {data}}, i) => {
-					const {percentage, type, views} = data[i];
-
-					return {
-						columns: [
-							{
-								color,
-								label: type,
-								width: 100
-							},
-							{
-								align: 'right',
-								label: toThousands(views),
-								width: 80
-							},
-							type !== 'Other' && {
-								align: 'right',
-								label: this.getItemPercentage(percentage),
-								weight: 'semibold',
-								width: 50
-							}
-						].filter(Boolean)
-					};
-				});
-			}
+				return {
+					columns: [
+						{
+							color,
+							label: type,
+							width: 100
+						},
+						{
+							align: 'right',
+							label: toThousands(views),
+							width: 80
+						},
+						type !== 'Other' && {
+							align: 'right',
+							label: this.getItemPercentage(percentage),
+							weight: 'semibold',
+							width: 50
+						}
+					].filter(Boolean)
+				};
+			});
 
 			return (
 				<div
@@ -134,7 +110,7 @@ class OperatingSystem extends React.Component {
 	}
 
 	render() {
-		const {devices, empty, height, metricLabel} = this.props;
+		const {devices, height, metricLabel} = this.props;
 
 		const barCount = devices.reduce((acc, {data}) => {
 			const count = data.length;
@@ -145,7 +121,7 @@ class OperatingSystem extends React.Component {
 		return (
 			<div className={CLASSNAME}>
 				<ResponsiveContainer height={height}>
-					<ComposedChart data={empty ? EMPTY_DATA : devices}>
+					<ComposedChart data={devices}>
 						<CartesianGrid
 							stroke={AXIS.gridStroke}
 							strokeDasharray='3 3'
@@ -205,13 +181,7 @@ class OperatingSystem extends React.Component {
 
 						<Tooltip
 							content={this.renderTooltip}
-							wrapperStyle={
-								empty
-									? {
-											visibility: 'visible'
-									  }
-									: null
-							}
+							wrapperStyle={null}
 						/>
 
 						{range(0, barCount).map(i => (

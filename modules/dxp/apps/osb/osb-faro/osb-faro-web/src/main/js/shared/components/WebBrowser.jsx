@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import ChartTooltip from '../../shared/components/chart-tooltip';
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
 import {
@@ -16,11 +15,9 @@ import {Colors} from 'shared/util/charts';
 import {get} from 'lodash';
 import {getPercentage} from 'shared/util/util';
 import {PropTypes} from 'prop-types';
-import {sub} from 'shared/util/lang';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-web-browser-chart';
-const EMPTY_CHART_COLOR = '#E7E7ED';
 
 const getChartPercentage = (value, total) =>
 	`${toRounded(getPercentage(value, total))}%`;
@@ -69,9 +66,9 @@ class WebBrowser extends React.Component {
 
 	@autobind
 	renderTooltip({active, payload}) {
-		const {empty, metricLabel, total} = this.props;
+		const {metricLabel, total} = this.props;
 
-		if (!empty && active && !!payload.length) {
+		if (active && payload && !!payload.length) {
 			const {value, valueKey} = get(payload, [0, 'payload'], {});
 
 			return (
@@ -118,7 +115,7 @@ class WebBrowser extends React.Component {
 
 	render() {
 		const {
-			props: {browsers, empty, height, metricLabel, total},
+			props: {browsers, height, total},
 			state: {hoverIndex}
 		} = this;
 
@@ -132,43 +129,25 @@ class WebBrowser extends React.Component {
 						 */}
 						<Legend
 							align='right'
-							formatter={(val, {payload: {value, valueKey}}) => {
-								if (empty) {
-									return (
-										<NoResultsDisplay
-											className='empty-chart-text'
-											title={sub(
-												Liferay.Language.get(
-													'empty-message-metric'
-												),
-												[metricLabel.toLowerCase()]
-											)}
-										/>
-									);
-								}
+							formatter={(val, {payload: {value, valueKey}}) => (
+								<>
+									<TextTruncate
+										inline
+										maxCharLength={24}
+										title={valueKey}
+									/>
 
-								return (
-									<>
-										<TextTruncate
-											inline
-											maxCharLength={24}
-											title={valueKey}
-										/>
-
-										<span className='legend-percentage'>
-											{getChartPercentage(value, total)}
-										</span>
-									</>
-								);
-							}}
-							iconSize={empty ? 0 : 14}
+									<span className='legend-percentage'>
+										{getChartPercentage(value, total)}
+									</span>
+								</>
+							)}
+							iconSize={14}
 							layout='vertical'
 							onMouseMove={(e, index) =>
-								!empty && this.setState({hoverIndex: index})
+								this.setState({hoverIndex: index})
 							}
-							onMouseOut={() =>
-								!empty && this.setState({hoverIndex: -1})
-							}
+							onMouseOut={() => this.setState({hoverIndex: -1})}
 							verticalAlign='middle'
 						/>
 
@@ -178,16 +157,7 @@ class WebBrowser extends React.Component {
 							blendStroke
 							className='col-7'
 							cy={185}
-							data={
-								empty
-									? [
-											{
-												color: EMPTY_CHART_COLOR,
-												value: 1
-											}
-									  ]
-									: browsers
-							}
+							data={browsers}
 							dataKey='value'
 							endAngle={-270}
 							innerRadius='50%'
@@ -199,33 +169,22 @@ class WebBrowser extends React.Component {
 							onMouseOut={() => this.setState({hoverIndex: -1})}
 							startAngle={90}
 						>
-							{empty ? (
+							{browsers.map((browser, index) => (
 								<Cell
-									fill={EMPTY_CHART_COLOR}
-									fillOpacity={1}
-									key='cell-empty'
-									strokeOpacity={1}
+									fill={Colors.pallete[index]}
+									fillOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0.2
+											: 1
+									}
+									key={`cell-${index}`}
+									strokeOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0
+											: 1
+									}
 								/>
-							) : (
-								browsers.map((browser, index) => (
-									<Cell
-										fill={Colors.pallete[index]}
-										fillOpacity={
-											hoverIndex >= 0 &&
-											hoverIndex !== index
-												? 0.2
-												: 1
-										}
-										key={`cell-${index}`}
-										strokeOpacity={
-											hoverIndex >= 0 &&
-											hoverIndex !== index
-												? 0
-												: 1
-										}
-									/>
-								))
-							)}
+							))}
 						</Pie>
 						{/* eslint-enable jsx-a11y/mouse-events-have-key-events */}
 					</PieChart>

@@ -74,16 +74,6 @@ const groupDeviceData = (data, max) => {
 const getDevicesMapper = getMetric => {
 	const mapResultToProps = safeResultToProps(result => {
 		const metric = getMetric(result);
-
-		if (
-			!metric.browser ||
-			!metric.device ||
-			metric.browser.length === 0 ||
-			metric.device.length === 0
-		) {
-			return {empty: true};
-		}
-
 		const devices = metric.device.map(device => {
 			const data = device.metrics.map(({value, valueKey}) => ({
 				percentage: getPercentage(value, metric.value),
@@ -102,7 +92,6 @@ const getDevicesMapper = getMetric => {
 		return {
 			browsers: groupBrowserData(metric.browser, MAX_BROWSER),
 			devices: groupDeviceData(devices, MAX_SYSTEMS),
-			empty: false,
 			total: metric.value
 		};
 	});

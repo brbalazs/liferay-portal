@@ -7,7 +7,7 @@ import WebBrowser from 'shared/components/WebBrowser';
 import {compose} from 'redux';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {PropTypes} from 'prop-types';
-import {withError, withLoading} from 'shared/hoc';
+import {withEmpty, withError, withLoading} from 'shared/hoc';
 
 const OPERATING_SYSTEM = Liferay.Language.get('devices');
 const WEB_BROWSER = Liferay.Language.get('browsers');
@@ -41,7 +41,6 @@ const Tabs = ({
 	activeTab,
 	browsers,
 	devices,
-	empty,
 	items,
 	metricLabel,
 	onChange,
@@ -69,15 +68,10 @@ const Tabs = ({
 			/>
 
 			{activeTab === OPERATING_SYSTEM ? (
-				<OperatingSystem
-					devices={devices}
-					empty={empty}
-					metricLabel={metricLabel}
-				/>
+				<OperatingSystem devices={devices} metricLabel={metricLabel} />
 			) : (
 				<WebBrowser
 					browsers={browsers}
-					empty={empty}
 					metricLabel={metricLabel}
 					total={total}
 				/>
@@ -94,11 +88,34 @@ Tabs.propTypes = propTypes;
  * @description With Devices Card
  * @param {object} withDevices
  */
-const withDevicesCard = withDevices => {
+const withDevicesCard = (
+	withDevices,
+	{documentationTitle = '', documentationUrl = '', title = ''} = {}
+) => {
 	const TabsWithDevices = compose(
 		withDevices(),
+		withLoading({alignCenter: true, page: false}),
 		withError({page: false}),
-		withLoading({alignCenter: true, page: false})
+		withEmpty({
+			description: (
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+						)}
+					</span>
+
+					<a
+						href={documentationUrl}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{documentationTitle}
+					</a>
+				</>
+			),
+			title
+		})
 	)(Tabs);
 
 	TabsWithDevices.propTypes = HOC_CARD_PROPTYPES;
