@@ -1,5 +1,7 @@
 import HTMLBox from './HTMLBox';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {SANKEY_COLORS} from '../utils/sankey';
 import {SankeyNode} from '../utils/types';
 
@@ -14,17 +16,26 @@ const EmptyStateEdge: React.FC<IEmptyStateEdgeProps> = ({node}) => (
 	<div className={CLASSNAME_BOX}>
 		<HTMLBox color={SANKEY_COLORS.bgInactive} node={node} />
 
-		<div className={`${CLASSNAME_BOX}-text`}>
-			<p className='mb-2'>
-				{Liferay.Language.get('no-data-found-for-the-selected-filter')}
-			</p>
+		<NoResultsDisplay
+			description={
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+						)}
+					</span>
 
-			<p className='font-size-sm'>
-				{Liferay.Language.get(
-					'the-selected-filter-did-not-match-any-result'
-				)}
-			</p>
-		</div>
+					<a
+						href={URLConstants.SitesDashboardPagesPath}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{Liferay.Language.get('learn-more-about-path')}
+					</a>
+				</>
+			}
+			title={Liferay.Language.get('there-are-no-data-found')}
+		/>
 	</div>
 );
 
