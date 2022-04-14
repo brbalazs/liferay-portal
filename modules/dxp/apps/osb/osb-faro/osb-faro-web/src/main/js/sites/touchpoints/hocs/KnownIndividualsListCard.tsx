@@ -13,7 +13,7 @@ import {createOrderIOMap, NAME, VIEWS_METRIC} from 'shared/util/pagination';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {Routes} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
+import {Sizes} from 'shared/util/constants';
 
 const withData = () =>
 	graphql(
@@ -25,20 +25,29 @@ const withData = () =>
 	);
 
 const TableWithData = withBaseResults(withData, {
-	emptyDescription: sub(
-		Liferay.Language.get('empty-message-lists'),
-		[
+	emptyDescription: (
+		<>
+			<span className='mr-1'>
+				{Liferay.Language.get(
+					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+				)}
+			</span>
+
 			<a
-				href={URLConstants.DocumentationLink}
+				href={URLConstants.IndividualsDashboardDocumentation}
 				key='DOCUMENTATION'
 				target='_blank'
 			>
-				{Liferay.Language.get('documentation').toLowerCase()}
+				{Liferay.Language.get('learn-more-about-individuals')}
 			</a>
-		],
-		false
+		</>
 	),
-	emptyTitle: Liferay.Language.get('empty-title-assets'),
+	emptyIcon: {
+		border: false,
+		size: Sizes.XXXLarge,
+		symbol: 'ac-satellite'
+	},
+	emptyTitle: Liferay.Language.get('there-are-no-visitors-data-found'),
 	getColumns: ({
 		router: {
 			params: {channelId, groupId}
