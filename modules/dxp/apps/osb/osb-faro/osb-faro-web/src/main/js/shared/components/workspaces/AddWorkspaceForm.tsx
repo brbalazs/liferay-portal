@@ -29,20 +29,37 @@ import {
 
 const {
 	faroURL,
-	projectLocations: {EU2, EU3, SA, UAT, US}
+	projectLocations: {DEV, EU2, EU3, SA, UAT, US}
 } = Constants;
 
 const DEFAULT_TIME_ZONE = 'UTC';
 
-const projectLocations =
-	FARO_ENV === 'uat'
-		? [{label: Liferay.Language.get('location-uat'), value: UAT}]
-		: [
+const getProjectLocations = (): {label: string; value: string}[] => {
+	switch (FARO_ENV) {
+		case 'dev':
+			return [{label: Liferay.Language.get('location-dev'), value: DEV}];
+		case 'uat':
+			return [{label: Liferay.Language.get('location-uat'), value: UAT}];
+		default:
+			return [
 				{label: Liferay.Language.get('location-eu'), value: EU2},
 				{label: Liferay.Language.get('location-eu2'), value: EU3},
 				{label: Liferay.Language.get('location-sa'), value: SA},
 				{label: Liferay.Language.get('location-us'), value: US}
-		  ];
+			];
+	}
+};
+
+const getDefaultServerLocation = (): string => {
+	switch (FARO_ENV) {
+		case 'dev':
+			return DEV;
+		case 'uat':
+			return UAT;
+		default:
+			return US;
+	}
+};
 
 interface IAddWorkspaceFormProps extends React.HTMLAttributes<HTMLElement> {
 	close: Modal.close;
@@ -165,7 +182,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 							currentUser.emailAddress,
 						serverLocation:
 							project?.serverLocation ||
-							(FARO_ENV === 'uat' ? UAT : US),
+							getDefaultServerLocation(),
 						timeZoneId:
 							project?.getIn(['timeZone', 'timeZoneId']) ||
 							DEFAULT_TIME_ZONE
@@ -234,7 +251,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											'select-a-server-to-store-your-data.-this-could-have-implications-to-your-organizations-policy-on-user-data-storage'
 										)}
 									>
-										{projectLocations.map(
+										{getProjectLocations().map(
 											({label, value}) => (
 												<Form.Select.Item
 													key={value}
