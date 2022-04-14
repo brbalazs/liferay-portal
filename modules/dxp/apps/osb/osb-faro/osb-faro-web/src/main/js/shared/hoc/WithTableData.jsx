@@ -5,7 +5,7 @@ import {withEmpty} from 'cerebro-shared/hocs/utils';
 
 const withTableData = (
 	withData,
-	{emptyDescription, emptyTitle, getColumns, rowIdentifier}
+	{emptyDescription, emptyIcon, emptyTitle, getColumns, rowIdentifier}
 ) => {
 	const TableWithData = compose(
 		withData(),
@@ -13,7 +13,7 @@ const withTableData = (
 			<WrappedComponent {...props} columns={getColumns(props)} />
 		),
 		withError({page: false}),
-		withEmpty({emptyDescription, emptyTitle, spacer: true})
+		withEmpty({emptyDescription, emptyIcon, emptyTitle, spacer: true})
 	)(Table);
 
 	class TableData extends React.Component {

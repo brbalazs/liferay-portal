@@ -1,8 +1,9 @@
 import Card from 'shared/components/Card';
-import Constants, {CompositionTypes} from 'shared/util/constants';
+import Constants, {CompositionTypes, Sizes} from 'shared/util/constants';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import InterestsQuery from 'shared/queries/InterestsQuery';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compose} from 'redux';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {COUNT, createOrderIOMap} from 'shared/util/pagination';
@@ -33,8 +34,29 @@ const withData = () =>
 	);
 
 const TableWithData = withTableData(withData, {
-	emptyDescription: null,
-	emptyTitle: null,
+	emptyDescription: (
+		<>
+			<span className='mr-1'>
+				{Liferay.Language.get(
+					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources,-or-you-can-try-a-different-date-range'
+				)}
+			</span>
+
+			<a
+				href={URLConstants.SitesDashboardSearchTermsAndInterests}
+				key='DOCUMENTATION'
+				target='_blank'
+			>
+				{Liferay.Language.get('learn-more-about-pages')}
+			</a>
+		</>
+	),
+	emptyIcon: {
+		border: false,
+		size: Sizes.XXXLarge,
+		symbol: 'ac-satellite'
+	},
+	emptyTitle: Liferay.Language.get('there-are-no-interests-found'),
 	getColumns: ({
 		channelId,
 		groupId,
