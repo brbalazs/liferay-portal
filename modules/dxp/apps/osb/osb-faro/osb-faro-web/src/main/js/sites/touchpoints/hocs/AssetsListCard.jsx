@@ -2,6 +2,7 @@ import AssetsListCard from '../components/AssetsListCard';
 import AssetsQuery from 'shared/queries/AssetsQuery';
 import BaseCard from 'cerebro-shared/components/base-card';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
@@ -19,7 +20,28 @@ const AssetsListWithData = compose(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError({page: false}),
-	withEmpty({emptyTitle: Liferay.Language.get('empty-message-assets-card')})
+	withEmpty({
+		emptyDescription: (
+			<>
+				<span className='mr-1'>
+					{Liferay.Language.get(
+						'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+					)}
+				</span>
+
+				<a
+					href={URLConstants.SitesDashboardPagesAssets}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get('learn-more-about-display-assets')}
+				</a>
+			</>
+		),
+		emptyTitle: Liferay.Language.get(
+			'there-are-no-assets-on-the-selected-period'
+		)
+	})
 )(AssetsListCard);
 
 AssetsListWithData.propTypes = HOC_CARD_PROPTYPES;
