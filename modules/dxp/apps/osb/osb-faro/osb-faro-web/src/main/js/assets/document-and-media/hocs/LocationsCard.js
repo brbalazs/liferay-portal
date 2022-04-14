@@ -2,6 +2,7 @@ import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetri
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
+import URLConstants from 'shared/util/url-constants';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
 
@@ -27,5 +28,15 @@ const withBlogsLocationsCountries = () =>
 
 export default withLocationsCard(
 	withBlogsLocations,
-	withBlogsLocationsCountries
+	withBlogsLocationsCountries,
+	{
+		documentationTitle: Liferay.Language.get(
+			'learn-more-about-downloads-by-location'
+		),
+		documentationUrl:
+			URLConstants.SitesDashboardDocumentsAndMediaDownloadByLocation,
+		title: Liferay.Language.get(
+			'there-are-no-downloads-on-the-selected-period'
+		)
+	}
 );

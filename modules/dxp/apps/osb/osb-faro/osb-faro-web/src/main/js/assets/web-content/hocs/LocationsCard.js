@@ -1,6 +1,7 @@
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
+import URLConstants from 'shared/util/url-constants';
 import WebContentMetricsQuery from 'shared/queries/WebContentMetricsQuery';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
@@ -27,5 +28,12 @@ const withWebContentLocationsCountries = () =>
 
 export default withLocationsCard(
 	withWebContentLocations,
-	withWebContentLocationsCountries
+	withWebContentLocationsCountries,
+	{
+		documentationTitle: Liferay.Language.get(
+			'learn-more-about-views-by-location'
+		),
+		documentationUrl: URLConstants.SitesDashboardWebContentViewsByLocation,
+		title: Liferay.Language.get('there-are-no-views-on-the-selected-period')
+	}
 );

@@ -2,29 +2,32 @@
 
 exports[`Shared HOCs Mappers - Locations Countries should return countries information 1`] = `
 Object {
-  "countries": Array [
-    Object {
-      "group": "Brazil",
-      "id": "Brazil",
-      "name": "Brazil",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "Spain",
-      "id": "Spain",
-      "name": "Spain",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "United States",
-      "id": "United States",
-      "name": "United States",
-      "total": 100,
-      "value": "33.3",
-    },
-  ],
+  "data": Object {
+    "countries": Array [
+      Object {
+        "group": "Brazil",
+        "id": "Brazil",
+        "name": "Brazil",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "Spain",
+        "id": "Spain",
+        "name": "Spain",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "United States",
+        "id": "United States",
+        "name": "United States",
+        "total": 100,
+        "value": "33.3",
+      },
+    ],
+    "total": 3,
+  },
   "error": null,
   "loading": false,
   "refetch": undefined,
@@ -48,29 +51,32 @@ Object {
 
 exports[`Shared HOCs Mappers - Locations Countries should return countries information indepent if Brazil is selected 1`] = `
 Object {
-  "countries": Array [
-    Object {
-      "group": "Brazil",
-      "id": "Brazil",
-      "name": "Brazil",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "Spain",
-      "id": "Spain",
-      "name": "Spain",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "United States",
-      "id": "United States",
-      "name": "United States",
-      "total": 100,
-      "value": "33.3",
-    },
-  ],
+  "data": Object {
+    "countries": Array [
+      Object {
+        "group": "Brazil",
+        "id": "Brazil",
+        "name": "Brazil",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "Spain",
+        "id": "Spain",
+        "name": "Spain",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "United States",
+        "id": "United States",
+        "name": "United States",
+        "total": 100,
+        "value": "33.3",
+      },
+    ],
+    "total": 3,
+  },
   "error": null,
   "loading": false,
   "refetch": undefined,
@@ -94,30 +100,32 @@ Object {
 
 exports[`Shared HOCs Mappers - Locations should map locations information 1`] = `
 Object {
-  "data": Array [
-    Object {
-      "group": "Brazil",
-      "id": "Brazil",
-      "name": "Brazil",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "Spain",
-      "id": "Spain",
-      "name": "Spain",
-      "total": 100,
-      "value": "33.3",
-    },
-    Object {
-      "group": "United States",
-      "id": "United States",
-      "name": "United States",
-      "total": 100,
-      "value": "33.3",
-    },
-  ],
-  "empty": false,
+  "data": Object {
+    "geolocation": Array [
+      Object {
+        "group": "Brazil",
+        "id": "Brazil",
+        "name": "Brazil",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "Spain",
+        "id": "Spain",
+        "name": "Spain",
+        "total": 100,
+        "value": "33.3",
+      },
+      Object {
+        "group": "United States",
+        "id": "United States",
+        "name": "United States",
+        "total": 100,
+        "value": "33.3",
+      },
+    ],
+    "total": 3,
+  },
   "error": null,
   "loading": false,
   "rangeEnd": null,
@@ -144,44 +152,46 @@ Object {
 
 exports[`Shared HOCs Mappers - Locations should map locations information with region Brazil 1`] = `
 Object {
-  "data": Array [
-    Object {
-      "group": "Unknown",
-      "id": "Unknown",
-      "name": "Unknown",
-      "total": 100,
-      "value": "20",
-    },
-    Object {
-      "group": "Pernambuco",
-      "id": "Pernambuco",
-      "name": "Pernambuco",
-      "total": 100,
-      "value": "20",
-    },
-    Object {
-      "group": "Sao Paulo",
-      "id": "Sao Paulo",
-      "name": "Sao Paulo",
-      "total": 100,
-      "value": "20",
-    },
-    Object {
-      "group": "Parana",
-      "id": "Parana",
-      "name": "Parana",
-      "total": 100,
-      "value": "20",
-    },
-    Object {
-      "group": "Rio Grande do Sul",
-      "id": "Rio Grande do Sul",
-      "name": "Rio Grande do Sul",
-      "total": 100,
-      "value": "20",
-    },
-  ],
-  "empty": false,
+  "data": Object {
+    "geolocation": Array [
+      Object {
+        "group": "Unknown",
+        "id": "Unknown",
+        "name": "Unknown",
+        "total": 100,
+        "value": "20",
+      },
+      Object {
+        "group": "Pernambuco",
+        "id": "Pernambuco",
+        "name": "Pernambuco",
+        "total": 100,
+        "value": "20",
+      },
+      Object {
+        "group": "Sao Paulo",
+        "id": "Sao Paulo",
+        "name": "Sao Paulo",
+        "total": 100,
+        "value": "20",
+      },
+      Object {
+        "group": "Parana",
+        "id": "Parana",
+        "name": "Parana",
+        "total": 100,
+        "value": "20",
+      },
+      Object {
+        "group": "Rio Grande do Sul",
+        "id": "Rio Grande do Sul",
+        "name": "Rio Grande do Sul",
+        "total": 100,
+        "value": "20",
+      },
+    ],
+    "total": 5,
+  },
   "error": null,
   "loading": false,
   "rangeEnd": null,
@@ -208,9 +218,15 @@ Object {
 
 exports[`Shared HOCs Mappers - Locations should map locations information without geolocation 1`] = `
 Object {
-  "empty": true,
+  "data": Object {
+    "geolocation": Array [],
+    "total": 0,
+  },
   "error": null,
   "loading": false,
+  "rangeEnd": null,
+  "rangeKey": 0,
+  "rangeStart": null,
   "refetch": undefined,
 }
 `;

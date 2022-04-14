@@ -4,7 +4,7 @@ import {fireEvent, render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-const data = [
+const countries = [
 	{
 		group: 'United States',
 		id: 'United States',
@@ -51,8 +51,10 @@ const data = [
 ];
 
 const props = {
-	countries: data,
-	data,
+	data: {
+		countries,
+		total: countries.length
+	},
 	filters: {},
 	loading: false
 };
@@ -60,12 +62,6 @@ describe('GeoMapCard', () => {
 	it('should render', () => {
 		const {container} = render(<GeoLocation {...props} />);
 		expect(container).toMatchSnapshot();
-	});
-
-	it('should render component with empty message', () => {
-		const {getByText} = render(<GeoLocation {...props} empty />);
-
-		expect(getByText(/There are no views/)).toBeTruthy();
 	});
 
 	it('should render component when working on Local Network', () => {
@@ -77,14 +73,16 @@ describe('GeoMapCard', () => {
 				total: 1,
 				value: '100'
 			},
-			...data
+			...countries
 		];
 
 		const {getByText} = render(
 			<GeoLocation
 				{...props}
-				countries={dataWithLocalNetwork}
-				data={dataWithLocalNetwork}
+				data={{
+					countries: dataWithLocalNetwork,
+					total: dataWithLocalNetwork.length
+				}}
 			/>
 		);
 

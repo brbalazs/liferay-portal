@@ -5,35 +5,42 @@ import React from 'react';
 import {compose} from 'redux';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {PropTypes} from 'prop-types';
-import {withError} from 'shared/hoc/util';
-
-/**
- * HOC
- * @description Locations Card Loading
- */
-const withLoading = () => Component => ({loading, ...props}) => (
-	<Component loading={loading} {...props} />
-);
-
-/**
- * HOC
- * @description Locations Card Empty
- */
-const withEmpty = () => Component => ({empty, ...props}) => (
-	<Component empty={empty} {...props} />
-);
+import {withEmpty, withError, withLoading} from 'shared/hoc/util';
 
 /**
  * HOC
  * @description Locations Card Data
  */
-const withLocationsCard = (withLocations, withCountries) => {
+const withLocationsCard = (
+	withLocations,
+	withCountries,
+	{documentationTitle, documentationUrl, title}
+) => {
 	const LocationsGeoMap = compose(
 		withLocations(),
 		withCountries(),
 		withLoading(),
 		withError({page: false}),
-		withEmpty()
+		withEmpty({
+			description: (
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+						)}
+					</span>
+
+					<a
+						href={documentationUrl}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{documentationTitle}
+					</a>
+				</>
+			),
+			title
+		})
 	)(GeoMap);
 
 	LocationsGeoMap.propTypes = HOC_CARD_PROPTYPES;

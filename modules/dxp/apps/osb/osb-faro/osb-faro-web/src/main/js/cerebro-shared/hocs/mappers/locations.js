@@ -13,20 +13,20 @@ const getLocationsMapper = getMetric => {
 		(result, {filters}, {rangeSelectors}) => {
 			let {geolocation} = getMetric(result);
 
-			if (!geolocation || geolocation.length === 0) {
-				return {empty: true};
-			}
-
 			const {location} = getFilters(filters);
 
 			if (location !== 'Any') {
 				geolocation = geolocation[0].metrics;
 			}
 
+			const locationsData = getLocationsData(geolocation, location);
+
 			return {
-				data: getLocationsData(geolocation, location),
-				empty: false,
-				...getSafeRangeSelectors(rangeSelectors)
+				...getSafeRangeSelectors(rangeSelectors),
+				data: {
+					geolocation: locationsData,
+					total: locationsData.length
+				}
 			};
 		}
 	);
@@ -57,9 +57,13 @@ const getLocationsMapper = getMetric => {
 const getLocationsMapperCountries = getMetric => {
 	const mapResultToProps = safeResultToProps(result => {
 		const {geolocation} = getMetric(result);
+		const countries = getLocationsData(geolocation, location);
 
 		return {
-			countries: getLocationsData(geolocation, location)
+			data: {
+				countries,
+				total: countries.length
+			}
 		};
 	});
 

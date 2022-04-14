@@ -2,6 +2,7 @@ import FormMetricsQuery from 'shared/queries/FormMetricsQuery';
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
+import URLConstants from 'shared/util/url-constants';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
 
@@ -27,5 +28,14 @@ const withFormsLocationsCountries = () =>
 
 export default withLocationsCard(
 	withFormsLocations,
-	withFormsLocationsCountries
+	withFormsLocationsCountries,
+	{
+		documentationTitle: Liferay.Language.get(
+			'learn-more-about-submissions-by-location'
+		),
+		documentationUrl: URLConstants.SitesDashboardFormsSubmissionsByLocation,
+		title: Liferay.Language.get(
+			'there-are-no-submissions-on-the-selected-period'
+		)
+	}
 );

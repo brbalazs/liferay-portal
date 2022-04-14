@@ -4,12 +4,10 @@ import GeoMapLangKey from './geo-map-lang-key';
 import GeomapReact from './index';
 import getCN from 'classnames';
 import memoize from 'memoize-one';
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {getFilters} from 'shared/util/filter';
 import {PropTypes} from 'prop-types';
-import {sub} from 'shared/util/lang';
 import {toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-geomap';
@@ -24,10 +22,11 @@ class GeoLocation extends React.Component {
 	static contextType = BasePage.Context;
 
 	static defaultProps = {
-		countries: [],
-		data: [],
-		empty: false,
-		loading: true,
+		data: {
+			countries: [],
+			total: 0
+		},
+		loading: false,
 		metricLabel: Liferay.Language.get('views')
 	};
 
@@ -37,35 +36,18 @@ class GeoLocation extends React.Component {
 	 * @static
 	 */
 	static propTypes = {
-		/**
-		 * @type {array}
-		 * @default array
-		 */
-		countries: PropTypes.arrayOf(
-			PropTypes.shape({
-				group: PropTypes.string.isRequired,
-				id: PropTypes.string.isRequired,
-				name: PropTypes.string.isRequired,
-				total: PropTypes.number.isRequired,
-				value: PropTypes.string.isRequired
-			})
-		),
-
-		data: PropTypes.arrayOf(
-			PropTypes.shape({
-				group: PropTypes.string.isRequired,
-				id: PropTypes.string.isRequired,
-				name: PropTypes.string.isRequired,
-				total: PropTypes.number.isRequired,
-				value: PropTypes.string.isRequired
-			})
-		),
-
-		/**
-		 * @type {boolean}
-		 * @default false
-		 */
-		empty: PropTypes.bool,
+		data: PropTypes.shape({
+			countries: PropTypes.arrayOf(
+				PropTypes.shape({
+					group: PropTypes.string.isRequired,
+					id: PropTypes.string.isRequired,
+					name: PropTypes.string.isRequired,
+					total: PropTypes.number.isRequired,
+					value: PropTypes.string.isRequired
+				})
+			),
+			total: PropTypes.number
+		}),
 
 		/**
 		 * @type {boolean}
@@ -270,7 +252,7 @@ class GeoLocation extends React.Component {
 		return (
 			<table className={`${CLASSNAME}-table`}>
 				<tbody>
-					{data
+					{data.countries
 						.filter(
 							(value, index) =>
 								index < TOTAL_COUNTRIES_LIST ||
@@ -320,28 +302,12 @@ class GeoLocation extends React.Component {
 	}
 
 	/**
-	 * Render Empty Message
-	 */
-	renderEmptyMsg() {
-		const {metricLabel} = this.props;
-
-		return (
-			<NoResultsDisplay
-				title={sub(Liferay.Language.get('empty-message-location'), [
-					metricLabel.toLowerCase()
-				])}
-			/>
-		);
-	}
-
-	/**
 	 * Lifecycle Render - ReactJS
 	 */
 	render() {
 		const {
 			className,
-			countries,
-			empty: isEmpty,
+			data: {countries},
 			loading,
 			metricLabel
 		} = this.props;
@@ -359,13 +325,12 @@ class GeoLocation extends React.Component {
 					color={{value: 'total'}}
 					data={mergedCountries}
 					height='232px'
-					isEmpty={isEmpty}
 					metriclabel={metricLabel}
 					selected={selected}
 					width='350px'
 				/>
 
-				{!isEmpty ? this.renderList() : this.renderEmptyMsg()}
+				{this.renderList()}
 			</div>
 		);
 	}
