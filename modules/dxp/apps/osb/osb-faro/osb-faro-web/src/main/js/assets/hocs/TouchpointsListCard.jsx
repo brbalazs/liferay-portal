@@ -2,6 +2,7 @@ import AssetsTouchpointQuery from 'shared/queries/AssetsTouchpointQuery';
 import BaseCard from 'cerebro-shared/components/base-card';
 import React from 'react';
 import TouchpointsListCard from '../components/TouchpointsListCard';
+import URLConstants from 'shared/util/url-constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
@@ -20,7 +21,28 @@ const TouchpointListWithData = compose(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError({page: false}),
-	withEmpty({emptyTitle: Liferay.Language.get('empty-message-pages-card')})
+	withEmpty({
+		emptyDescription: (
+			<>
+				<span className='mr-1'>
+					{Liferay.Language.get(
+						'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+					)}
+				</span>
+
+				<a
+					href={URLConstants.AssetsAppearsOnDocumentation}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get('learn-more-about-assets')}
+				</a>
+			</>
+		),
+		emptyTitle: Liferay.Language.get(
+			'there-are-no-assets-on-the-selected-period'
+		)
+	})
 )(TouchpointsListCard);
 
 TouchpointListWithData.propTypes = HOC_CARD_PROPTYPES;
