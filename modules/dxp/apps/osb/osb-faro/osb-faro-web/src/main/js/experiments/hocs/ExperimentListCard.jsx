@@ -1,7 +1,9 @@
 import Card from 'shared/components/Card';
 import getColumns from './columns';
+import Icon from 'shared/components/Icon';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {withBaseResults} from 'shared/hoc';
 
@@ -13,20 +15,33 @@ const ExperimentListCard = props => {
 	);
 
 	const TableWithData = withBaseResults(withData, {
-		emptyDescription: sub(
-			Liferay.Language.get('empty-message-lists'),
-			[
+		emptyDescription: (
+			<>
+				<span className='mr-1'>
+					{sub(
+						Liferay.Language.get(
+							'create-a-new-test-from-liferay-dxp-by-clicking-on-the-x-icon-in-the-toolbar-when-viewing-a-page-in-DXP'
+						),
+						[<Icon key='ICON' symbol='ac-test' />],
+						false
+					)}
+				</span>
+
 				<a
-					href={URLConstants.DocumentationLink}
+					href={URLConstants.ExperimentDocumentationLink}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
-					{Liferay.Language.get('documentation').toLowerCase()}
+					{Liferay.Language.get('learn-more-about-tests')}
 				</a>
-			],
-			false
+			</>
 		),
-		emptyTitle: Liferay.Language.get('empty-title-experiments'),
+		emptyIcon: {
+			border: false,
+			size: Sizes.XXXLarge,
+			symbol: 'ac-satellite'
+		},
+		emptyTitle: Liferay.Language.get('there-are-no-tests-found'),
 		getColumns: () => getColumns(timeZoneId),
 		rowIdentifier: 'id',
 		showDropdownRangeKey: false
