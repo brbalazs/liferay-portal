@@ -381,9 +381,7 @@ export const List: React.FC<IListProps> = ({
 
 						<a
 							className='d-block'
-							href={
-								URLConstants.SegmentsDocumentationLink
-							}
+							href={URLConstants.SegmentsDocumentationLink}
 							key='DOCUMENTATION'
 							target='_blank'
 						>
