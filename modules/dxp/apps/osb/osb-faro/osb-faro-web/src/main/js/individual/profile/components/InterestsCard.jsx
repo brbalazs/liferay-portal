@@ -5,9 +5,9 @@ import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import ListGroup from 'shared/components/list-group';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compose, withEmpty, withRequest} from 'shared/hoc';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -61,8 +61,25 @@ const ListWithInterests = compose(
 		}
 	),
 	withEmpty({
+		description: (
+			<>
+				<span className='mr-1'>
+					{Liferay.Language.get(
+						'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+					)}
+				</span>
+
+				<a
+					href={URLConstants.IndividualProfilesDocument}
+					key='DOCUMENTATION'
+					target='_blank'
+				>
+					{Liferay.Language.get('learn-more-about-individuals')}
+				</a>
+			</>
+		),
 		spacer: true,
-		title: getFormattedTitle(Liferay.Language.get('interests'))
+		title: Liferay.Language.get('there-are-no-individuals-found')
 	})
 )(InterestsList);
 
