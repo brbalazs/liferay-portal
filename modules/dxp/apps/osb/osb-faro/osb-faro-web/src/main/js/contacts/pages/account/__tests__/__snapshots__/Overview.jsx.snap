@@ -96,6 +96,7 @@ exports[`AccountOverview should render 1`] = `
       </div>
       <div
         class="card card-root interests-card-root"
+        style="min-height: 536px;"
       >
         <div
           class="card-header"

@@ -2,6 +2,7 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getInterestsQuery from 'contacts/queries/InterestsQuery';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
 import {
@@ -10,7 +11,6 @@ import {
 } from 'contacts/hoc/mappers/interests-query';
 import {graphql} from '@apollo/react-hoc';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
 import {withTableData} from 'shared/hoc';
 
 const withData = () =>
@@ -20,9 +20,24 @@ const withData = () =>
 	});
 
 const TableWithData = withTableData(withData, {
-	emptyTitle: sub(Liferay.Language.get('there-are-no-x-found'), [
-		Liferay.Language.get('interests')
-	]),
+	emptyDescription: (
+		<>
+			<span className='mr-1'>
+				{Liferay.Language.get(
+					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+				)}
+			</span>
+
+			<a
+				href={URLConstants.AccountInterestsDocumentationLink}
+				key='DOCUMENTATION'
+				target='_blank'
+			>
+				{Liferay.Language.get('learn-more-about-interests')}
+			</a>
+		</>
+	),
+	emptyTitle: Liferay.Language.get('there-are-no-interests-found'),
 	getColumns: ({channelId, groupId, id, maxCount, totalCount}) => [
 		compositionListColumns.getName({
 			label: Liferay.Language.get('topic'),
@@ -51,7 +66,7 @@ const TableWithData = withTableData(withData, {
 });
 
 const InterestsCard = ({channelId, groupId, id}) => (
-	<Card className='interests-card-root'>
+	<Card className='interests-card-root' minHeight={536}>
 		<Card.Header>
 			<Card.Title>
 				{Liferay.Language.get('account-interest-topics')}
