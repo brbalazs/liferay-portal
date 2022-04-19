@@ -1,7 +1,6 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
-import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
@@ -35,12 +34,7 @@ import {
 	YAxis
 } from 'recharts';
 import {ClaySelectWithOption} from '@clayui/select';
-import {
-	compose,
-	withCurrentUser,
-	withSelectedPoint,
-	withStatefulPagination
-} from 'shared/hoc';
+import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
 	Conjunctions,
 	RelationalOperators
@@ -57,7 +51,6 @@ import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
 import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
 import {PropTypes} from 'prop-types';
-import {Routes, toRoute} from 'shared/util/router';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
@@ -514,7 +507,6 @@ export class Distribution extends React.Component {
 			props: {
 				channelId,
 				contextOptions,
-				currentUser,
 				delta,
 				error,
 				fieldDistributionIList,
@@ -535,8 +527,6 @@ export class Distribution extends React.Component {
 				showIndividualsPreview
 			}
 		} = this;
-
-		const authorized = currentUser.isAdmin();
 
 		const numberOfBins = this.getNumberOfBins();
 
@@ -688,37 +678,21 @@ export class Distribution extends React.Component {
 											description={
 												<>
 													{Liferay.Language.get(
-														'connect-a-data-source-with-people-data'
+														'try-choosing-a-different-breakdown'
 													)}
 
 													<a
-														className='d-block mb-3'
+														className='d-block'
 														href={
-															URLConstants.DataSourceConnection
+															URLConstants.SegmentsDistributionDocumentationLink
 														}
 														key='DOCUMENTATION'
 														target='_blank'
 													>
 														{Liferay.Language.get(
-															'access-our-documentation-to-learn-more'
+															'learn-more-about-distribution'
 														)}
 													</a>
-
-													{authorized && (
-														<Button
-															display='primary'
-															href={toRoute(
-																Routes.SETTINGS_ADD_DATA_SOURCE,
-																{
-																	groupId
-																}
-															)}
-														>
-															{Liferay.Language.get(
-																'connect-data-source'
-															)}
-														</Button>
-													)}
 												</>
 											}
 											icon={{
@@ -727,7 +701,7 @@ export class Distribution extends React.Component {
 												symbol: 'ac-satellite'
 											}}
 											title={Liferay.Language.get(
-												'no-individuals-synced-from-data-sources'
+												'there-are-no-results-found'
 											)}
 										/>
 									)}
@@ -968,7 +942,6 @@ export class Distribution extends React.Component {
 }
 
 export default compose(
-	withCurrentUser,
 	withSelectedPoint,
 	connect(
 		(

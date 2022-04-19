@@ -27,6 +27,7 @@ enum URLConstants {
 	RequestLogDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/data-control-and-privacy.html',
 	SalesforceAddDocumentation = 'https://developer.salesforce.com/page/Connected_Apps',
 	SalesforceLogin = 'https://login.salesforce.com',
+	SegmentsDistributionDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html#distribution-tab',
 	SegmentsDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html',
 	SegmentsInterestsDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html#interests-tab',
 	SegmentsMembershipDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html#segment-membership-panel',
