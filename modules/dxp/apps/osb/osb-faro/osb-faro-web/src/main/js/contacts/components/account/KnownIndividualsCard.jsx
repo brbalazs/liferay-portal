@@ -3,11 +3,10 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
-import NoResultsDisplay, {
-	getFormattedTitle
-} from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import Table from 'shared/components/table';
+import URLConstants from 'shared/util/url-constants';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {PropTypes} from 'prop-types';
@@ -76,10 +75,31 @@ export default class KnownIndividualsCard extends React.Component {
 		} else if (!loading && !items.length) {
 			return (
 				<NoResultsDisplay
+					description={
+						<>
+							<span className='mr-1'>
+								{Liferay.Language.get(
+									'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+								)}
+							</span>
+
+							<a
+								href={
+									URLConstants.IndividualsDashboardDocumentation
+								}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'learn-more-about-individuals'
+								)}
+							</a>
+						</>
+					}
 					key='NO_RESULTS_DISPLAY'
 					spacer
-					title={getFormattedTitle(
-						Liferay.Language.get('individuals')
+					title={Liferay.Language.get(
+						'there-are-no-individuals-found'
 					)}
 				/>
 			);
