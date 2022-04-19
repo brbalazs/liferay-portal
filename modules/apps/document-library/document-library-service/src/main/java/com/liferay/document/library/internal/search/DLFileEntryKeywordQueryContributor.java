@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.ParseException;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
+import com.liferay.portal.kernel.search.generic.MatchQuery;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -64,14 +65,24 @@ public class DLFileEntryKeywordQueryContributor
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "ddmContent", false);
 		queryHelper.addSearchTerm(
-			booleanQuery, searchContext, "extension", false);
-		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "fileEntryTypeId", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "path", false);
 		queryHelper.addSearchLocalizedTerm(
 			booleanQuery, searchContext, Field.CONTENT, false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, Field.TITLE, false);
+
+		if (Validator.isNotNull(keywords)) {
+			try {
+				booleanQuery.add(
+					_getMatchQuery(
+						"extension", keywords, MatchQuery.Type.PHRASE_PREFIX),
+					BooleanClauseOccur.SHOULD);
+			}
+			catch (ParseException parseException) {
+				throw new SystemException(parseException);
+			}
+		}
 
 		Locale siteDefaultLocale = LocaleUtil.getSiteDefault();
 
@@ -115,5 +126,16 @@ public class DLFileEntryKeywordQueryContributor
 
 	@Reference
 	protected QueryHelper queryHelper;
+
+	private MatchQuery _getMatchQuery(
+		String field, String keywords, MatchQuery.Type phrase) {
+
+		MatchQuery matchPhraseQuery = new MatchQuery(field, keywords);
+
+		matchPhraseQuery.setType(phrase);
+
+		return matchPhraseQuery;
+	}
+
 
 }
