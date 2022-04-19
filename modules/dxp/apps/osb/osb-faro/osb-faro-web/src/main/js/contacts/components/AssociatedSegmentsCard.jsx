@@ -5,12 +5,11 @@ import debounce from 'shared/util/debounce-decorator';
 import EntityList from 'shared/components/EntityList';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import getCN from 'classnames';
-import NoResultsDisplay, {
-	getFormattedTitle
-} from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import Spinner from 'shared/components/Spinner';
+import URLConstants from 'shared/util/url-constants';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
@@ -108,8 +107,26 @@ export default class AssociatedSegmentsCard extends React.Component {
 		} else if (!loading) {
 			return (
 				<NoResultsDisplay
+					description={
+						<>
+							{Liferay.Language.get(
+								'create-a-segment-to-get-started'
+							)}
+
+							<a
+								className='d-block'
+								href={URLConstants.SegmentsDocumentationLink}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'access-our-documentation-to-learn-more'
+								)}
+							</a>
+						</>
+					}
 					spacer
-					title={getFormattedTitle(Liferay.Language.get('segments'))}
+					title={Liferay.Language.get('there-are-no-segments-found')}
 				/>
 			);
 		}
