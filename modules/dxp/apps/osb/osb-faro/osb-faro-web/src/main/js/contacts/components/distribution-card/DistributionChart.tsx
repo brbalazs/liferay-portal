@@ -6,6 +6,7 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
+import URLConstants from 'shared/util/url-constants';
 import {ANIMATION_DURATION, AXIS, getTextWidth} from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
@@ -177,7 +178,31 @@ class DistributionChart extends React.Component<
 					{!error && !loading && (
 						<>
 							{!fieldDistributionsCount && (
-								<NoResultsDisplay icon={{symbol: 'document'}} />
+								<NoResultsDisplay
+									description={
+										<>
+											{Liferay.Language.get(
+												'try-choosing-a-different-breakdown'
+											)}
+
+											<a
+												className='d-block'
+												href={
+													URLConstants.IndividualsDashboardBreakdownDocumentation
+												}
+												key='DOCUMENTATION'
+												target='_blank'
+											>
+												{Liferay.Language.get(
+													'learn-more-about-distribution'
+												)}
+											</a>
+										</>
+									}
+									title={Liferay.Language.get(
+										'there-are-no-results-found'
+									)}
+								/>
 							)}
 
 							{!!fieldDistributionsCount && (
