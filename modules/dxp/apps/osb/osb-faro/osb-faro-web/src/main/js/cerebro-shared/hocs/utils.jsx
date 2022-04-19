@@ -1,7 +1,6 @@
-import NoResultsDisplay, {
-	getFormattedTitle
-} from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
+import {Sizes} from 'shared/util/constants';
 
 /**
  * HOC
@@ -37,31 +36,29 @@ const withEmpty = ({
 	emptyTitle,
 	primary
 } = {}) => Component => ({
-	emptyMessage,
-	entityLabel,
 	items,
-	noResultsProps,
 	noResultsRenderer,
 	query,
 	total,
 	...otherProps
 }) => {
-	if (items && !items.length && (!!total || !!query) && !noResultsRenderer) {
-		if (noResultsProps) {
-			return <NoResultsDisplay {...noResultsProps} title={entityLabel} />;
-		}
-
-		return (
-			<NoResultsDisplay
-				{...noResultsProps}
-				title={getFormattedTitle(entityLabel)}
-			/>
-		);
-	} else if (items && !items.length && !total) {
-		if (noResultsRenderer) {
-			const NoResults = noResultsRenderer;
-
-			return <NoResults />;
+	if (items && !items.length && !total) {
+		if (query) {
+			return (
+				<NoResultsDisplay
+					description={Liferay.Language.get(
+						'please-try-a-different-search-term'
+					)}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-no-results-found'
+					}}
+					title={Liferay.Language.get('there-are-no-results-found')}
+				/>
+			);
+		} else if (noResultsRenderer) {
+			return noResultsRenderer;
 		}
 
 		return (
@@ -69,24 +66,13 @@ const withEmpty = ({
 				description={emptyDescription}
 				icon={emptyIcon}
 				primary={primary}
-				title={
-					emptyTitle ||
-					emptyMessage ||
-					Liferay.Language.get('empty-message')
-				}
-				{...noResultsProps}
+				title={emptyTitle}
 			/>
 		);
 	}
 
 	return (
-		<Component
-			{...otherProps}
-			entityLabel={entityLabel}
-			items={items}
-			query={query}
-			total={total}
-		/>
+		<Component {...otherProps} items={items} query={query} total={total} />
 	);
 };
 

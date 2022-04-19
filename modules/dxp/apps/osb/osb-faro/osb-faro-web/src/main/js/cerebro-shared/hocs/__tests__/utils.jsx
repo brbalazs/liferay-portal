@@ -19,35 +19,53 @@ describe('withEmpty', () => {
 		expect(queryByText('an empty title')).toBeTruthy();
 	});
 
-	it('should render with default no results display if total is greater than 0 & items is empty', () => {
+	it('should render with default no results display if total is 0 & items is empty and has query', () => {
 		const ComposedComponent = withEmpty({emptyTitle: 'an empty title'})(
 			MyAwesomeComponent
 		);
 
 		const {queryByText} = render(
-			<ComposedComponent entityLabel='tests' items={[]} total={1} />
+			<ComposedComponent items={[]} query='asdf' total={0} />
 		);
 
-		expect(queryByText('an empty title')).toBeNull();
-		expect(queryByText('There are no tests found.')).toBeTruthy();
+		expect(queryByText('There are no results found.')).toBeTruthy();
+		expect(queryByText('Please try a different search term.')).toBeTruthy();
 	});
 
-	it('should render with default no results display if total is 0 & items is empty', () => {
+	it('should render with default no results display if total is 0 & items is empty and has no query', () => {
+		const ComposedComponent = withEmpty({
+			emptyDescription: 'an empty description',
+			emptyTitle: 'an empty title'
+		})(MyAwesomeComponent);
+
+		const {queryByText} = render(
+			<ComposedComponent items={[]} total={0} />
+		);
+
+		expect(queryByText('an empty title')).toBeTruthy();
+		expect(queryByText('an empty description')).toBeTruthy();
+	});
+
+	it('should not render empty state when total is greater than 0 & items is empty', () => {
+		const ComposedComponent = withEmpty()(MyAwesomeComponent);
+
+		const {queryByText} = render(
+			<ComposedComponent items={[]} total={1} />
+		);
+
+		expect(queryByText('my awesome component')).toBeTruthy();
+	});
+
+	it('should not render empty state if items exists & total is equal 0', () => {
 		const ComposedComponent = withEmpty({emptyTitle: 'an empty title'})(
 			MyAwesomeComponent
 		);
 
 		const {queryByText} = render(
-			<ComposedComponent
-				entityLabel='tests'
-				items={[]}
-				query='asdf'
-				total={0}
-			/>
+			<ComposedComponent items={['test']} total={0} />
 		);
 
-		expect(queryByText('an empty title')).toBeNull();
-		expect(queryByText('There are no tests found.')).toBeTruthy();
+		expect(queryByText('my awesome component')).toBeTruthy();
 	});
 
 	it('should not render empty state when items is not empty', () => {
