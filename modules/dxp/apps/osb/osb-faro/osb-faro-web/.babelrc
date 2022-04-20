@@ -10,7 +10,8 @@
 				],
 				["@babel/plugin-proposal-class-properties", {"loose": true}],
 				"dynamic-import-node",
-				"import-graphql"
+				"import-graphql",
+				"transform-require-context"
 			]
 		}
 	},
