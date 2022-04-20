@@ -660,7 +660,7 @@ public class OpenIdConnectServiceHandlerImpl
 			ClientID clientID = oidcClientInformation.getID();
 
 			for (JWSAlgorithm jwsAlgorithm :
-				oidcProviderMetadata.getIDTokenJWSAlgs()) {
+					oidcProviderMetadata.getIDTokenJWSAlgs()) {
 
 				if (Objects.equals(jwsAlgorithm.getName(), name)) {
 					IDTokenValidator idTokenValidator = new IDTokenValidator(
