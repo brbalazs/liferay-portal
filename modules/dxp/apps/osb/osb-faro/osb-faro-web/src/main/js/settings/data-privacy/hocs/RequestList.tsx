@@ -374,7 +374,7 @@ const RequestList: React.FC<IRequestListProps> = ({
 				filterByOptions={FILTER_BY_OPTIONS}
 				flatFilter
 				groupId={groupId}
-				noResultsRenderer={() => (
+				noResultsRenderer={
 					<NoResultsDisplay
 						description={
 							<>
@@ -401,7 +401,7 @@ const RequestList: React.FC<IRequestListProps> = ({
 						}}
 						title={Liferay.Language.get('no-requests-found')}
 					/>
-				)}
+				}
 				orderIOMap={orderIOMap}
 				page={page}
 				primary

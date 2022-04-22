@@ -201,7 +201,6 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 						}
 					]}
 					jobId={jobId}
-					noResultsProps={{spacer: true}}
 					router={router}
 					showDeltaDropdown={false}
 				/>

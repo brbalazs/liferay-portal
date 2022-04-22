@@ -10,6 +10,7 @@ import EventDefinitionsQuery, {
 	UnhideEventDefinitionsData
 } from 'event-analysis/queries/EventDefinitionsQuery';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import {addAlert} from 'shared/actions/alerts';
@@ -26,6 +27,7 @@ import {Event, EventTypes} from 'event-analysis/utils/types';
 import {eventListColumns} from 'shared/util/table-columns';
 import {get} from 'lodash';
 import {OrderedMap} from 'immutable';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useQueryPagination} from 'shared/hooks';
@@ -258,9 +260,15 @@ const EventList: React.FC<IEventListProps> = ({
 			error={error}
 			items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
 			loading={loading}
-			noResultsProps={{
-				icon: {border: false, size: 'xxxl', symbol: 'ac-satellite'}
-			}}
+			noResultsRenderer={
+				<NoResultsDisplay
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
+				/>
+			}
 			orderIOMap={orderIOMap}
 			page={page}
 			query={query}

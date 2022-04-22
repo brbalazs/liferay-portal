@@ -3,9 +3,7 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import Nav from 'shared/components/Nav';
-import NoResultsDisplay, {
-	getFormattedTitle
-} from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
@@ -71,7 +69,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	const {channelId, groupId} = useParams();
 	const {selectedItems, selectionDispatch} = useSelectionContext();
 
-	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
+	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(NAME)
 	});
 
@@ -176,10 +174,6 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 	};
 
 	const renderNoResults = () => {
-		const activeFilters: boolean = filterBy.some(values =>
-			values.some(Boolean)
-		);
-
 		const createDataSourceButton = (
 			<Button
 				display='primary'
@@ -196,14 +190,6 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 				<NoResultsDisplay>
 					<Spinner key='DATA_SOURCE_SPINNER' overlay />
 				</NoResultsDisplay>
-			);
-		} else if (query || activeFilters) {
-			return (
-				<NoResultsDisplay
-					title={getFormattedTitle(
-						Liferay.Language.get('individuals')
-					)}
-				/>
 			);
 		} else if (dataSourceData?.total === 0) {
 			return (
@@ -227,28 +213,22 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 			return (
 				<NoResultsDisplay
 					description={
-						authorized ? (
-							<>
-								{Liferay.Language.get(
-									'connect-a-data-source-with-people-data'
-								)}
+						<>
+							{Liferay.Language.get(
+								'connect-a-data-source-with-people-data'
+							)}
 
-								<a
-									className='d-block mb-3'
-									href={URLConstants.DataSourceConnection}
-									key='DOCUMENTATION'
-									target='_blank'
-								>
-									{Liferay.Language.get(
-										'access-our-documentation-to-learn-more'
-									)}
-								</a>
-							</>
-						) : (
-							Liferay.Language.get(
-								'please-contact-your-site-administrator-to-add-a-data-source-with-people-data'
-							)
-						)
+							<a
+								className='d-block mb-3'
+								href={URLConstants.DataSourceConnection}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'access-our-documentation-to-learn-more'
+								)}
+							</a>
+						</>
 					}
 					icon={{
 						border: false,
@@ -259,9 +239,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 					title={Liferay.Language.get(
 						'no-individuals-synced-from-data-sources'
 					)}
-				>
-					{authorized && createDataSourceButton}
-				</NoResultsDisplay>
+				/>
 			);
 		}
 	};
@@ -339,7 +317,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 									error={error}
 									items={data?.items}
 									loading={loading}
-									noResultsRenderer={renderNoResults}
+									noResultsRenderer={renderNoResults()}
 									orderByOptions={[
 										{
 											label: Liferay.Language.get('name'),

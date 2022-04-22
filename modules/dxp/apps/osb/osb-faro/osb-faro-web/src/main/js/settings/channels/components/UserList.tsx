@@ -4,6 +4,7 @@ import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import Icon from 'shared/components/Icon';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import Table from 'shared/components/table';
@@ -15,12 +16,12 @@ import {compose, withPaginationBar, withToolbar} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {get} from 'lodash';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getPluralMessage} from 'shared/util/lang';
 import {IPaginationUnsorted} from 'shared/types';
 import {OrderedMap} from 'immutable';
 import {RootState} from 'shared/store';
 import {SelectionProvider} from 'shared/context/selection';
+import {Sizes} from 'shared/util/constants';
 import {useQueryPagination, useRequest} from 'shared/hooks';
 import {User} from 'shared/util/records';
 import {usersListColumns} from 'shared/util/table-columns';
@@ -325,28 +326,25 @@ const UserList: React.FC<IUserListProps> = ({
 			empty: data?.total,
 			items: data?.items,
 			loading,
-			noResultsProps: query
-				? {
-						spacer: true,
-						title: getFormattedTitle(Liferay.Language.get('users'))
-				  }
-				: {
-						description: (
-							<span className='text-secondary'>
-								{Liferay.Language.get(
-									'add-users-to-give-them-access-to-this-property'
-								)}
-							</span>
-						),
-						icon: {
-							border: false,
-							size: 'xxxl',
-							symbol: 'ac-satellite'
-						},
-						primary: true,
-						spacer: true,
-						title: Liferay.Language.get('no-users-added')
-				  },
+			noResultsRenderer: (
+				<NoResultsDisplay
+					description={
+						<span className='text-secondary'>
+							{Liferay.Language.get(
+								'add-users-to-give-them-access-to-this-property'
+							)}
+						</span>
+					}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
+					primary
+					spacer
+					title={Liferay.Language.get('no-users-added')}
+				/>
+			),
 			orderIOMap,
 			pageDisplay: true,
 			rowIdentifier: 'id',

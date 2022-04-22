@@ -603,22 +603,27 @@ exports[`DataSourceList should render with an empty state 1`] = `
     class="no-results-content"
   >
     <div
-      class="no-results-icon no-results-icon-border"
+      class="no-results-icon"
     >
       <svg
-        class="icon-root lexicon-icon lexicon-icon-sheets icon-size-xxl"
+        class="icon-root lexicon-icon lexicon-icon-ac-no-results-found icon-size-xxxl"
         viewBox=""
       >
         <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#sheets"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-no-results-found"
         />
       </svg>
     </div>
     <h4
       class="no-results-title"
     >
-      There are no Data Sources found.
+      There are no results found.
     </h4>
+    <div
+      class="no-results-description"
+    >
+      Please try a different search term.
+    </div>
   </div>
 </div>
 `;

@@ -372,8 +372,7 @@ const DataSourceList: React.FC<IDataSourceListProps> = ({
 					error={error}
 					items={data?.items}
 					loading={loading}
-					noResultsProps={{icon: {symbol: 'sheets'}}}
-					noResultsRenderer={renderNoResults}
+					noResultsRenderer={renderNoResults()}
 					orderByOptions={[
 						{
 							label: Liferay.Language.get('name'),

@@ -1,4 +1,5 @@
 import getCN from 'classnames';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import StagedSubNav from './StagedSubnav';
 import Table from 'shared/components/table';
@@ -8,6 +9,7 @@ import {createOrderIOMap, NAME} from 'shared/util/pagination';
 import {fetchLocalData} from 'shared/hoc/CrossPageSelect';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
+import {Sizes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useStatefulPagination} from 'shared/hooks';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
@@ -175,15 +177,19 @@ const SearchableTableWithAdded: React.FC<ISearchableTableWithAddedProps> = ({
 			{...passThruProps}
 			className={className}
 			columns={columns}
-			noResultsProps={{
-				icon: {
-					size: 'xxl',
-					symbol: 'ac-individual'
-				},
-				title: sub(Liferay.Language.get('there-are-no-x-found'), [
-					Liferay.Language.get('individuals')
-				])
-			}}
+			noResultsRenderer={
+				<NoResultsDisplay
+					icon={{
+						size: Sizes.XXLarge,
+						symbol: 'ac-individual'
+					}}
+					title={
+						sub(Liferay.Language.get('there-are-no-x-found'), [
+							Liferay.Language.get('individuals')
+						]) as string
+					}
+				/>
+			}
 			renderInlineRowActions={renderInlineRowActions}
 			renderNav={renderNav}
 			renderSelectedToggle={() =>

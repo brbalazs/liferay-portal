@@ -3,6 +3,7 @@ import EventAttributeDefinitionsQuery, {
 	EventAttributeDefinitionsVariables
 } from 'event-analysis/queries/EventAttributeDefinitionsQuery';
 import ListComponent from 'shared/hoc/ListComponent';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import {attributeListColumns} from 'shared/util/table-columns';
 import {AttributeTypes} from 'event-analysis/utils/types';
@@ -54,9 +55,11 @@ const GlobalAttributeList: React.FC = () => {
 			entityLabel={Liferay.Language.get(
 				'global-attributes'
 			).toLowerCase()}
-			noResultsProps={{
-				title: Liferay.Language.get('empty-title-pages')
-			}}
+			noResultsRenderer={
+				<NoResultsDisplay
+					title={Liferay.Language.get('empty-title-pages')}
+				/>
+			}
 			orderIOMap={orderIOMap}
 			page={page}
 			query={query}

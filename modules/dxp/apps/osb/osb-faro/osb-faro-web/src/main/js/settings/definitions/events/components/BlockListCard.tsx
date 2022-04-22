@@ -395,7 +395,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 					[]
 				)}
 				loading={loading}
-				noResultsRenderer={() => (
+				noResultsRenderer={
 					<NoResultsDisplay
 						description={
 							<>
@@ -426,7 +426,7 @@ const BlockListCard: React.FC<IBlockListCardProps> = ({
 							'there-are-no-events-blocked'
 						)}
 					/>
-				)}
+				}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}

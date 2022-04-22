@@ -398,7 +398,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 				error={error}
 				items={get(data, ['eventDefinitions', 'eventDefinitions'], [])}
 				loading={loading}
-				noResultsRenderer={() => (
+				noResultsRenderer={
 					<NoResultsDisplay
 						description={
 							<>
@@ -427,7 +427,7 @@ const CustomEventList: React.FC<ICustomEventListProps> = ({
 						}}
 						title={Liferay.Language.get('no-custom-events-found')}
 					/>
-				)}
+				}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}

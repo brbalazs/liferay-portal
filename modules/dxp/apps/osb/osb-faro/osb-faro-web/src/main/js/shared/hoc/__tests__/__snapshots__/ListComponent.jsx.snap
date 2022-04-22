@@ -62,7 +62,7 @@ exports[`ListComponent renders 1`] = `
       <h4
         class="no-results-title"
       >
-        There are no views on the selected period.
+        There are no items found.
       </h4>
     </div>
   </div>

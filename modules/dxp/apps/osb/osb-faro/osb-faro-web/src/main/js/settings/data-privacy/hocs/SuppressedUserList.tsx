@@ -156,7 +156,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 				dataControlTaskStatus === GDPRRequestStatuses.Pending
 			}
 			entityLabel={Liferay.Language.get('suppressed-users')}
-			noResultsRenderer={() => (
+			noResultsRenderer={
 				<NoResultsDisplay
 					description={
 						<>
@@ -183,7 +183,7 @@ const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (
 					}}
 					title={Liferay.Language.get('no-suppressed-users-found')}
 				/>
-			)}
+			}
 		/>
 	</Card>
 );

@@ -304,33 +304,6 @@ const ChannelList: React.FC<IChannelListProps> = ({
 			});
 	};
 
-	const renderEmptyState = () => (
-		<NoResultsDisplay
-			description={
-				<>
-					{Liferay.Language.get('create-a-property-to-get-started')}
-
-					<a
-						className='d-block mb-3'
-						href={URLConstants.CreateProperty}
-						key='DOCUMENTATION'
-						target='_blank'
-					>
-						{Liferay.Language.get(
-							'access-our-documentation-to-learn-more'
-						)}
-					</a>
-				</>
-			}
-			icon={{
-				border: false,
-				size: Sizes.XXXLarge,
-				symbol: 'ac-satellite'
-			}}
-			title={Liferay.Language.get('no-properties-found')}
-		/>
-	);
-
 	const renderNav = () => {
 		if (selectedItems.isEmpty()) {
 			return (
@@ -437,14 +410,34 @@ const ChannelList: React.FC<IChannelListProps> = ({
 					error={error}
 					items={data?.items}
 					loading={loading}
-					noResultsProps={{
-						icon: {
-							border: false,
-							size: 'xxxl',
-							symbol: 'ac-satellite'
-						}
-					}}
-					noResultsRenderer={renderEmptyState}
+					noResultsRenderer={
+						<NoResultsDisplay
+							description={
+								<>
+									{Liferay.Language.get(
+										'create-a-property-to-get-started'
+									)}
+
+									<a
+										className='d-block mb-3'
+										href={URLConstants.CreateProperty}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
+										{Liferay.Language.get(
+											'access-our-documentation-to-learn-more'
+										)}
+									</a>
+								</>
+							}
+							icon={{
+								border: false,
+								size: Sizes.XXXLarge,
+								symbol: 'ac-satellite'
+							}}
+							title={Liferay.Language.get('no-properties-found')}
+						/>
+					}
 					orderIOMap={orderIOMap}
 					page={page}
 					query={query}
