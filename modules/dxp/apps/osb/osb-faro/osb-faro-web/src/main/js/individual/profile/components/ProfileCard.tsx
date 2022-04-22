@@ -12,6 +12,7 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useState} from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import Toolbar from 'shared/components/toolbar';
+import URLConstants from 'shared/util/url-constants';
 import UserSessionQuery, {
 	UserSessionData,
 	UserSessionVariables
@@ -33,7 +34,7 @@ import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {isNil} from 'lodash';
 import {mapListResultsToProps} from 'shared/util/mappers';
-import {SessionEntityTypes, Sizes} from 'shared/util/constants';
+import {SessionEntityTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
 import {useStatefulPagination} from 'shared/hooks';
@@ -303,20 +304,35 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 				{...sessionsMappedResults}
 				delta={delta}
 				initialExpanded={false}
-				noResultsRenderer={() => (
+				noResultsRenderer={
 					<NoResultsDisplay
-						description={Liferay.Language.get(
-							'try-a-different-date-range-or-search-term'
-						)}
-						icon={{
-							border: false,
-							size: Sizes.XXXLarge,
-							symbol: 'ac-satellite'
-						}}
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.IndividualProfilesDocument
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-individuals'
+									)}
+								</a>
+							</>
+						}
 						spacer
-						title={Liferay.Language.get('no-events-found')}
+						title={Liferay.Language.get(
+							'there-are-no-events-found'
+						)}
 					/>
-				)}
+				}
 				onDeltaChange={onDeltaChange}
 				onPageChange={onPageChange}
 				page={page}

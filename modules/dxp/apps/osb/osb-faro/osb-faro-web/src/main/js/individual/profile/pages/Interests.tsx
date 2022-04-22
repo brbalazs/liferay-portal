@@ -84,6 +84,39 @@ const Interests: React.FC<IInterestsProps> = ({channelId, groupId, id}) => {
 				}}
 				delta={delta}
 				entityLabel={Liferay.Language.get('interests')}
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.IndividualsDashboardInterestsDocumentation
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-interests'
+									)}
+								</a>
+							</>
+						}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						title={Liferay.Language.get(
+							'there-are-no-interests-found'
+						)}
+					/>
+				}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('interest'),
