@@ -91,7 +91,7 @@ describe('Event Analysis List', () => {
 		expect(
 			container.querySelector('.no-results-description')
 		).toHaveTextContent(
-			'Create an analysis to get started or access our documentation to learn more.'
+			'Create an analysis to get started.Access our documentation to learn more.'
 		);
 	});
 

@@ -2,6 +2,7 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CrossPageSelect from 'shared/hoc/CrossPageSelect';
 import Nav from 'shared/components/Nav';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import RowActions from 'shared/components/RowActions';
 import URLConstants from 'shared/util/url-constants';
@@ -25,10 +26,11 @@ import {
 	EventAnalysisListQuery,
 	EventAnalysisListVariables
 } from '../queries/EventAnalysisQuery';
-import {getPluralMessage, sub} from 'shared/util/lang';
+import {getPluralMessage} from 'shared/util/lang';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {NameCell} from 'shared/components/table/cell-components';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useParams} from 'react-router-dom';
 import {useQueryPagination, useQueryRangeSelectors} from 'shared/hooks';
@@ -221,31 +223,38 @@ const EventAnalysisListCard: React.FC<PropsFromRedux> = ({
 				delta={delta}
 				entityLabel={Liferay.Language.get('event-analysis')}
 				legacyDropdownRangeKey={false}
-				noResultsProps={{
-					description: sub(
-						Liferay.Language.get('empty-message-event-analysis'),
-						[
-							<a
-								href={
-									URLConstants.EventAnalysisDocumentationLink
-								}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
 								{Liferay.Language.get(
-									'documentation'
-								).toLowerCase()}
-							</a>
-						],
-						false
-					),
-					icon: {
-						border: false,
-						size: 'xxxl',
-						symbol: 'ac-satellite'
-					},
-					title: Liferay.Language.get('no-analysis-found')
-				}}
+									'create-an-analysis-to-get-started'
+								)}
+
+								<a
+									className='d-block'
+									href={
+										URLConstants.EventAnalysisDocumentationLink
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'access-our-documentation-to-learn-more'
+									)}
+								</a>
+							</>
+						}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						title={Liferay.Language.get(
+							'there-are-no-analysis-found'
+						)}
+					/>
+				}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('name'),
