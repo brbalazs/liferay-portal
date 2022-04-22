@@ -234,23 +234,23 @@ exports[`DistributionCard renders 1`] = `
           <div
             class="no-results-content"
           >
-            <div
-              class="no-results-icon no-results-icon-border"
-            >
-              <svg
-                class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
-                viewBox=""
-              >
-                <use
-                  xlink:href="/o/osb-faro-web/dist/sprite.svg#document"
-                />
-              </svg>
-            </div>
             <h4
               class="no-results-title"
             >
-              There are no items found.
+              There are no results found.
             </h4>
+            <div
+              class="no-results-description"
+            >
+              Try choosing a different breakdown.
+              <a
+                class="d-block"
+                href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown"
+                target="_blank"
+              >
+                Learn more about distribution.
+              </a>
+            </div>
           </div>
         </div>
       </div>

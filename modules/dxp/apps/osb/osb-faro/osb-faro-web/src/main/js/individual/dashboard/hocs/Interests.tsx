@@ -50,7 +50,7 @@ const TableWithData = withBaseResults(withData, {
 });
 
 interface IInterestsProps extends React.HTMLAttributes<HTMLElement> {
-	noResultsRenderer: () => React.ReactElement;
+	noResultsRenderer: React.ReactElement;
 }
 
 const Interests: React.FC<IInterestsProps> = ({noResultsRenderer}) => {

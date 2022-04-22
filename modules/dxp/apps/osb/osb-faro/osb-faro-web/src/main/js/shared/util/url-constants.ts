@@ -25,6 +25,7 @@ enum URLConstants {
 	EventAttributesDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/definitions/definitions-for-event-attributes.html',
 	ExperimentDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/optimization/a-b-testing.html',
 	HelpConnectDxp = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
+	IndividualsDashboardInterestsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#interests',
 	IndividualsDashboardDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html',
 	InterestTopicsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/workspace-data/definitions/managing-interest-topics.html',
 	PrivacyPolicy = 'https://www.liferay.com/privacy-policy',

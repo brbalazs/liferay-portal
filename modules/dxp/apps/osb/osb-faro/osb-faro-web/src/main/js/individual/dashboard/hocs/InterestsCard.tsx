@@ -8,14 +8,13 @@ import IndividualInterestsQuery, {
 import React from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import Table, {Column} from 'shared/components/table';
+import URLConstants from 'shared/util/url-constants';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {COUNT} from 'shared/util/pagination';
 import {OrderByDirections} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
-
-const EMPTY_STATE_DATA = new Array(6).fill({count: 0, name: ''});
 
 const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	const {channelId, groupId} = useParams();
@@ -70,24 +69,6 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 		})
 	];
 
-	const emptyColumns: Column[] = [
-		compositionListColumns.getName({
-			label: Liferay.Language.get('topic'),
-			maxWidth: 200,
-			sortable: false
-		}),
-		compositionListColumns.getRelativeMetricBar({
-			empty: true,
-			label: Liferay.Language.get('total-individuals'),
-			maxCount: 1,
-			totalCount: 1
-		}),
-		compositionListColumns.getPercentOf({
-			metricName: Liferay.Language.get('total-individuals'),
-			totalCount: 1
-		})
-	];
-
 	return (
 		<Card className='interests-card-root' minHeight={536}>
 			<Card.Header>
@@ -101,15 +82,31 @@ const InterestsCard: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 				error={!!error}
 				loading={loading}
 			>
-				<StatesRenderer.Empty>
-					<Table
-						columns={emptyColumns}
-						empty
-						items={EMPTY_STATE_DATA}
-						rowBordered={false}
-						rowIdentifier='name'
-					/>
-				</StatesRenderer.Empty>
+				<StatesRenderer.Empty
+					description={
+						<>
+							<span className='mr-1'>
+								{Liferay.Language.get(
+									'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+								)}
+							</span>
+
+							<a
+								href={
+									URLConstants.IndividualsDashboardInterestsDocumentation
+								}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'learn-more-about-interests'
+								)}
+							</a>
+						</>
+					}
+					showIcon={false}
+					title={Liferay.Language.get('there-are-no-interests-found')}
+				/>
 
 				<StatesRenderer.Error>
 					<ErrorDisplay spacer />

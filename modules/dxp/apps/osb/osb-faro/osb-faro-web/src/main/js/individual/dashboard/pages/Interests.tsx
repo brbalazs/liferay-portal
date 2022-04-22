@@ -60,7 +60,7 @@ const InterestsPage: React.FC<IInterestsPageProps> = ({currentUser}) => {
 					<div className='row'>
 						<div className='col-xl-12'>
 							<Interests
-								noResultsRenderer={() => (
+								noResultsRenderer={
 									<NoResultsDisplay
 										{...emptyState}
 										icon={{
@@ -69,7 +69,7 @@ const InterestsPage: React.FC<IInterestsPageProps> = ({currentUser}) => {
 											symbol: 'ac-satellite'
 										}}
 									/>
-								)}
+								}
 							/>
 						</div>
 					</div>
