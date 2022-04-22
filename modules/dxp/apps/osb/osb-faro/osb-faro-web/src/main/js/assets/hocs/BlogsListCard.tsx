@@ -1,6 +1,7 @@
 import BlogsListQuery from 'shared/queries/BlogsListQuery';
 import Card from 'shared/components/Card';
 import ListComponent from 'shared/hoc/ListComponent';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
 import {
@@ -12,7 +13,7 @@ import {getSafeRangeSelectors} from 'shared/util/util';
 import {mapListResultsToProps} from 'shared/util/mappers';
 import {metricsListColumns} from 'shared/util/table-columns';
 import {Routes} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
+import {Sizes} from 'shared/util/constants';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 import {useQueryPagination, useQueryRangeSelectors} from 'shared/hooks';
@@ -63,24 +64,39 @@ const BlogsListCard: React.FC = () => {
 				delta={delta}
 				entityLabel={Liferay.Language.get('blogs')}
 				legacyDropdownRangeKey={false}
-				noResultsProps={{
-					description: sub(
-						Liferay.Language.get('empty-message-lists'),
-						[
-							<a
-								href={URLConstants.DocumentationLink}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
-								{Liferay.Language.get(
-									'documentation'
-								).toLowerCase()}
-							</a>
-						],
-						false
-					),
-					title: Liferay.Language.get('empty-title-assets')
-				}}
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources,-or-you-can-try-a-different-date-range'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.AssetsBlogsListDocumentation
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-blogs'
+									)}
+								</a>
+							</>
+						}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						title={Liferay.Language.get(
+							'there-are-no-visitors-data-found'
+						)}
+					/>
+				}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}

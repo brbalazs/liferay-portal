@@ -1,5 +1,10 @@
 enum URLConstants {
 	APIOverviewDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/apis.html',
+	AssetsBlogsListDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/blogs.html#blogs',
+	AssetsCustomAssetsListDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/tracking-custom-assets.html',
+	AssetsDocumentsAndMediaListDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/documents-and-media.html#documents-and-media',
+	AssetsFormsListDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/forms.html#forms',
+	AssetsWebContentListDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/web-content.html#web-content',
 	ContactSales = 'https://www.liferay.com/products/analytics-cloud#contact-sales',
 	CreateProperty = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/scoping-sites-and-individuals-using-properties.html#creating-a-property',
 	CustomEventsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/events/tracking-events.html',
