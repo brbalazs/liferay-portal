@@ -4,9 +4,11 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/chart-tooltip';
 import getCN from 'classnames';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import URLConstants from 'shared/util/url-constants';
 import {
 	Area,
 	AreaChart,
@@ -716,6 +718,35 @@ const SegmentGrowthWithList = ({
 				dataSourceFn={fetchMembers}
 				dataSourceParams={{channelId, groupId, id, modifiedDate}}
 				entityType={INDIVIDUALS}
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.SegmentsMembershipDocumentationLink
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-interests'
+									)}
+								</a>
+							</>
+						}
+						spacer
+						title={Liferay.Language.get(
+							'there-are-no-members-found-on-the-selected-time-period'
+						)}
+					/>
+				}
 				rowIdentifier='id'
 			/>
 		</Card.Body>
