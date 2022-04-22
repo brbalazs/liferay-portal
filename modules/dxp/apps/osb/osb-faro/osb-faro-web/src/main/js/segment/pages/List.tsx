@@ -1,11 +1,11 @@
 import * as API from 'shared/api';
 import BaseListPage from 'contacts/components/BaseListPage';
-import BasePage from 'shared/components/base-page';
 import ClayButton from '@clayui/button';
 import Promise from 'metal-promise';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import RowActions from 'shared/components/RowActions';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ActionType,
 	UnassignedSegmentsContext
@@ -37,7 +37,7 @@ import {
 	toRoute
 } from 'shared/util/router';
 import {segmentsListColumns} from 'shared/util/table-columns';
-import {SegmentStates, SegmentTypes} from 'shared/util/constants';
+import {SegmentStates, SegmentTypes, Sizes} from 'shared/util/constants';
 import {setUriQueryValues} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useQueryPagination} from 'shared/hooks';
@@ -373,16 +373,32 @@ export const List: React.FC<IListProps> = ({
 			}
 			hideNav
 			noResultsConfig={{
-				content: (
-					<BasePage.Header.PageActions
-						actions={pageActions}
-						label={pageActionsLabel}
-					/>
+				description: (
+					<>
+						{Liferay.Language.get(
+							'create-a-segment-to-get-started'
+						)}
+
+						<a
+							className='d-block'
+							href={
+								URLConstants.SegmentsDocumentationLink
+							}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'access-our-documentation-to-learn-more'
+							)}
+						</a>
+					</>
 				),
-				description: Liferay.Language.get(
-					'create-your-first-segment-by-grouping-people-together-by-similar-characteristics-and-interests'
-				),
-				title: Liferay.Language.get('no-segments-created')
+				icon: {
+					border: false,
+					size: Sizes.XXXLarge,
+					symbol: 'ac-satellite'
+				},
+				title: Liferay.Language.get('there-are-no-segments-found')
 			}}
 			orderByOptions={[
 				{

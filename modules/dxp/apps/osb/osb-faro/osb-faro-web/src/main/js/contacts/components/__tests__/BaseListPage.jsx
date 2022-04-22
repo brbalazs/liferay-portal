@@ -116,7 +116,7 @@ describe('BaseListPage', () => {
 		expect(getByText('No account data available.')).toBeInTheDocument();
 	});
 
-	it('should render "No Account" empty state with query', async () => {
+	it('should render different message in the empty state with query', async () => {
 		const {container, getByText} = render(
 			<WrappedComponent empty query='test' />
 		);
@@ -134,7 +134,7 @@ describe('BaseListPage', () => {
 			container.querySelectorAll('.tbar-section.text-truncate')[1]
 		).toHaveTextContent('Clear');
 
-		expect(getByText('There are no Accounts found.')).toBeInTheDocument();
+		expect(getByText('There are no results found.')).toBeInTheDocument();
 	});
 
 	it('should render with alerts', async () => {

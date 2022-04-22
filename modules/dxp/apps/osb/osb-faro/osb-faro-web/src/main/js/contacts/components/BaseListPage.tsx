@@ -7,7 +7,7 @@ import EmbeddedAlertList, {
 } from 'shared/components/EmbeddedAlertList';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
-	getFormattedTitle
+	INoResultsDisplayProps
 } from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
@@ -18,6 +18,7 @@ import {FilterOptionType} from 'shared/types';
 import {get} from 'lodash';
 import {NAME} from 'shared/util/pagination';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {useChannelContext} from 'shared/context/channel';
 import {useDataSource} from 'shared/hooks/useDataSource';
 import {useParams} from 'react-router-dom';
@@ -39,12 +40,7 @@ interface IBaseListPageProps {
 	filterByOptions?: FilterOptionType[];
 	forwardedRef?: React.Ref<any>;
 	hideNav?: boolean;
-	icon?: string;
-	noResultsConfig?: {
-		content?: any;
-		description?: string;
-		title?: string;
-	};
+	noResultsConfig?: INoResultsDisplayProps;
 	orderByOptions?: {label: string; value: string}[];
 	orderIOMap?: object;
 	page?: number;
@@ -71,7 +67,6 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 	filterByOptions,
 	forwardedRef,
 	hideNav = false,
-	icon,
 	noResultsConfig,
 	orderByOptions = [
 		{
@@ -124,20 +119,25 @@ const BaseListPage: React.FC<IBaseListPageProps> = ({
 		if (query || activeFilters) {
 			return (
 				<NoResultsDisplay
-					icon={icon && {symbol: icon}}
-					title={getFormattedTitle(entityLabel)}
+					description={Liferay.Language.get(
+						'please-try-a-different-search-term'
+					)}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-no-results-found'
+					}}
+					title={Liferay.Language.get('there-are-no-results-found')}
 				/>
 			);
 		} else {
 			return (
 				<NoResultsDisplay
 					description={get(noResultsConfig, 'description')}
+					icon={get(noResultsConfig, 'icon')}
 					primary
 					title={get(noResultsConfig, 'title')}
-				>
-					{get(noResultsConfig, 'content') ||
-						(authorized && <ConnectDataSourceButton />)}
-				</NoResultsDisplay>
+				/>
 			);
 		}
 	};
