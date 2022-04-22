@@ -1,7 +1,9 @@
 import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
+import Item from 'ui-kit/components/Item';
 import Label from 'shared/components/Label';
 import React, {useState} from 'react';
+import Row from 'ui-kit/components/Row';
 import {Sizes} from 'shared/util/constants';
 
 const req = require.context('../../../images', false, /\.svg$/);
@@ -18,7 +20,7 @@ const IconLibraryKit = () => {
 	);
 
 	return (
-		<>
+		<div className='icons-library-root'>
 			<div>
 				<Input
 					onInput={({target: {value}}) => setValue(value)}
@@ -26,10 +28,10 @@ const IconLibraryKit = () => {
 				/>
 			</div>
 
-			<div className='row'>
+			<Row flex>
 				{filteredIcons.map(({id, name}) => (
-					<div
-						className='col-sm-3 py-4 d-flex align-items-center justify-content-center'
+					<Item
+						className='col-sm-3 d-flex justify-content-center mx-0 my-4'
 						key={id}
 					>
 						<div className='text-center'>
@@ -45,10 +47,10 @@ const IconLibraryKit = () => {
 								{name}
 							</Label>
 						</div>
-					</div>
+					</Item>
 				))}
-			</div>
-		</>
+			</Row>
+		</div>
 	);
 };
 
