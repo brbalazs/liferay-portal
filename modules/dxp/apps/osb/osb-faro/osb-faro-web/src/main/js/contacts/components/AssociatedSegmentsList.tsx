@@ -1,12 +1,15 @@
 import Card from 'shared/components/Card';
 import getCN from 'classnames';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import URLConstants from 'shared/util/url-constants';
 import {DATE_CREATED, INDIVIDUAL_COUNT, NAME} from 'shared/util/pagination';
 import {getPluralMessage} from 'shared/util/lang';
 import {OrderedMap} from 'immutable';
 import {OrderParams} from 'shared/util/records';
 import {segmentsListColumns} from 'shared/util/table-columns';
+import {Sizes} from 'shared/util/constants';
 
 interface IAssociatedSegmentsListProps {
 	channelId: string;
@@ -66,6 +69,34 @@ const AssociatedSegmentsList: React.FC<IAssociatedSegmentsListProps> = ({
 			dataSourceParams={{channelId, groupId, id}}
 			delta={delta}
 			entityLabel={Liferay.Language.get('associated-segments')}
+			noResultsRenderer={
+				<NoResultsDisplay
+					description={
+						<>
+							{Liferay.Language.get(
+								'create-a-segment-to-get-started'
+							)}
+
+							<a
+								className='d-block'
+								href={URLConstants.SegmentsDocumentationLink}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'access-our-documentation-to-learn-more'
+								)}
+							</a>
+						</>
+					}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
+					title={Liferay.Language.get('there-are-no-segments-found')}
+				/>
+			}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),

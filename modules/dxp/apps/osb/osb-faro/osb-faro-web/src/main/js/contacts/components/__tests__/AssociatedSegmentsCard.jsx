@@ -49,7 +49,7 @@ describe('AssociatedSegmentsCard', () => {
 	});
 
 	it('should render with an no results display', () => {
-		const {getByText} = render(
+		const {container} = render(
 			<DefaultComponent
 				dataSourceFn={() =>
 					Promise.resolve(data.mockSearch(data.mockSegment, 0))
@@ -59,6 +59,6 @@ describe('AssociatedSegmentsCard', () => {
 
 		jest.runAllTimers();
 
-		expect(getByText('There are no Segments found.')).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 });

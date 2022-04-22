@@ -68,6 +68,30 @@ exports[`AssociatedSegmentsList should render 1`] = `
     }
     entityLabel="Associated Segments"
     internalSort={false}
+    noResultsRenderer={
+      <NoResultsDisplay
+        description={
+          <React.Fragment>
+            Create a segment to get started.
+            <a
+              className="d-block"
+              href="https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html"
+              target="_blank"
+            >
+              Access our documentation to learn more.
+            </a>
+          </React.Fragment>
+        }
+        icon={
+          Object {
+            "border": false,
+            "size": "xxxl",
+            "symbol": "ac-satellite",
+          }
+        }
+        title="There are no segments found."
+      />
+    }
     nowrap={true}
     orderByOptions={
       Array [
