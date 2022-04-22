@@ -3,8 +3,10 @@ import ActivitiesChart from './ActivitiesChartDeprecated';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getCN from 'classnames';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimelineDeprecated';
+import URLConstants from 'shared/util/url-constants';
 import {createOrderIOMap, START_TIME} from 'shared/util/pagination';
 import {EntityTypes} from 'shared/util/constants';
 import {
@@ -191,6 +193,34 @@ const ActivitiesChartTimeline: React.FC<IActivitiesChartTimelineProps> = ({
 						title: Liferay.Language.get('session')
 					}}
 					initialExpanded={false}
+					noResultsRenderer={
+						<NoResultsDisplay
+							description={
+								<>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+									)}
+
+									<a
+										className='d-block'
+										href={
+											URLConstants.AccountActivitiesDocumentationLink
+										}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
+										{Liferay.Language.get(
+											'learn-more-about-account-activities'
+										)}
+									</a>
+								</>
+							}
+							spacer
+							title={Liferay.Language.get(
+								'there-are-no-activities-found-on-the-selected-period'
+							)}
+						/>
+					}
 					onDeltaChange={onDeltaChange}
 					onPageChange={onPageChange}
 					onQueryChange={onQueryChange}

@@ -1,4 +1,5 @@
 enum URLConstants {
+	AccountActivitiesDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/accounts.html#activities',
 	AccountIndividualsDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/accounts.html#individuals',
 	AccountInterestsDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/people/accounts.html#interests',
 	APIOverviewDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/apis.html',
