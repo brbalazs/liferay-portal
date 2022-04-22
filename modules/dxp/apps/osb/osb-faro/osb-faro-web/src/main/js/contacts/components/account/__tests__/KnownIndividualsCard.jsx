@@ -32,13 +32,13 @@ describe('KnownIndividualsCard', () => {
 	});
 
 	it('should render w/ NoResultsDisplay', () => {
-		const {getByText} = render(
+		const {container} = render(
 			<DefaultComponent dataSourceFn={dataSourceFn(0)} />
 		);
 
 		jest.runAllTimers();
 
-		expect(getByText('There are no Individuals found.')).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ ErrorDisplay', () => {

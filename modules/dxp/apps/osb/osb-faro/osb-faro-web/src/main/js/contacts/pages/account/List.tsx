@@ -67,7 +67,6 @@ const List: React.FC<IListProps> = ({
 			)}
 			entityLabel={Liferay.Language.get('accounts')}
 			hideNav
-			icon='suitcase'
 			noResultsConfig={{
 				description: Liferay.Language.get(
 					'there-is-no-account-data-from-existing-data-sources'

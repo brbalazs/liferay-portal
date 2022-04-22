@@ -1,7 +1,9 @@
 import * as API from 'shared/api';
 import Card from 'shared/components/Card';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ACTIVITIES_COUNT,
 	createOrderIOMap,
@@ -12,6 +14,7 @@ import {
 import {connect, ConnectedProps} from 'react-redux';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {RootState} from 'shared/store';
+import {Sizes} from 'shared/util/constants';
 import {useQueryPagination} from 'shared/hooks';
 
 const fetchIndividuals = ({id, ...otherParams}) =>
@@ -65,6 +68,39 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 				dataSourceParams={{channelId, groupId, id}}
 				delta={delta}
 				entityLabel={Liferay.Language.get('individuals')}
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.AccountIndividualsDocumentationLink
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-individuals'
+									)}
+								</a>
+							</>
+						}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						title={Liferay.Language.get(
+							'there-are-no-individuals-found'
+						)}
+					/>
+				}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('name'),

@@ -151,3 +151,71 @@ exports[`KnownIndividualsCard should render 1`] = `
   </div>
 </div>
 `;
+
+exports[`KnownIndividualsCard should render w/ NoResultsDisplay 1`] = `
+<div>
+  <div
+    class="card card-root known-individuals-card-root"
+  >
+    <div
+      class="card-header"
+    >
+      <h5
+        class="card-title"
+      >
+        Known Individuals
+      </h5>
+    </div>
+    <div
+      class="no-results-root flex-grow-1"
+    >
+      <div
+        class="no-results-content spacer"
+      >
+        <h4
+          class="no-results-title"
+        >
+          There are no individuals found.
+        </h4>
+        <div
+          class="no-results-description"
+        >
+          <span
+            class="mr-1"
+          >
+            You can come back later and check if there is any data received from your data sources.
+          </span>
+          <a
+            href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html"
+            target="_blank"
+          >
+            Learn more about individuals.
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/23/123/contacts/accounts/23/individuals"
+      >
+        View All Individuals
+        <span
+          class="inline-item inline-item-after"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
