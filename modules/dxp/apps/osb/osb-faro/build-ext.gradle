@@ -128,9 +128,13 @@ createDocker {
 	if (envFile.exists()) {
 		def props = new Properties()
 
-		envFile.withInputStream { props.load(it) }
+		envFile.withInputStream {
+			props.load(it)
+		}
 
-		props.each{withEnvVar(it.key, it.value)}
+		props.each{
+			withEnvVar(it.key, it.value)
+		}
 	}
 }
 
