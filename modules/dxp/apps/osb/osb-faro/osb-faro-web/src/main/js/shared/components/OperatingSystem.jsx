@@ -179,10 +179,7 @@ class OperatingSystem extends React.Component {
 							yAxisId='right'
 						/>
 
-						<Tooltip
-							content={this.renderTooltip}
-							wrapperStyle={null}
-						/>
+						<Tooltip content={this.renderTooltip} />
 
 						{range(0, barCount).map(i => (
 							<Bar
