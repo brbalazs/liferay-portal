@@ -64,7 +64,7 @@ export default class EditorDateInput extends React.Component<IEditorDateInputPro
 						<DateInput
 							className={className}
 							displayFormat={displayFormat}
-							onChange={this.handleDateChange}
+							onDateInputChange={this.handleDateChange}
 							value={date}
 						/>
 					</Form.GroupItem>

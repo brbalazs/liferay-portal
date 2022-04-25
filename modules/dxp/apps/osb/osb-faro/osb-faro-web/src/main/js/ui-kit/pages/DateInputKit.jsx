@@ -23,7 +23,7 @@ export default class DateInputKit extends React.Component {
 				<Row>
 					<DateInput
 						format='YYYY-MM-DD LT'
-						onChange={this.handleChange}
+						onDateInputChange={this.handleChange}
 						placeholder='Pick a date...'
 						showTimeSelector
 						value={value}

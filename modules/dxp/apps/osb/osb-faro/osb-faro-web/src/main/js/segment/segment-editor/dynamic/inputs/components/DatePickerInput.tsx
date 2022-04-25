@@ -36,8 +36,8 @@ const DatePickerInput: React.FC<IDatePickerInputProps> = ({
 			) : (
 				<DateInput
 					className={classNames}
-					onBlur={onBlur}
-					onChange={onChange}
+					onDateInputBlur={onBlur}
+					onDateInputChange={onChange}
 					readOnly
 					value={value}
 				/>

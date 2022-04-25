@@ -14,7 +14,7 @@ describe('DateInput', () => {
 		const {getByDisplayValue} = render(
 			<DateInput
 				displayFormat='YYYY MM DD HH:mm'
-				onChange={jest.fn()}
+				onDateInputChange={jest.fn()}
 				value='1970-01-01'
 			/>
 		);

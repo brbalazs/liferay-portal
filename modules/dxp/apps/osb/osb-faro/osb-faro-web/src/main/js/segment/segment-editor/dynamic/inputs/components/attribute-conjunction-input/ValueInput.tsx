@@ -106,8 +106,8 @@ const ValueInput: React.FC<IValueInputProps> = ({
 					shrink
 				>
 					<DateInput
-						onBlur={handleAttributeValueBlur}
-						onChange={value => {
+						onDateInputBlur={handleAttributeValueBlur}
+						onDateInputChange={value => {
 							onChange({
 								criterion: {
 									value

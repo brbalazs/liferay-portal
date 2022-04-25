@@ -72,7 +72,7 @@ export default class DateTimeInput extends React.Component<IDateTimeInputProps> 
 							className={className}
 							displayFormat={INPUT_DISPLAY_DATE_TIME_FORMAT}
 							format={INPUT_DATE_TIME_FORMAT}
-							onChange={this.handleDateChange}
+							onDateInputChange={this.handleDateChange}
 							showTimeSelector
 							timeZoneId={timeZoneId}
 							value={date}

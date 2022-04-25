@@ -65,7 +65,7 @@ const FormDateInput: React.FC<IFormDateInputProps> = ({
 			<DateInput
 				id={name}
 				name={name}
-				onChange={handleChange}
+				onDateInputChange={handleChange}
 				overlayAlignment={overlayAlignment}
 				usePortal={usePortal}
 				value={value}
