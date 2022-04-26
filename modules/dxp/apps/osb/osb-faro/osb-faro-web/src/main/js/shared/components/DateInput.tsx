@@ -30,7 +30,7 @@ interface IDateInputProps extends React.HTMLAttributes<HTMLInputElement> {
 	value: any;
 }
 
-type OverlayAlignment = 'bottomLeft' | 'rightCenter' | string;
+export type OverlayAlignment = 'bottomLeft' | 'rightCenter';
 
 const DateInput: React.FC<IDateInputProps> = ({
 	className,

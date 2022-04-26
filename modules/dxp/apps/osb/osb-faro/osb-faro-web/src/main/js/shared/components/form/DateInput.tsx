@@ -1,4 +1,4 @@
-import DateInput from '../DateInput';
+import DateInput, {OverlayAlignment} from '../DateInput';
 import getCN from 'classnames';
 import HelpBlock from './HelpBlock';
 import Label from './Label';
@@ -11,7 +11,7 @@ interface IFormDateInputProps
 		React.HTMLAttributes<HTMLElement> {
 	inline: boolean;
 	label: string;
-	overlayAlignment?: string;
+	overlayAlignment?: OverlayAlignment;
 	popover: {
 		content: React.ReactNode;
 		title: React.ReactNode;
