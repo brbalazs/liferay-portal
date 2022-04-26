@@ -34,6 +34,10 @@ definition {
 			userFirstName = "testfUI",
 			userLastName = "testlUI");
 
+		Click(locator1 = "JSONWS#SECURITY_RESULT_TAB");
+
+		Click(locator1 = "JSONWS#SECURITY_RESULT");
+
 		AssertHTMLSourceTextPresent(
 			locator1 = "JSONWS#SECURITY_RESULT",
 			value1 = "Welcome testfUI testlUI!");
