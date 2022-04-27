@@ -87,7 +87,7 @@ const Interests: React.FC<IInterestsProps> = ({channelId, groupId, id}) => {
 				}}
 				delta={delta}
 				entityLabel={Liferay.Language.get('interests')}
-				noResultsRenderer={
+				noResultsRenderer={() => (
 					<NoResultsDisplay
 						description={
 							<>
@@ -119,7 +119,7 @@ const Interests: React.FC<IInterestsProps> = ({channelId, groupId, id}) => {
 							'there-are-no-interests-found'
 						)}
 					/>
-				}
+				)}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('interest'),

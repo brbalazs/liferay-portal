@@ -68,7 +68,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 				dataSourceParams={{channelId, groupId, id}}
 				delta={delta}
 				entityLabel={Liferay.Language.get('individuals')}
-				noResultsRenderer={
+				noResultsRenderer={() => (
 					<NoResultsDisplay
 						description={
 							<>
@@ -100,7 +100,7 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 							'there-are-no-individuals-found'
 						)}
 					/>
-				}
+				)}
 				orderByOptions={[
 					{
 						label: Liferay.Language.get('name'),

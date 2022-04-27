@@ -69,7 +69,7 @@ const AssociatedSegmentsList: React.FC<IAssociatedSegmentsListProps> = ({
 			dataSourceParams={{channelId, groupId, id}}
 			delta={delta}
 			entityLabel={Liferay.Language.get('associated-segments')}
-			noResultsRenderer={
+			noResultsRenderer={() => (
 				<NoResultsDisplay
 					description={
 						<>
@@ -96,7 +96,7 @@ const AssociatedSegmentsList: React.FC<IAssociatedSegmentsListProps> = ({
 					}}
 					title={Liferay.Language.get('there-are-no-segments-found')}
 				/>
-			}
+			)}
 			orderByOptions={[
 				{
 					label: Liferay.Language.get('name'),

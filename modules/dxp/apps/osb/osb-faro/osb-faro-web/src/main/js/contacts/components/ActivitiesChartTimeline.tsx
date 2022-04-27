@@ -193,7 +193,7 @@ const ActivitiesChartTimeline: React.FC<IActivitiesChartTimelineProps> = ({
 						title: Liferay.Language.get('session')
 					}}
 					initialExpanded={false}
-					noResultsRenderer={
+					noResultsRenderer={() => (
 						<NoResultsDisplay
 							description={
 								<>
@@ -220,7 +220,7 @@ const ActivitiesChartTimeline: React.FC<IActivitiesChartTimelineProps> = ({
 								'there-are-no-activities-found-on-the-selected-period'
 							)}
 						/>
-					}
+					)}
 					onDeltaChange={onDeltaChange}
 					onPageChange={onPageChange}
 					onQueryChange={onQueryChange}

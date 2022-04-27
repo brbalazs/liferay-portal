@@ -718,7 +718,7 @@ const SegmentGrowthWithList = ({
 				dataSourceFn={fetchMembers}
 				dataSourceParams={{channelId, groupId, id, modifiedDate}}
 				entityType={INDIVIDUALS}
-				noResultsRenderer={
+				noResultsRenderer={() => (
 					<NoResultsDisplay
 						description={
 							<>
@@ -746,7 +746,7 @@ const SegmentGrowthWithList = ({
 							'there-are-no-members-found-on-the-selected-time-period'
 						)}
 					/>
-				}
+				)}
 				rowIdentifier='id'
 			/>
 		</Card.Body>
