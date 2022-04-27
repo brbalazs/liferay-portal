@@ -29,7 +29,7 @@ const TableWithData = withBaseResults(withData, {
 		<>
 			<span className='mr-1'>
 				{Liferay.Language.get(
-					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+					'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources,-or-you-can-try-a-different-date-range'
 				)}
 			</span>
 

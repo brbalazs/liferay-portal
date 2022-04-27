@@ -2,7 +2,6 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import ExperimentListCard from '../hocs/ExperimentListCard';
-import Icon from 'shared/components/Icon';
 import React from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import URLConstants from 'shared/util/url-constants';
@@ -18,7 +17,6 @@ import {get} from 'lodash';
 import {IBasePageContext, Router} from 'shared/types';
 import {RootState} from 'shared/store';
 import {Routes, toRoute} from 'shared/util/router';
-import {sub} from 'shared/util/lang';
 import {useChannelContext} from 'shared/context/channel';
 import {useDataSource} from 'shared/hooks/useDataSource';
 import {useParams} from 'react-router-dom';
@@ -155,55 +153,16 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 						/>
 
 						<StatesRenderer.Success>
-							<StatesRenderer
-								empty={
-									!get(data, ['experiments', 'total'], 0) &&
-									!query
-								}
-							>
-								<StatesRenderer.Empty
-									description={
-										<>
-											<p className='mb-1'>
-												{Liferay.Language.get(
-													'create-a-new-test-from-liferay-dxp-to-optimize-your-experiences'
-												)}
-											</p>
-
-											<p className='mb-0'>
-												{sub(
-													Liferay.Language.get(
-														'click-on-the-x-icon-in-the-toolbar-when-viewing-a-page-in-dxp-to-get-started'
-													),
-													[
-														<Icon
-															className='font-size-md-2x'
-															key='test-icon'
-															symbol='test'
-														/>
-													],
-													false
-												)}
-											</p>
-										</>
-									}
-									spacer
-									title={Liferay.Language.get('no-tests-yet')}
-								/>
-
-								<StatesRenderer.Success>
-									<ExperimentListCard
-										{...get(data, 'experiments', {})}
-										delta={delta}
-										error={error}
-										loading={loading}
-										orderIOMap={orderIOMap}
-										page={page}
-										query={query}
-										timeZoneId={timeZoneId}
-									/>
-								</StatesRenderer.Success>
-							</StatesRenderer>
+							<ExperimentListCard
+								{...get(data, 'experiments', {})}
+								delta={delta}
+								error={error}
+								loading={loading}
+								orderIOMap={orderIOMap}
+								page={page}
+								query={query}
+								timeZoneId={timeZoneId}
+							/>
 						</StatesRenderer.Success>
 					</StatesRenderer>
 				</BasePage.Body>
