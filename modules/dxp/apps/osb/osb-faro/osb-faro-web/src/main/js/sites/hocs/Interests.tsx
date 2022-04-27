@@ -47,7 +47,7 @@ const TableWithData = withTableData(withData, {
 				key='DOCUMENTATION'
 				target='_blank'
 			>
-				{Liferay.Language.get('learn-more-about-pages')}
+				{Liferay.Language.get('learn-more-about-interests')}
 			</a>
 		</>
 	),
