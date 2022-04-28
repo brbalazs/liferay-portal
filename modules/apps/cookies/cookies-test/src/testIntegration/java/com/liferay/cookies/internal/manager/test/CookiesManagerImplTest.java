@@ -34,7 +34,7 @@ public class CookiesManagerImplTest {
 		_testCookiesConsentType(CookiesConstants.CONSENT_TYPE_PERSONALIZATION);
 	}
 
-	private void _setCookiesConsent(boolean accepted, int consentType) {
+	private void _addCookie(boolean accepted, int consentType) {
 		if (consentType == CookiesConstants.CONSENT_TYPE_NECESSARY) {
 			return;
 		}
@@ -60,7 +60,7 @@ public class CookiesManagerImplTest {
 	}
 
 	private void _testCookiesConsentType(int consentType) {
-		_setCookiesConsent(false, consentType);
+		_addCookie(false, consentType);
 
 		Cookie cookie = new Cookie(
 			RandomTestUtil.randomString(), RandomTestUtil.randomString());
@@ -80,7 +80,7 @@ public class CookiesManagerImplTest {
 					cookie.getName(), _mockHttpServletRequest));
 		}
 
-		_setCookiesConsent(true, consentType);
+		_addCookie(true, consentType);
 
 		CookiesManagerUtil.addCookie(
 			consentType, cookie, _mockHttpServletRequest,
