@@ -31,7 +31,7 @@ const TouchpointListWithData = compose(
 				</span>
 
 				<a
-					href={URLConstants.AssetsAppearsOnDocumentation}
+					href={URLConstants.AssetsDefinitionDocumentation}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
