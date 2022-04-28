@@ -14,7 +14,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import javax.servlet.http.Cookie;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,12 +25,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
  */
 @RunWith(Arquillian.class)
 public class CookiesManagerImplTest {
-
-	@Before
-	public void setUp() throws Exception {
-		_mockHttpServletRequest = new MockHttpServletRequest();
-		_mockHttpServletResponse = new MockHttpServletResponse();
-	}
 
 	@Test
 	public void testCookiesConsent() throws Exception {
@@ -99,7 +92,9 @@ public class CookiesManagerImplTest {
 				cookie.getName(), _mockHttpServletRequest));
 	}
 
-	private MockHttpServletRequest _mockHttpServletRequest;
-	private MockHttpServletResponse _mockHttpServletResponse;
+	private final MockHttpServletRequest _mockHttpServletRequest =
+		new MockHttpServletRequest();
+	private final MockHttpServletResponse _mockHttpServletResponse =
+		new MockHttpServletResponse();
 
 }
