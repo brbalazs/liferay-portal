@@ -5,31 +5,41 @@ exports[`DistributionCard DistributionChart renders 1`] = `
   <div
     class="card-body align-center"
   >
-    <div>
-      <div
-        class="no-results-root flex-grow-1"
+    <div />
+  </div>
+  <div
+    class="card-footer"
+  >
+    <a
+      class="button-root btn btn-link btn-sm"
+      href="/test/:id"
+    >
+      Explore Breakdown
+      <span
+        class="inline-item inline-item-after"
       >
-        <div
-          class="no-results-content"
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
         >
-          <h4
-            class="no-results-title"
-          >
-            There are no results found.
-          </h4>
-          <div
-            class="no-results-description"
-          >
-            Try choosing a different breakdown.
-            <a
-              class="d-block"
-              href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown"
-              target="_blank"
-            >
-              Learn more about distribution.
-            </a>
-          </div>
-        </div>
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+          />
+        </svg>
+      </span>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`DistributionCard DistributionChart renders empty state via props with noResultsRenderer 1`] = `
+<div>
+  <div
+    class="card-body align-center"
+  >
+    <div>
+      <div>
+        empty state
       </div>
     </div>
   </div>

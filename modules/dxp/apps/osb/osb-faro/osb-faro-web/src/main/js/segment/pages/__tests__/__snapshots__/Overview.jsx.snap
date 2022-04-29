@@ -195,7 +195,7 @@ exports[`SegmentOverview should render 1`] = `
                   Try choosing a different breakdown.
                   <a
                     class="d-block"
-                    href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown"
+                    href="https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html#distribution-tab"
                     target="_blank"
                   >
                     Learn more about distribution.

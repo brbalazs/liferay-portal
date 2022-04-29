@@ -242,7 +242,7 @@ exports[`AssociatedSegmentsCard should render with an no results display 1`] = `
             Create a segment to get started.
             <a
               class="d-block"
-              href="https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html"
+              href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individual-profiles.html#segments"
               target="_blank"
             >
               Access our documentation to learn more.

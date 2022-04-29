@@ -123,7 +123,7 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
                         Try choosing a different breakdown.
                         <a
                           class="d-block"
-                          href="https://learn.liferay.com/analytics-cloud/latest/en/people/segments/segments.html#distribution-tab"
+                          href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown"
                           target="_blank"
                         >
                           Learn more about distribution.

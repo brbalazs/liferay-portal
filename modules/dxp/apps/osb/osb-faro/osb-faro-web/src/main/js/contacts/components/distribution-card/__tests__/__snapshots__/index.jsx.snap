@@ -227,31 +227,101 @@ exports[`DistributionCard renders 1`] = `
     <div
       class="card-body align-center"
     >
-      <div>
+      <div />
+    </div>
+    <div
+      class="card-footer"
+    >
+      <button
+        class="button-root btn btn-link btn-sm"
+        type="button"
+      >
+        Explore Breakdown
+        <span
+          class="inline-item inline-item-after"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-angle-right"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DistributionCard renders empty state via props with noResultsRenderer 1`] = `
+<div>
+  <div
+    class="card card-root distribution-card-root"
+    style="min-height: 536px;"
+  >
+    <div
+      class="card-header"
+    >
+      <div
+        class="tabs-root d-flex align-items-center justify-content-between"
+      >
         <div
-          class="no-results-root flex-grow-1"
+          class="scrollable-section-root d-inline-flex"
         >
           <div
-            class="no-results-content"
+            class="scroll-container"
           >
-            <h4
-              class="no-results-title"
+            <ul
+              class="d-flex"
             >
-              There are no results found.
-            </h4>
-            <div
-              class="no-results-description"
-            >
-              Try choosing a different breakdown.
-              <a
-                class="d-block"
-                href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown"
-                target="_blank"
+              <li
+                class="tab-item d-flex align-items-baseline active"
               >
-                Learn more about distribution.
-              </a>
-            </div>
+                <div
+                  class="tab-title active"
+                >
+                  Streets
+                  <button
+                    class="button-root btn btn-unstyled remove-tab btn-sm"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-times icon-monospaced icon-size-sm"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            </ul>
           </div>
+        </div>
+        <button
+          class="button-root btn btn-secondary add-tab btn-monospaced btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-plus"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="card-body align-center"
+    >
+      <div>
+        <div>
+          empty state
         </div>
       </div>
     </div>
