@@ -115,7 +115,9 @@ export default class AssociatedSegmentsCard extends React.Component {
 
 							<a
 								className='d-block'
-								href={URLConstants.SegmentsDocumentationLink}
+								href={
+									URLConstants.IndividualProfilesDocumentSegments
+								}
 								key='DOCUMENTATION'
 								target='_blank'
 							>

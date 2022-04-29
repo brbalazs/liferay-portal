@@ -1,7 +1,10 @@
 import Distribution from 'contacts/components/Distribution';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {connect} from 'react-redux';
 import {fetchDistribution} from 'shared/actions/distributions';
+import {Sizes} from 'shared/util/constants';
 
 const SegmentDistribution = ({segment, ...otherProps}) => (
 	<div className='segment-distribution-root container-fluid'>
@@ -10,6 +13,38 @@ const SegmentDistribution = ({segment, ...otherProps}) => (
 				<Distribution
 					distributionsKey={segment.id}
 					knownIndividualCount={segment.knownIndividualCount}
+					noResultsRenderer={() => (
+						<NoResultsDisplay
+							description={
+								<>
+									{Liferay.Language.get(
+										'try-choosing-a-different-breakdown'
+									)}
+
+									<a
+										className='d-block'
+										href={
+											URLConstants.SegmentsDistributionDocumentationLink
+										}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
+										{Liferay.Language.get(
+											'learn-more-about-distribution'
+										)}
+									</a>
+								</>
+							}
+							icon={{
+								border: false,
+								size: Sizes.XXXLarge,
+								symbol: 'ac-satellite'
+							}}
+							title={Liferay.Language.get(
+								'there-are-no-results-found'
+							)}
+						/>
+					)}
 					{...otherProps}
 				/>
 			</div>
