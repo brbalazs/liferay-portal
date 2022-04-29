@@ -35,4 +35,28 @@ describe('DistributionCard DistributionChart', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('renders empty state via props with noResultsRenderer', () => {
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<BrowserRouter>
+					<DistributionChart
+						distributionKey='individualsDashboard'
+						fetchDistribution={() => Promise.reject()}
+						noResultsRenderer={() => <div>{'empty state'}</div>}
+						selectedTab={
+							new DistributionTab({
+								context: FieldContexts.Demographics,
+								propertyType: 'number',
+								title: 'Tab 1'
+							})
+						}
+						viewAllLink='test/:id'
+					/>
+				</BrowserRouter>
+			</Provider>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
 });

@@ -35,6 +35,24 @@ describe('DistributionCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
+	it('renders empty state via props with noResultsRenderer', () => {
+		fetchDistributionTabs.mockReturnValue(() => Promise.resolve({}));
+
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<BrowserRouter>
+					<DistributionCard
+						distributionKey='individualsDashboard'
+						fetchDistribution={() => Promise.resolve()}
+						noResultsRenderer={() => <div>{'empty state'}</div>}
+					/>
+				</BrowserRouter>
+			</Provider>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
 	it('renders w/ showAddDataSource', () => {
 		fetchDistributionTabs.mockReturnValue(() => Promise.resolve({}));
 
