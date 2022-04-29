@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Distribution, {CONTEXT_OPTIONS} from 'contacts/components/Distribution';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import URLConstants from 'shared/util/url-constants';
@@ -12,6 +13,7 @@ import {
 } from 'shared/actions/distributions';
 import {get} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {useDataSource} from 'shared/hooks/useDataSource';
 import {useParams} from 'react-router-dom';
 import {User} from 'shared/util/records';
@@ -83,6 +85,38 @@ export const IndividualsDistribution: React.FC<IIndividualsDistributionProps> = 
 								}
 								knownIndividualCount={knownIndividualCount}
 								{...otherProps}
+								noResultsRenderer={() => (
+									<NoResultsDisplay
+										description={
+											<>
+												{Liferay.Language.get(
+													'try-choosing-a-different-breakdown'
+												)}
+
+												<a
+													className='d-block'
+													href={
+														URLConstants.IndividualsDashboardBreakdownDocumentation
+													}
+													key='DOCUMENTATION'
+													target='_blank'
+												>
+													{Liferay.Language.get(
+														'learn-more-about-distribution'
+													)}
+												</a>
+											</>
+										}
+										icon={{
+											border: false,
+											size: Sizes.XXXLarge,
+											symbol: 'ac-satellite'
+										}}
+										title={Liferay.Language.get(
+											'there-are-no-results-found'
+										)}
+									/>
+								)}
 							/>
 						</div>
 					</div>
