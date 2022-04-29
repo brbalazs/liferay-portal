@@ -5,6 +5,7 @@ import CohortQuery from 'shared/queries/CohortQuery';
 import Form from 'shared/components/form';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext, useState} from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose} from 'shared/hoc';
 import {
@@ -21,7 +22,28 @@ const withEmpty = Component => ({empty, ...otherProps}) => {
 	if (empty) {
 		return (
 			<NoResultsDisplay
-				title={Liferay.Language.get('no-sessions-recorded')}
+				description={
+					<>
+						<span className='mr-1'>
+							{Liferay.Language.get(
+								'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+							)}
+						</span>
+
+						<a
+							href={URLConstants.SitesDashboardCohortAnalysis}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'learn-more-about-cohort-analysis'
+							)}
+						</a>
+					</>
+				}
+				title={Liferay.Language.get(
+					'there-are-no-sessions-on-the-selected-period'
+				)}
 			/>
 		);
 	}

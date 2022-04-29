@@ -45,6 +45,7 @@ enum URLConstants {
 	SitesDashboardAssetsViewsByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/blogs.html#views-by-location',
 	SitesDashboardBlogsViewsByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/blogs.html#views-by-location',
 	SitesDashboardBlogsViewsByTechnology = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/blogs.html#views-by-technology',
+	SitesDashboardCohortAnalysis = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/sites-dashboard.html#cohort-analysis',
 	SitesDashboardDocumentsAndMediaDownloadByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/documents-and-media.html#downloads-by-location',
 	SitesDashboardDocumentsAndMediaViewsByTechnology = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/documents-and-media.html#views-by-technology',
 	SitesDashboardFormsSubmissionsByLocation = 'https://learn.liferay.com/analytics-cloud/latest/en/touchpoints/assets/forms.html#submissions-by-location',
