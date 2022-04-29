@@ -82,6 +82,10 @@ definition {
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
+		MouseOver.mouseOverNotVisible(
+			key_portletName = "Documents and Media",
+			locator1 = "Portlet#ICON_PLUS_SIGN");
+
 		DMDocument.addPG(
 			dmDocumentFile = "Document_1.doc",
 			dmDocumentTitle = "Document_1.doc");
@@ -122,6 +126,10 @@ definition {
 		Navigator.gotoSitePage(
 			pageName = "Documents and Media Page",
 			siteName = "Site Name");
+
+		MouseOver.mouseOverNotVisible(
+			key_portletName = "Documents and Media",
+			locator1 = "Portlet#ICON_PLUS_SIGN");
 
 		DMDocument.addPG(
 			dmDocumentFile = "Document_1.doc",
@@ -236,6 +244,10 @@ definition {
 		Navigator.gotoSitePage(
 			pageName = "Documents and Media Page",
 			siteName = "Site Name");
+
+		MouseOver.mouseOverNotVisible(
+			key_portletName = "Documents and Media",
+			locator1 = "Portlet#ICON_PLUS_SIGN");
 
 		DMDocument.addPG(
 			dmDocumentFile = "Document_1.doc",

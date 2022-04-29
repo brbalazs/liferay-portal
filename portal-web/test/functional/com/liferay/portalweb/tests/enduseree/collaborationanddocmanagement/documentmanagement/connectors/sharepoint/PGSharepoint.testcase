@@ -69,6 +69,8 @@ definition {
 
 		Portlet.addPG(portletName = "Documents and Media");
 
+		DMDocument.enableActionsMenuOnPortlet();
+
 		DMNavigator.gotoAddRepositoryPG();
 
 		DMRepository.edit(dmRepositoryName = "Sharepoint Repository Name");

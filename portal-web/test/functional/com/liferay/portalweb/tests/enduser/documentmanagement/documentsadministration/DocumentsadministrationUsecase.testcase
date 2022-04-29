@@ -404,6 +404,8 @@ definition {
 			pageName = "Documents and Media Page",
 			siteName = "Site Name");
 
+		DMDocument.enableActionsMenuOnPortlet();
+
 		DMDocument.addMultiplePG(
 			dmDocumentFileList = "Document_1.jpeg,Document_2.docx,Document_3.mp3",
 			viewableBy = "Owner");
