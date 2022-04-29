@@ -52,6 +52,7 @@ interface IDistributionCardProps
 	fetchDistribution: (params: object) => typeof Promise;
 	groupId: string;
 	id: string;
+	noResultsRenderer?: () => React.ReactElement;
 	showAddDataSource: boolean;
 	showContext?: boolean;
 	viewAllLink: string;
@@ -169,6 +170,7 @@ class DistributionCard extends React.Component<
 				groupId,
 				id,
 				loading,
+				noResultsRenderer,
 				showAddDataSource,
 				showContext,
 				viewAllLink
@@ -226,6 +228,7 @@ class DistributionCard extends React.Component<
 								fetchDistribution={fetchDistribution}
 								groupId={groupId}
 								id={id}
+								noResultsRenderer={noResultsRenderer}
 								selectedTab={distributionTabsIList.get(
 									selectedTabIndex
 								)}

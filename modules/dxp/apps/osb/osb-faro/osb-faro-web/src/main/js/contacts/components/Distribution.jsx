@@ -7,11 +7,9 @@ import ErrorDisplay from 'shared/components/ErrorDisplay';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
 import Label from 'shared/components/form/Label';
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import Spinner from 'shared/components/Spinner';
-import URLConstants from 'shared/util/url-constants';
 import {
 	accountsListColumns,
 	individualsListColumns
@@ -42,7 +40,7 @@ import {
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
 import {createOrderIOMap, NAME} from 'shared/util/pagination';
-import {FieldContexts, FieldTypes, Sizes} from 'shared/util/constants';
+import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {getBarColor} from 'shared/util/charts';
 import {getFinitePercent} from 'shared/util/numbers';
 import {hasChanges} from 'shared/util/react';
@@ -146,6 +144,7 @@ export class Distribution extends React.Component {
 		id: PropTypes.string,
 		knownIndividualCount: PropTypes.number,
 		loading: PropTypes.bool,
+		noResultsRenderer: PropTypes.func,
 		numberOfBins: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 		onPointSelect: PropTypes.func.isRequired,
 		selectedContext: PropTypes.string,
@@ -514,6 +513,7 @@ export class Distribution extends React.Component {
 				hasSelectedPoint,
 				knownIndividualCount,
 				loading,
+				noResultsRenderer,
 				orderIOMap,
 				page,
 				query,
@@ -673,38 +673,9 @@ export class Distribution extends React.Component {
 
 							{!error && !loading && (
 								<div className='chart-container'>
-									{!fieldDistributionsCount && (
-										<NoResultsDisplay
-											description={
-												<>
-													{Liferay.Language.get(
-														'try-choosing-a-different-breakdown'
-													)}
-
-													<a
-														className='d-block'
-														href={
-															URLConstants.SegmentsDistributionDocumentationLink
-														}
-														key='DOCUMENTATION'
-														target='_blank'
-													>
-														{Liferay.Language.get(
-															'learn-more-about-distribution'
-														)}
-													</a>
-												</>
-											}
-											icon={{
-												border: false,
-												size: Sizes.XXXLarge,
-												symbol: 'ac-satellite'
-											}}
-											title={Liferay.Language.get(
-												'there-are-no-results-found'
-											)}
-										/>
-									)}
+									{!fieldDistributionsCount &&
+										noResultsRenderer &&
+										noResultsRenderer()}
 
 									{!!fieldDistributionsCount && (
 										<ResponsiveContainer
