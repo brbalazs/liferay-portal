@@ -131,7 +131,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 					dataSourceFn={API.definitions.searchIndividualAttributes}
 					dataSourceParams={{groupId}}
 					internalSort
-					noResultsRenderer={
+					noResultsRenderer={() => (
 						<NoResultsDisplay
 							description={
 								<>
@@ -177,7 +177,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 								'no-individuals-synced-from-data-sources'
 							)}
 						/>
-					}
+					)}
 					rowIdentifier='fieldName'
 					showFilterAndOrder={false}
 					showPagination={false}
