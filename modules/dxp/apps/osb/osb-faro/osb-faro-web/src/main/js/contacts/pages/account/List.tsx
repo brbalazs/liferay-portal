@@ -1,6 +1,8 @@
 import * as API from 'shared/api';
 import BaseListPage from 'contacts/components/BaseListPage';
+import Button from 'shared/components/Button';
 import React, {FC} from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ACCOUNT_TYPE,
 	ACTIVITIES_COUNT,
@@ -11,6 +13,8 @@ import {
 } from 'shared/util/pagination';
 import {accountsListColumns} from 'shared/util/table-columns';
 import {FetchSegmentsParams} from 'segment/pages/List';
+import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 import {useQueryPagination} from 'shared/hooks';
 import {User} from 'shared/util/records';
 import {withCurrentUser} from 'shared/hoc';
@@ -44,6 +48,8 @@ const List: React.FC<IListProps> = ({
 	groupId,
 	...otherProps
 }) => {
+	const authorized = currentUser.isAdmin();
+
 	const columns = [
 		accountsListColumns.getName({channelId, groupId}),
 		accountsListColumns.type,
@@ -68,10 +74,43 @@ const List: React.FC<IListProps> = ({
 			entityLabel={Liferay.Language.get('accounts')}
 			hideNav
 			noResultsConfig={{
-				description: Liferay.Language.get(
-					'there-is-no-account-data-from-existing-data-sources'
+				description: (
+					<>
+						{Liferay.Language.get(
+							'connect-a-data-source-to-get-started'
+						)}
+
+						<a
+							className='d-block mb-3'
+							href={URLConstants.DataSourceConnection}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'access-our-documentation-to-learn-more'
+							)}
+						</a>
+
+						{authorized && (
+							<Button
+								display='primary'
+								href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
+									groupId
+								})}
+							>
+								{Liferay.Language.get('connect-data-source')}
+							</Button>
+						)}
+					</>
 				),
-				title: Liferay.Language.get('no-account-data-available')
+				icon: {
+					border: false,
+					size: Sizes.XXXLarge,
+					symbol: 'ac-satellite'
+				},
+				title: Liferay.Language.get(
+					'no-accounts-synced-from-data-sources'
+				)
 			}}
 			orderByOptions={[
 				{
