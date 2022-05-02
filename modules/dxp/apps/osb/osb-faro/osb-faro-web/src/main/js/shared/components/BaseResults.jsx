@@ -13,6 +13,7 @@ import {ACTION_TYPES, SelectionContext} from 'shared/context/selection';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {hasChanges} from 'shared/util/react';
 import {paginationConfig, paginationDefaults} from 'shared/util/pagination';
+import {Sizes} from 'shared/util/constants';
 
 @hasRequest
 export default class BaseResults extends React.Component {
@@ -292,8 +293,14 @@ export default class BaseResults extends React.Component {
 				noResultsRenderer(query, activeFilters)
 			) : (
 				<NoResultsDisplay
-					description={noResultsDescription}
-					icon={noResultsIcon ? {symbol: noResultsIcon} : undefined}
+					description={Liferay.Language.get(
+						'please-try-a-different-search-term'
+					)}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-no-results-found'
+					}}
 					spacer
 					title={getFormattedTitle(entityLabel, noResultsTitle)}
 				/>
@@ -304,7 +311,7 @@ export default class BaseResults extends React.Component {
 			) : (
 				<NoResultsDisplay
 					description={noResultsDescription}
-					icon={noResultsIcon ? {symbol: noResultsIcon} : undefined}
+					icon={noResultsIcon && {symbol: noResultsIcon}}
 					spacer
 					title={getFormattedTitle(entityLabel, noResultsTitle)}
 				/>
