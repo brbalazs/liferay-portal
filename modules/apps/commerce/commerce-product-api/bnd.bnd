@@ -17,6 +17,7 @@ Export-Package:\
 	com.liferay.commerce.product.service,\
 	com.liferay.commerce.product.service.persistence,\
 	com.liferay.commerce.product.type,\
+	com.liferay.commerce.product.url,\
 	com.liferay.commerce.product.util,\
 	com.liferay.commerce.product.util.comparator
 Provide-Capability:\
