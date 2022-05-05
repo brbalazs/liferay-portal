@@ -590,7 +590,7 @@ exports[`Individuals Dashboard Individuals Interests renders with data source em
       <div
         class="no-results-description"
       >
-        You can come back later and check if there is any data received from your data sources.
+        Check back later to verify if data has been received from your data sources.
         <a
           class="d-block mb-3"
           href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#interests"

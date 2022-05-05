@@ -412,7 +412,7 @@ exports[`InterestsCard renders with empty data 1`] = `
           <span
             class="mr-1"
           >
-            You can come back later and check if there is any data received from your data sources.
+            Check back later to verify if data has been received from your data sources.
           </span>
           <a
             href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#interests"
