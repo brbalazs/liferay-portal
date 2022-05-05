@@ -93,7 +93,7 @@ const Interests: React.FC<IInterestsProps> = ({channelId, groupId, id}) => {
 							<>
 								<span className='mr-1'>
 									{Liferay.Language.get(
-										'you-can-come-back-later-and-check-if-there-is-any-data-received-from-your-data-sources'
+										'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
 									)}
 								</span>
 
