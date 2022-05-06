@@ -237,6 +237,15 @@ public class ReportController extends BaseFaroController {
 						"failed. A new data export file will be created. " +
 							"Please come back later.");
 			}
+
+			if (!Validator.isBlank(previousStatus) &&
+				previousStatus.equals("PENDING")) {
+
+				stringMap.put(
+					"message",
+					"A data export for this date range and type has" +
+						" already been scheduled. Please come back later.");
+			}
 			else {
 				stringMap.put(
 					"message",
