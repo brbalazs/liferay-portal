@@ -2,9 +2,7 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import debounce from 'shared/util/debounce-decorator';
 import getCN from 'classnames';
-import NoResultsDisplay, {
-	getFormattedTitle
-} from 'shared/components/NoResultsDisplay';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import PaginationBar from 'shared/components/PaginationBar';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -24,7 +22,6 @@ export default class BaseResults extends React.Component {
 		checkDisabled: () => false,
 		crossPageSelect: false,
 		filterByOptions: [],
-		noResultsTitle: Liferay.Language.get('there-are-no-x-found'),
 		orderByOptions: [],
 		placeholder: Liferay.Language.get('search'),
 		query: '',
@@ -48,7 +45,6 @@ export default class BaseResults extends React.Component {
 		noResultsDescription: PropTypes.string,
 		noResultsIcon: PropTypes.string,
 		noResultsRenderer: PropTypes.func,
-		noResultsTitle: PropTypes.string,
 		onDeltaChange: PropTypes.func,
 		onOrderIOMapChange: PropTypes.func,
 		onPageChange: PropTypes.func,
@@ -261,12 +257,8 @@ export default class BaseResults extends React.Component {
 		const {
 			context: {selectedItems: selectedItemsIOMap},
 			props: {
-				entityLabel,
 				filterBy,
-				noResultsDescription,
-				noResultsIcon,
 				noResultsRenderer,
-				noResultsTitle,
 				query,
 				resultsRenderer,
 				showCheckbox
@@ -288,45 +280,36 @@ export default class BaseResults extends React.Component {
 					</Button>
 				</div>
 			);
-		} else if (!loading && !items.length && (!!total || !!query)) {
-			return noResultsRenderer ? (
-				noResultsRenderer(query, activeFilters)
-			) : (
-				<NoResultsDisplay
-					description={Liferay.Language.get(
-						'please-try-a-different-search-term'
-					)}
-					icon={{
-						border: false,
-						size: Sizes.XXXLarge,
-						symbol: 'ac-no-results-found'
-					}}
-					spacer
-					title={getFormattedTitle(entityLabel, noResultsTitle)}
-				/>
-			);
 		} else if (!loading && !items.length && !total) {
-			return noResultsRenderer ? (
-				noResultsRenderer(query, activeFilters)
-			) : (
-				<NoResultsDisplay
-					description={noResultsDescription}
-					icon={noResultsIcon && {symbol: noResultsIcon}}
-					spacer
-					title={getFormattedTitle(entityLabel, noResultsTitle)}
-				/>
-			);
-		} else {
-			return resultsRenderer({
-				items,
-				loading,
-				onSelectItemsChange: showCheckbox
-					? this.handleItemsChange
-					: null,
-				selectedItemsIOMap,
-				total
-			});
+			if (query) {
+				return (
+					<NoResultsDisplay
+						description={Liferay.Language.get(
+							'please-try-a-different-search-term'
+						)}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-no-results-found'
+						}}
+						spacer
+						title={Liferay.Language.get(
+							'there-are-no-results-found'
+						)}
+					/>
+				);
+			} else if (noResultsRenderer) {
+				return noResultsRenderer(query, activeFilters);
+			}
 		}
+
+		return resultsRenderer({
+			items,
+			loading,
+			onSelectItemsChange: showCheckbox ? this.handleItemsChange : null,
+			selectedItemsIOMap,
+			total
+		});
 	}
 
 	render() {

@@ -63,7 +63,7 @@ describe('BaseResults', () => {
 		);
 
 		jest.runAllTimers();
-		expect(getByText('There are no items found.')).toBeInTheDocument();
+		expect(getByText('There are no results found.')).toBeInTheDocument();
 	});
 
 	it('should put a size limit on the query based on maxLength', () => {
