@@ -4,6 +4,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
 <div>
   <div
     class="card card-root associated-segments-card-root"
+    style="min-height: 452px;"
   >
     <div
       class="card-header"
@@ -48,10 +49,6 @@ exports[`AssociatedSegmentsCard should render 1`] = `
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="content"
-    >
       <div
         class="entity-list-root"
       >
@@ -177,6 +174,7 @@ exports[`AssociatedSegmentsCard should render with an no results display 1`] = `
 <div>
   <div
     class="card card-root associated-segments-card-root"
+    style="min-height: 452px;"
   >
     <div
       class="card-header"
@@ -221,10 +219,6 @@ exports[`AssociatedSegmentsCard should render with an no results display 1`] = `
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="content"
-    >
       <div
         class="no-results-root flex-grow-1"
       >

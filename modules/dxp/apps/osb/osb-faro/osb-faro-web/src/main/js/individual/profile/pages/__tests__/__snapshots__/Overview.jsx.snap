@@ -593,6 +593,7 @@ Chrome"
       </div>
       <div
         class="card card-root associated-segments-card-root"
+        style="min-height: 452px;"
       >
         <div
           class="card-header"
@@ -637,10 +638,6 @@ Chrome"
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="content"
-        >
           <div
             class="entity-list-root"
           >
