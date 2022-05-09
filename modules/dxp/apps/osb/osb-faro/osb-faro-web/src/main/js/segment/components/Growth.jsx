@@ -736,7 +736,7 @@ const SegmentGrowthWithList = ({
 									target='_blank'
 								>
 									{Liferay.Language.get(
-										'learn-more-about-interests'
+										'learn-more-about-individuals'
 									)}
 								</a>
 							</>
