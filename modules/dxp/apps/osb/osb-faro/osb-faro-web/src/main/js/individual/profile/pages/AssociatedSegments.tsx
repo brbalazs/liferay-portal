@@ -1,13 +1,15 @@
 import * as API from 'shared/api';
 import AssociatedSegmentsList from 'contacts/components/AssociatedSegmentsList';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useState} from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {connect, ConnectedProps} from 'react-redux';
 import {
 	createOrderIOMap,
 	getDefaultSortOrder,
 	NAME
 } from 'shared/util/pagination';
-import {EntityTypes} from 'shared/util/constants';
+import {EntityTypes, Sizes} from 'shared/util/constants';
 import {RootState} from 'shared/store';
 import {useQueryPagination} from 'shared/hooks';
 
@@ -78,6 +80,36 @@ const AssociatedSegments: React.FC<IAssociatedSegmentsProps> = ({
 			delta={delta}
 			groupId={groupId}
 			id={id}
+			noResultsRenderer={() => (
+				<NoResultsDisplay
+					description={
+						<>
+							{Liferay.Language.get(
+								'create-a-segment-to-get-started'
+							)}
+
+							<a
+								className='d-block'
+								href={
+									URLConstants.IndividualProfilesDocumentSegments
+								}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'learn-more-about-segments'
+								)}
+							</a>
+						</>
+					}
+					icon={{
+						border: false,
+						size: Sizes.XXXLarge,
+						symbol: 'ac-satellite'
+					}}
+					title={Liferay.Language.get('there-are-no-segments-found')}
+				/>
+			)}
 			orderIOMap={orderIOMap}
 			page={page}
 			query={query}
