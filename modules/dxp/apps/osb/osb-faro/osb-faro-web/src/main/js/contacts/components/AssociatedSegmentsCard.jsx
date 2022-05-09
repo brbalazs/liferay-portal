@@ -85,7 +85,7 @@ export default class AssociatedSegmentsCard extends React.Component {
 	renderList() {
 		const {
 			props: {channelId, groupId},
-			state: {error, items, loading}
+			state: {error, items, loading, searchValue}
 		} = this;
 
 		if (error) {
@@ -96,15 +96,22 @@ export default class AssociatedSegmentsCard extends React.Component {
 					spacer
 				/>
 			);
-		} else if (items.length) {
-			return (
-				<EntityList
-					channelId={channelId}
-					groupId={groupId}
-					items={items}
-				/>
-			);
-		} else if (!loading) {
+		} else if (loading) {
+			return <Spinner overlay />;
+		} else if (!items.length) {
+			if (searchValue) {
+				return (
+					<NoResultsDisplay
+						description={Liferay.Language.get(
+							'please-try-a-different-search-term'
+						)}
+						title={Liferay.Language.get(
+							'there-are-no-results-found'
+						)}
+					/>
+				);
+			}
+
 			return (
 				<NoResultsDisplay
 					description={
@@ -132,16 +139,23 @@ export default class AssociatedSegmentsCard extends React.Component {
 				/>
 			);
 		}
+
+		return (
+			<EntityList channelId={channelId} groupId={groupId} items={items} />
+		);
 	}
 
 	render() {
 		const {
 			props: {className, pageUrl},
-			state: {loading, searchValue}
+			state: {searchValue}
 		} = this;
 
 		return (
-			<Card className={getCN('associated-segments-card-root', className)}>
+			<Card
+				className={getCN('associated-segments-card-root', className)}
+				minHeight={452}
+			>
 				<Card.Header>
 					<Card.Title>
 						{Liferay.Language.get('associated-segments')}
@@ -153,13 +167,9 @@ export default class AssociatedSegmentsCard extends React.Component {
 						onChange={this.handleSearch}
 						value={searchValue}
 					/>
-				</Card.Body>
-
-				<div className='content'>
-					{loading && <Spinner overlay />}
 
 					{this.renderList()}
-				</div>
+				</Card.Body>
 
 				<Card.Footer>
 					<Button

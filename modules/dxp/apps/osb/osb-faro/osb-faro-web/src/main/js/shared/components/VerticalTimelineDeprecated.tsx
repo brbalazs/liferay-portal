@@ -1,6 +1,6 @@
 import getCN from 'classnames';
 import Icon from './Icon';
-import NoResultsDisplay, {getFormattedTitle} from './NoResultsDisplay';
+import NoResultsDisplay from './NoResultsDisplay';
 import React, {FC, useState} from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
@@ -9,6 +9,7 @@ import {formatDateToTimeZone} from 'shared/util/date';
 import {get} from 'lodash';
 import {Link} from 'react-router-dom';
 import {Routes, toRoute} from 'shared/util/router';
+import {Sizes} from 'shared/util/constants';
 
 type TITLE_ELEMENT_ATTRIBUTES = {
 	key: string;
@@ -200,7 +201,20 @@ const VerticalTimeline: FC<IVerticalTimelineProps> = ({
 	if (loading) {
 		return <Spinner alignCenter={false} className='flex-grow-1' spacer />;
 	} else if (!items.length && !nested) {
-		return <NoResultsDisplay title={getFormattedTitle()} />;
+		return (
+			<NoResultsDisplay
+				description={Liferay.Language.get(
+					'please-try-a-different-search-term'
+				)}
+				icon={{
+					border: false,
+					size: Sizes.XXXLarge,
+					symbol: 'ac-no-results-found'
+				}}
+				spacer
+				title={Liferay.Language.get('there-are-no-results-found')}
+			/>
+		);
 	} else {
 		return (
 			<div className='vertical-timeline-root-deprecated'>
