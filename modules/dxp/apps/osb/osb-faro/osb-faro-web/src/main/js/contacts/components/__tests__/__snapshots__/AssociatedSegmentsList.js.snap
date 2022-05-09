@@ -68,7 +68,6 @@ exports[`AssociatedSegmentsList should render 1`] = `
     }
     entityLabel="Associated Segments"
     internalSort={false}
-    noResultsRenderer={[Function]}
     nowrap={true}
     orderByOptions={
       Array [
