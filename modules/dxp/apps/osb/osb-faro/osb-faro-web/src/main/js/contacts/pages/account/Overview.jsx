@@ -4,7 +4,9 @@ import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
 import InfoCard from 'shared/components/InfoCard';
 import InterestsCard from 'contacts/hoc/account/InterestsCard';
 import KnownIndividualsCard from 'contacts/components/account/KnownIndividualsCard';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {Account} from 'shared/util/records';
 import {createOrderIOMap, INDIVIDUAL_COUNT, NAME} from 'shared/util/pagination';
 import {EntityTypes} from 'shared/util/constants';
@@ -109,6 +111,34 @@ export default class Overview extends React.Component {
 						dataSourceFn={fetchAssociatedSegments}
 						groupId={groupId}
 						id={id}
+						noResultsRenderer={() => (
+							<NoResultsDisplay
+								description={
+									<>
+										{Liferay.Language.get(
+											'create-a-segment-to-get-started'
+										)}
+
+										<a
+											className='d-block'
+											href={
+												URLConstants.AccountSegmentsDocumentationLink
+											}
+											key='DOCUMENTATION'
+											target='_blank'
+										>
+											{Liferay.Language.get(
+												'learn-more-about-segments'
+											)}
+										</a>
+									</>
+								}
+								spacer
+								title={Liferay.Language.get(
+									'there-are-no-segments-found'
+								)}
+							/>
+						)}
 						pageUrl={toRoute(Routes.CONTACTS_ACCOUNT_SEGMENTS, {
 							channelId,
 							groupId,

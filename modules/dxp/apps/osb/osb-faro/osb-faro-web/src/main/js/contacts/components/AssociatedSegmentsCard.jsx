@@ -9,7 +9,6 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import Spinner from 'shared/components/Spinner';
-import URLConstants from 'shared/util/url-constants';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
@@ -21,6 +20,7 @@ export default class AssociatedSegmentsCard extends React.Component {
 		dataSourceFn: PropTypes.func.isRequired,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
+		noResultsRenderer: PropTypes.func.isRequired,
 		pageUrl: PropTypes.string.isRequired
 	};
 
@@ -84,7 +84,7 @@ export default class AssociatedSegmentsCard extends React.Component {
 
 	renderList() {
 		const {
-			props: {channelId, groupId},
+			props: {channelId, groupId, noResultsRenderer},
 			state: {error, items, loading, searchValue}
 		} = this;
 
@@ -112,32 +112,7 @@ export default class AssociatedSegmentsCard extends React.Component {
 				);
 			}
 
-			return (
-				<NoResultsDisplay
-					description={
-						<>
-							{Liferay.Language.get(
-								'create-a-segment-to-get-started'
-							)}
-
-							<a
-								className='d-block'
-								href={
-									URLConstants.IndividualProfilesDocumentSegments
-								}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
-								{Liferay.Language.get(
-									'access-our-documentation-to-learn-more'
-								)}
-							</a>
-						</>
-					}
-					spacer
-					title={Liferay.Language.get('there-are-no-segments-found')}
-				/>
-			);
+			return noResultsRenderer();
 		}
 
 		return (
