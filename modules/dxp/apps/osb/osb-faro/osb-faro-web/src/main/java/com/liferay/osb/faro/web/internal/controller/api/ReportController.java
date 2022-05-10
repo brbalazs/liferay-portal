@@ -86,11 +86,9 @@ public class ReportController extends BaseFaroController {
 		if (Validator.isBlank(fromDateString) ||
 			Validator.isBlank(toDateString)) {
 
-			return _createResponse(
-				String.format(
-					"\"fromDate\" and \"toDate\" query parameters are " +
-						"mandatory and must be ISO 8601 compliant (%s)",
-					_ISO_8601_FORMAT),
+			return _reportControllerResponseFactory.create(
+				"\"fromDate\" and \"toDate\" query parameters are mandatory " +
+					"and must be ISO 8601 compliant " + _ISO_8601_FORMAT,
 				Response.Status.BAD_REQUEST);
 		}
 
@@ -102,15 +100,14 @@ public class ReportController extends BaseFaroController {
 			toDate = _toUTCDate(toDateString);
 		}
 		catch (Exception exception) {
-			return _createResponse(
-				String.format(
-					"Both dates in range must be ISO 8601 compliant (%s)",
-					_ISO_8601_FORMAT),
+			return _reportControllerResponseFactory.create(
+				"Both dates in range must be ISO 8601 compliant " +
+					_ISO_8601_FORMAT,
 				Response.Status.BAD_REQUEST);
 		}
 
 		if (fromDate.after(toDate)) {
-			return _createResponse(
+			return _reportControllerResponseFactory.create(
 				"Wrong range date. \"fromDate\" cannot be after \"toDate\"",
 				Response.Status.BAD_REQUEST);
 		}
@@ -137,7 +134,7 @@ public class ReportController extends BaseFaroController {
 				Map.class);
 		}
 		catch (Exception exception) {
-			return _createResponse(
+			return _reportControllerResponseFactory.create(
 				"An internal problem happened when trying to reach our" +
 					" services",
 				Response.Status.INTERNAL_SERVER_ERROR);
@@ -146,7 +143,8 @@ public class ReportController extends BaseFaroController {
 		String status = MapUtil.getString(responseMap, "status");
 
 		if (!Objects.equals(status, "COMPLETED")) {
-			return _createResponse(responseMap, Response.Status.OK);
+			return _reportControllerResponseFactory.create(
+				responseMap, Response.Status.OK);
 		}
 
 		StreamingOutput streamingOutput = outputStream -> {
@@ -185,120 +183,6 @@ public class ReportController extends BaseFaroController {
 		};
 	}
 
-	private Response _createResponse(
-		Map<String, Object> responseMap, Response.Status responseStatus) {
-
-		Map<String, String> stringMap = new HashMap<>();
-
-		String createdDateString = MapUtil.getString(
-			responseMap, "createdDate");
-
-		if (!Validator.isBlank(createdDateString)) {
-			stringMap.put("createdDate", createdDateString);
-		}
-
-		String fromDateString = MapUtil.getString(responseMap, "fromDate");
-
-		if (!Validator.isBlank(fromDateString)) {
-			stringMap.put("fromDate", fromDateString);
-		}
-
-		String startedDateString = MapUtil.getString(
-			responseMap, "startedDate");
-
-		if (!Validator.isBlank(startedDateString)) {
-			stringMap.put("startedDate", startedDateString);
-		}
-
-		String status = MapUtil.getString(responseMap, "status");
-
-		if (!Validator.isBlank(status)) {
-			stringMap.put("status", status);
-		}
-		else if (responseStatus != Response.Status.OK) {
-			stringMap.put("status", "ERROR");
-		}
-
-		String message = MapUtil.getString(responseMap, "message");
-
-		if (!Validator.isBlank(message)) {
-			stringMap.put("message", message);
-		}
-		else if (status.equals("PENDING")) {
-			String previousStatus = MapUtil.getString(
-				responseMap, "previousStatus");
-
-			if (!Validator.isBlank(previousStatus) &&
-				previousStatus.equals("ERROR")) {
-
-				stringMap.put(
-					"message",
-					"The last data export for this date range and type " +
-						"failed. A new data export file will be created. " +
-							"Please come back later.");
-			}
-
-			if (!Validator.isBlank(previousStatus) &&
-				previousStatus.equals("PENDING")) {
-
-				stringMap.put(
-					"message",
-					"A data export for this date range and type has" +
-						" already been scheduled. Please come back later.");
-			}
-			else {
-				stringMap.put(
-					"message",
-					"A new data export file for this date range and type " +
-						"will be created. Please come back later.");
-			}
-		}
-		else if (status.equals("RUNNING")) {
-			stringMap.put(
-				"message",
-				"The data export file for this date range and type is being" +
-					" created. Please come back later.");
-		}
-		else if (status.equals("ERROR")) {
-			stringMap.put(
-				"message",
-				"The last data export for this date range and type failed. A " +
-					"new data export file will be created. Please come back " +
-						"later.");
-		}
-
-		String toDateString = MapUtil.getString(responseMap, "toDate");
-
-		if (!Validator.isBlank(toDateString)) {
-			stringMap.put("toDate", toDateString);
-		}
-
-		String type = MapUtil.getString(responseMap, "type");
-
-		if (!Validator.isBlank(type)) {
-			stringMap.put("type", type);
-		}
-
-		Response.ResponseBuilder responseBuilder = Response.status(
-			responseStatus);
-
-		responseBuilder.entity(stringMap);
-
-		return responseBuilder.build();
-	}
-
-	private Response _createResponse(
-		String message, Response.Status responseStatus) {
-
-		Map<String, Object> responseMap = new HashMap<String, Object>() {
-			{
-				put("message", message);
-			}
-		};
-
-		return _createResponse(responseMap, responseStatus);
-	}
-
 	private Date _toUTCDate(String dateString) {
 		LocalDateTime localDateTime = LocalDateTime.parse(
 			dateString, _dateTimeFormatter);
@@ -316,5 +200,8 @@ public class ReportController extends BaseFaroController {
 
 	private static final DateTimeFormatter _dateTimeFormatter =
 		DateTimeFormatter.ofPattern(_ISO_8601_FORMAT);
+	private static final ReportControllerResponseFactory
+		_reportControllerResponseFactory =
+			new ReportControllerResponseFactory();
 
 }
