@@ -70,16 +70,16 @@ const ListWithInterests = compose(
 				</span>
 
 				<a
-					href={URLConstants.IndividualProfilesDocument}
+					href={URLConstants.IndividualProfilesDocumentInterests}
 					key='DOCUMENTATION'
 					target='_blank'
 				>
-					{Liferay.Language.get('learn-more-about-individuals')}
+					{Liferay.Language.get('learn-more-about-interests')}
 				</a>
 			</>
 		),
 		spacer: true,
-		title: Liferay.Language.get('there-are-no-individuals-found')
+		title: Liferay.Language.get('there-are-no-interests-found')
 	})
 )(InterestsList);
 
