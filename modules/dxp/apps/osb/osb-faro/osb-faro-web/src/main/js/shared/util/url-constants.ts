@@ -27,6 +27,7 @@ enum URLConstants {
 	ExperimentDocumentationLink = 'https://learn.liferay.com/analytics-cloud/latest/en/optimization/a-b-testing.html',
 	HelpConnectDxp = 'https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources/connecting-liferay-dxp-to-analytics-cloud.html',
 	IndividualProfilesDocument = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individual-profiles.html#individual-profiles',
+	IndividualProfilesDocumentInterests = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individual-profiles.html#interests',
 	IndividualProfilesDocumentSegments = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individual-profiles.html#segments',
 	IndividualsDashboardBreakdownDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#breakdown',
 	IndividualsDashboardInterestsDocumentation = 'https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#interests',
