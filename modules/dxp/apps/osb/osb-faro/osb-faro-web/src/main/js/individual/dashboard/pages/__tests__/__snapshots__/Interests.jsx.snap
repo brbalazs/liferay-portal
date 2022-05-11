@@ -585,18 +585,24 @@ exports[`Individuals Dashboard Individuals Interests renders with data source em
       <h4
         class="no-results-title"
       >
-        There are no interests found.
+        No Sites Synced from Data Sources
       </h4>
       <div
         class="no-results-description"
       >
-        Check back later to verify if data has been received from your data sources.
+        Connect a data source with sites data.
         <a
           class="d-block mb-3"
-          href="https://learn.liferay.com/analytics-cloud/latest/en/people/individuals/individuals-dashboard.html#interests"
+          href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html"
           target="_blank"
         >
-          Learn more about interests.
+          Access our documentation to learn more.
+        </a>
+        <a
+          class="button-root btn btn-primary"
+          href="/workspace/123/settings/data-source/add"
+        >
+          Connect Data Source
         </a>
       </div>
     </div>
