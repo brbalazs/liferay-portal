@@ -1,6 +1,7 @@
 import Card from 'shared/components/Card';
 import IndividualInterestsQuery from 'shared/queries/IndividualInterestsQuery';
 import React from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {compositionListColumns} from 'shared/util/table-columns';
 import {CompositionTypes} from 'shared/util/constants';
 import {COUNT, createOrderIOMap} from 'shared/util/pagination';
@@ -49,11 +50,7 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-interface IInterestsProps extends React.HTMLAttributes<HTMLElement> {
-	noResultsRenderer: React.ReactElement;
-}
-
-const Interests: React.FC<IInterestsProps> = ({noResultsRenderer}) => {
+const Interests: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 	const {channelId, groupId} = useParams();
 	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(COUNT)
@@ -71,7 +68,29 @@ const Interests: React.FC<IInterestsProps> = ({noResultsRenderer}) => {
 				channelId={channelId}
 				delta={delta}
 				groupId={groupId}
-				noResultsRenderer={noResultsRenderer}
+				noResultsRenderer={() => ({
+					description: (
+						<>
+							{Liferay.Language.get(
+								'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+							)}
+
+							<a
+								className='d-block mb-3'
+								href={
+									URLConstants.IndividualsDashboardInterestsDocumentation
+								}
+								key='DOCUMENTATION'
+								target='_blank'
+							>
+								{Liferay.Language.get(
+									'learn-more-about-interests'
+								)}
+							</a>
+						</>
+					),
+					title: Liferay.Language.get('there-are-no-interests-found')
+				})}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}
