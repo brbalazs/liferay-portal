@@ -302,247 +302,289 @@ export class SegmentGrowthChart extends React.Component {
 		const yAxisWidth = getYAxisWidth(data, 'value');
 
 		return (
-			<ResponsiveContainer height={height}>
-				<AreaChart
-					data={data}
-					onClick={pointData => {
-						if (alwaysShowSelectedTooltip && pointData) {
-							if (this._tooltipRef) {
-								const {
-									getTranslate,
-									props: {viewBox},
-									state: {boxWidth}
-								} = this._tooltipRef.current;
+			<>
+				<ResponsiveContainer
+					className={
+						!intervals.length
+							? 'segment-growth-chart-empty-sate'
+							: ''
+					}
+					height={height}
+				>
+					<AreaChart
+						data={data}
+						onClick={pointData => {
+							if (alwaysShowSelectedTooltip && pointData) {
+								if (this._tooltipRef) {
+									const {
+										getTranslate,
+										props: {viewBox},
+										state: {boxWidth}
+									} = this._tooltipRef.current;
 
-								this.setState({
-									selectedTooltipX: getTranslate({
-										key: 'x',
-										tooltipDimension: boxWidth,
-										viewBoxDimension: viewBox.width
-									})
+									this.setState({
+										selectedTooltipX: getTranslate({
+											key: 'x',
+											tooltipDimension: boxWidth,
+											viewBoxDimension: viewBox.width
+										})
+									});
+								}
+
+								onPointSelect({
+									index: pointData.activeTooltipIndex
 								});
 							}
-
-							onPointSelect({
-								index: pointData.activeTooltipIndex
-							});
-						}
-					}}
-					onMouseLeave={() => this.setState({mouseOutside: true})}
-					onMouseMove={() => this.setState({mouseOutside: false})}
-				>
-					<CartesianGrid
-						stroke={AXIS.gridStroke}
-						strokeDasharray='3 3'
-						vertical={false}
-					/>
-
-					<XAxis
-						axisLine={{stroke: AXIS.borderStroke}}
-						dataKey='modifiedDate'
-						domain={['dataMin', 'dataMax']}
-						interval='preserveStart'
-						padding={{left: 20, right: 20}}
-						tick={getAxisTickText('x', value =>
-							formatXAxisDate(
-								value,
-								RangeKeyTimeRanges.Last30Days,
-								INTERVAL,
-								dateKeysIMap
-							)
-						)}
-						tickLine={false}
-						tickMargin={12}
-						ticks={intervals}
-					/>
-
-					<XAxis
-						axisLine={{stroke: AXIS.borderStroke}}
-						dataKey='modifiedDate'
-						orientation='top'
-						stroke={AXIS.gridStroke}
-						tick={false}
-						tickLine={false}
-						xAxisId='top'
-					/>
-
-					<YAxis
-						allowDecimals={false}
-						axisLine={{stroke: AXIS.borderStroke}}
-						label={getYAxisLabel(
-							Liferay.Language.get('membership'),
-							'left',
-							yAxisWidth
-						)}
-						name={Liferay.Language.get('membership')}
-						stroke={AXIS.gridStroke}
-						tick={getAxisTickText('y')}
-						tickCount={6}
-						tickLine={false}
-						type='number'
-						width={yAxisWidth}
-					/>
-
-					<YAxis
-						axisLine={{stroke: AXIS.borderStroke}}
-						orientation='right'
-						stroke={AXIS.gridStroke}
-						tick={false}
-						tickLine={false}
-						type='number'
-						width={1}
-						yAxisId='right'
-					/>
-
-					<Legend
-						align='left'
-						formatter={(value, {count}) => (
-							<span>
-								{`${value}:`}
-
-								<b className='ml-1'>{count}</b>
-							</span>
-						)}
-						iconSize={8}
-						onMouseEnter={({dataKey}) =>
-							this.setState({legendHoverItem: dataKey})
-						}
-						onMouseLeave={() =>
-							this.setState({legendHoverItem: null})
-						}
-						payload={[
-							{
-								color: CHART_BLUE,
-								count: knownCount,
-								dataKey: 'knownCount',
-								type: 'circle',
-								value: Liferay.Language.get('known-members')
-							},
-							{
-								color: CHART_ORANGE,
-								count: anonymousCount,
-								dataKey: 'anonymousCount',
-								type: 'circle',
-								value: Liferay.Language.get('anonymous-members')
-							},
-							{
-								color: 'rgba(0,0,0,0)',
-								count: anonymousCount + knownCount,
-								dataKey: 'individualCount',
-								type: 'circle',
-								value: Liferay.Language.get('total-members')
-							}
-						]}
-						verticalAlign='top'
-						wrapperStyle={{
-							color: AXIS.textColor,
-							fontSize: '14px',
-							lineHeight: '21px',
-							paddingBottom: '22px'
 						}}
-					/>
+						onMouseLeave={() => this.setState({mouseOutside: true})}
+						onMouseMove={() => this.setState({mouseOutside: false})}
+					>
+						<CartesianGrid
+							stroke={AXIS.gridStroke}
+							strokeDasharray='3 3'
+							vertical={false}
+						/>
 
-					<Tooltip
-						content={this.renderTooltip}
-						cursor={{stroke: CHART_BLUE}}
-						position={
-							showFixedTooltip
-								? {
-										x: selectedTooltipX
-								  }
-								: null
-						}
-						ref={this._tooltipRef}
-						wrapperStyle={
-							showFixedTooltip
-								? {
-										visibility: 'visible'
-								  }
-								: null
-						}
-					/>
+						<XAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							dataKey='modifiedDate'
+							domain={['dataMin', 'dataMax']}
+							interval='preserveStart'
+							padding={{left: 20, right: 20}}
+							tick={getAxisTickText('x', value =>
+								formatXAxisDate(
+									value,
+									RangeKeyTimeRanges.Last30Days,
+									INTERVAL,
+									dateKeysIMap
+								)
+							)}
+							tickLine={false}
+							tickMargin={12}
+							ticks={intervals}
+						/>
 
-					<ReferenceLine
-						strokeWidth={1}
-						x={
-							showFixedTooltip
-								? data[selectedPoint].modifiedDate
-								: null
-						}
-					/>
+						<XAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							dataKey='modifiedDate'
+							orientation='top'
+							stroke={AXIS.gridStroke}
+							tick={false}
+							tickLine={false}
+							xAxisId='top'
+						/>
 
-					<ReferenceDot
-						fill={CHART_BLUE}
-						fillOpacity={
-							legendHoverItem === 'anonymousCount' ? 0.1 : 1
-						}
-						isFront
-						r={4}
-						stroke='none'
-						x={
-							hasSelectedPoint
-								? data[selectedPoint].modifiedDate
-								: null
-						}
-						y={
-							hasSelectedPoint
-								? data[selectedPoint].knownCount
-								: null
-						}
-					/>
+						<YAxis
+							allowDecimals={false}
+							axisLine={{stroke: AXIS.borderStroke}}
+							label={getYAxisLabel(
+								Liferay.Language.get('membership'),
+								'left',
+								yAxisWidth
+							)}
+							name={Liferay.Language.get('membership')}
+							stroke={AXIS.gridStroke}
+							tick={getAxisTickText('y')}
+							tickCount={6}
+							tickLine={false}
+							type='number'
+							width={yAxisWidth}
+						/>
 
-					<ReferenceDot
-						fill={CHART_ORANGE}
-						fillOpacity={legendHoverItem === 'knownCount' ? 0.1 : 1}
-						isFront
-						r={4}
-						stroke='none'
-						x={
-							hasSelectedPoint
-								? data[selectedPoint].modifiedDate
-								: null
-						}
-						y={
-							hasSelectedPoint
-								? data[selectedPoint].knownCount +
-								  data[selectedPoint].anonymousCount
-								: null
-						}
-					/>
+						<YAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							orientation='right'
+							stroke={AXIS.gridStroke}
+							tick={false}
+							tickLine={false}
+							type='number'
+							width={1}
+							yAxisId='right'
+						/>
 
-					<Area
-						{...commonAreaChartStyles}
-						activeDot={{r: 4, stroke: CHART_BLUE}}
-						dataKey='knownCount'
-						fill={CHART_BLUE}
-						fillOpacity={
-							legendHoverItem === 'anonymousCount' ? 0.1 : 0.2
-						}
-						isAnimationActive={false}
-						name={Liferay.Language.get('known-members')}
-						stroke={CHART_BLUE}
-						strokeOpacity={
-							legendHoverItem === 'anonymousCount' ? 0.2 : 1
-						}
-					/>
+						<Legend
+							align='left'
+							formatter={(value, {count}) => (
+								<span>
+									{`${value}:`}
 
-					<Area
-						{...commonAreaChartStyles}
-						activeDot={{r: 4, stroke: CHART_ORANGE}}
-						dataKey='anonymousCount'
-						fill={CHART_ORANGE}
-						fillOpacity={
-							legendHoverItem === 'knownCount' ? 0.1 : 0.2
+									<b className='ml-1'>{count}</b>
+								</span>
+							)}
+							iconSize={8}
+							onMouseEnter={({dataKey}) =>
+								this.setState({legendHoverItem: dataKey})
+							}
+							onMouseLeave={() =>
+								this.setState({legendHoverItem: null})
+							}
+							payload={[
+								{
+									color: CHART_BLUE,
+									count: knownCount,
+									dataKey: 'knownCount',
+									type: 'circle',
+									value: Liferay.Language.get('known-members')
+								},
+								{
+									color: CHART_ORANGE,
+									count: anonymousCount,
+									dataKey: 'anonymousCount',
+									type: 'circle',
+									value: Liferay.Language.get(
+										'anonymous-members'
+									)
+								},
+								{
+									color: 'rgba(0,0,0,0)',
+									count: anonymousCount + knownCount,
+									dataKey: 'individualCount',
+									type: 'circle',
+									value: Liferay.Language.get('total-members')
+								}
+							]}
+							verticalAlign='top'
+							wrapperStyle={{
+								color: AXIS.textColor,
+								fontSize: '14px',
+								lineHeight: '21px',
+								paddingBottom: '22px'
+							}}
+						/>
+
+						<Tooltip
+							content={this.renderTooltip}
+							cursor={!intervals.length ? false : true}
+							position={
+								showFixedTooltip
+									? {
+											x: selectedTooltipX
+									  }
+									: null
+							}
+							ref={this._tooltipRef}
+							wrapperStyle={
+								showFixedTooltip
+									? {
+											visibility: 'visible'
+									  }
+									: null
+							}
+						/>
+
+						<ReferenceLine
+							strokeWidth={1}
+							x={
+								showFixedTooltip
+									? data[selectedPoint].modifiedDate
+									: null
+							}
+						/>
+
+						<ReferenceDot
+							fill={CHART_BLUE}
+							fillOpacity={
+								legendHoverItem === 'anonymousCount' ? 0.1 : 1
+							}
+							isFront
+							r={4}
+							stroke='none'
+							x={
+								hasSelectedPoint
+									? data[selectedPoint].modifiedDate
+									: null
+							}
+							y={
+								hasSelectedPoint
+									? data[selectedPoint].knownCount
+									: null
+							}
+						/>
+
+						<ReferenceDot
+							fill={CHART_ORANGE}
+							fillOpacity={
+								legendHoverItem === 'knownCount' ? 0.1 : 1
+							}
+							isFront
+							r={4}
+							stroke='none'
+							x={
+								hasSelectedPoint
+									? data[selectedPoint].modifiedDate
+									: null
+							}
+							y={
+								hasSelectedPoint
+									? data[selectedPoint].knownCount +
+									  data[selectedPoint].anonymousCount
+									: null
+							}
+						/>
+
+						<Area
+							{...commonAreaChartStyles}
+							activeDot={{r: 4, stroke: CHART_BLUE}}
+							dataKey='knownCount'
+							fill={CHART_BLUE}
+							fillOpacity={
+								legendHoverItem === 'anonymousCount' ? 0.1 : 0.2
+							}
+							isAnimationActive={false}
+							name={Liferay.Language.get('known-members')}
+							stroke={CHART_BLUE}
+							strokeOpacity={
+								legendHoverItem === 'anonymousCount' ? 0.2 : 1
+							}
+						/>
+
+						<Area
+							{...commonAreaChartStyles}
+							activeDot={{r: 4, stroke: CHART_ORANGE}}
+							dataKey='anonymousCount'
+							fill={CHART_ORANGE}
+							fillOpacity={
+								legendHoverItem === 'knownCount' ? 0.1 : 0.2
+							}
+							isAnimationActive={false}
+							name={Liferay.Language.get('anonymous-members')}
+							stroke={CHART_ORANGE}
+							strokeOpacity={
+								legendHoverItem === 'knownCount' ? 0.2 : 1
+							}
+						/>
+					</AreaChart>
+				</ResponsiveContainer>
+
+				{!intervals.length && (
+					<NoResultsDisplay
+						description={
+							<>
+								<span className='mr-1'>
+									{Liferay.Language.get(
+										'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+									)}
+								</span>
+
+								<a
+									href={
+										URLConstants.SegmentsOverviewTabDocumentationLink
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-segment-membership'
+									)}
+								</a>
+							</>
 						}
-						isAnimationActive={false}
-						name={Liferay.Language.get('anonymous-members')}
-						stroke={CHART_ORANGE}
-						strokeOpacity={
-							legendHoverItem === 'knownCount' ? 0.2 : 1
-						}
+						title={Liferay.Language.get(
+							'there-is-no-data-for-segment-membership'
+						)}
 					/>
-				</AreaChart>
-			</ResponsiveContainer>
+				)}
+			</>
 		);
 	}
 }

@@ -4,9 +4,11 @@ import ChartTooltip from 'shared/components/chart-tooltip';
 import Checkbox from 'shared/components/Checkbox';
 import getCN from 'classnames';
 import MetricValue from 'cerebro-shared/components/MetricValue';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Trend from 'shared/components/Trend';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ANIMATION_DURATION,
 	AXIS,
@@ -295,7 +297,12 @@ export default class MainMetrics extends React.Component {
 		});
 
 		return (
-			<ResponsiveContainer height={height}>
+			<ResponsiveContainer
+				className={
+					!intervals.length ? `${CLASSNAME}-chart-empty-state` : ''
+				}
+				height={height}
+			>
 				<ComposedChart data={combinedData}>
 					<CartesianGrid
 						stroke={AXIS.gridStroke}
@@ -362,7 +369,10 @@ export default class MainMetrics extends React.Component {
 						yAxisId='right'
 					/>
 
-					<Tooltip content={this.renderTooltip} />
+					<Tooltip
+						content={this.renderTooltip}
+						cursor={!intervals.length ? false : true}
+					/>
 
 					<Legend
 						align='right'
@@ -630,6 +640,8 @@ export default class MainMetrics extends React.Component {
 			showTabs
 		} = this.props;
 
+		const {intervals} = this.getActiveItem();
+
 		return (
 			<div className={getCN(CLASSNAME, className)}>
 				{showTabs && (
@@ -642,6 +654,35 @@ export default class MainMetrics extends React.Component {
 
 				<div className={`${CLASSNAME}-chart`}>
 					{this.renderChart()}
+
+					{!intervals.length && (
+						<NoResultsDisplay
+							description={
+								<>
+									<span className='mr-1'>
+										{Liferay.Language.get(
+											'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+										)}
+									</span>
+
+									<a
+										href={
+											URLConstants.SitesDashboardSitesActivities
+										}
+										key='DOCUMENTATION'
+										target='_blank'
+									>
+										{Liferay.Language.get(
+											'learn-more-about-site-activity'
+										)}
+									</a>
+								</>
+							}
+							title={Liferay.Language.get(
+								'there-is-no-data-for-site-activity'
+							)}
+						/>
+					)}
 
 					<div className={`${CLASSNAME}-chart-sub-content-wrapper`}>
 						<Checkbox
