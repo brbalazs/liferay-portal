@@ -57,7 +57,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 	alwaysShowSelectedTooltip = false,
 	hasSelectedPoint,
 	height = 340,
-	history,
+	history = [],
 	interval,
 	onPointSelect,
 	rangeSelectors,
@@ -223,7 +223,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 					strokeWidth={1}
 					x={
 						showFixedTooltip
-							? history[selectedPoint].intervalInitDate
+							? history[selectedPoint]?.intervalInitDate
 							: null
 					}
 				/>
