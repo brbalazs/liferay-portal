@@ -39,6 +39,10 @@ import com.liferay.portal.kernel.test.util.SearchContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.search.legacy.searcher.SearchRequestBuilderFactory;
+import com.liferay.portal.search.searcher.SearchResponse;
+import com.liferay.portal.search.test.util.FieldValuesAssert;
+import com.liferay.portal.search.test.util.IndexerFixture;
 import com.liferay.portal.service.test.ServiceTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -74,7 +78,8 @@ public class JournalArticleIndexerLocalizedContentTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
-		_indexer = _indexerRegistry.getIndexer(JournalArticle.class);
+		_indexerFixture = new IndexerFixture<>(
+			JournalArticle.class, _searchRequestBuilderFactory);
 
 		_journalArticleSearchFixture = new JournalArticleSearchFixture(
 			_journalArticleLocalService);
@@ -161,16 +166,18 @@ public class JournalArticleIndexerLocalizedContentTest {
 
 		String searchTerm = "nev";
 
-		Document document = _search(searchTerm, LocaleUtil.HUNGARY);
+		SearchResponse searchResponse =
+			_indexerFixture.searchOnlyOneSearchResponse(
+				searchTerm, LocaleUtil.HUNGARY);
 
 		FieldValuesAssert.assertFieldValues(
-			titleStrings, "title", document, searchTerm);
-
+			titleStrings, name -> name.startsWith("title_"), searchResponse);
 		FieldValuesAssert.assertFieldValues(
-			contentStrings, "content", document, searchTerm);
-
+			contentStrings, name -> name.startsWith("content_"),
+			searchResponse);
 		FieldValuesAssert.assertFieldValues(
-			localizedTitleStrings, "localized_title", document, searchTerm);
+			localizedTitleStrings, name -> name.startsWith("localized_title"),
+			searchResponse);
 	}
 
 	@Test
@@ -223,19 +230,20 @@ public class JournalArticleIndexerLocalizedContentTest {
 
 		String searchTerm = articleId;
 
-		Document document = _search(searchTerm, LocaleUtil.BRAZIL);
+		SearchResponse searchResponse =
+			_indexerFixture.searchOnlyOneSearchResponse(
+				searchTerm, LocaleUtil.BRAZIL);
 
 		FieldValuesAssert.assertFieldValues(
-			titleStrings, "title", document, searchTerm);
-
+			titleStrings, name -> name.startsWith("title"), searchResponse);
 		FieldValuesAssert.assertFieldValues(
-			contentStrings, "content", document, searchTerm);
-
+			contentStrings, name -> name.startsWith("content"), searchResponse);
 		FieldValuesAssert.assertFieldValues(
-			localizedTitleStrings, "localized_title", document, searchTerm);
-
+			localizedTitleStrings, name -> name.startsWith("localized_title"),
+			searchResponse);
 		FieldValuesAssert.assertFieldValues(
-			ddmContentStrings, "ddm__text", document, searchTerm);
+			ddmContentStrings, name -> name.startsWith("ddm__text"),
+			searchResponse);
 	}
 
 	@Test
@@ -307,17 +315,19 @@ public class JournalArticleIndexerLocalizedContentTest {
 			word1, word2, prefix1, prefix2
 		).forEach(
 			searchTerm -> {
-				Document document = _search(searchTerm, LocaleUtil.JAPAN);
+				SearchResponse searchResponse =
+					_indexerFixture.searchOnlyOneSearchResponse(
+						searchTerm, LocaleUtil.JAPAN);
 
 				FieldValuesAssert.assertFieldValues(
-					titleStrings, "title", document, searchTerm);
-
+					titleStrings, name -> name.startsWith("title_"),
+					searchResponse);
 				FieldValuesAssert.assertFieldValues(
-					contentStrings, "content", document, searchTerm);
-
+					contentStrings, name -> name.startsWith("content_"),
+					searchResponse);
 				FieldValuesAssert.assertFieldValues(
-					localizedTitleStrings, "localized_title", document,
-					searchTerm);
+					localizedTitleStrings,
+					name -> name.startsWith("localized_title"), searchResponse);
 			}
 		);
 	}
@@ -450,5 +460,8 @@ public class JournalArticleIndexerLocalizedContentTest {
 	private List<JournalArticle> _journalArticles;
 
 	private JournalArticleSearchFixture _journalArticleSearchFixture;
+
+	@Inject
+	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
 
 }
