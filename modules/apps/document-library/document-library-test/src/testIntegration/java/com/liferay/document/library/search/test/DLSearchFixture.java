@@ -63,6 +63,29 @@ public class DLSearchFixture {
 			search(getSearchContext(keywords, locale)));
 	}
 
+	public SearchResponse searchOnlyOneSearchResponse(
+			String keywords, Locale locale)
+		throws Exception {
+
+		SearchContext searchContext = getSearchContext(keywords, locale);
+
+		SearchRequestBuilder searchRequestBuilder =
+			_searchRequestBuilderFactory.builder(searchContext);
+
+		searchRequestBuilder.fetchSource(true);
+
+		searchRequestBuilder.build();
+
+		search(searchContext);
+
+		SearchResponse searchResponse =
+			(SearchResponse)searchContext.getAttribute("search.response");
+
+		HitsAssert.assertOnlyOne(searchResponse.getSearchHits());
+
+		return searchResponse;
+	}
+
 	public void setGroup(Group group) {
 		_group = group;
 	}
