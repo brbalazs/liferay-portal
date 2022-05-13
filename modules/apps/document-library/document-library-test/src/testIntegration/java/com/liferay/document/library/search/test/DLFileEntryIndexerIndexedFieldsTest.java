@@ -23,7 +23,6 @@ import com.liferay.document.library.test.util.search.FileEntrySearchFixture;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.Sync;
@@ -31,6 +30,7 @@ import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.test.util.FieldValuesAssert;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
@@ -117,16 +117,15 @@ public class DLFileEntryIndexerIndexedFieldsTest extends BaseDLIndexerTestCase {
 
 		FileEntry fileEntry = addFileEntry(fileName_jp);
 
-		Document document = dlSearchFixture.searchOnlyOne(
-			searchTerm, LocaleUtil.JAPAN);
-
-		indexedFieldsFixture.postProcessDocument(document);
+		SearchResponse searchResponse =
+			dlSearchFixture.searchOnlyOneSearchResponse(
+				searchTerm, LocaleUtil.JAPAN);
 
 		Map<String, String> map = new HashMap<>();
 
 		populateExpectedFieldValues(fileEntry, map);
 
-		FieldValuesAssert.assertFieldValues(map, document, searchTerm);
+		FieldValuesAssert.assertFieldValues(map, searchResponse);
 	}
 
 	protected String getContents(FileEntry fileEntry) throws Exception {
