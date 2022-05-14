@@ -792,6 +792,7 @@ definition {
 		AssertElementPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
 
 		var count = ${count} + 1;
+
 		var key_number = "${count}";
 
 		AssertElementNotPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
@@ -982,6 +983,7 @@ definition {
 			value1 = "${fieldFieldLabel}");
 
 		var key_ddlRecordFieldData = "${key_ddlRecordFieldData}";
+
 		var key_ddlRecordFieldData_1 = "${key_ddlRecordFieldData}";
 
 		if (isSet(ddlRecordFieldDataTableDisplay)) {

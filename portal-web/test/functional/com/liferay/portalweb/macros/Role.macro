@@ -142,6 +142,7 @@ definition {
 
 	macro definePermissionPG {
 		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 		if (IsElementPresent.isElementPresentAfterWait(locator1 = "IFrame#DIALOG")) {
@@ -424,6 +425,7 @@ definition {
 
 	macro removePermissionPG {
 		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 		if (IsElementPresent.isElementPresentAfterWait(locator1 = "IFrame#DIALOG")) {
@@ -638,6 +640,7 @@ definition {
 
 	macro viewPermissionPG {
 		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 		if ("${permissionFlagged}" == "true") {

@@ -3,7 +3,6 @@ definition {
 	@summary = "This calls the JSON WS API to add a MB category"
 	macro addCategory {
 		var portalURL = JSONCompany.getPortalURL();
-
 		var userId = JSONUserAPI._getUserIdByEmailAddress(userEmailAddress = "${userEmailAddress}");
 
 		if (!(isSet(parentCategoryId))) {
@@ -37,7 +36,6 @@ definition {
 		var groupId = JSONGroupAPI._getGroupIdByName(
 			groupName = "${groupName}",
 			site = "${site}");
-
 		var portalURL = JSONCompany.getPortalURL();
 
 		if (!(isSet(categoryId))) {
@@ -70,7 +68,6 @@ definition {
 	@summary = "This calls the JSON WS API to add a MB reply"
 	macro addMessageReply {
 		var messageId = JSONMBMessage.getmessageId();
-
 		var portalURL = JSONCompany.getPortalURL();
 
 		var curl = '''
@@ -101,6 +98,7 @@ definition {
 	macro getCategoryId {
 		var messageBoardsCategoryURL = selenium.getLocation();
 		var portalURL = PropsUtil.get("portal.url");
+
 		var categoryId = StringUtil.replace("${messageBoardsCategoryURL}", "${portalURL}/web/guest/message-boards-page/-/message_boards/category/", "");
 
 		return "${categoryId}";
@@ -110,6 +108,7 @@ definition {
 	macro getmessageId {
 		var messageBoardsThreadURL = selenium.getLocation();
 		var portalURL = PropsUtil.get("portal.url");
+
 		var messageId = StringUtil.replace("${messageBoardsThreadURL}", "${portalURL}/web/guest/message-boards-page/-/message_boards/message/", "");
 
 		return "${messageId}";

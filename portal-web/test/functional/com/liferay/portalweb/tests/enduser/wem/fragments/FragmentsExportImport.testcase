@@ -185,7 +185,6 @@ definition {
 		LAR.exportSiteCP();
 
 		var key_larFileName = "${larFileName}";
-
 		var larFileName = LAR.getLarFileName();
 
 		LAR.downloadLar();

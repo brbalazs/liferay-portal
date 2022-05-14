@@ -530,7 +530,9 @@ definition {
 		if (isSet(globalScopeLinkValue)) {
 			if (contains("${scopeTranslation}", "+")) {
 				var partialScopeTranslation = StringUtil.extractFirst("${scopeTranslation}", "+");
+
 				var partialScopeTranslation = StringUtil.trim("${partialScopeTranslation}");
+
 				var key_scopeText = "${partialScopeTranslation}";
 			}
 			else {

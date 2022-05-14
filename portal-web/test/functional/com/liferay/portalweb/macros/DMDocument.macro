@@ -1013,6 +1013,7 @@ definition {
 
 		var portalURL = PropsUtil.get("portal.url");
 		var dmLatestVersionURL = selenium.getAttribute("//input[contains(@class,'lfr-input-resource')]@value");
+
 		var dmDocumentURL = StringUtil.extractLast("${dmLatestVersionURL}", "${portalURL}");
 
 		echo("## * Document URL: ${dmDocumentURL}");
@@ -2109,6 +2110,7 @@ definition {
 		if (isSet(tagNameList)) {
 			for (var tagName : list "${tagNameList}") {
 				var tagName = StringUtil.lowerCase("${tagName}");
+
 				var key_tagName = "${tagName}";
 
 				AssertTextEquals(
@@ -2118,6 +2120,7 @@ definition {
 		}
 		else {
 			var tagName = StringUtil.lowerCase("${tagName}");
+
 			var key_tagName = "${tagName}";
 
 			AssertTextEquals(

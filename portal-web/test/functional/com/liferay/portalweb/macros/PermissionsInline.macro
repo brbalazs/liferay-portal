@@ -3,7 +3,9 @@ definition {
 	macro addOrRemoveViewPermissionFromAllRoles {
 		for (var roleTitle : list "${roleList}") {
 			var roleTitle = "${roleTitle}";
+
 			var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 			var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 			if ("${addOrRemoveViewPermission}" == "Add") {
@@ -24,7 +26,9 @@ definition {
 	macro assertDefaultPG {
 		for (var roleTitle : list "${roleList}") {
 			var roleTitle = "${roleTitle}";
+
 			var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 			var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 			if (("${roleTitle}" == "Guest") || ("${roleTitle}" == "Site Member")) {
@@ -215,6 +219,7 @@ definition {
 
 	macro viewPermissionsChecked {
 		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 		AssertChecked(locator1 = "Permissions#${permissionDefinitionKey}");
@@ -222,6 +227,7 @@ definition {
 
 	macro viewPermissionsRemoved {
 		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+
 		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
 
 		AssertNotChecked(locator1 = "Permissions#${permissionDefinitionKey}");

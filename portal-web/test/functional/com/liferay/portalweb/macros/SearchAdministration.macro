@@ -4,6 +4,7 @@ definition {
 		WaitForSPARefresh();
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
+
 		var searchEngineVendor = RegexUtil.replace("${alertInfo}", "Vendor: (.*?),", "1");
 		var searchClientVersion = RegexUtil.replace("${alertInfo}", "Client Version: (.*?),", "1");
 		var searchServerVersion = RegexUtil.replace("${alertInfo}", "Nodes:.*\((.*)\)", "1");
@@ -27,9 +28,12 @@ definition {
 			value1 = "Search");
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
+
 		var vendor = StringUtil.extractFirst("${alertInfo}", ",");
+
 		var searchEngineVendor = StringUtil.extractLast("${vendor}", "Vendor:");
 		var portalHostname = PropsUtil.get("portal.hostname");
+
 		var curl = "http://${portalHostname}:9200/_tasks";
 
 		Panel.expandPanel(panel = "Index Actions");
@@ -103,6 +107,7 @@ definition {
 		WaitForSPARefresh();
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
+
 		var serverVersion = RegexUtil.replace("${alertInfo}", "Nodes:.*\((.*)\)", "1");
 
 		return "${serverVersion}";

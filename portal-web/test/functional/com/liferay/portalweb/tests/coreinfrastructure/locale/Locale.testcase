@@ -686,6 +686,7 @@ definition {
 			Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
 			var dropdownItem = "我的个人资料";
+
 			var key_dropdownItem = "${dropdownItem}";
 
 			AssertTextEquals(

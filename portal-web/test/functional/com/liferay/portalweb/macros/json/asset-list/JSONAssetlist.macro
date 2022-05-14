@@ -4,7 +4,6 @@ definition {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONAssetlistSetter.setGroupId(groupName = "${groupName}");
-
 		var type = JSONAssetlistSetter.setType(selectionType = "dynamic");
 
 		JSONAssetlistAPI._addAssetListEntry(
@@ -17,7 +16,6 @@ definition {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONAssetlistSetter.setGroupId(groupName = "${groupName}");
-
 		var type = JSONAssetlistSetter.setType(selectionType = "manual");
 
 		JSONAssetlistAPI._addAssetListEntry(

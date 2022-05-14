@@ -145,6 +145,7 @@ definition {
 			userEmailAddress = "user@liferay.com");
 
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+
 		var fileContent = FileUtil.read("${liferayHome}/portal-setup-wizard.properties");
 
 		if (contains("${fileContent}", "admin.email.from.address=user@liferay.com") && contains("${fileContent}", "admin.email.from.name=User User") && contains("${fileContent}", "default.admin.email.address.prefix=user") && contains("${fileContent}", "default.admin.first.name=User") && contains("${fileContent}", "default.admin.last.name=User")) {

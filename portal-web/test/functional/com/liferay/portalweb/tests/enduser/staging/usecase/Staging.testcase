@@ -2953,7 +2953,6 @@ definition {
 			siteName = "Site Name");
 
 		var dateRangeEndDate = '''1/2''';
-
 		var dateRangeStartDate = '''1/1''';
 
 		Staging.setContentDateRange(
@@ -4443,7 +4442,9 @@ definition {
 			siteName = "Site Name");
 
 		var downloadURL = selenium.getAttribute("//div[contains(@class,'journal-content-article')]/a@href");
+
 		var stagingGroupId = StringUtil.extractLast("${downloadURL}", "documents/");
+
 		var stagingGroupId = StringUtil.extractFirst("${stagingGroupId}", "/");
 
 		echo("## * Staging GroupId: ${stagingGroupId}");
@@ -4453,7 +4454,9 @@ definition {
 			siteName = "Site Name");
 
 		var downloadURL = selenium.getAttribute("//div[contains(@class,'journal-content-article')]/a@href");
+
 		var liveGroupId = StringUtil.extractLast("${downloadURL}", "documents/");
+
 		var liveGroupId = StringUtil.extractFirst("${liveGroupId}", "/");
 
 		echo("## * Live GroupId: ${liveGroupId}");
@@ -4704,6 +4707,7 @@ definition {
 		var currentURL = Navigator.getCurrentURL();
 
 		var keywordsParameterName = StringUtil.extractLast("${currentURL}", "?");
+
 		var keywordsParameter = StringUtil.extractFirst("${keywordsParameterName}", "=");
 
 		echo("## Keywords Parameter: ${keywordsParameter}");

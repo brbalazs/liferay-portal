@@ -2218,6 +2218,7 @@ definition {
 
 			while ("${i}" != "${addressCount}") {
 				var i = ${i} + 1;
+
 				var key_emailAddress = "${addressPrefix}${i}@liferay.com";
 
 				AssertTextEquals.assertValue(

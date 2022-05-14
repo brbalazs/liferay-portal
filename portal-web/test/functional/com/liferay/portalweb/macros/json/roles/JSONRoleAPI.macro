@@ -55,7 +55,6 @@ definition {
 		Variables.assertDefined(parameterList = "${name}");
 
 		var companyId = JSONCompany.getCompanyId();
-
 		var portalURL = JSONCompany.getPortalURL();
 
 		var curl = '''
@@ -64,6 +63,7 @@ definition {
 				-d companyId=${companyId} \
 				-d name=${name}
 		''';
+
 		var roleId = JSONCurlUtil.post("${curl}", "$['roleId']");
 
 		return "${roleId}";

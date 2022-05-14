@@ -216,6 +216,7 @@ definition {
 		WebContentNavigator.gotoEditFeed(feedName = "WC Feed Title");
 
 		var rssFeedUrl = selenium.getAttribute("//input[contains(@id,'JournalPortlet_url') and contains(@value,'journal/rss')]@value");
+
 		var rssFeedUrl = StringUtil.replace("${rssFeedUrl}", "localhost", "127.0.0.1");
 
 		Navigator.gotoSitePage(
@@ -507,6 +508,7 @@ definition {
 			siteName = "Site Name");
 
 		var rssFeedUrl = selenium.getAttribute("//div[@class='subscribe-action']/span/a[contains(@href,'asset_publisher')]@href");
+
 		var rssFeedUrl = StringUtil.replace("${rssFeedUrl}", "localhost", "127.0.0.1");
 
 		Navigator.gotoSitePage(

@@ -175,6 +175,7 @@ definition {
 		var currentURL = Navigator.getCurrentURL();
 
 		var siteTemplateURL = StringUtil.extractFirst("${currentURL}", "/~/");
+
 		var siteTemplateID = StringUtil.extractLast("${siteTemplateURL}", "/");
 
 		echo("siteTemplateID: ${siteTemplateID}");

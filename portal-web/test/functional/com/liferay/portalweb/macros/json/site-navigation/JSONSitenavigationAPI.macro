@@ -42,8 +42,11 @@ definition {
 				-u test@liferay.com:test \
 				-d groupId=${groupId}
 		''';
+
 		var siteNavigationMenuId = JSONCurlUtil.post("${curl}", "$.[?(@['name'] == '${siteNavigationMenuName}')]['siteNavigationMenuId']");
+
 		var siteNavigationMenuId = StringUtil.replace("${siteNavigationMenuId}", "[\"", "");
+
 		var siteNavigationMenuId = StringUtil.replace("${siteNavigationMenuId}", "\"]", "");
 
 		return "${siteNavigationMenuId}";

@@ -5,7 +5,6 @@ definition {
 		Variables.assertDefined(parameterList = "${entryContent},${entryTitle}");
 
 		var portalURL = JSONCompany.getPortalURL();
-
 		var contentXML = JSONBlogSetter.setContentXML(content = "${entryContent}");
 
 		if (!(isSet(entrySubtitle))) {
