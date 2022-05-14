@@ -1198,7 +1198,7 @@
 			<url-pattern>/sl_SI/c/portal/protected</url-pattern>
 			<url-pattern>/sr/c/portal/protected</url-pattern>
 			<url-pattern>/sr-RS/c/portal/protected</url-pattern>
-			<url-pattern>/sr-RS_latin/c/portal/protected</url-pattern>
+			<url-pattern>/sr-RS-latin/c/portal/protected</url-pattern>
 			<url-pattern>/sr_RS/c/portal/protected</url-pattern>
 			<url-pattern>/sr_RS_latin/c/portal/protected</url-pattern>
 			<url-pattern>/sv/c/portal/protected</url-pattern>
