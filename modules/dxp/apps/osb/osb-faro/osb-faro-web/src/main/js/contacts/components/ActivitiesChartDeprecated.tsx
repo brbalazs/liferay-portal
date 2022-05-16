@@ -76,7 +76,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 	);
 
 	const renderTooltip = ({active, payload}) => {
-		if ((active && !!payload.length) || hasSelectedPoint) {
+		if ((active || hasSelectedPoint) && !!payload.length) {
 			const {intervalInitDate, totalElements} = get(
 				payload,
 				[0, 'payload'],
