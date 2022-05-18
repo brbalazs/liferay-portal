@@ -1,4 +1,4 @@
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
+import ComposedChartWithEmptyState from 'shared/components/ComposedChartWithEmptyState';
 import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import URLConstants from 'shared/util/url-constants';
@@ -106,18 +106,39 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 		dateKeysIMap
 	);
 
-	return loading ? (
-		<Spinner alignCenter key='LOADING' />
-	) : (
-		<>
-			<ResponsiveContainer
-				className={
-					!intervals.length
-						? 'active-individuals-chart-empty-sate'
-						: ''
-				}
-				height={height}
-			>
+	if (loading) {
+		return <Spinner alignCenter key='LOADING' />;
+	}
+
+	return (
+		<ComposedChartWithEmptyState
+			emptyDescription={
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+						)}
+					</span>
+
+					<a
+						href={
+							URLConstants.IndividualDashboardActiveIndividualsDocumentation
+						}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{Liferay.Language.get(
+							'learn-more-about-active-individuals'
+						)}
+					</a>
+				</>
+			}
+			emptyTitle={Liferay.Language.get(
+				'there-is-no-data-for-active-individuals'
+			)}
+			showEmptyState={!intervals.length}
+		>
+			<ResponsiveContainer height={height}>
 				<ComposedChart data={data}>
 					<CartesianGrid
 						stroke={AXIS.gridStroke}
@@ -257,36 +278,7 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 					</Bar>
 				</ComposedChart>
 			</ResponsiveContainer>
-
-			{!intervals.length && (
-				<NoResultsDisplay
-					description={
-						<>
-							<span className='mr-1'>
-								{Liferay.Language.get(
-									'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
-								)}
-							</span>
-
-							<a
-								href={
-									URLConstants.IndividualDashboardActiveIndividualsDocumentation
-								}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
-								{Liferay.Language.get(
-									'learn-more-about-active-individuals'
-								)}
-							</a>
-						</>
-					}
-					title={Liferay.Language.get(
-						'there-is-no-data-for-active-individuals'
-					)}
-				/>
-			)}
-		</>
+		</ComposedChartWithEmptyState>
 	);
 };
 

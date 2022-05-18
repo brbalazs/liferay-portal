@@ -1,4 +1,6 @@
+import ComposedChartWithEmptyState from 'shared/components/ComposedChartWithEmptyState';
 import React, {useRef, useState} from 'react';
+import URLConstants from 'shared/util/url-constants';
 import {
 	ANIMATION_DURATION,
 	AXIS,
@@ -114,136 +116,157 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 	const yAxisWidth = getYAxisWidth(history, 'totalElements');
 
 	return (
-		<ResponsiveContainer height={height}>
-			<ComposedChart
-				data={history}
-				onClick={pointData => {
-					if (alwaysShowSelectedTooltip && pointData) {
-						if (_tooltipRef) {
-							const {
-								getTranslate,
-								props: {viewBox},
-								state: {boxWidth}
-							} = _tooltipRef.current;
+		<ComposedChartWithEmptyState
+			emptyDescription={
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+						)}
+					</span>
 
-							setSelectedTooltipX(
-								getTranslate({
-									key: 'x',
-									tooltipDimension: boxWidth,
-									viewBoxDimension: viewBox.width
-								})
-							);
+					<a
+						href={URLConstants.AccountActivitiesDocumentationLink}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{Liferay.Language.get(
+							'learn-more-about-account-activities'
+						)}
+					</a>
+				</>
+			}
+			emptyTitle={Liferay.Language.get(
+				'there-is-no-data-for-account-activities'
+			)}
+			showEmptyState={!intervals.length}
+		>
+			<ResponsiveContainer height={height}>
+				<ComposedChart
+					data={history}
+					onClick={pointData => {
+						if (alwaysShowSelectedTooltip && pointData) {
+							if (_tooltipRef) {
+								const {
+									getTranslate,
+									props: {viewBox},
+									state: {boxWidth}
+								} = _tooltipRef.current;
+
+								setSelectedTooltipX(
+									getTranslate({
+										key: 'x',
+										tooltipDimension: boxWidth,
+										viewBoxDimension: viewBox.width
+									})
+								);
+							}
+
+							onPointSelect({
+								index: pointData.activeTooltipIndex
+							});
 						}
-
-						onPointSelect({index: pointData.activeTooltipIndex});
-					}
-				}}
-				onMouseLeave={() => setMouseOutside(true)}
-				onMouseMove={() => setMouseOutside(false)}
-			>
-				<CartesianGrid
-					stroke={AXIS.gridStroke}
-					strokeDasharray='3 3'
-					vertical={false}
-				/>
-
-				<XAxis
-					axisLine={{stroke: AXIS.borderStroke}}
-					dataKey='intervalInitDate'
-					domain={['dataMin', 'dataMax']}
-					interval='preserveStart'
-					padding={{left: 20, right: 20}}
-					tick={getAxisTickText('x', value =>
-						formatXAxisDate(
-							value,
-							rangeSelectors.rangeKey,
-							interval,
-							dateKeysIMap
-						)
-					)}
-					tickLine={false}
-					tickMargin={12}
-					ticks={intervals}
-				/>
-
-				<XAxis
-					axisLine={{stroke: AXIS.borderStroke}}
-					dataKey='intervalInitDate'
-					orientation='top'
-					stroke={AXIS.gridStroke}
-					tick={false}
-					tickLine={false}
-					xAxisId='top'
-				/>
-
-				<YAxis
-					allowDecimals={false}
-					axisLine={{stroke: AXIS.borderStroke}}
-					name={Liferay.Language.get('activities')}
-					stroke={AXIS.gridStroke}
-					tick={getAxisTickText('y')}
-					tickCount={6}
-					tickLine={false}
-					type='number'
-					width={yAxisWidth}
-				/>
-
-				<YAxis
-					axisLine={{stroke: AXIS.borderStroke}}
-					orientation='right'
-					stroke={AXIS.gridStroke}
-					tick={false}
-					tickLine={false}
-					type='number'
-					width={1}
-					yAxisId='right'
-				/>
-
-				<Tooltip
-					content={renderTooltip}
-					cursor={{stroke: CHART_BLUE}}
-					position={
-						showFixedTooltip
-							? {
-									x: selectedTooltipX
-							  }
-							: null
-					}
-					ref={_tooltipRef}
-					wrapperStyle={
-						showFixedTooltip
-							? {
-									visibility: 'visible'
-							  }
-							: null
-					}
-				/>
-
-				<ReferenceLine
-					strokeWidth={1}
-					x={
-						showFixedTooltip
-							? history[selectedPoint]?.intervalInitDate
-							: null
-					}
-				/>
-
-				<Bar
-					animationDuration={ANIMATION_DURATION.bar}
-					dataKey='totalElements'
-					fill={CHART_BLUE}
-					onMouseEnter={(e, index) => setHoverIndex(index)}
-					onMouseLeave={() => setHoverIndex(-1)}
+					}}
+					onMouseLeave={() => setMouseOutside(true)}
+					onMouseMove={() => setMouseOutside(false)}
 				>
-					{history.map((entry, index) => (
-						<Cell
-							fill={getBarColor(index, hoverIndex, selectedPoint)}
-							key={`cell-${index}`}
-						/>
-					))}
-				</Bar>
-			</ComposedChart>
-		</ResponsiveContainer>
+					<CartesianGrid
+						stroke={AXIS.gridStroke}
+						strokeDasharray='3 3'
+						vertical={false}
+					/>
+
+					<XAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='intervalInitDate'
+						domain={['dataMin', 'dataMax']}
+						interval='preserveStart'
+						padding={{left: 20, right: 20}}
+						tick={getAxisTickText('x', value =>
+							formatXAxisDate(
+								value,
+								rangeSelectors.rangeKey,
+								interval,
+								dateKeysIMap
+							)
+						)}
+						tickLine={false}
+						tickMargin={12}
+						ticks={intervals}
+					/>
+
+					<XAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='intervalInitDate'
+						orientation='top'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						xAxisId='top'
+					/>
+
+					<YAxis
+						allowDecimals={false}
+						axisLine={{stroke: AXIS.borderStroke}}
+						name={Liferay.Language.get('activities')}
+						stroke={AXIS.gridStroke}
+						tick={getAxisTickText('y')}
+						tickCount={6}
+						tickLine={false}
+						type='number'
+						width={yAxisWidth}
+					/>
+
+					<Tooltip
+						content={renderTooltip}
+						cursor={{stroke: CHART_BLUE}}
+						position={
+							showFixedTooltip
+								? {
+										x: selectedTooltipX
+								  }
+								: null
+						}
+						ref={_tooltipRef}
+						wrapperStyle={
+							showFixedTooltip
+								? {
+										visibility: 'visible'
+								  }
+								: null
+						}
+					/>
+
+					<ReferenceLine
+						strokeWidth={1}
+						x={
+							showFixedTooltip
+								? history[selectedPoint]?.intervalInitDate
+								: null
+						}
+					/>
+
+					<Bar
+						animationDuration={ANIMATION_DURATION.bar}
+						dataKey='totalElements'
+						fill={CHART_BLUE}
+						onMouseEnter={(e, index) => setHoverIndex(index)}
+						onMouseLeave={() => setHoverIndex(-1)}
+					>
+						{history.map((entry, index) => (
+							<Cell
+								fill={getBarColor(
+									index,
+									hoverIndex,
+									selectedPoint
+								)}
+								key={`cell-${index}`}
+							/>
+						))}
+					</Bar>
+				</ComposedChart>
+			</ResponsiveContainer>
+		</ComposedChartWithEmptyState>
 	);
 };
 

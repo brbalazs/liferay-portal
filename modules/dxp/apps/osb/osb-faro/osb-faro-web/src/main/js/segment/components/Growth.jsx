@@ -3,10 +3,11 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/chart-tooltip';
+import ComposedChartWithEmptyState from 'shared/components/ComposedChartWithEmptyState';
 import getCN from 'classnames';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import URLConstants from 'shared/util/url-constants';
 import {
@@ -302,15 +303,34 @@ export class SegmentGrowthChart extends React.Component {
 		const yAxisWidth = getYAxisWidth(data, 'value');
 
 		return (
-			<>
-				<ResponsiveContainer
-					className={
-						!intervals.length
-							? 'segment-growth-chart-empty-sate'
-							: ''
-					}
-					height={height}
-				>
+			<ComposedChartWithEmptyState
+				emptyDescription={
+					<>
+						<span className='mr-1'>
+							{Liferay.Language.get(
+								'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+							)}
+						</span>
+
+						<a
+							href={
+								URLConstants.SegmentsOverviewTabDocumentationLink
+							}
+							key='DOCUMENTATION'
+							target='_blank'
+						>
+							{Liferay.Language.get(
+								'learn-more-about-segment-membership'
+							)}
+						</a>
+					</>
+				}
+				emptyTitle={Liferay.Language.get(
+					'there-is-no-data-for-segment-membership'
+				)}
+				showEmptyState={!intervals.length}
+			>
+				<ResponsiveContainer height={height}>
 					<AreaChart
 						data={data}
 						onClick={pointData => {
@@ -555,36 +575,7 @@ export class SegmentGrowthChart extends React.Component {
 						/>
 					</AreaChart>
 				</ResponsiveContainer>
-
-				{!intervals.length && (
-					<NoResultsDisplay
-						description={
-							<>
-								<span className='mr-1'>
-									{Liferay.Language.get(
-										'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
-									)}
-								</span>
-
-								<a
-									href={
-										URLConstants.SegmentsOverviewTabDocumentationLink
-									}
-									key='DOCUMENTATION'
-									target='_blank'
-								>
-									{Liferay.Language.get(
-										'learn-more-about-segment-membership'
-									)}
-								</a>
-							</>
-						}
-						title={Liferay.Language.get(
-							'there-is-no-data-for-segment-membership'
-						)}
-					/>
-				)}
-			</>
+			</ComposedChartWithEmptyState>
 		);
 	}
 }
@@ -680,6 +671,8 @@ const SegmentGrowthWithList = ({
 	selectedPoint,
 	timeZoneId
 }) => {
+	const [showMembershipList, setShowMembershipList] = useState(true);
+
 	const fetchMembers = params => {
 		const fetchMembersFn = hasSelectedPoint
 			? getMemberChanges
@@ -731,6 +724,15 @@ const SegmentGrowthWithList = ({
 		initialPage: 0
 	});
 
+	const dateKeysIMap = createDateKeysIMap(INTERVAL, data, 'modifiedDate');
+
+	const intervals = getIntervals(
+		RangeKeyTimeRanges.Last30Days,
+		data.map(({modifiedDate}) => modifiedDate),
+		INTERVAL,
+		dateKeysIMap
+	);
+
 	return (
 		<Card.Body
 			className={getCN('segment-growth-root', className)}
@@ -747,50 +749,66 @@ const SegmentGrowthWithList = ({
 				/>
 			</div>
 
-			<SelectedPointInfo
-				data={data}
-				hasSelectedPoint={hasSelectedPoint}
-				onClearSelection={handleClearSelection}
-				selectedPoint={selectedPoint}
-			/>
-
-			<SearchableEntityTable
-				{...paginationParams}
-				columns={getColumns()}
-				dataSourceFn={fetchMembers}
-				dataSourceParams={{channelId, groupId, id, modifiedDate}}
-				entityType={INDIVIDUALS}
-				noResultsRenderer={() => (
-					<NoResultsDisplay
-						description={
-							<>
-								<span className='mr-1'>
-									{Liferay.Language.get(
-										'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
-									)}
-								</span>
-
-								<a
-									href={
-										URLConstants.SegmentsMembershipDocumentationLink
-									}
-									key='DOCUMENTATION'
-									target='_blank'
-								>
-									{Liferay.Language.get(
-										'learn-more-about-individuals'
-									)}
-								</a>
-							</>
-						}
-						spacer
-						title={Liferay.Language.get(
-							'there-are-no-members-found-on-the-selected-time-period'
-						)}
+			{showMembershipList && (
+				<>
+					<SelectedPointInfo
+						data={data}
+						hasSelectedPoint={hasSelectedPoint}
+						onClearSelection={handleClearSelection}
+						selectedPoint={selectedPoint}
 					/>
-				)}
-				rowIdentifier='id'
-			/>
+
+					<SearchableEntityTable
+						{...paginationParams}
+						columns={getColumns()}
+						dataSourceFn={fetchMembers}
+						dataSourceParams={{
+							channelId,
+							groupId,
+							id,
+							modifiedDate
+						}}
+						entityType={INDIVIDUALS}
+						noResultsRenderer={() => {
+							// Check if intervals exists after fetch members
+							// to show/hide membership list based on intervals of chart
+							// to avoid render two empty states
+							setShowMembershipList(!!intervals.length);
+
+							return (
+								<NoResultsDisplay
+									description={
+										<>
+											<span className='mr-1'>
+												{Liferay.Language.get(
+													'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+												)}
+											</span>
+
+											<a
+												href={
+													URLConstants.SegmentsMembershipDocumentationLink
+												}
+												key='DOCUMENTATION'
+												target='_blank'
+											>
+												{Liferay.Language.get(
+													'learn-more-about-individuals'
+												)}
+											</a>
+										</>
+									}
+									spacer
+									title={Liferay.Language.get(
+										'there-are-no-members-found-on-the-selected-time-period'
+									)}
+								/>
+							);
+						}}
+						rowIdentifier='id'
+					/>
+				</>
+			)}
 		</Card.Body>
 	);
 };

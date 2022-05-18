@@ -78,7 +78,7 @@ export default class Membership extends React.Component {
 		} = this.props;
 
 		return (
-			<Card className='segment-membership-root' pageDisplay>
+			<Card className='segment-membership-root'>
 				<Card.Header>
 					<Card.Title>
 						{Liferay.Language.get('segment-membership')}
