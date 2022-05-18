@@ -124,6 +124,7 @@ export class Distribution extends React.Component {
 		delta: 10,
 		id: '',
 		numberOfBins: DEFAULT_NUMBER_OF_BINS,
+		pageContainer: false,
 		selectedPoint: DEFAULT_SELECTED_POINT,
 		title: Liferay.Language.get('breakdown-of-known-members')
 	};
@@ -147,6 +148,7 @@ export class Distribution extends React.Component {
 		noResultsRenderer: PropTypes.func,
 		numberOfBins: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 		onPointSelect: PropTypes.func.isRequired,
+		pageContainer: PropTypes.bool,
 		selectedContext: PropTypes.string,
 		selectedPoint: PropTypes.number,
 		title: PropTypes.string
@@ -516,6 +518,7 @@ export class Distribution extends React.Component {
 				noResultsRenderer,
 				orderIOMap,
 				page,
+				pageContainer,
 				query,
 				selectedPoint
 			},
@@ -554,7 +557,7 @@ export class Distribution extends React.Component {
 
 		return (
 			<>
-				<BasePage.Body pageContainer={false}>
+				<BasePage.Body pageContainer={pageContainer}>
 					<Card>
 						<Card.Header>
 							<Card.Title>

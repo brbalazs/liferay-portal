@@ -45,6 +45,7 @@ const SegmentDistribution = ({segment, ...otherProps}) => (
 							)}
 						/>
 					)}
+					pageContainer
 					{...otherProps}
 				/>
 			</div>
