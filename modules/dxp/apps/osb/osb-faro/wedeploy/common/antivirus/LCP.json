@@ -15,7 +15,7 @@
       "tcpSocket": {
         "port": 3310
       },
-      "initialDelaySeconds": 300,
+      "initialDelaySeconds": 150,
       "timeoutSeconds": 10,
       "failureThreshold": 12
     },
@@ -26,5 +26,10 @@
       "initialDelaySeconds": 60,
       "timeoutSeconds": 10,
       "failureThreshold": 12
+    },
+    "environments": {
+      "infra": {
+        "deploy": false
+      }
     }
   }
