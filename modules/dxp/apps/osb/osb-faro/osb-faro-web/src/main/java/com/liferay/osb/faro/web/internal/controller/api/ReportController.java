@@ -233,15 +233,15 @@ public class ReportController extends BaseFaroController {
 
 				stringMap.put(
 					"message",
-					"The last data export for this date range and type" +
-						" failed. A new data export file will be" +
-							" created. Please come back later.");
+					"The last data export for this date range and type " +
+						"failed. A new data export file will be created. " +
+							"Please come back later.");
 			}
 			else {
 				stringMap.put(
 					"message",
-					"A new data export file for this date range and type will" +
-						" be created. Please come back later.");
+					"A new data export file for this date range and type " +
+						"will be created. Please come back later.");
 			}
 		}
 		else if (status.equals("RUNNING")) {
@@ -253,9 +253,9 @@ public class ReportController extends BaseFaroController {
 		else if (status.equals("ERROR")) {
 			stringMap.put(
 				"message",
-				"The last data export for this date range and type failed. A" +
-					" new data export file will be created. Please come back" +
-						" later.");
+				"The last data export for this date range and type failed. A " +
+					"new data export file will be created. Please come back " +
+						"later.");
 		}
 
 		String toDateString = MapUtil.getString(responseMap, "toDate");
