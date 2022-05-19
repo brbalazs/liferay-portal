@@ -8,3 +8,14 @@ app.artifacts-2.0.0=\
 app.change.log-2.0.0=LPS-77699 LPS-79679
 
 app.git.id-2.0.0=5c1209849ecb6ef5d49d3013f383f0651acdb752
+
+#
+# Liferay App Version 2.1.0
+#
+
+app.artifacts-2.1.0=\
+	com.liferay.portal.search.elasticsearch6.xpack.security.impl-2.0.37.jar
+
+app.change.log-2.1.0=LPS-112251 LPS-122403 LPS-151205 LPS-74544 LPS-75049 LPS-77425 LPS-77679 LPS-77699 LPS-78977 LPS-79562 LPS-79679 LPS-81106 LPS-82343 LPS-86408
+
+app.git.id-2.1.0=56b9971747bd503c3012e1dbbb5834e5a240550f
