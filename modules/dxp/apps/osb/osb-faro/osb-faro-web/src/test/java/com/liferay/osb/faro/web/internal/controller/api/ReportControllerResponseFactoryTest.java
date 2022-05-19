@@ -50,9 +50,8 @@ public class ReportControllerResponseFactoryTest {
 
 		expectedMap.put(
 			"message",
-			"The last data export for this date range and type failed. A" +
-				" new data export file will be created. Please come back" +
-					" later.");
+			"The last data export for this date range and type failed. A new " +
+				"data export file will be created. Please come back later.");
 
 		AssertUtils.assertEquals(
 			expectedMap, (Map<String, Object>)response.getEntity());
@@ -77,8 +76,8 @@ public class ReportControllerResponseFactoryTest {
 
 		expectedMap.put(
 			"message",
-			"A new data export file for this date range and type will be" +
-				" created. Please come back later.");
+			"A new data export file for this date range and type will be " +
+				"created. Please come back later.");
 
 		AssertUtils.assertEquals(
 			expectedMap, (Map<String, Object>)response.getEntity());
@@ -123,8 +122,8 @@ public class ReportControllerResponseFactoryTest {
 
 		expectedMap.put(
 			"message",
-			"The data export file for this date range and type is being" +
-				" created. Please come back later.");
+			"The data export file for this date range and type is being " +
+				"created. Please come back later.");
 
 		AssertUtils.assertEquals(
 			expectedMap, (Map<String, Object>)response.getEntity());
@@ -152,8 +151,8 @@ public class ReportControllerResponseFactoryTest {
 
 		expectedMap.put(
 			"message",
-			"A data export for this date range and type has already been" +
-				" scheduled. Please come back later.");
+			"A data export for this date range and type has already been " +
+				"scheduled. Please come back later.");
 
 		AssertUtils.assertEquals(
 			expectedMap, (Map<String, Object>)response.getEntity());
