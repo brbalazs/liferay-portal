@@ -1,35 +1,35 @@
 {
-    "kind": "StatefulSet",
-    "id": "antivirus",
-    "image": "clamav/clamav:stable",
-    "memory": 4096,
-    "cpu": 2,
-    "scale": 1,
-    "ports": [
-      {
-        "port": 3310,
-        "external": false
-      }
-    ],
-    "readinessProbe": {
-      "tcpSocket": {
-        "port": 3310
-      },
-      "initialDelaySeconds": 150,
-      "timeoutSeconds": 10,
-      "failureThreshold": 12
-    },
-    "livenessProbe": {
-      "tcpSocket": {
-        "port": 3310
-      },
-      "initialDelaySeconds": 60,
-      "timeoutSeconds": 10,
-      "failureThreshold": 12
-    },
-    "environments": {
-      "infra": {
-        "deploy": false
-      }
-    }
-  }
+	"kind": "StatefulSet",
+	"id": "antivirus",
+	"image": "clamav/clamav:stable",
+	"memory": 4096,
+	"cpu": 2,
+	"scale": 1,
+	"ports": [
+		{
+			"port": 3310,
+			"external": false
+		}
+	],
+	"readinessProbe": {
+		"tcpSocket": {
+			"port": 3310
+		},
+		"initialDelaySeconds": 150,
+		"timeoutSeconds": 10,
+		"failureThreshold": 12
+	},
+	"livenessProbe": {
+		"tcpSocket": {
+			"port": 3310
+		},
+		"initialDelaySeconds": 60,
+		"timeoutSeconds": 10,
+		"failureThreshold": 12
+	},
+	"environments": {
+		"infra": {
+			"deploy": false
+		}
+	}
+}
