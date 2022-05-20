@@ -1,9 +1,10 @@
 import Card from 'shared/components/Card';
 import IndividualInterestsQuery from 'shared/queries/IndividualInterestsQuery';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import URLConstants from 'shared/util/url-constants';
 import {compositionListColumns} from 'shared/util/table-columns';
-import {CompositionTypes} from 'shared/util/constants';
+import {CompositionTypes, Sizes} from 'shared/util/constants';
 import {COUNT, createOrderIOMap} from 'shared/util/pagination';
 import {
 	getMapResultToProps,
@@ -68,29 +69,38 @@ const Interests: React.FC<React.HTMLAttributes<HTMLElement>> = () => {
 				channelId={channelId}
 				delta={delta}
 				groupId={groupId}
-				noResultsRenderer={() => ({
-					description: (
-						<>
-							{Liferay.Language.get(
-								'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
-							)}
-
-							<a
-								className='d-block mb-3'
-								href={
-									URLConstants.IndividualsDashboardInterestsDocumentation
-								}
-								key='DOCUMENTATION'
-								target='_blank'
-							>
+				noResultsRenderer={
+					<NoResultsDisplay
+						description={
+							<>
 								{Liferay.Language.get(
-									'learn-more-about-interests'
+									'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
 								)}
-							</a>
-						</>
-					),
-					title: Liferay.Language.get('there-are-no-interests-found')
-				})}
+
+								<a
+									className='d-block mb-3'
+									href={
+										URLConstants.IndividualsDashboardInterestsDocumentation
+									}
+									key='DOCUMENTATION'
+									target='_blank'
+								>
+									{Liferay.Language.get(
+										'learn-more-about-interests'
+									)}
+								</a>
+							</>
+						}
+						icon={{
+							border: false,
+							size: Sizes.XXXLarge,
+							symbol: 'ac-satellite'
+						}}
+						title={Liferay.Language.get(
+							'there-are-no-interests-found'
+						)}
+					/>
+				}
 				orderIOMap={orderIOMap}
 				page={page}
 				query={query}
