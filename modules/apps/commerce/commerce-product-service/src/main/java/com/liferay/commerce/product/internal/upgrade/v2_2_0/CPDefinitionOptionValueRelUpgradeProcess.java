@@ -30,15 +30,12 @@ public class CPDefinitionOptionValueRelUpgradeProcess
 			CPDefinitionOptionValueRelImpl.class,
 			CPDefinitionOptionValueRelImpl.TABLE_NAME, "CPInstanceUuid",
 			"VARCHAR(75)");
-
 		addColumn(
 			CPDefinitionOptionValueRelImpl.class,
 			CPDefinitionOptionValueRelImpl.TABLE_NAME, "CProductId", "LONG");
-
 		addColumn(
 			CPDefinitionOptionValueRelImpl.class,
 			CPDefinitionOptionValueRelImpl.TABLE_NAME, "quantity", "INTEGER");
-
 		addColumn(
 			CPDefinitionOptionValueRelImpl.class,
 			CPDefinitionOptionValueRelImpl.TABLE_NAME, "price",

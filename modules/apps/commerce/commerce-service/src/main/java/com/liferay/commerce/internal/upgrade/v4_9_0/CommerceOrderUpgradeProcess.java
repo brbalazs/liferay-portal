@@ -28,71 +28,54 @@ public class CommerceOrderUpgradeProcess
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalDiscountWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalDiscountPctLev1WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalDiscountPctLev2WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalDiscountPctLev3WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"subtotalDiscountPctLev4WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingDiscountWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingDiscountPctLev1WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingDiscountPctLev2WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingDiscountPctLev3WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"shippingDiscountPctLev4WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalDiscountWithTaxAmount", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalDiscountPctLev1WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalDiscountPctLev2WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalDiscountPctLev3WithTax", "DECIMAL(30,16)");
-
 		addColumn(
 			CommerceOrderModelImpl.class, CommerceOrderModelImpl.TABLE_NAME,
 			"totalDiscountPctLev4WithTax", "DECIMAL(30,16)");

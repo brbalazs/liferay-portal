@@ -30,52 +30,41 @@ public class CommercePriceEntryUpgradeProcess
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "discountDiscovery",
 			"BOOLEAN");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "discountLevel1",
 			"DECIMAL(30,16)");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "discountLevel2",
 			"DECIMAL(30,16)");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "discountLevel3",
 			"DECIMAL(30,16)");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "discountLevel4",
 			"DECIMAL(30,16)");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "bulkPricing", "BOOLEAN");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "displayDate", "DATE");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "expirationDate", "DATE");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "status", "INTEGER");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "statusByUserId", "LONG");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "statusByUserName",
 			"VARCHAR(75)");
-
 		addColumn(
 			CommercePriceEntryModelImpl.class,
 			CommercePriceEntryModelImpl.TABLE_NAME, "statusDate", "DATE");

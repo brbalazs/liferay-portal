@@ -29,7 +29,6 @@ public class CommercePriceListUpgradeProcess
 		addColumn(
 			CommercePriceListModelImpl.class,
 			CommercePriceListModelImpl.TABLE_NAME, "type_", "VARCHAR(75)");
-
 		addColumn(
 			CommercePriceListModelImpl.class,
 			CommercePriceListModelImpl.TABLE_NAME, "catalogBasePriceList",

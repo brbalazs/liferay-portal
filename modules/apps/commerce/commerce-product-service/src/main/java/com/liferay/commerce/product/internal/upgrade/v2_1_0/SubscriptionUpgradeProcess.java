@@ -41,6 +41,7 @@ public class SubscriptionUpgradeProcess
 		addColumn(
 			CPDefinitionImpl.class, CPDefinitionImpl.TABLE_NAME,
 			"deliveryMaxSubscriptionCycles", "LONG");
+
 		addColumn(
 			CPInstanceImpl.class, CPInstanceImpl.TABLE_NAME,
 			"deliverySubscriptionEnabled", "BOOLEAN");
