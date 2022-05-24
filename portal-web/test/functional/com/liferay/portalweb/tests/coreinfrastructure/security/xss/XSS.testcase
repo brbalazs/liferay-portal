@@ -227,6 +227,8 @@ definition {
 
 		Panel.expandPanel(panel = "Custom Fields");
 
+		var actualScript = '''<script>alert(123);</script>''';
+
 		AssertTextEquals(
 			locator1 = "DocumentsAndMedia#CUSTOM_FIELD_NAME",
 			value1 = "${actualScript}",
