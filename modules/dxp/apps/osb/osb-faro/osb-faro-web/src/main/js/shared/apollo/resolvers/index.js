@@ -1,4 +1,9 @@
+import CommerceTotalOrderValueResolver from './CommerceTotalOrderValueResolver';
 import EventAnalysisListResolver from './EventAnalysisListResolver';
 import ExperimentResolver from './ExperimentResolver';
 
-export {EventAnalysisListResolver, ExperimentResolver};
+export {
+	CommerceTotalOrderValueResolver,
+	EventAnalysisListResolver,
+	ExperimentResolver
+};
