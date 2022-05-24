@@ -23,6 +23,7 @@ Object {
   "ASSETS_WEB_CONTENT_ROUTES": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?/assets/web-content/:assetId/:tabId(page|known-individuals)/:touchpoint/:title?",
   "BASE": "/",
   "CHANNEL": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?",
+  "COMMERCE": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?/commerce",
   "CONTACTS": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?/contacts",
   "CONTACTS_ACCOUNT": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?/contacts/accounts/:id",
   "CONTACTS_ACCOUNT_ACTIVITIES": "/workspace/:groupId([\\\\w._-]+)/:channelId(\\\\d+)?/contacts/accounts/:id/activities",

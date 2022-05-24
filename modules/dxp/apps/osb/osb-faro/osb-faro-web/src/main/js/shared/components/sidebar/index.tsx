@@ -95,6 +95,17 @@ const Sidebar: React.FC<ISidebarProps> = ({
 		{
 			items: [
 				{
+					icon: 'ac-commerce',
+					label: Liferay.Language.get('commerce'),
+					route: Routes.COMMERCE,
+					url: toRoute(Routes.COMMERCE, {channelId, groupId})
+				}
+			],
+			label: Liferay.Language.get('commerce')
+		},
+		{
+			items: [
+				{
 					icon: 'ac-test',
 					label: Liferay.Language.get('tests'),
 					route: Routes.TESTS,
@@ -155,6 +166,15 @@ const Sidebar: React.FC<ISidebarProps> = ({
 		};
 	};
 
+	let sidebarSections = getSidebarSections();
+
+	// LRAC-11176 - TODO Remove Feature flag after finish LRAC-10329 Story
+	if (!DEVELOPER_MODE) {
+		sidebarSections = sidebarSections.filter(
+			({label}) => label.toLowerCase() !== 'commerce'
+		);
+	}
+
 	return (
 		<div className={getCN('sidebar-root', className, {collapsed})}>
 			<div className='sidebar-header'>
@@ -178,7 +198,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
 			</div>
 
 			<div className='sidebar-body'>
-				{getSidebarSections().map(({items, label}, sectionIndex) => (
+				{sidebarSections.map(({items, label}, sectionIndex) => (
 					<div className='section' key={sectionIndex}>
 						<h5 className='section-title'>{label}</h5>
 

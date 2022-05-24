@@ -136,6 +136,12 @@ const WebContent = lazy(() =>
 	import(/* webpackChunkName: "WebContent" */ 'assets/web-content/pages')
 );
 
+/* Commmerce */
+
+const CommerceDashboard = lazy(() =>
+	import(/* webpackChunkName: "CommerceDashboard" */ 'commerce/pages')
+);
+
 const ROUTES = [
 	{
 		data: AccountsList,
@@ -252,6 +258,11 @@ const ROUTES = [
 		data: SitesDashboard,
 		destructured: false,
 		path: Routes.CHANNEL
+	},
+	{
+		data: CommerceDashboard,
+		destructured: false,
+		path: Routes.COMMERCE
 	}
 ].filter(Boolean);
 

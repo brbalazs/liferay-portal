@@ -13,18 +13,19 @@ export const ACTIVITIES = 'activities';
 export const ANALYTICS = 'analytics';
 export const ANY = 'Any';
 export const ASSETS = 'assets';
-export const LIFERAY = 'liferay';
+export const COMMERCE = 'commerce';
 export const CONTACTS = 'contacts';
 export const CSV = 'csv';
 export const GROWTH = 'growth';
 export const INDIVIDUALS = 'individuals';
+export const LIFERAY = 'liferay';
 export const PAGES = 'pages';
+export const SALESFORCE = 'salesforce';
 export const SEGMENTS = 'segments';
 export const SETTINGS = 'settings';
+export const TOUCHPOINTS = 'pages';
 export const UI_KIT = 'ui-kit';
 export const USERS = 'users';
-export const SALESFORCE = 'salesforce';
-export const TOUCHPOINTS = 'pages';
 
 /* Filter Key Constants */
 
@@ -110,6 +111,7 @@ export const Routes = buildRoutes({
 									}
 								}
 							},
+							COMMERCE: `/${COMMERCE}`,
 							CONTACTS: {
 								path: `/${CONTACTS}`,
 								routes: {
