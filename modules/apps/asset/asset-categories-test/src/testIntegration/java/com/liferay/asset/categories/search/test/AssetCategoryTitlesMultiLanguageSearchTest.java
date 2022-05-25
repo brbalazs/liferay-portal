@@ -188,6 +188,7 @@ public class AssetCategoryTitlesMultiLanguageSearchTest {
 						{
 							defaultLocale = locale;
 							name = "content";
+
 							put(locale, journalArticleContentString);
 						}
 					};
@@ -238,6 +239,7 @@ public class AssetCategoryTitlesMultiLanguageSearchTest {
 						{
 							defaultLocale = locale;
 							name = "content";
+
 							put(locale, journalArticleContentString1);
 						}
 					};
@@ -264,6 +266,7 @@ public class AssetCategoryTitlesMultiLanguageSearchTest {
 						{
 							defaultLocale = locale;
 							name = "content";
+
 							put(locale, journalArticleContentString2);
 						}
 					};
