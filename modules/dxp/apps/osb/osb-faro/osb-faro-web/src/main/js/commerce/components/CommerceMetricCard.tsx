@@ -1,7 +1,6 @@
 import BaseCard from 'cerebro-shared/components/base-card';
 import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useState} from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import Trend from 'shared/components/Trend';
@@ -46,9 +45,7 @@ const CommerceCardWithStatesRenderer: React.FC<ICommerceMetricCardWithStatesRend
 }) => (
 	<StatesRenderer empty={empty} error={!!error} loading={loading}>
 		<StatesRenderer.Loading displayCard />
-		<StatesRenderer.Empty>
-			<NoResultsDisplay />
-		</StatesRenderer.Empty>
+		<StatesRenderer.Empty showIcon={false} />
 		<StatesRenderer.Error apolloError={error}>
 			<ErrorDisplay />
 		</StatesRenderer.Error>

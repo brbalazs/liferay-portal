@@ -340,6 +340,7 @@ module.exports = {
 		'^assets(.*)$': '<rootDir>/src/main/js/assets$1',
 		'^cerebro-shared(.*)$': '<rootDir>/src/main/js/cerebro-shared$1',
 		'^clay-charts-react(.*)$': '<rootDir>/src/main/js/clay-charts-react$1',
+		'^commerce(.*)$': '<rootDir>/src/main/js/commerce$1',
 		'^contacts(.*)$': '<rootDir>/src/main/js/contacts$1',
 		'^dnd-core$': 'dnd-core/dist/cjs',
 		'^event-analysis(.*)$': '<rootDir>/src/main/js/event-analysis$1',
