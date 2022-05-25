@@ -1,3 +1,4 @@
+import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 
@@ -7,12 +8,10 @@ interface ITrendProps extends React.HTMLAttributes<HTMLDivElement> {
 	label: string;
 }
 
-const CLASSNAME = 'analytics-trend';
-
-const Trend: React.FC<ITrendProps> = ({color, icon, label}) => (
-	<div className={CLASSNAME} style={{color}}>
+const Trend: React.FC<ITrendProps> = ({className, color, icon, label}) => (
+	<div className={getCN('analytics-trend', className)} style={{color}}>
 		{icon && <Icon symbol={icon} />}
-		<span className={`${CLASSNAME}-percent mb-0`}>{label}</span>
+		<span className='analytics-trend-percent mb-0'>{label}</span>
 	</div>
 );
 
