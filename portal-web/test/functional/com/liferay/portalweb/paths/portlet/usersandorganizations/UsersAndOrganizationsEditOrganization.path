@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--DETAILS-->
+
 <tr>
 	<td>DETAILS_TYPE</td>
 	<td>//input[@value='${key_orgType}' and @type='text']</td>
@@ -21,7 +23,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--PARENT_ORGANIZATION-->
+
 <tr>
 	<td>PARENT_ORGANIZATION_TABLE_NAME</td>
 	<td>//div[contains(@id,'parentOrganizationSearchContainer')]//tr/td[1]//a</td>
@@ -42,7 +46,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--ORGANIZATION_SITE-->
+
 <tr>
 	<td>ORGANIZATION_SITE_CREATE_SITE_CHECKBOX</td>
 	<td>//div[contains(@class,'input-checkbox-wrapper')]//input[contains(@id,'site')]</td>
@@ -53,7 +59,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--CATEGORIZATION-->
+
 <tr>
 	<td>CATEGORIZATION_TAG</td>
 	<td>//li/span[contains(.,'${key_tagName}')]</td>
@@ -64,7 +72,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--ADDRESSES-->
+
 <tr>
 	<td>ADDRESSES_STREET_FIELD_1</td>
 	<td>//input[contains(@id,'addressStreet1_0')]</td>
@@ -110,7 +120,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--PHONE_NUMBERS-->
+
 <tr>
 	<td>PHONE_NUMBERS_NUMBER_FIELD</td>
 	<td>//input[contains(@id,'phoneNumber0')]</td>
@@ -126,7 +138,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--ADDITIONAL_EMAIL_ADDRESSES-->
+
 <tr>
 	<td>ADDITIONAL_EMAIL_ADDRESSES_EMAIL_ADDRESS_FIELD</td>
 	<td>//input[contains(@id,'emailAddressAddress0')]</td>
@@ -137,7 +151,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--WEBSITES-->
+
 <tr>
 	<td>WEBSITES_URL_FIELD</td>
 	<td>//input[contains(@id,'websiteUrl0')]</td>
@@ -153,7 +169,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--SERVICES-->
+
 <tr>
 	<td>SERVICES_MONDAY_OPEN_SELECT</td>
 	<td>//select[contains(@id,'monOpen0')]</td>
@@ -169,7 +187,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--REMINDER_QUERIES-->
+
 <tr>
 	<td>REMINDER_QUERIES_DEFAULT_LANGUAGE_FIELD</td>
 	<td>//textarea[contains(@id,'reminderQueries')]</td>

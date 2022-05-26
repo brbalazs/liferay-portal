@@ -20,7 +20,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--EDIT_TABS-->
+
 <tr>
 	<td>MISCELLANEOUS</td>
 	<td>//li[contains(@class,'tab')]/a[contains(.,'Miscellaneous')]</td>
@@ -38,6 +40,7 @@
 </tr>
 
 <!--ORGANIZATION_TABLE-->
+
 <tr>
 	<td>ORGANIZATION_TABLE_NAME</td>
 	<td>//td[contains(@class,'name') and contains(.,'${key_orgName}')]//a[1]</td>
@@ -58,7 +61,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--USERS_AND_SUBORGANIZATIONS_TABLE-->
+
 <tr>
 	<td>USERS_AND_SUBORGANIZATIONS_TABLE_NAME</td>
 	<td>//td[contains(@class,'name') and contains(.,'${key_userFullName}')]//a[1]</td>
@@ -74,7 +79,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--USER_TABLE-->
+
 <tr>
 	<td>USER_TABLE_NAME</td>
 	<td>//tr[contains(.,'${key_userScreenName}')]/td[2]/a</td>
@@ -90,7 +97,9 @@
 	<td>//tr[contains(.,'${key_userScreenName}')]/td[7]//span/a[contains(.,'Impersonate User')]</td>
 	<td></td>
 </tr>
+
 <!--USER_CONTACT_INFORMATION-->
+
 <tr>
 	<td>USER_CONTACT_INFORMATION_PHONE_NUMBER</td>
 	<td>//fieldset[contains(@id,'phoneNumbers')]//input[contains(@id,'phoneNumber')]</td>

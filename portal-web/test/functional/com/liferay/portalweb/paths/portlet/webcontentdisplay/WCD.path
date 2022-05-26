@@ -35,7 +35,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--DOCUMENT_CONVERSION-->
+
 <tr>
 	<td>DOCUMENT_CONVERSION_TYPE</td>
 	<td>//span[contains(@class,'taglib-text') and contains (.,'${key_fileType}')]</td>
@@ -51,7 +53,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--WEB_CONTENT-->
+
 <tr>
 	<td>WEB_CONTENT_CONTENT</td>
 	<td>//div[contains(@class,'journal-content-article')]</td>

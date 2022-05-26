@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--SITE_TABLE-->
+
 <tr>
 	<td>SITE_TABLE_CHECKBOX</td>
 	<td>//table[contains(@class,'table-autofit')]//tr[contains(.,'${key_siteName}')]/td[1]//input</td>

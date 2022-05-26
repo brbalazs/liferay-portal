@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--RULE_BUILDER-->
+
 <tr>
 	<td>RULE_BUILDER_ADD_RULE_BUTTON</td>
 	<td>//button[contains(@class,'ddm-add-rule')]</td>
@@ -126,7 +128,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--RULE_BUILDER_AUTOFILL-->
+
 <tr>
 	<td>RULE_BUILDER_AUTOFILL_FROM_DATA_PROVIDER</td>
 	<td>//div[contains(.,'${key_dataProviderParameterName}')]/following-sibling::div//div[contains(@class,'option-selected')]</td>
@@ -142,7 +146,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--RULE_BUILDER_CALCULATE-->
+
 <tr>
 	<td>RULE_BUILDER_CALCULATE_OPERATOR</td>
 	<td>//ul[contains(@class,'calculator-buttons-operators')]//li[@data-calculator-key='${key_calculateOperator}']</td>
@@ -173,7 +179,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--RULE_BUILDER_SUMMARY-->
+
 <tr>
 	<td>RULE_BUILDER_SUMMARY_CONDITION_FIELD</td>
 	<td>//li[@class='list-group-item'][${key_ruleNumber}]//p[contains(@class,'rule-description')]/span[contains(.,'${key_conditionField}')]</td>

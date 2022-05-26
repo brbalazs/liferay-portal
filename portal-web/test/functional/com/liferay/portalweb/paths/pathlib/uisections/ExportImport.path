@@ -20,7 +20,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--CURRENT_AND_PREVIOUS-->
+
 <tr>
 	<td>CURRENT_AND_PREVIOUS_STATUS</td>
 	<td>//tr[contains(.,'${key_larFileName}')]/td[2]//h5</td>
@@ -41,7 +43,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--LAYOUT-->
+
 <tr>
 	<td>PRIVATE_LAYOUT</td>
 	<td>//input[contains(@id,'privatePages')]</td>
@@ -52,7 +56,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--CONTENT-->
+
 <tr>
 	<td>CONTENT</td>
 	<td>//label//input[contains(@id,'PORTLET_DATA')]</td>
@@ -78,7 +84,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!-- PERMISSIONS -->
+
 <tr>
 	<td>PERMISSIONS_TITLE</td>
 	<td>//div[contains(@id,'permissionsTitle')]/a</td>
@@ -89,7 +97,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--UPDATE_DATA-->
+
 <tr>
 	<td>UPDATE_DATA_MIRROR_WITH_OVERWRITING_RADIO</td>
 	<td>//div[contains(@class, radio)]//label[contains(., 'Mirror with overwriting')]/input</td>

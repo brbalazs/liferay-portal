@@ -410,13 +410,17 @@
 	<td>//div/h4[contains(.,'Payment Methods')]/..//button[contains(.,'${key_paymentMethod}')]</td>
 	<td></td>
 </tr>
+
 <!--CATALOGS-->
+
 <tr>
 	<td>CATALOGS_FORM</td>
 	<td>//label[contains(.,'${key_title}')]/../select[contains(@class,'form-control')]</td>
 	<td></td>
 </tr>
+
 <!--OPTION-->
+
 <tr>
 	<td>ADD_RELATION_FIELD</td>
 	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']</td>
@@ -437,25 +441,33 @@
 	<td>//div[h4[contains(.,'${key_title}')]]//input[@type='text']/../../../..//button[contains(.,'Select')]</td>
 	<td></td>
 </tr>
+
 <!--IFRAME-->
+
 <tr>
 	<td>IFRAME_SIDE_PANEL</td>
 	<td>//div[contains(@class,'side-panel') and contains(@class,'is-visible')]//iframe</td>
 	<td></td>
 </tr>
+
 <!--PRICE-->
+
 <tr>
 	<td>INPUT_PRICE</td>
 	<td>//div[label[(text() = ' Price ' )]]//input[@type='text'] | //label[normalize-space(text())='Price']/following-sibling::div//input[@type='text']</td>
 	<td></td>
 </tr>
+
 <!--IMAGES-->
+
 <tr>
 	<td>IMAGES_PLUS_BUTTON</td>
 	<td>//div[(@class = 'card d-flex')]/h4[contains(.,'Images')]//..//button[contains(@class,'btn-primary')]</td>
 	<td></td>
 </tr>
+
 <!--PRODUCT-->
+
 <tr>
 	<td>CREATE_NEW_PRODUCT_CATALOG_FIELD</td>
 	<td>//label[text()='Catalog']/following::div//input[@placeholder='Type Here']</td>

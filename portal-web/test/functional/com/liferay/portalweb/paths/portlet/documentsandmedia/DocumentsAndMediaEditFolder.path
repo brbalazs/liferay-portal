@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--WORKFLOW -->
+
 <tr>
 	<td>WORKFLOW_DOCUMENT_TYPE_RESTRICTIONS_TOGGLE</td>
 	<td>//a[contains(.,'Document Type Restrictions and Workflow')]</td>
@@ -31,7 +33,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--PERMISSIONS-->
+
 <tr>
 	<td>PERMISSIONS_SELECT</td>
 	<td>//select[contains(@id,'inputPermissionsViewRole')]</td>

@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--RESOURCE_TABLE-->
+
 <tr>
 	<td>RESOURCE_TABLE_RESOURCE_LINK</td>
 	<td>//*[@data-qa-id='row']//*[normalize-space(text())='${key_resourceName}']</td>

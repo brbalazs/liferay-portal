@@ -50,7 +50,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--ASSETS-->
+
 <tr>
 	<td>ASSETS_DYNAMIC_EXPORT_LIMIT</td>
 	<td>//div[contains(@data-fieldname,'dynamicExportLimit')]//input[@type='text']</td>

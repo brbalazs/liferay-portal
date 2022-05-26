@@ -20,7 +20,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--CUSTOM_FIELD-->
+
 <tr>
 	<td>CUSTOM_FIELD_NAME</td>
 	<td>//div[contains(@class,'ddm-field-group')]//span[contains(.,'${customFieldName}')]</td>
@@ -36,7 +38,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--DOCUMENT_INFO-->
+
 <tr>
 	<td>DOCUMENT_INFO_TITLE</td>
 	<td>//div[contains(@class,'document-info')]/h2[contains(@title,'${key_dmDocumentTitle}')]</td>
@@ -112,7 +116,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--DOCUMENT_DETAILS-->
+
 <tr>
 	<td>DOCUMENT_DETAILS_DOWNLOAD</td>
 	<td>//div[@class='sidebar-section']//a[@title='Download (${key_dmDocumentSize})']</td>
@@ -168,7 +174,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--DOCUMENT_EXTRACTED_METADATA-->
+
 <tr>
 	<td>DOCUMENT_EXTRACTED_METADATA_FIELD</td>
 	<td>//div[contains(@id,'documentLibraryMetadataPanel')]//label[contains(.,'${key_metadataLabel}')]/../../div[contains(.,'${key_metadataData}')]</td>
@@ -179,7 +187,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--MARKETING-->
+
 <tr>
 	<td>MARKETING_SELECT</td>
 	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_marketingSelect}')]</td>
@@ -210,7 +220,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--DETAILS_PANEL-->
+
 <tr>
 	<td>DETAILS_URL</td>
 	<td>//div[label[contains(.,'Latest Version URL')]]</td>
@@ -221,7 +233,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--METADATA_PANEL-->
+
 <tr>
 	<td>METADATA_PANEL_BOOLEAN</td>
 	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_booleanValue}')]</td>
@@ -257,7 +271,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--VIDEO_GENERATION-->
+
 <tr>
 	<td>VIDEO_GENERATION_THUMBNAIL_RESOLUTION</td>
 	<td>//head/title[contains(.,'${key_videoGenerationThumbnailResolution}')]</td>

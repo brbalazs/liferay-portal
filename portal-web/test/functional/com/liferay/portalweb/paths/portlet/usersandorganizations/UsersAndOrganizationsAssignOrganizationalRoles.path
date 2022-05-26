@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--USER_TABLE-->
+
 <tr>
 	<td>ROLE_TITLE</td>
 	<td>//tr[contains(.,'${roleTitle}')]/td[1]/a</td>

@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--NAVIGATION-->
+
 <tr>
 	<td>NAVIGATION_EMAIL_FROM</td>
 	<td>//ul[contains(@class,'nav') and contains(@class,'nav-tabs')]/li/a[contains(.,'Email From')]</td>

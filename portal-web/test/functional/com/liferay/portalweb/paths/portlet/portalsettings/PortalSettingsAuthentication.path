@@ -10,7 +10,9 @@
 </thead>
 
 <tbody>
+
 <!--AUTHENTICATION_GENERAL-->
+
 <tr>
 	<td>AUTHENTICATION_GENERAL_ALLOW_USERS_TO_AUTOMATICALLY_LOGIN_CHECKBOX</td>
 	<td>//input[contains(@id,'company-security-auto-login')]</td>
@@ -51,7 +53,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_CAS-->
+
 <tr>
 	<td>AUTHENTICATION_CAS_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'cas_enabled')]</td>
@@ -132,7 +136,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_GOOGLE-->
+
 <tr>
 	<td>AUTHENTICATION_GOOGLE_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'google_enabled')]</td>
@@ -153,7 +159,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_FACEBOOK-->
+
 <tr>
 	<td>AUTHENTICATION_FACEBOOK_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'facebook_enabled')]</td>
@@ -194,7 +202,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_LDAP-->
+
 <tr>
 	<td>AUTHENTICATION_LDAP_ADD_BUTTON</td>
 	<td>//a[contains(@id,'addButton')]</td>
@@ -205,7 +215,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--LDAP_SERVERS_TABLE-->
+
 <tr>
 	<td>LDAP_SERVERS_TABLE_EDIT</td>
 	<td>//tr[contains(.,'${key_LDAPServerName}')]/td[3]//span[.='Edit']/preceding-sibling::i</td>
@@ -216,7 +228,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--LDAP_SERVER-->
+
 <tr>
 	<td>LDAP_SERVER_SERVER_NAME</td>
 	<td>//input[contains(@name,'ldap--serverName')]</td>
@@ -292,7 +306,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_NTLM-->
+
 <tr>
 	<td>AUTHENTICATION_NTLM_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'ntlm_enabled')]</td>
@@ -353,7 +369,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_OPEN_ID-->
+
 <tr>
 	<td>AUTHENTICATION_OPEN_ID_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'openid_enabled')]</td>
@@ -364,7 +382,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_OPEN_ID_CONNECT-->
+
 <tr>
 	<td>AUTHENTICATION_OPEN_ID_CONNECT_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'openid_connect_enabled')]</td>
@@ -375,7 +395,9 @@
 	<td></td>
 	<td></td>
 </tr>
+
 <!--AUTHENTICATION_OPEN_SSO-->
+
 <tr>
 	<td>AUTHENTICATION_OPEN_SSO_ENABLED_CHECKBOX</td>
 	<td>//input[contains(@name,'opensso_enabled')]</td>
