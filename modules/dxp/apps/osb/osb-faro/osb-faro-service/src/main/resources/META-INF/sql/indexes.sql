@@ -25,3 +25,4 @@ create index IX_FCDBAA3E on OSBFaro_FaroUser (groupId, liveUserId);
 create index IX_1B6F355D on OSBFaro_FaroUser (groupId, roleId);
 create index IX_79F1D4DE on OSBFaro_FaroUser (groupId, status);
 create unique index IX_59B1B46 on OSBFaro_FaroUser (key_[$COLUMN_LENGTH:75$]);
+create index IX_F3CF931E on OSBFaro_FaroUser (liveUserId, status);

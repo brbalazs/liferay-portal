@@ -294,6 +294,14 @@ public class FaroUserLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.faro.model.FaroUser>
+		getFaroUsersByLiveUserId(long liveUserId, int status) {
+
+		return _faroUserLocalService.getFaroUsersByLiveUserId(
+			liveUserId, status);
+	}
+
+	@Override
+	public java.util.List<com.liferay.osb.faro.model.FaroUser>
 		getFaroUsersByRoleId(long groupId, long roleId) {
 
 		return _faroUserLocalService.getFaroUsersByRoleId(groupId, roleId);

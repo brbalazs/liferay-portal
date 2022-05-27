@@ -235,6 +235,9 @@ public interface FaroUserLocalService
 	public List<FaroUser> getFaroUsers(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FaroUser> getFaroUsersByLiveUserId(long liveUserId, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FaroUser> getFaroUsersByRoleId(long groupId, long roleId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

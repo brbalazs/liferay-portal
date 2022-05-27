@@ -257,6 +257,12 @@ public class FaroUserLocalServiceUtil {
 		return getService().getFaroUsers(start, end);
 	}
 
+	public static List<FaroUser> getFaroUsersByLiveUserId(
+		long liveUserId, int status) {
+
+		return getService().getFaroUsersByLiveUserId(liveUserId, status);
+	}
+
 	public static List<FaroUser> getFaroUsersByRoleId(
 		long groupId, long roleId) {
 

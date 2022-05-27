@@ -642,6 +642,160 @@ public interface FaroUserPersistence extends BasePersistence<FaroUser> {
 	public int countByG_S(long groupId, int status);
 
 	/**
+	 * Returns all the faro users where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @return the matching faro users
+	 */
+	public java.util.List<FaroUser> findByL_S(long liveUserId, int status);
+
+	/**
+	 * Returns a range of all the faro users where liveUserId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @return the range of matching faro users
+	 */
+	public java.util.List<FaroUser> findByL_S(
+		long liveUserId, int status, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the faro users where liveUserId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching faro users
+	 */
+	public java.util.List<FaroUser> findByL_S(
+		long liveUserId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the faro users where liveUserId = &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroUserModelImpl</code>.
+	 * </p>
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param start the lower bound of the range of faro users
+	 * @param end the upper bound of the range of faro users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching faro users
+	 */
+	public java.util.List<FaroUser> findByL_S(
+		long liveUserId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first faro user in the ordered set where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro user
+	 * @throws NoSuchFaroUserException if a matching faro user could not be found
+	 */
+	public FaroUser findByL_S_First(
+			long liveUserId, int status,
+			com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+				orderByComparator)
+		throws NoSuchFaroUserException;
+
+	/**
+	 * Returns the first faro user in the ordered set where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching faro user, or <code>null</code> if a matching faro user could not be found
+	 */
+	public FaroUser fetchByL_S_First(
+		long liveUserId, int status,
+		com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+			orderByComparator);
+
+	/**
+	 * Returns the last faro user in the ordered set where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro user
+	 * @throws NoSuchFaroUserException if a matching faro user could not be found
+	 */
+	public FaroUser findByL_S_Last(
+			long liveUserId, int status,
+			com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+				orderByComparator)
+		throws NoSuchFaroUserException;
+
+	/**
+	 * Returns the last faro user in the ordered set where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching faro user, or <code>null</code> if a matching faro user could not be found
+	 */
+	public FaroUser fetchByL_S_Last(
+		long liveUserId, int status,
+		com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+			orderByComparator);
+
+	/**
+	 * Returns the faro users before and after the current faro user in the ordered set where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param faroUserId the primary key of the current faro user
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next faro user
+	 * @throws NoSuchFaroUserException if a faro user with the primary key could not be found
+	 */
+	public FaroUser[] findByL_S_PrevAndNext(
+			long faroUserId, long liveUserId, int status,
+			com.liferay.portal.kernel.util.OrderByComparator<FaroUser>
+				orderByComparator)
+		throws NoSuchFaroUserException;
+
+	/**
+	 * Removes all the faro users where liveUserId = &#63; and status = &#63; from the database.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 */
+	public void removeByL_S(long liveUserId, int status);
+
+	/**
+	 * Returns the number of faro users where liveUserId = &#63; and status = &#63;.
+	 *
+	 * @param liveUserId the live user ID
+	 * @param status the status
+	 * @return the number of matching faro users
+	 */
+	public int countByL_S(long liveUserId, int status);
+
+	/**
 	 * Returns all the faro users where emailAddress = &#63; and status = &#63;.
 	 *
 	 * @param emailAddress the email address
