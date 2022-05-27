@@ -72,6 +72,7 @@ const WrappedComponent = ({data}: {data?: any}) => (
 			>
 				<CommerceMetricCard<CommerceTotalOrderValueData>
 					description='this is the description'
+					emptyTitle='There are no orders on the selected period.'
 					label='this is the label'
 					mapper={result => result?.commerceTotalOrderValue}
 					Query={CommerceTotalOrderValueQuery}
@@ -99,6 +100,21 @@ describe('CommerceMetricCard', () => {
 		expect(getByText(COMMERCE_TOTAL_ORDER_VALUE)).toBeInTheDocument();
 		expect(getByText(`${COMMERCE_TREND_PERCENTAGE}%`)).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
+	});
+
+	it('should render with empty state message', () => {
+		const {getByText} = render(<WrappedComponent data={[]} />);
+
+		jest.runAllTimers();
+
+		expect(
+			getByText('There are no orders on the selected period.')
+		).toBeInTheDocument();
+		expect(
+			getByText(
+				'Check back later to verify if data has been received from your data sources.'
+			)
+		).toBeInTheDocument();
 	});
 });
 
