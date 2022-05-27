@@ -52,7 +52,6 @@ import com.liferay.osb.faro.web.internal.util.ContactsLayoutHelper;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.GroupFriendlyURLException;
 import com.liferay.portal.kernel.exception.LayoutFriendlyURLException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -68,7 +67,6 @@ import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -502,20 +500,15 @@ public class ProjectController extends BaseFaroController {
 	}
 
 	@GET
-	public List<ProjectDisplay> getProjects() throws Exception {
-		User user = getUser();
+	public List<ProjectDisplay> getProjects() {
+		List<FaroUser> faroUsers =
+			_faroUserLocalService.getFaroUsersByLiveUserId(
+				getUserId(), FaroUserConstants.STATUS_APPROVED);
 
-		List<Group> groups = _groupLocalService.getUserGroups(
-			user.getUserId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			new GroupNameComparator(true));
+		Stream<FaroUser> faroUsersStream = faroUsers.stream();
 
-		Stream<Group> groupsStream = groups.stream();
-
-		return groupsStream.filter(
-			group -> StringUtil.equals(
-				group.getClassName(), FaroProject.class.getName())
-		).map(
-			Group::getGroupId
+		return faroUsersStream.map(
+			FaroUser::getGroupId
 		).map(
 			_faroProjectLocalService::fetchFaroProjectByGroupId
 		).map(
