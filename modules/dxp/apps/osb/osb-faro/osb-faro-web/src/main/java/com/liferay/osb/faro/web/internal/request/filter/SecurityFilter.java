@@ -14,8 +14,10 @@
 
 package com.liferay.osb.faro.web.internal.request.filter;
 
+import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.engine.client.model.ErrorResponse;
 import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.service.FaroProjectLocalServiceUtil;
 import com.liferay.osb.faro.service.FaroUserLocalServiceUtil;
 import com.liferay.osb.faro.web.internal.annotations.TokenAuthentication;
@@ -24,13 +26,16 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.lang.reflect.Method;
 
@@ -72,7 +77,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 		if (user.isDefaultUser()) {
 			containerRequestContext.abortWith(
-				getResponse(
+				_getResponse(
 					Response.Status.UNAUTHORIZED, "You are not authenticated"));
 
 			return;
@@ -84,7 +89,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 			return;
 		}
 
-		long groupId = getGroupId(containerRequestContext.getUriInfo());
+		long groupId = _getGroupId(containerRequestContext.getUriInfo());
 
 		if (groupId > 0) {
 			FaroProject faroProject =
@@ -103,7 +108,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 				}
 
 				containerRequestContext.abortWith(
-					getResponse(
+					_getResponse(
 						Response.Status.FORBIDDEN,
 						"Your IP address is not authorized to access this " +
 							"resource"));
@@ -114,29 +119,19 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 		RolesAllowed rolesAllowed = method.getAnnotation(RolesAllowed.class);
 
-		if (rolesAllowed == null) {
+		if ((rolesAllowed == null) ||
+			_hasPermission(groupId, rolesAllowed.value(), user.getUserId())) {
+
 			return;
 		}
 
-		for (String roleName : rolesAllowed.value()) {
-			if ((roleName.equals(RoleConstants.SITE_ADMINISTRATOR) &&
-				 permissionChecker.isGroupAdmin(groupId)) ||
-				(roleName.equals(RoleConstants.SITE_MEMBER) &&
-				 permissionChecker.isGroupMember(groupId)) ||
-				(roleName.equals(RoleConstants.SITE_OWNER) &&
-				 permissionChecker.isGroupOwner(groupId))) {
-
-				return;
-			}
-		}
-
 		containerRequestContext.abortWith(
-			getResponse(
+			_getResponse(
 				Response.Status.FORBIDDEN,
 				"You do not have the required permissions"));
 	}
 
-	protected long getGroupId(UriInfo uriInfo) {
+	private long _getGroupId(UriInfo uriInfo) {
 		MultivaluedMap<String, String> params = uriInfo.getPathParameters();
 
 		String groupKey = params.getFirst("groupId");
@@ -151,7 +146,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 		return GetterUtil.getLong(groupKey);
 	}
 
-	protected Response getResponse(
+	private Response _getResponse(
 		Response.StatusType statusType, String message) {
 
 		Response.ResponseBuilder responseBuilder = Response.status(statusType);
@@ -167,6 +162,67 @@ public class SecurityFilter implements ContainerRequestFilter {
 		responseBuilder.entity(errorResponse);
 
 		return responseBuilder.build();
+	}
+
+	private boolean _hasPermission(
+		long groupId, String[] allowedRoleNames, long userId) {
+
+		FaroUser faroUser = FaroUserLocalServiceUtil.fetchFaroUser(
+			groupId, userId);
+
+		if ((faroUser == null) ||
+			(faroUser.getStatus() != FaroUserConstants.STATUS_APPROVED)) {
+
+			return false;
+		}
+
+		Role role = RoleLocalServiceUtil.fetchRole(faroUser.getRoleId());
+
+		if (role == null) {
+			return false;
+		}
+
+		for (String allowedRoleName : allowedRoleNames) {
+			if ((allowedRoleName.equals(RoleConstants.SITE_ADMINISTRATOR) &&
+				 _isSiteAdministrator(role.getName())) ||
+				(allowedRoleName.equals(RoleConstants.SITE_MEMBER) &&
+				 _isSiteMember(role.getName())) ||
+				(allowedRoleName.equals(RoleConstants.SITE_OWNER) &&
+				 _isSiteOwner(role.getName()))) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean _isSiteAdministrator(String roleName) {
+		if (_isSiteOwner(roleName) ||
+			StringUtil.equals(roleName, RoleConstants.SITE_ADMINISTRATOR)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean _isSiteMember(String roleName) {
+		if (_isSiteAdministrator(roleName) || _isSiteOwner(roleName) ||
+			StringUtil.equals(roleName, RoleConstants.SITE_MEMBER)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean _isSiteOwner(String roleName) {
+		if (StringUtil.equals(roleName, RoleConstants.SITE_OWNER)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(SecurityFilter.class);
