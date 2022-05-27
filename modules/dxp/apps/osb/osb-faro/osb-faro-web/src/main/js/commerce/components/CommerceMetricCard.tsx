@@ -17,6 +17,7 @@ import {useQuery} from '@apollo/react-hooks';
 interface ICommerceMetricCardProps<TGraphQlData>
 	extends React.HTMLAttributes<HTMLElement> {
 	description: string;
+	emptyTitle: string;
 	label: string;
 	mapper: (
 		result: TGraphQlData
@@ -29,6 +30,7 @@ interface ICommerceMetricCardProps<TGraphQlData>
 interface ICommerceMetricCardWithStatesRendererProps
 	extends React.HTMLAttributes<HTMLElement> {
 	empty?: boolean;
+	emptyTitle: string;
 	error?: ApolloError;
 	loading?: boolean;
 }
@@ -40,12 +42,19 @@ interface TGraphQlVariables extends RawRangeSelectors {
 const CommerceCardWithStatesRenderer: React.FC<ICommerceMetricCardWithStatesRendererProps> = ({
 	children,
 	empty = false,
+	emptyTitle,
 	error,
 	loading = false
 }) => (
 	<StatesRenderer empty={empty} error={!!error} loading={loading}>
 		<StatesRenderer.Loading displayCard />
-		<StatesRenderer.Empty showIcon={false} />
+		<StatesRenderer.Empty
+			description={Liferay.Language.get(
+				'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+			)}
+			showIcon={false}
+			title={emptyTitle}
+		/>
 		<StatesRenderer.Error apolloError={error}>
 			<ErrorDisplay />
 		</StatesRenderer.Error>
@@ -55,6 +64,7 @@ const CommerceCardWithStatesRenderer: React.FC<ICommerceMetricCardWithStatesRend
 
 function CommerceMetricCard<TGraphQlData>({
 	description,
+	emptyTitle,
 	label,
 	mapper,
 	Query
@@ -90,6 +100,7 @@ function CommerceMetricCard<TGraphQlData>({
 					<Card.Body className='align-items-center justify-content-center'>
 						<CommerceCardWithStatesRenderer
 							empty={!result}
+							emptyTitle={emptyTitle}
 							error={error}
 							loading={loading}
 						>
