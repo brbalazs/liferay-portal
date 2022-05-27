@@ -37,9 +37,13 @@ public class UpgradeUserGroupRole extends UpgradeProcess {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				runSQL(
-					"delete from UserGroupRole where roleId = " +
-						rs.getLong(1));
+				try (PreparedStatement psUpdate = connection.prepareStatement(
+						"delete from UserGroupRole where roleId = ?")) {
+
+					psUpdate.setLong(1, rs.getLong(1));
+
+					psUpdate.executeUpdate();
+				}
 			}
 		}
 	}
