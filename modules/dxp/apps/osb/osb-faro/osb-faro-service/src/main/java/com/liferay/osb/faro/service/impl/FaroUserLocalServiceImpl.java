@@ -191,6 +191,12 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 		return faroUserPersistence.findByG_L(groupId, liveUserId);
 	}
 
+	public List<FaroUser> getFaroUsersByLiveUserId(
+		long liveUserId, int status) {
+
+		return faroUserPersistence.findByL_S(liveUserId, status);
+	}
+
 	@Override
 	public List<FaroUser> getFaroUsersByRoleId(long groupId, long roleId) {
 		return faroUserPersistence.findByG_R(groupId, roleId);

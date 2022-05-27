@@ -275,6 +275,10 @@
 			<finder-column name="groupId" />
 			<finder-column name="status" />
 		</finder>
+		<finder name="L_S" return-type="Collection">
+			<finder-column name="liveUserId" />
+			<finder-column name="status" />
+		</finder>
 		<finder name="E_S" return-type="Collection">
 			<finder-column name="emailAddress" />
 			<finder-column name="status" />
