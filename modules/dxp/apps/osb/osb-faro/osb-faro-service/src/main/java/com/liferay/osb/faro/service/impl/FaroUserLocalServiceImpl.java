@@ -126,12 +126,6 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 			faroUser.setStatus(status);
 
 			faroUser = faroUserPersistence.update(faroUser);
-
-			if ((liveUser != null) &&
-				(status == FaroUserConstants.STATUS_APPROVED)) {
-
-				updateRoles(faroUser);
-			}
 		}
 
 		if (sendEmail) {
@@ -228,15 +222,6 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 	@Override
 	public int searchCount(long groupId, String query, List<Integer> statuses) {
 		return faroUserFinder.countByKeywords(groupId, query, statuses);
-	}
-
-	@Override
-	public FaroUser updateFaroUser(FaroUser faroUser) {
-		if (faroUser.getLiveUserId() > 0) {
-			updateRoles(faroUser);
-		}
-
-		return super.updateFaroUser(faroUser);
 	}
 
 	protected String getNotificationMessage(
@@ -431,22 +416,6 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 				"Request to join workspace email notification sent to " +
 					to.getAddress());
 		}
-	}
-
-	protected void updateRoles(FaroUser faroUser) {
-		if (!groupLocalService.hasUserGroup(
-				faroUser.getLiveUserId(), faroUser.getGroupId())) {
-
-			groupLocalService.addUserGroup(
-				faroUser.getLiveUserId(), faroUser.getGroupId());
-		}
-
-		userGroupRoleLocalService.deleteUserGroupRoles(
-			faroUser.getLiveUserId(), new long[] {faroUser.getGroupId()});
-
-		userGroupRoleLocalService.addUserGroupRoles(
-			faroUser.getLiveUserId(), faroUser.getGroupId(),
-			new long[] {faroUser.getRoleId()});
 	}
 
 	private static final String _FARO_URL = System.getenv("FARO_URL");
