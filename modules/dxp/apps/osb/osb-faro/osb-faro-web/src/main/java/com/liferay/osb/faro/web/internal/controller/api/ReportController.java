@@ -135,8 +135,8 @@ public class ReportController extends BaseFaroController {
 		}
 		catch (Exception exception) {
 			return _reportControllerResponseFactory.create(
-				"An internal problem happened when trying to reach our" +
-					" services",
+				"An internal problem happened when trying to reach our " +
+					"services",
 				Response.Status.INTERNAL_SERVER_ERROR);
 		}
 
