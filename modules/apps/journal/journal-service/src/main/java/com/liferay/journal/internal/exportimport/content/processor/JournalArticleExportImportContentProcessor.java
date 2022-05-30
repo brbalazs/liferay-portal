@@ -316,9 +316,7 @@ public class JournalArticleExportImportContentProcessor
 							json, stagedModel, portletDataContext,
 							exportReferencedContent);
 
-						if (Validator.isNotNull(json)) {
-							jsonList.add(json);
-						}
+						jsonList.add(json);
 					}
 
 					field.setValue(locale, jsonList.toArray(new String[0]));
@@ -328,9 +326,7 @@ public class JournalArticleExportImportContentProcessor
 						String.valueOf(fieldValue), stagedModel,
 						portletDataContext, exportReferencedContent);
 
-					if (Validator.isNotNull(json)) {
-						field.setValue(locale, json);
-					}
+					field.setValue(locale, json);
 				}
 			}
 		}
@@ -362,9 +358,7 @@ public class JournalArticleExportImportContentProcessor
 						json = _extractJournalArticleForImport(
 							json, portletDataContext, stagedModel);
 
-						if (Validator.isNotNull(json)) {
-							jsonList.add(json);
-						}
+						jsonList.add(json);
 					}
 
 					field.setValue(locale, jsonList.toArray(new String[0]));
@@ -374,9 +368,7 @@ public class JournalArticleExportImportContentProcessor
 						String.valueOf(serializable), portletDataContext,
 						stagedModel);
 
-					if (Validator.isNotNull(json)) {
-						field.setValue(locale, json);
-					}
+					field.setValue(locale, json);
 				}
 			}
 		}
@@ -505,7 +497,7 @@ public class JournalArticleExportImportContentProcessor
 				_log.debug("Unable to parse JSON", jsonException);
 			}
 
-			return null;
+			return _jsonFactory.getNullJSON();
 		}
 
 		long classPK = GetterUtil.getLong(jsonObject.get("classPK"));
@@ -528,7 +520,7 @@ public class JournalArticleExportImportContentProcessor
 				_log.info(sb.toString());
 			}
 
-			return null;
+			return _jsonFactory.getNullJSON();
 		}
 
 		JSONObject newArticleJSONObject = JSONUtil.put(
@@ -598,7 +590,7 @@ public class JournalArticleExportImportContentProcessor
 				_log.debug("Unable to parse JSON", jsonException);
 			}
 
-			return null;
+			return _jsonFactory.getNullJSON();
 		}
 
 		JournalArticle journalArticle = null;
@@ -623,7 +615,7 @@ public class JournalArticleExportImportContentProcessor
 			portletDataContext.removePrimaryKey(
 				ExportImportPathUtil.getModelPath(stagedModel));
 
-			return null;
+			return _jsonFactory.getNullJSON();
 		}
 
 		JSONObject newArticleJSONObject = JSONUtil.put(
