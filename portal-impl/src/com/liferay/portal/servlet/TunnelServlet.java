@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProtectedClassLoaderObjectInputStream;
+import com.liferay.portal.util.PropsValues;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -92,24 +93,41 @@ public class TunnelServlet extends HttpServlet {
 			}
 		}
 		catch (InvocationTargetException invocationTargetException) {
-			_log.error(invocationTargetException, invocationTargetException);
+			_log.error(invocationTargetException);
 
-			Throwable throwable = invocationTargetException.getCause();
+			if (PropsValues.TUNNEL_SERVLET_HIDE_EXCEPTION_DATA) {
+				Throwable throwable = invocationTargetException.getCause();
 
-			if (throwable != null) {
-				Class<?> clazz = throwable.getClass();
+				if (throwable != null) {
+					Class<?> clazz = throwable.getClass();
 
-				if (throwable instanceof PortalException) {
-					returnObj = new PortalException(
-						"Invocation failed due to " + clazz.getName());
+					if (throwable instanceof PortalException) {
+						returnObj = new PortalException(
+							"Invocation failed due to " + clazz.getName());
+					}
+					else {
+						returnObj = new SystemException(
+							"Invocation failed due to " + clazz.getName());
+					}
 				}
 				else {
-					returnObj = new SystemException(
-						"Invocation failed due to " + clazz.getName());
+					returnObject = new SystemException();
 				}
 			}
 			else {
-				returnObj = new SystemException();
+				returnObj = invocationTargetException.getCause();
+
+				if (!(returnObj instanceof PortalException)) {
+					if (returnObj != null) {
+						Throwable throwable = (Throwable)returnObj;
+
+						returnObj = new SystemException(
+							throwable.getMessage());
+					}
+					else {
+						returnObj = new SystemException();
+					}
+				}
 			}
 		}
 		catch (Exception e) {
