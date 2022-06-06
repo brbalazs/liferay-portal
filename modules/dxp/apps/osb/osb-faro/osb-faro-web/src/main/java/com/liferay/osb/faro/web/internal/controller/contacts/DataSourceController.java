@@ -50,6 +50,7 @@ import com.liferay.osb.faro.engine.client.util.OrderByField;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.web.internal.annotations.PATCH;
 import com.liferay.osb.faro.web.internal.annotations.Unauthenticated;
+import com.liferay.osb.faro.web.internal.antivirus.ClamAVScanner;
 import com.liferay.osb.faro.web.internal.constants.FaroConstants;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.FaroController;
@@ -93,6 +94,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.File;
 
+import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
@@ -1250,6 +1252,10 @@ public class DataSourceController extends BaseFaroController {
 			@PathParam("fileName") String fileName, File file)
 		throws Exception {
 
+		try (FileInputStream fileInputStream = new FileInputStream(file)) {
+			_clamAVScanner.scan(fileInputStream);
+		}
+
 		_contactsCSVHelper.validateCSV(file);
 
 		return _contactsCSVHelper.addContactsCSV(
@@ -1595,6 +1601,9 @@ public class DataSourceController extends BaseFaroController {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DataSourceController.class);
+
+	@Reference
+	private ClamAVScanner _clamAVScanner;
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
