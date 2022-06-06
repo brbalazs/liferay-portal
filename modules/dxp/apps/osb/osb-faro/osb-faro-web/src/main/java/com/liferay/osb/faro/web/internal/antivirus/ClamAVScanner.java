@@ -15,14 +15,17 @@
 package com.liferay.osb.faro.web.internal.antivirus;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+
 import fi.solita.clamav.ClamAVClient;
 import fi.solita.clamav.ClamAVSizeLimitException;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.nio.charset.StandardCharsets;
+
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Matthew Kong
