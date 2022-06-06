@@ -17,7 +17,6 @@ package com.liferay.journal.search.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.service.JournalArticleLocalService;
-import com.liferay.journal.test.util.FieldValuesAssert;
 import com.liferay.journal.test.util.search.JournalArticleBlueprint;
 import com.liferay.journal.test.util.search.JournalArticleContent;
 import com.liferay.journal.test.util.search.JournalArticleSearchFixture;
@@ -444,6 +443,8 @@ public class JournalArticleIndexerLocalizedContentTest {
 			throw new RuntimeException(e);
 		}
 	}
+
+	private static IndexerFixture _indexerFixture;
 
 	@Inject
 	private static IndexerRegistry _indexerRegistry;
