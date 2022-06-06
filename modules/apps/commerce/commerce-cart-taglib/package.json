@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"clay-icon": "^2.2.0",
+		"clay-icon": "^2.24.1",
 		"metal": "^2.13.2",
 		"metal-component": "^2.13.2",
 		"metal-debounce": "^2.0.0",
