@@ -61,6 +61,101 @@ public class ProductConstants {
 	public static final String ENTERPRISE_TRACKED_PAGES_PRODUCT_NAME =
 		"Liferay Analytics Cloud Enterprise Tracked Pages";
 
+	public static final String LXC_CSP_1K_USERS_ENTRY_ID = "KOR-4891509";
+
+	public static final String LXC_CSP_1K_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891653";
+
+	public static final String LXC_CSP_1K_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 1K Users - Extra User";
+
+	public static final String LXC_CSP_1K_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 1K Users";
+
+	public static final String LXC_CSP_5K_USERS_ENTRY_ID = "KOR-4891533";
+
+	public static final String LXC_CSP_5K_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891677";
+
+	public static final String LXC_CSP_5K_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 5K Users - Extra User";
+
+	public static final String LXC_CSP_5K_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 5K Users";
+
+	public static final String LXC_CSP_10K_USERS_ENTRY_ID = "KOR-4891557";
+
+	public static final String LXC_CSP_10K_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891701";
+
+	public static final String LXC_CSP_10K_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 10K Users - Extra User";
+
+	public static final String LXC_CSP_10K_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 10K Users";
+
+	public static final String LXC_CSP_20K_USERS_ENTRY_ID = "KOR-4891581";
+
+	public static final String LXC_CSP_20K_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891725";
+
+	public static final String LXC_CSP_20K_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 20K Users - Extra User";
+
+	public static final String LXC_CSP_20K_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 20K Users";
+
+	public static final String LXC_CSP_100_USERS_ENTRY_ID = "KOR-4891461";
+
+	public static final String LXC_CSP_100_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891605";
+
+	public static final String LXC_CSP_100_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 100 Users - Extra User";
+
+	public static final String LXC_CSP_100_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 100 Users";
+
+	public static final String LXC_CSP_500_USERS_ENTRY_ID = "KOR-4891485";
+
+	public static final String LXC_CSP_500_USERS_EXTRA_USER_ENTRY_ID =
+		"KOR-4891629";
+
+	public static final String LXC_CSP_500_USERS_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Up to 500 Users - Extra User";
+
+	public static final String LXC_CSP_500_USERS_PRODUCT_NAME =
+		"LXC - CSP - Up to 500 Users";
+
+	public static final String LXC_CSP_CUSTOM_ENTRY_ID = "KOR-4891749";
+
+	public static final String LXC_CSP_CUSTOM_EXTRA_USER_ENTRY_ID =
+		"KOR-4891773";
+
+	public static final String LXC_CSP_CUSTOM_EXTRA_USER_PRODUCT_NAME =
+		"LXC - CSP - Custom User Tier - Extra User";
+
+	public static final String LXC_CSP_CUSTOM_PRODUCT_NAME =
+		"LXC - CSP - Custom User Tier";
+
+	public static final String LXC_SUBSCRIPTION_ENGAGE_SITE_ENTRY_ID =
+		"KOR-4891133";
+
+	public static final String LXC_SUBSCRIPTION_ENGAGE_SITE_PRODUCT_NAME =
+		"LXC Subscription - Engage Site";
+
+	public static final String LXC_SUBSCRIPTION_SUPPORT_SITE_ENTRY_ID =
+		"KOR-4891161";
+
+	public static final String LXC_SUBSCRIPTION_SUPPORT_SITE_PRODUCT_NAME =
+		"LXC Subscription - Support Site";
+
+	public static final String LXC_SUBSCRIPTION_TRANSACT_SITE_ENTRY_ID =
+		"KOR-4891189";
+
+	public static final String LXC_SUBSCRIPTION_TRANSACT_SITE_PRODUCT_NAME =
+		"LXC Subscription - Transact Site";
+
 	public static final int OSB_OFFERING_ENTRY_STATUS_ACTIVE = 1;
 
 	public static String[] getProductEntryIds() {
@@ -91,6 +186,43 @@ public class ProductConstants {
 				put(
 					ENTERPRISE_TRACKED_PAGES_PRODUCT_ENTRY_ID,
 					ENTERPRISE_TRACKED_PAGES_PRODUCT_NAME);
+				put(LXC_CSP_1K_USERS_ENTRY_ID, LXC_CSP_1K_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_1K_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_1K_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_5K_USERS_ENTRY_ID, LXC_CSP_5K_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_5K_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_5K_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_10K_USERS_ENTRY_ID, LXC_CSP_10K_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_10K_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_10K_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_20K_USERS_ENTRY_ID, LXC_CSP_20K_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_20K_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_20K_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_100_USERS_ENTRY_ID, LXC_CSP_100_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_100_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_100_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_500_USERS_ENTRY_ID, LXC_CSP_500_USERS_PRODUCT_NAME);
+				put(
+					LXC_CSP_500_USERS_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_500_USERS_EXTRA_USER_PRODUCT_NAME);
+				put(LXC_CSP_CUSTOM_ENTRY_ID, LXC_CSP_CUSTOM_PRODUCT_NAME);
+				put(
+					LXC_CSP_CUSTOM_EXTRA_USER_ENTRY_ID,
+					LXC_CSP_CUSTOM_EXTRA_USER_PRODUCT_NAME);
+				put(
+					LXC_SUBSCRIPTION_ENGAGE_SITE_ENTRY_ID,
+					LXC_SUBSCRIPTION_ENGAGE_SITE_PRODUCT_NAME);
+				put(
+					LXC_SUBSCRIPTION_SUPPORT_SITE_ENTRY_ID,
+					LXC_SUBSCRIPTION_SUPPORT_SITE_PRODUCT_NAME);
+				put(
+					LXC_SUBSCRIPTION_TRANSACT_SITE_ENTRY_ID,
+					LXC_SUBSCRIPTION_TRANSACT_SITE_PRODUCT_NAME);
 			}
 		};
 
