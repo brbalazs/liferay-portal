@@ -202,7 +202,7 @@ public class FaroSubscriptionDisplay {
 	}
 
 	private long _computeLimit(
-		int addOnLimit, long currentLimit, int quantity) {
+		long addOnLimit, long currentLimit, long quantity) {
 
 		if (currentLimit < 0) {
 			return currentLimit;
