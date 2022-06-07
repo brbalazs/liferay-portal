@@ -246,8 +246,10 @@ public class ProjectController extends BaseFaroController {
 			getUserId(), faroProject.getGroupId(), 0, role.getRoleId(),
 			ownerEmailAddress, FaroUserConstants.STATUS_PENDING, false);
 
-		_faroProjectLocalService.sendCreatedWorkspaceEmail(
-			faroProject.getWeDeployKey());
+		if (_shouldSendCreatedWorkspaceEmail(faroProject)) {
+			_faroProjectLocalService.sendCreatedWorkspaceEmail(
+				faroProject.getWeDeployKey());
+		}
 
 		return new ProjectDisplay(faroProject);
 	}
@@ -1091,6 +1093,28 @@ public class ProjectController extends BaseFaroController {
 				FaroNotificationConstants.TYPE_ALERT,
 				FaroNotificationConstants.SUBTYPE_TIME_ZONE_CHANGED);
 		}
+	}
+
+	private boolean _shouldSendCreatedWorkspaceEmail(FaroProject faroProject)
+		throws Exception {
+
+		FaroSubscriptionDisplay faroSubscriptionDisplay = JSONUtil.readValue(
+			faroProject.getSubscription(), FaroSubscriptionDisplay.class);
+
+		if (StringUtil.equals(
+				faroSubscriptionDisplay.getName(),
+				ProductConstants.BASIC_PRODUCT_NAME) ||
+			StringUtil.equals(
+				faroSubscriptionDisplay.getName(),
+				ProductConstants.BUSINESS_PRODUCT_NAME) ||
+			StringUtil.equals(
+				faroSubscriptionDisplay.getName(),
+				ProductConstants.ENTERPRISE_PRODUCT_NAME)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void _validateCorpProjectUuid(String corpProjectUuid)
