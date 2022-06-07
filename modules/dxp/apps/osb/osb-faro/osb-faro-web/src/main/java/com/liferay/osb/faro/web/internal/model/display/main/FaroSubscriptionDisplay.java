@@ -85,12 +85,12 @@ public class FaroSubscriptionDisplay {
 
 				_addOns.add(new AddOn(osbOfferingEntry));
 
-				_individualsLimit +=
-					faroSubscriptionPlan.getIndividualsLimit() *
-						osbOfferingEntry.getQuantity();
-				_pageViewsLimit +=
-					faroSubscriptionPlan.getPageViewsLimit() *
-						osbOfferingEntry.getQuantity();
+				_individualsLimit = _computeLimit(
+					faroSubscriptionPlan.getIndividualsLimit(),
+					_individualsLimit, osbOfferingEntry.getQuantity());
+				_pageViewsLimit = _computeLimit(
+					faroSubscriptionPlan.getPageViewsLimit(), _pageViewsLimit,
+					osbOfferingEntry.getQuantity());
 			}
 		}
 	}
@@ -185,6 +185,10 @@ public class FaroSubscriptionDisplay {
 	}
 
 	protected int getStatus(long count, long limit) {
+		if (limit < 0) {
+			return FaroSubscriptionConstants.STATUS_OK;
+		}
+
 		if (count > limit) {
 			return FaroSubscriptionConstants.STATUS_LIMIT_OVER;
 		}
@@ -195,6 +199,16 @@ public class FaroSubscriptionDisplay {
 		}
 
 		return FaroSubscriptionConstants.STATUS_OK;
+	}
+
+	private long _computeLimit(
+		int addOnLimit, long currentLimit, int quantity) {
+
+		if (currentLimit < 0) {
+			return currentLimit;
+		}
+
+		return currentLimit + (addOnLimit * quantity);
 	}
 
 	private OSBOfferingEntry _getBaseOSBOfferingEntry(
