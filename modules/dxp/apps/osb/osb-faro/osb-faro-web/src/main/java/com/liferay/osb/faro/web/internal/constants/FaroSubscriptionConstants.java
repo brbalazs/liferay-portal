@@ -94,6 +94,105 @@ public class FaroSubscriptionConstants {
 						ProductConstants.ENTERPRISE_PRODUCT_NAME,
 						ProductConstants.ENTERPRISE_TRACKED_PAGES_PRODUCT_NAME,
 						0, 5000000, 250));
+				put(
+					ProductConstants.LXC_CSP_1K_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_1K_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_1K_USERS_EXTRA_USER_PRODUCT_NAME,
+						1000, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_1K_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_1K_USERS_PRODUCT_NAME,
+						1000, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_5K_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_5K_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_5K_USERS_EXTRA_USER_PRODUCT_NAME,
+						5000, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_5K_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_5K_USERS_PRODUCT_NAME,
+						5000, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_10K_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_10K_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_10K_USERS_EXTRA_USER_PRODUCT_NAME,
+						10000, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_10K_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_10K_USERS_PRODUCT_NAME,
+						10000, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_20K_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_20K_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_20K_USERS_EXTRA_USER_PRODUCT_NAME,
+						20000, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_20K_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_20K_USERS_PRODUCT_NAME,
+						20000, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_100_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_100_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_100_USERS_EXTRA_USER_PRODUCT_NAME,
+						100, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_100_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_100_USERS_PRODUCT_NAME,
+						100, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_500_USERS_EXTRA_USER_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						ProductConstants.LXC_CSP_500_USERS_PRODUCT_NAME,
+						ProductConstants.
+							LXC_CSP_500_USERS_EXTRA_USER_PRODUCT_NAME,
+						500, 0, 0));
+				put(
+					ProductConstants.LXC_CSP_500_USERS_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_500_USERS_PRODUCT_NAME,
+						500, -1, 0));
+				put(
+					ProductConstants.LXC_CSP_CUSTOM_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null, ProductConstants.LXC_CSP_CUSTOM_PRODUCT_NAME, -1,
+						-1, 0));
+				put(
+					ProductConstants.LXC_SUBSCRIPTION_ENGAGE_SITE_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null,
+						ProductConstants.
+							LXC_SUBSCRIPTION_ENGAGE_SITE_PRODUCT_NAME,
+						-1, -1, 0));
+				put(
+					ProductConstants.LXC_SUBSCRIPTION_SUPPORT_SITE_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null,
+						ProductConstants.
+							LXC_SUBSCRIPTION_SUPPORT_SITE_PRODUCT_NAME,
+						-1, -1, 0));
+				put(
+					ProductConstants.
+						LXC_SUBSCRIPTION_TRANSACT_SITE_PRODUCT_NAME,
+					new FaroSubscriptionPlan(
+						null,
+						ProductConstants.
+							LXC_SUBSCRIPTION_TRANSACT_SITE_PRODUCT_NAME,
+						-1, -1, 0));
 			}
 		};
 	private static final Map<String, Integer> _statuses =
