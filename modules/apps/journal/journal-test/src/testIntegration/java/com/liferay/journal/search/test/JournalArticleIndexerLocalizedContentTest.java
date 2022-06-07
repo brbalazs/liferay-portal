@@ -21,20 +21,13 @@ import com.liferay.journal.test.util.search.JournalArticleBlueprint;
 import com.liferay.journal.test.util.search.JournalArticleContent;
 import com.liferay.journal.test.util.search.JournalArticleSearchFixture;
 import com.liferay.journal.test.util.search.JournalArticleTitle;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistry;
-import com.liferay.portal.kernel.search.QueryConfig;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.test.util.SearchContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -49,7 +42,6 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -402,49 +394,6 @@ public class JournalArticleIndexerLocalizedContentTest {
 		return map2;
 	}
 
-	private SearchContext _getSearchContext(String searchTerm, Locale locale)
-		throws Exception {
-
-		SearchContext searchContext = SearchContextTestUtil.getSearchContext(
-			_group.getGroupId());
-
-		searchContext.setKeywords(searchTerm);
-
-		searchContext.setLocale(locale);
-
-		QueryConfig queryConfig = searchContext.getQueryConfig();
-
-		queryConfig.setSelectedFieldNames(StringPool.STAR);
-
-		return searchContext;
-	}
-
-	private Document _getSingleDocument(String searchTerm, Hits hits) {
-		List<Document> documents = hits.toList();
-
-		if (documents.size() == 1) {
-			return documents.get(0);
-		}
-
-		throw new AssertionError(searchTerm + "->" + documents);
-	}
-
-	private Document _search(String searchTerm, Locale locale) {
-		try {
-			SearchContext searchContext = _getSearchContext(searchTerm, locale);
-
-			Hits hits = _indexer.search(searchContext);
-
-			return _getSingleDocument(searchTerm, hits);
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	private static IndexerFixture _indexerFixture;
 
 	@Inject
@@ -455,8 +404,6 @@ public class JournalArticleIndexerLocalizedContentTest {
 
 	@DeleteAfterTestRun
 	private Group _group;
-
-	private Indexer<JournalArticle> _indexer;
 
 	@DeleteAfterTestRun
 	private List<JournalArticle> _journalArticles;
