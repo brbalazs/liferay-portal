@@ -14,7 +14,9 @@
 
 package com.liferay.osb.faro.provisioning.client.constants;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -158,6 +160,10 @@ public class ProductConstants {
 
 	public static final int OSB_OFFERING_ENTRY_STATUS_ACTIVE = 1;
 
+	public static List<String> getBaseProductEntryIds() {
+		return _baseProductEntryIds;
+	}
+
 	public static String[] getProductEntryIds() {
 		Set<String> keys = _productNames.keySet();
 
@@ -168,6 +174,15 @@ public class ProductConstants {
 		return _productNames.get(productEntryId);
 	}
 
+	private static final List<String> _baseProductEntryIds = Arrays.asList(
+		BASIC_PRODUCT_ENTRY_ID, BUSINESS_PRODUCT_ENTRY_ID,
+		ENTERPRISE_PRODUCT_ENTRY_ID, LXC_CSP_100_USERS_ENTRY_ID,
+		LXC_CSP_10K_USERS_ENTRY_ID, LXC_CSP_1K_USERS_ENTRY_ID,
+		LXC_CSP_20K_USERS_ENTRY_ID, LXC_CSP_500_USERS_ENTRY_ID,
+		LXC_CSP_5K_USERS_ENTRY_ID, LXC_CSP_CUSTOM_ENTRY_ID,
+		LXC_SUBSCRIPTION_ENGAGE_SITE_ENTRY_ID,
+		LXC_SUBSCRIPTION_SUPPORT_SITE_ENTRY_ID,
+		LXC_SUBSCRIPTION_TRANSACT_SITE_ENTRY_ID);
 	private static final Map<String, String> _productNames =
 		new HashMap<String, String>() {
 			{
