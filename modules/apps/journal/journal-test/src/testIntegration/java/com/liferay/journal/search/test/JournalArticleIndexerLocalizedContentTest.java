@@ -374,10 +374,13 @@ public class JournalArticleIndexerLocalizedContentTest {
 			word1, word2
 		).forEach(
 			searchTerm -> {
-				Document document = _search(searchTerm, LocaleUtil.JAPAN);
+				SearchResponse searchResponse =
+					_indexerFixture.searchOnlyOneSearchResponse(
+						searchTerm, LocaleUtil.JAPAN);
 
 				FieldValuesAssert.assertFieldValues(
-					titleStrings, "title", document, searchTerm);
+					titleStrings, name -> name.startsWith("title_"),
+					searchResponse);
 			}
 		);
 	}
