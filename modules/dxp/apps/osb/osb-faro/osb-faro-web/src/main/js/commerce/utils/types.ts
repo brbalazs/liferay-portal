@@ -1,9 +1,4 @@
-export type Currencies = {
-	[key: string]: {
-		value: string;
-		trend: {
-			trendClassification: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
-			percentage: number;
-		};
-	};
+export type Trend = {
+	trendClassification: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
+	percentage: number;
 };
