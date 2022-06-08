@@ -15,12 +15,12 @@
 package com.liferay.osb.faro.web.internal.servlet;
 
 import com.liferay.osb.faro.model.FaroProject;
+import com.liferay.osb.faro.service.FaroUserLocalService;
+import com.liferay.osb.faro.util.FaroPermissionChecker;
 import com.liferay.osb.faro.web.internal.util.FaroProjectThreadLocal;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -150,15 +150,9 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 	}
 
 	private boolean _hasPermission(String body) {
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
 		FaroProject faroProject = FaroProjectThreadLocal.getFaroProject();
 
-		if (permissionChecker.isGroupAdmin(faroProject.getGroupId()) ||
-			permissionChecker.isGroupOwner(faroProject.getGroupId()) ||
-			permissionChecker.isOmniadmin()) {
-
+		if (FaroPermissionChecker.isGroupMember(faroProject.getGroupId())) {
 			return true;
 		}
 
@@ -196,6 +190,9 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 	private static final List<String> _restrictedGraphQLMethodNames =
 		Arrays.asList(
 			"createJob", "deleteJobs", "preference", "runJob", "updateJob");
+
+	@Reference
+	private FaroUserLocalService _faroUserLocalService;
 
 	@Reference
 	private Portal _portal;

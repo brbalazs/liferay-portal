@@ -16,10 +16,9 @@ package com.liferay.osb.faro.service.impl;
 
 import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.base.FaroNotificationLocalServiceBaseImpl;
+import com.liferay.osb.faro.util.FaroPermissionChecker;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -93,12 +92,7 @@ public class FaroNotificationLocalServiceImpl
 	public List<FaroNotification> findFaroNotificationsLast30Days(
 		long groupId, String type, long userId) {
 
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		if (permissionChecker.isGroupAdmin(groupId) ||
-			permissionChecker.isGroupOwner(groupId)) {
-
+		if (FaroPermissionChecker.isGroupAdmin(groupId)) {
 			return faroNotificationPersistence.findByG_GtC_O_T(
 				groupId, _getDateMillis(), new long[] {groupId, userId}, type);
 		}

@@ -16,6 +16,8 @@ package com.liferay.osb.faro.web.internal.servlet.filter;
 
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.service.FaroUserLocalService;
+import com.liferay.osb.faro.util.FaroPermissionChecker;
 import com.liferay.osb.faro.web.internal.util.FaroProjectThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
@@ -151,7 +153,9 @@ public class AsahServletFilter extends BaseFilter {
 			return;
 		}
 
-		if (permissionChecker.isGroupMember(faroProject.getGroupId())) {
+		if (FaroPermissionChecker.isGroupMember(
+				faroProject.getGroupId(), permissionChecker)) {
+
 			_processFilter(
 				httpServletRequest, httpServletResponse, filterChain, user,
 				faroProject);
@@ -188,6 +192,9 @@ public class AsahServletFilter extends BaseFilter {
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;
+
+	@Reference
+	private FaroUserLocalService _faroUserLocalService;
 
 	@Reference
 	private GroupLocalService _groupLocalService;

@@ -17,6 +17,7 @@ package com.liferay.osb.faro.service.persistence.impl;
 import com.liferay.osb.faro.model.FaroChannel;
 import com.liferay.osb.faro.model.impl.FaroChannelImpl;
 import com.liferay.osb.faro.service.persistence.FaroChannelFinder;
+import com.liferay.osb.faro.util.FaroPermissionChecker;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
@@ -25,8 +26,6 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -66,7 +65,7 @@ public class FaroChannelFinderImpl
 
 			sql = _customSQL.replaceAndOperator(sql, Validator.isNull(query));
 
-			boolean admin = _isGroupAdmin(groupId);
+			boolean admin = FaroPermissionChecker.isGroupAdmin(groupId);
 
 			if (admin) {
 				sql = StringUtil.removeSubstring(
@@ -131,7 +130,7 @@ public class FaroChannelFinderImpl
 
 			sql = _customSQL.replaceAndOperator(sql, Validator.isNull(query));
 
-			boolean admin = _isGroupAdmin(groupId);
+			boolean admin = FaroPermissionChecker.isGroupAdmin(groupId);
 
 			if (admin) {
 				sql = StringUtil.removeSubstring(
@@ -172,13 +171,6 @@ public class FaroChannelFinderImpl
 		}
 
 		return ORDER_BY_CLAUSE + orderByComparator.getOrderBy();
-	}
-
-	private boolean _isGroupAdmin(long groupId) {
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		return permissionChecker.isGroupAdmin(groupId);
 	}
 
 	private static final String _PERMISSION_CHECK_JOIN_SQL =
