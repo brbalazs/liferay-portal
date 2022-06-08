@@ -3,14 +3,17 @@ import Card from 'shared/components/Card';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import React, {useState} from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
-import Trend from 'shared/components/Trend';
+import TrendComponent from 'shared/components/Trend';
 import {ApolloError} from 'apollo-client';
-import {Currencies} from 'commerce/utils/types';
 import {getIcon, getStatsColor} from 'shared/util/metrics';
-import {getRangeSelectorsFromQuery} from 'shared/util/util';
+import {
+	getRangeSelectorsFromQuery,
+	getSafeRangeSelectors
+} from 'shared/util/util';
 import {gql} from 'apollo-boost';
-import {RawRangeSelectors} from 'shared/types';
+import {RangeSelectors, RawRangeSelectors} from 'shared/types';
 import {sub} from 'shared/util/lang';
+import {Trend} from 'commerce/utils/types';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -22,8 +25,10 @@ interface ICommerceMetricCardProps<TGraphQlData>
 	mapper: (
 		result: TGraphQlData
 	) => {
-		currencies: Currencies;
-	};
+		currencyCode: string;
+		trend: Trend;
+		value: string;
+	}[];
 	Query: typeof gql;
 }
 
@@ -70,7 +75,7 @@ function CommerceMetricCard<TGraphQlData>({
 	Query
 }: ICommerceMetricCardProps<TGraphQlData>): React.ReactElement {
 	const {channelId, query} = useParams();
-	const [rangeSelectors, setRangeSelectors] = useState<RawRangeSelectors>(
+	const [rangeSelectors, setRangeSelectors] = useState<RangeSelectors>(
 		getRangeSelectorsFromQuery(query)
 	);
 	const {data, error, loading} = useQuery<TGraphQlData, TGraphQlVariables>(
@@ -78,13 +83,15 @@ function CommerceMetricCard<TGraphQlData>({
 		{
 			variables: {
 				channelId,
-				...rangeSelectors
+				...getSafeRangeSelectors(rangeSelectors)
 			}
 		}
 	);
 
 	const result = mapper(data);
-	const {trend, value} = result?.currencies?.['USD'] ?? {};
+
+	const {trend, value} =
+		result?.find(({currencyCode}) => currencyCode === 'USD') ?? {};
 
 	return (
 		<BaseCard
@@ -99,7 +106,7 @@ function CommerceMetricCard<TGraphQlData>({
 				return (
 					<Card.Body className='align-items-center justify-content-center'>
 						<CommerceCardWithStatesRenderer
-							empty={!result}
+							empty={!result?.length}
 							emptyTitle={emptyTitle}
 							error={error}
 							loading={loading}
@@ -113,7 +120,7 @@ function CommerceMetricCard<TGraphQlData>({
 									{sub(
 										Liferay.Language.get('x-vs-previous'),
 										[
-											<Trend
+											<TrendComponent
 												className='d-inline'
 												color={getStatsColor(
 													trend?.trendClassification
