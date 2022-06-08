@@ -26,35 +26,32 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
-const COMMERCE_TOTAL_ORDER_VALUE = '$100,000.00';
+const COMMERCE_TOTAL_ORDER_VALUE = '10000000';
 const COMMERCE_TREND_PERCENTAGE = 50;
 
 const data = (
 	classification = 'POSITIVE',
 	percentage = COMMERCE_TREND_PERCENTAGE
 ) => ({
-	commerceTotalOrderValue: {
-		__typename: 'CommerceTotalOrderValue',
-		currencies: {
-			__typename: 'CommerceTotalOrderCurrencies',
-			USD: {
-				__typename: 'CommerceTotalOrderCurreny',
-				trend: {
-					__typename: 'CommerceTotalOrderTrend',
-					percentage,
-					trendClassification: classification
-				},
-				value: COMMERCE_TOTAL_ORDER_VALUE
-			}
+	orderTotalValue: [
+		{
+			__typename: 'orderTotalValue',
+			currencyCode: 'USD',
+			trend: {
+				__typename: 'orderTotalValueTrend',
+				percentage,
+				trendClassification: classification
+			},
+			value: COMMERCE_TOTAL_ORDER_VALUE
 		}
-	}
+	]
 });
 
 const variables = {
 	channelId: '123',
-	rangeEnd: '',
-	rangeKey: '30',
-	rangeStart: ''
+	rangeEnd: null,
+	rangeKey: 30,
+	rangeStart: null
 };
 
 const WrappedComponent = ({data}: {data?: any}) => (
@@ -74,7 +71,7 @@ const WrappedComponent = ({data}: {data?: any}) => (
 					description='this is the description'
 					emptyTitle='There are no orders on the selected period.'
 					label='this is the label'
-					mapper={result => result?.commerceTotalOrderValue}
+					mapper={result => result?.orderTotalValue}
 					Query={CommerceTotalOrderValueQuery}
 				/>
 			</MockedProvider>
