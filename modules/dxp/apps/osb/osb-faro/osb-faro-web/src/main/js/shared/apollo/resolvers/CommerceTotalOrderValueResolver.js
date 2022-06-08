@@ -1,15 +1,22 @@
-export default () => ({
-	__typename: 'CommerceTotalOrderValue',
-	currencies: {
-		__typename: 'CommerceTotalOrderCurrencies',
-		USD: {
-			__typename: 'CommerceTotalOrderCurreny',
-			trend: {
-				__typename: 'CommerceTotalOrderTrend',
-				percentage: 50,
-				trendClassification: 'POSITIVE'
-			},
-			value: '$100,000.00'
-		}
+export default () => [
+	{
+		__typename: 'orderTotalValue',
+		currencyCode: 'EUR',
+		trend: {
+			__typename: 'orderTotalValueTrend',
+			percentage: 100.0,
+			trendClassification: 'POSITIVE'
+		},
+		value: '20.0'
+	},
+	{
+		__typename: 'orderTotalValue',
+		currencyCode: 'USD',
+		trend: {
+			__typename: 'orderTotalValueTrend',
+			percentage: 20.0,
+			trendClassification: 'POSITIVE'
+		},
+		value: '50.0'
 	}
-});
+];

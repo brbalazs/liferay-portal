@@ -61,11 +61,11 @@ const client = new ApolloClient({
 	resolvers: {
 		Experiment,
 		Query: {
-			commerceTotalOrderValue(_, params) {
-				return CommerceTotalOrderValueResolver(params);
-			},
 			eventAnalysisList(_, params) {
 				return EventAnalysisListResolver(params);
+			},
+			orderTotalValue(_, params) {
+				return CommerceTotalOrderValueResolver(params);
 			}
 		}
 	}
