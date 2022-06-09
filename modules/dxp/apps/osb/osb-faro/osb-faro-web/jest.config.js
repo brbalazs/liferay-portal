@@ -300,6 +300,125 @@ module.exports = {
 					name: 'Liferay Analytics Cloud Enterprise Tracked Pages',
 					pageViewsLimit: 5000000,
 					price: 250
+				},
+				['LXC - CSP - Custom User Tier']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Custom User Tier',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Custom User Tier - Extra User']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Custom User Tier - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 100 Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 100 Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 100 Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 100 Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 100 Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 10K Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 10K Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 10K Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 10K Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 10K Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 1K Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 1K Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 1K Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 1K Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 1K Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 20K Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 20K Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 20K Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 20K Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 20K Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 500 Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 500 Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 500 Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 500 Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 500 Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 5K Users']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 5K Users',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC - CSP - Up to 5K Users - Extra User']: {
+					baseSubscriptionPlan: 'LXC - CSP - Up to 5K Users',
+					individualsLimit: 0,
+					name: 'LXC - CSP - Up to 5K Users - Extra User',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC Subscription - Engage Site']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC Subscription - Engage Site',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC Subscription - Support Site']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC Subscription - Support Site',
+					pageViewsLimit: 5000000,
+					price: 250
+				},
+				['LXC Subscription - Transact Site']: {
+					baseSubscriptionPlan: null,
+					individualsLimit: 0,
+					name: 'LXC Subscription - Transact Site',
+					pageViewsLimit: 5000000,
+					price: 250
 				}
 			},
 			subscriptionStatuses: {
