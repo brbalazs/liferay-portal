@@ -33,12 +33,12 @@ const data = (
 	classification = 'POSITIVE',
 	percentage = COMMERCE_TREND_PERCENTAGE
 ) => ({
-	orderTotalValue: [
+	orderTotalValues: [
 		{
-			__typename: 'orderTotalValue',
+			__typename: 'orderTotalValues',
 			currencyCode: 'USD',
 			trend: {
-				__typename: 'orderTotalValueTrend',
+				__typename: 'orderTotalValuesTrend',
 				percentage,
 				trendClassification: classification
 			},
@@ -71,7 +71,7 @@ const WrappedComponent = ({data}: {data?: any}) => (
 					description='this is the description'
 					emptyTitle='There are no orders on the selected period.'
 					label='this is the label'
-					mapper={result => result?.orderTotalValue}
+					mapper={result => result?.orderTotalValues}
 					Query={CommerceTotalOrderValueQuery}
 				/>
 			</MockedProvider>

@@ -11,7 +11,7 @@ const TotalOrderValueCard = () => (
 			'there-are-no-orders-on-the-selected-period'
 		)}
 		label={Liferay.Language.get('total-order-value')}
-		mapper={result => result?.orderTotalValue}
+		mapper={result => result?.orderTotalValues}
 		Query={CommerceTotalOrderValueQuery}
 	/>
 );
