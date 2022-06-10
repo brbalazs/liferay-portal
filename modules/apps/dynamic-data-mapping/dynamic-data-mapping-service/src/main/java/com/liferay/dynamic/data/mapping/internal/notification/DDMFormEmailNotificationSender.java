@@ -52,7 +52,9 @@ import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.URLTemplateResource;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -481,11 +483,12 @@ public class DDMFormEmailNotificationSender {
 			DDMFormInstanceRecord ddmFormInstanceRecord)
 		throws PortalException {
 
-		Locale locale = getLocale(ddmFormInstance);
+		Locale locale = _getLocale(ddmFormInstance, httpServletRequest);
 
 		template.put("formName", ddmFormInstance.getName(locale));
 
-		template.put("pages", getPages(ddmFormInstance, ddmFormInstanceRecord));
+		template.put(
+			"pages", _getPages(ddmFormInstance, ddmFormInstanceRecord, locale));
 		template.put(
 			"siteName", getSiteName(ddmFormInstance.getGroupId(), locale));
 		template.put("userName", getUserName(ddmFormInstanceRecord, locale));
@@ -541,6 +544,57 @@ public class DDMFormEmailNotificationSender {
 	@Reference(unbind = "-")
 	protected void setUserLocalService(UserLocalService userLocalService) {
 		_userLocalService = userLocalService;
+	}
+
+	private Locale _getLocale(
+		DDMFormInstance ddmFormInstance,
+		HttpServletRequest httpServletRequest) {
+
+		String languageId = GetterUtil.getString(
+			httpServletRequest.getParameter("languageId"),
+			ddmFormInstance.getDefaultLanguageId());
+
+		return LocaleUtil.fromLanguageId(languageId);
+	}
+
+	private Map<String, Object> _getPage(
+		DDMFormLayoutPage ddmFormLayoutPage,
+		Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap,
+		Locale locale) {
+
+		return HashMapBuilder.<String, Object>put(
+			"fields",
+			getFields(
+				getFieldNames(ddmFormLayoutPage), ddmFormFieldValuesMap, locale)
+		).put(
+			"title",
+			() -> {
+				LocalizedValue title = ddmFormLayoutPage.getTitle();
+
+				return title.getString(locale);
+			}
+		).build();
+	}
+
+	private List<Object> _getPages(
+			DDMFormInstance ddmFormInstance,
+			DDMFormInstanceRecord ddmFormInstanceRecord, Locale locale)
+		throws PortalException {
+
+		List<Object> pages = new ArrayList<>();
+
+		DDMFormLayout ddmFormLayout = getDDMFormLayout(ddmFormInstance);
+
+		for (DDMFormLayoutPage ddmFormLayoutPage :
+				ddmFormLayout.getDDMFormLayoutPages()) {
+
+			pages.add(
+				_getPage(
+					ddmFormLayoutPage,
+					getDDMFormFieldValuesMap(ddmFormInstanceRecord), locale));
+		}
+
+		return pages;
 	}
 
 	private static final String _NAMESPACE = "form.form_entry";
