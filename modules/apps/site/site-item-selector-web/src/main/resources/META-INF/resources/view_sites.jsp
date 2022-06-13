@@ -188,7 +188,12 @@ String target = ParamUtil.getString(request, "target");
 											<h5 class="col text-truncate">
 												<c:choose>
 													<c:when test="<%= group.isActive() %>">
-														<aui:a cssClass="selector-button" data="<%= data %>" href="javascript:;">
+
+														<%
+														boolean isNull = data.get("url") == null;
+														%>
+
+														<aui:a cssClass='<%= isNull ? " disabled text-muted " : "selector-button " %>' data="<%= data %>" href='<%= isNull ? " " : "javascript:; " %>'>
 															<%= HtmlUtil.escape(siteItemSelectorViewDisplayContext.getGroupName(group)) %>
 														</aui:a>
 													</c:when>
