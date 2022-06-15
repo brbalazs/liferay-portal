@@ -704,13 +704,14 @@ public abstract class BaseDocumentFolderResourceImpl
 			"createStrategy", "INSERT");
 
 		if ("INSERT".equalsIgnoreCase(createStrategy)) {
-			documentFolderUnsafeConsumer = documentFolder -> {
-			};
-
 			if (parameters.containsKey("siteId")) {
 				documentFolderUnsafeConsumer =
 					documentFolder -> postSiteDocumentFolder(
 						(Long)parameters.get("siteId"), documentFolder);
+			}
+			else {
+				throw new NotSupportedException(
+					"One of the following parameters must be specified: [siteId]");
 			}
 		}
 
@@ -782,7 +783,8 @@ public abstract class BaseDocumentFolderResourceImpl
 				null, filter, pagination, sorts);
 		}
 		else {
-			return null;
+			throw new NotSupportedException(
+				"One of the following parameters must be specified: [siteId]");
 		}
 	}
 
