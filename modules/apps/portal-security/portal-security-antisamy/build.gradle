@@ -53,22 +53,6 @@ processSanitizerConfiguration {
 		}
 		else if (line.contains('<tag-rules>')) {
 			line = """\
-				|	<allowed-empty-tags>
-				|		<literal-list>
-				|			<literal value="br"/>
-				|			<literal value="hr"/>
-				|			<literal value="a"/>
-				|			<literal value="img"/>
-				|			<literal value="param"/>
-				|			<literal value="input"/>
-				|			<literal value="textarea"/>
-				|			<literal value="basefont"/>
-				|			<literal value="col"/>
-				|			<literal value="div"/>
-				|			<literal value="source"/>
-				|		</literal-list>
-				|	</allowed-empty-tags>
-				|
 				|${line}
 				|		<tag name="picture" action="validate">
 				|			<attribute name="data-fileentryid" onInvalid="removeAttribute">
@@ -126,6 +110,25 @@ processSanitizerConfiguration {
 				|				</literal-list>
 				|			</attribute>
 				|		</tag>""".stripMargin()
+		}
+		else if (line.contains('</css-rules>')) {
+			line = """\
+			|${line}
+			|		<allowed-empty-tags>
+			|			<literal-list>
+			|				<literal value="br"/>
+			|				<literal value="hr"/>
+			|				<literal value="a"/>
+			|				<literal value="img"/>
+			|				<literal value="param"/>
+			|				<literal value="input"/>
+			|				<literal value="textarea"/>
+			|				<literal value="basefont"/>
+			|				<literal value="col"/>
+			|				<literal value="div"/>
+			|				<literal value="source"/>
+			|			</literal-list>
+			|	</allowed-empty-tags>""".stripMargin()
 		}
 
 		return line
