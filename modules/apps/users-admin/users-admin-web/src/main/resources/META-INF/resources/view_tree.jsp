@@ -99,6 +99,8 @@ if (organization != null) {
 			<aui:input name="onErrorRedirect" type="hidden" value="<%= currentURL %>" />
 			<aui:input name="deleteOrganizationIds" type="hidden" />
 			<aui:input name="deleteUserIds" type="hidden" />
+			<aui:input name="removeOrganizationIds" type="hidden" />
+			<aui:input name="removeUserIds" type="hidden" />
 
 			<liferay-ui:error exception="<%= RequiredOrganizationException.class %>" message="you-cannot-delete-organizations-that-have-suborganizations-or-users" />
 			<liferay-ui:error exception="<%= RequiredUserException.class %>" message="you-cannot-delete-or-deactivate-yourself" />
@@ -183,6 +185,21 @@ if (organization != null) {
 
 		submitForm(form, '<portlet:actionURL name="/users_admin/delete_organizations_and_users" />');
 	};
+
+	<portlet:actionURL name="/users_admin/edit_organization_assignments" var="removeOrganizationsAndUsersURL">
+		<portlet:param name="assignmentsRedirect" value="<%= currentURL %>" />
+		<portlet:param name="organizationId" value="<%= String.valueOf(organizationId) %>" />
+	</portlet:actionURL>
+
+	function <portlet:namespace />removeOrganizationsAndUsers() {
+		var form = AUI.$(document.<portlet:namespace />fm);
+
+		form.attr('method', 'post');
+		form.fm('removeOrganizationIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds', '<portlet:namespace />rowIdsOrganization'));
+		form.fm('removeUserIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds', '<portlet:namespace />rowIdsUser'));
+
+		submitForm(form, '<%= removeOrganizationsAndUsersURL.toString() %>');
+	}
 
 	var selectUsers = function(organizationId) {
 		<portlet:namespace />openSelectUsersDialog(organizationId);
