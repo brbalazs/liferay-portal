@@ -164,17 +164,15 @@
 	}
 
 	if (iframe) {
-
 		if (!isNested(window, [])) {
 			iframe.set('src', '<%= HtmlUtil.escapeJS(iFrameDisplayContext.getIframeSrc()) %>');
 
-		iframe.plug(
-			A.Plugin.AutosizeIframe,
-			{
-				monitorHeight: <%= iFramePortletInstanceConfiguration.resizeAutomatically() %>
-			}
-		);
-
+			iframe.plug(
+				A.Plugin.AutosizeIframe,
+				{
+					monitorHeight: <%= iFramePortletInstanceConfiguration.resizeAutomatically() %>
+				}
+			);
 		}
 
 		iframe.on(
