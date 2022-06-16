@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -90,9 +91,20 @@ public class ViewTreeManagementToolbarDisplayContext {
 							StringBundler.concat(
 								"javascript:", _renderResponse.getNamespace(),
 								"delete();"));
-						dropdownItem.setIcon("trash");
+						dropdownItem.setIcon("times-circle");
 						dropdownItem.setLabel(
-							LanguageUtil.get(_request, "delete"));
+							LanguageUtil.get(_request, Constants.DELETE));
+						dropdownItem.setQuickAction(true);
+					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							StringBundler.concat(
+								"javascript:", _renderResponse.getNamespace(),
+								"removeOrganizationsAndUsers();"));
+						dropdownItem.setIcon("minus-circle");
+						dropdownItem.setLabel(
+							LanguageUtil.get(_request, Constants.REMOVE));
 						dropdownItem.setQuickAction(true);
 					});
 			}
