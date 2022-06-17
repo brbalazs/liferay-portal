@@ -64,7 +64,7 @@ const client = new ApolloClient({
 			eventAnalysisList(_, params) {
 				return EventAnalysisListResolver(params);
 			},
-			orderTotalValues(_, params) {
+			orderTotalCurrencyValues(_, params) {
 				return CommerceTotalOrderValueResolver(params);
 			}
 		}

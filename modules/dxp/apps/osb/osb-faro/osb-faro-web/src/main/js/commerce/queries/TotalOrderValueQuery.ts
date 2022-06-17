@@ -1,7 +1,8 @@
 import {gql} from 'apollo-boost';
 import {Trend} from 'commerce/utils/types';
+
 export interface CommerceTotalOrderValueData {
-	orderTotalValues: {
+	orderTotalCurrencyValues: {
 		currencyCode: string;
 		trend: Trend;
 		value: string;
@@ -15,12 +16,12 @@ export default gql`
 		$rangeKey: Int
 		$rangeStart: String
 	) {
-		orderTotalValues(
+		orderTotalCurrencyValues(
 			channelId: $channelId
 			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
 			rangeStart: $rangeStart
-		) {
+		) @client {
 			currencyCode
 			trend {
 				trendClassification
