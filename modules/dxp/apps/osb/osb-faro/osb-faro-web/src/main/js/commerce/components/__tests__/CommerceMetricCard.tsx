@@ -106,7 +106,7 @@ describe('CommerceMetricCard', () => {
 		expect(getByText('this is the description')).toBeInTheDocument();
 		expect(getByText('this is the label')).toBeInTheDocument();
 		expect(dropdownRangeSelector).toBeInTheDocument();
-		expect(getByText(COMMERCE_TOTAL_ORDER_VALUE)).toBeInTheDocument();
+		expect(getByText('$10,000,000.00')).toBeInTheDocument();
 		expect(getByText(`${COMMERCE_TREND_PERCENTAGE}%`)).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});

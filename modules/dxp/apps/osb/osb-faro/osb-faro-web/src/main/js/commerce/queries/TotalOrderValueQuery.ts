@@ -21,7 +21,7 @@ export default gql`
 			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
 			rangeStart: $rangeStart
-		) @client {
+		) {
 			currencyCode
 			trend {
 				trendClassification

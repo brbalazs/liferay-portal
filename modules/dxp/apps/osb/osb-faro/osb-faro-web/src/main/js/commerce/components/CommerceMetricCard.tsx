@@ -4,6 +4,7 @@ import ErrorDisplay from 'shared/components/ErrorDisplay';
 import React, {useState} from 'react';
 import StatesRenderer from 'shared/components/states-renderer/StatesRenderer';
 import TrendComponent from 'shared/components/Trend';
+import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {ApolloError} from 'apollo-client';
 import {getIcon, getStatsColor} from 'shared/util/metrics';
 import {
@@ -16,20 +17,22 @@ import {sub} from 'shared/util/lang';
 import {Trend} from 'commerce/utils/types';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
+import {User} from 'shared/util/records';
+
+type Currency = {
+	currencyCode: string;
+	trend: Trend;
+	value: string;
+};
 
 interface ICommerceMetricCardProps<TGraphQlData>
 	extends React.HTMLAttributes<HTMLElement> {
 	description: string;
 	emptyTitle: string;
 	label: string;
-	mapper: (
-		result: TGraphQlData
-	) => {
-		currencyCode: string;
-		trend: Trend;
-		value: string;
-	}[];
+	mapper: (result: TGraphQlData) => Currency[];
 	Query: typeof gql;
+	currentUser: User;
 }
 
 interface ICommerceMetricCardWithStatesRendererProps
@@ -67,7 +70,8 @@ const CommerceCardWithStatesRenderer: React.FC<ICommerceMetricCardWithStatesRend
 	</StatesRenderer>
 );
 
-function CommerceMetricCard<TGraphQlData>({
+export function CommerceMetricCard<TGraphQlData>({
+	currentUser,
 	description,
 	emptyTitle,
 	label,
@@ -90,8 +94,7 @@ function CommerceMetricCard<TGraphQlData>({
 
 	const result = mapper(data);
 
-	const {trend, value} =
-		result?.find(({currencyCode}) => currencyCode === 'USD') ?? {};
+	const {currencyCode, trend, value} = getCurrency(result);
 
 	return (
 		<BaseCard
@@ -111,8 +114,12 @@ function CommerceMetricCard<TGraphQlData>({
 							error={error}
 							loading={loading}
 						>
-							<h1 className='font-size-lg-3x font-weight-semibold mb-2'>
-								{value}
+							<h1 className='commerce-card-currency font-size-lg-3x font-weight-semibold mb-2'>
+								{formatCurrency(
+									currencyCode,
+									currentUser.languageId,
+									value
+								)}
 							</h1>
 
 							<div className='d-flex align-items-center mb-2'>
@@ -148,4 +155,36 @@ function CommerceMetricCard<TGraphQlData>({
 	);
 }
 
-export default CommerceMetricCard;
+function getCurrency(currencies: Currency[]): Currency {
+	const defaultCurrencyCode = 'USD';
+
+	if (!currencies || !currencies.length) {
+		return {
+			currencyCode: defaultCurrencyCode,
+			trend: {
+				percentage: 0,
+				trendClassification: 'NEUTRAL'
+			},
+			value: '0'
+		};
+	}
+
+	return (
+		currencies?.find(
+			({currencyCode}) => currencyCode === defaultCurrencyCode
+		) ?? currencies[0]
+	);
+}
+
+function formatCurrency(
+	currencyCode: string,
+	locale: string,
+	value: string
+): string {
+	return new Intl.NumberFormat(locale.replace('_', '-'), {
+		currency: currencyCode,
+		style: 'currency'
+	}).format(parseFloat(value));
+}
+
+export default withCurrentUser(CommerceMetricCard);
