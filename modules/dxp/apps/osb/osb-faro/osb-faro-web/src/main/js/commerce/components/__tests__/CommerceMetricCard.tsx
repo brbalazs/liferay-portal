@@ -1,18 +1,20 @@
 import client from 'shared/apollo/client';
-import CommerceMetricCard from 'commerce/components/CommerceMetricCard';
 import CommerceTotalOrderValueQuery, {
 	CommerceTotalOrderValueData
 } from 'commerce/queries/TotalOrderValueQuery';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
 import {cleanup, render} from '@testing-library/react';
+import {CommerceMetricCard} from 'commerce/components/CommerceMetricCard';
 import {
 	mockCommerceTotalOrderValueReq,
 	mockTimeRangeReq
 } from 'test/graphql-data';
 import {MockedProvider} from '@apollo/react-testing';
+import {mockUser} from 'test/data';
 import {RangeKeyTimeRanges} from 'shared/util/constants';
 import {StaticRouter} from 'react-router-dom';
+import {User} from 'shared/util/records';
 
 jest.unmock('react-dom');
 
@@ -29,14 +31,15 @@ jest.mock('react-router-dom', () => ({
 const COMMERCE_TOTAL_ORDER_VALUE = '10000000';
 const COMMERCE_TREND_PERCENTAGE = 50;
 
-const data = (
+const getData = ({
 	classification = 'POSITIVE',
-	percentage = COMMERCE_TREND_PERCENTAGE
-) => ({
+	percentage = COMMERCE_TREND_PERCENTAGE,
+	currencyCode = 'USD'
+}) => ({
 	orderTotalCurrencyValues: [
 		{
 			__typename: 'orderTotalCurrencyValues',
-			currencyCode: 'USD',
+			currencyCode,
 			trend: {
 				__typename: 'orderTotalCurrencyValuesTrend',
 				percentage,
@@ -54,7 +57,13 @@ const variables = {
 	rangeStart: null
 };
 
-const WrappedComponent = ({data}: {data?: any}) => (
+const WrappedComponent = ({
+	data,
+	defaultLanguageId = 'en_US'
+}: {
+	data?: any;
+	defaultLanguageId?: string;
+}) => (
 	<ApolloProvider client={client}>
 		<StaticRouter>
 			<MockedProvider
@@ -68,6 +77,9 @@ const WrappedComponent = ({data}: {data?: any}) => (
 				]}
 			>
 				<CommerceMetricCard<CommerceTotalOrderValueData>
+					currentUser={
+						new User(mockUser(1, {languageId: defaultLanguageId}))
+					}
 					description='this is the description'
 					emptyTitle='There are no orders on the selected period.'
 					label='this is the label'
@@ -82,7 +94,7 @@ const WrappedComponent = ({data}: {data?: any}) => (
 describe('CommerceMetricCard', () => {
 	it('should render', () => {
 		const {container, getByText} = render(
-			<WrappedComponent data={data()} />
+			<WrappedComponent data={getData({})} />
 		);
 
 		jest.runAllTimers();
@@ -120,7 +132,7 @@ describe('CommerceMetricCard Classifications', () => {
 
 	it('should render with POSITIVE classification', () => {
 		const {container} = render(
-			<WrappedComponent data={data('POSITIVE')} />
+			<WrappedComponent data={getData({classification: 'POSITIVE'})} />
 		);
 
 		jest.runAllTimers();
@@ -136,7 +148,7 @@ describe('CommerceMetricCard Classifications', () => {
 
 	it('should render with NEGATIVE classification', () => {
 		const {container} = render(
-			<WrappedComponent data={data('NEGATIVE')} />
+			<WrappedComponent data={getData({classification: 'NEGATIVE'})} />
 		);
 
 		jest.runAllTimers();
@@ -151,7 +163,9 @@ describe('CommerceMetricCard Classifications', () => {
 	});
 
 	it('should render with NEUTRAL classification', () => {
-		const {container} = render(<WrappedComponent data={data('NEUTRAL')} />);
+		const {container} = render(
+			<WrappedComponent data={getData({classification: 'NEUTRAL'})} />
+		);
 
 		jest.runAllTimers();
 
@@ -170,7 +184,9 @@ describe('CommerceMetricCard Trend', () => {
 
 	it('should render with POSITIVE trend', () => {
 		const {container} = render(
-			<WrappedComponent data={data('POSITIVE', 50)} />
+			<WrappedComponent
+				data={getData({classification: 'POSITIVE', percentage: 50})}
+			/>
 		);
 
 		jest.runAllTimers();
@@ -183,7 +199,9 @@ describe('CommerceMetricCard Trend', () => {
 
 	it('should render with NEGATIVE trend', () => {
 		const {container} = render(
-			<WrappedComponent data={data('NEGATIVE', -50)} />
+			<WrappedComponent
+				data={getData({classification: 'NEGATIVE', percentage: -50})}
+			/>
 		);
 
 		jest.runAllTimers();
@@ -196,7 +214,9 @@ describe('CommerceMetricCard Trend', () => {
 
 	it('should render with NEUTRAL trend', () => {
 		const {container} = render(
-			<WrappedComponent data={data('NEUTRAL', 0)} />
+			<WrappedComponent
+				data={getData({classification: 'NEUTRAL', percentage: 0})}
+			/>
 		);
 
 		jest.runAllTimers();
@@ -208,5 +228,52 @@ describe('CommerceMetricCard Trend', () => {
 		expect(
 			trendElement.querySelector('.lexicon-icon-caret-bottom-l')
 		).not.toBeInTheDocument();
+	});
+});
+
+describe('CommerceMetricCard Format Currency', () => {
+	it('should format currency and display it in BRL', () => {
+		render(
+			<WrappedComponent
+				data={getData({currencyCode: 'BRL'})}
+				defaultLanguageId='pt_BR'
+			/>
+		);
+
+		jest.runAllTimers();
+
+		const currencyValue = document.querySelector('.commerce-card-currency');
+
+		expect(currencyValue.textContent.includes('R$')).toBeTruthy();
+	});
+
+	it('should format currency and display it in USD', () => {
+		render(
+			<WrappedComponent
+				data={getData({currencyCode: 'USD'})}
+				defaultLanguageId='en_US'
+			/>
+		);
+
+		jest.runAllTimers();
+
+		const currencyValue = document.querySelector('.commerce-card-currency');
+
+		expect(currencyValue.textContent.includes('$')).toBeTruthy();
+	});
+
+	it('should format currency and display it in EUR', () => {
+		render(
+			<WrappedComponent
+				data={getData({currencyCode: 'EUR'})}
+				defaultLanguageId='es-ES'
+			/>
+		);
+
+		jest.runAllTimers();
+
+		const currencyValue = document.querySelector('.commerce-card-currency');
+
+		expect(currencyValue.textContent.includes('€')).toBeTruthy();
 	});
 });

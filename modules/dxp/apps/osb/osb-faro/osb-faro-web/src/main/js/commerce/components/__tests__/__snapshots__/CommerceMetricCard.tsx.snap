@@ -41,7 +41,7 @@ exports[`CommerceMetricCard should render 1`] = `
       class="card-body align-items-center justify-content-center"
     >
       <h1
-        class="font-size-lg-3x font-weight-semibold mb-2"
+        class="commerce-card-currency font-size-lg-3x font-weight-semibold mb-2"
       >
         10000000
       </h1>
