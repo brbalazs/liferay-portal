@@ -14,15 +14,17 @@
 
 package com.liferay.osb.faro.web.internal.servlet;
 
+import com.liferay.osb.faro.model.FaroChannel;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.osb.faro.service.FaroUserLocalService;
+import com.liferay.osb.faro.service.FaroChannelLocalService;
 import com.liferay.osb.faro.util.FaroPermissionChecker;
 import com.liferay.osb.faro.web.internal.util.FaroProjectThreadLocal;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
-import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.IOException;
@@ -35,6 +37,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -149,17 +154,58 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 		}
 	}
 
+	private boolean _hasChannelPermission(
+		FaroProject faroProject, String channelId) {
+
+		if ((channelId != null) && !channelId.isEmpty()) {
+			List<FaroChannel> faroChannels = _faroChannelLocalService.search(
+				faroProject.getGroupId(), null, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+			for (FaroChannel faroChannel : faroChannels) {
+				if (Objects.equals(faroChannel.getChannelId(), channelId)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		return true;
+	}
+
 	private boolean _hasPermission(String body) {
 		FaroProject faroProject = FaroProjectThreadLocal.getFaroProject();
 
-		if (FaroPermissionChecker.isGroupMember(faroProject.getGroupId())) {
-			return true;
+		if (!FaroPermissionChecker.isGroupMember(faroProject.getGroupId())) {
+			return false;
 		}
 
 		try {
-			Map<String, String> map = JSONUtil.readValue(body, Map.class);
+			Map<String, Object> map = JSONUtil.readValue(body, Map.class);
 
-			String query = map.get("query");
+			Map<String, Object> variablesMap = (Map<String, Object>)map.get(
+				"variables");
+
+			if (variablesMap != null) {
+				String channelId = MapUtil.getString(variablesMap, "channelId");
+
+				if (!_hasChannelPermission(faroProject, channelId))
+
+					return false;
+			}
+
+			String query = MapUtil.getString(map, "query");
+
+			Matcher matcher = _pattern.matcher(query);
+
+			if (matcher.find()) {
+				String channelId = matcher.group(_CHANNEL_ID_INDEX);
+
+				if (!_hasChannelPermission(faroProject, channelId))
+
+					return false;
+			}
 
 			if (!query.contains("mutation")) {
 				return true;
@@ -184,17 +230,18 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 		}
 	}
 
+	private static final int _CHANNEL_ID_INDEX = 5;
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		GraphQLAsahServlet.class);
 
+	private static final Pattern _pattern = Pattern.compile(
+		"(channelId):(( )|\\r|\\n|\\t)*(\\\"(\\d+)\\\")");
 	private static final List<String> _restrictedGraphQLMethodNames =
 		Arrays.asList(
 			"createJob", "deleteJobs", "preference", "runJob", "updateJob");
 
 	@Reference
-	private FaroUserLocalService _faroUserLocalService;
-
-	@Reference
-	private Portal _portal;
+	private FaroChannelLocalService _faroChannelLocalService;
 
 }
