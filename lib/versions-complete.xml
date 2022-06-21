@@ -161,18 +161,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.batch.engine.service.jar!commons-compress.jar</file-name>
-				<version>1.19</version>
-				<project-name>Apache Commons Compress</project-name>
-				<project-url>https://commons.apache.org/proper/commons-compress/</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>com.liferay.batch.engine.service.jar!httpclient.jar</file-name>
 				<version>4.5.13</version>
 				<project-name>Apache HttpClient</project-name>
@@ -6555,7 +6543,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/commons-compress.jar</file-name>
-				<version>1.19</version>
+				<version>1.21</version>
 				<project-name>Commons Compress</project-name>
 				<project-url>http://commons.apache.org/compress</project-url>
 				<licenses>
