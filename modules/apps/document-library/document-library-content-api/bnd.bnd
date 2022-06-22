@@ -7,6 +7,8 @@ Export-Package:\
 	com.liferay.document.library.content.service,\
 	com.liferay.document.library.content.service.persistence
 Import-Package:\
+	javassist.util.proxy,\
+	\
 	org.hibernate.proxy,\
 	\
 	*
