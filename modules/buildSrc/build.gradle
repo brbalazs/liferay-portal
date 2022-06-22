@@ -1,5 +1,5 @@
 dependencies {
-	compile group: "com.liferay", name: "com.liferay.gradle.plugins.defaults", version: "7.0.0"
+	compile group: "com.liferay", name: "com.liferay.gradle.plugins.defaults", version: "8.0.0"
 	compile(group: "com.liferay", name: "com.liferay.portal.tools.soy.builder", version: "3.0.4") {
 		exclude group: "com.google.template", module: "soy"
 		exclude group: "org.codehaus.plexus"
