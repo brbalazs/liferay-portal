@@ -1,3 +1,4 @@
+import IncompleteOrdersCard from 'commerce/components/IncompleteOrdersCard';
 import React from 'react';
 import TotalOrderValueCard from 'commerce/components/TotalOrderValueCard';
 
@@ -6,6 +7,9 @@ const Overview = () => (
 		<div className='row'>
 			<div className='col-xl-6'>
 				<TotalOrderValueCard />
+			</div>
+			<div className='col-xl-6'>
+				<IncompleteOrdersCard />
 			</div>
 		</div>
 	</div>
