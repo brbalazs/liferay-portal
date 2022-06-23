@@ -2,6 +2,7 @@ import cache from './cache';
 import Uri from 'metal-uri';
 import {ApolloClient} from 'apollo-client';
 import {
+	CommerceIncompleteOrdersResolver,
 	CommerceTotalOrderValueResolver,
 	EventAnalysisListResolver,
 	ExperimentResolver as Experiment
@@ -63,6 +64,9 @@ const client = new ApolloClient({
 		Query: {
 			eventAnalysisList(_, params) {
 				return EventAnalysisListResolver(params);
+			},
+			orderIncompleteCurrencyValues(_, params) {
+				return CommerceIncompleteOrdersResolver(params);
 			},
 			orderTotalCurrencyValues(_, params) {
 				return CommerceTotalOrderValueResolver(params);
