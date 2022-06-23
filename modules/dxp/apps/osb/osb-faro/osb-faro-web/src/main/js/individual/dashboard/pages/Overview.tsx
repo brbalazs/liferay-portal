@@ -1,5 +1,6 @@
 import * as API from 'shared/api';
 import ActiveIndividualsCard from '../hocs/ActiveIndividualsCard';
+import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
 import DistributionCard from '../hocs/DistributionCard';
@@ -47,79 +48,88 @@ const Overview: React.FC<IOverviewProps> = ({currentUser}) => {
 	}, []);
 
 	return (
-		<StatesRenderer {...dataSourceStates}>
-			<StatesRenderer.Empty
-				description={
-					<>
-						{Liferay.Language.get(
-							'connect-a-data-source-with-sites-data'
-						)}
-
-						<a
-							className='d-block mb-3'
-							href={URLConstants.DataSourceConnection}
-							key='DOCUMENTATION'
-							target='_blank'
-						>
+		<BasePage.Body pageContainer>
+			<StatesRenderer {...dataSourceStates}>
+				<StatesRenderer.Empty
+					description={
+						<>
 							{Liferay.Language.get(
-								'access-our-documentation-to-learn-more'
+								'connect-a-data-source-with-sites-data'
 							)}
-						</a>
 
-						{authorized && (
-							<Button
-								display='primary'
-								href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
-									groupId
-								})}
+							<a
+								className='d-block mb-3'
+								href={URLConstants.DataSourceConnection}
+								key='DOCUMENTATION'
+								target='_blank'
 							>
-								{Liferay.Language.get('connect-data-source')}
-							</Button>
-						)}
-					</>
-				}
-				displayCard
-				title={Liferay.Language.get(
-					'no-sites-synced-from-data-sources'
-				)}
-			/>
+								{Liferay.Language.get(
+									'access-our-documentation-to-learn-more'
+								)}
+							</a>
 
-			<StatesRenderer.Success>
-				<div className='individuals-dashboard-overview-root overview-root'>
-					<div className='row'>
-						<div className='col-xl-8'>
-							<TypeTrendCard />
+							{authorized && (
+								<Button
+									display='primary'
+									href={toRoute(
+										Routes.SETTINGS_ADD_DATA_SOURCE,
+										{
+											groupId
+										}
+									)}
+								>
+									{Liferay.Language.get(
+										'connect-data-source'
+									)}
+								</Button>
+							)}
+						</>
+					}
+					displayCard
+					title={Liferay.Language.get(
+						'no-sites-synced-from-data-sources'
+					)}
+				/>
+
+				<StatesRenderer.Success>
+					<div className='individuals-dashboard-overview-root overview-root'>
+						<div className='row'>
+							<div className='col-xl-8'>
+								<TypeTrendCard />
+							</div>
+
+							<div className='col-xl-4'>
+								<EnrichedProfilesCard
+									dataSources={dataSources}
+								/>
+							</div>
 						</div>
 
-						<div className='col-xl-4'>
-							<EnrichedProfilesCard dataSources={dataSources} />
+						<div className='row'>
+							<div className='col-xl-12'>
+								<ActiveIndividualsCard />
+							</div>
+						</div>
+
+						<div className='row'>
+							<div className='col-xl-12'>
+								<InterestsCard />
+							</div>
+						</div>
+
+						<div className='row'>
+							<div className='col-xl-12'>
+								<DistributionCard
+									showAddDataSource={
+										!!dataSources && !dataSources.length
+									}
+								/>
+							</div>
 						</div>
 					</div>
-
-					<div className='row'>
-						<div className='col-xl-12'>
-							<ActiveIndividualsCard />
-						</div>
-					</div>
-
-					<div className='row'>
-						<div className='col-xl-12'>
-							<InterestsCard />
-						</div>
-					</div>
-
-					<div className='row'>
-						<div className='col-xl-12'>
-							<DistributionCard
-								showAddDataSource={
-									!!dataSources && !dataSources.length
-								}
-							/>
-						</div>
-					</div>
-				</div>
-			</StatesRenderer.Success>
-		</StatesRenderer>
+				</StatesRenderer.Success>
+			</StatesRenderer>
+		</BasePage.Body>
 	);
 };
 

@@ -95,45 +95,43 @@ const Dashboard: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 				/>
 			</BasePage.Header>
 
-			<BasePage.Body>
-				<Suspense fallback={<Loading />}>
-					<Switch>
-						<BundleRouter
-							data={Overview}
-							destructured={false}
-							exact
-							path={Routes.CONTACTS_INDIVIDUALS}
-						/>
+			<Suspense fallback={<Loading />}>
+				<Switch>
+					<BundleRouter
+						data={Overview}
+						destructured={false}
+						exact
+						path={Routes.CONTACTS_INDIVIDUALS}
+					/>
 
-						<BundleRouter
-							data={KnownIndividuals}
-							path={Routes.CONTACTS_INDIVIDUALS_KNOWN_INDIVIDUALS}
-						/>
+					<BundleRouter
+						data={KnownIndividuals}
+						path={Routes.CONTACTS_INDIVIDUALS_KNOWN_INDIVIDUALS}
+					/>
 
-						<BundleRouter
-							data={Distribution}
-							exact
-							path={Routes.CONTACTS_INDIVIDUALS_DISTRIBUTION}
-						/>
+					<BundleRouter
+						data={Distribution}
+						exact
+						path={Routes.CONTACTS_INDIVIDUALS_DISTRIBUTION}
+					/>
 
-						<BundleRouter
-							data={InterestDetails}
-							destructured={false}
-							exact
-							path={Routes.CONTACTS_INDIVIDUALS_INTEREST_DETAILS}
-						/>
+					<BundleRouter
+						data={InterestDetails}
+						destructured={false}
+						exact
+						path={Routes.CONTACTS_INDIVIDUALS_INTEREST_DETAILS}
+					/>
 
-						<BundleRouter
-							data={Interests}
-							destructured={false}
-							exact
-							path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}
-						/>
+					<BundleRouter
+						data={Interests}
+						destructured={false}
+						exact
+						path={Routes.CONTACTS_INDIVIDUALS_INTERESTS}
+					/>
 
-						<RouteNotFound />
-					</Switch>
-				</Suspense>
-			</BasePage.Body>
+					<RouteNotFound />
+				</Switch>
+			</Suspense>
 		</BasePage>
 	);
 };

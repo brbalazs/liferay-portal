@@ -84,6 +84,7 @@ export const IndividualsDistribution: React.FC<IIndividualsDistributionProps> = 
 									INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY
 								}
 								knownIndividualCount={knownIndividualCount}
+								pageContainer
 								{...otherProps}
 								noResultsRenderer={() => (
 									<NoResultsDisplay
