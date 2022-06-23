@@ -1,4 +1,5 @@
 import BackButton from 'contacts/components/BackButton';
+import BasePage from 'shared/components/base-page';
 import InterestDetails from 'shared/components/InterestDetails';
 import React from 'react';
 import {isNil, pickBy} from 'lodash';
@@ -19,19 +20,21 @@ const InterestDetailsPage: React.FC<IInterestDetailsProps> = ({router}) => {
 		<div className='individuals-dashboard-interest-details-root'>
 			<div className='row'>
 				<div className='col-xl-12'>
-					<BackButton
-						href={setUriQueryValues(
-							pickBy({rangeKey}, param => !isNil(param)),
+					<BasePage.Body pageContainer>
+						<BackButton
+							href={setUriQueryValues(
+								pickBy({rangeKey}, param => !isNil(param)),
 
-							toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
-								channelId,
-								groupId
-							})
-						)}
-						label={Liferay.Language.get('back-to-interests')}
-					/>
+								toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
+									channelId,
+									groupId
+								})
+							)}
+							label={Liferay.Language.get('back-to-interests')}
+						/>
 
-					<InterestDetails router={router} />
+						<InterestDetails router={router} />
+					</BasePage.Body>
 				</div>
 			</div>
 		</div>
