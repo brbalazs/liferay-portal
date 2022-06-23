@@ -122,13 +122,6 @@ exports[`Individuals Dashboard renders 1`] = `
         </ul>
       </div>
     </header>
-    <div
-      class="body-root page-container"
-    >
-      <span
-        class="children-wrapper"
-      />
-    </div>
   </div>
 </div>
 `;
