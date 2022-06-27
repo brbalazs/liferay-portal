@@ -2,7 +2,7 @@ Bundle-Name: Liferay Commerce Machine Learning Implementation
 Bundle-SymbolicName: com.liferay.commerce.machine.learning.impl
 Bundle-Version: 2.0.37
 Import-Package:\
-	com.fasterxml.jackson.databind; version="[2.9.0,3.0.0)",\
+	com.fasterxml.jackson.databind;version="[2.9.0,3.0.0)",\
 	\
 	com.liferay.analytics.message.sender.client;version="[1.0.0,99.0.0)",\
 	com.liferay.asset.kernel.model;version="[1.5.0,99.0.0)",\

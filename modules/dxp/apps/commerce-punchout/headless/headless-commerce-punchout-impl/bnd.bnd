@@ -11,7 +11,7 @@ Import-Package:\
 	com.liferay.commerce.product.service;version="[9.4.0,99.0.0)",\
 	com.liferay.commerce.service;version="[9.4.0,99.0.0)",\
 	com.liferay.expando.kernel.model;version="[1.1.0,99.0.0)",\
-	com.liferay.headless.commerce.core.util; version="[1.1.0,99.0.0)",\
+	com.liferay.headless.commerce.core.util;version="[1.1.0,99.0.0)",\
 	com.liferay.portal.kernel.exception;version="[7.5.0,99.0.0)",\
 	com.liferay.portal.kernel.json;version="[7.7.0,99.0.0)",\
 	com.liferay.portal.kernel.model;version="[2.0.0,99.0.0)",\
@@ -24,7 +24,7 @@ Import-Package:\
 	com.liferay.portal.vulcan.accept.language;version="[1.0.0,99.0.0)",\
 	com.liferay.portal.vulcan.fields;version="[1.0.0,99.0.0)",\
 	com.liferay.portal.vulcan.pagination;version="[1.0.0,99.0.0)",\
-	com.liferay.portal.vulcan.resource; version="[1.1.0,99.0.0)",\
+	com.liferay.portal.vulcan.resource;version="[1.1.0,99.0.0)",\
 	com.liferay.portal.vulcan.util;version="[1.1.0,99.0.0)",\
 	\
 	*
