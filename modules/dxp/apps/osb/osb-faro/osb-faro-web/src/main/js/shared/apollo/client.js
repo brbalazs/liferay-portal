@@ -3,6 +3,7 @@ import Uri from 'metal-uri';
 import {ApolloClient} from 'apollo-client';
 import {
 	CommerceAverageOrderValueResolver,
+	CommerceAverageRevenuePerAccountResolver,
 	CommerceIncompleteOrdersResolver,
 	CommerceTotalOrderValueResolver,
 	EventAnalysisListResolver,
@@ -65,6 +66,9 @@ const client = new ApolloClient({
 		Query: {
 			eventAnalysisList(_, params) {
 				return EventAnalysisListResolver(params);
+			},
+			orderAccountAverageCurrencyValues(_, params) {
+				return CommerceAverageRevenuePerAccountResolver(params);
 			},
 			orderAverageCurrencyValues(_, params) {
 				return CommerceAverageOrderValueResolver(params);
