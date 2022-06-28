@@ -17,27 +17,24 @@ const InterestDetailsPage: React.FC<IInterestDetailsProps> = ({router}) => {
 	} = router;
 
 	return (
-		<div className='individuals-dashboard-interest-details-root'>
-			<div className='row'>
-				<div className='col-xl-12'>
-					<BasePage.Body pageContainer>
-						<BackButton
-							href={setUriQueryValues(
-								pickBy({rangeKey}, param => !isNil(param)),
+		<BasePage.Body
+			className='individuals-dashboard-interest-details-root'
+			pageContainer
+		>
+			<BackButton
+				href={setUriQueryValues(
+					pickBy({rangeKey}, param => !isNil(param)),
 
-								toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
-									channelId,
-									groupId
-								})
-							)}
-							label={Liferay.Language.get('back-to-interests')}
-						/>
+					toRoute(Routes.CONTACTS_INDIVIDUALS_INTERESTS, {
+						channelId,
+						groupId
+					})
+				)}
+				label={Liferay.Language.get('back-to-interests')}
+			/>
 
-						<InterestDetails router={router} />
-					</BasePage.Body>
-				</div>
-			</div>
-		</div>
+			<InterestDetails router={router} />
+		</BasePage.Body>
 	);
 };
 

@@ -301,68 +301,60 @@ const KnownIndividuals: React.FC<IKnownIndividualsProps> = ({
 
 				<StatesRenderer.Success>
 					<div className='individuals-dashboard-known-individuals-root'>
-						<div className='row'>
-							<div className='col-xl-12'>
-								<Card pageDisplay>
-									<CrossPageSelect
-										columns={[
-											individualsListColumns.getNameEmail(
-												{
-													channelId,
-													groupId
-												}
-											),
-											individualsListColumns.jobTitle,
-											individualsListColumns.activitiesCount,
-											individualsListColumns.getLastActivityDate(
-												timeZoneId
-											)
-										]}
-										currentUser={currentUser}
-										delta={delta}
-										entityLabel={Liferay.Language.get(
-											'individuals'
-										)}
-										error={error}
-										items={data?.items}
-										loading={loading}
-										noResultsRenderer={renderNoResults()}
-										orderByOptions={[
-											{
-												label: Liferay.Language.get(
-													'name'
-												),
-												value: NAME
-											},
-											{
-												label: Liferay.Language.get(
-													'job-title'
-												),
-												value: JOB_TITLE
-											},
-											{
-												label: Liferay.Language.get(
-													'total-activities'
-												),
-												value: ACTIVITIES_COUNT
-											},
-											{
-												label: Liferay.Language.get(
-													'last-activity'
-												),
-												value: LAST_ACTIVITY_DATE
-											}
-										]}
-										orderIOMap={orderIOMap}
-										page={page}
-										query={query}
-										renderNav={renderNav}
-										showCheckbox
-										total={data?.total}
-									/>
-								</Card>
-							</div>
-						</div>
+						<Card pageDisplay>
+							<CrossPageSelect
+								columns={[
+									individualsListColumns.getNameEmail({
+										channelId,
+										groupId
+									}),
+									individualsListColumns.jobTitle,
+									individualsListColumns.activitiesCount,
+									individualsListColumns.getLastActivityDate(
+										timeZoneId
+									)
+								]}
+								currentUser={currentUser}
+								delta={delta}
+								entityLabel={Liferay.Language.get(
+									'individuals'
+								)}
+								error={error}
+								items={data?.items}
+								loading={loading}
+								noResultsRenderer={renderNoResults()}
+								orderByOptions={[
+									{
+										label: Liferay.Language.get('name'),
+										value: NAME
+									},
+									{
+										label: Liferay.Language.get(
+											'job-title'
+										),
+										value: JOB_TITLE
+									},
+									{
+										label: Liferay.Language.get(
+											'total-activities'
+										),
+										value: ACTIVITIES_COUNT
+									},
+									{
+										label: Liferay.Language.get(
+											'last-activity'
+										),
+										value: LAST_ACTIVITY_DATE
+									}
+								]}
+								orderIOMap={orderIOMap}
+								page={page}
+								query={query}
+								renderNav={renderNav}
+								showCheckbox
+								total={data?.total}
+							/>
+						</Card>
 					</div>
 				</StatesRenderer.Success>
 			</StatesRenderer>

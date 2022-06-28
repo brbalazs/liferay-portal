@@ -66,11 +66,7 @@ const InterestsPage: React.FC<IInterestsPageProps> = ({currentUser}) => {
 
 				<StatesRenderer.Success>
 					<div className='individuals-dashboard-interests-root'>
-						<div className='row'>
-							<div className='col-xl-12'>
-								<Interests />
-							</div>
-						</div>
+						<Interests />
 					</div>
 				</StatesRenderer.Success>
 			</StatesRenderer>
