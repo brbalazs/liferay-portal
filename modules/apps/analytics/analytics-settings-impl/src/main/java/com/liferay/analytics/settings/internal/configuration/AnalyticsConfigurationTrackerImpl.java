@@ -860,8 +860,6 @@ public class AnalyticsConfigurationTrackerImpl
 
 	private static final Map<String, String> _defaultFieldNames =
 		HashMapBuilder.put(
-			"accountId", "Integer"
-		).put(
 			"agreedToTermsOfUse", "boolean"
 		).put(
 			"birthday", "date"
