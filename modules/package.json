@@ -8,7 +8,7 @@
 		"jest-fetch-mock": "2.1.2",
 		"jsdoc": "3.6.3",
 		"karma": "4.0.0",
-		"liferay-font-awesome": "3.3.2",
+		"liferay-font-awesome": "3.5.2",
 		"liferay-frontend-common-css": "1.0.4",
 		"liferay-karma-alloy-config": "0.0.15",
 		"liferay-karma-config": "0.0.3",
