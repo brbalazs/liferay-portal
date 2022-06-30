@@ -1,8 +1,7 @@
-import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getCN from 'classnames';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Thumbs from './Thumbs';
 import {ASSET_METRICS} from 'shared/util/constants';
 import {isEmpty} from 'lodash';
@@ -10,149 +9,81 @@ import {PropTypes} from 'prop-types';
 
 const CLASSNAME = 'analytics-add-report';
 
-class AddReport extends React.Component {
-	static defaultProps = {
-		isEmptyDashboard: false
-	};
+const AddReport = ({className, isEmptyDashboard = false, onGetReport}) => {
+	const [isEnableToSave, setIsEnableToSave] = useState(false);
+	const [report, setReport] = useState({
+		chartType: '',
+		metric: '',
+		title: ''
+	});
+	const [showFormAddReport, setShowFormAddReport] = useState(false);
 
-	static propTypes = {
-		/**
-		 * Renders the card with the higher height
-		 * @type {?boolean}
-		 * @default false
-		 */
-		isEmptyDashboard: PropTypes.bool,
-		onGetReport: PropTypes.func.isRequired
-	};
-
-	state = {
-		isEnableToSave: false,
-		report: {},
-		showFormAddReport: false
-	};
-
-	constructor() {
-		super();
-
-		this.state = {
-			...this.state,
-			report: this.reportValueFn()
-		};
-	}
-
-	enableButtonSave() {
-		const {report} = this.state;
-
-		this.setState({
-			isEnableToSave: true
-		});
+	const enableButtonSave = () => {
+		setIsEnableToSave(true);
 
 		Object.keys(report).forEach(key => {
 			if (isEmpty(report[key])) {
-				this.setState({
-					isEnableToSave: false
-				});
+				setIsEnableToSave(false);
 
 				return;
 			}
 		});
-	}
+	};
 
-	reportValueFn() {
-		return {
+	useEffect(() => {
+		enableButtonSave();
+	}, [report]);
+
+	const openReport = () => {
+		setShowFormAddReport(true);
+	};
+
+	const closeReport = () => {
+		setShowFormAddReport(false);
+	};
+
+	const handleClickAddReport = () => {
+		openReport();
+
+		setReport({
 			chartType: '',
 			metric: '',
 			title: ''
-		};
-	}
-
-	openReport() {
-		this.setState({
-			showFormAddReport: true
 		});
-	}
+	};
 
-	closeReport() {
-		this.setState({
-			showFormAddReport: false
-		});
-	}
+	const handleClickCancelReport = () => {
+		closeReport();
+	};
 
-	@autobind
-	handleClickAddReport() {
-		this.openReport();
-
-		this.setState({
-			report: this.reportValueFn()
-		});
-	}
-
-	@autobind
-	handleClickCancelReport() {
-		this.closeReport();
-	}
-
-	@autobind
-	handleClickSaveReport() {
-		const {
-			props: {onGetReport},
-			state: {report}
-		} = this;
-
+	const handleClickSaveReport = () => {
 		onGetReport(report);
 
-		this.closeReport();
-	}
+		closeReport();
+	};
 
-	@autobind
-	handleChangeReportTitle({target}) {
-		this.setState(
-			({report}) => ({
-				report: {
-					...report,
-					title: target.value.trim().slice(0, 90)
-				}
-			}),
-			() => {
-				// Validate to allow to save
-				this.enableButtonSave();
-			}
-		);
-	}
+	const handleChangeReportTitle = ({target}) => {
+		setReport({
+			...report,
+			title: target.value.trim().slice(0, 90)
+		});
+	};
 
-	@autobind
-	handleChangeSelectMetric({target}) {
-		this.setState(
-			({report}) => ({
-				report: {
-					...report,
-					metric: target.value
-				}
-			}),
-			() => {
-				// Validate to allow to save
-				this.enableButtonSave();
-			}
-		);
-	}
+	const handleChangeSelectMetric = ({target}) => {
+		setReport({
+			...report,
+			metric: target.value
+		});
+	};
 
-	@autobind
-	handleGetSelectedChartType({value}) {
-		this.setState(
-			({report}) => ({
-				report: {
-					...report,
-					chartType: value
-				}
-			}),
-			() => {
-				// Validate to allow to save
-				this.enableButtonSave();
-			}
-		);
-	}
+	const handleGetSelectedChartType = ({value}) => {
+		setReport({
+			...report,
+			chartType: value
+		});
+	};
 
-	renderThumbCharts() {
+	const renderThumbCharts = () => {
 		const items = [
 			{
 				selected: true,
@@ -170,145 +101,124 @@ class AddReport extends React.Component {
 
 				<Thumbs
 					items={items}
-					onSelectThumb={this.handleGetSelectedChartType}
+					onSelectThumb={handleGetSelectedChartType}
 				/>
 			</div>
 		);
-	}
+	};
 
-	renderInputSelectMetric() {
-		return (
-			<div className='form-group'>
-				<label htmlFor='metricSelector'>
-					{Liferay.Language.get('metric')}
-				</label>
+	const renderInputSelectMetric = () => (
+		<div className='form-group'>
+			<label htmlFor='metricSelector'>
+				{Liferay.Language.get('metric')}
+			</label>
 
-				<select
-					className='form-control'
-					id='metricSelector'
-					onBlur={this.handleBlurSelectMetric}
-					onChange={this.handleChangeSelectMetric}
-				>
-					<option defaultValue value=''>
-						{Liferay.Language.get('select-a-metric')}
+			<select
+				className='form-control'
+				id='metricSelector'
+				onBlur={handleChangeSelectMetric}
+				onChange={handleChangeSelectMetric}
+			>
+				<option defaultValue value=''>
+					{Liferay.Language.get('select-a-metric')}
+				</option>
+
+				{ASSET_METRICS.sort((p, c) =>
+					p.selectTitle.localeCompare(c.selectTitle)
+				).map(({key, selectTitle}) => (
+					<option key={key} value={key}>
+						{selectTitle}
 					</option>
+				))}
+			</select>
+		</div>
+	);
 
-					{ASSET_METRICS.sort((p, c) =>
-						p.selectTitle.localeCompare(c.selectTitle)
-					).map(({key, selectTitle}) => (
-						<option key={key} value={key}>
-							{selectTitle}
-						</option>
-					))}
-				</select>
+	const renderInputReportName = () => (
+		<div className='form-group'>
+			<label htmlFor='reportNameInput'>
+				{Liferay.Language.get('report-name')}
+			</label>
+
+			<input
+				className='form-control'
+				id='reportNameInput'
+				maxLength={90}
+				onInput={handleChangeReportTitle}
+				placeholder={Liferay.Language.get(
+					'enter-a-name-for-this-report'
+				)}
+				type='text'
+			/>
+		</div>
+	);
+
+	const renderFormAddReport = () => (
+		<div className='w-100'>
+			<div className='row'>
+				<div className='col-sm-4'>{renderInputReportName()}</div>
 			</div>
-		);
-	}
 
-	renderInputReportName() {
-		return (
-			<div className='form-group'>
-				<label htmlFor='reportNameInput'>
-					{Liferay.Language.get('report-name')}
-				</label>
-
-				<input
-					className='form-control'
-					id='reportNameInput'
-					maxLength={90}
-					onInput={this.handleChangeReportTitle}
-					placeholder={Liferay.Language.get(
-						'enter-a-name-for-this-report'
-					)}
-					type='text'
-				/>
+			<div className='row'>
+				<div className='col-sm-4'>{renderInputSelectMetric()}</div>
 			</div>
-		);
-	}
 
-	renderFormAddReport() {
-		return (
-			<div className='w-100'>
-				<div className='row'>
-					<div className='col-sm-4'>
-						{this.renderInputReportName()}
-					</div>
-				</div>
-
-				<div className='row'>
-					<div className='col-sm-4'>
-						{this.renderInputSelectMetric()}
-					</div>
-				</div>
-
-				<div className='row'>
-					<div className='col-sm-12'>{this.renderThumbCharts()}</div>
-				</div>
+			<div className='row'>
+				<div className='col-sm-12'>{renderThumbCharts()}</div>
 			</div>
-		);
-	}
+		</div>
+	);
 
-	renderCardAddReport() {
-		const {isEnableToSave} = this.state;
-
-		return (
-			<>
-				<Card.Header>
-					<Card.Title>
-						{Liferay.Language.get('add-report')}
-					</Card.Title>
-				</Card.Header>
-				<Card.Body>{this.renderFormAddReport()}</Card.Body>
-				<Card.Footer>
-					<Button
-						className='mr-4'
-						disabled={!isEnableToSave}
-						display='primary'
-						onClick={
-							isEnableToSave
-								? this.handleClickSaveReport
-								: undefined
-						}
-					>
-						{Liferay.Language.get('save')}
-					</Button>
-
-					<Button onClick={this.handleClickCancelReport}>
-						{Liferay.Language.get('cancel')}
-					</Button>
-				</Card.Footer>
-			</>
-		);
-	}
-
-	renderAddButton() {
-		return (
-			<div className={`${CLASSNAME}-button`}>
-				<Button onClick={this.handleClickAddReport}>
-					{Liferay.Language.get('add-report')}
+	const renderCardAddReport = () => (
+		<>
+			<Card.Header>
+				<Card.Title>{Liferay.Language.get('add-report')}</Card.Title>
+			</Card.Header>
+			<Card.Body>{renderFormAddReport()}</Card.Body>
+			<Card.Footer>
+				<Button
+					className='mr-4'
+					disabled={!isEnableToSave}
+					display='primary'
+					onClick={isEnableToSave ? handleClickSaveReport : undefined}
+				>
+					{Liferay.Language.get('save')}
 				</Button>
-			</div>
-		);
-	}
 
-	render() {
-		const {
-			props: {className, isEmptyDashboard},
-			state: {showFormAddReport}
-		} = this;
+				<Button onClick={handleClickCancelReport}>
+					{Liferay.Language.get('cancel')}
+				</Button>
+			</Card.Footer>
+		</>
+	);
 
-		const classnames = getCN(CLASSNAME, className, {
-			'analytics-add-report-empty-dashboard': isEmptyDashboard
-		});
+	const renderAddButton = () => (
+		<div className={`${CLASSNAME}-button`}>
+			<Button onClick={handleClickAddReport}>
+				{Liferay.Language.get('add-report')}
+			</Button>
+		</div>
+	);
 
-		return (
-			<Card className={classnames}>
-				{!showFormAddReport
-					? this.renderAddButton()
-					: this.renderCardAddReport()}
-			</Card>
-		);
-	}
-}
+	const classnames = getCN(CLASSNAME, className, {
+		'analytics-add-report-empty-dashboard': isEmptyDashboard
+	});
+
+	return (
+		<Card className={classnames}>
+			{!showFormAddReport ? renderAddButton() : renderCardAddReport()}
+		</Card>
+	);
+};
+
+AddReport.propTypes = {
+	/**
+	 * Renders the card with the higher height
+	 * @type {?boolean}
+	 * @default false
+	 */
+	isEmptyDashboard: PropTypes.bool,
+	onGetReport: PropTypes.func.isRequired
+};
 
 export default AddReport;
