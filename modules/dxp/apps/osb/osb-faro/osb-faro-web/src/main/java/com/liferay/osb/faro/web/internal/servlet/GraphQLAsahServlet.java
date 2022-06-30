@@ -177,10 +177,6 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 	private boolean _hasPermission(String body) {
 		FaroProject faroProject = FaroProjectThreadLocal.getFaroProject();
 
-		if (!FaroPermissionChecker.isGroupMember(faroProject.getGroupId())) {
-			return false;
-		}
-
 		try {
 			Map<String, Object> map = JSONUtil.readValue(body, Map.class);
 
@@ -205,6 +201,10 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 				if (!_hasChannelPermission(faroProject, channelId))
 
 					return false;
+			}
+
+			if (FaroPermissionChecker.isGroupMember(faroProject.getGroupId())) {
+				return true;
 			}
 
 			if (!query.contains("mutation")) {
