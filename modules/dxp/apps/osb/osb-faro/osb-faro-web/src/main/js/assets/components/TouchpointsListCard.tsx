@@ -2,25 +2,29 @@ import React, {useRef} from 'react';
 import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
 import {getUrl as getUrlUtil} from 'shared/util/urls';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {pickBy} from 'lodash';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {toFixedPoint} from 'shared/util/numbers';
+import {useQueryRangeSelectors} from 'shared/hooks';
 
 const CLASSNAME = 'analytics-touchpoints-list';
 const MAX_PAGES_LIMIT = 1000;
 
-const TouchpointsListCard = ({
-	items = [],
-	params,
-	groupId,
-	query,
-	rangeSelectors
-}) => {
+interface IRouteProps extends React.HTMLAttributes<HTMLDivElement> {
+	items: [];
+	title: string;
+	touchpoint: string;
+}
+
+const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
+	const {groupId, params, query} = useParams();
+	const rangeSelectors = useQueryRangeSelectors();
+
 	const elementRef = useRef(null);
 
-	const getUrl = (title, touchpoint) => {
+	const getUrl = (title: string, touchpoint: string) => {
 		const router = {
 			params: {
 				...params,
