@@ -97,15 +97,9 @@ const LoadingState: FC<ILoadingStateProps> = ({
 	show = true,
 	...otherProps
 }) => {
-	const {empty, error, loading} = useContext(StatesRendererContext);
+	const {loading} = useContext(StatesRendererContext);
 
-	return (
-		!empty &&
-		!error &&
-		loading &&
-		show &&
-		(children || <Loading {...otherProps} />)
-	);
+	return loading && show && (children || <Loading {...otherProps} />);
 };
 
 const StatesRenderer: FC<IStatesRendererContextProps> & {
