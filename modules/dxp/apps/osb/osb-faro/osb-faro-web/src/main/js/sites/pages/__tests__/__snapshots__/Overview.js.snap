@@ -152,6 +152,17 @@ exports[`Sites Dashboard Overview render 1`] = `
                 </button>
               </li>
             </ul>
+            <div
+              class="loading-root display-card"
+            >
+              <div
+                class="spinner-root spinner-fade-in"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
+            </div>
           </div>
           <div
             class="card-footer"
@@ -254,6 +265,17 @@ exports[`Sites Dashboard Overview render 1`] = `
                 </button>
               </li>
             </ul>
+            <div
+              class="loading-root display-card"
+            >
+              <div
+                class="spinner-root spinner-fade-in"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
