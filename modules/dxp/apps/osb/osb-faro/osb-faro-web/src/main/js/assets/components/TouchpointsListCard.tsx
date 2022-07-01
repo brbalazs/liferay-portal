@@ -9,13 +9,13 @@ import {sub} from 'shared/util/lang';
 import {toFixedPoint} from 'shared/util/numbers';
 import {useQueryRangeSelectors} from 'shared/hooks';
 
-const CLASSNAME = 'analytics-touchpoints-list';
 const MAX_PAGES_LIMIT = 1000;
 
 interface IRouteProps extends React.HTMLAttributes<HTMLDivElement> {
-	items: [];
-	title: string;
-	touchpoint: string;
+	items?: Array<{
+		title: string;
+		touchpoint: string;
+	}>;
 }
 
 const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
@@ -24,7 +24,7 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 
 	const elementRef = useRef(null);
 
-	const getUrl = (title: string, touchpoint: string) => {
+	const getUrl = ({title, touchpoint}) => {
 		const router = {
 			params: {
 				...params,
@@ -40,8 +40,14 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 		return getUrlUtil(Routes.SITES_TOUCHPOINTS_OVERVIEW, router);
 	};
 
-	const renderTitleColumn = ({title, touchpoint}) => {
-		const url = getUrl(title, touchpoint);
+	const renderTitleColumn = ({
+		title,
+		touchpoint
+	}: {
+		title: string;
+		touchpoint: string;
+	}): React.ReactElement => {
+		const url = getUrl({title, touchpoint});
 		return (
 			<td className='table-cell-expand'>
 				<Link
@@ -54,8 +60,14 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 		);
 	};
 
-	const renderTouchpointColumn = ({title, touchpoint}) => {
-		const url = getUrl(title, touchpoint);
+	const renderTouchpointColumn = ({
+		title,
+		touchpoint
+	}: {
+		title: string;
+		touchpoint: string;
+	}): React.ReactElement => {
+		const url = getUrl({title, touchpoint});
 		return (
 			<td className='table-cell-expand'>
 				<Link className='text-secondary text-truncate-inline' to={url}>
@@ -82,7 +94,7 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 	];
 
 	return (
-		<div className={CLASSNAME} ref={elementRef}>
+		<div className='analytics-touchpoints-list' ref={elementRef}>
 			<Table
 				className='table-hover'
 				columns={tableColumns}
