@@ -10,30 +10,29 @@ import {toFixedPoint} from 'shared/util/numbers';
 import {useQueryRangeSelectors} from 'shared/hooks';
 
 const MAX_PAGES_LIMIT = 1000;
-
-interface IRouteProps extends React.HTMLAttributes<HTMLDivElement> {
-	items?: Array<{
-		title: string;
-		touchpoint: string;
-	}>;
+type Item = {
+	title: string;
+	touchpoint: string;
+};
+interface ITouchpointsListCardProps
+	extends React.HTMLAttributes<HTMLDivElement> {
+	items?: Array<Item>;
 }
 
-const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
-	const {groupId, params, query} = useParams();
+const TouchpointsListCard: React.FC<ITouchpointsListCardProps> = ({items}) => {
+	const {groupId} = useParams();
 	const rangeSelectors = useQueryRangeSelectors();
 
 	const elementRef = useRef(null);
 
-	const getUrl = ({title, touchpoint}) => {
+	const getUrl = ({title, touchpoint}: Item): string => {
 		const router = {
 			params: {
-				...params,
 				groupId,
 				title,
 				touchpoint: encodeURIComponent(touchpoint)
 			},
 			query: {
-				...query,
 				...pickBy(rangeSelectors)
 			}
 		};
@@ -43,10 +42,7 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 	const renderTitleColumn = ({
 		title,
 		touchpoint
-	}: {
-		title: string;
-		touchpoint: string;
-	}): React.ReactElement => {
+	}: Item): React.ReactElement => {
 		const url = getUrl({title, touchpoint});
 		return (
 			<td className='table-cell-expand'>
@@ -63,10 +59,7 @@ const TouchpointsListCard: React.FC<IRouteProps> = ({items}) => {
 	const renderTouchpointColumn = ({
 		title,
 		touchpoint
-	}: {
-		title: string;
-		touchpoint: string;
-	}): React.ReactElement => {
+	}: Item): React.ReactElement => {
 		const url = getUrl({title, touchpoint});
 		return (
 			<td className='table-cell-expand'>
