@@ -34,21 +34,9 @@ const MOCK_ITEMS = [
 	}
 ];
 
-const MOCK_CONTEXT = {
-	router: {
-		params: {
-			channelId: '456',
-			groupId: '2000'
-		},
-		query: {
-			rangeKey: '30'
-		}
-	}
-};
-
 const WrappedComponent = props => (
 	<ApolloProvider client={client}>
-		<BasePage.Context.Provider value={MOCK_CONTEXT}>
+		<BasePage.Context.Provider>
 			<BrowserRouter>
 				<TouchpointsListCard {...props} />
 			</BrowserRouter>
