@@ -85,6 +85,7 @@ export function CommerceMetricCard<TGraphQlData>({
 	const {data, error, loading} = useQuery<TGraphQlData, TGraphQlVariables>(
 		Query,
 		{
+			fetchPolicy: 'network-only',
 			variables: {
 				channelId,
 				...getSafeRangeSelectors(rangeSelectors)
