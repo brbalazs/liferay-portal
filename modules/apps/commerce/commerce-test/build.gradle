@@ -21,12 +21,12 @@ dependencies {
 	testIntegrationCompile project(":apps:commerce:commerce-payment-api")
 	testIntegrationCompile project(":apps:commerce:commerce-payment-test-util")
 	testIntegrationCompile project(":apps:commerce:commerce-price-list-api")
+	testIntegrationCompile project(":apps:commerce:commerce-pricing-api")
 	testIntegrationCompile project(":apps:commerce:commerce-product-api")
 	testIntegrationCompile project(":apps:commerce:commerce-product-test-util")
 	testIntegrationCompile project(":apps:commerce:commerce-product-type-simple")
 	testIntegrationCompile project(":apps:commerce:commerce-service")
 	testIntegrationCompile project(":apps:commerce:commerce-tax-api")
 	testIntegrationCompile project(":apps:commerce:commerce-test-util")
-	testIntegrationCompile project(":apps:commerce:commerce-pricing-api")
 	testIntegrationCompile project(":apps:portal-configuration:portal-configuration-test-util")
 }
