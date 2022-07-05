@@ -2,7 +2,6 @@
 
 <suppressions>
 	<source-check>
-		<suppress checks="GradleDependencyArtifactsCheck" files=".*" />
 		<suppress checks="GradleDependencyVersionCheck" files=".*" />
 		<suppress checks="GradleTestDependencyVersionCheck" files=".*" />
 		<suppress checks="GradleVersionCheck" files=".*" />
