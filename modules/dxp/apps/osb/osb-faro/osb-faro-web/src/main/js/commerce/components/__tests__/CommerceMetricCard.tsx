@@ -4,7 +4,11 @@ import CommerceTotalOrderValueQuery, {
 } from 'commerce/queries/TotalOrderValueQuery';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
-import {cleanup, render} from '@testing-library/react';
+import {
+	cleanup,
+	render,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
 import {CommerceMetricCard} from 'commerce/components/CommerceMetricCard';
 import {
 	mockCommerceTotalOrderValueReq,
@@ -92,12 +96,16 @@ const WrappedComponent = ({
 );
 
 describe('CommerceMetricCard', () => {
-	it('should render', () => {
+	afterEach(cleanup);
+
+	it('should render', async () => {
 		const {container, getByText} = render(
 			<WrappedComponent data={getData({})} />
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const dropdownRangeSelector = document.querySelector(
 			'.dropdown-range-key-menu-root'
@@ -111,10 +119,12 @@ describe('CommerceMetricCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with empty state message', () => {
-		const {getByText} = render(<WrappedComponent data={[]} />);
+	it('should render with empty state message', async () => {
+		const {container, getByText} = render(<WrappedComponent data={[]} />);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		expect(
 			getByText('There are no orders on the selected period.')
@@ -130,12 +140,14 @@ describe('CommerceMetricCard', () => {
 describe('CommerceMetricCard Classifications', () => {
 	afterEach(cleanup);
 
-	it('should render with POSITIVE classification', () => {
+	it('should render with POSITIVE classification', async () => {
 		const {container} = render(
 			<WrappedComponent data={getData({classification: 'POSITIVE'})} />
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(window.getComputedStyle(trendElement).color).toEqual(
@@ -146,12 +158,14 @@ describe('CommerceMetricCard Classifications', () => {
 		).toBeInTheDocument();
 	});
 
-	it('should render with NEGATIVE classification', () => {
+	it('should render with NEGATIVE classification', async () => {
 		const {container} = render(
 			<WrappedComponent data={getData({classification: 'NEGATIVE'})} />
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(window.getComputedStyle(trendElement).color).toEqual(
@@ -162,12 +176,14 @@ describe('CommerceMetricCard Classifications', () => {
 		).toBeInTheDocument();
 	});
 
-	it('should render with NEUTRAL classification', () => {
+	it('should render with NEUTRAL classification', async () => {
 		const {container} = render(
 			<WrappedComponent data={getData({classification: 'NEUTRAL'})} />
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(window.getComputedStyle(trendElement).color).toEqual(
@@ -182,14 +198,16 @@ describe('CommerceMetricCard Classifications', () => {
 describe('CommerceMetricCard Trend', () => {
 	afterEach(cleanup);
 
-	it('should render with POSITIVE trend', () => {
+	it('should render with POSITIVE trend', async () => {
 		const {container} = render(
 			<WrappedComponent
 				data={getData({classification: 'POSITIVE', percentage: 50})}
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(
@@ -197,14 +215,16 @@ describe('CommerceMetricCard Trend', () => {
 		).toBeInTheDocument();
 	});
 
-	it('should render with NEGATIVE trend', () => {
+	it('should render with NEGATIVE trend', async () => {
 		const {container} = render(
 			<WrappedComponent
 				data={getData({classification: 'NEGATIVE', percentage: -50})}
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(
@@ -212,14 +232,16 @@ describe('CommerceMetricCard Trend', () => {
 		).toBeInTheDocument();
 	});
 
-	it('should render with NEUTRAL trend', () => {
+	it('should render with NEUTRAL trend', async () => {
 		const {container} = render(
 			<WrappedComponent
 				data={getData({classification: 'NEUTRAL', percentage: 0})}
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const trendElement = container.querySelector('.analytics-trend');
 		expect(
@@ -232,45 +254,53 @@ describe('CommerceMetricCard Trend', () => {
 });
 
 describe('CommerceMetricCard Format Currency', () => {
-	it('should format currency and display it in BRL', () => {
-		render(
+	afterEach(cleanup);
+
+	it('should format currency and display it in BRL', async () => {
+		const {container} = render(
 			<WrappedComponent
 				data={getData({currencyCode: 'BRL'})}
 				defaultLanguageId='pt_BR'
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const currencyValue = document.querySelector('.commerce-card-currency');
 
 		expect(currencyValue.textContent.includes('R$')).toBeTruthy();
 	});
 
-	it('should format currency and display it in USD', () => {
-		render(
+	it('should format currency and display it in USD', async () => {
+		const {container} = render(
 			<WrappedComponent
 				data={getData({currencyCode: 'USD'})}
 				defaultLanguageId='en_US'
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const currencyValue = document.querySelector('.commerce-card-currency');
 
 		expect(currencyValue.textContent.includes('$')).toBeTruthy();
 	});
 
-	it('should format currency and display it in EUR', () => {
-		render(
+	it('should format currency and display it in EUR', async () => {
+		const {container} = render(
 			<WrappedComponent
 				data={getData({currencyCode: 'EUR'})}
 				defaultLanguageId='es-ES'
 			/>
 		);
 
-		jest.runAllTimers();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
 
 		const currencyValue = document.querySelector('.commerce-card-currency');
 
