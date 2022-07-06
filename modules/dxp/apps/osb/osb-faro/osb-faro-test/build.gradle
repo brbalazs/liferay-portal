@@ -1,9 +1,9 @@
 configurations.portalTestSnapshot.exclude group: "com.liferay.portal", module: "com.liferay.portal.impl"
 
 dependencies {
-	testCompile project(":core:petra:petra-lang")
-	testCompile project(":core:petra:petra-reflect")
-	testCompile project(":core:petra:petra-string")
+	testCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "default"
+	testCompile group: "com.liferay", name: "com.liferay.petra.reflect", version: "default"
+	testCompile group: "com.liferay", name: "com.liferay.petra.string", version: "default"
 	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	testCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
