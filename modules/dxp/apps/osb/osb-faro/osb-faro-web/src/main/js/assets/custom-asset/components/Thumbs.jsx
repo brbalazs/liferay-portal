@@ -1,119 +1,69 @@
-import autobind from 'autobind-decorator';
 import getSVG from 'shared/util/svg';
-import React from 'react';
-import {PropTypes} from 'prop-types';
+import React, {useEffect, useState} from 'react';
 
 const CLASSNAME = 'analytics-add-report';
 
-class Thumbs extends React.Component {
-	static propTypes = {
-		items: PropTypes.arrayOf(
-			PropTypes.shape({
-				selected: PropTypes.bool,
-				svg: PropTypes.string,
-				text: PropTypes.string,
-				value: PropTypes.string
-			})
-		).isRequired,
-		onSelectThumb: PropTypes.func.isRequired
-	};
+const Thumbs = ({items, onSelectThumb}) => {
+	const [newItems, setNewItems] = useState(items);
 
-	state = {
-		items: []
-	};
+	useEffect(() => {
+		const selectedItem = newItems.find(({selected}) => selected);
 
-	componentDidMount() {
-		const {items, onSelectThumb} = this.props;
+		onSelectThumb(selectedItem);
+	}, [newItems]);
 
-		this.setState({items}, () => onSelectThumb(this.getSelectedItem()));
-	}
-
-	itemsValueFn() {
-		return this.props.items;
-	}
-
-	updateSelectedItem(id) {
-		const {items} = this.state;
-
-		return items.map((item, index) => ({
+	const selectThumb = id => {
+		const updatedItems = newItems.map((item, index) => ({
 			...item,
-			selected: id == index
+			selected: parseInt(id) === index
 		}));
-	}
 
-	getSelectedItem() {
-		return this.state.items.filter(({selected}) => selected)[0];
-	}
+		setNewItems(updatedItems);
+	};
 
-	selectThumb({parentNode}) {
-		this.setState(
-			{
-				items: this.updateSelectedItem(parentNode.dataset.id)
-			},
-			() => this.props.onSelectThumb(this.getSelectedItem())
-		);
-	}
+	const handleClickSelectThumb = ({target}) => {
+		selectThumb(target.parentNode.dataset.id);
+	};
 
-	@autobind
-	handleClickSelectThumb({target}) {
-		this.selectThumb(target);
-	}
+	const handleKeyPress = ({target}) => {
+		selectThumb(target.parentNode.dataset.id);
+	};
 
-	@autobind
-	handleKeyDown() {
+	function handleNotUsedEvents() {
 		return;
 	}
 
-	@autobind
-	handleKeyPress({target}) {
-		this.selectThumb(target);
-	}
+	return (
+		<ul className={`${CLASSNAME}-thumbs`}>
+			{newItems.map(({selected, svg, text}, index) => {
+				const {id, viewBox} = getSVG(svg);
+				const refSelected = selected ? 'selected' : '';
 
-	@autobind
-	handleKeyUp() {
-		return;
-	}
-
-	handleNotUsedEvents() {
-		return;
-	}
-
-	render() {
-		const {items} = this.state;
-
-		if (!items.length) return null;
-		return (
-			<ul className={`${CLASSNAME}-thumbs`}>
-				{items.map(({selected, svg, text}, index) => {
-					const {id, viewBox} = getSVG(svg);
-					const refSelected = selected ? 'selected' : '';
-
-					return (
-						<li
-							className={refSelected}
-							data-id={index}
-							data-tooltip
-							key={index}
-							title={text}
+				return (
+					<li
+						className={refSelected}
+						data-id={index}
+						data-tooltip
+						key={index}
+						title={text}
+					>
+						<button
+							onBlur={handleNotUsedEvents}
+							onClick={handleClickSelectThumb}
+							onFocus={handleNotUsedEvents}
+							onKeyPress={handleKeyPress}
 						>
-							<button
-								onBlur={this.handleNotUsedEvents}
-								onClick={this.handleClickSelectThumb}
-								onFocus={this.handleNotUsedEvents}
-								onKeyPress={this.handleKeyPress}
-							>
-								<svg className={svg} viewBox={viewBox}>
-									<use
-										xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${id}`}
-									/>
-								</svg>
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-		);
-	}
-}
+							<svg className={svg} viewBox={viewBox}>
+								<use
+									xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${id}`}
+								/>
+							</svg>
+						</button>
+					</li>
+				);
+			})}
+		</ul>
+	);
+};
 
 export default Thumbs;
