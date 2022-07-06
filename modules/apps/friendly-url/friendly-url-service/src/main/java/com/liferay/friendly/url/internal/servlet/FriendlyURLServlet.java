@@ -202,6 +202,16 @@ public class FriendlyURLServlet extends HttpServlet {
 
 			Layout layout = layoutFriendlyURLSeparatorComposite.getLayout();
 
+			if (!StringUtil.startsWith(
+					friendlyURL, Portal.FRIENDLY_URL_SEPARATOR) &&
+				_isAssetDisplayPage(layout)) {
+
+				throw new NoSuchLayoutException(
+					StringBundler.concat(
+						"{groupId=", group.getGroupId(), ", privateLayout=",
+						_private, ", friendlyURL=", friendlyURL, "}"));
+			}
+
 			request.setAttribute(WebKeys.LAYOUT, layout);
 
 			String layoutFriendlyURLSeparatorCompositeFriendlyURL =
@@ -272,6 +282,10 @@ public class FriendlyURLServlet extends HttpServlet {
 				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
 			for (Layout layout : layouts) {
+				if (_isAssetDisplayPage(layout)) {
+					continue;
+				}
+
 				if (layout.matches(request, friendlyURL)) {
 					String redirect = portal.getLayoutActualURL(
 						layout, Portal.PATH_MAIN);
@@ -616,6 +630,10 @@ public class FriendlyURLServlet extends HttpServlet {
 		}
 
 		return false;
+	}
+
+	private boolean _isAssetDisplayPage(Layout layout) {
+		return "asset_display".equals(layout.getType());
 	}
 
 	private boolean _isImpersonated(HttpServletRequest request, long userId) {
