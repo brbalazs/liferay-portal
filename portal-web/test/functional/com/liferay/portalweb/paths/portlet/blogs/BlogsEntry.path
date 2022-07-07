@@ -16,6 +16,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ENTRY_COVER_IMAGE_CAPTION</td>
+	<td>//div[contains(@class,'cover-image-caption')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ENTRY_COVER_IMAGE_SELECT_FILE</td>
 	<td>//div[contains(@class,'image-selector')]//a[contains(.,'Select File')]</td>
 	<td></td>
@@ -88,6 +93,11 @@
 <tr>
 	<td>CONTENT_HTML_BOLD</td>
 	<td>//div[contains(@class,'content')]//b</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_HTML_H2</td>
+	<td>//div[contains(@class,'widget-mode-detail-text')]/h2</td>
 	<td></td>
 </tr>
 <tr>

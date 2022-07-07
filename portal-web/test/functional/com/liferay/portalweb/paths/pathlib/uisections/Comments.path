@@ -56,6 +56,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ANY_BUTTON_IN_COMMENT</td>
+	<td>//article[contains(@class,'discussion')]/div[contains(.,'${key_entryComment}')]//*[normalize-space(text())='${key_text}']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SUBSCRIBE_TO_COMMENTS_LINK</td>
 	<td>link=Subscribe to Comments</td>
 	<td></td>

@@ -42,6 +42,11 @@
 <!--DOCUMENT_INFO-->
 
 <tr>
+	<td>DOCUMENT_INFO_LOCATION</td>
+	<td>//dd[contains(@class,'sidebar-dd')]//a[contains(.,'${key_dmFolderName}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DOCUMENT_INFO_TITLE</td>
 	<td>//div[contains(@class,'document-info')]/h2[contains(@title,'${key_dmDocumentTitle}')]</td>
 	<td></td>
@@ -277,6 +282,11 @@
 <tr>
 	<td>VIDEO_GENERATION_THUMBNAIL_RESOLUTION</td>
 	<td>//head/title[contains(.,'${key_videoGenerationThumbnailResolution}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIDEO_PREVIEW</td>
+	<td>//video[contains(@poster,'${key_videoName}')]</td>
 	<td></td>
 </tr>
 </tbody>

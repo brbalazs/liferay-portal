@@ -21,6 +21,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>CONFIRM_PASSWORD</td>
+	<td>//iframe[@title='Confirm Password']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DIALOG</td>
 	<td>//iframe[contains(@class,'dialog-iframe-node')]</td>
 	<td></td>
@@ -43,6 +48,16 @@
 <tr>
 	<td>EMBEDDED_IFRAME</td>
 	<td>//iframe[@id='embeddedIframe']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EMBEDDED_VIDEO_IFRAME</td>
+	<td>//iframe[contains(@src,'embed') or contains(@src,'Embed')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GOOGLE_DOC</td>
+	<td>//iframe[contains(@class,'google-docs')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -138,6 +153,11 @@
 <tr>
 	<td>SELECT_SITES</td>
 	<td>//iframe[contains(@src,'selectSite')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_USER_GROUP</td>
+	<td>//iframe[@title='Select User Group']</td>
 	<td></td>
 </tr>
 <tr>

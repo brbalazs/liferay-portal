@@ -18,6 +18,11 @@
 	<td>//*[@data-qa-id='row']//*[normalize-space(text())='${key_resourceName}']</td>
 	<td></td>
 </tr>
+<tr>
+	<td>CUSTOM_INPUT_FIELD_DATA_TYPE</td>
+	<td>//select[contains(@id,'dataType')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
