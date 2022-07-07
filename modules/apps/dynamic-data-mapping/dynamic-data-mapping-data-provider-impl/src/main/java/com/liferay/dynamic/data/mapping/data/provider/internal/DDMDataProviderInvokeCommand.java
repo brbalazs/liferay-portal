@@ -25,7 +25,6 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
-import com.netflix.hystrix.HystrixThreadPoolProperties;
 
 /**
  * @author Marcellus Tavares
@@ -50,9 +49,6 @@ public class DDMDataProviderInvokeCommand
 				HystrixCommandProperties.Setter().
 					withExecutionTimeoutInMilliseconds(
 						getTimeout(ddmDataProviderRequest))
-			).andThreadPoolPropertiesDefaults(
-				HystrixThreadPoolProperties.Setter().
-					withMaximumSize(1).withCoreSize(1)
 			));
 
 		_ddmDataProvider = ddmDataProvider;
