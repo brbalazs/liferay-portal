@@ -263,10 +263,6 @@ td.lfr-name-column {
 			margin: 0;
 		}
 
-		.ae-placeholder:empty:before {
-			content: attr(data-placeholder);
-		}
-
 		.alloy-editor-container
 			.alloy-editor.alloy-editor-placeholder.ae-placeholder:not(:focus):not(.form-control),
 		.ddm-form-name,
