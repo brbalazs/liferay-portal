@@ -71,7 +71,9 @@ definition {
 			folderId = "${folderId}",
 			groupId = "${groupId}",
 			serviceContext = "${serviceContext}",
-			titleMap = "${titleMap}");
+			titleMap = "${titleMap}",
+			userEmailAddress = "${userEmailAddress}",
+			userPassword = "${userPassword}");
 	}
 
 	@summary = "Delete a WC Article under an existing site via article title"

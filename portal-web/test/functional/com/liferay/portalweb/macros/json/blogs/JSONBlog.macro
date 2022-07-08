@@ -67,4 +67,38 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
 	}
 
+	macro getBlogEntryId {
+		if (!(isSet(site))) {
+			var site = "true";
+		}
+
+		var groupId = JSONGroupAPI._getGroupIdByName(
+			groupName = "${groupName}",
+			site = "${site}");
+		var portalURL = JSONCompany.getPortalURL();
+
+		if (isSet(friendlyURL)) {
+			var curl = '''
+				${portalURL}/api/jsonws/blogs.blogsentry/get-entry \
+			 	-u test@liferay.com:test \
+			 	-d groupId=${groupId} \
+			  	-d urlTitle=${friendlyURL}
+				''';
+		}
+		else {
+			var curl = '''
+				${portalURL}/api/jsonws/blogs.blogsentry/get-entry \
+			  	-u test@liferay.com:test \
+			  	-d groupId=${groupId} \
+			  	-d urlTitle=${entryTitle}
+			''';
+		}
+
+		var entryId = JSONCurlUtil.post("${curl}", "$.[?(@['title'] == '${entryTitle}')]['entryId']");
+
+		return "${entryId}";
+
+		echo("## * Blogs ID: ${entryId}");
+	}
+
 }

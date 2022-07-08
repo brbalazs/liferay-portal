@@ -36,6 +36,34 @@ definition {
 		fail("${message}");
 	}
 
+	macro hardRefresh {
+		var mac = OSDetector.isApple();
+
+		if ("${mac}" == "true") {
+			RobotType.robotTypeShortcut(locator1 = "Shift + Command + r");
+		}
+		else {
+			RobotType.robotTypeShortcut(locator1 = "Ctrl + Shift + r");
+		}
+
+		WaitForPageLoad();
+	}
+
+	macro isGreaterThan {
+		echo("${expected}");
+
+		echo("${actual}");
+
+		var result = MathUtil.isGreaterThan("${actual}", "${expected}");
+
+		if ("${result}" == "true") {
+			echo("PASSED");
+		}
+		else {
+			TestUtils.fail(message = "FAILED: actual '${actual}' is less than or equals to expected '${expected}'");
+		}
+	}
+
 	macro pass {
 		if (!(isSet(message))) {
 			var message = "PASS";

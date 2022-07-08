@@ -1729,6 +1729,28 @@ definition {
 		AssertVisible(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_ICON_LOCKED");
 	}
 
+	macro viewInternalVideoPreview {
+		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#EMBEDDED_VIDEO_IFRAME");
+
+		AssertVisible(
+			key_videoName = "${videoName}",
+			locator1 = "DocumentsAndMediaDocument#VIDEO_PREVIEW");
+
+		SelectFrame.selectFrameTop();
+	}
+
+	macro viewLocation {
+		var key_dmFolderName = "${dmFolderName}";
+
+		AssertElementPresent(locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_LOCATION");
+
+		Click(locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_LOCATION");
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMedia#BREADCRUMB_FOLDER_NAME",
+			value1 = "${dmFolderName}");
+	}
+
 	macro viewMovedToFolderCP {
 		var key_dmDocumentTitle = "${dmDocumentTitle}";
 		var key_dmFolderName = "${dmFolderName}";

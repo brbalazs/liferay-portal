@@ -28,6 +28,20 @@ definition {
 			value1 = "Add Success Page");
 	}
 
+	macro addTextField {
+		if (isSet(formPageNumber)) {
+			Form.gotoAddField(
+				fieldType = "Text Field",
+				formPageNumber = "${formPageNumber}",
+				key_fieldPositionNumber = "${fieldPositionNumber}");
+		}
+		else {
+			Form.gotoAddField(
+				fieldType = "Text Field",
+				key_fieldPositionNumber = "${fieldPositionNumber}");
+		}
+	}
+
 	macro addTranslation {
 		Click(locator1 = "Translation#ADD");
 
