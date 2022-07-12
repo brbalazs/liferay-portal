@@ -6,7 +6,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {getAxisMeasuresFromData} from 'shared/util/charts';
 import {getPercentage} from 'shared/util/util';
-import {replaceAtIndex} from 'shared/util/array';
 import {Column as TooltipColumn} from './chart-tooltip/types';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
@@ -72,9 +71,9 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 		type: 'number'
 	},
 	header,
-	items
+	items: initialItems
 }) => {
-	const [itemsExpanded, setItemsExpanded] = useState<boolean[]>([]);
+	const [items, setItems] = useState<Item[]>(initialItems);
 	const [showArrowDownIcon, setShowArrowDownIcon] = useState(false);
 	const [tooltip, setTooltip] = useState({
 		header: [],
@@ -90,8 +89,6 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 	const _tooltipRef = useRef<HTMLDivElement>();
 
 	useEffect(() => {
-		setItemsExpanded(items.map(({expanded}) => expanded));
-
 		setShowArrowDownIcon(handleShowArrowDownIcon(_groupItemsRef.current));
 	}, [items]);
 
@@ -157,11 +154,17 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 			dataset: {index}
 		}
 	}: React.MouseEvent<HTMLButtonElement>): void => {
-		const itemExpanded = !itemsExpanded[index];
+		const newItems = items.map((item, currIndex) => {
+			if (currIndex === Number(index)) {
+				return {
+					...item,
+					expanded: !item.expanded
+				};
+			}
+			return item;
+		});
 
-		setItemsExpanded(
-			replaceAtIndex(itemsExpanded, Number(index), itemExpanded)
-		);
+		setItems(newItems);
 	};
 
 	const handleMouseEnterItem = ({header, rows}) => {
