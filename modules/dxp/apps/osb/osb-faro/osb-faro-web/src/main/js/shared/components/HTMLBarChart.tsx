@@ -92,6 +92,10 @@ const HTMLBarChart: React.FC<IHTMLBarChartProps> = ({
 		setShowArrowDownIcon(handleShowArrowDownIcon(_groupItemsRef.current));
 	}, [items]);
 
+	useEffect(() => {
+		setItems(initialItems);
+	}, [initialItems]);
+
 	const {intervals: gridIntervals} = getAxisMeasuresFromData([
 		'data1',
 		grid.minValue,
