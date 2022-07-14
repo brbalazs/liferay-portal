@@ -2,23 +2,61 @@ Bundle-Name: Liferay Portal Scripting Python
 Bundle-SymbolicName: com.liferay.portal.scripting.python
 Bundle-Version: 3.0.6
 Import-Package:\
+	!com.github.luben.zstd,\
+	\
 	!com.informix.*,\
+	\
+	!com.jcraft.jzlib,\
 	\
 	!com.kenai.jnr.*,\
 	\
+	!com.ning.compress.*,\
+	\
+	!com.oracle.svm.core.annotate,\
+	\
+	!jnr.a64asm,\
+	\
+	!jnr.x86asm,\
+	\
 	!junit.framework.*,\
+	\
+	!lzma.sdk.*,\
+	\
+	!net.jpountz.*,\
 	\
 	!oracle.*,\
 	\
 	!org.antlr.stringtemplate.*,\
 	\
+	!org.apache.logging.log4j.*,\
+	\
+	!org.brotli.dec,\
+	\
+	!org.checkerframework.checker.nullness.compatqual,\
+	\
+	!org.conscrypt,\
+	\
+	!org.eclipse.jetty.*,\
+	\
 	!org.gnu.readline.*,\
 	\
+	!org.hamcrest,\
+	\
+	!org.jboss.marshalling,\
+	\
+	!org.junit.*,\
+	\
 	!org.python.*,\
+	\
+	!org.tukaani.xz,\
+	\
+	!reactor.blockhound.*,\
 	\
 	!sun.io.*,\
 	\
 	!sun.misc.*,\
+	\
+	!sun.security.*,\
 	\
 	*
 -fixupmessages:\
