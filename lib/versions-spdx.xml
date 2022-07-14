@@ -1969,7 +1969,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.scripting.python.jar!jython-standalone.jar</file-name>
-				<version>2.5.3</version>
+				<version>2.7.2</version>
 				<project-name>Jython</project-name>
 				<project-url>http://www.jython.org/</project-url>
 				<licenses>

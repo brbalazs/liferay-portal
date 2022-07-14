@@ -166,7 +166,7 @@ com.liferay.portal.scheduler.quartz.jar!quartz.jar,2.1.7,Quartz Enterprise Job S
 com.liferay.portal.scripting.beanshell.jar!bsh.jar,2.0b6,BeanShell,"Apache License, Version 2.0",
 com.liferay.portal.scripting.groovy.jar!groovy.jar,2.4.5,Groovy Runtime,"The Apache Software License, Version 2.0",
 com.liferay.portal.scripting.javascript.jar!rhino.jar,1.7R4,Mozilla Rhino 1.7R4,"Mozilla Public License, Version 2.0",
-com.liferay.portal.scripting.python.jar!jython-standalone.jar,2.5.3,Jython,Jython Software License,
+com.liferay.portal.scripting.python.jar!jython-standalone.jar,2.7.2,Jython,Jython Software License,
 com.liferay.portal.scripting.ruby.jar!jruby-complete.jar,1.7.20.1,JRuby 1.7.20.1,"http://www.gnu.org/licenses/gpl-3.0-standalone.html, http://www.gnu.org/licenses/lgpl-3.0-standalone.html, http://www.eclipse.org/legal/epl-v10.html",
 com.liferay.portal.search.elasticsearch6.impl.jar!antlr-runtime.jar,3.5,ANTLR 3 Runtime,BSD licence,
 com.liferay.portal.search.elasticsearch6.impl.jar!bcpg-jdk15on.jar,1.59,Bouncy Castle OpenPGP API,Bouncy Castle Licence,
