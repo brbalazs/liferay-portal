@@ -3,6 +3,7 @@ dependencies {
 	compileInclude group: "javax.jcr", name: "jcr", version: "2.0"
 	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-api", version: "2.19.3"
 	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-core", version: "2.21.11"
+	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-data", version: "2.21.11"
 	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-jcr-commons", version: "2.21.11"
 	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-spi", version: "2.21.11"
 	compileInclude group: "org.apache.jackrabbit", name: "jackrabbit-spi-commons", version: "2.21.11"
