@@ -110,6 +110,8 @@ public class DDMFormXLSExporter extends BaseDDMFormExporter {
 		for (Map.Entry<String, DDMFormField> entry : ddmFormFields.entrySet()) {
 			cell = row.createCell(cellIndex++, CellType.STRING);
 
+			style.setQuotePrefixed(true);
+
 			cell.setCellStyle(style);
 
 			if (values.containsKey(entry.getKey())) {
