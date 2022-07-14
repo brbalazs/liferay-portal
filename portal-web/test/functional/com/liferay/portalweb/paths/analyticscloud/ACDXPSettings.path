@@ -51,17 +51,17 @@
 
 <tr>
 	<td>AC_CONNECTION_NAV_SIDEBAR</td>
-	<td>//*[contains(@class, 'nav-link') and contains(@href,'connection')]</td>
+	<td>//*[contains(@class, 'btn-primary') and contains(@href,'connection')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SYNCED_SITES_NAV_SIDEBAR</td>
-	<td>//*[contains(@class, 'nav-link') and contains(@href,'synced-sites')]</td>
+	<td>//*[contains(@class, 'btn-primary') and contains(@href,'synced-sites')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SYNCED_CONTACT_DATA_NAV_SIDEBAR</td>
-	<td>//*[contains(@class, 'nav-link') and contains(@href,'contact')]</td>
+	<td>//*[contains(@class, 'btn-primary') and contains(@href,'contact')]</td>
 	<td></td>
 </tr>
 
