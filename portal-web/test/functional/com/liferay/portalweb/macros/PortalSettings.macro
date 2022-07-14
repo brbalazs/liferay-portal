@@ -590,6 +590,10 @@ definition {
 			value1 = "${userScreenName}");
 	}
 
+	macro openAnalyticsCloudAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_analytics_settings_web_portlet_AnalyticsAdminPortlet");
+	}
+
 	macro openInstanceSettingsAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_portal_settings_web_portlet_PortalSettingsPortlet");
 	}
