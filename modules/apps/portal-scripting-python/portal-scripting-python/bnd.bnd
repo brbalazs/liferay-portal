@@ -24,4 +24,5 @@ Import-Package:\
 -fixupmessages:\
 	"The default package '.' is not permitted by the Import-Package ...";is:=ignore,\
 	"The JAR is empty: ...";is:=ignore,\
-	"While setting properties ...";is:=ignore
+	"While setting properties ...";is:=ignore,\
+	"Classes found in the wrong directory: ...";is:=ignore
