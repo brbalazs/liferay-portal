@@ -52,9 +52,10 @@ export function fetchMembership({
 	});
 }
 
-export function fetchFieldValues({fieldMappingId, groupId, query}) {
+export function fetchFieldValues({channelId, fieldMappingId, groupId, query}) {
 	return sendRequest({
 		data: {
+			channelId,
 			delta: 20,
 			fieldMappingId,
 			query: escapeSingleQuotes(query)

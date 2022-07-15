@@ -6,6 +6,7 @@ import {ICustomStringInputProps} from './CustomStringInput';
 
 const OrganizationTextInput: React.FC<ICustomStringInputProps> = props => {
 	const {
+		channelId,
 		groupId,
 		property: {entityName, id, type},
 		valid,
@@ -28,6 +29,7 @@ const OrganizationTextInput: React.FC<ICustomStringInputProps> = props => {
 	const fieldValuesDataSourceFn = () =>
 		API.individuals
 			.fetchFieldValues({
+				channelId,
 				fieldMappingId: id,
 				groupId,
 				query: getPropertyValue(value, 'value', 0)

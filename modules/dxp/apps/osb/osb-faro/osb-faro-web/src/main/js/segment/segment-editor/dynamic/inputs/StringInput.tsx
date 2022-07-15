@@ -38,6 +38,7 @@ export default class StringInput extends React.Component<IStringInputProps> {
 	@autobind
 	fieldValuesDataSourceFn() {
 		const {
+			channelId,
 			groupId,
 			property: {id},
 			value
@@ -45,6 +46,7 @@ export default class StringInput extends React.Component<IStringInputProps> {
 
 		return API.individuals
 			.fetchFieldValues({
+				channelId,
 				fieldMappingId: id,
 				groupId,
 				query: value
