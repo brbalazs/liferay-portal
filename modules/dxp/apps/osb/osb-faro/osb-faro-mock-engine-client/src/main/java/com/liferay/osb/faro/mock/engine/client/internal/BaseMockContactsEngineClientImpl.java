@@ -680,11 +680,11 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, String query, String fieldMappingId, int cur,
-		int delta) {
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingId, int cur, int delta) {
 
 		return contactsEngineClient.getFieldValues(
-			faroProject, query, fieldMappingId, cur, delta);
+			faroProject, channelId, query, fieldMappingId, cur, delta);
 	}
 
 	@Override

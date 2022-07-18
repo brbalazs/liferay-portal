@@ -1563,8 +1563,8 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, String query, String fieldMappingId, int cur,
-		int delta) {
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingId, int cur, int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, null);
@@ -1606,6 +1606,7 @@ public class ContactsEngineClientImpl
 			query, fieldMapping.getFieldName(),
 			fieldMapping.getContext() + "/?/value");
 
+		uriVariables.put("channelId", channelId);
 		uriVariables.put("filter", filterBuilder.build());
 
 		PagedModel<?, IndividualTransformation> pagedModel = get(

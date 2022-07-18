@@ -326,8 +326,8 @@ public interface ContactsEngineClient {
 		int delta, List<OrderByField> orderByFields);
 
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, String query, String fieldMappingId, int cur,
-		int delta);
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingId, int cur, int delta);
 
 	public Individual getIndividual(
 			FaroProject faroProject, String id, String channelId)
