@@ -63,10 +63,10 @@ exports[`BreakdownTable render 1`] = `
             >
               <span
                 class="text-truncate"
-                data-tooltip="false"
-                title=""
+                data-tooltip="true"
+                title="articleTitle [0]"
               >
-                articleTitle [0]
+                ...
               </span>
             </td>
             <td
