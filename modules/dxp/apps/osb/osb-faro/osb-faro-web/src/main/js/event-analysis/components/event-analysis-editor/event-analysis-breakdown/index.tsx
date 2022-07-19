@@ -33,17 +33,22 @@ import {useStatefulPagination} from 'shared/hooks';
 import {withPaginationBar} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
+export interface IBreakdownTableWithSafeResultsProps
+	extends IBreakdownTableProps {
+	channelId: string;
+	filterOrder: string[];
+}
+
 export interface IBreakdownTableProps
 	extends WithRangeKeyProps,
 		React.HTMLAttributes<HTMLElement> {
 	attributes: Attributes;
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
-	channelId: string;
 	compareToPrevious: boolean;
 	editBreakdown: EditBreakdown;
 	event: Event;
-	filterOrder: string[];
+	eventAnalysisResult: EventAnalysisResultData;
 	filters: Filters;
 	type: CalculationTypes;
 }
@@ -89,108 +94,14 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	attributes,
 	breakdownOrder,
 	breakdowns,
-	channelId,
 	compareToPrevious,
 	editBreakdown,
 	event,
-	filterOrder,
+	eventAnalysisResult,
 	filters,
-	rangeSelectors,
-	type
+	rangeSelectors
 }) => {
-	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
-
-	const orderIOMap = OrderedMap(
-		breakdownOrder.map((breakdownId, i) => {
-			const {sortType} = breakdowns[breakdownId];
-
-			return [
-				`breakdown${i}`,
-				{field: `breakdown${i}`, sortOrder: sortType}
-			];
-		})
-	);
-
-	const tableRef = useRef<HTMLDivElement>(null);
-
-	const result = useQuery<
-		EventAnalysisResultData,
-		EventAnalysisResultVariables
-	>(EventAnalysisResultQuery, {
-		fetchPolicy: 'network-only',
-		variables: {
-			analysisType: type,
-			channelId,
-			compareToPrevious,
-			eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
-				omit(breakdowns[breakdownId], 'id')
-			),
-			eventAnalysisFilters: filterOrder.map(filterId =>
-				omit(filters[filterId], 'id')
-			),
-			eventDefinitionId: event.id,
-			page: page - 1,
-			size: delta,
-			...getSafeRangeSelectors(rangeSelectors)
-		}
-	});
-
 	const [maxBreakdownLength, setMaxBreakdownLength] = useState<number>();
-
-	const getBreakdownColumnMaxCharLength = (
-		tableSize: number,
-		breakDownLength: number
-	) => {
-		const {
-			charWidthRatio,
-			columnSizePercentage,
-			fontSize,
-			paddingX,
-			truncateGap
-		} = TABLE_COLUMN_ATTRIBUTES_MAP;
-
-		const columnTablePercentage = Math.floor(
-			tableSize *
-				columnSizePercentage[`breakdownColumn${breakDownLength}x`]
-		);
-		const columnContentWidth = columnTablePercentage - paddingX;
-		const pixelsPerFontSize = Math.floor(columnContentWidth / fontSize);
-		const maxCharLengthPerColumn =
-			pixelsPerFontSize * charWidthRatio - truncateGap;
-
-		setMaxBreakdownLength(maxCharLengthPerColumn);
-	};
-
-	const {clientWidth} = tableRef?.current || {};
-
-	useEffect(() => {
-		const handleResize = debounce(
-			() =>
-				getBreakdownColumnMaxCharLength(
-					document.querySelector('.breakdown-table-root').clientWidth,
-					breakdownOrder.length
-				),
-			100
-		);
-
-		window.removeEventListener('resize', handleResize);
-
-		window.addEventListener('resize', handleResize);
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, [breakdownOrder.length]);
-
-	useEffect(() => {
-		if (clientWidth) {
-			getBreakdownColumnMaxCharLength(clientWidth, breakdownOrder.length);
-		}
-	}, [breakdownOrder.length]);
-
-	useEffect(() => {
-		onPageChange(1);
-	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
 
 	const parseData = (
 		data: BreakdownData
@@ -238,6 +149,78 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		};
 	};
 
+	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
+	const {columns, count, highestValue, items} = parseData(
+		eventAnalysisResult
+	);
+
+	const orderIOMap = OrderedMap(
+		breakdownOrder.map((breakdownId, i) => {
+			const {sortType} = breakdowns[breakdownId];
+
+			return [
+				`breakdown${i}`,
+				{field: `breakdown${i}`, sortOrder: sortType}
+			];
+		})
+	);
+
+	const tableRef = useRef<HTMLDivElement>(null);
+
+	const getBreakdownColumnMaxCharLength = (
+		tableSize: number,
+		breakDownLength: number
+	) => {
+		const {
+			charWidthRatio,
+			columnSizePercentage,
+			fontSize,
+			paddingX,
+			truncateGap
+		} = TABLE_COLUMN_ATTRIBUTES_MAP;
+
+		const columnTablePercentage = Math.floor(
+			tableSize *
+				columnSizePercentage[`breakdownColumn${breakDownLength}x`]
+		);
+		const columnContentWidth = columnTablePercentage - paddingX;
+		const pixelsPerFontSize = Math.floor(columnContentWidth / fontSize);
+		const maxCharLengthPerColumn =
+			pixelsPerFontSize * charWidthRatio - truncateGap;
+
+		setMaxBreakdownLength(maxCharLengthPerColumn);
+	};
+
+	useEffect(() => {
+		const handleResize = debounce(
+			() =>
+				getBreakdownColumnMaxCharLength(
+					tableRef.current.clientWidth,
+					breakdownOrder.length
+				),
+			100
+		);
+
+		window.removeEventListener('resize', handleResize);
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [breakdownOrder.length]);
+
+	useEffect(() => {
+		getBreakdownColumnMaxCharLength(
+			tableRef.current.clientWidth,
+			breakdownOrder.length
+		);
+	}, [breakdownOrder.length]);
+
+	useEffect(() => {
+		onPageChange(1);
+	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
+
 	const handleSort = orderIOMap => {
 		const {field, sortOrder} = orderIOMap.first();
 
@@ -260,49 +243,96 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	};
 
 	return (
+		<div
+			className={getCN('breakdown-table-root', {
+				'breakdown-single-event': !breakdownOrder.length
+			})}
+			ref={tableRef}
+		>
+			{!breakdownOrder.length ? (
+				<BarComparisonCell
+					compareToPrevious={compareToPrevious}
+					event={event}
+					events={items[0].events}
+					topValue={highestValue}
+				/>
+			) : (
+				<TableWithPagination
+					bordered
+					columns={columns}
+					delta={delta}
+					items={items}
+					onDeltaChange={onDeltaChange}
+					onOrderIOMapChange={handleSort}
+					onPageChange={onPageChange}
+					onSortChange={handleSort}
+					orderIOMap={orderIOMap}
+					page={page}
+					rowIdentifier='index'
+					total={count}
+				/>
+			)}
+		</div>
+	);
+};
+
+const BreakdownWithSafeResults: React.FC<IBreakdownTableWithSafeResultsProps> = ({
+	attributes,
+	breakdownOrder,
+	breakdowns,
+	channelId,
+	compareToPrevious,
+	editBreakdown,
+	event,
+	filterOrder,
+	filters,
+	rangeSelectors,
+	type
+}) => {
+	const {delta, page} = useStatefulPagination();
+
+	const result = useQuery<
+		EventAnalysisResultData,
+		EventAnalysisResultVariables
+	>(EventAnalysisResultQuery, {
+		fetchPolicy: 'network-only',
+		variables: {
+			analysisType: type,
+			channelId,
+			compareToPrevious,
+			eventAnalysisBreakdowns: breakdownOrder.map(breakdownId =>
+				omit(breakdowns[breakdownId], 'id')
+			),
+			eventAnalysisFilters: filterOrder.map(filterId =>
+				omit(filters[filterId], 'id')
+			),
+			eventDefinitionId: event.id,
+			page: page - 1,
+			size: delta,
+			...getSafeRangeSelectors(rangeSelectors)
+		}
+	});
+
+	return (
 		<SafeResults {...result} page={false} pageDisplay={false}>
 			{({
 				eventAnalysisResult
 			}: {
 				eventAnalysisResult: EventAnalysisResultData;
-			}) => {
-				const {columns, count, highestValue, items} = parseData(
-					eventAnalysisResult
-				);
-
-				return (
-					<div
-						className={getCN('breakdown-table-root', {
-							'breakdown-single-event': !breakdownOrder.length
-						})}
-						ref={tableRef}
-					>
-						{!breakdownOrder.length ? (
-							<BarComparisonCell
-								compareToPrevious={compareToPrevious}
-								event={event}
-								events={items[0].events}
-								topValue={highestValue}
-							/>
-						) : (
-							<TableWithPagination
-								bordered
-								columns={columns}
-								delta={delta}
-								items={items}
-								onDeltaChange={onDeltaChange}
-								onOrderIOMapChange={handleSort}
-								onPageChange={onPageChange}
-								onSortChange={handleSort}
-								orderIOMap={orderIOMap}
-								page={page}
-								rowIdentifier='index'
-								total={count}
-							/>
-						)}
-					</div>
-				);
-			}}
+			}) => (
+				<BreakdownTable
+					attributes={attributes}
+					breakdownOrder={breakdownOrder}
+					breakdowns={breakdowns}
+					compareToPrevious={compareToPrevious}
+					editBreakdown={editBreakdown}
+					event={event}
+					eventAnalysisResult={eventAnalysisResult}
+					filters={filters}
+					rangeSelectors={rangeSelectors}
+					type={type}
+				/>
+			)}
 		</SafeResults>
 	);
 };
@@ -428,4 +458,7 @@ const getColumns = ({
 	return columns;
 };
 
-export default compose(withAttributesConsumer, WithEmptyState)(BreakdownTable);
+export default compose(
+	withAttributesConsumer,
+	WithEmptyState
+)(BreakdownWithSafeResults);
