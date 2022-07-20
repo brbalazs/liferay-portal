@@ -118,27 +118,24 @@ exports[`AddReport should render a form AddReport 1`] = `
               <label>
                 Visualization
               </label>
-              <ul
+              <div
                 class="analytics-add-report-thumbs"
               >
-                <li
+                <button
                   class="selected"
-                  data-id="0"
                   data-tooltip="true"
                   title="At this moment, it is not possible to change the visualization type for the reports. We are constantly adding more visualizations over time, so check back here later for more options."
                 >
-                  <button>
-                    <svg
-                      class="cerebro-thumb-line-chart"
-                      viewBox=""
-                    >
-                      <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#cerebro-thumb-line-chart"
-                      />
-                    </svg>
-                  </button>
-                </li>
-              </ul>
+                  <svg
+                    class="cerebro-thumb-line-chart"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#cerebro-thumb-line-chart"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
