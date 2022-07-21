@@ -154,25 +154,7 @@ describe('Event Analysis Edit', () => {
 		expect(getByText('Save Analysis')).toBeEnabled();
 	});
 
-	it('should disable the save button when a new breakdown is added', async () => {
-		const {container, getByText} = render(<WrappedComponent />);
-
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
-
-		expect(getByText('Save Analysis')).toBeDisabled();
-
-		const addAttributeButton = container.querySelector(
-			'.attribute-breakdown-section-root .add-attribute'
-		);
-
-		expect(addAttributeButton).toBeNull();
-	});
-
-	// LRAC-11484 Skip unit test because we're preventing adding more than one breakdown
-
-	it.skip('should enable the save button when a new breakdown is added', async () => {
+	it('should enable the save button when a new breakdown is added', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
 		await waitForElementToBeRemoved(() =>
