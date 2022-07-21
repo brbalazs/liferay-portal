@@ -15,7 +15,7 @@ import {Align} from '@clayui/drop-down';
 import {Attributes, Breakdowns, Filters} from 'event-analysis/utils/types';
 import {DndProvider} from 'react-dnd';
 
-const MAX_ATTRIBUTES = 1;
+const MAX_ATTRIBUTES = 3;
 
 interface IAttributeBreakdownSectionProps {
 	addBreakdown: AddBreakdown;
