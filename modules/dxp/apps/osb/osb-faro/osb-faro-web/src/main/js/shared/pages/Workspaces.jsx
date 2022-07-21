@@ -87,7 +87,7 @@ const Workspaces = ({
 				{Liferay.Language.get('buy-paid-tier')}
 			</Button>
 
-			{(!PROD_MODE || !hasFreeTrial(projects, currentUserId)) && (
+			{!PROD_MODE && !hasFreeTrial(projects, currentUserId) && (
 				<Button href={toRoute(Routes.WORKSPACE_ADD_TRIAL)} size='sm'>
 					{Liferay.Language.get('start-free-trial')}
 				</Button>

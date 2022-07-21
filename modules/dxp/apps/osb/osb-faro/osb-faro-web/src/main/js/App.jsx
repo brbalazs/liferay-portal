@@ -29,11 +29,11 @@ import {
 } from 'react-router-dom';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {OnboardingContext} from 'shared/context/onboarding';
+import {PROD_MODE, spritemap} from 'shared/util/constants';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 import {saveState} from 'shared/store/local-storage';
 import {setBackURL} from 'shared/actions/settings';
-import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
 
 // Workspaces
@@ -340,15 +340,17 @@ export default class App extends React.Component {
 																	}
 																/>
 
-																<BundleRouter
-																	data={
-																		AddWorkspace
-																	}
-																	exact
-																	path={
-																		Routes.WORKSPACE_ADD_TRIAL
-																	}
-																/>
+																{!PROD_MODE && (
+																	<BundleRouter
+																		data={
+																			AddWorkspace
+																		}
+																		exact
+																		path={
+																			Routes.WORKSPACE_ADD_TRIAL
+																		}
+																	/>
+																)}
 
 																<BundleRouter
 																	data={
