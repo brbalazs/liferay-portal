@@ -161,6 +161,23 @@ exports[`AttributeBreakdownSection renders w/ breakdowns 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="dropdown"
+      >
+        <button
+          class="button-root btn btn-light dropdown-toggle add-attribute btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-plus"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>
