@@ -5,12 +5,10 @@ import TouchpointsListCard from 'assets/components/TouchpointsListCard';
 import URLConstants from 'shared/util/url-constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
-import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
 import {
 	mapPropsToOptions,
 	mapResultToProps
 } from './mappers/touchpoint-list-query';
-import {PropTypes} from 'prop-types';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withError, withLoading} from 'shared/hoc';
 
@@ -29,7 +27,6 @@ const TouchpointListWithData = compose(
 						'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
 					)}
 				</span>
-
 				<a
 					href={URLConstants.AssetsDefinitionDocumentation}
 					key='DOCUMENTATION'
@@ -45,24 +42,19 @@ const TouchpointListWithData = compose(
 	})
 )(TouchpointsListCard);
 
-TouchpointListWithData.propTypes = HOC_CARD_PROPTYPES;
+interface ITouchpointsListCardProps {
+	assetType: string;
+	label: string;
+	legacyDropdownRangeKey: boolean;
+}
 
-const propTypes = {
-	assetType: PropTypes.string
-};
-
-const defaultProps = {
-	className: 'analytics-touchpoints-list-card'
-};
-
-const TouchpointsListBaseCard = ({
+const TouchpointsListBaseCard: React.FC<ITouchpointsListCardProps> = ({
 	assetType,
-	className,
 	label,
 	legacyDropdownRangeKey
 }) => (
 	<BaseCard
-		className={className}
+		className='analytics-touchpoints-list-card'
 		label={label}
 		legacyDropdownRangeKey={legacyDropdownRangeKey}
 		minHeight={536}
@@ -77,8 +69,5 @@ const TouchpointsListBaseCard = ({
 		)}
 	</BaseCard>
 );
-
-TouchpointsListBaseCard.propTypes = propTypes;
-TouchpointsListBaseCard.defaultProps = defaultProps;
 
 export default TouchpointsListBaseCard;

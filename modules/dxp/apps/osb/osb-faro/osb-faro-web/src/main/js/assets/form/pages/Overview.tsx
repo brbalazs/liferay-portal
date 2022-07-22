@@ -4,7 +4,7 @@ import FormAbandonmentCard from '../hocs/FormAbandonmentCard';
 import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
-import TouchpointsListCard from '../../hocs/TouchpointsListCard';
+import TouchpointsListBaseCard from 'assets/hocs/TouchpointsListBaseCard';
 
 const Overview = () => (
 	<>
@@ -63,7 +63,7 @@ const Overview = () => (
 
 		<div className='row'>
 			<div className='col-sm-12'>
-				<TouchpointsListCard
+				<TouchpointsListBaseCard
 					assetType='FORM'
 					label={Liferay.Language.get('asset-appears-on')}
 					legacyDropdownRangeKey={false}
