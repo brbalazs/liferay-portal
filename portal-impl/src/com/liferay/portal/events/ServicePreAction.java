@@ -317,8 +317,6 @@ public class ServicePreAction extends Action {
 
 		long plid = ParamUtil.getLong(request, "p_l_id");
 
-		boolean viewableSourceGroup = true;
-
 		if (plid > 0) {
 			layout = LayoutLocalServiceUtil.getLayout(plid);
 		}
@@ -373,6 +371,8 @@ public class ServicePreAction extends Action {
 				}
 			}
 		}
+
+		boolean viewableSourceGroup = true;
 
 		if (layout != null) {
 			long sourceGroupId = ParamUtil.getLong(request, "p_v_l_s_g_id");
