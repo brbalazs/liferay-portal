@@ -42,13 +42,13 @@ const TouchpointListWithData = compose(
 	})
 )(TouchpointsListCard);
 
-interface ITouchpointsListCardProps {
+interface ITouchpointsListCardProps extends React.HTMLAttributes<HTMLElement> {
 	assetType: string;
 	label: string;
 	legacyDropdownRangeKey: boolean;
 }
 
-const TouchpointsListBaseCard: React.FC<ITouchpointsListCardProps> = ({
+const TouchpointListWithBaseCard: React.FC<ITouchpointsListCardProps> = ({
 	assetType,
 	label,
 	legacyDropdownRangeKey
@@ -70,4 +70,4 @@ const TouchpointsListBaseCard: React.FC<ITouchpointsListCardProps> = ({
 	</BaseCard>
 );
 
-export default TouchpointsListBaseCard;
+export default TouchpointListWithBaseCard;

@@ -3,7 +3,7 @@ import DevicesCard from '../hocs/DevicesCard';
 import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
-import TouchpointsListBaseCard from 'assets/hocs/TouchpointsListBaseCard';
+import TouchpointsListCard from 'assets/hocs/TouchpointsListCard';
 
 const Overview = () => (
 	<>
@@ -48,7 +48,7 @@ const Overview = () => (
 
 		<div className='row'>
 			<div className='col-sm-12'>
-				<TouchpointsListBaseCard
+				<TouchpointsListCard
 					assetType='BLOG'
 					label={Liferay.Language.get('asset-appears-on')}
 					legacyDropdownRangeKey={false}
