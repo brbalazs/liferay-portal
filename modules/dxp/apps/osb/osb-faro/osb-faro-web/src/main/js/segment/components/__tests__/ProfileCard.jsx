@@ -12,9 +12,7 @@ const DefaultComponent = props => (
 		<SegmentProfileCard
 			channelId='123'
 			groupId='23'
-			id='3'
-			segment={data.getImmutableMock(Segment, data.mockSegment)}
-			tabId='1'
+			segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
 			{...props}
 		/>
 	</StaticRouter>
