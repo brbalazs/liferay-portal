@@ -83,16 +83,6 @@ public class FaroAdminDisplayContext {
 					dropdownItem -> {
 						dropdownItem.setHref(
 							portletURL, ActionRequest.ACTION_NAME,
-							"/faro_admin/deactivate_project", "faroProjectId",
-							faroProjectAdminDisplay.getFaroProjectId());
-						dropdownItem.setLabel(
-							LanguageUtil.get(
-								_httpServletRequest, "deactivate-project"));
-					});
-				add(
-					dropdownItem -> {
-						dropdownItem.setHref(
-							portletURL, ActionRequest.ACTION_NAME,
 							"/faro_admin/refresh_liferay", "faroProjectId",
 							faroProjectAdminDisplay.getFaroProjectId());
 						dropdownItem.setLabel(
