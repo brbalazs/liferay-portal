@@ -46,7 +46,7 @@ exports[`SegmentOverview should render 1`] = `
         >
           <a
             class="button-root btn btn-link btn-sm"
-            href="/workspace/23/contacts/segments/test/membership"
+            href="/workspace/23/contacts/segments/0/membership"
           >
             View Members
             <span
