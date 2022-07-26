@@ -3,7 +3,7 @@ import CriteriaCard from 'segment/components/criteria-card';
 import DistributionCard from 'contacts/hoc/segment/DistributionCard';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React, {useCallback, useEffect, useRef} from 'react';
-import SegmentProfileCard from 'segment/components/ProfileCard';
+import SegmentProfileCard from '../../segment/components/ProfileCard';
 import {connect, ConnectedProps} from 'react-redux';
 import {debounce} from 'lodash';
 import {GROWTH} from 'shared/util/router';

@@ -7,7 +7,23 @@ import {Routes, toRoute} from 'shared/util/router';
 import {SegmentGrowthChart} from './Growth';
 import {withRequest} from 'shared/hoc';
 
-const MembershipChartComponent = ({
+interface IMembershipChartComponent extends React.Component<HTMLDivElement> {
+	data: [];
+	groupId: string;
+	id: string;
+	individualCounts: string;
+	tabId: string;
+}
+
+interface ISegmentProfileCard {
+	channelId: string;
+	groupId: string;
+	id: string;
+	segment: {anonymousIndividualCount: number; knownIndividualCount: number};
+	tabId: string;
+}
+
+const MembershipChartComponent: React.FC<IMembershipChartComponent> = ({
 	data,
 	groupId,
 	id,
@@ -31,7 +47,7 @@ export const MembershipChart = withRequest(
 	}
 )(MembershipChartComponent);
 
-const SegmentProfileCard = ({
+const SegmentProfileCard: React.FC<ISegmentProfileCard> = ({
 	channelId,
 	groupId,
 	id,
