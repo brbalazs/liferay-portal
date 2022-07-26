@@ -106,7 +106,7 @@ if (FileUtil.exists(rootProject, "dxp/apps/osb/osb-faro/yarn.lock") && FileUtil.
 
 buildDir = new File(rootDir.parentFile, "build")
 
-for (String gradleVersion in ["6.6.1"]) {
+for (String gradleVersion in ["6.9.2"]) {
 	String gradleDistributionURL = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 	String suffix = gradleVersion.replace(".", "")
 
