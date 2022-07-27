@@ -137,7 +137,7 @@ public class UpgradeKaleoDefinitionVersionTest {
 		try {
 			_db.runSQL(
 				"create index " + index + " on " + table + " (" +
-					StringUtil.merge(columns) + ");");
+					StringUtil.merge(columns) + ")");
 		}
 		catch (IOException | SQLException e) {
 			throw new AssertionError(e);
