@@ -15,11 +15,13 @@ interface IMembershipChartComponent extends React.Component<HTMLDivElement> {
 	tabId: string;
 }
 
+type Segment = {anonymousIndividualCount: number; knownIndividualCount: number};
+
 interface ISegmentProfileCard {
 	channelId: string;
 	groupId: string;
 	id: string;
-	segment: {anonymousIndividualCount: number; knownIndividualCount: number};
+	segment: Segment;
 	tabId: string;
 }
 
