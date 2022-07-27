@@ -3,10 +3,9 @@ import CriteriaCard from 'segment/components/criteria-card';
 import DistributionCard from 'contacts/hoc/segment/DistributionCard';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React, {useCallback, useEffect, useRef} from 'react';
-import SegmentProfileCard from '../../segment/components/ProfileCard';
+import SegmentProfileCard from 'segment/components/ProfileCard';
 import {connect, ConnectedProps} from 'react-redux';
 import {debounce} from 'lodash';
-import {GROWTH} from 'shared/util/router';
 import {RootState} from 'shared/store';
 import {Segment} from 'shared/util/records';
 import {SegmentTypes} from 'shared/util/constants';
@@ -37,7 +36,6 @@ const Overview: React.FC<IOverviewProps> = ({
 	groupId,
 	id,
 	segment,
-	tabId = GROWTH,
 	timeZoneId
 }) => {
 	const _sideColumnRef = useRef<any>();
@@ -82,7 +80,6 @@ const Overview: React.FC<IOverviewProps> = ({
 					groupId={groupId}
 					id={id}
 					segment={segment}
-					tabId={tabId}
 				/>
 
 				<InterestsCard

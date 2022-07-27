@@ -4,40 +4,42 @@ import Card from 'shared/components/Card';
 import React from 'react';
 import {mapGrowthHistory} from 'shared/hoc/mappers/segment';
 import {Routes, toRoute} from 'shared/util/router';
+import {Segment} from 'shared/util/records';
 import {SegmentGrowthChart} from './Growth';
 import {withRequest} from 'shared/hoc';
 
 interface IMembershipChartComponent extends React.Component<HTMLDivElement> {
-	data: [];
+	data: Array<{
+		added: number;
+		anonymousCount: number;
+		knownCount: number;
+		modifiedDate: number;
+		removed: number;
+		value: number;
+	}>;
 	groupId: string;
 	id: string;
-	individualCounts: string;
-	tabId: string;
+	individualCounts: {anonymousCount: number; knownCount: number};
 }
-
-type Segment = {anonymousIndividualCount: number; knownIndividualCount: number};
 
 interface ISegmentProfileCard {
 	channelId: string;
 	groupId: string;
 	id: string;
 	segment: Segment;
-	tabId: string;
 }
 
 const MembershipChartComponent: React.FC<IMembershipChartComponent> = ({
 	data,
 	groupId,
 	id,
-	individualCounts,
-	tabId
+	individualCounts
 }) => (
 	<SegmentGrowthChart
 		data={data}
 		groupId={groupId}
 		id={id}
 		individualCounts={individualCounts}
-		tabId={tabId}
 	/>
 );
 
@@ -49,12 +51,11 @@ export const MembershipChart = withRequest(
 	}
 )(MembershipChartComponent);
 
-const SegmentProfileCard: React.FC<ISegmentProfileCard> = ({
+export const SegmentProfileCard: React.FC<ISegmentProfileCard> = ({
 	channelId,
 	groupId,
 	id,
-	segment: {anonymousIndividualCount, knownIndividualCount},
-	tabId
+	segment: {anonymousIndividualCount, knownIndividualCount}
 }) => (
 	<Card className='segment-profile-card-root'>
 		<Card.Header>
@@ -78,7 +79,6 @@ const SegmentProfileCard: React.FC<ISegmentProfileCard> = ({
 					anonymousCount: anonymousIndividualCount,
 					knownCount: knownIndividualCount
 				}}
-				tabId={tabId}
 			/>
 		</Card.Body>
 
