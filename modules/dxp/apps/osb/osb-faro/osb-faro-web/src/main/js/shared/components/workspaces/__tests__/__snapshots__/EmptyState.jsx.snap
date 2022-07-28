@@ -3,29 +3,25 @@
 exports[`Workspace Empty State - CardEmpty should render CardEmpty 1`] = `
 <div>
   <div
-    class="col-xl-6"
+    class="empty-card"
   >
-    <div
-      class="empty-card"
+    <svg
+      class="icon-root lexicon-icon lexicon-icon-home"
+      viewBox=""
     >
-      <svg
-        class="icon-root lexicon-icon lexicon-icon-home"
-        viewBox=""
-      >
-        <use
-          xlink:href="/o/osb-faro-web/dist/sprite.svg#home"
-        />
-      </svg>
-      <p>
-        CardEmpty Description
-      </p>
-      <button
-        class="button-root btn btn-primary"
-        type="button"
-      >
-        CardEmpty Button Label
-      </button>
-    </div>
+      <use
+        xlink:href="/o/osb-faro-web/dist/sprite.svg#home"
+      />
+    </svg>
+    <p>
+      CardEmpty Description
+    </p>
+    <button
+      class="button-root btn btn-primary"
+      type="button"
+    >
+      CardEmpty Button Label
+    </button>
   </div>
 </div>
 `;

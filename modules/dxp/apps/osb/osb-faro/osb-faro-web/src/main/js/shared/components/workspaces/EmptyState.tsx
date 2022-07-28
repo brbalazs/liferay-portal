@@ -5,6 +5,7 @@ import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DisplayType} from 'shared/types';
+import {PROD_MODE} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
 
 interface IEmptyStateProps extends React.HTMLAttributes<HTMLElement> {
@@ -19,28 +20,37 @@ const EmptyState: React.FC<IEmptyStateProps> = ({
 	...otherProps
 }) => (
 	<div className={getCN('empty-container row', className)} {...otherProps}>
-		<CardEmpty
-			buttonProps={{
-				label: Liferay.Language.get('contact-sales'),
-				onClick: () =>
-					open(modalTypes.CONTACT_SALES_MODAL, {
-						onClose: close
-					})
-			}}
-			description={Liferay.Language.get(
-				'do-more-with-our-business-&-enterprise-plans'
-			)}
-			icon='ac-integration'
-		/>
-		<CardEmpty
-			buttonProps={{
-				display: 'secondary',
-				href: toRoute(Routes.WORKSPACE_ADD_TRIAL),
-				label: Liferay.Language.get('start-free-trial')
-			}}
-			description={Liferay.Language.get('90-day-full-feature-trial')}
-			icon='ac-page-analytics'
-		/>
+		<div className={PROD_MODE ? 'col-xl-12' : 'col-xl-6'}>
+			<CardEmpty
+				buttonProps={{
+					label: Liferay.Language.get('contact-sales'),
+					onClick: () =>
+						open(modalTypes.CONTACT_SALES_MODAL, {
+							onClose: close
+						})
+				}}
+				description={Liferay.Language.get(
+					'do-more-with-our-business-&-enterprise-plans'
+				)}
+				icon='ac-integration'
+			/>
+		</div>
+
+		{!PROD_MODE && (
+			<div className='col-xl-6'>
+				<CardEmpty
+					buttonProps={{
+						display: 'secondary',
+						href: toRoute(Routes.WORKSPACE_ADD_TRIAL),
+						label: Liferay.Language.get('start-free-trial')
+					}}
+					description={Liferay.Language.get(
+						'90-day-full-feature-trial'
+					)}
+					icon='ac-page-analytics'
+				/>
+			</div>
+		)}
 	</div>
 );
 
@@ -63,14 +73,12 @@ export const CardEmpty: React.FC<ICardItemProps> = ({
 	const {display = 'primary', label, ...otherButtonProps} = buttonProps;
 
 	return (
-		<div className='col-xl-6'>
-			<div className='empty-card'>
-				<Icon symbol={icon} />
-				<p>{description}</p>
-				<Button display={display} {...otherButtonProps}>
-					{label}
-				</Button>
-			</div>
+		<div className='empty-card'>
+			<Icon symbol={icon} />
+			<p>{description}</p>
+			<Button display={display} {...otherButtonProps}>
+				{label}
+			</Button>
 		</div>
 	);
 };
