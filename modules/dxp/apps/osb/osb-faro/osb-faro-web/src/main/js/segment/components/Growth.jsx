@@ -1,13 +1,13 @@
 import * as API from 'shared/api';
-import autobind from 'autobind-decorator';
+// import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/chart-tooltip';
 import ComposedChartWithEmptyState from 'shared/components/ComposedChartWithEmptyState';
 import getCN from 'classnames';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
-import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+// import PropTypes from 'prop-types';
+import React, {useRef, useState} from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import URLConstants from 'shared/util/url-constants';
 import {
@@ -52,18 +52,18 @@ const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const INTERVAL = 'D';
 
-const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
-	PropTypes.shape({
-		added: PropTypes.number,
-		anonymousCount: PropTypes.number,
-		knownCount: PropTypes.number,
-		modifiedDate: PropTypes.number,
-		removed: PropTypes.number,
-		value: PropTypes.number
-	})
-).isRequired;
+// const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
+// 	PropTypes.shape({
+// 		added: PropTypes.number,
+// 		anonymousCount: PropTypes.number,
+// 		knownCount: PropTypes.number,
+// 		modifiedDate: PropTypes.number,
+// 		removed: PropTypes.number,
+// 		value: PropTypes.number
+// 	})
+// ).isRequired;
 
-function getAllMembers(data) {
+const getAllMembers = data => {
 	const {channelId, delta, groupId, id, orderIOMap, page, query} = data;
 
 	return API.individuals.search({
@@ -75,9 +75,9 @@ function getAllMembers(data) {
 		page,
 		query
 	});
-}
+};
 
-function getMemberChanges(data) {
+const getMemberChanges = data => {
 	const {delta, groupId, id, modifiedDate, orderIOMap, page, query} = data;
 
 	return API.individualSegment.fetchMembershipChanges({
@@ -90,47 +90,37 @@ function getMemberChanges(data) {
 		query,
 		startDate: modifiedDate
 	});
-}
+};
 
-export class SegmentGrowthChart extends React.Component {
-	static defaultProps = {
-		alwaysShowSelectedTooltip: false,
-		height: 360,
-		individualCounts: {
-			anonymousCount: 0,
-			knownCount: 0
-		}
-	};
+export const SegmentGrowthChart = ({
+	alwaysShowSelectedTooltip = false,
+	data,
+	hasSelectedPoint,
+	height = 360,
+	individualCounts: {anonymousCount, knownCount},
+	onPointSelect,
+	selectedPoint
+}) => {
+	const [legendHoverItem, setLegendHoverItem] = useState(null);
+	const [mouseOutside, setMouseOutside] = useState(false);
+	const [selectedTooltipX, setSelectedTooltipX] = useState(null);
 
-	static propTypes = {
-		alwaysShowSelectedTooltip: PropTypes.bool,
-		data: CHANGES_AGGREGATION_SHAPE,
-		hasSelectedPoint: PropTypes.bool,
-		height: PropTypes.number,
-		individualCounts: PropTypes.shape({
-			anonymousCount: PropTypes.number,
-			knownCount: PropTypes.number
-		}),
-		onPointSelect: PropTypes.func,
-		selectedPoint: PropTypes.number
-	};
+	// static propTypes = {
+	// 	alwaysShowSelectedTooltip: PropTypes.bool,
+	// 	data: CHANGES_AGGREGATION_SHAPE,
+	// 	hasSelectedPoint: PropTypes.bool,
+	// 	height: PropTypes.number,
+	// 	individualCounts: PropTypes.shape({
+	// 		anonymousCount: PropTypes.number,
+	// 		knownCount: PropTypes.number
+	// 	}),
+	// 	onPointSelect: PropTypes.func,
+	// 	selectedPoint: PropTypes.number
+	// };
 
-	state = {
-		legendHoverItem: null,
-		mouseOutside: false,
-		selectedTooltipX: null
-	};
+	const tooltipRef = useRef();
 
-	constructor(props) {
-		super(props);
-
-		this._tooltipRef = React.createRef();
-	}
-
-	@autobind
-	renderTooltip({active, payload}) {
-		const {data, hasSelectedPoint, selectedPoint} = this.props;
-
+	const renderTooltip = ({active, payload}) => {
 		if ((active && payload && !!payload.length) || hasSelectedPoint) {
 			const {
 				added,
@@ -267,397 +257,370 @@ export class SegmentGrowthChart extends React.Component {
 				</div>
 			);
 		}
-	}
-
-	render() {
-		const {
-			props: {
-				alwaysShowSelectedTooltip,
-				data,
-				hasSelectedPoint,
-				height,
-				individualCounts: {anonymousCount, knownCount},
-				onPointSelect,
-				selectedPoint
-			},
-			state: {legendHoverItem, mouseOutside, selectedTooltipX}
-		} = this;
-
-		const commonAreaChartStyles = {
-			isAnimationActive: true,
-			legendType: 'circle',
-			stackId: 'count'
-		};
-
-		const showFixedTooltip = hasSelectedPoint && mouseOutside;
-
-		const dateKeysIMap = createDateKeysIMap(INTERVAL, data, 'modifiedDate');
-
-		const intervals = getIntervals(
-			RangeKeyTimeRanges.Last30Days,
-			data.map(({modifiedDate}) => modifiedDate),
-			INTERVAL,
-			dateKeysIMap
-		);
-
-		const yAxisWidth = getYAxisWidth(data, 'value');
-
-		return (
-			<ComposedChartWithEmptyState
-				emptyDescription={
-					<>
-						<span className='mr-1'>
-							{Liferay.Language.get(
-								'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
-							)}
-						</span>
-
-						<a
-							href={
-								URLConstants.SegmentsOverviewTabDocumentationLink
-							}
-							key='DOCUMENTATION'
-							target='_blank'
-						>
-							{Liferay.Language.get(
-								'learn-more-about-segment-membership'
-							)}
-						</a>
-					</>
-				}
-				emptyTitle={Liferay.Language.get(
-					'there-is-no-data-for-segment-membership'
-				)}
-				showEmptyState={!intervals.length}
-			>
-				<ResponsiveContainer height={height}>
-					<AreaChart
-						data={data}
-						onClick={pointData => {
-							if (alwaysShowSelectedTooltip && pointData) {
-								if (this._tooltipRef) {
-									const {
-										getTranslate,
-										props: {viewBox},
-										state: {boxWidth}
-									} = this._tooltipRef.current;
-
-									this.setState({
-										selectedTooltipX: getTranslate({
-											key: 'x',
-											tooltipDimension: boxWidth,
-											viewBoxDimension: viewBox.width
-										})
-									});
-								}
-
-								onPointSelect({
-									index: pointData.activeTooltipIndex
-								});
-							}
-						}}
-						onMouseLeave={() => this.setState({mouseOutside: true})}
-						onMouseMove={() => this.setState({mouseOutside: false})}
-					>
-						<CartesianGrid
-							stroke={AXIS.gridStroke}
-							strokeDasharray='3 3'
-							vertical={false}
-						/>
-
-						<XAxis
-							axisLine={{stroke: AXIS.borderStroke}}
-							dataKey='modifiedDate'
-							domain={['dataMin', 'dataMax']}
-							interval='preserveStart'
-							padding={{left: 20, right: 20}}
-							tick={getAxisTickText('x', value =>
-								formatXAxisDate(
-									value,
-									RangeKeyTimeRanges.Last30Days,
-									INTERVAL,
-									dateKeysIMap
-								)
-							)}
-							tickLine={false}
-							tickMargin={12}
-							ticks={intervals}
-						/>
-
-						<XAxis
-							axisLine={{stroke: AXIS.borderStroke}}
-							dataKey='modifiedDate'
-							orientation='top'
-							stroke={AXIS.gridStroke}
-							tick={false}
-							tickLine={false}
-							xAxisId='top'
-						/>
-
-						<YAxis
-							allowDecimals={false}
-							axisLine={{stroke: AXIS.borderStroke}}
-							label={getYAxisLabel(
-								Liferay.Language.get('membership'),
-								'left',
-								yAxisWidth
-							)}
-							name={Liferay.Language.get('membership')}
-							stroke={AXIS.gridStroke}
-							tick={getAxisTickText('y')}
-							tickCount={6}
-							tickLine={false}
-							type='number'
-							width={yAxisWidth}
-						/>
-
-						<YAxis
-							axisLine={{stroke: AXIS.borderStroke}}
-							orientation='right'
-							stroke={AXIS.gridStroke}
-							tick={false}
-							tickLine={false}
-							type='number'
-							width={1}
-							yAxisId='right'
-						/>
-
-						<Legend
-							align='left'
-							formatter={(value, {count}) => (
-								<span>
-									{`${value}:`}
-
-									<b className='ml-1'>{count}</b>
-								</span>
-							)}
-							iconSize={8}
-							onMouseEnter={({dataKey}) =>
-								this.setState({legendHoverItem: dataKey})
-							}
-							onMouseLeave={() =>
-								this.setState({legendHoverItem: null})
-							}
-							payload={[
-								{
-									color: CHART_BLUE,
-									count: knownCount,
-									dataKey: 'knownCount',
-									type: 'circle',
-									value: Liferay.Language.get('known-members')
-								},
-								{
-									color: CHART_ORANGE,
-									count: anonymousCount,
-									dataKey: 'anonymousCount',
-									type: 'circle',
-									value: Liferay.Language.get(
-										'anonymous-members'
-									)
-								},
-								{
-									color: 'rgba(0,0,0,0)',
-									count: anonymousCount + knownCount,
-									dataKey: 'individualCount',
-									type: 'circle',
-									value: Liferay.Language.get('total-members')
-								}
-							]}
-							verticalAlign='top'
-							wrapperStyle={{
-								color: AXIS.textColor,
-								fontSize: '14px',
-								lineHeight: '21px',
-								paddingBottom: '22px'
-							}}
-						/>
-
-						<Tooltip
-							content={this.renderTooltip}
-							cursor={!intervals.length ? false : true}
-							position={
-								showFixedTooltip
-									? {
-											x: selectedTooltipX
-									  }
-									: null
-							}
-							ref={this._tooltipRef}
-							wrapperStyle={
-								showFixedTooltip
-									? {
-											visibility: 'visible'
-									  }
-									: null
-							}
-						/>
-
-						<ReferenceLine
-							strokeWidth={1}
-							x={
-								showFixedTooltip
-									? data[selectedPoint].modifiedDate
-									: null
-							}
-						/>
-
-						<ReferenceDot
-							fill={CHART_BLUE}
-							fillOpacity={
-								legendHoverItem === 'anonymousCount' ? 0.1 : 1
-							}
-							isFront
-							r={4}
-							stroke='none'
-							x={
-								hasSelectedPoint
-									? data[selectedPoint].modifiedDate
-									: null
-							}
-							y={
-								hasSelectedPoint
-									? data[selectedPoint].knownCount
-									: null
-							}
-						/>
-
-						<ReferenceDot
-							fill={CHART_ORANGE}
-							fillOpacity={
-								legendHoverItem === 'knownCount' ? 0.1 : 1
-							}
-							isFront
-							r={4}
-							stroke='none'
-							x={
-								hasSelectedPoint
-									? data[selectedPoint].modifiedDate
-									: null
-							}
-							y={
-								hasSelectedPoint
-									? data[selectedPoint].knownCount +
-									  data[selectedPoint].anonymousCount
-									: null
-							}
-						/>
-
-						<Area
-							{...commonAreaChartStyles}
-							activeDot={{r: 4, stroke: CHART_BLUE}}
-							dataKey='knownCount'
-							fill={CHART_BLUE}
-							fillOpacity={
-								legendHoverItem === 'anonymousCount' ? 0.1 : 0.2
-							}
-							isAnimationActive={false}
-							name={Liferay.Language.get('known-members')}
-							stroke={CHART_BLUE}
-							strokeOpacity={
-								legendHoverItem === 'anonymousCount' ? 0.2 : 1
-							}
-						/>
-
-						<Area
-							{...commonAreaChartStyles}
-							activeDot={{r: 4, stroke: CHART_ORANGE}}
-							dataKey='anonymousCount'
-							fill={CHART_ORANGE}
-							fillOpacity={
-								legendHoverItem === 'knownCount' ? 0.1 : 0.2
-							}
-							isAnimationActive={false}
-							name={Liferay.Language.get('anonymous-members')}
-							stroke={CHART_ORANGE}
-							strokeOpacity={
-								legendHoverItem === 'knownCount' ? 0.2 : 1
-							}
-						/>
-					</AreaChart>
-				</ResponsiveContainer>
-			</ComposedChartWithEmptyState>
-		);
-	}
-}
-
-export class SelectedPointInfo extends React.Component {
-	static propTypes = {
-		data: CHANGES_AGGREGATION_SHAPE,
-		hasSelectedPoint: PropTypes.bool,
-		onClearSelection: PropTypes.func.isRequired,
-		selectedPoint: PropTypes.number
 	};
 
-	render() {
-		const {
-			data,
-			hasSelectedPoint,
-			onClearSelection,
-			selectedPoint
-		} = this.props;
+	const commonAreaChartStyles = {
+		isAnimationActive: true,
+		legendType: 'circle',
+		stackId: 'count'
+	};
 
-		const {added, modifiedDate, removed} = get(data, selectedPoint, {});
+	const showFixedTooltip = hasSelectedPoint && mouseOutside;
 
-		const changeValues =
-			hasSelectedPoint &&
-			selectedPoint > 0 &&
-			getNetChange(data[selectedPoint - 1], data[selectedPoint]);
+	const dateKeysIMap = createDateKeysIMap(INTERVAL, data, 'modifiedDate');
 
-		return (
-			<div className='selected-point-info'>
-				{hasSelectedPoint ? (
-					<>
-						<div className='d-flex align-items-baseline'>
-							<h4>
-								{sub(
-									Liferay.Language.get(
-										'segment-membership-activities-x'
-									),
-									[formatUTCDateFromUnix(modifiedDate)]
-								)}
-							</h4>
+	const intervals = getIntervals(
+		RangeKeyTimeRanges.Last30Days,
+		data.map(({modifiedDate}) => modifiedDate),
+		INTERVAL,
+		dateKeysIMap
+	);
 
-							<Button
-								display='link'
-								onClick={onClearSelection}
-								size='sm'
-							>
-								{Liferay.Language.get('clear-date-selection')}
-							</Button>
-						</div>
+	const yAxisWidth = getYAxisWidth(data, 'value');
 
-						<div className='changed-values'>
+	return (
+		<ComposedChartWithEmptyState
+			emptyDescription={
+				<>
+					<span className='mr-1'>
+						{Liferay.Language.get(
+							'check-back-later-to-verify-if-data-has-been-received-from-your-data-sources'
+						)}
+					</span>
+
+					<a
+						href={URLConstants.SegmentsOverviewTabDocumentationLink}
+						key='DOCUMENTATION'
+						target='_blank'
+					>
+						{Liferay.Language.get(
+							'learn-more-about-segment-membership'
+						)}
+					</a>
+				</>
+			}
+			emptyTitle={Liferay.Language.get(
+				'there-is-no-data-for-segment-membership'
+			)}
+			showEmptyState={!intervals.length}
+		>
+			<ResponsiveContainer height={height}>
+				<AreaChart
+					data={data}
+					onClick={pointData => {
+						if (alwaysShowSelectedTooltip && pointData) {
+							if (tooltipRef) {
+								const {
+									getTranslate,
+									props: {viewBox},
+									state: {boxWidth}
+								} = tooltipRef.current;
+
+								setSelectedTooltipX(
+									getTranslate({
+										key: 'x',
+										tooltipDimension: boxWidth,
+										viewBoxDimension: viewBox.width
+									})
+								);
+							}
+
+							onPointSelect({
+								index: pointData.activeTooltipIndex
+							});
+						}
+					}}
+					onMouseLeave={() => setMouseOutside(true)}
+					onMouseMove={() => setMouseOutside(false)}
+				>
+					<CartesianGrid
+						stroke={AXIS.gridStroke}
+						strokeDasharray='3 3'
+						vertical={false}
+					/>
+
+					<XAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='modifiedDate'
+						domain={['dataMin', 'dataMax']}
+						interval='preserveStart'
+						padding={{left: 20, right: 20}}
+						tick={getAxisTickText('x', value =>
+							formatXAxisDate(
+								value,
+								RangeKeyTimeRanges.Last30Days,
+								INTERVAL,
+								dateKeysIMap
+							)
+						)}
+						tickLine={false}
+						tickMargin={12}
+						ticks={intervals}
+					/>
+
+					<XAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='modifiedDate'
+						orientation='top'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						xAxisId='top'
+					/>
+
+					<YAxis
+						allowDecimals={false}
+						axisLine={{stroke: AXIS.borderStroke}}
+						label={getYAxisLabel(
+							Liferay.Language.get('membership'),
+							'left',
+							yAxisWidth
+						)}
+						name={Liferay.Language.get('membership')}
+						stroke={AXIS.gridStroke}
+						tick={getAxisTickText('y')}
+						tickCount={6}
+						tickLine={false}
+						type='number'
+						width={yAxisWidth}
+					/>
+
+					<YAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						orientation='right'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						type='number'
+						width={1}
+						yAxisId='right'
+					/>
+
+					<Legend
+						align='left'
+						formatter={(value, {count}) => (
+							<span>
+								{`${value}:`}
+
+								<b className='ml-1'>{count}</b>
+							</span>
+						)}
+						iconSize={8}
+						onMouseEnter={({dataKey}) =>
+							setLegendHoverItem(dataKey)
+						}
+						onMouseLeave={() => setLegendHoverItem(null)}
+						payload={[
+							{
+								color: CHART_BLUE,
+								count: knownCount,
+								dataKey: 'knownCount',
+								type: 'circle',
+								value: Liferay.Language.get('known-members')
+							},
+							{
+								color: CHART_ORANGE,
+								count: anonymousCount,
+								dataKey: 'anonymousCount',
+								type: 'circle',
+								value: Liferay.Language.get('anonymous-members')
+							},
+							{
+								color: 'rgba(0,0,0,0)',
+								count: anonymousCount + knownCount,
+								dataKey: 'individualCount',
+								type: 'circle',
+								value: Liferay.Language.get('total-members')
+							}
+						]}
+						verticalAlign='top'
+						wrapperStyle={{
+							color: AXIS.textColor,
+							fontSize: '14px',
+							lineHeight: '21px',
+							paddingBottom: '22px'
+						}}
+					/>
+
+					<Tooltip
+						content={renderTooltip}
+						cursor={!intervals.length ? false : true}
+						position={
+							showFixedTooltip
+								? {
+										x: selectedTooltipX
+								  }
+								: null
+						}
+						ref={tooltipRef}
+						wrapperStyle={
+							showFixedTooltip
+								? {
+										visibility: 'visible'
+								  }
+								: null
+						}
+					/>
+
+					<ReferenceLine
+						strokeWidth={1}
+						x={
+							showFixedTooltip
+								? data[selectedPoint].modifiedDate
+								: null
+						}
+					/>
+
+					<ReferenceDot
+						fill={CHART_BLUE}
+						fillOpacity={
+							legendHoverItem === 'anonymousCount' ? 0.1 : 1
+						}
+						isFront
+						r={4}
+						stroke='none'
+						x={
+							hasSelectedPoint
+								? data[selectedPoint].modifiedDate
+								: null
+						}
+						y={
+							hasSelectedPoint
+								? data[selectedPoint].knownCount
+								: null
+						}
+					/>
+
+					<ReferenceDot
+						fill={CHART_ORANGE}
+						fillOpacity={legendHoverItem === 'knownCount' ? 0.1 : 1}
+						isFront
+						r={4}
+						stroke='none'
+						x={
+							hasSelectedPoint
+								? data[selectedPoint].modifiedDate
+								: null
+						}
+						y={
+							hasSelectedPoint
+								? data[selectedPoint].knownCount +
+								  data[selectedPoint].anonymousCount
+								: null
+						}
+					/>
+
+					<Area
+						{...commonAreaChartStyles}
+						activeDot={{r: 4, stroke: CHART_BLUE}}
+						dataKey='knownCount'
+						fill={CHART_BLUE}
+						fillOpacity={
+							legendHoverItem === 'anonymousCount' ? 0.1 : 0.2
+						}
+						isAnimationActive={false}
+						name={Liferay.Language.get('known-members')}
+						stroke={CHART_BLUE}
+						strokeOpacity={
+							legendHoverItem === 'anonymousCount' ? 0.2 : 1
+						}
+					/>
+
+					<Area
+						{...commonAreaChartStyles}
+						activeDot={{r: 4, stroke: CHART_ORANGE}}
+						dataKey='anonymousCount'
+						fill={CHART_ORANGE}
+						fillOpacity={
+							legendHoverItem === 'knownCount' ? 0.1 : 0.2
+						}
+						isAnimationActive={false}
+						name={Liferay.Language.get('anonymous-members')}
+						stroke={CHART_ORANGE}
+						strokeOpacity={
+							legendHoverItem === 'knownCount' ? 0.2 : 1
+						}
+					/>
+				</AreaChart>
+			</ResponsiveContainer>
+		</ComposedChartWithEmptyState>
+	);
+};
+
+export const SelectedPointInfo = ({
+	data,
+	hasSelectedPoint,
+	onClearSelection,
+	selectedPoint
+}) => {
+	// static propTypes = {
+	// 	data: CHANGES_AGGREGATION_SHAPE,
+	// 	hasSelectedPoint: PropTypes.bool,
+	// 	onClearSelection: PropTypes.func.isRequired,
+	// 	selectedPoint: PropTypes.number
+	// };
+
+	const {added, modifiedDate, removed} = get(data, selectedPoint, {});
+
+	const changeValues =
+		hasSelectedPoint &&
+		selectedPoint > 0 &&
+		getNetChange(data[selectedPoint - 1], data[selectedPoint]);
+
+	return (
+		<div className='selected-point-info'>
+			{hasSelectedPoint ? (
+				<>
+					<div className='d-flex align-items-baseline'>
+						<h4>
 							{sub(
-								Liferay.Language.get('added-x'),
-								[<b key='ADDED'>{added}</b>],
+								Liferay.Language.get(
+									'segment-membership-activities-x'
+								),
+								[formatUTCDateFromUnix(modifiedDate)]
+							)}
+						</h4>
+
+						<Button
+							display='link'
+							onClick={onClearSelection}
+							size='sm'
+						>
+							{Liferay.Language.get('clear-date-selection')}
+						</Button>
+					</div>
+
+					<div className='changed-values'>
+						{sub(
+							Liferay.Language.get('added-x'),
+							[<b key='ADDED'>{added}</b>],
+							false
+						)}
+
+						{sub(
+							Liferay.Language.get('removed-x'),
+							[<b key='REMOVED'>{removed}</b>],
+							false
+						)}
+
+						{changeValues &&
+							sub(
+								Liferay.Language.get('net-change-x'),
+								[
+									<b key='CHANGE'>
+										{`${changeValues[0]}(${changeValues[1]}%)`}
+									</b>
+								],
 								false
 							)}
-
-							{sub(
-								Liferay.Language.get('removed-x'),
-								[<b key='REMOVED'>{removed}</b>],
-								false
-							)}
-
-							{changeValues &&
-								sub(
-									Liferay.Language.get('net-change-x'),
-									[
-										<b key='CHANGE'>
-											{`${changeValues[0]}(${changeValues[1]}%)`}
-										</b>
-									],
-									false
-								)}
-						</div>
-					</>
-				) : (
-					<h4>{Liferay.Language.get('known-members')}</h4>
-				)}
-			</div>
-		);
-	}
-}
+					</div>
+				</>
+			) : (
+				<h4>{Liferay.Language.get('known-members')}</h4>
+			)}
+		</div>
+	);
+};
 
 const SegmentGrowthWithList = ({
 	channelId,
