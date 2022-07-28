@@ -334,6 +334,9 @@ public class ProjectController extends BaseFaroController {
 		_contactsLayoutTemplateLocalService.deleteContactsLayoutTemplates(
 			groupId);
 
+		contactsEngineClient.deleteProject(
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId));
+
 		return new ProjectDisplay(
 			_faroProjectLocalService.deleteFaroProjectByGroupId(groupId));
 	}
