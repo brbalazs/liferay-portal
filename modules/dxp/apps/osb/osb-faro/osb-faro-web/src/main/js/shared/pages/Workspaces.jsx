@@ -16,7 +16,7 @@ import {
 	withProjects
 } from 'shared/hoc';
 import {connect} from 'react-redux';
-import {groupBy, isEmpty, map, sortBy} from 'lodash';
+import {groupBy, map, sortBy} from 'lodash';
 import {PLANS} from 'shared/util/subscriptions';
 import {PROD_MODE} from 'shared/util/constants';
 import {Project} from 'shared/util/records';
@@ -72,7 +72,7 @@ const Workspaces = ({
 		client.clearStore();
 	}, []);
 
-	const renderButtons = currentUserId => (
+	const renderButtons = () => (
 		<div className='mt-4'>
 			<Button
 				className='mr-2'
@@ -87,7 +87,7 @@ const Workspaces = ({
 				{Liferay.Language.get('buy-paid-tier')}
 			</Button>
 
-			{!PROD_MODE && !hasFreeTrial(projects, currentUserId) && (
+			{!PROD_MODE && (
 				<Button href={toRoute(Routes.WORKSPACE_ADD_TRIAL)} size='sm'>
 					{Liferay.Language.get('start-free-trial')}
 				</Button>
@@ -147,20 +147,6 @@ const Workspaces = ({
 		if (projects.length || (!projects.length && !joinableProjects.length)) {
 			return Liferay.Language.get('your-workspaces');
 		}
-	};
-
-	const hasFreeTrial = (projects, currentUser) => {
-		const freeTrialProjects = projects.filter(
-			({faroSubscription, userId}) => {
-				const subscriptionName = faroSubscription.get('name');
-				return (
-					subscriptionName === PLANS.basic.name &&
-					currentUser == userId
-				);
-			}
-		);
-
-		return !isEmpty(freeTrialProjects);
 	};
 
 	return (
