@@ -406,20 +406,15 @@ public class ServicePreAction extends Action {
 			}
 		}
 
-		// Portal URL
-
-		String portalURL = PortalUtil.getPortalURL(request);
-
+		long doAsGroupId = ParamUtil.getLong(request, "doAsGroupId");
 		String doAsUserId = ParamUtil.getString(request, "doAsUserId");
 		String doAsUserLanguageId = ParamUtil.getString(
 			request, "doAsUserLanguageId");
-		long doAsGroupId = ParamUtil.getLong(request, "doAsGroupId");
 
-		long refererGroupId = ParamUtil.getLong(request, "refererGroupId");
-
+		Group group = null;
 		List<Layout> layouts = null;
-		
-		String ppid = ParamUtil.getString(request, "p_p_id");
+
+		boolean loginRequest = isLoginRequest(request);
 
 		Boolean redirectToDefaultLayout = (Boolean)request.getAttribute(
 			WebKeys.REDIRECT_TO_DEFAULT_LAYOUT);
@@ -428,11 +423,10 @@ public class ServicePreAction extends Action {
 			redirectToDefaultLayout = Boolean.FALSE;
 		}
 
-		Group group = null;
+		long refererGroupId = ParamUtil.getLong(request, "refererGroupId");
 
 		boolean stagingGroup = false;
 		boolean viewableGroup = false;
-		boolean loginRequest = isLoginRequest(request);
 
 		if (layout != null) {
 			group = layout.getGroup();
@@ -695,6 +689,10 @@ public class ServicePreAction extends Action {
 
 		Locale locale = PortalUtil.getLocale(request, response, true);
 
+		// Portal URL
+
+		String portalURL = PortalUtil.getPortalURL(request);
+
 		// Scope
 
 		long scopeGroupId = PortalUtil.getScopeGroupId(request);
@@ -851,7 +849,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setPathSound(contextPath.concat("/html/sound"));
 		themeDisplay.setPermissionChecker(permissionChecker);
 		themeDisplay.setPlid(plid);
-		themeDisplay.setPpid(ppid);
+		themeDisplay.setPpid(ParamUtil.getString(request, "p_p_id"));
 		themeDisplay.setRealCompanyLogo(companyLogo);
 		themeDisplay.setRealCompanyLogoHeight(companyLogoHeight);
 		themeDisplay.setRealCompanyLogoWidth(companyLogoWidth);
