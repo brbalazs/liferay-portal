@@ -8,50 +8,22 @@ import {Segment} from 'shared/util/records';
 import {SegmentGrowthChart} from './Growth';
 import {withRequest} from 'shared/hoc';
 
-interface IMembershipChartComponent extends React.Component<HTMLDivElement> {
-	data: Array<{
-		added: number;
-		anonymousCount: number;
-		knownCount: number;
-		modifiedDate: number;
-		removed: number;
-		value: number;
-	}>;
-	groupId: string;
-	id: string;
-	individualCounts: {anonymousCount: number; knownCount: number};
-}
+const MembershipChart = withRequest(
+	API.individualSegment.fetchMembershipChangesAggregations,
+	mapGrowthHistory,
+	{
+		page: false
+	}
+)(props => <SegmentGrowthChart {...props} />);
 
-interface ISegmentProfileCard {
+interface ISegmentProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 	channelId: string;
 	groupId: string;
 	id: string;
 	segment: Segment;
 }
 
-const MembershipChartComponent: React.FC<IMembershipChartComponent> = ({
-	data,
-	groupId,
-	id,
-	individualCounts
-}) => (
-	<SegmentGrowthChart
-		data={data}
-		groupId={groupId}
-		id={id}
-		individualCounts={individualCounts}
-	/>
-);
-
-export const MembershipChart = withRequest(
-	API.individualSegment.fetchMembershipChangesAggregations,
-	mapGrowthHistory,
-	{
-		page: false
-	}
-)(MembershipChartComponent);
-
-export const SegmentProfileCard: React.FC<ISegmentProfileCard> = ({
+const SegmentProfileCard: React.FC<ISegmentProfileCardProps> = ({
 	channelId,
 	groupId,
 	id,
