@@ -107,40 +107,20 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		long companyId = PortalInstances.getCompanyId(request);
 
-		Group group = groupLocalService.fetchFriendlyURLGroup(
-			companyId, friendlyURL);
+		Group group = _getGroup(path, friendlyURL, companyId);
 
-		if (group == null) {
-			String screenName = friendlyURL.substring(1);
+		try {
+			if (group.isUser() &&
+				!GroupPermissionUtil.contains(
+					PermissionCheckerFactoryUtil.create(
+						portal.getUser(request)),
+					group, ActionKeys.VIEW)) {
 
-			User user = userLocalService.fetchUserByScreenName(
-				companyId, screenName);
-
-			if (user != null) {
-				group = user.getGroup();
-			}
-			else if (_log.isWarnEnabled()) {
-				_log.warn("No user exists with friendly URL " + screenName);
+				throw new NoSuchGroupException();
 			}
 		}
-
-		if ((group == null) ||
-			(!group.isActive() &&
-			 !inactiveRequestHandler.isShowInactiveRequestMessage() &&
-			 !path.startsWith(GroupConstants.CONTROL_PANEL_FRIENDLY_URL) &&
-			 !path.startsWith(
-				 friendlyURL +
-					 VirtualLayoutConstants.CANONICAL_URL_SEPARATOR))) {
-
-			StringBundler sb = new StringBundler(5);
-
-			sb.append("{companyId=");
-			sb.append(companyId);
-			sb.append(", friendlyURL=");
-			sb.append(friendlyURL);
-			sb.append("}");
-
-			throw new NoSuchGroupException(sb.toString());
+		catch (Exception exception) {
+			throw new PortalException(exception);
 		}
 
 		Locale locale = portal.getLocale(request, null, false);
@@ -630,6 +610,48 @@ public class FriendlyURLServlet extends HttpServlet {
 		}
 
 		return false;
+	}
+
+	private Group _getGroup(String path, String friendlyURL, long companyId)
+		throws NoSuchGroupException {
+
+		Group group = groupLocalService.fetchFriendlyURLGroup(
+			companyId, friendlyURL);
+
+		if (group == null) {
+			String screenName = friendlyURL.substring(1);
+
+			User user = userLocalService.fetchUserByScreenName(
+				companyId, screenName);
+
+			if (user != null) {
+				group = user.getGroup();
+			}
+			else if (_log.isWarnEnabled()) {
+				_log.warn("No user exists with friendly URL " + screenName);
+			}
+		}
+
+		if ((group == null) ||
+			(!group.isActive() &&
+			 !inactiveRequestHandler.isShowInactiveRequestMessage() &&
+			 !path.startsWith(GroupConstants.CONTROL_PANEL_FRIENDLY_URL) &&
+			 !path.startsWith(
+				 friendlyURL +
+					 VirtualLayoutConstants.CANONICAL_URL_SEPARATOR))) {
+
+			StringBundler sb = new StringBundler(5);
+
+			sb.append("{companyId=");
+			sb.append(companyId);
+			sb.append(", friendlyURL=");
+			sb.append(friendlyURL);
+			sb.append("}");
+
+			throw new NoSuchGroupException(sb.toString());
+		}
+
+		return group;
 	}
 
 	private boolean _isAssetDisplayPage(Layout layout) {
