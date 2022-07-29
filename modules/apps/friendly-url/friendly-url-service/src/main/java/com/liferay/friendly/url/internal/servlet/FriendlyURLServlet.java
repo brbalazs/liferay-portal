@@ -109,20 +109,6 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		Group group = _getGroup(path, friendlyURL, companyId);
 
-		try {
-			if (group.isUser() &&
-				!GroupPermissionUtil.contains(
-					PermissionCheckerFactoryUtil.create(
-						portal.getUser(request)),
-					group, ActionKeys.VIEW)) {
-
-				throw new NoSuchGroupException();
-			}
-		}
-		catch (Exception exception) {
-			throw new PortalException(exception);
-		}
-
 		Locale locale = portal.getLocale(request, null, false);
 
 		SiteFriendlyURL siteFriendlyURL =
