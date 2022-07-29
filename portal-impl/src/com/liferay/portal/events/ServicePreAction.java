@@ -344,7 +344,12 @@ public class ServicePreAction extends Action {
 						PortalUtil.getOriginalServletRequest(request),
 						"p_l_id");
 
-					if (originalPlid == plid) {
+					String method = httpServletRequest.getMethod();
+
+					if ((Objects.equals(method, "GET") &&
+						 (originalPlid == plid)) ||
+						(!Objects.equals(method, "GET") && !signedIn)) {
+
 						String message =
 							"User layouts cannot be accessed via p_l_id";
 
