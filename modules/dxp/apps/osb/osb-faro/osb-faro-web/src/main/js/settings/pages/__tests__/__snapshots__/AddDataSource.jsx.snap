@@ -110,39 +110,6 @@ exports[`AddDataSource should render 1`] = `
             </button>
             <a
               class="button-root btn btn-unstyled data-source-item"
-              href="/workspace/23/settings/data-source/salesforce"
-            >
-              <div
-                class="image"
-              >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-salesforce-logo icon-size-xxl"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="/o/osb-faro-web/dist/sprite.svg#salesforce-logo"
-                  />
-                </svg>
-              </div>
-              <div
-                class="details"
-              >
-                <div
-                  class="title"
-                >
-                  <h4>
-                    Salesforce
-                  </h4>
-                </div>
-                <div
-                  class="subtitle"
-                >
-                  Import Contacts, Accounts, & Leads.
-                </div>
-              </div>
-            </a>
-            <a
-              class="button-root btn btn-unstyled data-source-item"
               href="/workspace/23/settings/data-source/csv"
             >
               <div

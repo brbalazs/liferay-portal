@@ -207,36 +207,6 @@ exports[`Sidebar should render 1`] = `
           >
             <a
               class="button-root btn btn-link link"
-              href="/workspace/23/123/contacts/accounts"
-            >
-              <span
-                class="link-content-wrapper"
-              >
-                <span
-                  class="icon-wrapper"
-                >
-                  <svg
-                    class="icon-root lexicon-icon lexicon-icon-ac-account"
-                    viewBox=""
-                  >
-                    <use
-                      xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-account"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="item-label"
-                >
-                  Accounts
-                </span>
-              </span>
-            </a>
-          </li>
-          <li
-            class="sidebar-item-root"
-          >
-            <a
-              class="button-root btn btn-link link"
               href="/workspace/23/123/contacts/individuals"
             >
               <span
