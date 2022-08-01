@@ -6,6 +6,7 @@ import SelectDataSource from '../components/SelectDataSource';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withAdminPermission} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {ENABLE_SALESFORCE} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
 
 interface IAddDataSourceProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -34,7 +35,9 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 						analytics.track(
 							'Clicked Create DXP Data Source - TEST',
 							null,
-							{ip: '0'}
+							{
+								ip: '0'
+							}
 						);
 
 						open(modalTypes.CONNECT_DXP_MODAL, {
@@ -44,7 +47,7 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 					},
 					subtitle: Liferay.Language.get('supports-liferay-70+')
 				},
-				{
+				ENABLE_SALESFORCE && {
 					iconName: 'salesforce-logo',
 					iconSize: 'xxl',
 					name: Liferay.Language.get('salesforce'),
@@ -62,7 +65,7 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 					),
 					url: toRoute(Routes.SETTINGS_CSV_UPLOAD, {groupId})
 				}
-			],
+			].filter(Boolean) as [],
 			title: Liferay.Language.get('choose-source')
 		}
 	];

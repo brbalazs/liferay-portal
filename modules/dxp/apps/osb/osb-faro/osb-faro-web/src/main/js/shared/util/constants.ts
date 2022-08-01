@@ -8,6 +8,10 @@ export const PROD_MODE = FARO_ENV === 'prd';
 
 export const ENABLE_ACCOUNTS = false;
 
+// LRAC-11571 Disable temporarily Salesforce
+
+export const ENABLE_SALESFORCE = false;
+
 /**
  * Languages
  */
