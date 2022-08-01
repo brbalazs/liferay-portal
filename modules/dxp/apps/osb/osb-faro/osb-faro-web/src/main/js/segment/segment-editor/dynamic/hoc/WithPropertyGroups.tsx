@@ -13,6 +13,7 @@ import {
 import {createInterestProperty} from '../utils/utils';
 import {
 	DEVELOPER_MODE,
+	ENABLE_ACCOUNTS,
 	FieldContexts,
 	FieldOwnerTypes
 } from 'shared/util/constants';
@@ -133,75 +134,78 @@ const mapResultToProps = ([
 		])
 	});
 
-	const propertyGroupsIList = List([
-		new PropertyGroup({
-			label: Liferay.Language.get('events'),
-			propertyKey: 'web',
-			propertySubgroups: List(
-				[
-					new PropertySubgroup({
-						// TODO: LRAC-8210 Remove for release 3.1
-						label: DEVELOPER_MODE
-							? Liferay.Language.get('default-events')
-							: null,
-						properties: webBehaviors
-					}),
-					// TODO: LRAC-8210 Remove for release 3.1
-					DEVELOPER_MODE &&
+	const propertyGroupsIList = List(
+		[
+			new PropertyGroup({
+				label: Liferay.Language.get('events'),
+				propertyKey: 'web',
+				propertySubgroups: List(
+					[
 						new PropertySubgroup({
-							label: Liferay.Language.get('custom-events'),
+							// TODO: LRAC-8210 Remove for release 3.1
+							label: DEVELOPER_MODE
+								? Liferay.Language.get('default-events')
+								: null,
+							properties: webBehaviors
+						}),
+						// TODO: LRAC-8210 Remove for release 3.1
+						DEVELOPER_MODE &&
+							new PropertySubgroup({
+								label: Liferay.Language.get('custom-events'),
+								properties: List(
+									eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
+										convertEventToProperty
+									)
+								)
+							})
+					].filter(Boolean)
+				)
+			}),
+			new PropertyGroup({
+				label: sub(Liferay.Language.get('x-attributes'), [
+					Liferay.Language.get('individual')
+				]) as string,
+				propertyKey: FieldOwnerTypes.Individual,
+				propertySubgroups: individualSubgroupsIList
+			}),
+			ENABLE_ACCOUNTS &&
+				new PropertyGroup({
+					label: sub(Liferay.Language.get('x-attributes'), [
+						Liferay.Language.get('account')
+					]) as string,
+					propertyKey: FieldOwnerTypes.Account,
+					propertySubgroups: List([
+						new PropertySubgroup({
 							properties: List(
-								eventProperties?.data?.eventDefinitions?.eventDefinitions?.map(
-									convertEventToProperty
+								accountMappings.items.map(
+									convertFieldMappingToAccountProperty
 								)
 							)
 						})
-				].filter(Boolean)
-			)
-		}),
-		new PropertyGroup({
-			label: sub(Liferay.Language.get('x-attributes'), [
-				Liferay.Language.get('individual')
-			]) as string,
-			propertyKey: FieldOwnerTypes.Individual,
-			propertySubgroups: individualSubgroupsIList
-		}),
-		new PropertyGroup({
-			label: sub(Liferay.Language.get('x-attributes'), [
-				Liferay.Language.get('account')
-			]) as string,
-			propertyKey: FieldOwnerTypes.Account,
-			propertySubgroups: List([
-				new PropertySubgroup({
-					properties: List(
-						accountMappings.items.map(
-							convertFieldMappingToAccountProperty
+					])
+				}),
+			new PropertyGroup({
+				label: Liferay.Language.get('interests'),
+				propertyKey: 'interest',
+				propertySubgroups: List([
+					new PropertySubgroup({
+						properties: List(
+							interestKeywords.items.map(createInterestProperty)
 						)
-					)
-				})
-			])
-		}),
-		new PropertyGroup({
-			label: Liferay.Language.get('interests'),
-			propertyKey: 'interest',
-			propertySubgroups: List([
-				new PropertySubgroup({
-					properties: List(
-						interestKeywords.items.map(createInterestProperty)
-					)
-				})
-			])
-		}),
-		new PropertyGroup({
-			label: sub(Liferay.Language.get('x-attributes'), [
-				Liferay.Language.get('session')
-			]) as string,
-			propertyKey: 'session',
-			propertySubgroups: List([
-				new PropertySubgroup({properties: sessionProperties})
-			])
-		})
-	]);
+					})
+				])
+			}),
+			new PropertyGroup({
+				label: sub(Liferay.Language.get('x-attributes'), [
+					Liferay.Language.get('session')
+				]) as string,
+				propertyKey: 'session',
+				propertySubgroups: List([
+					new PropertySubgroup({properties: sessionProperties})
+				])
+			})
+		].filter(Boolean) as PropertyGroup[]
+	);
 
 	return {
 		propertyGroupsIList: propertyGroupsIList.push(organizationPropertyGroup)
