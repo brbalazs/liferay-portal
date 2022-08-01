@@ -14,17 +14,58 @@
 
 package com.liferay.portal.util;
 
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.portlet.InvokerPortlet;
+import com.liferay.portal.kernel.servlet.DummyHttpServletResponse;
+import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.upgrade.MockPortletPreferences;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HttpUtil;
-import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.LayoutTypePortletFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.ProxyFactory;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.impl.LayoutImpl;
+import com.liferay.portal.model.impl.PortletAppImpl;
+import com.liferay.portal.model.impl.PortletImpl;
+import com.liferay.portal.model.impl.UserImpl;
+import com.liferay.portal.theme.ThemeDisplayFactory;
+import com.liferay.portlet.ActionRequestFactory;
+import com.liferay.portlet.ActionResponseFactory;
+import com.liferay.portlet.internal.ActionRequestImpl;
+import com.liferay.portlet.internal.ActionResponseImpl;
+import com.liferay.portlet.internal.MutableRenderParametersImpl;
+import com.liferay.registry.BasicRegistryImpl;
+import com.liferay.registry.RegistryUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletMode;
+import javax.portlet.WindowState;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -38,6 +79,55 @@ public class PortalImplUnitTest {
 		HttpUtil httpUtil = new HttpUtil();
 
 		httpUtil.setHttp(new HttpImpl());
+	}
+
+	@Test
+	public void testCopyRequestParametersWithoutPassword1Password2()
+		throws PortletException {
+
+		Map<String, String[]> params = _createMapParams();
+
+		Enumeration<String> enumeration = _createEnumerationParams();
+
+		ActionRequest actionRequest = _createActionRequestMock(
+			params, enumeration);
+
+		MockedStatic<PortalUtil> portalUtilMock = Mockito.mockStatic(
+			PortalUtil.class);
+
+		ActionResponse actionResponse = _createActionResponse(portalUtilMock);
+
+		_portalImpl.copyRequestParameters(actionRequest, actionResponse);
+
+		portalUtilMock.close();
+
+		_assertActionResponse(actionResponse, params);
+	}
+
+	@Test
+	public void testCopyRequestParametersWithPassword1Password2()
+		throws PortletException {
+
+		Map<String, String[]> params = _createMapParams();
+
+		params.put(_PASSWORD1, new String[] {"abc_123"});
+		params.put(_PASSWORD2, new String[] {"def_456"});
+
+		Enumeration<String> enumeration = _createEnumerationParams();
+
+		ActionRequest actionRequestMock = _createActionRequestMock(
+			params, enumeration);
+
+		MockedStatic<PortalUtil> portalUtilMock = Mockito.mockStatic(
+			PortalUtil.class);
+
+		ActionResponse actionResponse = _createActionResponse(portalUtilMock);
+
+		_portalImpl.copyRequestParameters(actionRequestMock, actionResponse);
+
+		portalUtilMock.close();
+
+		_assertActionResponse(actionResponse, params);
 	}
 
 	@Test
@@ -548,11 +638,169 @@ public class PortalImplUnitTest {
 				"/web/group/layout", "/group/layout", "/group"));
 	}
 
+	protected HttpServletRequest getWrappedRequest(
+		HttpServletRequest httpServletRequest) {
+
+		HttpServletRequestWrapper requestWrapper =
+			(HttpServletRequestWrapper)httpServletRequest;
+
+		return (HttpServletRequest)requestWrapper.getRequest();
+	}
+
 	protected void setPropsValuesValue(String fieldName, Object value)
 		throws Exception {
 
 		ReflectionTestUtil.setFieldValue(PropsValues.class, fieldName, value);
 	}
+
+	private void _assertActionResponse(
+		ActionResponse actionResponse, Map<String, String[]> params) {
+
+		MutableRenderParametersImpl mutableRenderParametersImpl =
+			(MutableRenderParametersImpl)actionResponse.getRenderParameters();
+
+		Assert.assertEquals(
+			mutableRenderParametersImpl.getValues(_REDIRECT)[0].toString(),
+			params.get(_REDIRECT)[0]);
+		Assert.assertEquals(
+			mutableRenderParametersImpl.getValues(_P_U_I_D)[0].toString(),
+			params.get(_P_U_I_D)[0]);
+		Assert.assertEquals(
+			mutableRenderParametersImpl.getValues(_PASSWORDRESET)[0].toString(),
+			params.get(_PASSWORDRESET)[0]);
+		Assert.assertNull(mutableRenderParametersImpl.getValues(_PASSWORD1));
+		Assert.assertNull(mutableRenderParametersImpl.getValues(_PASSWORD2));
+	}
+
+	private ActionRequest _createActionRequest(PortletMode portletMode) {
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		HttpServletRequest httpServletRequest = new DynamicServletRequest(
+			mockHttpServletRequest, new HashMap<>());
+
+		ThemeDisplay themeDisplay = ThemeDisplayFactory.create();
+
+		httpServletRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
+
+		RegistryUtil.setRegistry(new BasicRegistryImpl());
+
+		Portlet portlet = new PortletImpl(100L, "test_portlet");
+
+		portlet.setPortletApp(new PortletAppImpl("test_servlet_context"));
+
+		return (ActionRequestImpl)ActionRequestFactory.create(
+			httpServletRequest, portlet,
+			ProxyFactory.newDummyInstance(InvokerPortlet.class),
+			new MockLiferayPortletContext("/path"), WindowState.NORMAL,
+			portletMode, new MockPortletPreferences(), 4000L);
+	}
+
+	private ActionRequest _createActionRequestMock(
+		Map<String, String[]> params, Enumeration<String> enumeration) {
+
+		ActionRequest actionRequestMock = Mockito.mock(ActionRequest.class);
+
+		Mockito.when(
+			actionRequestMock.getParameterNames()
+		).thenReturn(
+			enumeration
+		);
+		Mockito.when(
+			actionRequestMock.getParameterValues(_REDIRECT)
+		).thenReturn(
+			params.get(_REDIRECT)
+		);
+		Mockito.when(
+			actionRequestMock.getParameterValues(_P_U_I_D)
+		).thenReturn(
+			params.get(_P_U_I_D)
+		);
+		Mockito.when(
+			actionRequestMock.getParameterValues(_PASSWORDRESET)
+		).thenReturn(
+			params.get(_PASSWORDRESET)
+		);
+		Mockito.when(
+			actionRequestMock.getParameterValues(_PASSWORD1)
+		).thenReturn(
+			params.get(_PASSWORD1)
+		);
+		Mockito.when(
+			actionRequestMock.getParameterValues(_PASSWORD2)
+		).thenReturn(
+			params.get(_PASSWORD2)
+		);
+
+		return actionRequestMock;
+	}
+
+	private ActionResponse _createActionResponse(
+			MockedStatic<PortalUtil> portalUtilMock)
+		throws PortletException {
+
+		HttpServletResponse httpServletResponse =
+			new DummyHttpServletResponse();
+
+		LayoutTypePortletFactoryUtil layoutTypePortletFactoryUtil =
+			new LayoutTypePortletFactoryUtil();
+
+		layoutTypePortletFactoryUtil.setLayoutTypePortletFactory(
+			new LayoutTypePortletFactoryImpl());
+
+		portalUtilMock.when(
+			() -> PortalUtil.updateWindowState(
+				Mockito.anyString(), Mockito.any(UserImpl.class),
+				Mockito.any(LayoutImpl.class), Mockito.any(WindowState.class),
+				Mockito.any(HttpServletRequest.class))
+		).thenReturn(
+			WindowState.NORMAL
+		);
+
+		PortletMode portletMode = Mockito.mock(PortletMode.class);
+
+		Mockito.doReturn(
+			null
+		).when(
+			portletMode
+		).toString();
+
+		return (ActionResponseImpl)ActionResponseFactory.create(
+			_createActionRequest(portletMode), httpServletResponse,
+			new UserImpl(), new LayoutImpl());
+	}
+
+	private Enumeration<String> _createEnumerationParams() {
+		List<String> arrayList = new ArrayList<>();
+
+		arrayList.add(_REDIRECT);
+		arrayList.add(_P_U_I_D);
+		arrayList.add(_PASSWORDRESET);
+		arrayList.add(_PASSWORD1);
+		arrayList.add(_PASSWORD2);
+
+		return Collections.enumeration(arrayList);
+	}
+
+	private Map<String, String[]> _createMapParams() {
+		return HashMapBuilder.put(
+			_P_U_I_D, new String[] {String.valueOf(4200L)}
+		).put(
+			_PASSWORDRESET, new String[] {Boolean.TRUE.toString()}
+		).put(
+			_REDIRECT, new String[] {"http://localhost:8080/test"}
+		).build();
+	}
+
+	private static final String _P_U_I_D = "p_u_i_d";
+
+	private static final String _PASSWORD1 = "password1";
+
+	private static final String _PASSWORD2 = "password2";
+
+	private static final String _PASSWORDRESET = "passwordReset";
+
+	private static final String _REDIRECT = "redirect";
 
 	private final PortalImpl _portalImpl = new PortalImpl();
 
