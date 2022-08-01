@@ -4,6 +4,10 @@ export const DEVELOPER_MODE = FARO_DEV_MODE;
 
 export const PROD_MODE = FARO_ENV === 'prd';
 
+// LRAC-11571 Disable temporarily Accounts
+
+export const ENABLE_ACCOUNTS = false;
+
 /**
  * Languages
  */
