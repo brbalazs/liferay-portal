@@ -25,13 +25,14 @@ const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 	 * @param {object} param1 context
 	 */
 	const mapPropsToOptions = ({
-		assetId: assetIdProps,
+		assetId,
 		filters,
 		interval,
 		rangeSelectors,
 		router: {params}
 	}) => {
 		const {variables} = getVariables({
+			assetId: assetId || params.assetId,
 			filters,
 			interval,
 			params,
@@ -39,10 +40,7 @@ const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 		});
 
 		return {
-			variables: {
-				...variables,
-				assetId: decodeURIComponent(assetIdProps || params.assetId)
-			}
+			variables
 		};
 	};
 

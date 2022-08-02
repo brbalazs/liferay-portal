@@ -1,13 +1,23 @@
 import React, {useRef} from 'react';
 import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
+import {Dictionary, pickBy} from 'lodash';
 import {getUrl as getUrlUtil} from 'shared/util/urls';
 import {Link, useParams} from 'react-router-dom';
-import {pickBy} from 'lodash';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {toFixedPoint} from 'shared/util/numbers';
 import {useQueryRangeSelectors} from 'shared/hooks';
+
+interface ITouchpointRouter {
+	params: {
+		channelId: string;
+		groupId: string;
+		title: string;
+		touchpoint: string;
+	};
+	query: Dictionary<string>;
+}
 
 const MAX_PAGES_LIMIT = 1000;
 type Item = {
@@ -20,14 +30,15 @@ interface ITouchpointsListCardProps
 }
 
 const TouchpointsListCard: React.FC<ITouchpointsListCardProps> = ({items}) => {
-	const {groupId} = useParams();
+	const {channelId, groupId} = useParams();
 	const rangeSelectors = useQueryRangeSelectors();
 
 	const elementRef = useRef(null);
 
 	const getUrl = ({title, touchpoint}: Item): string => {
-		const router = {
+		const router: ITouchpointRouter = {
 			params: {
+				channelId,
 				groupId,
 				title,
 				touchpoint: encodeURIComponent(touchpoint)
@@ -36,6 +47,7 @@ const TouchpointsListCard: React.FC<ITouchpointsListCardProps> = ({items}) => {
 				...pickBy(rangeSelectors)
 			}
 		};
+
 		return getUrlUtil(Routes.SITES_TOUCHPOINTS_OVERVIEW, router);
 	};
 
