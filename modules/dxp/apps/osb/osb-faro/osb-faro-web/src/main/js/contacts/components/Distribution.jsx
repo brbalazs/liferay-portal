@@ -337,10 +337,11 @@ export class Distribution extends React.Component {
 		page,
 		query
 	}) {
-		const {groupId, id} = this.props;
+		const {channelId, groupId, id} = this.props;
 
 		return API.individuals.search(
 			pickBy({
+				channelId,
 				delta,
 				filter,
 				groupId,
