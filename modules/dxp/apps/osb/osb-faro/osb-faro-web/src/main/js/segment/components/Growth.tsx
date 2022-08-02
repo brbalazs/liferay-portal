@@ -1,12 +1,13 @@
 import * as API from 'shared/api';
-// import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import ChartTooltip from 'shared/components/chart-tooltip';
+import ChartTooltip, {
+	Alignments,
+	Weights
+} from 'shared/components/chart-tooltip';
 import ComposedChartWithEmptyState from 'shared/components/ComposedChartWithEmptyState';
 import getCN from 'classnames';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
-// import PropTypes from 'prop-types';
 import React, {useRef, useState} from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import URLConstants from 'shared/util/url-constants';
@@ -52,17 +53,6 @@ const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const INTERVAL = 'D';
 
-// const CHANGES_AGGREGATION_SHAPE = PropTypes.arrayOf(
-// 	PropTypes.shape({
-// 		added: PropTypes.number,
-// 		anonymousCount: PropTypes.number,
-// 		knownCount: PropTypes.number,
-// 		modifiedDate: PropTypes.number,
-// 		removed: PropTypes.number,
-// 		value: PropTypes.number
-// 	})
-// ).isRequired;
-
 const getAllMembers = data => {
 	const {channelId, delta, groupId, id, orderIOMap, page, query} = data;
 
@@ -78,10 +68,9 @@ const getAllMembers = data => {
 };
 
 const getMemberChanges = data => {
-	const {delta, groupId, id, modifiedDate, orderIOMap, page, query} = data;
+	const {delta, groupId, id, modifiedDate, orderIOMap, query} = data;
 
 	return API.individualSegment.fetchMembershipChanges({
-		cur: page,
 		delta,
 		endDate: modifiedDate,
 		groupId,
@@ -92,12 +81,25 @@ const getMemberChanges = data => {
 	});
 };
 
-export const SegmentGrowthChart = ({
+interface ISegmentGrowthChartProps {
+	alwaysShowSelectedTooltip: boolean;
+	data: Array<any>;
+	hasSelectedPoint: boolean;
+	height: number;
+	individualCounts?: {anonymousCount: number; knownCount: number};
+	onPointSelect: Function;
+	selectedPoint: number;
+}
+
+export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 	alwaysShowSelectedTooltip = false,
 	data,
 	hasSelectedPoint,
 	height = 360,
-	individualCounts: {anonymousCount, knownCount},
+	individualCounts = {
+		anonymousCount: 0,
+		knownCount: 0
+	},
 	onPointSelect,
 	selectedPoint
 }) => {
@@ -105,22 +107,22 @@ export const SegmentGrowthChart = ({
 	const [mouseOutside, setMouseOutside] = useState(false);
 	const [selectedTooltipX, setSelectedTooltipX] = useState(null);
 
-	// static propTypes = {
-	// 	alwaysShowSelectedTooltip: PropTypes.bool,
-	// 	data: CHANGES_AGGREGATION_SHAPE,
-	// 	hasSelectedPoint: PropTypes.bool,
-	// 	height: PropTypes.number,
-	// 	individualCounts: PropTypes.shape({
-	// 		anonymousCount: PropTypes.number,
-	// 		knownCount: PropTypes.number
-	// 	}),
-	// 	onPointSelect: PropTypes.func,
-	// 	selectedPoint: PropTypes.number
-	// };
+	const {anonymousCount, knownCount} = individualCounts;
 
-	const tooltipRef = useRef();
+	const tooltipRef = useRef(null);
+	interface TooltipProps {
+		active: boolean;
+		payload: {
+			added: number;
+			anonymousCount: number;
+			knownCount: number;
+			modifiedDate: [];
+			removed: number;
+			value: number;
+		}[];
+	}
 
-	const renderTooltip = ({active, payload}) => {
+	const renderTooltip: React.FC<TooltipProps> = ({active, payload}) => {
 		if ((active && payload && !!payload.length) || hasSelectedPoint) {
 			const {
 				added,
@@ -163,12 +165,12 @@ export const SegmentGrowthChart = ({
 									Liferay.Language.get('as-of-x'),
 									[formatUTCDateFromUnix(modifiedDate, 'll')],
 									false
-								),
-								weight: 'semibold'
+								) as string,
+								weight: Weights.Semibold
 							},
 							{
 								className: 'pb-0',
-								label: (
+								label: () => (
 									<span className='text-secondary'>
 										{sub(
 											Liferay.Language.get(
@@ -186,7 +188,7 @@ export const SegmentGrowthChart = ({
 							},
 							{
 								className: 'pb-0',
-								label: (
+								label: () => (
 									<span className='text-secondary'>
 										{sub(
 											Liferay.Language.get(
@@ -203,7 +205,7 @@ export const SegmentGrowthChart = ({
 								)
 							},
 							{
-								label: (
+								label: () => (
 									<span className='text-secondary'>
 										{sub(
 											Liferay.Language.get(
@@ -242,13 +244,13 @@ export const SegmentGrowthChart = ({
 									{
 										className,
 										label,
-										weight: 'normal'
+										weight: Weights.Normal
 									},
 									{
-										align: 'right',
+										align: Alignments.Right,
 										className,
 										label: value,
-										weight: 'semibold'
+										weight: Weights.Semibold
 									}
 								]
 							};
@@ -553,13 +555,6 @@ export const SelectedPointInfo = ({
 	onClearSelection,
 	selectedPoint
 }) => {
-	// static propTypes = {
-	// 	data: CHANGES_AGGREGATION_SHAPE,
-	// 	hasSelectedPoint: PropTypes.bool,
-	// 	onClearSelection: PropTypes.func.isRequired,
-	// 	selectedPoint: PropTypes.number
-	// };
-
 	const {added, modifiedDate, removed} = get(data, selectedPoint, {});
 
 	const changeValues =
@@ -706,6 +701,7 @@ const SegmentGrowthWithList = ({
 					alwaysShowSelectedTooltip
 					data={data}
 					hasSelectedPoint={hasSelectedPoint}
+					height={360}
 					individualCounts={individualCounts}
 					onPointSelect={onPointSelect}
 					selectedPoint={selectedPoint}
