@@ -137,7 +137,11 @@ export function CommerceMetricCard<TGraphQlData>({
 													trend?.percentage
 												)}
 												key='TREND'
-												label={`${trend?.percentage}%`}
+												label={`${
+													trend.percentage < 0
+														? trend?.percentage * -1
+														: trend?.percentage
+												}%`}
 											/>
 										],
 										false
