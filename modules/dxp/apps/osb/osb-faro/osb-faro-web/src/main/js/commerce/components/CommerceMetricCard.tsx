@@ -132,17 +132,12 @@ export function CommerceMetricCard<TGraphQlData>({
 											<TrendComponent
 												className='d-inline'
 												color={getStatsColor(
-													trend?.trendClassification
+													trend.trendClassification
 												)}
-												icon={getIcon(
-													trend?.percentage
-												)}
+												icon={getIcon(trend.percentage)}
 												key='TREND'
 												label={`${toRounded(
-													trend.percentage < 0
-														? trend?.percentage * -1
-														: trend?.percentage,
-													1
+													Math.abs(trend.percentage)
 												)}%`}
 											/>
 										],
