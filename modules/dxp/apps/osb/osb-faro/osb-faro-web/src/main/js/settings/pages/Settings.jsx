@@ -8,6 +8,7 @@ import React, {Fragment, lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {ENABLE_SALESFORCE} from 'shared/util/constants';
 import {Link, matchPath, Switch, withRouter} from 'react-router-dom';
 import {Project, User} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
@@ -314,11 +315,13 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_ADD_DATA_SOURCE}
 								/>
 
-								<BundleRouter
-									data={NewSalesforceDataSource}
-									exact
-									path={Routes.SETTINGS_SALESFORCE_ADD}
-								/>
+								{ENABLE_SALESFORCE && (
+									<BundleRouter
+										data={NewSalesforceDataSource}
+										exact
+										path={Routes.SETTINGS_SALESFORCE_ADD}
+									/>
+								)}
 
 								<BundleRouter
 									data={DeleteDataSource}
