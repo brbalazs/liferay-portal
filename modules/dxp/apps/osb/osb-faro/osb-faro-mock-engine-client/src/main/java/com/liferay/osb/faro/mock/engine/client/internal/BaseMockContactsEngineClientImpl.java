@@ -283,8 +283,10 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
-	public void deleteProject(FaroProject faroProject) throws Exception {
-		contactsEngineClient.deleteProject(faroProject);
+	public void deleteProject(FaroProject faroProject, boolean deleteData)
+		throws Exception {
+
+		contactsEngineClient.deleteProject(faroProject, deleteData);
 	}
 
 	@Override

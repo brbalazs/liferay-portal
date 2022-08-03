@@ -519,8 +519,16 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public void deleteProject(FaroProject faroProject) throws Exception {
-		delete(faroProject);
+	public void deleteProject(FaroProject faroProject, boolean deleteData)
+		throws Exception {
+
+		Map<String, List<String>> queryParameters = new HashMap<>();
+
+		queryParameters.put(
+			"deleteData",
+			Collections.singletonList(String.valueOf(deleteData)));
+
+		delete(faroProject, queryParameters);
 	}
 
 	@Override

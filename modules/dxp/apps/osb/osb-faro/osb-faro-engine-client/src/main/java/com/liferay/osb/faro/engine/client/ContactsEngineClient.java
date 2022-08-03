@@ -154,7 +154,8 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, String individualSegmentId,
 		String individualId);
 
-	public void deleteProject(FaroProject faroProject) throws Exception;
+	public void deleteProject(FaroProject faroProject, boolean deleteData)
+		throws Exception;
 
 	public void disconnectDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException;

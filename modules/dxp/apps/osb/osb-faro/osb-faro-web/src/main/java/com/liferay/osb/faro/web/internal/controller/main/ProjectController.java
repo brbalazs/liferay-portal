@@ -327,7 +327,9 @@ public class ProjectController extends BaseFaroController {
 	@DELETE
 	@Path("/{groupId}")
 	@RolesAllowed(StringPool.BLANK)
-	public ProjectDisplay delete(@PathParam("groupId") long groupId)
+	public ProjectDisplay delete(
+			@PathParam("groupId") long groupId,
+			@DefaultValue("true") @QueryParam("deleteData") boolean deleteData)
 		throws Exception {
 
 		_contactsCardTemplateLocalService.deleteContactsCardTemplates(groupId);
@@ -335,7 +337,8 @@ public class ProjectController extends BaseFaroController {
 			groupId);
 
 		contactsEngineClient.deleteProject(
-			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId));
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId),
+			deleteData);
 
 		return new ProjectDisplay(
 			_faroProjectLocalService.deleteFaroProjectByGroupId(groupId));
