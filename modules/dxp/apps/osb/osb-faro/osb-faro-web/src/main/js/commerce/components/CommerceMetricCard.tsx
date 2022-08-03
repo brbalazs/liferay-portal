@@ -14,6 +14,7 @@ import {
 import {gql} from 'apollo-boost';
 import {RangeSelectors, RawRangeSelectors} from 'shared/types';
 import {sub} from 'shared/util/lang';
+import {toRounded} from 'shared/util/numbers';
 import {Trend} from 'commerce/utils/types';
 import {useParams} from 'react-router-dom';
 import {useQuery} from '@apollo/react-hooks';
@@ -137,11 +138,12 @@ export function CommerceMetricCard<TGraphQlData>({
 													trend?.percentage
 												)}
 												key='TREND'
-												label={`${
+												label={`${toRounded(
 													trend.percentage < 0
 														? trend?.percentage * -1
-														: trend?.percentage
-												}%`}
+														: trend?.percentage,
+													1
+												)}%`}
 											/>
 										],
 										false
