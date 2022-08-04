@@ -108,23 +108,6 @@ exports[`DataSourceDelete should render 1`] = `
                   type="button"
                 >
                   <h5>
-                    123 Accounts
-                  </h5>
-                </button>
-                <div
-                  class="secondary-info"
-                >
-                  All attributes related to an Account from this data source will be removed, which may result in the removal of the Account.
-                </div>
-              </div>
-              <div
-                class="entity-item"
-              >
-                <button
-                  class="button-root btn btn-unstyled title"
-                  type="button"
-                >
-                  <h5>
                     1 Individuals
                   </h5>
                 </button>
@@ -132,40 +115,6 @@ exports[`DataSourceDelete should render 1`] = `
                   class="secondary-info"
                 >
                   All attributes related to an Individual from this data source will be removed, which may result in the removal of the Individual.
-                </div>
-              </div>
-              <div
-                class="entity-item"
-              >
-                <button
-                  class="button-root btn btn-unstyled title"
-                  type="button"
-                >
-                  <h5>
-                    1,234 Pages
-                  </h5>
-                </button>
-                <div
-                  class="secondary-info"
-                >
-                  All pages and related behaviors for both known and anonymous individuals will be deleted.
-                </div>
-              </div>
-              <div
-                class="entity-item"
-              >
-                <button
-                  class="button-root btn btn-unstyled title"
-                  type="button"
-                >
-                  <h5>
-                    23 Assets
-                  </h5>
-                </button>
-                <div
-                  class="secondary-info"
-                >
-                  All assets and related behaviors for both known and anonymous individuals will be deleted.
                 </div>
               </div>
             </div>
