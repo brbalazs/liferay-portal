@@ -95,8 +95,20 @@ export function safeResultToProps(mapper) {
  * @param {object} params
  * @param {string} rangeSelectors
  */
-export function getVariables({filters, interval, params, rangeSelectors = {}}) {
-	const {assetId, channelId, title = '', touchpoint = ''} = params;
+export function getVariables({
+	assetId: assetIdFromProps,
+	filters,
+	interval,
+	params,
+	rangeSelectors = {}
+}) {
+	const {
+		assetId: assetIdFromParams,
+		channelId,
+		title = '',
+		touchpoint = ''
+	} = params;
+	const assetId = assetIdFromProps || assetIdFromParams;
 
 	let variables = {
 		title: decodeURIComponent(title),

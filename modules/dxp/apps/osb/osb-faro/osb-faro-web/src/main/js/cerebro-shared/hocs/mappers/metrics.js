@@ -32,7 +32,7 @@ const getMetricsMapper = (getData, metrics, chartDataMapFn) => {
 		router: {params}
 	}) => {
 		const {variables} = getVariables({
-			assetId: assetId || params.assetId,
+			assetId,
 			filters,
 			interval,
 			params,
