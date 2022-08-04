@@ -127,6 +127,8 @@ definition {
 
 		PortletEntry.save();
 
+		Workflow.gotoPreviewEdit();
+
 		DDLRecord.viewEditPreview(
 			ddlRecordFieldDataEdit = "DDL Record Edit",
 			fieldFieldLabel = "Text",
