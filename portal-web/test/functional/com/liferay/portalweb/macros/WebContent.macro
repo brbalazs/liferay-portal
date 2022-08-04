@@ -1061,7 +1061,11 @@ definition {
 				uploadFileName = "${webContentImage}");
 		}
 
-		SelectFrame(locator1 = "IFrame#DIALOG");
+		var iFrameDialog = "IFrame#DIALOG";
+
+		if (IsElementPresent(locator1 = "${iFrameDialog}")) {
+			SelectFrame(locator1 = "${iFrameDialog}");
+		}
 
 		PortletEntry.save();
 	}
