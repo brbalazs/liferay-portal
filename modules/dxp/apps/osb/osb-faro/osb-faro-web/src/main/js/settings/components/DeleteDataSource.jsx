@@ -6,19 +6,16 @@ import getCN from 'classnames';
 import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import TextTruncate from 'shared/components/TextTruncate';
-import {
-	accountsListColumns,
-	assetsListColumns,
-	individualsListColumns,
-	pagesListColumns,
-	segmentsListColumns
-} from 'shared/util/table-columns';
-import {AssetTypes, EntityTypes} from 'shared/util/constants';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
+import {EntityTypes} from 'shared/util/constants';
 import {getRouteName} from 'shared/util/router';
 import {getTypeLangKey, sub} from 'shared/util/lang';
+import {
+	individualsListColumns,
+	segmentsListColumns
+} from 'shared/util/table-columns';
 import {noop} from 'lodash/fp';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -30,16 +27,8 @@ import {Routes, toRoute} from 'shared/util/router';
  */
 function getEntityApi(entityType) {
 	switch (entityType) {
-		case EntityTypes.Account:
-			return API.accounts.search;
-		case EntityTypes.Asset:
-			return params =>
-				API.assets.search({assetType: AssetTypes.Asset, ...params});
 		case EntityTypes.Individual:
 			return API.individuals.search;
-		case EntityTypes.Page:
-			return params =>
-				API.assets.search({assetType: AssetTypes.WebPage, ...params});
 		case EntityTypes.IndividualsSegment:
 		default:
 			return API.individualSegment.search;
@@ -73,19 +62,6 @@ function getDataSourceFn(entityType) {
  */
 function getEntityColumns(entityType, timeZoneId) {
 	switch (entityType) {
-		case EntityTypes.Account:
-			return [
-				accountsListColumns.name,
-				accountsListColumns.type,
-				accountsListColumns.individualCount,
-				accountsListColumns.activitiesCount
-			];
-		case EntityTypes.Asset:
-			return [
-				assetsListColumns.name,
-				assetsListColumns.canonicalUrl,
-				assetsListColumns.type
-			];
 		case EntityTypes.Individual:
 			return [
 				individualsListColumns.name,
@@ -94,8 +70,6 @@ function getEntityColumns(entityType, timeZoneId) {
 				individualsListColumns.getLastActivityDate(timeZoneId),
 				individualsListColumns.willBeRemoved
 			];
-		case EntityTypes.Page:
-			return [pagesListColumns.name, pagesListColumns.canonicalUrl];
 		case EntityTypes.IndividualsSegment:
 		default:
 			return [
@@ -119,27 +93,9 @@ function getEntityTitle(entityType, dataSourceName) {
 	);
 
 	switch (entityType) {
-		case EntityTypes.Account:
-			return sub(
-				Liferay.Language.get('x-s-accounts'),
-				[<TruncatedName key='NAME' />],
-				false
-			);
-		case EntityTypes.Asset:
-			return sub(
-				Liferay.Language.get('x-s-assets'),
-				[<TruncatedName key='NAME' />],
-				false
-			);
 		case EntityTypes.Individual:
 			return sub(
 				Liferay.Language.get('x-s-individuals'),
-				[<TruncatedName key='NAME' />],
-				false
-			);
-		case EntityTypes.Page:
-			return sub(
-				Liferay.Language.get('x-s-pages'),
 				[<TruncatedName key='NAME' />],
 				false
 			);
@@ -286,18 +242,6 @@ export class DeleteDataSource extends React.Component {
 				])
 			},
 			{
-				entityType: EntityTypes.Account,
-				secondaryInfo: sub(
-					Liferay.Language.get(
-						'all-attributes-related-to-an-x-from-this-data-source-will-be-removed,-which-may-result-in-the-removal-of-the-x'
-					),
-					[Liferay.Language.get('account')]
-				),
-				title: sub(Liferay.Language.get('x-accounts'), [
-					entitiesCount[EntityTypes.Account].toLocaleString()
-				])
-			},
-			{
 				entityType: EntityTypes.Individual,
 				secondaryInfo: sub(
 					Liferay.Language.get(
@@ -307,24 +251,6 @@ export class DeleteDataSource extends React.Component {
 				),
 				title: sub(Liferay.Language.get('x-individuals'), [
 					entitiesCount[EntityTypes.Individual].toLocaleString()
-				])
-			},
-			{
-				entityType: EntityTypes.Page,
-				secondaryInfo: Liferay.Language.get(
-					'all-pages-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
-				),
-				title: sub(Liferay.Language.get('x-pages'), [
-					entitiesCount[EntityTypes.Page].toLocaleString()
-				])
-			},
-			{
-				entityType: EntityTypes.Asset,
-				secondaryInfo: Liferay.Language.get(
-					'all-assets-and-related-behaviors-for-both-known-and-anonymous-individuals-will-be-deleted'
-				),
-				title: sub(Liferay.Language.get('x-assets'), [
-					entitiesCount[EntityTypes.Asset].toLocaleString()
 				])
 			}
 		];
