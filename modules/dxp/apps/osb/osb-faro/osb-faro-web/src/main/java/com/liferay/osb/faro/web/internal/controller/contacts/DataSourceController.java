@@ -19,7 +19,6 @@ import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.osb.faro.contacts.model.constants.ContactsConstants;
 import com.liferay.osb.faro.engine.client.constants.ActivityConstants;
-import com.liferay.osb.faro.engine.client.constants.AssetConstants;
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
 import com.liferay.osb.faro.engine.client.exception.InvalidFilterException;
 import com.liferay.osb.faro.engine.client.model.Account;
@@ -444,12 +443,6 @@ public class DataSourceController extends BaseFaroController {
 		deletePreview.put(
 			FaroConstants.TYPE_ACCOUNT, accountResults.getTotal());
 
-		Results<Asset> assetResults = contactsEngineClient.getAssets(
-			faroProject, id, null, ActivityConstants.ACTION_ANY,
-			AssetConstants.TYPE_ASSET, 1, 0, null);
-
-		deletePreview.put(FaroConstants.TYPE_ASSET, assetResults.getTotal());
-
 		Results<Individual> individualResults =
 			contactsEngineClient.getIndividuals(
 				faroProject, null, null, id, null, null, null, null, null, null,
@@ -466,12 +459,6 @@ public class DataSourceController extends BaseFaroController {
 		deletePreview.put(
 			FaroConstants.TYPE_SEGMENT_INDIVIDUALS,
 			individualSegmentResults.getTotal());
-
-		Results<Asset> pageResults = contactsEngineClient.getAssets(
-			faroProject, id, null, ActivityConstants.ACTION_ANY,
-			Asset.AssetType.Page.name(), 1, 0, null);
-
-		deletePreview.put(FaroConstants.TYPE_PAGE, pageResults.getTotal());
 
 		return deletePreview;
 	}
