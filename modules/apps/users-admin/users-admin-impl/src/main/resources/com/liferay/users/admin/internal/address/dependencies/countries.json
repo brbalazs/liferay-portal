@@ -36,6 +36,15 @@
 		"zipRequired": true
 	},
 	{
+		"a2": "HK",
+		"a3": "HKG",
+		"active": true,
+		"idd": 344,
+		"name": "hong-kong",
+		"number": 852,
+		"zipRequired": true
+	},
+	{
 		"a2": "HU",
 		"a3": "HUN",
 		"active": true,
@@ -1159,6 +1168,15 @@
 		"name": "luxembourg",
 		"number": 442,
 		"zipRequired": true
+	},
+	{
+		"a2": "MO",
+		"a3": "MAC",
+		"active": true,
+		"idd": 446,
+		"name": "macau",
+		"number": 853,
+		"zipRequired": false
 	},
 	{
 		"a2": "MK",
