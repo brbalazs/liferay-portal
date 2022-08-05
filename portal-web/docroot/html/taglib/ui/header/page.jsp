@@ -22,21 +22,33 @@ if (Validator.isNull(backLabel)) {
 }
 
 String headerTitle = localizeTitle ? LanguageUtil.get(resourceBundle, title) : title;
+String message = escapeXml ? HtmlUtil.escape(backLabel) : backLabel;
 %>
 
 <div class="taglib-header <%= cssClass %>">
 	<c:if test="<%= showBackURL && Validator.isNotNull(backURL) %>">
-		<liferay-ui:icon
-			cssClass="header-back-to"
-			icon="angle-left"
-			id="TabsBack"
-			label="<%= false %>"
-			markupView="lexicon"
-			message="<%= escapeXml ? HtmlUtil.escape(backLabel) : backLabel %>"
-			method="get"
-			url="<%= backURL %>"
-		/>
+		<span class="header-back-to lfr-header-tooltip" title="<%= HtmlUtil.escapeAttribute(LanguageUtil.get(resourceBundle, HtmlUtil.stripHtml(message))) %>">
+			<aui:a cssClass="lfr-icon-item taglib-icon" href="<%= backURL %>" id="<portlet:namespace />TabsBack" target="_self">
+				<aui:icon image="angle-left" markupView="lexicon" />
+
+				<span class="sr-only taglib-text"><%= LanguageUtil.get(resourceBundle, message) %></span>
+			</aui:a>
+		</span>
 	</c:if>
+
+	<aui:script use="aui-tooltip">
+		new A.TooltipDelegate(
+			{
+				constrain: true,
+				opacity: 1,
+				trigger: '.lfr-header-tooltip',
+				triggerHideEvent: ['click', 'mouseleave', 'MSPointerUp', 'touchend'],
+				position: 'bottom',
+				visible: false,
+				zIndex: Liferay.zIndex.TOOLTIP
+			}
+		)
+	</aui:script>
 
 	<h3 class="header-title">
 		<span>
