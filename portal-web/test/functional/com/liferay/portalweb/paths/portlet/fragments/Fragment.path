@@ -27,7 +27,7 @@
 </tr>
 <tr>
 	<td>FRAGMENT_BODY</td>
-	<td>//div[contains(@class,'fragment-entry-link-wrapper')][contains(.,'${key_fragmentName}')]</td>
+	<td>//div[contains(@class,'fragment-entry-link-wrapper')][contains(.,'${key_fragmentName}')]//div[contains(@class,'fragment-entry-link-content')]</td>
 	<td></td>
 </tr>
 <tr>
