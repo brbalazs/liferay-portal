@@ -1,7 +1,6 @@
 import * as accounts from './accounts';
 import * as activities from './activities';
 import * as apiTokens from './api-tokens';
-import * as assets from './assets';
 import * as blockedKeywords from './blocked-keywords';
 import * as channels from './channels';
 import * as contactsCards from './contacts-cards';
@@ -24,7 +23,6 @@ export {
 	accounts,
 	activities,
 	apiTokens,
-	assets,
 	blockedKeywords,
 	channels,
 	contactsCards,
