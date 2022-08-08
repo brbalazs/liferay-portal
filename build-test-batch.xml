@@ -3774,6 +3774,25 @@ log.sanitizer.enabled=false</echo>
 		/>
 	</target>
 
+	<target name="functional-bundle-tomcat-mariadb106-jdk8">
+		<set-tomcat-version-number liferay.portal.bundle="${test.portal.bundle.version}" />
+
+		<run-functional-test
+			app.server.type="tomcat"
+			database.type="mariadb"
+			setup.proxy="false"
+			test.build.fix.pack.zip.url="${test.build.fix.pack.zip.url}"
+			test.fix.pack.base.url="${test.fix.pack.base.url}"
+			test.license.xml.url="${test.license.xml.url}"
+			test.plugin.zip.url="${test.plugin.zip.url}"
+			test.plugins.war.zip.url="${test.plugins.war.zip.url}"
+			test.portal.bundle.version="${test.portal.bundle.version}"
+			test.portal.bundle.zip.url="${test.portal.bundle.zip.url}"
+			test.portal.lpkg.name="${test.portal.lpkg.name}"
+			test.sql.zip.url="${test.sql.zip.url}"
+		/>
+	</target>
+
 	<target name="functional-bundle-tomcat-mysql56-jdk8">
 		<set-tomcat-version-number liferay.portal.bundle="${test.portal.bundle.version}" />
 
@@ -3967,6 +3986,25 @@ log.sanitizer.enabled=false</echo>
 		/>
 	</target>
 
+	<target name="functional-bundle-wildfly-mariadb106-jdk8">
+		<run-functional-test
+			app.server.type="wildfly"
+			database.type="mariadb"
+			test.build.fix.pack.zip.url="${test.build.fix.pack.zip.url}"
+			test.fix.pack.base.url="${test.fix.pack.base.url}"
+			test.license.xml.url="${test.license.xml.url}"
+			test.plugin.zip.url="${test.plugin.zip.url}"
+			test.plugins.war.zip.url="${test.plugins.war.zip.url}"
+			test.portal.bundle.dependencies.zip.url="${test.portal.bundle.dependencies.zip.url}"
+			test.portal.bundle.osgi.zip.url="${test.portal.bundle.osgi.zip.url}"
+			test.portal.bundle.tools.zip.url="${test.portal.bundle.tools.zip.url}"
+			test.portal.bundle.war.url="${test.portal.bundle.war.url}"
+			test.portal.bundle.zip.url="${test.portal.bundle.zip.url}"
+			test.portal.lpkg.name="${test.portal.lpkg.name}"
+			test.sql.zip.url="${test.sql.zip.url}"
+		/>
+	</target>
+
 	<target name="functional-bundle-wildfly-mysql56-jdk8">
 		<run-functional-test
 			app.server.type="wildfly"
@@ -4118,6 +4156,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="tomcat" database.type="mariadb" test.portal.log.assert="true" />
 	</target>
 
+	<target name="functional-smoke-tomcat90-mariadb106-jdk8">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" test.portal.log.assert="true" />
+	</target>
+
+	<target name="functional-smoke-tomcat90-mariadb106-jdk11_open">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" test.portal.log.assert="true" />
+	</target>
+
 	<target name="functional-smoke-tomcat90-mysql57-jdk8">
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
 	</target>
@@ -4210,6 +4256,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" test.portal.log.assert="true" />
 	</target>
 
+	<target name="functional-smoke-wildfly110-mariadb106-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" test.portal.log.assert="true" />
+	</target>
+
+	<target name="functional-smoke-wildfly110-mariadb106-jdk11_open">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" test.portal.log.assert="true" />
+	</target>
+
 	<target name="functional-smoke-wildfly140-mariadb102-jdk8">
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="14.0.0" />
 
@@ -4259,6 +4313,14 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="functional-tomcat90-mariadb104-jdk11_open">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
+	</target>
+
+	<target name="functional-tomcat90-mariadb106-jdk8">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
+	</target>
+
+	<target name="functional-tomcat90-mariadb106-jdk11_open">
 		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
 	</target>
 
@@ -4382,6 +4444,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
 	</target>
 
+	<target name="functional-upgrade-tomcat90-mariadb106-jdk8">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
+	</target>
+
+	<target name="functional-upgrade-tomcat90-mariadb106-jdk11_open">
+		<run-functional-test app.server.type="tomcat" database.type="mariadb" />
+	</target>
+
 	<target name="functional-upgrade-tomcat90-mysql57-jdk8">
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" />
 	</target>
@@ -4466,6 +4536,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
 	</target>
 
+	<target name="functional-upgrade-wildfly110-mariadb106-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
+	<target name="functional-upgrade-wildfly110-mariadb106-jdk11_open">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
 	<target name="functional-upgrade-wildfly140-mariadb102-jdk8">
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="14.0.0" />
 
@@ -4486,6 +4564,14 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
 	</target>
 
+	<target name="functional-upgrade-wildfly160-mariadb106-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
+	<target name="functional-upgrade-wildfly160-mariadb106-jdk11_open">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
 	<target name="functional-weblogic122-mysql57-jdk8">
 		<run-functional-test app.server.type="weblogic" database.type="mysql" />
 	</target>
@@ -4503,6 +4589,10 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="functional-wildfly110-mariadb104-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
+	</target>
+
+	<target name="functional-wildfly110-mariadb106-jdk8">
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
 	</target>
 
@@ -4717,6 +4807,10 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="legacy-functional-bundle-tomcat-mariadb104">
+		<run-legacy-database-dump database.type="mariadb" />
+	</target>
+
+	<target name="legacy-functional-bundle-tomcat-mariadb106">
 		<run-legacy-database-dump database.type="mariadb" />
 	</target>
 
@@ -4942,6 +5036,23 @@ log.sanitizer.enabled=false</echo>
 		/>
 	</target>
 
+	<target name="modules-integration-bundle-mariadb106-jdk8">
+		<set-tomcat-version-number liferay.portal.bundle="${test.portal.bundle.version}" />
+
+		<run-modules-integration-test
+			database.type="mariadb"
+			test.build.fix.pack.zip.url="${test.build.fix.pack.zip.url}"
+			test.fix.pack.base.url="${test.fix.pack.base.url}"
+			test.license.xml.url="${test.license.xml.url}"
+			test.portal.bundle.dependencies.zip.url="${test.portal.bundle.dependencies.zip.url}"
+			test.portal.bundle.osgi.zip.url="${test.portal.bundle.osgi.zip.url}"
+			test.portal.bundle.tools.zip.url="${test.portal.bundle.tools.zip.url}"
+			test.portal.bundle.war.url="${test.portal.bundle.war.url}"
+			test.portal.bundle.zip.url="${test.portal.bundle.zip.url}"
+			test.sql.zip.url="${test.sql.zip.url}"
+		/>
+	</target>
+
 	<target name="modules-integration-bundle-mysql57-jdk8">
 		<set-tomcat-version-number liferay.portal.bundle="${test.portal.bundle.version}" />
 
@@ -5024,6 +5135,10 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="modules-integration-mariadb104-jdk8">
+		<run-modules-integration-test database.type="mariadb" />
+	</target>
+
+	<target name="modules-integration-mariadb106-jdk8">
 		<run-modules-integration-test database.type="mariadb" />
 	</target>
 
