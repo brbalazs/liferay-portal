@@ -217,8 +217,8 @@ export class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
 										className='preview-criteria'
 										data-testid='preview-criteria-button'
 										disabled={
-											totalMembersCount === '0' ||
-											!criteriaValid
+											!criteriaValid ||
+											(criteriaValid && !membersCount)
 										}
 										onClick={this.handlePreviewClick}
 										size='sm'

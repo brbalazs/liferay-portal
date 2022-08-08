@@ -34,7 +34,7 @@ describe('Toolbar', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render w/ preview button disabled if criteria is valid', () => {
+	it('should render w/ preview button disabled if criteria is valid and total members count is equal to 0', () => {
 		const {getByTestId} = render(
 			<StaticRouter>
 				<Formik>
@@ -50,7 +50,7 @@ describe('Toolbar', () => {
 		expect(getByTestId('preview-criteria-button')).toBeDisabled();
 	});
 
-	it('should render w/ preview button disabled if total members count is bigger thant 0', () => {
+	it('should render w/ preview button disabled if criteria is not valid', () => {
 		const {getByTestId} = render(
 			<StaticRouter>
 				<Formik>
@@ -66,7 +66,7 @@ describe('Toolbar', () => {
 		expect(getByTestId('preview-criteria-button')).toBeDisabled();
 	});
 
-	it('should render w/ preview button enabled if total members count is bigger than 0 and criteria is valid', async () => {
+	it('should render w/ preview button enabled if total members count is bigger thant 0', async () => {
 		API.individuals.search.mockReturnValue(Promise.resolve({total: 1}));
 
 		const {container, getByTestId} = render(
@@ -76,7 +76,6 @@ describe('Toolbar', () => {
 						channelId='321'
 						criteria={data.mockNewCriteria(1, {valid: true})}
 						groupId='123'
-						valid
 					/>
 				</Formik>
 			</StaticRouter>
