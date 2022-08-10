@@ -5,7 +5,7 @@ import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import Filter from '../hocs/Filter';
 import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
-import React, {lazy, Suspense, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import TextTruncate from 'shared/components/TextTruncate';
 import {getMatchedRoute, Routes} from 'shared/util/router';
@@ -65,6 +65,10 @@ function TouchpointRoutes({className, router}) {
 
 	const decodedTouchpoint = decodeURIComponent(touchpoint);
 
+	useEffect(() => {
+		setPathRangeSelectors(rangeSelectors);
+	}, [matchedRoute]);
+
 	return (
 		<BasePage
 			className={getCN(className)}
@@ -102,7 +106,7 @@ function TouchpointRoutes({className, router}) {
 						title,
 						touchpoint
 					}}
-					routeQueries={pickBy({...pathRangeSelectors})}
+					routeQueries={pickBy({...rangeSelectors})}
 				/>
 			</BasePage.Header>
 
