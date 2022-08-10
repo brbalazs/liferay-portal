@@ -2,11 +2,21 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import {Sizes} from 'shared/util/constants';
 
-/**
- * HOC
- * @description Error
- */
-const withError = () => Component => ({error, errorMessage, ...props}) => {
+interface IIconProps {
+	border?: boolean;
+	size?: Sizes;
+	symbol: string;
+}
+
+type TWithError = () => (
+	Component: React.JSXElementConstructor<any>
+) => (props: any) => React.ReactElement;
+
+const withError: TWithError = () => Component => ({
+	error,
+	errorMessage,
+	...props
+}) => {
 	if (error) {
 		return (
 			<NoResultsDisplay
@@ -21,16 +31,16 @@ const withError = () => Component => ({error, errorMessage, ...props}) => {
 	return <Component {...props} />;
 };
 
-/**
- * HOC
- * @description Empty
- * @param {object} options
- * @property {[string]} emptyDescription
- * @property {[string]} emptyTitle
- * @property {[boolean]} primary
- */
+type TWithEmpty = (params?: {
+	emptyDescription?: string | React.ReactElement;
+	emptyIcon?: IIconProps;
+	emptyTitle?: string;
+	primary?: boolean;
+}) => (
+	Component: React.JSXElementConstructor<any>
+) => (props: any) => React.ReactElement;
 
-const withEmpty = ({
+const withEmpty: TWithEmpty = ({
 	emptyDescription,
 	emptyIcon,
 	emptyTitle,
