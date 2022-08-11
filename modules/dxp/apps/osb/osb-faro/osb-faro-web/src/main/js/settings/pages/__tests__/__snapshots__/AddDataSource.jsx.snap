@@ -108,39 +108,6 @@ exports[`AddDataSource should render 1`] = `
                 </div>
               </div>
             </button>
-            <a
-              class="button-root btn btn-unstyled data-source-item"
-              href="/workspace/23/settings/data-source/csv"
-            >
-              <div
-                class="image"
-              >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-csv-logo icon-size-xl"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="/o/osb-faro-web/dist/sprite.svg#csv-logo"
-                  />
-                </svg>
-              </div>
-              <div
-                class="details"
-              >
-                <div
-                  class="title"
-                >
-                  <h4>
-                    CSV File
-                  </h4>
-                </div>
-                <div
-                  class="subtitle"
-                >
-                  Import contacts from a CSV.
-                </div>
-              </div>
-            </a>
           </div>
         </section>
       </div>
