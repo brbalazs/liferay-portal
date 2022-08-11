@@ -5,6 +5,7 @@ import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
 import TouchpointsListCard from 'assets/hocs/TouchpointsListCard';
+import {ENABLE_FORM_ABANDONMENT} from 'shared/util/constants';
 
 const Overview = () => (
 	<>
@@ -52,14 +53,16 @@ const Overview = () => (
 			</div>
 		</div>
 
-		<div className='row'>
-			<div className='col-sm-12'>
-				<FormAbandonmentCard
-					label={Liferay.Language.get('form-abandonment')}
-					legacyDropdownRangeKey={false}
-				/>
+		{ENABLE_FORM_ABANDONMENT && (
+			<div className='row'>
+				<div className='col-sm-12'>
+					<FormAbandonmentCard
+						label={Liferay.Language.get('form-abandonment')}
+						legacyDropdownRangeKey={false}
+					/>
+				</div>
 			</div>
-		</div>
+		)}
 
 		<div className='row'>
 			<div className='col-sm-12'>

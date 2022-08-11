@@ -15,6 +15,9 @@ export const ENABLE_SALESFORCE = false;
 // LRAC-11651 Disable temporarily CSV File
 
 export const ENABLE_CSVFILE = false;
+// LRAC-11650 Hide Form Abandonment Card
+
+export const ENABLE_FORM_ABANDONMENT = false;
 
 /**
  * Languages
