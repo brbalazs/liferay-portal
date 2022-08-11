@@ -327,7 +327,7 @@
 					instance.refreshLayout(portletBound);
 
 					if (window.location.hash) {
-						window.location.href = window.location.hash;
+						window.location.href = encodeURI(window.location.hash);
 					}
 
 					portletBoundary = portletBound;
