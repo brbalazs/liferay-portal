@@ -6,6 +6,7 @@ import SelectDataSource from '../components/SelectDataSource';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withAdminPermission} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {ENABLE_CSVFILE} from 'shared/util/constants';
 import {ENABLE_SALESFORCE} from 'shared/util/constants';
 import {Routes, toRoute} from 'shared/util/router';
 
@@ -56,7 +57,7 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 					),
 					url: toRoute(Routes.SETTINGS_SALESFORCE_ADD, {groupId})
 				},
-				{
+				ENABLE_CSVFILE && {
 					iconName: 'csv-logo',
 					iconSize: 'xl',
 					name: Liferay.Language.get('csv-file'),

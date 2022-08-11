@@ -12,6 +12,10 @@ export const ENABLE_ACCOUNTS = false;
 
 export const ENABLE_SALESFORCE = false;
 
+// LRAC-11651 Disable temporarily CSV File
+
+export const ENABLE_CSVFILE = false;
+
 /**
  * Languages
  */
