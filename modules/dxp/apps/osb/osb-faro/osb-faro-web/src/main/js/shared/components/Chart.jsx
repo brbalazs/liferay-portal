@@ -32,6 +32,7 @@ export const CHART_COLORS = [
 ];
 
 export const CHART_COLOR_NAMES = {
+	greyjoy: '#000000',
 	lannister: '#FF5F5F',
 	martell: '#50D2A0',
 	martellD2: '#31BE88',

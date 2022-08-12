@@ -49,11 +49,35 @@ import {sub} from 'shared/util/lang';
 import {useStatefulPagination} from 'shared/hooks';
 import {withSelectedPoint} from 'shared/hoc';
 
-const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
+const {
+	greyjoy: CHART_BLACK,
+	mormont: CHART_ORANGE,
+	stark: CHART_BLUE
+} = CHART_COLOR_NAMES;
 
 const INTERVAL = 'D';
 
-const getAllMembers = data => {
+type Data = {
+	channelId: string;
+	delta: number;
+	groupId: string;
+	id: string;
+	modifiedDate: string;
+	orderIOMap: string;
+	page: number;
+	query: string;
+};
+
+interface CHANGES_AGGREGATION_SHAPE {
+	added: number;
+	anonymousCount: number;
+	knownCount: number;
+	modifiedDate: number;
+	removed: number;
+	value: number;
+}
+
+const getAllMembers = (data: Data) => {
 	const {channelId, delta, groupId, id, orderIOMap, page, query} = data;
 
 	return API.individuals.search({
@@ -67,7 +91,7 @@ const getAllMembers = data => {
 	});
 };
 
-const getMemberChanges = data => {
+const getMemberChanges = (data: Data) => {
 	const {delta, groupId, id, modifiedDate, orderIOMap, query} = data;
 
 	return API.individualSegment.fetchMembershipChanges({
@@ -82,13 +106,18 @@ const getMemberChanges = data => {
 };
 
 interface ISegmentGrowthChartProps {
-	alwaysShowSelectedTooltip: boolean;
+	alwaysShowSelectedTooltip?: boolean;
 	data: Array<any>;
 	hasSelectedPoint: boolean;
-	height: number;
+	height?: number;
 	individualCounts?: {anonymousCount: number; knownCount: number};
 	onPointSelect: Function;
 	selectedPoint: number;
+}
+
+interface ITooltipProps {
+	active: boolean;
+	payload: CHANGES_AGGREGATION_SHAPE[];
 }
 
 export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
@@ -110,19 +139,8 @@ export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 	const {anonymousCount, knownCount} = individualCounts;
 
 	const tooltipRef = useRef(null);
-	interface TooltipProps {
-		active: boolean;
-		payload: {
-			added: number;
-			anonymousCount: number;
-			knownCount: number;
-			modifiedDate: [];
-			removed: number;
-			value: number;
-		}[];
-	}
 
-	const renderTooltip: React.FC<TooltipProps> = ({active, payload}) => {
+	const renderTooltip: React.FC<ITooltipProps> = ({active, payload}) => {
 		if ((active && payload && !!payload.length) || hasSelectedPoint) {
 			const {
 				added,
@@ -261,7 +279,13 @@ export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 		}
 	};
 
-	const commonAreaChartStyles = {
+	interface ICommonAreaChartStyles {
+		isAnimationActive: boolean;
+		legendType: string;
+		stackId: string;
+	}
+
+	const commonAreaChartStyles: ICommonAreaChartStyles = {
 		isAnimationActive: true,
 		legendType: 'circle',
 		stackId: 'count'
@@ -428,7 +452,7 @@ export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 								value: Liferay.Language.get('anonymous-members')
 							},
 							{
-								color: 'rgba(0,0,0,0)',
+								color: CHART_BLACK,
 								count: anonymousCount + knownCount,
 								dataKey: 'individualCount',
 								type: 'circle',
@@ -446,7 +470,7 @@ export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 
 					<Tooltip
 						content={renderTooltip}
-						cursor={!intervals.length ? false : true}
+						cursor={!intervals.length}
 						position={
 							showFixedTooltip
 								? {
@@ -549,18 +573,32 @@ export const SegmentGrowthChart: React.FC<ISegmentGrowthChartProps> = ({
 	);
 };
 
-export const SelectedPointInfo = ({
+interface ISelectedPointInfoProps {
+	data: CHANGES_AGGREGATION_SHAPE[];
+	hasSelectedPoint: boolean;
+	onClearSelection: Function;
+	selectedPoint: number;
+}
+
+export const SelectedPointInfo: React.FC<ISelectedPointInfoProps> = ({
 	data,
 	hasSelectedPoint,
 	onClearSelection,
 	selectedPoint
 }) => {
-	const {added, modifiedDate, removed} = get(data, selectedPoint, {});
+	const {added, modifiedDate, removed} = get(data, selectedPoint, {
+		added: 0,
+		modifiedDate: 0,
+		removed: 0
+	});
 
 	const changeValues =
 		hasSelectedPoint &&
 		selectedPoint > 0 &&
-		getNetChange(data[selectedPoint - 1], data[selectedPoint]);
+		getNetChange(
+			get(data[selectedPoint - 1], selectedPoint),
+			get(data[selectedPoint], selectedPoint)
+		);
 
 	return (
 		<div className='selected-point-info'>
@@ -617,7 +655,20 @@ export const SelectedPointInfo = ({
 	);
 };
 
-const SegmentGrowthWithList = ({
+interface ISegmentGrowthWithList {
+	channelId: string;
+	className: string;
+	data: CHANGES_AGGREGATION_SHAPE[];
+	groupId: string;
+	hasSelectedPoint: boolean;
+	id: string;
+	individualCounts?: {anonymousCount: number; knownCount: number};
+	onPointSelect: Function;
+	selectedPoint: number;
+	timeZoneId: string;
+}
+
+const SegmentGrowthWithList: React.FC<ISegmentGrowthWithList> = ({
 	channelId,
 	className,
 	data,
@@ -662,7 +713,7 @@ const SegmentGrowthWithList = ({
 		onPointSelect({index: null});
 	};
 
-	const {modifiedDate} = get(data, selectedPoint, {});
+	const {modifiedDate} = get(data, selectedPoint, {modifiedDate: 0});
 
 	const paginationParams = useStatefulPagination(null, {
 		initialDelta: 20,
