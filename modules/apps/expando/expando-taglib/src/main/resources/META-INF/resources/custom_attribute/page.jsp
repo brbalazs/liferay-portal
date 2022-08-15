@@ -300,7 +300,7 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 							%>
 
 							<div id="<portlet:namespace />CoordinatesContainer">
-								<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace()+"ExpandoAttribute--" + name + "--Location" %>">
+								<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= name %>--Location">
 								</div>
 
 								<liferay-map:map-display
@@ -312,7 +312,7 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 							</div>
 
 							<aui:script use="liferay-map-base">
-								var inputName = "<%= portletDisplay.getNamespace()+"ExpandoAttribute--" + HtmlUtil.escapeJS(name) + "--" %>";
+								var inputName = "<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= HtmlUtil.escapeJS(name) %>--";
 
 								var geolocationField = {
 									init: function() {
@@ -812,7 +812,7 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 					%>
 
 					<div id="<portlet:namespace />CoordinatesContainer">
-						<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace()+"ExpandoAttribute--" + name + "--Location" %>">
+						<div class="glyphicon glyphicon-map-marker" id="<%= portletDisplay.getNamespace() %>ExpandoAttribute--<%= name %>--Location">
 						</div>
 
 						<liferay-map:map-display
