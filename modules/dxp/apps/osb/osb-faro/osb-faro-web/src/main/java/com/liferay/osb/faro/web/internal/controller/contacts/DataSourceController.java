@@ -20,7 +20,6 @@ import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.osb.faro.contacts.model.constants.ContactsConstants;
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
 import com.liferay.osb.faro.engine.client.exception.InvalidFilterException;
-import com.liferay.osb.faro.engine.client.model.Account;
 import com.liferay.osb.faro.engine.client.model.Credentials;
 import com.liferay.osb.faro.engine.client.model.DXPGroup;
 import com.liferay.osb.faro.engine.client.model.DXPOrganization;
@@ -434,12 +433,6 @@ public class DataSourceController extends BaseFaroController {
 
 		FaroProject faroProject =
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
-
-		Results<Account> accountResults = contactsEngineClient.getAccounts(
-			faroProject, id, null, null, null, null, null, 1, 0, null);
-
-		deletePreview.put(
-			FaroConstants.TYPE_ACCOUNT, accountResults.getTotal());
 
 		Results<Individual> individualResults =
 			contactsEngineClient.getIndividuals(
