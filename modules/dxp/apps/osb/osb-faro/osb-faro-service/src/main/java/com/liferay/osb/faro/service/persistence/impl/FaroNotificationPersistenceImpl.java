@@ -1204,7 +1204,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param ownerId the owner ID
+	 * @param ownerIds the owner IDs
 	 * @param type the type
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
@@ -2279,7 +2279,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param ownerId the owner ID
+	 * @param ownerIds the owner IDs
 	 * @param type the type
 	 * @param subtype the subtype
 	 * @param start the lower bound of the range of faro notifications
@@ -3447,7 +3447,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param ownerId the owner ID
+	 * @param ownerIds the owner IDs
 	 * @param read the read
 	 * @param type the type
 	 * @param subtype the subtype

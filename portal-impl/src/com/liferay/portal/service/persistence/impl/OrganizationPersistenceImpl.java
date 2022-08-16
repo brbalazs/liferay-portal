@@ -9457,6 +9457,10 @@ public class OrganizationPersistenceImpl
 			organization.setUuid(uuid);
 		}
 
+		if (Validator.isNull(organization.getExternalReferenceCode())) {
+			organization.setExternalReferenceCode(organization.getUuid());
+		}
+
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 

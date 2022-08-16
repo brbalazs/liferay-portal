@@ -1008,7 +1008,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param latest the latest
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -1242,7 +1242,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param main the main
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -1476,7 +1476,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -2843,7 +2843,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param latest the latest
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -3077,7 +3077,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param main the main
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -3311,7 +3311,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -3735,7 +3735,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param groupId the group ID
 	 * @param latest the latest
 	 * @param start the lower bound of the range of kb articles
@@ -4127,7 +4127,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param groupId the group ID
 	 * @param main the main
 	 * @param start the lower bound of the range of kb articles
@@ -4514,7 +4514,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>KBArticleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param resourcePrimKey the resource prim key
+	 * @param resourcePrimKeies the resource prim keies
 	 * @param groupId the group ID
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
@@ -4911,7 +4911,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param latest the latest
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -5311,7 +5311,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param main the main
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -5711,7 +5711,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -6826,7 +6826,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param sections the sections
+	 * @param sectionses the sectionses
 	 * @param latest the latest
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -7211,7 +7211,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param sections the sections
+	 * @param sectionses the sectionses
 	 * @param main the main
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -7595,7 +7595,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param sections the sections
+	 * @param sectionses the sectionses
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
@@ -8013,7 +8013,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * </p>
 	 *
 	 * @param groupId the group ID
-	 * @param parentResourcePrimKey the parent resource prim key
+	 * @param parentResourcePrimKeies the parent resource prim keies
 	 * @param latest the latest
 	 * @param status the status
 	 * @param start the lower bound of the range of kb articles
@@ -8442,7 +8442,7 @@ public interface KBArticlePersistence extends BasePersistence<KBArticle> {
 	 * @param groupId the group ID
 	 * @param kbFolderId the kb folder ID
 	 * @param urlTitle the url title
-	 * @param status the status
+	 * @param statuses the statuses
 	 * @param start the lower bound of the range of kb articles
 	 * @param end the upper bound of the range of kb articles (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
