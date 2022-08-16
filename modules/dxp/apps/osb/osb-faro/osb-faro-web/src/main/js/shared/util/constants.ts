@@ -8,16 +8,21 @@ export const PROD_MODE = FARO_ENV === 'prd';
 
 export const ENABLE_ACCOUNTS = false;
 
-// LRAC-11571 Disable temporarily Salesforce
+// LRAC - 11652 Hide Displayed Asset Card on the Page report
 
-export const ENABLE_SALESFORCE = false;
+export const ENABLE_ASSET_CARD = false;
 
 // LRAC-11651 Disable temporarily CSV File
 
 export const ENABLE_CSVFILE = false;
+
 // LRAC-11650 Hide Form Abandonment Card
 
 export const ENABLE_FORM_ABANDONMENT = false;
+
+// LRAC-11571 Disable temporarily Salesforce
+
+export const ENABLE_SALESFORCE = false;
 
 /**
  * Languages
