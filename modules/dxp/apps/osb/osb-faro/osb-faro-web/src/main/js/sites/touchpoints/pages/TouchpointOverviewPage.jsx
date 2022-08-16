@@ -4,6 +4,7 @@ import DevicesCard from '../hocs/DevicesCard';
 import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
+import {ENABLE_ASSET_CARD} from 'shared/util/constants';
 
 /**
  * Touchpoint Overview Page
@@ -54,13 +55,15 @@ export default function TouchpointOverviewPage() {
 				</div>
 			</div>
 
-			<div className='row'>
-				<div className='col-lg-6 col-md-12'>
-					<AssetsListCard
-						label={Liferay.Language.get('displayed-assets')}
-					/>
+			{ENABLE_ASSET_CARD && (
+				<div className='row'>
+					<div className='col-lg-6 col-md-12'>
+						<AssetsListCard
+							label={Liferay.Language.get('displayed-assets')}
+						/>
+					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 }
