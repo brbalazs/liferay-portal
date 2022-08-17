@@ -8,6 +8,7 @@ import React, {Fragment, lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {ENABLE_CSVFILE} from 'shared/util/constants';
 import {ENABLE_SALESFORCE} from 'shared/util/constants';
 import {Link, matchPath, Switch, withRouter} from 'react-router-dom';
 import {Project, User} from 'shared/util/records';
@@ -334,17 +335,23 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_DATA_SOURCE_EDIT}
 								/>
 
-								<BundleRouter
-									data={ConfigureCSV}
-									exact
-									path={Routes.SETTINGS_CSV_UPLOAD_CONFIGURE}
-								/>
+								{ENABLE_CSVFILE && (
+									<BundleRouter
+										data={ConfigureCSV}
+										exact
+										path={
+											Routes.SETTINGS_CSV_UPLOAD_CONFIGURE
+										}
+									/>
+								)}
 
-								<BundleRouter
-									data={UploadCSV}
-									exact
-									path={Routes.SETTINGS_CSV_UPLOAD}
-								/>
+								{ENABLE_CSVFILE && (
+									<BundleRouter
+										data={UploadCSV}
+										exact
+										path={Routes.SETTINGS_CSV_UPLOAD}
+									/>
+								)}
 
 								<BundleRouter
 									data={DataSource}
