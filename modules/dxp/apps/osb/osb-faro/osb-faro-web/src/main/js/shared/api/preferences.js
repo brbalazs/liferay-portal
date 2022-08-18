@@ -44,6 +44,22 @@ export function fetchDistributionTabs({groupId, scope, segmentId}) {
 	});
 }
 
+export function fetchEmailReport({channelId, groupId}) {
+	return sendRequest({
+		data: pickBy({channelId, scope: 'user'}),
+		method: 'GET',
+		path: `main/${groupId}/preferences/email_report`
+	});
+}
+
+export function updateEmailReport({channelId, groupId, report}) {
+	return sendRequest({
+		data: pickBy({channelId, scope: 'user', ...report}),
+		method: 'POST',
+		path: `main/${groupId}/preferences/email_report`
+	});
+}
+
 export function removeDistributionTab({
 	distributionTabId,
 	groupId,
