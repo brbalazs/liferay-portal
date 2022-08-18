@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<checkstyle>
+		<suppress checks="ReferenceAnnotationCheck" files="portal-search-elasticsearch-cross-cluster-replication-impl/src/main/java/com/liferay/portal/search/elasticsearch/cross/cluster/replication/internal/configuration/persistence/listener/CrossClusterReplicationConfigurationModelListener\.java" />
+	</checkstyle>
+</suppressions>

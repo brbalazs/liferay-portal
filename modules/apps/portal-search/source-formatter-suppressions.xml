@@ -3,5 +3,6 @@
 <suppressions>
 	<checkstyle>
 		<suppress checks="CamelCaseNameCheck" files="portal-search/src/main/java/com/liferay/portal/search/internal/SearchEngineInitializer\.java" />
+		<suppress checks="ReferenceAnnotationCheck" files="portal-search/src/main/java/com/liferay/portal/search/internal/background/task/BackgroundTaskExecutorConfigurator\.java" />
 	</checkstyle>
 </suppressions>
