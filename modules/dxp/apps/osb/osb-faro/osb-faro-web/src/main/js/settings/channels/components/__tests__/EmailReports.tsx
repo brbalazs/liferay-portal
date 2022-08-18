@@ -1,4 +1,4 @@
-import DisplayReportMessage from '../EmailReports';
+import EmailReports from '../EmailReports';
 import React from 'react';
 import {render} from '@testing-library/react';
 
@@ -11,14 +11,10 @@ jest.mock('react-router-dom', () => ({
 	})
 }));
 
-describe('DisplayReportMessage', () => {
+describe('EmailReports', () => {
 	it('should render', () => {
 		const {container} = render(
-			<DisplayReportMessage
-				channelId='1234'
-				className='test'
-				sitesSynced={false}
-			/>
+			<EmailReports channelId='1234' className='test' />
 		);
 
 		jest.runAllTimers();
@@ -28,11 +24,7 @@ describe('DisplayReportMessage', () => {
 
 	it('should render with config btn enabled', () => {
 		const {container} = render(
-			<DisplayReportMessage
-				channelId='1234'
-				className='test'
-				sitesSynced
-			/>
+			<EmailReports channelId='1234' className='test' sitesSynced />
 		);
 
 		jest.runAllTimers();
@@ -48,11 +40,7 @@ describe('DisplayReportMessage', () => {
 
 	it('should render with config btn disabled', () => {
 		const {container} = render(
-			<DisplayReportMessage
-				channelId='1234'
-				className='test'
-				sitesSynced={false}
-			/>
+			<EmailReports channelId='1234' className='test' />
 		);
 
 		jest.runAllTimers();
@@ -67,4 +55,4 @@ describe('DisplayReportMessage', () => {
 	});
 });
 
-// TODO Create tests to show enable/disable messages when backend is done. To be done when [F]LRAC-11729 is completed.
+// TODO LRAC-11729 Create tests to show enable/disable messages when backend is done.
