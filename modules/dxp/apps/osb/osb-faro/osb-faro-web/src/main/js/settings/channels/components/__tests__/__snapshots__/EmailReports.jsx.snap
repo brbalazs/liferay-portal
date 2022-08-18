@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayReportMessage should render 1`] = `
+<div>
+  <span
+    class="font-weight-semibold mr-3 test"
+  >
+    Email Reports: 
+    Disabled
+    <button
+      class="button-root btn btn-unstyled ml-3 btn-outline-borderless btn-sm"
+      data-tooltip="true"
+      data-tooltip-align="top"
+      disabled=""
+      title="Configure Email Reports"
+      type="button"
+    >
+      <span>
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-cog"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#cog"
+          />
+        </svg>
+      </span>
+    </button>
+  </span>
+</div>
+`;
