@@ -83,19 +83,50 @@ exports[`View Channel should render 1`] = `
             Property ID: 1
           </div>
         </div>
-        <div>
-          <button
-            class="button-root btn btn-secondary mr-3"
-            type="button"
+        <div
+          class="d-flex"
+        >
+          <span
+            class="font-weight-semibold mr-3 align-items-center d-flex"
           >
-            Clear Data
-          </button>
-          <button
-            class="button-root btn btn-secondary"
-            type="button"
+            Email Reports: 
+            Disabled
+            <button
+              class="button-root btn btn-unstyled ml-3 btn-outline-borderless btn-sm"
+              data-tooltip="true"
+              data-tooltip-align="top"
+              disabled=""
+              title="Configure Email Reports"
+              type="button"
+            >
+              <span>
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-cog"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#cog"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+          <span
+            class="header-action-buttons pl-3"
           >
-            Delete
-          </button>
+            <button
+              class="button-root btn btn-secondary mr-3"
+              type="button"
+            >
+              Clear Data
+            </button>
+            <button
+              class="button-root btn btn-secondary"
+              type="button"
+            >
+              Delete
+            </button>
+          </span>
         </div>
       </div>
       <div
