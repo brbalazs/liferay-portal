@@ -20,6 +20,9 @@ package com.liferay.osb.faro.web.internal.model.preferences;
 @SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
 public class EmailReportPreferences {
 
+	public EmailReportPreferences() {
+	}
+
 	public EmailReportPreferences(Boolean enabled, String frequency) {
 		_enabled = enabled;
 		_frequency = frequency;
