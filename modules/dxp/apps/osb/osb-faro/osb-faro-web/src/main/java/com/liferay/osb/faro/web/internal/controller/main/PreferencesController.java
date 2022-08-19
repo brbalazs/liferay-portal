@@ -197,6 +197,22 @@ public class PreferencesController extends BaseFaroController {
 	}
 
 	@GET
+	@Path("/email_report")
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public Map<String, EmailReportPreferences> getEmailReportPreferences(
+			@PathParam("groupId") long groupId,
+			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
+			@QueryParam("scope")
+			String scope)
+		throws Exception {
+
+		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
+			groupId, _getOwnerId(groupId, scope));
+
+		return workspacePreferences.getEmailReportPreferences(null);
+	}
+
+	@GET
 	@Path("/upgrade_modal_seen")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public boolean isUpgradeModalSeen(
