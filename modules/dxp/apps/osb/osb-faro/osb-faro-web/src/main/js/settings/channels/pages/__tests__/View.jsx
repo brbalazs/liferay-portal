@@ -23,15 +23,19 @@ const defaultProps = {
 	groupId: '23'
 };
 
-const DefaultComponent = props => (
-	<Provider store={mockStore()}>
-		<ModalRenderer />
+const DefaultComponent = props => {
+	API.preferences.fetchEmailReport = jest.fn(() => Promise.resolve());
 
-		<StaticRouter>
-			<View {...defaultProps} {...props} />
-		</StaticRouter>
-	</Provider>
-);
+	return (
+		<Provider store={mockStore()}>
+			<ModalRenderer />
+
+			<StaticRouter>
+				<View {...defaultProps} {...props} />
+			</StaticRouter>
+		</Provider>
+	);
+};
 
 describe('View Channel', () => {
 	afterEach(() => {

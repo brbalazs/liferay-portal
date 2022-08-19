@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DisplayReportMessage should render 1`] = `
+exports[`EmailReports should render 1`] = `
 <div>
   <span
-    class="font-weight-semibold mr-3 test"
+    class="font-weight-semibold mr-3"
   >
     Email Reports: 
     Disabled
