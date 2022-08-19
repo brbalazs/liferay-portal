@@ -22,6 +22,7 @@ import com.liferay.osb.faro.web.internal.controller.FaroController;
 import com.liferay.osb.faro.web.internal.model.display.contacts.FaroPreferencesDisplay;
 import com.liferay.osb.faro.web.internal.model.preferences.DistributionCardTabPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.DistributionCardTabsPreferences;
+import com.liferay.osb.faro.web.internal.model.preferences.EmailReportPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.IndividualDashboardPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.IndividualSegmentPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.WorkspacePreferences;
@@ -92,6 +93,35 @@ public class PreferencesController extends BaseFaroController {
 
 		return workspacePreferences.getDistributionCardTabsPreferences(
 			individualSegmentId);
+	}
+
+	@Path("/email_report")
+	@POST
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public EmailReportPreferences addEmailReportPreference(
+			@PathParam("groupId") long groupId,
+			@FormParam("channelId") String channelId,
+			@FormParam("enabled") Boolean enabled,
+			@FormParam("frequency") String frequency,
+			@DefaultValue(FaroPreferencesConstants.SCOPE_USER)
+			@FormParam("scope")
+			String scope)
+		throws Exception {
+
+		long ownerId = _getOwnerId(groupId, scope);
+
+		WorkspacePreferences workspacePreferences = _getWorkspacePreferences(
+			groupId, ownerId);
+
+		Map<String, EmailReportPreferences> emailReportPreferences =
+			workspacePreferences.addEmailReportPreference(
+				channelId, enabled, frequency);
+
+		_faroPreferencesLocalService.savePreferences(
+			getUserId(), groupId, ownerId,
+			JSONUtil.writeValueAsString(workspacePreferences));
+
+		return emailReportPreferences.get(channelId);
 	}
 
 	@GET
