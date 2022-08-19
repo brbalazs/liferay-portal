@@ -44,9 +44,8 @@ export function fetchDistributionTabs({groupId, scope, segmentId}) {
 	});
 }
 
-export function fetchEmailReport({channelId, groupId}) {
+export function fetchEmailReport({groupId}) {
 	return sendRequest({
-		data: pickBy({channelId, scope: 'user'}),
 		method: 'GET',
 		path: `main/${groupId}/preferences/email_report`
 	});
@@ -54,7 +53,7 @@ export function fetchEmailReport({channelId, groupId}) {
 
 export function updateEmailReport({channelId, groupId, report}) {
 	return sendRequest({
-		data: pickBy({channelId, scope: 'user', ...report}),
+		data: pickBy({channelId, ...report}),
 		method: 'POST',
 		path: `main/${groupId}/preferences/email_report`
 	});
