@@ -123,6 +123,12 @@ public class WorkspacePreferences {
 		_defaultChannelId = defaultChannelId;
 	}
 
+	public void setEmailReportPreferences(
+		Map<String, EmailReportPreferences> emailReportPreferences) {
+
+		_emailReportPreferences = emailReportPreferences;
+	}
+
 	public void setIndividualDashboardPreferences(
 		IndividualDashboardPreferences individualDashboardPreferences) {
 
