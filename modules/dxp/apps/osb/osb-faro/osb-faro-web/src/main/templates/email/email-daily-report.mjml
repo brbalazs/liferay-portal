@@ -1,14 +1,16 @@
 <mjml>
 	<mj-include path="partials/email-report/email-head.mjml" />
+
 	<mj-body background-color="#ffffff" width="648px">
 		<mj-section>
 			<mj-column>
 				<mj-image
 					padding="0"
-					src="https://raw.githubusercontent.com/liferay/com-liferay-osb-faro-private/7.1.x/osb-faro-web/src/main/resources/META-INF/resources/images/email/ac-title.png?token=GHSAT0AAAAAABOPQMOSEQCCR24FF47SCU5SYYDZJ4Q"
+					src="[$HEADER_IMAGE_PATH$]"
 				/>
 			</mj-column>
 		</mj-section>
+
 		<mj-include path="partials/email-report/info-section.mjml" />
 
 		<mj-include path="partials/email-report/report-details.mjml" />
@@ -21,6 +23,6 @@
 
 		<mj-include path="partials/email-report/email-footer.mjml" />
 
-		<mj-include path="partials/email-report/usefull-links.mjml" />
+		<mj-include path="partials/email-report/useful-links.mjml" />
 	</mj-body>
 </mjml>
