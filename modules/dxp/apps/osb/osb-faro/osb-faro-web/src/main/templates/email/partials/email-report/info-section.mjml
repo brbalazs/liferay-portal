@@ -1,0 +1,12 @@
+<mj-section>
+	<mj-column>
+		<mj-text align="center" css-class="small-text">
+			Company:
+			<strong style="color: #272833">[$COMPANY_NAME$]</strong>
+		</mj-text>
+
+		<mj-text align="center" css-class="small-text"
+			>[$MONTH$] [$YEAR$]</mj-text
+		>
+	</mj-column>
+</mj-section>

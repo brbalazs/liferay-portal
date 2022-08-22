@@ -1,0 +1,85 @@
+<mj-section background-color="#f0f5ff" padding="40px">
+	<mj-column>
+		<mj-text css-class="small-text"> Unique Visitors </mj-text>
+
+		<mj-text css-class="activities-data"> [$UNIQUE_VISITS_COUNT$] </mj-text>
+	</mj-column>
+
+	<mj-column css-class="activities-comparisson-container">
+		<mj-text css-class="activities-comparisson">
+			[$COMPARISSON_VISITS_VALUE$]
+		</mj-text>
+
+		<mj-text css-class="small-text"> vs Previous [$FREQUENCY$] </mj-text>
+	</mj-column>
+</mj-section>
+
+<mj-section padding="10px 0">
+	<mj-column>
+		<mj-spacer height="4px" />
+	</mj-column>
+</mj-section>
+
+<mj-section background-color="#f0f5ff" padding="40px">
+	<mj-column>
+		<mj-text css-class="small-text"> Session / Visitor </mj-text>
+
+		<mj-text css-class="activities-data">
+			[$SESSION_VISITOR_VALUE$]
+		</mj-text>
+	</mj-column>
+
+	<mj-column css-class="activities-comparisson-container">
+		<mj-text css-class="activities-comparisson">
+			[$COMPARISSON_SESSION_VALUE$]
+		</mj-text>
+
+		<mj-text css-class="small-text"> vs Previous [$FREQUENCY$] </mj-text>
+	</mj-column>
+</mj-section>
+
+<mj-section padding="10px 0">
+	<mj-column>
+		<mj-spacer height="1px" />
+	</mj-column>
+</mj-section>
+
+<mj-section background-color="#f0f5ff" padding="40px">
+	<mj-column>
+		<mj-text css-class="small-text"> Session Duration </mj-text>
+
+		<mj-text css-class="activities-data">
+			[$SESSION_DURATION_VALUE$]
+		</mj-text>
+	</mj-column>
+
+	<mj-column css-class="activities-comparisson-container">
+		<mj-text css-class="activities-comparisson">
+			[$COMPARISSON_SESSION_DURATION_VALUE$]
+		</mj-text>
+
+		<mj-text css-class="small-text"> vs Previous [$FREQUENCY$] </mj-text>
+	</mj-column>
+</mj-section>
+
+<mj-section padding="10px 0">
+	<mj-column>
+		<mj-spacer height="1px" />
+	</mj-column>
+</mj-section>
+
+<mj-section background-color="#f0f5ff" padding="40px">
+	<mj-column>
+		<mj-text css-class="small-text"> Bounce Rate </mj-text>
+
+		<mj-text css-class="activities-data">[$BOUNCE_RATE_VALUE$]</mj-text>
+	</mj-column>
+
+	<mj-column css-class="activities-comparisson-container">
+		<mj-text css-class="activities-comparisson">
+			[$COMPARISSON_BOUNCE_RATE_VALUE$]</mj-text
+		>
+
+		<mj-text css-class="small-text"> vs Previous [$FREQUENCY$] </mj-text>
+	</mj-column>
+</mj-section>

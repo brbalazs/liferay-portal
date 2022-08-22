@@ -1,0 +1,24 @@
+<mj-section>
+	<mj-column>
+		<mj-navbar>
+			<mj-navbar-link
+				css-class="nav-link"
+				href="/gettings-started-onboard"
+				>Contact Support
+			</mj-navbar-link>
+
+			<mj-navbar-link css-class="nav-link" href="/try-it-live"
+				>Documentation</mj-navbar-link
+			>
+			<mj-navbar-link css-class="nav-link" href="/templates"
+				>Help Center</mj-navbar-link
+			>
+			<mj-navbar-link css-class="nav-link" href="/components"
+				>Announcements</mj-navbar-link
+			>
+			<mj-navbar-link css-class="nav-link" href="/components"
+				>Uptime Status</mj-navbar-link
+			>
+		</mj-navbar>
+	</mj-column>
+</mj-section>

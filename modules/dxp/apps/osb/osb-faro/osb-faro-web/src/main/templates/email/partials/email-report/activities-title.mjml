@@ -1,0 +1,7 @@
+<mj-section>
+	<mj-column>
+		<mj-text css-class="activities-title">
+			[$PROPERTY_NAME$] Activities
+		</mj-text>
+	</mj-column>
+</mj-section>
