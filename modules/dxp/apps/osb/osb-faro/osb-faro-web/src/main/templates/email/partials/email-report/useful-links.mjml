@@ -1,13 +1,13 @@
 <mj-section>
 	<mj-column>
 		<mj-navbar>
-			<mj-navbar-link css-class="nav-link" href="/getting-started-onboard">
+			<mj-navbar-link css-class="nav-link" href="https://www.liferay.com/contact-us">
 				Contact Support 
 			</mj-navbar-link>
 			<mj-navbar-link css-class="nav-link" href="https://help.liferay.com/hc/en-us">
 				Help Center
 			</mj-navbar-link>
-			<mj-navbar-link css-class="nav-link" href="/components">
+			<mj-navbar-link css-class="nav-link" href="https://www.liferay.com/press-releases/-/categories/18043">
 				Announcements
 			</mj-navbar-link>
 		</mj-navbar>
