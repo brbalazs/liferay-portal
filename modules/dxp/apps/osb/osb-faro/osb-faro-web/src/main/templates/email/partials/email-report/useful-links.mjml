@@ -2,9 +2,9 @@
 	<mj-column>
 		<mj-navbar>
 			<mj-navbar-link css-class="nav-link" href="/getting-started-onboard">
-				Contact Support
+				Contact Support 
 			</mj-navbar-link>
-			<mj-navbar-link css-class="nav-link" href="/templates">
+			<mj-navbar-link css-class="nav-link" href="https://help.liferay.com/hc/en-us">
 				Help Center
 			</mj-navbar-link>
 			<mj-navbar-link css-class="nav-link" href="/components">

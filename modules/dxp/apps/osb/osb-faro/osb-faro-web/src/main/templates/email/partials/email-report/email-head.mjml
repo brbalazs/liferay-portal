@@ -1,5 +1,4 @@
 <mj-head>
-	<mj-include path="../head.mjml" />
 
 	<mj-style>
 		a {
@@ -11,6 +10,7 @@
 		a.nav-link {
 			color: #0b5fff !important;
 			text-transform: none !important;
+			padding: 0 10px !important;
 		}
 	</mj-style>
 	<mj-style>
@@ -23,6 +23,11 @@
 	<mj-style>
 		.activities-comparison-container div {
 			text-align: end !important;
+		}
+	</mj-style>
+	<mj-style>
+		.activities-comparison div {
+			margin-top: 20px !important;
 		}
 	</mj-style>
 	<mj-style>
@@ -45,13 +50,19 @@
 		.body-text div {
 			font-size: 16px !important;
 			text-align: center !important;
+			color: #6B6C7E !important;
 		}
 	</mj-style>
 	<mj-style>
-		.footer-text div {
+		.footer-text div, .adress-text div {
 			color: #6B6C7E !important;
 			font-size: 14px !important;
 			text-align: center !important;
+		}
+	</mj-style>
+	<mj-style>
+		.separate-text-section div {
+			padding: 20px 0 !important;
 		}
 	</mj-style>
 	<mj-style>
@@ -84,8 +95,12 @@
 		}
 	</mj-style>
 	<mj-style>
-		td.activities-data, td.activities-comparison, td.body-text,
-		td.footer-text, td.small-text {
+		 td.body-text, td.footer-text, td.small-text {
+			padding: 10px 0 !important
+		}
+	</mj-style>
+	<mj-style>
+		td.adress-text, td.activities-data, td.activities-comparison {
 			padding: 0 !important
 		}
 	</mj-style>
