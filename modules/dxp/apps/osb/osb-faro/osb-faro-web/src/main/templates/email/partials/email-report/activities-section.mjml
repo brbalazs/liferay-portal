@@ -39,7 +39,7 @@
 
 	<mj-column css-class="activities-comparison-container">
 		<mj-text css-class="activities-comparison">
-		   <img src="[$SESSIONS_PER_VISITOR_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSIONS_PER_VISITOR$]
+			<img src="[$SESSIONS_PER_VISITOR_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSIONS_PER_VISITOR$]
 		</mj-text>
 
 		<mj-text css-class="small-text">
