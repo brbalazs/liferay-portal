@@ -27,6 +27,7 @@ import com.liferay.osb.faro.web.internal.model.preferences.IndividualDashboardPr
 import com.liferay.osb.faro.web.internal.model.preferences.IndividualSegmentPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.WorkspacePreferences;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
+import com.liferay.osb.faro.web.internal.util.EmailReportHelper;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -340,6 +341,21 @@ public class PreferencesController extends BaseFaroController {
 		return upgradeModalSeen;
 	}
 
+	@Path("/send_email_report")
+	@POST
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	public boolean sendEmailReport(
+			@PathParam("groupId") long groupId,
+			@FormParam("channelId") String channelId,
+			@FormParam("frequency") String frequency,
+			@FormParam("userId") long userId)
+		throws Exception {
+
+		_emailReportHelper.sendEmail(channelId, frequency, groupId, userId);
+
+		return true;
+	}
+
 	private long _getOwnerId(long groupId, String scope) throws Exception {
 		if (StringUtil.equals(scope, FaroPreferencesConstants.SCOPE_GROUP)) {
 			return groupId;
@@ -367,6 +383,9 @@ public class PreferencesController extends BaseFaroController {
 		return JSONUtil.readValue(
 			faroPreferences.getPreferences(), WorkspacePreferences.class);
 	}
+
+	@Reference
+	private EmailReportHelper _emailReportHelper;
 
 	@Reference
 	private FaroPreferencesLocalService _faroPreferencesLocalService;
