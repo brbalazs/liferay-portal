@@ -401,6 +401,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>SEO_META_TAGS_DESCRIPTION</td>
+	<td>//input[contains(@id,'descriptionSEO')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SETUP_XML_URL</td>
 	<td>//input[contains(@id,'xmlUrl')]</td>
 	<td></td>
