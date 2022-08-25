@@ -31,6 +31,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.osgi.service.component.annotations.Component;
@@ -64,6 +65,53 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		JSONObject dataJSONObject = rootJSONObject.getJSONObject("data");
 
 		return dataJSONObject.getLong("pagesCount");
+	}
+
+	@Override
+	public String getSiteMetrics(
+			String channelId, FaroProject faroProject, String interval,
+			int rangeKey)
+		throws Exception {
+
+		GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+		graphQLRequest.setOperationName("SiteMetrics");
+
+		StringBundler sb = new StringBundler(10);
+
+		sb.append("query SiteMetrics($channelId: String $interval: String! ");
+		sb.append("$rangeKey: Int) {site(channelId: $channelId interval: ");
+		sb.append("$interval rangeKey: $rangeKey) {bounceRateMetric {trend {");
+		sb.append("percentage trendClassification} previousValue value} ");
+		sb.append("sessionDurationMetric {trend {percentage ");
+		sb.append("trendClassification} previousValue value} ");
+		sb.append("sessionsPerVisitorMetric {trend {percentage ");
+		sb.append("trendClassification} previousValue value} visitorsMetric {");
+		sb.append("trend {percentage trendClassification} previousValue ");
+		sb.append("value}}}");
+
+		graphQLRequest.setQuery(sb.toString());
+
+		graphQLRequest.setVariables(
+			new HashMap<String, Object>() {
+				{
+					put("channelId", channelId);
+					put("interval", interval);
+					put("rangeKey", rangeKey);
+				}
+			});
+
+		ResponseEntity<String> responseEntity = _getResponseEntity(
+			faroProject, graphQLRequest);
+
+		JSONObject jsonObject = _jsonFactory.createJSONObject(
+			responseEntity.getBody());
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		JSONObject siteJSONObject = dataJSONObject.getJSONObject("site");
+
+		return siteJSONObject.toString();
 	}
 
 	@Override

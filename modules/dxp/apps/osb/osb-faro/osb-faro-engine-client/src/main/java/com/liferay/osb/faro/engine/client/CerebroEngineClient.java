@@ -29,6 +29,11 @@ public interface CerebroEngineClient {
 			Optional<Date> toDateOptional)
 		throws Exception;
 
+	public String getSiteMetrics(
+			String channelId, FaroProject faroProject, String interval,
+			int rangeKey)
+		throws Exception;
+
 	public boolean isCustomEventsLimitReached(FaroProject faroProject)
 		throws Exception;
 
