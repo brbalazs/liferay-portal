@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.model.preferences;
 
+import com.liferay.portal.kernel.util.GetterUtil;
+
 /**
  * @author Rachael Koestartyo
  */
@@ -29,7 +31,7 @@ public class EmailReportPreferences {
 	}
 
 	public Boolean getEnabled() {
-		return _enabled;
+		return GetterUtil.getBoolean(_enabled);
 	}
 
 	public String getFrequency() {
