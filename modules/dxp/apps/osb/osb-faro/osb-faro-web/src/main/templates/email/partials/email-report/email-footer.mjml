@@ -17,7 +17,11 @@
 		<mj-text css-class="address-text">
 			Copyright &copy; 2021 Liferay, Inc.
 		</mj-text>
-		<mj-text css-class="address-text"> 1400 Montefino Ave </mj-text>
-		<mj-text css-class="address-text"> Diamond Bar, CA 91765 </mj-text>
+		<mj-text css-class="address-text"> 
+			1400 Montefino Ave
+		</mj-text>
+		<mj-text css-class="address-text">
+			Diamond Bar, CA 91765
+		</mj-text>
 	</mj-column>
 </mj-section>

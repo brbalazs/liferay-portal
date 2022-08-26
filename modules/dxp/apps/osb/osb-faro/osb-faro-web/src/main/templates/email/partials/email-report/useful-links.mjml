@@ -1,7 +1,7 @@
 <mj-section>
 	<mj-column>
 		<mj-navbar>
-			<mj-navbar-link css-class="nav-link" href=" https://help.liferay.com/hc/en-us">
+			<mj-navbar-link css-class="nav-link" href="https://help.liferay.com/hc/en-us">
 				Contact Support
 			</mj-navbar-link>
 			<mj-navbar-link css-class="nav-link" href="https://learn.liferay.com/">
