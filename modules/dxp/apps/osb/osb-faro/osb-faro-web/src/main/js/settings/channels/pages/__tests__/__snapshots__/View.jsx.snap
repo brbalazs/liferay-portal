@@ -87,12 +87,12 @@ exports[`View Channel should render 1`] = `
           class="d-flex"
         >
           <span
-            class="font-weight-semibold mr-3 align-items-center d-flex"
+            class="font-weight-semibold mr-2 align-items-center d-flex"
           >
             Email Reports: 
             Disabled
             <button
-              class="button-root btn btn-unstyled ml-3 btn-outline-borderless btn-sm"
+              class="button-root btn btn-unstyled ml-2 p-2 btn-outline-borderless btn-sm"
               data-tooltip="true"
               data-tooltip-align="top"
               disabled=""
