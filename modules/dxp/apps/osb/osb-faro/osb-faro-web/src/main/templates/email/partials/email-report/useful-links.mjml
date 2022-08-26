@@ -2,7 +2,7 @@
 	<mj-column>
 		<mj-navbar>
 			<mj-navbar-link css-class="nav-link" href="https://www.liferay.com/contact-us">
-				Contact Support 
+				Contact Support
 			</mj-navbar-link>
 			<mj-navbar-link css-class="nav-link" href="https://help.liferay.com/hc/en-us">
 				Help Center

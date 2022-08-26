@@ -1,6 +1,6 @@
 <mj-section padding-top="30px">
 	<mj-column>
-		<mj-text css-class="body-text " font-size="16px">
+		<mj-text css-class="body-text" font-size="16px">
 			Visit Liferay Analytics Cloud to
 		</mj-text>
 

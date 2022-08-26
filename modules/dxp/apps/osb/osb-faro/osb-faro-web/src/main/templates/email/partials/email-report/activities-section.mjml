@@ -5,13 +5,13 @@
 		</mj-text>
 
 		<mj-text css-class="activities-data">
-			[$UNIQUE_VISITORS_TREND$]
+			[$UNIQUE_VISITORS$]
 		</mj-text>
 	</mj-column>
 
 	<mj-column css-class="activities-comparison-container">
 		<mj-text css-class="activities-comparison">
-			<img src="[$ICON_PATH$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_UNIQUE_VISITORS$]
+			<img src="[$UNIQUE_VISITORS_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_UNIQUE_VISITORS$]
 		</mj-text>
 
 		<mj-text css-class="small-text">
@@ -33,13 +33,13 @@
 		</mj-text>
 
 		<mj-text css-class="activities-data">
-			[$SESSIONS_PER_VISITOR_TREND$]
+			[$SESSIONS_PER_VISITOR$]
 		</mj-text>
 	</mj-column>
 
 	<mj-column css-class="activities-comparison-container">
 		<mj-text css-class="activities-comparison">
-		   <img src="[$ICON_PATH$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSIONS_PER_VISITOR$]
+		   <img src="[$SESSIONS_PER_VISITOR_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSIONS_PER_VISITOR$]
 		</mj-text>
 
 		<mj-text css-class="small-text">
@@ -61,13 +61,13 @@
 		</mj-text>
 
 		<mj-text css-class="activities-data">
-			[$SESSION_DURATION_TREND$]
+			[$SESSION_DURATION$]
 		</mj-text>
 	</mj-column>
 
 	<mj-column css-class="activities-comparison-container">
 		<mj-text css-class="activities-comparison">
-			<img src="[$ICON_PATH$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSION_DURATION$]
+			<img src="[$SESSION_DURATION_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSION_DURATION$]
 		</mj-text>
 
 		<mj-text css-class="small-text">
@@ -89,13 +89,13 @@
 		</mj-text>
 
 		<mj-text css-class="activities-data">
-			[$BOUNCE_RATE_TREND$]
+			[$BOUNCE_RATE$]
 		</mj-text>
 	</mj-column>
 
 	<mj-column css-class="activities-comparison-container">
 		<mj-text css-class="activities-comparison">
-			<img src="[$ICON_PATH$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_BOUNCE_RATE$]
+			<img src="[$BOUNCE_RATE_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_BOUNCE_RATE$]
 		</mj-text>
 
 		<mj-text css-class="small-text">
