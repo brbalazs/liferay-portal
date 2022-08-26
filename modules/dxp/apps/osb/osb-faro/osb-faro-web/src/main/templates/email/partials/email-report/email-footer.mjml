@@ -1,22 +1,14 @@
 <mj-section>
 	<mj-column>
-		<mj-text css-class="footer-text separate-text-section">
-			This email was sent by <a href="https://www.liferay.com" target="_blank">Liferay, Inc.</a>
-		</mj-text>
 		<mj-text css-class="footer-text">
-			Need help? <a href="https://www.liferay.com/en/home" target="_blank">Let our team do the work for you.</a>
-		</mj-text>
-		<mj-text css-class="footer-text">
-			Liferay experts are available to answer your questions anytime.
+			This email was sent by
+			<a href="https://www.liferay.com" target="_blank">Liferay, Inc.</a>
 		</mj-text>
 	</mj-column>
 </mj-section>
 <mj-section>
-	<mj-column width="10%">
-		<mj-spacer css-class="hide-at-mobile" height="19px" />
-		<mj-text line-height="100%" padding-bottom="0" padding-right="0">
-			<img class="icon-logo" src="[$LOGO_ICON_URL$]" />
-		</mj-text>
+	<mj-column width="40%">
+		<mj-image src="[$LOGO_ICON_URL$]" />
 	</mj-column>
 </mj-section>
 
@@ -25,11 +17,7 @@
 		<mj-text css-class="address-text">
 			Copyright &copy; 2021 Liferay, Inc.
 		</mj-text>
-		<mj-text css-class="address-text">
-			1400 Montefino Ave
-		</mj-text>
-		<mj-text css-class="address-text">
-			Diamond Bar, CA 91765
-		</mj-text>
+		<mj-text css-class="address-text"> 1400 Montefino Ave </mj-text>
+		<mj-text css-class="address-text"> Diamond Bar, CA 91765 </mj-text>
 	</mj-column>
 </mj-section>

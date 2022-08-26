@@ -69,8 +69,8 @@
 		}
 	</mj-style>
 	<mj-style>
-		.separate-text-section div {
-			padding: 20px 0 !important;
+		.icon-logo div {
+			text-align: center !important;
 		}
 	</mj-style>
 	<mj-style>
