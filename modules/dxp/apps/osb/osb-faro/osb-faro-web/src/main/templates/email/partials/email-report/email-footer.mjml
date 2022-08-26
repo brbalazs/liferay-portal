@@ -13,7 +13,10 @@
 </mj-section>
 <mj-section>
 	<mj-column width="10%">
-		<mj-include path="../logo.mjml" />
+		<mj-spacer css-class="hide-at-mobile" height="19px" />
+		<mj-text line-height="100%" padding-bottom="0" padding-right="0">
+			<img class="icon-logo" src="[$LOGO_ICON_URL$]" />
+		</mj-text>
 	</mj-column>
 </mj-section>
 
