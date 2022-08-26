@@ -91,7 +91,7 @@ const EmailReports: React.FC<IEmailReportsProps> = ({
 	};
 
 	return (
-		<span className={getCN('font-weight-semibold mr-3', className)}>
+		<span className={getCN('font-weight-semibold mr-2', className)}>
 			{sub(
 				Liferay.Language.get('email-reports-x'),
 				[
@@ -109,7 +109,7 @@ const EmailReports: React.FC<IEmailReportsProps> = ({
 			{report && (
 				<Button
 					borderless
-					className='ml-3'
+					className='ml-2 p-2'
 					data-tooltip
 					data-tooltip-align='top'
 					disabled={!sitesSynced}
