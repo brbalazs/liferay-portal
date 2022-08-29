@@ -53,13 +53,13 @@ public class EmailUtil {
 	}
 
 	public static String getTrendIconURL(String trend) {
-		if (Objects.equals(trend, "POSITIVE")) {
-			return _FARO_URL.concat(
-				"/o/osb-faro-web/images/email/icon-order-arrow-up.png");
-		}
-		else if (Objects.equals(trend, "NEGATIVE")) {
+		if (Objects.equals(trend, "NEGATIVE")) {
 			return _FARO_URL.concat(
 				"/o/osb-faro-web/images/email/icon-order-arrow-down.png");
+		}
+		else if (Objects.equals(trend, "POSITIVE")) {
+			return _FARO_URL.concat(
+				"/o/osb-faro-web/images/email/icon-order-arrow-up.png");
 		}
 		else {
 			return _FARO_URL.concat(
