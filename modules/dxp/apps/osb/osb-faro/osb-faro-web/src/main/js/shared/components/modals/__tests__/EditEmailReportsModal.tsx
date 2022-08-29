@@ -140,7 +140,7 @@ describe('EditEmailReportsModal', () => {
 			<EditEmailReportsModal
 				onCancel={close}
 				onSave={null}
-				report={{enabled: true, frequency: Frequency.Weekly}}
+				report={{enabled: true, frequency: Frequency.Daily}}
 			/>
 		);
 
