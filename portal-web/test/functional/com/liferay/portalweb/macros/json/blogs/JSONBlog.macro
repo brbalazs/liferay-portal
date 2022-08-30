@@ -39,7 +39,7 @@ definition {
 
 		var curl = '''
 			${portalURL}/api/jsonws/blogsentry/add-entry \
-			-u test@liferay.com:test \
+			-u ${userEmailAddress}:${userPassword} \
 			-d title=${entryTitle} \
 			-d subtitle=${entrySubtitle} \
 			-d description= \

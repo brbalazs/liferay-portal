@@ -25,6 +25,10 @@ definition {
 		JSONRole.assignRoleToUser(
 			roleTitle = "Administrator",
 			userEmailAddress = "userea@liferay.com");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
 	}
 
 	tearDown {
@@ -50,12 +54,6 @@ definition {
 	test AnonymizeEntryFromApplication {
 		property test.name.skip.portal.instance = "GDPR#AnonymizeEntryFromApplication";
 
-		User.logoutPG();
-
-		User.loginUserPG(
-			password = "test",
-			userEmailAddress = "userea@liferay.com");
-
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
 		DMDocument.addCP(
@@ -67,10 +65,7 @@ definition {
 			userLoginEmailAddress = "test@liferay.com",
 			userLoginFullName = "Test Test");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
+		User.openUsersAdmin();
 
 		User.deletePersonalDataCP(
 			userFirstName = "userfn",
@@ -109,31 +104,17 @@ definition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "GDPR#DeleteEntryFromApplication";
 
-		User.logoutPG();
-
-		User.loginUserPG(
-			password = "test",
-			userEmailAddress = "userea@liferay.com");
-
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry Title",
+			userEmailAddress = "userea@liferay.com",
+			userPassword = "test");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "test@liferay.com",
 			userLoginFullName = "Test Test");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
+		User.openUsersAdmin();
 
 		User.deletePersonalDataCP(
 			userFirstName = "userfn",
@@ -157,12 +138,7 @@ definition {
 			applications = "Blogs",
 			rowEntry = "Blogs Entry Title");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Blogs");
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
 		LexiconEntry.viewNoEntry(rowEntry = "Blogs Entry Title");
 	}
@@ -170,12 +146,6 @@ definition {
 	@priority = "4"
 	test EditEntryFromApplication {
 		property test.name.skip.portal.instance = "GDPR#EditEntryFromApplication";
-
-		User.logoutPG();
-
-		User.loginUserPG(
-			password = "test",
-			userEmailAddress = "userea@liferay.com");
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -188,10 +158,7 @@ definition {
 			userLoginEmailAddress = "test@liferay.com",
 			userLoginFullName = "Test Test");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
+		User.openUsersAdmin();
 
 		User.deletePersonalDataCP(
 			userFirstName = "userfn",
@@ -235,27 +202,28 @@ definition {
 	test ExportAllEntries {
 		property test.name.skip.portal.instance = "GDPR#ExportAllEntries";
 
-		User.logoutAndLoginPG(
-			userLoginEmailAddress = "userea@liferay.com",
-			userLoginFullName = "userfn userln");
-
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Announcements Page");
 
+		JSONLayout.updateLayoutTemplateOfPublicLayout(
+			groupName = "Guest",
+			layoutName = "Announcements Page",
+			layoutTemplate = "1 Column");
+
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
 			groupName = "Guest",
 			layoutName = "Announcements Page",
 			widgetName = "Announcements");
 
-		Navigator.gotoPage(pageName = "Announcements Page");
+		JSONAnnouncement.addAnnouncement(
+			announcementContent = "Announcements Entry Content",
+			announcementTitle = "Announcements Entry Title",
+			announcementURL = "http://www.liferay.com",
+			userEmailAddress = "userea@liferay.com",
+			userPassword = "test");
 
-		AnnouncementsEntry.addPG(
-			distributionScope = "General",
-			entryContent = "Announcements Entry Content",
-			entryTitle = "Announcements Entry Title",
-			entryURL = "http://www.liferay.com");
+		Navigator.gotoPage(pageName = "Announcements Page");
 
 		AnnouncementsEntry.viewPG(
 			distributionScope = "General",
@@ -266,8 +234,12 @@ definition {
 			groupName = "Guest",
 			layoutName = "Contacts Center Page");
 
+		JSONLayout.updateLayoutTemplateOfPublicLayout(
+			groupName = "Guest",
+			layoutName = "Contacts Center Page",
+			layoutTemplate = "1 Column");
+
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
 			groupName = "Guest",
 			layoutName = "Contacts Center Page",
 			widgetName = "Contacts Center");
@@ -285,7 +257,8 @@ definition {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title",
-			groupName = "Guest");
+			userEmailAddress = "userea@liferay.com",
+			userPassword = "test");
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -294,21 +267,14 @@ definition {
 			dmDocumentFile = "Document_1.txt",
 			dmDocumentTitle = "DM Document Title");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Message Boards");
-
-		MessageboardsThread.addCP(
+		JSONMBMessage.addMessage(
+			groupName = "Guest",
 			threadBody = "MB Thread Message Body",
-			threadSubject = "MB Thread Message Subject");
+			threadSubject = "MB Thread Message Subject",
+			userEmailAddress = "userea@liferay.com",
+			userPassword = "test");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Wiki");
+		WikiNavigator.openWikiAdmin(siteURLKey = "guest");
 
 		WikiNavigator.gotoNode(wikiNodeName = "Main");
 
@@ -322,10 +288,7 @@ definition {
 			userLoginEmailAddress = "test@liferay.com",
 			userLoginFullName = "Test Test");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
+		User.openUsersAdmin();
 
 		User.exportPersonalDataCP(
 			userFirstName = "userfn",
