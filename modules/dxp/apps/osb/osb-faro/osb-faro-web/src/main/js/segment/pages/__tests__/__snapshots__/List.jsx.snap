@@ -384,8 +384,12 @@ exports[`List should render 1`] = `
                             class="quick-action-menu"
                           >
                             <a
+                              alt="Edit"
+                              aria-label="Edit"
                               class="button-root btn btn-unstyled component-action quick-action-item"
+                              data-tooltip="true"
                               href="/workspace/23/123/contacts/segments/0/edit"
+                              title="Edit"
                             >
                               <svg
                                 class="icon-root lexicon-icon lexicon-icon-pencil"

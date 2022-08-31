@@ -139,6 +139,7 @@ exports[`Data Privacy Overview should render 1`] = `
                   >
                     <a
                       class="button-root btn btn-secondary btn-block"
+                      data-testid="manage-suppressed-user-button"
                       href="/workspace/23/settings/data-privacy/suppressed-users"
                     >
                       Manage

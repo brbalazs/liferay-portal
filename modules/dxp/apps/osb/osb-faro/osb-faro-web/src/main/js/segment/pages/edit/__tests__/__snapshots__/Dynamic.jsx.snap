@@ -135,7 +135,9 @@ exports[`DynamicSegmentEdit should render 1`] = `
                   <button
                     class="button-root btn btn-secondary preview-criteria btn-outline-borderless btn-sm"
                     data-testid="preview-criteria-button"
+                    data-tooltip="true"
                     disabled=""
+                    title="View Members"
                     type="button"
                   >
                     <span
