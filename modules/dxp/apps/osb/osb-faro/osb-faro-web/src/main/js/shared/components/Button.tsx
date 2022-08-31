@@ -158,6 +158,7 @@ class Button extends React.Component<IButtonProps> {
 		} else if (!disabled && !externalLink && href) {
 			return (
 				<Link
+					{...otherProps}
 					className={classes}
 					onClick={onClick}
 					ref={forwardedRef}

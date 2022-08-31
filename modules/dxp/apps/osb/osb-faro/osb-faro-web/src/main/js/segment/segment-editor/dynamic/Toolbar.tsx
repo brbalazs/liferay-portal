@@ -216,12 +216,16 @@ export class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
 										borderless
 										className='preview-criteria'
 										data-testid='preview-criteria-button'
+										data-tooltip
 										disabled={
 											!criteriaValid ||
 											(criteriaValid && !membersCount)
 										}
 										onClick={this.handlePreviewClick}
 										size='sm'
+										title={Liferay.Language.get(
+											'view-members'
+										)}
 									>
 										<span
 											{...this.getPreviewCriteriaTooltipProps()}
