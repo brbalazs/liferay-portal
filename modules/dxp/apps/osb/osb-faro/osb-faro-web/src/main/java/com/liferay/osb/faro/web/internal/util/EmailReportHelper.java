@@ -174,7 +174,7 @@ public class EmailReportHelper {
 	private String _formatPercentage(String value) {
 		Double doubleValue = GetterUtil.getDouble(value);
 
-		return String.format("%.2f", doubleValue * 100) + "%";
+		return String.format("%.1f", doubleValue * 100) + "%";
 	}
 
 	private String _getMetricTrendIconURL(
