@@ -104,7 +104,7 @@ public class EmailReportHelper {
 				_getMetricTrendIconURL(
 					"bounceRateMetric", siteMetricsJSONObject),
 				faroProject.getAccountName(), _getTemporal(frequency),
-				EmailUtil.getWorkspaceURL(group),
+				EmailUtil.getWorkspaceURL(channelId, group),
 				EmailUtil.getEmailBannerURL(frequency),
 				EmailUtil.getLiferayLogoIconURL(),
 				calendar.getDisplayName(
