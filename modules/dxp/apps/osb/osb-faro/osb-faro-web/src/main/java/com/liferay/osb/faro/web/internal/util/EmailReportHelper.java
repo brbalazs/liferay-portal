@@ -151,10 +151,27 @@ public class EmailReportHelper {
 	}
 
 	private String _formatDuration(String value) {
-		Double doubleValue = GetterUtil.getDouble(value);
+		String duration = DurationFormatUtils.formatDuration(
+			Math.round(GetterUtil.getDouble(value)), "d'd'HH'h'mm'm'ss's'",
+			true);
 
-		return DurationFormatUtils.formatDuration(
-			doubleValue.longValue(), "H'h'm'm's's'", true);
+		if (duration.startsWith("0d")) {
+			duration = duration.substring(2);
+		}
+
+		if (duration.startsWith("00h")) {
+			duration = duration.substring(3);
+		}
+
+		if (duration.startsWith("00m")) {
+			duration = duration.substring(3);
+		}
+
+		if (duration.startsWith("00s")) {
+			duration = "0s";
+		}
+
+		return duration;
 	}
 
 	private String _formatNumber(String value) {
