@@ -86,6 +86,17 @@ public class EmailUtil {
 		return sb.toString();
 	}
 
+	public static String getWorkspaceURL(String channelId, Group group) {
+		StringBuilder sb = new StringBuilder(4);
+
+		sb.append(getWorkspaceURL(group));
+		sb.append(StringPool.SLASH);
+		sb.append(channelId);
+		sb.append("/sites");
+
+		return sb.toString();
+	}
+
 	private static final String _FARO_URL = System.getenv("FARO_URL");
 
 }
