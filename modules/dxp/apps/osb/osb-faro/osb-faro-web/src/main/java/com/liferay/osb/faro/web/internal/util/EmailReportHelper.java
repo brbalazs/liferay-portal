@@ -17,6 +17,8 @@ package com.liferay.osb.faro.web.internal.util;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
+import com.liferay.osb.faro.engine.client.ContactsEngineClient;
+import com.liferay.osb.faro.engine.client.model.Channel;
 import com.liferay.osb.faro.model.FaroChannel;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroChannelLocalService;
@@ -34,6 +36,8 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.mail.internet.InternetAddress;
@@ -70,6 +74,21 @@ public class EmailReportHelper {
 		Group group = _groupLocalService.fetchGroup(groupId);
 
 		if (group == null) {
+			return;
+		}
+
+		Channel channel = _contactsEngineClient.getChannel(
+			faroProject, channelId);
+
+		int groupIdCount = 0;
+
+		for (Map<String, Object> dataSource : channel.getDataSources()) {
+			List<String> groupIds = (List)dataSource.get("groupIds");
+
+			groupIdCount += groupIds.size();
+		}
+
+		if (groupIdCount == 0) {
 			return;
 		}
 
@@ -263,6 +282,9 @@ public class EmailReportHelper {
 
 	@Reference
 	private CerebroEngineClient _cerebroEngineClient;
+
+	@Reference
+	private ContactsEngineClient _contactsEngineClient;
 
 	@Reference
 	private FaroChannelLocalService _faroChannelLocalService;
