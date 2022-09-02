@@ -46,10 +46,14 @@ export interface IBreakdownTableProps
 	breakdownOrder: string[];
 	breakdowns: Breakdowns;
 	compareToPrevious: boolean;
+	delta: number;
 	editBreakdown: EditBreakdown;
 	event: Event;
 	eventAnalysisResult: EventAnalysisResultData;
 	filters: Filters;
+	onDeltaChange: (page: number) => void;
+	onPageChange: (page: number) => void;
+	page: number;
 	type: CalculationTypes;
 }
 
@@ -95,11 +99,13 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 	breakdownOrder,
 	breakdowns,
 	compareToPrevious,
+	delta,
 	editBreakdown,
 	event,
 	eventAnalysisResult,
-	filters,
-	rangeSelectors
+	onDeltaChange,
+	onPageChange,
+	page
 }) => {
 	const [maxBreakdownLength, setMaxBreakdownLength] = useState<number>();
 
@@ -149,7 +155,6 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 		};
 	};
 
-	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
 	const {columns, count, highestValue, items} = parseData(
 		eventAnalysisResult
 	);
@@ -216,10 +221,6 @@ const BreakdownTable: React.FC<IBreakdownTableProps> = ({
 			breakdownOrder.length
 		);
 	}, [breakdownOrder.length]);
-
-	useEffect(() => {
-		onPageChange(1);
-	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
 
 	const handleSort = orderIOMap => {
 		const {field, sortOrder} = orderIOMap.first();
@@ -289,7 +290,7 @@ const BreakdownWithSafeResults: React.FC<IBreakdownTableWithSafeResultsProps> = 
 	rangeSelectors,
 	type
 }) => {
-	const {delta, page} = useStatefulPagination();
+	const {delta, onDeltaChange, onPageChange, page} = useStatefulPagination();
 
 	const result = useQuery<
 		EventAnalysisResultData,
@@ -313,6 +314,10 @@ const BreakdownWithSafeResults: React.FC<IBreakdownTableWithSafeResultsProps> = 
 		}
 	});
 
+	useEffect(() => {
+		onPageChange(1);
+	}, [breakdownOrder, breakdowns, event, filters, rangeSelectors]);
+
 	return (
 		<SafeResults {...result} page={false} pageDisplay={false}>
 			{({
@@ -325,10 +330,14 @@ const BreakdownWithSafeResults: React.FC<IBreakdownTableWithSafeResultsProps> = 
 					breakdownOrder={breakdownOrder}
 					breakdowns={breakdowns}
 					compareToPrevious={compareToPrevious}
+					delta={delta}
 					editBreakdown={editBreakdown}
 					event={event}
 					eventAnalysisResult={eventAnalysisResult}
 					filters={filters}
+					onDeltaChange={onDeltaChange}
+					onPageChange={onPageChange}
+					page={page}
 					rangeSelectors={rangeSelectors}
 					type={type}
 				/>
