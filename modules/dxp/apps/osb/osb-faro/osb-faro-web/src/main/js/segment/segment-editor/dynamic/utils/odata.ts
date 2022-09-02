@@ -529,9 +529,12 @@ export const convertBetweenToSubstring = (queryString: string): string =>
  * Converts an OData filter query string to an object that can be used by the
  * criteria builder
  */
-const translateQueryToCriteria = (queryString: string): Criteria => {
+const translateQueryToCriteria = (initialQueryString: string): Criteria => {
 	let criteria;
-
+	const queryStringWithBrackets = initialQueryString.includes('[');
+	const queryString = queryStringWithBrackets
+		? initialQueryString.replace('[', '').replace(']', '')
+		: initialQueryString;
 	try {
 		if (queryString === '()') {
 			throw new Error('queryString is ()');
@@ -560,6 +563,18 @@ const translateQueryToCriteria = (queryString: string): Criteria => {
 		criteria = null;
 	}
 
+	if (queryStringWithBrackets) {
+		const value = `[${criteria.items[0].value}]`;
+
+		const items = criteria.items.map((item, index) => {
+			if (index === 0) return {...item, value};
+			return item;
+		});
+
+		const newCriteria = {...criteria, items};
+
+		return newCriteria;
+	}
 	return criteria;
 };
 
