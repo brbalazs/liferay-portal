@@ -15,7 +15,7 @@
 package com.liferay.osb.faro.web.internal.messaging;
 
 import com.liferay.osb.faro.model.FaroPreferences;
-import com.liferay.osb.faro.service.persistence.FaroPreferencesUtil;
+import com.liferay.osb.faro.service.FaroPreferencesLocalService;
 import com.liferay.osb.faro.web.internal.model.preferences.EmailReportPreferences;
 import com.liferay.osb.faro.web.internal.model.preferences.WorkspacePreferences;
 import com.liferay.osb.faro.web.internal.util.EmailReportHelper;
@@ -43,7 +43,9 @@ public abstract class BaseEmailReportMessageListener
 
 	@Override
 	protected void doReceive(Message message) throws Exception {
-		for (FaroPreferences faroPreferences : FaroPreferencesUtil.findAll()) {
+		for (FaroPreferences faroPreferences :
+				faroPreferencesLocalService.getFaroPreferenceses(-1, -1)) {
+
 			WorkspacePreferences workspacePreferences = JSONUtil.readValue(
 				faroPreferences.getPreferences(), WorkspacePreferences.class);
 
@@ -81,6 +83,9 @@ public abstract class BaseEmailReportMessageListener
 
 	@Reference
 	protected EmailReportHelper emailReportHelper;
+
+	@Reference
+	protected FaroPreferencesLocalService faroPreferencesLocalService;
 
 	@Reference
 	protected SchedulerEngineHelper schedulerEngineHelper;
