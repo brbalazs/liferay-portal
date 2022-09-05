@@ -531,7 +531,10 @@ export const convertBetweenToSubstring = (queryString: string): string =>
  */
 const translateQueryToCriteria = (initialQueryString: string): Criteria => {
 	let criteria;
-	const queryStringWithBrackets = initialQueryString.includes('[');
+
+	const regex = new RegExp(/\[*\]|\[*\[/);
+	const queryStringWithBrackets = regex.test(initialQueryString);
+
 	const queryString = queryStringWithBrackets
 		? initialQueryString.replace('[', '').replace(']', '')
 		: initialQueryString;
