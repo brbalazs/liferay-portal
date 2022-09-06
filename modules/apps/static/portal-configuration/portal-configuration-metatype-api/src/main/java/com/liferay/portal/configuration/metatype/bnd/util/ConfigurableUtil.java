@@ -98,11 +98,17 @@ public class ConfigurableUtil {
 			snapshotClassBinaryName, null, objectClassBinaryName,
 			new String[] {_getClassBinaryName(interfaceClass.getName())});
 
-		Method[] declaredMethods = interfaceClass.getDeclaredMethods();
+		List<Method> nonsyntheticDeclaredMethods = new ArrayList<>();
+
+		for (Method method : interfaceClass.getDeclaredMethods()) {
+			if (!method.isSynthetic()) {
+				nonsyntheticDeclaredMethods.add(method);
+			}
+		}
 
 		List<Method> bigStringMethods = new ArrayList<>();
 
-		for (Method method : declaredMethods) {
+		for (Method method : nonsyntheticDeclaredMethods) {
 			if (method.getReturnType() == String.class) {
 				String result = (String)method.invoke(configurable);
 
@@ -114,7 +120,7 @@ public class ConfigurableUtil {
 
 		// Fields
 
-		for (Method method : declaredMethods) {
+		for (Method method : nonsyntheticDeclaredMethods) {
 			Class<?> returnType = method.getReturnType();
 
 			if (returnType.isPrimitive() || returnType.isEnum() ||
@@ -148,7 +154,7 @@ public class ConfigurableUtil {
 			Opcodes.INVOKESPECIAL, objectClassBinaryName, "<init>", "()V",
 			false);
 
-		for (Method method : declaredMethods) {
+		for (Method method : nonsyntheticDeclaredMethods) {
 			Class<?> returnType = method.getReturnType();
 
 			if (returnType.isPrimitive() || returnType.isEnum() ||
@@ -181,7 +187,7 @@ public class ConfigurableUtil {
 
 		// Methods
 
-		for (Method method : declaredMethods) {
+		for (Method method : nonsyntheticDeclaredMethods) {
 			String methodName = method.getName();
 			Class<?> returnType = method.getReturnType();
 
