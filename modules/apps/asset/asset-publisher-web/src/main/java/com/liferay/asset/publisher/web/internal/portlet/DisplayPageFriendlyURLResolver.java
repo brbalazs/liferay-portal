@@ -377,7 +377,7 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 		List<Layout> layouts = _layoutLocalService.getLayouts(
 			groupId, false, "asset_display");
 
-		if (!ListUtil.isEmpty(layouts)) {
+		if (ListUtil.isNotEmpty(layouts)) {
 			return layouts.get(0);
 		}
 

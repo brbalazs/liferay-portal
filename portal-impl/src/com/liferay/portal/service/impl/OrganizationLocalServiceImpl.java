@@ -1100,7 +1100,7 @@ public class OrganizationLocalServiceImpl
 			organizationsTree.addAll(organization.getSuborganizations());
 		}
 
-		if (!ListUtil.isEmpty(organizationsTree)) {
+		if (ListUtil.isNotEmpty(organizationsTree)) {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersOrgsTree", organizationsTree);

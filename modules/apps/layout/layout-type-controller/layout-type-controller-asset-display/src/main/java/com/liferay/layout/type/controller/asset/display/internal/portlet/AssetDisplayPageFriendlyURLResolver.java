@@ -119,7 +119,7 @@ public class AssetDisplayPageFriendlyURLResolver
 			AssetDisplayLayoutTypeControllerConstants.
 				LAYOUT_TYPE_ASSET_DISPLAY);
 
-		if (!ListUtil.isEmpty(layouts)) {
+		if (ListUtil.isNotEmpty(layouts)) {
 			return layouts.get(0);
 		}
 

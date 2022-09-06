@@ -43,7 +43,7 @@ public class AssetEntryValidatorRegistry {
 		List<AssetEntryValidator> generalAssetEntryValidators =
 			_serviceTrackerMap.getService("*");
 
-		if (!ListUtil.isEmpty(generalAssetEntryValidators)) {
+		if (ListUtil.isNotEmpty(generalAssetEntryValidators)) {
 			assetEntryValidators.addAll(generalAssetEntryValidators);
 		}
 
@@ -51,7 +51,7 @@ public class AssetEntryValidatorRegistry {
 			List<AssetEntryValidator> classNameAssetEntryValidators =
 				_serviceTrackerMap.getService(className);
 
-			if (!ListUtil.isEmpty(classNameAssetEntryValidators)) {
+			if (ListUtil.isNotEmpty(classNameAssetEntryValidators)) {
 				assetEntryValidators.addAll(classNameAssetEntryValidators);
 			}
 		}
