@@ -124,6 +124,16 @@ public class ConfigurableUtilTest {
 		new ConfigurableUtil();
 	}
 
+	@Test
+	public void testSyntheticMethod() {
+		TestSyntheticMethodConfiguration testSyntheticMethodConfiguration =
+			ConfigurableUtil.createConfigurable(
+				TestSyntheticMethodConfiguration.class, Collections.emptyMap());
+
+		Assert.assertEquals(
+			"test_string", testSyntheticMethodConfiguration.testString());
+	}
+
 	public static class TestClass {
 
 		public TestClass(String name) {
@@ -223,6 +233,16 @@ public class ConfigurableUtilTest {
 	private enum TestEnum {
 
 		TEST_VALUE
+
+	}
+
+	private interface TestSyntheticMethodConfiguration {
+
+		@Meta.AD(deflt = "test_string", required = false)
+		public String testString();
+
+		public Runnable runnable = () -> {
+		};
 
 	}
 
