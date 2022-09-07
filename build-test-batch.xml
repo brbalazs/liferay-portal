@@ -4741,7 +4741,7 @@ log.sanitizer.enabled=false</echo>
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="23.0.0" />
 
 		<run-functional-test app.server.type="wildfly" app.server.version="23.0.0" database.type="mysql" />
-	</target>v
+	</target>
 
 	<target name="gogo-shell-client-jdk8">
 		<run-batch-test>
