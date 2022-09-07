@@ -72,6 +72,7 @@ import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -419,7 +420,7 @@ public class ContactsEngineClientImpl
 				String.valueOf(UUID.randomUUID()), CharPool.DASH,
 				StringPool.BLANK);
 
-			projectId = "asah" + uuid;
+			projectId = GetterUtil.get(_FARO_PROJECT_ID_PREFIX, "asah") + uuid;
 		}
 
 		faroProject.setWeDeployKey(projectId);
@@ -2738,6 +2739,9 @@ public class ContactsEngineClientImpl
 	protected String getWorkspaceURL(long groupId) {
 		return _FARO_URL + "/workspace/" + groupId;
 	}
+
+	private static final String _FARO_PROJECT_ID_PREFIX = System.getenv(
+		"FARO_PROJECT_ID_PREFIX");
 
 	private static final String _FARO_TEMP_FIELD = "faro_temp_field";
 
