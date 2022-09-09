@@ -668,7 +668,6 @@ public class S3Store extends BaseStore {
 			_s3StoreConfiguration.httpClientMaxConnections());
 
 		configureConnectionProtocol(clientConfiguration);
-
 		configureProxySettings(clientConfiguration);
 		configureSignerOverride(clientConfiguration);
 
