@@ -729,9 +729,6 @@ public class PortalImplUnitTest {
 			MockedStatic<PortalUtil> portalUtilMockedStatic)
 		throws PortletException {
 
-		HttpServletResponse httpServletResponse =
-			new DummyHttpServletResponse();
-
 		LayoutTypePortletFactoryUtil layoutTypePortletFactoryUtil =
 			new LayoutTypePortletFactoryUtil();
 
@@ -754,6 +751,9 @@ public class PortalImplUnitTest {
 		).when(
 			portletMode
 		).toString();
+
+		HttpServletResponse httpServletResponse =
+			new DummyHttpServletResponse();
 
 		return ActionResponseFactory.create(
 			_createActionRequest(portletMode), httpServletResponse,
