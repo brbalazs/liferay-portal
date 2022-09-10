@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.portlet.InvokerPortlet;
 import com.liferay.portal.kernel.servlet.DummyHttpServletResponse;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.test.util.PropsTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.upgrade.MockPortletPreferences;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -59,15 +60,21 @@ import javax.servlet.http.HttpSession;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * @author Miguel Pastor
  */
+@PrepareForTest(PortalUtil.class)
+@RunWith(PowerMockRunner.class)
 public class PortalImplUnitTest {
 
 	@BeforeClass
@@ -83,11 +90,13 @@ public class PortalImplUnitTest {
 		// Without password
 
 		Map<String, String[]> params = HashMapBuilder.put(
-			"p_u_i_d", new String[] {String.valueOf(4200L)}
+			"p_u_i_d",
+			new String[] {String.valueOf(RandomTestUtil.randomLong())}
 		).put(
-			"passwordReset", new String[] {Boolean.TRUE.toString()}
+			"passwordReset",
+			new String[] {String.valueOf(RandomTestUtil.randomBoolean())}
 		).put(
-			"redirect", new String[] {"http://localhost:8080/test"}
+			"redirect", new String[] {RandomTestUtil.randomString()}
 		).build();
 
 		Enumeration<String> enumeration = Collections.enumeration(
@@ -95,11 +104,7 @@ public class PortalImplUnitTest {
 				"p_u_i_d", "password1", "password2", "passwordReset",
 				"redirect"));
 
-		MockedStatic<PortalUtil> portalUtilMockedStatic = Mockito.mockStatic(
-			PortalUtil.class);
-
-		ActionResponse actionResponse = _createActionResponse(
-			portalUtilMockedStatic);
+		ActionResponse actionResponse = _createActionResponse();
 
 		_portalImpl.copyRequestParameters(
 			_createActionRequest(params, enumeration), actionResponse);
@@ -108,13 +113,11 @@ public class PortalImplUnitTest {
 
 		// With password
 
-		params.put("password1", new String[] {"abc_123"});
-		params.put("password2", new String[] {"def_456"});
+		params.put("password1", new String[] {RandomTestUtil.randomString()});
+		params.put("password2", new String[] {RandomTestUtil.randomString()});
 
 		_portalImpl.copyRequestParameters(
 			_createActionRequest(params, enumeration), actionResponse);
-
-		portalUtilMockedStatic.close();
 
 		_assertActionResponse(actionResponse, params);
 	}
@@ -701,6 +704,8 @@ public class PortalImplUnitTest {
 	}
 
 	private ActionRequest _createActionRequest(PortletMode portletMode) {
+		PropsTestUtil.setProps(PropsKeys.UNICODE_TEXT_NORMALIZER_FORM, "NFC");
+
 		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
@@ -726,18 +731,17 @@ public class PortalImplUnitTest {
 			4000L);
 	}
 
-	private ActionResponse _createActionResponse(
-			MockedStatic<PortalUtil> portalUtilMockedStatic)
-		throws PortletException {
-
+	private ActionResponse _createActionResponse() throws PortletException {
 		LayoutTypePortletFactoryUtil layoutTypePortletFactoryUtil =
 			new LayoutTypePortletFactoryUtil();
 
 		layoutTypePortletFactoryUtil.setLayoutTypePortletFactory(
 			new LayoutTypePortletFactoryImpl());
 
-		portalUtilMockedStatic.when(
-			() -> PortalUtil.updateWindowState(
+		PowerMockito.mockStatic(PortalUtil.class);
+
+		PowerMockito.when(
+			PortalUtil.updateWindowState(
 				Mockito.anyString(), Mockito.any(UserImpl.class),
 				Mockito.any(LayoutImpl.class), Mockito.any(WindowState.class),
 				Mockito.any(HttpServletRequest.class))
