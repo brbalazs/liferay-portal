@@ -55,7 +55,6 @@ import javax.portlet.WindowState;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
@@ -756,11 +755,8 @@ public class PortalImplUnitTest {
 			portletMode
 		).toString();
 
-		HttpServletResponse httpServletResponse =
-			new DummyHttpServletResponse();
-
 		return ActionResponseFactory.create(
-			_createActionRequest(portletMode), httpServletResponse,
+			_createActionRequest(portletMode), new DummyHttpServletResponse(),
 			new UserImpl(), new LayoutImpl());
 	}
 
