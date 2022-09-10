@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.servlet.DummyHttpServletResponse;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upgrade.MockPortletPreferences;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HttpUtil;
@@ -708,9 +707,8 @@ public class PortalImplUnitTest {
 		HttpServletRequest httpServletRequest = new DynamicServletRequest(
 			mockHttpServletRequest, new HashMap<>());
 
-		ThemeDisplay themeDisplay = ThemeDisplayFactory.create();
-
-		httpServletRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
+		httpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, ThemeDisplayFactory.create());
 
 		RegistryUtil.setRegistry(new BasicRegistryImpl());
 
