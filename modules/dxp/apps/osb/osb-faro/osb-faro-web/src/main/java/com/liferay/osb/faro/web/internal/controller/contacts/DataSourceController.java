@@ -167,12 +167,6 @@ public class DataSourceController extends BaseFaroController {
 				dataSourceName, portalURL, new LiferayProvider(), null,
 				DataSource.Status.ACTIVE.toString());
 
-			createFieldMappings(
-				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				dataSource.getId(), FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
-				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL,
-				FieldMappingConstants.getLiferayFieldMappingMaps());
-
 			_tokenManager.setDataSourceId(dataSource.getId(), token);
 		}
 		else {
