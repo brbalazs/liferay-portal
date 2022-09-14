@@ -33,6 +33,8 @@ import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.search.Indexable;
@@ -622,6 +624,9 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 
 	@BeanReference(type = OAuth2ScopeGrantFinder.class)
 	protected OAuth2ScopeGrantFinder oAuth2ScopeGrantFinder;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		OAuth2ApplicationScopeAliasesLocalServiceBaseImpl.class);
 
 	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
 	protected PersistedModelLocalServiceRegistry
