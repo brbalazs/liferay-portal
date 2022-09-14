@@ -3,7 +3,7 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Constants, {PROD_MODE} from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import EmailReports from '../components/EmailReports';
 import Form, {
 	validateMaxLength,
@@ -225,14 +225,11 @@ const View: React.FC<IViewProps> = ({
 				</div>
 
 				<div className='d-flex'>
-					{/* TODO: LRAC-11704 Remove feature flag */}
-					{!PROD_MODE && (
-						<EmailReports
-							channelId={id}
-							className='align-items-center d-flex'
-							sitesSynced={!!channel.groupIdCount}
-						/>
-					)}
+					<EmailReports
+						channelId={id}
+						className='align-items-center d-flex'
+						sitesSynced={!!channel.groupIdCount}
+					/>
 
 					{authorized && (
 						<span className='header-action-buttons pl-3'>
