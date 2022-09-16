@@ -809,6 +809,6 @@ public abstract class DDMFormInstanceServiceBaseImpl
 	protected DDMStructureFinder ddmStructureFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DDMFormInstanceLocalServiceBaseImpl.class);
+		DDMFormInstanceServiceBaseImpl.class);
 
 }

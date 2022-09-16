@@ -552,6 +552,6 @@ public abstract class OAuth2ApplicationServiceBaseImpl
 	protected OAuth2AuthorizationPersistence oAuth2AuthorizationPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		OAuth2ApplicationLocalServiceBaseImpl.class);
+		OAuth2ApplicationServiceBaseImpl.class);
 
 }

@@ -562,6 +562,6 @@ public abstract class DDMTemplateServiceBaseImpl
 	protected DDMTemplateVersionPersistence ddmTemplateVersionPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DDMTemplateLocalServiceBaseImpl.class);
+		DDMTemplateServiceBaseImpl.class);
 
 }

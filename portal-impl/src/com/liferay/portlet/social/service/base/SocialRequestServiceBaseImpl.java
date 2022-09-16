@@ -456,6 +456,6 @@ public abstract class SocialRequestServiceBaseImpl
 			socialRequestInterpreterLocalService;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SocialRequestLocalServiceBaseImpl.class);
+		SocialRequestServiceBaseImpl.class);
 
 }

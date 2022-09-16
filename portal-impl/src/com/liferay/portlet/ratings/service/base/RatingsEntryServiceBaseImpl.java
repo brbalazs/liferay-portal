@@ -653,6 +653,6 @@ public abstract class RatingsEntryServiceBaseImpl
 	protected AssetEntryFinder assetEntryFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		RatingsEntryLocalServiceBaseImpl.class);
+		RatingsEntryServiceBaseImpl.class);
 
 }

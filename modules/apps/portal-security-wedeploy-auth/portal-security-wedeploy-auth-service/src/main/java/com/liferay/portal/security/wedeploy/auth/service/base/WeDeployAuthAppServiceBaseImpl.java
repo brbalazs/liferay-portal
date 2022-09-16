@@ -465,6 +465,6 @@ public abstract class WeDeployAuthAppServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		WeDeployAuthAppLocalServiceBaseImpl.class);
+		WeDeployAuthAppServiceBaseImpl.class);
 
 }

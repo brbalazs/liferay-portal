@@ -1266,6 +1266,6 @@ public abstract class CalendarBookingServiceBaseImpl
 	protected SocialActivityCounterPersistence socialActivityCounterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CalendarBookingLocalServiceBaseImpl.class);
+		CalendarBookingServiceBaseImpl.class);
 
 }

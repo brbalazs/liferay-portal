@@ -640,6 +640,6 @@ public abstract class AssetTagServiceBaseImpl
 	protected AssetEntryFinder assetEntryFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetTagLocalServiceBaseImpl.class);
+		AssetTagServiceBaseImpl.class);
 
 }

@@ -637,6 +637,6 @@ public abstract class SourceServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SourceLocalServiceBaseImpl.class);
+		SourceServiceBaseImpl.class);
 
 }

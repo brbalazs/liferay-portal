@@ -1289,6 +1289,6 @@ public abstract class DLFolderServiceBaseImpl
 	protected RatingsStatsFinder ratingsStatsFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DLFolderLocalServiceBaseImpl.class);
+		DLFolderServiceBaseImpl.class);
 
 }

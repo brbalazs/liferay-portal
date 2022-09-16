@@ -281,6 +281,6 @@ public abstract class AssetCategoryPropertyServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetCategoryPropertyLocalServiceBaseImpl.class);
+		AssetCategoryPropertyServiceBaseImpl.class);
 
 }

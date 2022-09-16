@@ -240,6 +240,6 @@ public abstract class AccountServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AccountLocalServiceBaseImpl.class);
+		AccountServiceBaseImpl.class);
 
 }

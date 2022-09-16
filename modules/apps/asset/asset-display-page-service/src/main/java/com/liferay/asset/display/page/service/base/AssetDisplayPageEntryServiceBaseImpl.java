@@ -310,6 +310,6 @@ public abstract class AssetDisplayPageEntryServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetDisplayPageEntryLocalServiceBaseImpl.class);
+		AssetDisplayPageEntryServiceBaseImpl.class);
 
 }

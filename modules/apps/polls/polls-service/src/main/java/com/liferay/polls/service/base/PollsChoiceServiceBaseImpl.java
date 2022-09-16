@@ -401,6 +401,6 @@ public abstract class PollsChoiceServiceBaseImpl
 	protected PollsQuestionFinder pollsQuestionFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PollsChoiceLocalServiceBaseImpl.class);
+		PollsChoiceServiceBaseImpl.class);
 
 }

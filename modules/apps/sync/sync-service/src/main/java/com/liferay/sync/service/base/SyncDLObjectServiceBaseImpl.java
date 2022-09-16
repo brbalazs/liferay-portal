@@ -1248,6 +1248,6 @@ public abstract class SyncDLObjectServiceBaseImpl
 		dlTrashService;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SyncDLObjectLocalServiceBaseImpl.class);
+		SyncDLObjectServiceBaseImpl.class);
 
 }

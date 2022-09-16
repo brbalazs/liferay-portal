@@ -211,6 +211,6 @@ public abstract class CountryServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CountryLocalServiceBaseImpl.class);
+		CountryServiceBaseImpl.class);
 
 }

@@ -210,6 +210,6 @@ public abstract class DLTrashServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DLTrashLocalServiceBaseImpl.class);
+		DLTrashServiceBaseImpl.class);
 
 }

@@ -864,6 +864,6 @@ public abstract class BookmarksFolderServiceBaseImpl
 	protected SocialActivityPersistence socialActivityPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BookmarksFolderLocalServiceBaseImpl.class);
+		BookmarksFolderServiceBaseImpl.class);
 
 }

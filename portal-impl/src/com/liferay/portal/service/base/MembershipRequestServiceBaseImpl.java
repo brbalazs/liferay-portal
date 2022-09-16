@@ -747,6 +747,6 @@ public abstract class MembershipRequestServiceBaseImpl
 	protected UserGroupRoleFinder userGroupRoleFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		MembershipRequestLocalServiceBaseImpl.class);
+		MembershipRequestServiceBaseImpl.class);
 
 }

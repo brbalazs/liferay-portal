@@ -560,6 +560,6 @@ public abstract class OAuthApplicationServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		OAuthApplicationLocalServiceBaseImpl.class);
+		OAuthApplicationServiceBaseImpl.class);
 
 }

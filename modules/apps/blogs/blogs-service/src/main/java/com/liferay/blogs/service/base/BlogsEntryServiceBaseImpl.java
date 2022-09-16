@@ -1032,6 +1032,6 @@ public abstract class BlogsEntryServiceBaseImpl
 	protected BlogsStatsUserFinder blogsStatsUserFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BlogsEntryLocalServiceBaseImpl.class);
+		BlogsEntryServiceBaseImpl.class);
 
 }

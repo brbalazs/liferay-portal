@@ -660,6 +660,6 @@ public abstract class ScreensRatingsEntryServiceBaseImpl
 	protected RatingsEntryPersistence ratingsEntryPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ScreensRatingsEntryLocalServiceBaseImpl.class);
+		ScreensRatingsEntryServiceBaseImpl.class);
 
 }

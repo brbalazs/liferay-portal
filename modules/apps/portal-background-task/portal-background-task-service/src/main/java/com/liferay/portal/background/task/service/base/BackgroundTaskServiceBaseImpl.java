@@ -327,6 +327,6 @@ public abstract class BackgroundTaskServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BackgroundTaskLocalServiceBaseImpl.class);
+		BackgroundTaskServiceBaseImpl.class);
 
 }

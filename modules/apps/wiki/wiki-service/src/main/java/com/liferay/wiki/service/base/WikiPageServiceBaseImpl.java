@@ -983,6 +983,6 @@ public abstract class WikiPageServiceBaseImpl
 	protected WikiPageResourcePersistence wikiPageResourcePersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		WikiPageLocalServiceBaseImpl.class);
+		WikiPageServiceBaseImpl.class);
 
 }

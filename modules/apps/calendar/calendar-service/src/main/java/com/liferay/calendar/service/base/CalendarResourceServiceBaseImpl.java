@@ -811,6 +811,6 @@ public abstract class CalendarResourceServiceBaseImpl
 	protected AssetEntryPersistence assetEntryPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CalendarResourceLocalServiceBaseImpl.class);
+		CalendarResourceServiceBaseImpl.class);
 
 }

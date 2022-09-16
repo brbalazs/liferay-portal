@@ -1603,6 +1603,6 @@ public abstract class CompanyServiceBaseImpl
 	protected VirtualHostPersistence virtualHostPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CompanyLocalServiceBaseImpl.class);
+		CompanyServiceBaseImpl.class);
 
 }

@@ -917,6 +917,6 @@ public abstract class UserGroupServiceBaseImpl
 	protected UserGroupGroupRoleFinder userGroupGroupRoleFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		UserGroupLocalServiceBaseImpl.class);
+		UserGroupServiceBaseImpl.class);
 
 }

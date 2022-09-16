@@ -749,6 +749,6 @@ public abstract class KBFolderServiceBaseImpl
 	protected ExpandoRowPersistence expandoRowPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		KBFolderLocalServiceBaseImpl.class);
+		KBFolderServiceBaseImpl.class);
 
 }

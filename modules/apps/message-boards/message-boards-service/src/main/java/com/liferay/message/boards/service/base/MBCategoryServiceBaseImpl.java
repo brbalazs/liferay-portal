@@ -795,6 +795,6 @@ public abstract class MBCategoryServiceBaseImpl
 	protected MBThreadFinder mbThreadFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		MBCategoryLocalServiceBaseImpl.class);
+		MBCategoryServiceBaseImpl.class);
 
 }

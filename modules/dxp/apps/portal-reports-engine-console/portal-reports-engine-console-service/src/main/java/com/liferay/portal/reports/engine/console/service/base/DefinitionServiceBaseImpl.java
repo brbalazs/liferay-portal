@@ -638,6 +638,6 @@ public abstract class DefinitionServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DefinitionLocalServiceBaseImpl.class);
+		DefinitionServiceBaseImpl.class);
 
 }

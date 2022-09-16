@@ -955,6 +955,6 @@ public abstract class MBThreadServiceBaseImpl
 	protected TrashVersionPersistence trashVersionPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		MBThreadLocalServiceBaseImpl.class);
+		MBThreadServiceBaseImpl.class);
 
 }

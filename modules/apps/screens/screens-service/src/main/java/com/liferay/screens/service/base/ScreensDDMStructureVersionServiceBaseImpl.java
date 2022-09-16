@@ -586,6 +586,6 @@ public abstract class ScreensDDMStructureVersionServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ScreensDDMStructureVersionLocalServiceBaseImpl.class);
+		ScreensDDMStructureVersionServiceBaseImpl.class);
 
 }

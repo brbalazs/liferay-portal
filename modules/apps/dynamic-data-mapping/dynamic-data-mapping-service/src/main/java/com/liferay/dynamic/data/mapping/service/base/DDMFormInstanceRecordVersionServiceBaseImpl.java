@@ -244,6 +244,6 @@ public abstract class DDMFormInstanceRecordVersionServiceBaseImpl
 		counterLocalService;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DDMFormInstanceRecordVersionLocalServiceBaseImpl.class);
+		DDMFormInstanceRecordVersionServiceBaseImpl.class);
 
 }

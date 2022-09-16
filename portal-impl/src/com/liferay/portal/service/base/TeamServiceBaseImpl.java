@@ -579,6 +579,6 @@ public abstract class TeamServiceBaseImpl
 	protected UserGroupPersistence userGroupPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		TeamLocalServiceBaseImpl.class);
+		TeamServiceBaseImpl.class);
 
 }

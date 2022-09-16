@@ -334,6 +334,6 @@ public abstract class AssetCategoryPropertyServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetCategoryPropertyLocalServiceBaseImpl.class);
+		AssetCategoryPropertyServiceBaseImpl.class);
 
 }

@@ -530,6 +530,6 @@ public abstract class PasswordPolicyServiceBaseImpl
 	protected UserFinder userFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PasswordPolicyLocalServiceBaseImpl.class);
+		PasswordPolicyServiceBaseImpl.class);
 
 }

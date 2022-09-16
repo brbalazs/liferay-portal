@@ -487,6 +487,6 @@ public abstract class OAuthUserServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		OAuthUserLocalServiceBaseImpl.class);
+		OAuthUserServiceBaseImpl.class);
 
 }

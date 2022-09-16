@@ -239,6 +239,6 @@ public abstract class ImageServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ImageLocalServiceBaseImpl.class);
+		ImageServiceBaseImpl.class);
 
 }

@@ -504,6 +504,6 @@ public abstract class EmailAddressServiceBaseImpl
 	protected UserFinder userFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		EmailAddressLocalServiceBaseImpl.class);
+		EmailAddressServiceBaseImpl.class);
 
 }

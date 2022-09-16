@@ -410,6 +410,6 @@ public abstract class AuditEventServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AuditEventLocalServiceBaseImpl.class);
+		AuditEventServiceBaseImpl.class);
 
 }

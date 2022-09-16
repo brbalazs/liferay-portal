@@ -450,6 +450,6 @@ public abstract class AppServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AppLocalServiceBaseImpl.class);
+		AppServiceBaseImpl.class);
 
 }

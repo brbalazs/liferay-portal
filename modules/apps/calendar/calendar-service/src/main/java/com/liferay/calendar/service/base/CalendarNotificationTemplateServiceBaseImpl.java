@@ -737,6 +737,6 @@ public abstract class CalendarNotificationTemplateServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CalendarNotificationTemplateLocalServiceBaseImpl.class);
+		CalendarNotificationTemplateServiceBaseImpl.class);
 
 }

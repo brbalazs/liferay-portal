@@ -251,6 +251,6 @@ public abstract class AnnouncementsFlagServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AnnouncementsFlagLocalServiceBaseImpl.class);
+		AnnouncementsFlagServiceBaseImpl.class);
 
 }

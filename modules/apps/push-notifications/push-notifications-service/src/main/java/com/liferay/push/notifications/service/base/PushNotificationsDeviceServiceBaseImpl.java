@@ -424,6 +424,6 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PushNotificationsDeviceLocalServiceBaseImpl.class);
+		PushNotificationsDeviceServiceBaseImpl.class);
 
 }

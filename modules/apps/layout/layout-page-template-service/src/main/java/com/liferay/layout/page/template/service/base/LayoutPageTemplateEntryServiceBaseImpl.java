@@ -424,6 +424,6 @@ public abstract class LayoutPageTemplateEntryServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		LayoutPageTemplateEntryLocalServiceBaseImpl.class);
+		LayoutPageTemplateEntryServiceBaseImpl.class);
 
 }

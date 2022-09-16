@@ -641,6 +641,6 @@ public abstract class ExpandoColumnServiceBaseImpl
 	protected UserFinder userFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ExpandoColumnLocalServiceBaseImpl.class);
+		ExpandoColumnServiceBaseImpl.class);
 
 }

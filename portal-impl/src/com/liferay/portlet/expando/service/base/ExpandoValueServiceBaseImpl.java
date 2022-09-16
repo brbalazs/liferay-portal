@@ -641,6 +641,6 @@ public abstract class ExpandoValueServiceBaseImpl
 	protected UserFinder userFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ExpandoValueLocalServiceBaseImpl.class);
+		ExpandoValueServiceBaseImpl.class);
 
 }

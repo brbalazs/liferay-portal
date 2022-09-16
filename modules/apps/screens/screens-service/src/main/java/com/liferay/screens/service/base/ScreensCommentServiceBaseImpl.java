@@ -653,6 +653,6 @@ public abstract class ScreensCommentServiceBaseImpl
 	protected AssetEntryPersistence assetEntryPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ScreensCommentLocalServiceBaseImpl.class);
+		ScreensCommentServiceBaseImpl.class);
 
 }

@@ -244,6 +244,6 @@ public abstract class ClassNameServiceBaseImpl
 	protected CounterPersistence counterPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ClassNameLocalServiceBaseImpl.class);
+		ClassNameServiceBaseImpl.class);
 
 }

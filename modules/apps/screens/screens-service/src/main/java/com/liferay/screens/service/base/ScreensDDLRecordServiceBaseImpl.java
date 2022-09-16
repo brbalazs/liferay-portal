@@ -579,6 +579,6 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ScreensDDLRecordLocalServiceBaseImpl.class);
+		ScreensDDLRecordServiceBaseImpl.class);
 
 }

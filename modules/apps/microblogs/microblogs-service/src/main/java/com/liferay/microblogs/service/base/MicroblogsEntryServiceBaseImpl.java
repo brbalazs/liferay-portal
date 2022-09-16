@@ -732,6 +732,6 @@ public abstract class MicroblogsEntryServiceBaseImpl
 	protected SocialActivityPersistence socialActivityPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		MicroblogsEntryLocalServiceBaseImpl.class);
+		MicroblogsEntryServiceBaseImpl.class);
 
 }

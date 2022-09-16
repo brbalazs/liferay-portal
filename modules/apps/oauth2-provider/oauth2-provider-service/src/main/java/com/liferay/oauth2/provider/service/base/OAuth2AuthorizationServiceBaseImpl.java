@@ -233,6 +233,6 @@ public abstract class OAuth2AuthorizationServiceBaseImpl
 	protected OAuth2ScopeGrantPersistence oAuth2ScopeGrantPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		OAuth2AuthorizationLocalServiceBaseImpl.class);
+		OAuth2AuthorizationServiceBaseImpl.class);
 
 }

@@ -572,6 +572,6 @@ public abstract class SiteNavigationMenuServiceBaseImpl
 		siteNavigationMenuItemPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SiteNavigationMenuLocalServiceBaseImpl.class);
+		SiteNavigationMenuServiceBaseImpl.class);
 
 }

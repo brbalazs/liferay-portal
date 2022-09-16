@@ -565,6 +565,6 @@ public abstract class SAPEntryServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SAPEntryLocalServiceBaseImpl.class);
+		SAPEntryServiceBaseImpl.class);
 
 }

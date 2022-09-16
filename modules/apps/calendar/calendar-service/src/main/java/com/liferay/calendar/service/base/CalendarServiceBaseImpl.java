@@ -807,6 +807,6 @@ public abstract class CalendarServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CalendarLocalServiceBaseImpl.class);
+		CalendarServiceBaseImpl.class);
 
 }

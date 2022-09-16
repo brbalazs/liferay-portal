@@ -563,6 +563,6 @@ public abstract class LayoutPrototypeServiceBaseImpl
 	protected UserFinder userFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		LayoutPrototypeLocalServiceBaseImpl.class);
+		LayoutPrototypeServiceBaseImpl.class);
 
 }

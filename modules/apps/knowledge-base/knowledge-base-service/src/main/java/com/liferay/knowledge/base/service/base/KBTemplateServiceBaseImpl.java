@@ -777,6 +777,6 @@ public abstract class KBTemplateServiceBaseImpl
 	protected SocialActivityPersistence socialActivityPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		KBTemplateLocalServiceBaseImpl.class);
+		KBTemplateServiceBaseImpl.class);
 
 }

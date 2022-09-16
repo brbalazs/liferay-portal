@@ -597,6 +597,6 @@ public abstract class AssetVocabularyServiceBaseImpl
 	protected AssetCategoryFinder assetCategoryFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetVocabularyLocalServiceBaseImpl.class);
+		AssetVocabularyServiceBaseImpl.class);
 
 }

@@ -449,6 +449,6 @@ public abstract class ResourcePermissionServiceBaseImpl
 	protected RoleFinder roleFinder;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ResourcePermissionLocalServiceBaseImpl.class);
+		ResourcePermissionServiceBaseImpl.class);
 
 }

@@ -563,6 +563,6 @@ public abstract class SyncDeviceServiceBaseImpl
 	protected UserPersistence userPersistence;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		SyncDeviceLocalServiceBaseImpl.class);
+		SyncDeviceServiceBaseImpl.class);
 
 }
