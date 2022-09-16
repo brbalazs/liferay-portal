@@ -10,6 +10,7 @@ export default gql`
 		$rangeStart: String
 		$location: String
 		$devices: String
+		$title: String
 	) {
 		assetPages(
 			assetType: $assetType
@@ -20,6 +21,7 @@ export default gql`
 			rangeStart: $rangeStart
 			country: $location
 			deviceType: $devices
+			title: $title
 		) {
 			assetTitle
 			assetId
