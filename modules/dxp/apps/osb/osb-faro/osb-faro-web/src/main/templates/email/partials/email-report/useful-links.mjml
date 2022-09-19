@@ -1,10 +1,20 @@
 <mj-section>
 	<mj-column>
 		<mj-navbar>
-			<mj-navbar-link css-class="nav-link" href="https://help.liferay.com/hc/en-us">
+			<mj-navbar-link
+				color="#0b5fff"
+				font-size="14px"
+				text-transform="none"
+				href="https://help.liferay.com/hc/en-us"
+			>
 				Contact Support
 			</mj-navbar-link>
-			<mj-navbar-link css-class="nav-link" href="https://learn.liferay.com/">
+			<mj-navbar-link
+				color="#0b5fff"
+				font-size="14px"
+				text-transform="none"
+				href="https://learn.liferay.com/"
+			>
 				Learn Liferay
 			</mj-navbar-link>
 		</mj-navbar>

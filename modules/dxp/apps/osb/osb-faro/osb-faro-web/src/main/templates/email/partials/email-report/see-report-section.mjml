@@ -1,11 +1,15 @@
 <mj-section padding-top="30px">
 	<mj-column>
-		<mj-text css-class="body-text" font-size="16px">
+		<mj-text font-size="16px" color="#6B6C7E" align="center">
 			Visit Liferay Analytics Cloud to
 		</mj-text>
 
 		<mj-navbar>
-			<mj-navbar-link css-class="nav-link" font-size="16px" href="[$FULL_REPORT_URL$]">
+			<mj-navbar-link
+				color="#0b5fff"
+				font-size="16px"
+				href="[$FULL_REPORT_URL$]"
+			>
 				SEE FULL REPORT
 			</mj-navbar-link>
 		</mj-navbar>

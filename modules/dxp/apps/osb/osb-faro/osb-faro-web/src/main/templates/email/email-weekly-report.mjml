@@ -1,13 +1,8 @@
 <mjml>
-	<mj-include path="partials/email-report/email-head.mjml" />
-
 	<mj-body background-color="#ffffff" width="648px">
 		<mj-section>
 			<mj-column>
-				<mj-image
-					padding="0"
-					src="[$HEADER_IMAGE_PATH$]"
-				/>
+				<mj-image padding="0" src="[$HEADER_IMAGE_PATH$]" />
 			</mj-column>
 		</mj-section>
 

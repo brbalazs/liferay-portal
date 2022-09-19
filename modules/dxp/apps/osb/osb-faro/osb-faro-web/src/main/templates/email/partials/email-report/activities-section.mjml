@@ -1,20 +1,42 @@
 <mj-section background-color="#f0f5ff" padding="40px">
 	<mj-column>
-		<mj-text css-class="small-text">
+		<mj-text
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			Unique Visitors
 		</mj-text>
 
-		<mj-text css-class="activities-data">
+		<mj-text color="#272833" font-size="40px" font-weight="700" padding="0">
 			[$UNIQUE_VISITORS$]
 		</mj-text>
 	</mj-column>
 
-	<mj-column css-class="activities-comparison-container">
-		<mj-text css-class="activities-comparison">
-			<img src="[$UNIQUE_VISITORS_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_UNIQUE_VISITORS$]
+	<mj-column>
+		<mj-text
+			align="right"
+			color="#272833"
+			font-size="24px"
+			font-weight="700"
+			padding="20px 0 0 0"
+			
+		>
+			<img
+				src="[$UNIQUE_VISITORS_TREND$]"
+				style="color: #6b6c7e; width: 16px"
+			/>
+			[$PREVIOUS_UNIQUE_VISITORS$]
 		</mj-text>
 
-		<mj-text css-class="small-text">
+		<mj-text
+			align="right"
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			vs Previous [$FREQUENCY$]
 		</mj-text>
 	</mj-column>
@@ -28,21 +50,42 @@
 
 <mj-section background-color="#f0f5ff" padding="40px">
 	<mj-column>
-		<mj-text css-class="small-text">
+		<mj-text
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			Sessions / Visitor
 		</mj-text>
 
-		<mj-text css-class="activities-data">
+		<mj-text color="#272833" font-size="40px" font-weight="700" padding="0">
 			[$SESSIONS_PER_VISITOR$]
 		</mj-text>
 	</mj-column>
 
-	<mj-column css-class="activities-comparison-container">
-		<mj-text css-class="activities-comparison">
-			<img src="[$SESSIONS_PER_VISITOR_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSIONS_PER_VISITOR$]
+	<mj-column>
+		<mj-text
+			align="right"
+			color="#272833"
+			font-size="24px"
+			font-weight="700"
+			padding="20px 0 0 0"
+		>
+			<img
+				src="[$SESSIONS_PER_VISITOR_TREND$]"
+				style="color: #6b6c7e; width: 16px"
+			/>
+			[$PREVIOUS_SESSIONS_PER_VISITOR$]
 		</mj-text>
 
-		<mj-text css-class="small-text">
+		<mj-text
+			align="right"
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			vs Previous [$FREQUENCY$]
 		</mj-text>
 	</mj-column>
@@ -56,21 +99,42 @@
 
 <mj-section background-color="#f0f5ff" padding="40px">
 	<mj-column>
-		<mj-text css-class="small-text">
+		<mj-text
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			Session Duration
 		</mj-text>
 
-		<mj-text css-class="activities-data">
+		<mj-text color="#272833" font-size="40px" font-weight="700" padding="0">
 			[$SESSION_DURATION$]
 		</mj-text>
 	</mj-column>
 
-	<mj-column css-class="activities-comparison-container">
-		<mj-text css-class="activities-comparison">
-			<img src="[$SESSION_DURATION_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_SESSION_DURATION$]
+	<mj-column>
+		<mj-text
+			align="right"
+			color="#272833"
+			font-size="24px"
+			font-weight="700"
+			padding="20px 0 0 0"
+		>
+			<img
+				src="[$SESSION_DURATION_TREND$]"
+				style="color: #6b6c7e; width: 16px"
+			/>
+			[$PREVIOUS_SESSION_DURATION$]
 		</mj-text>
 
-		<mj-text css-class="small-text">
+		<mj-text
+			align="right"
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			vs Previous [$FREQUENCY$]
 		</mj-text>
 	</mj-column>
@@ -84,21 +148,42 @@
 
 <mj-section background-color="#f0f5ff" padding="40px">
 	<mj-column>
-		<mj-text css-class="small-text">
+		<mj-text
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			Bounce Rate
 		</mj-text>
 
-		<mj-text css-class="activities-data">
+		<mj-text color="#272833" font-size="40px" font-weight="700" padding="0">
 			[$BOUNCE_RATE$]
 		</mj-text>
 	</mj-column>
 
-	<mj-column css-class="activities-comparison-container">
-		<mj-text css-class="activities-comparison">
-			<img src="[$BOUNCE_RATE_TREND$]" style="color: #6B6C7E; width: 16px;"/> [$PREVIOUS_BOUNCE_RATE$]
+	<mj-column>
+		<mj-text
+			align="right"
+			color="#272833"
+			font-size="24px"
+			font-weight="700"
+			padding="20px 0 0 0"
+		>
+			<img
+				src="[$BOUNCE_RATE_TREND$]"
+				style="color: #6b6c7e; width: 16px"
+			/>
+			[$PREVIOUS_BOUNCE_RATE$]
 		</mj-text>
 
-		<mj-text css-class="small-text">
+		<mj-text
+			align="right"
+			color="#6B6C7E"
+			font-size="14px"
+			font-weight="700"
+			padding="10px 0"
+		>
 			vs Previous [$FREQUENCY$]
 		</mj-text>
 	</mj-column>

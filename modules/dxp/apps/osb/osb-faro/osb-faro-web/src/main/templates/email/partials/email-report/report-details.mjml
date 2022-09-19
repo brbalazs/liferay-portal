@@ -13,15 +13,18 @@
 
 	<mj-section background-color="#fff" padding="10px">
 		<mj-column>
-			<mj-text css-class="table-title">
+			<mj-text
+				color="#272833"
+				font-family="Source Sans Pro"
+				font-size="16px"
+				font-weight="600"
+			>
 				Workspace
 			</mj-text>
 		</mj-column>
 
 		<mj-column>
-			<mj-text>
-				[$WORKSPACE_NAME$]
-			</mj-text>
+			<mj-text> [$WORKSPACE_NAME$] </mj-text>
 		</mj-column>
 	</mj-section>
 
@@ -33,15 +36,18 @@
 
 	<mj-section background-color="#fff" padding="10px">
 		<mj-column>
-			<mj-text css-class="table-title">
+			<mj-text
+				color="#272833"
+				font-family="Source Sans Pro"
+				font-size="16px"
+				font-weight="600"
+			>
 				Property
 			</mj-text>
 		</mj-column>
 
 		<mj-column>
-			<mj-text>
-				[$PROPERTY_NAME$]
-			</mj-text>
+			<mj-text> [$PROPERTY_NAME$] </mj-text>
 		</mj-column>
 	</mj-section>
 </mj-wrapper>
