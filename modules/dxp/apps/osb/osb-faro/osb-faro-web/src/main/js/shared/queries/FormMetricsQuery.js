@@ -38,33 +38,6 @@ export default gql`
 			completionTimeMetric {
 				...metricFragment
 			}
-			formPageMetrics {
-				formFieldMetrics {
-					fieldAbandonmentsMetric {
-						value
-					}
-					fieldEmptyMetric {
-						value
-					}
-					fieldInteractionDurationMetric {
-						value
-					}
-					fieldInteractionsMetric {
-						value
-					}
-					fieldName
-					fieldRefilledMetric {
-						value
-					}
-				}
-				pageAbandonmentsMetric {
-					value
-				}
-				pageIndex
-				pageViewsMetric {
-					value
-				}
-			}
 			submissionsMetric {
 				...audienceReportFragment
 				...browserFragment
