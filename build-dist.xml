@@ -1414,7 +1414,10 @@ this task.
 				</replace>
 			</then>
 			<elseif>
-				<equals arg1="${app.server.jboss.version}" arg2="7.1.0" />
+				<or>
+					<equals arg1="${app.server.jboss.version}" arg2="7.1.0" />
+					<equals arg1="${app.server.jboss.version}" arg2="7.4.0" />
+				</or>
 				<then>
 					<replace
 						file="${app.server.jboss.bin.dir}/standalone.conf"
