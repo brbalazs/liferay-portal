@@ -375,7 +375,7 @@ public interface ContactsEngineClient {
 
 	public Results<Distribution> getIndividualsDistribution(
 		FaroProject faroProject, String channelId, String fieldMappingId,
-		String filter, String individualSegmentId, int count, int numberOfBins,
+		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields);
 
 	public IndividualSegment getIndividualSegment(

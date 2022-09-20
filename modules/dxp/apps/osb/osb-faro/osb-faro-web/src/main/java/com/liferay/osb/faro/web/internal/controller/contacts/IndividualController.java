@@ -159,7 +159,6 @@ public class IndividualController extends BaseFaroController {
 			@PathParam("groupId") long groupId,
 			@QueryParam("channelId") String channelId,
 			@QueryParam("fieldMappingId") String fieldMappingId,
-			@QueryParam("filter") String filter,
 			@QueryParam("individualSegmentId") String individualSegmentId,
 			@QueryParam("count") int count,
 			@QueryParam("numberOfBins") int numberOfBins,
@@ -170,7 +169,7 @@ public class IndividualController extends BaseFaroController {
 		return new FaroResultsDisplay(
 			contactsEngineClient.getIndividualsDistribution(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				channelId, fieldMappingId, filter, individualSegmentId, count,
+				channelId, fieldMappingId, individualSegmentId, count,
 				numberOfBins, orderByFieldsFaroParam.getValue()));
 	}
 

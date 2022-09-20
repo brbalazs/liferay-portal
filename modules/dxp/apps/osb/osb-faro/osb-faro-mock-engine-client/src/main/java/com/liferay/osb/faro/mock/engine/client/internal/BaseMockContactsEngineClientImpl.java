@@ -777,12 +777,12 @@ public abstract class BaseMockContactsEngineClientImpl
 	@Override
 	public Results<Distribution> getIndividualsDistribution(
 		FaroProject faroProject, String channelId, String fieldMappingId,
-		String filter, String individualSegmentId, int count, int numberOfBins,
+		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getIndividualsDistribution(
-			faroProject, channelId, fieldMappingId, filter, individualSegmentId,
-			count, numberOfBins, orderByFields);
+			faroProject, channelId, fieldMappingId, individualSegmentId, count,
+			numberOfBins, orderByFields);
 	}
 
 	@Override

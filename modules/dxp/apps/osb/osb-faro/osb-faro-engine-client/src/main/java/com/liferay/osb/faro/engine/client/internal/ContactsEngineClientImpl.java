@@ -1906,26 +1906,15 @@ public class ContactsEngineClientImpl
 	@Override
 	public Results<Distribution> getIndividualsDistribution(
 		FaroProject faroProject, String channelId, String fieldMappingId,
-		String filter, String individualSegmentId, int count, int numberOfBins,
+		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, 0, count, orderByFields);
 
+		uriVariables.put("channelId", channelId);
 		uriVariables.put("fieldMappingId", fieldMappingId);
-
-		FilterBuilder filterBuilder = new FilterBuilder();
-
-		filterBuilder.addFilter(filter);
-		filterBuilder.addFilter(
-			"channelIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-			channelId);
-		filterBuilder.addFilter(
-			"individualSegmentIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-			individualSegmentId);
-
-		uriVariables.put("filter", filterBuilder.build());
-
+		uriVariables.put("individualSegmentId", individualSegmentId);
 		uriVariables.put("numberOfBins", numberOfBins);
 
 		PagedModel<?, Distribution> pagedModel = get(
