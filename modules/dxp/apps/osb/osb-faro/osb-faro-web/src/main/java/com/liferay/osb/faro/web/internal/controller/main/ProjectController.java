@@ -257,7 +257,6 @@ public class ProjectController extends BaseFaroController {
 	@Path("/trial")
 	@POST
 	public ProjectDisplay createTrial(
-			@FormParam("name") String name,
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 			FaroParam
@@ -267,8 +266,10 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("incidentReportEmailAddresses")
 			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("name") String name,
+			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation,
-			@FormParam("timeZoneId") String timeZoneId)
+			@DefaultValue("UTC") @FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
 
 		if (!_isCreateTrialAllowed(serverLocation)) {
@@ -280,15 +281,14 @@ public class ProjectController extends BaseFaroController {
 		return _createUnprovisioned(
 			name, null, null, null, null,
 			emailAddressDomainsFaroParam.getValue(), friendlyURL,
-			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
-			timeZoneId, true);
+			incidentReportEmailAddressesFaroParam.getValue(), ownerEmailAddress,
+			serverLocation, timeZoneId, true);
 	}
 
 	@Path("/unprovisioned")
 	@POST
 	@RolesAllowed(StringPool.BLANK)
 	public ProjectDisplay createUnprovisioned(
-			@FormParam("name") String name,
 			@FormParam("accountKey") String accountKey,
 			@FormParam("accountName") String accountName,
 			@FormParam("corpProjectName") String corpProjectName,
@@ -302,8 +302,10 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("incidentReportEmailAddresses")
 			FaroParam
 				<List<String>> incidentReportEmailAddressesFaroParam,
+			@FormParam("name") String name,
+			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation,
-			@FormParam("timeZoneId") String timeZoneId,
+			@DefaultValue("UTC") @FormParam("timeZoneId") String timeZoneId,
 			@FormParam("trial") boolean trial)
 		throws Exception {
 
@@ -320,8 +322,8 @@ public class ProjectController extends BaseFaroController {
 		return _createUnprovisioned(
 			name, accountKey, accountName, corpProjectName, corpProjectUuid,
 			emailAddressDomainsFaroParam.getValue(), friendlyURL,
-			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
-			timeZoneId, trial);
+			incidentReportEmailAddressesFaroParam.getValue(), ownerEmailAddress,
+			serverLocation, timeZoneId, trial);
 	}
 
 	@DELETE
@@ -762,8 +764,8 @@ public class ProjectController extends BaseFaroController {
 			String name, String accountKey, String accountName,
 			String corpProjectName, String corpProjectUuid,
 			List<String> emailAddressDomains, String friendlyURL,
-			List<String> incidentReportEmailAddresses, String serverLocation,
-			String timeZoneId, boolean trial)
+			List<String> incidentReportEmailAddresses, String ownerEmailAddress,
+			String serverLocation, String timeZoneId, boolean trial)
 		throws Exception {
 
 		_validateFriendlyURL(friendlyURL);
@@ -807,9 +809,8 @@ public class ProjectController extends BaseFaroController {
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
 
 		_faroUserLocalService.addFaroUser(
-			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
-			role.getRoleId(), user.getEmailAddress(),
-			FaroUserConstants.STATUS_APPROVED, false);
+			user.getUserId(), faroProject.getGroupId(), 0, role.getRoleId(),
+			ownerEmailAddress, FaroUserConstants.STATUS_PENDING, false);
 
 		faroProject.setWeDeployKey(
 			contactsEngineClient.addProject(faroProject) + ".lfr.cloud");
