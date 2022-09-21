@@ -493,9 +493,8 @@ export default class MainMetrics extends React.Component {
 			prevDateKeysIMap
 		} = this.getActiveItem();
 
-		const showCurrentPeriod = asymmetricComparison
-			? payload.length > 1
-			: true;
+		const showCurrentPeriod =
+			showPrevious && asymmetricComparison ? payload.length > 1 : true;
 
 		const dataOneItemData = find(
 			chartData,
