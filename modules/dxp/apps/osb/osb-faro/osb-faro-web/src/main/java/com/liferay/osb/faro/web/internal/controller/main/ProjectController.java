@@ -256,6 +256,7 @@ public class ProjectController extends BaseFaroController {
 
 	@Path("/trial")
 	@POST
+	@RolesAllowed(StringPool.BLANK)
 	public ProjectDisplay createTrial(
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
