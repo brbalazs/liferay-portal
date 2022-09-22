@@ -536,7 +536,7 @@ const translateQueryToCriteria = (initialQueryString: string): Criteria => {
 	const queryStringWithBrackets = regex.test(initialQueryString);
 
 	const queryString = queryStringWithBrackets
-		? initialQueryString.replace('[', '').replace(']', '')
+		? initialQueryString.replaceAll('[', '').replaceAll(']', '')
 		: initialQueryString;
 	try {
 		if (queryString === '()') {
@@ -566,19 +566,15 @@ const translateQueryToCriteria = (initialQueryString: string): Criteria => {
 		criteria = null;
 	}
 
-	if (queryStringWithBrackets) {
-		const value = `[${criteria.items[0].value}]`;
+	const initialValueList = initialQueryString.match(/(?<=')(\S.*?)(?=')/g);
 
-		const items = criteria.items.map((item, index) => {
-			if (index === 0) return {...item, value};
-			return item;
-		});
+	const items = criteria.items.map((item, index) => ({
+		...item,
+		value: initialValueList[index]
+	}));
 
-		const newCriteria = {...criteria, items};
-
-		return newCriteria;
-	}
-	return criteria;
+	const newCriteria = {...criteria, items};
+	return newCriteria;
 };
 
 /**
