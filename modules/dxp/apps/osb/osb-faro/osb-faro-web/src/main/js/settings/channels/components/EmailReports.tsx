@@ -109,9 +109,6 @@ const EmailReports: React.FC<IEmailReportsProps> = ({
 			{report && (
 				<Button
 					borderless
-					className='ml-2 p-2'
-					data-tooltip
-					data-tooltip-align='top'
 					disabled={!sitesSynced}
 					display='unstyled'
 					onClick={() => {
@@ -126,9 +123,13 @@ const EmailReports: React.FC<IEmailReportsProps> = ({
 						});
 					}}
 					size='sm'
-					title={Liferay.Language.get('configure-email-reports')}
 				>
-					<span>
+					<span
+						className='ml-2 p-2'
+						data-tooltip
+						data-tooltip-align='top'
+						title={Liferay.Language.get('configure-email-reports')}
+					>
 						<Icon symbol='cog' />
 					</span>
 				</Button>
