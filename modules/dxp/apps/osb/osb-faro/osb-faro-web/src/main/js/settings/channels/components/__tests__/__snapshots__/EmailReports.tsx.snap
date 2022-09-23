@@ -8,14 +8,16 @@ exports[`EmailReports should render 1`] = `
     Email Reports: 
     Disabled
     <button
-      class="button-root btn btn-unstyled ml-2 p-2 btn-outline-borderless btn-sm"
-      data-tooltip="true"
-      data-tooltip-align="top"
+      class="button-root btn btn-unstyled btn-outline-borderless btn-sm"
       disabled=""
-      title="Configure Email Reports"
       type="button"
     >
-      <span>
+      <span
+        class="ml-2 p-2"
+        data-tooltip="true"
+        data-tooltip-align="top"
+        title="Configure Email Reports"
+      >
         <svg
           class="icon-root lexicon-icon lexicon-icon-cog"
           viewBox=""
