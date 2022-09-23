@@ -44,9 +44,7 @@ describe('EmailReports', () => {
 			container.querySelector('.spinner-root')
 		);
 
-		const configBtn = document.querySelector(
-			'button[title="Configure Email Reports"]'
-		);
+		const configBtn = container.querySelector('button');
 
 		expect(container).toContainElement(configBtn);
 		expect(configBtn).toBeInTheDocument();
@@ -92,9 +90,7 @@ describe('EmailReports', () => {
 			container.querySelector('.spinner-root')
 		);
 
-		const configBtn = document.querySelector(
-			'button[title="Configure Email Reports"]'
-		);
+		const configBtn = container.querySelector('button');
 
 		expect(container).toContainElement(configBtn);
 		expect(configBtn).toBeInTheDocument();
