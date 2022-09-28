@@ -1,8 +1,48 @@
-import BlogMetricsQuery from 'shared/queries/BlogMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import URLConstants from 'shared/util/url-constants';
+import {BROWSER_FRAGMENT, DEVICE_FRAGMENT} from 'shared/queries/fragments';
+import {gql} from 'apollo-boost';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';
+
+const BROWSER_DEVICE_QUERY = gql`
+	query BlogsMetrics(
+		$assetId: String!
+		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
+		$title: String
+		$touchpoint: String
+	) {
+		blog(
+			assetId: $assetId
+			canonicalUrl: $touchpoint
+			channelId: $channelId
+			country: $location
+			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
+			title: $title
+		) {
+			assetId
+			assetTitle
+			viewsMetric {
+				...browserFragment
+				...deviceFragment
+
+				previousValue
+				value
+			}
+		}
+	}
+
+	${BROWSER_FRAGMENT}
+	${DEVICE_FRAGMENT}
+`;
 
 /**
  * HOC
@@ -10,7 +50,7 @@ import {withDevicesCard} from 'shared/hoc/DevicesCard';
  */
 const withBlogsDevices = () =>
 	graphql(
-		BlogMetricsQuery,
+		BROWSER_DEVICE_QUERY,
 		getDevicesMapper(result => result.blog.viewsMetric)
 	);
 

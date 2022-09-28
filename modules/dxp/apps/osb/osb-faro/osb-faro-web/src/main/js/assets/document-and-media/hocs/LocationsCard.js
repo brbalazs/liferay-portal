@@ -1,10 +1,45 @@
-import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetricsQuery';
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
 import URLConstants from 'shared/util/url-constants';
+import {GEOLOCATION_FRAGMENT} from 'shared/queries/fragments';
+import {gql} from 'apollo-boost';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
+
+const GEOLOCATION_QUERY = gql`
+	query DocumentsAndMediaMetrics(
+		$assetId: String!
+		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
+		$title: String
+		$touchpoint: String
+	) {
+		document(
+			assetId: $assetId
+			canonicalUrl: $touchpoint
+			channelId: $channelId
+			country: $location
+			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
+			title: $title
+		) {
+			assetId
+			assetTitle
+			downloadsMetric {
+				...geolocationFragment
+			}
+		}
+	}
+
+	${GEOLOCATION_FRAGMENT}
+`;
 
 /**
  * HOC
@@ -12,7 +47,7 @@ import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
  */
 const withBlogsLocations = () =>
 	graphql(
-		DocumentsAndMediaMetricsQuery,
+		GEOLOCATION_QUERY,
 		getLocationsMapper(result => result.document.downloadsMetric)
 	);
 
@@ -22,7 +57,7 @@ const withBlogsLocations = () =>
  */
 const withBlogsLocationsCountries = () =>
 	graphql(
-		DocumentsAndMediaMetricsQuery,
+		GEOLOCATION_QUERY,
 		getLocationsMapperCountries(result => result.document.downloadsMetric)
 	);
 

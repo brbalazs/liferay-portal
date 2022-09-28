@@ -1,8 +1,45 @@
-import DocumentsAndMediaMetricsQuery from 'shared/queries/DocumentsAndMediaMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import URLConstants from 'shared/util/url-constants';
+import {BROWSER_FRAGMENT, DEVICE_FRAGMENT} from 'shared/queries/fragments';
+import {gql} from 'apollo-boost';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';
+
+const BROWSER_DEVICE_QUERY = gql`
+	query DocumentsAndMediaMetrics(
+		$assetId: String!
+		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
+		$title: String
+		$touchpoint: String
+	) {
+		document(
+			assetId: $assetId
+			canonicalUrl: $touchpoint
+			channelId: $channelId
+			country: $location
+			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
+			title: $title
+		) {
+			assetId
+			assetTitle
+			downloadsMetric {
+				...browserFragment
+				...deviceFragment
+			}
+		}
+	}
+
+	${BROWSER_FRAGMENT}
+	${DEVICE_FRAGMENT}
+`;
 
 /**
  * HOC
@@ -10,7 +47,7 @@ import {withDevicesCard} from 'shared/hoc/DevicesCard';
  */
 const withDocumentsAndMediaDevices = () =>
 	graphql(
-		DocumentsAndMediaMetricsQuery,
+		BROWSER_DEVICE_QUERY,
 		getDevicesMapper(result => result.document.downloadsMetric)
 	);
 

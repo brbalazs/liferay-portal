@@ -1,8 +1,43 @@
-import FormMetricsQuery from 'shared/queries/FormMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import URLConstants from 'shared/util/url-constants';
+import {BROWSER_FRAGMENT, DEVICE_FRAGMENT} from 'shared/queries/fragments';
+import {gql} from 'apollo-boost';
 import {graphql} from '@apollo/react-hoc';
 import {withDevicesCard} from 'shared/hoc/DevicesCard';
+
+const BROWSER_DEVICE = gql`
+	query FormsMetrics(
+		$assetId: String!
+		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
+		$title: String
+		$touchpoint: String
+	) {
+		form(
+			assetId: $assetId
+			canonicalUrl: $touchpoint
+			channelId: $channelId
+			country: $location
+			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
+			title: $title
+		) {
+			submissionsMetric {
+				...browserFragment
+				...deviceFragment
+			}
+		}
+	}
+
+	${BROWSER_FRAGMENT}
+	${DEVICE_FRAGMENT}
+`;
 
 /**
  * HOC
@@ -10,7 +45,7 @@ import {withDevicesCard} from 'shared/hoc/DevicesCard';
  */
 const withFormsDevices = () =>
 	graphql(
-		FormMetricsQuery,
+		BROWSER_DEVICE,
 		getDevicesMapper(result => result.form.submissionsMetric)
 	);
 
