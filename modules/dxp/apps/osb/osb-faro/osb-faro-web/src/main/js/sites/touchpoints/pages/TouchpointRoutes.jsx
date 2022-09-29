@@ -8,6 +8,7 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import TextTruncate from 'shared/components/TextTruncate';
+import {ENABLE_GLOBAL_FILTER} from 'shared/util/constants';
 import {getMatchedRoute, Routes} from 'shared/util/router';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
@@ -117,7 +118,9 @@ function TouchpointRoutes({className, router}) {
 				}}
 			>
 				<BasePage.SubHeader>
-					<Filter onChange={setFilters} router={router} />
+					{ENABLE_GLOBAL_FILTER && (
+						<Filter onChange={setFilters} router={router} />
+					)}
 
 					{matchedRoute === Routes.SITES_TOUCHPOINTS_PATH && (
 						<DropdownRangeKey

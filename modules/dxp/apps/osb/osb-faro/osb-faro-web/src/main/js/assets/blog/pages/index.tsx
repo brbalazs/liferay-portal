@@ -6,6 +6,7 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
+import {ENABLE_GLOBAL_FILTER} from 'shared/util/constants';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
 import {Router} from 'shared/types';
@@ -90,9 +91,11 @@ const Blog: React.FC<{
 					router
 				}}
 			>
-				<BasePage.SubHeader>
-					<Filter onChange={setFilters} />
-				</BasePage.SubHeader>
+				{ENABLE_GLOBAL_FILTER && (
+					<BasePage.SubHeader>
+						<Filter onChange={setFilters} />
+					</BasePage.SubHeader>
+				)}
 
 				<BasePage.Body>
 					<Suspense fallback={<Loading />}>
