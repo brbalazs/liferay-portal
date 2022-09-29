@@ -20,6 +20,10 @@ export const ENABLE_CSVFILE = false;
 
 export const ENABLE_FORM_ABANDONMENT = false;
 
+// LRAC-10908 Hide global filters
+
+export const ENABLE_GLOBAL_FILTER = false;
+
 // LRAC-11571 Disable temporarily Salesforce
 
 export const ENABLE_SALESFORCE = false;
