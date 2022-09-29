@@ -1781,37 +1781,32 @@ public class ContactsEngineClientImpl
 			faroProject, cur, delta, orderByFields,
 			FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
 
+		if (Validator.isNotNull(accountId)) {
+			uriVariables.put("accountId", accountId);
+		}
+
 		if (Validator.isNotNull(channelId)) {
 			uriVariables.put("channelId", channelId);
 		}
 
+		if (Validator.isNotNull(dataSourceId)) {
+			uriVariables.put("dataSourceId", dataSourceId);
+		}
+
 		uriVariables.put("expand", "account-names");
-
-		FilterBuilder filterBuilder = new FilterBuilder();
-
-		filterBuilder.addFilter(
-			"accountId", FilterConstants.COMPARISON_OPERATOR_EQUALS, accountId);
-		filterBuilder.addFilter(
-			"channelIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-			channelId);
-		filterBuilder.addFilter(
-			"dataSourceId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-			dataSourceId);
-		filterBuilder.addFilter(
-			"individualSegmentIds", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-			individualSegmentId);
-		filterBuilder.addFilter(
-			"individualSegmentIds",
-			FilterConstants.COMPARISON_OPERATOR_NOT_EQUALS,
-			notIndividualSegmentId);
-		filterBuilder.addInterestFilter(interestName, true);
-		filterBuilder.addFilter(filter);
-		filterBuilder.addSearchFilter(
-			query, fields, FilterConstants.FIELD_NAME_CONTEXT_INDIVIDUAL);
-
-		uriVariables.put("filter", filterBuilder.build());
-
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
+
+		if (Validator.isNotNull(individualSegmentId)) {
+			uriVariables.put("segmentId", individualSegmentId);
+		}
+
+		if (Validator.isNotNull(notIndividualSegmentId)) {
+			uriVariables.put("notSegmentId", notIndividualSegmentId);
+		}
+
+		if (Validator.isNotNull(query)) {
+			uriVariables.put("query", query);
+		}
 
 		PagedModel<?, Individual> pagedModel = get(
 			faroProject, Rels.INDIVIDUALS,
