@@ -300,7 +300,7 @@ if (portletTitleBasedNavigation) {
 
 								<li class="move-file">
 									<span class="file-title">
-										<%= fileShortcut.getToTitle() + " (" + LanguageUtil.get(themeDisplay.getLocale(), "shortcut") + ")" %>
+										<%= fileShortcut.getToTitle() %> (<%= LanguageUtil.get(themeDisplay.getLocale(), "shortcut") %>)
 									</span>
 								</li>
 
@@ -326,7 +326,7 @@ if (portletTitleBasedNavigation) {
 
 								<li class="move-error move-file">
 									<span class="file-title">
-										<%= fileShortcut.getToTitle() + " (" + LanguageUtil.get(themeDisplay.getLocale(), "shortcut") + ")" %>
+										<%= fileShortcut.getToTitle() %> (<%= LanguageUtil.get(themeDisplay.getLocale(), "shortcut") %>)
 									</span>
 									<span class="error-message">
 										<liferay-ui:message key="you-do-not-have-the-required-permissions" />
