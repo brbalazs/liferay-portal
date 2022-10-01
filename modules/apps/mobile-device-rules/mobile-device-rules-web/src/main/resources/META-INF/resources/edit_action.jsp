@@ -127,7 +127,7 @@ MDRRuleGroupInstance ruleGroupInstance = (MDRRuleGroupInstance)renderRequest.get
 			{
 				data: {
 					<portlet:namespace />type: form.fm('type').val(),
-					<portlet:namespace /><%= "actionId" %>: <%= actionId %>
+					<portlet:namespace />actionId: <%= actionId %>
 				},
 				success: function(responseData) {
 					$('#<portlet:namespace />typeSettings').html(responseData);

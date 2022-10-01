@@ -330,7 +330,7 @@ int index = 0;
 		function(event) {
 			event.halt();
 
-			A.one('#<%= randomNamespace + "customRange" %>').toggle();
+			A.one('#<%= randomNamespace %>customRange').toggle();
 		}
 	);
 </aui:script>

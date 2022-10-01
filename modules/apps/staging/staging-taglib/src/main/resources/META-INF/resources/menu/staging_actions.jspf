@@ -23,7 +23,7 @@
 		/>
 
 		<aui:script position="inline" sandbox="<%= true %>">
-			var publishGlobalLink = $('#<portlet:namespace /><%= groupId + "publishGlobalLink" %>');
+			var publishGlobalLink = $('#<portlet:namespace /><%= groupId %>publishGlobalLink');
 
 			publishGlobalLink.on(
 				'click',
@@ -206,7 +206,7 @@
 			</c:choose>
 
 			<aui:script position="inline" sandbox="<%= true %>">
-				var publishLink = $('#<%= layoutSetBranchId + "publishLink" %>');
+				var publishLink = $('#<%= layoutSetBranchId %>publishLink');
 
 				publishLink.on(
 					'click',
@@ -222,7 +222,7 @@
 					}
 				);
 
-				var publishToLiveLink = $('#<%= layoutSetBranchId + "publishToLiveLink" %>');
+				var publishToLiveLink = $('#<%= layoutSetBranchId %>publishToLiveLink');
 
 				publishToLiveLink.on(
 					'click',

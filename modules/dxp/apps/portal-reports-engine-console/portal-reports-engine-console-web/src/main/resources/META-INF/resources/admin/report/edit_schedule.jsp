@@ -142,10 +142,10 @@ renderResponse.setTitle(LanguageUtil.get(request, "new-report-entry"));
 										function useVariable<%= keyJSId %>() {
 											var A = AUI();
 
-											var type = A.one('#<%= renderResponse.getNamespace() + "useVariable" + HtmlUtil.escapeJS(key) %>').get('value');
-											var day = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Day" %>');
-											var month = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Month" %>');
-											var year = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) + "Year" %>');
+											var type = A.one('#<%= renderResponse.getNamespace() %>useVariable<%= HtmlUtil.escapeJS(key) %>').get('value');
+											var day = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) %>Day');
+											var month = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) %>Month');
+											var year = A.one('#<%= renderResponse.getNamespace() + HtmlUtil.escapeJS(key) %>Year');
 
 											if ((type == 'startDate') || (type =='endDate')) {
 												day.attr('disabled', 'disabled');
