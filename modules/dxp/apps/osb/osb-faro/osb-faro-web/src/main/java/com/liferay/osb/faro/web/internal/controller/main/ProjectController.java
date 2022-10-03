@@ -809,6 +809,10 @@ public class ProjectController extends BaseFaroController {
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
 
+		if (Validator.isNull(ownerEmailAddress)) {
+			ownerEmailAddress = user.getEmailAddress();
+		}
+
 		_faroUserLocalService.addFaroUser(
 			user.getUserId(), faroProject.getGroupId(), 0, role.getRoleId(),
 			ownerEmailAddress, FaroUserConstants.STATUS_PENDING, false);
