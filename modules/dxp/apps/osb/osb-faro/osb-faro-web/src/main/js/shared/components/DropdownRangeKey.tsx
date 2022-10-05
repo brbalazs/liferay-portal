@@ -164,7 +164,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 			{showDatePicker ? (
 				<DatePicker
 					date={customDateRange}
-					maxDate={moment().endOf('day')}
+					maxDate={moment().subtract(1, 'days')}
 					maxRange={365}
 					minDate={moment().subtract(10, 'years')}
 					onSelect={({end, start}: MomentDateRange) => {
