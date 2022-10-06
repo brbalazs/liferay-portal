@@ -14,7 +14,6 @@
 
 package com.liferay.osb.faro.contacts.demo.internal;
 
-import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.portal.kernel.log.Log;
@@ -62,10 +61,6 @@ public class ContactsDemo {
 							_faroProjectLocalService.createFaroProject(0);
 
 						faroProject.setWeDeployKey(_WE_DEPLOY_KEY);
-
-						_contactsEngineClient.getIndividuals(
-							faroProject, null, null, null, null, null, null,
-							null, null, null, false, 1, 0, null);
 
 						break;
 					}
@@ -119,9 +114,6 @@ public class ContactsDemo {
 		"FARO_DEFAULT_WE_DEPLOY_KEY");
 
 	private static final Log _log = LogFactoryUtil.getLog(ContactsDemo.class);
-
-	@Reference
-	private ContactsEngineClient _contactsEngineClient;
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;
