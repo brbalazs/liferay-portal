@@ -1,5 +1,5 @@
 dependencies {
-	compileInclude group: "org.jsoup", name: "jsoup", version: "1.10.2"
+	compileInclude group: "org.jsoup", name: "jsoup", version: "1.15.3"
 
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"

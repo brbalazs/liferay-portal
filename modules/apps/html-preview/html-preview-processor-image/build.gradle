@@ -1,5 +1,5 @@
 dependencies {
-	compileInclude group: "org.jsoup", name: "jsoup", version: "1.10.2"
+	compileInclude group: "org.jsoup", name: "jsoup", version: "1.15.3"
 	compileInclude group: "org.xhtmlrenderer", name: "flying-saucer-core", version: "9.1.7"
 
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"

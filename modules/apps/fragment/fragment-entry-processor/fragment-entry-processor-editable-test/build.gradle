@@ -3,7 +3,7 @@ copyLibs {
 }
 
 dependencies {
-	compileOnly group: "org.jsoup", name: "jsoup", version: "1.10.2"
+	compileOnly group: "org.jsoup", name: "jsoup", version: "1.15.3"
 
 	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
