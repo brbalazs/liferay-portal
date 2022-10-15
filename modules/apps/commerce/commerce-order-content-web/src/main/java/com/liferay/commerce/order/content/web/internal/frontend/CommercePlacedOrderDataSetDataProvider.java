@@ -81,7 +81,7 @@ public class CommercePlacedOrderDataSetDataProvider
 			_commerceOrderService.getUserPlacedCommerceOrders(
 				commerceChannel.getCompanyId(), commerceChannel.getGroupId(),
 				filter.getKeywords(), pagination.getStartPosition(),
-				pagination.getEndPosition());
+				pagination.getEndPosition(), sort);
 
 		return CommerceOrderClayTableUtil.getOrders(
 			commerceOrders, themeDisplay,

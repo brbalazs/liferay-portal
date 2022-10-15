@@ -81,7 +81,7 @@ public class CommercePendingOrderDataSetDataProvider
 			_commerceOrderService.getUserPendingCommerceOrders(
 				commerceChannel.getCompanyId(), commerceChannel.getGroupId(),
 				filter.getKeywords(), pagination.getStartPosition(),
-				pagination.getEndPosition());
+				pagination.getEndPosition(), sort);
 
 		return CommerceOrderClayTableUtil.getOrders(
 			commerceOrders, themeDisplay,
