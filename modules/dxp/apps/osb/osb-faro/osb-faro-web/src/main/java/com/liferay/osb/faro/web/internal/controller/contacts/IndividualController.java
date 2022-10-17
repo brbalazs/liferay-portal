@@ -329,15 +329,13 @@ public class IndividualController extends BaseFaroController {
 			Function.identity());
 
 		for (Map.Entry<String, List<Field>> entry : fieldsMap.entrySet()) {
-			List<Field> fields = entry.getValue();
-
 			FieldMapping fieldMapping = fieldMappingMap.get(entry.getKey());
 
 			if (fieldMapping == null) {
 				continue;
 			}
 
-			for (Field field : fields) {
+			for (Field field : entry.getValue()) {
 				field.setName(fieldMapping.getDisplayName());
 			}
 		}
