@@ -1,10 +1,41 @@
 import getLocationsMapper, {
 	getLocationsMapperCountries
 } from 'cerebro-shared/hocs/mappers/locations';
-import TouchpointMetricsQuery from 'shared/queries/TouchpointMetricsQuery';
 import URLConstants from 'shared/util/url-constants';
+import {GEOLOCATION_FRAGMENT} from 'shared/queries/fragments';
+import {gql} from 'apollo-boost';
 import {graphql} from '@apollo/react-hoc';
 import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
+
+const TouchpointLocationsQuery = gql`
+	query TouchpointLocationsQuery(
+		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
+		$title: String
+		$touchpoint: String
+	) {
+		page(
+			channelId: $channelId
+			canonicalUrl: $touchpoint
+			country: $location
+			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
+			title: $title
+		) {
+			viewsMetric {
+				...geolocationFragment
+			}
+		}
+	}
+
+	${GEOLOCATION_FRAGMENT}
+`;
 
 /**
  * HOC
@@ -12,7 +43,7 @@ import {withLocationsCard} from 'cerebro-shared/hocs/LocationsCard';
  */
 const withTouchpointLocations = () =>
 	graphql(
-		TouchpointMetricsQuery,
+		TouchpointLocationsQuery,
 		getLocationsMapper(result => result.page.viewsMetric)
 	);
 
@@ -22,7 +53,7 @@ const withTouchpointLocations = () =>
  */
 const withTouchpointsLocationsCountries = () =>
 	graphql(
-		TouchpointMetricsQuery,
+		TouchpointLocationsQuery,
 		getLocationsMapperCountries(result => result.page.viewsMetric)
 	);
 

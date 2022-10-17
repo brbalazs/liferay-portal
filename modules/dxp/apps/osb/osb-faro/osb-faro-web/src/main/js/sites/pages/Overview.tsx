@@ -5,7 +5,7 @@ import InterestsCard from 'sites/hocs/InterestsCard';
 import LocationsCard from 'sites/hocs/LocationsCard';
 import React, {FC} from 'react';
 import SearchTermsCard from 'sites/hocs/SearchTermsCard';
-import SiteMetricsCard from 'sites/hocs/MetricsCard';
+import SiteMetricsCard from 'sites/components/SiteMetricCard';
 import TopPagesCard from 'sites/components/TopPagesCard';
 import VisitorsByTimeCard from 'sites/hocs/VisitorsByTimeCard';
 import {CompositionTypes} from 'shared/util/constants';
@@ -25,11 +25,12 @@ const Overview: FC<IOverviewProps> = ({channelName}) => {
 			<div className='row'>
 				<div className='col-xl-12'>
 					<SiteMetricsCard
-						className='site-metrics'
-						label={sub(Liferay.Language.get('x-activities'), [
-							channelName
-						])}
-						legacyDropdownRangeKey={false}
+						label={
+							sub(Liferay.Language.get('x-activities'), [
+								channelName
+							]) as string
+						}
+						showIntervals
 					/>
 				</div>
 			</div>

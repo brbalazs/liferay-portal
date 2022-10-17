@@ -1,7 +1,7 @@
-import AudienceReportCard from '../hocs/AudienceReportCard';
-import DevicesCard from '../hocs/DevicesCard';
-import LocationsCard from '../hocs/LocationsCard';
-import MetricsCard from '../hocs/MetricsCard';
+import AudienceReportCard from 'assets/document-and-media/hocs/AudienceReportCard';
+import DevicesCard from 'assets/document-and-media/hocs/DevicesCard';
+import DocumentsAndMediaMetricCard from 'assets/document-and-media/components/DocumentsAndMediaMetricCard';
+import LocationsCard from 'assets/document-and-media/hocs/LocationsCard';
 import React from 'react';
 import TouchpointsListCard from 'assets/hocs/TouchpointsListCard';
 
@@ -9,9 +9,8 @@ const Overview = () => (
 	<>
 		<div className='row'>
 			<div className='col-sm-12'>
-				<MetricsCard
+				<DocumentsAndMediaMetricCard
 					label={Liferay.Language.get('visitors-behavior')}
-					legacyDropdownRangeKey={false}
 				/>
 			</div>
 		</div>

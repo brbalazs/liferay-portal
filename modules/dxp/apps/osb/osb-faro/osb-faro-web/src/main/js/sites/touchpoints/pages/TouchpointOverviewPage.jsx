@@ -1,8 +1,8 @@
-import AssetsListCard from '../hocs/AssetsListCard';
-import AudienceReportCard from '../hocs/AudienceReportCard';
-import DevicesCard from '../hocs/DevicesCard';
-import LocationsCard from '../hocs/LocationsCard';
-import MetricsCard from '../hocs/MetricsCard';
+import AssetsListCard from 'sites/touchpoints/hocs/AssetsListCard';
+import AudienceReportCard from 'sites/touchpoints/hocs/AudienceReportCard';
+import DevicesCard from 'sites/touchpoints/hocs/DevicesCard';
+import LocationsCard from 'sites/touchpoints/hocs/LocationsCard';
+import PageMetricCard from 'sites/touchpoints/components/PageMetricCard';
 import React from 'react';
 import {ENABLE_ASSET_CARD} from 'shared/util/constants';
 
@@ -16,7 +16,7 @@ export default function TouchpointOverviewPage() {
 		<>
 			<div className='row'>
 				<div className='col-sm-12'>
-					<MetricsCard
+					<PageMetricCard
 						label={Liferay.Language.get('visitors-behavior')}
 					/>
 				</div>

@@ -1,8 +1,8 @@
-import AudienceReportCard from '../hocs/AudienceReportCard';
-import DevicesCard from '../hocs/DevicesCard';
-import FormAbandonmentCard from '../hocs/FormAbandonmentCard';
-import LocationsCard from '../hocs/LocationsCard';
-import MetricsCard from '../hocs/MetricsCard';
+import AudienceReportCard from 'assets/form/hocs/AudienceReportCard';
+import DevicesCard from 'assets/form/hocs/DevicesCard';
+import FormAbandonmentCard from 'assets/form/hocs/FormAbandonmentCard';
+import FormMetricCard from 'assets/form/components/FormMetricCard';
+import LocationsCard from 'assets/form/hocs/LocationsCard';
 import React from 'react';
 import TouchpointsListCard from 'assets/hocs/TouchpointsListCard';
 import {ENABLE_FORM_ABANDONMENT} from 'shared/util/constants';
@@ -11,7 +11,7 @@ const Overview = () => (
 	<>
 		<div className='row'>
 			<div className='col-sm-12'>
-				<MetricsCard
+				<FormMetricCard
 					label={Liferay.Language.get('visitors-behavior')}
 					legacyDropdownRangeKey={false}
 				/>

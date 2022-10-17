@@ -12,7 +12,7 @@ exports[`Sites Dashboard Overview render 1`] = `
         class="col-xl-12"
       >
         <div
-          class="card card-root site-metrics"
+          class="card card-root analytics-metrics-card"
           style="min-height: 605px;"
         >
           <div
@@ -59,14 +59,31 @@ exports[`Sites Dashboard Overview render 1`] = `
             </div>
           </div>
           <div
-            class="card-body"
+            class="card-body analytics-metrics"
           >
             <div
-              class="spinner-root spinner-center spinner-spacer"
+              class="loading-root"
+              style="min-height: 140px;"
             >
-              <span
-                class="loading-animation loading-animation-dotted"
-              />
+              <div
+                class="spinner-root spinner-fade-in"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
+            </div>
+            <div
+              class="loading-root"
+              style="min-height: 375px;"
+            >
+              <div
+                class="spinner-root spinner-fade-in"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
             </div>
           </div>
         </div>

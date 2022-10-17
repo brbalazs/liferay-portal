@@ -1,17 +1,16 @@
-import AudienceReportCard from '../hocs/AudienceReportCard';
-import DevicesCard from '../hocs/DevicesCard';
-import LocationsCard from '../hocs/LocationsCard';
-import MetricsCard from '../hocs/MetricsCard';
+import AudienceReportCard from 'assets/web-content/hocs/AudienceReportCard';
+import DevicesCard from 'assets/web-content/hocs/DevicesCard';
+import LocationsCard from 'assets/web-content/hocs/LocationsCard';
 import React from 'react';
 import TouchpointsListCard from 'assets/hocs/TouchpointsListCard';
+import WebContentMetricCard from 'assets/web-content/components/WebContentMetricCard';
 
 const Overview = () => (
 	<>
 		<div className='row'>
 			<div className='col-sm-12'>
-				<MetricsCard
+				<WebContentMetricCard
 					label={Liferay.Language.get('visitors-behavior')}
-					legacyDropdownRangeKey={false}
 				/>
 			</div>
 		</div>
