@@ -311,7 +311,7 @@ export const getIntervals = (
 	rangeKey: RangeSelectors['rangeKey'],
 	arr: number[],
 	timeInterval: Interval,
-	dateKeysIMap: Map<number, [number, number?]>
+	dateKeysIMap: any
 ): number[] => {
 	if (arr.length) {
 		const firstDate = moment(arr[0]);

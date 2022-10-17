@@ -1,5 +1,7 @@
 import {DocumentNode} from 'graphql';
 import {pickBy} from 'lodash';
+import {RangeKeyTimeRanges} from './constants';
+import {RangeSelectors} from 'shared/types';
 
 export type GQLQuery =
 	| {
@@ -33,3 +35,8 @@ export const getVariableDefinitions = (gqlQuery: GQLQuery) =>
 
 export const removeUnusedVariables = (variables, validVariables) =>
 	pickBy(variables, (_, key) => validVariables[key]);
+
+export const fetchPolicyDefinition = (rangeSelectors: RangeSelectors) =>
+	rangeSelectors.rangeKey === RangeKeyTimeRanges.Last24Hours
+		? 'network-only'
+		: 'cache-first';

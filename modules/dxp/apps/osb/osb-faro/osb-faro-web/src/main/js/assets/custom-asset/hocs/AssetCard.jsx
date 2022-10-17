@@ -2,18 +2,18 @@ import BaseCard from 'cerebro-shared/components/base-card';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getMetricsMapper from 'cerebro-shared/hocs/mappers/metrics';
-import Metrics from 'cerebro-shared/components/Metrics';
 import React, {useCallback, useState} from 'react';
 import {ASSET_METRICS} from 'shared/util/constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
+import {MetricChart} from 'shared/components/metric-card/MetricChart';
 import {PropTypes} from 'prop-types';
 import {withEmpty, withError} from 'cerebro-shared/hocs/utils';
 import {withLoading} from 'shared/hoc';
 
 const CHARTS = {
 	line: {
-		component: Metrics,
+		component: MetricChart,
 		mapper: getMetricsMapper
 	}
 };
@@ -26,10 +26,13 @@ const CHARTS = {
  */
 const Chart = props => {
 	const {
+		chartHeight,
 		handleShowPreviousChanged,
 		id,
+		items,
 		onRemoveAsset,
 		panel: {chartType},
+		rangeSelectors,
 		showPrevious
 	} = props;
 	const Chart = CHARTS[chartType].component;
@@ -37,9 +40,11 @@ const Chart = props => {
 	return (
 		<>
 			<Chart
-				onShowPreviousChange={handleShowPreviousChanged}
-				showPrevious={showPrevious}
-				{...props}
+				chartHeight={chartHeight}
+				compareToPrevious={showPrevious}
+				data={items[0]}
+				onCompareToPreviousChange={handleShowPreviousChanged}
+				rangeSelectors={rangeSelectors}
 			/>
 
 			<div className='d-flex justify-content-end'>

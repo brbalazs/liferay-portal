@@ -93,6 +93,40 @@ export const INDIVIDUALS_FRAGMENT = gql`
 	}
 `;
 
+export const METRIC_TABS_FRAGMENT = gql`
+	fragment TabsFragment on Metric {
+		previousValue
+		trend {
+			percentage
+			trendClassification
+		}
+		value
+	}
+`;
+
+export const METRIC_HISTOGRAM_FRAGMENT = gql`
+	fragment HistogramFragment on Metric {
+		...TabsFragment
+		histogram {
+			asymmetricComparison
+			metrics {
+				key
+				previousValue
+				previousValueKey
+				value
+				valueKey
+				trend {
+					percentage
+					trendClassification
+				}
+			}
+			total
+		}
+	}
+
+	${METRIC_TABS_FRAGMENT}
+`;
+
 export const METRIC_FRAGMENT = gql`
 	fragment metricFragment on Metric {
 		histogram {
@@ -138,7 +172,7 @@ export const TREND_FRAGMENT = gql`
 `;
 
 export const TREND_FRAGMENT_EVENT_METRIC = gql`
-	fragment trendFragment on Metric {
+	fragment trendFragmentEventMetric on Metric {
 		histogram {
 			metrics {
 				key

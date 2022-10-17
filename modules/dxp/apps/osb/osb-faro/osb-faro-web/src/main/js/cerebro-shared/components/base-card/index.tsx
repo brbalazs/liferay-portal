@@ -1,7 +1,7 @@
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import HeaderDefault, {BaseCardHeaderDefaultIProps} from './HeaderDefault';
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {RangeSelectors} from 'shared/types';
@@ -36,17 +36,11 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 		getRangeSelectorsFromQuery(router.query)
 	);
 
-	const handleChangeInterval = useCallback(newVal => setInterval(newVal), []);
-	const handleRangeSelectorsChange = useCallback(
-		newVal => setRangeSelectors(newVal),
-		[]
-	);
-
 	const otherProps = {
 		filters,
 		interval,
-		onChangeInterval: handleChangeInterval,
-		onRangeSelectorsChange: handleRangeSelectorsChange,
+		onChangeInterval: setInterval,
+		onRangeSelectorsChange: setRangeSelectors,
 		rangeSelectors,
 		router
 	};

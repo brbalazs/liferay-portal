@@ -1,4 +1,4 @@
-import {getMetricsData} from 'shared/util/metrics';
+import {getMetricsData} from 'shared/components/metric-card/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 
 /**

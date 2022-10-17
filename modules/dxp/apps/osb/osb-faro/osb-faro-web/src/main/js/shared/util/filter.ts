@@ -3,7 +3,9 @@ import {toThousands} from 'shared/util/numbers';
 
 type FilterTypes = 'devices' | 'location';
 
-type RawFilters = {[key in FilterTypes]: string[]};
+export type Filters = {[key in FilterTypes]: string};
+
+export type RawFilters = {[key in FilterTypes]: string[]};
 
 type RawFilterEntry = {metrics: string; valueKey: string};
 

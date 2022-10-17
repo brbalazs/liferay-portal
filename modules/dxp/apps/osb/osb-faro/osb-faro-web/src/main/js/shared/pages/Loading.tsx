@@ -10,12 +10,14 @@ export interface ILoadingProps extends React.HTMLAttributes<HTMLDivElement> {
 const Loading: FC<ILoadingProps> = ({
 	className,
 	displayCard = false,
-	fadeIn = true
+	fadeIn = true,
+	...otherProps
 }) => (
 	<div
 		className={getCN('loading-root', className, {
 			'display-card': displayCard
 		})}
+		{...otherProps}
 	>
 		<Spinner fadeIn={fadeIn} />
 	</div>

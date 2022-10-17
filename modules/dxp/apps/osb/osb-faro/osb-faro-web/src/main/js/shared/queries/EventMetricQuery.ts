@@ -53,10 +53,10 @@ export default gql`
 			rangeStart: $rangeStart
 		) {
 			totalEventsMetric {
-				...trendFragment
+				...trendFragmentEventMetric
 			}
 			totalSessionsMetric {
-				...trendFragment
+				...trendFragmentEventMetric
 			}
 		}
 	}
