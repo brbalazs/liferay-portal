@@ -33,6 +33,9 @@ const BROWSER_DEVICE_QUERY = gql`
 			downloadsMetric {
 				...browserFragment
 				...deviceFragment
+
+				previousValue
+				value
 			}
 		}
 	}

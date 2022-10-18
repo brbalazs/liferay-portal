@@ -31,6 +31,9 @@ const BROWSER_DEVICE = gql`
 			submissionsMetric {
 				...browserFragment
 				...deviceFragment
+
+				previousValue
+				value
 			}
 		}
 	}

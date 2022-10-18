@@ -34,6 +34,9 @@ const BROWSER_DEVICE_QUERY = gql`
 			viewsMetric {
 				...browserFragment
 				...deviceFragment
+
+				previousValue
+				value
 			}
 		}
 	}
