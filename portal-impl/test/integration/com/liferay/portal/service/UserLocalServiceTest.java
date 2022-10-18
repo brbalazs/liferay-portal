@@ -82,9 +82,7 @@ public class UserLocalServiceTest {
 		new LiferayIntegrationTestRule();
 
 	@Test
-	public void testAuthenticateByEmailAddressWithPasswordPolicy()
-		throws Exception {
-
+	public void testAuthenticateByEmailAddress() throws Exception {
 		User user = UserTestUtil.addUser();
 
 		String password = "password";
