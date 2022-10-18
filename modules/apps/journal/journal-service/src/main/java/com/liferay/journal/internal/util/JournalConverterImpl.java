@@ -624,7 +624,6 @@ public class JournalConverterImpl implements JournalConverter {
 						}
 
 						jsonObject.put("title", title);
-						jsonObject.put("uuid", article.getUuid());
 					}
 					else {
 						jsonObject.put(
