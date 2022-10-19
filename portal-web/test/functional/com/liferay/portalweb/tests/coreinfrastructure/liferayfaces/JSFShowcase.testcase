@@ -702,7 +702,7 @@ definition {
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/jsf-showcase/-/jsf-tag/h/outputtext/conversion");
 
-		var displayDate = DateUtil.getFormattedCurrentDate("EEEE, MMM dd, yyyy");
+		var displayDate = DateUtil.getCurrentYear();
 
 		AssertTextEquals(
 			locator1 = "JSFShowcase#EXAMPLE_TEXT",
