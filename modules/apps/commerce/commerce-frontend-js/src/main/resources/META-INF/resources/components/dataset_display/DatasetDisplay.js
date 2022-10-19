@@ -472,6 +472,7 @@ function DatasetDisplay(props) {
 				selectedItemsKey: props.selectedItemsKey,
 				selectedItemsValue,
 				selectionType: props.selectionType,
+				setPageNumber,
 				sidePanelId: datasetDisplaySupportSidePanelId,
 				sorting,
 				style: props.style,

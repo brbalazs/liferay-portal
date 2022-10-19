@@ -19,8 +19,9 @@ import React, {useState, useEffect, useContext} from 'react';
 import DatasetDisplayContext from '../../DatasetDisplayContext';
 
 function MainSearch() {
-	const {searchParam, updateSearchParam} = useContext(DatasetDisplayContext);
-
+	const {searchParam, setPageNumber, updateSearchParam} = useContext(
+		DatasetDisplayContext
+	);
 	const [inputValue, updateInputValue] = useState(searchParam);
 
 	useEffect(() => {
@@ -30,7 +31,9 @@ function MainSearch() {
 	function handleKeyDown(e) {
 		if (e.keyCode === 13) {
 			e.preventDefault();
-			return updateSearchParam(inputValue);
+
+			setPageNumber(1);
+			updateSearchParam(inputValue);
 		}
 	}
 
@@ -56,8 +59,9 @@ function MainSearch() {
 							disabled={!inputValue.length}
 							onClick={e => {
 								e.preventDefault();
+								setPageNumber(1);
 								updateInputValue('');
-								return updateSearchParam('');
+								updateSearchParam('');
 							}}
 							type="button"
 						>
@@ -70,7 +74,8 @@ function MainSearch() {
 							className="btn btn-unstyled"
 							onClick={e => {
 								e.preventDefault();
-								return updateSearchParam(inputValue);
+								setPageNumber(1);
+								updateSearchParam(inputValue);
 							}}
 							type="button"
 						>
