@@ -407,7 +407,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders with data source em
             Connect a data source to get started.
             <a
               class="d-block mb-3"
-              href="https://learn.liferay.com/analytics-cloud/latest/en/connecting-data-sources.html"
+              href="https://learn.liferay.com/analytics-cloud/latest/en/getting-started/connecting-liferay-dxp-to-analytics-cloud.html"
               target="_blank"
             >
               Access our documentation to learn more.
