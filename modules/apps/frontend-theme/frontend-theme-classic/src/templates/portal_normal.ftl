@@ -68,7 +68,7 @@
 	</#if>
 
 	<section class="${portal_content_css_class}" id="content">
-		<h1 class="sr-only">${the_title}</h1>
+		<h1 class="sr-only">${htmlUtil.escape(the_title)}</h1>
 
 		<#if selectable>
 			<@liferay_util["include"] page=content_include />
