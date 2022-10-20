@@ -22,7 +22,6 @@ import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
-import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
@@ -75,7 +74,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
@@ -272,12 +270,6 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("serverLocation") String serverLocation,
 			@DefaultValue("UTC") @FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
-
-		if (!_isCreateTrialAllowed(serverLocation)) {
-			throw new FaroValidationException(
-				null,
-				getLocalizedMessage("this-user-already-owns-a-trial-project"));
-		}
 
 		return _createUnprovisioned(
 			name, null, null, null, null,
@@ -1033,31 +1025,6 @@ public class ProjectController extends BaseFaroController {
 		finally {
 			_initializingGroupIds.remove(groupId);
 		}
-	}
-
-	private boolean _isCreateTrialAllowed(String serverLocation) {
-		if (StringUtil.equals(
-				serverLocation, LCPProject.Cluster.DEV.toString()) ||
-			StringUtil.equals(
-				serverLocation, LCPProject.Cluster.UAT.toString())) {
-
-			return true;
-		}
-
-		List<FaroProject> faroProjects =
-			_faroProjectLocalService.getFaroProjectsByUserId(getUserId());
-
-		Stream<FaroProject> stream = faroProjects.stream();
-
-		Optional<FaroProject> faroProjectOptional = stream.filter(
-			FaroProject::isTrial
-		).findAny();
-
-		if (faroProjectOptional.isPresent()) {
-			return false;
-		}
-
-		return true;
 	}
 
 	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
