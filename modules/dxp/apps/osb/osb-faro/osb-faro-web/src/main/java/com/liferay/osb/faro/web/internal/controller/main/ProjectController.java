@@ -711,7 +711,9 @@ public class ProjectController extends BaseFaroController {
 			String state, String timeZoneId)
 		throws Exception {
 
+		_validateFriendlyURL(friendlyURL);
 		_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
+		_validateTimeZoneId(timeZoneId);
 
 		OSBAccountEntry osbAccountEntry =
 			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
