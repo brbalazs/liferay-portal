@@ -26,6 +26,7 @@ const CustomAssetsListCard: React.FC<{timeZoneId: string}> = ({timeZoneId}) => {
 	const {channelId, groupId} = useParams();
 
 	const response = useQuery(CustomAssetsListQuery, {
+		fetchPolicy: 'network-only',
 		variables: {
 			channelId,
 			...getGraphQLVariablesFromPagination({
