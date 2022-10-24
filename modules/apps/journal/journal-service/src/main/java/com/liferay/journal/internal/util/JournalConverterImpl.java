@@ -610,8 +610,6 @@ public class JournalConverterImpl implements JournalConverter {
 						_journalArticleLocalService.fetchLatestArticle(classPK);
 
 					if (article != null) {
-						jsonObject.put("groupId", article.getGroupId());
-
 						String title = article.getTitle(defaultLocale);
 
 						if (article.isInTrash()) {
