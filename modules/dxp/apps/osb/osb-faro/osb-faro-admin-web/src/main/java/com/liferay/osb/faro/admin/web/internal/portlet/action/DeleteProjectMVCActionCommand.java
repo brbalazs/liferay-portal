@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Http;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
@@ -75,7 +74,7 @@ public class DeleteProjectMVCActionCommand extends BaseMVCActionCommand {
 			options.setDelete(true);
 			options.setHeaders(getHeaders(actionRequest));
 
-			HttpUtil.URLtoString(options);
+			_http.URLtoString(options);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -112,6 +111,9 @@ public class DeleteProjectMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private FaroProjectLocalService _faroProjectLocalService;
+
+	@Reference
+	private Http _http;
 
 	@Reference
 	private Portal _portal;
