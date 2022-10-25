@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -79,6 +80,21 @@ public class FaroAdminDisplayContext {
 
 		return new DropdownItemList() {
 			{
+				if (GetterUtil.getBoolean(
+						System.getenv("FARO_DELETE_WORKSPACE_ENABLED"))) {
+
+					add(
+						dropdownItem -> {
+							dropdownItem.setHref(
+								portletURL, ActionRequest.ACTION_NAME,
+								"/faro_admin/delete_project", "faroProjectId",
+								faroProjectAdminDisplay.getFaroProjectId());
+							dropdownItem.setLabel(
+								LanguageUtil.get(
+									_httpServletRequest, "delete-project"));
+						});
+				}
+
 				add(
 					dropdownItem -> {
 						dropdownItem.setHref(
