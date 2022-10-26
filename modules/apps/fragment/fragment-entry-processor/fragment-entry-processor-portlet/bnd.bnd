@@ -1,3 +1,7 @@
 Bundle-Name: Liferay Fragment Entry Processor Portlet
 Bundle-SymbolicName: com.liferay.fragment.entry.processor.portlet
 Bundle-Version: 1.0.28
+Import-Package:\
+	!javax.annotation.meta,\
+	\
+	*
