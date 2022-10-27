@@ -232,9 +232,6 @@ public class FaroProjectLocalServiceImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", user.getLocale(), getClass());
 
-		String workspaceURL = EmailUtil.getWorkspaceURL(
-			groupLocalService.fetchGroup(faroProject.getGroupId()));
-
 		body = StringUtil.replace(
 			body,
 			new String[] {
@@ -247,7 +244,7 @@ public class FaroProjectLocalServiceImpl
 				"[$TITLE_ICON_URL$]"
 			},
 			new String[] {
-				_language.get(resourceBundle, "go-to-workspace"), workspaceURL,
+				_language.get(resourceBundle, "go-to-workspace"), _FARO_URL,
 				_language.format(
 					resourceBundle, "email-need-more-help",
 					new String[] {
@@ -256,8 +253,8 @@ public class FaroProjectLocalServiceImpl
 						"</a>"
 					}),
 				StringBundler.concat(
-					"<a class=\"body-link\" href=\"", workspaceURL, "\">",
-					workspaceURL, "</a>"),
+					"<a class=\"body-link\" href=\"", _FARO_URL, "\">",
+					_FARO_URL, "</a>"),
 				EmailUtil.getLogoIconURL(),
 				_language.get(resourceBundle, "welcome-to-analytics-cloud"),
 				_language.format(
