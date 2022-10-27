@@ -3418,16 +3418,16 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!snakeyaml.jar</file-name>
-				<version>1.27</version>
+				<version>1.31</version>
 				<project-name>SnakeYAML</project-name>
-				<project-url>http://www.snakeyaml.org</project-url>
+				<project-url>https://bitbucket.org/snakeyaml/snakeyaml</project-url>
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2020-09-11 16:54:11</current-version-publish-date>
+				<current-version-publish-date>2022-08-27 11:40:34</current-version-publish-date>
 				<latest-version-publish-date>2022-09-26 08:52:45</latest-version-publish-date>
 			</library>
 			<library>
@@ -4851,16 +4851,16 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.vulcan.api.jar!snakeyaml.jar</file-name>
-				<version>1.27</version>
+				<version>1.31</version>
 				<project-name>SnakeYAML</project-name>
-				<project-url>http://www.snakeyaml.org</project-url>
+				<project-url>https://bitbucket.org/snakeyaml/snakeyaml</project-url>
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2020-09-11 16:54:11</current-version-publish-date>
+				<current-version-publish-date>2022-08-27 11:40:34</current-version-publish-date>
 				<latest-version-publish-date>2022-09-26 08:52:45</latest-version-publish-date>
 			</library>
 			<library>
@@ -5170,16 +5170,16 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.vulcan.impl.jar!snakeyaml.jar</file-name>
-				<version>1.27</version>
+				<version>1.31</version>
 				<project-name>SnakeYAML</project-name>
-				<project-url>http://www.snakeyaml.org</project-url>
+				<project-url>https://bitbucket.org/snakeyaml/snakeyaml</project-url>
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2020-09-11 16:54:11</current-version-publish-date>
+				<current-version-publish-date>2022-08-27 11:40:34</current-version-publish-date>
 				<latest-version-publish-date>2022-09-26 08:52:45</latest-version-publish-date>
 			</library>
 			<library>
