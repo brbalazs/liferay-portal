@@ -38,14 +38,14 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 
 	const description = admin
 		? Liferay.Language.get(
-				'first-complete-the-onboarding-to-get-your-workspace-set-up'
+				'to-get-your-workspace-set-up,-youll-need-to-connect-your-dxp-instance-and-add-sites-to-a-property'
 		  )
 		: Liferay.Language.get(
 				'you-have-not-been-added-to-any-properties.-please-contact-your-analytics-cloud-administrator'
 		  );
 
 	const title = admin
-		? Liferay.Language.get('you-are-almost-there')
+		? Liferay.Language.get('first-connect-your-dxp-sites')
 		: Liferay.Language.get('no-properties-found');
 
 	return (
