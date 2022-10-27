@@ -2,24 +2,28 @@ import {safeResultToProps} from 'shared/util/mappers';
 
 const mapResultToProps: object = safeResultToProps(
 	({
-		site: {anonymousVisitorsMetric, knownVisitorsMetric, visitorsMetric}
+		cohort: {
+			anonymousCohortHeatMapMetrics,
+			knownCohortHeatMapMetrics,
+			visitorsCohortHeatMapMetrics
+		}
 	}) => ({
 		data: {
 			anonymousVisitors: {
-				items: anonymousVisitorsMetric.cohortHeatMap
+				items: anonymousCohortHeatMapMetrics
 			},
 			knownVisitors: {
-				items: knownVisitorsMetric.cohortHeatMap
+				items: knownCohortHeatMapMetrics
 			},
 			visitors: {
-				items: visitorsMetric.cohortHeatMap
+				items: visitorsCohortHeatMapMetrics
 			}
 		},
 		empty: [
-			anonymousVisitorsMetric,
-			knownVisitorsMetric,
-			visitorsMetric
-		].some(({cohortHeatMap}) => !cohortHeatMap.length)
+			anonymousCohortHeatMapMetrics,
+			knownCohortHeatMapMetrics,
+			visitorsCohortHeatMapMetrics
+		].some(metric => !metric.length)
 	})
 );
 

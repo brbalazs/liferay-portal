@@ -1,26 +1,29 @@
-import {COHORT_HEATMAP_FRAGMENT} from 'shared/queries/fragments';
 import {gql} from 'apollo-boost';
 
 export default gql`
 	query CohortHeatMap($channelId: String, $interval: String!) {
-		site(
-			channelId: $channelId
-			includePrevious: false
-			interval: $interval
-		) {
-			anonymousVisitorsMetric {
-				...cohortHeatMapFragment
+		cohort(channelId: $channelId, interval: $interval) {
+			anonymousCohortHeatMapMetrics {
+				retention
+				rowKey
+				rowDimension
+				colDimension
+				value
 			}
-
-			knownVisitorsMetric {
-				...cohortHeatMapFragment
+			knownCohortHeatMapMetrics {
+				retention
+				rowKey
+				rowDimension
+				colDimension
+				value
 			}
-
-			visitorsMetric {
-				...cohortHeatMapFragment
+			visitorsCohortHeatMapMetrics {
+				retention
+				rowKey
+				rowDimension
+				colDimension
+				value
 			}
 		}
 	}
-
-	${COHORT_HEATMAP_FRAGMENT}
 `;

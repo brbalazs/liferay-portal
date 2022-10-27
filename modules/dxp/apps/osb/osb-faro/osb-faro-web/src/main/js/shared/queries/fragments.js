@@ -30,18 +30,6 @@ export const BROWSER_FRAGMENT = gql`
 	}
 `;
 
-export const COHORT_HEATMAP_FRAGMENT = gql`
-	fragment cohortHeatMapFragment on Metric {
-		cohortHeatMap {
-			retention
-			rowKey
-			rowDimension
-			colDimension
-			value
-		}
-	}
-`;
-
 export const COMPOSITION_FRAGMENT = gql`
 	fragment compositionFragment on CompositionBag {
 		compositions {
