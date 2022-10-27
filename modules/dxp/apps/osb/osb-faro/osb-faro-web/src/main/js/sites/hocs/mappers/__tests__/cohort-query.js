@@ -1,16 +1,10 @@
 import {mapPropsToOptions, mapResultToProps} from '../cohort-query';
 
 const mockData = {
-	site: {
-		anonymousVisitorsMetric: {
-			cohortHeatMap: ['test']
-		},
-		knownVisitorsMetric: {
-			cohortHeatMap: ['foo']
-		},
-		visitorsMetric: {
-			cohortHeatMap: ['bar']
-		}
+	cohort: {
+		anonymousCohortHeatMapMetrics: ['test'],
+		knownCohortHeatMapMetrics: ['foo'],
+		visitorsCohortHeatMapMetrics: ['bar']
 	}
 };
 
@@ -55,16 +49,10 @@ describe('Cohort Query Mapper', () => {
 			expect(
 				mapResultToProps({
 					data: {
-						site: {
-							anonymousVisitorsMetric: {
-								cohortHeatMap: []
-							},
-							knownVisitorsMetric: {
-								cohortHeatMap: []
-							},
-							visitorsMetric: {
-								cohortHeatMap: []
-							}
+						cohort: {
+							anonymousCohortHeatMapMetrics: [],
+							knownCohortHeatMapMetrics: [],
+							visitorsCohortHeatMapMetrics: []
 						}
 					}
 				})
