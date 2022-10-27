@@ -6,8 +6,8 @@ Import-Package:\
 	\
 	!io.reactivex.*,\
 	\
-	com.liferay.portal.configuration.metatype.annotations.*;version="[1.0.0,99.0.0)",\
-	com.liferay.portal.kernel.json.*;version="[7.0.0,99.0.0)",\
-	com.liferay.portal.kernel.util.*;version="[8.0.0,99.0.0)",\
+	com.liferay.portal.configuration.metatype.annotations.*;version="[1.0.0,9999.0.0)",\
+	com.liferay.portal.kernel.json.*;version="[7.0.0,9999.0.0)",\
+	com.liferay.portal.kernel.util.*;version="[8.0.0,9999.0.0)",\
 	\
 	*
