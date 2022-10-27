@@ -31,6 +31,8 @@ Import-Package:\
 	!graphql.annotations.processor.typeFunctions.*,\
 	!graphql.annotations.typeResolvers.*,\
 	\
+	!graphql.introspection.*,\
+	\
 	!graphql.schema.*,\
 	\
 	*
