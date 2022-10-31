@@ -390,6 +390,14 @@ definition {
 		}
 	}
 
+	macro clearLocalStorage {
+		var javaScript = '''
+		localStorage.clear();
+		''';
+
+		var localStorageItem = selenium.getEval("${javaScript}");
+	}
+
 	macro clearSearchBar {
 		Click(locator1 = "ACUtils#CLEAR_SEARCH_BAR_BUTTON");
 	}
@@ -595,6 +603,12 @@ definition {
 		}
 	}
 
+	macro executeJSInBrowserConsole {
+		var javaScript = "${javaScriptCode}";
+
+		var javaScriptItem = selenium.getEval("${javaScript}");
+	}
+
 	macro getEventPropertyValue {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
@@ -633,6 +647,20 @@ definition {
 		}
 
 		return "${country}";
+	}
+
+	macro getLocalStorageItem {
+		var javaScript = '''
+		var localStorageItem = localStorage.getItem('${keyName}');
+
+		return localStorageItem;
+		''';
+
+		var localStorageItem = selenium.getEval("${javaScript}");
+
+		var localStorageItem = StringUtil.replace("${localStorageItem}", "\"", "");
+
+		return "${localStorageItem}";
 	}
 
 	macro getPageRefRequestPropertyValue {
@@ -698,6 +726,13 @@ definition {
 		if (IsElementNotPresent(locator1 = "ApplicationsMenu#APPLICATIONS_MENU")) {
 			User.firstLoginPG(userEmailAddress = "${userEmailAddress}");
 		}
+	}
+
+	macro logInPause {
+
+		// Pause is necessary because poshi logs in from one user to another quickly. For more information about pause see LRAC-9514
+
+		Pause(locator1 = "5000");
 	}
 
 	@summary = "This macro access a page/document"
@@ -1023,6 +1058,21 @@ definition {
 
 	macro waitForLoading {
 		WaitForElementNotPresent(locator1 = "ACUtils#LOADING_ANIMATION");
+	}
+
+	macro waitForSendingRequest {
+		if (isSet(time)) {
+
+			// Pausing for harRecording test for reuse purpose, see LRAC-10600
+
+			Pause(locator1 = "${time}");
+		}
+		else if (!(isSet(time))) {
+
+			// Pausing for harRecording tests, see LRAC-10600
+
+			Pause(locator1 = "5000");
+		}
 	}
 
 }
