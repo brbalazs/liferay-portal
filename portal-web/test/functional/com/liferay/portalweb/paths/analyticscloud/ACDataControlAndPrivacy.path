@@ -16,6 +16,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>REQUEST_SUPPRESSED_OPTIONS</td>
+	<td>//h4[contains(.,'${key_optionName}')]/../..//*[contains(@class,'button-root') and contains(.,'${key_optionValue}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SUPPRESSED_USERS</td>
 	<td>//h4[contains(.,'Suppressed Users')]/../..//a[contains(@class,'button') and contains(.,'Manage')]</td>
 	<td></td>
