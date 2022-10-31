@@ -63,7 +63,13 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 				<NoResultsDisplay
 					description={
 						<>
-							<p>{description}</p>
+							<p>
+								{dataSources
+									? description
+									: Liferay.Language.get(
+											'first-complete-the-onboarding-to-get-your-workspace-set-up'
+									  )}
+							</p>
 
 							{admin && (
 								<Button
@@ -115,7 +121,11 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 						symbol: 'ac-satellite'
 					}}
 					spacer
-					title={title}
+					title={
+						dataSources
+							? title
+							: Liferay.Language.get('you-are-almost-there')
+					}
 				/>
 			</BasePage.Body>
 		</BasePage>
