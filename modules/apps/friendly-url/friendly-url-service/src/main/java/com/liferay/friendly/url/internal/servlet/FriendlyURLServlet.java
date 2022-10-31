@@ -140,6 +140,8 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		Map<String, String[]> params = httpServletRequest.getParameterMap();
 
+		Layout defaultLayout = null;
+
 		try {
 			LayoutFriendlyURLSeparatorComposite
 				layoutFriendlyURLSeparatorComposite =
@@ -158,6 +160,8 @@ public class FriendlyURLServlet extends HttpServlet {
 						"{groupId=", group.getGroupId(), ", privateLayout=",
 						_private, ", friendlyURL=", layoutFriendlyURL, "}"));
 			}
+
+			defaultLayout = layout;
 
 			httpServletRequest.setAttribute(WebKeys.LAYOUT, layout);
 
@@ -233,21 +237,34 @@ public class FriendlyURLServlet extends HttpServlet {
 			}
 		}
 		catch (NoSuchLayoutException nsle) {
-			List<Layout> layouts = layoutLocalService.getLayouts(
-				group.getGroupId(), _private,
-				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+			Layout redirectLayout = null;
 
-			for (Layout layout : layouts) {
-				if (_isAssetDisplayPage(layout)) {
-					continue;
+			if (layoutFriendlyURL == null) {
+				redirectLayout = defaultLayout;
+			}
+			else {
+				List<Layout> layouts = layoutLocalService.getLayouts(
+					group.getGroupId(), _private,
+					LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+
+				for (Layout layout : layouts) {
+					if (_isAssetDisplayPage(layout)) {
+						continue;
+					}
+
+					if (layout.matches(httpServletRequest, layoutFriendlyURL)) {
+						redirectLayout = layout;
+
+						break;
+					}
 				}
+			}
 
-				if (layout.matches(httpServletRequest, layoutFriendlyURL)) {
-					String redirect = portal.getLayoutActualURL(
-						layout, Portal.PATH_MAIN);
+			if (redirectLayout != null) {
+				String redirect = portal.getLayoutActualURL(
+					redirectLayout, Portal.PATH_MAIN);
 
-					return new Redirect(redirect);
-				}
+				return new Redirect(redirect);
 			}
 
 			throw nsle;
