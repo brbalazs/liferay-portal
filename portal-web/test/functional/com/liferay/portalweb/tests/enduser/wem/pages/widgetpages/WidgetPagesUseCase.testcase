@@ -564,7 +564,7 @@ definition {
 			emailFromUserName = "Joe Bloggs",
 			gmailAssetType = "GMB1",
 			gmailMessageBody = "Blogs Entry Title GMB1",
-			gmailMessageTitle = "Test Test Published &quot;Blogs Entry Title GMB1&quot; on ${siteName} Blogs");
+			gmailMessageTitle = "Test Test Published \"Blogs Entry Title GMB1\" on ${siteName} Blogs");
 
 		Gmail.openMessageContinueReadingButton(
 			contentTitle = "Blogs Entry Title GMB1",
@@ -603,7 +603,7 @@ definition {
 
 		Gmail.gotoHtmlMode();
 
-		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published &quot;Blogs Entry Title GMB1&quot; on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB2,Your New Account,Your New Password,GMB1,GMMB2");
+		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published \"Blogs Entry Title GMB1\" on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB2,Your New Account,Your New Password,GMB1,GMMB2");
 
 		User.logoutPG();
 
@@ -752,7 +752,7 @@ definition {
 			emailFromUserName = "Joe Bloggs",
 			gmailAssetType = "GMB2",
 			gmailMessageBody = "Blogs Entry Title GMB2",
-			gmailMessageTitle = "Test Test Published &quot;Blogs Entry Title GMB2&quot; on ${siteName} Blogs");
+			gmailMessageTitle = "Test Test Published \"Blogs Entry Title GMB2\" on ${siteName} Blogs");
 
 		Gmail.openMessageContinueReadingButton(
 			contentTitle = "Blogs Entry Title GMB2",
@@ -791,7 +791,7 @@ definition {
 
 		Gmail.gotoHtmlMode();
 
-		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published &quot;Blogs Entry Title GMB2&quot; on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB3,Your New Account,Your New Password,GMB2,GMMB3");
+		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published \"Blogs Entry Title GMB2\" on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB3,Your New Account,Your New Password,GMB2,GMMB3");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea2@liferay.com",
@@ -939,7 +939,7 @@ definition {
 			emailFromUserName = "Joe Bloggs",
 			gmailAssetType = "GMB3",
 			gmailMessageBody = "Blogs Entry Title GMB3",
-			gmailMessageTitle = "Test Test Published &quot;Blogs Entry Title GMB3&quot; on ${siteName} Blogs");
+			gmailMessageTitle = "Test Test Published \"Blogs Entry Title GMB3\" on ${siteName} Blogs");
 
 		Gmail.openMessageContinueReadingButton(
 			contentTitle = "Blogs Entry Title GMB3",
@@ -978,7 +978,7 @@ definition {
 
 		Gmail.gotoHtmlMode();
 
-		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published &quot;Blogs Entry Title GMB3&quot; on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB4,Your New Account,Your New Password,GMB3,GMMB4");
+		Gmail.deleteSpecificMail(gmailMessageTitleList = "Test Test Published \"Blogs Entry Title GMB3\" on ${siteName} Blogs,Message Boards Home - ${siteName} New Message: MB Thread Message Subject GMMB4,Your New Account,Your New Password,GMB3,GMMB4");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea2@liferay.com",

@@ -370,7 +370,7 @@ definition {
 			locator1 = "NavBar#APPLICATION_SEARCH_FIELD",
 			value1 = "${portletName}");
 
-		var portletLocator = "//span[@data-title=&quot;${portletName}&quot; and contains(@class,'add-content-item')]";
+		var portletLocator = "//span[@data-title=\"${portletName}\" and contains(@class,'add-content-item')]";
 
 		AssertElementNotPresent(locator1 = "${portletLocator}");
 	}
