@@ -165,6 +165,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>RESULTS_PORTLET_WIDGET_ELLIPSIS_ICON_SPECIFIC</td>
+	<td>xpath=(//header[contains(@class,'portlet-topper') and contains(.,'Search Results')][not(ancestor::header[@id='banner'])]//div[contains(@class,'portlet-options')]/a)[${key_index}]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>FACET_PORTLET_CLEAR_SPECIFIC</td>
 	<td>//div[contains(@class,'search-facet') and contains(@id,'${key_facetClass}')]//a[contains(@onclick,'clearSelections(event);')]</td>
 	<td></td>
