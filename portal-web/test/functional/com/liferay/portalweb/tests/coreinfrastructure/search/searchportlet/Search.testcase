@@ -2199,7 +2199,13 @@ definition {
 
 		var actualScript = '''<script>alert(123);</script>''';
 
-		var escapedScript = '''&lt;script&gt;<span class="highlight">alert</span>(123);&lt;/script&gt;''';
+		SearchResultPortlet.configureSearchResults(disableHighlighting = "true");
+
+		Refresh();
+
+		AssertAlertNotPresent();
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
 
 		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
 
