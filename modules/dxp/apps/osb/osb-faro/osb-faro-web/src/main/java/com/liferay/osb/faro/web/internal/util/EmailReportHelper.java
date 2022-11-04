@@ -27,6 +27,8 @@ import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.util.EmailUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -77,8 +79,18 @@ public class EmailReportHelper {
 			return;
 		}
 
-		Channel channel = _contactsEngineClient.getChannel(
-			faroProject, channelId);
+		Channel channel = null;
+
+		try {
+			channel = _contactsEngineClient.getChannel(faroProject, channelId);
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+
+			return;
+		}
 
 		int groupIdCount = 0;
 
@@ -92,8 +104,19 @@ public class EmailReportHelper {
 			return;
 		}
 
-		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(
-			channelId, group.getGroupId());
+		FaroChannel faroChannel = null;
+
+		try {
+			faroChannel = _faroChannelLocalService.getFaroChannel(
+				channelId, group.getGroupId());
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+
+			return;
+		}
 
 		JSONObject siteMetricsJSONObject = JSONFactoryUtil.createJSONObject(
 			_cerebroEngineClient.getSiteMetrics(
@@ -279,6 +302,9 @@ public class EmailReportHelper {
 			return "Week";
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EmailReportHelper.class);
 
 	@Reference
 	private CerebroEngineClient _cerebroEngineClient;
