@@ -50,7 +50,7 @@
 		"metal-storage": "^1.1.0",
 		"metal-structs": "^1.0.1",
 		"metal-uri": "^2.4.0",
-		"moment": "^2.20.1",
+		"moment": "2.29.4",
 		"moment-duration-format": "^2.2.1",
 		"moment-timezone": "^0.5.31",
 		"normalizr": "^3.2.4",

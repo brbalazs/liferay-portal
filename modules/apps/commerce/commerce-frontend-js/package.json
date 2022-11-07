@@ -21,7 +21,7 @@
 		"@clayui/table": "^4.0.0",
 		"@clayui/tooltip": "3.1.0",
 		"classnames": "^2.2.6",
-		"moment": "^2.22.2",
+		"moment": "2.29.4",
 		"prop-types": "^15.7.2",
 		"react": "16.8.6",
 		"react-dom": "16.8.6"
