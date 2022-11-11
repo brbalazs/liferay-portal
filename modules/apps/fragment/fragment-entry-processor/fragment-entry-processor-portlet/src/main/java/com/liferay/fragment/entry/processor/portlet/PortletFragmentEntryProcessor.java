@@ -176,7 +176,12 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 
 		Element bodyElement = document.body();
 
-		return bodyElement.html();
+		String bodyHtml = bodyElement.html();
+
+		bodyHtml = bodyHtml.replace("<#root>", "");
+		bodyHtml = bodyHtml.replace("</#root>", "");
+
+		return bodyHtml;
 	}
 
 	@Override
