@@ -65,6 +65,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -107,9 +108,6 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 						"there-is-no-widget-available-for-alias-x", alias));
 			}
 
-			Element runtimeTagElement = new Element(
-				"@liferay_portlet.runtime", true);
-
 			FragmentEntryLink originalFragmentEntryLink =
 				_fragmentEntryLinkLocalService.fetchFragmentEntryLink(
 					fragmentEntryLink.getOriginalFragmentEntryLinkId());
@@ -141,12 +139,6 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 					portlet.getDefaultPreferences());
 			}
 
-			runtimeTagElement.attr("defaultPreferences", portletPreferences);
-
-			runtimeTagElement.attr("instanceId", instanceId);
-			runtimeTagElement.attr("persistSettings=false", true);
-			runtimeTagElement.attr("portletName", portletName);
-
 			Element portletElement = new Element("div");
 
 			portletElement.attr("class", "portlet");
@@ -170,7 +162,14 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 						portletName, instanceId, fragmentEntryLink, locale));
 			}
 
-			portletElement.appendChild(runtimeTagElement);
+			portletElement.appendChild(
+				Jsoup.parse(
+					StringBundler.concat(
+						"[@liferay_portlet.runtime defaultPreferences=\"",
+						portletPreferences, " \"instanceId=\"", instanceId,
+						"\" persistSettings=false portletName=\"", portletName,
+						"\"][/@liferay_portlet.runtime]"),
+					"", Parser.xmlParser()));
 
 			element.replaceWith(portletElement);
 		}
