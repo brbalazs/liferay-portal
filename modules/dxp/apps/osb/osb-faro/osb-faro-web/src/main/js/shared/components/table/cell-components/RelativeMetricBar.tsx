@@ -1,7 +1,7 @@
 import MetricBar, {Sizes} from 'shared/components/MetricBar';
 import React, {FC} from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
-import {ceil, round} from 'lodash';
+import {round} from 'lodash';
 
 interface IRelativeMetricBarProps extends React.HTMLAttributes<HTMLElement> {
 	data: {
@@ -18,13 +18,10 @@ interface IRelativeMetricBarProps extends React.HTMLAttributes<HTMLElement> {
 const RelativeMetricBar: FC<IRelativeMetricBarProps> = ({
 	data: {count, name},
 	empty = false,
-	maxCount,
 	showName = false,
 	totalCount
 }) => {
-	const denominator = ceil(maxCount / totalCount, 1) * totalCount;
-
-	const percent = round(count / denominator, 2);
+	const percent = round(count / totalCount, 2);
 
 	const displayName = showName ? name : '';
 
