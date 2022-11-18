@@ -167,7 +167,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                       >
                         <div
                           class="bar bar-lg"
-                          style="width: 95%;"
+                          style="width: 67%;"
                         />
                         <div
                           class="info-wrapper align-items-center d-flex justify-content-between"
@@ -229,7 +229,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                       >
                         <div
                           class="bar bar-lg"
-                          style="width: 95%;"
+                          style="width: 67%;"
                         />
                         <div
                           class="info-wrapper align-items-center d-flex justify-content-between"
@@ -291,7 +291,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                       >
                         <div
                           class="bar bar-lg"
-                          style="width: 95%;"
+                          style="width: 67%;"
                         />
                         <div
                           class="info-wrapper align-items-center d-flex justify-content-between"
@@ -353,7 +353,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                       >
                         <div
                           class="bar bar-lg"
-                          style="width: 95%;"
+                          style="width: 67%;"
                         />
                         <div
                           class="info-wrapper align-items-center d-flex justify-content-between"
@@ -415,7 +415,7 @@ exports[`Individuals Dashboard Individuals Interests renders 1`] = `
                       >
                         <div
                           class="bar bar-lg"
-                          style="width: 48%;"
+                          style="width: 33%;"
                         />
                         <div
                           class="info-wrapper align-items-center d-flex justify-content-between"

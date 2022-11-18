@@ -10,7 +10,7 @@ exports[`RelativeMetricBar should render 1`] = `
     >
       <div
         class="bar bar-lg"
-        style="width: 56%;"
+        style="width: 50%;"
       />
       <div
         class="info-wrapper align-items-center d-flex justify-content-between"
