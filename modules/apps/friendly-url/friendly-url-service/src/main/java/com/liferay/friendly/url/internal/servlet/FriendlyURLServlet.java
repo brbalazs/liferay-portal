@@ -88,7 +88,8 @@ import org.osgi.service.component.annotations.Reference;
  */
 public class FriendlyURLServlet extends HttpServlet {
 
-	public Redirect getRedirect(HttpServletRequest httpServletRequest, String path)
+	public Redirect getRedirect(
+			HttpServletRequest httpServletRequest, String path)
 		throws PortalException {
 
 		if (path.length() <= 1) {
@@ -152,7 +153,8 @@ public class FriendlyURLServlet extends HttpServlet {
 			ServiceContextThreadLocal.getServiceContext();
 
 		if (serviceContext == null) {
-			serviceContext = ServiceContextFactory.getInstance(httpServletRequest);
+			serviceContext = ServiceContextFactory.getInstance(
+				httpServletRequest);
 
 			ServiceContextThreadLocal.pushServiceContext(serviceContext);
 		}
@@ -333,7 +335,8 @@ public class FriendlyURLServlet extends HttpServlet {
 
 	@Override
 	public void service(
-			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws IOException, ServletException {
 
 		// Do not set the entire full main path. See LEP-456.
@@ -347,7 +350,8 @@ public class FriendlyURLServlet extends HttpServlet {
 
 			if (httpServletRequest.getAttribute(WebKeys.LAST_PATH) == null) {
 				httpServletRequest.setAttribute(
-					WebKeys.LAST_PATH, getLastPath(httpServletRequest, pathInfo));
+					WebKeys.LAST_PATH,
+					getLastPath(httpServletRequest, pathInfo));
 			}
 		}
 		catch (PortalException pe) {
@@ -359,7 +363,8 @@ public class FriendlyURLServlet extends HttpServlet {
 				pe instanceof NoSuchLayoutException) {
 
 				portal.sendError(
-					HttpServletResponse.SC_NOT_FOUND, pe, httpServletRequest, httpServletResponse);
+					HttpServletResponse.SC_NOT_FOUND, pe, httpServletRequest,
+					httpServletResponse);
 
 				return;
 			}
@@ -391,13 +396,15 @@ public class FriendlyURLServlet extends HttpServlet {
 			}
 
 			if (requestDispatcher != null) {
-				requestDispatcher.forward(httpServletRequest, httpServletResponse);
+				requestDispatcher.forward(
+					httpServletRequest, httpServletResponse);
 			}
 		}
 		else {
 			if (redirect.isPermanent()) {
 				httpServletResponse.setHeader("Location", redirect.getPath());
-				httpServletResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+				httpServletResponse.setStatus(
+					HttpServletResponse.SC_MOVED_PERMANENTLY);
 			}
 			else {
 				httpServletResponse.sendRedirect(redirect.getPath());
@@ -492,7 +499,8 @@ public class FriendlyURLServlet extends HttpServlet {
 	protected LastPath getLastPath(
 		HttpServletRequest httpServletRequest, String pathInfo) {
 
-		String lifecycle = ParamUtil.getString(httpServletRequest, "p_p_lifecycle");
+		String lifecycle = ParamUtil.getString(
+			httpServletRequest, "p_p_lifecycle");
 
 		if (lifecycle.equals("1")) {
 			return new LastPath(_friendlyURLPathPrefix, pathInfo);
@@ -500,7 +508,8 @@ public class FriendlyURLServlet extends HttpServlet {
 
 		return new LastPath(
 			_friendlyURLPathPrefix, pathInfo,
-			HttpUtil.parameterMapToString(httpServletRequest.getParameterMap()));
+			HttpUtil.parameterMapToString(
+				httpServletRequest.getParameterMap()));
 	}
 
 	protected String getPathInfo(HttpServletRequest httpServletRequest) {
@@ -516,8 +525,8 @@ public class FriendlyURLServlet extends HttpServlet {
 	}
 
 	protected Locale setAlternativeLayoutFriendlyURL(
-		HttpServletRequest httpServletRequest, Layout layout, String friendlyURL,
-		SiteFriendlyURL siteFriendlyURL) {
+		HttpServletRequest httpServletRequest, Layout layout,
+		String friendlyURL, SiteFriendlyURL siteFriendlyURL) {
 
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			layoutFriendlyURLLocalService.getLayoutFriendlyURLs(
@@ -644,7 +653,9 @@ public class FriendlyURLServlet extends HttpServlet {
 		return "asset_display".equals(layout.getType());
 	}
 
-	private boolean _isImpersonated(HttpServletRequest httpServletRequest, long userId) {
+	private boolean _isImpersonated(
+		HttpServletRequest httpServletRequest, long userId) {
+
 		HttpSession session = httpServletRequest.getSession();
 
 		Long realUserId = (Long)session.getAttribute(WebKeys.USER_ID);
