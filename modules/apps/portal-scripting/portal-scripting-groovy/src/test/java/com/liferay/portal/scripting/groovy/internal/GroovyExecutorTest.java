@@ -16,10 +16,9 @@ package com.liferay.portal.scripting.groovy.internal;
 
 import com.liferay.portal.kernel.io.Deserializer;
 import com.liferay.portal.kernel.io.Serializer;
+import com.liferay.portal.kernel.scripting.ScriptingException;
 import com.liferay.portal.kernel.scripting.ScriptingExecutor;
 import com.liferay.portal.scripting.ScriptingExecutorTestCase;
-
-import groovy.lang.GroovyRuntimeException;
 
 import java.util.Collections;
 import java.util.Map;
@@ -55,13 +54,13 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 
 			Assert.fail("Should throw GroovyRuntimeException");
 		}
-		catch (GroovyRuntimeException groovyRuntimeException) {
+		catch (ScriptingException scriptingException) {
 			Assert.assertEquals(
 				"No signature of method: static Test.missingMethod() is " +
 					"applicable for argument types: () values: []",
-				groovyRuntimeException.getMessage());
+				scriptingException.getMessage());
 
-			_checkExceptionSerialization(groovyRuntimeException);
+			_checkExceptionSerialization(scriptingException);
 		}
 	}
 
