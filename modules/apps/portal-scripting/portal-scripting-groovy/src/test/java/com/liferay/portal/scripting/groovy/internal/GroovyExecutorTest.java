@@ -14,8 +14,12 @@
 
 package com.liferay.portal.scripting.groovy.internal;
 
+import com.liferay.portal.kernel.io.Deserializer;
+import com.liferay.portal.kernel.io.Serializer;
 import com.liferay.portal.kernel.scripting.ScriptingExecutor;
 import com.liferay.portal.scripting.ScriptingExecutorTestCase;
+
+import groovy.lang.GroovyRuntimeException;
 
 import java.util.Collections;
 import java.util.Map;
@@ -42,6 +46,25 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 		return new GroovyExecutor();
 	}
 
+	@Test
+	public void testGroovyRuntimeExceptionSerialization() throws Exception {
+		try {
+			_execute(
+				Collections.emptyMap(), Collections.emptySet(),
+				"missing-method-exception");
+
+			Assert.fail("Should throw GroovyRuntimeException");
+		}
+		catch (GroovyRuntimeException groovyRuntimeException) {
+			Assert.assertEquals(
+				"No signature of method: static Test.missingMethod() is " +
+					"applicable for argument types: () values: []",
+				groovyRuntimeException.getMessage());
+
+			_checkExceptionSerialization(groovyRuntimeException);
+		}
+	}
+
 	@Test(expected = RuntimeException.class)
 	public void testRuntimeError() throws Exception {
 		Map<String, Object> inputObjects = Collections.emptyMap();
@@ -56,6 +79,18 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 		Set<String> outputNames = Collections.emptySet();
 
 		execute(inputObjects, outputNames, "syntax-error");
+	}
+
+	private void _checkExceptionSerialization(Exception exception)
+		throws Exception {
+
+		Serializer serializer = new Serializer();
+
+		serializer.writeObject(exception);
+
+		Deserializer deserializer = new Deserializer(serializer.toByteBuffer());
+
+		deserializer.readObject();
 	}
 
 }
