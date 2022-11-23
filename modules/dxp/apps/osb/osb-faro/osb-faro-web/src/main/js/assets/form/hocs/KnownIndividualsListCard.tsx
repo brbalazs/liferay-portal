@@ -1,7 +1,7 @@
 import Card from 'shared/components/Card';
 import getMetricsMapper from 'shared/hoc/mappers/metrics';
 import knownIndividualsListAssetQuery from 'shared/queries/knownIndividualsListAssetQuery';
-import React from 'react';
+import React, {useState} from 'react';
 import URLConstants from 'shared/util/url-constants';
 import {
 	compose,
@@ -16,6 +16,7 @@ import {
 } from 'shared/util/pagination';
 import {graphql} from '@apollo/react-hoc';
 import {metricsListColumns} from 'shared/util/table-columns';
+import {RangeSelectors} from 'shared/types';
 import {Routes} from 'shared/util/router';
 import {Sizes} from 'shared/util/constants';
 
@@ -66,11 +67,25 @@ const TableWithData = withBaseResults(withData, {
 	legacyDropdownRangeKey: false,
 	rowIdentifier: 'id'
 });
-const KnownIndividualsListCard = props => (
-	<Card className='known-individuals-root' pageDisplay>
-		<TableWithData {...props} />
-	</Card>
-);
+
+const KnownIndividualsListCard = ({
+	rangeSelectors: initialRangeSelectors,
+	...otherProps
+}) => {
+	const [rangeSelectors, setRangeSelectors] = useState<RangeSelectors>(
+		initialRangeSelectors
+	);
+
+	return (
+		<Card className='known-individuals-root' pageDisplay>
+			<TableWithData
+				{...otherProps}
+				onRangeSelectorsChange={setRangeSelectors}
+				rangeSelectors={rangeSelectors}
+			/>
+		</Card>
+	);
+};
 
 export default compose(
 	withQueryPagination({initialOrderIOMap: createOrderIOMap(NAME)}),
