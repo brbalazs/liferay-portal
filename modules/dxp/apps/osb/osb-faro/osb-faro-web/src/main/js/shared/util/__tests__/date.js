@@ -1,5 +1,6 @@
 import * as data from 'test/data';
 import {
+	applyTimeZone,
 	formatUTCDate,
 	formatUTCDateFromUnix,
 	generateDateRange,
@@ -180,5 +181,26 @@ describe('date', () => {
 				getLastDate(activityAggregations, null, 'intervalInitDate')
 			).toEqual(data.getTimestamp());
 		});
+	});
+
+	describe('applyTimeZone', () => {
+		it.each`
+			date                         | timeZoneId               | formattedDate
+			${'2022-11-11T23:00:00.000'} | ${'America/Los_Angeles'} | ${'2022-11-11T15:00:00-08:00'}
+			${'2022-11-11T05:00:00.000'} | ${'America/Los_Angeles'} | ${'2022-11-10T21:00:00-08:00'}
+			${'2022-11-11T23:00:00.000'} | ${'America/Recife'}      | ${'2022-11-11T20:00:00-03:00'}
+			${'2022-11-11T02:00:00.000'} | ${'America/Recife'}      | ${'2022-11-10T23:00:00-03:00'}
+			${'2022-11-11T23:00:00.000'} | ${'UTC'}                 | ${'2022-11-11T23:00:00Z'}
+			${'2022-11-11T02:00:00.000'} | ${'UTC'}                 | ${'2022-11-11T02:00:00Z'}
+			${'2022-11-11T23:00:00.000'} | ${'Asia/Tokyo'}          | ${'2022-11-12T08:00:00+09:00'}
+			${'2022-11-11T02:00:00.000'} | ${'Asia/Tokyo'}          | ${'2022-11-11T11:00:00+09:00'}
+		`(
+			'should convert $date to $formattedDate, timeZoneId is $timeZoneId',
+			({date, formattedDate, timeZoneId}) => {
+				expect(applyTimeZone(date, timeZoneId).format()).toBe(
+					formattedDate
+				);
+			}
+		);
 	});
 });
