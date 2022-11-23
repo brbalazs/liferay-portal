@@ -72,7 +72,7 @@ export const formatDateToTimeZone = (
 ) => applyTimeZone(date, timeZoneId).format(format);
 
 export const applyTimeZone = (date, timeZoneId = DEFAULT_TIMEZONE_ID) =>
-	momentTimezone(date).tz(timeZoneId);
+	momentTimezone.utc(date).tz(timeZoneId);
 
 export function generateDateRange(period = 30, interval = 'days') {
 	return rangeRight(0, period).map(cur =>
