@@ -50,9 +50,9 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 		try {
 			_execute(
 				Collections.emptyMap(), Collections.emptySet(),
-				"missing-method-exception");
+				"missing-method");
 
-			Assert.fail("Should throw GroovyRuntimeException");
+			Assert.fail();
 		}
 		catch (ScriptingException scriptingException) {
 			Assert.assertEquals(
