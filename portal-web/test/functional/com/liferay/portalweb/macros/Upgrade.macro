@@ -2050,7 +2050,7 @@ definition {
 		AssertTextEquals(
 			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_DOWNLOAD",
 			value1 = "Download",
-			key_dmDocumentSize = "22KB"
+			key_dmDocumentSize = "22 KB"
 		);
 
 		Navigator.gotoPage(pageName = "Message Boards");
@@ -2123,7 +2123,7 @@ definition {
 		AssertTextEquals(
 			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_DOWNLOAD",
 			value1 = "Download",
-			key_dmDocumentSize = "22KB"
+			key_dmDocumentSize = "22 KB"
 		);
 
 		Navigator.gotoPage(pageName = "Message Boards");
