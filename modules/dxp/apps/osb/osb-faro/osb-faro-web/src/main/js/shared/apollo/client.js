@@ -6,6 +6,7 @@ import {
 	CommerceAverageRevenuePerAccountResolver,
 	CommerceIncompleteOrdersResolver,
 	CommerceTotalOrderValueResolver,
+	CustomAssetsListResolver,
 	EventAnalysisListResolver,
 	ExperimentResolver as Experiment
 } from './resolvers';
@@ -64,6 +65,9 @@ const client = new ApolloClient({
 	resolvers: {
 		Experiment,
 		Query: {
+			dashboards(_, params) {
+				return CustomAssetsListResolver(params);
+			},
 			eventAnalysisList(_, params) {
 				return EventAnalysisListResolver(params);
 			},
