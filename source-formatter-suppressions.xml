@@ -68,6 +68,9 @@
 		<suppress checks="BNDExportsCheck" files="util-slf4j/bnd\.bnd" />
 		<suppress checks="CDNCheck" files="test\.properties" />
 		<suppress checks="GetterUtilCheck" files="portal-kernel/test/unit/com/liferay/portal/kernel/util/GetterUtilTest\.java" />
+		<suppress checks="IllegalImportsCheck" files="modules/apps/message-boards/message-boards-comment/src/main/java/com/liferay/message/boards/comment/internal/MBCommentManagerImpl\.java" />
+		<suppress checks="IllegalImportsCheck" files="modules/apps/message-boards/message-boards-comment/src/test/java/com/liferay/message/boards/comment/internal/MBCommentManagerImplTest\.java" />
+		<suppress checks="IllegalImportsCheck" files="util-slf4j/src/com/liferay/util/sl4fj/LiferayLoggerFactory\.java" />
 		<suppress checks="JavaAbstractMethodCheck" files="portal-impl/test/unit/com/liferay/portal/nio/intraband/proxy/IntrabandProxyUtilTest\.java" />
 		<suppress checks="JavaCleanUpMethodVariablesCheck" files="util-taglib/src/com/liferay/taglib/util/IncludeTag\.java" />
 		<suppress checks="JavaCombineLinesCheck" files="portal-impl/src/com/liferay/portal/action/EditLayoutAction\.java" />
@@ -85,9 +88,6 @@
 		<suppress checks="JavaDiamondOperatorCheck" files="portal-kernel/src/com/liferay/portal/kernel/search/generic/BooleanClauseFactoryImpl\.java" />
 		<suppress checks="JavaDiamondOperatorCheck" files="portal-kernel/src/com/liferay/portal/kernel/util/ListUtil\.java" />
 		<suppress checks="JavaFinderImplCustomSQLCheck" files="portal-impl/src/com/liferay/portlet/asset/service/persistence/impl/AssetCategoryPropertyFinderImpl\.java" />
-		<suppress checks="JavaIllegalImportsCheck" files="modules/apps/message-boards/message-boards-comment/src/main/java/com/liferay/message/boards/comment/internal/MBCommentManagerImpl\.java" />
-		<suppress checks="JavaIllegalImportsCheck" files="modules/apps/message-boards/message-boards-comment/src/test/java/com/liferay/message/boards/comment/internal/MBCommentManagerImplTest\.java" />
-		<suppress checks="JavaIllegalImportsCheck" files="util-slf4j/src/com/liferay/util/sl4fj/LiferayLoggerFactory\.java" />
 		<suppress checks="JavaModuleInternalImportsCheck" files="modules/buildSrc/.*" />
 		<suppress checks="JavaMultiPlusConcatCheck" files=".*/test/.*" />
 		<suppress checks="JavaMultiPlusConcatCheck" files=".*/testIntegration/.*" />
