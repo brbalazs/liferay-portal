@@ -80,9 +80,7 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 		execute(inputObjects, outputNames, "syntax-error");
 	}
 
-	private void _writeAndReadObject(Exception exception)
-		throws Exception {
-
+	private void _writeAndReadObject(Exception exception) throws Exception {
 		Serializer serializer = new Serializer();
 
 		serializer.writeObject(exception);
