@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -48,7 +49,7 @@ public class GroovyExecutorTest extends ScriptingExecutorTestCase {
 	@Test
 	public void testGroovyRuntimeExceptionSerialization() throws Exception {
 		try {
-			_execute(
+			execute(
 				Collections.emptyMap(), Collections.emptySet(),
 				"missing-method");
 
