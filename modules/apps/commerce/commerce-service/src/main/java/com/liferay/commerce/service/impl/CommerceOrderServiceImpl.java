@@ -18,6 +18,7 @@ import com.liferay.commerce.service.base.CommerceOrderServiceBaseImpl;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -425,7 +426,21 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		return commerceOrderLocalService.getCommerceOrders(
 			companyId, groupId, commerceAccountIds, keywords,
 			new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN}, false, start,
-			end);
+			end, null);
+	}
+
+	@Override
+	public List<CommerceOrder> getUserPendingCommerceOrders(
+			long companyId, long groupId, String keywords, int start, int end,
+			Sort sort)
+		throws PortalException {
+
+		long[] commerceAccountIds = _getCommerceAccountIds(groupId);
+
+		return commerceOrderLocalService.getCommerceOrders(
+			companyId, groupId, commerceAccountIds, keywords,
+			new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN}, false, start,
+			end, sort);
 	}
 
 	@Override
@@ -445,12 +460,22 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			long companyId, long groupId, String keywords, int start, int end)
 		throws PortalException {
 
+		return getUserPlacedCommerceOrders(
+			companyId, groupId, keywords, start, end, null);
+	}
+
+	@Override
+	public List<CommerceOrder> getUserPlacedCommerceOrders(
+			long companyId, long groupId, String keywords, int start, int end,
+			Sort sort)
+		throws PortalException {
+
 		long[] commerceAccountIds = _getCommerceAccountIds(groupId);
 
 		return commerceOrderLocalService.getCommerceOrders(
 			companyId, groupId, commerceAccountIds, keywords,
 			new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN}, true, start,
-			end);
+			end, sort);
 	}
 
 	@Override
