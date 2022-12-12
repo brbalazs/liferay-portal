@@ -277,9 +277,7 @@ definition {
 			fieldName = "Date",
 			fieldValue = "02/01/2016");
 
-		Button.clickSubmitForPublication();
-
-		Alert.viewSuccessMessage();
+		FormPortlet.submitLocalizedSuccessfully(buttonName = "Submit for Publication");
 
 		Navigator.openURL();
 
