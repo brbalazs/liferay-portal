@@ -86,7 +86,7 @@ public class PortletConfigurationPermissionsDisplayContext {
 		_request = request;
 		_renderRequest = renderRequest;
 
-		_themeDisplay = (ThemeDisplay)_request.getAttribute(
+		_themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		long groupId = _getResourceGroupId();
