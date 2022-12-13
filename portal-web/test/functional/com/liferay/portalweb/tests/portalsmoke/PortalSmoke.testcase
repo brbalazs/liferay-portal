@@ -44,6 +44,14 @@ definition {
 		// Assert mismatching checksum for release bundles
 
 		AssertConsoleTextNotPresent(value1 = "Running validation because of mismatched checksum");
+
+		// LPS-153203 Assert no warnings or errors in log4j configuration
+
+		AssertConsoleTextPresent(value1 = "Starting dynamic bundles");
+
+		AssertConsoleTextNotPresent(value1 = "log4j:WARN");
+
+		AssertConsoleTextNotPresent(value1 = "log4j:ERROR");
 	}
 
 	@priority = "5"
