@@ -28,10 +28,6 @@ export const ENABLE_GLOBAL_FILTER = false;
 
 export const ENABLE_SALESFORCE = false;
 
-// LRAC-12523 Disable temporarily Type Trend Individuals Card
-
-export const ENABLE_TYPE_TREND_INDIVIDUALS_CARD = false;
-
 /**
  * Languages
  */

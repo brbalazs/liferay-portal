@@ -2,9 +2,7 @@ import * as API from 'shared/api';
 import ActiveIndividualsCard from '../hocs/ActiveIndividualsCard';
 import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
-import Constants, {
-	ENABLE_TYPE_TREND_INDIVIDUALS_CARD
-} from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import DistributionCard from '../hocs/DistributionCard';
 import EnrichedProfilesCard from '../hocs/EnrichedProfilesCard';
 import InterestsCard from '../hocs/InterestsCard';
@@ -96,11 +94,9 @@ const Overview: React.FC<IOverviewProps> = ({currentUser}) => {
 				<StatesRenderer.Success>
 					<div className='individuals-dashboard-overview-root overview-root'>
 						<div className='row'>
-							{ENABLE_TYPE_TREND_INDIVIDUALS_CARD && (
-								<div className='col-xl-8'>
-									<TypeTrendCard />
-								</div>
-							)}
+							<div className='col-xl-8'>
+								<TypeTrendCard />
+							</div>
 
 							<div className='col-xl-4'>
 								<EnrichedProfilesCard
