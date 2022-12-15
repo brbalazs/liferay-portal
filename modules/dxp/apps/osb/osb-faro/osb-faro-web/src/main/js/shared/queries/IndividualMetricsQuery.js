@@ -1,5 +1,4 @@
 import {gql} from 'apollo-boost';
-import {TREND_FRAGMENT} from 'shared/queries/fragments';
 
 export default gql`
 	query IndividualMetrics(
@@ -24,5 +23,10 @@ export default gql`
 		}
 	}
 
-	${TREND_FRAGMENT}
+	fragment trendFragment on Metric {
+		value
+		trend {
+			percentage
+		}
+	}
 `;

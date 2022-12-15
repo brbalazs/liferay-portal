@@ -1,4 +1,3 @@
-import Chart, {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import InfoPopover from 'shared/components/InfoPopover';
@@ -6,8 +5,6 @@ import React from 'react';
 import {formatChange} from 'shared/util/change';
 import {isFinite} from 'lodash';
 import {sub} from 'shared/util/lang';
-
-const {lannister: CHART_RED, stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 interface ITrendItemProps {
 	change: number;
@@ -20,8 +17,6 @@ interface ITrendItemProps {
 
 export const TrendItem: React.FC<ITrendItemProps> = ({
 	change,
-	data,
-	id,
 	info,
 	title,
 	total
@@ -37,32 +32,6 @@ export const TrendItem: React.FC<ITrendItemProps> = ({
 			</div>
 
 			<div className='d-flex align-items-center flex-grow-1 justify-content-center'>
-				{!!total && (
-					<Chart
-						area={{linearGradient: true}}
-						axisX={{
-							show: false
-						}}
-						axisY={{
-							show: false
-						}}
-						chartType='area'
-						data={[
-							{
-								color: change < 0 ? CHART_RED : CHART_BLUE,
-								data,
-								id
-							}
-						]}
-						dataId={`${id}Data`}
-						grid={{x: {show: false}, y: {show: false}}}
-						height={40}
-						id={id}
-						interaction={{enabled: false}}
-						tooltip={{show: false}}
-					/>
-				)}
-
 				<div className='total'>{total.toLocaleString()}</div>
 			</div>
 

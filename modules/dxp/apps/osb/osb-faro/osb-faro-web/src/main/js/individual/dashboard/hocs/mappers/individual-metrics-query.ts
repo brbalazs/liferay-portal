@@ -28,13 +28,11 @@ export const mapResultToProps = safeResultToProps(
 		items: [
 			{
 				...totalIndividualsMetric,
-				data: totalIndividualsMetric.histogram.metrics,
 				id: 'totalIndividuals',
 				title: Liferay.Language.get('total-individuals')
 			},
 			{
 				...knownIndividualsMetric,
-				data: knownIndividualsMetric.histogram.metrics,
 				id: 'knownIndividualsMetric',
 				info: {
 					content: Liferay.Language.get(
@@ -46,7 +44,6 @@ export const mapResultToProps = safeResultToProps(
 			},
 			{
 				...anonymousIndividualsMetric,
-				data: anonymousIndividualsMetric.histogram.metrics,
 				id: 'anonymousIndividualsMetric',
 				info: {
 					content: Liferay.Language.get(
@@ -56,9 +53,8 @@ export const mapResultToProps = safeResultToProps(
 				},
 				title: Liferay.Language.get('anonymous')
 			}
-		].map(({data, id, info, title, trend: {percentage}, value}) => ({
+		].map(({id, info, title, trend: {percentage}, value}) => ({
 			change: percentage,
-			data: data.map(({value}) => value),
 			id,
 			info,
 			title,
