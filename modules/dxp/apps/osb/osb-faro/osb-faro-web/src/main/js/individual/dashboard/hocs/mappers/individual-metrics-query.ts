@@ -1,7 +1,4 @@
-import {BAR_CHART} from 'shared/components/Chart';
-import {getDate} from 'shared/util/date';
 import {getSafeRangeSelectors} from 'shared/util/util';
-import {Map} from 'immutable';
 import {safeResultToProps} from 'shared/util/mappers';
 
 export const CHART_DATA_ID_1 = 'knownIndividuals';
@@ -67,46 +64,5 @@ export const mapResultToProps = safeResultToProps(
 			title,
 			total: value
 		}))
-	})
-);
-
-export const mapActiveIndividualsResultToProps = safeResultToProps(
-	({
-		individualMetric: {
-			anonymousIndividualsMetric,
-			knownIndividualsMetric,
-			totalIndividualsMetric
-		}
-	}) => ({
-		data: [
-			{
-				data: knownIndividualsMetric.histogram.metrics.map(
-					({value}) => value
-				),
-				id: CHART_DATA_ID_1,
-				name: LANG_MAP[CHART_DATA_ID_1],
-				type: BAR_CHART
-			},
-			{
-				data: anonymousIndividualsMetric.histogram.metrics.map(
-					({value}) => value
-				),
-				id: CHART_DATA_ID_2,
-				name: LANG_MAP[CHART_DATA_ID_2],
-				type: BAR_CHART
-			},
-			{
-				data: totalIndividualsMetric.histogram.metrics.map(({key}) =>
-					getDate(key)
-				),
-				id: 'x'
-			}
-		],
-		dateKeysIMap: Map(
-			totalIndividualsMetric.histogram.metrics.map(({key, valueKey}) => [
-				getDate(key),
-				valueKey.split('/').map(getDate)
-			])
-		)
 	})
 );
