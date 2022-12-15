@@ -34,7 +34,6 @@ public class CommercePendingOrderClayTableDataSetDisplayView
 		ClayTableSchemaField dateClayTableSchemaField =
 			clayTableSchemaBuilder.addField("date", "create-date");
 
-		dateClayTableSchemaField.setContentRenderer("date");
 		dateClayTableSchemaField.setSortable(true);
 
 		clayTableSchemaBuilder.addField("orderId", "order-id");
