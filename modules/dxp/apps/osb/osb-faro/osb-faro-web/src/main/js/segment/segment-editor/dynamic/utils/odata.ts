@@ -568,13 +568,11 @@ const translateQueryToCriteria = (initialQueryString: string): Criteria => {
 	}
 
 	if (queryStringWithBrackets) {
-		const initialValueList = initialQueryString.match(
-			/(?<=')(\S.*?)(?=')/g
-		);
+		const initialValueList = initialQueryString.match(/'([^']*)'/g);
 
 		const items = criteria.items.map((item, index) => ({
 			...item,
-			value: initialValueList[index]
+			value: initialValueList[index].slice(1, -1)
 		}));
 
 		return {...criteria, items};
