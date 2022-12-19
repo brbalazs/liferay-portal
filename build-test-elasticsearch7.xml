@@ -110,7 +110,8 @@ ingest.geoip.downloader.enabled: false</echo>
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchCluster</echo>
+cluster.name: LiferayElasticsearchCluster
+http.host: _local_,_site_
 			<if>
 				<not>
 					<isset property="suite.elastic.version" />
