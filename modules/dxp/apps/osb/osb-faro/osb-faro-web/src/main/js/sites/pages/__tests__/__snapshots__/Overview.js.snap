@@ -498,15 +498,11 @@ exports[`Sites Dashboard Overview render 1`] = `
             class="card-body"
           >
             <div
-              class="loading-root"
+              class="spinner-root spinner-center spinner-spacer"
             >
-              <div
-                class="spinner-root spinner-fade-in"
-              >
-                <span
-                  class="loading-animation loading-animation-dotted"
-                />
-              </div>
+              <span
+                class="loading-animation loading-animation-dotted"
+              />
             </div>
           </div>
         </div>
