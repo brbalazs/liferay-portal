@@ -53,8 +53,8 @@ definition {
 		ServerAdministration.openServerAdmin();
 
 		var script = '''
-			import com.liferay.fragment.service.FragmentCollectionLocalServiceUtil;
 			import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+			import com.liferay.fragment.service.FragmentCollectionLocalServiceUtil;
 
 			fragmentCollectionId = CounterLocalServiceUtil.increment();
 
