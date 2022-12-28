@@ -11,11 +11,11 @@ definition {
 
 		var curl = '''
 			${portalURL}/api/jsonws/mb.mbcategory/add-category \
-			-u test@liferay.com:test \
-			-d userId=${userId} \
-			-d parentCategoryId=${parentCategoryId} \
-			-d name=${categoryName} \
-			-d description=${categoryDescription}
+				-u test@liferay.com:test \
+				-d userId=${userId} \
+				-d parentCategoryId=${parentCategoryId} \
+				-d name=${categoryName} \
+				-d description=${categoryDescription}
 		''';
 
 		echo("## Adding a 'Category' with the following info using JSONWS:");
@@ -52,16 +52,16 @@ definition {
 
 		var curl = '''
 			${portalURL}/api/jsonws/mb.mbmessage/add-message \
-			-u ${userEmailAddress}:${userPassword} \
-			-d groupId=${groupId} \
-			-d categoryId=${categoryId} \
-			-d subject=${threadSubject} \
-			-d body=${threadBody} \
-			-d format='bbcode' \
-			-d inputStreamOVPs= \
-			-d anonymous=false \
-			-d priority=0 \
-			-d allowPingbacks=true
+				-u ${userEmailAddress}:${userPassword} \
+				-d groupId=${groupId} \
+				-d categoryId=${categoryId} \
+				-d subject=${threadSubject} \
+				-d body=${threadBody} \
+				-d format='bbcode' \
+				-d inputStreamOVPs= \
+				-d anonymous=false \
+				-d priority=0 \
+				-d allowPingbacks=true
 		''';
 
 		echo("## Adding a 'Message' with the following info using JSONWS:");
