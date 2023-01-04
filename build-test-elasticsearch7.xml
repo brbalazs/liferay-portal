@@ -110,8 +110,8 @@ ingest.geoip.downloader.enabled: false</echo>
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchCluster
-http.host: _local_,_site_
+cluster.name: LiferayElasticsearchCluster</echo>
+
 			<if>
 				<not>
 					<isset property="suite.elastic.version" />
@@ -119,6 +119,16 @@ http.host: _local_,_site_
 				<then>
 					<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">
 ingest.geoip.downloader.enabled: false</echo>
+				</then>
+			</if>
+
+			<get-browser-property property.name="browser.docker.image" />
+
+			<if>
+				<isset property="browser.docker.image" />
+				<then>
+					<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">
+					${line.separator}http.host: _local_,_site_</echo>
 				</then>
 			</if>
 		</sequential>
