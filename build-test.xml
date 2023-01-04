@@ -7786,6 +7786,10 @@ war.path=${app.server.portal.dir}/</echo>
 		</sequential>
 	</macrodef>
 
+	<target name="build-service">
+		<gradle-execute dir="${project.dir}/${gradle.file.path}" task="buildService" />
+	</target>
+
 	<target name="build-sql-file">
 		<get-testcase-property property.name="portal.version" />
 
@@ -9271,6 +9275,12 @@ go</echo>
 				<print-file file.name="@{osgi.config}" />
 			</sequential>
 		</for>
+	</target>
+
+	<target name="deploy-osgi-module-to-specific-bundle">
+		<gradle-execute dir="${project.dir}/${module.base.dir}" forcedcacheenabled="false" task="deploy">
+			<arg value="-Pliferay.home=${liferayHome}" />
+		</gradle-execute>
 	</target>
 
 	<target name="deploy-osgi-modules">
@@ -11148,6 +11158,7 @@ session.cookie.use.full.hostname=true
 		<get-ip-address />
 
 		<echo append="true" file="${test.ext.properties.file}">
+			app.server.dir=${app.server.dir}
 			app.server.type=${app.server.type}
 			component.names=${component.names}
 			get.location.max.retries=${test.get.location.max.retries}
@@ -13361,6 +13372,15 @@ if (ppstate.equals("normal")) {
 				includes="${plugin.name}-*.war"
 			/>
 		</delete>
+	</target>
+
+	<target name="rename-finder-column">
+		<replaceregexp
+			file="${project.dir}/modules/util/portal-tools-service-builder-test-service/service.xml"
+			flags="g"
+			match="columnToRename"
+			replace="renamedColumn"
+		/>
 	</target>
 
 	<target name="replace-file">
