@@ -1640,27 +1640,38 @@ AUI.add(
 
 						var form = instance.getForm();
 
-						var url = form.get('webContentSelectorURL');
+						var webContentSelectorURL = form.get('webContentSelectorURL');
 
-						if(!url) {
-							var container = instance.get('container');
+						return webContentSelectorURL
+							? webContentSelectorURL
+							: instance._getWebContentURL();
+					},
 
-							url = Liferay.PortletURL.createRenderURL(themeDisplay.getURLControlPanel());
+					_getWebContentURL() {
+						var instance = this;
 
-							var groupIdNode = A.one('#' + this.get('portletNamespace') + 'groupId');
+						var container = instance.get('container');
 
-							var groupId = (groupIdNode && groupIdNode.getAttribute('value')) || themeDisplay.getScopeGroupId();
+						var url = Liferay.PortletURL.createRenderURL(themeDisplay.getURLControlPanel());
 
-							url.setParameter('eventName', 'selectContent');
-							url.setParameter('groupId', groupId);
-							url.setParameter('p_p_auth', container.getData('assetBrowserAuthToken'));
-							url.setParameter('selectedGroupId', groupId);
-							url.setParameter('showNonindexable', true);
-							url.setParameter('showScheduled', true);
-							url.setParameter('typeSelection', 'com.liferay.journal.model.JournalArticle');
-							url.setPortletId('com_liferay_asset_browser_web_portlet_AssetBrowserPortlet');
-							url.setWindowState('pop_up');
-						}
+						var groupIdNode = A.one('#' + this.get('portletNamespace') + 'groupId');
+
+						var groupId = (groupIdNode && groupIdNode.getAttribute('value')) || themeDisplay.getScopeGroupId();
+
+						var articleIdNode = A.one('#' + this.get('portletNamespace') + 'articleId');
+
+						var articleId = (articleIdNode && articleIdNode.getAttribute('value')) || 0;
+
+						url.setParameter('eventName', 'selectContent');
+						url.setParameter('groupId', groupId);
+						url.setParameter('p_p_auth', container.getData('assetBrowserAuthToken'));
+						url.setParameter('refererClassPK', articleId);
+						url.setParameter('selectedGroupId', groupId);
+						url.setParameter('showNonindexable', true);
+						url.setParameter('showScheduled', true);
+						url.setParameter('typeSelection', 'com.liferay.journal.model.JournalArticle');
+						url.setPortletId('com_liferay_asset_browser_web_portlet_AssetBrowserPortlet');
+						url.setWindowState('pop_up');
 
 						return url;
 					},
