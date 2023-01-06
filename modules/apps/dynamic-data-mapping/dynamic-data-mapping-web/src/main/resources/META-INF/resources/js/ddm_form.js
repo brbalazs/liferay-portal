@@ -1638,23 +1638,29 @@ AUI.add(
 					getWebContentSelectorURL: function() {
 						var instance = this;
 
-						var container = instance.get('container');
+						var form = instance.getForm();
 
-						var url = Liferay.PortletURL.createRenderURL(themeDisplay.getURLControlPanel());
+						var url = form.get('webContentSelectorURL');
 
-						var groupIdNode = A.one('#' + this.get('portletNamespace') + 'groupId');
+						if(!url) {
+							var container = instance.get('container');
 
-						var groupId = (groupIdNode && groupIdNode.getAttribute('value')) || themeDisplay.getScopeGroupId();
+							url = Liferay.PortletURL.createRenderURL(themeDisplay.getURLControlPanel());
 
-						url.setParameter('eventName', 'selectContent');
-						url.setParameter('groupId', groupId);
-						url.setParameter('p_p_auth', container.getData('assetBrowserAuthToken'));
-						url.setParameter('selectedGroupId', groupId);
-						url.setParameter('showNonindexable', true);
-						url.setParameter('showScheduled', true);
-						url.setParameter('typeSelection', 'com.liferay.journal.model.JournalArticle');
-						url.setPortletId('com_liferay_asset_browser_web_portlet_AssetBrowserPortlet');
-						url.setWindowState('pop_up');
+							var groupIdNode = A.one('#' + this.get('portletNamespace') + 'groupId');
+
+							var groupId = (groupIdNode && groupIdNode.getAttribute('value')) || themeDisplay.getScopeGroupId();
+
+							url.setParameter('eventName', 'selectContent');
+							url.setParameter('groupId', groupId);
+							url.setParameter('p_p_auth', container.getData('assetBrowserAuthToken'));
+							url.setParameter('selectedGroupId', groupId);
+							url.setParameter('showNonindexable', true);
+							url.setParameter('showScheduled', true);
+							url.setParameter('typeSelection', 'com.liferay.journal.model.JournalArticle');
+							url.setPortletId('com_liferay_asset_browser_web_portlet_AssetBrowserPortlet');
+							url.setWindowState('pop_up');
+						}
 
 						return url;
 					},
@@ -3438,7 +3444,10 @@ AUI.add(
 					synchronousFormSubmission: {
 						validator: Lang.isBoolean,
 						value: true
-					}
+					},
+
+					webContentSelectorURL: {
+					},
 				},
 
 				AUGMENTS: [DDMPortletSupport, FieldsSupport],

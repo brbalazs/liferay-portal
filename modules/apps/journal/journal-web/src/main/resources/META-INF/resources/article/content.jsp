@@ -134,7 +134,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 	</div>
 
 	<%
-	JournalItemSelectorHelper journalItemSelectorHelper = new JournalItemSelectorHelper(article, journalDisplayContext.getFolder(), renderRequest, renderResponse);
+	JournalItemSelectorHelper journalItemSelectorHelper = new JournalItemSelectorHelper(article, journalDisplayContext.getFolder(), groupId, renderRequest, renderResponse);
 	%>
 
 	<div class="article-content-content" style="border-top: solid 1px #ccc; margin-top: 24px; padding-top: 8px;">
@@ -150,6 +150,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 			ignoreRequestValue="<%= journalEditArticleDisplayContext.isChangeStructure() %>"
 			imageSelectorURL="<%= String.valueOf(journalItemSelectorHelper.getImageSelectorURL()) %>"
 			requestedLocale="<%= locale %>"
+			webContentSelectorURL="<%= String.valueOf(journalItemSelectorHelper.getWebContentSelectorURL()) %>"
 		/>
 	</div>
 
