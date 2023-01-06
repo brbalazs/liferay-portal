@@ -33,5 +33,5 @@ if (Validator.isNull(request.getAttribute(WebKeys.PAGE_DESCRIPTION))) {
 }
 
 PortalUtil.setPageTitle(title, request);
-PortalUtil.setPageKeywords(assetHelper.getAssetKeywords(assetEntry.getClassName(), assetEntry.getClassPK()), request);
+PortalUtil.setPageKeywords(assetHelper.getAssetKeywords(assetEntry.getClassName(), assetEntry.getClassPK(), locale), request);
 %>
