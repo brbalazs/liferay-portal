@@ -52,7 +52,7 @@
 			%>
 
 			<c:choose>
-				<c:when test="<%= (assetRenderer != null) && (assetEntry.getEntryId() != assetBrowserDisplayContext.getRefererAssetEntryId()) %>">
+				<c:when test="<%= assetRenderer != null %>">
 
 					<%
 					AssetRendererFactory assetRendererFactory = assetBrowserDisplayContext.getAssetRendererFactory();
@@ -61,9 +61,19 @@
 
 					String cssClass = StringPool.BLANK;
 
+					String columnCssClass = StringPool.BLANK;
+
 					Map<String, Object> data = new HashMap<String, Object>();
 
-					if (assetEntry.getEntryId() != assetBrowserDisplayContext.getRefererAssetEntryId()) {
+					if ((assetEntry.getEntryId() == assetBrowserDisplayContext.getRefererAssetEntryId()) ||
+						(assetEntry.getClassPK() == assetBrowserDisplayContext.getRefererAssetEntryId())
+					) {
+
+						cssClass = "unselectable";
+
+						columnCssClass = "unselectable";
+					}
+					else {
 						data.put("assetclassname", assetEntry.getClassName());
 						data.put("assetclasspk", assetEntry.getClassPK());
 						data.put("assettitle", assetRenderer.getTitle(locale));
@@ -78,7 +88,9 @@
 
 					<c:choose>
 						<c:when test='<%= Objects.equals(assetBrowserDisplayContext.getDisplayStyle(), "descriptive") %>'>
-							<liferay-ui:search-container-column-text>
+							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
+							>
 								<liferay-ui:user-portrait
 									userId="<%= assetEntry.getUserId() %>"
 								/>
@@ -86,6 +98,7 @@
 
 							<liferay-ui:search-container-column-text
 								colspan="<%= 2 %>"
+								cssClass="<%= columnCssClass %>"
 							>
 
 								<%
@@ -98,13 +111,18 @@
 
 								<h5>
 									<c:choose>
-										<c:when test="<%= assetEntry.getEntryId() != assetBrowserDisplayContext.getRefererAssetEntryId() %>">
+										<c:when
+											test="<%=
+												(assetEntry.getEntryId() == assetBrowserDisplayContext.getRefererAssetEntryId()) ||
+													(assetEntry.getClassPK() == assetBrowserDisplayContext.getRefererAssetEntryId())
+											%>"
+										>
+											<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
+										</c:when>
+										<c:otherwise>
 											<aui:a cssClass="<%= cssClass %>" data="<%= data %>" href="javascript:;">
 												<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
 											</aui:a>
-										</c:when>
-										<c:otherwise>
-											<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
 										</c:otherwise>
 									</c:choose>
 								</h5>
@@ -120,7 +138,9 @@
 							row.setCssClass("entry-card lfr-asset-item");
 							%>
 
-							<liferay-ui:search-container-column-text>
+							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
+							>
 								<c:choose>
 									<c:when test="<%= Validator.isNotNull(assetRenderer.getThumbnailPath(renderRequest)) %>">
 										<liferay-frontend:vertical-card
@@ -145,38 +165,48 @@
 						</c:when>
 						<c:when test='<%= Objects.equals(assetBrowserDisplayContext.getDisplayStyle(), "list") %>'>
 							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
 								name="title"
 								truncate="<%= true %>"
 							>
 								<c:choose>
-									<c:when test="<%= assetEntry.getEntryId() != assetBrowserDisplayContext.getRefererAssetEntryId() %>">
+									<c:when
+										test="<%=
+											(assetEntry.getEntryId() == assetBrowserDisplayContext.getRefererAssetEntryId()) ||
+												(assetEntry.getClassPK() == assetBrowserDisplayContext.getRefererAssetEntryId())
+										%>"
+									>
+										<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
+									</c:when>
+									<c:otherwise>
 										<aui:a cssClass="<%= cssClass %>" data="<%= data %>" href="javascript:;">
 											<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
 										</aui:a>
-									</c:when>
-									<c:otherwise>
-										<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
 									</c:otherwise>
 								</c:choose>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
 								name="description"
 								truncate="<%= true %>"
 								value="<%= HtmlUtil.escape(assetRenderer.getSummary(renderRequest, renderResponse)) %>"
 							/>
 
 							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
 								name="author"
 								value="<%= PortalUtil.getUserName(assetEntry) %>"
 							/>
 
 							<liferay-ui:search-container-column-date
+								cssClass="<%= columnCssClass %>"
 								name="modified-date"
 								value="<%= assetEntry.getModifiedDate() %>"
 							/>
 
 							<liferay-ui:search-container-column-text
+								cssClass="<%= columnCssClass %>"
 								name="site"
 								value="<%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>"
 							/>
