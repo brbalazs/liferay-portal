@@ -1,0 +1,7 @@
+.selector-button {
+	cursor: pointer;
+}
+
+.unselectable {
+	opacity: 0.6;
+}
