@@ -157,7 +157,7 @@ public class JournalItemSelectorHelper {
 		if (_article != null) {
 
 			itemSelectorURL.setParameter(
-				"refererClassPK",
+				"refererAssetEntryId",
 				String.valueOf(_article.getResourcePrimKey()));
 		}
 

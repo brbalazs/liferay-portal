@@ -1665,7 +1665,7 @@ AUI.add(
 						url.setParameter('eventName', 'selectContent');
 						url.setParameter('groupId', groupId);
 						url.setParameter('p_p_auth', container.getData('assetBrowserAuthToken'));
-						url.setParameter('refererClassPK', articleId);
+						url.setParameter('refererAssetEntryId', articleId);
 						url.setParameter('selectedGroupId', groupId);
 						url.setParameter('showNonindexable', true);
 						url.setParameter('showScheduled', true);
