@@ -38,12 +38,14 @@ export default entityName => {
 
 	return gql`
 		query DXPEntitiesList(
+			$channelId: String
 			$keywords: String
 			$size: Int!
 			$sort: Sort!
 			$start: Int!
 		) {
 			${entityName}(
+				channelId: $channelId
 				keywords: $keywords
 				size: $size
 				sort: $sort
