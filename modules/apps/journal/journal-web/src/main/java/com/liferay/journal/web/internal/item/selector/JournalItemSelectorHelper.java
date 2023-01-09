@@ -17,7 +17,6 @@ package com.liferay.journal.web.internal.item.selector;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorCriterion;
 import com.liferay.item.selector.ItemSelectorReturnType;
-import com.liferay.item.selector.constants.ItemSelectorPortletKeys;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
 import com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
@@ -31,7 +30,7 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portlet.LiferayPortletUtil;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,7 @@ import javax.portlet.RenderResponse;
 public class JournalItemSelectorHelper {
 
 	public JournalItemSelectorHelper(
-		JournalArticle article, JournalFolder folder,long groupId,
+		JournalArticle article, JournalFolder folder, long groupId,
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		_article = article;
@@ -144,18 +143,22 @@ public class JournalItemSelectorHelper {
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
 			RequestBackedPortletURLFactoryUtil.create(liferayRenderRequest);
 
-		PortletURL itemSelectorURL = requestBackedPortletURLFactory.createRenderURL("com_liferay_asset_browser_web_portlet_AssetBrowserPortlet");
+		PortletURL itemSelectorURL =
+			requestBackedPortletURLFactory.createRenderURL(
+				"com_liferay_asset_browser_web_portlet_AssetBrowserPortlet");
 
 		itemSelectorURL.setParameter("eventName", "selectContent");
 		itemSelectorURL.setParameter("groupId", String.valueOf(_groupId));
-		itemSelectorURL.setParameter("selectedGroupId", String.valueOf(_groupId));
-		itemSelectorURL.setParameter("showNonindexable", String.valueOf(true));
-		itemSelectorURL.setParameter("showScheduled", String.valueOf(true));
-		itemSelectorURL.setParameter("typeSelection", "com.liferay.journal.model.JournalArticle");
+		itemSelectorURL.setParameter(
+			"selectedGroupId", String.valueOf(_groupId));
+		itemSelectorURL.setParameter(
+			"showNonindexable", Boolean.TRUE.toString());
+		itemSelectorURL.setParameter("showScheduled", Boolean.TRUE.toString());
+		itemSelectorURL.setParameter(
+			"typeSelection", "com.liferay.journal.model.JournalArticle");
 		itemSelectorURL.setWindowState(LiferayWindowState.POP_UP);
 
 		if (_article != null) {
-
 			itemSelectorURL.setParameter(
 				"refererAssetEntryId",
 				String.valueOf(_article.getResourcePrimKey()));
