@@ -275,6 +275,31 @@ definition {
 		}
 	}
 
+	@description = "This is for LPS-150849."
+	@priority = "5"
+	test ChooseColumnTypeAndViewSelectedIcon {
+		var portalURL = PropsUtil.get("portal.url");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Site Page");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Site Page");
+
+		Click(
+			key_columnName = "1 Column",
+			locator1 = "SitePagesEditPage#LAYOUT_CARD");
+
+		AssertCssValue(
+			locator1 = "//input[@value='1_column']/following-sibling::div",
+			locator2 = "box-shadow",
+			value1 = "rgb(101, 182, 240) 0px 0px 0px 2px inset");
+	}
+
 	@priority = "5"
 	test DeleteSitePages {
 		property portal.acceptance = "true";
