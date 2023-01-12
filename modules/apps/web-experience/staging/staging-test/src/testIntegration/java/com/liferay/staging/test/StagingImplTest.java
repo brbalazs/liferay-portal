@@ -118,7 +118,7 @@ public class StagingImplTest {
 
 		enableRemoteStaging(false);
 
-		Throwable caughtThrowable;
+		Throwable caughtThrowable = null;
 
 		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
 				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", true)) {
@@ -134,9 +134,8 @@ public class StagingImplTest {
 		Assert.assertNotEquals(
 			NoSuchGroupException.class, caughtExceptionClass);
 		Assert.assertNotEquals(PortalException.class, caughtExceptionClass);
-		Assert.assertNotEquals(SystemException.class, caughtExceptionClass);
-
 		Assert.assertEquals(RemoteExportException.class, caughtExceptionClass);
+		Assert.assertNotEquals(SystemException.class, caughtExceptionClass);
 
 		RemoteExportException remoteExportException =
 			(RemoteExportException)caughtThrowable;
@@ -151,7 +150,7 @@ public class StagingImplTest {
 
 		enableRemoteStaging(false);
 
-		Throwable caughtThrowable;
+		Throwable caughtThrowable = null;
 
 		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
 				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", false)) {
@@ -164,12 +163,11 @@ public class StagingImplTest {
 		Class<? extends Throwable> caughtExceptionClass =
 			caughtThrowable.getClass();
 
+		Assert.assertEquals(NoSuchGroupException.class, caughtExceptionClass);
 		Assert.assertNotEquals(PortalException.class, caughtExceptionClass);
 		Assert.assertNotEquals(
 			RemoteExportException.class, caughtExceptionClass);
 		Assert.assertNotEquals(SystemException.class, caughtExceptionClass);
-
-		Assert.assertEquals(NoSuchGroupException.class, caughtExceptionClass);
 
 		Assert.assertEquals(
 			"No Group exists with the primary key " +
@@ -703,16 +701,16 @@ public class StagingImplTest {
 		UnicodeProperties typeSettingsUnicodeProperties =
 			_remoteLiveGroup.getTypeSettingsProperties();
 
-		typeSettingsUnicodeProperties.setProperty(
-			"staged", Boolean.TRUE.toString());
-		typeSettingsUnicodeProperties.setProperty(
-			"stagedRemotely", Boolean.TRUE.toString());
 		typeSettingsUnicodeProperties.setProperty("remoteAddress", "localhost");
+		typeSettingsUnicodeProperties.setProperty(
+			"remoteGroupId", String.valueOf(_remoteLiveGroup.getGroupId() + 1));
 		typeSettingsUnicodeProperties.setProperty(
 			"remotePort",
 			String.valueOf(PortalUtil.getPortalServerPort(false)));
 		typeSettingsUnicodeProperties.setProperty(
-			"remoteGroupId", String.valueOf(_remoteLiveGroup.getGroupId() + 1));
+			"staged", Boolean.TRUE.toString());
+		typeSettingsUnicodeProperties.setProperty(
+			"stagedRemotely", Boolean.TRUE.toString());
 	}
 
 	private static final Locale[] _locales = {
