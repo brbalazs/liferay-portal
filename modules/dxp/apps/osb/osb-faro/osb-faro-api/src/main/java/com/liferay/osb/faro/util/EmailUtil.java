@@ -33,10 +33,9 @@ public class EmailUtil {
 			return _FARO_URL.concat(
 				"/o/osb-faro-web/images/email/ac-email-banner-monthly.png");
 		}
-		else {
-			return _FARO_URL.concat(
-				"/o/osb-faro-web/images/email/ac-email-banner-weekly.png");
-		}
+
+		return _FARO_URL.concat(
+			"/o/osb-faro-web/images/email/ac-email-banner-weekly.png");
 	}
 
 	public static String getLiferayLogoIconURL() {
@@ -61,10 +60,8 @@ public class EmailUtil {
 			return _FARO_URL.concat(
 				"/o/osb-faro-web/images/email/icon-order-arrow-up.png");
 		}
-		else {
-			return _FARO_URL.concat(
-				"/o/osb-faro-web/images/email/icon-empty.png");
-		}
+
+		return _FARO_URL.concat("/o/osb-faro-web/images/email/icon-empty.png");
 	}
 
 	public static String getWorkspaceURL(Group group) {

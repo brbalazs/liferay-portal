@@ -364,10 +364,9 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 			return kbGroupServiceConfiguration.
 				emailKBArticleSuggestionReceivedBody();
 		}
-		else {
-			throw new IllegalArgumentException(
-				String.format("Unknown suggestion status %s", status));
-		}
+
+		throw new IllegalArgumentException(
+			String.format("Unknown suggestion status %s", status));
 	}
 
 	protected String getEmailKBArticleSuggestionNotificationSubject(
@@ -385,10 +384,9 @@ public class KBCommentLocalServiceImpl extends KBCommentLocalServiceBaseImpl {
 			return kbGroupServiceConfiguration.
 				emailKBArticleSuggestionReceivedSubject();
 		}
-		else {
-			throw new IllegalArgumentException(
-				String.format("Unknown suggestion status %s", status));
-		}
+
+		throw new IllegalArgumentException(
+			String.format("Unknown suggestion status %s", status));
 	}
 
 	protected KBGroupServiceConfiguration getKBGroupServiceConfiguration(

@@ -286,9 +286,8 @@ public class EmailReportHelper {
 		else if (Objects.equals(frequency, "monthly")) {
 			return 30;
 		}
-		else {
-			return 7;
-		}
+
+		return 7;
 	}
 
 	private String _getTemporal(String frequency) {
@@ -298,9 +297,8 @@ public class EmailReportHelper {
 		else if (Objects.equals(frequency, "monthly")) {
 			return "Month";
 		}
-		else {
-			return "Week";
-		}
+
+		return "Week";
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

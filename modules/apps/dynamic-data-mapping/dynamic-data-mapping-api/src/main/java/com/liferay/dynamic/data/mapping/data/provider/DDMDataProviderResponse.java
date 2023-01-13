@@ -129,9 +129,8 @@ public class DDMDataProviderResponse {
 
 				return Status.UNAUTHORIZED;
 			}
-			else {
-				return Status.UNKNOWN_ERROR;
-			}
+
+			return Status.UNKNOWN_ERROR;
 		}
 
 	}

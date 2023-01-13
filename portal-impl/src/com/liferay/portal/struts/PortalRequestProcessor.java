@@ -758,9 +758,8 @@ public class PortalRequestProcessor {
 			else if (exception instanceof ServletException) {
 				throw (ServletException)exception;
 			}
-			else {
-				throw new ServletException(exception);
-			}
+
+			throw new ServletException(exception);
 		}
 
 		try {

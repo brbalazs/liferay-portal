@@ -1086,9 +1086,8 @@ public class AssetPublisherUtil {
 
 			return parentGroupId;
 		}
-		else {
-			throw new IllegalArgumentException("Invalid scope ID " + scopeId);
-		}
+
+		throw new IllegalArgumentException("Invalid scope ID " + scopeId);
 	}
 
 	public static long[] getGroupIds(

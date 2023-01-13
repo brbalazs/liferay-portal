@@ -1694,27 +1694,26 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			else if (!Validator.isDomain(virtualHostname)) {
 				throw new CompanyVirtualHostException();
 			}
-			else {
-				try {
-					VirtualHost virtualHost =
-						virtualHostPersistence.findByHostname(virtualHostname);
 
-					long companyId = virtualHost.getCompanyId();
+			try {
+				VirtualHost virtualHost = virtualHostPersistence.findByHostname(
+					virtualHostname);
 
-					Company virtualHostnameCompany =
-						companyPersistence.findByPrimaryKey(companyId);
+				long companyId = virtualHost.getCompanyId();
 
-					if (!webId.equals(virtualHostnameCompany.getWebId())) {
-						throw new CompanyVirtualHostException();
-					}
+				Company virtualHostnameCompany =
+					companyPersistence.findByPrimaryKey(companyId);
+
+				if (!webId.equals(virtualHostnameCompany.getWebId())) {
+					throw new CompanyVirtualHostException();
 				}
-				catch (NoSuchVirtualHostException nsvhe) {
+			}
+			catch (NoSuchVirtualHostException nsvhe) {
 
-					// LPS-52675
+				// LPS-52675
 
-					if (_log.isDebugEnabled()) {
-						_log.debug(nsvhe, nsvhe);
-					}
+				if (_log.isDebugEnabled()) {
+					_log.debug(nsvhe, nsvhe);
 				}
 			}
 		}

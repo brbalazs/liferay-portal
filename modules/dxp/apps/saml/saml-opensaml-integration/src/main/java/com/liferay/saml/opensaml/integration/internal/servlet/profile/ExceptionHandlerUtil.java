@@ -30,9 +30,8 @@ public class ExceptionHandlerUtil {
 		else if (e instanceof SystemException) {
 			throw (SystemException)e;
 		}
-		else {
-			throw new SamlException(e);
-		}
+
+		throw new SamlException(e);
 	}
 
 }

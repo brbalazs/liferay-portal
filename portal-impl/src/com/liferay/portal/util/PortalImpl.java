@@ -1295,9 +1295,8 @@ public class PortalImpl implements Portal {
 			else if (cause instanceof SystemException) {
 				throw (SystemException)cause;
 			}
-			else {
-				throw new SystemException(cause);
-			}
+
+			throw new SystemException(cause);
 		}
 	}
 
@@ -5342,9 +5341,8 @@ public class PortalImpl implements Portal {
 
 			return new long[] {groupId, companyGroup.getGroupId()};
 		}
-		else {
-			return new long[] {companyGroup.getGroupId()};
-		}
+
+		return new long[] {companyGroup.getGroupId()};
 	}
 
 	/**

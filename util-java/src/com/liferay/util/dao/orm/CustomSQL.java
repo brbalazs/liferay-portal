@@ -816,10 +816,9 @@ public class CustomSQL {
 		else if (wildcardMode == WildcardMode.TRAILING) {
 			return keyword.concat(StringPool.PERCENT);
 		}
-		else {
-			throw new IllegalArgumentException(
-				"Invalid wildcard mode " + wildcardMode);
-		}
+
+		throw new IllegalArgumentException(
+			"Invalid wildcard mode " + wildcardMode);
 	}
 
 	/**

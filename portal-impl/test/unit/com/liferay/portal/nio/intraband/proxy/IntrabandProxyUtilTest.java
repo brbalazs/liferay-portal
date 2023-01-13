@@ -1088,13 +1088,12 @@ public class IntrabandProxyUtilTest {
 		else if (clazz == String.class) {
 			return deserializer.readString();
 		}
-		else {
-			try {
-				return deserializer.readObject();
-			}
-			catch (ClassNotFoundException cnfe) {
-				throw new RuntimeException(cnfe);
-			}
+
+		try {
+			return deserializer.readObject();
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new RuntimeException(cnfe);
 		}
 	}
 

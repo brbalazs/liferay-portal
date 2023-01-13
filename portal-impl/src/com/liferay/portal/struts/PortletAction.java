@@ -114,22 +114,20 @@ public class PortletAction extends Action {
 				actionMapping, actionForm, portletConfig,
 				(RenderRequest)portletRequest, (RenderResponse)portletResponse);
 		}
-		else {
-			if (portletRequest instanceof EventRequest) {
-				processEvent(
-					actionMapping, actionForm, portletConfig,
-					(EventRequest)portletRequest,
-					(EventResponse)portletResponse);
-			}
-			else {
-				serveResource(
-					actionMapping, actionForm, portletConfig,
-					(ResourceRequest)portletRequest,
-					(ResourceResponse)portletResponse);
-			}
 
-			return actionMapping.findForward(ActionConstants.COMMON_NULL);
+		if (portletRequest instanceof EventRequest) {
+			processEvent(
+				actionMapping, actionForm, portletConfig,
+				(EventRequest)portletRequest, (EventResponse)portletResponse);
 		}
+		else {
+			serveResource(
+				actionMapping, actionForm, portletConfig,
+				(ResourceRequest)portletRequest,
+				(ResourceResponse)portletResponse);
+		}
+
+		return actionMapping.findForward(ActionConstants.COMMON_NULL);
 	}
 
 	public void processAction(

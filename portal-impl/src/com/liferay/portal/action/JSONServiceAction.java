@@ -413,20 +413,19 @@ public class JSONServiceAction extends JSONAction {
 
 			return LocalizationUtil.deserialize(jsonObject);
 		}
-		else {
-			try {
-				return JSONFactoryUtil.looseDeserialize(value);
-			}
-			catch (Exception e) {
-				_log.error(
-					StringBundler.concat(
-						"Unsupported parameter type for class ",
-						String.valueOf(clazz), ", method ", methodName,
-						", parameter ", parameter, ", and type ",
-						typeNameOrClassDescriptor));
 
-				return null;
-			}
+		try {
+			return JSONFactoryUtil.looseDeserialize(value);
+		}
+		catch (Exception e) {
+			_log.error(
+				StringBundler.concat(
+					"Unsupported parameter type for class ",
+					String.valueOf(clazz), ", method ", methodName,
+					", parameter ", parameter, ", and type ",
+					typeNameOrClassDescriptor));
+
+			return null;
 		}
 	}
 

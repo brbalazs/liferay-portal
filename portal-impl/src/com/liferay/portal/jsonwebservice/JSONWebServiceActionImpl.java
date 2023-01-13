@@ -349,47 +349,46 @@ public class JSONWebServiceActionImpl implements JSONWebServiceAction {
 
 			return _generifyMap(map, genericParameterTypes);
 		}
-		else {
-			Object parameterValue = null;
 
-			try {
-				parameterValue = _convertType(value, parameterType);
-			}
-			catch (Exception e1) {
-				if (value instanceof Map) {
-					try {
-						parameterValue = _createDefaultParameterValue(
-							null, parameterType);
-					}
-					catch (Exception e2) {
-						ClassCastException cce = new ClassCastException(
-							e1.getMessage());
+		Object parameterValue = null;
 
-						cce.addSuppressed(e2);
-
-						throw cce;
-					}
-
-					BeanCopy beanCopy = BeanCopy.beans(value, parameterValue);
-
-					beanCopy.copy();
-				}
-				else {
-					String valueString = value.toString();
-
-					valueString = valueString.trim();
-
-					if (!valueString.startsWith(StringPool.OPEN_CURLY_BRACE)) {
-						throw new ClassCastException(e1.getMessage());
-					}
-
-					parameterValue = JSONFactoryUtil.looseDeserialize(
-						valueString, parameterType);
-				}
-			}
-
-			return parameterValue;
+		try {
+			parameterValue = _convertType(value, parameterType);
 		}
+		catch (Exception e1) {
+			if (value instanceof Map) {
+				try {
+					parameterValue = _createDefaultParameterValue(
+						null, parameterType);
+				}
+				catch (Exception e2) {
+					ClassCastException cce = new ClassCastException(
+						e1.getMessage());
+
+					cce.addSuppressed(e2);
+
+					throw cce;
+				}
+
+				BeanCopy beanCopy = BeanCopy.beans(value, parameterValue);
+
+				beanCopy.copy();
+			}
+			else {
+				String valueString = value.toString();
+
+				valueString = valueString.trim();
+
+				if (!valueString.startsWith(StringPool.OPEN_CURLY_BRACE)) {
+					throw new ClassCastException(e1.getMessage());
+				}
+
+				parameterValue = JSONFactoryUtil.looseDeserialize(
+					valueString, parameterType);
+			}
+		}
+
+		return parameterValue;
 	}
 
 	private Object _createDefaultParameterValue(

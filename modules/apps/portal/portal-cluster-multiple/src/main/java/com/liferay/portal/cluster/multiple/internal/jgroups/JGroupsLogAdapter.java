@@ -96,9 +96,8 @@ public class JGroupsLogAdapter implements org.jgroups.logging.Log {
 		else if (_log.isFatalEnabled()) {
 			return "FATAL";
 		}
-		else {
-			return "NONE";
-		}
+
+		return "NONE";
 	}
 
 	@Override

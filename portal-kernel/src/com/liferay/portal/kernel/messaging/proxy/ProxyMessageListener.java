@@ -47,18 +47,17 @@ public class ProxyMessageListener implements MessageListener {
 						"Payload ", String.valueOf(payload.getClass()),
 						" is not of type ", ProxyRequest.class.getName()));
 			}
-			else {
-				ProxyRequest proxyRequest = (ProxyRequest)payload;
 
-				if (!proxyRequest.isSynchronous()) {
-					MessageValuesThreadLocal.populateThreadLocalsFromMessage(
-						message);
-				}
+			ProxyRequest proxyRequest = (ProxyRequest)payload;
 
-				Object result = proxyRequest.execute(_manager);
-
-				proxyResponse.setResult(result);
+			if (!proxyRequest.isSynchronous()) {
+				MessageValuesThreadLocal.populateThreadLocalsFromMessage(
+					message);
 			}
+
+			Object result = proxyRequest.execute(_manager);
+
+			proxyResponse.setResult(result);
 		}
 		catch (Exception e) {
 			proxyResponse.setException(e);
