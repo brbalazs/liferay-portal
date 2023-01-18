@@ -20,6 +20,8 @@ import com.liferay.osb.faro.web.internal.model.preferences.EmailReportPreference
 import com.liferay.osb.faro.web.internal.model.preferences.WorkspacePreferences;
 import com.liferay.osb.faro.web.internal.util.EmailReportHelper;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
@@ -63,10 +65,21 @@ public abstract class BaseEmailReportMessageListener
 						emailReportPreferences.getFrequency(),
 						getFrequency())) {
 
-					emailReportHelper.sendEmail(
-						entry.getKey(), getFrequency(),
-						faroPreferences.getGroupId(),
-						faroPreferences.getUserId());
+					try {
+						emailReportHelper.sendEmail(
+							entry.getKey(), getFrequency(),
+							faroPreferences.getGroupId(),
+							faroPreferences.getUserId());
+					}
+					catch (Exception exception) {
+						_log.error(
+							String.format(
+								"Failed to send %s email for Channel ID %s, " +
+									"User ID %s",
+								getFrequency(), entry.getKey(),
+								faroPreferences.getUserId()),
+							exception);
+					}
 				}
 			}
 		}
@@ -92,5 +105,8 @@ public abstract class BaseEmailReportMessageListener
 
 	@Reference
 	protected TriggerFactory triggerFactory;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		BaseEmailReportMessageListener.class);
 
 }
