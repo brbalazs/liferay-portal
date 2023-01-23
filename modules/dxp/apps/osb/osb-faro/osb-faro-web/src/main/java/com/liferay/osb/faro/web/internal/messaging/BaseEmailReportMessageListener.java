@@ -74,8 +74,8 @@ public abstract class BaseEmailReportMessageListener
 					catch (Exception exception) {
 						_log.error(
 							String.format(
-								"Failed to send %s email for Channel ID %s, " +
-									"User ID %s",
+								"Unable to send %s email for channel ID %s " +
+									"and user ID %s",
 								getFrequency(), entry.getKey(),
 								faroPreferences.getUserId()),
 							exception);
