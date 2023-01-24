@@ -90,7 +90,7 @@ const InterestPagesList = ({dataSourceParams, ...otherProps}) => {
 			dataSourceFn={API.pagesVisited.search}
 			dataSourceParams={dataSourceParams}
 			entityLabel={Liferay.Language.get('pages')}
-			rowIdentifier='url'
+			rowIdentifier={['url', 'dataSourceId']}
 		/>
 	);
 };
