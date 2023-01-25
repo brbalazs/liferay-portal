@@ -17,7 +17,19 @@ const {
  * @param {Object} props
  * @return {ReactElement}
  */
-export default React.forwardRef((props, ref) => {
+
+interface IPropsCharts {
+	color?: string;
+	data: any;
+	grid?: boolean;
+	line?: boolean;
+	point?: boolean;
+}
+
+type RefType = {
+	ref: string;
+};
+export default React.forwardRef<RefType, IPropsCharts>((props, ref) => {
 	const {color, data, grid, line, point, ...otherProps} = props;
 
 	let ChartComponent;
