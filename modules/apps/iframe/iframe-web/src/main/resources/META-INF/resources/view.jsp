@@ -41,9 +41,13 @@
 
 				var hash = document.location.hash.replace('#', '');
 
-				var hashObj = A.QueryString.parse(hash);
+				var hashSearch = new URLSearchParams(hash);
 
-				hash = String(hashObj['<portlet:namespace />']);
+				hash = hashSearch.get('<portlet:namespace />');
+
+				if (hash) {
+					hash = String(hash);
+				}
 
 				var iframe = A.one('#<portlet:namespace />iframe');
 
@@ -109,11 +113,11 @@
 
 				var hash = document.location.hash.replace('#', '');
 
-				var hashObj = A.QueryString.parse(hash);
+				var hashSearch = new URLSearchParams(hash);
 
-				hashObj['<portlet:namespace />'] = url;
+				hashSearch.set('<portlet:namespace />', url);
 
-				hash = A.QueryString.stringify(hashObj);
+				hash = hashSearch.toString();
 
 				var maximize = A.one('#p_p_id<portlet:namespace /> .portlet-maximize-icon a');
 
