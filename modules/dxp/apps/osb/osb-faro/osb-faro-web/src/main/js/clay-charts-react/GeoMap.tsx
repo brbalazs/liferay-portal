@@ -1,13 +1,26 @@
 import React from 'react';
 import {geomap} from 'clay-charts-shared';
 
+export interface IGeomapReactProps {
+	color: string;
+	data: any;
+	grid: boolean;
+	line: boolean;
+	point: boolean;
+	element: boolean;
+	pollingInterval: number;
+}
+
 /**
  * GeoMap Chart component.
  * @extends React.Component
  * @param {Object} props
  * @return {ReactElement}
  */
-export default class GeomapReact extends React.Component {
+export default class GeomapReact extends React.Component<IGeomapReactProps> {
+	// _containerRef: React.RefObject<string>;
+	_geoMapInstance: any;
+	_containerRef: React.RefObject<HTMLDivElement>;
 	/** @inheritdoc */
 	constructor(props) {
 		super(props);
