@@ -8,7 +8,19 @@ import {isDefAndNotNull, isNumber} from 'metal';
  * @param {Object} props
  * @return {ReactElement}
  */
-export default class PredictiveChart extends React.Component {
+
+interface IPredictiveChartProps {
+	data: Object;
+}
+
+type State = {
+	columns: string[] | number[];
+	regions: Object[];
+};
+export default class PredictiveChart extends React.Component<
+	IPredictiveChartProps,
+	State
+> {
 	/** @inheritdoc */
 	constructor(props) {
 		super(props);
