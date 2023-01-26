@@ -7,7 +7,7 @@ import {ASSET_METRICS} from 'shared/util/constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {MetricChart} from 'shared/components/metric-card/MetricChart';
-import {RangeSelectors} from 'shared/types';
+import {RangeSelectors, Router} from 'shared/types';
 import {withEmpty, withError} from 'cerebro-shared/hocs/utils';
 import {withLoading} from 'shared/hoc';
 
@@ -28,7 +28,7 @@ interface IChartProps {
 	panel: {chartType: string};
 	rangeSelectors: RangeSelectors;
 	showPrevious: boolean;
-	router?: any;
+	router: Router;
 	showTabs?: boolean;
 }
 
