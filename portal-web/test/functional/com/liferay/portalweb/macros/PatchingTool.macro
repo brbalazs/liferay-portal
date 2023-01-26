@@ -15,7 +15,7 @@ definition {
 
 		AntCommand(
 			locator1 = "build-test.xml",
-			value1 = "install-patch -Dpatch.file.zip.url=${patchFileZipURL} -Dinstall.patch.cluster.node.index=${bundleIndex}");
+			value1 = "install-patch -Dinstall.patch.cluster.node.index=${bundleIndex} -Dpatch.file.zip.url=${patchFileZipURL}");
 	}
 
 	@summary = "Uninstall all patches from Liferay Portal."
@@ -44,7 +44,7 @@ definition {
 
 		AntCommand(
 			locator1 = "build-test.xml",
-			value1 = "update-osgi-module-configuration -Dupdate.configuration=\"${updateConfiguration}\" -Dinstall.patch.cluster.node.index=${bundleIndex}");
+			value1 = "update-osgi-module-configuration -Dinstall.patch.cluster.node.index=${bundleIndex} -Dupdate.configuration=\"${updateConfiguration}\"");
 	}
 
 }
