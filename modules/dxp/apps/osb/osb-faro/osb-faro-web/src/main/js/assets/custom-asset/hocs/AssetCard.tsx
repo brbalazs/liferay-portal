@@ -7,6 +7,7 @@ import {ASSET_METRICS} from 'shared/util/constants';
 import {compose} from 'redux';
 import {graphql} from '@apollo/react-hoc';
 import {MetricChart} from 'shared/components/metric-card/MetricChart';
+import {RangeSelectors} from 'shared/types';
 import {withEmpty, withError} from 'cerebro-shared/hocs/utils';
 import {withLoading} from 'shared/hoc';
 
@@ -24,15 +25,14 @@ interface IChartProps {
 	id: number;
 	items?: Object[];
 	onRemoveAsset: (id: number) => void;
-	panel: any;
-	rangeSelectors: any;
+	panel: {chartType: string};
+	rangeSelectors: RangeSelectors;
 	showPrevious: boolean;
 	router?: any;
 	showTabs?: boolean;
 }
 
 const Chart: React.FC<IChartProps> = ({
-	assetId,
 	chartHeight,
 	handleShowPreviousChanged,
 	id,
@@ -40,23 +40,18 @@ const Chart: React.FC<IChartProps> = ({
 	onRemoveAsset,
 	panel: {chartType},
 	rangeSelectors,
-	router,
-	showPrevious,
-	showTabs
+	showPrevious
 }) => {
 	const Chart = CHARTS[chartType].component;
 
 	return (
 		<>
 			<Chart
-				assetId={assetId}
 				chartHeight={chartHeight}
 				compareToPrevious={showPrevious}
 				data={items[0]}
 				onCompareToPreviousChange={handleShowPreviousChanged}
 				rangeSelectors={rangeSelectors}
-				router={router}
-				showTabs={showTabs}
 			/>
 
 			<div className='d-flex justify-content-end'>
@@ -89,10 +84,8 @@ const getMapper = ({chartType, metric}) => {
 	return mapper(({custom}) => custom);
 };
 
-interface IAssetCardProps {
+interface IAssetCardProps extends React.HTMLAttributes<HTMLElement> {
 	assetId: string;
-	className?: string;
-	id: string;
 	itemQuery: string;
 	label: string;
 	legacyDropdownRangeKey: boolean;
