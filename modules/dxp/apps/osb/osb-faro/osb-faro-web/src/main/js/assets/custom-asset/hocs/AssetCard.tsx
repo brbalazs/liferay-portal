@@ -18,8 +18,13 @@ const CHARTS = {
 	}
 };
 
+interface IAssetComponent extends IChartProps {
+	assetId: string;
+	router: Router;
+	showTabs: boolean;
+}
+
 interface IChartProps {
-	assetId?: string;
 	chartHeight: number;
 	handleShowPreviousChanged: (newVal: any) => void;
 	id: number;
@@ -28,8 +33,6 @@ interface IChartProps {
 	panel: {chartType: string};
 	rangeSelectors: RangeSelectors;
 	showPrevious: boolean;
-	router: Router;
-	showTabs?: boolean;
 }
 
 const Chart: React.FC<IChartProps> = ({
@@ -94,12 +97,8 @@ interface IAssetCardProps extends React.HTMLAttributes<HTMLElement> {
 		chartType: string;
 		metric: string;
 	};
-	rangeSelector?: {
-		rangeEnd: any;
-		rangeKey: any;
-		rangeStart: any;
-	};
-	router: any;
+	rangeSelector?: RangeSelectors;
+	router: Router;
 }
 
 const AssetCard: React.FC<IAssetCardProps> = ({
@@ -117,7 +116,7 @@ const AssetCard: React.FC<IAssetCardProps> = ({
 		withLoading({alignCenter: true, page: false}),
 		withError(),
 		withEmpty()
-	)(Chart) as unknown) as React.FC<IChartProps>;
+	)(Chart) as unknown) as React.FC<IAssetComponent>;
 
 	const [showPrevious, setShowPrevious] = useState(false);
 
