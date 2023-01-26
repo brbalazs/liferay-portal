@@ -18,9 +18,9 @@ export interface IGeomapReactProps {
  * @return {ReactElement}
  */
 export default class GeomapReact extends React.Component<IGeomapReactProps> {
-	// _containerRef: React.RefObject<string>;
 	_geoMapInstance: any;
 	_containerRef: React.RefObject<HTMLDivElement>;
+
 	/** @inheritdoc */
 	constructor(props) {
 		super(props);

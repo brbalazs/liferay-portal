@@ -17,6 +17,7 @@ type State = {
 	columns: string[] | number[];
 	regions: Object[];
 };
+
 export default class PredictiveChart extends React.Component<
 	IPredictiveChartProps,
 	State

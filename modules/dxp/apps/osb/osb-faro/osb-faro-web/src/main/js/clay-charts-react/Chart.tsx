@@ -29,6 +29,7 @@ interface IPropsCharts {
 type RefType = {
 	ref: string;
 };
+
 export default React.forwardRef<RefType, IPropsCharts>((props, ref) => {
 	const {color, data, grid, line, point, ...otherProps} = props;
 
