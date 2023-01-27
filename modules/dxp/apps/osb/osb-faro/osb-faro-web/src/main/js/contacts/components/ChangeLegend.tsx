@@ -2,20 +2,20 @@ import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
 import {CHART_COLORS} from 'shared/components/Chart';
-import {PropTypes} from 'prop-types';
 
-export default class ChangeLegend extends React.Component {
-	static propTypes = {
-		items: PropTypes.arrayOf(
-			PropTypes.shape({
-				change: PropTypes.number,
-				id: PropTypes.string,
-				secondaryInfo: PropTypes.string,
-				title: PropTypes.string
-			})
-		).isRequired
-	};
+type TItems = {
+	change: number;
+	id: string;
+	secondaryInfo: string;
+	title: string;
+};
 
+interface IChangeLegendProps {
+	className: string;
+	items: TItems[];
+}
+
+export default class ChangeLegend extends React.Component<IChangeLegendProps> {
 	render() {
 		const {className, items} = this.props;
 
