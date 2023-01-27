@@ -259,6 +259,49 @@ exports[`withSidebar should render with the sidebar 1`] = `
           <h5
             class="section-title"
           >
+            Commerce
+          </h5>
+          <ul
+            class="nav-list"
+          >
+            <li
+              class="sidebar-item-root"
+            >
+              <a
+                class="button-root btn btn-link link"
+                href="/workspace/23/1/commerce"
+              >
+                <span
+                  class="link-content-wrapper"
+                >
+                  <span
+                    class="icon-wrapper"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-ac-commerce"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-commerce"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="item-label"
+                  >
+                    Commerce
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="section"
+        >
+          <h5
+            class="section-title"
+          >
             Optimize
           </h5>
           <ul
