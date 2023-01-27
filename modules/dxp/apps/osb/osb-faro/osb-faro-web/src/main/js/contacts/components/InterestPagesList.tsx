@@ -22,7 +22,20 @@ const PAGES_ORDER_BY_OPTIONS = [
 	}
 ];
 
-const ActivePagesList = ({channelId, groupId, ...otherProps}) => {
+interface IInterestPages {
+	channelId?: string;
+	groupId?: string;
+	dataSourceFn: Function;
+	dataSourceParams: any;
+	entityLabel: string;
+	rowIdentifier: string;
+}
+
+const ActivePagesList: React.FC<IInterestPages> = ({
+	channelId,
+	groupId,
+	...otherProps
+}) => {
 	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(UNIQUE_VISITS_COUNT)
 	});
@@ -53,7 +66,11 @@ const ActivePagesList = ({channelId, groupId, ...otherProps}) => {
 		/>
 	);
 };
-const InactivePagesList = ({channelId, groupId, ...otherProps}) => {
+const InactivePagesList: React.FC<IInterestPages> = ({
+	channelId,
+	groupId,
+	...otherProps
+}) => {
 	const {delta, orderIOMap, page, query} = useQueryPagination({
 		initialOrderIOMap: createOrderIOMap(URL)
 	});
