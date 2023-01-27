@@ -97,8 +97,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
 			label: Liferay.Language.get('people')
 		},
 		{
-			// LRAC-11176 - TODO Remove Feature flag after finish LRAC-10329 Story
-			hide: !DEVELOPER_MODE,
 			items: [
 				{
 					icon: 'ac-commerce',
@@ -195,38 +193,29 @@ const Sidebar: React.FC<ISidebarProps> = ({
 			</div>
 
 			<div className='sidebar-body'>
-				{sidebarSections.map(
-					({hide = false, items, label}, sectionIndex) =>
-						!hide && (
-							<div className='section' key={sectionIndex}>
-								<h5 className='section-title'>{label}</h5>
+				{sidebarSections.map(({items, label}, sectionIndex) => (
+					<div className='section' key={sectionIndex}>
+						<h5 className='section-title'>{label}</h5>
 
-								<ul className='nav-list'>
-									{items.map(
-										(
-											{icon, label, route, url},
-											itemIndex
-										) => (
-											<SidebarItem
-												active={
-													!!matchPath(
-														activePathname,
-														{
-															path: route
-														}
-													)
-												}
-												href={url}
-												icon={icon}
-												key={itemIndex}
-												label={label}
-											/>
-										)
-									)}
-								</ul>
-							</div>
-						)
-				)}
+						<ul className='nav-list'>
+							{items.map(
+								({icon, label, route, url}, itemIndex) => (
+									<SidebarItem
+										active={
+											!!matchPath(activePathname, {
+												path: route
+											})
+										}
+										href={url}
+										icon={icon}
+										key={itemIndex}
+										label={label}
+									/>
+								)
+							)}
+						</ul>
+					</div>
+				))}
 			</div>
 
 			<div className='sidebar-footer'>
