@@ -8,9 +8,7 @@ import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import {detailsListColumns} from 'shared/util/table-columns';
 import {isBlank} from 'shared/util/util';
-import {Map} from 'immutable';
 import {pick, some} from 'lodash';
-import {PropTypes} from 'prop-types';
 import {sub} from 'shared/util/lang';
 import {withStatefulPagination} from 'shared/hoc';
 
@@ -20,21 +18,24 @@ const SearchableEntityTableStateful = withStatefulPagination(
 	SearchableEntityTable
 );
 
-export default class EntityDetailsList extends React.Component {
+interface IEntityDetailsListProps extends React.HTMLAttributes<HTMLElement> {
+	demographicsIMap: any;
+	groupId: string;
+	timeZoneId?: string;
+	title?: string;
+}
+
+export default class EntityDetailsList extends React.Component<IEntityDetailsListProps> {
 	static defaultProps = {
 		title: Liferay.Language.get('properties')
-	};
-
-	static propTypes = {
-		demographicsIMap: PropTypes.instanceOf(Map).isRequired,
-		groupId: PropTypes.string.isRequired,
-		timeZoneId: PropTypes.string,
-		title: PropTypes.string
 	};
 
 	state = {
 		hideBlanks: false
 	};
+
+	_detailsData: any;
+	_knownCount: any;
 
 	constructor(props) {
 		super(props);
