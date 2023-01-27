@@ -28,7 +28,7 @@ interface IInterestPages {
 	dataSourceFn: Function;
 	dataSourceParams: any;
 	entityLabel: string;
-	rowIdentifier: string;
+	rowIdentifier: string[];
 }
 
 const ActivePagesList: React.FC<IInterestPages> = ({
