@@ -25,7 +25,7 @@ const PAGES_ORDER_BY_OPTIONS = [
 interface IInterestPages {
 	channelId?: string;
 	groupId?: string;
-	dataSourceFn: Function;
+	dataSourceFn: () => void;
 	dataSourceParams: any;
 	entityLabel: string;
 	rowIdentifier: string[];
