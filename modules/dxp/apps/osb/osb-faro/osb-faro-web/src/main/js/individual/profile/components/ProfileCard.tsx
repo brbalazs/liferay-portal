@@ -1,4 +1,6 @@
-import ActivitiesChart from 'contacts/components/ActivitiesChart';
+import ActivitiesChart, {
+	ChartPayload
+} from 'contacts/components/ActivitiesChart';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
@@ -9,7 +11,7 @@ import EventMetricQuery, {
 import IntervalSelector from 'shared/components/IntervalSelector';
 import moment from 'moment';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import SearchInput from 'shared/components/SearchInput';
 import Toolbar from 'shared/components/toolbar';
 import URLConstants from 'shared/util/url-constants';
@@ -34,7 +36,7 @@ import {Interval, RangeSelectors, SafeRangeSelectors} from 'shared/types';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {isNil} from 'lodash';
 import {mapListResultsToProps} from 'shared/util/mappers';
-import {SessionEntityTypes} from 'shared/util/constants';
+import {RangeKeyTimeRanges, SessionEntityTypes} from 'shared/util/constants';
 import {sub} from 'shared/util/lang';
 import {useQuery} from '@apollo/react-hooks';
 import {useStatefulPagination} from 'shared/hooks';
@@ -42,6 +44,15 @@ import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withError, withLoading, WrapSafeResults} from 'shared/hoc/util';
 
 const DEFAULT_SESSIONS_DELTA = 50;
+
+const formatTimestamp = (timestamp: number) => {
+	const date = new Date(timestamp);
+	const hours = date.getUTCHours().toString().padStart(2, '0');
+	const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+	const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+
+	return `${hours}:${minutes}:${seconds}`;
+};
 
 const PaginatedVerticalTimeline = compose<any>(
 	withPaginationBar(),
@@ -70,6 +81,13 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 	rangeSelectors,
 	timeZoneId
 }) => {
+	const [chartPayload, setChartPayload] = useState<ChartPayload>({
+		date: '',
+		intervalInitDate: 0,
+		totalEvents: 0,
+		totalSessions: 0
+	});
+
 	const {
 		delta,
 		onDeltaChange,
@@ -144,12 +162,27 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		);
 	};
 
+	const startHour = formatTimestamp(chartPayload.intervalInitDate);
+	const endHour = formatTimestamp(chartPayload.intervalInitDate + 59 * 60000);
+
+	let newRangeSelectors = useMemo(() => getDateRange(rangeSelectors), [
+		rangeSelectors
+	]);
+
+	if (rangeSelectors.rangeKey === RangeKeyTimeRanges.Last24Hours) {
+		newRangeSelectors = {
+			rangeEnd: `${chartPayload.date}T${endHour}`,
+			rangeKey: 0,
+			rangeStart: `${chartPayload.date}T${startHour}`
+		};
+	}
+
 	const sessionsResponse = useQuery<UserSessionData, UserSessionVariables>(
 		UserSessionQuery,
 		{
 			fetchPolicy: 'network-only',
 			variables: {
-				...getDateRange(rangeSelectors),
+				...newRangeSelectors,
 				channelId,
 				entityId,
 				entityType: SessionEntityTypes.Individual,
@@ -178,9 +211,16 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		onPointSelect(null);
 	};
 
-	const handleChartSelect = ({index}: {index: number}) => {
+	const handleChartSelect = ({
+		index,
+		payload
+	}: {
+		index: number;
+		payload: ChartPayload;
+	}) => {
 		resetPage();
 		onPointSelect(index);
+		setChartPayload(payload);
 	};
 
 	const handleClearSelection = () => {
