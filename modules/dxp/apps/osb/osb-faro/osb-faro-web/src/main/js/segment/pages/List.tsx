@@ -11,9 +11,7 @@ import {
 	UnassignedSegmentsContext
 } from 'shared/context/unassignedSegments';
 import {
-	ACTIVITIES_COUNT,
 	getDefaultSortOrder,
-	INDIVIDUAL_COUNT,
 	NAME,
 	paginationDefaults,
 	USER_NAME
@@ -346,8 +344,6 @@ export const List: React.FC<IListProps> = ({
 			className='segment-list-root'
 			columns={[
 				segmentsListColumns.getName({channelId, groupId}),
-				segmentsListColumns.individualCount,
-				segmentsListColumns.activitiesCount,
 				segmentsListColumns.getOwnerName(timeZoneId)
 			]}
 			currentUser={currentUser}
@@ -402,14 +398,6 @@ export const List: React.FC<IListProps> = ({
 				{
 					label: Liferay.Language.get('name'),
 					value: NAME
-				},
-				{
-					label: Liferay.Language.get('membership'),
-					value: INDIVIDUAL_COUNT
-				},
-				{
-					label: Liferay.Language.get('total-activities'),
-					value: ACTIVITIES_COUNT
 				},
 				{
 					label: Liferay.Language.get('created-by'),

@@ -883,12 +883,6 @@ export const pagesListColumns = {
  * Segments List Columns
  */
 export const segmentsListColumns = {
-	activitiesCount: {
-		accessor: 'activitiesCount',
-		className: 'table-column-text-end',
-		dataFormatter: data => data.toLocaleString(),
-		label: Liferay.Language.get('total-activities')
-	},
 	getDateCreated: timeZoneId => ({
 		accessor: 'dateCreated',
 		cellRenderer: ({data}) => (
@@ -934,12 +928,6 @@ export const segmentsListColumns = {
 		},
 		label: Liferay.Language.get('date-added'),
 		sortable: false
-	},
-	individualCount: {
-		accessor: 'individualCount',
-		className: 'table-column-text-end',
-		dataFormatter: data => data.toLocaleString(),
-		label: Liferay.Language.get('membership')
 	},
 	name: {
 		accessor: 'name',
