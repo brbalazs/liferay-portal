@@ -60,7 +60,6 @@ const AssociatedSegmentsList: React.FC<IAssociatedSegmentsListProps> = ({
 		<SearchableEntityTable
 			columns={[
 				segmentsListColumns.getName({channelId, groupId}),
-				segmentsListColumns.individualCount,
 				segmentsListColumns.individualAddedDate,
 				segmentsListColumns.getDateCreated(timeZoneId)
 			]}

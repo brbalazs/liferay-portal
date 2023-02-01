@@ -74,7 +74,6 @@ function getEntityColumns(entityType, timeZoneId) {
 		default:
 			return [
 				segmentsListColumns.name,
-				segmentsListColumns.individualCount,
 				segmentsListColumns.activitiesCount,
 				segmentsListColumns.getOwnerName(timeZoneId)
 			];

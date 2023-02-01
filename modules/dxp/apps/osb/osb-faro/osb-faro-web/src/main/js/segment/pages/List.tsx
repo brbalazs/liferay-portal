@@ -10,12 +10,6 @@ import {
 	ActionType,
 	UnassignedSegmentsContext
 } from 'shared/context/unassignedSegments';
-import {
-	getDefaultSortOrder,
-	NAME,
-	paginationDefaults,
-	USER_NAME
-} from 'shared/util/pagination';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, FilterByType, FilterOptionType} from 'shared/types';
 import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
@@ -23,6 +17,12 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect, ConnectedProps} from 'react-redux';
 import {createOrderIOMap} from 'shared/util/pagination';
+import {
+	getDefaultSortOrder,
+	NAME,
+	paginationDefaults,
+	USER_NAME
+} from 'shared/util/pagination';
 import {Link} from 'react-router-dom';
 import {OrderedMap, Set} from 'immutable';
 import {OrderParams, User} from 'shared/util/records';
