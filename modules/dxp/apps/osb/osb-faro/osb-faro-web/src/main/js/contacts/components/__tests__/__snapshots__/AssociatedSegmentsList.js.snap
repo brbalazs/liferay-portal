@@ -37,12 +37,6 @@ exports[`AssociatedSegmentsList should render 1`] = `
           "label": "Name",
         },
         Object {
-          "accessor": "individualCount",
-          "className": "table-column-text-end",
-          "dataFormatter": [Function],
-          "label": "Membership",
-        },
-        Object {
           "cellRenderer": [Function],
           "cellRendererProps": Object {
             "dateFormatter": [Function],
