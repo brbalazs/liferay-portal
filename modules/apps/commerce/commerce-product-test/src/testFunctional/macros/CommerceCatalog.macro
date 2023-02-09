@@ -4,14 +4,14 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		AssertClick(
-			key_plusMenu = "${plusMenu}",
+			key_plusMenu = ${plusMenu},
 			locator1 = "CommerceEntry#PLUS_MENU",
-			value1 = "${plusMenu}");
+			value1 = ${plusMenu});
 
 		CommerceEntry.addProductsEntry(
-			productFullDescription = "${productFullDescription}",
-			productShortDescription = "${productShortDescription}",
-			productTitle = "${productTitle}");
+			productFullDescription = ${productFullDescription},
+			productShortDescription = ${productShortDescription},
+			productTitle = ${productTitle});
 	}
 
 	macro moveCatalogEntriesToRecycleBin {
@@ -22,7 +22,7 @@ definition {
 
 	macro moveCatalogEntryToRecycleBinViaCheckbox {
 		Click(
-			key_entryTitle = "${productTitle}",
+			key_entryTitle = ${productTitle},
 			locator1 = "CommerceNavigation#SINGLE_ENTRY_CHECKBOX");
 
 		Click(locator1 = "Button#RECYCLE_BIN");

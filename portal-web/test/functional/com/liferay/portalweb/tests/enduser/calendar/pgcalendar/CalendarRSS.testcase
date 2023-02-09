@@ -19,7 +19,7 @@ definition {
 			layoutName = "Calendar Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Calendar Page",
 			widgetName = "Calendar");
@@ -44,7 +44,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -63,21 +63,21 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@priority = "3"
+	@priority = 3
 	test DeleteEventAndViewFeed {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Calendar.chooseSiteCalendarMenulistOption(
 			menuListOption = "RSS",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Current Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Navigator.closeWindow();
 
@@ -87,35 +87,35 @@ definition {
 
 		Calendar.chooseSiteCalendarMenulistOption(
 			menuListOption = "RSS",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventNotPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Current Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Navigator.closeWindow();
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@priority = "3"
+	@priority = 3
 	test DisableFeedForSiteCalendar {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Calendar.chooseSiteCalendarMenulistOption(
 			menuListOption = "RSS",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Current Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		var rssURL = selenium.getLocation();
 
@@ -133,16 +133,16 @@ definition {
 
 		Calendar.viewSiteCalendarNoMenulistOption(
 			menuListOption = "RSS",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
-		Calendar.viewNoRSS(rssURL = "${rssURL}");
+		Calendar.viewNoRSS(rssURL = ${rssURL});
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed. This is a use case for LPS-67928."
-	@priority = "5"
+	@priority = 5
 	test ViewSiteCalendarFeed {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -171,29 +171,29 @@ definition {
 
 		Calendar.chooseSiteCalendarMenulistOption(
 			menuListOption = "RSS",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventNotPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Past Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Current Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Calendar.viewRSSFeedEventPresent(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Future Day Event",
 			pageName = "Calendar Page",
-			siteCalendarName = "${siteName}",
-			siteName = "${siteName}");
+			siteCalendarName = ${siteName},
+			siteName = ${siteName});
 
 		Navigator.closeWindow();
 	}

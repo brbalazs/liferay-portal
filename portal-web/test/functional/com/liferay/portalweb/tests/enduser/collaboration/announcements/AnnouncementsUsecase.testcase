@@ -19,7 +19,7 @@ definition {
 			layoutName = "Announcements Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Announcements Page",
 			widgetName = "Announcements");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -46,7 +46,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewAnnouncementsEntryWithDistributedScope {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -100,10 +100,10 @@ definition {
 			entryContent = "Announcements Entry Content",
 			entryTitle = "Announcements Entry Title");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		AnnouncementsEntry.addPG(
-			distributionScope = "${siteName}",
+			distributionScope = ${siteName},
 			entryContent = "Announcements Entry2 Scoped Content",
 			entryTitle = "Announcements Entry2 Scoped Title",
 			entryURL = "http://www.yahoo.com");
@@ -117,7 +117,7 @@ definition {
 		Navigator.gotoPage(pageName = "Announcements Page");
 
 		AnnouncementsEntry.viewPG(
-			distributionScope = "${siteName}",
+			distributionScope = ${siteName},
 			entryContent = "Announcements Entry2 Scoped Content",
 			entryTitle = "Announcements Entry2 Scoped Title");
 
@@ -146,12 +146,12 @@ definition {
 			entryTitle = "Announcements Entry Title");
 
 		AnnouncementsEntry.viewViaEntriesPG(
-			distributionScope = "${siteName}",
+			distributionScope = ${siteName},
 			entryContent = "Announcements Entry2 Scoped Content",
 			entryTitle = "Announcements Entry2 Scoped Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewAnnouncementsPagination {
 		for (var entryCount : list "1,2,3,4,5,6,7") {
 			Navigator.gotoPage(pageName = "Announcements Page");
@@ -165,7 +165,7 @@ definition {
 
 		Navigator.gotoPage(pageName = "Announcements Page");
 
-		AnnouncementsPortlet.configureDisplayCountPG(maxDisplayItems = "5");
+		AnnouncementsPortlet.configureDisplayCountPG(maxDisplayItems = 5);
 
 		Navigator.gotoPage(pageName = "Announcements Page");
 
@@ -224,7 +224,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Announcements and Alerts");
 
-		AnnouncementsPortlet.configurePaginationCP(itemsPerPage = "5");
+		AnnouncementsPortlet.configurePaginationCP(itemsPerPage = 5);
 
 		for (var viewEntryCount : list "1,2,3,4,5") {
 			AnnouncementsEntry.viewList(

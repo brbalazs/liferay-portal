@@ -23,7 +23,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -35,13 +35,13 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddRSSADTViaPortletConfiguration {
 		property portal.acceptance = "true";
 		property testray.component.names = "Content and Application Templates,RSS";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "RSS Publisher");
@@ -55,7 +55,7 @@ definition {
 			portletOption = "Configuration");
 
 		RSSPortlet.addFeed(
-			feedRowIndexNumber = "0",
+			feedRowIndexNumber = 0,
 			feedTitle = "Latimes > Technology News",
 			feedType = "file",
 			feedUrlLink = "rss2.0.xml");
@@ -89,12 +89,12 @@ definition {
 		RSSPortlet.viewCustomADT(feedContentTitle = "Technology");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddRSSADTWithCorruptScript {
 		property testray.component.names = "Content and Application Templates,RSS";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "RSS Publisher");
@@ -108,7 +108,7 @@ definition {
 			portletOption = "Configuration");
 
 		RSSPortlet.addFeed(
-			feedRowIndexNumber = "0",
+			feedRowIndexNumber = 0,
 			feedTitle = "Latimes > Technology News",
 			feedType = "file",
 			feedUrlLink = "rss2.0.xml");
@@ -137,12 +137,12 @@ definition {
 		RSSPortlet.viewCorruptScript();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddRSSADTWithScript {
 		property testray.component.names = "Content and Application Templates,RSS";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "RSS Publisher");
@@ -156,7 +156,7 @@ definition {
 			portletOption = "Configuration");
 
 		RSSPortlet.addFeed(
-			feedRowIndexNumber = "0",
+			feedRowIndexNumber = 0,
 			feedTitle = "Technology",
 			feedType = "file",
 			feedUrlLink = "Technology.xml");
@@ -187,12 +187,12 @@ definition {
 			navigationNullADT = "true");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ADTAssetPublisher {
 		property testray.component.names = "Asset Publisher,Content and Application Templates";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Asset Publisher");
@@ -239,13 +239,13 @@ definition {
 			assetTitle = "WC Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ADTBreadcrumb {
 		property portal.acceptance = "true";
 		property testray.component.names = "Breadcrumb,Content and Application Templates";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Breadcrumb");
@@ -269,7 +269,7 @@ definition {
 		Breadcrumb.viewADTApplied(breadcrumbADTType = "arrows");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ADTCategoriesNavigation {
 		property portal.acceptance = "true";
 		property testray.component.names = "Categories,Content and Application Templates";
@@ -296,7 +296,7 @@ definition {
 			vocabularyName = "Vocabulary Name 2");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Categories Navigation");
@@ -336,7 +336,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-71944."
-	@priority = "5"
+	@priority = 5
 	test ADTChangeTemplatePortletPreferencesMethodContracts {
 		property testray.component.names = "Asset Publisher,Content and Application Templates";
 
@@ -361,7 +361,7 @@ definition {
 	portletProviderClassName="com.liferay.portal.kernel.servlet.taglib.ui.BreadcrumbEntry"/>
 				''';
 
-		ApplicationDisplayTemplates.editADTScript(adtScript = "${script}");
+		ApplicationDisplayTemplates.editADTScript(adtScript = ${script});
 
 		Navigator.gotoSitePage(
 			pageName = "ADT Test Page",
@@ -382,7 +382,7 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "UnexpectedCharException");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ADTDMMediaGallery {
 		property testray.component.names = "Content and Application Templates,Documents Management";
 
@@ -456,12 +456,12 @@ definition {
 		MGPortlet.viewCustomADTCarouselPG();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ADTSiteMap {
 		property testray.component.names = "Content and Application Templates,Sitemap";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Site Map");
@@ -531,7 +531,7 @@ definition {
 			listPageName = "ADT Test Page,ADT Test Page 2,ADT Test Page 3");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ADTStagingCategoriesNavigation {
 		property testray.component.names = "Categories,Content and Application Templates,Staging";
 
@@ -619,13 +619,13 @@ definition {
 			vocabularyName2 = "Vocabulary Name 2");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ADTTagsNavigationPortlet {
 		property portal.acceptance = "true";
 		property testray.component.names = "Content and Application Templates,Tags";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Tags Navigation");
@@ -635,7 +635,7 @@ definition {
 			layoutName = "Blogs Test Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "Blogs Test Page",
 			widgetName = "Blogs");
@@ -713,12 +713,12 @@ definition {
 			tagName = "tag name 3");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ADTWiki {
 		property testray.component.names = "Content and Application Templates,Wiki";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Wiki");
@@ -753,10 +753,10 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-89348."
-	@priority = "5"
+	@priority = 5
 	test ADTWithWhitelistingScriptReturnsVoid {
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "ADT Test Page",
 			widgetName = "Asset Publisher");
@@ -770,7 +770,7 @@ ${jsonFactoryUtil.getLiferayJSONDeserializationWhitelist().register("fully.quali
 
 		ApplicationDisplayTemplates.addPGWithScript(
 			adtType = "Asset Publisher",
-			script = "${script}",
+			script = ${script},
 			siteName = "Test Site Name");
 
 		Click(locator1 = "Icon#CLOSE");
@@ -792,7 +792,7 @@ ${jsonFactoryUtil.getLiferayJSONDeserializationWhitelist().register("fully.quali
 		AssertTextPresent(value1 = "Denied access to method or field register of class com.liferay.portal.json.jabsorb.serializer.LiferayJSONDeserializationWhitelist");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test PublishWidgetPageTemplates {
 		Navigator.openSiteURL(siteName = "Test Site Name");
 

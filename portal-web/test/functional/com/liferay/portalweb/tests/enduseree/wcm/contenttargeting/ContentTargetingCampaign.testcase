@@ -42,7 +42,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -54,7 +54,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteCampaignCP {
 		property content.targeting.release = "true";
 
@@ -68,7 +68,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -85,7 +85,7 @@ definition {
 		ContentTargetingCampaign.deleteCampaignCP(campaignName = "Campaign Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditCampaignCP {
 		property content.targeting.release = "true";
 
@@ -105,7 +105,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -163,7 +163,7 @@ definition {
 			campaignEndTimeEdit = "12:00 AM",
 			campaignName = "Campaign Name",
 			campaignNameEdit = "Campaign Name Edit",
-			campaignPriorityFieldEdit = "5",
+			campaignPriorityFieldEdit = 5,
 			campaignStartDateEdit = "1/1/2015",
 			campaignStartTimeEdit = "12:00 PM",
 			userSegmentSelectEdit = "New US Name");
@@ -222,7 +222,7 @@ definition {
 			youtubeVideoId = "Youtube id");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewInactiveCampaignCP {
 		property content.targeting.release = "true";
 
@@ -237,7 +237,7 @@ definition {
 			campaignEndTime = "12:00 PM",
 			campaignInactive = "true",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -254,7 +254,7 @@ definition {
 		ContentTargetingCampaign.viewCampaignCP(
 			campaignDescription = "Campaign Description",
 			campaignName = "Campaign Name",
-			campaignPriority = "3",
+			campaignPriority = 3,
 			campaignStatus = "Inactive");
 	}
 

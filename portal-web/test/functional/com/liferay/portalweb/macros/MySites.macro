@@ -2,18 +2,18 @@ definition {
 
 	macro gotoPagesPG {
 		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "${menuItem}",
-			rowEntry = "${siteName}");
+			menuItem = ${menuItem},
+			rowEntry = ${siteName});
 
 		SelectWindow.selectPopUp(locator1 = "null");
 
-		Navigator._gotoPage(pageName = "${pageName}");
+		Navigator._gotoPage(pageName = ${pageName});
 
 		Close.closeWindow(locator1 = "null");
 	}
 
 	macro viewMembershipRequested {
-		LexiconEntry.openEntryMenu(rowEntry = "${siteName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${siteName});
 
 		MenuItem.viewPresent(menuItem = "Membership Requested");
 
@@ -21,18 +21,18 @@ definition {
 	}
 
 	macro viewNoOptions {
-		Navigator.gotoNavItem(navItem = "${navItem}");
+		Navigator.gotoNavItem(navItem = ${navItem});
 
 		AssertElementNotPresent(
-			key_rowEntry = "${siteName}",
+			key_rowEntry = ${siteName},
 			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
 	macro viewTags {
 		AssertTextEquals(
-			key_tagName = "${tagName}",
+			key_tagName = ${tagName},
 			locator1 = "Tags#VIEW_TAGS_VIA_MY_SITES",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 	}
 
 }

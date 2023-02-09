@@ -3,7 +3,7 @@ definition {
 	macro _clickAddPortlet {
 		var browserType = PropsUtil.get("browser.type");
 
-		if ("${browserType}" == "safari") {
+		if (${browserType} == "safari") {
 			Click(locator1 = "ControlMenuAddPanel#ADD_PORTLET_DRAG_LINK");
 		}
 		else {
@@ -20,60 +20,60 @@ definition {
 	macro addDuplicatePG {
 		var portletTypeKey = "PORTLET";
 
-		if ("${portletName}" == "Map") {
+		if (${portletName} == "Map") {
 			var portletName = "Where are the Liferay members?";
 		}
-		else if ("${portletName}" == "Requests") {
+		else if (${portletName} == "Requests") {
 			var portletTypeKey = "PORTLET_BORDERLESS";
 		}
 
 		if (!(isSet(portletCount))) {
-			var portletCount = "1";
+			var portletCount = 1;
 		}
 
-		var i = "0";
+		var i = 0;
 
-		while ("${i}" != "${portletCount}") {
+		while (${i} != ${portletCount}) {
 			var i = ${i} + 1;
 
 			Refresh();
 
-			Portlet.addPGCmd(portletName = "${portletName}");
+			Portlet.addPGCmd(portletName = ${portletName});
 		}
 
-		var key_portletName = "${portletName}";
+		var key_portletName = ${portletName};
 
 		AssertElementPresent(locator1 = "Home#${portletTypeKey}");
 	}
 
 	@summary = "Add a '${portletName}' portlet"
 	macro addPG {
-		if ("${portletName}" == "Map") {
+		if (${portletName} == "Map") {
 			var portletName = "Where are the Liferay members?";
 		}
 
-		Portlet.addPGCmd(portletName = "${portletName}");
+		Portlet.addPGCmd(portletName = ${portletName});
 
-		var i = "1";
-		var key_portletName = "${portletName}";
+		var i = 1;
+		var key_portletName = ${portletName};
 
-		while (!((IsElementPresent(locator1 = "Home#PORTLET")) || ("${i}" == "3"))) {
+		while (!((IsElementPresent(locator1 = "Home#PORTLET")) || (${i} == 3))) {
 			var i = ${i} + 1;
 
-			Pause(locator1 = "30000");
+			Pause(locator1 = 30000);
 
 			echo("The PORTLET could not be found. Refreshing the page. Attempt number ${i}...");
 
 			Refresh();
 
-			Portlet.addPGCmd(portletName = "${portletName}");
+			Portlet.addPGCmd(portletName = ${portletName});
 		}
 
 		AssertElementPresent(locator1 = "Home#PORTLET");
 	}
 
 	macro addPGCmd {
-		if ("${portletName}" == "Where are the Liferay members?") {
+		if (${portletName} == "Where are the Liferay members?") {
 			var portletName = "Map";
 		}
 
@@ -87,28 +87,28 @@ definition {
 			locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE",
 			value1 = "Widgets");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Panel.expandSidebarApplicationsPanel();
 
 		Type.sendKeysApplicationSearch(
 			locator1 = "NavBar#APPLICATION_SEARCH_FIELD",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 
-		Portlet._clickAddPortlet(portletName = "${portletName}");
+		Portlet._clickAddPortlet(portletName = ${portletName});
 
-		var key_portletName = "${portletName}";
+		var key_portletName = ${portletName};
 
 		AssertElementPresent(locator1 = "Portlet#LOADED");
 	}
 
 	macro assertServerShutdown {
-		var shutdownPauseCount = "0";
+		var shutdownPauseCount = 0;
 
-		while ((IsElementPresent(locator1 = "//body")) && ("${shutdownPauseCount}" != "12")) {
+		while ((IsElementPresent(locator1 = "//body")) && (${shutdownPauseCount} != 12)) {
 			Refresh();
 
-			Pause(locator1 = "10000");
+			Pause(locator1 = 10000);
 
 			var shutdownPauseCount = ${shutdownPauseCount} + 1;
 
@@ -117,12 +117,12 @@ definition {
 	}
 
 	macro assertServerStartup {
-		var startupPauseCount = "0";
+		var startupPauseCount = 0;
 
-		while (!(IsElementPresent(locator1 = "UserBar#USER_SIGN_IN")) && ("${startupPauseCount}" != "12")) {
+		while (!(IsElementPresent(locator1 = "UserBar#USER_SIGN_IN")) && (${startupPauseCount} != 12)) {
 			Refresh();
 
-			Pause(locator1 = "10000");
+			Pause(locator1 = 10000);
 
 			var startupPauseCount = ${startupPauseCount} + 1;
 
@@ -131,24 +131,24 @@ definition {
 	}
 
 	macro changeDisplayStyle {
-		if (IsElementNotPresent(key_displayStyle = StringUtil.toLowerCase("${displayStyle}"), locator1 = "Icon#DISPLAY_STYLE_ACTIVE")) {
+		if (IsElementNotPresent(key_displayStyle = StringUtil.toLowerCase(${displayStyle}), locator1 = "Icon#DISPLAY_STYLE_ACTIVE")) {
 			Click(
-				key_displayStyle = StringUtil.toLowerCase("${displayStyle}"),
+				key_displayStyle = StringUtil.toLowerCase(${displayStyle}),
 				locator1 = "Icon#DISPLAY_STYLE");
 		}
 
 		AssertElementPresent(
-			key_displayStyle = StringUtil.toLowerCase("${displayStyle}"),
+			key_displayStyle = StringUtil.toLowerCase(${displayStyle}),
 			locator1 = "Icon#DISPLAY_STYLE_ACTIVE");
 	}
 
 	macro clickPortletPlusIconPG {
 		MouseOver.mouseOverNotVisible(
-			key_portletName = "${portletName}",
+			key_portletName = ${portletName},
 			locator1 = "Portlet#ICON_PLUS_SIGN");
 
 		Click(
-			key_portletName = "${portletName}",
+			key_portletName = ${portletName},
 			locator1 = "Portlet#ICON_PLUS_SIGN");
 	}
 
@@ -157,7 +157,7 @@ definition {
 
 		Select(
 			locator1 = "Portlet#APPLICATION_DECORATOR_SELECT",
-			value1 = "${applicationDecorator}");
+			value1 = ${applicationDecorator});
 	}
 
 	macro configureCustomStylesViaLookandfeelPG {
@@ -175,11 +175,11 @@ definition {
 
 		Type(
 			locator1 = "Portlet#BORDER_WIDTH_TOP_INPUT",
-			value1 = "20");
+			value1 = 20);
 	}
 
 	macro configureCustomTitlePG {
-		var key_portletTitleName = "${portletTitleName}";
+		var key_portletTitleName = ${portletTitleName};
 
 		AssertElementPresent(locator1 = "Portlet#SPECIFIC_TITLE");
 
@@ -205,7 +205,7 @@ definition {
 	}
 
 	macro deletePG {
-		var key_portletName = "${portletName}";
+		var key_portletName = ${portletName};
 
 		MouseOver.mouseOverNotVisible(locator1 = "Portlet#SPECIFIC_ELLIPSIS_ICON");
 
@@ -218,24 +218,24 @@ definition {
 
 	@summary = "Drag and drop the '${portletName}' portlet from column ${columnNumberFrom} to column ${columnNumberTo}"
 	macro dragAndDropPortletToColumnPG {
-		var key_portletTitleName = "${portletName}";
+		var key_portletTitleName = ${portletName};
 
 		AssertTextEquals(
 			locator1 = "Home#PAGE_COLUMN_PORTLET_COLUMN_${columnNumberFrom}_PORTLET_TITLE",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 
 		DragAndDrop.dragAndDropPortletToObject(
 			locator1 = "Home#PAGE_COLUMN_PORTLET_COLUMN_${columnNumberFrom}_PORTLET_HEADER",
 			locator2 = "Home#PAGE_COLUMN_${columnNumberTo}",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 
 		AssertTextEquals(
 			locator1 = "Home#PAGE_COLUMN_PORTLET_COLUMN_${columnNumberTo}_PORTLET_TITLE",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 
 		AssertTextEquals(
 			locator1 = "Home#PAGE_COLUMN_PORTLET_COLUMN_${columnNumberTo}_PORTLET_TITLE",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 	}
 
 	macro expandTree {
@@ -248,7 +248,7 @@ definition {
 
 	macro gotoPortletOptions {
 		if (isSet(portletName)) {
-			var key_portletName = "${portletName}";
+			var key_portletName = ${portletName};
 
 			MouseOver.mouseOverNotVisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
 
@@ -261,12 +261,12 @@ definition {
 		}
 
 		if (isSet(portletOption)) {
-			MenuItem.click(menuItem = "${portletOption}");
+			MenuItem.click(menuItem = ${portletOption});
 		}
 	}
 
 	macro mouseOverPortletTitle {
-		var key_portletTitleName = "${portletTitleName}";
+		var key_portletTitleName = ${portletTitleName};
 
 		MouseOver(locator1 = "Portlet#SPECIFIC_TITLE");
 	}
@@ -284,7 +284,7 @@ definition {
 	macro selectApplicationDecorator {
 		Select(
 			locator1 = "Select#APPLICATION_DECORATORS",
-			value1 = "${decorator}");
+			value1 = ${decorator});
 	}
 
 	macro selectScope {
@@ -292,21 +292,21 @@ definition {
 
 		Select(
 			locator1 = "Select#SCOPE",
-			value1 = "${scope}");
+			value1 = ${scope});
 
 		Portlet.saveAndCloseConfig();
 	}
 
 	macro selectTreeNode {
-		if (IsElementPresent(key_nodeName = "${nodeName}", locator1 = "Treeview#NODE_UNSELECTED")) {
+		if (IsElementPresent(key_nodeName = ${nodeName}, locator1 = "Treeview#NODE_UNSELECTED")) {
 			AssertClick.assertPartialTextClickAt(
-				key_nodeName = "${nodeName}",
+				key_nodeName = ${nodeName},
 				locator1 = "Treeview#NODE_UNSELECTED",
-				value1 = "${nodeName}");
+				value1 = ${nodeName});
 		}
 
 		AssertElementPresent(
-			key_nodeName = "${nodeName}",
+			key_nodeName = ${nodeName},
 			locator1 = "Treeview#NODE_SELECTED");
 	}
 
@@ -319,12 +319,12 @@ definition {
 
 	@summary = "Start the current Liferay Portal instance."
 	macro startServer {
-		if ("${deleteLiferayHome}" == "false") {
+		if (${deleteLiferayHome} == "false") {
 			AntCommand(
 				locator1 = "build-test.xml",
 				value1 = "start-app-server -Ddelete.liferay.home=false");
 		}
-		else if ("${keepCachedAppServerData}" == "true") {
+		else if (${keepCachedAppServerData} == "true") {
 			AntCommand(
 				locator1 = "build-test.xml",
 				value1 = "start-app-server -Dkeep.cached.app.server.data=true");
@@ -338,25 +338,25 @@ definition {
 
 	macro viewApplicationDecorator {
 		AssertElementPresent(
-			key_decorator = StringUtil.lowerCase("${decorator}"),
+			key_decorator = StringUtil.lowerCase(${decorator}),
 			locator1 = "Portlet#PORTLET_BORDER_DECORATOR");
 	}
 
 	@summary = "Assert that the ${portletName} portlet body has the text '${portletBody}'"
 	macro viewBody {
-		var key_portletName = "${portletName}";
+		var key_portletName = ${portletName};
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "Portlet#BODY",
-			value1 = "${portletBody}");
+			value1 = ${portletBody});
 	}
 
 	@description = "View Cannot Add ${portletName} portlet."
 	macro viewCannotAddPG {
-		if ("${portletName}" == "Map") {
+		if (${portletName} == "Map") {
 			var portletName = "Where are the Liferay members?";
 		}
-		else if ("${portletName}" == "Requests") {
+		else if (${portletName} == "Requests") {
 			var portletTypeKey = "PORTLET_BORDERLESS";
 		}
 
@@ -368,11 +368,11 @@ definition {
 
 		Type.sendKeysApplicationSearch(
 			locator1 = "NavBar#APPLICATION_SEARCH_FIELD",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 
 		var portletLocator = "//span[@data-title=\"${portletName}\" and contains(@class,'add-content-item')]";
 
-		AssertElementNotPresent(locator1 = "${portletLocator}");
+		AssertElementNotPresent(locator1 = ${portletLocator});
 	}
 
 	macro viewCannotEdit {
@@ -392,9 +392,9 @@ definition {
 	}
 
 	macro viewDuplicatePG {
-		var i = "0";
+		var i = 0;
 
-		while ("${i}" != "${totalPortletCount}") {
+		while (${i} != ${totalPortletCount}) {
 			var i = ${i} + 1;
 
 			AssertElementPresent(locator1 = "xpath=(//h2[contains(.,'${portletName}')])[${i}]");
@@ -404,7 +404,7 @@ definition {
 	macro viewEmptyMessage {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#EMPTY_INFO",
-			value1 = "${message}");
+			value1 = ${message});
 	}
 
 	macro viewNoPermissionPG {
@@ -414,14 +414,14 @@ definition {
 	}
 
 	macro viewNoPortletsPresentCP {
-		ProductMenuHelper.expandPanel(panel = "${panel}");
+		ProductMenuHelper.expandPanel(panel = ${panel});
 
-		ProductMenuHelper.expandCategory(category = "${category}");
+		ProductMenuHelper.expandCategory(category = ${category});
 
 		AssertElementNotPresent(
-			key_portlet = "${portlet}",
+			key_portlet = ${portlet},
 			locator1 = "ProductMenu#PORTLET",
-			value1 = "${portlet}");
+			value1 = ${portlet});
 	}
 
 	macro viewNoPortletsPresentPG {
@@ -430,17 +430,17 @@ definition {
 
 	macro viewNoSpecificPG {
 		AssertElementNotPresent(
-			key_portletTitleName = "${portletName}",
+			key_portletTitleName = ${portletName},
 			locator1 = "Portlet#SPECIFIC_TITLE");
 	}
 
 	macro viewPG {
-		Portlet.viewTitle(portletName = "${portletName}");
+		Portlet.viewTitle(portletName = ${portletName});
 
 		if (isSet(portletBody)) {
 			Portlet.viewBody(
-				portletBody = "${portletBody}",
-				portletName = "${portletName}");
+				portletBody = ${portletBody},
+				portletName = ${portletName});
 		}
 	}
 
@@ -450,9 +450,9 @@ definition {
 		Click(locator1 = "Portlet#OPTIONS_ICON");
 
 		AssertTextEquals(
-			key_menuItem = "${OptionsName}",
+			key_menuItem = ${OptionsName},
 			locator1 = "MenuItem#ANY_MENU_ITEM",
-			value1 = "${OptionsName}");
+			value1 = ${OptionsName});
 	}
 
 	macro viewPortletOptionsMenulist {
@@ -492,20 +492,20 @@ definition {
 	}
 
 	macro viewSpecificPG {
-		var key_portletTitleName = "${portletName}";
+		var key_portletTitleName = ${portletName};
 
 		AssertTextEquals(
 			locator1 = "Portlet#SPECIFIC_TITLE",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 	}
 
 	@summary = "Assert that the ${portletName} portlet title has the text '${portletName}'"
 	macro viewTitle {
-		var key_portletName = "${portletName}";
+		var key_portletName = ${portletName};
 
 		AssertTextEquals(
 			locator1 = "Portlet#TITLE",
-			value1 = "${portletName}");
+			value1 = ${portletName});
 	}
 
 	macro viewUndeployMessage {

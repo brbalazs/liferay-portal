@@ -38,7 +38,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -47,20 +47,20 @@ definition {
 	}
 
 	@description = "With page versioning enabled, content pages only appear in live view after being published and should appear properly."
-	@priority = "5"
+	@priority = 5
 	test PublishContentPage {
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name-staging/test-content-page-name");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
@@ -80,13 +80,13 @@ definition {
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 

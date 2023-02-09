@@ -26,13 +26,13 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 	}
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -77,7 +77,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		Refresh();
 
@@ -85,7 +85,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -95,8 +95,8 @@ definition {
 			newAddressZipCode = "Test Zip Code",
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
-			productQuantity = "2",
-			productUnitPrice = "50",
+			productQuantity = 2,
+			productUnitPrice = 50,
 			shippingMethod = "Standard");
 
 		ProductMenu.gotoPortlet(
@@ -111,7 +111,7 @@ definition {
 		CommerceEntry.clickNoError(menuItem = "View");
 
 		CommerceOrders.editOrderItemDetails(
-			orderItemQuantity = "4",
+			orderItemQuantity = 4,
 			orderItemSKU = "MIN93015");
 
 		ProductMenu.gotoPortlet(
@@ -132,7 +132,7 @@ definition {
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "4",
+			productQuantity = 4,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 	}
@@ -167,7 +167,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		Refresh();
 
@@ -177,7 +177,7 @@ definition {
 
 		Button.click(button = "Checkout");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -187,8 +187,8 @@ definition {
 			newAddressZipCode = "Test Zip Code",
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
-			productQuantity = "2",
-			productUnitPrice = "50",
+			productQuantity = 2,
+			productUnitPrice = 50,
 			shippingMethod = "Standard");
 
 		ProductMenu.gotoPortlet(
@@ -203,7 +203,7 @@ definition {
 		CommerceEntry.clickNoError(menuItem = "View");
 
 		CommerceOrders.editOrderItemDetails(
-			orderItemQuantity = "4",
+			orderItemQuantity = 4,
 			orderItemSKU = "MIN93015");
 
 		ProductMenu.gotoPortlet(
@@ -224,7 +224,7 @@ definition {
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "4",
+			productQuantity = 4,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 	}

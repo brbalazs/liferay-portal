@@ -10,21 +10,21 @@ definition {
 		PageEditor.gotoTab(tabName = "Mapping");
 
 		MouseOver.mouseOverNotVisible(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD");
 
 		Click(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD");
 
 		Button.clickMap();
 
 		AssertClick(
-			key_itemName = "${itemName}",
+			key_itemName = ${itemName},
 			locator1 = "PageEditor#LIST_GROUP_ITEM",
-			value1 = "${itemName}");
+			value1 = ${itemName});
 	}
 
 	macro selectAssetType {
@@ -43,12 +43,12 @@ definition {
 		Select(
 			key_fieldLabel = "Asset Type",
 			locator1 = "Select#GENERIC_SELECT_FIELD",
-			value1 = "${assetType}");
+			value1 = ${assetType});
 
 		Select(
 			key_fieldLabel = "Subtype",
 			locator1 = "Select#GENERIC_SELECT_FIELD",
-			value1 = "${subType}");
+			value1 = ${subType});
 
 		Button.clickSave();
 	}

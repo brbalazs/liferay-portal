@@ -20,7 +20,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -29,7 +29,7 @@ definition {
 	}
 
 	@description = "Add a content page with fragments."
-	@priority = "5"
+	@priority = 5
 	test AddContentPage {
 		property portal.acceptance = "true";
 		property testray.component.names = "Training";
@@ -55,34 +55,34 @@ definition {
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Submit",
 			key_fragmentClass = "footer",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Cancel",
 			key_fragmentClass = "footer",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#FRAGMENT");
 
 		for (var button : list "Submit,Cancel") {
-			Button.viewPresent(button = "${button}");
+			Button.viewPresent(button = ${button});
 		}
 	}
 
 	@description = "Create a content page from a page template with fragments."
-	@priority = "5"
+	@priority = 5
 	test AddContentPageFromPageTemplate {
 		property portal.acceptance = "true";
 
@@ -110,7 +110,7 @@ definition {
 			siteName = "Test Site Name");
 
 		for (var button : list "Submit,Cancel") {
-			Button.viewPresent(button = "${button}");
+			Button.viewPresent(button = ${button});
 		}
 
 		Button.clickNoError(button = "Submit");
@@ -119,7 +119,7 @@ definition {
 	}
 
 	@description = "Add a content page and edit its fragment immediately. This is a variation of the steps from LPS-85872."
-	@priority = "5"
+	@priority = 5
 	test AddContentPageWithEditedFragmentText {
 		property testray.component.names = "Training";
 
@@ -136,19 +136,19 @@ definition {
 			id = "content",
 			text = "New editable fragment text");
 
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
 
 		AssertVisible(
 			key_content = "New editable fragment text",
 			key_fragmentClass = "body",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "Edit an existing content page that has fragments. This testcase covers the bug found in LPS-85872. LPS-76741 - Validate content page can be edited by Edit/View mode."
-	@priority = "5"
+	@priority = 5
 	test EditContentPage {
 		property testray.component.names = "Training";
 
@@ -186,19 +186,19 @@ definition {
 		AssertVisible(
 			key_content = "New editable fragment text",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus eleifend lacus nec porttitor. Vestibulum pharetra ullamcorper felis volutpat commodo. Nam id ipsum placerat, hendrerit orci eu, congue nisi. Proin.",
 			key_fragmentClass = "body",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#FRAGMENT");
 
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");

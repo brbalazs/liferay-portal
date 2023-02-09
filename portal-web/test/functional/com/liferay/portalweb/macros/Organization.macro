@@ -7,7 +7,7 @@ definition {
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDITIONAL_EMAIL_ADDRESSES_EMAIL_ADDRESS_FIELD",
-			value1 = "${orgAdditionalEmailAddress}");
+			value1 = ${orgAdditionalEmailAddress});
 
 		Click(locator1 = "UsersAndOrganizationsEditOrganization#ADDITIONAL_EMAIL_ADDRESSES_EMAIL_ADDRESS_FIELD");
 
@@ -17,7 +17,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDITIONAL_EMAIL_ADDRESSES_EMAIL_ADDRESS_FIELD",
-			value1 = "${orgAdditionalEmailAddress}");
+			value1 = ${orgAdditionalEmailAddress});
 	}
 
 	macro addAddressCP {
@@ -25,27 +25,27 @@ definition {
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_STREET_FIELD_1",
-			value1 = "${orgAddressStreet}");
+			value1 = ${orgAddressStreet});
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_CITY_FIELD",
-			value1 = "${orgAddressCity}");
+			value1 = ${orgAddressCity});
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_POSTAL_CODE_FIELD",
-			value1 = "${orgAddressPostal}");
+			value1 = ${orgAddressPostal});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_COUNTRY_SELECT",
-			value1 = "${orgAddressCountry}");
+			value1 = ${orgAddressCountry});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_REGION_SELECT",
-			value1 = "${orgAddressRegion}");
+			value1 = ${orgAddressRegion});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_TYPE_SELECT",
-			value1 = "${orgAddressType}");
+			value1 = ${orgAddressType});
 
 		Check(locator1 = "UsersAndOrganizationsEditOrganization#ADDRESSES_MAILING_CHECKBOX");
 
@@ -56,16 +56,16 @@ definition {
 
 	macro addCategorizationCP {
 		Organization.editOrganizationInformationCP(
-			orgName = "${orgName}",
+			orgName = ${orgName},
 			panel = "Categorization");
 
-		var key_tagName = "${tagName}";
+		var key_tagName = ${tagName};
 
 		Click(locator1 = "AddTask#TASK_TAG_FIELD");
 
 		Type(
 			locator1 = "AddTask#TASK_TAG_FIELD",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 
 		AssertClick(
 			locator1 = "Button#ADD_TAGS",
@@ -79,7 +79,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#CATEGORIZATION_TAG",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 	}
 
 	macro addCommentCP {
@@ -87,7 +87,7 @@ definition {
 
 		Type(
 			locator1 = "TextArea#COMMENTS",
-			value1 = "${orgComment}");
+			value1 = ${orgComment});
 
 		PortletEntry.save();
 
@@ -95,7 +95,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "TextArea#COMMENTS",
-			value1 = "${orgComment}");
+			value1 = ${orgComment});
 	}
 
 	macro addCP {
@@ -109,7 +109,7 @@ definition {
 
 		LexiconEntry.gotoAdd();
 
-		if ("${orgType}" == "Location") {
+		if (${orgType} == "Location") {
 			MenuItem.click(menuItem = "Location");
 		}
 		else if (IsElementPresent(key_menuItem = "Organization", locator1 = "MenuItem#ANY_MENU_ITEM")) {
@@ -118,11 +118,11 @@ definition {
 
 		Type(
 			locator1 = "TextInput#NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		Button.clickSave();
 
-		if ("${organizationName}" == "Duplicate") {
+		if (${organizationName} == "Duplicate") {
 			Alert.viewRequestFailedToComplete();
 
 			AssertTextEquals.assertPartialText(
@@ -130,24 +130,24 @@ definition {
 				value1 = "The organization name is already taken.");
 		}
 		else {
-			var key_orgType = "${orgType}";
+			var key_orgType = ${orgType};
 
 			Alert.viewSuccessMessage();
 
 			AssertTextEquals(
 				locator1 = "TextInput#NAME",
-				value1 = "${orgName}");
+				value1 = ${orgName});
 
 			AssertTextEquals.assertValue(
 				locator1 = "UsersAndOrganizationsEditOrganization#DETAILS_TYPE",
-				value1 = "${orgType}");
+				value1 = ${orgType});
 		}
 	}
 
 	macro addMemberCP {
 		Organization.gotoCP(
-			orgName = "${orgName}",
-			searchToken = "${orgName}");
+			orgName = ${orgName},
+			searchToken = ${orgName});
 
 		LexiconEntry.gotoAdd();
 
@@ -157,15 +157,15 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_userScreenName = "${userScreenName}";
+		var key_userScreenName = ${userScreenName};
 
 		AssertTextEquals(
 			locator1 = "UserGroupsAssignUsers#USER_TABLE_SCREEN_NAME",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 
 		Check(locator1 = "UserGroupsAssignUsers#USER_TABLE_CHECKBOX");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		SelectFrameTop();
 
@@ -181,7 +181,7 @@ definition {
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#PHONE_NUMBERS_NUMBER_FIELD",
-			value1 = "${orgPhoneNumber}");
+			value1 = ${orgPhoneNumber});
 
 		Click(locator1 = "UsersAndOrganizationsEditOrganization#PHONE_NUMBERS_PRIMARY_RADIO");
 
@@ -191,7 +191,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#PHONE_NUMBERS_NUMBER_FIELD",
-			value1 = "${orgPhoneNumber}");
+			value1 = ${orgPhoneNumber});
 	}
 
 	macro addReminderQueriesCP {
@@ -199,15 +199,15 @@ definition {
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_DEFAULT_LANGUAGE_FIELD",
-			value1 = "${orgReminderQueriesDefaultLanguage}");
+			value1 = ${orgReminderQueriesDefaultLanguage});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_LOCALIZED_LANGUAGE_SELECT",
-			value1 = "${orgLocalizedLanguage}");
+			value1 = ${orgLocalizedLanguage});
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_TEXT_FIELD",
-			value1 = "${orgReminderQuery}");
+			value1 = ${orgReminderQuery});
 
 		PortletEntry.save();
 
@@ -215,15 +215,15 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_DEFAULT_LANGUAGE_FIELD",
-			value1 = "${orgReminderQueriesDefaultLanguage}");
+			value1 = ${orgReminderQueriesDefaultLanguage});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_LOCALIZED_LANGUAGE_SELECT",
-			value1 = "${orgLocalizedLanguage}");
+			value1 = ${orgLocalizedLanguage});
 
 		AssertSelectedLabel(
 			locator1 = "UsersAndOrganizationsEditOrganization#REMINDER_QUERIES_LOCALIZED_LANGUAGE_SELECT",
-			value1 = "${orgLocalizedLanguage}");
+			value1 = ${orgLocalizedLanguage});
 	}
 
 	macro addServicesCP {
@@ -231,11 +231,11 @@ definition {
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#SERVICES_MONDAY_OPEN_SELECT",
-			value1 = "${orgServicesOpen}");
+			value1 = ${orgServicesOpen});
 
 		Select(
 			locator1 = "UsersAndOrganizationsEditOrganization#SERVICES_MONDAY_CLOSE_SELECT",
-			value1 = "${orgServicesClosed}");
+			value1 = ${orgServicesClosed});
 
 		PortletEntry.save();
 
@@ -243,26 +243,26 @@ definition {
 
 		AssertSelectedLabel(
 			locator1 = "UsersAndOrganizationsEditOrganization#SERVICES_MONDAY_OPEN_SELECT",
-			value1 = "${orgServicesOpen}");
+			value1 = ${orgServicesOpen});
 
 		AssertSelectedLabel(
 			locator1 = "UsersAndOrganizationsEditOrganization#SERVICES_MONDAY_CLOSE_SELECT",
-			value1 = "${orgServicesClosed}");
+			value1 = ${orgServicesClosed});
 	}
 
 	macro addSiteCP {
 		Organization.editOrganizationInformationCP(
-			orgName = "${orgName}",
+			orgName = ${orgName},
 			panel = "Organization Site");
 
 		Check(locator1 = "UsersAndOrganizationsEditOrganization#ORGANIZATION_SITE_CREATE_SITE_CHECKBOX");
 
-		if (("${organizationSite}" == "Community Site") || ("${organizationSite}" == "Intranet Site")) {
+		if ((${organizationSite} == "Community Site") || (${organizationSite} == "Intranet Site")) {
 			Select(
 				locator1 = "UserGroupsEditUserGroup#PUBLIC_PAGES_SELECT",
-				value1 = "${organizationSite}");
+				value1 = ${organizationSite});
 
-			if ("${checkEnablePropagationCheckbox}" == "true") {
+			if (${checkEnablePropagationCheckbox} == "true") {
 				AssertChecked(locator1 = "UserGroupsEditUserGroup#ENABLE_PROPAGATION_PUBLIC_PAGE_CHECKBOX");
 			}
 			else {
@@ -284,7 +284,7 @@ definition {
 
 		Type(
 			locator1 = "UsersAndOrganizationsEditOrganization#WEBSITES_URL_FIELD",
-			value1 = "${orgWebsite}");
+			value1 = ${orgWebsite});
 
 		Click(locator1 = "UsersAndOrganizationsEditOrganization#WEBSITES_PRIMARY_RADIO");
 
@@ -294,41 +294,41 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#WEBSITES_URL_FIELD",
-			value1 = "${orgWebsite}");
+			value1 = ${orgWebsite});
 	}
 
 	macro addWithLocalizedCountryCP {
-		Navigator.gotoNavItem(navItem = "${navItem}");
+		Navigator.gotoNavItem(navItem = ${navItem});
 
 		LexiconEntry.gotoAdd();
 
-		if (IsElementPresent(key_menuItem = "${localizedOption}", locator1 = "MenuItem#ANY_MENU_ITEM")) {
-			MenuItem.click(menuItem = "${localizedOption}");
+		if (IsElementPresent(key_menuItem = ${localizedOption}, locator1 = "MenuItem#ANY_MENU_ITEM")) {
+			MenuItem.click(menuItem = ${localizedOption});
 		}
 
 		Type(
 			locator1 = "TextInput#NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		Select(
-			key_countryName = "${countryName}",
+			key_countryName = ${countryName},
 			locator1 = "UsersAndOrganizations#ORGANIZATION_COUNTRY_NAME",
-			value1 = "${countryName}");
+			value1 = ${countryName});
 
 		AssertClick(
-			key_saveButton = "${saveButton}",
+			key_saveButton = ${saveButton},
 			locator1 = "Button#SAVE_LOCALIZED",
-			value1 = "${saveButton}");
+			value1 = ${saveButton});
 
 		Alert.viewSuccessMessage();
 	}
 
 	macro assignOrgRoleCP {
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		MenuItem.click(menuItem = "Assign Organization Roles");
 
@@ -336,19 +336,19 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsAssignOrganizationalRoles#ROLE_TITLE",
-			value1 = "${roleTitle}");
+			value1 = ${roleTitle});
 
 		Click(locator1 = "UsersAndOrganizationsAssignOrganizationalRoles#ROLE_TITLE");
 
 		Navigator.gotoNavItem(navItem = "Available");
 
-		Search.searchCP(searchTerm = "${userScreenName}");
+		Search.searchCP(searchTerm = ${userScreenName});
 
-		var key_userScreenName = "${userScreenName}";
+		var key_userScreenName = ${userScreenName};
 
 		AssertTextEquals(
 			locator1 = "UserGroupsAssignUsers#USER_TABLE_SCREEN_NAME",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 
 		Check(locator1 = "UserGroupsAssignUsers#USER_TABLE_CHECKBOX");
 
@@ -366,7 +366,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UserGroupsAssignUsers#USER_TABLE_SCREEN_NAME",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 
 		IFrame.selectTopFrame();
 
@@ -374,9 +374,9 @@ definition {
 	}
 
 	macro deleteCP {
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		MenuItem.clickNoError(menuItem = "Delete");
 
@@ -390,63 +390,63 @@ definition {
 	macro editOrganizationInformationCP {
 		UsersAndOrganizationsNavigator.gotoOrganizations();
 
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		MenuItem.click(menuItem = "Edit");
 
-		Organization.gotoOrganizationInformationCP(panel = "${panel}");
+		Organization.gotoOrganizationInformationCP(panel = ${panel});
 	}
 
 	macro editSiteCP {
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		MenuItem.click(menuItem = "Edit");
 
 		Type(
 			locator1 = "TextInput#NAME",
-			value1 = "${orgNameEdit}");
+			value1 = ${orgNameEdit});
 
 		PortletEntry.save();
 
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
-			value1 = "${orgNameEdit}");
+			value1 = ${orgNameEdit});
 	}
 
 	macro gotoActionsCmd {
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
-		Search.searchCP(searchTerm = "${orgName}");
+		Search.searchCP(searchTerm = ${orgName});
 
 		AssertVisible(locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME_GENERIC");
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
-		LexiconEntry.openEntryMenu(rowEntry = "${orgName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${orgName});
 	}
 
 	macro gotoCP {
-		Search.searchCP(searchTerm = "${searchToken}");
+		Search.searchCP(searchTerm = ${searchToken});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		AssertClick(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
-		Breadcrumb.viewActiveEntry(breadcrumbName = "${orgName}");
+		Breadcrumb.viewActiveEntry(breadcrumbName = ${orgName});
 	}
 
 	macro gotoIdentificationCP {
@@ -455,7 +455,7 @@ definition {
 			value1 = "Identification");
 
 		if (isSet(panel)) {
-			Panel.expandPanel(panel = "${panel}");
+			Panel.expandPanel(panel = ${panel});
 		}
 	}
 
@@ -465,7 +465,7 @@ definition {
 			value1 = "Miscellaneous");
 
 		if (isSet(panel)) {
-			Panel.expandPanel(panel = "${panel}");
+			Panel.expandPanel(panel = ${panel});
 		}
 	}
 
@@ -475,28 +475,28 @@ definition {
 			value1 = "Organization Information");
 
 		if (isSet(panel)) {
-			Panel.expandPanel(panel = "${panel}");
+			Panel.expandPanel(panel = ${panel});
 		}
 	}
 
 	macro manageMembershipOptionsInSites {
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		MenuItem.click(menuItem = "Manage Site");
 
-		if ("${selectMembershipType}" == "true") {
+		if (${selectMembershipType} == "true") {
 			AssertTextEquals(
 				locator1 = "SitesEditSite#MEMBERSHIP_OPTIONS_MEMBERSHIP_TYPE_LABEL",
 				value1 = "Membership Type");
 
 			Select(
 				locator1 = "SitesEditSite#MEMBERSHIP_OPTIONS_MEMBERSHIP_TYPE",
-				value1 = "${membershipType}");
+				value1 = ${membershipType});
 		}
 
-		if ("${allowManualMembershipManagement}" == "true") {
+		if (${allowManualMembershipManagement} == "true") {
 			Check.checkToggleSwitch(locator1 = "Checkbox#ALLOW_MANUAL_MEMBERSHIP_MANAGEMENT");
 		}
 
@@ -505,20 +505,20 @@ definition {
 
 	macro removeMemberCP {
 		Organization.gotoCP(
-			orgName = "${orgName}",
-			searchToken = "${orgName}");
+			orgName = ${orgName},
+			searchToken = ${orgName});
 
-		Search.searchCP(searchTerm = "${userFullName}");
+		Search.searchCP(searchTerm = ${userFullName});
 
 		AssertVisible(locator1 = "UsersAndOrganizations#USERS_AND_SUBORGANIZATIONS_TABLE_NAME_GENERIC");
 
-		var key_userFullName = "${userFullName}";
+		var key_userFullName = ${userFullName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#USERS_AND_SUBORGANIZATIONS_TABLE_NAME",
-			value1 = "${userFullName}");
+			value1 = ${userFullName});
 
-		LexiconEntry.openEntryMenu(rowEntry = "${userFullName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${userFullName});
 
 		MenuItem.click(menuItem = "Remove");
 
@@ -530,19 +530,19 @@ definition {
 	}
 
 	macro searchCP {
-		Search.searchCP(searchTerm = "${searchTerm}");
+		Search.searchCP(searchTerm = ${searchTerm});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 	}
 
 	macro selectParentOrganizationCP {
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
-		LexiconEntry.openEntryMenu(rowEntry = "${orgName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${orgName});
 
 		MenuItem.click(menuItem = "Edit");
 
@@ -554,9 +554,9 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
-		var key_orgName = "${parentOrgName}";
+		var key_orgName = ${parentOrgName};
 
 		AssertClick(
 			locator1 = "UsersAndOrganizationsSelectOrganization#ORGANIZATION_TABLE_CHOOSE_BUTTON",
@@ -566,7 +566,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsEditOrganization#PARENT_ORGANIZATION_TABLE_NAME",
-			value1 = "${parentOrgName}");
+			value1 = ${parentOrgName});
 
 		PortletEntry.save();
 	}
@@ -577,10 +577,10 @@ definition {
 			panel = "Control Panel",
 			portlet = "Users and Organizations");
 
-		while (IsElementPresent(locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME_GENERIC", value1 = "${orgName}")) {
+		while (IsElementPresent(locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME_GENERIC", value1 = ${orgName})) {
 			Click(
 				locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME_GENERIC",
-				value1 = "${orgName}");
+				value1 = ${orgName});
 
 			AssertClick(
 				locator1 = "UsersAndOrganizationsOrganization#MENU_ASSIGN_USERS",
@@ -623,30 +623,30 @@ definition {
 				value1 = "${userFirstName} ${userMiddleName} ${userLastName}");
 		}
 		else {
-			var key_userName = "${userName}";
+			var key_userName = ${userName};
 
 			AssertTextEquals(
 				locator1 = "UsersAndOrganizationsOrganization#USER_TABLE_NAME",
-				value1 = "${userName}");
+				value1 = ${userName});
 		}
 	}
 
 	macro viewCP {
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_TYPE",
-			value1 = "${orgType}");
+			value1 = ${orgType});
 
-		LexiconEntry.openEntryMenu(rowEntry = "${orgName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${orgName});
 
 		MenuItem.click(menuItem = "Edit");
 
-		var key_orgType = "${orgType}";
+		var key_orgType = ${orgType};
 
 		AssertTextEquals(
 			locator1 = "Portlet#HEADER",
@@ -654,27 +654,27 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		AssertTextEquals.assertValue(
 			locator1 = "UsersAndOrganizationsEditOrganization#DETAILS_TYPE",
-			value1 = "${orgType}");
+			value1 = ${orgType});
 	}
 
 	macro viewLocalizedCountryCP {
 		AssertClick(
-			key_navItem = "${navItem}",
+			key_navItem = ${navItem},
 			locator1 = "NavBar#NAV_ITEM_LINK",
-			value1 = "${navItem}");
+			value1 = ${navItem});
 
-		LexiconEntry.openEntryMenu(rowEntry = "${orgName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${orgName});
 
-		MenuItem.click(menuItem = "${editLocalized}");
+		MenuItem.click(menuItem = ${editLocalized});
 
 		AssertTextEquals.assertPartialText(
-			key_countryName = "${countryName}",
+			key_countryName = ${countryName},
 			locator1 = "UsersAndOrganizations#ORGANIZATION_COUNTRY_NAME",
-			value1 = "${countryName}");
+			value1 = ${countryName});
 	}
 
 	macro viewMembersNotFoundCP {
@@ -690,9 +690,9 @@ definition {
 	}
 
 	macro viewParentOrganizationCP {
-		Organization.gotoActionsCmd(orgName = "${orgName}");
+		Organization.gotoActionsCmd(orgName = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		MenuItem.click(menuItem = "Edit");
 
@@ -702,21 +702,21 @@ definition {
 
 		SelectFrame(locator1 = "UsersAndOrganizationsSelectOrganization#SELECT_ORGANIZATION_IFRAME");
 
-		if ("${parentOrgExist}" == "true") {
-			var key_orgName = "${subOrgName}";
+		if (${parentOrgExist} == "true") {
+			var key_orgName = ${subOrgName};
 
 			AssertTextEquals(
 				locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
-				value1 = "${subOrgName}");
+				value1 = ${subOrgName});
 
 			AssertTextEquals(
 				locator1 = "ContentRow#ORGANIZATION_TABLE_NAME_SECOND_COLUMN",
-				value1 = "${parentOrgName}");
+				value1 = ${parentOrgName});
 		}
-		else if ("${parentOrgExist}" == "false") {
+		else if (${parentOrgExist} == "false") {
 			AssertTextEquals(
 				locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
-				value1 = "${orgName}");
+				value1 = ${orgName});
 
 			AssertTextEquals(
 				locator1 = "ContentRow#ORGANIZATION_TABLE_NAME_SECOND_COLUMN",
@@ -727,41 +727,41 @@ definition {
 	}
 
 	macro viewRemoveMemberCP {
-		Search.searchCP(searchTerm = "${orgName}");
+		Search.searchCP(searchTerm = ${orgName});
 
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		AssertClick(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
-		AssertTextNotPresent(value1 = "${userFirstName}");
+		AssertTextNotPresent(value1 = ${userFirstName});
 	}
 
 	macro viewSubOrganizationCP {
-		var key_orgName = "${orgName}";
+		var key_orgName = ${orgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_TYPE",
-			value1 = "${orgType}");
+			value1 = ${orgType});
 
 		AssertClick(
 			locator1 = "UsersAndOrganizations#ORGANIZATION_TABLE_NAME",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
-		var key_suborgName = "${suborgName}";
+		var key_suborgName = ${suborgName};
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsOrganization#SUBORGANIZATION_TABLE_NAME",
-			value1 = "${suborgName}");
+			value1 = ${suborgName});
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizationsOrganization#SUBORGANIZATION_TABLE_TYPE",
-			value1 = "${suborgType}");
+			value1 = ${suborgType});
 
 		AssertElementPresent(locator1 = "UsersAndOrganizationsOrganization#SUBORGANIZATION_TABLE_ACTIONS");
 	}

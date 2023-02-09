@@ -42,7 +42,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -54,7 +54,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignContentCP {
 		property content.targeting.release = "true";
 
@@ -80,7 +80,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -126,7 +126,7 @@ definition {
 			viewTrackingActionsList = "Content");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignCustomFormCP {
 		property content.targeting.release = "true";
 
@@ -140,7 +140,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -186,7 +186,7 @@ definition {
 			viewTrackingActionsList = "Custom Form");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignDDLFormCP {
 		property content.targeting.release = "true";
 
@@ -200,7 +200,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -261,7 +261,7 @@ definition {
 			viewTrackingActionsList = "Form");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignLinkCP {
 		property content.targeting.release = "true";
 
@@ -275,7 +275,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -334,7 +334,7 @@ definition {
 			viewTrackingActionsList = "Link");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignPageCP {
 		property content.targeting.release = "true";
 
@@ -348,7 +348,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -393,7 +393,7 @@ definition {
 			viewTrackingActionsList = "Page");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCampaignYouTubeCP {
 		property content.targeting.release = "true";
 
@@ -407,7 +407,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");

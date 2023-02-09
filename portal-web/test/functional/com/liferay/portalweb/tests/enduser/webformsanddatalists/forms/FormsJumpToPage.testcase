@@ -37,12 +37,12 @@ definition {
 		FormFields.editOptionsRow(
 			optionName = "Destiny2",
 			optionValue = "Destiny 2",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		FormFields.editOptionsRow(
 			optionName = "Destiny3",
 			optionValue = "Destiny 3",
-			rowNumber = "3");
+			rowNumber = 3);
 
 		Form.closeSidebar();
 
@@ -67,13 +67,13 @@ definition {
 		FormRules.configureConditionOptions(
 			conditionField = "Choose Your Destiny",
 			conditionOperator = "Is equal to",
-			conditionRowNumber = "1",
+			conditionRowNumber = 1,
 			conditionValueField = "Destiny 2",
 			conditionValueType = "Value");
 
 		FormRules.configureActionOptions(
 			action = "Jump to Page",
-			actionRowNumber = "1",
+			actionRowNumber = 1,
 			actionTarget = "3 Page 3");
 
 		FormRules.save();
@@ -83,13 +83,13 @@ definition {
 		FormRules.configureConditionOptions(
 			conditionField = "Choose Your Destiny",
 			conditionOperator = "Is equal to",
-			conditionRowNumber = "1",
+			conditionRowNumber = 1,
 			conditionValueField = "Destiny 3",
 			conditionValueType = "Value");
 
 		FormRules.configureActionOptions(
 			action = "Jump to Page",
-			actionRowNumber = "1",
+			actionRowNumber = 1,
 			actionTarget = "4 Page 4");
 
 		FormRules.save();
@@ -102,7 +102,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -120,7 +120,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-68227."
-	@priority = "4"
+	@priority = 4
 	test ViewFormRulesSummary {
 		FormsAdminNavigator.gotoRules();
 
@@ -130,7 +130,7 @@ definition {
 			conditionField = "Choose Your Destiny",
 			conditionFieldConstant = "Destiny 2",
 			conditionOperator = "equal to",
-			ruleNumber = "1");
+			ruleNumber = 1);
 
 		FormRules.viewSummary(
 			action = "Jump to Page",
@@ -138,15 +138,15 @@ definition {
 			conditionField = "Choose Your Destiny",
 			conditionFieldConstant = "Destiny 3",
 			conditionOperator = "equal to",
-			ruleNumber = "2");
+			ruleNumber = 2);
 	}
 
 	@description = "This is a use case for LPS-69372."
-	@priority = "5"
+	@priority = 5
 	test ViewPagesAfterJump {
 		Form.publishForm();
 
-		FormsAdminNavigator.openPublishURL(publishFormURL = "${publishedFormPublicURL}");
+		FormsAdminNavigator.openPublishURL(publishFormURL = ${publishedFormPublicURL});
 
 		for (var option : list "1,2,3") {
 			FormFields.selectRadioOption(
@@ -190,7 +190,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-68227."
-	@priority = "4"
+	@priority = 4
 	test ViewRuleAfterLabelEdit {
 		FormsAdminNavigator.gotoEditField(fieldName = "ChooseYourDestiny");
 
@@ -204,9 +204,9 @@ definition {
 
 		FormsAdminNavigator.gotoRules();
 
-		FormRules.gotoEdit(ruleNumber = "1");
+		FormRules.gotoEdit(ruleNumber = 1);
 
-		var key_conditionRowNumber = "1";
+		var key_conditionRowNumber = 1;
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FormRules#RULE_BUILDER_CONDITION_FIELD",
@@ -214,14 +214,14 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-68227."
-	@priority = "3"
+	@priority = 3
 	test ViewRuleAfterOptionValueEdit {
 		FormsAdminNavigator.gotoEditField(fieldName = "ChooseYourDestiny");
 
 		FormFields.editOptionsRow(
 			optionName = "Destiny2",
 			optionValue = "Edited Destiny",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		Form.closeSidebar();
 
@@ -229,9 +229,9 @@ definition {
 
 		FormsAdminNavigator.gotoRules();
 
-		FormRules.gotoEdit(ruleNumber = "1");
+		FormRules.gotoEdit(ruleNumber = 1);
 
-		var key_conditionRowNumber = "1";
+		var key_conditionRowNumber = 1;
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FormRules#RULE_BUILDER_CONDITION_VALUE_FIELD",
@@ -239,7 +239,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-68227."
-	@priority = "4"
+	@priority = 4
 	test ViewRuleAfterPageNameChange {
 		Form.gotoFormPage(formPageName = "Page 3");
 
@@ -249,9 +249,9 @@ definition {
 
 		FormsAdminNavigator.gotoRules();
 
-		FormRules.gotoEdit(ruleNumber = "1");
+		FormRules.gotoEdit(ruleNumber = 1);
 
-		var key_actionRowNumber = "1";
+		var key_actionRowNumber = 1;
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FormRules#RULE_BUILDER_JUMP_TO_PAGE_ACTION_TARGET",

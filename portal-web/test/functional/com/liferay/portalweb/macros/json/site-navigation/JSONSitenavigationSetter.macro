@@ -1,25 +1,25 @@
 definition {
 
 	macro setGroupId {
-		Variables.assertDefined(parameterList = "${groupName}");
+		Variables.assertDefined(parameterList = ${groupName});
 
 		var groupId = JSONGroupAPI._getGroupIdByName(
-			groupName = "${groupName}",
+			groupName = ${groupName},
 			site = "true");
 
-		return "${groupId}";
+		return ${groupId};
 	}
 
 	macro setSiteNavigationMenuId {
 		Variables.assertDefined(parameterList = "${groupName},${siteNavigationMenuName}");
 
-		var groupId = JSONSitenavigationSetter.setGroupId(groupName = "${groupName}");
+		var groupId = JSONSitenavigationSetter.setGroupId(groupName = ${groupName});
 
 		var siteNavigationMenuId = JSONSitenavigationAPI._getSiteNavigationMenuIdByName(
-			groupId = "${groupId}",
-			siteNavigationMenuName = "${siteNavigationMenuName}");
+			groupId = ${groupId},
+			siteNavigationMenuName = ${siteNavigationMenuName});
 
-		return "${siteNavigationMenuId}";
+		return ${siteNavigationMenuId};
 	}
 
 }

@@ -47,7 +47,7 @@ definition {
 	function clickAtSidebarClickAtWaitForScript {
 		WaitForSPARefresh();
 
-		selenium.pause("1000");
+		selenium.pause(1000);
 
 		selenium.waitForElementPresent("//*[@data-qa-id='controlMenu']//*[@data-qa-id='add']");
 
@@ -55,7 +55,7 @@ definition {
 
 		selenium.waitForElementPresent("//script[contains(@src,'/liferay/node.js')] | //script[contains(@src,'/js/control_menu.js')]");
 
-		selenium.pause("1000");
+		selenium.pause(1000);
 
 		Click.clickAt();
 
@@ -149,13 +149,13 @@ definition {
 	function mouseMoveLeftClick {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent("${locator1}");
+		selenium.waitForElementPresent(${locator1});
 
-		selenium.mouseOver("${locator1}");
+		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible("${locator1}");
+		selenium.waitForVisible(${locator1});
 
-		selenium.mouseMoveAt("${locator1}", "-100,0");
+		selenium.mouseMoveAt(${locator1}, "-100,0");
 
 		selenium.click();
 
@@ -183,7 +183,7 @@ definition {
 	function pauseClickAt {
 		WaitForSPARefresh();
 
-		selenium.pause("1000");
+		selenium.pause(1000);
 
 		selenium.mouseOver();
 
@@ -205,7 +205,7 @@ definition {
 			selenium.selectFrame("//iframe");
 		}
 
-		selenium.pause("3000");
+		selenium.pause(3000);
 
 		Click();
 

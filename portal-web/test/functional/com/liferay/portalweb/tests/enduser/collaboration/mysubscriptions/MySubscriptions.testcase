@@ -19,7 +19,7 @@ definition {
 			layoutName = "My Subscriptions Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "My Subscriptions Page",
 			widgetName = "My Subscriptions");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -44,7 +44,7 @@ definition {
 			layoutName = "Bookmarks Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Bookmarks Page",
 			widgetName = "Bookmarks");
@@ -60,7 +60,7 @@ definition {
 			assetTitle = "Home",
 			assetType = "Bookmarks Folder");
 
-		Subscriptions.unsubscribeViaMySubscriptions(rowNumber = "1");
+		Subscriptions.unsubscribeViaMySubscriptions(rowNumber = 1);
 
 		Navigator.gotoPage(pageName = "My Subscriptions Page");
 

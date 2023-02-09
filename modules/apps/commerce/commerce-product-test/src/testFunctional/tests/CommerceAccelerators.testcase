@@ -26,13 +26,13 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 	}
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -370,7 +370,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		Refresh();
 
@@ -378,7 +378,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -388,8 +388,8 @@ definition {
 			newAddressZipCode = "Test Zip Code",
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
-			productQuantity = "2",
-			productUnitPrice = "50",
+			productQuantity = 2,
+			productUnitPrice = 50,
 			shippingMethod = "Standard");
 
 		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
@@ -402,7 +402,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		CommerceLogin.miniumLogoutPG();
 
@@ -417,7 +417,7 @@ definition {
 			orderAuthor = "buyer@liferay.com",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -427,7 +427,7 @@ definition {
 			orderAuthor = "buyer@liferay.com",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -445,7 +445,7 @@ definition {
 		CommerceOrders.viewOrdersEntry(
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -467,7 +467,7 @@ definition {
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 	}
@@ -528,7 +528,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		Refresh();
 
@@ -538,7 +538,7 @@ definition {
 
 		Button.click(button = "Checkout");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -548,8 +548,8 @@ definition {
 			newAddressZipCode = "Test Zip Code",
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
-			productQuantity = "2",
-			productUnitPrice = "50",
+			productQuantity = 2,
+			productUnitPrice = 50,
 			shippingMethod = "Standard");
 
 		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
@@ -562,7 +562,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		User.logoutPG();
 
@@ -577,7 +577,7 @@ definition {
 			orderAuthor = "buyer@liferay.com",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -587,7 +587,7 @@ definition {
 			orderAuthor = "buyer@liferay.com",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -605,7 +605,7 @@ definition {
 		CommerceOrders.viewOrdersEntry(
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 
@@ -627,7 +627,7 @@ definition {
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "MIN93015",
 			productUnitPrice = "50.00");
 	}
@@ -699,9 +699,9 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
-		Pause(locator1 = "2000");
+		Pause(locator1 = 2000);
 
 		Refresh();
 
@@ -709,7 +709,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -719,8 +719,8 @@ definition {
 			newAddressZipCode = "Test Zip Code",
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
-			productQuantity = "2",
-			productUnitPrice = "50",
+			productQuantity = 2,
+			productUnitPrice = 50,
 			shippingMethod = "Standard");
 
 		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
@@ -729,7 +729,7 @@ definition {
 
 		FrontStore.addInitializerProductToCart(
 			productName = "ABS Sensor",
-			productQuantity = "2");
+			productQuantity = 2);
 
 		CommerceLogin.speedwellLogout();
 
@@ -754,7 +754,7 @@ definition {
 		CommerceOrders.viewOrdersEntry(
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "SPEED93015",
 			productUnitPrice = "50.00");
 
@@ -776,7 +776,7 @@ definition {
 			paymentMethod = "Money Order",
 			productName = "ABS Sensor",
 			productPrice = "100.00",
-			productQuantity = "2",
+			productQuantity = 2,
 			productSKU = "SPEED93015",
 			productUnitPrice = "50.00");
 	}

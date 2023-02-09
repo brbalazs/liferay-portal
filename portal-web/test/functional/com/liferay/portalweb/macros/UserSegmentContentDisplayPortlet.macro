@@ -3,29 +3,29 @@ definition {
 	macro configureDisplayContent {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
 
-		var rowIndexNumber = selenium.getNumberDecrement("${rowNumber}");
+		var rowIndexNumber = selenium.getNumberDecrement(${rowNumber});
 
-		if ("${rowIndexNumber}" != "0") {
-			var key_indexNumber = "${rowIndexNumber}";
+		if (${rowIndexNumber} != 0) {
+			var key_indexNumber = ${rowIndexNumber};
 
 			Click(locator1 = "ContentTargeting#PLUS_LINK");
 		}
 
-		var key_rowNumber = "${rowNumber}";
+		var key_rowNumber = ${rowNumber};
 
-		if ("${belongs}" == "true") {
+		if (${belongs} == "true") {
 			Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_BELONGS_RADIO");
 		}
 
-		if ("${doesNotBelong}" == "true") {
+		if (${doesNotBelong} == "true") {
 			Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_DOES_NOT_BELONG_RADIO");
 		}
 
-		if ("${toAll}" == "true") {
+		if (${toAll} == "true") {
 			Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_ALL_RADIO");
 		}
 
-		if ("${toAny}" == "true") {
+		if (${toAny} == "true") {
 			Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_ANY_RADIO");
 		}
 
@@ -33,8 +33,8 @@ definition {
 
 		SelectFrame(value1 = "relative=top");
 
-		for (var userSegmentName : list "${userSegmentName}") {
-			var key_userSegmentName = "${userSegmentName}";
+		for (var userSegmentName : list ${userSegmentName}) {
+			var key_userSegmentName = ${userSegmentName};
 
 			Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_USER_SEGMENT_SELECT_USER_SEGMENT_CHECKBOX");
 		}
@@ -44,7 +44,7 @@ definition {
 			value1 = "OK");
 
 		if (isSet(siteScope)) {
-			var key_siteScope = "${siteScope}";
+			var key_siteScope = ${siteScope};
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "UserSegmentContentDisplay#RULE_PANEL_USER_SEGMENT_SELECT_USER_SEGMENT_SCOPE",
@@ -57,15 +57,15 @@ definition {
 
 		Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_DISPLAY_CONTENT_SELECT");
 
-		var key_menuItem = "${contentType}";
+		var key_menuItem = ${contentType};
 
-		MenuItem.click(menuItem = "${contentType}");
+		MenuItem.click(menuItem = ${contentType});
 
 		SelectFrame(value1 = "relative=top");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_rowEntry = "${contentTitle}";
+		var key_rowEntry = ${contentTitle};
 
 		ClickNoError(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
@@ -88,13 +88,13 @@ definition {
 
 			ClickNoError(locator1 = "ContentTargeting#OTHERWISE_PANEL_SELECT_CONTENT");
 
-			MenuItem.click(menuItem = "${otherwiseContentType}");
+			MenuItem.click(menuItem = ${otherwiseContentType});
 
 			SelectFrame(value1 = "relative=top");
 
 			SelectFrame(locator1 = "IFrame#DIALOG");
 
-			var key_rowEntry = "${otherwiseContentTitle}";
+			var key_rowEntry = ${otherwiseContentTitle};
 
 			ClickNoError(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
@@ -121,94 +121,94 @@ definition {
 
 	macro viewConfiguredDisplayContent {
 		Portlet.gotoPortletOptions(
-			portletName = "${portletName}",
+			portletName = ${portletName},
 			portletOption = "Configuration");
 
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
-		var key_rowNumber = "${rowNumber}";
+		var key_rowNumber = ${rowNumber};
 
-		if ("${belongs}" == "true") {
+		if (${belongs} == "true") {
 			AssertChecked(locator1 = "UserSegmentContentDisplay#RULE_PANEL_BELONGS_RADIO");
 		}
 
-		if ("${doesNotBelong}" == "true") {
+		if (${doesNotBelong} == "true") {
 			AssertChecked(locator1 = "UserSegmentContentDisplay#RULE_PANEL_DOES_NOT_BELONG_RADIO");
 		}
 
-		if ("${toAll}" == "true") {
+		if (${toAll} == "true") {
 			AssertChecked(locator1 = "UserSegmentContentDisplay#RULE_PANEL_ALL_RADIO");
 		}
 
-		if ("${toAny}" == "true") {
+		if (${toAny} == "true") {
 			AssertChecked(locator1 = "UserSegmentContentDisplay#RULE_PANEL_ANY_RADIO");
 		}
 
-		var key_userSegmentName = "${userSegmentName}";
+		var key_userSegmentName = ${userSegmentName};
 
 		AssertTextEquals(
 			locator1 = "UserSegmentContentDisplay#RULE_PANEL_SELECTED_USER_SEGMENT",
-			value1 = "${userSegmentName}");
+			value1 = ${userSegmentName});
 
-		var key_contentTitle = "${contentTitle}";
+		var key_contentTitle = ${contentTitle};
 
 		AssertTextEquals(
 			locator1 = "ContentTargeting#CARD_CONTENT_TITLE",
-			value1 = "${contentTitle}");
+			value1 = ${contentTitle});
 
-		var key_contentType = "${contentType}";
+		var key_contentType = ${contentType};
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "ContentTargeting#CARD_CONTENT_TYPE",
-			value1 = "${contentType}");
+			value1 = ${contentType});
 
 		if (isSet(otherwiseContentType)) {
 			Click(locator1 = "ContentTargeting#OTHERWISE_PANEL");
 
 			AssertChecked(locator1 = "ContentTargeting#OTHERWISE_PANEL_DISPLAY_THIS_CONTENT_RADIO");
 
-			var key_contentType = "${otherwiseContentType}";
+			var key_contentType = ${otherwiseContentType};
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "ContentTargeting#OTHERWISE_PANEL_SELECTED_CONTENT_TYPE",
-				value1 = "${otherwiseContentType}");
+				value1 = ${otherwiseContentType});
 
-			var key_contentTitle = "${otherwiseContentTitle}";
+			var key_contentTitle = ${otherwiseContentTitle};
 
 			AssertTextEquals(
 				locator1 = "ContentTargeting#OTHERWISE_PANEL_SELECTED_CONTENT_TITLE",
-				value1 = "${otherwiseContentTitle}");
+				value1 = ${otherwiseContentTitle});
 		}
 	}
 
 	macro viewContentOnly {
 		AssertTextEquals(
 			locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
-			value1 = "${entryContentText}");
+			value1 = ${entryContentText});
 	}
 
 	macro viewEntryPG {
 		ContentTargeting.expandPreview(portletName = "User Segment Content Display");
 
 		if (isSet(viewUserSegmentSelected)) {
-			var key_viewEntrySelected = "${viewUserSegmentSelected}";
+			var key_viewEntrySelected = ${viewUserSegmentSelected};
 
 			AssertElementPresent(locator1 = "ContentTargeting#PREVIEW_ENTRY_SELECTED");
 		}
 
 		if (isSet(previewUserSegmentList)) {
-			for (var previewEntry : list "${previewUserSegmentList}") {
+			for (var previewEntry : list ${previewUserSegmentList}) {
 				ContentTargeting.expandPreview(portletName = "User Segment Content Display");
 
-				var key_previewEntry = "${previewEntry}";
+				var key_previewEntry = ${previewEntry};
 
-				if (isSet(entryContentText) && ("${previewEntry}" != "default")) {
+				if (isSet(entryContentText) && (${previewEntry} != "default")) {
 					AssertTextEquals(
 						locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
-						value1 = "${entryContentText}");
+						value1 = ${entryContentText});
 				}
 
-				if (("viewDontDisplay" == "true") && ("${previewEntry}" == "default")) {
+				if (("viewDontDisplay" == "true") && (${previewEntry} == "default")) {
 					AssertTextEquals(
 						locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
 						value1 = "There are no matching rules");

@@ -18,7 +18,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -26,7 +26,7 @@ definition {
 		}
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddPageMultiplePagesToSite {
 		property testray.component.names = "Site Pages Administration";
 
@@ -55,7 +55,7 @@ definition {
 			privacy = "Public Pages");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddSitePrivatePage {
 		property testray.component.names = "Site Pages Administration";
 
@@ -68,7 +68,7 @@ definition {
 			privacy = "Private Pages");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddSitePublicChildPage {
 		property testray.component.names = "Site Pages Administration";
 
@@ -79,7 +79,7 @@ definition {
 			parentPageName = "Site Page");
 
 		Page.view(
-			depth = "2",
+			depth = 2,
 			pageName = "Site Child Page",
 			privacy = "Public Pages");
 	}

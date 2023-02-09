@@ -24,7 +24,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -33,7 +33,7 @@ definition {
 	}
 
 	@description = "User can add a display page."
-	@priority = "3"
+	@priority = 3
 	test AddBlankDisplayPage {
 		PortletEntry.publish();
 
@@ -41,7 +41,7 @@ definition {
 	}
 
 	@description = "User can add a display page with fragments."
-	@priority = "5"
+	@priority = 5
 	test AddDisplayPage {
 		property portal.acceptance = "true";
 
@@ -52,7 +52,7 @@ definition {
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		PageEditor.viewAutoSaveMessage();
@@ -66,11 +66,11 @@ definition {
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertAssetTypeOnlySelectableOnce {
 		PageEditorMapping.selectAssetType(
 			assetType = "Web Content Article",
@@ -80,7 +80,7 @@ definition {
 	}
 
 	@description = "In the display page editor, user can add, remove, and reorder fragments, and user can edit text in fragment editable fields."
-	@priority = "5"
+	@priority = 5
 	test AssertDisplayPageEditorFunctionality {
 		PageEditor.addFragment(
 			collectionName = "Collection Name",
@@ -117,26 +117,26 @@ definition {
 		AssertVisible(
 			key_content = "Editing Finished",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus eleifend lacus nec porttitor. Vestibulum pharetra ullamcorper felis volutpat commodo. Nam id ipsum placerat, hendrerit orci eu, congue nisi. Proin.",
 			key_fragmentClass = "body",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		Button.viewNotPresent(button = "Submit");
 	}
 
 	@description = "User can delete display pages."
-	@priority = "5"
+	@priority = 5
 	test DeleteDisplayPage {
 		property portal.acceptance = "true";
 
@@ -148,7 +148,7 @@ definition {
 	}
 
 	@description = "User can edit a display page. This includes adding, removing, and reordering fragments and includes editing text in fragment editable fields."
-	@priority = "5"
+	@priority = 5
 	test EditDisplayPage {
 		PageEditor.addFragment(
 			collectionName = "Collection Name",
@@ -197,26 +197,26 @@ definition {
 		AssertVisible(
 			key_content = "Editing Finished",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		AssertVisible(
 			key_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus eleifend lacus nec porttitor. Vestibulum pharetra ullamcorper felis volutpat commodo. Nam id ipsum placerat, hendrerit orci eu, congue nisi. Proin.",
 			key_fragmentClass = "body",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
 
 		Button.viewNotPresent(button = "Submit");
 	}
 
 	@description = "User can rename display pages."
-	@priority = "4"
+	@priority = 4
 	test RenameDisplayPage {
 		DisplayPagesAdmin.openDisplayPagesAdmin(siteURLKey = "test-site-name");
 
@@ -228,7 +228,7 @@ definition {
 	}
 
 	@description = "User cannot delete a display page that is in use by an asset."
-	@priority = "4"
+	@priority = 4
 	test ViewCannotDeleteActiveDisplayPage {
 		PageEditorMapping.selectAssetType(
 			assetType = "Web Content Article",

@@ -42,7 +42,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -54,7 +54,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentBehaviorContentVisitedCP {
 		property content.targeting.release = "true";
 
@@ -94,7 +94,7 @@ definition {
 			webContentTitle = "Web Content Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentBehaviorPageVisitedCP {
 		property content.targeting.release = "true";
 
@@ -127,7 +127,7 @@ definition {
 			viewUserSegmentRuleList = "Page Visited");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentBehaviorPreviouslyVisitedSiteContainsCP {
 		property content.targeting.release = "true";
 
@@ -163,7 +163,7 @@ definition {
 			viewUserSegmentRuleList = "Previously Visited Site");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentBehaviorPreviouslyVisitedSiteStartsWithCP {
 		property content.targeting.release = "true";
 
@@ -199,7 +199,7 @@ definition {
 			viewUserSegmentRuleList = "Previously Visited Site");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentBehaviorScorePointsCP {
 		property content.targeting.release = "true";
 
@@ -212,7 +212,7 @@ definition {
 			menuItem = "Edit",
 			rowEntry = "User Segment Name");
 
-		ContentTargetingUserSegment.addBehaviorScorePointsRuleCP(scorePoints = "100");
+		ContentTargetingUserSegment.addBehaviorScorePointsRuleCP(scorePoints = 100);
 
 		PortletEntry.save();
 
@@ -228,11 +228,11 @@ definition {
 			rowEntry = "User Segment Name");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			scorePoints = "100",
+			scorePoints = 100,
 			viewUserSegmentRuleList = "Score Points");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleBehaviorContentVisitedCP {
 		property content.targeting.release = "true";
 
@@ -258,7 +258,7 @@ definition {
 		for (var webContentTitle : list "Web Content Title 1,Web Content Title 2") {
 			ContentTargetingUserSegment.addBehaviorContentVisitedRuleCP(
 				contentVisitedContent = "Basic Web Content",
-				webContentTitle = "${webContentTitle}");
+				webContentTitle = ${webContentTitle});
 		}
 
 		PortletEntry.save();
@@ -279,12 +279,12 @@ definition {
 			webContentTitle = "Web Content Title 1");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Content Visited",
 			webContentTitle = "Web Content Title 2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleBehaviorPageVisitedCP {
 		property content.targeting.release = "true";
 
@@ -305,7 +305,7 @@ definition {
 			rowEntry = "User Segment Name");
 
 		for (var friendlyURL : list "/test-page-name,/site-page-name") {
-			ContentTargetingUserSegment.addBehaviorPageVisitedRuleCP(friendlyURL = "${friendlyURL}");
+			ContentTargetingUserSegment.addBehaviorPageVisitedRuleCP(friendlyURL = ${friendlyURL});
 		}
 
 		PortletEntry.save();
@@ -327,11 +327,11 @@ definition {
 
 		ContentTargetingUserSegment.viewRulesCP(
 			friendlyURL = "/site-page-name",
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Page Visited");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesCustomFieldCP {
 		property content.targeting.release = "true";
 
@@ -359,7 +359,7 @@ definition {
 		for (var customFieldValue : list "User Custom Field Value 1,User Custom Field Value 2") {
 			ContentTargetingUserSegment.addUserAttributesCustomFieldCP(
 				customFieldKey = "usercustomfield",
-				customFieldValue = "${customFieldValue}");
+				customFieldValue = ${customFieldValue});
 		}
 
 		PortletEntry.save();
@@ -383,11 +383,11 @@ definition {
 		ContentTargetingUserSegment.viewRulesCP(
 			customFieldKey = "usercustomfield",
 			customFieldValue = "User Custom Field Value 2",
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Custom Field");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesOrganizationMemberCP {
 		property content.targeting.release = "true";
 
@@ -398,7 +398,7 @@ definition {
 				portlet = "Users and Organizations");
 
 			Organization.addCP(
-				orgName = "${orgName}",
+				orgName = ${orgName},
 				orgType = "Organization");
 		}
 
@@ -414,7 +414,7 @@ definition {
 			rowEntry = "User Segment Name");
 
 		for (var organizationName : list "Organization Name 1,Organization Name 2") {
-			ContentTargetingUserSegment.addUserAttributesOrganizationMemberRuleCP(organizationName = "${organizationName}");
+			ContentTargetingUserSegment.addUserAttributesOrganizationMemberRuleCP(organizationName = ${organizationName});
 		}
 
 		PortletEntry.save();
@@ -434,11 +434,11 @@ definition {
 
 		ContentTargetingUserSegment.viewRulesCP(
 			organizationName = "Organization Name 2",
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Organization Member");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesOrganizationRoleCP {
 		property content.targeting.release = "true";
 
@@ -449,7 +449,7 @@ definition {
 				portlet = "Users and Organizations");
 
 			Organization.addCP(
-				orgName = "${orgName}",
+				orgName = ${orgName},
 				orgType = "Organization");
 		}
 
@@ -466,7 +466,7 @@ definition {
 
 		for (var organizationName : list "Organization Name 1,Organization Name 2") {
 			ContentTargetingUserSegment.addUserAttributesOrganizationRoleRuleCP(
-				organizationName = "${organizationName}",
+				organizationName = ${organizationName},
 				organizationRole = "Organization Owner");
 		}
 
@@ -491,11 +491,11 @@ definition {
 		ContentTargetingUserSegment.viewRulesCP(
 			organizationName = "Organization Name 2",
 			organizationRole = "Organization Owner",
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Organization Role");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesRegularRoleCP {
 		property content.targeting.release = "true";
 
@@ -509,7 +509,7 @@ definition {
 			rowEntry = "User Segment Name");
 
 		for (var regularRole : list "Administrator,Power User") {
-			ContentTargetingUserSegment.addUserAttributesRegularRoleRuleCP(regularRole = "${regularRole}");
+			ContentTargetingUserSegment.addUserAttributesRegularRoleRuleCP(regularRole = ${regularRole});
 		}
 
 		PortletEntry.save();
@@ -531,11 +531,11 @@ definition {
 
 		ContentTargetingUserSegment.viewRulesCP(
 			regularRole = "Power User",
-			ruleInstance = "2",
+			ruleInstance = 2,
 			viewUserSegmentRuleList = "Regular Role");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesSiteMemberCP {
 		property content.targeting.release = "true";
 
@@ -548,10 +548,10 @@ definition {
 			menuItem = "Edit",
 			rowEntry = "User Segment Name");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		for (var selectSiteMemberSite : list "Site Name,${siteName}") {
-			ContentTargetingUserSegment.addUserAttributesSiteMemberRuleCP(selectSiteMemberSite = "${selectSiteMemberSite}");
+			ContentTargetingUserSegment.addUserAttributesSiteMemberRuleCP(selectSiteMemberSite = ${selectSiteMemberSite});
 		}
 
 		PortletEntry.save();
@@ -572,12 +572,12 @@ definition {
 			viewUserSegmentRuleList = "Site Member");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			ruleInstance = "2",
-			selectSiteMemberSite = "${siteName}",
+			ruleInstance = 2,
+			selectSiteMemberSite = ${siteName},
 			viewUserSegmentRuleList = "Site Member");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesSiteRoleCP {
 		property content.targeting.release = "true";
 
@@ -592,7 +592,7 @@ definition {
 
 		for (var siteRole : list "Site Administrator,Site Owner") {
 			ContentTargetingUserSegment.addUserAttributesSiteRoleRuleCP(
-				siteRole = "${siteRole}",
+				siteRole = ${siteRole},
 				siteRoleSite = "Site Name");
 		}
 
@@ -615,13 +615,13 @@ definition {
 			viewUserSegmentRuleList = "Site Role");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			ruleInstance = "2",
+			ruleInstance = 2,
 			siteRole = "Site Owner",
 			siteRoleSite = "Site Name",
 			viewUserSegmentRuleList = "Site Role");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserSegmentMultipleUserAttributesUserGroupMemberCP {
 		property content.targeting.release = "true";
 
@@ -631,7 +631,7 @@ definition {
 				panel = "Control Panel",
 				portlet = "User Groups");
 
-			UserGroup.addCP(userGroupName = "${userGroupName}");
+			UserGroup.addCP(userGroupName = ${userGroupName});
 		}
 
 		Navigator.openSiteURL(siteName = "Site Name");
@@ -646,7 +646,7 @@ definition {
 			rowEntry = "User Segment Name");
 
 		for (var userGroupName : list "User Group Name 1,User Group Name 2") {
-			ContentTargetingUserSegment.addUserAttributesUserGroupMemberRuleCP(userGroupName = "${userGroupName}");
+			ContentTargetingUserSegment.addUserAttributesUserGroupMemberRuleCP(userGroupName = ${userGroupName});
 		}
 
 		PortletEntry.save();
@@ -667,12 +667,12 @@ definition {
 			viewUserSegmentRuleList = "User Group Member");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			ruleInstance = "2",
+			ruleInstance = 2,
 			userGroupName = "User Group Name 2",
 			viewUserSegmentRuleList = "User Group Member");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookAgeCP {
 		property content.targeting.release = "true";
 
@@ -686,8 +686,8 @@ definition {
 			rowEntry = "User Segment Name");
 
 		ContentTargetingUserSegment.addSocialFacebookAgeRuleCP(
-			facebookOlderThanAge = "18",
-			facebookYoungerThanAge = "50");
+			facebookOlderThanAge = 18,
+			facebookYoungerThanAge = 50);
 
 		PortletEntry.save();
 
@@ -703,12 +703,12 @@ definition {
 			rowEntry = "User Segment Name");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			facebookOlderThanAge = "18",
-			facebookYoungerThanAge = "50",
+			facebookOlderThanAge = 18,
+			facebookYoungerThanAge = 50,
 			viewUserSegmentRuleList = "Facebook Age");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookCityCP {
 		property content.targeting.release = "true";
 
@@ -741,7 +741,7 @@ definition {
 			viewUserSegmentRuleList = "Facebook City");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookEducationCP {
 		property content.targeting.release = "true";
 
@@ -777,7 +777,7 @@ definition {
 			viewUserSegmentRuleList = "Facebook Education");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookFriendsCP {
 		property content.targeting.release = "true";
 
@@ -792,7 +792,7 @@ definition {
 
 		ContentTargetingUserSegment.addSocialFacebookFriendsRuleCP(
 			moreLessThan = "More",
-			numberOfFriends = "50");
+			numberOfFriends = 50);
 
 		PortletEntry.save();
 
@@ -809,11 +809,11 @@ definition {
 
 		ContentTargetingUserSegment.viewRulesCP(
 			moreLessThan = "More",
-			numberOfFriends = "50",
+			numberOfFriends = 50,
 			viewUserSegmentRuleList = "Facebook Friends");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookGenderCP {
 		property content.targeting.release = "true";
 
@@ -846,7 +846,7 @@ definition {
 			viewUserSegmentRuleList = "Facebook Gender");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSocialFacebookPageLikeCP {
 		property content.targeting.release = "true";
 
@@ -879,7 +879,7 @@ definition {
 			viewUserSegmentRuleList = "Facebook Page Like");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSystemAttributesBrowserCP {
 		property content.targeting.release = "true";
 
@@ -912,7 +912,7 @@ definition {
 			viewUserSegmentRuleList = "Browser");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSystemAttributesDeviceCP {
 		property content.targeting.release = "true";
 
@@ -954,7 +954,7 @@ definition {
 			viewUserSegmentRuleList = "Device");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSystemAttributesLocationCP {
 		property content.targeting.release = "true";
 
@@ -990,7 +990,7 @@ definition {
 			viewUserSegmentRuleList = "Location");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSystemAttributesOperatingSystemCP {
 		property content.targeting.release = "true";
 
@@ -1023,7 +1023,7 @@ definition {
 			viewUserSegmentRuleList = "Operating System");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentSystemAttributesTimeCP {
 		property content.targeting.release = "true";
 
@@ -1059,7 +1059,7 @@ definition {
 			viewUserSegmentRuleList = "Access Time");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesAgeCP {
 		property content.targeting.release = "true";
 
@@ -1073,8 +1073,8 @@ definition {
 			rowEntry = "User Segment Name");
 
 		ContentTargetingUserSegment.addUserAttributesAgeRuleCP(
-			olderThanAge = "21",
-			youngerThanAge = "99");
+			olderThanAge = 21,
+			youngerThanAge = 99);
 
 		PortletEntry.save();
 
@@ -1090,12 +1090,12 @@ definition {
 			rowEntry = "User Segment Name");
 
 		ContentTargetingUserSegment.viewRulesCP(
-			olderThanAge = "21",
+			olderThanAge = 21,
 			viewUserSegmentRuleList = "Age",
-			youngerThanAge = "99");
+			youngerThanAge = 99);
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesCustomFieldCP {
 		property content.targeting.release = "true";
 
@@ -1143,7 +1143,7 @@ definition {
 			viewUserSegmentRuleList = "Custom Field");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesGenderCP {
 		property content.targeting.release = "true";
 
@@ -1176,7 +1176,7 @@ definition {
 			viewUserSegmentRuleList = "Gender");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesOrganizationMemberCP {
 		property content.targeting.release = "true";
 
@@ -1222,7 +1222,7 @@ definition {
 		Organization.tearDownCP();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesOrganizationRoleCP {
 		property content.targeting.release = "true";
 
@@ -1271,7 +1271,7 @@ definition {
 		Organization.tearDownCP();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesRegularRoleCP {
 		property content.targeting.release = "true";
 
@@ -1304,7 +1304,7 @@ definition {
 			viewUserSegmentRuleList = "Regular Role");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesSiteMemberCP {
 		property content.targeting.release = "true";
 
@@ -1337,11 +1337,11 @@ definition {
 			viewUserSegmentRuleList = "Site Member");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesSiteRoleCP {
 		property content.targeting.release = "true";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1354,7 +1354,7 @@ definition {
 
 		ContentTargetingUserSegment.addUserAttributesSiteRoleRuleCP(
 			siteRole = "Site Owner",
-			siteRoleSite = "${siteName}");
+			siteRoleSite = ${siteName});
 
 		PortletEntry.save();
 
@@ -1371,11 +1371,11 @@ definition {
 
 		ContentTargetingUserSegment.viewRulesCP(
 			siteRole = "Site Owner",
-			siteRoleSite = "${siteName}",
+			siteRoleSite = ${siteName},
 			viewUserSegmentRuleList = "Site Role");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesUserGroupMemberCP {
 		property content.targeting.release = "true";
 
@@ -1417,7 +1417,7 @@ definition {
 			viewUserSegmentRuleList = "User Group Member");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddUserSegmentUserAttributesUserSignedInCP {
 		property content.targeting.release = "true";
 

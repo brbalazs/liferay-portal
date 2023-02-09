@@ -3,7 +3,7 @@ definition {
 	macro configureSearchResults {
 		if (isSet(index)) {
 			SearchResultPortlet.gotoWidgetOptionsSpecific(
-				index = "${index}",
+				index = ${index},
 				portletOption = "Configuration");
 		}
 		else {
@@ -14,7 +14,7 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
-		if ("${disableHighlighting}" == "true") {
+		if (${disableHighlighting} == "true") {
 			Uncheck(
 				checkboxName = "Enable Highlighting",
 				locator1 = "Checkbox#ANY_CHECKBOX");
@@ -27,65 +27,65 @@ definition {
 
 	macro gotoWidgetOptionsSpecific {
 		MouseOver.mouseOverNotVisible(
-			key_index = "${index}",
+			key_index = ${index},
 			locator1 = "SearchResults#RESULTS_PORTLET_WIDGET_ELLIPSIS_ICON_SPECIFIC");
 
 		Click(
-			key_index = "${index}",
+			key_index = ${index},
 			locator1 = "SearchResults#RESULTS_PORTLET_WIDGET_ELLIPSIS_ICON_SPECIFIC");
 
 		if (isSet(portletOption)) {
-			var key_menuItem = "${portletOption}";
+			var key_menuItem = ${portletOption};
 
 			Click(locator1 = "MenuItem#ANY_MENU_ITEM");
 		}
 	}
 
 	macro paginateAndViewSearchResults {
-		var key_searchAssetTitle = "${searchAssetTitle}";
-		var key_searchAssetType = "${searchAssetType}";
-		var searchAssetTitle = "${searchAssetTitle}";
-		var searchAssetType = "${searchAssetType}";
-		var searchTerm = "${searchTerm}";
+		var key_searchAssetTitle = ${searchAssetTitle};
+		var key_searchAssetType = ${searchAssetType};
+		var searchAssetTitle = ${searchAssetTitle};
+		var searchAssetType = ${searchAssetType};
+		var searchTerm = ${searchTerm};
 
 		while (IsElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC")) {
 			Click(locator1 = "Pagination#NEXT_LINK");
 		}
 
 		SearchResultPortlet.viewSearchResults(
-			searchAssetTitle = "${searchAssetTitle}",
-			searchAssetType = "${searchAssetType}",
-			searchTerm = "${searchTerm}");
+			searchAssetTitle = ${searchAssetTitle},
+			searchAssetType = ${searchAssetType},
+			searchTerm = ${searchTerm});
 	}
 
 	macro viewMultipleSearchResults {
-		if (!(contains("${resultsList}", "/"))) {
+		if (!(contains(${resultsList}, "/"))) {
 			fail("You must pass in a list with title and type separated by '/'.");
 		}
 
-		for (var titleAndType : list "${resultsList}") {
-			var searchAssetTitle = StringUtil.extractFirst("${titleAndType}", "/");
-			var searchAssetType = StringUtil.extractLast("${titleAndType}", "/");
+		for (var titleAndType : list ${resultsList}) {
+			var searchAssetTitle = StringUtil.extractFirst(${titleAndType}, "/");
+			var searchAssetType = StringUtil.extractLast(${titleAndType}, "/");
 
 			SearchResultPortlet.viewSearchResults(
-				searchAssetTitle = "${searchAssetTitle}",
-				searchAssetType = "${searchAssetType}",
-				searchTerm = "${searchTerm}");
+				searchAssetTitle = ${searchAssetTitle},
+				searchAssetType = ${searchAssetType},
+				searchTerm = ${searchTerm});
 		}
 	}
 
 	macro viewMultipleSearchResultsNotPresent {
-		if (!(contains("${noResultsList}", "/"))) {
+		if (!(contains(${noResultsList}, "/"))) {
 			fail("You must pass in a list with title and type separated by '/'.");
 		}
 
-		for (var titleAndType : list "${noResultsList}") {
-			var searchAssetTitle = StringUtil.extractFirst("${titleAndType}", "/");
-			var searchAssetType = StringUtil.extractLast("${titleAndType}", "/");
+		for (var titleAndType : list ${noResultsList}) {
+			var searchAssetTitle = StringUtil.extractFirst(${titleAndType}, "/");
+			var searchAssetType = StringUtil.extractLast(${titleAndType}, "/");
 
 			SearchResultPortlet.viewSearchResultNotPresent(
-				searchAssetTitle = "${searchAssetTitle}",
-				searchAssetType = "${searchAssetType}");
+				searchAssetTitle = ${searchAssetTitle},
+				searchAssetType = ${searchAssetType});
 		}
 	}
 
@@ -97,39 +97,39 @@ definition {
 
 	macro viewSearchResultNotPresent {
 		AssertElementNotPresent(
-			key_searchAssetTitle = "${searchAssetTitle}",
-			key_searchAssetType = "${searchAssetType}",
+			key_searchAssetTitle = ${searchAssetTitle},
+			key_searchAssetType = ${searchAssetType},
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC");
 	}
 
 	macro viewSearchResults {
-		var key_searchAssetTitle = "${searchAssetTitle}";
-		var key_searchAssetType = "${searchAssetType}";
+		var key_searchAssetTitle = ${searchAssetTitle};
+		var key_searchAssetType = ${searchAssetType};
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC",
-			value1 = "${searchAssetTitle}");
+			value1 = ${searchAssetTitle});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC",
-			value1 = "${searchAssetType}");
+			value1 = ${searchAssetType});
 
 		if (isSet(entryDate)) {
 			AssertTextEquals.assertPartialText(
 				locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC",
-				value1 = "${entryDate}");
+				value1 = ${entryDate});
 		}
 
 		if (isSet(searchAssetSummary)) {
 			AssertTextEquals.assertPartialText(
 				locator1 = "SearchResults#ASSET_ENTRY_TABLE_SUMMARY_SPECIFIC",
-				value1 = "${searchAssetSummary}");
+				value1 = ${searchAssetSummary});
 		}
 
 		if (isSet(searchTerm)) {
 			AssertTextEquals.assertPartialText(
 				locator1 = "SearchResults#RESULTS_PORTLET_SEARCH_QUERY",
-				value1 = "${searchTerm}");
+				value1 = ${searchTerm});
 		}
 	}
 

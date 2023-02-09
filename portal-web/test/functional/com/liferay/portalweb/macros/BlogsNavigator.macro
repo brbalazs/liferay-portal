@@ -24,7 +24,7 @@ definition {
 	macro gotoBlogsEntryPermissionsCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Permissions",
-			rowEntry = "${entryTitle}");
+			rowEntry = ${entryTitle});
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
@@ -54,11 +54,11 @@ definition {
 	macro gotoEditCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
-		var key_entryTitle = "${entryTitle}";
+		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
 			locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 
 		Click(locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_OPTIONS_DROPDOWN");
 
@@ -72,11 +72,11 @@ definition {
 	}
 
 	macro gotoEditPG {
-		var key_entryTitle = "${entryTitle}";
+		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
 			locator1 = "BlogsEntry#TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 
 		if (IsElementPresent(locator1 = "Button#EDIT_PENCIL")) {
 			Click(locator1 = "Button#EDIT_PENCIL");
@@ -93,68 +93,68 @@ definition {
 	macro gotoEntryCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
-		var key_entryTitle = "${entryTitle}";
+		var key_entryTitle = ${entryTitle};
 
 		if (isSet(entryStatus)) {
 			AssertTextEquals(
 				locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_STATUS",
-				value1 = "${entryStatus}");
+				value1 = ${entryStatus});
 		}
 
 		AssertClick(
 			locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 	}
 
 	macro gotoEntryPG {
-		var key_entryContent = "${entryContent}";
-		var key_entryTitle = "${entryTitle}";
+		var key_entryContent = ${entryContent};
+		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
 			locator1 = "BlogsEntry#TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 
 		AssertTextEquals(
 			locator1 = "BlogsEntry#CONTENT",
-			value1 = "${entryContent}");
+			value1 = ${entryContent});
 
 		AssertClick.assertTextClickAt(
 			locator1 = "BlogsEntry#TITLE_LINK",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 	}
 
 	macro gotoEntryWithAbstractPG {
-		var key_entryAbstractDescription = "${entryAbstractDescription}";
-		var key_entryTitle = "${entryTitle}";
+		var key_entryAbstractDescription = ${entryAbstractDescription};
+		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
 			locator1 = "BlogsEntry#TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "BlogsEntry#CONTENT_ABSTRACT",
-			value1 = "${entryAbstractDescription}");
+			value1 = ${entryAbstractDescription});
 
 		AssertClick(
 			locator1 = "BlogsEntry#TITLE_LINK",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 	}
 
 	macro gotoPG {
-		var key_entryTitle = "${entryTitle}";
+		var key_entryTitle = ${entryTitle};
 
 		if (isSet(blogEntryURL)) {
-			AssertLocation(value1 = "${blogEntryURL}");
+			AssertLocation(value1 = ${blogEntryURL});
 		}
 		else {
 			Click(
 				locator1 = "BlogsEntry#TITLE_LINK",
-				value1 = "${entryTitle}");
+				value1 = ${entryTitle});
 		}
 
 		AssertTextEquals(
 			locator1 = "BlogsEntry#TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 	}
 
 	macro gotoSelectFile {
@@ -166,11 +166,11 @@ definition {
 	macro moveToRecycleBinCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
-		var key_entryTitle = "${entryTitle}";
+		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
 			locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_TITLE",
-			value1 = "${entryTitle}");
+			value1 = ${entryTitle});
 
 		Click(locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_OPTIONS_DROPDOWN");
 

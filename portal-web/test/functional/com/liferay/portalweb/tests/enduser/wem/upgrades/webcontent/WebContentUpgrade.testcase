@@ -22,7 +22,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-75561."
-	@priority = "5"
+	@priority = 5
 	test ViewLayoutArchive625 {
 		property data.archive.type = "data-archive-pages-administration";
 		property database.types = "mariadb,mysql,postgresql";
@@ -36,7 +36,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-75561."
-	@priority = "5"
+	@priority = 5
 	test ViewLayoutArchive621015 {
 		property data.archive.type = "data-archive-pages-administration";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
@@ -50,7 +50,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-75561."
-	@priority = "5"
+	@priority = 5
 	test ViewLayoutArchive621021 {
 		property data.archive.type = "data-archive-pages-administration";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
@@ -64,7 +64,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-71487."
-	@priority = "5"
+	@priority = 5
 	test ViewMultiWCDArchive625 {
 		property data.archive.type = "data-archive-multi-wcd-portlet";
 		property database.types = "mysql";
@@ -74,11 +74,11 @@ definition {
 
 		Portlet.viewDuplicatePG(
 			portletName = "Web Content Display",
-			totalPortletCount = "3");
+			totalPortletCount = 3);
 	}
 
 	@description = "This is a use case for LPS-71487."
-	@priority = "5"
+	@priority = 5
 	test ViewMultiWCDArchive621015 {
 		property data.archive.type = "data-archive-multi-wcd-portlet";
 		property database.types = "db2,mysql,oracle,sybase";
@@ -88,11 +88,11 @@ definition {
 
 		Portlet.viewDuplicatePG(
 			portletName = "Web Content Display",
-			totalPortletCount = "3");
+			totalPortletCount = 3);
 	}
 
 	@description = "This is a use case for LPS-71487."
-	@priority = "5"
+	@priority = 5
 	test ViewMultiWCDArchive621021 {
 		property data.archive.type = "data-archive-multi-wcd-portlet";
 		property database.types = "db2,mysql,oracle,postgresql,sybase";
@@ -102,10 +102,10 @@ definition {
 
 		Portlet.viewDuplicatePG(
 			portletName = "Web Content Display",
-			totalPortletCount = "3");
+			totalPortletCount = 3);
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewWebContentArchive625 {
 		property data.archive.type = "data-archive-web-content-draft";
 		property database.types = "mariadb,mysql,postgresql";
@@ -116,7 +116,7 @@ definition {
 		Upgrade.publishWCDraft();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewWebContentArchive621015 {
 		property data.archive.type = "data-archive-web-content-draft";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
@@ -127,7 +127,7 @@ definition {
 		Upgrade.publishWCDraft();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewWebContentArchive621021 {
 		property data.archive.type = "data-archive-web-content-draft";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
@@ -139,7 +139,7 @@ definition {
 	}
 
 	@description = "This is a use case for LRQA-62720. View web content with all fields and value after upgrade from 6.2."
-	@priority = "4"
+	@priority = 4
 	test ViewWebContentWithAllFieldsArchive621021 {
 		property data.archive.type = "data-archive-web-content-with-all-fields";
 		property database.types = "db2,mysql,oracle,postgresql,sybase";
@@ -149,7 +149,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-98619."
-	@priority = "3"
+	@priority = 3
 	test ViewWebContentWithImageArchive704 {
 		property data.archive.type = "data-archive-web-content-with-image";
 		property database.types = "mariadb,mysql,postgresql";
@@ -170,7 +170,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-98619."
-	@priority = "3"
+	@priority = 3
 	test ViewWebContentWithImageArchive70106 {
 		property data.archive.type = "data-archive-web-content-with-image";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
@@ -191,7 +191,7 @@ definition {
 	}
 
 	@description = "This is a use case for LRQA-62801."
-	@priority = "4"
+	@priority = 4
 	test ViewWebContentWithPredefinedValueInWebContentFieldArchive701014 {
 		property data.archive.type = "data-archive-web-content-with-predefined-value-in-web-content-field";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";

@@ -18,7 +18,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -34,14 +34,14 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CopyAndPasteTextInAlloyEditor {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -74,7 +74,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Test Test",
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "Message Boards Subject",
 			threadSubject = "Message Boards Subject");
 
@@ -84,7 +84,7 @@ definition {
 			userName = "Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteMessageboardsThread {
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
@@ -134,7 +134,7 @@ definition {
 		MessageboardsThread.viewDefaultCP(threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RestoreMessageboardsThread {
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
@@ -181,19 +181,19 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchMessageBoardsAttachment {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -219,14 +219,14 @@ definition {
 			userName = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SplitMBThread {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -248,7 +248,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Test Test",
-			replyCount = "1",
+			replyCount = 1,
 			threadSubject = "MB Thread Message Subject");
 
 		MessageboardsThread.splitThreadPG(
@@ -272,7 +272,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-65368."
-	@priority = "5"
+	@priority = 5
 	test ViewBBCodeNoXSSWithRemoteServices {
 		property custom.properties = "message.boards.message.formats.default=bbcode";
 
@@ -281,7 +281,7 @@ definition {
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -300,7 +300,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Anonymous",
-			replyCount = "1",
+			replyCount = 1,
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 
@@ -312,12 +312,12 @@ definition {
 		var actualScript = ''' <script>alert(123);</script>''';
 		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
 
-		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+		AssertHTMLSourceTextNotPresent(value1 = ${actualScript});
 
-		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+		AssertHTMLSourceTextPresent(value1 = ${escapedScript});
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewCorrectViewPermissionsInMessageBoardsQuickReplyInPrivateSite {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -376,7 +376,7 @@ definition {
 		for (var roleTitle : list "Power User,User") {
 			PermissionsInline.viewPermissionsRemoved(
 				permissionDefinitionKey = "CONFIGURATION_PERMISSIONS_VIEW_CHECKBOX",
-				roleTitle = "${roleTitle}");
+				roleTitle = ${roleTitle});
 		}
 
 		PermissionsInline.viewPermissionsChecked(
@@ -385,14 +385,14 @@ definition {
 	}
 
 	@ignore = "true"
-	@priority = "4"
+	@priority = 4
 	test ViewMBThreadAndReplyThreadInGmail {
 		property custom.properties = "jsonws.web.service.paths.excludes=${line.separator}message.boards.message.formats.default=html${line.separator}pop.server.notifications.enabled=true${line.separator}pop.server.subdomain=${line.separator}mail.session.mail.smtp.auth=true${line.separator}mail.session.mail.store.protocol=pop3${line.separator}mail.session.mail.transport.protocol=smtp";
 		property dummy.socket.proxy.disabled = "true";
 		property test.name.skip.portal.instance = "MessageboardsUsecase#ViewMBThreadAndReplyThreadInGmail";
 
 		var portalURL = PropsUtil.get("portal.url");
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -432,7 +432,7 @@ definition {
 			portlet = "Users and Organizations");
 
 		User.editUserSiteCP(
-			siteName = "${siteName}",
+			siteName = ${siteName},
 			userScreenName = "usersn");
 
 		User.editEmailViaMyAccount(userEmailAddress = PropsUtil.get("email.address.4"));
@@ -446,7 +446,7 @@ definition {
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -481,7 +481,7 @@ definition {
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject GMMB1");
 
-		Pause(locator1 = "30000");
+		Pause(locator1 = 30000);
 
 		Gmail.login(
 			userEmailAddress = PropsUtil.get("email.address.3"),
@@ -497,9 +497,9 @@ definition {
 
 		Gmail.replyMail(gmailReplyMessage = "MB Thread Message Subject GMMB1 Reply");
 
-		Navigator.openSpecificURL(url = "${portalURL}");
+		Navigator.openSpecificURL(url = ${portalURL});
 
-		Pause(locator1 = "60000");
+		Pause(locator1 = 60000);
 
 		Refresh();
 
@@ -510,7 +510,7 @@ definition {
 		MessageboardsCategory.gotoPG(categoryName = "MB Category Name");
 
 		MessageboardsThread.viewReplyPG(
-			replyCount = "1",
+			replyCount = 1,
 			threadBody = "MB Thread Message Body",
 			threadReplyBody = "MB Thread Message Subject GMMB1 Reply",
 			threadSubject = "MB Thread Message Subject GMMB1",
@@ -521,7 +521,7 @@ definition {
 		Gmail.deleteSpecificMail(gmailMessageTitleList = "MB Category Name New Message: MB Thread Message Subject GMMB1,Your New Account,Your New Password,GMMB1");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewMessageBoardsBannedUsers {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -530,7 +530,7 @@ definition {
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -561,7 +561,7 @@ definition {
 
 		for (var permissionDefinitionKey : list "INLINE_PERMISSIONS_REPLY_TO_MESSAGE_CHECKBOX,INLINE_PERMISSIONS_VIEW_CHECKBOX") {
 			Role.definePermissionPG(
-				permissionDefinitionKey = "${permissionDefinitionKey}",
+				permissionDefinitionKey = ${permissionDefinitionKey},
 				roleTitle = "User");
 		}
 
@@ -603,7 +603,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "userfn2 userln2",
-			replyCount = "2",
+			replyCount = 2,
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 
@@ -615,7 +615,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "userfn2 userln2",
-			replyCount = "2",
+			replyCount = 2,
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 
@@ -633,16 +633,16 @@ definition {
 	}
 
 	@description = "This will be ignored until POSHI-6 is fixed."
-	@priority = "4"
+	@priority = 4
 	test ViewMessageBoardsRSS {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -670,7 +670,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Test Test",
-			replyCount = "0",
+			replyCount = 0,
 			threadSubject = "MB Thread Message Subject 1");
 
 		RSS.viewFeed(
@@ -689,14 +689,14 @@ definition {
 			entryTitle = "MB Thread Message Subject 1,MB Thread Message Subject 2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewMessageBoardsThreadStatistics {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -710,14 +710,14 @@ definition {
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
 		MessageboardsThread.viewStatisticsPostsCountPG(
-			threadPostNumber = "1",
+			threadPostNumber = 1,
 			userName = "Test Test");
 
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Test Test",
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "MB Thread1 Message Body",
 			threadSubject = "MB Thread1 Message Subject");
 
@@ -740,7 +740,7 @@ definition {
 		MessageboardsThread.viewStatisticsPostsCountPG(
 			lastPostUserName = "Test Test",
 			startedByUserName = "Test Test",
-			threadPostNumber = "1");
+			threadPostNumber = 1);
 
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
@@ -753,19 +753,19 @@ definition {
 		MessageboardsThread.viewStatisticsPostsCountPG(
 			lastPostUserName = "Test Test",
 			startedByUserName = "Test Test",
-			threadPostNumber = "2");
+			threadPostNumber = 2);
 
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
 		MessageboardsThread.deletePG(threadSubject = "MB Thread2 Message Subject");
 
 		MessageboardsThread.viewStatisticsPostsCountPG(
-			threadPostNumber = "1",
+			threadPostNumber = 1,
 			userName = "Test Test");
 	}
 
 	@description = "This is a use case for LPS-65365."
-	@priority = "5"
+	@priority = 5
 	test ViewNoHTMLXSS {
 		property custom.properties = "message.boards.message.formats.default=html";
 
@@ -774,7 +774,7 @@ definition {
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -792,19 +792,19 @@ definition {
 		var actualScript = ''' <script>alert(123);</script>''';
 		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
 
-		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+		AssertHTMLSourceTextNotPresent(value1 = ${actualScript});
 
-		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+		AssertHTMLSourceTextPresent(value1 = ${escapedScript});
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoMBThreadXSS {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -822,14 +822,14 @@ definition {
 			threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoSubscribeLinksNoWithEmailNotificationsDisabled {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -917,14 +917,14 @@ definition {
 
 	@description = "This will be ignored until LPS-86797 is fixed. This test covers LPS-77252 and LPS-86797. It ensures that Categories group and Threads group are listed independently with their own pager."
 	@ignore = "true"
-	@priority = "4"
+	@priority = 4
 	test ViewPagersForCategoriesAndThreads {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -934,7 +934,7 @@ definition {
 		for (var categoryName : list "MB Category1 Name,MB Category2 Name,MB Category3 Name,MB Category4 Name,MB Category5 Name,MB Category6 Name") {
 			JSONMBMessage.addCategory(
 				categoryDescription = "${categoryName} Description",
-				categoryName = "${categoryName}",
+				categoryName = ${categoryName},
 				userEmailAddress = "test@liferay.com");
 		}
 
@@ -957,7 +957,7 @@ definition {
 			locator1 = "MessageBoards#PAGER_TITLE",
 			value1 = "Threads");
 
-		Pagination.changePagination(itemsPerPage = "5");
+		Pagination.changePagination(itemsPerPage = 5);
 
 		Click(locator1 = "Pagination#NEXT_LINK");
 
@@ -968,7 +968,7 @@ definition {
 
 		Click(locator1 = "Pagination#ITEMS_PER_PAGE_SELECT_2");
 
-		MenuItem.click(menuItem = "5");
+		MenuItem.click(menuItem = 5);
 
 		Click(locator1 = "Pagination#NEXT_LINK_2");
 
@@ -993,7 +993,7 @@ definition {
 
 			MessageboardsCategory.gotoCP(categoryName = "MB Category1 Name");
 
-			MessageboardsCategory.addCP(categoryName = "${categoryName}");
+			MessageboardsCategory.addCP(categoryName = ${categoryName});
 		}
 
 		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
@@ -1026,14 +1026,14 @@ definition {
 		Pagination.viewResults(results = "Showing 1 to 5 of 6 entries.");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewQuestionOnSplitThread {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -1057,7 +1057,7 @@ definition {
 
 		MessageboardsThread.gotoPG(
 			lastPostUserName = "Test Test",
-			replyCount = "1",
+			replyCount = 1,
 			threadSubject = "MB Thread Message Subject");
 
 		MessageboardsThread.splitThreadPG(
@@ -1083,14 +1083,14 @@ definition {
 		MessageboardsThread.viewMarkedAsQuestionPG(threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewThreadDefaultQuestion {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");

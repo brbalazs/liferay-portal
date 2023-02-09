@@ -15,7 +15,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -32,7 +32,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddPortletAsUserWithCustomizePermission {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -52,7 +52,7 @@ definition {
 			portlet = "Pages");
 
 		PageCustomizations.enableSectionCustomizableCP(
-			columnId = "1",
+			columnId = 1,
 			pageName = "Site Page Name");
 
 		JSONUser.addUser(
@@ -102,7 +102,7 @@ definition {
 		Portlet.viewSpecificPG(portletName = "Navigation Menu");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test PortletConfigurationChangesWithinCustomizableColumnShouldNotAffectAllUsers {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -122,7 +122,7 @@ definition {
 			portlet = "Pages");
 
 		PageCustomizations.enableSectionCustomizableCP(
-			columnId = "1",
+			columnId = 1,
 			pageName = "Site Page Name");
 
 		Navigator.gotoSitePage(
@@ -188,7 +188,7 @@ definition {
 		WikiPortlet.viewConfigureSharingAllowUsersToAddWikiToAnyWebsite(enabled = "false");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SiteMembershouldAddAndRemovePortletFromHisCustomizableView {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -208,7 +208,7 @@ definition {
 			portlet = "Pages");
 
 		PageCustomizations.enableSectionCustomizableCP(
-			columnId = "1",
+			columnId = 1,
 			pageName = "Site Page Name");
 
 		JSONUser.addUser(
@@ -272,12 +272,12 @@ definition {
 			userEmailAddress = "test@liferay.com");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SiteMemberWithCustomizablePagePermissionsWillOnlySeePortletsInCustomizableView {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "PageCustomizations#SiteMemberWithCustomizablePagePermissionsWillOnlySeePortletsInCustomizableView";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -331,7 +331,7 @@ definition {
 			portlet = "Users and Organizations");
 
 		Site.assignUserSitesCP(
-			siteName = "${siteName}",
+			siteName = ${siteName},
 			userScreenName = "usersn");
 
 		ProductMenu.gotoPortlet(
@@ -342,7 +342,7 @@ definition {
 		SitePages.addPublicPage(pageName = "Site Page Name");
 
 		PageCustomizations.enableSectionCustomizableCP(
-			columnId = "1",
+			columnId = 1,
 			pageName = "Site Page Name");
 
 		Navigator.gotoPage(pageName = "Site Page Name");

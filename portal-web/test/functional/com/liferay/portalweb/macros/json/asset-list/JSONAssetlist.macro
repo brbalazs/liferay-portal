@@ -3,25 +3,25 @@ definition {
 	macro addDynamicAssetListEntry {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
-		var groupId = JSONAssetlistSetter.setGroupId(groupName = "${groupName}");
+		var groupId = JSONAssetlistSetter.setGroupId(groupName = ${groupName});
 		var type = JSONAssetlistSetter.setType(selectionType = "dynamic");
 
 		JSONAssetlistAPI._addAssetListEntry(
-			groupId = "${groupId}",
-			title = "${title}",
-			type = "${type}");
+			groupId = ${groupId},
+			title = ${title},
+			type = ${type});
 	}
 
 	macro addManualAssetListEntry {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
-		var groupId = JSONAssetlistSetter.setGroupId(groupName = "${groupName}");
+		var groupId = JSONAssetlistSetter.setGroupId(groupName = ${groupName});
 		var type = JSONAssetlistSetter.setType(selectionType = "manual");
 
 		JSONAssetlistAPI._addAssetListEntry(
-			groupId = "${groupId}",
-			title = "${title}",
-			type = "${type}");
+			groupId = ${groupId},
+			title = ${title},
+			type = ${type});
 	}
 
 }

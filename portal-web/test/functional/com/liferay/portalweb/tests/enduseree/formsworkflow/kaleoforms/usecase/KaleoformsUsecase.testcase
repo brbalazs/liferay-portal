@@ -18,7 +18,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -48,7 +48,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertCanEditPendingForm {
 		Navigator.openURL();
 
@@ -66,7 +66,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -77,7 +77,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -145,7 +145,7 @@ definition {
 
 	@description = "This will be ignored until LPS-83472 is backported on BPR-24599."
 	@ignore = "true"
-	@priority = "3"
+	@priority = 3
 	test AssertEditFormNotUsedAsCreateForm {
 		Navigator.openURL();
 
@@ -163,8 +163,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -174,7 +174,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -251,17 +251,17 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 	}
 
 	@description = "This is a use case for LPS-26982."
-	@priority = "4"
+	@priority = 4
 	test AssertFieldValuesNotLostDuringReviewTask {
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -277,7 +277,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -293,7 +293,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -349,7 +349,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewTaskAssignedToMeDetails(
@@ -363,7 +363,7 @@ definition {
 			fieldName = "Text1",
 			kfProcessFieldData = "Test 1 EDIT");
 
-		var key_fieldName = "${Text2}";
+		var key_fieldName = ${Text2};
 
 		AssertElementNotPresent(locator1 = "TextInput#DDM");
 
@@ -378,7 +378,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		ProductMenu.gotoPortlet(
@@ -399,7 +399,7 @@ definition {
 			kfStatus = "Approved");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertPendingFormPresentAfterDeletingDifferentProcessDefinition {
 		Navigator.openURL();
 
@@ -417,7 +417,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms 1 Process");
 
 		DynamicDataMapping.addField(
@@ -428,7 +428,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms 1 Process");
 
 		KaleoFormsAdmin.next();
@@ -467,7 +467,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms 2 Process");
 
 		KaleoFormsAdmin.next();
@@ -550,11 +550,11 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms 2 Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssignRolePermissionsAddProcessCP {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -651,8 +651,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -662,7 +662,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -697,7 +697,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AssignRolePermissionsApprovePG {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsApprovePG";
@@ -762,7 +762,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -773,7 +773,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -834,7 +834,7 @@ definition {
 
 		Workflow.viewTaskAssignedToMyRoles(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		User.logoutAndLoginPG(
@@ -850,12 +850,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -869,7 +869,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		User.logoutAndLoginPG(
@@ -877,7 +877,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssignRolePermissionsCompleteFormPG {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -941,7 +941,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -952,7 +952,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -1015,7 +1015,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.assignByDetails(user = "userfn userln");
@@ -1033,7 +1033,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -1045,7 +1045,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -1059,7 +1059,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AssignRolePermissionsRejectPG {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsRejectPG";
@@ -1124,7 +1124,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -1135,7 +1135,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -1196,7 +1196,7 @@ definition {
 
 		Workflow.viewTaskAssignedToMyRoles(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		User.logoutAndLoginPG(
@@ -1212,12 +1212,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.rejectTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -1231,7 +1231,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		User.logoutAndLoginPG(
@@ -1239,12 +1239,12 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssignRolePermissionsSubmitProcessPG {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsSubmitProcessPG";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -1306,7 +1306,7 @@ definition {
 			portlet = "Users and Organizations");
 
 		User.editUserSiteCP(
-			siteName = "${siteName}",
+			siteName = ${siteName},
 			userScreenName = "usersn");
 
 		ProductMenu.gotoPortlet(
@@ -1351,7 +1351,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -1362,7 +1362,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -1429,7 +1429,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		User.logoutAndLoginPG(
@@ -1437,7 +1437,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AssignRolePermissionsViewPG {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -1507,7 +1507,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-52709."
-	@priority = "3"
+	@priority = 3
 	test CompleteFormWithMultipleAssignedProcessRecordsAndViewChanges {
 		Navigator.openURL();
 
@@ -1525,7 +1525,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -1536,7 +1536,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -1592,7 +1592,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewTaskAssignedToMeDetails(
@@ -1642,7 +1642,7 @@ definition {
 
 		Workflow.assignToMeTaskByDetails(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewSecondAssetEntryContent(
@@ -1735,7 +1735,7 @@ definition {
 			workflowAssetTitle = "Kaleo Forms Process");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test CompleteProcessAndAssertFieldOrder {
 		Navigator.openURL();
 
@@ -1753,7 +1753,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -1774,7 +1774,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -1867,7 +1867,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -1879,7 +1879,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -1903,7 +1903,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -1915,7 +1915,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -1939,7 +1939,7 @@ definition {
 			value1 = "Select");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test CompleteProcessAndViewNotifications {
 		Navigator.openURL();
 
@@ -1957,8 +1957,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -1968,7 +1968,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2038,7 +2038,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2059,7 +2059,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2071,7 +2071,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -2081,7 +2081,7 @@ definition {
 			fieldValue = "Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CompleteProcessSubmittedViaCP {
 		Navigator.openURL();
 
@@ -2099,7 +2099,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -2110,7 +2110,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2167,12 +2167,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2190,7 +2190,7 @@ definition {
 			kfStatus = "Approved");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CompleteProcessWithEditedSingleApproverWorkflow {
 		property test.name.skip.portal.instance = "KaleoformsUsecase#CompleteProcessWithEditedSingleApproverWorkflow";
 
@@ -2210,7 +2210,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -2221,7 +2221,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2298,7 +2298,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewCannotRejectTaskByActions(
@@ -2307,7 +2307,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2319,7 +2319,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -2329,7 +2329,7 @@ definition {
 			fieldValue = "Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test CompleteProcessWithUploadedDefinition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#CompleteProcessWithUploadedDefinition";
@@ -2347,7 +2347,7 @@ definition {
 		Workflow.viewDefinition(
 			workflowDefinitionName = "Uploaded Definition",
 			workflowDefinitionTitle = "Uploaded Definition",
-			workflowDefinitionVersionNumber = "1");
+			workflowDefinitionVersionNumber = 1);
 
 		Navigator.openURL();
 
@@ -2365,8 +2365,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -2376,7 +2376,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process Predefined");
 
 		KaleoFormsAdmin.next();
@@ -2437,12 +2437,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process Predefined",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process Predefined",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2454,7 +2454,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process Predefined",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process Predefined");
@@ -2464,7 +2464,7 @@ definition {
 			fieldValue = "Kaleo Text Field");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditProcessCreateFormAfterFormSubmission {
 		Navigator.openURL();
 
@@ -2482,7 +2482,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -2493,7 +2493,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2554,7 +2554,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2596,7 +2596,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2608,7 +2608,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -2618,7 +2618,7 @@ definition {
 			fieldValue = "Test Data");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditProcessEditFormAfterFormSubmission {
 		Navigator.openURL();
 
@@ -2636,7 +2636,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -2647,7 +2647,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2722,7 +2722,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2735,7 +2735,7 @@ definition {
 		Workflow.viewTaskAssignedToMeDetails(
 			workflowAssetContent = "Test Data",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		WorkflowAsset.viewFormTemplateLabel(workflowFormsTemplateLabel = "Fieldset");
@@ -2773,7 +2773,7 @@ definition {
 		Workflow.viewTaskAssignedToMeDetails(
 			workflowAssetContent = "Test Data",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2785,12 +2785,12 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -2800,7 +2800,7 @@ definition {
 			fieldValue = "Test Data");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditProcessFieldSetAfterFormSubmission {
 		Navigator.openURL();
 
@@ -2818,7 +2818,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -2829,7 +2829,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2890,12 +2890,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -2910,7 +2910,7 @@ definition {
 		KaleoFormsAdmin.gotoProgressStep(kfProgressName = "Fields");
 
 		KaleoFormsAdmin.editFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfFieldSetNameEdit = "${kfFieldSetName} Edit");
 
 		KaleoFormsAdmin.saveFieldSet();
@@ -2932,7 +2932,7 @@ definition {
 		KaleoFormsAdmin.viewProcess(kfProcessName = "Kaleo Forms Process");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditProcessFieldSetBeforeFormSubmission {
 		Navigator.openURL();
 
@@ -2950,8 +2950,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -2961,7 +2961,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -2999,7 +2999,7 @@ definition {
 
 		KaleoFormsAdmin.addFieldSet(
 			kfFieldSetName = "${kfFieldSetName} Edit",
-			kfProcessName = "${kfProcessName}");
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Date",
@@ -3078,12 +3078,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3095,7 +3095,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -3105,7 +3105,7 @@ definition {
 			fieldValue = "4/17/17");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditProcessNewDetailsAfterFormApproved {
 		Navigator.openURL();
 
@@ -3123,7 +3123,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -3134,7 +3134,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -3195,12 +3195,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3237,7 +3237,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process Edited",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process Edited");
@@ -3247,7 +3247,7 @@ definition {
 			fieldValue = "Test Data");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditProcessNewDetailsAfterFormSubmission {
 		Navigator.openURL();
 
@@ -3265,7 +3265,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -3276,7 +3276,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -3337,7 +3337,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3374,7 +3374,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process Edited",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3386,7 +3386,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process Edited",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process Edited");
@@ -3396,7 +3396,7 @@ definition {
 			fieldValue = "Test Data");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditProcessWorkflowAfterFormSubmission {
 		property test.name.skip.portal.instance = "KaleoformsUsecase#EditProcessWorkflowAfterFormSubmission";
 
@@ -3427,8 +3427,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -3438,7 +3438,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -3499,7 +3499,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3517,7 +3517,7 @@ definition {
 
 		KaleoFormsAdmin.addFieldSet(
 			kfFieldSetName = "${kfFieldSetName} Edit",
-			kfProcessName = "${kfProcessName}");
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Date",
@@ -3569,7 +3569,7 @@ definition {
 		Workflow.viewDefaultMyWorkflowTasksCP();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditProcessWorkflowBeforeFormSubmission {
 		property test.name.skip.portal.instance = "KaleoformsUsecase#EditProcessWorkflowBeforeFormSubmission";
 
@@ -3600,8 +3600,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -3611,7 +3611,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -3649,7 +3649,7 @@ definition {
 
 		KaleoFormsAdmin.addFieldSet(
 			kfFieldSetName = "${kfFieldSetName} Edit",
-			kfProcessName = "${kfProcessName}");
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Date",
@@ -3728,12 +3728,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3745,7 +3745,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -3755,7 +3755,7 @@ definition {
 			fieldValue = "4/1/17");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ProcessUsesCreateFormWhenEditFormIsMissing {
 		Navigator.openURL();
 
@@ -3773,8 +3773,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -3789,7 +3789,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -3866,12 +3866,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoTaskDetails(workflowAssetTitle = "Kaleo Forms Process");
@@ -3905,7 +3905,7 @@ definition {
 			portlet = "Kaleo Forms Admin");
 
 		KaleoFormsAdmin.deleteForm(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfFormName = "Review Task Form");
 
 		Navigator.openURL();
@@ -3917,7 +3917,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoTaskDetails(workflowAssetTitle = "Kaleo Forms Process");
@@ -3939,7 +3939,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -3951,7 +3951,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoTaskDetails(workflowAssetTitle = "Kaleo Forms Process");
@@ -3965,7 +3965,7 @@ definition {
 			fieldValue = "4/1/17");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ProcessUsesCreateFormWhenNoEditFormIsDefined {
 		Navigator.openURL();
 
@@ -3983,8 +3983,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -3994,7 +3994,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4055,7 +4055,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4067,7 +4067,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -4077,7 +4077,7 @@ definition {
 			fieldValue = "Kaleo Text Field");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ProcessUsesEditForm {
 		Navigator.openURL();
 
@@ -4095,8 +4095,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -4111,7 +4111,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4188,7 +4188,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4200,7 +4200,7 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDefinition = "Single Approver",
 			workflowTask = "Review");
 
@@ -4221,7 +4221,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4233,7 +4233,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -4245,7 +4245,7 @@ definition {
 		WorkflowAsset.previewViewContentFieldNotPresent(fieldLabel = "Date");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test RejectAndResubmitProcess {
 		Navigator.openURL();
 
@@ -4263,8 +4263,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -4274,7 +4274,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4335,12 +4335,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.rejectTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4352,12 +4352,12 @@ definition {
 
 		Workflow.viewPendingTasks(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Update");
 
 		Workflow.resubmitTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Update");
 
 		Navigator.openURL();
@@ -4369,11 +4369,11 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RejectAndResubmitProcessAndViewNotifications {
 		Navigator.openURL();
 
@@ -4391,8 +4391,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -4402,7 +4402,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4472,7 +4472,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4493,7 +4493,7 @@ definition {
 
 		Workflow.rejectTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4515,7 +4515,7 @@ definition {
 		Workflow.viewTaskAssignedToMeDetails(
 			workflowAssetContent = "Test",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Update");
 
 		Navigator.openURL();
@@ -4527,7 +4527,7 @@ definition {
 
 		Workflow.resubmitTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Update");
 
 		Navigator.openURL();
@@ -4548,11 +4548,11 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test UpdateDueDate {
 		Navigator.openURL();
 
@@ -4570,8 +4570,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -4581,7 +4581,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4642,7 +4642,7 @@ definition {
 
 		Workflow.updateDueDateTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDueDateTime = "05:30 PM",
 			workflowTask = "Review");
 
@@ -4655,17 +4655,17 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.updateDueDateAssignedToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDueDateTime = "04:30 PM",
 			workflowTask = "Review");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewApprovedProcessRecords {
 		Navigator.openURL();
 
@@ -4683,7 +4683,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -4694,7 +4694,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4759,12 +4759,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4782,7 +4782,7 @@ definition {
 			kfStatus = "Approved");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewApprovedProcessRecordsSeparateAuthor {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -4802,7 +4802,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -4813,7 +4813,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -4906,12 +4906,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -4929,7 +4929,7 @@ definition {
 			kfStatus = "Approved");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewAssignedProcessRecords {
 		Navigator.openURL();
 
@@ -4947,7 +4947,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -4958,7 +4958,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5023,7 +5023,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5042,7 +5042,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-51098."
-	@priority = "3"
+	@priority = 3
 	test ViewKaleoProcessNameOpenedViaNotifications {
 		Navigator.openURL();
 
@@ -5060,7 +5060,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -5071,7 +5071,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5134,7 +5134,7 @@ definition {
 
 		Navigator.openURL();
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		WorkflowAsset.gotoViaNotification(
 			assetType = "Process",
@@ -5153,7 +5153,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5182,7 +5182,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5194,11 +5194,11 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewMultipleProcessRecords {
 		Navigator.openURL();
 
@@ -5216,7 +5216,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -5227,7 +5227,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5292,12 +5292,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		ProductMenu.gotoPortlet(
@@ -5334,7 +5334,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-48995."
-	@priority = "3"
+	@priority = 3
 	test ViewNoDuplicatesCreatedByAddFormSaveAndContinue {
 		Navigator.openURL();
 
@@ -5391,7 +5391,7 @@ definition {
 		KaleoFormsAdmin.viewNoDuplicateForms(kfFormName = "Created Task Form");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewProcessWithComments {
 		Navigator.openURL();
 
@@ -5409,8 +5409,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -5420,7 +5420,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5482,7 +5482,7 @@ definition {
 		Workflow.updateDueDateTaskByActions(
 			workflowActivityComment = "Updating the due date on a process assigned to my roles.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDueDateTime = "05:30 PM",
 			workflowTask = "Review",
 			workflowTaskwAssetType = "Kaleo Forms Process");
@@ -5490,7 +5490,7 @@ definition {
 		Workflow.assignToMeTaskByActions(
 			workflowActivityComment = "Assign process to Test Test.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5503,19 +5503,19 @@ definition {
 		Workflow.updateDueDateAssignedToMeTaskByActions(
 			workflowActivityComment = "Updating the due date on a process assigned to me.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDueDateTime = "04:30 PM",
 			workflowTask = "Review");
 
 		Workflow.rejectTaskByActions(
 			workflowActivityComment = "Please make changes and resubmit.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.resubmitTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Update");
 
 		Navigator.openURL();
@@ -5528,7 +5528,7 @@ definition {
 		Workflow.assignToMeTaskByActions(
 			workflowActivityComment = "Assign process to Test Test again.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5541,7 +5541,7 @@ definition {
 		Workflow.approveTaskByActions(
 			workflowActivityComment = "Process is approved.",
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowOrder = "true",
 			workflowTask = "Review");
 
@@ -5554,7 +5554,7 @@ definition {
 
 		Workflow.viewCompletedTask(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.gotoCompletedTaskAssignedToMePreview(workflowAssetTitle = "Kaleo Forms Process");
@@ -5575,7 +5575,7 @@ definition {
 			workflowAssetTitle = "Kaleo Forms Process");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewRejectedProcessRecords {
 		Navigator.openURL();
 
@@ -5593,7 +5593,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -5604,7 +5604,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5669,12 +5669,12 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow.rejectTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -5692,7 +5692,7 @@ definition {
 			kfStatus = "Pending");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewSubmittedProcessRecords {
 		Navigator.openURL();
 
@@ -5710,7 +5710,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -5721,7 +5721,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5793,7 +5793,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-65977."
-	@priority = "3"
+	@priority = 3
 	test ViewWorkflowComments {
 		Navigator.openURL();
 
@@ -5811,7 +5811,7 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		DynamicDataMapping.addField(
@@ -5822,7 +5822,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -5874,7 +5874,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow._gotoPendingFilter();
@@ -5896,7 +5896,7 @@ definition {
 
 		Workflow.approveTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		ProductMenu.gotoPortlet(
@@ -5921,7 +5921,7 @@ definition {
 
 		Workflow.assignToMeTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowTask = "Review");
 
 		Workflow._gotoPendingFilter();
@@ -5935,7 +5935,7 @@ definition {
 		WorkflowComment.view(workflowComment = "Comment Two");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test WithdrawProcess {
 		Navigator.openURL();
 
@@ -5953,8 +5953,8 @@ definition {
 		KaleoFormsAdmin.next();
 
 		KaleoFormsAdmin.addFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
-			kfProcessName = "${kfProcessName}");
+			kfFieldSetName = ${kfFieldSetName},
+			kfProcessName = ${kfProcessName});
 
 		DynamicDataMapping.addField(
 			field = "Text",
@@ -5964,7 +5964,7 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 
 		KaleoFormsAdmin.chooseFieldSet(
-			kfFieldSetName = "${kfFieldSetName}",
+			kfFieldSetName = ${kfFieldSetName},
 			kfProcessName = "Kaleo Forms Process");
 
 		KaleoFormsAdmin.next();
@@ -6025,7 +6025,7 @@ definition {
 
 		Workflow.withdrawTaskByActions(
 			workflowAssetTitle = "Kaleo Forms Process",
-			workflowAssetType = "${workflowAssetType}",
+			workflowAssetType = ${workflowAssetType},
 			workflowDefinition = "Single Approver",
 			workflowTask = "Review");
 	}

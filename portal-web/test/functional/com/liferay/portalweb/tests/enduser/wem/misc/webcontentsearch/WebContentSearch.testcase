@@ -31,7 +31,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -45,7 +45,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchWebContent {
 		property testray.component.names = "Categories,Web Content Search";
 
@@ -118,7 +118,7 @@ definition {
 		WebContentSearchPortlet.viewNoResults(webContentSearchTerm = "Content1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchWebContentCategory {
 		property testray.component.names = "Categories,Web Content Search";
 
@@ -193,7 +193,7 @@ definition {
 		WebContentSearchPortlet.viewNoResults(webContentSearchTerm = "Name1");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchWebContentCategoryQuotes {
 		property testray.component.names = "Categories,Web Content Search";
 
@@ -268,7 +268,7 @@ definition {
 		WebContentSearchPortlet.viewNoResults(webContentSearchTerm = "\"Name1\"");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchWebContentQuotes {
 		property testray.component.names = "Web Content Search";
 
@@ -362,7 +362,7 @@ definition {
 		WebContentSearchPortlet.viewNoResults(webContentSearchTerm = "\"Content1\"");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SearchWebContentTag {
 		property testray.component.names = "Tags,Training,Web Content Display";
 
@@ -420,7 +420,7 @@ definition {
 		WebContentSearchPortlet.viewNoResults(webContentSearchTerm = "name1");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchWebContentTagQuotes {
 		property testray.component.names = "Web Content Search";
 

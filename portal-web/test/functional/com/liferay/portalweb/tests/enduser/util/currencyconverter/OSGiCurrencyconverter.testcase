@@ -23,12 +23,12 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
-	@priority = "2"
+	@priority = 2
 	test ConvertCurrencyUSDToEUR {
 		Navigator.gotoPage(pageName = "Currency Converter Page");
 
@@ -37,7 +37,7 @@ definition {
 			currencyDataTo = "EUR",
 			currencyFrom = "USD",
 			currencyTo = "EUR",
-			currencyValue = "4");
+			currencyValue = 4);
 	}
 
 }

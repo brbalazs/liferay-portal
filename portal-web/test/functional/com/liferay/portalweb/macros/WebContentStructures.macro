@@ -3,12 +3,12 @@ definition {
 	macro addCP {
 		LexiconEntry.gotoAdd();
 
-		WebContentStructures.addName(structureName = "${structureName}");
+		WebContentStructures.addName(structureName = ${structureName});
 
 		Panel.expandPanel(panel = "Details");
 
 		if (isSet(structureDescription)) {
-			PortletEntry.inputDescriptionTextInput(description = "${structureDescription}");
+			PortletEntry.inputDescriptionTextInput(description = ${structureDescription});
 		}
 
 		SelectFrame(value1 = "relative=top");
@@ -20,7 +20,7 @@ definition {
 			value1 = "You can add as many as 7 favorites in your quick menu.");
 
 		Click(
-			key_rowEntry = "${structureName}",
+			key_rowEntry = ${structureName},
 			locator1 = "Icon#ADD_FAVORITE");
 
 		Alert.viewSuccessMessage();
@@ -29,23 +29,23 @@ definition {
 	macro addLocalization {
 		PortletEntry.changeLocale(
 			fieldName = "Name",
-			locale = "${locale}");
+			locale = ${locale});
 
-		WebContentStructures.addName(structureName = "${localization1Name}");
+		WebContentStructures.addName(structureName = ${localization1Name});
 
 		if (isSet(locale2)) {
 			PortletEntry.changeLocale(
 				fieldName = "Name",
-				locale = "${locale2}");
+				locale = ${locale2});
 
-			WebContentStructures.addName(structureName = "${localization2Name}");
+			WebContentStructures.addName(structureName = ${localization2Name});
 		}
 	}
 
 	macro addName {
 		Type.clickAtType(
 			locator1 = "TextInput#NAME",
-			value1 = "${structureName}");
+			value1 = ${structureName});
 	}
 
 	macro addNullCP {
@@ -69,11 +69,11 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_ddlDataDefinitionName = "${parentStructureName}";
+		var key_ddlDataDefinitionName = ${parentStructureName};
 
 		AssertClickNoError(
 			locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_NAME_LINK",
-			value1 = "${parentStructureName}");
+			value1 = ${parentStructureName});
 
 		AssertConfirm.assertConfirmationNoWait(value1 = "Selecting a new structure deletes all unsaved content. Do you want to proceed?");
 
@@ -83,7 +83,7 @@ definition {
 	macro deleteCP {
 		Navigator.gotoNavItem(navItem = "Structures");
 
-		var key_ddlDataDefinitionName = "${structureName}";
+		var key_ddlDataDefinitionName = ${structureName};
 
 		Click(locator1 = "DDMSelectStructure#DDM_STRUCTURE_ELLIPSIS");
 
@@ -91,14 +91,14 @@ definition {
 
 		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
 
-		if (("${webContentHasReference}" == "true") && ("${webStructureLinkReference}" == "true")) {
+		if ((${webContentHasReference} == "true") && (${webStructureLinkReference} == "true")) {
 			Alert.viewRequestFailedToComplete();
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_1",
 				value1 = "The structure cannot be deleted because it is required by one or more structure links.");
 		}
-		else if ("${webContentHasReference}" == "true") {
+		else if (${webContentHasReference} == "true") {
 			Alert.viewRequestFailedToComplete();
 
 			AssertTextEquals.assertPartialText(
@@ -111,17 +111,17 @@ definition {
 	}
 
 	macro editSubstructureDefaultValuesCP {
-		var key_ddlDataDefinitionName = "${substructureName}";
+		var key_ddlDataDefinitionName = ${substructureName};
 
-		Search.searchCP(searchTerm = "${substructureName}");
+		Search.searchCP(searchTerm = ${substructureName});
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit Default Values",
-			rowEntry = "${substructureName}");
+			rowEntry = ${substructureName});
 
-		for (var structureFieldName : list "${editSubstructureFieldNames}") {
-			var key_fieldDefaultValue = "${structureFieldName}";
-			var structureFieldName = StringUtil.replace("${structureFieldName}", " ", "");
+		for (var structureFieldName : list ${editSubstructureFieldNames}) {
+			var key_fieldDefaultValue = ${structureFieldName};
+			var structureFieldName = StringUtil.replace(${structureFieldName}, " ", "");
 
 			Type(
 				locator1 = "DDMField#DDM_INPUT",
@@ -139,14 +139,14 @@ definition {
 
 		Navigator.gotoNavItem(navItem = "Structures");
 
-		Search.searchCP(searchTerm = "${substructureName}");
+		Search.searchCP(searchTerm = ${substructureName});
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit Default Values",
-			rowEntry = "${substructureName}");
+			rowEntry = ${substructureName});
 
-		for (var structureFieldName : list "${editSubstructureFieldNames}") {
-			var key_fieldDefaultValue = "${structureFieldName}";
+		for (var structureFieldName : list ${editSubstructureFieldNames}) {
+			var key_fieldDefaultValue = ${structureFieldName};
 
 			AssertTextEquals(
 				locator1 = "DDMField#DDM_INPUT",
@@ -162,13 +162,13 @@ definition {
 		if (isSet(addRoleViewPermissions)) {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Permissions",
-				rowEntry = "${structureName}");
+				rowEntry = ${structureName});
 
 			SelectFrame(locator1 = "IFrame#DIALOG");
 
 			PermissionsInline.addOrRemoveViewPermissionFromAllRoles(
 				addOrRemoveViewPermission = "Add",
-				roleList = "${addRoleViewPermissions}");
+				roleList = ${addRoleViewPermissions});
 
 			IFrame.selectTopFrame();
 		}
@@ -184,7 +184,7 @@ definition {
 
 		Navigator.gotoNavItem(navItem = "Structures");
 
-		Search.searchCP(searchTerm = "2");
+		Search.searchCP(searchTerm = 2);
 
 		while (IsElementNotPresent(locator1 = "Message#EMPTY_INFO")) {
 			PortletEntry.selectAll();
@@ -212,18 +212,18 @@ definition {
 	}
 
 	macro viewCP {
-		var key_ddlDataDefinitionName = "${structureName}";
+		var key_ddlDataDefinitionName = ${structureName};
 
 		if (isSet(structureName)) {
 			AssertTextEquals(
 				locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_NAME",
-				value1 = "${structureName}");
+				value1 = ${structureName});
 		}
 
 		if (isSet(structureDescription)) {
 			AssertTextEquals(
 				locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_DESCRIPTION",
-				value1 = "${structureDescription}");
+				value1 = ${structureDescription});
 		}
 
 		SelectFrame(value1 = "relative=top");
@@ -237,7 +237,7 @@ definition {
 		ScrollBy(value1 = "0, 50");
 
 		AssertElementPresent(
-			key_rowEntry = "${structureName}",
+			key_rowEntry = ${structureName},
 			locator1 = "Icon#REMOVE_FAVORITE");
 	}
 
@@ -248,7 +248,7 @@ definition {
 
 		MenuItem.viewPresent(menuItem = "Favorites");
 
-		MenuItem.viewPresent(menuItem = "${structureName}");
+		MenuItem.viewPresent(menuItem = ${structureName});
 	}
 
 	macro viewNoFavoriteStructure {
@@ -259,21 +259,21 @@ definition {
 
 	macro viewStructuresViaMoreIFrame {
 		AssertTextEquals(
-			key_rowEntry = "${structureName}",
+			key_rowEntry = ${structureName},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK",
-			value1 = "${structureName}");
+			value1 = ${structureName});
 	}
 
 	macro viewTableEntryCP {
-		var key_ddlDataDefinitionName = "${structureName}";
+		var key_ddlDataDefinitionName = ${structureName};
 
 		AssertTextEquals(
 			locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_NAME",
-			value1 = "${structureName}");
+			value1 = ${structureName});
 
 		AssertTextEquals(
 			locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_DESCRIPTION",
-			value1 = "${structureDescription}");
+			value1 = ${structureDescription});
 	}
 
 	macro viewTemplateValidation {

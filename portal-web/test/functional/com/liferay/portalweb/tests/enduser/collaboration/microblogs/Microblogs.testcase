@@ -16,7 +16,7 @@ definition {
 			layoutName = "Microblogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Microblogs Page",
 			widgetName = "Microblogs");
@@ -31,12 +31,12 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddEntry {
 		Microblogs.updateStatus(entryContent = "Microblog Entry Content");
 
@@ -47,7 +47,7 @@ definition {
 			userName = "Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteEntry {
 		property osgi.app.includes = "microblogs";
 		property portal.acceptance = "true";
@@ -65,7 +65,7 @@ definition {
 			value1 = "There are no microblog entries.");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditEntry {
 		property osgi.app.includes = "microblogs";
 		property portal.acceptance = "true";

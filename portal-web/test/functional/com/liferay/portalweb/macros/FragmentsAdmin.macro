@@ -15,8 +15,8 @@ definition {
 		FragmentsAdmin._gotoAddCollection();
 
 		Collection.editCollection(
-			collectionDescription = "${collectionDescription}",
-			collectionName = "${collectionName}");
+			collectionDescription = ${collectionDescription},
+			collectionName = ${collectionName});
 
 		Button.clickSave();
 	}
@@ -28,13 +28,13 @@ definition {
 			locator1 = "Modal#HEADER",
 			value1 = "Add Fragment");
 
-		PortletEntry.inputName(name = "${fragmentName}");
+		PortletEntry.inputName(name = ${fragmentName});
 
 		Button.clickSave();
 	}
 
 	macro exportCollection {
-		Navigator.gotoNavNested(navNested = "${collectionName}");
+		Navigator.gotoNavNested(navNested = ${collectionName});
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Export");
 	}
@@ -57,7 +57,7 @@ definition {
 
 		UploadCommonFile(
 			locator1 = "TextInput#FILE",
-			value1 = "${collectionZipFile}");
+			value1 = ${collectionZipFile});
 
 		Button.click(button = "Import");
 
@@ -73,7 +73,7 @@ definition {
 
 		UploadTempFile(
 			locator1 = "TextInput#FILE",
-			value1 = "${collectionsZipFileName}");
+			value1 = ${collectionsZipFileName});
 
 		Button.click(button = "Import");
 

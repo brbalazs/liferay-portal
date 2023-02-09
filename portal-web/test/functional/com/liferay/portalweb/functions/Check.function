@@ -84,7 +84,7 @@ definition {
 			selenium.clickAt();
 		}
 
-		selenium.pause("3000");
+		selenium.pause(3000);
 
 		AssertChecked.assertChecked();
 

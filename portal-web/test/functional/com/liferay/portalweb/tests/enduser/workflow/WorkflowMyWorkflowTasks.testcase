@@ -27,7 +27,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -47,7 +47,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddCommentToTaskAssignedToMe {
 		Navigator.openURL();
 
@@ -96,7 +96,7 @@ definition {
 		WorkflowComment.view(workflowComment = "Workflow Comment");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddCommentToTaskAssignedToMyRoles {
 		Navigator.openURL();
 
@@ -137,7 +137,7 @@ definition {
 		WorkflowComment.view(workflowComment = "Workflow Comment");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddCommentToTaskCompleted {
 		Navigator.openURL();
 
@@ -202,7 +202,7 @@ definition {
 		WorkflowComment.view(workflowComment = "Workflow Comment");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ApproveResubmitTaskByActions {
 		Navigator.openURL();
 
@@ -295,7 +295,7 @@ definition {
 	}
 
 	@description = "LPS-115305 - Verify that the asset creator can view the workflow notifications after the task is assigned to another user."
-	@priority = "3"
+	@priority = 3
 	test CanViewWorkflowNotificationsAssignedToOtherUser {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -304,9 +304,9 @@ definition {
 		for (var userScreenName : list "author1,author2") {
 			JSONUser.addUser(
 				userEmailAddress = "${userScreenName}ea@liferay.com",
-				userFirstName = "${userScreenName}",
-				userLastName = "${userScreenName}",
-				userScreenName = "${userScreenName}");
+				userFirstName = ${userScreenName},
+				userLastName = ${userScreenName},
+				userScreenName = ${userScreenName});
 
 			JSONUser.setFirstPassword(
 				agreeToTermsAndAnswerReminderQuery = "true",
@@ -341,7 +341,7 @@ definition {
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -399,7 +399,7 @@ definition {
 			value1 = "author1 author1 sent you a Blogs Entry for review in the workflow.");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RejectTaskByDetails {
 		Navigator.openURL();
 
@@ -461,7 +461,7 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ResubmitTaskByDetails {
 		Navigator.openURL();
 
@@ -525,7 +525,7 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ReviewerApproveResubmitTaskByActionsUser {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -736,7 +736,7 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test UpdateDueDateTaskByActions {
 		Navigator.openURL();
 
@@ -765,7 +765,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-98825."
-	@priority = "5"
+	@priority = 5
 	test ViewMyWorkflowTasksOrderResults {
 		Workflow.configureWorkflow(
 			workflowDefinition = "Single Approver",

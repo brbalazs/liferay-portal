@@ -20,7 +20,7 @@ definition {
 			layoutName = "Documents and Media Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Documents and Media Page",
 			widgetName = "Documents and Media");
@@ -37,7 +37,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -51,7 +51,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddDocuments {
 		property portal.acceptance = "true";
 		property testray.component.names = "Training";
@@ -193,7 +193,7 @@ definition {
 			dmDocumentType = "Basic Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddDocumentTypes {
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -253,7 +253,7 @@ definition {
 		DMDocumentType.viewMenulistOption(dmDocumentTypeName = "DM Document Type 3 Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddFolderDocumentDuplicate {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -275,7 +275,7 @@ definition {
 			dmDocumentTitle = "DM Document Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddFolderDocuments {
 		property testray.component.names = "Training";
 
@@ -328,7 +328,7 @@ definition {
 		DMDocument.viewPG(dmDocumentTitle = "Document_3.doc");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddFolderImage {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -348,7 +348,7 @@ definition {
 			dmDocumentTitle = "DM Image Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddFolderImageDuplicate {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -370,7 +370,7 @@ definition {
 			dmDocumentTitle = "DM Image Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddFolderImages {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -418,7 +418,7 @@ definition {
 			dmDocumentTitle = "DM Image 3 Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddFolderNameSymbol {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -433,7 +433,7 @@ definition {
 	}
 
 	@description = "This test covers LPS-96652. It ensures that the PDF file can be added after enabling text extraction."
-	@priority = "4"
+	@priority = 4
 	test AddPDFAfterEnablingTextExtraction {
 		property custom.properties = "text.extraction.fork.process.enabled=true${line.separator}text.extraction.fork.process.mime.types=application/x-tika-ooxml,application/pdf";
 
@@ -452,7 +452,7 @@ definition {
 			dmDocumentType = "Basic Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddSubFolderImageAndDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -493,7 +493,7 @@ definition {
 			dmDocumentTitle = "DM Document Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddSubFolderNameDocumentNameDuplicate {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -518,7 +518,7 @@ definition {
 			dmSubFolderName = "DM Document Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddSubFolders {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -569,7 +569,7 @@ definition {
 		DMFolder.viewPG(dmFolderName = "Subfolder3 Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CancelCheckout {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -587,7 +587,7 @@ definition {
 		DMDocument.cancelCheckoutPG(dmDocumentTitle = "DM Document Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteDocumentInFolder {
 		property portal.acceptance = "true";
 
@@ -607,7 +607,7 @@ definition {
 		DMDocument.deletePG(dmDocumentTitle = "DM Document Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteDocumentType {
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -638,7 +638,7 @@ definition {
 		DMDocumentType.deletePG(dmDocumentTypeName = "DM Document Type Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteDocumentWithSlashesInTitle {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -671,7 +671,7 @@ definition {
 		DMDocument.viewDefaultCP();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteFolderWithDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -695,7 +695,7 @@ definition {
 		DMFolder.deletePG(dmFolderName = "DM Folder Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteSubFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -718,7 +718,7 @@ definition {
 		DMFolder.deletePG(dmFolderName = "DM Subfolder Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteSubFolderImageActions {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -742,7 +742,7 @@ definition {
 		DMDocument.deleteViaActionsPG(dmDocumentTitle = "DM Image Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DownloadDocumentWithSlashesInTitleViaDocumentView {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -755,7 +755,7 @@ definition {
 	}
 
 	@ignore = "true"
-	@priority = "5"
+	@priority = 5
 	test EditAndDeleteGoogleDoc {
 		property portal.release = "false";
 		property test.name.skip.portal.instance = "PGDocumentsandmedia#EditAndDeleteGoogleDoc";
@@ -767,14 +767,14 @@ definition {
 
 		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
-		var googlePropertiesSet = MathUtil.randomNumber("3");
+		var googlePropertiesSet = MathUtil.randomNumber(3);
 
 		var googleAppsAPIKey = PropsUtil.get("google.api.key.${googlePropertiesSet}");
 		var googleClientID = PropsUtil.get("google.client.id.${googlePropertiesSet}");
 
 		PortalSettings.configureGoogleApps(
-			googleAppsAPIKey = "${googleAppsAPIKey}",
-			googleClientID = "${googleClientID}");
+			googleAppsAPIKey = ${googleAppsAPIKey},
+			googleClientID = ${googleClientID});
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -798,7 +798,7 @@ definition {
 		DMDocument.deletePG(dmDocumentTitle = "taco.jpg");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -812,7 +812,7 @@ definition {
 			dmDocumentTitleEdit = "DM Document Title Edit");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditDocumentType {
 		property portal.acceptance = "true";
 		property testray.component.names = "Training";
@@ -856,7 +856,7 @@ definition {
 		DMDocumentType.viewMenulistOption(dmDocumentTypeName = "DM Document Type Name Edit");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditFolderDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -885,7 +885,7 @@ definition {
 			dmDocumentVersionNumber = "1.1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditFolderDocumentFile {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -915,7 +915,7 @@ definition {
 			dmDocumentVersionNumber = "1.1");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditSubFolder {
 		property portal.acceptance = "true";
 
@@ -937,7 +937,7 @@ definition {
 			dmFolderNameEdit = "DM SubFolder Name Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditSubFolderImage {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -974,7 +974,7 @@ definition {
 			dmDocumentVersionNumber = "1.1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test MoveDocumentWithSlashesInTitle {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -998,7 +998,7 @@ definition {
 			dmDocumentTitle = "/D/M/Document Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test MoveFolderDocumentDuplicateToFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1036,7 +1036,7 @@ definition {
 			dmFolderName = "DM Folder2 Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test MoveFolderDocumentToFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1069,7 +1069,7 @@ definition {
 	}
 
 	@ignore = "true"
-	@priority = "5"
+	@priority = 5
 	test MoveGoogleDocToFolder {
 		property portal.release = "false";
 		property test.name.skip.portal.instance = "PGDocumentsandmedia#MoveGoogleDocToFolder";
@@ -1081,14 +1081,14 @@ definition {
 
 		Navigator.gotoNavTab(navTab = "Miscellaneous");
 
-		var googlePropertiesSet = MathUtil.randomNumber("3");
+		var googlePropertiesSet = MathUtil.randomNumber(3);
 
 		var googleAppsAPIKey = PropsUtil.get("google.api.key.${googlePropertiesSet}");
 		var googleClientID = PropsUtil.get("google.client.id.${googlePropertiesSet}");
 
 		PortalSettings.configureGoogleApps(
-			googleAppsAPIKey = "${googleAppsAPIKey}",
-			googleClientID = "${googleClientID}");
+			googleAppsAPIKey = ${googleAppsAPIKey},
+			googleClientID = ${googleClientID});
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1120,7 +1120,7 @@ definition {
 		DMDocument.viewPG(dmDocumentTitle = "taco.jpg");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RemovePortlet {
 		property portal.acceptance = "true";
 
@@ -1129,7 +1129,7 @@ definition {
 		Portlet.deletePG(portletName = "Documents and Media");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RevertVersionFolderDocumentFile {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1182,7 +1182,7 @@ definition {
 			dmDocumentVersionNumber = "2.0");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchContentDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1199,7 +1199,7 @@ definition {
 			searchAssetType = "Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1215,7 +1215,7 @@ definition {
 			searchAssetType = "Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchFolderDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1237,7 +1237,7 @@ definition {
 			searchAssetType = "Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchFolderImage {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1259,7 +1259,7 @@ definition {
 			searchAssetType = "Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchSubFolderDocument {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1288,14 +1288,14 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-95662. Selecting an asset from the second does not invoke the management toolbar on the first."
-	@priority = "4"
+	@priority = 4
 	test SelectAssetFromSecondWidgetInvokesSecondManagementToolbar {
 		property portal.acceptance = "true";
 		property test.assert.javascript.errors = "true";
 		property test.assert.warning.exceptions = "true";
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Documents and Media Page",
 			widgetName = "Documents and Media");
@@ -1307,13 +1307,13 @@ definition {
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
-		PortletEntry.SelectAllOnSpecificWidget(widgetPosition = "2");
+		PortletEntry.SelectAllOnSpecificWidget(widgetPosition = 2);
 
 		AssertNotChecked.assertNotCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT");
 	}
 
 	@description = "This test covers LPS-102179. It ensures that the user can create a shortcut using a file from a different site after setting the root folder."
-	@priority = "3"
+	@priority = 3
 	test ShortcutCanBeAddedToDocumentAfterSettingRootFolder {
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -1352,17 +1352,17 @@ definition {
 			pageName = "Documents and Media Page",
 			siteName = "Site Name");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		DMDocument.addDMShortcutPG(
 			dmDocumentTitle = "Document_1.txt",
-			siteName = "${siteName}");
+			siteName = ${siteName});
 
 		DMDocument.viewPG(dmDocumentTitle = "Document_1.txt");
 	}
 
 	@description = "This is a use case for LPS-51280"
-	@priority = "5"
+	@priority = 5
 	test SubscribeToCommentAndViewEmailNotification {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.assert.javascript.errors = "false";
@@ -1426,13 +1426,13 @@ definition {
 			subject = "New Comments by Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SubscribeToFolderAndViewEmailNotifications {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.assert.javascript.errors = "false";
 		property test.smtp.server.enabled = "true";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -1451,7 +1451,7 @@ definition {
 			portlet = "Users and Organizations");
 
 		User.editUserSiteCP(
-			siteName = "${siteName}",
+			siteName = ${siteName},
 			userScreenName = "usersn");
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
@@ -1524,7 +1524,7 @@ definition {
 			subject = "Basic Document Updated for ${dmDocumentTitle}");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test UnlockDocumentInFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1565,7 +1565,7 @@ definition {
 			dmDocumentVersionNumber = "2.0");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewOlderVersion {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -1600,7 +1600,7 @@ definition {
 		DMDocument.viewDocumentVersionNumberCmdPG(dmDocumentVersionNumber = "1.1");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewSearchResultsForChildObjectRespectsParentFolderPermissions {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property osgi.module.configuration.file.names = "com.liferay.portal.search.web.internal.configuration.SearchWebConfiguration.config";
@@ -1613,7 +1613,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
@@ -1701,7 +1701,7 @@ definition {
 			layoutName = "Documents and Media Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Site Name 2",
 			layoutName = "Documents and Media Page",
 			widgetName = "Documents and Media");
@@ -1780,7 +1780,7 @@ definition {
 
 		IFrame.closeFrame();
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name 1");
 

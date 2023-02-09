@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -26,7 +26,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddMBCategory {
 		Navigator.openURL();
 
@@ -39,11 +39,11 @@ definition {
 
 		MessageboardsCategory.viewCP(
 			categoryName = "MB Category Name",
-			subcategoriesNumber = "0",
-			threadsNumber = "0");
+			subcategoriesNumber = 0,
+			threadsNumber = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddMBCategorySubcategory {
 		JSONMBMessage.addCategory(
 			categoryDescription = "MB Category Description",
@@ -63,7 +63,7 @@ definition {
 			subCategoryName = "MB Subcategory Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddMBThread {
 		property app.server.types = "jboss,resin,tcserver,tomcat,weblogic,websphere,wildfly";
 		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
@@ -89,12 +89,12 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "MB Thread Message Body",
 			threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test CKEditorSmoke {
 		property custom.properties = "editor.wysiwyg.portal-web.docroot.html.portlet.message_boards.edit_message.bb_code.jsp=ckeditor${line.separator}editor.wysiwyg.portal-web.docroot.html.portlet.message_boards.edit_message.html.jsp=ckeditor";
 
@@ -127,19 +127,19 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "CKEditor Entry Body",
 			threadSubject = "CKEditor Entry Subject");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteMBCategories {
 		Navigator.openURL();
 
 		for (var categoryName : list "MB Category1 Name,MB Category2 Name,MB Category3 Name") {
 			JSONMBMessage.addCategory(
 				categoryDescription = "${categoryName} Description",
-				categoryName = "${categoryName}",
+				categoryName = ${categoryName},
 				userEmailAddress = "test@liferay.com");
 		}
 
@@ -160,7 +160,7 @@ definition {
 			value1 = "There are no threads or categories.");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test DeleteMBThreadWithAttachment {
 		property custom.properties = "trash.entry.check.interval=1${line.separator}trash.entries.max.age=1";
 
@@ -177,7 +177,7 @@ definition {
 
 		MessageboardsThread.moveToRecycleBinCP(threadSubject = "MB Subject");
 
-		Pause(locator1 = "120000");
+		Pause(locator1 = 120000);
 
 		AssertConsoleTextNotPresent(value1 = "MessageListenerException");
 
@@ -193,7 +193,7 @@ definition {
 			value1 = "The Recycle Bin is empty.");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditMBThreadSubjectAndBody {
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
@@ -221,12 +221,12 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "MB Thread Message Body Edit",
 			threadSubject = "MB Thread Message Subject Edit");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test MoveToRecycleBinMBThread {
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
@@ -252,7 +252,7 @@ definition {
 		MessageboardsThread.viewDefaultCP(threadSubject = "MB Thread Message Subject");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewAnonymousPostingAllowedCheckboxConfiguration {
 		Navigator.openURL();
 
@@ -286,7 +286,7 @@ definition {
 		MessageboardsThread.viewNoAnonymousPostingCheckboxCP();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewBBCodeNoXSS {
 		Navigator.openURL();
 
@@ -321,7 +321,7 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			replyCount = "0",
+			replyCount = 0,
 			threadBody = "",
 			threadSubject = "New Thread Subject");
 
@@ -333,7 +333,7 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.addCP(
-			fontSize = "24",
+			fontSize = 24,
 			source = "true",
 			threadBody = "[size=5]Thread Body[/size]",
 			threadSubject = "New Thread Subject 2");
@@ -346,8 +346,8 @@ definition {
 			portlet = "Message Boards");
 
 		MessageboardsThread.viewCP(
-			fontSize = "24",
-			replyCount = "0",
+			fontSize = 24,
+			replyCount = 0,
 			threadBody = "Thread Body",
 			threadSubject = "New Thread Subject 2");
 	}

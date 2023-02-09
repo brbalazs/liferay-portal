@@ -17,7 +17,7 @@ definition {
 
 		echo("## * Description: ${depotDescription}");
 
-		var messageId = JSONCurlUtil.post("${curl}");
+		var messageId = JSONCurlUtil.post(${curl});
 	}
 
 }

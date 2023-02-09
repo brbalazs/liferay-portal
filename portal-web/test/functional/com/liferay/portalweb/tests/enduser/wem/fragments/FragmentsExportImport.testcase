@@ -18,7 +18,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -31,7 +31,7 @@ definition {
 	}
 
 	@description = "This is a test case for LPS-80625."
-	@priority = "5"
+	@priority = 5
 	test CannotImportInvalidZip {
 		property portal.acceptance = "true";
 
@@ -49,7 +49,7 @@ definition {
 	}
 
 	@description = "This is a test case for LPS-80625."
-	@priority = "5"
+	@priority = 5
 	test CannotImportNonZip {
 		property portal.acceptance = "true";
 
@@ -66,7 +66,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ExportImportCollectionViewFragment {
 		property portal.acceptance = "true";
 
@@ -82,19 +82,19 @@ definition {
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		var cssSnippet = TestCase.getFileContent(fileName = "fragment_button.css");
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#CSS_EDITOR",
-			value1 = "${cssSnippet}");
+			value1 = ${cssSnippet});
 
 		var javascriptSnippet = TestCase.getFileContent(fileName = "fragment_button.js");
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#JAVASCRIPT_EDITOR",
-			value1 = "${javascriptSnippet}");
+			value1 = ${javascriptSnippet});
 
 		PortletEntry.publish();
 
@@ -115,7 +115,7 @@ definition {
 		SelectFrame(locator1 = "FragmentEditor#PREVIEW_IFRAME");
 
 		for (var button : list "Submit,Cancel") {
-			Button.viewPresent(button = "${button}");
+			Button.viewPresent(button = ${button});
 		}
 
 		Button.clickNoError(button = "Submit");
@@ -126,7 +126,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-96391."
-	@priority = "5"
+	@priority = 5
 	test ExportImportContentPageWithWCDOnFragment {
 		property test.name.skip.portal.instance = "FragmentsExportImport#ExportImportContentPageWithWCDOnFragment";
 
@@ -144,11 +144,11 @@ definition {
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FragmentEditor#HTML_EDITOR_CONTENT",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -184,7 +184,7 @@ definition {
 
 		LAR.exportSiteCP();
 
-		var key_larFileName = "${larFileName}";
+		var key_larFileName = ${larFileName};
 		var larFileName = LAR.getLarFileName();
 
 		LAR.downloadLar();
@@ -192,7 +192,7 @@ definition {
 		JSONGroup.addGroup(groupName = "New Site");
 
 		LAR.importSiteCP(
-			larFileName = "${larFileName}",
+			larFileName = ${larFileName},
 			siteName = "New Site");
 
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");

@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -30,7 +30,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ChangeSocialBookmarkSitesForKBArticle {
 		property osgi.app.includes = "social-bookmarks,knowledge-base";
 
@@ -39,7 +39,7 @@ definition {
 			layoutName = "Knowledge Base Display Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Knowledge Base Display Page",
 			widgetName = "Knowledge Base Display");
@@ -84,7 +84,7 @@ definition {
 
 	@description = "This will be ignored until LRQA-57464 is fixed."
 	@ignore = "true"
-	@priority = "3"
+	@priority = 3
 	test ViewBlogsEntryWithSocialBookmarksSites {
 		property osgi.app.includes = "social-bookmarks";
 		property test.assert.warning.exceptions = "true";
@@ -94,7 +94,7 @@ definition {
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -131,7 +131,7 @@ definition {
 		SocialBookmarks.viewBookmarkMenuItems(socialBookmarks = "Google+,AddThis,Delicious,Digg,Evernote,Reddit,Slashdot");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewKBArticleWithAllSocialBookmarkSites {
 		property osgi.app.includes = "social-bookmarks,knowledge-base";
 
@@ -140,7 +140,7 @@ definition {
 			layoutName = "Knowledge Base Display Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Knowledge Base Display Page",
 			widgetName = "Knowledge Base Display");

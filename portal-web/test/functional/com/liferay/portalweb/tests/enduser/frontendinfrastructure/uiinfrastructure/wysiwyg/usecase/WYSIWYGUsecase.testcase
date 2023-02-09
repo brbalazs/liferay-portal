@@ -16,7 +16,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,20 +24,20 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddBlogsEntryWithImageViaBlogsImages {
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
 
-		SitePages.addPublicPage(pageName = "${pageName}");
+		SitePages.addPublicPage(pageName = ${pageName});
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		Portlet.addPG(portletName = "Blogs");
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		Blogs.addEntryWithUploadedCoverImage(
 			coverImageName = "Document_1",
@@ -47,7 +47,7 @@ definition {
 			navTab = "Upload Image",
 			uploadFileName = "Document_1.jpg");
 
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
 		BlogsEntry.saveAsDraft();
 
@@ -74,7 +74,7 @@ definition {
 		BlogsEntry.viewInlineImage(uploadFileName = "Document_1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddWebContentArticleWithImageViaURL {
 		Navigator.openURL();
 
@@ -109,7 +109,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-61676."
-	@priority = "4"
+	@priority = 4
 	test RemoveAppliedStylingInAlloyEditor {
 		Navigator.openURL();
 
@@ -131,32 +131,32 @@ definition {
 		AlloyEditor.viewNoStylingInAlloyEditor(boldContent = "This is a sentence");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWikiFrontPageLeftToRight {
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
 
-		SitePages.addPublicPage(pageName = "${pageName}");
+		SitePages.addPublicPage(pageName = ${pageName});
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		Portlet.addPG(portletName = "Wiki");
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		WikiPage.addLocalizedFrontPagePG(
 			emptyPageMessage = "This page is empty. Edit it to add some text.",
 			successMessage = "Your request completed successfully.",
 			wikiPageContent = "Wiki Left to Right Content");
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		WikiPage.viewLocalizedFrontPagePG(wikiPageContent = "Wiki Left to Right Content");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWikiFrontPageRightToLeft {
 		property test.name.skip.portal.instance = "WYSIWIGUsecase#ViewWikiFrontPageRightToLeft";
 
@@ -165,13 +165,13 @@ definition {
 			panel = "Site Administration",
 			portlet = "Pages");
 
-		SitePages.addPublicPage(pageName = "${pageName}");
+		SitePages.addPublicPage(pageName = ${pageName});
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		Portlet.addPG(portletName = "Language Selector");
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		Portlet.addPG(portletName = "Wiki");
 
@@ -185,7 +185,7 @@ definition {
 			successMessage = "בקשתך עברה בהצלחה",
 			wikiPageContent = "Wiki Right to Left תוֹכֶן");
 
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = ${pageName});
 
 		WikiPage.viewLocalizedFrontPagePG(
 			rightToLeft = "true",

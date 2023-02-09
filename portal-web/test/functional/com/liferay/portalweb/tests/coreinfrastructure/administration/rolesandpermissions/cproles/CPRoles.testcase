@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddOrganizationRole {
 		property portal.acceptance = "true";
 		property testray.component.names = "Training";
@@ -48,7 +48,7 @@ definition {
 			roleType = "Organization");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddRegularRole {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -67,7 +67,7 @@ definition {
 			roleType = "Regular");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddSiteRole {
 		property portal.acceptance = "true";
 
@@ -91,7 +91,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-109572."
-	@priority = "4"
+	@priority = 4
 	test AssignNewUserToRegularRole {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -132,7 +132,7 @@ definition {
 			roleTitle = "Regular Role");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteRegularRole {
 		property app.server.types = "jboss,resin,tcserver,tomcat,weblogic,websphere,wildfly";
 		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";

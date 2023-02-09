@@ -1,17 +1,17 @@
 definition {
 
 	macro _selectAssetType {
-		var key_assetType = "${assetType}";
+		var key_assetType = ${assetType};
 
 		AssertClick(
 			locator1 = "AssetRelatedAssets#RELATED_ASSETS_SELECT",
 			value1 = "Select");
 
-		var assetTypeLocator = StringUtil.replace("${assetType}", " ", "_");
+		var assetTypeLocator = StringUtil.replace(${assetType}, " ", "_");
 
-		var assetTypeLocator = StringUtil.upperCase("${assetTypeLocator}");
+		var assetTypeLocator = StringUtil.upperCase(${assetTypeLocator});
 
-		MenuItem.click(menuItem = "${assetType}");
+		MenuItem.click(menuItem = ${assetType});
 	}
 
 	macro gotoBookmarksSelectionPG {
@@ -25,11 +25,11 @@ definition {
 			locator1 = "AssetRelatedAssets#RELATED_ASSETS_SELECT",
 			value1 = "Select");
 
-		var key_assetType = "${assetType}";
+		var key_assetType = ${assetType};
 
 		AssertClick(
 			locator1 = "APConfiguration#ASSET_SELECTION_MANUAL_ASSET_ENTRIES_ASSET",
-			value1 = "${assetType}");
+			value1 = ${assetType});
 	}
 
 	macro gotoConfigureRelatedAssets {
@@ -39,8 +39,8 @@ definition {
 	macro removeAsset {
 		Panel.expandPanel(panel = "Related Assets");
 
-		for (var removeAssetTitle : list "${removeAssetTitle}") {
-			var key_assetTitle = "${removeAssetTitle}";
+		for (var removeAssetTitle : list ${removeAssetTitle}) {
+			var key_assetTitle = ${removeAssetTitle};
 
 			Click(locator1 = "AssetRelatedAssets#RELATED_ASSETS_TABLE_REMOVE_LINK");
 
@@ -49,16 +49,16 @@ definition {
 	}
 
 	macro selectAsset {
-		RelatedAssets._selectAssetType(assetType = "${assetType}");
+		RelatedAssets._selectAssetType(assetType = ${assetType});
 
 		SelectFrame(value1 = "relative=top");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_assetTitle = "${assetTitle}";
+		var key_assetTitle = ${assetTitle};
 
 		Click(
-			key_assetTitle = "${assetTitle}",
+			key_assetTitle = ${assetTitle},
 			locator1 = "AssetRelatedAssets#ASSET_TABLE_CHOOSE");
 
 		SelectFrame(value1 = "relative=top");
@@ -77,8 +77,8 @@ definition {
 	}
 
 	macro viewNoPG {
-		for (var assetTitle : list "${assetTitleList}") {
-			var key_assetTitle = "${assetTitle}";
+		for (var assetTitle : list ${assetTitleList}) {
+			var key_assetTitle = ${assetTitle};
 
 			AssertElementNotPresent(locator1 = "Relatedassets#ASSET_TITLE");
 		}
@@ -91,7 +91,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "Relatedassets#ASSET_TITLE_1",
-			value1 = "${assetTitle}");
+			value1 = ${assetTitle});
 	}
 
 }

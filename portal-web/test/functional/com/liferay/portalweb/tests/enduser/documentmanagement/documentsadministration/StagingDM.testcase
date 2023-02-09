@@ -37,7 +37,7 @@ definition {
 
 	@description = "This will be ignored until LPS-98154 is fixed. This is a use case for LPS-74621."
 	@ignore = "true"
-	@priority = "3"
+	@priority = 3
 	test CommentDMDocumentOnLiveSite {
 		Navigator.gotoStagedSitePage(
 			pageName = "Staging DM Page",
@@ -131,7 +131,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-79925."
-	@priority = "5"
+	@priority = 5
 	test PublishDocumentFromRestrictedFolder {
 		DMNavigator.gotoDocumentType();
 
@@ -192,7 +192,7 @@ definition {
 	}
 
 	@description = "This test covers LPS-82539."
-	@priority = "5"
+	@priority = 5
 	test PublishFolderWithWorkflow {
 		DMFolder.addCP(
 			dmFolderDescription = "DM Folder Description",
@@ -246,7 +246,7 @@ definition {
 	}
 
 	@description = "This test covers LPS-82532. It ensures documents inside the subfolder that's being published to live are also published."
-	@priority = "5"
+	@priority = 5
 	test PublishSubfolderWithDocumentsViaSAP {
 		DMFolder.addCP(
 			dmFolderDescription = "DM Folder Description",
@@ -329,7 +329,7 @@ definition {
 	}
 
 	@description = "This test covers LPS-90557. It ensures that a basic document and a shortcut pointing to it can be removed and republished when enabling local staging."
-	@priority = "5"
+	@priority = 5
 	test ShortcutDisppearsAfterTargetDeletionIsPublished {
 		DMNavigator.gotoAddDocumentType();
 

@@ -34,7 +34,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -50,7 +50,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AnonymizeEntryFromApplication {
 		property test.name.skip.portal.instance = "GDPR#AnonymizeEntryFromApplication";
 
@@ -81,7 +81,7 @@ definition {
 
 		GDPR.reviewPersonalData(
 			applications = "Documents and Media",
-			itemsCount = "1",
+			itemsCount = 1,
 			userFirstName = "userfn",
 			userLastName = "userln");
 
@@ -99,7 +99,7 @@ definition {
 			value1 = "Anonymous Anonymous");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteEntryFromApplication {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "GDPR#DeleteEntryFromApplication";
@@ -130,7 +130,7 @@ definition {
 
 		GDPR.reviewPersonalData(
 			applications = "Blogs",
-			itemsCount = "1",
+			itemsCount = 1,
 			userFirstName = "userfn",
 			userLastName = "userln");
 
@@ -143,7 +143,7 @@ definition {
 		LexiconEntry.viewNoEntry(rowEntry = "Blogs Entry Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditEntryFromApplication {
 		property test.name.skip.portal.instance = "GDPR#EditEntryFromApplication";
 
@@ -174,7 +174,7 @@ definition {
 
 		GDPR.reviewPersonalData(
 			applications = "Documents and Media",
-			itemsCount = "1",
+			itemsCount = 1,
 			userFirstName = "userfn",
 			userLastName = "userln");
 
@@ -198,7 +198,7 @@ definition {
 			tableEntryPartialTextList = "Edit DM Document Title,Edit DM Document Description");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ExportAllEntries {
 		property test.name.skip.portal.instance = "GDPR#ExportAllEntries";
 

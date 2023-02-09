@@ -19,7 +19,7 @@ definition {
 			layoutName = "Calendar Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Calendar Page",
 			widgetName = "Calendar");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -48,7 +48,7 @@ definition {
 		}
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditInviteForCalendarResourceCalendar {
 		CalendarResource.add(calendarResourceName = "Calendar Resource Name");
 
@@ -74,16 +74,16 @@ definition {
 			calendarType = "Other Calendars");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditInviteForCurrentSiteCalendarsCalendar {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		Calendar.add(
 			calendarName = "Site Calendar Name",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -93,17 +93,17 @@ definition {
 			fromAddressEdit = "testedit@liferay.com",
 			fromNameEdit = "Site Calendar Name Edit",
 			inviteEmail = "true",
-			site = "${siteName}");
+			site = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		Calendar.view(
 			calendarName = "Site Calendar Name",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditInviteForMyCalendarsCalendar {
 		Calendar.add(
 			calendarName = "My Calendar Name",
@@ -128,7 +128,7 @@ definition {
 			user = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditInviteForUserCalendar {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -165,7 +165,7 @@ definition {
 			calendarType = "Other Calendars");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditReminderForCalendarResourceCalendar {
 		CalendarResource.add(calendarResourceName = "Calendar Resource Name");
 
@@ -191,16 +191,16 @@ definition {
 			calendarType = "Other Calendars");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditReminderForCurrentSiteCalendarsCalendar {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		Calendar.add(
 			calendarName = "Site Calendar Name",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -210,17 +210,17 @@ definition {
 			fromAddressEdit = "testedit@liferay.com",
 			fromNameEdit = "Site Calendar Name Edit",
 			reminderEmail = "true",
-			site = "${siteName}");
+			site = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		Calendar.view(
 			calendarName = "Site Calendar Name",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditReminderForMyCalendarsCalendar {
 		Calendar.add(
 			calendarName = "My Calendar Name",
@@ -245,7 +245,7 @@ definition {
 			user = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditReminderForUserCalendar {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 

@@ -3,30 +3,30 @@ definition {
 	macro addCP {
 		LexiconEntry.gotoAdd();
 
-		PortletEntry.inputName(name = "${pageTemplateName}");
+		PortletEntry.inputName(name = ${pageTemplateName});
 
 		PortletEntry.inputDescriptionTextInput(description = "This is a page template description");
 
-		if ("${pageTemplateActive}" == "Not Active") {
+		if (${pageTemplateActive} == "Not Active") {
 			Click(locator1 = "ToggleSwitch#ACTIVE");
 		}
 
 		PortletEntry.save();
 
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		AssertTextEquals(
-			key_pageTemplateName = "${pageTemplateName}",
+			key_pageTemplateName = ${pageTemplateName},
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_ACTIVE",
-			value1 = "${pageTemplateActive}");
+			value1 = ${pageTemplateActive});
 	}
 
 	macro deactivateAndActivate {
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Configure",
-			rowEntry = "${pageTemplateName}");
+			rowEntry = ${pageTemplateName});
 
 		if (isSet(pageTemplateStatus)) {
 			Click(locator1 = "ToggleSwitch#ACTIVE");
@@ -36,9 +36,9 @@ definition {
 	}
 
 	macro deleteCP {
-		var key_pageTemplateName = "${pageTemplateName}";
+		var key_pageTemplateName = ${pageTemplateName};
 
-		LexiconEntry.openEntryMenu(rowEntry = "${pageTemplateName}");
+		LexiconEntry.openEntryMenu(rowEntry = ${pageTemplateName});
 
 		MenuItem.clickNoError(menuItem = "Delete");
 
@@ -48,21 +48,21 @@ definition {
 	}
 
 	macro editCP {
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Configure",
-			rowEntry = "${pageTemplateName}");
+			rowEntry = ${pageTemplateName});
 
 		PortletEntry.inputName(name = "${pageTemplateName} Edit");
 
-		if ("${pageTemplateActive}" == "Not Active") {
+		if (${pageTemplateActive} == "Not Active") {
 			Click(locator1 = "ToggleSwitch#ACTIVE");
 		}
 
 		Button.clickSave();
 
-		var key_pageTemplateName = "${pageTemplateName}";
+		var key_pageTemplateName = ${pageTemplateName};
 
 		Alert.viewSuccessMessage();
 
@@ -72,13 +72,13 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_ACTIVE",
-			value1 = "${pageTemplateActive}");
+			value1 = ${pageTemplateActive});
 	}
 
 	macro editDescription {
 		PageTemplatesAdminGlobalSite.viewDescription(
-			pageTemplateDescription = "${pageTemplateDescription}",
-			pageTemplateName = "${pageTemplateName}");
+			pageTemplateDescription = ${pageTemplateDescription},
+			pageTemplateName = ${pageTemplateName});
 
 		PortletEntry.inputDescriptionTextInput(description = "This is a page template description edit");
 
@@ -86,12 +86,12 @@ definition {
 	}
 
 	macro gotoPageTemplateViaEdit {
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		AssertClick.assertPartialTextClickAt(
-			key_pageTemplateName = "${pageTemplateName}",
+			key_pageTemplateName = ${pageTemplateName},
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME",
-			value1 = "${pageTemplateName}");
+			value1 = ${pageTemplateName});
 	}
 
 	macro tearDownCP {
@@ -104,8 +104,8 @@ definition {
 
 		var pageTemplateName = "Page Template Name";
 
-		while (IsElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS", rowEntry = "${pageTemplateName}")) {
-			LexiconEntry.openEntryMenu(rowEntry = "${pageTemplateName}");
+		while (IsElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS", rowEntry = ${pageTemplateName})) {
+			LexiconEntry.openEntryMenu(rowEntry = ${pageTemplateName});
 
 			MenuItem.clickNoError(menuItem = "Delete");
 
@@ -117,17 +117,17 @@ definition {
 
 	macro viewCP {
 		AssertTextEquals.assertPartialText(
-			key_pageTemplateName = "${pageTemplateName}",
+			key_pageTemplateName = ${pageTemplateName},
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME",
-			value1 = "${pageTemplateName}");
+			value1 = ${pageTemplateName});
 	}
 
 	macro viewDefaultCP {
 		for (var pageTemplateName : list "Search,Blog,Wiki") {
-			LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+			LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 			AssertElementNotPresent(
-				key_rowNumber = "4",
+				key_rowNumber = 4,
 				locator1 = "ContentRow#ENTRY_CONTENT_ROW_NUMBER");
 		}
 
@@ -135,68 +135,68 @@ definition {
 	}
 
 	macro viewDefaultLocalizedCP {
-		for (var pageTemplateNameTranslation : list "${pageTemplateNameList}") {
-			var key_pageTemplateName = "${pageTemplateNameTranslation}";
+		for (var pageTemplateNameTranslation : list ${pageTemplateNameList}) {
+			var key_pageTemplateName = ${pageTemplateNameTranslation};
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME",
-				value1 = "${pageTemplateNameTranslation}");
+				value1 = ${pageTemplateNameTranslation});
 		}
 
-		SiteAdmin.viewPortletTitle(portletTitle = "${portletTitle}");
+		SiteAdmin.viewPortletTitle(portletTitle = ${portletTitle});
 	}
 
 	macro viewDefaultPortletPG {
-		if ("${pageTemplateName}" == "Blog") {
+		if (${pageTemplateName} == "Blog") {
 			AssertElementPresent(locator1 = "Home#PORTLET_1");
 
 			AssertElementPresent(locator1 = "Home#PORTLET_2");
 
 			AssertElementPresent(locator1 = "Home#PORTLET_3");
 
-			for (var portletName : list "${portletTitleList}") {
-				var key_portletName = "${portletName}";
+			for (var portletName : list ${portletTitleList}) {
+				var key_portletName = ${portletName};
 
 				AssertTextEquals(
 					locator1 = "Portlet#TITLE",
-					value1 = "${portletName}");
+					value1 = ${portletName});
 			}
 		}
 	}
 
 	macro viewDescription {
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Configure",
-			rowEntry = "${pageTemplateName}");
+			rowEntry = ${pageTemplateName});
 
 		AssertTextEquals.assertValue(
 			locator1 = "TextInput#DESCRIPTION",
-			value1 = "${pageTemplateDescription}");
+			value1 = ${pageTemplateDescription});
 	}
 
 	macro viewPG {
-		var key_pageTemplateName = "${pageTemplateName}";
+		var key_pageTemplateName = ${pageTemplateName};
 
 		AssertClick.assertPartialTextClickAt(
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME",
-			value1 = "${pageTemplateName}");
+			value1 = ${pageTemplateName});
 
 		SelectWindow(locator1 = "title=${pageTemplateName} - ${siteName}");
 
 		AssertTextEquals(
 			locator1 = "Home#SITE_NAME",
-			value1 = "${pageTemplateName}");
+			value1 = ${pageTemplateName});
 	}
 
 	macro viewStatus {
-		LexiconEntry.viewEntryName(rowEntry = "${pageTemplateName}");
+		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		AssertTextEquals(
-			key_pageTemplateName = "${pageTemplateName}",
+			key_pageTemplateName = ${pageTemplateName},
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_ACTIVE",
-			value1 = "${pageTemplateStatus}");
+			value1 = ${pageTemplateStatus});
 	}
 
 }

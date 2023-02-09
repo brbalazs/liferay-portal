@@ -10,7 +10,7 @@ definition {
 	setUp {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			SignIn.signInPortalInstanceSetUp();
 		}
 
@@ -20,7 +20,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -38,7 +38,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-103694. Verify that with Single Approver Workflow enabled and after the user Submit for Publication, the admin is notified of form submission"
-	@priority = "4"
+	@priority = 4
 	test SubmitFormWithWorkflowAndViewNotification {
 		Navigator.openURL();
 
@@ -71,7 +71,7 @@ definition {
 
 		var publishFormURL = selenium.getElementValue("Form#PUBLISH_FORM_PUBLIC_URL");
 
-		Navigator.openSpecificURL(url = "${publishFormURL}");
+		Navigator.openSpecificURL(url = ${publishFormURL});
 
 		FormFields.editText(
 			fieldName = "TextField",
@@ -79,9 +79,9 @@ definition {
 
 		FormPortlet.submitLocalizedSuccessfully(buttonName = "Submit for Publication");
 
-		Pause(locator1 = "120000");
+		Pause(locator1 = 120000);
 
-		Navigator.openSpecificURL(url = "${publishFormURL}");
+		Navigator.openSpecificURL(url = ${publishFormURL});
 
 		FormFields.editText(
 			fieldName = "TextField",
@@ -97,7 +97,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-62371"
-	@priority = "3"
+	@priority = 3
 	test SubmitPublishedFormWithTextField {
 		Navigator.openURL();
 
@@ -133,7 +133,7 @@ definition {
 
 		Form.publishForm();
 
-		FormsAdminNavigator.openPublishURL(publishFormURL = "${publishedFormPublicURL}");
+		FormsAdminNavigator.openPublishURL(publishFormURL = ${publishedFormPublicURL});
 
 		FormFields.editText(
 			fieldName = "TextField",
@@ -210,7 +210,7 @@ definition {
 	}
 
 	@description = "This is a use case LPS-61197."
-	@priority = "5"
+	@priority = 5
 	test ViewDateAssetDetails {
 		Navigator.openURL();
 
@@ -326,7 +326,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-65270."
-	@priority = "5"
+	@priority = 5
 	test ViewEntryWithConditionalVisibilityFromSelectAndRadio {
 		Navigator.openURL();
 
@@ -380,13 +380,13 @@ definition {
 		FormRules.configureConditionOptions(
 			conditionField = "Select",
 			conditionOperator = "Is equal to",
-			conditionRowNumber = "1",
+			conditionRowNumber = 1,
 			conditionValueField = "Select 1",
 			conditionValueType = "Value");
 
 		FormRules.configureActionOptions(
 			action = "Show",
-			actionRowNumber = "1",
+			actionRowNumber = 1,
 			actionTarget = "Text One");
 
 		FormRules.save();
@@ -396,13 +396,13 @@ definition {
 		FormRules.configureConditionOptions(
 			conditionField = "Radio",
 			conditionOperator = "Is equal to",
-			conditionRowNumber = "1",
+			conditionRowNumber = 1,
 			conditionValueField = "Option 1",
 			conditionValueType = "Value");
 
 		FormRules.configureActionOptions(
 			action = "Show",
-			actionRowNumber = "1",
+			actionRowNumber = 1,
 			actionTarget = "Text Two");
 
 		FormRules.save();

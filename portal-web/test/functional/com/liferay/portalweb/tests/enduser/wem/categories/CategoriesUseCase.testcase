@@ -16,7 +16,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddCategorywithLocalization {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Localization";
@@ -76,7 +76,7 @@ definition {
 			layoutName = "Category Page Name");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "Category Page Name",
 			widgetName = "Web Content Display");
@@ -124,7 +124,7 @@ definition {
 			searchAssetType = "Webcontent");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddCategorywithSiteRole {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Permissions,Roles";
@@ -231,7 +231,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddPageWithRequiredVocabulary {
 		property testray.component.names = "Categories";
 
@@ -268,7 +268,7 @@ definition {
 		Page.viewSpecificPG(pageNameList = "Test Page Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddSubcategoryConfigureParentCategory {
 		property test.name.skip.portal.instance = "CategoriesUseCase#AddSubcategoryConfigureParentCategory";
 
@@ -308,7 +308,7 @@ definition {
 			path = "Topic > Category Name > Subcategory Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddSubcategoryProperty {
 		property testray.component.names = "Categories";
 
@@ -349,7 +349,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddVocabularyWithAssetSubtype {
 		property testray.component.names = "Categories,Web Content Administration";
 
@@ -405,7 +405,7 @@ definition {
 		AssertTextNotPresent(value1 = "Vocabulary Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddVocabularyWithMultipleAssetTypes {
 		property testray.component.names = "Categories";
 
@@ -424,7 +424,7 @@ definition {
 		Vocabulary.addAssociatedAssetType(
 			assetType = "Web Content Article",
 			required = "true",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		Button.clickSave();
 
@@ -461,7 +461,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddWCFailWithRequiredVocabularyAssetType {
 		property testray.component.names = "Categories,Web Content Administration";
 
@@ -500,7 +500,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddWCWithOptionalVocabularyAssetType {
 		property portal.release = "false";
 		property testray.component.names = "Categories,Web Content Administration";
@@ -542,7 +542,7 @@ definition {
 		Bookmark.viewNoCategoryCP(vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeletePartialCategory {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Permissions,Roles";
@@ -580,7 +580,7 @@ definition {
 
 		for (var resourceActionIndex : list "ADD_VOCABULARY,ADD_CATEGORY") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com.liferay.asset.categories",
 				roleTitle = "Category Role Name",
 				roleType = "site");
@@ -594,7 +594,7 @@ definition {
 
 		for (var resourceActionIndex : list "VIEW,CONFIGURATION,ACCESS_IN_CONTROL_PANEL") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com_liferay_asset_categories_admin_web_portlet_AssetCategoriesAdminPortlet",
 				roleTitle = "Category Role Name",
 				roleType = "site");
@@ -602,7 +602,7 @@ definition {
 
 		for (var resourceActionIndex : list "ADD_TO_PAGE,PERMISSIONS,CONFIGURATION,VIEW") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com_liferay_asset_categories_navigation_web_portlet_AssetCategoriesNavigationPortlet",
 				roleTitle = "Category Role Name",
 				roleType = "site");
@@ -654,7 +654,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DisableMultipleCategories {
 		property testray.component.names = "Categories,Web Content Administration";
 
@@ -668,7 +668,7 @@ definition {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
 			Category.addCP(
-				categoryName = "${categoryName}",
+				categoryName = ${categoryName},
 				vocabularyName = "Vocabulary Name");
 		}
 
@@ -723,7 +723,7 @@ definition {
 			webContentTitle = "Web Content Title Multiple Categories");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test DuplicateCategoriesViaWebContentCopy {
 		property testray.component.names = "Categories,Web Content Administration";
 
@@ -767,7 +767,7 @@ definition {
 		WebContent.viewCategorizationCategoryCP(categoryNameList = "Category Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ExportImportWCWithCategoryViaAP {
 		property testray.component.names = "Training";
 
@@ -834,7 +834,7 @@ definition {
 
 		LAR.exportSiteCP(siteScopeName = "Test Site Name");
 
-		var key_larFileName = "${larFileName}";
+		var key_larFileName = ${larFileName};
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "SitePagesExport#CURRENT_AND_PREVIOUS_STATUS",
@@ -847,7 +847,7 @@ definition {
 		JSONGroup.addGroup(groupName = "Import Site Name");
 
 		LAR.importSiteCP(
-			larFileName = "${larFileName}",
+			larFileName = ${larFileName},
 			siteName = "Import Site Name");
 
 		Navigator.gotoSitePage(
@@ -887,7 +887,7 @@ definition {
 			webContentTitle = "Subcategory WC Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ImportLAR {
 		property testray.component.names = "Training";
 
@@ -898,7 +898,7 @@ definition {
 			uploadFrom = "dependencies");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test MoveSubcategory {
 		property testray.component.names = "Categories";
 
@@ -910,7 +910,7 @@ definition {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
 			Category.addCP(
-				categoryName = "${categoryName}",
+				categoryName = ${categoryName},
 				vocabularyName = "Vocabulary Name");
 		}
 
@@ -919,7 +919,7 @@ definition {
 
 			Subcategory.addCP(
 				categoryName = "dog",
-				subcategoryName = "${subcategoryName}",
+				subcategoryName = ${subcategoryName},
 				vocabularyName = "Vocabulary Name");
 		}
 
@@ -939,7 +939,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchCategory {
 		property testray.component.names = "Categories";
 
@@ -965,20 +965,20 @@ definition {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
 			Category.searchCP(
-				categorySearchEntry = "${categoryName}",
+				categorySearchEntry = ${categoryName},
 				vocabularyName = "Vocabulary Name");
 
-			Category.viewSearchResultsCP(categoryNameList = "${categoryName}");
+			Category.viewSearchResultsCP(categoryNameList = ${categoryName});
 		}
 
 		for (var categoryDescription : list "brown,black") {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
 			Category.searchCP(
-				categorySearchEntry = "${categoryDescription}",
+				categorySearchEntry = ${categoryDescription},
 				vocabularyName = "Vocabulary Name");
 
-			Category.viewSearchResultsCP(categoryDefinitionList = "${categoryDescription}");
+			Category.viewSearchResultsCP(categoryDefinitionList = ${categoryDescription});
 		}
 
 		Category.openCategoriesAdmin(siteURLKey = "test-site-name");
@@ -992,7 +992,7 @@ definition {
 			categoryNameList = "llama,panda");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchCategoryWithNullResult {
 		property testray.component.names = "Categories";
 
@@ -1014,7 +1014,7 @@ definition {
 		Category.viewSearchResultsCP(nullResult = "true");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchEditedCategory {
 		property testray.component.names = "Categories,Documents Management";
 
@@ -1060,7 +1060,7 @@ definition {
 			searchAssetType = "Document");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchSubcategory {
 		property testray.component.names = "Categories";
 
@@ -1094,10 +1094,10 @@ definition {
 
 			Subcategory.searchCP(
 				categoryName = "Category Name",
-				subcategorySearchEntry = "${subcategoryName}",
+				subcategorySearchEntry = ${subcategoryName},
 				vocabularyName = "Vocabulary Name");
 
-			Subcategory.viewSearchResultsCP(categoryNameList = "${categoryName}");
+			Subcategory.viewSearchResultsCP(categoryNameList = ${categoryName});
 		}
 
 		for (var categoryDescription : list "friendly chops,handlebar") {
@@ -1105,10 +1105,10 @@ definition {
 
 			Subcategory.searchCP(
 				categoryName = "Category Name",
-				categorySearchEntry = "${subcategoryDescription}",
+				categorySearchEntry = ${subcategoryDescription},
 				vocabularyName = "Vocabulary Name");
 
-			Subcategory.viewSearchResultsCP(subcategoryDefinitionList = "${subcategoryDescription}");
+			Subcategory.viewSearchResultsCP(subcategoryDefinitionList = ${subcategoryDescription});
 		}
 
 		Category.openCategoriesAdmin(siteURLKey = "test-site-name");
@@ -1123,7 +1123,7 @@ definition {
 			subcategoryNameList = "mustache,beard");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchSubcategoryWithNullResult {
 		property testray.component.names = "Categories";
 
@@ -1152,7 +1152,7 @@ definition {
 		Subcategory.viewSearchResultsCP(nullResult = "true");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchVocabulary {
 		property testray.component.names = "Categories";
 
@@ -1171,7 +1171,7 @@ definition {
 		for (var vocabularyName : list "Food,Sport") {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
-			Search.searchCP(searchTerm = "${vocabularyName}");
+			Search.searchCP(searchTerm = ${vocabularyName});
 
 			Vocabulary.viewSearchResultsCP(vocabularyNameList = "${vocabularyName} Vocab");
 		}
@@ -1179,9 +1179,9 @@ definition {
 		for (var vocabularyDescription : list "Sushi,Futbol") {
 			Category.openCategoriesAdmin(siteURLKey = "test-site-name");
 
-			Search.searchCP(searchTerm = "${vocabularyDescription}");
+			Search.searchCP(searchTerm = ${vocabularyDescription});
 
-			Vocabulary.viewSearchResultsCP(vocabularyDefinitionList = "${vocabularyDescription}");
+			Vocabulary.viewSearchResultsCP(vocabularyDefinitionList = ${vocabularyDescription});
 		}
 
 		Category.openCategoriesAdmin(siteURLKey = "test-site-name");
@@ -1193,7 +1193,7 @@ definition {
 			vocabularyNameList = "Food Vocab,Sport Vocab");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchVocabularyWithNullResult {
 		property testray.component.names = "Categories";
 
@@ -1210,11 +1210,11 @@ definition {
 		Vocabulary.viewSearchResultsCP(nullResult = "true");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test UseCategoryFromParentSiteViaSiteHierarchy {
 		property testray.component.names = "Categories,Site Administration,Web Content Administration";
 
-		var parentSiteName = TestCase.getSiteName(siteName = "${siteName}");
+		var parentSiteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONCategory.addVocabulary(
 			groupName = "Test Site Name",
@@ -1228,7 +1228,7 @@ definition {
 		Site.openSitesAdmin(siteURLKey = "test-site-name");
 
 		Site.addBlankCP(
-			parentSiteName = "${parentSiteName}",
+			parentSiteName = ${parentSiteName},
 			siteName = "Child SiteName");
 
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");
@@ -1250,7 +1250,7 @@ definition {
 		WebContent.viewCategorizationCategoryCP(categoryNameList = "Category Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewCannotAddDuplicateSubCategory {
 		property testray.component.names = "Categories";
 
@@ -1277,7 +1277,7 @@ definition {
 			vocabularyName = "Vocabulary Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewFlattenedTreeCategoryNavigationDisplayStyle {
 		property test.name.skip.portal.instance = "CategoriesUseCase#ViewFlattenedTreeCategoryNavigationDisplayStyle";
 
@@ -1319,7 +1319,7 @@ definition {
 			path = "Topic > Category Name > Subcategory Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewNavigation {
 		property testray.component.names = "Categories";
 

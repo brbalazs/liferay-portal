@@ -31,7 +31,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -43,7 +43,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddGlobalUserSegmentToSiteViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
@@ -77,7 +77,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "Web Content targeted to a User Segment",
 			groupName = "Site Name",
-			serviceContext = "${webContentserviceContext}",
+			serviceContext = ${webContentserviceContext},
 			title = "Targeted Web Content Title");
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
@@ -105,7 +105,7 @@ definition {
 			belongs = "true",
 			contentTitle = "Targeted Web Content Title",
 			contentType = "Basic Web Content",
-			rowNumber = "1",
+			rowNumber = 1,
 			siteScope = "Global",
 			toAll = "true",
 			userSegmentName = "Male Users");
@@ -121,7 +121,7 @@ definition {
 			viewUserSegmentSelected = "Male Users");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddParentSiteUserSegmentToChildSiteViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
@@ -208,7 +208,7 @@ definition {
 			belongs = "true",
 			contentTitle = "Targeted Web Content Title",
 			contentType = "Basic Web Content",
-			rowNumber = "1",
+			rowNumber = 1,
 			siteScope = "Site Name",
 			toAll = "true",
 			userSegmentName = "Male Users");
@@ -224,7 +224,7 @@ definition {
 			viewUserSegmentSelected = "Male Users");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteUserSegmentCP {
 		property content.targeting.release = "true";
 
@@ -251,7 +251,7 @@ definition {
 		ContentTargetingUserSegment.deleteUserSegmentCP(userSegmentName = "User Segment Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditUserSegmentCP {
 		property content.targeting.release = "true";
 
@@ -296,7 +296,7 @@ definition {
 			userSegmentName = "User Segment Name Edit");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test UserSegmentContentViewReport {
 		property content.targeting.release = "true";
 
@@ -330,7 +330,7 @@ definition {
 			belong = "true",
 			contentTitle = "WC Male View Title",
 			contentType = "Basic Web Content",
-			rowNumber = "1",
+			rowNumber = 1,
 			toAny = "true",
 			userSegmentName = "Male Users");
 
@@ -360,7 +360,7 @@ definition {
 			reportTitle = "WC Male View Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewRulesAppliedUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
@@ -437,7 +437,7 @@ definition {
 			contentTitle = "Targeted Web Content Title",
 			contentType = "Basic Web Content",
 			doesNotBelong = "true",
-			rowNumber = "1",
+			rowNumber = 1,
 			toAny = "true",
 			userSegmentName = "Female Users",
 			viewEntryPG = "Female Users");
@@ -458,7 +458,7 @@ definition {
 			doesNotBelong = "true",
 			otherwiseContentTitle = "Targeted Web Content Title 2",
 			otherwiseContentType = "Web Content Article",
-			rowNumber = "1",
+			rowNumber = 1,
 			toAny = "true",
 			userSegmentName = "Female Users",
 			viewEntryPG = "Female Users");

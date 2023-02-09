@@ -48,7 +48,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -57,7 +57,7 @@ definition {
 	}
 
 	@description = "This is a test for LPS-81244. The web content can be assigned to the default display page."
-	@priority = "4"
+	@priority = 4
 	test AddWebContentAssignedToDefaultDisplayPage {
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
@@ -94,7 +94,7 @@ definition {
 	}
 
 	@description = "When a display page is marked as default, associated assets will be displayed through the display page by default without need for additional configuration."
-	@priority = "5"
+	@priority = 5
 	test ViewDisplayPageMarkedAsDefault {
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
@@ -113,18 +113,18 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "Display pages can be viewed through the asset publisher widget."
-	@priority = "5"
+	@priority = 5
 	test ViewDisplayPageViaAssetPublisher {
 		property portal.acceptance = "true";
 
@@ -145,7 +145,7 @@ definition {
 			layoutName = "Site Page Name");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "Site Page Name",
 			widgetName = "Asset Publisher");
@@ -173,18 +173,18 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "Display pages can be viewed through friendly URL."
-	@priority = "5"
+	@priority = 5
 	test ViewDisplayPageViaFriendlyURL {
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");
 
@@ -203,18 +203,18 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "A selected display page should override the default display page."
-	@priority = "5"
+	@priority = 5
 	test ViewNonDefaultDisplayPage {
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
@@ -261,18 +261,18 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "When no display page is selected, assets should not be displayed through the default display page."
-	@priority = "4"
+	@priority = 4
 	test ViewNoSelectedDisplayPage {
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
@@ -299,7 +299,7 @@ definition {
 			layoutName = "Site Page Name");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Test Site Name",
 			layoutName = "Site Page Name",
 			widgetName = "Asset Publisher");
@@ -331,13 +331,13 @@ definition {
 		AssertElementNotPresent(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertElementNotPresent(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 

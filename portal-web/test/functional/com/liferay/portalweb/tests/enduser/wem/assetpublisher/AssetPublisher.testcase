@@ -15,7 +15,7 @@ definition {
 			layoutName = "Asset Publisher Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Asset Publisher Page",
 			widgetName = "Asset Publisher");
@@ -26,7 +26,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -54,7 +54,7 @@ definition {
 		}
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddAndRemoveCustomTitleViaAP {
 		Portlet.gotoPortletOptions(portletOption = "Look and Feel Configuration");
 
@@ -81,24 +81,24 @@ definition {
 		Portlet.viewNoSpecificPG(portletName = "Asset Publisher Custom");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddAPMultiplePortlet {
 		property testray.component.names = "Asset Publisher,Training";
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
 		Portlet.addDuplicatePG(
-			portletCount = "3",
+			portletCount = 3,
 			portletName = "Asset Publisher");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
 		Portlet.viewDuplicatePG(
 			portletName = "Asset Publisher",
-			totalPortletCount = "4");
+			totalPortletCount = 4);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddAPPortletToSite {
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -114,11 +114,11 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-47619 and LPS-67326."
-	@priority = "5"
+	@priority = 5
 	test AddAssetTypesViaAPAndAddRespectivePortletsToSamePage {
 		property plugins.deployment.type = "osgi";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -140,7 +140,7 @@ definition {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
 		CalendarEvent.viewViaAssetPublisher(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventTitle = "Calendar Event Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -224,11 +224,11 @@ definition {
 		for (var portletName : list "Blogs,Calendar,Documents and Media,Dynamic Data Lists Display,Knowledge Base Article,Web Content Display") {
 			Navigator.gotoPage(pageName = "Asset Publisher Page");
 
-			Portlet.addPG(portletName = "${portletName}");
+			Portlet.addPG(portletName = ${portletName});
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddBookmarkViaAP {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks";
@@ -238,7 +238,7 @@ definition {
 			layoutName = "Bookmarks Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Bookmarks Page",
 			widgetName = "Bookmarks");
@@ -262,7 +262,7 @@ definition {
 		Bookmark.viewBookmarkViaAP(bookmarkName = "Test Bookmark Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddCustomTitleViaAP {
 		property testray.component.names = "Asset Publisher";
 
@@ -284,7 +284,7 @@ definition {
 	}
 
 	@description = "LPS-96038 - Global Categories do not appear as filters in Asset Publisher Configuration."
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletDisplaysGlobalCategoriesAsFilters {
 		JSONGroup.addGroup(groupName = "Test Site Name");
 
@@ -312,7 +312,7 @@ definition {
 			portletName = "Asset Publisher");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletDisplaytemplateWithBookmarks {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks,Content and Display Templates,Training";
@@ -322,7 +322,7 @@ definition {
 			layoutName = "Bookmarks Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Bookmarks Page",
 			widgetName = "Bookmarks");
@@ -383,13 +383,13 @@ definition {
 			bookmarkName = "Test Bookmark Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletEnableRatings {
 		property testray.component.names = "Asset Publisher";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -415,22 +415,22 @@ definition {
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
-		AssetPublisherPortlet.rateAssetPG(rating = "4");
+		AssetPublisherPortlet.rateAssetPG(rating = 4);
 
 		Navigator.gotoPage(
 			assetTitle = "WC WebContent Title",
 			pageName = "Asset Publisher Page");
 
-		AssetPublisherPortlet.viewAssetRatingPG(rating = "4");
+		AssetPublisherPortlet.viewAssetRatingPG(rating = 4);
 
-		AssetPublisherPortlet.viewAverageRatingPG(averageRating = "4");
+		AssetPublisherPortlet.viewAverageRatingPG(averageRating = 4);
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ConfigureAPPortletScopeMultipleSites {
 		property testray.component.names = "Asset Publisher,Training";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONGroup.addGroup(groupName = "Test Site");
 
@@ -447,11 +447,11 @@ definition {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
 		AssetPublisherPortlet.viewMultipleSiteScopesAddDropdowns(
-			siteName1 = "${siteName}",
+			siteName1 = ${siteName},
 			siteName2 = "Test Site");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletSelectedBlogsEntry {
 		property testray.component.names = "Asset Publisher";
 
@@ -464,7 +464,7 @@ definition {
 			selectedAssetConfiguration = "Blogs Entry");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletSelectedBookmarksEntry {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher";
@@ -478,7 +478,7 @@ definition {
 			selectedAssetConfiguration = "Bookmarks Entry");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletSelectedDocument {
 		property testray.component.names = "Asset Publisher";
 
@@ -493,7 +493,7 @@ definition {
 			selectedAssetConfiguration = "Document");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ConfigureAPPortletSelectedWebContent {
 		property portal.acceptance = "true";
 		property testray.component.names = "Asset Publisher,Training";
@@ -510,7 +510,7 @@ definition {
 			selectedAssetConfiguration = "Web Content Article");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletSetAsDefault {
 		property testray.component.names = "Asset Publisher";
 
@@ -521,7 +521,7 @@ definition {
 		AssetPublisherPortlet.viewDisplaySettings(displaySettings = "Set as the Default Asset Publisher for This Page");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureAPPortletWithSelectedBookmarksEntry {
 		property portal.release = "false";
 		property testray.component.names = "Asset Publisher,Bookmarks";
@@ -531,7 +531,7 @@ definition {
 			layoutName = "Bookmarks Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Bookmarks Page",
 			widgetName = "Bookmarks");
@@ -568,7 +568,7 @@ definition {
 		AssetPublisherPortlet.viewConfigureAPMoveToSelectedPG(assetTitle = "Test Bookmark Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test FilterTagsByNameAP {
 		property testray.component.names = "Asset Publisher,Tags";
 
@@ -577,7 +577,7 @@ definition {
 			layoutName = "Tags Navigation Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Tags Navigation Page",
 			widgetName = "Tags Navigation");
@@ -591,7 +591,7 @@ definition {
 		TagsNavigationPortlet.configureFlaggableSettingsPG(showAssetCount = "true");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Tags Navigation Page",
 			widgetName = "Asset Publisher");
@@ -604,7 +604,7 @@ definition {
 				panel = "Site Administration",
 				portlet = "Tags");
 
-			Tag.addCP(tagName = "${tagName}");
+			Tag.addCP(tagName = ${tagName});
 		}
 
 		Navigator.openURL();
@@ -652,7 +652,7 @@ definition {
 			nonTaggedAsset = "DM Document Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test FindSiteAPViaSearchScopeSelector {
 		property testray.component.names = "Asset Publisher";
 
@@ -665,7 +665,7 @@ definition {
 		AssetPublisherPortlet.assertSiteScopeSearch(siteName = "Site Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test OrderContentByModifiedDateViaAP {
 		property testray.component.names = "Asset Publisher";
 
@@ -716,7 +716,7 @@ definition {
 			assetTitle3 = "WebContent Title 1 Edit");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test OrderWCByModifiedDateViaAP {
 		property testray.component.names = "Asset Publisher";
 
@@ -773,7 +773,7 @@ definition {
 			assetTitle3 = "WebContent Title 1 Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test OrderWCByPriorityViaAP {
 		property testray.component.names = "Asset Publisher";
 
@@ -789,7 +789,7 @@ definition {
 				webContentContent = "WC WebContent Content",
 				webContentTitle = "WC Priority ${i} Title");
 
-			WebContent.addPriority(priority = "${i}");
+			WebContent.addPriority(priority = ${i});
 
 			PortletEntry.publish();
 		}
@@ -798,15 +798,15 @@ definition {
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 3 Title",
-			rowNumber = "1");
+			rowNumber = 1);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 5 Title",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 1 Title",
-			rowNumber = "3");
+			rowNumber = 3);
 
 		AssetPublisherPortlet.configureAssetTypePG(
 			assetSubtype = "Any",
@@ -822,15 +822,15 @@ definition {
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 1 Title",
-			rowNumber = "1");
+			rowNumber = 1);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 3 Title",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 5 Title",
-			rowNumber = "3");
+			rowNumber = 3);
 
 		AssetPublisherPortlet.configureAssetDisplayOrderPG(
 			fieldNameOrder = "Priority",
@@ -840,18 +840,18 @@ definition {
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 5 Title",
-			rowNumber = "1");
+			rowNumber = 1);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 3 Title",
-			rowNumber = "2");
+			rowNumber = 2);
 
 		AssetPublisherPortlet.viewDisplayOrderPG(
 			assetTitle = "WC Priority 1 Title",
-			rowNumber = "3");
+			rowNumber = 3);
 	}
 
-	@priority = "3"
+	@priority = 3
 	test OrderWCByPublishDateViaAP {
 		property testray.component.names = "Asset Publisher,Training";
 
@@ -873,7 +873,7 @@ definition {
 			webContentContent = "WebContent Content 1",
 			webContentTitle = "WebContent Title 1");
 
-		Pause(locator1 = "65000");
+		Pause(locator1 = 65000);
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -881,7 +881,7 @@ definition {
 			webContentContent = "WebContent Content 2",
 			webContentTitle = "WebContent Title 2");
 
-		Pause(locator1 = "65000");
+		Pause(locator1 = 65000);
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -905,7 +905,7 @@ definition {
 		Portlet.viewSpecificPG(portletName = "Asset Publisher Custom");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RestoreAPArchivedSetup {
 		property testray.component.names = "Asset Publisher,Training";
 

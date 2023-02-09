@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AccessGogoShellCommandViaPortlet {
 		property test.name.skip.portal.instance = "GogoShell#AccessGogoShellCommandViaPortlet";
 
@@ -40,11 +40,11 @@ definition {
 		GogoShell.executeCommand(commandName = "system:check");
 
 		for (var outputContent : list "Declarative Service Soft Circular Dependency Checker check result: No issues were found,Declarative Service Unsatisfied Component Checker check result: No issues were found,Spring Extender Unavailable Component Checker check result: No issues were found") {
-			GogoShell.viewOutput(outputContent = "${outputContent}");
+			GogoShell.viewOutput(outputContent = ${outputContent});
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test GogoShellPortletOnlyOnMainInstance {
 		property test.name.skip.portal.instance = "GogoShell#GogoShellPortletOnlyOnMainInstance";
 
@@ -78,7 +78,7 @@ definition {
 			portlet = "Gogo Shell");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test OmniAdminCanAccessGogoShellCommandViaPortlet {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "GogoShell#OmniAdminCanAccessGogoShellCommandViaPortlet";
@@ -112,7 +112,7 @@ definition {
 		GogoShell.viewOutput(outputContent = "Liferay Portal");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SiteAdminCannotAccessGogoShellPortlet {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "GogoShell#SiteAdminCannotAccessGogoShellPortlet";
@@ -133,10 +133,10 @@ definition {
 			panel = "Control Panel",
 			portlet = "Users and Organizations");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Site.assignUserSitesCP(
-			siteName = "${siteName}",
+			siteName = ${siteName},
 			userScreenName = "usersn");
 
 		ProductMenu.gotoPortlet(

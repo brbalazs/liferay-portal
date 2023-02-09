@@ -3,7 +3,7 @@ definition {
 	macro add {
 		LexiconEntry.gotoAdd();
 
-		PortletEntry.inputName(name = "${displayPageName}");
+		PortletEntry.inputName(name = ${displayPageName});
 
 		Button.clickSave();
 	}
@@ -11,10 +11,10 @@ definition {
 	macro markDisplayPageAsDefault {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Mark As Default",
-			rowEntry = "${rowEntry}");
+			rowEntry = ${rowEntry});
 
 		AssertVisible(
-			key_cardText = "${rowEntry}",
+			key_cardText = ${rowEntry},
 			locator1 = "Card#STICKER");
 	}
 
@@ -23,24 +23,24 @@ definition {
 	}
 
 	macro viewPGViaAP {
-		var key_assetContent = "${webContentContent}";
-		var key_assetTitle = "${webContentTitle}";
+		var key_assetContent = ${webContentContent};
+		var key_assetTitle = ${webContentTitle};
 
 		AssertTextEquals(
 			locator1 = "AP#ASSET_ABSTRACT_TITLE",
-			value1 = "${webContentTitle}");
+			value1 = ${webContentTitle});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "AP#ASSET_ABSTRACT_DESCRIPTION",
-			value1 = "${webContentContent}");
+			value1 = ${webContentContent});
 
 		AssertClick(
 			locator1 = "AP#ASSET_ABSTRACT_TITLE",
-			value1 = "${webContentTitle}");
+			value1 = ${webContentTitle});
 
-		for (var content : list "${contentList}") {
+		for (var content : list ${contentList}) {
 			AssertElementPresent(
-				key_text = "${content}",
+				key_text = ${content},
 				locator1 = "Fragment#EDITABLE_FIELD_CONTENT");
 		}
 	}

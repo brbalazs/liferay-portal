@@ -7,10 +7,10 @@ definition {
 			var collectionName = "Basic Pages";
 		}
 
-		Navigator.gotoNavNested(navNested = "${collectionName}");
+		Navigator.gotoNavNested(navNested = ${collectionName});
 
 		if (isSet(pageTemplateName)) {
-			LexiconEntry.gotoEntry(rowEntry = "${pageTemplateName}");
+			LexiconEntry.gotoEntry(rowEntry = ${pageTemplateName});
 		}
 		else {
 			Card.clickSitePagesCardLink(cardName = "Content Page");
@@ -20,7 +20,7 @@ definition {
 			SelectFrame(locator1 = "IFrame#DIALOG");
 		}
 
-		PortletEntry.inputName(name = "${pageName}");
+		PortletEntry.inputName(name = ${pageName});
 
 		Button.click(button = "Save");
 

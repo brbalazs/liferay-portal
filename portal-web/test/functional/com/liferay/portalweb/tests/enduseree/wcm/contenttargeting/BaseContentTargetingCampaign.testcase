@@ -29,7 +29,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -41,7 +41,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddBlankCP {
 		property content.targeting.release = "true";
 
@@ -70,7 +70,7 @@ definition {
 			campaignEndDate = "1/1/2099",
 			campaignEndTime = "12:00 PM",
 			campaignName = "Campaign Name",
-			campaignPriorityField = "3",
+			campaignPriorityField = 3,
 			campaignStartDate = "1/1/2015",
 			campaignStartTime = "12:00 AM",
 			userSegmentSelect = "User Segment Name");
@@ -87,7 +87,7 @@ definition {
 		ContentTargetingCampaign.viewCampaignCP(
 			campaignDescription = "Campaign Description",
 			campaignName = "Campaign Name",
-			campaignPriority = "3",
+			campaignPriority = 3,
 			campaignStatus = "Started");
 	}
 

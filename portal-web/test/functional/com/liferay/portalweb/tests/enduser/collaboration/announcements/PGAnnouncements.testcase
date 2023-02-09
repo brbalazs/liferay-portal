@@ -19,7 +19,7 @@ definition {
 			layoutName = "Announcements Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Announcements Page",
 			widgetName = "Announcements");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -42,7 +42,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddAnnouncementsEntry {
 		property test.name.skip.portal.instance = "PGAnnouncements#AddAnnouncementsEntry";
 
@@ -63,7 +63,7 @@ definition {
 			entryURL = "http://www.liferay.com");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddAnnouncementsEntryFutureDate {
 		Navigator.gotoPage(pageName = "Announcements Page");
 
@@ -73,7 +73,7 @@ definition {
 			entryTitle = "Announcements Entry Title",
 			entryURL = "http://www.liferay.com");
 
-		Pause(locator1 = "10000");
+		Pause(locator1 = 10000);
 
 		AssertClick(
 			locator1 = "Announcements#NAVIGATION_ENTRIES_UNREAD",
@@ -81,7 +81,7 @@ definition {
 
 		AssertTextNotPresent(value1 = "Announcements Entry Title");
 
-		Pause(locator1 = "120000");
+		Pause(locator1 = 120000);
 
 		Navigator.gotoPage(pageName = "Announcements Page");
 
@@ -92,7 +92,7 @@ definition {
 			entryURL = "http://www.liferay.com");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddAnnouncementsEntryPastExpirationDate {
 		Navigator.gotoPage(pageName = "Announcements Page");
 
@@ -118,7 +118,7 @@ definition {
 			value1 = "No entries were found.");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddAnnouncementsEntryPriorityImportant {
 		Navigator.gotoPage(pageName = "Announcements Page");
 
@@ -137,7 +137,7 @@ definition {
 			entryTitle = "Announcements Entry Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddAnnouncementsEntrySite {
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -175,7 +175,7 @@ definition {
 			entryTitle = "Announcements Entry Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteAnnouncementsEntry {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "PGAnnouncements#DeleteAnnouncementsEntry";
@@ -200,7 +200,7 @@ definition {
 			entryTitle = "Announcements Entry Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditAnnouncementsEntry {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "PGAnnouncements#EditAnnouncementsEntry";
@@ -231,7 +231,7 @@ definition {
 			entryTitle = "Announcements Entry Title Edit");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewPreviousAnnouncementEntries {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "PGAnnouncements#ViewPreviousAnnouncementEntries";

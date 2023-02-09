@@ -37,7 +37,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -49,14 +49,14 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewMentionViaBlogsEntry {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -77,7 +77,7 @@ definition {
 			mentionsUserScreenName = "usersn");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewMentionViaBlogsEntryComment {
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -110,7 +110,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		Mentions.addMentionViaComments(
 			entryComment = "Comment mentioning",

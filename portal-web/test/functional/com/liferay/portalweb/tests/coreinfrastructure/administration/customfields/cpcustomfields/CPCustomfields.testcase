@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddCustomFieldsSmoke {
 		property osgi.app.includes = "bookmarks";
 
@@ -179,7 +179,7 @@ definition {
 			resourceName = "Wiki Page");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddCustomFieldUserBoolean {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -216,7 +216,7 @@ definition {
 			customFieldValue = "False");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditCustomFieldUserBoolean {
 		property app.server.types = "jboss,resin,tcserver,tomcat,weblogic,websphere,wildfly";
 		property custom.properties = "jsonws.web.service.paths.excludes=";
@@ -269,7 +269,7 @@ definition {
 			customFieldValue = "True");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditRevertCustomFieldWikiPage {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -286,7 +286,7 @@ definition {
 			layoutName = "Wiki Test Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Wiki Test Page",
 			widgetName = "Wiki");
@@ -331,7 +331,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-57830."
-	@priority = "4"
+	@priority = 4
 	test UpdateDocumentWithCustomField {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -342,7 +342,7 @@ definition {
 			layoutName = "Documents and Media Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Site Name",
 			layoutName = "Documents and Media Page",
 			widgetName = "Documents and Media");

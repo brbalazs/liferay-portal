@@ -37,7 +37,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -50,7 +50,7 @@ definition {
 	}
 
 	@description = "This test covers LPS-95501. It asserts added wiki attachment file via item selector."
-	@priority = "4"
+	@priority = 4
 	test ActivateInitialStagingWithAttachment {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -133,7 +133,7 @@ definition {
 		ItemSelector.viewWikiAttachment(imageFileName = "Document_1.jpg");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigurePortletDisplaySettings {
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 
@@ -164,7 +164,7 @@ definition {
 		WikiPortlet.viewDisplaySettings(uncheckedSetting = "ENABLE_COMMENTS,ENABLE_COMMENT_RATINGS,ENABLE_PAGE_RATINGS,SHOW_RELATED_ASSETS");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ImportLARLinkNode {
 		property testray.component.names = "Training";
 
@@ -220,7 +220,7 @@ definition {
 			value1 = "Sweet Potatoes");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test NavigationPortletSmoke {
 		Navigator.openURL(pageName = "Wiki Test Page");
 
@@ -231,7 +231,7 @@ definition {
 			value1 = "remove-plugin -Dplugin.name=wiki-navigation-portlet");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RateAndEditPageComment {
 		WikiNavigator.openWikiAdmin(siteURLKey = "guest");
 
@@ -273,14 +273,14 @@ definition {
 
 		Ratings.viewRating(
 			ratingResult = "Thumb Up",
-			voteCount = "1");
+			voteCount = 1);
 
 		Ratings.viewRating(
 			ratingResult = "Thumb Down",
-			voteCount = "0");
+			voteCount = 0);
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RatePage {
 		WikiNavigator.openWikiAdmin(siteURLKey = "guest");
 
@@ -315,7 +315,7 @@ definition {
 		WikiPage.viewRate4StarsPG(wikiPageTitle = "Wiki Page 1");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RestoreDeletedFrontPage {
 		property portal.acceptance = "true";
 
@@ -360,7 +360,7 @@ definition {
 
 	@description = "This will be ignored until LPS-87430 is backported on BPR-23065."
 	@ignore = "true"
-	@priority = "4"
+	@priority = 4
 	test SearchChildPageComment {
 		WikiPage.addFrontPagePG(
 			wikiNodeName = "Main",
@@ -389,7 +389,7 @@ definition {
 			wikiPageTitle = "Wiki FrontPage Child Page Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchFrontPageAttachments {
 		WikiPage.addFrontPagePG(
 			wikiNodeName = "Main",
@@ -411,7 +411,7 @@ definition {
 			wikiPageTitle = "FrontPage");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewDraftPagesViaBreadcrumb {
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 
@@ -454,7 +454,7 @@ definition {
 			pathLocator = "CURRENT_LOCATION");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewNoXSSViaAddPage {
 		Navigator.gotoPage(pageName = "Wiki Test Page");
 
@@ -469,9 +469,9 @@ definition {
 		var actualScript = '''<script>alert(123);</script>''';
 		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
 
-		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+		AssertHTMLSourceTextNotPresent(value1 = ${actualScript});
 
-		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+		AssertHTMLSourceTextPresent(value1 = ${escapedScript});
 	}
 
 }

@@ -19,7 +19,7 @@ definition {
 			layoutName = "Knowledge Base Display Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Knowledge Base Display Page",
 			widgetName = "Knowledge Base Display");
@@ -28,7 +28,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -42,7 +42,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddChildArticle {
 		Navigator.openURL();
 
@@ -61,7 +61,7 @@ definition {
 			kbArticleContent = "Child Article Content",
 			kbArticleTitle = "Child Article Title");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -71,7 +71,7 @@ definition {
 			kbChildArticleTitle = "Child Article Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddKBArticleContentNull {
 		Navigator.openURL();
 
@@ -90,7 +90,7 @@ definition {
 		KBArticle.viewNoPGViaKBDisplay(kbArticleTitle = "Knowledge Base Article Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddKBArticleSuggestion {
 		Navigator.openURL();
 
@@ -121,7 +121,7 @@ definition {
 			status = "New");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddKBArticleTitleNull {
 		Navigator.openURL();
 
@@ -139,7 +139,7 @@ definition {
 		KBArticle.viewNoPGViaKBDisplay(kbArticleTitle = "Knowledge Base Article Content");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddMultipleKBArticleSuggestions {
 		Navigator.openURL();
 
@@ -178,7 +178,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CancelAddChildArticle {
 		Navigator.openURL();
 
@@ -207,7 +207,7 @@ definition {
 		AssertElementNotPresent(locator1 = "KnowledgeBase#HIERARCHY_NAVIGATION_CHILD");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test CannotViewDuplicateBreadcrumbsWhenAddingParentArticle {
 		Navigator.openURL();
 
@@ -244,7 +244,7 @@ definition {
 		AssertElementNotPresent(locator1 = "//ul[contains(@class,'breadcrumb')]//a[contains(.,'Home')]/following-sibling::ul[contains(@class,'breadcrumb')]");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteChildArticle {
 		Navigator.openURL();
 
@@ -263,7 +263,7 @@ definition {
 			kbArticleContent = "Child Article Content",
 			kbArticleTitle = "Child Article Title");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -275,7 +275,7 @@ definition {
 		KBArticle.deletePG();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteKBArticleViaKBDisplay {
 		Navigator.openURL();
 
@@ -295,7 +295,7 @@ definition {
 		KBArticle.viewDefaultViaKBDisplayPG();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditChildArticle {
 		Navigator.openURL();
 
@@ -325,7 +325,7 @@ definition {
 			kbArticleContentEdit = "Knowledge Base Article Parent Content Edited 1",
 			kbArticleTitleEdit = "Knowledge Base Article Parent Title Edited 1");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -337,7 +337,7 @@ definition {
 			kbArticleContentEdit = "Knowledge Base Child Article Content Edited 1",
 			kbArticleTitleEdit = "Knowledge Base Article Parent Title Edited 1 Child 1");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -346,7 +346,7 @@ definition {
 		KBArticle.viewChildArticleHierarchyViaKBDisplayPG(kbArticleTitle = "Knowledge Base Article Parent Title Edited 1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditKBArticle {
 		Navigator.openURL();
 
@@ -372,7 +372,7 @@ definition {
 			kbArticleTitle = "Knowledge Base Article Title",
 			kbArticleTitleEdit = "Knowledge Base Article Title Edit");
 
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -381,7 +381,7 @@ definition {
 			kbArticleTitle = "Knowledge Base Article Title Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test EditKBArticleDisplaySettingsViaKBDisplayConfiguration {
 		Navigator.openURL();
 
@@ -411,7 +411,7 @@ definition {
 			subscribe = "false");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RateKBArticleWithoutSuggestions {
 		Navigator.openURL();
 
@@ -430,10 +430,10 @@ definition {
 
 		Ratings.viewRating(
 			ratingResult = "Thumb Up",
-			voteCount = "1");
+			voteCount = 1);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SelectParentArticleViaKBDisplay {
 		Navigator.openURL();
 
@@ -470,7 +470,7 @@ definition {
 		KBArticle.viewChildArticleHierarchyViaKBDisplayPG(kbArticleTitle = "Knowledge Base Article Parent Title 1");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewEditedKBArticleTitleHistory {
 		Navigator.openURL();
 
@@ -500,12 +500,12 @@ definition {
 		KBArticle.viewArticleHistoryPG(
 			kbArticleContent = "KB Article Content Edit",
 			kbArticleContentAddedDiff = "Edit",
-			kbArticleVersionNew = "2",
-			kbArticleVersionOld = "1",
+			kbArticleVersionNew = 2,
+			kbArticleVersionOld = 1,
 			viewNoXMLInTitle = "true");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleSuggestionsWorkflow {
 		Navigator.openURL();
 
@@ -528,7 +528,7 @@ definition {
 
 		KBArticleSuggestion.gotoSuggestionStatusNew(
 			kbSuggestionBody = "Knowledge Base Article1 Suggestion",
-			suggestionCount = "1");
+			suggestionCount = 1);
 
 		KBArticleSuggestion.viewPG(
 			kbSuggestionBody = "Knowledge Base Article1 Suggestion",
@@ -554,7 +554,7 @@ definition {
 			status = "Resolved");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleViaDefaultFriendlyURL {
 		Navigator.openURL();
 
@@ -577,14 +577,14 @@ definition {
 
 		Navigator.gotoPage(pageName = "Welcome");
 
-		Navigator.openSpecificURL(url = "${kbAricleFriendlyURL}");
+		Navigator.openSpecificURL(url = ${kbAricleFriendlyURL});
 
 		KBArticle.viewViaKBDisplayPG(
 			kbArticleContent = "Knowledge Base Article2 Content",
 			kbArticleTitle = "Knowledge Base Article2 Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewKBArticleViaNavigationLinks {
 		Navigator.openURL();
 
@@ -650,7 +650,7 @@ definition {
 			previous = "false");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleViaUserDefinedFriendlyURL {
 		Navigator.openURL();
 
@@ -674,14 +674,14 @@ definition {
 
 		Navigator.gotoPage(pageName = "Welcome");
 
-		Navigator.openSpecificURL(url = "${kbAricleFriendlyURL}");
+		Navigator.openSpecificURL(url = ${kbAricleFriendlyURL});
 
 		KBArticle.viewViaKBDisplayPG(
 			kbArticleContent = "Knowledge Base Article2 Content",
 			kbArticleTitle = "Knowledge Base Article2 Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewKBArticleWithBlogsEntryRelatedAsset {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -709,16 +709,16 @@ definition {
 
 		var kbArticleRelatedAssetTitle = "Blogs Entry Title";
 
-		var key_kbArticleRelatedAssetTitle = "${kbArticleRelatedAssetTitle}";
+		var key_kbArticleRelatedAssetTitle = ${kbArticleRelatedAssetTitle};
 
 		AssertClick.assertTextClickAt(
 			locator1 = "AssetRelatedAssets#KB_RELATED_ASSETS_LINKS",
-			value1 = "${kbArticleRelatedAssetTitle}");
+			value1 = ${kbArticleRelatedAssetTitle});
 
 		KBArticle.viewBlogsEntryRelatedAsset();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewKBArticleWithEditedStarRatings {
 		property test.name.skip.portal.instance = "PGKnowledgebasedisplay#ViewKBArticleWithEditedStarRatings";
 
@@ -767,7 +767,7 @@ definition {
 		KBArticle.viewArticle5StarRatingPG();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleWithKBChildArticleHierarchyNavigation {
 		Navigator.openURL();
 
@@ -829,7 +829,7 @@ definition {
 			kbArticleTitle = "Knowledge Base Article Parent Title 2 Child 2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleWithoutConfiguration {
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
@@ -853,7 +853,7 @@ definition {
 			kbArticleTitle = "Knowledge Base Article Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBArticleWithStarRatings {
 		property test.name.skip.portal.instance = "PGKnowledgebasedisplay#ViewKBArticleWithStarRatings";
 
@@ -878,7 +878,7 @@ definition {
 
 		Ratings.viewRating(
 			ratingResult = "Thumb Up",
-			voteCount = "1");
+			voteCount = 1);
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -920,10 +920,10 @@ definition {
 
 		Navigator.gotoPage(pageName = "Knowledge Base Display Page");
 
-		Ratings.viewRating(voteCount = "1");
+		Ratings.viewRating(voteCount = 1);
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewKBArticleWithXSSCodeInjectedTitle {
 		Navigator.openURL();
 
@@ -958,7 +958,7 @@ definition {
 			kbArticleTitle = '''><img onerror="alert('xss')" src="xx" /><''');
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewKBChildArticleViaNextLink {
 		Navigator.openURL();
 
@@ -985,7 +985,7 @@ definition {
 			kbArticleTitle = "Knowledge Base Article Parent Title 1 Child 1");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewNoDuplicateKBSuggestionAfterRefresh {
 		Navigator.openURL();
 

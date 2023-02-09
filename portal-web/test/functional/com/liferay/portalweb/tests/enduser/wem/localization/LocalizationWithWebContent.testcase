@@ -25,7 +25,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -34,7 +34,7 @@ definition {
 	}
 
 	@description = "LPS-100416 - Non-Repeatable text fields show incorrect translation on label at first load."
-	@priority = "4"
+	@priority = 4
 	test AddNonRepeatableTextFieldWithTranslation {
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
 
@@ -104,7 +104,7 @@ definition {
 			value1 = "German");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddWCWithMultipleTranslations {
 		property test.name.skip.portal.instance = "LocalizationWithWebContent#AddWCWithMultipleTranslations";
 		property testray.component.names = "Localization,Web Content Administration";
@@ -206,7 +206,7 @@ definition {
 			webContentTitle = "WC Otsikko");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddWCWithTranslation {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "LocalizationWithWebContent#AddWCWithTranslation";
@@ -258,7 +258,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-114001. The placeholder values are the same as the default Language's value."
-	@priority = "4"
+	@priority = 4
 	test AssertPlaceholderValuesSameAsTheDefaultLanguage {
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");
 
@@ -292,7 +292,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-83319. The user could change default language of web content after enable Changeable Default Language."
-	@priority = "5"
+	@priority = 5
 	test ChangeWebContentDefaultLanguage {
 		property test.name.skip.portal.instance = "LocalizationWithWebContent#ChangeWebContentDefaultLanguage";
 
@@ -353,7 +353,7 @@ definition {
 	}
 
 	@description = "This is a use case for 119020. Can add web content when the portal change the default language."
-	@priority = "4"
+	@priority = 4
 	test ViewChangedDefaultPortalLanguageViaWebContent {
 		property test.name.skip.portal.instance = "LocalizationWithWebContent#ViewChangedDefaultPortalLanguageViaWebContent";
 		property testray.component.names = "Localization";

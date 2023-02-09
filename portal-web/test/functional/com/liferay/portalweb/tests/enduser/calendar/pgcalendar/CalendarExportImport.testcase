@@ -19,7 +19,7 @@ definition {
 			layoutName = "Calendar Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Calendar Page",
 			widgetName = "Calendar");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -49,7 +49,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-57992."
-	@priority = "4"
+	@priority = 4
 	test ExportUserCalendarAsICS {
 		CalendarNavigator.gotoAddEvent();
 
@@ -70,14 +70,14 @@ definition {
 		CalendarEvent.view(eventTitle = "Event For Export");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ImportCalendarAndViewEventComment {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Calendar.enableComments(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			calendarType = "Current Site Calendars",
-			site = "${siteName}",
+			site = ${siteName},
 			user = "Test Test");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
@@ -85,23 +85,23 @@ definition {
 		CalendarNavigator.gotoAddEvent();
 
 		CalendarEvent.add(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventComment = "Calendar Event Regular Comment",
 			eventCommentEnabled = "true",
 			eventTitle = "Calendar Event Regular Title",
 			eventType = "Regular",
 			pageName = "Calendar Page",
-			site = "${siteName}",
+			site = ${siteName},
 			user = "Test Test");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarEvent.viewComment(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventComment = "Calendar Event Regular Comment",
 			eventTitle = "Calendar Event Regular Title",
 			eventType = "Regular",
-			site = "${siteName}",
+			site = ${siteName},
 			user = "Test Test");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
@@ -127,7 +127,7 @@ definition {
 		CalendarEvent.view(eventTitle = "Calendar Event Regular Title");
 
 		CalendarEvent.viewComment(
-			calendarName = "${siteName}",
+			calendarName = ${siteName},
 			eventComment = "Calendar Event Regular Comment",
 			eventTitle = "Calendar Event Regular Title",
 			eventType = "Regular",
@@ -135,15 +135,15 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-53072."
-	@priority = "4"
+	@priority = 4
 	test ImportMicrosoftOutlookCalendarICS {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarNavigator.gotoCurrentSiteCalendarsManage();
 
 		Calendar.importCalendarFile(
 			calendarFile = "calendar_microsoft_outlook_calendar.ics",
-			calendarName = "${siteName}");
+			calendarName = ${siteName});
 	}
 
 }

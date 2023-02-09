@@ -3,29 +3,29 @@ definition {
 	macro configureCampaignRule {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
-		var rowIndexNumber = selenium.getNumberDecrement("${rowNumber}");
+		var rowIndexNumber = selenium.getNumberDecrement(${rowNumber});
 
-		if ("${rowIndexNumber}" != "0") {
-			var key_indexNumber = "${rowIndexNumber}";
+		if (${rowIndexNumber} != 0) {
+			var key_indexNumber = ${rowIndexNumber};
 
 			Click(locator1 = "ContentTargeting#PLUS_LINK");
 		}
 
-		var key_rowNumber = "${rowNumber}";
+		var key_rowNumber = ${rowNumber};
 
 		Select(
 			locator1 = "CampaignContentDisplay#RULE_PANEL_CAMPAIGN_SELECT",
-			value1 = "${campaignName}");
+			value1 = ${campaignName});
 
 		Click(locator1 = "UserSegmentContentDisplay#RULE_PANEL_DISPLAY_CONTENT_SELECT");
 
-		MenuItem.click(menuItem = "${contentType}");
+		MenuItem.click(menuItem = ${contentType});
 
 		SelectFrame(value1 = "relative=top");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_rowEntry = "${contentTitle}";
+		var key_rowEntry = ${contentTitle};
 
 		ClickNoError(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
@@ -43,13 +43,13 @@ definition {
 
 		Click(locator1 = "ContentTargeting#OTHERWISE_PANEL_SELECT_CONTENT");
 
-		MenuItem.click(menuItem = "${contentType}");
+		MenuItem.click(menuItem = ${contentType});
 
 		SelectFrame(value1 = "relative=top");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		var key_rowEntry = "${contentTitle}";
+		var key_rowEntry = ${contentTitle};
 
 		ClickNoError(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
@@ -61,7 +61,7 @@ definition {
 
 		ClickNoError(locator1 = "Button#SAVE");
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		Alert.viewSuccessMessage();
 
@@ -78,24 +78,24 @@ definition {
 		ContentTargeting.expandPreview(portletName = "Campaign Content Display");
 
 		if (isSet(viewCampaignSelected)) {
-			var key_viewEntrySelected = "${viewCampaignSelected}";
+			var key_viewEntrySelected = ${viewCampaignSelected};
 
 			AssertElementPresent(locator1 = "ContentTargeting#PREVIEW_ENTRY_SELECTED");
 		}
 
 		if (isSet(previewCampaignList)) {
-			for (var previewEntry : list "${previewCampaignList}") {
+			for (var previewEntry : list ${previewCampaignList}) {
 				ContentTargeting.expandPreview(portletName = "Campaign Content Display");
 
-				var key_previewEntry = "${previewEntry}";
+				var key_previewEntry = ${previewEntry};
 
-				if (isSet(entryContentText) && ("${previewEntry}" != "default")) {
+				if (isSet(entryContentText) && (${previewEntry} != "default")) {
 					AssertTextEquals(
 						locator1 = "CampaignContentDisplay#ENTRY_CONTENT",
-						value1 = "${entryContentText}");
+						value1 = ${entryContentText});
 				}
 
-				if (("viewDontDisplay" == "true") && ("${previewEntry}" == "default")) {
+				if (("viewDontDisplay" == "true") && (${previewEntry} == "default")) {
 					AssertTextEquals(
 						locator1 = "CampaignContentDisplay#ENTRY_CONTENT",
 						value1 = "There are no matching rules");

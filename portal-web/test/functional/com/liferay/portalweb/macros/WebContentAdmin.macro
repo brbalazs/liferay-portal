@@ -2,8 +2,8 @@ definition {
 
 	macro viewEntryWorkflowStatus {
 		LexiconList.viewListEntryLabel(
-			listEntry = "${entry}",
-			listEntryLabel = "${workflowStatus}");
+			listEntry = ${entry},
+			listEntryLabel = ${workflowStatus});
 	}
 
 }

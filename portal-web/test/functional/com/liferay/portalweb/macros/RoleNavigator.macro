@@ -1,13 +1,13 @@
 definition {
 
 	macro gotoAssignees {
-		LexiconEntry.gotoEntry(rowEntry = "${roleTitle}");
+		LexiconEntry.gotoEntry(rowEntry = ${roleTitle});
 
 		Navigator.gotoNavItem(navItem = "Assignees");
 	}
 
 	macro gotoAssigneeType {
-		Navigator.gotoNavItem(navItem = "${assigneeType}");
+		Navigator.gotoNavItem(navItem = ${assigneeType});
 	}
 
 	macro gotoRoleType {
@@ -15,19 +15,19 @@ definition {
 	}
 
 	macro gotoViewNotHaveRolePermissions {
-		if (contains("Asset Library,Organization,Site", "${roleType}")) {
+		if (contains("Asset Library,Organization,Site", ${roleType})) {
 			Navigator.gotoNavItem(navItem = "${roleType} Roles");
 		}
 		else {
 			Navigator.gotoNavItem(navItem = "Regular Roles");
 		}
 
-		Search.searchCP(searchTerm = "${roleTitle}");
+		Search.searchCP(searchTerm = ${roleTitle});
 
 		AssertClick(
-			key_itemName = "${roleTitle}",
+			key_itemName = ${roleTitle},
 			locator1 = "ListGroupItem#ITEM_NAME_LINK",
-			value1 = "${roleTitle}");
+			value1 = ${roleTitle});
 
 		Navigator.gotoNavItem(navItem = "Define Permissions");
 

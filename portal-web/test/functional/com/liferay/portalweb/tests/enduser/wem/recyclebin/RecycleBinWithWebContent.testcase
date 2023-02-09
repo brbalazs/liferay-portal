@@ -15,7 +15,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -23,7 +23,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteWebcontent {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -70,7 +70,7 @@ definition {
 		WebContent.viewDefaultCP(webContentTitle = "WC WebContent Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test MoveFolderWithWebContentToRecycleBin {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#MoveFolderWithWebContentToRecycleBin";
 
@@ -115,7 +115,7 @@ definition {
 			deleteUser = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test RecycleWebContentViaDeleteIcon {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#RecycleWebContentViaDeleteIcon";
 
@@ -153,7 +153,7 @@ definition {
 			deleteUser = "Test Test");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RestoreWebcontent {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -205,7 +205,7 @@ definition {
 			webContentTitle = "WC WebContent Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test UndoMoveToRecycleBin {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -242,7 +242,7 @@ definition {
 		RecycleBin.viewDefaultCP(assetName = "WC WebContent Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewDuplicateAssetNamesInRecycleBin {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#ViewDuplicateAssetNamesInRecycleBin";
 
@@ -294,11 +294,11 @@ definition {
 		RecycleBin.viewDuplicateNames(assetName = "WC WebContent Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewDuplicateFolderNamesInRecycleBin {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -309,7 +309,7 @@ definition {
 			folderDescription = "WC Folder Description",
 			folderName = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -320,7 +320,7 @@ definition {
 			assetType = "Web Content Folder",
 			folderName = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",
@@ -332,7 +332,7 @@ definition {
 			assetType = "Web Content Folder",
 			deleteUser = "Test Test");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -343,7 +343,7 @@ definition {
 			folderDescription = "WC Folder Description",
 			folderName = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -354,7 +354,7 @@ definition {
 			assetType = "Web Content Folder",
 			folderName = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",
@@ -364,7 +364,7 @@ definition {
 		RecycleBin.viewDuplicateNames(assetName = "WC Folder Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewRecycleBinEntryViaSuccessMessageLink {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",

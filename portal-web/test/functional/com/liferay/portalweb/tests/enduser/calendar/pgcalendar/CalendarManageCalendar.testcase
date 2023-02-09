@@ -19,7 +19,7 @@ definition {
 			layoutName = "Calendar Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Calendar Page",
 			widgetName = "Calendar");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -48,9 +48,9 @@ definition {
 		}
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ChangeCalendarTypeForAllDayEvent {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -62,15 +62,15 @@ definition {
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarScheduler.changeCalendar(
-			calendarDefaultName = "${siteName}",
+			calendarDefaultName = ${siteName},
 			calendarName = "Test Test",
 			eventTitle = "Calendar Event All Day Title",
 			eventType = "All Day");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ChangeCalendarTypeForRegularEvent {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -82,15 +82,15 @@ definition {
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarScheduler.changeCalendar(
-			calendarDefaultName = "${siteName}",
+			calendarDefaultName = ${siteName},
 			calendarName = "Test Test",
 			eventTitle = "Calendar Event Regular Title",
 			eventType = "Regular");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ChangeCalendarTypeForRepeatingEvent {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -98,23 +98,23 @@ definition {
 			eventTitle = "Calendar Event Repeating Title",
 			eventType = "Repeating",
 			frequency = "Daily",
-			numberOfOccurrences = "1",
+			numberOfOccurrences = 1,
 			pageName = "Calendar Page");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarScheduler.changeCalendar(
-			calendarDefaultName = "${siteName}",
+			calendarDefaultName = ${siteName},
 			calendarName = "Test Test",
 			eventTitle = "Calendar Event Repeating Title",
 			eventType = "Repeating");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ChangeColorCalendarSiteCalendarsEventRegular {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -127,7 +127,7 @@ definition {
 
 		Calendar.changeColor(
 			calendarType = "Current Site Calendars",
-			site = "${siteName}",
+			site = ${siteName},
 			siteCalendarColor = "668CD9");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
@@ -163,7 +163,7 @@ definition {
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea@liferay.com",
-			userLoginFullName = "${userLoginFullName}");
+			userLoginFullName = ${userLoginFullName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -181,7 +181,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeactivateAndDeleteSiteCalendarAndViewSiteCalendarEvent {
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -240,7 +240,7 @@ definition {
 		CalendarScheduler.viewSpecificEventNotPresent(eventTitle = "Site Name Calendar Event Regular");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteCalendarMyCalendars {
 		Calendar.add(
 			calendarName = "Calendar Name",
@@ -256,14 +256,14 @@ definition {
 		Calendar.viewDefault();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditCalendarCurrentSiteCalendars {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		Calendar.add(
 			calendarName = "Site Calendar Name",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -271,10 +271,10 @@ definition {
 			calendarName = "Site Calendar Name",
 			calendarNameEdit = "Site Calendar Name Edit",
 			calendarType = "Current Site Calendars",
-			site = "${siteName}");
+			site = ${siteName});
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditCalendarMyCalendars {
 		Calendar.add(
 			calendarName = "My Calendar Name",
@@ -297,7 +297,7 @@ definition {
 			user = "Test Test");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditCalendarResource {
 		CalendarResource.add(calendarResourceName = "Calendar Resource Name");
 
@@ -312,7 +312,7 @@ definition {
 		CalendarResource.view(calendarResourceName = "Calendar Resource Name Edit");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test EditUserCalendarOtherCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -347,13 +347,13 @@ definition {
 			calendarType = "Other Calendars");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SearchForOtherCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "Calendar#SearchForOtherCalendars";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -391,7 +391,7 @@ definition {
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarScheduler.changeCalendar(
-			calendarDefaultName = "${siteName}",
+			calendarDefaultName = ${siteName},
 			calendarName = "userfn userln",
 			eventTitle = "User Calendar Event 1",
 			eventType = "Regular");
@@ -408,7 +408,7 @@ definition {
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		CalendarScheduler.changeCalendar(
-			calendarDefaultName = "${siteName}",
+			calendarDefaultName = ${siteName},
 			calendarName = "userfn userln",
 			eventTitle = "User Calendar Event 2",
 			eventType = "Regular");
@@ -425,7 +425,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-51572."
-	@priority = "3"
+	@priority = 3
 	test SearchForOtherCalendarsAsNonPowerUser {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -482,7 +482,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewAvailableCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "CalendarManageCalendar#ViewAvailableCalendars";
@@ -564,9 +564,9 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-69884."
-	@priority = "2"
+	@priority = 2
 	test ViewCalendarsAfterCancellingEdit {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		CalendarResource.add(calendarResourceName = "Calendar Resource Name");
 
@@ -579,7 +579,7 @@ definition {
 		CalendarResource.viewResourceCalendars(calendarResourceName = "Calendar Resource Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewSiteNameUpdate {
 		JSONGroup.addGroup(groupName = "Site Name");
 

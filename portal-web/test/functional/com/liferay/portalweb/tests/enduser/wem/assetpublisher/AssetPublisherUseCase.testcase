@@ -19,7 +19,7 @@ definition {
 			layoutName = "Asset Publisher Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Asset Publisher Page",
 			widgetName = "Asset Publisher");
@@ -30,7 +30,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -54,7 +54,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddAndEditAssetsViaVirtualHostOrganizations {
 		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com,www.baker.com";
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AddAndEditAssetsViaVirtualHostOrganizations";
@@ -88,7 +88,7 @@ definition {
 			portlet = "Pages");
 
 		for (var sitePageName : list "Home,Documents and Media,News") {
-			SitePages.addPrivatePage(pageName = "${sitePageName}");
+			SitePages.addPrivatePage(pageName = ${sitePageName});
 		}
 
 		ProductMenu.gotoPortlet(
@@ -144,7 +144,7 @@ definition {
 
 		for (var sitePageName : list "Home,Documents and Media,News") {
 			AssertElementPresent(
-				key_pageName = "${sitePageName}",
+				key_pageName = ${sitePageName},
 				locator1 = "Home#PAGE");
 		}
 
@@ -152,7 +152,7 @@ definition {
 
 		for (var sitePageName : list "Documents and Media,News") {
 			AssertElementNotPresent(
-				key_pageName = "${sitePageName}",
+				key_pageName = ${sitePageName},
 				locator1 = "Home#PAGE");
 		}
 
@@ -239,7 +239,7 @@ definition {
 			webContentTitle = "WC WebContent Title Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertAssetListScopeViaAssetPublisher {
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
@@ -276,7 +276,7 @@ definition {
 		AssetPublisherPortlet.viewManualAssetTypesPG(assetEntryTypes = "Global Document Type Name,Local Document Type Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertGuestRefreshNoConsoleErrors {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -291,7 +291,7 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "NoSuchResourceActionException");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AssetPublisherCategoriesLocalization {
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherCategoriesLocalization";
 
@@ -442,7 +442,7 @@ definition {
 	}
 
 	@description = "This is a test for LPS-135460. delta parameter is missing from the url if pagination is done trough combo box."
-	@priority = "5"
+	@priority = 5
 	test AssetPublisherCategoriesNavigation {
 		property testray.component.names = "Training";
 
@@ -590,7 +590,7 @@ definition {
 		Portlet.addPG(portletName = "Categories Navigation");
 
 		AssetPublisherPortlet.configurePaginationPG(
-			paginationNumber = "3",
+			paginationNumber = 3,
 			paginationType = "Regular");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -599,13 +599,13 @@ definition {
 			nextPageClick = "true",
 			pageMod = "1 - 3 of 5",
 			pageNumber = "1 of 2",
-			paginationNumber = "3",
+			paginationNumber = 3,
 			paginationType = "Regular");
 
 		AssetPublisherPortlet.viewPaginatedAssetsPG(
 			pageMod = "4 - 5 of 5",
 			pageNumber = "2 of 2",
-			paginationNumber = "3",
+			paginationNumber = 3,
 			paginationType = "Regular");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -636,13 +636,13 @@ definition {
 			nextPageClick = "true",
 			pageMod = "1 - 3 of 5",
 			pageNumber = "1 of 2",
-			paginationNumber = "3",
+			paginationNumber = 3,
 			paginationType = "Regular");
 
 		AssetPublisherPortlet.viewPaginatedAssetsPG(
 			pageMod = "4 - 5 of 5",
 			pageNumber = "2 of 2",
-			paginationNumber = "3",
+			paginationNumber = 3,
 			paginationType = "Regular");
 
 		AssertLocation.assertPartialLocation(value1 = "_delta");
@@ -656,7 +656,7 @@ definition {
 		AssertLocation.assertPartialLocation(value1 = "_delta");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AssetPublisherFilterAndOrderByFieldType {
 		property testray.component.names = "Training";
 
@@ -675,9 +675,9 @@ definition {
 
 		for (var structureFieldName : list "Boolean,Date,Decimal,Documents and Media,HTML,Image,Integer,Link to Page,Number,Radio,Select,Text,Text Box") {
 			DynamicDataMapping.addField(
-				field = "${structureFieldName}",
-				fieldFieldLabel = "${structureFieldName}",
-				fieldName = StringUtil.replace("${structureFieldName}", " ", ""));
+				field = ${structureFieldName},
+				fieldFieldLabel = ${structureFieldName},
+				fieldName = StringUtil.replace(${structureFieldName}, " ", ""));
 		}
 
 		WebContentStructures.saveCP(structureName = "WC Structure Name");
@@ -710,8 +710,8 @@ definition {
 		WebContent.addWithStructureCP(
 			structureName = "WC Structure Name",
 			templateName = "WC Template Name",
-			webContentInteger = "4",
-			webContentNumber = "123",
+			webContentInteger = 4,
+			webContentNumber = 123,
 			webContentTitle = "Web Content1 Title");
 
 		PortletEntry.publish();
@@ -736,7 +736,7 @@ definition {
 		Type(
 			key_fieldName = "Integer",
 			locator1 = "TextInput#DDM",
-			value1 = "3");
+			value1 = 3);
 
 		PortletEntry.publish();
 
@@ -752,8 +752,8 @@ definition {
 		WebContent.addWithStructureCP(
 			structureName = "WC Structure Name",
 			templateName = "WC Template Name",
-			webContentInteger = "1",
-			webContentNumber = "345",
+			webContentInteger = 1,
+			webContentNumber = 345,
 			webContentTitle = "Web Content2 Title");
 
 		PortletEntry.publish();
@@ -778,7 +778,7 @@ definition {
 		Type(
 			key_fieldName = "Integer",
 			locator1 = "TextInput#DDM",
-			value1 = "8");
+			value1 = 8);
 
 		PortletEntry.publish();
 
@@ -794,8 +794,8 @@ definition {
 		WebContent.addWithStructureCP(
 			structureName = "WC Structure Name",
 			templateName = "WC Template Name",
-			webContentInteger = "5",
-			webContentNumber = "567",
+			webContentInteger = 5,
+			webContentNumber = 567,
 			webContentTitle = "Web Content3 Title");
 
 		PortletEntry.publish();
@@ -820,7 +820,7 @@ definition {
 		Type(
 			key_fieldName = "Integer",
 			locator1 = "TextInput#DDM",
-			value1 = "5");
+			value1 = 5);
 
 		PortletEntry.publish();
 
@@ -988,7 +988,7 @@ definition {
 		WebContentNavigator.gotoEditStructure(structureName = "WC Structure Name");
 
 		for (var structureFieldName : list "Boolean,Date,Decimal,Documents and Media,HTML,Image,Integer,Link to Page,Number,Radio,Select,Text,Text Box") {
-			DynamicDataMapping.editFieldIndexable(fieldFieldLabel = "${structureFieldName}");
+			DynamicDataMapping.editFieldIndexable(fieldFieldLabel = ${structureFieldName});
 		}
 
 		WebContentStructures.saveCP();
@@ -1002,7 +1002,7 @@ definition {
 			selectedAsset = "Web Content Article");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AssetPublisherHasOpenOfficeFileTypeLinks {
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherHasOpenOfficeFileTypeLinks";
 
@@ -1077,7 +1077,7 @@ definition {
 			webContentTitle = "WC WebContent Title");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AssetPublisherSiteAndGlobalScopeAccessibility {
 		property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherSiteAndGlobalScopeAccessibility";
@@ -1088,9 +1088,9 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Site Page");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
-		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+		SitePages.openPagesAdmin(siteURLKey = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1108,7 +1108,7 @@ definition {
 		for (var siteName : list "Site Name,Global") {
 			JSONWebcontent.addWebContent(
 				content = "${siteName} WC Content",
-				groupName = "${siteName}",
+				groupName = ${siteName},
 				title = "${siteName} WC Title");
 		}
 
@@ -1139,11 +1139,11 @@ definition {
 			assetTitle = "Liferay WC Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssetPublisherTogglingBetweenSites {
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherTogglingBetweenSites";
 
-		var siteName = TestCase.getSiteViaEnvironment(siteName = "${siteName}");
+		var siteName = TestCase.getSiteViaEnvironment(siteName = ${siteName});
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -1154,7 +1154,7 @@ definition {
 		for (var siteName1 : list "Guest,Site Name,Global") {
 			JSONWebcontent.addWebContent(
 				content = "${siteName1} WC Content",
-				groupName = "${siteName1}",
+				groupName = ${siteName1},
 				title = "${siteName1} WC Title");
 		}
 
@@ -1188,7 +1188,7 @@ definition {
 			pageName = "Site Page",
 			siteName = "Site Name");
 
-		AssetPublisherPortlet.configureAddSiteScopes(otherSite = "${siteName}");
+		AssetPublisherPortlet.configureAddSiteScopes(otherSite = ${siteName});
 
 		Navigator.gotoSitePage(
 			pageName = "Site Page",
@@ -1205,7 +1205,7 @@ definition {
 			assetTitle = "Guest WC Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DisplayAssetsFilterByTagsOrCategoryViaAssetPublisher {
 		ProductMenu.gotoPortlet(
 			category = "Categorization",
@@ -1282,14 +1282,14 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-120568."
-	@priority = "5"
+	@priority = 5
 	test EditMessageBoardPostsViaAP {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Message Boards Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Message Boards Page",
 			widgetName = "Message Boards");
@@ -1334,7 +1334,7 @@ definition {
 			assetTitle = "RE: MB Thread Message Subject Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewAPPortletAsNewUserSiteAdministratorViaUserSite {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -1407,7 +1407,7 @@ definition {
 			userEmailAddress = "test@liferay.com");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewAssetPaginationAndShowContentAddButtonViaAP {
 		property testray.component.names = "Training";
 
@@ -1418,7 +1418,7 @@ definition {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
 		AssetPublisherPortlet.configurePaginationPG(
-			paginationNumber = "5",
+			paginationNumber = 5,
 			paginationType = "Regular");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -1430,7 +1430,7 @@ definition {
 			panel = "Site Administration",
 			portlet = "Web Content");
 
-		WebContent.addMultipleArticlesCP(articleCount = "7");
+		WebContent.addMultipleArticlesCP(articleCount = 7);
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -1446,12 +1446,12 @@ definition {
 			nextPageClick = "true",
 			pageMod = "1 - 5 of 7",
 			pageNumber = "1 of 2",
-			paginationNumber = "5");
+			paginationNumber = 5);
 
 		AssetPublisherPortlet.viewPaginatedAssetsPG(
 			pageMod = "6 - 7 of 7",
 			pageNumber = "2 of 2",
-			paginationNumber = "5");
+			paginationNumber = 5);
 
 		AssetPublisherPortlet.viewAssetNotPresentPG(
 			assetContent = "WC Content 3",
@@ -1474,7 +1474,7 @@ definition {
 			assetTitle = "WC Title 7");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewAuthorChangeViaAP {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -1491,14 +1491,14 @@ definition {
 
 		for (var resourceActionIndex : list "ADD_FOLDER,ADD_FEED,ADD_ARTICLE,VIEW,UPDATE,SUBSCRIBE,PERMISSIONS,ADD_TEMPLATE,ADD_STRUCTURE") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com.liferay.journal",
 				roleTitle = "WC Author");
 		}
 
 		for (var resourceActionIndex : list "VIEW,UPDATE_DISCUSSION,UPDATE,SUBSCRIBE,PERMISSIONS,EXPIRE,DELETE_DISCUSSION,DELETE,ADD_DISCUSSION") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com.liferay.journal.model.JournalArticle",
 				roleTitle = "WC Author");
 		}
@@ -1510,7 +1510,7 @@ definition {
 
 		for (var resourceActionIndex : list "VIEW,PREFERENCES,PERMISSIONS,CONFIGURATION,ACCESS_IN_CONTROL_PANEL") {
 			Permissions.definePermissionViaJSONAPI(
-				resourceAction = "${resourceActionIndex}",
+				resourceAction = ${resourceActionIndex},
 				resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
 				roleTitle = "WC Author");
 		}
@@ -1522,19 +1522,19 @@ definition {
 
 		for (var userScreenName : list "author1,author2") {
 			var userEmailAddress = "${userScreenName}ea@liferay.com";
-			var userFirstName = "${userScreenName}";
-			var userLastName = "${userScreenName}";
+			var userFirstName = ${userScreenName};
+			var userLastName = ${userScreenName};
 
 			JSONUser.addUser(
-				userEmailAddress = "${userEmailAddress}",
-				userFirstName = "${userFirstName}",
-				userLastName = "${userLastName}",
-				userScreenName = "${userScreenName}");
+				userEmailAddress = ${userEmailAddress},
+				userFirstName = ${userFirstName},
+				userLastName = ${userLastName},
+				userScreenName = ${userScreenName});
 
 			JSONUser.setFirstPassword(
 				agreeToTermsAndAnswerReminderQuery = "true",
 				requireReset = "false",
-				userEmailAddress = "${userEmailAddress}");
+				userEmailAddress = ${userEmailAddress});
 
 			ProductMenu.gotoPortlet(
 				category = "Users",
@@ -1543,7 +1543,7 @@ definition {
 
 			Role.assignRegRoleCP(
 				roleTitle = "WC Author",
-				userScreenName = "${userScreenName}");
+				userScreenName = ${userScreenName});
 
 			ProductMenu.gotoPortlet(
 				category = "Users",
@@ -1605,14 +1605,14 @@ definition {
 			webContentTitle = "WC WebContent Title Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewBlogsEntriesViaRelatedAssets {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -1680,7 +1680,7 @@ definition {
 		AssertElementNotPresent(locator1 = "Relatedassets#ASSET_EDIT_2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewDeletedWCDArticleAsAdminAndGuestCP {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -1735,7 +1735,7 @@ definition {
 		User.loginPG();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewRelatedAssetsViaRelatedAssetsPortlet {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -1810,14 +1810,14 @@ definition {
 		RelatedAssets.viewPG(assetTitle = "WC WebContent Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewRelatedAssetViaDMPortlet {
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -1903,11 +1903,11 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWebContentWithConfiguredDisplayPageViaAP {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 

@@ -3,32 +3,32 @@ definition {
 	macro addFragment {
 		PageEditor.gotoTab(tabName = "Available");
 
-		PageEditor.expandFragmentCollection(collectionName = "${collectionName}");
+		PageEditor.expandFragmentCollection(collectionName = ${collectionName});
 
 		Click(
-			key_collectionName = "${collectionName}",
-			key_fragmentName = "${fragmentName}",
+			key_collectionName = ${collectionName},
+			key_fragmentName = ${fragmentName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_FRAGMENT");
 
 		AssertElementPresent(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
 	macro clickConfigurableField {
 		Click(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#CONFIGURABLE_FIELD");
 	}
 
 	macro editFragmentImage {
 		MouseOver.mouseOverNotVisible(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 
 		Click(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
@@ -37,7 +37,7 @@ definition {
 
 		UploadCommonFile.uploadCommonFileHiddenNoMouseOver(
 			locator1 = "TextInput#FILE",
-			value1 = "${fileName}");
+			value1 = ${fileName});
 
 		SelectFrameTop();
 
@@ -46,13 +46,13 @@ definition {
 
 	macro editFragmentText {
 		MouseOver.mouseOverNotVisible(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD");
 
 		Click(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD");
 
 		if (IsElementPresent(locator1 = "Button#EDIT")) {
@@ -60,72 +60,72 @@ definition {
 		}
 
 		Type(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD_CK_EDITOR",
-			value1 = "${text}");
+			value1 = ${text});
 
 		KeyPress(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD_CK_EDITOR",
 			value1 = "\SPACE");
 
 		KeyPress(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD_CK_EDITOR",
 			value1 = "\BACK_SPACE");
 	}
 
 	macro expandFragmentCollection {
-		if (IsElementPresent(key_collectionName = "${collectionName}", locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_COLLAPSED")) {
+		if (IsElementPresent(key_collectionName = ${collectionName}, locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_COLLAPSED")) {
 			AssertClick(
-				key_collectionName = "${collectionName}",
+				key_collectionName = ${collectionName},
 				locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_COLLAPSED",
-				value1 = "${collectionName}");
+				value1 = ${collectionName});
 		}
 
 		AssertElementPresent(
-			key_collectionName = "${collectionName}",
+			key_collectionName = ${collectionName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_EXPANDED");
 	}
 
 	macro gotoTab {
 		AssertClick(
-			key_tabName = "${tabName}",
+			key_tabName = ${tabName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_TAB",
-			value1 = "${tabName}");
+			value1 = ${tabName});
 	}
 
 	macro moveFragment {
 		MouseOver(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_BODY");
 
-		if ("${direction}" == "up") {
+		if (${direction} == "up") {
 			Click.clickNoWaitForVisible(
-				key_fragmentName = "${fragmentName}",
+				key_fragmentName = ${fragmentName},
 				locator1 = "Fragment#FRAGMENT_HEADER_UP_ARROW_BUTTON");
 		}
-		else if ("${direction}" == "down") {
+		else if (${direction} == "down") {
 			Click.clickNoWaitForVisible(
-				key_fragmentName = "${fragmentName}",
+				key_fragmentName = ${fragmentName},
 				locator1 = "Fragment#FRAGMENT_HEADER_DOWN_ARROW_BUTTON");
 		}
 	}
 
 	macro removeFragment {
 		MouseOver.mouseOverNotVisible(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 
 		Click(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER_DELETE_BUTTON");
 
 		AssertElementNotPresent(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
@@ -137,7 +137,7 @@ definition {
 
 	macro viewCollectionNotPresent {
 		AssertElementNotPresent(
-			key_collectionName = "${collectionName}",
+			key_collectionName = ${collectionName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL");
 	}
 
@@ -147,22 +147,22 @@ definition {
 
 	macro viewFragment {
 		AssertElementPresent(
-			key_fragmentName = "${fragmentName}",
+			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
 	macro viewFragmentEditableText {
 		AssertTextEquals(
-			key_fragmentName = "${fragmentName}",
-			key_id = "${id}",
+			key_fragmentName = ${fragmentName},
+			key_id = ${id},
 			locator1 = "Fragment#EDITABLE_FIELD",
-			value1 = "${editableText}");
+			value1 = ${editableText});
 	}
 
 	macro viewFragmentOrder {
 		AssertElementPresent(
-			key_fragmentName = "${fragmentName}",
-			key_position = "${position}",
+			key_fragmentName = ${fragmentName},
+			key_position = ${position},
 			locator1 = "Fragment#FRAGMENT_HEADER_POSITION");
 	}
 

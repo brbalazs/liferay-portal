@@ -1,11 +1,11 @@
 definition {
 
 	macro viewPG {
-		var key_entryAuthor = "${entryAuthor}";
+		var key_entryAuthor = ${entryAuthor};
 
 		AssertTextEquals(
 			locator1 = "Blogs#RECENT_BLOGGER_USER_NAME",
-			value1 = "${entryAuthor}");
+			value1 = ${entryAuthor});
 
 		AssertTextEquals(
 			locator1 = "Blogs#RECENT_BLOGGER_POSTS",

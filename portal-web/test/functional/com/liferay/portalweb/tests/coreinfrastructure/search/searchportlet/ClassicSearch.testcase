@@ -18,12 +18,12 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchByAssetAndModifiedRangeFacets {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry1 AssetContent",
@@ -89,21 +89,21 @@ definition {
 		ClassicSearch.search(searchTerm = '''"AssetContent"''');
 
 		for (var searchAssetTitle : list "Blogs Entry1 Title,WC WebContent2 Title,Wiki Page2 Title,DM Document Title") {
-			var key_searchAssetTitle = "${searchAssetTitle}";
+			var key_searchAssetTitle = ${searchAssetTitle};
 
 			AssertTextEquals(
 				locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE",
-				value1 = "${searchAssetTitle}");
+				value1 = ${searchAssetTitle});
 		}
 
 		for (var searchAssetTitle : list "Blogs Entry2 Title,WC WebContent1 Title,Wiki Page1 Title") {
-			var key_searchAssetTitle = "${searchAssetTitle}";
+			var key_searchAssetTitle = ${searchAssetTitle};
 
 			AssertElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE");
 		}
 
 		ClassicSearch.viewAssetTypeFacetPG(
-			facetFrequency = "1",
+			facetFrequency = 1,
 			searchAssetTitle = "Wiki Page2 Title",
 			searchAssetType = "Wiki Page");
 
@@ -112,21 +112,21 @@ definition {
 		ClassicSearch.gotoModifiedRangeFacetPG(searchModifiedRange = "Past Month");
 
 		for (var searchAssetTitle : list "Blogs Entry1 Title,WC WebContent2 Title,Wiki Page2 Title,DM Document Title") {
-			var key_searchAssetTitle = "${searchAssetTitle}";
+			var key_searchAssetTitle = ${searchAssetTitle};
 
 			AssertTextEquals(
 				locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE",
-				value1 = "${searchAssetTitle}");
+				value1 = ${searchAssetTitle});
 		}
 
 		for (var searchAssetTitle : list "Blogs Entry2 Title,WC WebContent1 Title,Wiki Page1 Title") {
-			var key_searchAssetTitle = "${searchAssetTitle}";
+			var key_searchAssetTitle = ${searchAssetTitle};
 
 			AssertElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE");
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchByPermission {
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -161,7 +161,7 @@ definition {
 			searchAssetType = "Web Content Article");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SearchByUserFacet {
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -217,7 +217,7 @@ definition {
 		ClassicSearch.search(searchTerm = "Entry");
 
 		ClassicSearch.viewUserFacetPG(
-			facetFrequency = "1",
+			facetFrequency = 1,
 			searchAssetSummary = "Blogs Super Admin Entry Content",
 			searchAssetTitle = "Blogs Super Admin Entry Title",
 			searchAssetType = "Blogs Entry",
@@ -232,7 +232,7 @@ definition {
 			value1 = "Any User");
 
 		ClassicSearch.viewUserFacetPG(
-			facetFrequency = "1",
+			facetFrequency = 1,
 			searchAssetSummary = "Blogs User Entry Content",
 			searchAssetTitle = "Blogs User Entry Title",
 			searchAssetType = "Blogs Entry",
@@ -253,7 +253,7 @@ definition {
 		AssertElementNotPresent(locator1 = "SearchResults#USER_FACET_ANY_USER");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SearchTwiceScopeEverything {
 		JSONUser.addUser(
 			userEmailAddress = "userea1@liferay.com",
@@ -312,7 +312,7 @@ definition {
 			searchAssetType = "User");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SearchTwiceScopeLetUserChoose {
 		JSONUser.addUser(
 			userEmailAddress = "userea1@liferay.com",
@@ -393,7 +393,7 @@ definition {
 			searchAssetType = "User");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test SearchTwiceScopeThisSite {
 		JSONUser.addUser(
 			userEmailAddress = "userea1@liferay.com",
@@ -448,7 +448,7 @@ definition {
 		ClassicSearch.viewSearchNoPG(searchAssetTitle = "userfn2 userln2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewSearchResultForLongURL {
 		ProductMenu.gotoPortlet(
 			category = "Content",

@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -26,7 +26,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test IFrameDemo {
 		property testray.component.names = "IFrame Portlet";
 
@@ -35,7 +35,7 @@ definition {
 			layoutName = "IFrame Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "IFrame Page",
 			widgetName = "IFrame");
@@ -55,7 +55,7 @@ definition {
 			value1 = "updated");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SalesDemo {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Web Content Administration,Web Content Display";

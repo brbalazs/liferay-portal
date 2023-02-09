@@ -11,20 +11,20 @@ definition {
 
 	macro add {
 		if (isSet(pageTemplateType)) {
-			var menuItem = "${pageTemplateType}";
+			var menuItem = ${pageTemplateType};
 		}
 		else {
 			var menuItem = "Content Page Template";
 		}
 
-		if ("${siteTemplate}" == "true") {
+		if (${siteTemplate} == "true") {
 			LexiconEntry.gotoAdd();
 		}
 		else {
-			LexiconEntry.gotoAddMenuItem(menuItem = "${menuItem}");
+			LexiconEntry.gotoAddMenuItem(menuItem = ${menuItem});
 		}
 
-		PortletEntry.inputName(name = "${pageTemplateName}");
+		PortletEntry.inputName(name = ${pageTemplateName});
 
 		Button.clickSave();
 	}
@@ -33,8 +33,8 @@ definition {
 		PageTemplatesAdmin._gotoAddCollection();
 
 		Collection.editCollection(
-			collectionDescription = "${collectionDescription}",
-			collectionName = "${collectionName}");
+			collectionDescription = ${collectionDescription},
+			collectionName = ${collectionName});
 
 		Button.clickSave();
 	}
@@ -43,7 +43,7 @@ definition {
 		Click.pauseClickAt(locator1 = "ControlMenu#EDIT_COG");
 
 		Click(
-			key_columnName = "${columnName}",
+			key_columnName = ${columnName},
 			locator1 = "SitePagesEditPage#LAYOUT_CARD");
 
 		PortletEntry.save();
@@ -56,9 +56,9 @@ definition {
 	macro rename {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Rename",
-			rowEntry = "${rowEntry}");
+			rowEntry = ${rowEntry});
 
-		PortletEntry.inputName(name = "${pageTemplateName}");
+		PortletEntry.inputName(name = ${pageTemplateName});
 
 		Modal.save();
 	}

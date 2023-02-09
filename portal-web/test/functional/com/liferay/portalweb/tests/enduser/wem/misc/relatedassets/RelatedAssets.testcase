@@ -14,12 +14,12 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertRelatedAssetsDisplayWithCategory {
 		property testray.component.names = "Categories,Staging,Related Assets,Web Content Administration";
 
@@ -159,7 +159,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-72472."
-	@priority = "4"
+	@priority = 4
 	test AssertRelatedAssetsWithGlobalWebContent {
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -240,7 +240,7 @@ definition {
 		RelatedAssets.viewPG(assetTitle = "Web Content Title 1");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewNoFolders {
 		property portal.release = "false";
 		property testray.component.names = "Related Assets";

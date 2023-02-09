@@ -16,7 +16,7 @@ definition {
 			layoutName = "IFrame Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "IFrame Page",
 			widgetName = "IFrame");
@@ -27,12 +27,12 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewIFramePortlet {
 		Portlet.viewPG(
 			portletBody = "Please configure this portlet to make it visible to all users.",

@@ -19,7 +19,7 @@ definition {
 			layoutName = "Documents and Media Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Documents and Media Page",
 			widgetName = "Documents and Media");
@@ -56,7 +56,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -70,11 +70,11 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoWebsiteNotificationForNewDocumentInFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
-		NotificationsPortlet.gotoNotificationDelivery(notificationCount = "0");
+		NotificationsPortlet.gotoNotificationDelivery(notificationCount = 0);
 
 		IFrame.selectConfigurationFrame();
 
@@ -95,7 +95,7 @@ definition {
 
 		DMFolder.subscribePG();
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -114,7 +114,7 @@ definition {
 			dmDocumentFile = "Document_1.docx",
 			dmDocumentTitle = "DM Document Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -122,14 +122,14 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoWebsiteNotificationForUpdatedDocumentInFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
-		NotificationsPortlet.gotoNotificationDelivery(notificationCount = "0");
+		NotificationsPortlet.gotoNotificationDelivery(notificationCount = 0);
 
 		IFrame.selectConfigurationFrame();
 
@@ -155,7 +155,7 @@ definition {
 			dmDocumentFile = "Document_1.docx",
 			dmDocumentTitle = "DM Document Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -173,7 +173,7 @@ definition {
 			dmDocumentTitle = "DM Document Title",
 			dmDocumentTitleEdit = "DM Document Title Edit");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -181,10 +181,10 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWebsiteNotificationForNewDocumentInFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -198,7 +198,7 @@ definition {
 
 		DMFolder.subscribePG();
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -217,7 +217,7 @@ definition {
 			dmDocumentFile = "Document_1.docx",
 			dmDocumentTitle = "DM Document Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -225,7 +225,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -238,10 +238,10 @@ definition {
 
 		DMDocument.viewDocumentTitleCmdPG(dmDocumentTitle = "DM Document Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWebsiteNotificationForUpdatedDocumentInFolder {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -260,7 +260,7 @@ definition {
 			dmDocumentFile = "Document_1.docx",
 			dmDocumentTitle = "DM Document Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -278,7 +278,7 @@ definition {
 			dmDocumentTitle = "DM Document Title",
 			dmDocumentTitleEdit = "DM Document Title Edit");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -286,7 +286,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -299,7 +299,7 @@ definition {
 
 		DMDocument.viewDocumentTitleCmdPG(dmDocumentTitle = "DM Document Title Edit");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
 }

@@ -52,7 +52,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -61,7 +61,7 @@ definition {
 	}
 
 	@description = "Published web content with display pages should remain if staging is deactivated."
-	@priority = "4"
+	@priority = 4
 	test DeactivateStagingAfterPublish {
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name-staging");
 
@@ -86,13 +86,13 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		DisplayPagesAdmin.openDisplayPagesAdmin(siteURLKey = "test-site-name");
@@ -103,7 +103,7 @@ definition {
 	}
 
 	@description = "Display pages only appear in live view after being published and should appear properly. This is a test case for LPS-86373 where web content articles lost their reference to display pages."
-	@priority = "5"
+	@priority = 5
 	test PublishDisplayPage {
 		WebContent.openWebContentAdmin(siteURLKey = "test-site-name-staging");
 
@@ -122,13 +122,13 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/-/webcontent-title");
@@ -144,19 +144,19 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "This will be ignored until LPS-125469 is fixed. This tests one of the workarounds of LPS-86373 and a use case for LPS-118841."
 	@ignore = "true"
-	@priority = "5"
+	@priority = 5
 	test PublishDisplayPageMarkedAsDefault {
 		property portal.acceptance = "quarantine";
 		property portal.upstream = "quarantine";
@@ -178,13 +178,13 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/-/webcontent-title");
@@ -200,13 +200,13 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertClick.assertPartialTextClickAt(
@@ -216,18 +216,18 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 	}
 
 	@description = "Edits to display pages should not reflect in the live site until published."
-	@priority = "5"
+	@priority = 5
 	test PublishEditedDisplayPage {
 		property portal.acceptance = "true";
 
@@ -273,19 +273,19 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "body",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#FRAGMENT");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/-/webcontent-title");
@@ -293,13 +293,13 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		Staging.openStagingAdmin(siteURLKey = "test-site-name-staging");
@@ -311,19 +311,19 @@ definition {
 		AssertVisible(
 			key_content = "Webcontent Content",
 			key_fragmentClass = "rich-text",
-			key_position = "1",
+			key_position = 1,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "header",
-			key_position = "2",
+			key_position = 2,
 			locator1 = "Fragment#FRAGMENT");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
 			key_fragmentClass = "body",
-			key_position = "3",
+			key_position = 3,
 			locator1 = "Fragment#FRAGMENT");
 	}
 

@@ -15,7 +15,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -27,7 +27,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AssertIndexOnStartup {
 		property test.name.skip.portal.instance = "Elasticsearch6#AssertIndexOnStartup";
 
@@ -69,7 +69,7 @@ definition {
 				}'
 		''';
 
-		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
+		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 
 		Portlet.shutdownServer();
 
@@ -132,12 +132,12 @@ definition {
 		var serverVersion = Elasticsearch.getServerVersion();
 
 		SearchAdministration.assertEngineVendorAndVersions(
-			clientVersion = "${clientVersion}",
+			clientVersion = ${clientVersion},
 			engineVendor = "Elasticsearch",
-			serverVersion = "${serverVersion}");
+			serverVersion = ${serverVersion});
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ElasticsearchClusteringSmokeTest {
 		property elasticsearch.cluster.size = "2";
 		property environment.acceptance = "false";
@@ -145,7 +145,7 @@ definition {
 		property remote.elasticsearch.enabled = "true";
 		property test.name.skip.portal.instance = "Elasticsearch6#ElasticsearchClusteringSmokeTest";
 
-		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = "2");
+		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = 2);
 
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
@@ -189,7 +189,7 @@ definition {
 			searchAssetType = "Message Boards Message");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test OSGiConfigSmokeTest {
 		property embedded.elasticsearch.only = "true";
 		property osgi.module.configuration.file.names = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config";
@@ -202,7 +202,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-57894."
-	@priority = "3"
+	@priority = 3
 	test UpdateSystemSettingsWithoutPortalRestart {
 		property remote.elasticsearch.enabled = "true";
 		property test.name.skip.portal.instance = "Elasticsearch6#UpdateSystemSettingsWithoutPortalRestart";
@@ -216,17 +216,17 @@ definition {
 			locator1 = "build-test-elasticsearch6.xml",
 			value1 = "stop-elasticsearch");
 
-		var fileContent = FileUtil.read("${elasticsearchYML}");
+		var fileContent = FileUtil.read(${elasticsearchYML});
 
-		var updatedContent = StringUtil.replace("${fileContent}", "LiferayElasticsearchCluster", "LiferayElasticsearchCluster1");
+		var updatedContent = StringUtil.replace(${fileContent}, "LiferayElasticsearchCluster", "LiferayElasticsearchCluster1");
 
-		FileUtil.write("${elasticsearchYML}", "${updatedContent}");
+		FileUtil.write(${elasticsearchYML}, ${updatedContent});
 
 		AntCommand.antCommand(
 			locator1 = "build-test-elasticsearch6.xml",
 			value1 = "start-elasticsearch-node -Delasticsearch.cluster.size=1");
 
-		Pause(locator1 = "30000");
+		Pause(locator1 = 30000);
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

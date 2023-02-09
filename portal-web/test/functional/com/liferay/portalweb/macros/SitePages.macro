@@ -2,44 +2,44 @@ definition {
 
 	macro _addPage {
 		SitePages._selectPageType(
-			pageTemplateName = "${pageTemplateName}",
-			sitePageType = "${sitePageType}");
+			pageTemplateName = ${pageTemplateName},
+			sitePageType = ${sitePageType});
 
 		if (IsElementPresent(locator1 = "IFrame#DIALOG")) {
 			SelectFrame(locator1 = "IFrame#DIALOG");
 		}
 
-		PortletEntry.inputName(name = "${pageName}");
+		PortletEntry.inputName(name = ${pageName});
 
 		Button.click(button = "Save");
 
 		SelectFrame.selectFrameTop();
 
-		if ("${sitePageType}" == "Embedded") {
+		if (${sitePageType} == "Embedded") {
 			Type(
 				locator1 = "SitePagesEditPage#PAGE_TYPE_EMBEDDED_URL_FIELD",
-				value1 = "${pageTypeURL}");
+				value1 = ${pageTypeURL});
 		}
-		else if ("${sitePageType}" == "Link to URL") {
+		else if (${sitePageType} == "Link to URL") {
 			Type(
 				locator1 = "TextInput#URL",
-				value1 = "${pageTypeURL}");
+				value1 = ${pageTypeURL});
 		}
 
 		if (isSet(inheritChanges)) {
-			Page.togglePageTemplateInheritChanges(toggleValue = "${inheritChanges}");
+			Page.togglePageTemplateInheritChanges(toggleValue = ${inheritChanges});
 		}
 
 		AssertVisible(locator1 = "TextInput#NAME");
 
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
 		var browserType = PropsUtil.get("browser.type");
 
-		if ("${browserType}" == "internetexplorer") {
+		if (${browserType} == "internetexplorer") {
 			VerifyElementPresent(locator1 = "Message#SUCCESS_DISMISSIBLE");
 
-			Pause(locator1 = "10000");
+			Pause(locator1 = 10000);
 		}
 		else {
 			Alert.closeMessage(messageType = "SUCCESS");
@@ -53,24 +53,24 @@ definition {
 	}
 
 	macro _configurePage {
-		if ("${sitePageType}" == "Embedded") {
-			Page._addPageTypeEmbedded(pageTypeURL = "${pageTypeURL}");
+		if (${sitePageType} == "Embedded") {
+			Page._addPageTypeEmbedded(pageTypeURL = ${pageTypeURL});
 		}
-		else if ("${sitePageType}" == "Panel") {
-			Page._addPageTypePanel(componentName = "${componentName}");
+		else if (${sitePageType} == "Panel") {
+			Page._addPageTypePanel(componentName = ${componentName});
 		}
-		else if ("${sitePageType}" == "Widget Page") {
-			var key_columnName = "${columnName}";
+		else if (${sitePageType} == "Widget Page") {
+			var key_columnName = ${columnName};
 
 			Click(locator1 = "SitePagesEditPage#LAYOUT_CARD");
 		}
-		else if ("${sitePageType}" == "Content Page") {
+		else if (${sitePageType} == "Content Page") {
 			Select(
 				locator1 = "SitePagesEditPage#LAYOUT_PAGE_TEMPLATE_SELECT",
-				value1 = "${layoutPageTemplateName}");
+				value1 = ${layoutPageTemplateName});
 		}
-		else if ("${sitePageType}" == "Full Page Application") {
-			Page._addPageTypeFullPageApplication(portlet = "${portlet}");
+		else if (${sitePageType} == "Full Page Application") {
+			Page._addPageTypeFullPageApplication(portlet = ${portlet});
 		}
 	}
 
@@ -79,47 +79,47 @@ definition {
 			var sitePageType = "Widget Page";
 		}
 
-		var rowEntry = "${sitePageType}";
+		var rowEntry = ${sitePageType};
 
 		if (isSet(pageTemplateName)) {
 			Navigator.gotoNavNested(navNested = "Global Templates");
 
-			var rowEntry = "${pageTemplateName}";
+			var rowEntry = ${pageTemplateName};
 
-			LexiconEntry.gotoEntry(rowEntry = "${rowEntry}");
+			LexiconEntry.gotoEntry(rowEntry = ${rowEntry});
 		}
 		else {
-			Card.clickSitePagesCardLink(cardName = "${rowEntry}");
+			Card.clickSitePagesCardLink(cardName = ${rowEntry});
 		}
 	}
 
 	macro addChildPage {
 		MouseOver(
-			key_itemName = "${parentPageName}",
+			key_itemName = ${parentPageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM");
 
 		Click(
-			key_pageName = "${parentPageName}",
+			key_pageName = ${parentPageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM_PLUS_ICON");
 
 		SitePages._addPage(
-			pageName = "${childPageName}",
-			pageTemplateName = "${pageTemplateName}",
-			sitePageType = "${sitePageType}");
+			pageName = ${childPageName},
+			pageTemplateName = ${pageTemplateName},
+			sitePageType = ${sitePageType});
 	}
 
 	macro addPrivateChildPage {
 		SitePages.togglePrivacy(privacy = "Private Pages");
 
 		SitePages.addChildPage(
-			childPageName = "${childPageName}",
-			pageTemplateName = "${pageTemplateName}",
-			parentPageName = "${parentPageName}",
-			sitePageType = "${sitePageType}");
+			childPageName = ${childPageName},
+			pageTemplateName = ${pageTemplateName},
+			parentPageName = ${parentPageName},
+			sitePageType = ${sitePageType});
 	}
 
 	macro addPrivatePage {
-		if ("${siteTemplate}" == "true") {
+		if (${siteTemplate} == "true") {
 			LexiconEntry.gotoAdd();
 		}
 		else {
@@ -127,45 +127,45 @@ definition {
 		}
 
 		SitePages._addPage(
-			pageName = "${pageName}",
-			pageTemplateName = "${pageTemplateName}",
-			sitePageType = "${sitePageType}");
+			pageName = ${pageName},
+			pageTemplateName = ${pageTemplateName},
+			sitePageType = ${sitePageType});
 	}
 
 	macro addPublicChildPage {
 		SitePages.togglePrivacy(privacy = "Public Pages");
 
 		SitePages.addChildPage(
-			childPageName = "${childPageName}",
-			pageTemplateName = "${pageTemplateName}",
-			parentPageName = "${parentPageName}",
-			sitePageType = "${sitePageType}");
+			childPageName = ${childPageName},
+			pageTemplateName = ${pageTemplateName},
+			parentPageName = ${parentPageName},
+			sitePageType = ${sitePageType});
 	}
 
 	macro addPublicPage {
 		LexiconEntry.gotoAddMenuItem(menuItem = "Public Page");
 
 		SitePages._addPage(
-			inheritChanges = "${inheritChanges}",
-			pageName = "${pageName}",
-			pageTemplateName = "${pageTemplateName}",
-			pageTypeURL = "${pageTypeURL}",
-			sitePageType = "${sitePageType}");
+			inheritChanges = ${inheritChanges},
+			pageName = ${pageName},
+			pageTemplateName = ${pageTemplateName},
+			pageTypeURL = ${pageTypeURL},
+			sitePageType = ${sitePageType});
 	}
 
 	macro configureChildPage {
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
-			pageName = "${pageName}",
-			parentPagesHierarchy = "${parentPagesHierarchy}");
+			pageName = ${pageName},
+			parentPagesHierarchy = ${parentPagesHierarchy});
 
 		SitePages._configurePage(
-			columnName = "${columnName}",
-			componentName = "${componentName}",
-			layoutPageTemplateName = "${layoutPageTemplateName}",
-			pageTypeURL = "${pageTypeURL}",
-			portlet = "${portlet}",
-			sitePageType = "${sitePageType}");
+			columnName = ${columnName},
+			componentName = ${componentName},
+			layoutPageTemplateName = ${layoutPageTemplateName},
+			pageTypeURL = ${pageTypeURL},
+			portlet = ${portlet},
+			sitePageType = ${sitePageType});
 
 		PortletEntry.save();
 	}
@@ -176,26 +176,26 @@ definition {
 			panel = "Site Administration",
 			portlet = "Pages");
 
-		SitePages.togglePrivacy(privacy = "${privacy}");
+		SitePages.togglePrivacy(privacy = ${privacy});
 
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
-			pageName = "${pageName}");
+			pageName = ${pageName});
 
 		SitePages._configurePage(
-			columnName = "${columnName}",
-			componentName = "${componentName}",
-			layoutPageTemplateName = "${layoutPageTemplateName}",
-			pageTypeURL = "${pageTypeURL}",
-			portlet = "${portlet}",
-			sitePageType = "${sitePageType}");
+			columnName = ${columnName},
+			componentName = ${componentName},
+			layoutPageTemplateName = ${layoutPageTemplateName},
+			pageTypeURL = ${pageTypeURL},
+			portlet = ${portlet},
+			sitePageType = ${sitePageType});
 
 		PortletEntry.save();
 	}
 
 	macro deletePage {
 		Click(
-			key_pageName = "${pageName}",
+			key_pageName = ${pageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM_ELLIPSIS_ICON");
 
 		MenuItem.clickNoError(menuItem = "Delete");
@@ -208,12 +208,12 @@ definition {
 
 				AssertTextEquals(
 					locator1 = "Message#ERROR_2",
-					value1 = "${failure}");
+					value1 = ${failure});
 			}
 			else {
 				AssertTextEquals(
 					locator1 = "Message#ERROR",
-					value1 = "${failure}");
+					value1 = ${failure});
 			}
 		}
 		else {
@@ -223,16 +223,16 @@ definition {
 
 	macro expandPageTree {
 		if (!(isSet(depth))) {
-			var depth = "1";
+			var depth = 1;
 		}
 
-		var count = "0";
+		var count = 0;
 
-		while ("${count}" != "${depth}") {
+		while (${count} != ${depth}) {
 			var index = ${count} + 1;
 
 			Click(
-				key_depth = "${index}",
+				key_depth = ${index},
 				locator1 = "SitePages#LIST_GROUP_ITEM_DEPTH");
 
 			var count = ${count} + 1;
@@ -242,27 +242,27 @@ definition {
 	@summary = "Go to the pageMenuItem of a Site Page. Parent pages hierarchy is required to navigate to child pages."
 	macro gotoPageMenuItem {
 		if (isSet(parentPagesHierarchy)) {
-			for (var parentPage : list "${parentPagesHierarchy}") {
+			for (var parentPage : list ${parentPagesHierarchy}) {
 				Click(
-					key_itemName = "${parentPage}",
+					key_itemName = ${parentPage},
 					locator1 = "SitePages#LIST_GROUP_ITEM");
 			}
 		}
 
 		Click(
-			key_pageName = "${pageName}",
+			key_pageName = ${pageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM_ELLIPSIS_ICON");
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro openPagesAdmin {
-		var siteURLKey = StringUtil.replace("${siteURLKey}", " ", "-");
+		var siteURLKey = StringUtil.replace(${siteURLKey}, " ", "-");
 
-		var siteURLKey = StringUtil.lowerCase("${siteURLKey}");
+		var siteURLKey = StringUtil.lowerCase(${siteURLKey});
 
 		Navigator.openWithAppendToBaseURL(
-			baseURL = "${baseURL}",
+			baseURL = ${baseURL},
 			urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_layout_admin_web_portlet_GroupPagesPortlet");
 	}
 
@@ -272,7 +272,7 @@ definition {
 			value1 = "Pages");
 
 		Click(
-			key_itemName = "${privacy}",
+			key_itemName = ${privacy},
 			locator1 = "SitePages#LIST_GROUP_ITEM");
 	}
 

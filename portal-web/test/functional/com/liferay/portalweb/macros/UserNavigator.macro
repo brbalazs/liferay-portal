@@ -51,13 +51,13 @@ definition {
 	}
 
 	macro gotoUser {
-		var key_userScreenName = "${userScreenName}";
+		var key_userScreenName = ${userScreenName};
 
 		AssertClick(
 			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 	}
 
 }

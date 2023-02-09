@@ -16,7 +16,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddNavigationMenuEntriesAllTypes {
 		property portal.acceptance = "true";
 
@@ -60,7 +60,7 @@ definition {
 		NavigationMenusAdmin.viewItem(itemName = "Liferay");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddPageToNavigationMenuUponCreation {
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
@@ -82,7 +82,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-75059."
-	@priority = "4"
+	@priority = 4
 	test AddURLNavigationMenu {
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
@@ -115,7 +115,7 @@ definition {
 		AssertLocation(value1 = "https://www.liferay.com/");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigurePrimaryNavigationMenu {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -145,7 +145,7 @@ definition {
 			rowEntry = "Navigation Menu Name 2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureSecondaryNavigationMenu {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -166,7 +166,7 @@ definition {
 			rowEntry = "Navigation Menu Name 2");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ConfigureSocialNavigationMenu {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -188,7 +188,7 @@ definition {
 	}
 
 	@description = "LPS-78049 - Multiple Navigation Menus can be deleted Filter by All."
-	@priority = "3"
+	@priority = 3
 	test DeleteMultipleNavigationMenus {
 		property portal.acceptance = "true";
 
@@ -223,7 +223,7 @@ definition {
 		LexiconEntry.viewNoEntry(rowEntry = "Navigation Menu Name 2");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteNavigationMenu {
 		property portal.acceptance = "true";
 
@@ -241,7 +241,7 @@ definition {
 	}
 
 	@description = "This is a usecase for LPS-76658"
-	@priority = "5"
+	@priority = 5
 	test EditNavigationMenuPageItemName {
 		property portal.acceptance = "quarantine";
 
@@ -300,7 +300,7 @@ definition {
 		AssertLocation(value1 = "${portalURL}/web/test-site-name/site-page-name-2");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test RenameNavigationMenu {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -320,7 +320,7 @@ definition {
 	}
 
 	@description = "This is a test for LPS-85566. A user can enter translations for navigation menu items."
-	@priority = "5"
+	@priority = 5
 	test TranslateItemName {
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -430,7 +430,7 @@ definition {
 	}
 
 	@description = "LPS-97049 - View default configuration for Navigation Menu widgets in a fragment."
-	@priority = "5"
+	@priority = 5
 	test ViewDefaultConfigurationForNavigationMenu {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -449,7 +449,7 @@ definition {
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -490,7 +490,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-67191."
-	@priority = "5"
+	@priority = 5
 	test ViewNavigationMenuPropertiesSidebar {
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
 
@@ -511,7 +511,7 @@ definition {
 	}
 
 	@description = "This is a test for LPS-85566. A navigation menu page item will be prepopulated with existing translations for a page."
-	@priority = "5"
+	@priority = 5
 	test ViewPageItemPrepopulatedWithTranslation {
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -562,7 +562,7 @@ definition {
 	}
 
 	@description = "This is a test case for LPS-77912."
-	@priority = "4"
+	@priority = 4
 	test ViewSuccessMessageAfterAddingMenuItem {
 		property portal.acceptance = "true";
 

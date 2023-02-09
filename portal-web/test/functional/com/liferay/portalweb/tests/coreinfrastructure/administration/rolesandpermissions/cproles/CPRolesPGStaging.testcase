@@ -23,7 +23,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -37,7 +37,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AccessStaging {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -124,7 +124,7 @@ definition {
 			userLoginFullName = "test test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test StagingBlogsRolesWorkflow {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 

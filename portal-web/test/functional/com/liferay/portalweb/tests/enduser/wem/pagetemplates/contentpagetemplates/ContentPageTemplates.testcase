@@ -22,7 +22,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -31,7 +31,7 @@ definition {
 	}
 
 	@description = "Add and remove a fragment in the page editor."
-	@priority = "5"
+	@priority = 5
 	test AddLayoutPageTemplateRemoveFragment {
 		property portal.acceptance = "true";
 
@@ -55,7 +55,7 @@ definition {
 	}
 
 	@description = "Change a fragment's editable image field."
-	@priority = "5"
+	@priority = 5
 	test ChangeEditableImage {
 		property testray.component.names = "Training";
 
@@ -76,7 +76,7 @@ definition {
 	}
 
 	@description = "Change a fragment's editable text field."
-	@priority = "5"
+	@priority = 5
 	test ChangeEditableText {
 		PageTemplatesAdmin.addCollection(collectionName = "Page Template Collection");
 
@@ -100,7 +100,7 @@ definition {
 	}
 
 	@description = "Delete a page template collection."
-	@priority = "5"
+	@priority = 5
 	test DeleteCollection {
 		property portal.acceptance = "true";
 
@@ -112,7 +112,7 @@ definition {
 	}
 
 	@description = "Delete a page template."
-	@priority = "5"
+	@priority = 5
 	test DeletePageTemplate {
 		property portal.acceptance = "true";
 
@@ -132,7 +132,7 @@ definition {
 	}
 
 	@description = "Rename a page template collection."
-	@priority = "4"
+	@priority = 4
 	test RenameCollection {
 		PageTemplatesAdmin.addCollection(
 			collectionDescription = "Collection Description Original",
@@ -147,7 +147,7 @@ definition {
 	}
 
 	@description = "Rename a page template."
-	@priority = "4"
+	@priority = 4
 	test RenamePageTemplate {
 		PageTemplatesAdmin.addCollection(collectionName = "Page Template Collection");
 
@@ -167,7 +167,7 @@ definition {
 	}
 
 	@description = "Change the ordering of fragments in the page editor."
-	@priority = "5"
+	@priority = 5
 	test ReorderFragments {
 		property portal.acceptance = "true";
 
@@ -187,11 +187,11 @@ definition {
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Title",
-			position = "0");
+			position = 0);
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Content",
-			position = "1");
+			position = 1);
 
 		PageEditor.moveFragment(
 			direction = "down",
@@ -199,11 +199,11 @@ definition {
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Title",
-			position = "1");
+			position = 1);
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Content",
-			position = "0");
+			position = 0);
 
 		PageEditor.moveFragment(
 			direction = "up",
@@ -211,15 +211,15 @@ definition {
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Title",
-			position = "0");
+			position = 0);
 
 		PageEditor.viewFragmentOrder(
 			fragmentName = "Content",
-			position = "1");
+			position = 1);
 	}
 
 	@description = "An unpublished fragment should not show up in the fragments sidebar."
-	@priority = "4"
+	@priority = 4
 	test ViewDraftFragmentDoesNotDisplayInSidebar {
 		FragmentsAdmin.openFragmentsAdmin(siteURLKey = "test-site-name");
 

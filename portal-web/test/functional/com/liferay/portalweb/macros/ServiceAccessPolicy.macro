@@ -1,7 +1,7 @@
 definition {
 
 	macro editServiceAccessPolicy {
-		ServiceAccessPolicy.gotoServiceAccessPolicy(policyName = "${policyName}");
+		ServiceAccessPolicy.gotoServiceAccessPolicy(policyName = ${policyName});
 
 		if (isSet(allowedServiceSignature)) {
 			Click(
@@ -10,7 +10,7 @@ definition {
 
 			Type(
 				locator1 = "ServiceAccessPolicy#ALLOWED_SERVICE_SIGNATURES_FIELD",
-				value1 = "${allowedServiceSignature}");
+				value1 = ${allowedServiceSignature});
 		}
 
 		AssertClick(
@@ -21,7 +21,7 @@ definition {
 	macro gotoServiceAccessPolicy {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
-			rowEntry = "${policyName}");
+			rowEntry = ${policyName});
 	}
 
 }

@@ -3,11 +3,11 @@ definition {
 	macro _addTag {
 		Type.clickAtType(
 			locator1 = "AssetCategorization#TAGS_FIELD",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 
 		if (IsElementPresent(locator1 = "AssetCategorization#TAG_AUTOCOMPLETE_CONTAINER")) {
 			Click(
-				key_tagName = "${tagName}",
+				key_tagName = ${tagName},
 				locator1 = "AssetCategorization#TAG_AUTOCOMPLETE_SPECIFIC");
 		}
 
@@ -18,20 +18,20 @@ definition {
 
 	macro addCategory {
 		AssertClick(
-			key_vocabularyName = "${vocabularyName}",
+			key_vocabularyName = ${vocabularyName},
 			locator1 = "AssetCategorization#CATEGORY_SELECT",
 			value1 = "Select");
 
-		AssetCategorization.selectCategory(categoryName = "${categoryName}");
+		AssetCategorization.selectCategory(categoryName = ${categoryName});
 
 		AssertTextEquals(
-			key_categoryName = "${categoryName}",
+			key_categoryName = ${categoryName},
 			locator1 = "AssetCategorization#CATEGORY",
-			value1 = "${categoryName}");
+			value1 = ${categoryName});
 	}
 
 	macro addDuplicateTag {
-		AssetCategorization._addTag(tagName = "${tagName}");
+		AssetCategorization._addTag(tagName = ${tagName});
 
 		AssertTextEquals(
 			locator1 = "//div[contains(@class,'help-block')]",
@@ -40,14 +40,14 @@ definition {
 
 	macro addMultipleCategories {
 		AssertClick(
-			key_vocabularyName = "${vocabularyName}",
+			key_vocabularyName = ${vocabularyName},
 			locator1 = "AssetCategorization#CATEGORY_SELECT",
 			value1 = "Select");
 
 		AssetCategorization.gotoSelectCategory();
 
-		for (var categoryName : list "${categoryNameList}") {
-			Portlet.selectTreeNode(nodeName = "${categoryName}");
+		for (var categoryName : list ${categoryNameList}) {
+			Portlet.selectTreeNode(nodeName = ${categoryName});
 		}
 
 		SelectFrame(value1 = "relative=top");
@@ -58,12 +58,12 @@ definition {
 	}
 
 	macro addTag {
-		AssetCategorization._addTag(tagName = "${tagName}");
+		AssetCategorization._addTag(tagName = ${tagName});
 
 		AssertTextEquals(
-			key_tagName = "${tagName}",
+			key_tagName = ${tagName},
 			locator1 = "AssetCategorization#TAG",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 	}
 
 	macro gotoSelectCategory {
@@ -77,11 +77,11 @@ definition {
 	}
 
 	macro removeTag {
-		var key_tagName = "${tagName}";
+		var key_tagName = ${tagName};
 
 		AssertTextEquals(
 			locator1 = "AssetCategorization#TAG",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 
 		Click(locator1 = "AssetCategorization#TAG_REMOVE");
 
@@ -91,7 +91,7 @@ definition {
 	macro selectCategory {
 		AssetCategorization.gotoSelectCategory();
 
-		Portlet.selectTreeNode(nodeName = "${categoryName}");
+		Portlet.selectTreeNode(nodeName = ${categoryName});
 
 		SelectFrameTop();
 
@@ -104,7 +104,7 @@ definition {
 			Click(locator1 = "Icon#CLOSE");
 		}
 
-		Pause(locator1 = "3000");
+		Pause(locator1 = 3000);
 
 		if (IsElementPresent(locator1 = "IFrame#MODAL_IFRAME")) {
 			IFrame.selectModalFrame();
@@ -120,9 +120,9 @@ definition {
 			SelectFrame(locator1 = "IFrame#SELECT_TAG");
 		}
 
-		for (var tagName : list "${tagNameList}") {
+		for (var tagName : list ${tagNameList}) {
 			Check(
-				key_rowEntry = "${tagName}",
+				key_rowEntry = ${tagName},
 				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
 		}
 
@@ -142,9 +142,9 @@ definition {
 		}
 
 		AssertTextEquals(
-			key_tagName = "${tagName}",
+			key_tagName = ${tagName},
 			locator1 = "AssetCategorization#TAG",
-			value1 = "${tagName}");
+			value1 = ${tagName});
 	}
 
 }

@@ -7,8 +7,8 @@ definition {
 	}
 
 	macro adaptRemainingImages {
-		var key_imageName = "${imageName}";
-		var key_percentAdapted = "${percentAdapted}";
+		var key_imageName = ${imageName};
+		var key_percentAdapted = ${percentAdapted};
 
 		if (IsElementNotPresent(locator1 = "AdaptiveMediaTable#PROGRESS")) {
 			Click(locator1 = "AdaptiveMediaTable#IMAGE_RESOLUTION_OPTIONS");
@@ -20,7 +20,7 @@ definition {
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "AdaptiveMediaTable#PROGRESS",
-			value1 = "${percentAdapted}");
+			value1 = ${percentAdapted});
 
 		Alert.closeMessage(messageType = "GENERIC");
 	}
@@ -28,19 +28,19 @@ definition {
 	macro addImageResolution {
 		LexiconEntry.gotoAdd();
 
-		PortletEntry.inputName(name = "${imageName}");
+		PortletEntry.inputName(name = ${imageName});
 
 		if (isSet(description)) {
-			PortletEntry.inputDescription(description = "${description}");
+			PortletEntry.inputDescription(description = ${description});
 		}
 
 		Type(
 			locator1 = "TextInput#MAX_WIDTH",
-			value1 = "${maxWidth}");
+			value1 = ${maxWidth});
 
 		Type(
 			locator1 = "TextInput#MAX_HEIGHT",
-			value1 = "${maxHeight}");
+			value1 = ${maxHeight});
 
 		if (isSet(addHighDensityDisplay)) {
 			Check(locator1 = "Checkbox#ADD_HIGH_DENSITY_DISPLAY");
@@ -51,7 +51,7 @@ definition {
 
 			Type(
 				locator1 = "TextInput#IMAGE_ID",
-				value1 = "${customID}");
+				value1 = ${customID});
 		}
 
 		AssertClick(
@@ -77,15 +77,15 @@ definition {
 	macro addNonNumericImageResolution {
 		LexiconEntry.gotoAdd();
 
-		PortletEntry.inputName(name = "${imageName}");
+		PortletEntry.inputName(name = ${imageName});
 
 		Type(
 			locator1 = "TextInput#MAX_WIDTH",
-			value1 = "${maxWidth}");
+			value1 = ${maxWidth});
 
 		Type(
 			locator1 = "TextInput#MAX_HEIGHT",
-			value1 = "${maxHeight}");
+			value1 = ${maxHeight});
 
 		AssertClick(
 			locator1 = "Button#SAVE",
@@ -99,7 +99,7 @@ definition {
 	}
 
 	macro deleteImageResolution {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		Click(locator1 = "AdaptiveMediaTable#IMAGE_RESOLUTION_OPTIONS");
 
@@ -113,20 +113,20 @@ definition {
 	}
 
 	macro disableImageResolution {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		Click(locator1 = "AdaptiveMediaTable#IMAGE_RESOLUTION_OPTIONS");
 
 		MenuItem.click(menuItem = "Disable");
 
-		var key_imageState = "${imageState}";
+		var key_imageState = ${imageState};
 
 		AssertTextEquals(
 			locator1 = "AdaptiveMediaTable#STATE",
 			value1 = "Disabled");
 
 		if (isSet(percentAdapted)) {
-			var key_percentAdapted = "${percentAdapted}";
+			var key_percentAdapted = ${percentAdapted};
 
 			AssertCssValue(
 				locator1 = "AdaptiveMediaTable#PROGRESS_BAR_COLOR",
@@ -136,15 +136,15 @@ definition {
 	}
 
 	macro editImageResolution {
-		var key_imageName = "${imageName}";
-		var key_percentAdapted = "${percentAdapted}";
+		var key_imageName = ${imageName};
+		var key_percentAdapted = ${percentAdapted};
 
 		Click(locator1 = "AdaptiveMediaTable#IMAGE_RESOLUTION_OPTIONS");
 
 		MenuItem.click(menuItem = "Edit");
 
 		if (isSet(imageNameEdit)) {
-			PortletEntry.inputName(name = "${imageNameEdit}");
+			PortletEntry.inputName(name = ${imageNameEdit});
 		}
 
 		AssertElementNotPresent(locator1 = "Checkbox#ADD_HIGH_DENSITY_DISPLAY");
@@ -164,9 +164,9 @@ definition {
 			if (isSet(maxHeightEdit)) {
 				Click(locator1 = "TextInput#MAX_HEIGHT");
 
-				var count = "0";
+				var count = 0;
 
-				while ("${count}" != "${backspaceCount}") {
+				while (${count} != ${backspaceCount}) {
 					KeyPress(
 						locator1 = "TextInput#MAX_HEIGHT",
 						value1 = "\BACK_SPACE");
@@ -176,15 +176,15 @@ definition {
 
 				Type(
 					locator1 = "TextInput#MAX_HEIGHT",
-					value1 = "${maxHeightEdit}");
+					value1 = ${maxHeightEdit});
 			}
 
 			if (isSet(maxWidthEdit)) {
 				Click(locator1 = "TextInput#MAX_WIDTH");
 
-				var count = "0";
+				var count = 0;
 
-				while ("${count}" != "${backspaceCount}") {
+				while (${count} != ${backspaceCount}) {
 					KeyPress(
 						locator1 = "TextInput#MAX_WIDTH",
 						value1 = "\BACK_SPACE");
@@ -194,7 +194,7 @@ definition {
 
 				Type(
 					locator1 = "TextInput#MAX_WIDTH",
-					value1 = "${maxWidthEdit}");
+					value1 = ${maxWidthEdit});
 			}
 
 			if (isSet(imageIDEdit)) {
@@ -202,7 +202,7 @@ definition {
 
 				Type(
 					locator1 = "TextInput#IMAGE_ID",
-					value1 = "${imageIDEdit}");
+					value1 = ${imageIDEdit});
 			}
 		}
 
@@ -221,13 +221,13 @@ definition {
 	}
 
 	macro enableImageResolution {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		Click(locator1 = "AdaptiveMediaTable#IMAGE_RESOLUTION_OPTIONS");
 
 		MenuItem.click(menuItem = "Enable");
 
-		var key_imageState = "${imageState}";
+		var key_imageState = ${imageState};
 
 		AssertTextEquals(
 			locator1 = "AdaptiveMediaTable#STATE",
@@ -235,71 +235,71 @@ definition {
 	}
 
 	macro gotoImageVariantEntry {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		AssertClick(
 			locator1 = "AdaptiveMediaTable#NAME",
-			value1 = "${imageName}");
+			value1 = ${imageName});
 	}
 
 	macro selectAdaptiveMediaImage {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		Check(locator1 = "Checkbox#ADAPTIVE_MEDIA_IMAGE");
 	}
 
 	macro viewImageResolutionTableEntry {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		AssertTextEquals(
 			locator1 = "AdaptiveMediaTable#NAME",
-			value1 = "${imageName}");
+			value1 = ${imageName});
 
-		var key_imageState = "${imageState}";
+		var key_imageState = ${imageState};
 
 		if (isSet(imageState)) {
 			AssertTextEquals(
 				locator1 = "AdaptiveMediaTable#STATE",
-				value1 = "${imageState}");
+				value1 = ${imageState});
 		}
 
-		var key_percentAdapted = "${percentAdapted}";
+		var key_percentAdapted = ${percentAdapted};
 
 		if (isSet(percentAdapted)) {
 			AssertTextEquals.assertPartialText(
 				locator1 = "AdaptiveMediaTable#PROGRESS",
-				value1 = "${percentAdapted}");
+				value1 = ${percentAdapted});
 		}
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "AdaptiveMediaTable#MAX_WIDTH",
-			value1 = "${maxWidth}");
+			value1 = ${maxWidth});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "AdaptiveMediaTable#MAX_HEIGHT",
-			value1 = "${maxHeight}");
+			value1 = ${maxHeight});
 	}
 
 	macro viewImageVariantDescription {
 		AssertTextEquals(
 			locator1 = "TextArea#DESCRIPTION",
-			value1 = "${description}");
+			value1 = ${description});
 	}
 
 	macro viewImageVariantID {
 		AssertTextEquals(
 			locator1 = "TextInput#IMAGE_ID",
-			value1 = "${imageVariantID}");
+			value1 = ${imageVariantID});
 	}
 
 	macro viewImageVariantURL {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		AssertElementPresent(locator1 = "AdaptiveMedia#IMAGE_VARIANT_SOURCE_URL");
 	}
 
 	macro viewNoImageResolution {
-		var key_imageName = "${imageName}";
+		var key_imageName = ${imageName};
 
 		AssertElementNotPresent(locator1 = "AdaptiveMediaTable#NAME");
 	}
@@ -307,11 +307,11 @@ definition {
 	macro viewNumberOfAdaptedImages {
 		Click(locator1 = "AdaptiveMediaTable#INFO_ICON");
 
-		var key_numberOfAdaptedImages = "${numberOfAdaptedImages}";
+		var key_numberOfAdaptedImages = ${numberOfAdaptedImages};
 
 		AssertTextEquals(
 			locator1 = "AdaptiveMediaTable#IMAGE_INFO_DETAILS_ADAPTED_IMAGES",
-			value1 = "${numberOfAdaptedImages}");
+			value1 = ${numberOfAdaptedImages});
 
 		Click(locator1 = "AdaptiveMediaTable#INFO_ICON");
 	}

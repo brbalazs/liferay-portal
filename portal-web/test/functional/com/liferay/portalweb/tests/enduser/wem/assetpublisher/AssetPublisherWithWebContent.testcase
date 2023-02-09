@@ -16,7 +16,7 @@ definition {
 			layoutName = "Asset Publisher Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Asset Publisher Page",
 			widgetName = "Asset Publisher");
@@ -27,7 +27,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -37,11 +37,11 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddWebContentPGViaAP {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openSiteURL(siteName = ${siteName});
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -56,7 +56,7 @@ definition {
 			webContentTitle = "WC Webcontent Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddWebContentWithGlobalScopeViaCPToLiferayAP {
 		property test.name.skip.portal.instance = "AssetPublisherWithWebContent#AddWebContentWithGlobalScopeViaCPToLiferayAP";
 
@@ -145,7 +145,7 @@ definition {
 		AssetPublisherPortlet.viewReadMoreLinkNotPresentPG();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddWebContentWithGlobalScopeViaCPToSiteAP {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -232,7 +232,7 @@ definition {
 		AssetPublisherPortlet.viewReadMoreLinkNotPresentPG();
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP {
 		property test.name.skip.portal.instance = "AssetPublisherWithWebContent#AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP";
 
@@ -333,7 +333,7 @@ definition {
 			assetTitle = "WC WebContent Title");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddWebContentWithStructureAndGlobalScopeViaCPToSiteAP {
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
@@ -435,7 +435,7 @@ definition {
 			assetTitle = "WC WebContent Title");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DisplayWebContentTagViaAP {
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -490,7 +490,7 @@ definition {
 			tagName = "tag name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test SaveAsDraftWebContentPGViaAP {
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -517,7 +517,7 @@ definition {
 
 	@description = "LPS-103624 - URLs are not well formed when changing language in classic Display Pages."
 	@ignore = "true"
-	@priority = "4"
+	@priority = 4
 	test ViewInContextTranslatedWCWithFriendlyURL {
 		JSONLayout.addWidgetToPublicLayout(
 			groupName = "Guest",
@@ -575,9 +575,9 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-49853."
-	@priority = "5"
+	@priority = 5
 	test ViewWebContentViaAPAsGuestWithViewPermission {
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -588,7 +588,7 @@ definition {
 			permissionDefinitionKey = "SITE_ADMIN_CONTENT_WEB_CONTENT_GENERAL_PERMISSIONS_VIEW_CHECKBOX",
 			permissionDefinitionValue = "View",
 			roleTitle = "Guest",
-			siteNameScope = "${siteName}");
+			siteNameScope = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -599,7 +599,7 @@ definition {
 			permissionDefinitionKey = "SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_ARTICLE_VIEW_CHECKBOX",
 			permissionDefinitionValue = "View",
 			roleTitle = "Guest",
-			siteNameScope = "${siteName}");
+			siteNameScope = ${siteName});
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -637,7 +637,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-80445."
-	@priority = "5"
+	@priority = 5
 	test ViewWebContentViaAPDeleteCategory {
 		ProductMenu.gotoPortlet(
 			category = "Categorization",

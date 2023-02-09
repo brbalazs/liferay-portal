@@ -20,7 +20,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -28,7 +28,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AssertDisplayPagesAreOnlyEditableInStagingView {
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name-staging");
 
@@ -44,7 +44,7 @@ definition {
 	}
 
 	@description = "This tests one of the workarounds of LPS-92522."
-	@priority = "5"
+	@priority = 5
 	test PublishDisplayPageWithFragment {
 		FragmentsAdmin.openFragmentsAdmin(siteURLKey = "test-site-name-staging");
 

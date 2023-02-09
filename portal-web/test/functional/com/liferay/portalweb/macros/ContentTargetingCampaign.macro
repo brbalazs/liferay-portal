@@ -5,15 +5,15 @@ definition {
 
 		LexiconEntry.gotoAdd();
 
-		PortletEntry.inputName(name = "${campaignName}");
+		PortletEntry.inputName(name = ${campaignName});
 
-		PortletEntry.inputDescription(description = "${campaignDescription}");
+		PortletEntry.inputDescription(description = ${campaignDescription});
 
 		if (isSet(userSegmentSelect)) {
 			Click(locator1 = "EditCampaign#CAMPAIGN_USER_SEGMENT_SELECT");
 
 			Click(
-				key_userSegmentName = "${userSegmentSelect}",
+				key_userSegmentName = ${userSegmentSelect},
 				locator1 = "EditCampaign#SELECT_USER_SEGMENT_CHECKBOX");
 
 			Click(locator1 = "Button#OK");
@@ -21,33 +21,33 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_START_DATE_FIELD",
-			value1 = "${campaignStartDate}");
+			value1 = ${campaignStartDate});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_START_TIME_FIELD",
-			value1 = "${campaignStartTime}");
+			value1 = ${campaignStartTime});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_END_DATE_FIELD",
-			value1 = "${campaignEndDate}");
+			value1 = ${campaignEndDate});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_END_TIME_FIELD",
-			value1 = "${campaignEndTime}");
+			value1 = ${campaignEndTime});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_PRIORITY_FIELD",
-			value1 = "${campaignPriorityField}");
+			value1 = ${campaignPriorityField});
 
-		if ("${campaignInactive}" == "true") {
+		if (${campaignInactive} == "true") {
 			Uncheck.uncheckHiddenToggleSwitch(locator1 = "ToggleSwitch#ACTIVE");
 		}
 	}
 
 	macro addReportName {
-		PortletEntry.inputName(name = "${reportName}");
+		PortletEntry.inputName(name = ${reportName});
 
-		PortletEntry.inputDescription(description = "${reportDescription}");
+		PortletEntry.inputDescription(description = ${reportDescription});
 	}
 
 	macro addTrackingActionContentCP {
@@ -57,15 +57,15 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CONTENT_NAME_FIELD",
-			value1 = "${contentMetricName}");
+			value1 = ${contentMetricName});
 
 		Click(locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CONTENT_SELECT_CONTENT_BUTTON");
 
-		MenuItem.click(menuItem = "${menulistContent}");
+		MenuItem.click(menuItem = ${menulistContent});
 
 		SelectFrame(locator1 = "IFrame#SELECT_CONTENT");
 
-		var key_rowEntry = "${contentTitle}";
+		var key_rowEntry = ${contentTitle};
 
 		Click(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
@@ -81,15 +81,15 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_NAME_FIELD",
-			value1 = "${formAlias}");
+			value1 = ${formAlias});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_FORM_ID_FIELD",
-			value1 = "${formId}");
+			value1 = ${formId});
 
 		Select(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_TRACKING_ACTION_SELECT",
-			value1 = "${formTrackingActionSelect}");
+			value1 = ${formTrackingActionSelect});
 	}
 
 	macro addTrackingActionDDLFormCP {
@@ -97,7 +97,7 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_NAME_FIELD",
-			value1 = "${formAlias}");
+			value1 = ${formAlias});
 
 		Click(locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_FORM_NAME_FIELD");
 
@@ -105,17 +105,17 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
-		Search.searchCP(searchTerm = "${formName}");
+		Search.searchCP(searchTerm = ${formName});
 
 		Click(
-			key_rowEntry = "${formName}",
+			key_rowEntry = ${formName},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 
 		SelectFrameTop();
 
 		Select(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_TRACKING_ACTION_SELECT",
-			value1 = "${formTrackingActionSelect}");
+			value1 = ${formTrackingActionSelect});
 	}
 
 	macro addTrackingActionLinkCP {
@@ -123,11 +123,11 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_ALIAS_FIELD",
-			value1 = "${linkAlias}");
+			value1 = ${linkAlias});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_ID_FIELD",
-			value1 = "${linkId}");
+			value1 = ${linkId});
 
 		AssertTextEquals(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_TRACKING_ACTION",
@@ -139,24 +139,24 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_PAGE_ALIAS_FIELD",
-			value1 = "${pageAlias}");
+			value1 = ${pageAlias});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_PAGE_FRIENDLY_URL_FIELD",
-			value1 = "${pageFriendlyURL}");
+			value1 = ${pageFriendlyURL});
 	}
 
 	macro addTrackingActionsCmd {
 		Type(
 			locator1 = "ContentTargeting#FORM_SEARCH_FIELD",
-			value1 = "${campaignTrackingAction}");
+			value1 = ${campaignTrackingAction});
 
-		var key_campaignTrackingAction = "${campaignTrackingAction}";
+		var key_campaignTrackingAction = ${campaignTrackingAction};
 
 		DragAndDrop(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS",
 			locator2 = "ContentTargeting#FORM_BUILDER",
-			value1 = "${campaignTrackingAction}");
+			value1 = ${campaignTrackingAction});
 	}
 
 	macro addTrackingActionYoutubevideosCP {
@@ -164,15 +164,15 @@ definition {
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_ALIAS_FIELD",
-			value1 = "${youtubeAlias}");
+			value1 = ${youtubeAlias});
 
 		Type(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_VIDEO_ID_FIELD",
-			value1 = "${youtubeVideoId}");
+			value1 = ${youtubeVideoId});
 
 		Select(
 			locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_TRACKING_ACTION_SELECT",
-			value1 = "${youtubeTrackingActionSelect}");
+			value1 = ${youtubeTrackingActionSelect});
 	}
 
 	macro deleteAllCP {
@@ -200,15 +200,15 @@ definition {
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
 
-		PortletEntry.inputName(name = "${campaignNameEdit}");
+		PortletEntry.inputName(name = ${campaignNameEdit});
 
-		PortletEntry.inputDescription(description = "${campaignDescriptionEdit}");
+		PortletEntry.inputDescription(description = ${campaignDescriptionEdit});
 
 		if (isSet(userSegmentSelectEdit)) {
 			Click(locator1 = "EditCampaign#CAMPAIGN_USER_SEGMENT_SELECT");
 
 			Click(
-				key_userSegmentName = "${userSegmentSelectEdit}",
+				key_userSegmentName = ${userSegmentSelectEdit},
 				locator1 = "EditCampaign#SELECT_USER_SEGMENT_CHECKBOX");
 
 			Click(locator1 = "Button#OK");
@@ -217,34 +217,34 @@ definition {
 		if (isSet(campaignStartDateEdit)) {
 			Type(
 				locator1 = "EditCampaign#CAMPAIGN_START_DATE_FIELD",
-				value1 = "${campaignStartDateEdit}");
+				value1 = ${campaignStartDateEdit});
 		}
 		else if (isSet(campaignStartTimeEdit)) {
 			Type(
 				locator1 = "EditCampaign#CAMPAIGN_START_TIME_FIELD",
-				value1 = "${campaignStartTimeEdit}");
+				value1 = ${campaignStartTimeEdit});
 		}
 		else if (isSet(campaignEndDateEdit)) {
 			Type(
 				locator1 = "EditCampaign#CAMPAIGN_END_DATE_FIELD",
-				value1 = "${campaignEndDateEdit}");
+				value1 = ${campaignEndDateEdit});
 		}
 		else if (isSet(campaignEndTimeEdit)) {
 			Type(
 				locator1 = "EditCampaign#CAMPAIGN_END_TIME_FIELD",
-				value1 = "${campaignEndTimeEdit}");
+				value1 = ${campaignEndTimeEdit});
 		}
 		else if (isSet(campaignPriorityFieldEdit)) {
 			Type(
 				locator1 = "EditCampaign#CAMPAIGN_PRIORITY_FIELD",
-				value1 = "${campaignPriorityFieldEdit}");
+				value1 = ${campaignPriorityFieldEdit});
 		}
 	}
 
 	macro editCustomReport {
 		if (isSet(trackingActionDeleteList)) {
-			for (var trackingActionDelete : list "${trackingActionDeleteList}") {
-				var key_trackingAction = "${trackingActionDelete}";
+			for (var trackingActionDelete : list ${trackingActionDeleteList}) {
+				var key_trackingAction = ${trackingActionDelete};
 
 				ClickNoError(locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DELETE");
 
@@ -253,42 +253,42 @@ definition {
 		}
 
 		if (isSet(trackingActionAddList)) {
-			for (var trackingActionAdd : list "${trackingActionAddList}") {
-				var key_trackingAction = "${trackingActionAdd}";
+			for (var trackingActionAdd : list ${trackingActionAddList}) {
+				var key_trackingAction = ${trackingActionAdd};
 
-				if ("${trackingActionAdd}" == "form") {
+				if (${trackingActionAdd} == "form") {
 					ContentTargetingCampaign.addTrackingActionCustomFormCP(
-						formAlias = "${formAlias}",
-						formId = "${formId}",
-						formTrackingActionSelect = "${formTrackingActionSelect}");
+						formAlias = ${formAlias},
+						formId = ${formId},
+						formTrackingActionSelect = ${formTrackingActionSelect});
 				}
-				else if ("${trackingActionAdd}" == "youtube") {
+				else if (${trackingActionAdd} == "youtube") {
 					ContentTargetingCampaign.addTrackingActionYoutubevideosCP(
 						youtubeAlias = "Youtube Alias",
 						youtubeTrackingActionSelect = "Playing",
 						youtubeVideoId = "Youtube id");
 				}
-				else if ("${trackingActionAdd}" == "content") {
+				else if (${trackingActionAdd} == "content") {
 					ContentTargetingCampaign.addTrackingActionContentCP(
-						contentAlias = "${contentAlias}",
-						contentTitle = "${contentTitle}",
-						contentTrackingActionSelect = "${contentTrackingActionSelect}",
-						linkId = "${linkId}",
-						menulistContent = "${menulistContent}",
-						reportDescription = "${reportDescription}",
-						reportName = "${reportName}");
+						contentAlias = ${contentAlias},
+						contentTitle = ${contentTitle},
+						contentTrackingActionSelect = ${contentTrackingActionSelect},
+						linkId = ${linkId},
+						menulistContent = ${menulistContent},
+						reportDescription = ${reportDescription},
+						reportName = ${reportName});
 				}
-				else if ("${trackingActionAdd}" == "link") {
+				else if (${trackingActionAdd} == "link") {
 					ContentTargetingCampaign.addTrackingActionLinkCP(
 						linkAlias = "Link Alias",
 						linkId = "Link id",
 						linkTrackingActionSelect = "Click");
 				}
-				else if ("${trackingActionAdd}" == "page") {
+				else if (${trackingActionAdd} == "page") {
 					ContentTargetingCampaign.addTrackingActionPageCP(
-						pageAlias = "${pageAlias}",
+						pageAlias = ${pageAlias},
 						pageFriendlyURL = "{pageFriendlyURL}",
-						pageTrackingActionSelect = "${pageTrackingActionSelect}");
+						pageTrackingActionSelect = ${pageTrackingActionSelect});
 				}
 			}
 		}
@@ -297,7 +297,7 @@ definition {
 	macro gotoAddReport {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
-		LexiconEntry.gotoEntry(rowEntry = "${campaignName}");
+		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
 
 		Navigator.gotoNavItem(navItem = "Reports");
 
@@ -307,19 +307,19 @@ definition {
 	macro gotoEditReport {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
-		LexiconEntry.gotoEntry(rowEntry = "${campaignName}");
+		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
 
 		Navigator.gotoNavItem(navItem = "Reports");
 
 		Click(
-			key_rowEntry = "${reportName}",
+			key_rowEntry = ${reportName},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
 
 		MenuItem.click(menuItem = "Edit");
 	}
 
 	macro saveCP {
-		Pause(locator1 = "5000");
+		Pause(locator1 = 5000);
 
 		PortletEntry.save();
 	}
@@ -327,7 +327,7 @@ definition {
 	macro updateReport {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
-		LexiconEntry.gotoEntry(rowEntry = "${campaignName}");
+		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
 
 		Navigator.gotoNavItem(navItem = "Reports");
 
@@ -340,23 +340,23 @@ definition {
 				value1 = "Displays the number of times that content has been viewed by users in the context of the current campaign.");
 		}
 
-		LexiconEntry.gotoEntry(rowEntry = "${viewReportType}");
+		LexiconEntry.gotoEntry(rowEntry = ${viewReportType});
 
-		var key_reportType = "${viewReportType}";
+		var key_reportType = ${viewReportType};
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Update");
 
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
 		Alert.viewSuccessMessage();
 
-		if ("${notEnoughInfoContentView}" == "true") {
+		if (${notEnoughInfoContentView} == "true") {
 			AssertTextEquals(
 				locator1 = "Message#EMPTY_INFO",
 				value1 = "There is not enough data to generate a content views report for the campaign ${campaignName}. Please make sure the Campaign Content Display application is available on any site page.");
 		}
 
-		if ("${notEnoughInfoTrackingAction}" == "true") {
+		if (${notEnoughInfoTrackingAction} == "true") {
 			AssertTextEquals(
 				locator1 = "Message#EMPTY_INFO",
 				value1 = "There is not enough data to generate this report. Please, make sure that at least one metric has been set for this report.");
@@ -366,162 +366,162 @@ definition {
 	macro viewCampaignCP {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
-		var key_rowEntry = "${campaignName}";
+		var key_rowEntry = ${campaignName};
 
 		AssertTextEquals(
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK",
-			value1 = "${campaignName}");
+			value1 = ${campaignName});
 
 		AssertTextEquals(
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_DESCRIPTION_TD3",
-			value1 = "${campaignDescription}");
+			value1 = ${campaignDescription});
 
 		AssertTextEquals(
 			locator1 = "EditCampaign#CAMPAIGN_TABLE_PRIORITY",
-			value1 = "${campaignPriority}");
+			value1 = ${campaignPriority});
 
 		AssertTextEquals(
 			locator1 = "EditCampaign#CAMPAIGN_TABLE_STATUS",
-			value1 = "${campaignStatus}");
+			value1 = ${campaignStatus});
 
 		if (isSet(userSegmentSelect)) {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Edit",
-				rowEntry = "${campaignName}");
+				rowEntry = ${campaignName});
 
 			AssertTextEquals(
 				locator1 = "EditCampaign#CAMPAIGN_USER_SEGMENT_APPLIED",
-				value1 = "${userSegmentSelect}");
+				value1 = ${userSegmentSelect});
 		}
 	}
 
 	macro viewContentReportCP {
-		var key_reportTitle = "${reportTitle}";
+		var key_reportTitle = ${reportTitle};
 
-		if ("${reportTitle}" == "DM Document Title") {
+		if (${reportTitle} == "DM Document Title") {
 			SikuliAssertElementPresent(locator1 = "CampaignReports#CONTENT_GRAPH_DM_DOCUMENT_TITLE");
 		}
-		else if ("${reportTitle}" == "Content Metric Name") {
+		else if (${reportTitle} == "Content Metric Name") {
 			SikuliAssertElementPresent(locator1 = "CampaignReports#CONTENT_GRAPH_CONTENT_MERIC_NAME");
 		}
 
-		for (var contentReports : list "${reportsContentTableList}") {
-			var key_contentReports = "${contentReports}";
+		for (var contentReports : list ${reportsContentTableList}) {
+			var key_contentReports = ${contentReports};
 
 			AssertTextEquals(
 				locator1 = "ContentTargeting#REPORT_TABLE_CONTENT",
-				value1 = "${contentReports}");
+				value1 = ${contentReports});
 		}
 	}
 
 	macro viewMetricReport {
-		var key_metricName = "${metricName}";
+		var key_metricName = ${metricName};
 
-		for (var metricReports : list "${metricReportsTableList}") {
-			var key_metricReports = "${metricReports}";
+		for (var metricReports : list ${metricReportsTableList}) {
+			var key_metricReports = ${metricReports};
 
 			AssertTextEquals(
 				locator1 = "CampaignReports#METRIC_TABLE_CONTENT",
-				value1 = "${metricReports}");
+				value1 = ${metricReports});
 		}
 	}
 
 	macro viewNotPresentCP {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
-		var key_campaignName = "${campaignName}";
+		var key_campaignName = ${campaignName};
 
 		AssertElementNotPresent(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 	}
 
 	macro viewTrackingActionsCP {
-		for (var trackingAction : list "${viewTrackingActionsList}") {
-			var key_trackingAction = "${trackingAction}";
+		for (var trackingAction : list ${viewTrackingActionsList}) {
+			var key_trackingAction = ${trackingAction};
 
 			AssertTextEquals(
 				locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_APPLIED",
-				value1 = "${trackingAction}");
+				value1 = ${trackingAction});
 
-			var key_fieldName = "${trackingAction}";
+			var key_fieldName = ${trackingAction};
 
 			if (IsElementPresent(locator1 = "ContentTargeting#FORM_FIELD_COLLAPSED")) {
 				Click(locator1 = "ContentTargeting#FORM_FIELD_COLLAPSED");
 			}
 
-			if ("${trackingAction}" == "Page") {
+			if (${trackingAction} == "Page") {
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_PAGE_ALIAS_FIELD",
-					value1 = "${pageAlias}");
+					value1 = ${pageAlias});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_PAGE_FRIENDLY_URL_FIELD",
-					value1 = "${pageFriendlyURL}");
+					value1 = ${pageFriendlyURL});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_PAGE_TRACKING_ACTION",
 					value1 = "View");
 			}
-			else if ("${trackingAction}" == "Custom Form") {
+			else if (${trackingAction} == "Custom Form") {
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_NAME_FIELD",
-					value1 = "${formAlias}");
+					value1 = ${formAlias});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_FORM_ID_FIELD",
-					value1 = "${formId}");
+					value1 = ${formId});
 
 				AssertSelectedLabel(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CUSTOM_FORM_TRACKING_ACTION_SELECT",
-					value1 = "${formTrackingActionSelect}");
+					value1 = ${formTrackingActionSelect});
 			}
-			else if ("${trackngAction}" == "Form") {
+			else if (${trackngAction} == "Form") {
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_NAME_FIELD",
-					value1 = "${formAlias}");
+					value1 = ${formAlias});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_FORM_NAME_FIELD",
-					value1 = "${formName}");
+					value1 = ${formName});
 
 				AssertSelectedLabel(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_DDL_FORM_TRACKING_ACTION_SELECT",
-					value1 = "${formTrackingActionSelect}");
+					value1 = ${formTrackingActionSelect});
 			}
-			else if ("${trackingAction}" == "Youtube") {
+			else if (${trackingAction} == "Youtube") {
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_ALIAS_FIELD",
-					value1 = "${youtubeAlias}");
+					value1 = ${youtubeAlias});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_VIDEO_ID_FIELD",
-					value1 = "${youtubeVideoId}");
+					value1 = ${youtubeVideoId});
 
 				AssertSelectedLabel(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_YOUTUBE_VIDEOS_TRACKING_ACTION_SELECT",
-					value1 = "${youtubeTrackingActionSelect}");
+					value1 = ${youtubeTrackingActionSelect});
 			}
-			else if ("${trackingAction}" == "Content") {
+			else if (${trackingAction} == "Content") {
 				AssertValue(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CONTENT_NAME_FIELD",
-					value1 = "${contentMetricName}");
+					value1 = ${contentMetricName});
 
 				AssertTextEquals(
-					key_contentTitle = "${contentTitle}",
+					key_contentTitle = ${contentTitle},
 					locator1 = "ContentTargeting#CARD_CONTENT_TITLE",
-					value1 = "${contentTitle}");
+					value1 = ${contentTitle});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CONTENT_TRACKING_ACTION",
 					value1 = "View");
 			}
-			else if ("${trackingAction}" == "Link") {
+			else if (${trackingAction} == "Link") {
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_ALIAS_FIELD",
-					value1 = "${linkAlias}");
+					value1 = ${linkAlias});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_ID_FIELD",
-					value1 = "${linkId}");
+					value1 = ${linkId});
 
 				AssertTextEquals(
 					locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_LINK_TRACKING_ACTION",

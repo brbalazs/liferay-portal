@@ -2,11 +2,11 @@ definition {
 
 	macro configureUserSegmentSimulator {
 		if (isSet(configureUserSegmentMatched)) {
-			for (var userSegmentMatched : list "${configureUserSegmentMatched}") {
-				var key_userSegmentNotMatched = "${userSegmentMatched}";
+			for (var userSegmentMatched : list ${configureUserSegmentMatched}) {
+				var key_userSegmentNotMatched = ${userSegmentMatched};
 
 				if (IsElementPresent(locator1 = "CTSimulator#USER_SEGMENT_NOT_MATCHED")) {
-					var key_userSegmentMatched = "${userSegmentMatched}";
+					var key_userSegmentMatched = ${userSegmentMatched};
 
 					Click(locator1 = "CTSimulator#USER_SEGMENT_MATCHED");
 				}
@@ -14,11 +14,11 @@ definition {
 		}
 
 		if (isSet(configureUserSegmentNotMatched)) {
-			for (var userSegmentNotMatched : list "${configureUserSegmentNotMatched}") {
-				var key_userSegmentMatched = "${userSegmentNotMatched}";
+			for (var userSegmentNotMatched : list ${configureUserSegmentNotMatched}) {
+				var key_userSegmentMatched = ${userSegmentNotMatched};
 
 				if (IsElementPresent(locator1 = "CTSimulator#USER_SEGMENT_MATCHED")) {
-					var key_userSegmentNotMatched = "${userSegmentNotMatched}";
+					var key_userSegmentNotMatched = ${userSegmentNotMatched};
 
 					Click(locator1 = "CTSimulator#USER_SEGMENT_NOT_MATCHED");
 				}
@@ -29,12 +29,12 @@ definition {
 	macro viewUserSegmentsViaSimulator {
 		SelectFrame.selectFrameTop();
 
-		for (var userSegment : list "${userSegments}") {
-			var key_userSegmentNotMatched = "${userSegment}";
+		for (var userSegment : list ${userSegments}) {
+			var key_userSegmentNotMatched = ${userSegment};
 
 			AssertTextEquals(
 				locator1 = "CTSimulator#USER_SEGMENT_NOT_MATCHED",
-				value1 = "${userSegment}");
+				value1 = ${userSegment});
 		}
 	}
 

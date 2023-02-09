@@ -20,7 +20,7 @@ definition {
 			layoutName = "Blogs Page");
 
 		JSONLayout.addWidgetToPublicLayout(
-			column = "1",
+			column = 1,
 			groupName = "Guest",
 			layoutName = "Blogs Page",
 			widgetName = "Blogs");
@@ -51,7 +51,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -67,7 +67,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteNotifications {
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -95,7 +95,7 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "2");
+			notificationCount = 2);
 
 		Notifications.gotoNotifications();
 
@@ -118,7 +118,7 @@ definition {
 		Notifications.viewNoNotifications(activePanel = "Notifications");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test MarkAllNotificationsAsRead {
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -150,7 +150,7 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "3");
+			notificationCount = 3);
 
 		Notifications.gotoNotifications();
 
@@ -159,7 +159,7 @@ definition {
 		Notifications.viewNoNotifications(activePanel = "Notifications");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewMultipleNotifications {
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -191,7 +191,7 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "3");
+			notificationCount = 3);
 
 		Notifications.gotoNotifications();
 
@@ -208,7 +208,7 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "2");
+			notificationCount = 2);
 
 		Notifications.gotoNotifications();
 
@@ -225,7 +225,7 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "1");
+			notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -242,10 +242,10 @@ definition {
 
 		Notifications.viewBadgeCount(
 			activePanel = "Notifications",
-			notificationCount = "0");
+			notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoWebsiteNotificationForNewBlogsEntry {
 		NotificationsPortlet.gotoNotificationDelivery();
 
@@ -262,7 +262,7 @@ definition {
 
 		Blogs.subscribePG();
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -274,7 +274,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -282,10 +282,10 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewNoWebsiteNotificationForUpdatedBlogsEntry {
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -295,7 +295,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -311,7 +311,7 @@ definition {
 			entryTitle = "Blogs Entry Title",
 			entryTitleEdit = "Blogs Entry Title Edit");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -319,7 +319,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -330,7 +330,7 @@ definition {
 
 	@description = "This will be ignored until LPS-103502 is backported on BPR-46081. This test covers LPS-103502."
 	@ignore = "true"
-	@priority = "3"
+	@priority = 3
 	test ViewWebsiteNotificationForMention {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -351,7 +351,7 @@ definition {
 			password = "test",
 			userEmailAddress = "userea@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -378,7 +378,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "2");
+		Notifications.viewBadgeCount(notificationCount = 2);
 
 		Notifications.gotoNotifications();
 
@@ -403,13 +403,13 @@ definition {
 			value1 = "Reply comment mentioning @test");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWebsiteNotificationForNewBlogsEntry {
 		Navigator.gotoPage(pageName = "Blogs Page");
 
 		Blogs.subscribePG();
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -423,7 +423,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -431,7 +431,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -446,10 +446,10 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewWebsiteNotificationForNewCommentViaBlogs {
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -463,7 +463,7 @@ definition {
 
 		Comments.subscribePG();
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -479,7 +479,7 @@ definition {
 
 		Comments.addPG(entryComment = "Blogs Entry Comment");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 
 		User.logoutPG();
 
@@ -487,7 +487,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		Notifications.viewBadgeCount(notificationCount = "1");
+		Notifications.viewBadgeCount(notificationCount = 1);
 
 		Notifications.gotoNotifications();
 
@@ -504,11 +504,11 @@ definition {
 			entryTitle = "Blogs Entry Title");
 
 		Comments.viewPG(
-			commentCount = "1",
+			commentCount = 1,
 			entryComment = "Blogs Entry Comment",
 			userFullName = "userfn userln");
 
-		Notifications.viewBadgeCount(notificationCount = "0");
+		Notifications.viewBadgeCount(notificationCount = 0);
 	}
 
 }

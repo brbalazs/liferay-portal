@@ -6,11 +6,11 @@ definition {
 	macro gotoDashboard {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
+		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
-				Pause(locator1 = "5000");
+				Pause(locator1 = 5000);
 
 				AssertClick(
 					locator1 = "UserBar#USER_DASHBOARD",
@@ -28,7 +28,7 @@ definition {
 	macro gotoMyAccount {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
+		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -48,7 +48,7 @@ definition {
 	macro gotoMyOrganizations {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
+		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -68,7 +68,7 @@ definition {
 	macro gotoProfile {
 		Navigator.openURL();
 
-		if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
+		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -86,12 +86,12 @@ definition {
 
 	macro signOut {
 		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
-			if (IsElementNotPresent(key_category = "${key_category}", locator1 = "ProductMenu#PANEL_EXPANDED")) {
+			if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 			}
 
 			AssertVisible(
-				key_category = "${key_category}",
+				key_category = ${key_category},
 				locator1 = "ProductMenu#PANEL_EXPANDED");
 
 			Click(locator1 = "UserBar#USER_SIGN_OUT");

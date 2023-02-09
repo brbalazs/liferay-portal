@@ -14,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -24,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test AddMember {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
@@ -66,7 +66,7 @@ definition {
 			userScreenName = "usersn");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserGroup {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -78,7 +78,7 @@ definition {
 		UserGroup.viewCP(userGroupName = "UG UserGroup Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddUserGroupNameDuplicate {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -99,7 +99,7 @@ definition {
 		UserGroup.viewCP(userGroupName = "UG UserGroup Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test AddUserGroupNameWithInvalidCharacters {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -134,7 +134,7 @@ definition {
 			portlet = "User Groups");
 
 		UserGroup.addCP(
-			userGroupName = "1",
+			userGroupName = 1,
 			userGroupNameVariation = "Number");
 
 		ProductMenu.gotoPortlet(
@@ -145,7 +145,7 @@ definition {
 		UserGroup.viewDefault();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test AddUserGroups {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -170,7 +170,7 @@ definition {
 		UserGroup.viewCP(userGroupName = "UG UserGroup3 Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteUserGroup {
 		property portal.acceptance = "true";
 
@@ -186,7 +186,7 @@ definition {
 		UserGroup.viewDefault();
 	}
 
-	@priority = "4"
+	@priority = 4
 	test DeleteUserGroupWithMemberAssigned {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -234,7 +234,7 @@ definition {
 		UserGroup.viewCP(userGroupName = "UG UserGroup Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test EditUserGroup {
 		property portal.acceptance = "true";
 
@@ -262,7 +262,7 @@ definition {
 		UserGroup.viewCP(userGroupName = "UG UserGroup Name Edit");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RemoveMember {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
@@ -312,7 +312,7 @@ definition {
 			userGroupName = "UG UserGroup Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchCurrentMembersAssignedToUserGroup {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "CPUsergroups#SearchCurrentMembersAssignedToUserGroup";
@@ -369,7 +369,7 @@ definition {
 		AssertNotVisible(locator1 = "UsersAndOrganizationsAssignOrganizationalRoles#USER_TABLE_SCREEN_NAME_2");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test SearchUserGroup {
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -381,7 +381,7 @@ definition {
 		UserGroup.searchCP(userGroupName = "UG UserGroup Name");
 	}
 
-	@priority = "3"
+	@priority = 3
 	test ViewPortletUserGroup {
 		ProductMenu.gotoPortlet(
 			category = "Users",

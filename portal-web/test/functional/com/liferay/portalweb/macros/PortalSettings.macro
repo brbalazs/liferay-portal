@@ -13,7 +13,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#LDAP_SERVER_SERVER_NAME",
-			value1 = "${LDAPServerName}");
+			value1 = ${LDAPServerName});
 
 		Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVER_DEFAULT_VALUES_APACHE_DIRECTORY_SERVER_RADIO");
 
@@ -24,17 +24,17 @@ definition {
 		Panel.expandPanel(panel = "Audience Targeting Analytics");
 
 		if (isSet(enableAnalyticsList)) {
-			for (var enableAnalytics : list "${enableAnalyticsList}") {
+			for (var enableAnalytics : list ${enableAnalyticsList}) {
 				Check.checkToggleSwitch(
-					key_toggleSwitchLabel = "${enableAnalytics}",
+					key_toggleSwitchLabel = ${enableAnalytics},
 					locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 			}
 		}
 
 		if (isSet(disableAnalyticsList)) {
-			for (var disableAnalytics : list "${disableAnalyticsList}") {
+			for (var disableAnalytics : list ${disableAnalyticsList}) {
 				Uncheck.uncheckToggleSwitch(
-					key_toggleSwitchLabel = "${disableAnalytics}",
+					key_toggleSwitchLabel = ${disableAnalytics},
 					locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 			}
 		}
@@ -45,7 +45,7 @@ definition {
 	macro configureBlogsRatingType {
 		Select(
 			locator1 = "Select#BLOGS_RATING",
-			value1 = "${ratingType}");
+			value1 = ${ratingType});
 
 		AssertClickNoError(
 			locator1 = "Button#SAVE",
@@ -55,13 +55,13 @@ definition {
 
 		AssertSelectedLabel(
 			locator1 = "Select#BLOGS_RATING",
-			value1 = "${ratingType}");
+			value1 = ${ratingType});
 	}
 
 	macro configureContentSharingAcrossSitesCP {
 		Panel.expandPanel(panel = "Content Sharing");
 
-		if ("${enableAcrossSite}" == "true") {
+		if (${enableAcrossSite} == "true") {
 			Check(locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_CHECKBOX");
 
 			PortletEntry.save();
@@ -70,7 +70,7 @@ definition {
 
 			AssertChecked(locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_CHECKBOX");
 		}
-		else if ("${enableAcrossSite}" == "false") {
+		else if (${enableAcrossSite} == "false") {
 			Uncheck(locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_CHECKBOX");
 
 			PortletEntry.save();
@@ -84,7 +84,7 @@ definition {
 	macro configureContentSharingSubSitesCP {
 		Panel.expandPanel(panel = "Content Sharing");
 
-		if ("${subSites}" == "enabledByDefault") {
+		if (${subSites} == "enabledByDefault") {
 			Select(
 				locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
 				value1 = "Enabled by Default");
@@ -97,7 +97,7 @@ definition {
 				locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
 				value1 = "Enabled by Default");
 		}
-		else if ("${subSites}" == "disabledByDefault") {
+		else if (${subSites} == "disabledByDefault") {
 			Select(
 				locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
 				value1 = "Disabled by Default");
@@ -110,7 +110,7 @@ definition {
 				locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
 				value1 = "Disabled by Default");
 		}
-		else if ("${subSites}" == "disabled") {
+		else if (${subSites} == "disabled") {
 			Select(
 				locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
 				value1 = "Disabled");
@@ -137,33 +137,33 @@ definition {
 				Click(locator1 = "Button#MOVE_CURRENT_TO_AVAILABLE");
 			}
 
-			for (var currentPortalLanguage : list "${currentPortalLanguages}") {
-				var currentPortalLanguage = "${currentPortalLanguage}";
+			for (var currentPortalLanguage : list ${currentPortalLanguages}) {
+				var currentPortalLanguage = ${currentPortalLanguage};
 
 				AddSelection(
 					locator1 = "LanguageConfiguration#LANGUAGES_AVAILABLE",
-					value1 = "${currentPortalLanguage}");
+					value1 = ${currentPortalLanguage});
 
 				Click(locator1 = "Button#MOVE_AVAILABLE_TO_CURRENT");
 
 				AssertTextEquals.assertPartialText(
 					locator1 = "LanguageConfiguration#LANGUAGES_CURRENT",
-					value1 = "${currentPortalLanguage}");
+					value1 = ${currentPortalLanguage});
 			}
 		}
 
 		if (isSet(defaultPortalLanguage)) {
-			var defaultPortalLanguage = "${defaultPortalLanguage}";
+			var defaultPortalLanguage = ${defaultPortalLanguage};
 
 			Select(
 				locator1 = "Select#DEFAULT_LANGUAGE_2",
-				value1 = "${defaultPortalLanguage}");
+				value1 = ${defaultPortalLanguage});
 		}
 
-		if ("${failExpected}" == "true") {
+		if (${failExpected} == "true") {
 			Button.clickSave();
 
-			Alert.viewErrorMessage(errorMessage = "${errorMessage}");
+			Alert.viewErrorMessage(errorMessage = ${errorMessage});
 		}
 		else {
 			PortletEntry.save();
@@ -175,11 +175,11 @@ definition {
 
 		Type(
 			locator1 = "TextInput#GOOGLE_APPS_API_KEY",
-			value1 = "${googleAppsAPIKey}");
+			value1 = ${googleAppsAPIKey});
 
 		Type(
 			locator1 = "TextInput#GOOGLE_CLIENT_ID",
-			value1 = "${googleClientID}");
+			value1 = ${googleClientID});
 
 		PortletEntry.save();
 	}
@@ -187,10 +187,10 @@ definition {
 	macro configureLDAPSetting {
 		PortalSettingsNavigator.gotoLDAP();
 
-		for (var enableSetting : list "${enableSettingList}") {
+		for (var enableSetting : list ${enableSettingList}) {
 			var enableSetting = "PortalSettingsPortlet_${enableSetting}";
 
-			FormFields.enableCheckbox(fieldName = "${enableSetting}");
+			FormFields.enableCheckbox(fieldName = ${enableSetting});
 		}
 
 		PortletEntry.save();
@@ -201,15 +201,15 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_LOGIN_URL_FIELD",
-			value1 = "${OpenSSOLoginURL}");
+			value1 = ${OpenSSOLoginURL});
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_LOGOUT_URL_FIELD",
-			value1 = "${OpenSSOLogoutURL}");
+			value1 = ${OpenSSOLogoutURL});
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_SERVICE_URL_FIELD",
-			value1 = "${OpenSSOServiceURL}");
+			value1 = ${OpenSSOServiceURL});
 
 		PortletEntry.save();
 	}
@@ -219,17 +219,17 @@ definition {
 
 		Select(
 			locator1 = "Select#TIME_ZONE",
-			value1 = "${timeZone}");
+			value1 = ${timeZone});
 
 		PortalSettings._saveDisplaySettings();
 	}
 
 	macro configureWikiService {
-		var key_counter = "${counter}";
+		var key_counter = ${counter};
 
 		Type(
 			locator1 = "TextArea#CONFIGURATION",
-			value1 = "${editor}");
+			value1 = ${editor});
 	}
 
 	macro editConfigurationAuthenticationCAS {
@@ -271,11 +271,11 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_FACEBOOK_APPLICATION_ID",
-			value1 = "${facebookApplicationID}");
+			value1 = ${facebookApplicationID});
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_FACEBOOK_APPLICATION_SECRET",
-			value1 = "${facebookApplicationSecret}");
+			value1 = ${facebookApplicationSecret});
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_FACEBOOK_GRAPH_URL",
@@ -299,13 +299,13 @@ definition {
 	macro editConfigurationAuthenticationGeneral {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
-		if ("${enableRequireStrangers}" == "true") {
+		if (${enableRequireStrangers} == "true") {
 			Check(locator1 = "PortalSettingsAuthentication#AUTHENTICATION_GENERAL_REQUIRE_STRANGERS_TO_VERIFY_THEIR_EMAIL_ADDRESS_CHECKBOX");
 		}
 		else {
 			Select(
 				locator1 = "PortalSettingsAuthentication#AUTHENTICATION_GENERAL_HOW_DO_USERS_AUTHENTICATE_SELECT",
-				value1 = "${authenticationMethod}");
+				value1 = ${authenticationMethod});
 		}
 
 		PortletEntry.save();
@@ -324,7 +324,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ORGANIZATION_SITES_FIELD",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 
 		PortletEntry.save();
 
@@ -336,7 +336,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ORGANIZATION_SITES_FIELD",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 	}
 
 	macro editConfigurationUsersDefaultUserAssociationsRolesCP {
@@ -352,7 +352,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ROLES_FIELD",
-			value1 = "${roleTitle}");
+			value1 = ${roleTitle});
 
 		PortletEntry.save();
 
@@ -364,7 +364,7 @@ definition {
 
 		Type.clickAtType(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ROLES_FIELD",
-			value1 = "${roleTitle}");
+			value1 = ${roleTitle});
 	}
 
 	macro editConfigurationUsersDefaultUserAssociationsSitesCP {
@@ -380,7 +380,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_SITES_FIELD",
-			value1 = "${siteName}");
+			value1 = ${siteName});
 
 		PortletEntry.save();
 
@@ -392,7 +392,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_SITES_FIELD",
-			value1 = "${siteName}");
+			value1 = ${siteName});
 	}
 
 	macro editConfigurationUsersDefaultUserAssociationsUserGroupsCP {
@@ -408,7 +408,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_USER_GROUPS_FIELD",
-			value1 = "${userGroupName}");
+			value1 = ${userGroupName});
 
 		PortletEntry.save();
 
@@ -420,7 +420,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_USER_GROUPS_FIELD",
-			value1 = "${userGroupName}");
+			value1 = ${userGroupName});
 	}
 
 	macro editConfigurationUsersEmailNotificationsCP {
@@ -442,11 +442,11 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsEmailNotifications#EMAIL_NOTIFICATIONS_SENDER_NAME_FIELD",
-			value1 = "${emailSenderName}");
+			value1 = ${emailSenderName});
 
 		Type(
 			locator1 = "PortalSettingsEmailNotifications#EMAIL_NOTIFICATIONS_SENDER_ADDRESS_FIELD",
-			value1 = "${emailAddress}");
+			value1 = ${emailAddress});
 
 		PortletEntry.save();
 	}
@@ -458,7 +458,7 @@ definition {
 			locator1 = "NavTab#EMAIL_VERIFICATION_NOTIFICATION",
 			value1 = "Email Verification Notification");
 
-		if ("${emailVerificationURL}" == "true") {
+		if (${emailVerificationURL} == "true") {
 			Type.typeEditor(
 				locator1 = "PortalSettingsEmailNotifications#NAVIGATION_EMAIL_VERIFICATION_NOTIFICATION_BODY",
 				value1 = "[$EMAIL_VERIFICATION_URL$]");
@@ -475,7 +475,7 @@ definition {
 	macro editDefaultLandingPageCP {
 		Type(
 			locator1 = "PortalSettings#DEFAULT_LANDING_PAGE_FIELD",
-			value1 = "${defaultLandingPage}");
+			value1 = ${defaultLandingPage});
 
 		PortletEntry.save();
 	}
@@ -483,7 +483,7 @@ definition {
 	macro editLDAPServer {
 		PortalSettingsNavigator.gotoLDAP();
 
-		var key_LDAPServerName = "${LDAPServerName}";
+		var key_LDAPServerName = ${LDAPServerName};
 
 		Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVERS_TABLE_EDIT");
 	}
@@ -491,13 +491,13 @@ definition {
 	macro editVirtualHostCP {
 		Type(
 			locator1 = "PortalSettings#VIRTUAL_HOST_FIELD",
-			value1 = "${virtualHostName}");
+			value1 = ${virtualHostName});
 
 		PortletEntry.save();
 
 		AssertTextEquals(
 			locator1 = "PortalSettings#VIRTUAL_HOST_FIELD",
-			value1 = "${virtualHostName}");
+			value1 = ${virtualHostName});
 	}
 
 	macro enableGoogleSSOCP {
@@ -505,11 +505,11 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_GOOGLE_CLIENT_ID",
-			value1 = "${googleClientID}");
+			value1 = ${googleClientID});
 
 		Type(
 			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_GOOGLE_CLIENT_SECRET",
-			value1 = "${googleClientSecret}");
+			value1 = ${googleClientSecret});
 
 		PortletEntry.save();
 	}
@@ -547,7 +547,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#RESERVED_CREDENTIALS_EMAIL_ADDRESSES_FIELD",
-			value1 = "${userEmailAddress}");
+			value1 = ${userEmailAddress});
 
 		PortletEntry.save();
 
@@ -559,7 +559,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#RESERVED_CREDENTIALS_EMAIL_ADDRESSES_FIELD",
-			value1 = "${userEmailAddress}");
+			value1 = ${userEmailAddress});
 	}
 
 	macro enterReservedScreenNameCP {
@@ -575,7 +575,7 @@ definition {
 
 		Type(
 			locator1 = "PortalSettingsUsers#RESERVED_CREDENTIALS_SCREEN_NAMES_FIELD",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 
 		PortletEntry.save();
 
@@ -587,7 +587,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#RESERVED_CREDENTIALS_SCREEN_NAMES_FIELD",
-			value1 = "${userScreenName}");
+			value1 = ${userScreenName});
 	}
 
 	macro openAnalyticsCloudAdmin {
@@ -808,7 +808,7 @@ definition {
 		for (var fieldName : list "enabled,required,ldapImportEnabled,ldapExportEnabled,passwordPolicyEnabled") {
 			var fieldName = "PortalSettingsPortlet_${fieldName}";
 
-			FormFields.viewCheckboxNotChecked(fieldName = "${fieldName}");
+			FormFields.viewCheckboxNotChecked(fieldName = ${fieldName});
 		}
 
 		AssertClick(
@@ -983,7 +983,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ORGANIZATION_SITES_FIELD",
-			value1 = "${orgName}");
+			value1 = ${orgName});
 	}
 
 	macro viewConfigurationUsersDefaultUserAssociationsRolesCP {
@@ -995,7 +995,7 @@ definition {
 
 		Type.clickAtType(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_ROLES_FIELD",
-			value1 = "${roleTitle}");
+			value1 = ${roleTitle});
 	}
 
 	macro viewConfigurationUsersDefaultUserAssociationsSitesCP {
@@ -1007,7 +1007,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_SITES_FIELD",
-			value1 = "${siteName}");
+			value1 = ${siteName});
 	}
 
 	macro viewConfigurationUsersDefaultUserAssociationsUserGroupsCP {
@@ -1019,21 +1019,21 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "PortalSettingsUsers#DEFAULT_USER_ASSOCIATIONS_USER_GROUPS_FIELD",
-			value1 = "${userGroupName}");
+			value1 = ${userGroupName});
 	}
 
 	macro viewCurrentDefaultPortalLanguageCP {
 		var navTab = "Miscellaneous";
 
 		if (isSet(miscellaneousTranslation)) {
-			var navTab = "${miscellaneousTranslation}";
+			var navTab = ${miscellaneousTranslation};
 		}
 
-		Navigator.gotoNavTab(navTab = "${navTab}");
+		Navigator.gotoNavTab(navTab = ${navTab});
 
 		AssertSelectedLabel(
 			locator1 = "Select#DEFAULT_LANGUAGE_2",
-			value1 = "${defaultPortalLanguage}");
+			value1 = ${defaultPortalLanguage});
 	}
 
 	macro viewDefaultLanguageCP {
@@ -1041,7 +1041,7 @@ definition {
 
 		AssertSelectedLabel(
 			locator1 = "Select#DEFAULT_LANGUAGE_2",
-			value1 = "${defaultPortalLanguage}");
+			value1 = ${defaultPortalLanguage});
 	}
 
 	macro viewDefaultUserAssociationsCP {
@@ -1175,10 +1175,10 @@ definition {
 	macro viewEnabledLDAPSetting {
 		PortalSettingsNavigator.gotoLDAP();
 
-		for (var enableSetting : list "${enableSettingList}") {
+		for (var enableSetting : list ${enableSettingList}) {
 			var enableSetting = "PortalSettingsPortlet_${enableSetting}";
 
-			FormFields.viewCheckboxChecked(fieldName = "${enableSetting}");
+			FormFields.viewCheckboxChecked(fieldName = ${enableSetting});
 		}
 	}
 

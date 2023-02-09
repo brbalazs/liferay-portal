@@ -29,7 +29,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -37,7 +37,7 @@ definition {
 		}
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CheckLocalizationChinese {
 		Click(locator1 = "TestLocalized#CHINESE_LOCALIZATION");
 
@@ -100,7 +100,7 @@ definition {
 		AssertTextNotPresent(value1 = "FAILED");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CheckLocalizationFrench {
 		Click(locator1 = "TestLocalized#FRENCH_LOCALIZATION");
 
@@ -163,7 +163,7 @@ definition {
 		AssertTextNotPresent(value1 = "FAILED");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test CheckLocalizationSpanish {
 		Click(locator1 = "TestLocalized#SPANISH_LOCALIZATION");
 

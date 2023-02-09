@@ -24,7 +24,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -33,7 +33,7 @@ definition {
 	}
 
 	@description = "Fragments are published automatically on any publishing process."
-	@priority = "5"
+	@priority = 5
 	test AssertFragmentsAlwaysPublished {
 		JSONFragment.addFragmentCollection(
 			groupKey = "Test Site Name-staging",
@@ -65,7 +65,7 @@ definition {
 	}
 
 	@description = "Page Fragments administration is only be accessible in staging view."
-	@priority = "5"
+	@priority = 5
 	test AssertFragmentsAreOnlyEditableInStagingView {
 		ProductMenuHelper.expandPanel(panel = "Site Administration");
 
