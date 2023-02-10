@@ -75,7 +75,20 @@ public class PortletResponseUtil {
 
 		setHeaders(
 			portletRequest, mimeResponse, fileName, contentType,
-			contentDispositionType);
+			contentDispositionType, null);
+
+		write(mimeResponse, bytes);
+	}
+
+	public static void sendFile(
+			PortletRequest portletRequest, MimeResponse mimeResponse,
+			String fileName, byte[] bytes, String contentType,
+			String contentDispositionType, String cacheControlValue)
+		throws IOException {
+
+		setHeaders(
+			portletRequest, mimeResponse, fileName, contentType,
+			contentDispositionType, cacheControlValue);
 
 		write(mimeResponse, bytes);
 	}
@@ -107,7 +120,7 @@ public class PortletResponseUtil {
 
 		setHeaders(
 			portletRequest, mimeResponse, fileName, contentType,
-			contentDispositionType);
+			contentDispositionType, null);
 
 		write(mimeResponse, inputStream, contentLength);
 	}
@@ -259,6 +272,16 @@ public class PortletResponseUtil {
 		PortletRequest portletRequest, MimeResponse mimeResponse,
 		String fileName, String contentType, String contentDispositionType) {
 
+		setHeaders(
+			portletRequest, mimeResponse, fileName, contentType,
+			contentDispositionType, null);
+	}
+
+	protected static void setHeaders(
+		PortletRequest portletRequest, MimeResponse mimeResponse,
+		String fileName, String contentType, String contentDispositionType,
+		String cacheControlValue) {
+
 		if (_log.isDebugEnabled()) {
 			_log.debug("Sending file of type " + contentType);
 		}
@@ -269,8 +292,15 @@ public class PortletResponseUtil {
 			mimeResponse.setContentType(contentType);
 		}
 
-		mimeResponse.setProperty(
-			HttpHeaders.CACHE_CONTROL, HttpHeaders.CACHE_CONTROL_PRIVATE_VALUE);
+		if (Validator.isNull(cacheControlValue)) {
+			mimeResponse.setProperty(
+				HttpHeaders.CACHE_CONTROL,
+				HttpHeaders.CACHE_CONTROL_PRIVATE_VALUE);
+		}
+		else {
+			mimeResponse.setProperty(
+				HttpHeaders.CACHE_CONTROL, cacheControlValue);
+		}
 
 		if (Validator.isNull(fileName)) {
 			return;
