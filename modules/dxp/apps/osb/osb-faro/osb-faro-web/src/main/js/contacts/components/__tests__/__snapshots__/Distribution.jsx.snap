@@ -37,44 +37,12 @@ exports[`SegmentDistribution should render 1`] = `
               <span
                 class="content-container"
               >
-                Breakdown
+                Breakdown By
               </span>
             </label>
             <div
               class="form-group mt-2 form-group-autofit"
             >
-              <div
-                class="form-group-item form-group-item-shrink"
-              >
-                <select
-                  class="form-control context-select"
-                >
-                  <option
-                    value="demographics"
-                  >
-                    Individuals
-                  </option>
-                  <option
-                    value="organization"
-                  >
-                    Accounts
-                  </option>
-                </select>
-              </div>
-              <div
-                class="form-group-item form-group-item-label form-group-item-shrink"
-              >
-                <label
-                  class="form-control-label label-root"
-                  for="breakdown"
-                >
-                  <span
-                    class="content-container"
-                  >
-                    by
-                  </span>
-                </label>
-              </div>
               <div
                 class="form-group-item form-group-item-shrink"
               >
