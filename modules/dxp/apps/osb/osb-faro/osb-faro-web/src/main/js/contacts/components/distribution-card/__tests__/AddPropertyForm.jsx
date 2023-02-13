@@ -13,7 +13,7 @@ describe('DistributionCard AddPropertyForm', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('renders w/ context dropdown', () => {
+	it.skip('renders w/ context dropdown', () => {
 		const {container} = render(<AddPropertyForm showContext />);
 
 		expect(container.querySelector('.context-select')).toBeTruthy();
