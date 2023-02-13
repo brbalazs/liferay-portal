@@ -7,14 +7,12 @@ import Form, {
 } from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
 import React, {useRef, useState} from 'react';
-import {ClaySelectWithOption} from '@clayui/select';
+import {DistributionTab} from 'shared/util/records';
+import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {
-	CONTEXT_OPTIONS,
 	getContextLabel,
 	numberOfBinsMask
 } from 'contacts/components/Distribution';
-import {DistributionTab} from 'shared/util/records';
-import {FieldContexts, FieldTypes} from 'shared/util/constants';
 import {INDIVIDUALS_DASHBOARD_DISTRUBTIONS_KEY} from 'shared/actions/distributions';
 import {isBlank} from 'shared/util/util';
 import {List} from 'immutable';
@@ -39,7 +37,6 @@ const AddPropertyForm = ({
 	groupId,
 	onCancel,
 	onSubmit,
-	showContext = false,
 	tabsIList = new List()
 }) => {
 	const _formRef = useRef();
@@ -47,22 +44,8 @@ const AddPropertyForm = ({
 
 	const [showBin, setShowBin] = useState(false);
 
-	const [selectedContext, setSelectedContext] = useState(defaultContext);
-
 	const focusSelectFieldInput = () => {
 		_formSelectFieldInputRef.current.focus();
-	};
-
-	const handleContextSelect = event => {
-		const {value} = event.target;
-
-		const {setTouched, validateField} = _formRef.current;
-
-		setTouched({property: false});
-
-		validateField('property');
-
-		setSelectedContext(value);
 	};
 
 	const handleSubmit = ({
@@ -119,11 +102,11 @@ const AddPropertyForm = ({
 
 		if (!property) {
 			error = Liferay.Language.get('required');
-		} else if (selectedContext !== property.context) {
+		} else if (defaultContext !== property.context) {
 			focusSelectFieldInput();
 
 			return sub(Liferay.Language.get('invalid-breakdown-for-x'), [
-				getContextLabel(selectedContext)
+				getContextLabel(defaultContext)
 			]);
 		}
 
@@ -137,7 +120,7 @@ const AddPropertyForm = ({
 					<div className='description'>
 						<h4>
 							{Liferay.Language.get(
-								'add-a-breakdown-by-attribute'
+								'add-a-breakdown-by-individual-attribute'
 							)}
 						</h4>
 
@@ -163,32 +146,10 @@ const AddPropertyForm = ({
 								onSubmit={handleSubmit}
 							>
 								<div className='form-items'>
-									{showContext && (
-										<Form.Group autoFit>
-											<Form.GroupItem shrink>
-												<Form.Label htmlFor='context'>
-													{Liferay.Language.get(
-														'context'
-													)}
-												</Form.Label>
-
-												<ClaySelectWithOption
-													className='context-select'
-													id='context'
-													onChange={
-														handleContextSelect
-													}
-													options={CONTEXT_OPTIONS}
-													value={selectedContext}
-												/>
-											</Form.GroupItem>
-										</Form.Group>
-									)}
-
 									<Form.Group autoFit>
 										<Form.GroupItem shrink>
 											<FormSelectFieldInput
-												context={selectedContext}
+												context={defaultContext}
 												groupId={groupId}
 												label={Liferay.Language.get(
 													'attribute'
