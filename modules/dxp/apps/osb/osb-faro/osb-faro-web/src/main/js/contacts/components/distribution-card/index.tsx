@@ -172,7 +172,6 @@ class DistributionCard extends React.Component<
 				loading,
 				noResultsRenderer,
 				showAddDataSource,
-				showContext,
 				viewAllLink
 			},
 			state: {selectedTabIndex, showAddProperty}
@@ -214,7 +213,6 @@ class DistributionCard extends React.Component<
 									this.handleShowAddProperty(false)
 								}
 								onSubmit={this.handleAddTab}
-								showContext={showContext}
 								tabsIList={distributionTabsIList}
 							/>
 						)}
