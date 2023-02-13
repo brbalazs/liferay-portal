@@ -31,7 +31,6 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {ClaySelectWithOption} from '@clayui/select';
 import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
 	Conjunctions,
@@ -508,7 +507,6 @@ export class Distribution extends React.Component {
 		const {
 			props: {
 				channelId,
-				contextOptions,
 				delta,
 				error,
 				fieldDistributionIList,
@@ -554,8 +552,6 @@ export class Distribution extends React.Component {
 			? [yAxisTicks[0], yAxisTicks[yAxisTicks.length - 1]]
 			: [0, 'auto'];
 
-		const hasMultipleContextOptions = contextOptions.length > 1;
-
 		return (
 			<>
 				<BasePage.Body pageContainer={pageContainer}>
@@ -585,37 +581,10 @@ export class Distribution extends React.Component {
 							>
 								<Form.Form className='chart-options'>
 									<Label>
-										{hasMultipleContextOptions
-											? Liferay.Language.get('breakdown')
-											: Liferay.Language.get(
-													'breakdown-by'
-											  )}
+										{Liferay.Language.get('breakdown-by')}
 									</Label>
 
 									<Form.Group autoFit className='mt-2'>
-										{hasMultipleContextOptions && (
-											<>
-												<Form.GroupItem shrink>
-													<ClaySelectWithOption
-														className='context-select'
-														onChange={
-															this
-																.handleContextSelect
-														}
-														options={contextOptions}
-														value={selectedContext}
-													/>
-												</Form.GroupItem>
-
-												<Form.GroupItem label shrink>
-													<Form.Label htmlFor='breakdown'>
-														{Liferay.Language.get(
-															'by'
-														)}
-													</Form.Label>
-												</Form.GroupItem>
-											</>
-										)}
 										<Form.GroupItem shrink>
 											<FormSelectFieldInput
 												context={selectedContext}
