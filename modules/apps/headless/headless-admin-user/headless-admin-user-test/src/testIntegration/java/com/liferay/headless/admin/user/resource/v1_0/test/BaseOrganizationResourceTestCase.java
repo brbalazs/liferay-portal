@@ -220,7 +220,15 @@ public abstract class BaseOrganizationResourceTestCase {
 
 		assertContains(organization1, (List<Organization>)page.getItems());
 		assertContains(organization2, (List<Organization>)page.getItems());
-		assertValid(page);
+		assertValid(page, testGetOrganizationsPage_getExpectedActions());
+	}
+
+	protected Map<String, Map> testGetOrganizationsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map> expectedActions = new HashMap<>();
+
+		return expectedActions;
 	}
 
 	@Test
@@ -638,7 +646,10 @@ public abstract class BaseOrganizationResourceTestCase {
 			assertEquals(
 				Arrays.asList(irrelevantOrganization),
 				(List<Organization>)page.getItems());
-			assertValid(page);
+			assertValid(
+				page,
+				testGetOrganizationOrganizationsPage_getExpectedActions(
+					irrelevantParentOrganizationId));
 		}
 
 		Organization organization1 =
@@ -657,7 +668,20 @@ public abstract class BaseOrganizationResourceTestCase {
 		assertEqualsIgnoringOrder(
 			Arrays.asList(organization1, organization2),
 			(List<Organization>)page.getItems());
-		assertValid(page);
+		assertValid(
+			page,
+			testGetOrganizationOrganizationsPage_getExpectedActions(
+				parentOrganizationId));
+	}
+
+	protected Map<String, Map>
+			testGetOrganizationOrganizationsPage_getExpectedActions(
+				Long parentOrganizationId)
+		throws Exception {
+
+		Map<String, Map> expectedActions = new HashMap<>();
+
+		return expectedActions;
 	}
 
 	@Test
@@ -1175,6 +1199,12 @@ public abstract class BaseOrganizationResourceTestCase {
 	}
 
 	protected void assertValid(Page<Organization> page) {
+		assertValid(page, Collections.emptyMap());
+	}
+
+	protected void assertValid(
+		Page<Organization> page, Map<String, Map> expectedActions) {
+
 		boolean valid = false;
 
 		java.util.Collection<Organization> organizations = page.getItems();
@@ -1189,6 +1219,20 @@ public abstract class BaseOrganizationResourceTestCase {
 		}
 
 		Assert.assertTrue(valid);
+
+		Map<String, Map> actions = page.getActions();
+
+		for (String key : expectedActions.keySet()) {
+			Map action = actions.get(key);
+
+			Assert.assertNotNull(key + " does not contain an action", action);
+
+			Map expectedAction = expectedActions.get(key);
+
+			Assert.assertEquals(
+				expectedAction.get("method"), action.get("method"));
+			Assert.assertEquals(expectedAction.get("href"), action.get("href"));
+		}
 	}
 
 	protected String[] getAdditionalAssertFieldNames() {
