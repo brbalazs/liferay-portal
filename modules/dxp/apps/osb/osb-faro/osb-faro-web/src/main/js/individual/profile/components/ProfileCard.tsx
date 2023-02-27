@@ -169,7 +169,10 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
 		rangeSelectors
 	]);
 
-	if (rangeSelectors.rangeKey === RangeKeyTimeRanges.Last24Hours) {
+	if (
+		rangeSelectors.rangeKey === RangeKeyTimeRanges.Last24Hours &&
+		chartPayload.date
+	) {
 		newRangeSelectors = {
 			rangeEnd: `${chartPayload.date}T${endHour}`,
 			rangeKey: 0,
