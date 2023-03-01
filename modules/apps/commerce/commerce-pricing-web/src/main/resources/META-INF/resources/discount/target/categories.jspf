@@ -26,7 +26,7 @@ const CommerceDiscountCategoriesResource = ServiceProvider.default.AdminPricingA
 
 var id = <%= commerceDiscountId %>;
 var discountExternalReferenceCode =
-	'<%= commerceDiscount.getExternalReferenceCode() %>';
+	'<%= HtmlUtil.escapeJS(commerceDiscount.getExternalReferenceCode()) %>';
 
 function selectItem(category) {
 	var categoryData = {
