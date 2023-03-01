@@ -156,7 +156,8 @@ if ((commerceVirtualOrderItem != null) && (commerceVirtualOrderItem.getDuration(
 
 						fileEntryRemove.removeClass('hide');
 
-						fileEntryNameInput.innerText = '<a>' + Liferay.Util.escape(value.title) + '</a>';
+						fileEntryNameInput.innerText =
+							'<a>' + Liferay.Util.escape(value.title) + '</a>';
 					}
 				}
 			},
