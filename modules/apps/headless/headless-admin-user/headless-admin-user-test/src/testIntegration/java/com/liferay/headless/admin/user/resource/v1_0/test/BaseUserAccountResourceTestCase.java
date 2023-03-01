@@ -321,12 +321,12 @@ public abstract class BaseUserAccountResourceTestCase {
 				organizationId));
 	}
 
-	protected Map<String, Map>
+	protected Map<String, Map<String, String>>
 			testGetOrganizationUserAccountsPage_getExpectedActions(
 				Long organizationId)
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -694,11 +694,11 @@ public abstract class BaseUserAccountResourceTestCase {
 			page, testGetSiteUserAccountsPage_getExpectedActions(siteId));
 	}
 
-	protected Map<String, Map> testGetSiteUserAccountsPage_getExpectedActions(
-			Long siteId)
+	protected Map<String, Map<String, String>>
+			testGetSiteUserAccountsPage_getExpectedActions(Long siteId)
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -1012,10 +1012,11 @@ public abstract class BaseUserAccountResourceTestCase {
 		assertValid(page, testGetUserAccountsPage_getExpectedActions());
 	}
 
-	protected Map<String, Map> testGetUserAccountsPage_getExpectedActions()
+	protected Map<String, Map<String, String>>
+			testGetUserAccountsPage_getExpectedActions()
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -1660,7 +1661,8 @@ public abstract class BaseUserAccountResourceTestCase {
 	}
 
 	protected void assertValid(
-		Page<UserAccount> page, Map<String, Map> expectedActions) {
+		Page<UserAccount> page,
+		Map<String, Map<String, String>> expectedActions) {
 
 		boolean valid = false;
 
@@ -1677,7 +1679,7 @@ public abstract class BaseUserAccountResourceTestCase {
 
 		Assert.assertTrue(valid);
 
-		Map<String, Map> actions = page.getActions();
+		Map<String, Map<String, String>> actions = page.getActions();
 
 		for (String key : expectedActions.keySet()) {
 			Map action = actions.get(key);
