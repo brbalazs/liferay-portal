@@ -43,7 +43,8 @@
 			if (Validator.isNotNull(nestedItemsReferenceKey)) {
 			%>
 
-			nestedItemsReferenceKey: '<%= HtmlUtil.escapeJS(nestedItemsReferenceKey) %>',
+			nestedItemsReferenceKey:
+				'<%= HtmlUtil.escapeJS(nestedItemsReferenceKey) %>',
 
 		<%
 		}
