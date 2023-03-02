@@ -301,6 +301,12 @@ export const MetricChart: React.FC<IMetricChartProps> = ({
 					}}
 				/>
 			</div>
+
+			<div
+				data-qa-is-chart-populated={data.data[0].data.some(
+					value => value
+				)}
+			/>
 		</>
 	);
 };
