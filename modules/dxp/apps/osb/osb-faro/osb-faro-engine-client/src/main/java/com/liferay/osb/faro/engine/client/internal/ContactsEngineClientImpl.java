@@ -241,41 +241,28 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public FieldMapping addFieldMapping(
-		FaroProject faroProject, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
+		String fieldType, String ownerType, Boolean repeatable) {
 
 		FieldMapping fieldMapping = new FieldMapping();
 
-		fieldMapping.setAuthor(author);
 		fieldMapping.setContext(context);
 		fieldMapping.setDataSourceFieldNames(dataSourceFieldNames);
 		fieldMapping.setDisplayName(fieldName);
 		fieldMapping.setFieldName(fieldName);
 		fieldMapping.setFieldType(fieldType);
 		fieldMapping.setOwnerType(ownerType);
-		fieldMapping.setStrategy(strategy);
+		fieldMapping.setRepeatable(repeatable);
 
 		return post(
 			faroProject, Rels.FIELD_MAPPINGS, fieldMapping, FieldMapping.class);
 	}
 
 	@Override
-	public FieldMapping addFieldMapping(
-		FaroProject faroProject, long userId, String context,
-		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
-
-		return addFieldMapping(
-			faroProject, getAuthor(userId), context, dataSourceFieldNames,
-			fieldName, fieldType, ownerType, strategy);
-	}
-
-	@Override
 	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, Author author, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps) {
+		FaroProject faroProject, String dataSourceId, String context,
+		String ownerType, List<FieldMappingMap> fieldMappingMaps) {
 
 		List<Object> fieldMappings = new ArrayList<>();
 		List<Map<String, Object>> uriVariablesList = new ArrayList<>();
@@ -283,7 +270,6 @@ public class ContactsEngineClientImpl
 		for (FieldMappingMap fieldMappingMap : fieldMappingMaps) {
 			FieldMapping fieldMapping = new FieldMapping();
 
-			fieldMapping.setAuthor(author);
 			fieldMapping.setContext(context);
 			fieldMapping.setDisplayName(fieldMappingMap.getName());
 
@@ -299,7 +285,7 @@ public class ContactsEngineClientImpl
 			fieldMapping.setFieldName(fieldMappingMap.getName());
 			fieldMapping.setFieldType(fieldMappingMap.getType());
 			fieldMapping.setOwnerType(ownerType);
-			fieldMapping.setStrategy(FieldMapping.Strategy.DEFAULT);
+			fieldMapping.setRepeatable(fieldMappingMap.getRepeatable());
 
 			fieldMappings.add(fieldMapping);
 
@@ -311,17 +297,6 @@ public class ContactsEngineClientImpl
 			new TypeReference<FieldMapping>() {
 			},
 			uriVariablesList);
-	}
-
-	@Override
-	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, long userId, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps) {
-
-		return addFieldMappings(
-			faroProject, getAuthor(userId), dataSourceId, context, ownerType,
-			fieldMappingMaps);
 	}
 
 	@Override
@@ -641,7 +616,7 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
@@ -649,7 +624,7 @@ public class ContactsEngineClientImpl
 			faroProject, 0, count, orderByFields);
 
 		uriVariables.put("channelId", channelId);
-		uriVariables.put("fieldMappingId", fieldMappingId);
+		uriVariables.put("fieldName", fieldName);
 		uriVariables.put("filter", filter);
 		uriVariables.put("individualSegmentId", individualSegmentId);
 		uriVariables.put("numberOfBins", numberOfBins);
@@ -1295,10 +1270,12 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public FieldMapping getFieldMapping(FaroProject faroProject, String id)
+	public FieldMapping getFieldMapping(
+			FaroProject faroProject, String fieldName)
 		throws FaroEngineClientException {
 
-		return get(faroProject, Rels.FIELD_MAPPING, id, FieldMapping.class);
+		return get(
+			faroProject, Rels.FIELD_MAPPING, fieldName, FieldMapping.class);
 	}
 
 	@Override
@@ -1576,14 +1553,13 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query,
-		String fieldMappingId, int cur, int delta) {
+		FaroProject faroProject, Long channelId, String query, String fieldName,
+		int cur, int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, null);
 
-		FieldMapping fieldMapping = getFieldMapping(
-			faroProject, fieldMappingId);
+		FieldMapping fieldMapping = getFieldMapping(faroProject, fieldName);
 
 		String type = null;
 
@@ -1913,7 +1889,7 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getIndividualsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
@@ -1921,7 +1897,7 @@ public class ContactsEngineClientImpl
 			faroProject, 0, count, orderByFields);
 
 		uriVariables.put("channelId", channelId);
-		uriVariables.put("fieldMappingId", fieldMappingId);
+		uriVariables.put("fieldMappingFieldName", fieldMappingFieldName);
 		uriVariables.put("individualSegmentId", individualSegmentId);
 		uriVariables.put("numberOfBins", numberOfBins);
 
@@ -2127,14 +2103,14 @@ public class ContactsEngineClientImpl
 	@Override
 	public Results<IndividualTransformation> getIndividualTransformations(
 		FaroProject faroProject, String individualSegmentId, String query,
-		List<String> fields, String fieldMappingId, int cur, int delta,
+		List<String> fields, String fieldMappingFieldName, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, orderByFields);
 
 		FieldMapping fieldMapping = getFieldMapping(
-			faroProject, fieldMappingId);
+			faroProject, fieldMappingFieldName);
 
 		uriVariables.put("apply", getGroupBy(fieldMapping));
 
@@ -2577,14 +2553,12 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public FieldMapping updateFieldMapping(
-		FaroProject faroProject, String id, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
 		String fieldType, String ownerType) {
 
 		FieldMapping fieldMapping = new FieldMapping();
 
-		fieldMapping.setAuthor(author);
-		fieldMapping.setId(id);
 		fieldMapping.setContext(context);
 		fieldMapping.setDataSourceFieldNames(dataSourceFieldNames);
 		fieldMapping.setFieldName(fieldName);
@@ -2593,7 +2567,7 @@ public class ContactsEngineClientImpl
 
 		return put(
 			faroProject, Rels.FIELD_MAPPING, fieldMapping, FieldMapping.class,
-			getUriVariables(faroProject, id));
+			getUriVariables(faroProject, fieldName));
 	}
 
 	@Override

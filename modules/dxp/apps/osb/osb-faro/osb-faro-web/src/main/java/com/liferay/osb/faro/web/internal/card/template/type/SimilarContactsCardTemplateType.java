@@ -56,7 +56,7 @@ public class SimilarContactsCardTemplateType
 	private static final Map<String, Object> _defaultSettings =
 		new HashMap<String, Object>() {
 			{
-				put("fieldMappingId", StringPool.BLANK);
+				put("fieldName", StringPool.BLANK);
 			}
 		};
 

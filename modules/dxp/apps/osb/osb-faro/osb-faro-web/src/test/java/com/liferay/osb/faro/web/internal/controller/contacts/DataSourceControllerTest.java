@@ -16,7 +16,6 @@ package com.liferay.osb.faro.web.internal.controller.contacts;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
-import com.liferay.osb.faro.engine.client.model.Author;
 import com.liferay.osb.faro.engine.client.model.DataSourceField;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
@@ -25,7 +24,6 @@ import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.web.internal.model.display.contacts.DataSourceMappingDisplay;
 import com.liferay.osb.faro.web.internal.util.ContactsCSVHelper;
-import com.liferay.portal.kernel.test.util.RandomTestUtil;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -87,31 +85,19 @@ public class DataSourceControllerTest {
 		).thenReturn(
 			new Results<FieldMapping>(
 				Arrays.asList(
-					_createFieldMapping("110090", "Joe Bloggs", "city", "City"),
+					_createFieldMapping("city", "City"),
+					_createFieldMapping("country", "Country"),
+					_createFieldMapping("department", "Department"),
+					_createFieldMapping("division", "Division"),
 					_createFieldMapping(
-						"110090", "Joe Bloggs", "country", "Country"),
+						"employmentStatus", "Employment Status"),
+					_createFieldMapping("liferayEntity", "Entity"),
+					_createFieldMapping("region", "Region"),
+					_createFieldMapping("subDepartment", "Sub-Department"),
 					_createFieldMapping(
-						"110090", "Joe Bloggs", "department", "Department"),
-					_createFieldMapping(
-						"110090", "Joe Bloggs", "division", "Division"),
-					_createFieldMapping(
-						"110090", "Joe Bloggs", "employmentStatus",
-						"Employment Status"),
-					_createFieldMapping(
-						"110090", "Joe Bloggs", "liferayEntity", "Entity"),
-					_createFieldMapping(
-						"110090", "Joe Bloggs", "region", "Region"),
-					_createFieldMapping(
-						"110090", "Joe Bloggs", "subDepartment",
-						"Sub-Department"),
-					_createFieldMapping(
-						"FARO_SYSTEM", "FARO_SYSTEM", "email", "emailAddress",
-						"Employee Email"),
-					_createFieldMapping(
-						"FARO_SYSTEM", "FARO_SYSTEM", "givenName", "firstName"),
-					_createFieldMapping(
-						"FARO_SYSTEM", "FARO_SYSTEM", "jobTitle", "jobTitle",
-						"Job")),
+						"email", "emailAddress", "Employee Email"),
+					_createFieldMapping("givenName", "firstName"),
+					_createFieldMapping("jobTitle", "jobTitle", "Job")),
 				11)
 		);
 
@@ -207,8 +193,7 @@ public class DataSourceControllerTest {
 	}
 
 	private FieldMapping _createFieldMapping(
-		String authorId, String authorName, String name,
-		String... dataSourceFieldNames) {
+		String name, String... dataSourceFieldNames) {
 
 		Map<String, String> dataSourceFieldNamesMap = new HashMap<>();
 
@@ -218,23 +203,13 @@ public class DataSourceControllerTest {
 
 		return new FieldMapping() {
 			{
-				setAuthor(
-					new Author() {
-						{
-							setId(authorId);
-							setName(authorName);
-						}
-					});
 				setContext("demographics");
 				setDataSourceFieldNames(dataSourceFieldNamesMap);
-				setDateCreated(new Date());
 				setDateModified(new Date());
 				setDisplayName(name);
 				setFieldName(name);
 				setFieldType("Text");
-				setId(RandomTestUtil.randomString());
 				setOwnerType("individual");
-				setStrategy(FieldMapping.Strategy.DEFAULT);
 			}
 		};
 	}

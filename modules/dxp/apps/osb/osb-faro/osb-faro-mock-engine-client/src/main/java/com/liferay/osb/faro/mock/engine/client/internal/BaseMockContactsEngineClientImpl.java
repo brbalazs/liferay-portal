@@ -122,46 +122,22 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public FieldMapping addFieldMapping(
-		FaroProject faroProject, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
+		String fieldType, String ownerType, Boolean repeatable) {
 
 		return contactsEngineClient.addFieldMapping(
-			faroProject, author, context, dataSourceFieldNames, fieldName,
-			fieldType, ownerType, strategy);
-	}
-
-	@Override
-	public FieldMapping addFieldMapping(
-		FaroProject faroProject, long userId, String context,
-		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy) {
-
-		return contactsEngineClient.addFieldMapping(
-			faroProject, userId, context, dataSourceFieldNames, fieldName,
-			fieldType, ownerType, strategy);
+			faroProject, context, dataSourceFieldNames, fieldName, fieldType,
+			ownerType, repeatable);
 	}
 
 	@Override
 	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, Author author, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps) {
+		FaroProject faroProject, String dataSourceId, String context,
+		String ownerType, List<FieldMappingMap> fieldMappingMaps) {
 
 		return contactsEngineClient.addFieldMappings(
-			faroProject, author, dataSourceId, context, ownerType,
-			fieldMappingMaps);
-	}
-
-	@Override
-	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, long userId, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps) {
-
-		return contactsEngineClient.addFieldMappings(
-			faroProject, userId, dataSourceId, context, ownerType,
-			fieldMappingMaps);
+			faroProject, dataSourceId, context, ownerType, fieldMappingMaps);
 	}
 
 	@Override
@@ -338,12 +314,12 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getAccountsDistribution(
-			faroProject, channelId, fieldMappingId, filter, individualSegmentId,
+			faroProject, channelId, fieldName, filter, individualSegmentId,
 			count, numberOfBins, orderByFields);
 	}
 
@@ -682,11 +658,11 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query,
-		String fieldMappingId, int cur, int delta) {
+		FaroProject faroProject, Long channelId, String query, String fieldName,
+		int cur, int delta) {
 
 		return contactsEngineClient.getFieldValues(
-			faroProject, channelId, query, fieldMappingId, cur, delta);
+			faroProject, channelId, query, fieldName, cur, delta);
 	}
 
 	@Override
@@ -776,13 +752,13 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getIndividualsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getIndividualsDistribution(
-			faroProject, channelId, fieldMappingId, individualSegmentId, count,
-			numberOfBins, orderByFields);
+			faroProject, channelId, fieldMappingFieldName, individualSegmentId,
+			count, numberOfBins, orderByFields);
 	}
 
 	@Override
@@ -851,12 +827,12 @@ public abstract class BaseMockContactsEngineClientImpl
 	@Override
 	public Results<IndividualTransformation> getIndividualTransformations(
 		FaroProject faroProject, String individualSegmentId, String query,
-		List<String> fields, String fieldMappingId, int cur, int delta,
+		List<String> fields, String fieldMappingFieldName, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getIndividualTransformations(
-			faroProject, individualSegmentId, query, fields, fieldMappingId,
-			cur, delta, orderByFields);
+			faroProject, individualSegmentId, query, fields,
+			fieldMappingFieldName, cur, delta, orderByFields);
 	}
 
 	@Override
@@ -1025,13 +1001,13 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public FieldMapping updateFieldMapping(
-		FaroProject faroProject, String id, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
 		String fieldType, String ownerType) {
 
 		return contactsEngineClient.updateFieldMapping(
-			faroProject, id, author, context, dataSourceFieldNames, fieldName,
-			fieldType, ownerType);
+			faroProject, context, dataSourceFieldNames, fieldName, fieldType,
+			ownerType);
 	}
 
 	@Override

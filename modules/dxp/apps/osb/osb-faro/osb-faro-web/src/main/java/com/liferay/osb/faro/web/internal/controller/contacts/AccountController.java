@@ -92,7 +92,7 @@ public class AccountController extends BaseFaroController {
 	public FaroResultsDisplay getDistribution(
 			@PathParam("groupId") long groupId,
 			@QueryParam("channelId") String channelId,
-			@QueryParam("fieldMappingId") String fieldMappingId,
+			@QueryParam("fieldName") String fieldName,
 			@QueryParam("filter") String filter,
 			@QueryParam("individualSegmentId") String individualSegmentId,
 			@QueryParam("count") int count,
@@ -104,7 +104,7 @@ public class AccountController extends BaseFaroController {
 		return new FaroResultsDisplay(
 			contactsEngineClient.getAccountsDistribution(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				channelId, fieldMappingId, filter, individualSegmentId, count,
+				channelId, fieldName, filter, individualSegmentId, count,
 				numberOfBins, orderByFieldsFaroParam.getValue()));
 	}
 
@@ -180,7 +180,7 @@ public class AccountController extends BaseFaroController {
 	public FaroResultsDisplay searchValues(
 			@PathParam("groupId") long groupId,
 			@QueryParam("channelId") long channelId,
-			@QueryParam("fieldMappingId") String fieldMappingId,
+			@QueryParam("fieldName") String fieldName,
 			@QueryParam("query") String query, @QueryParam("cur") int cur,
 			@QueryParam("delta") int delta)
 		throws Exception {
@@ -188,7 +188,7 @@ public class AccountController extends BaseFaroController {
 		return new FaroResultsDisplay(
 			contactsEngineClient.getFieldValues(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				channelId, query, fieldMappingId, cur, delta));
+				channelId, query, fieldName, cur, delta));
 	}
 
 	@SuppressWarnings("unchecked")

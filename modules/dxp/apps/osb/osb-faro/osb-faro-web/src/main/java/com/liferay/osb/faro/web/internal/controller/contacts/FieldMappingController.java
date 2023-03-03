@@ -15,7 +15,6 @@
 package com.liferay.osb.faro.web.internal.controller.contacts;
 
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
-import com.liferay.osb.faro.engine.client.model.Author;
 import com.liferay.osb.faro.engine.client.model.Field;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
 import com.liferay.osb.faro.engine.client.model.FieldMappingMap;
@@ -76,8 +75,7 @@ public class FieldMappingController extends BaseFaroController {
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
 
 		contactsEngineClient.addFieldMappings(
-			faroProject, Author.getSystem(), null,
-			FieldMappingConstants.CONTEXT_ORGANIZATION,
+			faroProject, null, FieldMappingConstants.CONTEXT_ORGANIZATION,
 			FieldMappingConstants.OWNER_TYPE_ACCOUNT,
 			FieldMappingUtil.getNewFieldMappingMaps(
 				contactsEngineClient, faroProject,
@@ -94,8 +92,7 @@ public class FieldMappingController extends BaseFaroController {
 			FieldMappingConstants.getSalesforceIndividualFieldMappingMaps());
 
 		contactsEngineClient.addFieldMappings(
-			faroProject, Author.getSystem(), null,
-			FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
+			faroProject, null, FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
 			FieldMappingConstants.OWNER_TYPE_INDIVIDUAL,
 			FieldMappingUtil.getNewFieldMappingMaps(
 				contactsEngineClient, faroProject,
@@ -114,22 +111,23 @@ public class FieldMappingController extends BaseFaroController {
 		return new FieldMappingDisplay(
 			contactsEngineClient.addFieldMapping(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
-				getUserId(), FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
+				FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
 				Collections.emptyMap(), name, type,
-				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL,
-				FieldMapping.Strategy.DEFAULT));
+				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL, false));
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/{fieldName}")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FieldMappingDisplay get(
-			@PathParam("groupId") long groupId, @PathParam("id") String id)
+			@PathParam("groupId") long groupId,
+			@PathParam("fieldName") String fieldName)
 		throws Exception {
 
 		return new FieldMappingDisplay(
 			contactsEngineClient.getFieldMapping(
-				faroProjectLocalService.getFaroProjectByGroupId(groupId), id));
+				faroProjectLocalService.getFaroProjectByGroupId(groupId),
+				fieldName));
 	}
 
 	@GET

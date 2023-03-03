@@ -1294,8 +1294,7 @@ public class DataSourceController extends BaseFaroController {
 				contactsEngineClient, faroProject, context, fieldMappingMaps);
 
 		contactsEngineClient.addFieldMappings(
-			faroProject, getUserId(), dataSourceId, context, ownerType,
-			newFieldMappingMaps);
+			faroProject, dataSourceId, context, ownerType, newFieldMappingMaps);
 
 		List<FieldMappingMap> existingFieldMappingMaps = new ArrayList<>(
 			fieldMappingMaps);

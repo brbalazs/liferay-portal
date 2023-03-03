@@ -60,11 +60,12 @@ public class SegmentDistributionContactsCardTemplateDisplay
 
 		_binSize = MapUtil.getDouble(settings, "binSize");
 
-		String fieldMappingId = MapUtil.getString(settings, "fieldMappingId");
+		String fieldMappingFieldName = MapUtil.getString(
+			settings, "fieldMappingFieldName");
 
-		if (Validator.isNotNull(fieldMappingId)) {
+		if (Validator.isNotNull(fieldMappingFieldName)) {
 			FieldMapping fieldMapping = contactsEngineClient.getFieldMapping(
-				faroProject, fieldMappingId);
+				faroProject, fieldMappingFieldName);
 
 			_fieldMappingDisplay = new FieldMappingDisplay(fieldMapping);
 		}

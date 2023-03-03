@@ -85,24 +85,13 @@ public interface ContactsEngineClient {
 		String name, String url, Provider provider, Event event, String status);
 
 	public FieldMapping addFieldMapping(
-		FaroProject faroProject, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy);
-
-	public FieldMapping addFieldMapping(
-		FaroProject faroProject, long userId, String context,
-		Map<String, String> dataSourceFieldNames, String fieldName,
-		String fieldType, String ownerType, FieldMapping.Strategy strategy);
+		String fieldType, String ownerType, Boolean repeatable);
 
 	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, Author author, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps);
-
-	public List<FieldMapping> addFieldMappings(
-		FaroProject faroProject, long userId, String dataSourceId,
-		String context, String ownerType,
-		List<FieldMappingMap> fieldMappingMaps);
+		FaroProject faroProject, String dataSourceId, String context,
+		String ownerType, List<FieldMappingMap> fieldMappingMaps);
 
 	public IndividualSegment addIndividualSegment(
 		FaroProject faroProject, long userId, String channelId, String filter,
@@ -180,7 +169,7 @@ public interface ContactsEngineClient {
 		List<OrderByField> orderByFields);
 
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields);
 
@@ -327,8 +316,8 @@ public interface ContactsEngineClient {
 		int delta, List<OrderByField> orderByFields);
 
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query,
-		String fieldMappingId, int cur, int delta);
+		FaroProject faroProject, Long channelId, String query, String fieldName,
+		int cur, int delta);
 
 	public Individual getIndividual(
 			FaroProject faroProject, String id, String channelId)
@@ -374,7 +363,7 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, boolean includeAnonymousUsers);
 
 	public Results<Distribution> getIndividualsDistribution(
-		FaroProject faroProject, String channelId, String fieldMappingId,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields);
 
@@ -408,7 +397,7 @@ public interface ContactsEngineClient {
 
 	public Results<IndividualTransformation> getIndividualTransformations(
 		FaroProject faroProject, String individualSegmentId, String query,
-		List<String> fields, String fieldMappingId, int cur, int delta,
+		List<String> fields, String fieldMappingFieldName, int cur, int delta,
 		List<OrderByField> orderByFields);
 
 	public Results<String> getInterestKeywords(
@@ -485,7 +474,7 @@ public interface ContactsEngineClient {
 		String status);
 
 	public FieldMapping updateFieldMapping(
-		FaroProject faroProject, String id, Author author, String context,
+		FaroProject faroProject, String context,
 		Map<String, String> dataSourceFieldNames, String fieldName,
 		String fieldType, String ownerType);
 

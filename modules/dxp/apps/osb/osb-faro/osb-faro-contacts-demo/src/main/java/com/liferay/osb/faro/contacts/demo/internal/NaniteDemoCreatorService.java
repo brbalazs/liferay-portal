@@ -177,10 +177,9 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 			if (fieldMapping == null) {
 				contactsEngineClient.addFieldMapping(
-					faroProject, Author.getSystem(), context,
-					Collections.emptyMap(), fieldMappingMap.getName(),
-					fieldMappingMap.getType(), ownerType,
-					FieldMapping.Strategy.DEFAULT);
+					faroProject, context, Collections.emptyMap(),
+					fieldMappingMap.getName(), fieldMappingMap.getType(),
+					ownerType, false);
 			}
 		}
 

@@ -49,7 +49,8 @@ public class SimilarContactsCardTemplateDisplay
 
 		super(contactsCardTemplate, size, _SUPPORTED_SIZES);
 
-		_fieldMappingId = MapUtil.getString(settings, "fieldMappingId");
+		_fieldMappingFieldName = MapUtil.getString(
+			settings, "fieldMappingFieldName");
 	}
 
 	@Override
@@ -89,6 +90,6 @@ public class SimilarContactsCardTemplateDisplay
 
 	private static final int[] _SUPPORTED_SIZES = {2};
 
-	private String _fieldMappingId;
+	private String _fieldMappingFieldName;
 
 }

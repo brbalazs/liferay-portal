@@ -57,7 +57,7 @@ public class IndividualSegmentUtil {
 	}
 
 	public static List<Map<String, Object>> getFieldDistribution(
-			FaroProject faroProject, String id, String fieldMappingId,
+			FaroProject faroProject, String id, String fieldMappingFieldName,
 			double binSize, int numberOfBins, int cur, int delta,
 			ContactsEngineClient contactsEngineClient)
 		throws Exception {
@@ -66,7 +66,7 @@ public class IndividualSegmentUtil {
 			contactsEngineClient.getIndividualSegment(faroProject, id, false);
 
 		FieldMapping fieldMapping = contactsEngineClient.getFieldMapping(
-			faroProject, fieldMappingId);
+			faroProject, fieldMappingFieldName);
 
 		if (SchemaOrgUtil.isSubtype(
 				fieldMapping.getFieldType(),
@@ -247,7 +247,7 @@ public class IndividualSegmentUtil {
 		Results<IndividualTransformation> individualTransformations =
 			contactsEngineClient.getIndividualTransformations(
 				faroProject, individualSegment.getId(), null, null,
-				fieldMapping.getId(), cur, delta, null);
+				fieldMapping.getFieldName(), cur, delta, null);
 
 		for (IndividualTransformation individualTransformation :
 				individualTransformations.getItems()) {

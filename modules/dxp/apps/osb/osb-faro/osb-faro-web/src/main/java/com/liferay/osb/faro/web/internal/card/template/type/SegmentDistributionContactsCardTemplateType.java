@@ -57,7 +57,7 @@ public class SegmentDistributionContactsCardTemplateType
 		new HashMap<String, Object>() {
 			{
 				put("binSize", -1);
-				put("fieldMappingId", StringPool.BLANK);
+				put("fieldName", StringPool.BLANK);
 				put(
 					"graphType",
 					ContactsCardTemplateConstants.SETTINGS_GRAPH_TYPE_BAR);
