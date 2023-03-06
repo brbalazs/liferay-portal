@@ -12,7 +12,7 @@
 					<a
 
 					<#if entry.isBrowsable()>
-						href="${entry.getURL()!""}"
+						href="${htmlUtil.escapeAttribute(entry.getURL()!"")}"
 					</#if>
 
 					>
