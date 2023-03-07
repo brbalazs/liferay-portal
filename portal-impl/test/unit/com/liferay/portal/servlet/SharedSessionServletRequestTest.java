@@ -16,7 +16,7 @@ package com.liferay.portal.servlet;
 
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.CodeCoverageAssertor;
-import com.liferay.portal.test.rule.LiferayUnitTestRule;
+import com.liferay.portal.test.rule.AspectJNewEnvTestRule;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +36,7 @@ public class SharedSessionServletRequestTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			CodeCoverageAssertor.INSTANCE, LiferayUnitTestRule.INSTANCE);
+			AspectJNewEnvTestRule.INSTANCE, CodeCoverageAssertor.INSTANCE);
 
 	@Test
 	public void testGetSharedSession() {
