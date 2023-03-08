@@ -11,7 +11,7 @@ const defaultProps = {
 	currentUser: new User(data.mockUser()),
 	distributionsKey: 'test',
 	fieldDistributionIList: new List(),
-	fieldMappingId: 'test',
+	fieldMappingFieldName: 'test',
 	groupId: '23',
 	id: 'test',
 	loading: true,

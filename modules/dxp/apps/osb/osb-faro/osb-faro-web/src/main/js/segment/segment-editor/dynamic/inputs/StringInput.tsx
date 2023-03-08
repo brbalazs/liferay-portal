@@ -47,7 +47,7 @@ export default class StringInput extends React.Component<IStringInputProps> {
 		return API.individuals
 			.fetchFieldValues({
 				channelId,
-				fieldMappingId: id,
+				fieldMappingFieldName: id,
 				groupId,
 				query: value
 			})

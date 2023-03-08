@@ -22,11 +22,11 @@ export function fetchDetails({accountId, groupId}) {
 	});
 }
 
-export function fetchFieldValues({fieldMappingId, groupId, query}) {
+export function fetchFieldValues({fieldMappingFieldName, groupId, query}) {
 	return sendRequest({
 		data: {
 			delta: DEFAULT_DELTA,
-			fieldMappingId,
+			fieldMappingFieldName,
 			query: escapeSingleQuotes(query)
 		},
 		method: 'GET',

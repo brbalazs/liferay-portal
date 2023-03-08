@@ -30,7 +30,7 @@ const OrganizationTextInput: React.FC<ICustomStringInputProps> = props => {
 		API.individuals
 			.fetchFieldValues({
 				channelId,
-				fieldMappingId: id,
+				fieldMappingFieldName: id,
 				groupId,
 				query: getPropertyValue(value, 'value', 0)
 			})

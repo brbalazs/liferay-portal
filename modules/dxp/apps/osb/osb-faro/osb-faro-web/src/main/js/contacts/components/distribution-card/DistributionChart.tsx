@@ -115,7 +115,7 @@ class DistributionChart extends React.Component<
 				channelId,
 				context,
 				count: MAX_BARS,
-				fieldMappingId: propertyId,
+				fieldMappingFieldName: propertyId,
 				groupId,
 				id,
 				individualSegmentId: id,

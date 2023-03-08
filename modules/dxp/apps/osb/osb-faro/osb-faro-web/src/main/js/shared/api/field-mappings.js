@@ -7,10 +7,10 @@ const {
 	orderDefault
 } = FaroConstants.pagination;
 
-export function fetch({fieldMappingId, groupId}) {
+export function fetch({fieldMappingFieldName, groupId}) {
 	return sendRequest({
 		method: 'GET',
-		path: `contacts/${groupId}/field_mapping/${fieldMappingId}`
+		path: `contacts/${groupId}/field_mapping/${fieldMappingFieldName}`
 	});
 }
 
@@ -50,7 +50,7 @@ export function search(params) {
 	const {
 		context,
 		delta = DEFAULT_DELTA,
-		fieldName = '',
+		fieldMappingFieldName = '',
 		groupId,
 		orderByType = orderDefault,
 		ownerType = '',
@@ -63,7 +63,7 @@ export function search(params) {
 			context,
 			cur: page,
 			delta,
-			fieldName,
+			fieldMappingFieldName,
 			orderByType,
 			ownerType,
 			query

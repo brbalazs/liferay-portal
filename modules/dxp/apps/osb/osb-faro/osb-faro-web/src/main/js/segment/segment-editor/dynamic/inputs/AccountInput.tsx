@@ -24,7 +24,7 @@ export default class AccountInput extends React.Component<IAccountInputProps> {
 
 		return API.accounts
 			.fetchFieldValues({
-				fieldMappingId: id,
+				fieldMappingFieldName: id,
 				groupId,
 				query: getPropertyValue(valueIMap, 'value', 0)
 			})
