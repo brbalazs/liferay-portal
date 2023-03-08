@@ -290,7 +290,7 @@ const AudienceReport: React.FC<IAudienceReportProps> = ({
 						content={
 							sub(
 								Liferay.Language.get(
-									'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
+									'only-known-individuals-that-interacted-with-the-current-asset-are-accounted-for-in-this-chart'
 								),
 								[metricAction]
 							) as string
@@ -308,7 +308,7 @@ const AudienceReport: React.FC<IAudienceReportProps> = ({
 				content={
 					sub(
 						Liferay.Language.get(
-							'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
+							'only-segmented-known-individuals-that-interacted-with-the-current-asset-are-accounted-for-in-this-chart'
 						),
 						[metricAction]
 					) as string

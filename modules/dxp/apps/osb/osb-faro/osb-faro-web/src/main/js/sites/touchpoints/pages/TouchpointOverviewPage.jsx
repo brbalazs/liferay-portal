@@ -31,9 +31,7 @@ export default function TouchpointOverviewPage() {
 						label={Liferay.Language.get('audience')}
 						legacyDropdownRangeKey={false}
 						metricAction={Liferay.Language.get('view')}
-						segmentsTitle={Liferay.Language.get(
-							'segments-at-the-time-of-view'
-						)}
+						segmentsTitle={Liferay.Language.get('viewer-segments')}
 						uniqueVisitorsTitle={Liferay.Language.get('visitors')}
 					/>
 				</div>
