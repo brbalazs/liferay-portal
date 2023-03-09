@@ -72,7 +72,7 @@
 								groupId: groupId,
 								fileEntryId: response.fileEntryId,
 								preview: !!window.<%= DocumentLibraryAnalyticsConstants.JS_PREFIX %>isViewFileEntry,
-								title: decodeURIComponent(match[3].replace(/\+/ig, ' ')),
+								title: decodeURIComponent(match[3].replace(/\.[^.\\:*?"<>|\r\n]+$/, '')),
 								version: getParameterValue('version')
 							}
 						);
