@@ -912,10 +912,10 @@ export const segmentsListColumns = {
 		label: Liferay.Language.get('name')
 	}),
 	getOwnerName: timeZoneId => ({
-		accessor: 'userName',
+		accessor: 'dateModified',
 		cellRenderer: CreatedByCell,
 		cellRendererProps: {timeZoneId},
-		label: Liferay.Language.get('created-by')
+		label: Liferay.Language.get('last-modified')
 	}),
 	individualAddedDate: {
 		cellRenderer: DateCell,

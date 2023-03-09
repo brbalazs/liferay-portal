@@ -20,8 +20,7 @@ import {createOrderIOMap} from 'shared/util/pagination';
 import {
 	getDefaultSortOrder,
 	NAME,
-	paginationDefaults,
-	USER_NAME
+	paginationDefaults
 } from 'shared/util/pagination';
 import {Link} from 'react-router-dom';
 import {OrderedMap, Set} from 'immutable';
@@ -401,7 +400,7 @@ export const List: React.FC<IListProps> = ({
 				},
 				{
 					label: Liferay.Language.get('created-by'),
-					value: USER_NAME
+					value: 'dateModified'
 				}
 			]}
 			orderIOMap={orderIOMap}
