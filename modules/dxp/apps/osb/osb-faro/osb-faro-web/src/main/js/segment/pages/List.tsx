@@ -11,7 +11,7 @@ import {
 	UnassignedSegmentsContext
 } from 'shared/context/unassignedSegments';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert, FilterByType, FilterOptionType} from 'shared/types';
+import {Alert, FilterByType} from 'shared/types';
 import {ALERT_CONFIG_MAP, AlertTypes} from 'shared/components/Alert';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
@@ -23,7 +23,7 @@ import {
 	paginationDefaults
 } from 'shared/util/pagination';
 import {Link} from 'react-router-dom';
-import {OrderedMap, Set} from 'immutable';
+import {OrderedMap} from 'immutable';
 import {OrderParams, User} from 'shared/util/records';
 import {RootState} from 'shared/store';
 import {
@@ -50,17 +50,7 @@ export interface FetchSegmentsParams {
 }
 
 function fetchSegments(params: FetchSegmentsParams): any {
-	const {
-		channelId,
-		delta,
-		filterBy,
-		groupId,
-		orderIOMap,
-		page,
-		query
-	} = params;
-
-	const stateFilterISet = filterBy.get(SEGMENT_STATE) || Set();
+	const {channelId, delta, groupId, orderIOMap, page, query} = params;
 
 	return API.individualSegment.search({
 		channelId,
@@ -68,8 +58,7 @@ function fetchSegments(params: FetchSegmentsParams): any {
 		groupId,
 		orderIOMap,
 		page,
-		query,
-		state: stateFilterISet.first()
+		query
 	});
 }
 
@@ -121,7 +110,7 @@ export const List: React.FC<IListProps> = ({
 }) => {
 	const _tableRef = useRef<HTMLDivElement & SearchableEntityTable>();
 
-	const {delta, filterBy, orderIOMap, page, query} = useQueryPagination({
+	const {delta, orderIOMap, page, query} = useQueryPagination({
 		filterFields: [SEGMENT_STATE],
 		initialDelta: paginationDefaults.delta,
 		initialOrderIOMap: createOrderIOMap(NAME, getDefaultSortOrder(NAME)),
@@ -350,22 +339,6 @@ export const List: React.FC<IListProps> = ({
 			delta={delta}
 			emptyStateTitle={Liferay.Language.get('no-data-sources-connected')}
 			entityLabel={Liferay.Language.get('segments')}
-			filterBy={filterBy}
-			filterByOptions={
-				[
-					{
-						key: SEGMENT_STATE,
-						values: [
-							{
-								label: Liferay.Language.get(
-									'disabled-segments'
-								),
-								value: SegmentStates.Disabled
-							}
-						]
-					}
-				] as FilterOptionType[]
-			}
 			hideNav
 			noResultsConfig={{
 				description: (
@@ -399,7 +372,7 @@ export const List: React.FC<IListProps> = ({
 					value: NAME
 				},
 				{
-					label: Liferay.Language.get('created-by'),
+					label: Liferay.Language.get('last-modified'),
 					value: 'dateModified'
 				}
 			]}
