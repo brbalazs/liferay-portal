@@ -572,7 +572,8 @@ public class ContactsEngineClientImpl
 		FilterBuilder filterBuilder = new FilterBuilder();
 
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 		filterBuilder.addFilter(
 			"name", FilterConstants.STRING_FUNCTION_CONTAINS, query);
 		filterBuilder.addFilter(
@@ -753,7 +754,8 @@ public class ContactsEngineClientImpl
 		FilterBuilder filterBuilder = new FilterBuilder();
 
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 
 		addActionFilter(
 			filterBuilder,
@@ -797,7 +799,8 @@ public class ContactsEngineClientImpl
 			"applicationId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
 			applicationId);
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 		filterBuilder.addFilter(
 			"eventId", FilterConstants.COMPARISON_OPERATOR_EQUALS, eventId);
 		filterBuilder.addSearchFilter(query, "object.name");
@@ -838,7 +841,8 @@ public class ContactsEngineClientImpl
 		FilterBuilder filterBuilder = new FilterBuilder();
 
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 		filterBuilder.addFilter(
 			"day", FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
 			getDate(startDate, false));
@@ -1699,7 +1703,8 @@ public class ContactsEngineClientImpl
 		FilterBuilder filterBuilder = new FilterBuilder();
 
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 		filterBuilder.addFilter(
 			"name", FilterConstants.STRING_FUNCTION_CONTAINS, query);
 		filterBuilder.addFilter(
@@ -2080,7 +2085,7 @@ public class ContactsEngineClientImpl
 		else {
 			filterBuilder.addFilter(
 				"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
-				channelId);
+				Long.valueOf(channelId));
 		}
 
 		filterBuilder.addFilter(
@@ -2293,7 +2298,8 @@ public class ContactsEngineClientImpl
 
 		filterBuilder.addFilter(filter);
 		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			Long.valueOf(channelId));
 
 		uriVariables.put("filter", filterBuilder.build());
 
