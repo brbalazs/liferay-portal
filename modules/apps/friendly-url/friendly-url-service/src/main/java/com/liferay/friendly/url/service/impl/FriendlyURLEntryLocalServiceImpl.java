@@ -110,10 +110,10 @@ public class FriendlyURLEntryLocalServiceImpl
 
 		friendlyURLEntry.setCompanyId(group.getCompanyId());
 
+		friendlyURLEntry.setDefaultLanguageId(defaultLanguageId);
 		friendlyURLEntry.setGroupId(groupId);
 		friendlyURLEntry.setClassNameId(classNameId);
 		friendlyURLEntry.setClassPK(classPK);
-		friendlyURLEntry.setDefaultLanguageId(defaultLanguageId);
 
 		friendlyURLEntryMapping.setFriendlyURLEntryId(friendlyURLEntryId);
 
@@ -389,9 +389,9 @@ public class FriendlyURLEntryLocalServiceImpl
 		validate(
 			friendlyURLEntry.getGroupId(), classNameId, classPK, urlTitleMap);
 
+		friendlyURLEntry.setDefaultLanguageId(defaultLanguageId);
 		friendlyURLEntry.setClassNameId(classNameId);
 		friendlyURLEntry.setClassPK(classPK);
-		friendlyURLEntry.setDefaultLanguageId(defaultLanguageId);
 
 		_updateFriendlyURLEntryLocalizations(
 			friendlyURLEntryId, friendlyURLEntry.getCompanyId(),
@@ -583,11 +583,11 @@ public class FriendlyURLEntryLocalServiceImpl
 			friendlyURLEntryLocalization.setCompanyId(companyId);
 			friendlyURLEntryLocalization.setFriendlyURLEntryId(
 				friendlyURLEntryId);
+			friendlyURLEntryLocalization.setLanguageId(entry.getKey());
+			friendlyURLEntryLocalization.setUrlTitle(normalizedUrlTitle);
 			friendlyURLEntryLocalization.setGroupId(groupId);
 			friendlyURLEntryLocalization.setClassNameId(classNameId);
 			friendlyURLEntryLocalization.setClassPK(classPK);
-			friendlyURLEntryLocalization.setUrlTitle(normalizedUrlTitle);
-			friendlyURLEntryLocalization.setLanguageId(entry.getKey());
 
 			friendlyURLEntryLocalizationPersistence.update(
 				friendlyURLEntryLocalization);
