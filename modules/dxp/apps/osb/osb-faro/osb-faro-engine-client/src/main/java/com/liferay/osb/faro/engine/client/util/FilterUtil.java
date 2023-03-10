@@ -56,7 +56,16 @@ public class FilterUtil {
 			return null;
 		}
 
-		if (value instanceof Date) {
+		if (!(value instanceof Boolean) && !(value instanceof Long)) {
+			String valueString = String.valueOf(value);
+
+			if (Validator.isBlank(valueString)) {
+				return null;
+			}
+
+			value = StringUtil.quote(valueString, StringPool.APOSTROPHE);
+		}
+		else if (value instanceof Date) {
 			Date date = (Date)value;
 
 			value = String.valueOf(date.toInstant());
@@ -75,15 +84,6 @@ public class FilterUtil {
 			).concat(
 				StringPool.CLOSE_BRACKET
 			);
-		}
-		else if (!(value instanceof Boolean) && !(value instanceof Long)) {
-			String valueString = String.valueOf(value);
-
-			if (Validator.isBlank(valueString)) {
-				return null;
-			}
-
-			value = StringUtil.quote(valueString, StringPool.APOSTROPHE);
 		}
 
 		if (FilterConstants.isStringFunction(operator)) {
