@@ -803,7 +803,7 @@ public class ContactsEngineClientImpl
 			Long.valueOf(channelId));
 		filterBuilder.addFilter(
 			"eventId", FilterConstants.COMPARISON_OPERATOR_EQUALS, eventId);
-		filterBuilder.addSearchFilter(query, "object.name");
+		filterBuilder.addSearchFilter(query, "assetTitle");
 
 		uriVariables.put("filter", filterBuilder.build());
 
