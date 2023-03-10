@@ -161,7 +161,7 @@ exports[`List should render 1`] = `
                           <span
                             class="text-truncate"
                           >
-                            Filter and Order
+                            Order
                           </span>
                           
                           <span
@@ -274,12 +274,12 @@ exports[`List should render 1`] = `
                       >
                         <a
                           class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                          href="/?field=author%2Fname&page=1&sortOrder=ASC"
+                          href="/?field=dateModified&page=1&sortOrder=ASC"
                         >
                           <span
                             class="text-truncate"
                           >
-                            Created by
+                            Last Modified
                           </span>
                         </a>
                       </th>

@@ -55,16 +55,4 @@ describe('List', () => {
 
 		expect(container).toMatchSnapshot();
 	});
-
-	it('should render with an active DISABLED segments filter', () => {
-		const {container} = render(
-			<DefaultComponent queryString='?state=DISABLED' />
-		);
-
-		jest.runAllTimers();
-
-		expect(
-			container.querySelector('.subnav-tbar .label')
-		).toHaveTextContent('Disabled Segments');
-	});
 });
