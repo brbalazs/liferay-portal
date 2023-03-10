@@ -1798,7 +1798,10 @@ public class ContactsEngineClientImpl
 			uriVariables.put("dataSourceId", dataSourceId);
 		}
 
-		uriVariables.put("expand", "account-names");
+		if (Validator.isNotNull(filter)) {
+			uriVariables.put("filter", filter);
+		}
+
 		uriVariables.put("includeAnonymousUsers", includeAnonymousUsers);
 
 		if (Validator.isNotNull(individualSegmentId)) {
