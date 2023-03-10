@@ -176,9 +176,9 @@ definition {
 			siteName = "Test Test",
 			startDateTime = "08:00 PM");
 
-		Navigator.gotoSpecificURLPage(
-			pageName = "Welcome",
-			url = "localhost:8080/web/test");
+		var portalURL = PropsUtil.get("portal.url");
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/test");
 
 		CalendarEvent.viewSiteCalendarEventWithDefaultPermissions(
 			calendarName = "Test Test",
