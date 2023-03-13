@@ -4,7 +4,7 @@ import {RESTParams} from 'shared/types';
 export function searchIndividualAttributes({groupId, query}: RESTParams) {
 	return sendRequest({
 		data: {
-			name: query
+			displayName: query
 		},
 		method: 'GET',
 		path: `main/${groupId}/definitions/individual_attributes`
