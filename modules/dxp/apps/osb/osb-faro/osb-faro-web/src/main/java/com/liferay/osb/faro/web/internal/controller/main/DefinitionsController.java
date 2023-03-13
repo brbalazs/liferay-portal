@@ -52,12 +52,14 @@ public class DefinitionsController extends BaseFaroController {
 	@Path("/individual_attributes")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public FaroResultsDisplay get(
-			@PathParam("groupId") long groupId, @QueryParam("name") String name)
+			@PathParam("groupId") long groupId,
+			@QueryParam("displayName") String displayName)
 		throws PortalException {
 
 		List<FieldMapping> individualAttributes =
 			contactsEngineClient.getIndividualAttributes(
-				faroProjectLocalService.getFaroProjectByGroupId(groupId), name);
+				faroProjectLocalService.getFaroProjectByGroupId(groupId),
+				displayName);
 
 		Stream<FieldMapping> stream = individualAttributes.stream();
 

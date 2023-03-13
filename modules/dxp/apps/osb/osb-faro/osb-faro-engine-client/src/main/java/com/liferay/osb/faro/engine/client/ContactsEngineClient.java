@@ -287,7 +287,7 @@ public interface ContactsEngineClient {
 		String dataSourceFieldName);
 
 	public Results<FieldMapping> getFieldMappings(
-		FaroProject faroProject, String context, String fieldName,
+		FaroProject faroProject, String context, String displayName,
 		String ownerType, String query, int cur, int delta,
 		List<OrderByField> orderByFields);
 
@@ -324,7 +324,7 @@ public interface ContactsEngineClient {
 		throws FaroEngineClientException;
 
 	public List<FieldMapping> getIndividualAttributes(
-		FaroProject faroProject, String name);
+		FaroProject faroProject, String displayName);
 
 	public Results<IndividualSegment> getIndividualIndividualSegments(
 		FaroProject faroProject, String channelId, String individualId,

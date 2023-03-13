@@ -591,12 +591,12 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<FieldMapping> getFieldMappings(
-		FaroProject faroProject, String context, String fieldName,
+		FaroProject faroProject, String context, String displayName,
 		String ownerType, String query, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getFieldMappings(
-			faroProject, context, fieldName, ownerType, query, cur, delta,
+			faroProject, context, displayName, ownerType, query, cur, delta,
 			orderByFields);
 	}
 
@@ -675,9 +675,10 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public List<FieldMapping> getIndividualAttributes(
-		FaroProject faroProject, String name) {
+		FaroProject faroProject, String displayName) {
 
-		return contactsEngineClient.getIndividualAttributes(faroProject, name);
+		return contactsEngineClient.getIndividualAttributes(
+			faroProject, displayName);
 	}
 
 	@Override

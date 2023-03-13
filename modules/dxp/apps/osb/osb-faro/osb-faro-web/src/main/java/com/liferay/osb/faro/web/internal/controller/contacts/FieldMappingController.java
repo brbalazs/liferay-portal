@@ -136,7 +136,7 @@ public class FieldMappingController extends BaseFaroController {
 	public FaroResultsDisplay search(
 			@PathParam("groupId") long groupId,
 			@QueryParam("context") String context,
-			@QueryParam("fieldName") String fieldName,
+			@QueryParam("displayName") String displayName,
 			@QueryParam("ownerType") String ownerType,
 			@QueryParam("query") String query, @QueryParam("cur") int cur,
 			@QueryParam("delta") int delta,
@@ -147,12 +147,12 @@ public class FieldMappingController extends BaseFaroController {
 
 		if (Validator.isNotNull(orderByType)) {
 			orderByFields = Collections.singletonList(
-				new OrderByField("fieldName", orderByType, true));
+				new OrderByField("displayName", orderByType, true));
 		}
 
 		Results<FieldMapping> results = contactsEngineClient.getFieldMappings(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId), context,
-			fieldName, ownerType, query, cur, delta, orderByFields);
+			displayName, ownerType, query, cur, delta, orderByFields);
 
 		Function<FieldMapping, FieldMappingDisplay> function =
 			FieldMappingDisplay::new;
@@ -166,7 +166,7 @@ public class FieldMappingController extends BaseFaroController {
 	public FaroResultsDisplay searchByForm(
 			@PathParam("groupId") long groupId,
 			@FormParam("context") String context,
-			@FormParam("fieldName") String fieldName,
+			@FormParam("displayName") String displayName,
 			@FormParam("ownerType") String ownerType,
 			@FormParam("query") String query, @FormParam("cur") int cur,
 			@FormParam("delta") int delta,
@@ -174,7 +174,7 @@ public class FieldMappingController extends BaseFaroController {
 		throws Exception {
 
 		return search(
-			groupId, context, fieldName, ownerType, query, cur, delta,
+			groupId, context, displayName, ownerType, query, cur, delta,
 			orderByType);
 	}
 

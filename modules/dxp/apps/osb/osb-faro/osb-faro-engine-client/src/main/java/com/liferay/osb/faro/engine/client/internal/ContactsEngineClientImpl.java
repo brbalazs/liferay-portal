@@ -1370,7 +1370,7 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<FieldMapping> getFieldMappings(
-		FaroProject faroProject, String context, String fieldName,
+		FaroProject faroProject, String context, String displayName,
 		String ownerType, String query, int cur, int delta,
 		List<OrderByField> orderByFields) {
 
@@ -1382,9 +1382,10 @@ public class ContactsEngineClientImpl
 		filterBuilder.addFilter(
 			"context", FilterConstants.COMPARISON_OPERATOR_EQUALS, context);
 		filterBuilder.addFilter(
-			"fieldName", FilterConstants.COMPARISON_OPERATOR_EQUALS, fieldName);
+			"displayName", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			displayName);
 		filterBuilder.addFilter(
-			"fieldName", FilterConstants.STRING_FUNCTION_CONTAINS, query);
+			"displayName", FilterConstants.STRING_FUNCTION_CONTAINS, query);
 		filterBuilder.addFilter(
 			"ownerType", FilterConstants.COMPARISON_OPERATOR_EQUALS, ownerType);
 
@@ -1644,12 +1645,12 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public List<FieldMapping> getIndividualAttributes(
-		FaroProject faroProject, String name) {
+		FaroProject faroProject, String displayName) {
 
 		Map<String, Object> uriVariables = getUriVariables(faroProject);
 
-		if (Validator.isNotNull(name)) {
-			uriVariables.put("name", name);
+		if (Validator.isNotNull(displayName)) {
+			uriVariables.put("displayName", displayName);
 		}
 
 		PagedModel<?, FieldMapping> pagedModel = get(
