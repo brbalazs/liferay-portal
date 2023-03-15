@@ -213,7 +213,7 @@ public class CPSearchResultsDisplayContext {
 			StringBundler.concat(
 				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
 				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM),
-			CPSearchResultsConstants.DEFAULT_SORT_OPTION);
+			CPSearchResultsConstants.SORT_OPTION_DEFAULT);
 
 		if (ArrayUtil.contains(
 				CPSearchResultsConstants.SORT_OPTIONS, orderByCol)) {
@@ -221,7 +221,7 @@ public class CPSearchResultsDisplayContext {
 			return orderByCol;
 		}
 
-		return CPSearchResultsConstants.DEFAULT_SORT_OPTION;
+		return CPSearchResultsConstants.SORT_OPTION_DEFAULT;
 	}
 
 	public int getPaginationDelta() {
