@@ -31,6 +31,7 @@ interface DropdownRangeKeyIProps {
 	items: Array<Item>;
 	legacy: boolean;
 	onChange: (rangeSelectors: RangeSelectors) => void;
+	rangeKeys: Array<RangeKeyTimeRanges>;
 	rangeSelectors: RangeSelectors;
 }
 
@@ -40,6 +41,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	items,
 	legacy = true, // legacy can be removed once we convert all uses of DropdownRangeKey to include the new values.
 	onChange,
+	rangeKeys = [Last24Hours, Last7Days, Last30Days, Last90Days],
 	rangeSelectors: {rangeEnd, rangeKey, rangeStart} = {
 		rangeEnd: '',
 		rangeKey: Last30Days,
@@ -99,9 +101,7 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 		return items.filter(
 			({value}) =>
 				value === rangeKey ||
-				[Last24Hours, Last7Days, Last30Days, Last90Days].includes(
-					value as RangeKeyTimeRanges
-				)
+				rangeKeys.includes(value as RangeKeyTimeRanges)
 		);
 	};
 
