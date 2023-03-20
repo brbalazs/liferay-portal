@@ -256,14 +256,14 @@ public class IndividualController extends BaseFaroController {
 	public FaroResultsDisplay searchValues(
 			@PathParam("groupId") long groupId,
 			@QueryParam("channelId") long channelId,
-			@QueryParam("fieldName") String fieldName,
+			@QueryParam("fieldMappingFieldName") String fieldMappingFieldName,
 			@QueryParam("query") String query, @QueryParam("cur") int cur,
 			@QueryParam("delta") int delta)
 		throws Exception {
 
 		Results<Object> results = contactsEngineClient.getFieldValues(
 			faroProjectLocalService.getFaroProjectByGroupId(groupId), channelId,
-			query, fieldName, cur, delta);
+			query, fieldMappingFieldName, cur, delta);
 
 		return new FaroResultsDisplay(results);
 	}

@@ -169,7 +169,7 @@ public interface ContactsEngineClient {
 		List<OrderByField> orderByFields);
 
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldName,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields);
 
@@ -316,8 +316,8 @@ public interface ContactsEngineClient {
 		int delta, List<OrderByField> orderByFields);
 
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query, String fieldName,
-		int cur, int delta);
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingFieldName, int cur, int delta);
 
 	public Individual getIndividual(
 			FaroProject faroProject, String id, String channelId)

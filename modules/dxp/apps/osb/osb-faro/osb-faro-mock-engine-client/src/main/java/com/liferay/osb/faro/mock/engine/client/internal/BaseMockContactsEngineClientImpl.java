@@ -314,13 +314,13 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldName,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
 		return contactsEngineClient.getAccountsDistribution(
-			faroProject, channelId, fieldName, filter, individualSegmentId,
-			count, numberOfBins, orderByFields);
+			faroProject, channelId, fieldMappingFieldName, filter,
+			individualSegmentId, count, numberOfBins, orderByFields);
 	}
 
 	@Override
@@ -658,11 +658,11 @@ public abstract class BaseMockContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query, String fieldName,
-		int cur, int delta) {
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingFieldName, int cur, int delta) {
 
 		return contactsEngineClient.getFieldValues(
-			faroProject, channelId, query, fieldName, cur, delta);
+			faroProject, channelId, query, fieldMappingFieldName, cur, delta);
 	}
 
 	@Override

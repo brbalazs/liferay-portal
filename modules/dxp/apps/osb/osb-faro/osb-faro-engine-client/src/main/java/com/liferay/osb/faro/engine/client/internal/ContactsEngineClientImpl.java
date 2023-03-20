@@ -616,7 +616,7 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Distribution> getAccountsDistribution(
-		FaroProject faroProject, String channelId, String fieldName,
+		FaroProject faroProject, String channelId, String fieldMappingFieldName,
 		String filter, String individualSegmentId, int count, int numberOfBins,
 		List<OrderByField> orderByFields) {
 
@@ -624,7 +624,7 @@ public class ContactsEngineClientImpl
 			faroProject, 0, count, orderByFields);
 
 		uriVariables.put("channelId", channelId);
-		uriVariables.put("fieldName", fieldName);
+		uriVariables.put("fieldMappingFieldName", fieldMappingFieldName);
 		uriVariables.put("filter", filter);
 		uriVariables.put("individualSegmentId", individualSegmentId);
 		uriVariables.put("numberOfBins", numberOfBins);
@@ -1554,13 +1554,14 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public Results<Object> getFieldValues(
-		FaroProject faroProject, Long channelId, String query, String fieldName,
-		int cur, int delta) {
+		FaroProject faroProject, Long channelId, String query,
+		String fieldMappingFieldName, int cur, int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, cur, delta, null);
 
-		FieldMapping fieldMapping = getFieldMapping(faroProject, fieldName);
+		FieldMapping fieldMapping = getFieldMapping(
+			faroProject, fieldMappingFieldName);
 
 		String type = null;
 
