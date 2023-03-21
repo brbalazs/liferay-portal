@@ -75,7 +75,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
               </div>
             </div>
             <div
-              class="autofit-col autofit-col-expand"
+              class="autofit-col justify-content-center autofit-col-expand"
             >
               <span
                 class="text-truncate"
@@ -93,9 +93,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
               </span>
               <div
                 class="secondary-info"
-              >
-                10 Individuals
-              </div>
+              />
             </div>
           </li>
           <li
@@ -118,7 +116,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
               </div>
             </div>
             <div
-              class="autofit-col autofit-col-expand"
+              class="autofit-col justify-content-center autofit-col-expand"
             >
               <span
                 class="text-truncate"
@@ -136,9 +134,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
               </span>
               <div
                 class="secondary-info"
-              >
-                10 Individuals
-              </div>
+              />
             </div>
           </li>
         </ul>
