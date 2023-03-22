@@ -27,6 +27,14 @@ export function fetchDetails({groupId, individualId}) {
 	});
 }
 
+export function fetchEnrichedProfilesCount({channelId, groupId}) {
+	return sendRequest({
+		data: {channelId},
+		method: 'GET',
+		path: `contacts/${groupId}/individual/enriched_profiles_count`
+	});
+}
+
 export function fetchMembership({
 	delta,
 	groupId,
