@@ -173,6 +173,24 @@ public class IndividualController extends BaseFaroController {
 				numberOfBins, orderByFieldsFaroParam.getValue()));
 	}
 
+	@GET
+	@Path("/enriched_profiles_count")
+	@RolesAllowed(RoleConstants.SITE_MEMBER)
+	@SuppressWarnings("unchecked")
+	public FaroResultsDisplay getEnrichedProfilesCount(
+			@PathParam("groupId") long groupId,
+			@QueryParam("channelId") long channelId)
+		throws Exception {
+
+		Long enrichedProfilesCount =
+			contactsEngineClient.getEnrichedProfilesCount(
+				faroProjectLocalService.getFaroProjectByGroupId(groupId),
+				channelId);
+
+		return new FaroResultsDisplay(
+			Collections.emptyList(), enrichedProfilesCount.intValue());
+	}
+
 	@Override
 	public int[] getEntityTypes() {
 		return _ENTITY_TYPES.clone();

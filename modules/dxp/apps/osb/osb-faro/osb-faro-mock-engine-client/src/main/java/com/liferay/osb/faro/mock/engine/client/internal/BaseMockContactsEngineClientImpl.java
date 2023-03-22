@@ -552,6 +552,14 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public Long getEnrichedProfilesCount(
+		FaroProject faroProject, Long channelId) {
+
+		return contactsEngineClient.getEnrichedProfilesCount(
+			faroProject, channelId);
+	}
+
+	@Override
 	public Field getField(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 

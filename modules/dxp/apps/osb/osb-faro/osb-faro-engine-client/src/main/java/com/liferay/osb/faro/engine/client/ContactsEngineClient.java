@@ -270,6 +270,9 @@ public interface ContactsEngineClient {
 		String providerType, List<String> states, int cur, int delta,
 		List<OrderByField> orderByFields);
 
+	public Long getEnrichedProfilesCount(
+		FaroProject faroProject, Long channelId);
+
 	public Field getField(FaroProject faroProject, String id)
 		throws FaroEngineClientException;
 

@@ -151,6 +151,9 @@ public interface Rels {
 	public static final String INDIVIDUALS_DISTRIBUTION =
 		"individuals-distribution";
 
+	public static final String INDIVIDUALS_ENRICHED_PROFILES_COUNT =
+		"individuals-enriched-profiles-count";
+
 	public static final String INTEREST = "interest";
 
 	public static final String INTEREST_KEYWORDS = "interest-keywords";

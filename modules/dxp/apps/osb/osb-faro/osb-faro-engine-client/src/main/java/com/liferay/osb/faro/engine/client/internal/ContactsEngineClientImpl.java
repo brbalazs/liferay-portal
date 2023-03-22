@@ -1263,6 +1263,28 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public Long getEnrichedProfilesCount(
+		FaroProject faroProject, Long channelId) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("channelId", channelId);
+
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<Long> responseEntity = restTemplate.exchange(
+			getTemplatedURL(
+				faroProject, Rels.INDIVIDUALS_ENRICHED_PROFILES_COUNT),
+			HttpMethod.GET, HttpEntity.EMPTY, Long.class, uriVariables);
+
+		return Optional.ofNullable(
+			responseEntity.getBody()
+		).orElse(
+			Long.valueOf(0)
+		);
+	}
+
+	@Override
 	public Field getField(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 
