@@ -65,6 +65,16 @@ AUI.add(
 				return firstField;
 			},
 
+			getFormTitle: function() {
+				var formTitle = document.querySelector('[data-form-title]');
+				
+				if(!formTitle) {
+					return
+				}
+				
+				return formTitle.innerText;
+			},
+
 			getPageNode: function(page) {
 				var instance = this;
 
@@ -257,18 +267,16 @@ AUI.add(
 				var formId = instance.getFormId();
 
 				if (formId > 0) {
-					var context = instance.get('context');
-
+					var context = instance.get('context');			
 					var pageContext = context.pages[page - 1];
-
-					var pageTitle = pageContext.title;
 
 					Liferay.fire(
 						'ddmFormPageShow',
 						{
 							formId: formId,
+							formPageTitle: pageContext.title,
 							page: page - 1,
-							title: pageTitle
+							title: this.getFormTitle()
 						}
 					);
 				}
