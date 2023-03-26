@@ -48,7 +48,6 @@ public class StagingProcessesWebToolbarDisplayContext {
 
 		_request = request;
 		_pageContext = pageContext;
-
 		_portletResponse = portletResponse;
 
 		Portlet portlet = portletResponse.getPortlet();
