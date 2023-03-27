@@ -110,7 +110,7 @@ definition {
 		MyAccount.configureDisplaySettingsLanguageLocalized(
 			category = "Mi cuenta",
 			languageName = "English (United States)",
-			portlet = "Mi cuenta",
+			portlet = "Configuración de la cuenta",
 			saveButton = "Guardar");
 	}
 

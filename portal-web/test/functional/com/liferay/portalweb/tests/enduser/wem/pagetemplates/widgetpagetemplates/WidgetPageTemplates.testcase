@@ -377,7 +377,7 @@ definition {
 		ProductMenu.gotoPortlet(
 			category = "Mi cuenta",
 			panel = "User",
-			portlet = "Mi cuenta");
+			portlet = "Configuración de la cuenta");
 
 		MyAccount.changeUserLanguage(
 			languageName = "English (United States)",
