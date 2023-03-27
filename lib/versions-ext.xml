@@ -463,6 +463,21 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>lib/development/json-java.jar</file-name>
+				<version>20180813</version>
+				<project-name>JSON in Java</project-name>
+				<project-url>https://github.com/douglascrockford/JSON-java</project-url>
+				<licenses>
+					<license>
+						<license-name>JSON License</license-name>
+						<license-url>https://github.com/douglascrockford/JSON-java/blob/master/README</license-url>
+					</license>
+				</licenses>
+				<comments>
+					See the Ant target "build-json-java-jar" in portal-impl/build.xml.
+				</comments>
+			</library>
+			<library>
 				<file-name>lib/development/jsonassert.jar</file-name>
 				<version>1.2.3</version>
 				<project-name>JSONassert</project-name>
