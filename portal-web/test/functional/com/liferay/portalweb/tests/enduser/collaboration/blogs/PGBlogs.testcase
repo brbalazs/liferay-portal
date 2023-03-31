@@ -1045,7 +1045,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		for (var searchTerm : list ""Blogs","Entry","Content","Blogs Entry Content"") {
+		for (var searchTerm : list "\"Blogs\",\"Entry\",\"Content\",\"Blogs Entry Content\"") {
 			Navigator.gotoPage(pageName = "Search Page");
 
 			SearchPortlets.searchEmbedded(searchTerm = ${searchTerm});
@@ -1056,7 +1056,7 @@ definition {
 				searchTerm = ${searchTerm});
 		}
 
-		for (var searchTerm : list ""Blogs1","Entry1","Content1","Blogs1 Entry1 Content1"") {
+		for (var searchTerm : list "\"Blogs1\",\"Entry1\",\"Content1\",\"Blogs1 Entry1 Content1\"") {
 			Navigator.gotoPage(pageName = "Search Page");
 
 			SearchPortlets.searchEmbedded(searchTerm = ${searchTerm});
@@ -1129,7 +1129,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		for (var searchTerm : list ""Blogs","Entry","Title","Blogs Entry Title"") {
+		for (var searchTerm : list "\"Blogs\",\"Entry\",\"Title\",\"Blogs Entry Title\"") {
 			Navigator.gotoPage(pageName = "Search Page");
 
 			SearchPortlets.searchEmbedded(searchTerm = ${searchTerm});
@@ -1140,7 +1140,7 @@ definition {
 				searchTerm = ${searchTerm});
 		}
 
-		for (var searchTerm : list ""Blogs1","Entry1","Title1","Blogs1","Entry1","Title1"") {
+		for (var searchTerm : list "\"Blogs1\",\"Entry1\",\"Title1\",\"Blogs1\",\"Entry1\",\"Title1\"") {
 			Navigator.gotoPage(pageName = "Search Page");
 
 			SearchPortlets.searchEmbedded(searchTerm = ${searchTerm});

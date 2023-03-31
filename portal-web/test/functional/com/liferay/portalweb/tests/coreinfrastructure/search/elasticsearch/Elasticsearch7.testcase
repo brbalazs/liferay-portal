@@ -178,7 +178,6 @@ definition {
 
 	test HotDeployElasticsearch7App {
 		property hot.deploy.osgi.app.includes = "portal-search-elasticsearch7";
-		property osgi.app.includes = "";
 		property test.name.skip.portal.instance = "Elasticsearch7#HotDeployElasticsearch7App";
 
 		var portalURL = JSONCompany.getPortalURL();
