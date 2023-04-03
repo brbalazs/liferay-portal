@@ -2267,12 +2267,6 @@ public class ContactsEngineClientImpl
 		FilterBuilder filterBuilder = new FilterBuilder();
 
 		filterBuilder.addFilter(
-			"day", FilterConstants.COMPARISON_OPERATOR_GREATER_THAN_OR_EQUAL,
-			getDate(startDate, false));
-		filterBuilder.addFilter(
-			"day", FilterConstants.COMPARISON_OPERATOR_LESS_THAN_OR_EQUAL,
-			getDate(endDate, true));
-		filterBuilder.addFilter(
 			"interestName", FilterConstants.COMPARISON_OPERATOR_EQUALS,
 			interestName);
 		filterBuilder.addSearchFilter(query, "title");
