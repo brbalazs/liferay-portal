@@ -50,7 +50,8 @@ public class FilterUtil {
 	}
 
 	public static String getFilter(
-		String fieldName, String operator, Object value) {
+		String fieldName, String operator, boolean useDoubleApostrophe,
+		Object value) {
 
 		if (value == null) {
 			return null;
@@ -63,7 +64,13 @@ public class FilterUtil {
 				return null;
 			}
 
-			value = StringUtil.quote(valueString, StringPool.APOSTROPHE);
+			if (useDoubleApostrophe) {
+				value = StringUtil.quote(
+					valueString, StringPool.DOUBLE_APOSTROPHE);
+			}
+			else {
+				value = StringUtil.quote(valueString, StringPool.APOSTROPHE);
+			}
 		}
 		else if (value instanceof Date) {
 			Date date = (Date)value;
@@ -106,6 +113,12 @@ public class FilterUtil {
 		sb.append(value);
 
 		return sb.toString();
+	}
+
+	public static String getFilter(
+		String fieldName, String operator, Object value) {
+
+		return getFilter(fieldName, operator, false, value);
 	}
 
 	public static String getFilter(
