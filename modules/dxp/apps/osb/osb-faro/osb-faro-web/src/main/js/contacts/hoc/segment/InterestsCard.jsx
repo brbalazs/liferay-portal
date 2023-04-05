@@ -10,7 +10,7 @@ import {
 	mapCardPropsToOptions
 } from 'contacts/hoc/mappers/interests-query';
 import {graphql} from '@apollo/react-hoc';
-import {Routes, toRoute} from 'shared/util/router';
+import {PAGES, Routes, setUriQueryValue, toRoute} from 'shared/util/router';
 import {withTableData} from 'shared/hoc';
 
 const withData = () =>
@@ -44,12 +44,17 @@ const TableWithData = withTableData(withData, {
 			maxWidth: 200,
 			routeFn: ({data: {name}}) =>
 				name &&
-				toRoute(Routes.CONTACTS_SEGMENT_INTEREST_DETAILS, {
-					channelId,
-					groupId,
-					id,
-					interestId: name
-				}),
+				setUriQueryValue(
+					toRoute(Routes.CONTACTS_SEGMENT_INTEREST_DETAILS, {
+						channelId,
+						groupId,
+						id,
+						interestId: name,
+						tabId: PAGES
+					}),
+					'active',
+					true
+				),
 			sortable: false
 		}),
 		compositionListColumns.getRelativeMetricBar({
