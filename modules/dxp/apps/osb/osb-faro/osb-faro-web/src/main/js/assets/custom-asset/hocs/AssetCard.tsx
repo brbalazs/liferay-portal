@@ -1,4 +1,4 @@
-import BaseCard from 'cerebro-shared/components/base-card';
+import BaseCard from 'shared/components/base-card';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getMetricsMapper from 'cerebro-shared/hocs/mappers/metrics';
