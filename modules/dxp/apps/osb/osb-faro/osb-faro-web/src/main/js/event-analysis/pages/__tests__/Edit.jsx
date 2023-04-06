@@ -8,8 +8,7 @@ import {
 	cleanup,
 	fireEvent,
 	render,
-	waitForElement,
-	waitForElementToBeRemoved
+	waitForElement
 } from '@testing-library/react';
 import {DISPLAY_NAME} from 'shared/util/pagination';
 import {EventTypes} from 'event-analysis/utils/types';
@@ -25,6 +24,7 @@ import {OrderByDirections} from 'shared/util/constants';
 import {Provider} from 'react-redux';
 import {range} from 'lodash';
 import {Routes} from 'shared/util/router';
+import {waitForLoadingToBeRemoved} from 'test/helpers';
 
 jest.unmock('react-dom');
 
@@ -96,9 +96,7 @@ describe('Event Analysis Edit', () => {
 	it('should render', async () => {
 		const {container} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		expect(container).toMatchSnapshot();
 	});
@@ -106,9 +104,7 @@ describe('Event Analysis Edit', () => {
 	it('should render event analysis with data', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		expect(getByText('My First Event Analysis')).toBeTruthy();
 		expect(
@@ -137,9 +133,7 @@ describe('Event Analysis Edit', () => {
 	it('should enable the save button when name is changed', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		const inputName = container.querySelector('input.title-input');
 
@@ -157,9 +151,7 @@ describe('Event Analysis Edit', () => {
 	it('should enable the save button when a new breakdown is added', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		expect(getByText('Save Analysis')).toBeDisabled();
 
@@ -196,9 +188,7 @@ describe('Event Analysis Edit', () => {
 	it('should enable the save button when compareToPrevious checkbox is changed', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		expect(getByText('Save Analysis')).toBeDisabled();
 
@@ -218,9 +208,7 @@ describe('Event Analysis Edit', () => {
 	it('should enable the save button when range selector is changed', async () => {
 		const {container, getByText} = render(<WrappedComponent />);
 
-		await waitForElementToBeRemoved(() =>
-			container.querySelector('.spinner-root')
-		);
+		await waitForLoadingToBeRemoved(container);
 
 		expect(getByText('Save Analysis')).toBeDisabled();
 
