@@ -39,19 +39,23 @@ definition {
 
 	@description = "Elasticsearch provides a Cluster Health API (http://localhost:9200/_cluster/health?pretty=true) to easily view the current status of the cluster."
 	macro viewClusterStatusViaClusterHealthAPI {
-		Navigator.openSpecificURL(url = "http://localhost:9200/_cluster/health?level=indices&pretty");
+		var portalHostname = PropsUtil.get("portal.hostname");
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "//body",
-			value1 = "\"cluster_name\" : \"LiferayElasticsearchCluster\"");
+		var curl = "http://${portalHostname}:9200/_cluster/health?level=indices";
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "//body",
-			value1 = "\"number_of_nodes\" : ${numberOfNodes}");
+		var clusterHealth = JSONCurlUtil.get(${curl});
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "//body",
-			value1 = "\"number_of_data_nodes\" : ${numberOfNodes}");
+		TestUtils.assertPartialEquals(
+			actual = ${clusterHealth},
+			expected = "\"cluster_name\":\"LiferayElasticsearchCluster\"");
+
+		TestUtils.assertPartialEquals(
+			actual = ${clusterHealth},
+			expected = "\"number_of_nodes\":${numberOfNodes}");
+
+		TestUtils.assertPartialEquals(
+			actual = ${clusterHealth},
+			expected = "\"number_of_data_nodes\":${numberOfNodes}");
 	}
 
 }
