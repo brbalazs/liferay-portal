@@ -32,9 +32,15 @@ definition {
 	}
 
 	macro viewClusterStatus {
-		AssertTextPresent(
-			locator1 = "//pre",
-			value1 = ${clusterStatus});
+		var portalHostname = PropsUtil.get("portal.hostname");
+
+		var curl = "http://${portalHostname}:9200";
+
+		var actualClusterStatus = JSONCurlUtil.get(${curl});
+
+		TestUtils.assertPartialEquals(
+			actual = ${actualClusterStatus},
+			expected = "${clusterStatus}");
 	}
 
 	@description = "Elasticsearch provides a Cluster Health API (http://localhost:9200/_cluster/health?pretty=true) to easily view the current status of the cluster."
