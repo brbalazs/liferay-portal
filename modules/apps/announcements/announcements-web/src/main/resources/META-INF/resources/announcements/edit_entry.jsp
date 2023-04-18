@@ -82,7 +82,9 @@ if (portletTitleBasedNavigation) {
 
 		<aui:fieldset-group markupView="lexicon">
 			<aui:fieldset>
-				<h1><liferay-ui:input-editor contents="<%= HtmlUtil.escape(title) %>" editorName="alloyeditor" name="titleEditor" onChangeMethod="onChangeTitle" placeholder="title" showSource="<%= false %>" /></h1>
+				<h1>
+					<aui:input autocomplete="off" id="titleEditor" label="" name="titleEditor" placeholder='<%= LanguageUtil.get(request, "title") %>' required="<%= true %>" title="" type="text" value="<%= HtmlUtil.escape(title) %>" />
+				</h1>
 
 				<aui:input name="title" type="hidden">
 					<aui:validator name="maxLength"><%= ModelHintsUtil.getMaxLength(AnnouncementsEntry.class.getName(), "title") %></aui:validator>
@@ -90,7 +92,7 @@ if (portletTitleBasedNavigation) {
 
 				<liferay-ui:input-editor
 					contents="<%= content %>"
-					editorName='<%= PropsUtil.get("editor.wysiwyg.portal-web.docroot.html.portlet.announcements.edit_entry.jsp") %>'
+					editorName="ckeditor"
 					name="contentEditor"
 				/>
 
@@ -177,7 +179,7 @@ if (portletTitleBasedNavigation) {
 			if (title) {
 				title.setAttribute(
 					'value',
-					window.<portlet:namespace />titleEditor.getText()
+					window.<portlet:namespace />titleEditor.value
 				);
 				var formValidator = Liferay.Form.get('<portlet:namespace />fm')
 					.formValidator;
