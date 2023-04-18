@@ -82,11 +82,7 @@ if (portletTitleBasedNavigation) {
 
 		<aui:fieldset-group markupView="lexicon">
 			<aui:fieldset>
-				<h1>
-					<aui:input autocomplete="off" id="titleEditor" label="" name="titleEditor" placeholder='<%= LanguageUtil.get(request, "title") %>' required="<%= true %>" title="" type="text" value="<%= HtmlUtil.escape(title) %>" />
-				</h1>
-
-				<aui:input name="title" type="hidden">
+				<aui:input autocomplete="off" id="titleEditor" label='<%= LanguageUtil.get(request, "title") %>' name="title" required="<%= true %>" title="" type="text" value="<%= HtmlUtil.escape(title) %>">
 					<aui:validator name="maxLength"><%= ModelHintsUtil.getMaxLength(AnnouncementsEntry.class.getName(), "title") %></aui:validator>
 				</aui:input>
 
