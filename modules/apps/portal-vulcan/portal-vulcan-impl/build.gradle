@@ -78,9 +78,6 @@ dependencies {
 deployDependencies {
 	from configurations.compileOnly
 
-	include "jackson-dataformat-xml-*.jar"
-	include "jackson-jaxrs-base-*.jar"
-	include "jackson-jaxrs-json-provider-*.jar"
 	include "jackson-module-jaxb-annotations-*.jar"
 	include "swagger-annotations-*.jar"
 }
