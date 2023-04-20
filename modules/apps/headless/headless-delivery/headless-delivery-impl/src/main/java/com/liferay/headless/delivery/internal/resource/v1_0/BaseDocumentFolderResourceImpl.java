@@ -230,20 +230,6 @@ public abstract class BaseDocumentFolderResourceImpl
 		DocumentFolder existingDocumentFolder = getDocumentFolder(
 			documentFolderId);
 
-		if (documentFolder.getActions() != null) {
-			existingDocumentFolder.setActions(documentFolder.getActions());
-		}
-
-		if (documentFolder.getDateCreated() != null) {
-			existingDocumentFolder.setDateCreated(
-				documentFolder.getDateCreated());
-		}
-
-		if (documentFolder.getDateModified() != null) {
-			existingDocumentFolder.setDateModified(
-				documentFolder.getDateModified());
-		}
-
 		if (documentFolder.getDescription() != null) {
 			existingDocumentFolder.setDescription(
 				documentFolder.getDescription());
@@ -251,25 +237,6 @@ public abstract class BaseDocumentFolderResourceImpl
 
 		if (documentFolder.getName() != null) {
 			existingDocumentFolder.setName(documentFolder.getName());
-		}
-
-		if (documentFolder.getNumberOfDocumentFolders() != null) {
-			existingDocumentFolder.setNumberOfDocumentFolders(
-				documentFolder.getNumberOfDocumentFolders());
-		}
-
-		if (documentFolder.getNumberOfDocuments() != null) {
-			existingDocumentFolder.setNumberOfDocuments(
-				documentFolder.getNumberOfDocuments());
-		}
-
-		if (documentFolder.getSiteId() != null) {
-			existingDocumentFolder.setSiteId(documentFolder.getSiteId());
-		}
-
-		if (documentFolder.getSubscribed() != null) {
-			existingDocumentFolder.setSubscribed(
-				documentFolder.getSubscribed());
 		}
 
 		if (documentFolder.getViewableBy() != null) {
