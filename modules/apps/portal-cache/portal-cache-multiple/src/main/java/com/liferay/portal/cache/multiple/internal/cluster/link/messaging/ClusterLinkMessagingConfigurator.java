@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Tina Tian
  */
 @Component(
-	configurationPid = "com.liferay.portal.cache.cluster.configuration.PortalCacheClusterConfiguration",
+	configurationPid = "com.liferay.portal.cache.multiple.internal.constants.PortalCacheDestinationNames",
 	immediate = true, service = ClusterLinkMessagingConfigurator.class
 )
 public class ClusterLinkMessagingConfigurator {

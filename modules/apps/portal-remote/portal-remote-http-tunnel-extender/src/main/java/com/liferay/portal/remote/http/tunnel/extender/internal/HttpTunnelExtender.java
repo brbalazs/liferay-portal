@@ -50,7 +50,7 @@ import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
  * @author Miguel Pastor
  */
 @Component(
-	configurationPid = "com.liferay.portal.remote.http.tunnel.configuration.HttpTunnelExtenderConfiguration",
+	configurationPid = "com.liferay.portal.remote.http.tunnel.extender.configuration.HttpTunnelExtenderConfiguration",
 	configurationPolicy = ConfigurationPolicy.REQUIRE, immediate = true,
 	service = {}
 )
