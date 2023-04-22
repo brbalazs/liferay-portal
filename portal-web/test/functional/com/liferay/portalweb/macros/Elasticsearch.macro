@@ -40,7 +40,7 @@ definition {
 
 		TestUtils.assertPartialEquals(
 			actual = ${actualClusterStatus},
-			expected = "${clusterStatus}");
+			expected = ${clusterStatus});
 	}
 
 	@description = "Elasticsearch provides a Cluster Health API (http://localhost:9200/_cluster/health?pretty=true) to easily view the current status of the cluster."
