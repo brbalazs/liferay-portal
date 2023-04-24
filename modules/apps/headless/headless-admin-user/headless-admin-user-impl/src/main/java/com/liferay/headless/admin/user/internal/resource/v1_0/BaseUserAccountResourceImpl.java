@@ -359,8 +359,8 @@ public abstract class BaseUserAccountResourceImpl
 		}
 		else if (parameters.containsKey("organizationId")) {
 			return getOrganizationUserAccountsPage(
-				Long.parseLong((String)parameters.get("organizationId")),
-				search, filter, pagination, sorts);
+				_parseLong((String)parameters.get("organizationId")), search,
+				filter, pagination, sorts);
 		}
 		else {
 			return getUserAccountsPage(search, filter, pagination, sorts);
@@ -397,6 +397,14 @@ public abstract class BaseUserAccountResourceImpl
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	private Long _parseLong(String value) {
+		if (value != null) {
+			return Long.parseLong(value);
+		}
+
+		return null;
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
