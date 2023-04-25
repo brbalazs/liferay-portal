@@ -4,8 +4,6 @@ Bundle-Version: 1.0.42
 Import-Package:\
 	!com.aayushatharva.brotli4j.*,\
 	\
-	!com.fasterxml.jackson.*,\
-	\
 	!com.google.protobuf.*,\
 	\
 	!com.jcraft.jzlib.*,\
