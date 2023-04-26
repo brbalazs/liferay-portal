@@ -1,27 +1,26 @@
 definition {
+
 	macro changeDisplayStyle {
 		Click(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
 
-		MenuItem.click(menuItem = StringUtil.upperCaseFirstLetter("${displayStyle}"));
+		MenuItem.click(menuItem = StringUtil.upperCaseFirstLetter(${displayStyle}));
 	}
 
 	macro changeExportDisplayStyle {
 		Click.clickNoMouseOverNoWaitForVisible(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
 
 		Click.clickNoMouseOverNoWaitForVisible(
-			locator1 = "MenuItem#ANY_MENU_ITEM",
-			key_menuItem = StringUtil.upperCaseFirstLetter("${displayStyle}")
-		);
+			key_menuItem = StringUtil.upperCaseFirstLetter(${displayStyle}),
+			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
 	macro delete {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
-			rowEntry = "${rowEntry}"
-		);
+			rowEntry = ${rowEntry});
 
 		if (isSet(confirmationText)) {
-			AssertConfirm(value1 = "${confirmationText}");
+			AssertConfirm(value1 = ${confirmationText});
 		}
 		else {
 			Confirm();
@@ -31,10 +30,14 @@ definition {
 			if (IsElementPresent(locator1 = "Message#ERROR_2")) {
 				Alert.viewRequestFailedToComplete();
 
-				AssertTextEquals(locator1 = "Message#ERROR_2", value1 = "${failure}");
+				AssertTextEquals(
+					locator1 = "Message#ERROR_2",
+					value1 = ${failure});
 			}
 			else {
-				AssertTextEquals.assertPartialText(locator1 = "Message#ERROR", value1 = "${failure}");
+				AssertTextEquals.assertPartialText(
+					locator1 = "Message#ERROR",
+					value1 = ${failure});
 			}
 		}
 		else {
@@ -45,11 +48,11 @@ definition {
 	macro gotoAdd {
 		var browserType = PropsUtil.get("browser.type");
 
-		if ("${browserType}" == "chrome") {
+		if (${browserType} == "chrome") {
 			LexiconEntry.waitForManagementBar();
 		}
 
-		if ("${browserType}" == "internetexplorer") {
+		if (${browserType} == "internetexplorer") {
 			Click(locator1 = "Button#PLUS_IE");
 		}
 		else {
@@ -60,136 +63,126 @@ definition {
 	macro gotoAddDropdownMenuItem {
 		LexiconEntry.gotoAdd();
 
-		DropdownMenuItem.click(menuItem = "${menuItem}");
+		DropdownMenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro gotoAddMenuItem {
 		LexiconEntry.gotoAdd();
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro gotoEllipsisMenuItem {
 		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro gotoEllipsisMenuItemNoError {
 		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
-		MenuItem.clickNoError(menuItem = "${menuItem}");
+		MenuItem.clickNoError(menuItem = ${menuItem});
 	}
 
 	macro gotoEntry {
-		if (IsElementPresent(locator1 = "Icon#DISPLAY_STYLE_ACTIVE", key_displayStyle = "cards")) {
+		if (IsElementPresent(key_displayStyle = "cards", locator1 = "Icon#DISPLAY_STYLE_ACTIVE")) {
 			AssertClick(
+				key_cardText = ${rowEntry},
 				locator1 = "Card#SPECIFIC_LARGE_TEXT",
-				value1 = "${rowEntry}",
-				key_cardText = "${rowEntry}"
-			);
+				value1 = ${rowEntry});
 		}
 		else {
 			AssertClick(
+				key_rowEntry = ${rowEntry},
 				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
-				value1 = "${rowEntry}",
-				key_rowEntry = "${rowEntry}"
-			);
+				value1 = ${rowEntry});
 		}
 	}
 
 	macro gotoEntryMenuItem {
-		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+		LexiconEntry.openEntryMenu(rowEntry = ${rowEntry});
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro gotoEntryMenuItemNoError {
-		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+		LexiconEntry.openEntryMenu(rowEntry = ${rowEntry});
 
-		MenuItem.clickNoError(menuItem = "${menuItem}");
+		MenuItem.clickNoError(menuItem = ${menuItem});
 	}
 
 	macro gotoEntryMenuItemNoWait {
-		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+		LexiconEntry.openEntryMenu(rowEntry = ${rowEntry});
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro gotoEntryMenuItemNoWaitNoError {
-		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+		LexiconEntry.openEntryMenu(rowEntry = ${rowEntry});
 
-		MenuItem.clickNoError(menuItem = "${menuItem}");
+		MenuItem.clickNoError(menuItem = ${menuItem});
 	}
 
 	macro gotoHeaderMenuItem {
 		Click(locator1 = "Icon#HEADER_VERTICAL_ELLIPSIS");
 
-		MenuItem.click(menuItem = "${menuItem}");
+		MenuItem.click(menuItem = ${menuItem});
 	}
 
 	macro openEntryMenu {
 		Click.waitForMenuToggleJSClick(
-			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS",
-			key_rowEntry = "${rowEntry}"
-		);
+			key_rowEntry = ${rowEntry},
+			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
 	macro selectEntry {
 		Check(
-			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX",
-			key_rowEntry = "${rowEntry}"
-		);
+			key_rowEntry = ${rowEntry},
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
 	}
 
 	macro viewActiveDisplayStyle {
 		AssertElementPresent(
-			locator1 = "Icon#CURRENT_DISPLAY_STYLE_ACTIVE",
-			key_displayStyle = "${displayStyle}"
-		);
+			key_displayStyle = ${displayStyle},
+			locator1 = "Icon#CURRENT_DISPLAY_STYLE_ACTIVE");
 	}
 
 	macro viewEntryName {
 		AssertTextEquals(
+			key_rowEntry = ${rowEntry},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
-			value1 = "${rowEntry}",
-			key_rowEntry = "${rowEntry}"
-		);
+			value1 = ${rowEntry});
 	}
 
 	macro viewEntryNamePartial {
 		AssertTextEquals.assertPartialText(
+			key_rowEntry = ${rowEntry},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
-			value1 = "${rowEntry}",
-			key_rowEntry = "${rowEntry}"
-		);
+			value1 = ${rowEntry});
 	}
 
 	macro viewNoEntry {
 		AssertElementNotPresent(
-			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
-			key_rowEntry = "${rowEntry}"
-		);
+			key_rowEntry = ${rowEntry},
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
 	}
 
 	macro viewNoEntryMenu {
 		AssertElementNotPresent(
-			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS",
-			key_rowEntry = "${rowEntry}"
-		);
+			key_rowEntry = ${rowEntry},
+			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
 	macro viewNoEntryMenuItem {
-		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+		LexiconEntry.openEntryMenu(rowEntry = ${rowEntry});
 
 		AssertElementNotPresent(
-			locator1 = "MenuItem#ANY_MENU_ITEM",
-			key_menuItem = "${menuItem}"
-		);
+			key_menuItem = ${menuItem},
+			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
 	macro waitForManagementBar {
-		Pause(locator1 = "1000");
+		Pause(locator1 = 1000);
 
 		AssertVisible(locator1 = "ManagementBar#MANAGEMENT_BAR");
 
@@ -210,10 +203,11 @@ else {
 		''';
 		var managementBarReady = "";
 
-		while ("${managementBarReady}" != "ready") {
-			var managementBarReady = selenium.getEval("${javaScript}");
+		while (${managementBarReady} != "ready") {
+			var managementBarReady = selenium.getEval(${javaScript});
 
-			Pause(locator1 = "1000");
+			Pause(locator1 = 1000);
 		}
 	}
+
 }

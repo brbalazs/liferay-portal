@@ -1,5 +1,6 @@
 @component-name = "portal-wcm"
 definition {
+
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Fragments";
@@ -13,14 +14,12 @@ definition {
 
 		JSONFragment.addFragmentCollection(
 			groupName = "Test Site Name",
-			name = "Collection Name"
-		);
+			name = "Collection Name");
 
 		JSONFragment.addSection(
 			collectionName = "Collection Name",
 			groupName = "Test Site Name",
-			name = "Fragment Name"
-		);
+			name = "Fragment Name");
 
 		FragmentsAdmin.openFragmentsAdmin(siteURLKey = "test-site-name");
 	}
@@ -28,7 +27,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -37,11 +36,13 @@ definition {
 	}
 
 	@description = "This is a test for LPS-76817. Can namespace the CSS of a Web Fragment to avoid affecting the rest of the page."
-	@priority = "3"
+	@priority = 3
 	test CanCheckTheNamespaceOfCSSInFragments {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
-		LexiconEntry.gotoEntryMenuItem(menuItem = "Edit", rowEntry = "Fragment Name");
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "Fragment Name");
 
 		var htmlSnippet = '''
 <div class="test">
@@ -51,7 +52,6 @@ CSS
 NO CSS
 </div>
 		''';
-
 		var cssSnippet = '''
 .test
 { font-size: 40px; }
@@ -59,12 +59,11 @@ NO CSS
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}"
-		);
+			value1 = ${htmlSnippet});
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#CSS_EDITOR",
-			value1 = "${cssSnippet}");
+			value1 = ${cssSnippet});
 
 		SelectFrame(locator1 = "FragmentEditor#PREVIEW_IFRAME");
 
@@ -79,7 +78,7 @@ NO CSS
 		PortletEntry.publish();
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteFragment {
 		property portal.acceptance = "true";
 
@@ -94,7 +93,7 @@ NO CSS
 		LexiconEntry.viewNoEntry(rowEntry = "Fragment Name");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test DeleteFragmentCollection {
 		property portal.acceptance = "true";
 
@@ -106,7 +105,7 @@ NO CSS
 	}
 
 	@description = "LPS-79349 - User can propagate the changes of fragment to page templates."
-	@priority = "3"
+	@priority = 3
 	test PropagateChangesOfFragmentToPageTemplates {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
@@ -116,7 +115,7 @@ NO CSS
 			collectionName = "Collection Name",
 			fragmentStatus = "Approved",
 			groupName = "Test Site Name",
-			html = "${htmlSnippet}",
+			html = ${htmlSnippet},
 			name = "Test Fragment Name");
 
 		PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "test-site-name");
@@ -132,7 +131,7 @@ NO CSS
 		PageEditor.viewAutoSaveMessage();
 
 		AssertTextEquals(
-			index = "1",
+			index = 1,
 			key_fragmentName = "Test Fragment Name",
 			locator1 = "Fragment#FRAGMENT_BODY",
 			value1 = "TEST");
@@ -143,13 +142,15 @@ NO CSS
 
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
-		LexiconEntry.gotoEntryMenuItem(menuItem = "Edit", rowEntry = "Test Fragment Name");
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "Test Fragment Name");
 
 		var htmlSnippet = '''<div>EDITED</div>''';
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -172,17 +173,19 @@ NO CSS
 			rowEntry = "Page Template Name");
 
 		AssertTextEquals(
-			index = "1",
+			index = 1,
 			key_fragmentName = "Test Fragment Name",
 			locator1 = "Fragment#FRAGMENT_BODY",
 			value1 = "EDITED");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test RenameFragment {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
-		LexiconEntry.gotoEntryMenuItem(menuItem = "Rename", rowEntry = "Fragment Name");
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Rename",
+			rowEntry = "Fragment Name");
 
 		PortletEntry.inputName(name = "Rename Fragment");
 
@@ -195,7 +198,7 @@ NO CSS
 		LexiconEntry.viewEntryName(rowEntry = "Rename Fragment");
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ViewCannotDeleteFragmentInUse {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
@@ -209,8 +212,7 @@ NO CSS
 
 		PageEditor.addFragment(
 			collectionName = "Collection Name",
-			fragmentName = "Fragment Name"
-		);
+			fragmentName = "Fragment Name");
 
 		PageEditor.viewAutoSaveMessage();
 
@@ -220,11 +222,10 @@ NO CSS
 
 		LexiconEntry.delete(
 			failure = "Error:The fragment entry cannot be deleted because it is required by one or more page templates.",
-			rowEntry = "Fragment Name"
-		);
+			rowEntry = "Fragment Name");
 	}
 
-	@priority = "4"
+	@priority = 4
 	test ViewOnlyDraftFragmentsCanBeSaved {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
@@ -240,10 +241,11 @@ NO CSS
 
 		PortletEntry.viewWorkflowStatus(
 			rowEntry = "Fragment Name 2",
-			workflowStatus = "Draft"
-		);
+			workflowStatus = "Draft");
 
-		LexiconEntry.gotoEntryMenuItem(menuItem = "Edit", rowEntry = "Fragment Name 2");
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "Fragment Name 2");
 
 		var htmlSnippet = '''
 <html>${line.separator}
@@ -254,8 +256,7 @@ NO CSS
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}"
-		);
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -263,7 +264,7 @@ NO CSS
 	}
 
 	@description = "This is a test case for LPS-97451."
-	@priority = "5"
+	@priority = 5
 	test WidgetNavConfigurationEditsReflectedInViewMode {
 		Navigator.gotoNavNested(navNested = "Collection Name");
 
@@ -273,11 +274,11 @@ NO CSS
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FragmentEditor#HTML_EDITOR_CONTENT",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -287,11 +288,11 @@ NO CSS
 
 		Type.typeAceEditorNoError(
 			locator1 = "FragmentEditor#HTML_EDITOR",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "FragmentEditor#HTML_EDITOR_CONTENT",
-			value1 = "${htmlSnippet}");
+			value1 = ${htmlSnippet});
 
 		PortletEntry.publish();
 
@@ -345,4 +346,5 @@ NO CSS
 			key_navTab = "Test Content Page Name",
 			locator1 = "ItemSelector#NAVIGATION_SPLIT_BUTTON_TAB");
 	}
+
 }

@@ -1,5 +1,6 @@
 @component-name = "portal-security"
 definition {
+
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Security";
@@ -13,7 +14,7 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		if ("${testPortalInstance}" == "true") {
+		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -23,7 +24,7 @@ definition {
 		}
 	}
 
-	@priority = "5"
+	@priority = 5
 	test ServiceAccessPolicySmoke {
 		property custom.properties = "access.control.sanitize.security.exception=false${line.separator}json.service.auth.token.hosts.allowed=${line.separator}json.service.serialize.throwable=true";
 		property test.name.skip.portal.instance = "ServiceAccessPolicy#ServiceAccessPolicySmoke";
@@ -38,20 +39,18 @@ definition {
 					-d emailAddress=test@liferay.com
 			''';
 
-			SystemSettings.getUserEmailAddressRequestDenied(curl = "${curl}");
+			SystemSettings.getUserEmailAddressRequestDenied(curl = ${curl});
 		}
 
 		task ("Edit service access policy") {
 			ProductMenu.gotoPortlet(
 				category = "Configuration",
 				panel = "Control Panel",
-				portlet = "Service Access Policy"
-			);
+				portlet = "Service Access Policy");
 
 			ServiceAccessPolicy.editServiceAccessPolicy(
 				allowedServiceSignature = "com.liferay.portal.kernel.service.UserService#getUserByEmailAddress",
-				policyName = "SYSTEM_DEFAULT"
-			);
+				policyName = "SYSTEM_DEFAULT");
 		}
 
 		task ("Assert user doesn't have view permissions") {
@@ -63,8 +62,8 @@ definition {
 			''';
 
 			SystemSettings.getViewUserEmailPermissionDenied(
-				curl = "${curl}",
-				userId = "${userId}");
+				curl = ${curl},
+				userId = ${userId});
 		}
 
 		task ("Assert permission available") {
@@ -75,21 +74,19 @@ definition {
 			''';
 
 			SystemSettings.getUserEmailSuccessfully(
-				companyId = "${companyId}",
-				curl = "${curl}");
+				companyId = ${companyId},
+				curl = ${curl});
 		}
 
 		task ("Edit service access policy") {
 			ProductMenu.gotoPortlet(
 				category = "Configuration",
 				panel = "Control Panel",
-				portlet = "Service Access Policy"
-			);
+				portlet = "Service Access Policy");
 
 			ServiceAccessPolicy.editServiceAccessPolicy(
 				allowedServiceSignature = " ",
-				policyName = "SYSTEM_USER_PASSWORD"
-			);
+				policyName = "SYSTEM_USER_PASSWORD");
 		}
 
 		task ("Assert permission denied") {
@@ -99,7 +96,7 @@ definition {
 					-u test@liferay.com:test
 			''';
 
-			SystemSettings.getCurrentUserEmailResquestDenied(curl = "${curl}");
+			SystemSettings.getCurrentUserEmailResquestDenied(curl = ${curl});
 		}
 	}
 
