@@ -57,6 +57,10 @@ public class Interest {
 		return _ownerType;
 	}
 
+	public int getRelatedPagesCount() {
+		return _relatedPagesCount;
+	}
+
 	public double getScore() {
 		return _score;
 	}
@@ -91,6 +95,10 @@ public class Interest {
 		_ownerType = ownerType;
 	}
 
+	public void setRelatedPagesCount(int relatedPagesCount) {
+		_relatedPagesCount = relatedPagesCount;
+	}
+
 	public void setScore(double score) {
 		_score = score;
 	}
@@ -105,6 +113,7 @@ public class Interest {
 	private String _name;
 	private String _ownerIdentifier;
 	private String _ownerType;
+	private int _relatedPagesCount;
 	private double _score;
 	private int _views;
 
