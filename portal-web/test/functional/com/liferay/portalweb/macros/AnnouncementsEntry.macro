@@ -7,11 +7,13 @@ definition {
 
 		AssertElementPresent(
 			key_editor = "title",
-			locator1 = "AlloyEditor#EDITOR");
+			locator1 = "TextInput#TITLE");
 
-		AlloyEditor.addTitleAndContent(
-			content = ${entryContent},
-			title = ${entryTitle});
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = ${entryTitle});
+
+		CKEditor.addContent(content = ${entryContent});
 
 		Panel.expandPanel(panel = "Configuration");
 
@@ -66,11 +68,13 @@ definition {
 
 		AssertElementPresent(
 			key_editor = "title",
-			locator1 = "AlloyEditor#EDITOR");
+			locator1 = "TextInput#TITLE");
 
-		AlloyEditor.addTitleAndContent(
-			content = ${entryContent},
-			title = ${entryTitle});
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = ${entryTitle});
+
+		CKEditor.addContent(content = ${entryContent});
 
 		Panel.expandPanel(panel = "Configuration");
 
@@ -154,12 +158,20 @@ definition {
 
 		AssertTextEquals(
 			key_editor = "title",
-			locator1 = "AlloyEditor#EDITOR",
+			locator1 = "TextInput#TITLE",
 			value1 = ${entryTitle});
 
-		AlloyEditor.addTitleAndContent(
-			content = ${entryContentEdit},
-			title = ${entryTitleEdit});
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = ${entryTitleEdit});
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = ${entryContentEdit});
+
+		SelectFrame(value1 = "relative=top");
 
 		Panel.expandPanel(panel = "Configuration");
 
