@@ -103,8 +103,7 @@ public class ClusterClassLoaderPool {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					StringBundler.concat(
-						"Unable to find context name for ",
-						classLoader.toString(),
+						"Unable to find context name for ", classLoader,
 						", send 'null' as context name instead"));
 			}
 		}

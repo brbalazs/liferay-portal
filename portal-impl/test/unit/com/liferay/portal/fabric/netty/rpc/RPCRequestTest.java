@@ -170,7 +170,7 @@ public class RPCRequestTest {
 
 		Assert.assertEquals(
 			StringBundler.concat(
-				"{id=", _ID, ", rpcCallable=", rpcCallable.toString(), "}"),
+				"{id=", _ID, ", rpcCallable=", rpcCallable, "}"),
 			rpcRequest.toString());
 	}
 

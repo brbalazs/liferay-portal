@@ -276,7 +276,7 @@ public class JSLoaderModule {
 				Constants.VERSION_ATTRIBUTE);
 
 			dependencyName = StringBundler.concat(
-				dependencyName, "@", version.toString(), dependencyPath);
+				dependencyName, "@", version, dependencyPath);
 
 			jsonArray.put(index, dependencyName);
 
