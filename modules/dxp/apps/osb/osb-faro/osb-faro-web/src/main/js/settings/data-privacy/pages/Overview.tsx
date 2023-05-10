@@ -9,6 +9,7 @@ import React from 'react';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {ENABLE_SUPPRESSED_USERS} from 'shared/util/constants';
 import {get} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -253,54 +254,66 @@ export const Overview: React.FC<IOverviewProps> = ({
 									</div>
 								</div>
 
-								<hr />
+								{ENABLE_SUPPRESSED_USERS && (
+									<>
+										<hr />
 
-								<div className='row mt-3 justify-content-between'>
-									<div className='col-lg-8'>
-										<h4>
-											{Liferay.Language.get(
-												'suppressed-users'
-											)}
-										</h4>
+										<div className='row mt-3 justify-content-between'>
+											<div className='col-lg-8'>
+												<h4>
+													{Liferay.Language.get(
+														'suppressed-users'
+													)}
+												</h4>
 
-										<p className='text-secondary'>
-											{Liferay.Language.get(
-												'suppressed-data-subjects-will-be-excluded-in-further-identity-resolution-activity.-deleted-data-subjects-will-automatically-be-suppressed-by-their-user-id-and-their-identity-will-not-be-resolveable'
-											)}
-										</p>
-									</div>
+												<p className='text-secondary'>
+													{Liferay.Language.get(
+														'suppressed-data-subjects-will-be-excluded-in-further-identity-resolution-activity.-deleted-data-subjects-will-automatically-be-suppressed-by-their-user-id-and-their-identity-will-not-be-resolveable'
+													)}
+												</p>
+											</div>
 
-									<div className='col-lg-auto'>
-										<Button
-											block
-											data-testid='manage-suppressed-user-button'
-											disabled={!currentUser.isAdmin()}
-											display='secondary'
-											href={
-												authorized
-													? toRoute(
-															Routes.SETTINGS_DATA_PRIVACY_SUPPRESSED_USERS,
-															{groupId}
-													  )
-													: undefined
-											}
-										>
-											{Liferay.Language.get('manage')}
-										</Button>
+											<div className='col-lg-auto'>
+												<Button
+													block
+													data-testid='manage-suppressed-user-button'
+													disabled={
+														!currentUser.isAdmin()
+													}
+													display='secondary'
+													href={
+														authorized
+															? toRoute(
+																	Routes.SETTINGS_DATA_PRIVACY_SUPPRESSED_USERS,
+																	{groupId}
+															  )
+															: undefined
+													}
+												>
+													{Liferay.Language.get(
+														'manage'
+													)}
+												</Button>
 
-										<Button
-											block
-											data-testid='export-suppressed-user-button'
-											disabled={!currentUser.isAdmin()}
-											display='secondary'
-											onClick={handleOpenSuppressionModal}
-										>
-											{Liferay.Language.get(
-												'export-list'
-											)}
-										</Button>
-									</div>
-								</div>
+												<Button
+													block
+													data-testid='export-suppressed-user-button'
+													disabled={
+														!currentUser.isAdmin()
+													}
+													display='secondary'
+													onClick={
+														handleOpenSuppressionModal
+													}
+												>
+													{Liferay.Language.get(
+														'export-list'
+													)}
+												</Button>
+											</div>
+										</div>
+									</>
+								)}
 							</div>
 						</Card.Body>
 					</Card>
