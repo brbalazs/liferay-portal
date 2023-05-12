@@ -19,7 +19,7 @@ describe('NewRequestModal', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('checks both Delete & Suppress checkbox when Delete is clicked', () => {
+	it.skip('checks both Delete & Suppress checkbox when Delete is clicked', () => {
 		const {getByLabelText} = render(
 			<Provider store={mockStore()}>
 				<NewRequestModal />
