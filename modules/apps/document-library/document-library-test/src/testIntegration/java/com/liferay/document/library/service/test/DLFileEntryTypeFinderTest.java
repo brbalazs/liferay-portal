@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
@@ -237,8 +238,12 @@ public class DLFileEntryTypeFinderTest {
 
 	@Test
 	public void testFilterFindByKeywordsAsSiteMember() throws Exception {
+		String name = PrincipalThreadLocal.getName();
+
 		User user = UserTestUtil.addGroupUser(
 			_group, RoleConstants.SITE_MEMBER);
+
+		PrincipalThreadLocal.setName(user.getUserId());
 
 		PermissionChecker permissionChecker =
 			PermissionCheckerFactoryUtil.create(user);
@@ -266,6 +271,8 @@ public class DLFileEntryTypeFinderTest {
 				fileEntryTypes.contains(fileEntryType));
 		}
 		finally {
+			PrincipalThreadLocal.setName(name);
+
 			PermissionThreadLocal.setPermissionChecker(
 				originalPermissionChecker);
 		}
