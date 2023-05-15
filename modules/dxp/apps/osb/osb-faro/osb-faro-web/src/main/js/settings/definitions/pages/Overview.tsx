@@ -3,7 +3,7 @@ import Card from 'shared/components/Card';
 import ClayList from '@clayui/list';
 import React from 'react';
 import {ACCOUNTS, Routes, toRoute} from 'shared/util/router';
-import {DEVELOPER_MODE} from 'shared/util/constants';
+import {DEVELOPER_MODE, ENABLE_BLOCKLIST_KEYWORDS} from 'shared/util/constants';
 import {Link} from 'react-router-dom';
 import {withCurrentUser} from 'shared/hoc';
 
@@ -76,18 +76,21 @@ const items = (devMode: boolean = false): ListItem[] => [
 			}
 		]
 	},
-	{
-		header: Liferay.Language.get('derived-data'),
-		items: [
-			{
-				description: Liferay.Language.get(
-					'view-and-manage-the-blocked-keywords-for-interest-analysis.-blocked-keywords-will-affect-content-recommendations-feature-available-in-liferay-dxp'
-				),
-				route: Routes.SETTINGS_DEFINITIONS_INTEREST_TOPICS,
-				title: Liferay.Language.get('interests')
-			}
-		]
-	}
+
+	ENABLE_BLOCKLIST_KEYWORDS
+		? {
+				header: Liferay.Language.get('derived-data'),
+				items: [
+					{
+						description: Liferay.Language.get(
+							'view-and-manage-the-blocked-keywords-for-interest-analysis.-blocked-keywords-will-affect-content-recommendations-feature-available-in-liferay-dxp'
+						),
+						route: Routes.SETTINGS_DEFINITIONS_INTEREST_TOPICS,
+						title: Liferay.Language.get('interests')
+					}
+				]
+		  }
+		: null
 ];
 
 export const Overview: React.FC<IOverviewProps> = ({groupId}) => (
